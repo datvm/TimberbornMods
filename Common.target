@@ -3,8 +3,15 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<LangVersion>latest</LangVersion>
+		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
-	
+
+	<ItemGroup>
+		<None Update="manifest.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
 	<ItemGroup>
 		<Reference Include="0Harmony">
 			<HintPath>E:\SteamLibrary\steamapps\workshop\content\1062090\3284904751\0Harmony.dll</HintPath>
@@ -12,6 +19,10 @@
 		</Reference>
 		<Reference Include="Bindito.Core">
 			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Bindito.Core.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.AssetSystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.AssetSystem.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="ModSettings.ColorPicker">
@@ -54,12 +65,20 @@
 			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Modding.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+		<Reference Include="Timberborn.BaseComponentSystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.BaseComponentSystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 		<Reference Include="Timberborn.SettingsSystem">
 			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.SettingsSystem.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="Timberborn.SingletonSystem">
 			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.SingletonSystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.Stockpiles">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Stockpiles.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="Timberborn.WalkingSystem">

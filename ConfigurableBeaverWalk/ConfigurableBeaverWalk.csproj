@@ -2,10 +2,4 @@
 
 	<Import Project="../Common.target" />
 
-	<ItemGroup>
-		<None Update="manifest.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
-
 </Project>

@@ -1,0 +1,17 @@
+{
+    "Name": "Configurable Storages",
+    "Version": "1.0.0",
+    "Id": "ConfigurableStorages",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "Change the space of storages",
+    "RequiredMods": [
+        {
+            "Id": "eMka.ModSettings",
+            "MinimumVersion": "0.6.0.0"
+        },
+        {
+            "Id": "Harmony",
+            "MinimumVersion": "0.6.0.0"
+        }
+    ]
+}
