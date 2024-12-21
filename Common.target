@@ -1,0 +1,78 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<Reference Include="0Harmony">
+			<HintPath>E:\SteamLibrary\steamapps\workshop\content\1062090\3284904751\0Harmony.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Bindito.Core">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Bindito.Core.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="ModSettings.ColorPicker">
+			<HintPath>E:\SteamLibrary\steamapps\workshop\content\1062090\3283831040\version-0.6\Scripts\ModSettings.ColorPicker.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="ModSettings.Common">
+			<HintPath>E:\SteamLibrary\steamapps\workshop\content\1062090\3283831040\version-0.6\Scripts\ModSettings.Common.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="ModSettings.CommonUI">
+			<HintPath>E:\SteamLibrary\steamapps\workshop\content\1062090\3283831040\version-0.6\Scripts\ModSettings.CommonUI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="ModSettings.Core">
+			<HintPath>E:\SteamLibrary\steamapps\workshop\content\1062090\3283831040\version-0.6\Scripts\ModSettings.Core.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="ModSettings.CoreUI">
+			<HintPath>E:\SteamLibrary\steamapps\workshop\content\1062090\3283831040\version-0.6\Scripts\ModSettings.CoreUI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="ModSettings.GameUI">
+			<HintPath>E:\SteamLibrary\steamapps\workshop\content\1062090\3283831040\version-0.6\Scripts\ModSettings.GameUI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="ModSettings.MainMenuUI">
+			<HintPath>E:\SteamLibrary\steamapps\workshop\content\1062090\3283831040\version-0.6\Scripts\ModSettings.MainMenuUI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="ModSettings.MapEditorUI">
+			<HintPath>E:\SteamLibrary\steamapps\workshop\content\1062090\3283831040\version-0.6\Scripts\ModSettings.MapEditorUI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="ModSettings.ModManager">
+			<HintPath>E:\SteamLibrary\steamapps\workshop\content\1062090\3283831040\version-0.6\Scripts\ModSettings.ModManager.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.Modding">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Modding.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.SettingsSystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.SettingsSystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.SingletonSystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.SingletonSystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.WalkingSystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.WalkingSystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\UnityEngine.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+	</ItemGroup>
+</Project>
