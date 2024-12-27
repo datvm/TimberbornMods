@@ -17,6 +17,10 @@
 			<HintPath>E:\SteamLibrary\steamapps\workshop\content\1062090\3284904751\0Harmony.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+		<Reference Include="Timberborn.ModManagerScene">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.ModManagerScene.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 		<Reference Include="Bindito.Core">
 			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Bindito.Core.dll</HintPath>
 			<Private>False</Private>

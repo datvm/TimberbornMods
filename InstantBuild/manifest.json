@@ -1,0 +1,13 @@
+{
+    "Name": "Instant Build",
+    "Version": "1.0.0",
+    "Id": "InstantBuild",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "All buildings take zero time to build. You still need to deliver materials to them.",
+    "RequiredMods": [
+        {
+            "Id": "Harmony",
+            "MinimumVersion": "0.6.0.0"
+        }
+    ]
+}
