@@ -1,0 +1,13 @@
+{
+    "Name": "Always Flexible Start",
+    "Version": "1.0.0",
+    "Id": "AlwaysFlexibleStart",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "You can always move your starting settlement as if you have flexible start enabled by building a wonder on this map once.",
+    "RequiredMods": [
+        {
+            "Id": "Harmony",
+            "MinimumVersion": "0.6.0.0"
+        }
+    ]
+}
