@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstantBuild", "InstantBuil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlwaysFlexibleStart", "AlwaysFlexibleStart\AlwaysFlexibleStart.csproj", "{4FA87CBB-326E-4356-8683-4DD81F1E5906}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableGrowth", "ConfigurableGrowth\ConfigurableGrowth.csproj", "{5D79321A-098E-4C2E-8186-7AF040C3FDDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{4FA87CBB-326E-4356-8683-4DD81F1E5906}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FA87CBB-326E-4356-8683-4DD81F1E5906}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FA87CBB-326E-4356-8683-4DD81F1E5906}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D79321A-098E-4C2E-8186-7AF040C3FDDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D79321A-098E-4C2E-8186-7AF040C3FDDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D79321A-098E-4C2E-8186-7AF040C3FDDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D79321A-098E-4C2E-8186-7AF040C3FDDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
