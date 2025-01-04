@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlwaysFlexibleStart", "Alwa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableGrowth", "ConfigurableGrowth\ConfigurableGrowth.csproj", "{5D79321A-098E-4C2E-8186-7AF040C3FDDD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstantWind", "ConstantWind\ConstantWind.csproj", "{CB24A4D1-1D54-497E-938F-B00D365F7C76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{5D79321A-098E-4C2E-8186-7AF040C3FDDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D79321A-098E-4C2E-8186-7AF040C3FDDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D79321A-098E-4C2E-8186-7AF040C3FDDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB24A4D1-1D54-497E-938F-B00D365F7C76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB24A4D1-1D54-497E-938F-B00D365F7C76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB24A4D1-1D54-497E-938F-B00D365F7C76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB24A4D1-1D54-497E-938F-B00D365F7C76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
