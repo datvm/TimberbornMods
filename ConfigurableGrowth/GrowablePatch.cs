@@ -9,7 +9,7 @@ namespace ConfigurableGrowth;
 public static class GrowablePatch
 {
 
-    public static void Postfix(Growable __instance, ref float __result)
+    public static void Postfix(Growable __instance, ref float __result, GrowableSpec ____growableSpec)
     {
         float mul;
         if (__instance.GetComponentInParent<Cuttable>() is not null)
@@ -23,6 +23,7 @@ public static class GrowablePatch
         else
         {
             mul = ModSettings.OtherGrowthRate;
+
         }
 
         __result /= mul;
