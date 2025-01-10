@@ -23,6 +23,10 @@
 			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Yielding.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+		<Reference Include="Timberborn.Goods">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Goods.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 	</ItemGroup>
 
 </Project>

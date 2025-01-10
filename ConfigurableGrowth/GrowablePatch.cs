@@ -1,32 +1,30 @@
 ﻿using HarmonyLib;
-using Timberborn.Cutting;
-using Timberborn.Gathering;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using Timberborn.Growing;
+using Timberborn.Yielding;
 
 namespace ConfigurableGrowth;
 
 [HarmonyPatch(typeof(Growable), nameof(Growable.GrowthTimeInDays), MethodType.Getter)]
 public static class GrowablePatch
 {
-
-    public static void Postfix(Growable __instance, ref float __result, GrowableSpec ____growableSpec)
+    static readonly ConditionalWeakTable<GrowableSpec, object?> ModifiedSpecs = [];
+    static readonly FieldInfo growableGrowthDays = typeof(GrowableSpec).GetField("_growthTimeInDays", BindingFlags.NonPublic | BindingFlags.Instance);
+    
+    public static void Prefix(Growable __instance, GrowableSpec ____growableSpec)
     {
-        float mul;
-        if (__instance.GetComponentInParent<Cuttable>() is not null)
-        {
-            mul = ModSettings.TreeGrowthRate;
-        }
-        else if (__instance.GetComponentInParent<Gatherable>() is not null)
-        {
-            mul = ModSettings.CropGrowthRate;
-        }
-        else
-        {
-            mul = ModSettings.OtherGrowthRate;
+        if (ModifiedSpecs.TryGetValue(____growableSpec, out _)) { return; }
+        ModifiedSpecs.Add(____growableSpec, null);
 
-        }
+        var yielders = __instance.GetComponentsInParent<Yielder>();
+        var logYielder = yielders.FirstOrDefault(IsYieldLog);
+        var isTree = logYielder is not null;
 
-        __result /= mul;
+        var mul = isTree ? ModSettings.TreeGrowthRate : ModSettings.CropGrowthRate;
+        growableGrowthDays.SetValue(____growableSpec, (float)growableGrowthDays.GetValue(____growableSpec) / mul);
     }
+
+    static bool IsYieldLog(Yielder yielder) => yielder.YielderSpecification.Yield.GoodId == "Log";
 
 }
