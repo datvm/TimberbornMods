@@ -1,0 +1,17 @@
+{
+    "Name": "Healthy Beavers",
+    "Version": "1.0.0",
+    "Id": "HealthyBeavers",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "Disable certain debuffs for beavers.",
+    "RequiredMods": [
+        {
+            "Id": "eMka.ModSettings",
+            "MinimumVersion": "0.6.0.0"
+        },
+        {
+            "Id": "Harmony",
+            "MinimumVersion": "0.6.0.0"
+        }
+    ]
+}
