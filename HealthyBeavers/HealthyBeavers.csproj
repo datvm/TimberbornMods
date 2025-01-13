@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Common.target" />
+
+	<ItemGroup>
+		<Reference Include="Timberborn.Effects">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Effects.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.NeedSystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.NeedSystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+	</ItemGroup>
+
+</Project>
