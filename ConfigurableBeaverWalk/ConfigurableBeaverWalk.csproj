@@ -2,4 +2,11 @@
 
 	<Import Project="../Common.target" />
 
+	<ItemGroup>
+		<Reference Include="Timberborn.Bots">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Bots.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+	</ItemGroup>
+	
 </Project>

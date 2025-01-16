@@ -1,9 +1,9 @@
 {
     "Name": "Configurable Beaver Walking Speed",
-    "Version": "1.0.0",
+    "Version": "1.1.0",
     "Id": "ConfigurableBeaverWalk",
     "MinimumGameVersion": "0.6.0.0",
-    "Description": "Change the walking speed of beavers",
+    "Description": "Change the walking speed of beavers, optionally different speed for bots.",
     "RequiredMods": [
         {
             "Id": "eMka.ModSettings",
