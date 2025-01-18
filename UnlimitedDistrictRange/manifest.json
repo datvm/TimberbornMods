@@ -1,0 +1,13 @@
+{
+    "Name": "Unlimited District Range",
+    "Version": "1.0.0",
+    "Id": "UnlimitedDistrictRange",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "Tired of making road to nowhere just so your builders can start building something? This mod increases the distance so you don't have to do that anymore.",
+    "RequiredMods": [
+        {
+            "Id": "Harmony",
+            "MinimumVersion": "0.6.0.0"
+        }
+    ]
+}
