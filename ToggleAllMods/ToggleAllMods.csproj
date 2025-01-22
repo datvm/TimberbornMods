@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Common.target" />
+
+	<ItemGroup>
+		<Reference Include="Timberborn.WaterSystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.WaterSystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="System.Collections.Immutable">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\System.Collections.Immutable.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+	</ItemGroup>
+</Project>

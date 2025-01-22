@@ -1,0 +1,13 @@
+{
+    "Name": "Toggle All Mods",
+    "Version": "1.0.0",
+    "Id": "ToggleAllMods",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "Quickly select or deselect all mods. Useful for modders.",
+    "RequiredMods": [
+        {
+            "Id": "eMka.ModSettings",
+            "MinimumVersion": "0.6.0.0"
+        }
+    ]
+}
