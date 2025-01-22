@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthyBeavers", "HealthyBe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnlimitedDistrictRange", "UnlimitedDistrictRange\UnlimitedDistrictRange.csproj", "{DB8E7FC0-25CA-41BC-A701-EBEFBD7984EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToggleAllMods", "ToggleAllMods\ToggleAllMods.csproj", "{C0D8E80B-3123-49C1-8013-B35A1A44DC07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{DB8E7FC0-25CA-41BC-A701-EBEFBD7984EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB8E7FC0-25CA-41BC-A701-EBEFBD7984EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB8E7FC0-25CA-41BC-A701-EBEFBD7984EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0D8E80B-3123-49C1-8013-B35A1A44DC07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0D8E80B-3123-49C1-8013-B35A1A44DC07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0D8E80B-3123-49C1-8013-B35A1A44DC07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0D8E80B-3123-49C1-8013-B35A1A44DC07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
