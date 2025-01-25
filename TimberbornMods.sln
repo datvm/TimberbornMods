@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToggleAllMods", "ToggleAllM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnlimitedMapSize", "UnlimitedMapSize\UnlimitedMapSize.csproj", "{8DD79C58-FE21-49B2-9B6D-A418BFC188BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CutAllTrees", "CutAllTrees\CutAllTrees.csproj", "{62BF7678-001B-495B-B603-D2193ED9D48A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +76,10 @@ Global
 		{8DD79C58-FE21-49B2-9B6D-A418BFC188BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DD79C58-FE21-49B2-9B6D-A418BFC188BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DD79C58-FE21-49B2-9B6D-A418BFC188BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62BF7678-001B-495B-B603-D2193ED9D48A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62BF7678-001B-495B-B603-D2193ED9D48A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62BF7678-001B-495B-B603-D2193ED9D48A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62BF7678-001B-495B-B603-D2193ED9D48A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
