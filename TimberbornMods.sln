@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnlimitedMapSize", "Unlimit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CutAllTrees", "CutAllTrees\CutAllTrees.csproj", "{62BF7678-001B-495B-B603-D2193ED9D48A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlwaysConnected", "AlwaysConnected\AlwaysConnected.csproj", "{A98A70FA-113F-469B-B9BE-F275901A2DEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{62BF7678-001B-495B-B603-D2193ED9D48A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62BF7678-001B-495B-B603-D2193ED9D48A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62BF7678-001B-495B-B603-D2193ED9D48A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A98A70FA-113F-469B-B9BE-F275901A2DEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A98A70FA-113F-469B-B9BE-F275901A2DEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A98A70FA-113F-469B-B9BE-F275901A2DEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A98A70FA-113F-469B-B9BE-F275901A2DEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

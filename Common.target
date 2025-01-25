@@ -8,6 +8,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Using Include="System.Reflection" />
+		
 		<None Update="manifest.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
@@ -24,6 +26,10 @@
 		</Reference>
 		<Reference Include="Bindito.Core">
 			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Bindito.Core.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.Common">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Common.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="Timberborn.AssetSystem">
