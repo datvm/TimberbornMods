@@ -1,0 +1,13 @@
+{
+    "Name": "Always Connected (Power)",
+    "Version": "1.0.0",
+    "Id": "AlwaysConnected",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "Connecting and organizing power shaft maybe fun for a few games. If you are tired of it, this mod is for you. All power buildings in the game will always be connected, no shaft needed anymore.",
+    "RequiredMods": [
+        {
+            "Id": "Harmony",
+            "MinimumVersion": "0.6.0.0"
+        }
+    ]
+}
