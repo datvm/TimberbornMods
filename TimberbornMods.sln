@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CutAllTrees", "CutAllTrees\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlwaysConnected", "AlwaysConnected\AlwaysConnected.csproj", "{A98A70FA-113F-469B-B9BE-F275901A2DEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LateGamePower", "LateGamePower\LateGamePower.csproj", "{DF5D1457-A063-4B02-AFDB-51B1B9ECAC31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{A98A70FA-113F-469B-B9BE-F275901A2DEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A98A70FA-113F-469B-B9BE-F275901A2DEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A98A70FA-113F-469B-B9BE-F275901A2DEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF5D1457-A063-4B02-AFDB-51B1B9ECAC31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF5D1457-A063-4B02-AFDB-51B1B9ECAC31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF5D1457-A063-4B02-AFDB-51B1B9ECAC31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF5D1457-A063-4B02-AFDB-51B1B9ECAC31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
