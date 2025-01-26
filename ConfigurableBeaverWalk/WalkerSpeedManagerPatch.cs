@@ -11,6 +11,8 @@ namespace ConfigurableBeaverWalk
 
         public static void Prefix(WalkerSpeedManager __instance, ref float ____baseWalkingSpeed, ref float ____baseSlowedSpeed)
         {
+            if (!ModSettings.ChangeWalkingSpeed) { return; }
+
             var walkingSpeed = ModSettings.BaseWalkingSpeed;
             var slowedSpeed = ModSettings.BaseSlowedSpeed;
 
