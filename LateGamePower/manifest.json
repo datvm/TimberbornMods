@@ -1,0 +1,21 @@
+{
+    "Name": "Late Game Power",
+    "Version": "1.0.0",
+    "Id": "LateGamePower",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "Add options for your power generators so you don't just have to build more and more generators.",
+    "RequiredMods": [
+        {
+            "Id": "eMka.ModSettings",
+            "MinimumVersion": "0.6.0.0"
+        },
+        {
+            "Id": "Harmony",
+            "MinimumVersion": "2.3.3"
+        },
+        {
+            "Id": "TimberApi",
+            "MinimumVersion": "0.7.8.0"
+        }
+    ]
+}
