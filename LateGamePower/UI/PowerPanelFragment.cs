@@ -14,11 +14,11 @@ public class PowerPanelFragment : PowerPanel<PowerPanelFragment>
 public abstract class PowerPanel<TBuilder> : BaseBuilder<TBuilder, NineSliceVisualElement>
     where TBuilder : BaseBuilder<TBuilder, NineSliceVisualElement>
 {
-    VisualElementBuilder? builder = null!;
+    PanelFragment? builder = null!;
 
     protected override NineSliceVisualElement InitializeRoot()
     {
-        builder = UIBuilder.Create<VisualElementBuilder>();
+        builder = UIBuilder.Create<PanelFragment>();
 
         builder.AddComponent(UIBuilder
             .Create<GameTextLabel>("PowerMultiplicationDesc")
