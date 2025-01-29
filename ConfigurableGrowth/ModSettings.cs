@@ -27,20 +27,20 @@ public class ModSettings : ModSettingsOwner, IUnloadableSingleton
         treeRate = new ModSetting<float>(
             2,
             ModSettingDescriptor
-                .Create("Tree growth rate")
-                .SetTooltip("Multiplier for Tree growth time like Pines or Oaks (1 for game default)"));
+                .CreateLocalized("CG.TreeGrowthRate")
+                .SetLocalizedTooltip("CG.TreeGrowthRateDesc"));
 
         cropRate = new ModSetting<float>(
             1,
             ModSettingDescriptor
-                .Create("Crop growth rate")
-                .SetTooltip("Multiplier for Crop growth time like Carrots or Potatoes (1 for game default)"));
+                .CreateLocalized("CG.CropGrowthRate")
+                .SetLocalizedTooltip("CG.CropGrowthRateDesc"));
 
         gatherableRate = new ModSetting<float>(
             1,
             ModSettingDescriptor
-                .Create("Product growth rate")
-                .SetTooltip("Multiplier for products growth time like Pine Resin or Berries (1 for game default)"));
+                .CreateLocalized("CG.GatherableGrowthRate")
+                .SetLocalizedTooltip("CG.GatherableGrowthRateDesc"));
 
         AddCustomModSetting(treeRate, nameof(TreeGrowthRate));
         AddCustomModSetting(cropRate, nameof(CropGrowthRate));

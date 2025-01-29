@@ -6,9 +6,9 @@ using Timberborn.SingletonSystem;
 namespace ConfigurableBeaverWalk
 {
     public class ModSettings(
-        Timberborn.SettingsSystem.ISettings settings,
-        ModSettingsOwnerRegistry modSettingsOwnerRegistry,
-        ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
+            Timberborn.SettingsSystem.ISettings settings,
+            ModSettingsOwnerRegistry modSettingsOwnerRegistry,
+            ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
     {
         protected override string ModId => nameof(ConfigurableBeaverWalk);
 
@@ -33,43 +33,43 @@ namespace ConfigurableBeaverWalk
 
             changeWalkingSpeed = new(
                 true,
-                ModSettingDescriptor.Create("Change walking speed")
-                    .SetTooltip("If enabled, the walking speed of beavers and bots will be changed."));
+                ModSettingDescriptor.CreateLocalized("CBW.ChangeWalkingSpeed")
+                    .SetLocalizedTooltip("CBW.ChangeWalkingSpeedDesc"));
 
             baseWalkingSpeed = new(
                 6, 0, 100,
-                ModSettingDescriptor.Create("Base walking speed")
-                    .SetTooltip("The base walking speed of beavers (Game default: 2.7)")
+                ModSettingDescriptor.CreateLocalized("CBW.BaseWalkingSpeed")
+                    .SetLocalizedTooltip("CBW.BaseWalkingSpeedDesc")
                     .SetEnableCondition(() => changeWalkingSpeed.Value));
 
             baseSlowedSpeed = new(
                 4, 0, 100,
-                ModSettingDescriptor.Create("Base slowed speed")
-                    .SetTooltip("The base slowed speed of beavers (Game default: 1.5)")
+                ModSettingDescriptor.CreateLocalized("CBW.BaseSlowedSpeed")
+                    .SetLocalizedTooltip("CBW.BaseSlowedSpeedDesc")
                     .SetEnableCondition(() => changeWalkingSpeed.Value));
 
             differentBotSpeed = new(
                 false,
-                ModSettingDescriptor.Create("Different speed for bots")
-                    .SetTooltip("If enabled, bots will have different walking speeds. May have a minor performance impact.")
+                ModSettingDescriptor.CreateLocalized("CBW.DifferentBotSpeed")
+                    .SetLocalizedTooltip("CBW.DifferentBotSpeedDesc")
                     .SetEnableCondition(() => changeWalkingSpeed.Value));
 
             baseBotWalkingSpeed = new(
                 6, 0, 100,
-                ModSettingDescriptor.Create("Base walking speed for bots")
-                    .SetTooltip("The base walking speed of bots (Game default: 2.7)")
+                ModSettingDescriptor.CreateLocalized("CBW.BaseBotWalkingSpeed")
+                    .SetLocalizedTooltip("CBW.BaseBotWalkingSpeedDesc")
                     .SetEnableCondition(() => changeWalkingSpeed.Value && differentBotSpeed.Value));
 
             baseBotSlowedSpeed = new(
                 4, 0, 100,
-                ModSettingDescriptor.Create("Base slowed speed for bots")
-                    .SetTooltip("The base slowed speed of bots (Game default: 1.5)")
+                ModSettingDescriptor.CreateLocalized("CBW.BaseBotSlowedSpeed")
+                    .SetLocalizedTooltip("CBW.BaseBotSlowedSpeedDesc")
                     .SetEnableCondition(() => changeWalkingSpeed.Value && differentBotSpeed.Value));
 
             carryingWeightMultiplier = new(
                 1,
-                ModSettingDescriptor.Create("Carrying weight multiplier")
-                    .SetTooltip("The multiplier for max carrying weight of beavers and bots (Game default: 1)"));
+                ModSettingDescriptor.CreateLocalized("CBW.CarryingWeightMultiplier")
+                    .SetLocalizedTooltip("CBW.CarryingWeightMultiplierDesc"));
 
             AddCustomModSetting(changeWalkingSpeed, "beaver_change_walking_speed");
             AddCustomModSetting(baseWalkingSpeed, "beaver_base_walking_speed");
