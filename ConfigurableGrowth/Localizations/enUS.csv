@@ -1,0 +1,7 @@
+ID,Text,Comment
+CG.TreeGrowthRate,Tree growth rate,
+CG.TreeGrowthRateDesc,"Multiplier for Tree growth time like Pines or Oaks (1 for game default). Can be set to below 1 to make the game harder.",
+CG.CropGrowthRate,Crop growth rate,
+CG.CropGrowthRateDesc,"Multiplier for Crop growth time like Carrots or Potatoes (1 for game default). Can be set to below 1 to make the game harder.",
+CG.GatherableGrowthRate,Product growth rate,
+CG.GatherableGrowthRateDesc,"Multiplier for products growth time like Pine Resin or Berries (1 for game default). Can be set to below 1 to make the game harder.",

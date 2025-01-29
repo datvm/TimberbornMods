@@ -1,6 +1,6 @@
 {
     "Name": "Configurable Growth",
-    "Version": "1.2.0",
+    "Version": "1.3.0",
     "Id": "ConfigurableGrowth",
     "MinimumGameVersion": "0.6.0.0",
     "Description": "Change the speed that your crops and trees grow",

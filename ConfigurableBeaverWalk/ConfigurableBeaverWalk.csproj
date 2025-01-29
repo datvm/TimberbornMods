@@ -12,5 +12,9 @@
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Localizations\" />
+	</ItemGroup>
 	
 </Project>
