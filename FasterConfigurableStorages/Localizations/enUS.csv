@@ -1,0 +1,3 @@
+ID,Text,Comment
+LV.FCS.CapacityMultipler,"Capacity Multiplier",
+LV.FCS.CapacityMultiplerDesc,"The multiplier applied to the capacity of all the storage buildings. Settings it below 1 to make the game harder by reducing the capacity. You will not lose the items in the storage when reducing the capacity but you have to remove the excess items manually.",

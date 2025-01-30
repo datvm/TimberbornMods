@@ -131,10 +131,7 @@
 			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.SingletonSystem.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
-		<Reference Include="Timberborn.Stockpiles">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Stockpiles.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
+
 		<Reference Include="Timberborn.WalkingSystem">
 			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.WalkingSystem.dll</HintPath>
 			<Private>False</Private>

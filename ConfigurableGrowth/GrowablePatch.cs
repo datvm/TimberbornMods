@@ -1,6 +1,4 @@
-﻿using HarmonyLib;
-using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Timberborn.Growing;
 using Timberborn.Yielding;
 

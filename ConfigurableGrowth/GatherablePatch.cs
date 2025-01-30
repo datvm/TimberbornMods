@@ -1,5 +1,4 @@
-﻿using HarmonyLib;
-using Timberborn.Gathering;
+﻿using Timberborn.Gathering;
 
 namespace ConfigurableGrowth;
 

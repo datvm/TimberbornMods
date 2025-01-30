@@ -1,10 +1,6 @@
-﻿using Timberborn.Modding;
-using Timberborn.SettingsSystem;
-using Timberborn.SingletonSystem;
+﻿namespace ConfigurableGrowth;
 
-namespace ConfigurableGrowth;
-
-public class ModSettings : ModSettingsOwner, IUnloadableSingleton
+public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
 
     public static float TreeGrowthRate { get; private set; } = 1;
@@ -13,11 +9,6 @@ public class ModSettings : ModSettingsOwner, IUnloadableSingleton
 
 
     ModSetting<float>? treeRate, cropRate, gatherableRate;
-
-
-    public ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : base(settings, modSettingsOwnerRegistry, modRepository)
-    {
-    }
 
     protected override string ModId => nameof(ConfigurableGrowth);
 
