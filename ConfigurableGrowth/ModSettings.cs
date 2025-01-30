@@ -1,5 +1,4 @@
-﻿using ModSettings.Core;
-using Timberborn.Modding;
+﻿using Timberborn.Modding;
 using Timberborn.SettingsSystem;
 using Timberborn.SingletonSystem;
 
