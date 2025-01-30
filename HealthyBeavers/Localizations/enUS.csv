@@ -1,0 +1,9 @@
+ID,Text,Comment
+HB.BrokenTeeth,Disable Broken Teeth,
+HB.BrokenTeethDesc,Disable Broken Teeth,
+HB.BeeSting,Disable Bee Sting,
+HB.BeeStingDesc,Disable Bee Sting,
+HB.BadwaterContamination,Disable Badwater Contamination,
+HB.BadwaterContaminationDesc,"Disable Badwater Contamination, beavers still get unwell when contacted with Badwater but it won't get contaminated.",
+HB.Injury,Disable Injury,
+HB.InjuryDesc,Disable Injury,

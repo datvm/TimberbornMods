@@ -15,8 +15,8 @@ public class ModSettings : ModSettingsOwner, IUnloadableSingleton
     static readonly FieldInfo maxWindStrength = typeof(WindService).GetField("MaxWindStrength", BindingFlags.NonPublic | BindingFlags.Static);
 
     readonly RangeIntModSetting windStrength = new(50, 0, 100,
-        ModSettingDescriptor.Create("Wind Strength")
-            .SetTooltip("The constant wind strength, from 0% to 100%."));
+        ModSettingDescriptor.CreateLocalized("CW.WindStrength")
+            .SetLocalizedTooltip("CW.WindStrengthDesc"));
 
     public ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : base(settings, modSettingsOwnerRegistry, modRepository)
     {

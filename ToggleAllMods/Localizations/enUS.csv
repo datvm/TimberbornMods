@@ -1,0 +1,7 @@
+ID,Text,Comment
+DAM.EnableAll,"Enable All",
+DAM.EnableAllDesc,"Check to enable all mods upon exit. Restart required and this is automatically unchecked.",
+DAM.DisableAll,"Disable All",
+DAM.DisableAllDesc,"Check to disable all mods upon exit. Restart required and this is automatically unchecked.",
+DAM.KeepEnabled,"Keep Enabled",
+DAM.KeepEnabledDesc,"Semi-colon ';' separated list of mod IDs to keep enabled if Disable All is checked.",

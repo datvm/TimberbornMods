@@ -6,8 +6,8 @@ namespace CutAllTrees;
 
 public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository)
 {
-    protected override string ModId => nameof(CutAllTrees);
-
+    protected override string ModId => "MarkAllTrees"; // Do not use nameof for this project
+    
     ModSetting<bool>? enabled, alwaysEnabled;
 
     public bool Enabled => enabled?.Value == true;
@@ -26,12 +26,12 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
     protected override void OnAfterLoad()
     {
         enabled = new(true, ModSettingDescriptor
-            .Create("Enabled")
-            .SetTooltip("Mark all the map as 'cuttable' area when loading a save with this mod for the first time (including a new game)"));
+            .CreateLocalized("CAT.Enabled")
+            .SetLocalizedTooltip("CAT.EnabledDesc"));
 
         alwaysEnabled = new(false, ModSettingDescriptor
-            .Create("Always Enabled")
-            .SetTooltip("Mark all the map as 'cuttable' area when loading a save with this mod even if it was already activated before. Automatically uncheck once you load a save.")
+            .CreateLocalized("CAT.AlwaysEnabled")
+            .SetLocalizedTooltip("CAT.AlwaysEnabledDesc")
             .SetEnableCondition(() => enabled?.Value == true));
 
         AddCustomModSetting(enabled, nameof(enabled));

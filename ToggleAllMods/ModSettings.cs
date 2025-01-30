@@ -21,20 +21,23 @@ internal class ModSettings(
     {
         enableAll = new(
             false,
-            ModSettingDescriptor.Create("Enable All")
-                .SetTooltip("Check to enable all mods upon exit. Restart required and this is automatically unchecked.")
+            ModSettingDescriptor
+                .CreateLocalized("DAM.EnableAll")
+                .SetLocalizedTooltip("DAM.EnableAllDesc")
                 .SetEnableCondition(() => disableAll?.Value == false)
         );
         disableAll = new(
             false,
-            ModSettingDescriptor.Create("Disable All")
-                .SetTooltip("Check to disable all mods upon exit. Restart required and this is automatically unchecked.")
+            ModSettingDescriptor
+                .CreateLocalized("DAM.DisableAll")
+                .SetLocalizedTooltip("DAM.DisableAllDesc")
                 .SetEnableCondition(() => enableAll?.Value == false)
         );
         keepEnabled = new(
             "eMka.ModSettings;Harmony;ToggleAllMods",
-            ModSettingDescriptor.Create("Keep Enabled")
-                .SetTooltip("Semi-colon ';' separated list of mod IDs to keep enabled if Disable All is checked.")
+            ModSettingDescriptor
+                .CreateLocalized("DAM.KeepEnabled")
+                .SetLocalizedTooltip("DAM.KeepEnabledDesc")
         );
 
         AddCustomModSetting(enableAll, nameof(enableAll));
