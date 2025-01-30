@@ -1,6 +1,6 @@
 {
     "Name": "Toggle All Mods",
-    "Version": "1.0.0",
+    "Version": "1.3.0",
     "Id": "ToggleAllMods",
     "MinimumGameVersion": "0.6.0.0",
     "Description": "Quickly select or deselect all mods. Useful for modders.",

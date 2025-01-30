@@ -1,0 +1,5 @@
+ID,Text,Comment
+CAT.Enabled,Enabled,
+CAT.EnabledDesc,"Mark all the map as 'cuttable' area when loading a save with this mod for the first time (including a new game)",
+CAT.AlwaysEnabled,Always Enabled,
+CAT.AlwaysEnabledDesc,"Mark all the map as 'cuttable' area when loading a save with this mod even if it was already activated before. Automatically uncheck once you load a save.",

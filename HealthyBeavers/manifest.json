@@ -1,6 +1,6 @@
 {
     "Name": "Healthy Beavers",
-    "Version": "1.0.0",
+    "Version": "1.3.0",
     "Id": "HealthyBeavers",
     "MinimumGameVersion": "0.6.0.0",
     "Description": "Disable certain debuffs for beavers.",

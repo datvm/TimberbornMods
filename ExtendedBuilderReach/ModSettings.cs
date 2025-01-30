@@ -20,23 +20,23 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
     protected override void OnAfterLoad()
     {
         unlimitedAbove = new(false, ModSettingDescriptor
-            .Create("Unlimited Above")
-            .SetTooltip("Builders can always build above themselves (Game default: no)"));
+            .CreateLocalized("EBR.UnlimitedAbove")
+            .SetLocalizedTooltip("EBR.UnlimitedAboveDesc"));
         unlimitedBelow = new(true, ModSettingDescriptor
-            .Create("Unlimited Below")
-            .SetTooltip("Builders can always build below themselves (Game default: yes)"));
+            .CreateLocalized("EBR.UnlimitedBelow")
+            .SetLocalizedTooltip("EBR.UnlimitedBelowDesc"));
 
         rangeAbove = new(
             1, 0, 30,
             ModSettingDescriptor
-                .Create("Range Above")
-                .SetTooltip("Builders can build up to this many tiles above themselves (Game default: 1)")
+                .CreateLocalized("EBR.RangeAbove")
+                .SetLocalizedTooltip("EBR.RangeAboveDesc")
                 .SetEnableCondition(() => unlimitedAbove?.Value == false));
         rangeBelow = new(
             1, 0, 30,
             ModSettingDescriptor
-                .Create("Range Below")
-                .SetTooltip("Builders can build up to this many tiles below themselves (Game default: inifinite)")
+                .CreateLocalized("EBR.RangeBelow")
+                .SetLocalizedTooltip("EBR.RangeBelowDesc")
                 .SetEnableCondition(() => unlimitedBelow?.Value == false));
 
         AddCustomModSetting(unlimitedAbove, nameof(unlimitedAbove));

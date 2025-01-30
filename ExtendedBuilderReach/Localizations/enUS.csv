@@ -1,0 +1,9 @@
+ID,Text,Comment
+EBR.UnlimitedAbove,Unlimited Above,
+EBR.UnlimitedAboveDesc,"Builders can always build above themselves (Game default: no)",
+EBR.UnlimitedBelow,Unlimited Below,
+EBR.UnlimitedBelowDesc,"Builders can always build below themselves (Game default: yes)",
+EBR.RangeAbove,Range Above,
+EBR.RangeAboveDesc,"Builders can build up to this many tiles above themselves (Game default: 1)",
+EBR.RangeBelow,Range Below,
+EBR.RangeBelowDesc,"Builders can build up to this many tiles below themselves (Game default: Infinite)",

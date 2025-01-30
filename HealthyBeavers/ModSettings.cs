@@ -23,31 +23,29 @@ public class ModSettings
 
     protected override void OnAfterLoad()
     {
-        UnityEngine.Debug.Log($"[HealthyBeavers] Loaded");
-
         brokenTeeth = new ModSetting<bool>(
             false,
             ModSettingDescriptor
-                .Create("Broken Teeth")
-                .SetTooltip("Disable Broken Teeth"));
+                .CreateLocalized("HB.BrokenTeeth")
+                .SetLocalizedTooltip("HB.BrokenTeethDesc"));
 
         beeSting = new ModSetting<bool>(
             true,
             ModSettingDescriptor
-                .Create("Bee Sting")
-                .SetTooltip("Disable Bee Sting"));
+                .CreateLocalized("HB.BeeSting")
+                .SetLocalizedTooltip("HB.BeeStingDesc"));
 
         badwaterContamination = new ModSetting<bool>(
             false,
             ModSettingDescriptor
-                .Create("Badwater Contamination")
-                .SetTooltip("Disable Badwater Contamination"));
+                .CreateLocalized("HB.BadwaterContamination")
+                .SetLocalizedTooltip("HB.BadwaterContaminationDesc"));
 
         injury = new ModSetting<bool>(
             false,
             ModSettingDescriptor
-                .Create("Injury")
-                .SetTooltip("Disable Injury"));
+                .CreateLocalized("HB.Injury")
+                .SetLocalizedTooltip("HB.InjuryDesc"));
 
         AddCustomModSetting(brokenTeeth, nameof(BrokenTeeth));
         AddCustomModSetting(beeSting, nameof(BeeSting));
