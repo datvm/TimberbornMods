@@ -9,6 +9,14 @@
 
 	<ItemGroup>
 		<Using Include="System.Reflection" />
+		<Using Include="HarmonyLib"/>
+		<Using Include="Timberborn.ModManagerScene"/>
+		<Using Include="Bindito.Core"/>
+		<Using Include="ModSettings.Common"/>
+		<Using Include="ModSettings.Core"/>
+		<Using Include="Timberborn.Modding"/>
+		<Using Include="Timberborn.SettingsSystem"/>
+		<Using Include="Timberborn.SingletonSystem"/>
 		
 		<None Update="manifest.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -32,7 +40,7 @@
 			<HintPath>E:\SteamLibrary\steamapps\workshop\content\1062090\3288241660\core\TimberApi.UIPresets.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
-		
+
 		<!-- Harmony & Mod Settings -->
 		<Reference Include="0Harmony">
 			<HintPath>E:\SteamLibrary\steamapps\workshop\content\1062090\3284904751\0Harmony.dll</HintPath>
