@@ -1,7 +1,4 @@
-﻿using HarmonyLib;
-using Timberborn.ModManagerScene;
-
-namespace ConfigurableGrowth;
+﻿namespace ConfigurableGrowth;
 
 public class ModStarter : IModStarter
 {

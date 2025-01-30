@@ -1,6 +1,4 @@
-﻿using Bindito.Core;
-
-namespace ConfigurableGrowth;
+﻿namespace ConfigurableGrowth;
 
 [Context("MainMenu")]
 public class ModConfigurator : IConfigurator
