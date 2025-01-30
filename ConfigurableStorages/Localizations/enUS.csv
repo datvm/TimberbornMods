@@ -1,0 +1,7 @@
+ID,Text,Comment
+CS.GlobalMultiplier,"Global multiplier",
+CS.GlobalMultiplierTooltip,"Apply a single multiplier to all storages.
+0: do not use global multiplier but individual values below.
+Positive 1: keep storages as they are.
+Positive 2 to 10: make storages 2-10x larger.
+Negative 1 to 9: make storages 10-90% smaller (game is harder)",

@@ -1,10 +1,4 @@
-﻿using ModSettings.Common;
-using ModSettings.Core;
-using System.Reflection;
-using Timberborn.AssetSystem;
-using Timberborn.Modding;
-using Timberborn.SettingsSystem;
-using Timberborn.SingletonSystem;
+﻿using Timberborn.AssetSystem;
 using Timberborn.Stockpiles;
 
 namespace ConfigurableStorages;
@@ -32,13 +26,8 @@ public class ModSettings : ModSettingsOwner, IUnloadableSingleton
             globalMultiplier = new RangeIntModSetting(
                 2, -9, 10,
                 ModSettingDescriptor
-                    .Create("Global multiplier")
-                    .SetLocalizedTooltip(
-                        "Apply a single multiplier to all storages.\r\n" +
-                        "0: do not use global multiplier but individual values below.\r\n" +
-                        "Positive 1: keep storages as they are.\r\n" +
-                        "Positive 2 to 10: make storages 2-10x larger.\r\n" +
-                        "Negative 1 to 9: make storages 10-90% smaller (game is harder)")
+                    .CreateLocalized("CS.GlobalMultiplier")
+                    .SetLocalizedTooltip("CS.GlobalMultiplierTooltip")
             );
 
             AddCustomModSetting(globalMultiplier, "global_multiplier");

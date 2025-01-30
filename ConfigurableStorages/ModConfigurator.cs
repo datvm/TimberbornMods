@@ -1,6 +1,4 @@
-﻿using Bindito.Core;
-
-namespace ConfigurableStorages;
+﻿namespace ConfigurableStorages;
 
 [Context("MainMenu")]
 public class ModConfigurator : IConfigurator
