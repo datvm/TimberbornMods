@@ -17,7 +17,8 @@
 		<Using Include="Timberborn.Modding"/>
 		<Using Include="Timberborn.SettingsSystem"/>
 		<Using Include="Timberborn.SingletonSystem"/>
-		
+		<Using Include="System.Collections.Immutable"/>
+
 		<None Update="manifest.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
@@ -84,8 +85,12 @@
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>
-
+	
 	<ItemGroup>
+		<Reference Include="System.Collections.Immutable">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\System.Collections.Immutable.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 		<Reference Include="Timberborn.ModManagerScene">
 			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.ModManagerScene.dll</HintPath>
 			<Private>False</Private>

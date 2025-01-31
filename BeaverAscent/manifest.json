@@ -1,0 +1,13 @@
+{
+    "Name": "Beaver's Ascent",
+    "Version": "1.1.0",
+    "Id": "BeaverAscent",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "Increase maximum heights for the game",
+    "RequiredMods": [
+        {
+            "Id": "eMka.ModSettings",
+            "MinimumVersion": "0.6.0.0"
+        }
+    ]
+}
