@@ -1,0 +1,13 @@
+{
+    "Name": "Save Everyday",
+    "Version": "1.0.0",
+    "Id": "SaveEveryday",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "Auto-save the game at the start of every day.",
+    "RequiredMods": [
+        {
+            "Id": "eMka.ModSettings",
+            "MinimumVersion": "0.6.0.0"
+        }
+    ]
+}

@@ -38,6 +38,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedBuilderReach", "Ext
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FasterConfigurableStorages", "FasterConfigurableStorages\FasterConfigurableStorages.csproj", "{F7661A88-F342-493E-AD6D-411FB7B0ACD1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeaverAscent", "BeaverAscent\BeaverAscent.csproj", "{65ABB8AB-66F4-4216-8118-0B1603266446}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveEveryday", "SaveEveryday\SaveEveryday.csproj", "{9AFB4385-6C04-4D34-A93F-06DB657C37F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,6 +108,14 @@ Global
 		{F7661A88-F342-493E-AD6D-411FB7B0ACD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7661A88-F342-493E-AD6D-411FB7B0ACD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7661A88-F342-493E-AD6D-411FB7B0ACD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65ABB8AB-66F4-4216-8118-0B1603266446}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65ABB8AB-66F4-4216-8118-0B1603266446}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65ABB8AB-66F4-4216-8118-0B1603266446}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65ABB8AB-66F4-4216-8118-0B1603266446}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AFB4385-6C04-4D34-A93F-06DB657C37F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AFB4385-6C04-4D34-A93F-06DB657C37F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AFB4385-6C04-4D34-A93F-06DB657C37F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AFB4385-6C04-4D34-A93F-06DB657C37F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

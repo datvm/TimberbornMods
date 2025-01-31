@@ -1,0 +1,7 @@
+ID,Text,Comment
+LV.SE.Enabled,"Enabled",
+LV.SE.EnabledDesc,"Whether this mod is enabled.",
+LV.SE.SaveFrequency,"Auto-save frequency (days)",
+LV.SE.SaveFrequencyDesc,"How often this mod should auto-save.",
+LV.SE.SaveCount,"Auto-save count",
+LV.SE.SaveCountDesc,"How many auto-saves should be kept.",
