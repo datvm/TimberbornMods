@@ -1,9 +1,9 @@
 {
-    "Name": "Late Game Power",
+    "Name": "Science2Power™️ Overdrive",
     "Version": "1.0.0",
     "Id": "LateGamePower",
     "MinimumGameVersion": "0.6.0.0",
-    "Description": "Add options for your power generators so you don't just have to build more and more generators.",
+    "Description": "Science lying around doing nothing while you keep needing more power? Boost your generators with the marvels of science!",
     "RequiredMods": [
         {
             "Id": "eMka.ModSettings",

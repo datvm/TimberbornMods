@@ -1,8 +1,8 @@
 ﻿global using TimberApi.UIBuilderSystem;
-global using Timberborn.CoreUI;
 global using TimberApi.UIBuilderSystem.ElementBuilders;
-using TimberApi.UIPresets.Sliders;
+global using Timberborn.CoreUI;
 using TimberApi.UIPresets.Labels;
+using TimberApi.UIPresets.Sliders;
 
 namespace LateGamePower.UI;
 
@@ -15,23 +15,42 @@ public abstract class PowerPanel<TBuilder> : BaseBuilder<TBuilder, NineSliceVisu
     where TBuilder : BaseBuilder<TBuilder, NineSliceVisualElement>
 {
     PanelFragment? builder = null!;
+    ILoc loc = null!;
+
+    [Inject]
+    public void InjectDependencies(ILoc loc)
+    {
+        this.loc = loc;
+    }
+
+    static readonly string[] LabelsFirstSet = ["ScienceOverdrive", "CurrentMul", "NoScience", "SetMul" ];
+    static readonly string[] LabelsSecondSet = ["PrevCost", "NextCost"];
 
     protected override NineSliceVisualElement InitializeRoot()
     {
         builder = UIBuilder.Create<PanelFragment>();
 
-        builder.AddComponent(UIBuilder
-            .Create<GameTextLabel>("PowerMultiplicationDesc")
-            .SetText("x2 Power, -3/h")
-            .Build());
+        foreach (var l in LabelsFirstSet)
+        {
+            builder.AddComponent(UIBuilder
+                .Create<GameTextLabel>(l)
+                .SetText(loc.T("LV.LGP." + l))
+                .Build());
+        }
 
         builder.AddComponent(UIBuilder
-            .Create<GameTextSliderInt>()
-                .SetName("PowerMultiplication")
+            .Create<GameTextSliderInt>("TargetMul")
                 .SetLowValue(1)
                 .SetHighValue(10)
-                .SetLabel("Supercharge")
                 .Build());
+
+        foreach (var l in LabelsSecondSet)
+        {
+            builder.AddComponent(UIBuilder
+                .Create<GameTextLabel>(l)
+                .SetText(loc.T("LV.LGP." + l))
+                .Build());
+        }
 
         builder.SetFlexDirection(FlexDirection.Column);
         builder.SetWidth(new Length(100f, LengthUnit.Percent));
