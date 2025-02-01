@@ -1,7 +1,4 @@
-﻿using HarmonyLib;
-using Timberborn.ModManagerScene;
-
-namespace LateGamePower;
+﻿namespace LateGamePower;
 public class ModStarter : IModStarter
 {
 

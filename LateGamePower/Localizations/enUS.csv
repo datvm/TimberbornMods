@@ -1,0 +1,13 @@
+﻿ID,Text,Comment
+LV.LGP.ScienceOverdrive,"Global Science2Power™️ (S2P) Overdrive",
+LV.LGP.CurrentMul,"Current Overdrive: x{0}P at {1}S/h",
+LV.LGP.SetMul,"Target Overdrive: x{0}P at {1}S/h",
+LV.LGP.PrevCost,"Prev: x{0}P cost: {1}S/h",
+LV.LGP.NextCost,"Next: x{0}P cost: {1}S/h",
+LV.LGP.NoPrev,"Prev: Already at minimum multiplication",
+LV.LGP.NoNext,"Next: Already at maximum multiplication",
+LV.LGP.NoScience,"Not enough Science!",
+LV.LGP.BaseCost,"Base Science cost",
+LV.LGP.BaseCostDesc,"The base science cost for calculation. It is the start value for a custom Fibonacci sequence. Default: 10. Don't be cheap :P",
+LV.LGP.MaxMul,"Max multiplication",
+LV.LGP.MaxMulDesc,"The maximum power multiplication you can apply. Default: 10.",

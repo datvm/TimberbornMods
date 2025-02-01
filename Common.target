@@ -17,6 +17,7 @@
 		<Using Include="Timberborn.Modding"/>
 		<Using Include="Timberborn.SettingsSystem"/>
 		<Using Include="Timberborn.SingletonSystem"/>
+		<Using Include="Timberborn.Localization"/>		
 		<Using Include="System.Collections.Immutable"/>
 
 		<None Update="manifest.json">
@@ -95,6 +96,11 @@
 			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.ModManagerScene.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+		<Reference Include="Timberborn.Localization">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Localization.dll</HintPath>
+			<Private>False</Private>
+		</Reference>		
+
 		<Reference Include="Bindito.Core">
 			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Bindito.Core.dll</HintPath>
 			<Private>False</Private>

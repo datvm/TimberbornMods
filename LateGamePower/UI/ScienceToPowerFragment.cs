@@ -1,13 +1,17 @@
-﻿using Timberborn.BaseComponentSystem;
-using Timberborn.EntityPanelSystem;
+﻿global using TimberApi.UIBuilderSystem.CustomElements;
+global using Timberborn.BaseComponentSystem;
 
 namespace LateGamePower.UI;
 
-public class ScienceToPowerFragment(UIBuilder builder, ScienceToPowerService sciences) : IEntityPanelFragment
+public class ScienceToPowerFragment(UIBuilder builder, ScienceToPowerService sciences, ILoc loc, ModSettings s) : IEntityPanelFragment
 {
+#nullable disable
     VisualElement root = null!;
-    SliderInt multiplication = null!;
-    ScienceToPowerComponent? comp;
+    bool enabled;
+
+    NineSliceLabel lblCurr, lblTarget, lblPrev, lblNext, lblNoScience;
+    SliderInt multiplication;
+#nullable enable
 
     public void ClearFragment()
     {
@@ -18,20 +22,26 @@ public class ScienceToPowerFragment(UIBuilder builder, ScienceToPowerService sci
     {
         root = builder.BuildAndInitialize<PowerPanelFragment>();
 
-        multiplication = root.Q<SliderInt>("PowerMultiplication");
+        lblCurr = root.Q<NineSliceLabel>("CurrentMul");
+        lblTarget = root.Q<NineSliceLabel>("SetMul");
+        lblPrev = root.Q<NineSliceLabel>("PrevCost");
+        lblNext = root.Q<NineSliceLabel>("NextCost");
+        lblNoScience = root.Q<NineSliceLabel>("NoScience");
+
+        multiplication = root.Q<SliderInt>("TargetMul");
         SetVisibility(root, false);
         return root;
     }
 
     public void ShowFragment(BaseComponent entity)
     {
-        comp = entity.GetComponentFast<ScienceToPowerComponent>();
-        
-        var enabled = comp?.IsEnabled == true;
+        enabled = entity.GetComponentFast<MechanicalNode>()?.IsGenerator == true;
         if (enabled)
         {
-            multiplication.value = sciences.Multiplication;
-            multiplication.label = $"x{sciences.Multiplication}";
+            multiplication.highValue = s.MaxMultiplier;
+            multiplication.value = sciences.TargetMultiplication;
+
+            UpdateLabels();
         }
 
         SetVisibility(root, enabled);
@@ -39,11 +49,31 @@ public class ScienceToPowerFragment(UIBuilder builder, ScienceToPowerService sci
 
     public void UpdateFragment()
     {
-        var enabled = comp?.IsEnabled == true;
         if (!enabled) { return; }
 
-        sciences.Multiplication = multiplication.value;
-        multiplication.label = $"x{sciences.Multiplication}";
+        sciences.TargetMultiplication = multiplication.value;
+        UpdateLabels();
+    }
+
+    void UpdateLabels()
+    {
+        var curr = sciences.CurrentMultiplication;
+
+        lblCurr.text = loc.T("LV.LGP.CurrentMul", curr, sciences.CalculateScienceCost(curr));
+        
+        var target = sciences.TargetMultiplication;
+        lblNoScience.visible = sciences.NotEnoughScience && target > 1;
+
+        lblTarget.text = loc.T("LV.LGP.SetMul", target, sciences.CalculateScienceCost(target));
+        
+        lblPrev.text = target > 1 ?
+            loc.T("LV.LGP.PrevCost", target -1, sciences.CalculateScienceCost(target - 1)) :
+            loc.T("LV.LGP.NoPrev");
+
+        var max = s.MaxMultiplier;
+        lblNext.text = target < max ?
+            loc.T("LV.LGP.NextCost", target + 1, sciences.CalculateScienceCost(target + 1)) :
+            loc.T("LV.LGP.NoNext");
     }
 
     private static void SetVisibility(VisualElement element, bool visible)
