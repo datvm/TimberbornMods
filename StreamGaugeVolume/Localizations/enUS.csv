@@ -1,0 +1,4 @@
+﻿ID,Text,Comment
+LV.SGV.Volume,"Volume: {0}",
+LV.SGV.CellsCount,"Counted in {0} blocks",
+LV.SGV.Measure,"Measure volume",

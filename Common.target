@@ -14,11 +14,13 @@
 		<Using Include="Bindito.Core"/>
 		<Using Include="ModSettings.Common"/>
 		<Using Include="ModSettings.Core"/>
+		<Using Include="Timberborn.Common"/>
 		<Using Include="Timberborn.Modding"/>
 		<Using Include="Timberborn.SettingsSystem"/>
 		<Using Include="Timberborn.SingletonSystem"/>
 		<Using Include="Timberborn.Localization"/>		
 		<Using Include="System.Collections.Immutable"/>
+		<Using Include="UnityEngine"/>
 
 		<None Update="manifest.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
