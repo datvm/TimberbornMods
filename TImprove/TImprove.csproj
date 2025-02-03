@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Common.target" />
+
+	<ItemGroup>
+		<Reference Include="Timberborn.TimeSystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.TimeSystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.SkySystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.SkySystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.CameraSystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.CameraSystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.TimeSystemUI">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.TimeSystemUI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.InputSystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.InputSystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.Debugging">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Debugging.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.HazardousWeatherSystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.HazardousWeatherSystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.KeyBindingSystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.KeyBindingSystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+
+		<Reference Include="Unity.InputSystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Unity.InputSystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.WeatherSystemUI">
+			<HintPath>Timberborn.WeatherSystemUI_Publicized.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		
+	</ItemGroup>
+
+</Project>
