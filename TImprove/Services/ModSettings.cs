@@ -10,13 +10,14 @@ public class ModSettings : ModSettingsOwner
     protected override string ModId => nameof(TImprove);
     public override ModSettingsContext ChangeableOn => ModSettingsContext.All;
 
-    ModSetting<bool>? enableFreeCamera, disableFog, allDayLight, showGameTime, enableSpeedS25, enableSpeed4, enableSpeed5, quickQuit, pauseBadWeather;
+    ModSetting<bool>? enableFreeCamera, disableFog, prioritizeRubbles, allDayLight, showGameTime, enableSpeedS25, enableSpeed4, enableSpeed5, quickQuit, pauseBadWeather;
     LimitedStringModSetting? allDayLightValue;
-    IEnumerable<ModSetting<bool>?> AllSettings => [enableFreeCamera, disableFog, allDayLight, showGameTime, enableSpeedS25, enableSpeed4, enableSpeed5, quickQuit, pauseBadWeather];
+    IEnumerable<ModSetting<bool>?> AllBoolSettings => [enableFreeCamera, disableFog, allDayLight, showGameTime, enableSpeedS25, enableSpeed4, enableSpeed5, quickQuit, pauseBadWeather, prioritizeRubbles];
 
     public bool EnableFreeCamera => enableFreeCamera?.Value == true;
     public bool DisableFog => disableFog?.Value == true;
     public bool PauseBadWeather => pauseBadWeather?.Value == true;
+    public bool PrioritizeRubbles => prioritizeRubbles?.Value == true;
 
     public bool AllDayLight => allDayLight?.Value == true;
     public string StaticDayLight => allDayLightValue?.Value ?? Lights[1];
@@ -45,6 +46,9 @@ public class ModSettings : ModSettingsOwner
         pauseBadWeather = new(false, ModSettingDescriptor
             .CreateLocalized("LV.TI.PauseBadWeather")
             .SetLocalizedTooltip("LV.TI.PauseBadWeatherDesc"));
+        prioritizeRubbles = new(false, ModSettingDescriptor
+            .CreateLocalized("LV.TI.PrioritizeRubbles")
+            .SetLocalizedTooltip("LV.TI.PrioritizeRubblesDesc"));
 
         allDayLight = new(false, ModSettingDescriptor
             .CreateLocalized("LV.TI.AllDayLight")
@@ -79,6 +83,7 @@ public class ModSettings : ModSettingsOwner
         AddCustomModSetting(enableFreeCamera, nameof(enableFreeCamera));
         AddCustomModSetting(disableFog, nameof(disableFog));
         AddCustomModSetting(pauseBadWeather, nameof(pauseBadWeather));
+        AddCustomModSetting(prioritizeRubbles, nameof(prioritizeRubbles));
 
         AddCustomModSetting(allDayLight, nameof(allDayLight));
         AddCustomModSetting(allDayLightValue, nameof(allDayLightValue));
@@ -91,7 +96,7 @@ public class ModSettings : ModSettingsOwner
 
         AddCustomModSetting(quickQuit, nameof(quickQuit));
 
-        foreach (var s in AllSettings)
+        foreach (var s in AllBoolSettings)
         {
             if (s is null) { continue; }
 
