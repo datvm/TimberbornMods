@@ -1,0 +1,17 @@
+{
+    "Name": "Stream Gauge Volume",
+    "Version": "1.0.0",
+    "Id": "StreamGaugeVolume",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "Measure the volume of the water body with Stream Gauge",
+    "RequiredMods": [
+        {
+            "Id": "eMka.ModSettings",
+            "MinimumVersion": "0.6.0.0"
+        },
+        {
+            "Id": "TimberApi",
+            "MinimumVersion": "0.7.8.0"
+        }
+    ]
+}
