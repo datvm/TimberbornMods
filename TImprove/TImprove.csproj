@@ -35,7 +35,19 @@
 			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.KeyBindingSystem.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
-
+		<Reference Include="Timberborn.RecoveredGoodSystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.RecoveredGoodSystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.BuilderPrioritySystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.BuilderPrioritySystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Timberborn.PrioritySystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.PrioritySystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		
 		<Reference Include="Unity.InputSystem">
 			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Unity.InputSystem.dll</HintPath>
 			<Private>False</Private>
