@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TImprove", "TImprove\TImpro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamGaugeVolume", "StreamGaugeVolume\StreamGaugeVolume.csproj", "{9A872ADF-1436-481B-BC4E-1B67FAFA1D6E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FasterUnderwaterMovement", "FasterUnderwaterMovement\FasterUnderwaterMovement.csproj", "{4D34882C-7FA2-4087-A8A2-8DBED00958FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{9A872ADF-1436-481B-BC4E-1B67FAFA1D6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A872ADF-1436-481B-BC4E-1B67FAFA1D6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A872ADF-1436-481B-BC4E-1B67FAFA1D6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D34882C-7FA2-4087-A8A2-8DBED00958FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D34882C-7FA2-4087-A8A2-8DBED00958FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D34882C-7FA2-4087-A8A2-8DBED00958FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D34882C-7FA2-4087-A8A2-8DBED00958FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

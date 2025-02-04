@@ -1,0 +1,13 @@
+{
+    "Name": "Faster Underwater Movement",
+    "Version": "1.0.0",
+    "Id": "FasterUnderwaterMovement",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "Beavers moves faster when swimming underwater",
+    "RequiredMods": [
+        {
+            "Id": "eMka.ModSettings",
+            "MinimumVersion": "0.6.0.0"
+        }
+    ]
+}
