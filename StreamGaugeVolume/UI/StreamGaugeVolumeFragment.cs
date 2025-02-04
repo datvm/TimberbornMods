@@ -35,18 +35,20 @@ public class StreamGaugeVolumeFragment(UIBuilder builder, ILoc loc) : IEntityPan
     {
         curr = entity.GetComponentFast<StreamGaugeVolumeComponent>();
 
-        SetVisibility(root, true);
+        SetVisibility(root, curr is not null);
     }
 
     public void UpdateFragment()
     {
+        if (curr is null) { return; }
+
         var volume = curr?.Volume;
         
         lblVolume.text = loc.T("LV.SGV.Volume", FormatVolume(volume?.Volume) ?? "N/A");
         lblCells.text = loc.T("LV.SGV.CellsCount", volume?.Cells.ToString() ?? "N/A");
     }
 
-    static string? FormatVolume(float? volume) => volume is null ? null : $"{volume:F2} m³";
+    static string? FormatVolume(float? volume) => volume is null ? null : $"{volume:F2} cm³";
 
     private static void SetVisibility(VisualElement element, bool visible)
     {
