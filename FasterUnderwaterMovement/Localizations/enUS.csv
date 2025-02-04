@@ -1,0 +1,3 @@
+ID,Text,Comment
+LV.FUM.SwimmingBonus,"Swimming speed bonus",
+LV.FUM.SwimmingBonusDesc,"The bonus speed for beavers moving in water. 0.5 means 50% faster than walking on land.",
