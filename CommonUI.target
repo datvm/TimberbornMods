@@ -3,15 +3,25 @@
 	<ItemGroup>
 		<Using Include="TimberApi.UIBuilderSystem" />
 		<Using Include="TimberApi.UIBuilderSystem.CustomElements" />
-		<Using Include="Timberborn.BaseComponentSystem" />
-		<Using Include="Timberborn.EntityPanelSystem" />
-		<Using Include="UnityEngine.UIElements" />
+		<Using Include="TimberApi.UIBuilderSystem.ElementBuilders" />
 		<Using Include="TimberApi.UIBuilderSystem" />
 		<Using Include="TimberApi.UIPresets.Builders" />
 		<Using Include="TimberApi.UIPresets.Buttons" />
 		<Using Include="TimberApi.UIPresets.Labels" />
-		<Using Include="Timberborn.CoreUI" />
 		
+		<Using Include="Timberborn.BaseComponentSystem" />
+		<Using Include="Timberborn.EntityPanelSystem" />
+		<Using Include="Timberborn.CoreUI" />
+		<Using Include="Timberborn.UILayoutSystem" />
+		
+		<Using Include="UnityEngine.UIElements" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Timberborn.UILayoutSystem">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.UILayoutSystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 	</ItemGroup>
 
 </Project>

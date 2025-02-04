@@ -10,14 +10,26 @@ public class ModSettings : ModSettingsOwner
     protected override string ModId => nameof(TImprove);
     public override ModSettingsContext ChangeableOn => ModSettingsContext.All;
 
-    ModSetting<bool>? enableFreeCamera, disableFog, prioritizeRubbles, allDayLight, showGameTime, enableSpeedS25, enableSpeed4, enableSpeed5, quickQuit, pauseBadWeather;
+    ModSetting<bool>? enableFreeCamera, disableFog, prioritizeRubbles, 
+
+        showCoords, onlyShowHeight,
+
+        showGameTime,
+        enableSpeedS25, enableSpeed4, enableSpeed5,
+        quickQuit,
+        pauseBadWeather;
+
+    ModSetting<bool>? allDayLight;
     LimitedStringModSetting? allDayLightValue;
-    IEnumerable<ModSetting<bool>?> AllBoolSettings => [enableFreeCamera, disableFog, allDayLight, showGameTime, enableSpeedS25, enableSpeed4, enableSpeed5, quickQuit, pauseBadWeather, prioritizeRubbles];
+    IEnumerable<ModSetting<bool>?> AllBoolSettings => [enableFreeCamera, disableFog, allDayLight, showGameTime, enableSpeedS25, enableSpeed4, enableSpeed5, quickQuit, pauseBadWeather, prioritizeRubbles, showCoords, onlyShowHeight];
 
     public bool EnableFreeCamera => enableFreeCamera?.Value == true;
     public bool DisableFog => disableFog?.Value == true;
     public bool PauseBadWeather => pauseBadWeather?.Value == true;
     public bool PrioritizeRubbles => prioritizeRubbles?.Value == true;
+
+    public bool ShowCoords => showCoords?.Value == true;
+    public bool OnlyShowHeight => onlyShowHeight?.Value == true;
 
     public bool AllDayLight => allDayLight?.Value == true;
     public string StaticDayLight => allDayLightValue?.Value ?? Lights[1];
@@ -49,6 +61,14 @@ public class ModSettings : ModSettingsOwner
         prioritizeRubbles = new(false, ModSettingDescriptor
             .CreateLocalized("LV.TI.PrioritizeRubbles")
             .SetLocalizedTooltip("LV.TI.PrioritizeRubblesDesc"));
+
+        showCoords = new(false, ModSettingDescriptor
+            .CreateLocalized("LV.TI.ShowCoords")
+            .SetLocalizedTooltip("LV.TI.ShowCoordsDesc"));
+        onlyShowHeight = new(true, ModSettingDescriptor
+            .CreateLocalized("LV.TI.OnlyShowHeight")
+            .SetLocalizedTooltip("LV.TI.OnlyShowHeightDesc")
+            .SetEnableCondition(() => showCoords.Value));
 
         allDayLight = new(false, ModSettingDescriptor
             .CreateLocalized("LV.TI.AllDayLight")
@@ -84,6 +104,9 @@ public class ModSettings : ModSettingsOwner
         AddCustomModSetting(disableFog, nameof(disableFog));
         AddCustomModSetting(pauseBadWeather, nameof(pauseBadWeather));
         AddCustomModSetting(prioritizeRubbles, nameof(prioritizeRubbles));
+
+        AddCustomModSetting(showCoords, nameof(showCoords));
+        AddCustomModSetting(onlyShowHeight, nameof(onlyShowHeight));
 
         AddCustomModSetting(allDayLight, nameof(allDayLight));
         AddCustomModSetting(allDayLightValue, nameof(allDayLightValue));
