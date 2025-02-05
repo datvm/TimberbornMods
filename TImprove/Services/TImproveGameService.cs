@@ -1,10 +1,11 @@
-﻿namespace TImprove.Services;
+﻿
+namespace TImprove.Services;
 
 public class TImproveGameService(
     Sun sun,
     CameraComponent cam,
     IDayNightCycle time,
-    ModSettings s,
+    MSettings s,
     IEnumerable<IDevModule> devMods,
     DatePanel datePanel,
     EventBus eventBus

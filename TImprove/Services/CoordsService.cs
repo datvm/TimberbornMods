@@ -1,6 +1,6 @@
 ﻿namespace TImprove.Services;
 
-public class CoordsService(ModSettings s, CoordsPanel panel, ILoc loc, InputService input, CursorCoordinatesPicker picker)
+public class CoordsService(MSettings s, CoordsPanel panel, ILoc loc, InputService input, CursorCoordinatesPicker picker)
     : IInputProcessor, ILoadableSingleton, IUnloadableSingleton
 {
     bool show, heightOnly;

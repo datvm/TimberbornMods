@@ -1,7 +1,10 @@
-﻿global using Timberborn.BuilderPrioritySystem;
+﻿global using Timberborn.BlockSystem;
+global using Timberborn.BuilderPrioritySystem;
 global using Timberborn.CameraSystem;
 global using Timberborn.CursorToolSystem;
 global using Timberborn.Debugging;
+global using Timberborn.DemolishingUI;
+global using Timberborn.EntitySystem;
 global using Timberborn.HazardousWeatherSystem;
 global using Timberborn.InputSystem;
 global using Timberborn.KeyBindingSystem;
@@ -14,3 +17,4 @@ global using Timberborn.WeatherSystemUI;
 global using TImprove.UI;
 global using UnityEngine.InputSystem;
 global using UnityEngine.UIElements;
+global using MSettings = TImprove.Services.ModSettings;

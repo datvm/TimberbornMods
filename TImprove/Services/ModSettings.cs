@@ -1,32 +1,41 @@
 ﻿namespace TImprove.Services;
 public class ModSettings : ModSettingsOwner
 {
-    public static ModSettings? Instance { get; private set; }
+    public static MSettings? Instance { get; private set; }
+
+    static readonly ImmutableList<FieldInfo> AllBoolSettings = typeof(MSettings).GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+        .Where(q => q.FieldType == typeof(ModSetting<bool>))
+        .ToImmutableList();
 
     public event Action OnSettingsChanged = delegate { };
 
     public static readonly string[] Lights = ["Sunrise", "Day", "Sunset", "Night"];
+    static readonly HashSet<string> DefaultTrues = [nameof(showGameTime), nameof(enableSpeed4)];
 
     protected override string ModId => nameof(TImprove);
     public override ModSettingsContext ChangeableOn => ModSettingsContext.All;
+    readonly IModSettingsContextProvider context;
 
-    ModSetting<bool>? enableFreeCamera, disableFog, prioritizeRubbles, 
+#pragma warning disable IDE0044, CS0649 // Actually set by Reflection
+    ModSetting<bool>? enableFreeCamera, disableFog, pauseBadWeather, prioritizeRubbles, autoClearDeadTrees,
 
         showCoords, onlyShowHeight,
 
+        allDayLight,
+
         showGameTime,
         enableSpeedS25, enableSpeed4, enableSpeed5,
-        quickQuit,
-        pauseBadWeather;
+        quickQuit;
+#pragma warning restore IDE0044, CS0649
 
-    ModSetting<bool>? allDayLight;
     LimitedStringModSetting? allDayLightValue;
-    IEnumerable<ModSetting<bool>?> AllBoolSettings => [enableFreeCamera, disableFog, allDayLight, showGameTime, enableSpeedS25, enableSpeed4, enableSpeed5, quickQuit, pauseBadWeather, prioritizeRubbles, showCoords, onlyShowHeight];
+    RangeIntModSetting? biggerBuildDragArea;
 
     public bool EnableFreeCamera => enableFreeCamera?.Value == true;
     public bool DisableFog => disableFog?.Value == true;
     public bool PauseBadWeather => pauseBadWeather?.Value == true;
     public bool PrioritizeRubbles => prioritizeRubbles?.Value == true;
+    public bool AutoClearDeadTrees => autoClearDeadTrees?.Value == true;
 
     public bool ShowCoords => showCoords?.Value == true;
     public bool OnlyShowHeight => onlyShowHeight?.Value == true;
@@ -41,38 +50,16 @@ public class ModSettings : ModSettingsOwner
     public bool EnableSpeed5 => enableSpeed5?.Value == true;
 
     public bool QuickQuit => quickQuit?.Value == true;
+    public static int BiggerBuildDragArea { get; private set; }
 
-    public ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : base(settings, modSettingsOwnerRegistry, modRepository)
+    public ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository, IModSettingsContextProvider context) : base(settings, modSettingsOwnerRegistry, modRepository)
     {
         Instance = this;
+        this.context = context;
     }
 
     protected override void OnAfterLoad()
     {
-        enableFreeCamera = new(false, ModSettingDescriptor
-            .CreateLocalized("LV.TI.EnableFreeCamera")
-            .SetLocalizedTooltip("LV.TI.EnableFreeCameraDesc"));
-        disableFog = new(false, ModSettingDescriptor
-            .CreateLocalized("LV.TI.DisableFog")
-            .SetLocalizedTooltip("LV.TI.DisableFogDesc"));
-        pauseBadWeather = new(false, ModSettingDescriptor
-            .CreateLocalized("LV.TI.PauseBadWeather")
-            .SetLocalizedTooltip("LV.TI.PauseBadWeatherDesc"));
-        prioritizeRubbles = new(false, ModSettingDescriptor
-            .CreateLocalized("LV.TI.PrioritizeRubbles")
-            .SetLocalizedTooltip("LV.TI.PrioritizeRubblesDesc"));
-
-        showCoords = new(false, ModSettingDescriptor
-            .CreateLocalized("LV.TI.ShowCoords")
-            .SetLocalizedTooltip("LV.TI.ShowCoordsDesc"));
-        onlyShowHeight = new(true, ModSettingDescriptor
-            .CreateLocalized("LV.TI.OnlyShowHeight")
-            .SetLocalizedTooltip("LV.TI.OnlyShowHeightDesc")
-            .SetEnableCondition(() => showCoords.Value));
-
-        allDayLight = new(false, ModSettingDescriptor
-            .CreateLocalized("LV.TI.AllDayLight")
-            .SetLocalizedTooltip("LV.TI.AllDayLightDesc"));
         allDayLightValue = new(1,
             Lights
                 .Select(q => new LimitedStringModSettingValue(q, $"LV.TI.Light{q}"))
@@ -80,52 +67,50 @@ public class ModSettings : ModSettingsOwner
             ModSettingDescriptor
                 .CreateLocalized("LV.TI.StaticLight")
                 .SetLocalizedTooltip("LV.TI.StaticLightDesc")
-                .SetEnableCondition(() => allDayLight.Value));
+                .SetEnableCondition(() => allDayLight!.Value));
 
-        showGameTime = new(true, ModSettingDescriptor
-            .CreateLocalized("LV.TI.ShowGameTime")
-            .SetLocalizedTooltip("LV.TI.ShowGameTimeDesc"));
+        biggerBuildDragArea = new(0, 0, 20, ModSettingDescriptor
+            .CreateLocalized("LV.TI.BiggerBuildDragArea")
+            .SetLocalizedTooltip("LV.TI.BiggerBuildDragAreaDesc")
+            .SetEnableCondition(() => context.Context == ModSettingsContext.MainMenu));
 
-        enableSpeedS25 = new(false, ModSettingDescriptor
-            .CreateLocalized("LV.TI.EnableSpeedS25")
-            .SetLocalizedTooltip("LV.TI.EnableSpeedS25Desc"));
-        enableSpeed4 = new(true, ModSettingDescriptor
-            .CreateLocalized("LV.TI.EnableSpeed4")
-            .SetLocalizedTooltip("LV.TI.EnableSpeed4Desc"));
-        enableSpeed5 = new(false, ModSettingDescriptor
-            .CreateLocalized("LV.TI.EnableSpeed5")
-            .SetLocalizedTooltip("LV.TI.EnableSpeed5Desc"));
-
-        quickQuit = new(false, ModSettingDescriptor
-            .CreateLocalized("LV.TI.QuickQuit")
-            .SetLocalizedTooltip("LV.TI.QuickQuitDesc"));
-
-        AddCustomModSetting(enableFreeCamera, nameof(enableFreeCamera));
-        AddCustomModSetting(disableFog, nameof(disableFog));
-        AddCustomModSetting(pauseBadWeather, nameof(pauseBadWeather));
-        AddCustomModSetting(prioritizeRubbles, nameof(prioritizeRubbles));
-
-        AddCustomModSetting(showCoords, nameof(showCoords));
-        AddCustomModSetting(onlyShowHeight, nameof(onlyShowHeight));
-
-        AddCustomModSetting(allDayLight, nameof(allDayLight));
-        AddCustomModSetting(allDayLightValue, nameof(allDayLightValue));
-
-        AddCustomModSetting(showGameTime, nameof(showGameTime));
-
-        AddCustomModSetting(enableSpeedS25, nameof(enableSpeedS25));
-        AddCustomModSetting(enableSpeed4, nameof(enableSpeed4));
-        AddCustomModSetting(enableSpeed5, nameof(enableSpeed5));
-
-        AddCustomModSetting(quickQuit, nameof(quickQuit));
-
-        foreach (var s in AllBoolSettings)
+        foreach (var item in AllBoolSettings)
         {
-            if (s is null) { continue; }
+            var locName= "LV.TI." + item.Name[0..1].ToUpper() + item.Name[1..];
+            var locDescName = locName + "Desc";
 
-            s.ValueChanged += (_, _) => OnSettingsChanged();
+            var f = new ModSetting<bool>(
+                DefaultTrues.Contains(item.Name),
+                ModSettingDescriptor
+                    .CreateLocalized(locName)
+                    .SetLocalizedTooltip(locDescName));
+
+            item.SetValue(this, f);
+
+            AddCustomModSetting(f, item.Name);
+
+            if (item.Name == nameof(allDayLight))
+            {
+                AddCustomModSetting(allDayLightValue, nameof(allDayLightValue));
+            }
+
+            f.ValueChanged += (_, _) => InternalOnSettingsChanged();
         }
-        allDayLightValue.ValueChanged += (_, _) => OnSettingsChanged();
+        AddCustomModSetting(biggerBuildDragArea, nameof(biggerBuildDragArea));
+
+        onlyShowHeight!.Descriptor.SetEnableCondition(() => showCoords!.Value);
+
+        allDayLightValue.ValueChanged += (_, _) => InternalOnSettingsChanged();
+        biggerBuildDragArea.ValueChanged += (_, _) => InternalOnSettingsChanged();
+
+        InternalOnSettingsChanged();
+    }
+
+    void InternalOnSettingsChanged()
+    {
+        OnSettingsChanged();
+
+        BiggerBuildDragArea = biggerBuildDragArea!.Value;
     }
 
 }
