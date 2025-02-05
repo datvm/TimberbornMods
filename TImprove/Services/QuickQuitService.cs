@@ -1,6 +1,6 @@
 ﻿namespace TImprove.Services;
 
-public class QuickQuitService(ModSettings s) : IUpdatableSingleton, ILoadableSingleton
+public class QuickQuitService(MSettings s) : IUpdatableSingleton, ILoadableSingleton
 {
     bool quickQuit;
 

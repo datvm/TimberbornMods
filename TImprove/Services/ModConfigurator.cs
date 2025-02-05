@@ -7,6 +7,7 @@ public class GameModConfigurator : IConfigurator
     public void Configure(IContainerDefinition containerDefinition)
     {
         containerDefinition.Bind<TImproveGameService>().AsSingleton();
+        containerDefinition.Bind<GameDepServices>().AsSingleton();
     }
 }
 
@@ -17,7 +18,7 @@ public class AllContextModConfigurator : IConfigurator
 {
     public void Configure(IContainerDefinition containerDefinition)
     {
-        containerDefinition.Bind<ModSettings>().AsSingleton();
+        containerDefinition.Bind<MSettings>().AsSingleton();
         containerDefinition.Bind<QuickQuitService>().AsSingleton();
     }
 }
