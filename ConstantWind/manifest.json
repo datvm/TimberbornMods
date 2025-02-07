@@ -1,6 +1,6 @@
 {
     "Name": "Constant Wind",
-    "Version": "1.1.0",
+    "Version": "7.0.0",
     "Id": "ConstantWind",
     "MinimumGameVersion": "0.6.0.0",
     "Description": "Wind strength does not change. Configurable.",

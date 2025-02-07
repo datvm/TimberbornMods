@@ -1,28 +1,19 @@
-﻿using ModSettings.Common;
-using ModSettings.Core;
-using System.Reflection;
-using Timberborn.Modding;
-using Timberborn.SettingsSystem;
-using Timberborn.SingletonSystem;
-using Timberborn.WindSystem;
+﻿using Timberborn.WindSystem;
 
 namespace ConstantWind;
 
-public class ModSettings : ModSettingsOwner, IUnloadableSingleton
+public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
 
     static readonly FieldInfo minWindStrength = typeof(WindService).GetField("MinWindStrength", BindingFlags.NonPublic | BindingFlags.Static);
     static readonly FieldInfo maxWindStrength = typeof(WindService).GetField("MaxWindStrength", BindingFlags.NonPublic | BindingFlags.Static);
-
+    
     readonly RangeIntModSetting windStrength = new(50, 0, 100,
         ModSettingDescriptor.CreateLocalized("CW.WindStrength")
             .SetLocalizedTooltip("CW.WindStrengthDesc"));
 
-    public ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : base(settings, modSettingsOwnerRegistry, modRepository)
-    {
-    }
-
     protected override string ModId => nameof(ConstantWind);
+    public override ModSettingsContext ChangeableOn => ModSettingsContext.All;
 
     protected override void OnAfterLoad()
     {
