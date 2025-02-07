@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConstantWind\ConstantWind.csproj" />
+    <ProjectReference Include="..\WaterSourcesDontCrash\WaterSourcesDontCrash.csproj" />
   </ItemGroup>
 
 </Project>
