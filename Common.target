@@ -10,7 +10,7 @@
 		<DebugType>none</DebugType>
 
 		<ModPath>E:\SteamLibrary\steamapps\workshop\content\1062090\</ModPath>
-		<TimberbornVersion>version-0.6</TimberbornVersion>
+		<TimberbornVersion>version-0.7</TimberbornVersion>
 		<AssemblyPath Condition="$(TimberbornVersion)=='version-0.6'">D:\Personal\Mods\Timberborn\U6Data\AuxiliaryFiles\GameAssemblies\</AssemblyPath>
 		<AssemblyPath Condition="$(TimberbornVersion)=='version-0.7'">D:\Personal\Mods\Timberborn\U7Data\AuxiliaryFiles\GameAssemblies\</AssemblyPath>
 	</PropertyGroup>
@@ -31,6 +31,16 @@
 		<Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(ModFolder)Localizations\%(RecursiveDir)" />
 	</Target>
 
+	<!-- Harmony -->
+	<ItemGroup>
+		<Using Include="HarmonyLib"/>
+
+		<Reference Include="0Harmony">
+			<HintPath>$(ModPath)3284904751\0Harmony.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+	</ItemGroup>
+
 	<ItemGroup>
 		<Using Include="System.Reflection" />
 		<Using Include="Timberborn.ModManagerScene"/>
@@ -42,7 +52,7 @@
 		<Using Include="Timberborn.Modding"/>
 		<Using Include="Timberborn.SettingsSystem"/>
 		<Using Include="Timberborn.SingletonSystem"/>
-		<Using Include="Timberborn.Localization"/>		
+		<Using Include="Timberborn.Localization"/>
 		<Using Include="System.Collections.Immutable"/>
 		<Using Include="UnityEngine"/>
 
@@ -109,7 +119,7 @@
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>
-	
+
 	<ItemGroup>
 		<Reference Include="System.Collections.Immutable">
 			<HintPath>$(AssemblyPath)System.Collections.Immutable.dll</HintPath>
@@ -122,7 +132,7 @@
 		<Reference Include="Timberborn.Localization">
 			<HintPath>$(AssemblyPath)Timberborn.Localization.dll</HintPath>
 			<Private>False</Private>
-		</Reference>		
+		</Reference>
 
 		<Reference Include="Bindito.Core">
 			<HintPath>$(AssemblyPath)Bindito.Core.dll</HintPath>
@@ -132,7 +142,7 @@
 			<HintPath>$(AssemblyPath)Bindito.Unity.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
-		
+
 		<Reference Include="Timberborn.Common">
 			<HintPath>$(AssemblyPath)Timberborn.Common.dll</HintPath>
 			<Private>False</Private>
@@ -187,7 +197,7 @@
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>
-	
 
-	
+
+
 </Project>
