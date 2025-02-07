@@ -1,0 +1,7 @@
+﻿ID,Text,Comment
+LV.TAT.UnlimitedMapSize,"Unlimited map size",
+LV.TAT.UnlimitedMapSizeDesc,"Remove the default map size limit of 256x256",
+LV.TAT.GameToMap,"Save game as map",
+LV.TAT.GameToMapDesc,"Allow using your normal game to be saved into maps. The buttons will show up on the top-left corner when you play the game. You can also upload that map to Steam Workshop. NOT in Map Editor.",
+LV.TAT.LockOnSaveMap,"  Revert unlocking buildings",
+LV.TAT.LockOnSaveMapDesc,"When saving a map, revert the buildings to their original locked state. You may have unlocked them while making the map. If you do not check this, the buildings will remain unlocked for players starting a new game.",

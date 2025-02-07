@@ -1,0 +1,17 @@
+{
+    "Name": "The Architect's Toolkit",
+    "Version": "1.0.0",
+    "Id": "TheArchitectsToolkit",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "Various tools for Map Creators",
+    "RequiredMods": [
+        {
+            "Id": "eMka.ModSettings",
+            "MinimumVersion": "0.6.0.0"
+        },
+        {
+            "Id": "Harmony",
+            "MinimumVersion": "0.6.0.0"
+        }
+    ]
+}

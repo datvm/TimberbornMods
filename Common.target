@@ -5,13 +5,33 @@
 		<LangVersion>latest</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+
+		<DebugSymbols>false</DebugSymbols>
+		<DebugType>none</DebugType>
 	</PropertyGroup>
+
+	<Target Name="CopyFiles" AfterTargets="Build">
+		<PropertyGroup>
+			<ModFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\Tmp\</ModFolder>
+			<DllName>$(AssemblyName).dll</DllName>
+		</PropertyGroup>
+
+		<ItemGroup>
+			<LocalizationFiles Include="$(OutputPath)Localizations\**\*.*" />
+		</ItemGroup>
+
+		<Message Text="Copying..." />
+		<Copy SourceFiles="$(OutputPath)manifest.json" DestinationFolder="$(ModFolder)" />
+		<Copy SourceFiles="$(OutputPath)$(DllName)" DestinationFolder="$(ModFolder)" />
+		<Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(ModFolder)Localizations\%(RecursiveDir)" />
+	</Target>
 
 	<ItemGroup>
 		<Using Include="System.Reflection" />
 		<Using Include="HarmonyLib"/>
 		<Using Include="Timberborn.ModManagerScene"/>
 		<Using Include="Bindito.Core"/>
+		<Using Include="Bindito.Unity"/>
 		<Using Include="ModSettings.Common"/>
 		<Using Include="ModSettings.Core"/>
 		<Using Include="Timberborn.Common"/>
@@ -107,6 +127,11 @@
 			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Bindito.Core.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+		<Reference Include="Bindito.Unity">
+			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Bindito.Unity.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		
 		<Reference Include="Timberborn.Common">
 			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Common.dll</HintPath>
 			<Private>False</Private>
@@ -161,4 +186,7 @@
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>
+	
+
+	
 </Project>
