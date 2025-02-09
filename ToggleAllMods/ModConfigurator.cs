@@ -1,6 +1,4 @@
-﻿using Bindito.Core;
-
-namespace ToggleAllMods;
+﻿namespace ToggleAllMods;
 [Context("MainMenu")]
 public class ModConfigurator : IConfigurator
 {

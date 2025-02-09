@@ -1,9 +1,4 @@
-﻿using ModSettings.Core;
-using Timberborn.Modding;
-using Timberborn.SettingsSystem;
-using Timberborn.SingletonSystem;
-
-namespace ToggleAllMods;
+﻿namespace ToggleAllMods;
 internal class ModSettings(
     ISettings settings,
     ModSettingsOwnerRegistry modSettingsOwnerRegistry,
@@ -15,9 +10,9 @@ internal class ModSettings(
     ModSetting<bool>? enableAll, disableAll;
     ModSetting<string>? keepEnabled;
 
-    protected override string ModId => nameof(ToggleAllMods);
+    public override string ModId => nameof(ToggleAllMods);
 
-    protected override void OnAfterLoad()
+    public override void OnAfterLoad()
     {
         enableAll = new(
             false,
