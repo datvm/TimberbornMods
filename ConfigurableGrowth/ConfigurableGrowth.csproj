@@ -2,31 +2,4 @@
 
 	<Import Project="../Common.target" />
 
-	<ItemGroup>
-		<Reference Include="Timberborn.Growing">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Growing.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.GrowingUI">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.GrowingUI.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.Cutting">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Cutting.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.Gathering">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Gathering.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.Yielding">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Yielding.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.Goods">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Goods.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-	</ItemGroup>
-
 </Project>

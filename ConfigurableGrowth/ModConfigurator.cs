@@ -1,6 +1,7 @@
 ﻿namespace ConfigurableGrowth;
 
 [Context("MainMenu")]
+[Context("Game")]
 public class ModConfigurator : IConfigurator
 {
     public void Configure(IContainerDefinition containerDefinition)

@@ -10,9 +10,9 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
 
     ModSetting<float>? treeRate, cropRate, gatherableRate;
 
-    protected override string ModId => nameof(ConfigurableGrowth);
+    public override string ModId => nameof(ConfigurableGrowth);
 
-    protected override void OnAfterLoad()
+    public override void OnAfterLoad()
     {
         treeRate = new ModSetting<float>(
             2,
@@ -35,6 +35,10 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
         AddCustomModSetting(treeRate, nameof(TreeGrowthRate));
         AddCustomModSetting(cropRate, nameof(CropGrowthRate));
         AddCustomModSetting(gatherableRate, nameof(GatherableGrowthRate));
+
+        treeRate.ValueChanged += (_, _) => UpdateValues();
+        cropRate.ValueChanged += (_, _) => UpdateValues();
+        gatherableRate.ValueChanged += (_, _) => UpdateValues();
 
         UpdateValues();
     }
