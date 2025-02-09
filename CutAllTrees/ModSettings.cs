@@ -1,12 +1,8 @@
-﻿using ModSettings.Core;
-using Timberborn.Modding;
-using Timberborn.SettingsSystem;
-
-namespace CutAllTrees;
+﻿namespace CutAllTrees;
 
 public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository)
 {
-    protected override string ModId => "MarkAllTrees"; // Do not use nameof for this project
+    public override string ModId => "MarkAllTrees"; // Do not use nameof for this project
     
     ModSetting<bool>? enabled, alwaysEnabled;
 
@@ -23,7 +19,7 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
         }
     }
 
-    protected override void OnAfterLoad()
+    public override void OnAfterLoad()
     {
         enabled = new(true, ModSettingDescriptor
             .CreateLocalized("CAT.Enabled")

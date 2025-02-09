@@ -1,6 +1,4 @@
-﻿using Bindito.Core;
-
-namespace CutAllTrees;
+﻿namespace CutAllTrees;
 
 [Context("MainMenu")]
 public class MainMenuModConfigurator : IConfigurator
