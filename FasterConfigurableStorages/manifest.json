@@ -1,6 +1,6 @@
 {
     "Name": "Faster Configurable Storages",
-    "Version": "1.0.0",
+    "Version": "7.0.0",
     "Id": "FasterConfigurableStorages",
     "MinimumGameVersion": "0.6.0.0",
     "Description": "Multiply the capacity of all storage buildings: piles, warehouses and tanks.",
