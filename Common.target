@@ -63,6 +63,7 @@
 		<Using Include="Timberborn.SettingsSystem"/>
 		<Using Include="Timberborn.SingletonSystem"/>
 		<Using Include="Timberborn.Localization"/>
+		<Using Include="Timberborn.Persistence"/>
 		<Using Include="System.Collections.Immutable"/>
 		<Using Include="UnityEngine"/>
 

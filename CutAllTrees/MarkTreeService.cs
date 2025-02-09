@@ -1,8 +1,6 @@
 ﻿global using Timberborn.Forestry;
 global using Timberborn.SingletonSystem;
-using Timberborn.Persistence;
-using Timberborn.TerrainSystem;
-using UnityEngine;
+global using Timberborn.TerrainSystem;
 
 namespace CutAllTrees;
 
@@ -43,10 +41,19 @@ public class MarkTreeService(
         {
             for (int y = 0; y < size.y; y++)
             {
+#if TIMBER6
                 if (terrain.TryGetCellHeight(new(x, y), out var h))
                 {
                     coords.Add(new(x, y, h));
                 }
+#elif TIMBER7
+                var heights = terrain.GetAllHeightsInCell(new(x, y));
+                
+                foreach (var ground in heights)
+                {
+                    coords.Add(ground);
+                }
+#endif
             }
         }
 
