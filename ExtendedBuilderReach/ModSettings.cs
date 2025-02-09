@@ -1,13 +1,8 @@
-﻿using ModSettings.Common;
-using ModSettings.Core;
-using Timberborn.Modding;
-using Timberborn.SettingsSystem;
-
-namespace ExtendedBuilderReach;
+﻿namespace ExtendedBuilderReach;
 public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository)
 {
 
-    protected override string ModId => nameof(ExtendedBuilderReach);
+    public override string ModId => nameof(ExtendedBuilderReach);
 
     static ModSetting<bool>? unlimitedAbove, unlimitedBelow;
     static RangeIntModSetting? rangeAbove, rangeBelow;
@@ -17,7 +12,7 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
     public static int RangeAbove => rangeAbove?.Value ?? 1;
     public static int RangeBelow => rangeBelow?.Value ?? 1;
 
-    protected override void OnAfterLoad()
+    public override void OnAfterLoad()
     {
         unlimitedAbove = new(false, ModSettingDescriptor
             .CreateLocalized("EBR.UnlimitedAbove")

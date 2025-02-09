@@ -1,8 +1,4 @@
-﻿using HarmonyLib;
-using Timberborn.ModManagerScene;
-
-namespace ExtendedBuilderReach;
-
+﻿namespace ExtendedBuilderReach;
 
 public class ModStarter : IModStarter
 {

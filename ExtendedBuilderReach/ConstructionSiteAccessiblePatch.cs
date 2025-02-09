@@ -1,5 +1,4 @@
-﻿using HarmonyLib;
-using Timberborn.BlockSystem;
+﻿using Timberborn.BlockSystem;
 using Timberborn.BuildingsNavigation;
 
 namespace ExtendedBuilderReach;
