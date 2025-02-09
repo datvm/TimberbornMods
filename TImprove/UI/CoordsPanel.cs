@@ -1,5 +1,6 @@
 ﻿namespace TImprove.UI;
 
+#if TIMBER6
 public class CoordsPanel(UILayout layout, UIBuilder builder) : ILoadableSingleton
 {
     NineSliceVisualElement? panel;
@@ -44,3 +45,4 @@ public class CoordsPanel(UILayout layout, UIBuilder builder) : ILoadableSingleto
     }
 
 }
+#endif

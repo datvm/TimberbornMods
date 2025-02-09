@@ -2,11 +2,4 @@
 
 	<Import Project="../Common.target" />
 
-	<ItemGroup>
-		<Reference Include="Timberborn.BlockSystem">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.BlockSystem.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-	</ItemGroup>
-
 </Project>

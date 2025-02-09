@@ -1,6 +1,12 @@
 ﻿namespace TImprove.Services;
 
-public class CoordsService(MSettings s, CoordsPanel panel, ILoc loc, InputService input, CursorCoordinatesPicker picker)
+#if TIMBER6
+public class CoordsService(
+    MSettings s,
+    CoordsPanel panel,
+    ILoc loc,
+    InputService input,
+    CursorCoordinatesPicker picker)
     : IInputProcessor, ILoadableSingleton, IUnloadableSingleton
 {
     bool show, heightOnly;
@@ -30,7 +36,7 @@ public class CoordsService(MSettings s, CoordsPanel panel, ILoc loc, InputServic
         if (coords.HasValue)
         {
             var c = coords.Value;
-            
+
             if (heightOnly)
             {
                 text = loc.T("LV.TI.HeightLabel",
@@ -58,3 +64,4 @@ public class CoordsService(MSettings s, CoordsPanel panel, ILoc loc, InputServic
         input.RemoveInputProcessor(this);
     }
 }
+#endif

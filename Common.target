@@ -10,9 +10,19 @@
 		<DebugType>none</DebugType>
 
 		<ModPath>E:\SteamLibrary\steamapps\workshop\content\1062090\</ModPath>
+		
 		<TimberbornVersion>version-0.7</TimberbornVersion>
-		<AssemblyPath Condition="$(TimberbornVersion)=='version-0.6'">D:\Personal\Mods\Timberborn\U6Data\AuxiliaryFiles\GameAssemblies\</AssemblyPath>
-		<AssemblyPath Condition="$(TimberbornVersion)=='version-0.7'">D:\Personal\Mods\Timberborn\U7Data\AuxiliaryFiles\GameAssemblies\</AssemblyPath>
+		<IsU6>false</IsU6>
+		<IsU7>false</IsU7>
+
+		<IsU6 Condition="$(TimberbornVersion)=='version-0.6'">true</IsU6>
+		<IsU7 Condition="$(TimberbornVersion)=='version-0.7'">true</IsU7>
+		
+		<AssemblyPath Condition="$(IsU6)">D:\Personal\Mods\Timberborn\U6Data\AuxiliaryFiles\GameAssemblies\</AssemblyPath>
+		<AssemblyPath Condition="$(IsU7)">D:\Personal\Mods\Timberborn\U7Data\AuxiliaryFiles\GameAssemblies\</AssemblyPath>
+
+		<DefineConstants Condition="$(IsU6)">TIMBER6</DefineConstants>
+		<DefineConstants Condition="$(IsU7)">TIMBER7</DefineConstants>
 	</PropertyGroup>
 
 	<Target Name="CopyFiles" AfterTargets="Build">
@@ -65,139 +75,44 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<!-- Timber API -->
-		<Reference Include="TimberApi">
-			<HintPath>$(ModPath)3288241660\core\TimberApi.dll</HintPath>
+		<!-- Publicizer -->
+		<PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+
+		<!-- Game Assemblies -->
+		<Reference Include="$(AssemblyPath)\Unity*.dll" Publicize="true">
+			<DestinationSubDirectory>libs/</DestinationSubDirectory>
 			<Private>False</Private>
 		</Reference>
-		<Reference Include="TimberApi.UIBuilderSystem">
-			<HintPath>$(ModPath)3288241660\core\TimberApi.UIBuilderSystem.dll</HintPath>
+		<Reference Include="$(AssemblyPath)\Timberborn.*.dll" Publicize="true">
+			<DestinationSubDirectory>libs/</DestinationSubDirectory>
 			<Private>False</Private>
 		</Reference>
-		<Reference Include="TimberApi.UIPresets">
-			<HintPath>$(ModPath)3288241660\core\TimberApi.UIPresets.dll</HintPath>
+		<Reference Include="$(AssemblyPath)\Bindito.*.dll" Publicize="true">
+			<DestinationSubDirectory>libs/</DestinationSubDirectory>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="$(AssemblyPath)\System.Collections.Immutable.dll">
 			<Private>False</Private>
 		</Reference>
 
 		<!-- Mod Settings -->
+		<Reference Include="$(ModPath)3283831040\$(TimberbornVersion)\Scripts\ModSettings.*.dll" Publicize="true">
+			<DestinationSubDirectory>libs/</DestinationSubDirectory>
+			<Private>False</Private>
+		</Reference>
 
-
-		<Reference Include="ModSettings.ColorPicker">
-			<HintPath>$(ModPath)3283831040\$(TimberbornVersion)\Scripts\ModSettings.ColorPicker.dll</HintPath>
+		<!-- Timber API -->
+		<Reference Condition="$(IsU6)" Include="$(ModPath)3288241660\core\TimberApi.dll" Publicize="true">
+			<DestinationSubDirectory>libs/</DestinationSubDirectory>
 			<Private>False</Private>
 		</Reference>
-		<Reference Include="ModSettings.Common">
-			<HintPath>$(ModPath)3283831040\$(TimberbornVersion)\Scripts\ModSettings.Common.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="ModSettings.CommonUI">
-			<HintPath>$(ModPath)3283831040\$(TimberbornVersion)\Scripts\ModSettings.CommonUI.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="ModSettings.Core">
-			<HintPath>$(ModPath)3283831040\$(TimberbornVersion)\Scripts\ModSettings.Core.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="ModSettings.CoreUI">
-			<HintPath>$(ModPath)3283831040\$(TimberbornVersion)\Scripts\ModSettings.CoreUI.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="ModSettings.GameUI">
-			<HintPath>$(ModPath)3283831040\$(TimberbornVersion)\Scripts\ModSettings.GameUI.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="ModSettings.MainMenuUI">
-			<HintPath>$(ModPath)3283831040\$(TimberbornVersion)\Scripts\ModSettings.MainMenuUI.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="ModSettings.MapEditorUI">
-			<HintPath>$(ModPath)3283831040\$(TimberbornVersion)\Scripts\ModSettings.MapEditorUI.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="ModSettings.ModManager">
-			<HintPath>$(ModPath)3283831040\$(TimberbornVersion)\Scripts\ModSettings.ModManager.dll</HintPath>
+		<Reference Condition="$(IsU6)" Include="$(ModPath)3288241660\core\TimberApi.*.dll" Publicize="true">
+			<DestinationSubDirectory>libs/</DestinationSubDirectory>
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>
-
-	<ItemGroup>
-		<Reference Include="System.Collections.Immutable">
-			<HintPath>$(AssemblyPath)System.Collections.Immutable.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.ModManagerScene">
-			<HintPath>$(AssemblyPath)Timberborn.ModManagerScene.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.Localization">
-			<HintPath>$(AssemblyPath)Timberborn.Localization.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-
-		<Reference Include="Bindito.Core">
-			<HintPath>$(AssemblyPath)Bindito.Core.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Bindito.Unity">
-			<HintPath>$(AssemblyPath)Bindito.Unity.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-
-		<Reference Include="Timberborn.Common">
-			<HintPath>$(AssemblyPath)Timberborn.Common.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.CoreUI">
-			<HintPath>$(AssemblyPath)Timberborn.CoreUI.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.EntityPanelSystem">
-			<HintPath>$(AssemblyPath)Timberborn.EntityPanelSystem.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.TemplateSystem">
-			<HintPath>$(AssemblyPath)Timberborn.TemplateSystem.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.AssetSystem">
-			<HintPath>$(AssemblyPath)Timberborn.AssetSystem.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-
-		<Reference Include="Timberborn.Modding">
-			<HintPath>$(AssemblyPath)Timberborn.Modding.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.BaseComponentSystem">
-			<HintPath>$(AssemblyPath)Timberborn.BaseComponentSystem.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.SettingsSystem">
-			<HintPath>$(AssemblyPath)Timberborn.SettingsSystem.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.SingletonSystem">
-			<HintPath>$(AssemblyPath)Timberborn.SingletonSystem.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.TickSystem">
-			<HintPath>$(AssemblyPath)Timberborn.TickSystem.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="UnityEngine">
-			<HintPath>$(AssemblyPath)UnityEngine.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="UnityEngine.CoreModule">
-			<HintPath>$(AssemblyPath)UnityEngine.CoreModule.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="UnityEngine.UIElementsModule">
-			<HintPath>$(AssemblyPath)UnityEngine.UIElementsModule.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-	</ItemGroup>
-
-
 
 </Project>
