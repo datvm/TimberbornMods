@@ -12,4 +12,4 @@ CBW.BaseBotWalkingSpeedDesc,"The base walking speed of bots (Game default: 2.7)"
 CBW.BaseBotSlowedSpeed,Base slowed speed for bots,
 CBW.BaseBotSlowedSpeedDesc,"The base slowed speed of bots (Game default: 1.5)",
 CBW.CarryingWeightMultiplier,Carrying weight multiplier,
-CBW.CarryingWeightMultiplierDesc,"The multiplier for max carrying weight of beavers and bots (Game default: 1)",
+CBW.CarryingWeightMultiplierDesc,"The multiplier for max carrying weight of beavers and bots (Game default: 1). Note: does not take effect until reloading a save.",

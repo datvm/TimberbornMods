@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\TImprove\TImprove.csproj" />
+		<ProjectReference Include="..\ConfigurableBeaverWalk\ConfigurableBeaverWalk.csproj" />
 	</ItemGroup>
 
 </Project>
