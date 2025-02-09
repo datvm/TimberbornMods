@@ -1,6 +1,6 @@
 {
     "Name": "No more Ground-only",
-    "Version": "7.0.1",
+    "Version": "7.0.2",
     "Id": "NoMoreGroundOnly",
     "MinimumGameVersion": "0.6.0.0",
     "Description": "Make Water Sources on Overhang from U6 maps not crash the game",

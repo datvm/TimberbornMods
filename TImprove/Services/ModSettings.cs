@@ -12,7 +12,7 @@ public class ModSettings : ModSettingsOwner
     public static readonly string[] Lights = ["Sunrise", "Day", "Sunset", "Night"];
     static readonly HashSet<string> DefaultTrues = [nameof(showGameTime), nameof(enableSpeed4)];
 
-    protected override string ModId => nameof(TImprove);
+    public override string ModId => nameof(TImprove);
     public override ModSettingsContext ChangeableOn => ModSettingsContext.All;
     readonly IModSettingsContextProvider context;
 
@@ -58,7 +58,7 @@ public class ModSettings : ModSettingsOwner
         this.context = context;
     }
 
-    protected override void OnAfterLoad()
+    public override void OnAfterLoad()
     {
         allDayLightValue = new(1,
             Lights
@@ -76,7 +76,7 @@ public class ModSettings : ModSettingsOwner
 
         foreach (var item in AllBoolSettings)
         {
-            var locName= "LV.TI." + item.Name[0..1].ToUpper() + item.Name[1..];
+            var locName = "LV.TI." + item.Name[0..1].ToUpper() + item.Name[1..];
             var locDescName = locName + "Desc";
 
             var f = new ModSetting<bool>(
@@ -99,6 +99,13 @@ public class ModSettings : ModSettingsOwner
         AddCustomModSetting(biggerBuildDragArea, nameof(biggerBuildDragArea));
 
         onlyShowHeight!.Descriptor.SetEnableCondition(() => showCoords!.Value);
+        showCoords!.Descriptor.SetEnableCondition(() =>
+#if TIMBER6
+        true
+#elif TIMBER7
+        false
+#endif
+            );
 
         allDayLightValue.ValueChanged += (_, _) => InternalOnSettingsChanged();
         biggerBuildDragArea.ValueChanged += (_, _) => InternalOnSettingsChanged();

@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<ItemGroup>
+	<ItemGroup  Condition="$(IsU6)">
 		<Using Include="TimberApi.UIBuilderSystem" />
 		<Using Include="TimberApi.UIBuilderSystem.CustomElements" />
 		<Using Include="TimberApi.UIBuilderSystem.ElementBuilders" />
@@ -8,20 +8,15 @@
 		<Using Include="TimberApi.UIPresets.Builders" />
 		<Using Include="TimberApi.UIPresets.Buttons" />
 		<Using Include="TimberApi.UIPresets.Labels" />
-		
+	</ItemGroup>
+
+	<ItemGroup>
 		<Using Include="Timberborn.BaseComponentSystem" />
 		<Using Include="Timberborn.EntityPanelSystem" />
 		<Using Include="Timberborn.CoreUI" />
 		<Using Include="Timberborn.UILayoutSystem" />
-		
-		<Using Include="UnityEngine.UIElements" />
-	</ItemGroup>
 
-	<ItemGroup>
-		<Reference Include="Timberborn.UILayoutSystem">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.UILayoutSystem.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
+		<Using Include="UnityEngine.UIElements" />
 	</ItemGroup>
 
 </Project>

@@ -3,7 +3,11 @@ namespace TImprove.Services;
 
 public class TImproveGameService(
     Sun sun,
+#if TIMBER6
     CameraComponent cam,
+#elif TIMBER7
+    CameraService cam,
+#endif
     IDayNightCycle time,
     MSettings s,
     IEnumerable<IDevModule> devMods,
@@ -43,7 +47,7 @@ public class TImproveGameService(
         sun.Fog = !s.DisableFog;
         cam.FreeMode = s.EnableFreeCamera;
 
-        sun.Update();
+        sun.UpdateSingleton();
     }
 
     [OnEvent]
