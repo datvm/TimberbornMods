@@ -2,19 +2,4 @@
 
 	<Import Project="../Common.target" />
 
-	<ItemGroup>
-		<Reference Include="Timberborn.Bots">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Bots.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.Carrying">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Carrying.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.WalkingSystem">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.WalkingSystem.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-	</ItemGroup>
-	
 </Project>

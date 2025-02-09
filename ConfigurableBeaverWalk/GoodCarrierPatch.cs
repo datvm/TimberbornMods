@@ -1,5 +1,4 @@
-﻿using HarmonyLib;
-using Timberborn.Carrying;
+﻿using Timberborn.Carrying;
 
 namespace ConfigurableBeaverWalk;
 

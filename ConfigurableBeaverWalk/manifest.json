@@ -1,6 +1,6 @@
 {
     "Name": "Configurable Beaver Stats",
-    "Version": "1.3.0",
+    "Version": "7.0.0",
     "Id": "ConfigurableBeaverWalk",
     "MinimumGameVersion": "0.6.0.0",
     "Description": "Change the walking speed and carrying capacity of beavers, optionally different speed for bots.",

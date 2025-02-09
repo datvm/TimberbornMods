@@ -1,101 +1,105 @@
-using ModSettings.Common;
-using ModSettings.Core;
-using Timberborn.Modding;
-using Timberborn.SingletonSystem;
+namespace ConfigurableBeaverWalk;
 
-namespace ConfigurableBeaverWalk
+public class ModSettings(
+        ISettings settings,
+        ModSettingsOwnerRegistry modSettingsOwnerRegistry,
+        ModRepository modRepository
+) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
-    public class ModSettings(
-            Timberborn.SettingsSystem.ISettings settings,
-            ModSettingsOwnerRegistry modSettingsOwnerRegistry,
-            ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
+    public override string ModId => nameof(ConfigurableBeaverWalk);
+    public override ModSettingsContext ChangeableOn => ModSettingsContext.All;
+
+    public static bool ChangeWalkingSpeed { get; private set; }
+
+    public static float BaseWalkingSpeed { get; private set; }
+    public static float BaseSlowedSpeed { get; private set; }
+
+    public static bool DifferentForBots { get; private set; }
+    public static float BaseBotWalkingSpeed { get; private set; }
+    public static float BaseBotSlowedSpeed { get; private set; }
+
+    public static float CarryingWeightMultiplier { get; private set; } = 1;
+
+    RangeIntModSetting? baseWalkingSpeed, baseSlowedSpeed, baseBotWalkingSpeed, baseBotSlowedSpeed;
+    ModSetting<float>? carryingWeightMultiplier;
+    ModSetting<bool>? changeWalkingSpeed, differentBotSpeed;
+
+    public override void OnAfterLoad()
     {
-        protected override string ModId => nameof(ConfigurableBeaverWalk);
+        base.OnAfterLoad();
 
-        public static bool ChangeWalkingSpeed { get; private set; }
+        changeWalkingSpeed = new(
+            true,
+            ModSettingDescriptor.CreateLocalized("CBW.ChangeWalkingSpeed")
+                .SetLocalizedTooltip("CBW.ChangeWalkingSpeedDesc"));
 
-        public static float BaseWalkingSpeed { get; private set; }
-        public static float BaseSlowedSpeed { get; private set; }
+        baseWalkingSpeed = new(
+            6, 0, 100,
+            ModSettingDescriptor.CreateLocalized("CBW.BaseWalkingSpeed")
+                .SetLocalizedTooltip("CBW.BaseWalkingSpeedDesc")
+                .SetEnableCondition(() => changeWalkingSpeed.Value));
 
-        public static bool DifferentForBots { get; private set; }
-        public static float BaseBotWalkingSpeed { get; private set; }
-        public static float BaseBotSlowedSpeed { get; private set; }
+        baseSlowedSpeed = new(
+            4, 0, 100,
+            ModSettingDescriptor.CreateLocalized("CBW.BaseSlowedSpeed")
+                .SetLocalizedTooltip("CBW.BaseSlowedSpeedDesc")
+                .SetEnableCondition(() => changeWalkingSpeed.Value));
 
-        public static float CarryingWeightMultiplier { get; private set; } = 1;
+        differentBotSpeed = new(
+            false,
+            ModSettingDescriptor.CreateLocalized("CBW.DifferentBotSpeed")
+                .SetLocalizedTooltip("CBW.DifferentBotSpeedDesc")
+                .SetEnableCondition(() => changeWalkingSpeed.Value));
 
-        RangeIntModSetting? baseWalkingSpeed, baseSlowedSpeed, baseBotWalkingSpeed, baseBotSlowedSpeed;
-        ModSetting<float>? carryingWeightMultiplier;
-        ModSetting<bool>? changeWalkingSpeed, differentBotSpeed;
+        baseBotWalkingSpeed = new(
+            6, 0, 100,
+            ModSettingDescriptor.CreateLocalized("CBW.BaseBotWalkingSpeed")
+                .SetLocalizedTooltip("CBW.BaseBotWalkingSpeedDesc")
+                .SetEnableCondition(() => changeWalkingSpeed.Value && differentBotSpeed.Value));
 
-        protected override void OnAfterLoad()
-        {
-            base.OnAfterLoad();
+        baseBotSlowedSpeed = new(
+            4, 0, 100,
+            ModSettingDescriptor.CreateLocalized("CBW.BaseBotSlowedSpeed")
+                .SetLocalizedTooltip("CBW.BaseBotSlowedSpeedDesc")
+                .SetEnableCondition(() => changeWalkingSpeed.Value && differentBotSpeed.Value));
 
-            changeWalkingSpeed = new(
-                true,
-                ModSettingDescriptor.CreateLocalized("CBW.ChangeWalkingSpeed")
-                    .SetLocalizedTooltip("CBW.ChangeWalkingSpeedDesc"));
+        carryingWeightMultiplier = new(
+            1,
+            ModSettingDescriptor.CreateLocalized("CBW.CarryingWeightMultiplier")
+                .SetLocalizedTooltip("CBW.CarryingWeightMultiplierDesc"));
 
-            baseWalkingSpeed = new(
-                6, 0, 100,
-                ModSettingDescriptor.CreateLocalized("CBW.BaseWalkingSpeed")
-                    .SetLocalizedTooltip("CBW.BaseWalkingSpeedDesc")
-                    .SetEnableCondition(() => changeWalkingSpeed.Value));
+        AddCustomModSetting(changeWalkingSpeed, "beaver_change_walking_speed");
+        AddCustomModSetting(baseWalkingSpeed, "beaver_base_walking_speed");
+        AddCustomModSetting(baseSlowedSpeed, "beaver_base_slowed_speed");
+        AddCustomModSetting(differentBotSpeed, "beaver_different_bot_speed");
+        AddCustomModSetting(baseBotWalkingSpeed, "beaver_base_bot_walking_speed");
+        AddCustomModSetting(baseBotSlowedSpeed, "beaver_base_bot_slowed_speed");
+        AddCustomModSetting(carryingWeightMultiplier, "beaver_carrying_weight_multiplier");
 
-            baseSlowedSpeed = new(
-                4, 0, 100,
-                ModSettingDescriptor.CreateLocalized("CBW.BaseSlowedSpeed")
-                    .SetLocalizedTooltip("CBW.BaseSlowedSpeedDesc")
-                    .SetEnableCondition(() => changeWalkingSpeed.Value));
+        changeWalkingSpeed.ValueChanged += (_, _) => UpdateValues();
+        baseWalkingSpeed.ValueChanged += (_, _) => UpdateValues();
+        baseSlowedSpeed.ValueChanged += (_, _) => UpdateValues();
+        differentBotSpeed.ValueChanged += (_, _) => UpdateValues();
+        baseBotWalkingSpeed.ValueChanged += (_, _) => UpdateValues();
+        baseBotSlowedSpeed.ValueChanged += (_, _) => UpdateValues();
+        carryingWeightMultiplier.ValueChanged += (_, _) => UpdateValues();
 
-            differentBotSpeed = new(
-                false,
-                ModSettingDescriptor.CreateLocalized("CBW.DifferentBotSpeed")
-                    .SetLocalizedTooltip("CBW.DifferentBotSpeedDesc")
-                    .SetEnableCondition(() => changeWalkingSpeed.Value));
+        UpdateValues();
+    }
 
-            baseBotWalkingSpeed = new(
-                6, 0, 100,
-                ModSettingDescriptor.CreateLocalized("CBW.BaseBotWalkingSpeed")
-                    .SetLocalizedTooltip("CBW.BaseBotWalkingSpeedDesc")
-                    .SetEnableCondition(() => changeWalkingSpeed.Value && differentBotSpeed.Value));
+    void UpdateValues()
+    {
+        ChangeWalkingSpeed = changeWalkingSpeed?.Value == true;
+        BaseWalkingSpeed = baseWalkingSpeed?.Value ?? 0;
+        BaseSlowedSpeed = baseSlowedSpeed?.Value ?? 0;
+        DifferentForBots = differentBotSpeed?.Value == true;
+        BaseBotWalkingSpeed = baseBotWalkingSpeed?.Value ?? 0;
+        BaseBotSlowedSpeed = baseBotSlowedSpeed?.Value ?? 0;
+        CarryingWeightMultiplier = carryingWeightMultiplier?.Value ?? 1;
+    }
 
-            baseBotSlowedSpeed = new(
-                4, 0, 100,
-                ModSettingDescriptor.CreateLocalized("CBW.BaseBotSlowedSpeed")
-                    .SetLocalizedTooltip("CBW.BaseBotSlowedSpeedDesc")
-                    .SetEnableCondition(() => changeWalkingSpeed.Value && differentBotSpeed.Value));
-
-            carryingWeightMultiplier = new(
-                1,
-                ModSettingDescriptor.CreateLocalized("CBW.CarryingWeightMultiplier")
-                    .SetLocalizedTooltip("CBW.CarryingWeightMultiplierDesc"));
-
-            AddCustomModSetting(changeWalkingSpeed, "beaver_change_walking_speed");
-            AddCustomModSetting(baseWalkingSpeed, "beaver_base_walking_speed");
-            AddCustomModSetting(baseSlowedSpeed, "beaver_base_slowed_speed");
-            AddCustomModSetting(differentBotSpeed, "beaver_different_bot_speed");
-            AddCustomModSetting(baseBotWalkingSpeed, "beaver_base_bot_walking_speed");
-            AddCustomModSetting(baseBotSlowedSpeed, "beaver_base_bot_slowed_speed");
-            AddCustomModSetting(carryingWeightMultiplier, "beaver_carrying_weight_multiplier");
-
-            UpdateValues();
-        }
-
-        void UpdateValues()
-        {
-            ChangeWalkingSpeed = changeWalkingSpeed?.Value == true;
-            BaseWalkingSpeed = baseWalkingSpeed?.Value ?? 0;
-            BaseSlowedSpeed = baseSlowedSpeed?.Value ?? 0;
-            DifferentForBots = differentBotSpeed?.Value == true;
-            BaseBotWalkingSpeed = baseBotWalkingSpeed?.Value ?? 0;
-            BaseBotSlowedSpeed = baseBotSlowedSpeed?.Value ?? 0;
-            CarryingWeightMultiplier = carryingWeightMultiplier?.Value ?? 1;
-        }
-
-        public void Unload()
-        {
-            UpdateValues();
-        }
+    public void Unload()
+    {
+        UpdateValues();
     }
 }
