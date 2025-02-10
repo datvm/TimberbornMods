@@ -1,12 +1,7 @@
-﻿using ModSettings.Core;
-using Timberborn.Modding;
-using Timberborn.SettingsSystem;
-using Timberborn.SingletonSystem;
+﻿namespace HealthyBeavers;
 
-namespace HealthyBeavers;
-
-public class ModSettings
-    : ModSettingsOwner, IUnloadableSingleton
+public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository)
+    : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
     public static bool BrokenTeeth { get; private set; }
     public static bool BeeSting { get; private set; }
@@ -15,13 +10,10 @@ public class ModSettings
 
     ModSetting<bool>? brokenTeeth, beeSting, badwaterContamination, injury;
 
-    public ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : base(settings, modSettingsOwnerRegistry, modRepository)
-    {
-    }
+    public override string ModId => nameof(HealthyBeavers);
+    public override ModSettingsContext ChangeableOn => ModSettingsContext.All;
 
-    protected override string ModId => nameof(HealthyBeavers);
-
-    protected override void OnAfterLoad()
+    public override void OnAfterLoad()
     {
         brokenTeeth = new ModSetting<bool>(
             false,
@@ -52,13 +44,16 @@ public class ModSettings
         AddCustomModSetting(badwaterContamination, nameof(BadwaterContamination));
         AddCustomModSetting(injury, nameof(Injury));
 
+        brokenTeeth.ValueChanged += (_, _) => UpdateValues();
+        beeSting.ValueChanged += (_, _) => UpdateValues();
+        badwaterContamination.ValueChanged += (_, _) => UpdateValues();
+        injury.ValueChanged += (_, _) => UpdateValues();
+
         UpdateValues();
     }
 
     void UpdateValues()
     {
-        UnityEngine.Debug.Log($"[HealthyBeavers] Updated values");
-
         BrokenTeeth = brokenTeeth?.Value ?? false;
         BeeSting = beeSting?.Value ?? false;
         BadwaterContamination = badwaterContamination?.Value ?? false;

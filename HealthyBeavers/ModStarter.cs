@@ -1,7 +1,4 @@
-﻿using HarmonyLib;
-using Timberborn.ModManagerScene;
-
-namespace HealthyBeavers;
+﻿namespace HealthyBeavers;
 public class ModStarter : IModStarter
 {
 
