@@ -3,27 +3,13 @@
 	<Import Project="../Common.target" />
 
 	<ItemGroup>
-		<Reference Include="Timberborn.MapRepositorySystemUI">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.MapRepositorySystemUI.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.ScienceSystem">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.ScienceSystem.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.MapRepositorySystem">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.MapRepositorySystem.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.MapSystem">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.MapSystem.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.MapEditorPersistenceUI">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.MapEditorPersistenceUI.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		
+		<Using Include="Bindito.Core.Internal" />
+
+		<Using Include="Timberborn.ScienceSystem" />
+		<Using Include="Timberborn.MapRepositorySystemUI" />
+		<Using Include="Timberborn.MapEditorPersistenceUI" />
+
+		<Using Include="TheArchitectsToolkit.Services" />
 	</ItemGroup>
 
 </Project>
