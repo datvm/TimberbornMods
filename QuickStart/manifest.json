@@ -1,0 +1,17 @@
+{
+    "Name": "Quick Start",
+    "Version": "7.0.0",
+    "Id": "QuickStart",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "Skip the welcome screen and optionally auto load your last save.",
+    "RequiredMods": [
+        {
+            "Id": "eMka.ModSettings",
+            "MinimumVersion": "0.6.0.0"
+        },
+        {
+            "Id": "Harmony",
+            "MinimumVersion": "0.6.0.0"
+        }
+    ]
+}
