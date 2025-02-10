@@ -1,7 +1,7 @@
-﻿using Bindito.Core;
+﻿namespace HealthyBeavers;
 
-namespace HealthyBeavers;
 [Context("MainMenu")]
+[Context("Game")]
 public class ModConfigurator : IConfigurator
 {
     public void Configure(IContainerDefinition containerDefinition)

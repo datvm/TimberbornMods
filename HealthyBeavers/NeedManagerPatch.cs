@@ -1,5 +1,4 @@
-﻿using HarmonyLib;
-using Timberborn.Effects;
+﻿using Timberborn.Effects;
 using Timberborn.NeedSystem;
 
 namespace HealthyBeavers;
