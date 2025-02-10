@@ -9,7 +9,7 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
     static readonly FieldInfo MaxGameTerrainHeightField = typeof(MapSize).GetField(nameof(MapSize.MaxGameTerrainHeight), BindingFlags.Public | BindingFlags.Static);
     static readonly FieldInfo MaxMapEditorAboveTerrainHeightField = typeof(MapSize).GetField("MaxHeightAboveTerrain", BindingFlags.NonPublic | BindingFlags.Static);
 
-    protected override string ModId => nameof(BeaverAscent);
+    public override string ModId => nameof(BeaverAscent);
     public override ModSettingsContext ChangeableOn => ModSettingsContext.All;
 
     ModSetting<bool>? changeHeight, allowEditorUpToTerrain, freeCamera;
@@ -18,7 +18,7 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
     public bool FreeCamera => freeCamera?.Value == true;
     public event Action<bool> FreeCameraChanged = delegate { };
 
-    protected override void OnAfterLoad()
+    public override void OnAfterLoad()
     {
         freeCamera = new ModSetting<bool>(
             false,
