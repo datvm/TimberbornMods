@@ -1,0 +1,5 @@
+ID,Text,Comment
+LV.QS.AutoContinueShift,"Auto load by holding Shift",
+LV.QS.AutoContinueShiftDesc,"Automatically load the last saved game (like clicking the Continue button) when holding Shift during the game start.",
+LV.QS.AutoContinueShiftToCancel,"  Hold Shift to cancel instead",
+LV.QS.AutoContinueShiftToCancelDesc,"Always load the last saved game unless you hold Shift during the game start.",
