@@ -1,6 +1,5 @@
 ﻿using Timberborn.GameSaveRepositorySystem;
 using Timberborn.GameSaveRuntimeSystem;
-using Timberborn.Persistence;
 using Timberborn.SettlementNameSystem;
 using Timberborn.TickSystem;
 using Timberborn.TimeSystem;
@@ -55,7 +54,7 @@ public class SaveEverydayService(
     {
         string settlementName = settlementNameService.SettlementName;
         string saveName = string.Format(NameFormat, day);
-        UnityEngine.Debug.Log($"Saving game as {saveName}");
+        Debug.Log($"Saving game as {saveName}");
 
         var saveReference = new SaveReference(settlementName, saveName);
         try
@@ -64,7 +63,7 @@ public class SaveEverydayService(
         }
         catch (GameSaverException ex)
         {
-            UnityEngine.Debug.LogError($"Error occured while saving: {ex.InnerException}");
+            Debug.LogError($"Error occured while saving: {ex.InnerException}");
             gameSaveRepository.DeleteSaveSafely(saveReference);
         }
     }
@@ -86,11 +85,11 @@ public class SaveEverydayService(
                 gameSaveRepository.DeleteSave(save);
             }
 
-            UnityEngine.Debug.Log($"Deleted {exceedingSaves.Length} autosaves");
+            Debug.Log($"Deleted {exceedingSaves.Length} autosaves");
         }
         catch (GameSaverException ex)
         {
-            UnityEngine.Debug.LogError($"Error occured while deleting the oldest autosave: {ex.InnerException}");
+            Debug.LogError($"Error occured while deleting the oldest autosave: {ex.InnerException}");
         }
     }
 

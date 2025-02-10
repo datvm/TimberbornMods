@@ -1,12 +1,9 @@
-﻿using System.Diagnostics;
-using Timberborn.AssetSystem;
+﻿namespace SaveEveryday;
 
-namespace SaveEveryday;
-
-public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository, IAssetLoader assets) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository)
+public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository)
 {
 
-    protected override string ModId => nameof(SaveEveryday);
+    public override string ModId => nameof(SaveEveryday);
     public override ModSettingsContext ChangeableOn => ModSettingsContext.All;
 
     public ModSetting<bool>? enabled;
@@ -16,7 +13,7 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
     public int SaveFrequency { get; private set; } = 1;
     public int SaveCount { get; private set; } = 3;
 
-    protected override void OnAfterLoad()
+    public override void OnAfterLoad()
     {
         enabled = new ModSetting<bool>(
             true,
