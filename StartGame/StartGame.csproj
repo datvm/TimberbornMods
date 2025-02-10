@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\FasterConfigurableStorages\FasterConfigurableStorages.csproj" />
+		<ProjectReference Include="..\BeaverAscent\BeaverAscent.csproj" />
 	</ItemGroup>
 
 </Project>

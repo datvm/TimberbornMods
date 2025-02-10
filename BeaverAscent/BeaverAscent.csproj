@@ -2,16 +2,4 @@
 
 	<Import Project="../Common.target" />
 
-	<ItemGroup>
-		<Reference Include="Timberborn.MapStateSystem">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.MapStateSystem.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Timberborn.CameraSystem">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.CameraSystem.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		
-	</ItemGroup>
-
 </Project>
