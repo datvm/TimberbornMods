@@ -1,10 +1,8 @@
-﻿global using Timberborn.MapRepositorySystemUI;
-
-namespace TheArchitectsToolkit;
+﻿namespace TheArchitectsToolkit.Services;
 
 public class ToolkitService(MSettings s) : ILoadableSingleton
 {
-    static readonly FieldInfo maxMapSizeField = typeof(NewMapBox).GetField("MaxMapSize", BindingFlags.NonPublic | BindingFlags.Static);
+    static readonly FieldInfo maxMapSizeField = typeof(NewMapBox).GetField(nameof(NewMapBox.MaxMapSize), BindingFlags.NonPublic | BindingFlags.Static);
     
     static int? originalMaxMapSizeValue;
 

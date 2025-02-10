@@ -1,8 +1,9 @@
-﻿namespace TheArchitectsToolkit;
+﻿namespace TheArchitectsToolkit.Services;
 
 [Context("MainMenu")]
+[Context("Game")]
 [Context("MapEditor")]
-public class MainMenuModConfigurator : IConfigurator
+public class AllContextModConfigurator : IConfigurator
 {
     public void Configure(IContainerDefinition containerDefinition)
     {
@@ -11,11 +12,13 @@ public class MainMenuModConfigurator : IConfigurator
     }
 }
 
-[Context("Game")]
-public class GameModConfigurator : IConfigurator
+[Context("MapEditor")]
+public class MapEditorModConfigurator : IConfigurator
 {
+    
     public void Configure(IContainerDefinition containerDefinition)
     {
-        containerDefinition.Bind<MSettings>().AsSingleton();
+        containerDefinition.Bind<ToolkitMapEditorService>().AsSingleton();
     }
+
 }

@@ -1,12 +1,10 @@
-﻿global using Timberborn.MapEditorPersistenceUI;
-
-namespace TheArchitectsToolkit.Patches;
+﻿namespace TheArchitectsToolkit.Patches;
 
 [HarmonyPatch]
 public static class SaveMapPatches
 {
 
-    [HarmonyPrefix, HarmonyPatch(typeof(MapPersistenceController), "ForceSaveAs")]
+    [HarmonyPrefix, HarmonyPatch(typeof(MapPersistenceController), nameof(MapPersistenceController.ForceSaveAs))]
     public static void BeforeSave()
     {
         if (MSettings.LockOnSaveMap)

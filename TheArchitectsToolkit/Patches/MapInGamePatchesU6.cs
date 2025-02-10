@@ -1,15 +1,16 @@
 ﻿namespace TheArchitectsToolkit.Patches;
 
-#if !TIMBER6
+#if TIMBER6
 
 [HarmonyPatch]
-public class MapInGamePatches
+public static class MapInGamePatches
 {
+
     static readonly ILookup<string, Type> Types = AppDomain.CurrentDomain.GetAssemblies()
         .SelectMany(assembly => assembly.GetTypes())
         .ToLookup(type => type.FullName, type => type);
 
-    static readonly ImmutableArray<string> AdditionalConfigs =
+    static readonly HashSet<string> AdditionalConfigs =
     [
         "Timberborn.FileBrowsing.FileBrowsingConfigurator",
         "Timberborn.MapEditorPersistence.MapEditorPersistenceConfigurator",
@@ -21,6 +22,7 @@ public class MapInGamePatches
         "Timberborn.MapThumbnailCapturingUI.MapThumbnailCapturingUIConfigurator",
         "Timberborn.MapThumbnailOverlaySystem.MapThumbnailOverlaySystemConfigurator",
         "Timberborn.RuinsModelShuffling.RuinsModelShufflingConfigurator",
+        "Timberborn.SettingsSystem.SettingsSystemConfigurator",
         "Timberborn.SteamWorkshopMapDownloadingUI.SteamWorkshopMapDownloadingUIConfigurator",
         "Timberborn.SteamWorkshopMapUploadingUI.SteamWorkshopMapUploadingUIConfigurator",
         "Timberborn.SteamWorkshopUI.SteamWorkshopUIConfigurator",
@@ -30,46 +32,49 @@ public class MapInGamePatches
         "Timberborn.MapEditorUI.FilePanel",
     ];
 
-    [HarmonyPostfix, HarmonyPatch(typeof(ContainerDefinition), nameof(ContainerDefinition.InstallAll))]
-    public static void InstallMapEditorConfigs(string contextName, ContainerDefinition __instance)
+    [HarmonyPostfix, HarmonyPatch("Timberborn.GameScene.GameSceneInstaller", "Configure")]
+    public static void AfterConfigure(IContainerDefinition containerDefinition)
     {
-        if (contextName != "Game" ||
-            !MSettings.GameToMap) { return; }
+        if (!MSettings.GameToMap) { return; }
 
-        Unbind(__instance, Types["Timberborn.ThumbnailCapturing.IThumbnailRenderTextureProvider"].Single());
+        Unbind(containerDefinition, Types["Timberborn.ThumbnailCapturing.IThumbnailRenderTextureProvider"].Single());
 
         foreach (var t in AdditionalConfigs)
         {
-            Debug.Log($"Installing {t}");
-
+            Debug.Log(t);
             var type = Types[t].Single();
             var obj = Activator.CreateInstance(type) as IConfigurator;
-            __instance.Install(obj);
+
+            containerDefinition.Install(obj);
         }
 
+        var bindMethod = containerDefinition.GetType().Method("Bind");
         foreach (var t in AdditionalServices)
         {
-            Debug.Log($"Binding {t}");
+            Debug.Log(t);
+            var type = Types[t].Single();
 
-            Bind(__instance, Types[t].Single()).AsSingleton();
+            var binding = bindMethod.MakeGenericMethod(type).Invoke(containerDefinition, []) as IScopeAssignee
+                ?? throw new ArgumentNullException("binding");
+            binding.AsSingleton();            
         }
+
+        containerDefinition.Bind<ToolkitGameService>().AsSingleton();
     }
 
-    static readonly MethodInfo BindMethod = typeof(ContainerDefinition).Method("Bind");
-    public static IScopeAssignee Bind(ContainerDefinition containerDefinition, Type type)
+    static readonly FieldInfo bindingRegistry = typeof(ContainerDefinition).Field("_bindingBuilderRegistry");
+    static readonly FieldInfo boundField = typeof(BindingBuilderRegistry).Field("_boundBindingBuilders");
+    public static void Unbind(IContainerDefinition containerDefinition, Type type)
     {
-        var binding = BindMethod.MakeGenericMethod(type).Invoke(containerDefinition, []) as IScopeAssignee
-            ?? throw new ArgumentNullException("binding");
-
-        return binding;
-    }
-
-    public static void Unbind(ContainerDefinition containerDefinition, Type type)
-    {
-        var registry = containerDefinition._bindingBuilderRegistry as BindingBuilderRegistry
+        var registry = bindingRegistry.GetValue(containerDefinition) as BindingBuilderRegistry
             ?? throw new ArgumentNullException("registry");
-        registry._boundBindingBuilders.Remove(type);
+        var bound = boundField.GetValue(registry) as Dictionary<Type, IBindingBuilder>
+            ?? throw new ArgumentNullException("bound");
+
+        bound.Remove(type);
     }
+
+
 
 }
 
