@@ -2,14 +2,14 @@
 public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository)
 {
 
-    protected override string ModId => nameof(LateGamePower);
+    public override string ModId => nameof(LateGamePower);
 
     RangeIntModSetting? baseCost, maxMultiplier;
     
     public int BaseCost => baseCost?.Value ?? 10;
     public int MaxMultiplier => maxMultiplier?.Value ?? 10;
 
-    protected override void OnAfterLoad()
+    public override void OnAfterLoad()
     {
         baseCost = new RangeIntModSetting(
             10, 0, 20,

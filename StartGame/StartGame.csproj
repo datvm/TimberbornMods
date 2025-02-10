@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\BeaverAscent\BeaverAscent.csproj" />
+		<ProjectReference Include="..\SaveEveryday\SaveEveryday.csproj" />
 	</ItemGroup>
 
 </Project>
