@@ -1,5 +1,5 @@
-﻿using HarmonyLib;
-using Timberborn.MechanicalSystem;
+﻿using Timberborn.MechanicalSystem;
+using Timberborn.MechanicalSystemUI;
 
 namespace AlwaysConnected;
 
@@ -25,6 +25,19 @@ public static class MechanicalGraphManagerPatch
         var registry = (MechanicalGraphRegistry)mechanicalGraphRegistryField.GetValue(____mechanicalGraphFactory);
 
         ____mechanicalGraphFactory.Join([.. registry.MechanicalGraphs]);
+    }
+
+    // Fixing Forester crashing
+    [HarmonyPrefix, HarmonyPatch(typeof(MechanicalModel), nameof(MechanicalModel.UpdateModel))]
+    public static bool PrefixUpdateModel(MechanicalModel __instance)
+    {
+        if (__instance._mechanicalNode?.Transputs.Any() != true)
+        {
+            Debug.Log("Skipping UpdateModel to prevent crash");
+            return false;
+        }
+
+        return true;
     }
 
 }
