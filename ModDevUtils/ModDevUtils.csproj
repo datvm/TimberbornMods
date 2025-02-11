@@ -2,5 +2,9 @@
 
 	<Import Project="../Common.target" />
 	<Import Project="../CommonUI.target" />
+
+	<!-- So this doesn't get copied -->
+	<Target Name="CopyFiles" AfterTargets="Build"></Target>
+	
 	
 </Project>
