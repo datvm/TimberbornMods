@@ -28,16 +28,16 @@
 	<Target Name="CopyFiles" AfterTargets="Build">
 		<PropertyGroup>
 			<ModFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\Tmp\$(TimberbornVersion)\</ModFolder>
-			<DllName>$(AssemblyName).dll</DllName>
 		</PropertyGroup>
 
 		<ItemGroup>
 			<LocalizationFiles Include="$(OutputPath)Localizations\**\*.*" />
+			<DllFiles Include="$(OutputPath)\**\*.dll"/>
 		</ItemGroup>
 
 		<Message Text="Copying..." />
 		<Copy SourceFiles="$(OutputPath)manifest.json" DestinationFolder="$(ModFolder)" />
-		<Copy SourceFiles="$(OutputPath)$(DllName)" DestinationFolder="$(ModFolder)" />
+		<Copy SourceFiles="@(DllFiles)" DestinationFolder="$(ModFolder)%(RecursiveDir)" />
 		<Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(ModFolder)Localizations\%(RecursiveDir)" />
 	</Target>
 

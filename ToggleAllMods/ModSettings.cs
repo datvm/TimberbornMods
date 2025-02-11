@@ -1,14 +1,25 @@
 ﻿namespace ToggleAllMods;
-internal class ModSettings(
-    ISettings settings,
-    ModSettingsOwnerRegistry modSettingsOwnerRegistry,
-    ModRepository modRepository
-) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
+public class ModSettings : ModSettingsOwner, IUnloadableSingleton
 {
-    readonly ModRepository modRepository = modRepository;
+    public static ModSettings? Instance { get; private set; }
+
+    readonly ModRepository modRepository;
 
     ModSetting<bool>? enableAll, disableAll;
     ModSetting<string>? keepEnabled;
+
+    public HashSet<string> KeepEnabledIds => new(keepEnabled?.Value.Split(';') ?? []);
+
+    public ModSettings(
+        ISettings settings,
+        ModSettingsOwnerRegistry modSettingsOwnerRegistry,
+        ModRepository modRepository
+    ) : base(settings, modSettingsOwnerRegistry, modRepository)
+    {
+        Instance = this;
+
+        this.modRepository = modRepository;
+    }
 
     public override string ModId => nameof(ToggleAllMods);
 
@@ -52,9 +63,11 @@ internal class ModSettings(
             ToggleAllMods(false);
             disableAll.SetValue(false);
         }
+
+        Instance = null;
     }
 
-    void ToggleAllMods(bool enabled)
+    public void ToggleAllMods(bool enabled)
     {
         HashSet<string> ignoredList = [];
         if (!enabled)

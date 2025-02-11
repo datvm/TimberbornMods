@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F8D652F8-309B-4D55-B138-86DF92959C02}"
 	ProjectSection(SolutionItems) = preProject
 		Common.target = Common.target
+		CommonDebug.target = CommonDebug.target
 		CommonUI.target = CommonUI.target
 	EndProjectSection
 EndProject
@@ -51,13 +52,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FasterUnderwaterMovement", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheArchitectsToolkit", "TheArchitectsToolkit\TheArchitectsToolkit.csproj", "{49FD8EF9-74FF-486C-A07A-ED9896B232D9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StartGame", "StartGame", "{36EBDCB0-09D8-4A7D-AF62-89D5C49B6B44}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{36EBDCB0-09D8-4A7D-AF62-89D5C49B6B44}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartGame", "StartGame\StartGame.csproj", "{E41BC21D-ED7F-4B4C-9E29-FC8385B0F887}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterSourcesDontCrash", "WaterSourcesDontCrash\WaterSourcesDontCrash.csproj", "{1276DA5E-FD75-49AA-94CB-48174D537694}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickStart", "QuickStart\QuickStart.csproj", "{E74AA58C-B3A6-4425-AEBC-CF802DEA2C5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModDevUtils", "ModDevUtils\ModDevUtils.csproj", "{824FDF96-FC7E-4E3E-A226-45B7EEB54EE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -161,11 +164,16 @@ Global
 		{E74AA58C-B3A6-4425-AEBC-CF802DEA2C5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E74AA58C-B3A6-4425-AEBC-CF802DEA2C5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E74AA58C-B3A6-4425-AEBC-CF802DEA2C5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{824FDF96-FC7E-4E3E-A226-45B7EEB54EE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{824FDF96-FC7E-4E3E-A226-45B7EEB54EE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{824FDF96-FC7E-4E3E-A226-45B7EEB54EE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{824FDF96-FC7E-4E3E-A226-45B7EEB54EE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E41BC21D-ED7F-4B4C-9E29-FC8385B0F887} = {36EBDCB0-09D8-4A7D-AF62-89D5C49B6B44}
+		{824FDF96-FC7E-4E3E-A226-45B7EEB54EE7} = {36EBDCB0-09D8-4A7D-AF62-89D5C49B6B44}
 	EndGlobalSection
 EndGlobal
