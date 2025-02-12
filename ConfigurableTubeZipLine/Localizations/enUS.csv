@@ -1,0 +1,11 @@
+ID,Text,Comment
+LV.CTZ.TubewaySpeed,"Tubeway bonus speed",
+LV.CTZ.TubewaySpeedDesc,"The bonus speed of the tubeway (Game default: 300%)",
+LV.CTZ.ZiplineSpeed,"Zipline bonus speed",
+LV.CTZ.ZiplineSpeedDesc,"The speed of the zipline (Game default: 150%)",
+LV.CTZ.ZiplineSpeedMaxCon,"Zipline max connection",
+LV.CTZ.ZiplineSpeedMaxConDesc,"The maximum number of connections a zipline can have (Game default: 2)",
+LV.CTZ.ZiplineSpeedMaxDistance,"Zipline max distance",
+LV.CTZ.ZiplineSpeedMaxDistanceDesc,"The maximum distance a zipline can have (Game default: 30)",
+LV.CTZ.ZiplineSpeedMaxInclination,"Zipline cable max inclination",
+LV.CTZ.ZiplineSpeedMaxInclinationDesc,"The maximum inclination of the zipline cable (Game default: 50)",
