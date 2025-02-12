@@ -1,0 +1,13 @@
+{
+    "Name": "Narratimb",
+    "Version": "7.0.0",
+    "Id": "NarrativeEvents",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Narrative events for Timberborn!",
+    "RequiredMods": [
+        {
+            "Id": "Harmony",
+            "MinimumVersion": "0.0.0.0"
+        }
+    ]
+}
