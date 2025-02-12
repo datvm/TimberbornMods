@@ -8,17 +8,19 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     public static int ZiplineMaxConnection { get; private set; }
     public static int ZiplineMaxDistance { get; private set; }
     public static int ZiplineMaxInclination { get; private set; }
+    public static bool ZiplineForIronTeeth { get; private set; }
+    public static bool TubewayForFolktails { get; private set; }
 
     #region ModSettings
 
     readonly ModSetting<int> tubewaySpeed = new(
-        700,
+        600,
         ModSettingDescriptor
             .CreateLocalized("LV.CTZ.TubewaySpeed")
             .SetLocalizedTooltip("LV.CTZ.TubewaySpeedDesc"));
 
     readonly ModSetting<int> ziplineSpeed = new(
-        400,
+        300,
         ModSettingDescriptor
             .CreateLocalized("LV.CTZ.ZiplineSpeed")
             .SetLocalizedTooltip("LV.CTZ.ZiplineSpeedDesc"));
@@ -41,6 +43,18 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
             .CreateLocalized("LV.CTZ.ZiplineSpeedMaxInclination")
             .SetLocalizedTooltip("LV.CTZ.ZiplineSpeedMaxInclinationDesc"));
 
+    readonly ModSetting<bool> ziplineForIronTeeth = new(
+        false,
+        ModSettingDescriptor
+            .CreateLocalized("LV.CTZ.ZiplineForIronTeeth")
+            .SetLocalizedTooltip("LV.CTZ.ZiplineForIronTeethDesc"));
+
+    readonly ModSetting<bool> tubewayForFolktails = new(
+        false,
+        ModSettingDescriptor
+            .CreateLocalized("LV.CTZ.TubewayForFolktails")
+            .SetLocalizedTooltip("LV.CTZ.TubewayForFolktailsDesc"));
+
     #endregion
 
     public override string ModId => nameof(ConfigurableTubeZipLine);
@@ -52,6 +66,8 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         AddCustomModSetting(ziplineMaxConnection, nameof(ZiplineMaxConnection));
         AddCustomModSetting(ziplineMaxDistance, nameof(ZiplineMaxDistance));
         AddCustomModSetting(ziplineMaxInclination, nameof(ZiplineMaxInclination));
+        AddCustomModSetting(ziplineForIronTeeth, nameof(ZiplineForIronTeeth));
+        AddCustomModSetting(tubewayForFolktails, nameof(TubewayForFolktails));
 
         UpdateValues();
     }
@@ -69,6 +85,8 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         ZiplineMaxConnection = ziplineMaxConnection.Value;
         ZiplineMaxDistance = ziplineMaxDistance.Value;
         ZiplineMaxInclination = ziplineMaxInclination.Value;
+        ZiplineForIronTeeth = ziplineForIronTeeth.Value;
+        TubewayForFolktails = tubewayForFolktails.Value;
 
         OnZiplineSpeedChanged();
     }
