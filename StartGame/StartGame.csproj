@@ -12,7 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\ConfigurableTubeZipLine\ConfigurableTubeZipLine.csproj" />
+		<ProjectReference Include="..\NarrativeEvents\NarrativeEvents.csproj" />
 	</ItemGroup>
 
 </Project>

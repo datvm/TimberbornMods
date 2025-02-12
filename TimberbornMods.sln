@@ -66,6 +66,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableTubeZipLine", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileFinder", "FileFinder\FileFinder.csproj", "{47306E7F-53C9-4D1B-837E-FF2563DE037D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NarrativeEvents", "NarrativeEvents\NarrativeEvents.csproj", "{C7E9C3CA-6DDD-4CC5-A0A2-D287FB0649BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -180,6 +182,10 @@ Global
 		{47306E7F-53C9-4D1B-837E-FF2563DE037D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47306E7F-53C9-4D1B-837E-FF2563DE037D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47306E7F-53C9-4D1B-837E-FF2563DE037D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7E9C3CA-6DDD-4CC5-A0A2-D287FB0649BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7E9C3CA-6DDD-4CC5-A0A2-D287FB0649BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7E9C3CA-6DDD-4CC5-A0A2-D287FB0649BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7E9C3CA-6DDD-4CC5-A0A2-D287FB0649BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
