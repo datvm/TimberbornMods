@@ -12,7 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\ToggleAllMods\ToggleAllMods.csproj" />
+		<ProjectReference Include="..\ConfigurableTubeZipLine\ConfigurableTubeZipLine.csproj" />
 	</ItemGroup>
 
 </Project>
