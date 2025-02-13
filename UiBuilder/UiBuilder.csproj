@@ -5,9 +5,5 @@
 
 	<!-- So this doesn't get copied -->
 	<Target Name="CopyFiles" AfterTargets="Build"></Target>
-	<ItemGroup>
-	  <ProjectReference Include="..\UiBuilder\UiBuilder.csproj" />
-	</ItemGroup>
-	
 	
 </Project>
