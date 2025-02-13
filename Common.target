@@ -33,13 +33,21 @@
 		<ItemGroup>
 			<LocalizationFiles Include="$(OutputPath)Localizations\**\*.*" />
 			<DllFiles Include="$(OutputPath)\**\*.dll"/>
+			<Sprites Include="$(OutputPath)\Sprites\**\*"/>
 		</ItemGroup>
 
 		<Message Text="Copying..." />
 		<Copy SourceFiles="$(OutputPath)manifest.json" DestinationFolder="$(ModFolder)" />
 		<Copy SourceFiles="@(DllFiles)" DestinationFolder="$(ModFolder)%(RecursiveDir)" />
 		<Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(ModFolder)Localizations\%(RecursiveDir)" />
+		<Copy SourceFiles="@(Sprites)" DestinationFolder="$(ModFolder)Sprites\%(RecursiveDir)" />
 	</Target>
+
+	<ItemGroup>
+		<None Update="Sprites\**\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 	<!-- Harmony -->
 	<ItemGroup>

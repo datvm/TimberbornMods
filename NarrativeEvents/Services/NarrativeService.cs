@@ -12,13 +12,6 @@ public class NarrativeService(DialogBoxShower diag) : ITickableSingleton
         if (showed) { return; }
         showed = true;
 
-        Debug.Log("Showing");
-        diag.Create()
-            .SetMessage("Hello")
-            .SetConfirmButton(() => { }, "Option 1")
-            .SetCancelButton(() => { }, "Option 2")
-            .SetInfoButton(() => { }, "Option 3")
-            .Show();
     }
 
 }

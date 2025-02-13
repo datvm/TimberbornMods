@@ -1,0 +1,7 @@
+﻿ID,Text,Comment
+LV.NE.Elder,"Willowbeard","The name of the elder to be used in the narrative event."
+LV.NE.E1.Title,"Your journey begins",
+LV.NE.E1.Description,"Wise <SolidHighlight>{Elder}</SolidHighlight>, your brave beavers, guided by your wisdom, have found a land full of promise. Through trials and triumphs, they've reached a sanctuary where they can thrive. Under your leadership, they are ready to build a flourishing community.",
+LV.NE.E1.Choice1,"The beavers must survive",
+LV.NE.E1.Choice2,"Our children will thrive",
+LV.NE.E1.Choice3,"I see",
