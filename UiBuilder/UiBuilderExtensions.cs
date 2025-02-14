@@ -1,4 +1,7 @@
-﻿namespace UnityEngine.UIElements;
+﻿global using UiBuilder;
+using System.Xml.Linq;
+
+namespace UnityEngine.UIElements;
 
 public static class UiBuilderExtensions
 {
@@ -30,9 +33,11 @@ public static class UiBuilderExtensions
     }
 
     public static readonly ImmutableArray<string> DefaultButtonClasses = ["unity-text-element", "unity-button",];
-    public static NineSliceButton AddButton(this VisualElement parent, string text, string? name = default, IEnumerable<string>? additionalClasses = default, Action? onClick = default)
+    public static NineSliceButton AddButton(this VisualElement parent, string text, string? name = default, IEnumerable<string>? additionalClasses = default, Action? onClick = default, GameButtonStyle style = GameButtonStyle.Menu, GameButtonSize size = GameButtonSize.Medium)
     {
-        var btn = parent.AddChild<NineSliceButton>(name, [..DefaultButtonClasses, .. (additionalClasses ?? [])]);
+        var btnClasses = GetClasses(style, size);
+
+        var btn = parent.AddChild<NineSliceButton>(name, [..DefaultButtonClasses, .. btnClasses,.. (additionalClasses ?? [])]);
         btn.text = text;
 
         if (onClick is not null)
@@ -43,12 +48,26 @@ public static class UiBuilderExtensions
         return btn;
     }
 
-    public static readonly ImmutableArray<string> DefaultLabelClasses = ["unity-text-element", "unity-label"];
-    public static Label AddLabel(this VisualElement parent, string text, string? name = default, IEnumerable<string>? additionalClasses = default)
+    public static readonly ImmutableArray<string> LabelClasses = ["unity-text-element", "unity-label"];
+    public static Label AddLabel(this VisualElement parent, string text, string? name = default, IEnumerable<string>? additionalClasses = default, GameLabelStyle style = GameLabelStyle.Default)
     {
-        var label = parent.AddChild<Label>(name, [..DefaultLabelClasses, .. (additionalClasses ?? [])]);
+        var labelClasses = GetClasses(style);
+
+        var label = parent.AddChild<Label>(name, [..LabelClasses, ..labelClasses, .. (additionalClasses ?? [])]);
         label.text = text;
         return label;
+    }
+
+    public static TElement AddClass<TElement>(this TElement element, string className) where TElement : VisualElement
+    {
+        element.classList.Add(className);
+        return element;
+    }
+
+    public static TElement AddClasses<TElement>(this TElement element, params string[] classNames) where TElement : VisualElement
+    {
+        element.classList.AddRange(classNames);
+        return element;
     }
 
     public static TElement SetMargin<TElement>(this TElement element, float margin) where TElement : VisualElement => element.SetMargin(margin, margin);
@@ -64,10 +83,18 @@ public static class UiBuilderExtensions
         return element;
     }
 
-    public static TElement SetSize<TElement>(this TElement element, float width, float height) where TElement : VisualElement
+    public static TElement SetSize<TElement>(this TElement element, float? width = default, float? height = default) where TElement : VisualElement
     {
-        element.style.width = width;
-        element.style.height = height;
+        if (width is not null)
+        {
+            element.style.width = width.Value;
+        }
+
+        if (height is not null)
+        {
+            element.style.height = height.Value;
+        }
+
         return element;
     }
 
@@ -78,5 +105,32 @@ public static class UiBuilderExtensions
         element.style.flexDirection = FlexDirection.Row;
         return element;
     }
+
+    public static string[] GetClasses(GameLabelStyle style) => style switch
+    {
+        GameLabelStyle.Default => ["text--default"],
+        GameLabelStyle.Header => ["text--header"],
+        _ => [],
+    };
+
+    public static string[] GetClasses(GameButtonStyle style, GameButtonSize size)
+    {
+        var styleClass = style switch
+        {
+            GameButtonStyle.Menu => "menu-button",
+            _ => ""
+        };
+
+        var sizeClass = size switch
+        {
+            GameButtonSize.Small => "menu-button--small",
+            GameButtonSize.Medium => "menu-button--medium",
+            GameButtonSize.Large => "menu-button--large",
+            _ => ""
+        };
+
+        return [styleClass, sizeClass];
+    }
+
 
 }

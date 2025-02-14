@@ -34,6 +34,8 @@
 			<LocalizationFiles Include="$(OutputPath)Localizations\**\*.*" />
 			<DllFiles Include="$(OutputPath)\**\*.dll"/>
 			<Sprites Include="$(OutputPath)\Sprites\**\*"/>
+			<Blueprints Include="$(OutputPath)\Blueprints\**\*"/>
+			<Specifications Include="$(OutputPath)\Specifications\**\*"/>
 		</ItemGroup>
 
 		<Message Text="Copying..." />
@@ -41,10 +43,20 @@
 		<Copy SourceFiles="@(DllFiles)" DestinationFolder="$(ModFolder)%(RecursiveDir)" />
 		<Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(ModFolder)Localizations\%(RecursiveDir)" />
 		<Copy SourceFiles="@(Sprites)" DestinationFolder="$(ModFolder)Sprites\%(RecursiveDir)" />
+		<Copy SourceFiles="@(Blueprints)" DestinationFolder="$(ModFolder)Blueprints\%(RecursiveDir)" />
+		<Copy SourceFiles="@(Specifications)" DestinationFolder="$(ModFolder)Specifications\%(RecursiveDir)" />
+
+
 	</Target>
 
 	<ItemGroup>
 		<None Update="Sprites\**\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Blueprints\**\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Specifications\**\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
