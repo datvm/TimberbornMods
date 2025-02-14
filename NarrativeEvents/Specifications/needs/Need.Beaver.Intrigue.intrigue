@@ -1,0 +1,29 @@
+{
+    "NeedSpec": {
+        "Id": "Intrigue",
+        "BackwardCompatibleIds": [],
+        "Order": 70,
+        "NeedGroupId": "BasicNeeds",
+        "CharacterType": "Beaver",
+        "DisplayNameLocKey": "LV.NE.Need.Intrigue.Display",
+        "StartingValue": 0.0,
+        "MinimumValue": -2.0,
+        "MaximumValue": 0.0,
+        "DailyDelta": 1.0,
+        "ImportanceMultiplier": 1.0,
+        "CriticalNeedType": {
+            "Value": "State"
+        },
+        "Penalties": [
+            {
+                "Id": "WorkingSpeed",
+                "MultiplierDelta": -0.8
+            }
+        ],
+        "Effectiveness": 1.0,
+        "Wastable": true,
+        "HideWhenInactive": true,
+        "RequiredFeatureToggle": "",
+        "UnfavorableWellbeing": -1
+    }
+}
