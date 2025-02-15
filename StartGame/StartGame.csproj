@@ -11,4 +11,8 @@
 	  <PackageReference Include="System.Collections.Immutable" Version="9.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\TimberUi\TimberUiDemo\TimberUiDemo.csproj" />
+	</ItemGroup>
+
 </Project>

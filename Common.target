@@ -25,19 +25,19 @@
 		<DefineConstants Condition="$(IsU7)">TIMBER7</DefineConstants>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<ModFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\Tmp\$(TimberbornVersion)\</ModFolder>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<LocalizationFiles Include="$(OutputPath)Localizations\**\*.*" />
+		<DllFiles Include="$(OutputPath)\**\*.dll"/>
+		<Sprites Include="$(OutputPath)\Sprites\**\*"/>
+		<Blueprints Include="$(OutputPath)\Blueprints\**\*"/>
+		<Specifications Include="$(OutputPath)\Specifications\**\*"/>
+	</ItemGroup>
+
 	<Target Name="CopyFiles" AfterTargets="Build">
-		<PropertyGroup>
-			<ModFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\Tmp\$(TimberbornVersion)\</ModFolder>
-		</PropertyGroup>
-
-		<ItemGroup>
-			<LocalizationFiles Include="$(OutputPath)Localizations\**\*.*" />
-			<DllFiles Include="$(OutputPath)\**\*.dll"/>
-			<Sprites Include="$(OutputPath)\Sprites\**\*"/>
-			<Blueprints Include="$(OutputPath)\Blueprints\**\*"/>
-			<Specifications Include="$(OutputPath)\Specifications\**\*"/>
-		</ItemGroup>
-
 		<Message Text="Deleting..." />
 		<RemoveDir Directories="$(ModFolder)" />
 		

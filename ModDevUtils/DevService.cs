@@ -1,5 +1,5 @@
 ﻿using Timberborn.AssetSystem;
-using UiBuilder.Common;
+using UiBuilder.CommonUi;
 
 namespace ModDevUtils;
 
