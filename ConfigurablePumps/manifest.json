@@ -1,0 +1,17 @@
+{
+    "Name": "Configurable Pumps",
+    "Version": "7.0.0",
+    "Id": "ConfigurablePumps",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "Your one-stop pump shop is here, time to turn the tide!",
+    "RequiredMods": [
+        {
+            "Id": "eMka.ModSettings",
+            "MinimumVersion": "0.0.0.0"
+        },
+        {
+            "Id": "Harmony",
+            "MinimumVersion": "0.0.0.0"
+        }
+    ]
+}
