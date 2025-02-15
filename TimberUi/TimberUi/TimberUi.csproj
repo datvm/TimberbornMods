@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../../Common.target" />
+	<Import Project="../../CommonUI.target" />
+
+	<!-- So this doesn't get copied -->
+	<!--<Target Name="CopyFiles" AfterTargets="Build"></Target>-->
+
+	<PropertyGroup>
+		<ModFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\TimberUi\$(TimberbornVersion)\</ModFolder>
+	</PropertyGroup>
+
+</Project>

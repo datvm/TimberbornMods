@@ -1,0 +1,8 @@
+{
+    "Name": "TimberUi",
+    "Version": "7.0.0",
+    "Id": "TimberUi",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "UI Library for Timberborn",
+    "RequiredMods": []
+}

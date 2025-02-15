@@ -1,0 +1,13 @@
+{
+    "Name": "TimberUi Demo",
+    "Version": "7.0.0",
+    "Id": "TimberUiDemo",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Demo mod for TimberUi",
+    "RequiredMods": [
+        {
+            "Id": "TimberUi",
+            "MinimumVersion": "7.0.0"
+        }
+    ]
+}
