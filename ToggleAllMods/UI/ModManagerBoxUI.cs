@@ -10,7 +10,7 @@ public class ModManagerBoxUI(ModManagerBox diag, ILoc loc, ModSettings s) : IPos
     {
         var topButtons = diag._root.Q("TopButtons");
         var parent = topButtons.parent;
-        
+
         var container = new VisualElement()
         {
             style =
@@ -24,70 +24,133 @@ public class ModManagerBoxUI(ModManagerBox diag, ILoc loc, ModSettings s) : IPos
         };
         parent.Insert(parent.IndexOf(topButtons) + 1, container);
 
-        container.Add(CreateToggleAllButton("DAM.EnableAll", true));
-        container.Add(CreateToggleAllButton("DAM.DisableAll", false));
+        container.Add(CreateButton("DAM.EnableAll", EnableAllMods));
+        container.Add(CreateButton("DAM.DisableAll", DisableAllMods));
         container.Add(CreateButton("DAM.SaveProfile", SaveProfileMods, "DAM.SaveProfileDesc"));
         container.Add(CreateButton("DAM.LoadProfile", LoadProfileMods, "DAM.LoadProfileDesc"));
-        container.Add(CreateButton("DAM.ViewProfileFolder", OpenProfileFolder, "DAM.ViewProfileFolderDesc"));
+
+        var restartWarning = diag._root.Q("RestartWarning");
+        var restartBtn = CreateButton("DAM.RestartGame", RestartGame);
+        restartBtn.style.marginTop = 30;
+
+        restartWarning.parent.Add(restartBtn);
     }
 
     Button CreateButton(string key, Action action, string? tooltipKey = default)
     {
-        return new(action)
+        Timberborn.CoreUI.LocalizableButton btn = new()
         {
             text = loc.T(key),
             tooltip = tooltipKey is null ? null : loc.T(key),
             style = { color = new(Color.white), },
         };
+        btn.clicked += action;
+
+        btn.classList.AddRange(["unity-text-element", "unity-button", "mod-manager-box__top-button", "text--default", "text--bold"]);
+
+        return btn;
     }
 
-    Button CreateToggleAllButton(string key, bool enabled, string? tooltipKey = default)
+    void RestartGame()
     {
-        return CreateButton(key,
-            () => ToggleMods(enabled),
-            tooltipKey);
-    }
+        var exePath = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+        System.Diagnostics.Process.Start(exePath);
 
+        System.Diagnostics.Process.GetCurrentProcess().Kill();
+    }
+    
+    const string TextFilter = "Text Files (*.txt)\0*.txt\0\0";
     void LoadProfileMods()
     {
-        var profilePath = GetProfilePath();
-        if (!File.Exists(profilePath))
-        {
-            Debug.LogError($"Profile file not found: {profilePath}");
-            return;
-        }
+        var profilePath = WindowsFileDialogs.ShowOpenFileDialog(TextFilter, GetDefaultFolder());
+        if (profilePath is null) { return; }
 
         var ids = File.ReadAllLines(profilePath)
             .ToImmutableHashSet(StringComparer.OrdinalIgnoreCase);
 
+        // Prioritize local mods first
+        HashSet<string> enabledIds = [];
+
         foreach (var m in diag._modListView._modItems.Values)
         {
-            ToggleModItem(m, ids.Contains(m.Mod.Manifest.Id));
+            if (!m.Mod.ModDirectory.IsUserMod) { continue; }
+
+            var enabled = ids.Contains(m.Mod.Manifest.Id);
+            ToggleModItem(m, enabled);
+
+            if (enabled) { enabledIds.Add(m.Mod.Manifest.Id); }
+        }
+
+        // Then enable the rest
+        foreach (var m in diag._modListView._modItems.Values)
+        {
+            if (m.Mod.ModDirectory.IsUserMod) { continue; }
+
+            var enabled = ids.Contains(m.Mod.Manifest.Id) && !enabledIds.Contains(m.Mod.Manifest.Id);
+            ToggleModItem(m, enabled);
         }
     }
 
     void SaveProfileMods()
     {
-        var profilePath = GetProfilePath();
+        var profilePath = WindowsFileDialogs.ShowSaveFileDialog(TextFilter, GetDefaultFolder());
+        if (profilePath is null) { return; }
+
+        if (Path.GetFileName(profilePath).IndexOf('.') == -1) { profilePath += ".txt"; }
+
         var ids = diag._modListView._modItems.Values
             .Where(m => m.Mod.IsEnabled)
             .Select(m => m.Mod.Manifest.Id);
         File.WriteAllLines(profilePath, ids);
     }
 
-    void OpenProfileFolder() => System.Diagnostics.Process.Start(ModStarter.ModPath);
-
-    static string GetProfilePath() => Path.Combine(ModStarter.ModPath, "mods.txt");
-
-    void ToggleMods(bool enabled)
+    void DisableAllMods()
     {
-        HashSet<string> ignoredList = enabled ? [] : s.KeepEnabledIds;
+        var ignoredList = s.KeepEnabledIds;
 
+        HashSet<string> keepingIds = [];
+        HashSet<string> duplicateIds = [];
         foreach (var m in diag._modListView._modItems.Values)
         {
-            if (ignoredList.Contains(m.Mod.Manifest.Id)) { continue; }
+            var id = m.Mod.Manifest.Id;
+            if (ignoredList.Contains(id))
+            {
+                if (keepingIds.Contains(id))
+                {
+                    duplicateIds.Add(id);
+                }
+                else
+                {
+                    keepingIds.Add(id);
+                }
+            }
+            else
+            {
+                ToggleModItem(m, false);
+            }
+        }
 
-            ToggleModItem(m, enabled);
+        // Disable duplicates
+        if (duplicateIds.Count > 0)
+        {
+            foreach (var m in diag._modListView._modItems.Values)
+            {
+                if (duplicateIds.Contains(m.Mod.Manifest.Id)
+                    && !m.Mod.ModDirectory.IsUserMod)
+                {
+                    ToggleModItem(m, false);
+                }
+            }
+        }
+    }
+
+    static string GetDefaultFolder() => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"Timberborn\PlayerData");
+
+    void EnableAllMods()
+    {
+        foreach (var m in diag._modListView._modItems.Values)
+        {
+            ToggleModItem(m, true);
         }
     }
 

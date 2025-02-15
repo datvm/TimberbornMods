@@ -11,3 +11,4 @@ DAM.SaveProfile,"Save profile",
 DAM.SaveProfileDesc,"Save enabled mods to the 'mods.txt' file. It will be in the mod's folder.",
 DAM.ViewProfileFolder,"View profile folder",
 DAM.ViewProfileFolderDesc,"Open the folder where the 'mods.txt' file is located.",
+DAM.RestartGame,"OK & Restart the game"
