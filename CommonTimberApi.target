@@ -1,12 +1,12 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
-	<ItemGroup>
-		<Using Include="Timberborn.BaseComponentSystem" />
-		<Using Include="Timberborn.EntityPanelSystem" />
-		<Using Include="Timberborn.CoreUI" />
-		<Using Include="Timberborn.UILayoutSystem" />
-
-		<Using Include="UnityEngine.UIElements" />
+	<ItemGroup  Condition="$(IsU6)">
+		<Using Include="TimberApi.UIBuilderSystem" />
+		<Using Include="TimberApi.UIBuilderSystem.CustomElements" />
+		<Using Include="TimberApi.UIBuilderSystem.ElementBuilders" />
+		<Using Include="TimberApi.UIBuilderSystem" />
+		<Using Include="TimberApi.UIPresets.Builders" />
+		<Using Include="TimberApi.UIPresets.Buttons" />
+		<Using Include="TimberApi.UIPresets.Labels" />
 	</ItemGroup>
 
 	<ItemGroup>

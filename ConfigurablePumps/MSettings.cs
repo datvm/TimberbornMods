@@ -1,0 +1,124 @@
+﻿using Timberborn.WaterWorkshops;
+
+namespace ConfigurablePumps;
+
+public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository)
+   : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
+{
+
+    public override string ModId => nameof(ConfigurablePumps);
+
+    readonly ModSetting<bool> allFixedDepth = new(false, ModSettingDescriptor
+        .CreateLocalized("LV.SPE.AllFixedDepth")
+        .SetLocalizedTooltip("LV.SPE.AllFixedDepthDesc"));
+    readonly ModSetting<int> fixedDepth = new(3, ModSettingDescriptor
+        .CreateLocalized("LV.SPE.FixedDepth")
+        .SetLocalizedTooltip("LV.SPE.FixedDepthDesc"));
+    readonly ModSetting<bool> allMultiplier = new(true, ModSettingDescriptor
+        .CreateLocalized("LV.SPE.AllMultiplier")
+        .SetLocalizedTooltip("LV.SPE.AllMultiplierDesc"));
+    readonly ModSetting<float> multiplier = new(2f, ModSettingDescriptor
+        .CreateLocalized("LV.SPE.Multiplier")
+        .SetLocalizedTooltip("LV.SPE.MultiplierDesc"));
+    readonly ModSetting<float> mechPumpWater = new(0.25f, ModSettingDescriptor
+        .CreateLocalized("LV.SPE.MechPumpWater")
+        .SetLocalizedTooltip("LV.SPE.MechPumpWaterDesc"));
+    readonly ModSetting<float> waterProdMultiplier = new(1f, ModSettingDescriptor
+        .CreateLocalized("LV.SPE.WaterProdMultiplier")
+        .SetLocalizedTooltip("LV.SPE.WaterProdMultiplierDesc"));
+    readonly ModSetting<float> mechPumpPowerMultiplier = new(1f, ModSettingDescriptor
+        .CreateLocalized("LV.SPE.MechPumpPowerMultiplier")
+        .SetLocalizedTooltip("LV.SPE.MechPumpPowerDesc"));
+    readonly ModSetting<float> waterConversation = new(0.2f, ModSettingDescriptor
+        .CreateLocalized("LV.SPE.WaterConversation")
+        .SetLocalizedTooltip("LV.SPE.WaterConversationDesc"));
+
+    public static bool AllFixedDepth { get; private set; } = false;
+    public static int FixedDepth { get; private set; } = 0;
+    public static bool AllMultiplier { get; private set; } = false;
+    public static float Multiplier { get; private set; } = 1f;
+    public static float MechPumpWater { get; private set; } = 0.25f;
+    public static float WaterProdMultiplier { get; private set; } = 1f;
+    public static float MechPumpPowerMultiplier { get; private set; } = 1f;
+    public static float WaterConversation { get; private set; } = 0.2f;
+
+    public override void OnAfterLoad()
+    {
+        allFixedDepth.Descriptor.SetEnableCondition(() => !allMultiplier.Value);
+        allMultiplier.Descriptor.SetEnableCondition(() => !allFixedDepth.Value);
+
+        fixedDepth.Descriptor.SetEnableCondition(() => allFixedDepth.Value);
+        multiplier.Descriptor.SetEnableCondition(() => allMultiplier.Value);
+
+        AddCustomModSetting(allMultiplier, nameof(allMultiplier));
+        AddCustomModSetting(multiplier, nameof(multiplier));
+        AddCustomModSetting(allFixedDepth, nameof(allFixedDepth));
+        AddCustomModSetting(fixedDepth, nameof(fixedDepth));
+
+        AddCustomModSetting(waterProdMultiplier, nameof(waterProdMultiplier));
+        AddCustomModSetting(waterConversation, nameof(waterConversation));
+
+        AddCustomModSetting(mechPumpWater, nameof(mechPumpWater));
+        AddCustomModSetting(mechPumpPowerMultiplier, nameof(mechPumpPowerMultiplier));
+
+        UpdateValues();
+    }
+
+    void UpdateValues()
+    {
+        AllFixedDepth = allFixedDepth.Value;
+        FixedDepth = fixedDepth.Value;
+        AllMultiplier = allMultiplier.Value;
+        Multiplier = multiplier.Value;
+        MechPumpWater = mechPumpWater.Value;
+        WaterProdMultiplier = waterProdMultiplier.Value;
+        MechPumpPowerMultiplier = mechPumpPowerMultiplier.Value;
+        WaterConversation = waterConversation.Value;
+
+        if (FixedDepth < 1)
+        {
+            FixedDepth = fixedDepth.Value = 1;
+        }
+
+        if (Multiplier <= 0)
+        {
+            Multiplier = multiplier.Value = 1.0f;
+        }
+
+        if (MechPumpWater <= 0)
+        {
+            MechPumpWater = mechPumpWater.Value = 0.25f;
+        }
+
+        if (WaterProdMultiplier <= 0)
+        {
+            WaterProdMultiplier = waterProdMultiplier.Value = 1.0f;
+        }
+
+        if (MechPumpPowerMultiplier <= 0)
+        {
+            MechPumpPowerMultiplier = mechPumpPowerMultiplier.Value = 1.0f;
+        }
+
+        if (WaterConversation <= 0)
+        {
+            WaterConversation = waterConversation.Value = 0.2f;
+        }
+
+        OnWaterConversionChanged();
+    }
+
+    public void Unload()
+    {
+        UpdateValues();
+    }
+
+    static readonly FieldInfo WaterAmountConversionField = typeof(WaterGoodToWaterAmountConverter).Field("WaterAmountConversion");
+    static readonly FieldInfo BadWaterAmountConversionField = typeof(WaterContaminationGoodToWaterContaminationAmountConverter).Field("WaterContaminationAmountConversion");
+    static void OnWaterConversionChanged()
+    {
+        WaterAmountConversionField.SetValue(null, WaterConversation);
+        BadWaterAmountConversionField.SetValue(null, WaterConversation);
+    }
+
+}
