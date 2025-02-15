@@ -1,9 +1,9 @@
 {
-    "Name": "No Water Compression",
+    "Name": "No Water Compression & More",
     "Version": "7.0.0",
     "Id": "NoWaterCompression",
     "MinimumGameVersion": "0.6.0.0",
-    "Description": "Water doesn't compress",
+    "Description": "Water doesn't compress, as it should not.",
     "RequiredMods": [
         {
             "Id": "Harmony",
