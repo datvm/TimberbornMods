@@ -1,0 +1,17 @@
+{
+    "Name": "No Water Compression",
+    "Version": "7.0.0",
+    "Id": "NoWaterCompression",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "Water doesn't compress",
+    "RequiredMods": [
+        {
+            "Id": "Harmony",
+            "MinimumVersion": "0.0.0.0"
+        },
+        {
+            "Id": "eMka.ModSettings",
+            "MinimumVersion": "0.6.0.0"
+        }
+    ]
+}

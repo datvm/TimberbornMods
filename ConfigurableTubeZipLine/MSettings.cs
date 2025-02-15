@@ -10,6 +10,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     public static int ZiplineMaxInclination { get; private set; }
     public static bool ZiplineForIronTeeth { get; private set; }
     public static bool TubewayForFolktails { get; private set; }
+    public static bool NoWaterPenalty { get; private set; }
 
     #region ModSettings
 
@@ -55,6 +56,12 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
             .CreateLocalized("LV.CTZ.TubewayForFolktails")
             .SetLocalizedTooltip("LV.CTZ.TubewayForFolktailsDesc"));
 
+    readonly ModSetting<bool> noWaterPenalty = new(
+        false,
+        ModSettingDescriptor
+            .CreateLocalized("LV.CTZ.NoWaterPenalty")
+            .SetLocalizedTooltip("LV.CTZ.NoWaterPenaltyDesc"));
+
     #endregion
 
     public override string ModId => nameof(ConfigurableTubeZipLine);
@@ -68,6 +75,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         AddCustomModSetting(ziplineMaxInclination, nameof(ZiplineMaxInclination));
         AddCustomModSetting(ziplineForIronTeeth, nameof(ZiplineForIronTeeth));
         AddCustomModSetting(tubewayForFolktails, nameof(TubewayForFolktails));
+        AddCustomModSetting(noWaterPenalty, nameof(NoWaterPenalty));
 
         UpdateValues();
     }
@@ -87,6 +95,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         ZiplineMaxInclination = ziplineMaxInclination.Value;
         ZiplineForIronTeeth = ziplineForIronTeeth.Value;
         TubewayForFolktails = tubewayForFolktails.Value;
+        NoWaterPenalty = noWaterPenalty.Value;
 
         OnZiplineSpeedChanged();
     }
