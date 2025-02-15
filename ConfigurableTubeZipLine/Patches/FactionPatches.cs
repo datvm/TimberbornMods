@@ -44,6 +44,24 @@ public static class FactionPatches
         "materials/uberatlas/materials/ironteeth/RoofPlanks.IronTeeth",
     ];
 
+    static ImmutableArray<string>? AppendValue(string expectedId, string actualId, string expectedPath, IEnumerable<string> appending, IEnumerable<string> paths)
+    {
+        if (actualId != expectedId || !paths.Contains(expectedPath)) { return null; }
+        return [.. paths.Concat(appending).Distinct()];
+    }
+
+    static PrefabGroupSpec? AppendValue(string expectedId, string expectedPath, IEnumerable<string> appending, PrefabGroupSpec spec)
+    {
+        var values = AppendValue(expectedId, spec.Id, expectedPath, appending, spec.Paths);
+        return values is null ? null : spec with { Paths = values.Value };
+    }
+
+    static MaterialGroupSpec? AppendValue(string expectedId, string expectedPath, IEnumerable<string> appending, MaterialGroupSpec spec)
+    {
+        var values = AppendValue(expectedId, spec.Id, expectedPath, appending, spec.Paths);
+        return values is null ? null : spec with { Paths = values.Value };
+    }
+
     [HarmonyPostfix, HarmonyPatch(typeof(BasicDeserializer), nameof(BasicDeserializer.Deserialize))]
     public static void Deserialize(ref object __result)
     {
@@ -52,18 +70,19 @@ public static class FactionPatches
             switch (__result)
             {
                 case PrefabGroupSpec prefGrp:
-                    if (prefGrp.Id == "Buildings.IronTeeth")
                     {
-                        __result = prefGrp with { Paths = [.. prefGrp.Paths, .. ZiplinePrefabs] };
-                    }
-                    break;
-                case MaterialGroupSpec matGrp:
-                    if (matGrp.Id == "IronTeeth")
-                    {
-                        __result = matGrp with { Paths = [.. matGrp.Paths, .. ZiplineMaterials] };
+                        var replace = AppendValue("Buildings.IronTeeth", "Buildings/Paths/Path/Path.IronTeeth", ZiplinePrefabs, prefGrp);
+                        if (replace is not null) { __result = replace; }
                     }
 
-                    break;
+                    return;
+                case MaterialGroupSpec matGrp:
+                    {
+                        var replace = AppendValue("IronTeeth", "Materials/UberAtlas/Materials/IronTeeth/BaseMetal.IronTeeth", ZiplineMaterials, matGrp);
+                        if (replace is not null) { __result = replace; }
+                    }
+
+                    return;
             }
         }
 
@@ -72,17 +91,19 @@ public static class FactionPatches
             switch (__result)
             {
                 case PrefabGroupSpec prefGrp:
-                    if (prefGrp.Id == "Buildings.Folktails")
                     {
-                        __result = prefGrp with { Paths = [.. prefGrp.Paths, .. TubewayPrefabs] };
+                        var replace = AppendValue("Buildings.Folktails", "Buildings/Paths/Path/Path.Folktails", TubewayPrefabs, prefGrp);
+                        if (replace is not null) { __result = replace; }
                     }
-                    break;
+
+                    return;
                 case MaterialGroupSpec matGrp:
-                    if (matGrp.Id == "Folktails")
                     {
-                        __result = matGrp with { Paths = [.. matGrp.Paths, .. TubewayMaterials] };
+                        var replace = AppendValue("Folktails", "Materials/UberAtlas/Materials/Folktails/BaseMetal.Folktails", TubewayMaterials, matGrp);
+                        if (replace is not null) { __result = replace; }
                     }
-                    break;
+
+                    return;
             }
         }
     }

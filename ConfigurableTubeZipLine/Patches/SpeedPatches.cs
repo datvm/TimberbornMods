@@ -1,5 +1,6 @@
 ﻿global using Timberborn.CharacterMovementSystem;
 global using Timberborn.TubeSystem;
+using Timberborn.WalkingSystem;
 
 namespace ConfigurableTubeZipLine.Patches;
 
@@ -22,6 +23,15 @@ public static class SpeedPatches
         }
 
         return true;
+    }
+
+    [HarmonyPrefix, HarmonyPatch(typeof(WalkerSpeedManager), nameof(WalkerSpeedManager.GetWalkerSpeedAtCurrentPosition))]
+    public static bool RemoveWaterPenalty(WalkerSpeedManager __instance, ref float __result)
+    {
+        if (!MSettings.NoWaterPenalty) { return true; }
+
+        __result = __instance.GetWalkerBaseSpeed();
+        return false;
     }
 
 }
