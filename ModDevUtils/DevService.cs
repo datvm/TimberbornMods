@@ -12,7 +12,7 @@ public class DevServiceConfig : IConfigurator
     }
 }
 
-public class DevService(DialogBoxShower diag, IAssetLoader assets, VisualElementLoader ve, ILoc loc) : ILoadableSingleton
+public class DevService() : ILoadableSingleton
 {
 
     public async void Load()
