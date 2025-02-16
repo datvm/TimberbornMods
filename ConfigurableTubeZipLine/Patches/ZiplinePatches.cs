@@ -28,4 +28,18 @@ public static class ZiplinePatches
         return false;
     }
 
+    [HarmonyPostfix, HarmonyPatch(typeof(ZiplineConnectionBlockFactory), nameof(ZiplineConnectionBlockFactory.Load))]
+    public static void MakeZiplineCableNonsolid(ZiplineConnectionBlockFactory __instance)
+    {
+        if (!MSettings.ZiplineThroughObstacles) { return; }
+
+        ref var blocksSpec = ref __instance.ZiplineConnectionBlock._blocksSpecification;
+
+        for (int i = 0; i < blocksSpec._blockSpecifications.Length; i++)
+        {
+            ref var blockSpec = ref blocksSpec._blockSpecifications[i];
+            blockSpec._occupations = Timberborn.BlockSystem.BlockOccupations.None;
+        }
+    }
+
 }

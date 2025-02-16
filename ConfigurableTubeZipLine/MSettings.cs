@@ -11,6 +11,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     public static bool ZiplineForIronTeeth { get; private set; }
     public static bool TubewayForFolktails { get; private set; }
     public static bool NoWaterPenalty { get; private set; }
+    public static bool ZiplineThroughObstacles { get; private set; }
 
     #region ModSettings
 
@@ -62,6 +63,12 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
             .CreateLocalized("LV.CTZ.NoWaterPenalty")
             .SetLocalizedTooltip("LV.CTZ.NoWaterPenaltyDesc"));
 
+    readonly ModSetting<bool> ziplineThroughObstacles = new(
+        false,
+        ModSettingDescriptor
+            .CreateLocalized("LV.CTZ.ZiplineThroughObstacles")
+            .SetLocalizedTooltip("LV.CTZ.ZiplineThroughObstaclesDesc"));
+
     #endregion
 
     public override string ModId => nameof(ConfigurableTubeZipLine);
@@ -73,6 +80,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         AddCustomModSetting(ziplineMaxConnection, nameof(ZiplineMaxConnection));
         AddCustomModSetting(ziplineMaxDistance, nameof(ZiplineMaxDistance));
         AddCustomModSetting(ziplineMaxInclination, nameof(ZiplineMaxInclination));
+        AddCustomModSetting(ziplineThroughObstacles, nameof(ZiplineThroughObstacles));
         AddCustomModSetting(ziplineForIronTeeth, nameof(ZiplineForIronTeeth));
         AddCustomModSetting(tubewayForFolktails, nameof(TubewayForFolktails));
         AddCustomModSetting(noWaterPenalty, nameof(NoWaterPenalty));
@@ -96,6 +104,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         ZiplineForIronTeeth = ziplineForIronTeeth.Value;
         TubewayForFolktails = tubewayForFolktails.Value;
         NoWaterPenalty = noWaterPenalty.Value;
+        ZiplineThroughObstacles = ziplineThroughObstacles.Value;
 
         OnZiplineSpeedChanged();
     }
