@@ -11,7 +11,9 @@ public enum GameLabelStyle
 public enum GameButtonStyle
 {
 
+    Text = 0,
     Menu = 1,
+    WideMenu = 2,
 
 }
 
