@@ -23,9 +23,9 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     readonly ModSetting<float> mechPumpWater = new(0.25f, ModSettingDescriptor
         .CreateLocalized("LV.SPE.MechPumpWater")
         .SetLocalizedTooltip("LV.SPE.MechPumpWaterDesc"));
-    readonly ModSetting<float> waterProdMultiplier = new(1f, ModSettingDescriptor
-        .CreateLocalized("LV.SPE.WaterProdMultiplier")
-        .SetLocalizedTooltip("LV.SPE.WaterProdMultiplierDesc"));
+    readonly ModSetting<float> waterProdTimeMultiplier = new(1f, ModSettingDescriptor
+        .CreateLocalized("LV.SPE.WaterProdTimeMultiplier")
+        .SetLocalizedTooltip("LV.SPE.WaterProdTimeMultiplierDesc"));
     readonly ModSetting<float> mechPumpPowerMultiplier = new(1f, ModSettingDescriptor
         .CreateLocalized("LV.SPE.MechPumpPowerMultiplier")
         .SetLocalizedTooltip("LV.SPE.MechPumpPowerDesc"));
@@ -38,7 +38,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     public static bool AllMultiplier { get; private set; } = false;
     public static float Multiplier { get; private set; } = 1f;
     public static float MechPumpWater { get; private set; } = 0.25f;
-    public static float WaterProdMultiplier { get; private set; } = 1f;
+    public static float WaterProdTimeMultiplier { get; private set; } = 1f;
     public static float MechPumpPowerMultiplier { get; private set; } = 1f;
     public static float WaterConversation { get; private set; } = 0.2f;
 
@@ -55,7 +55,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         AddCustomModSetting(allFixedDepth, nameof(allFixedDepth));
         AddCustomModSetting(fixedDepth, nameof(fixedDepth));
 
-        AddCustomModSetting(waterProdMultiplier, nameof(waterProdMultiplier));
+        AddCustomModSetting(waterProdTimeMultiplier, nameof(waterProdTimeMultiplier));
         AddCustomModSetting(waterConversation, nameof(waterConversation));
 
         AddCustomModSetting(mechPumpWater, nameof(mechPumpWater));
@@ -71,7 +71,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         AllMultiplier = allMultiplier.Value;
         Multiplier = multiplier.Value;
         MechPumpWater = mechPumpWater.Value;
-        WaterProdMultiplier = waterProdMultiplier.Value;
+        WaterProdTimeMultiplier = waterProdTimeMultiplier.Value;
         MechPumpPowerMultiplier = mechPumpPowerMultiplier.Value;
         WaterConversation = waterConversation.Value;
 
@@ -90,9 +90,9 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
             MechPumpWater = mechPumpWater.Value = 0.25f;
         }
 
-        if (WaterProdMultiplier <= 0)
+        if (WaterProdTimeMultiplier <= 0)
         {
-            WaterProdMultiplier = waterProdMultiplier.Value = 1.0f;
+            WaterProdTimeMultiplier = waterProdTimeMultiplier.Value = 1.0f;
         }
 
         if (MechPumpPowerMultiplier <= 0)
