@@ -12,8 +12,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<!--<ProjectReference Include="..\TimberUi\TimberUiDemo\TimberUiDemo.csproj" />-->
-		<ProjectReference Include="..\ConfigurableTubeZipLine\ConfigurableTubeZipLine.csproj" />
+		<ProjectReference Include="..\TimberUi\TimberUiDemo\TimberUiDemo.csproj" />
+		<!--<ProjectReference Include="..\ConfigurableTubeZipLine\ConfigurableTubeZipLine.csproj" />-->
 
 		
 	</ItemGroup>

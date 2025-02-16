@@ -10,8 +10,10 @@ public static partial class UiBuilderExtensions
         return (TElement)parent.AddChild(typeof(TElement), name, classes);
     }
 
-    public static VisualElement AddChild(this VisualElement parent, Type type, string? name = default, IEnumerable<string>? classes = default)
+    public static VisualElement AddChild(this VisualElement parent, Type? type = default, string? name = default, IEnumerable<string>? classes = default)
     {
+        type ??= typeof(VisualElement);
+
         var child = Activator.CreateInstance(type) as VisualElement
             ?? throw new InvalidOperationException("Failed to create VisualElement instance.");
 
@@ -70,6 +72,28 @@ public static partial class UiBuilderExtensions
         return label;
     }
 
+    public static Label AddLabelHeader(this VisualElement parent, string text, string? name = default, IEnumerable<string>? additionalClasses = default)
+        => parent.AddLabel(text, name, additionalClasses, GameLabelStyle.Header);
+
+    public static ScrollView AddGameScrollView(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, bool greenDecorated = true)
+    {
+        if (greenDecorated)
+        {
+            additionalClasses = (additionalClasses ?? []).Append(UiCssClasses.ScrollGreenDecorated);
+        }
+
+        return parent.AddChild<ScrollView>(name, additionalClasses);
+    }
+
+    public static ListView AddGameListView(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, bool greenDecorated = true)
+    {
+        if (greenDecorated)
+        {
+            additionalClasses = (additionalClasses ?? []).Append(UiCssClasses.ScrollGreenDecorated);
+        }
+        return parent.AddChild<ListView>(name, additionalClasses);
+    }
+
     public static string[] GetClasses(GameLabelStyle style) => style switch
     {
         GameLabelStyle.Default => ["text--default"],
@@ -81,20 +105,24 @@ public static partial class UiBuilderExtensions
     {
         var styleClass = style switch
         {
+            GameButtonStyle.Text => throw new NotImplementedException(),
             GameButtonStyle.Menu => UiCssClasses.ButtonMenu,
-            _ => ""
+            GameButtonStyle.WideMenu => UiCssClasses.ButtonWideMenu,
+            _ => throw new NotImplementedException(style.ToString()),
         };
         List<string> result = [styleClass];
 
-
-        var sizeClass = styleClass + size switch
+        if (size is not null)
         {
-            GameButtonSize.Small => UiCssClasses.ButtonPfSmall,
-            GameButtonSize.Medium => UiCssClasses.ButtonPfMedium,
-            GameButtonSize.Large => UiCssClasses.ButtonPfLarge,
-            _ => ""
-        };
-        if (sizeClass.Length > 0) { result.Add(sizeClass); }
+            var sizeClass = styleClass + size switch
+            {
+                GameButtonSize.Small => UiCssClasses.ButtonPfSmall,
+                GameButtonSize.Medium => UiCssClasses.ButtonPfMedium,
+                GameButtonSize.Large => UiCssClasses.ButtonPfLarge,
+                _ => throw new NotImplementedException(size.ToString()),
+            };
+            result.Add(sizeClass);
+        }
 
         if (stretched)
         {

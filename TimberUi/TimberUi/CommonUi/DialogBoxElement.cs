@@ -2,6 +2,7 @@
 
 public class DialogBoxElement : VisualElement
 {
+    const string BoxName = "Box";
     static readonly ImmutableArray<string> MainClasses = ["content-row-centered"];
     static readonly ImmutableArray<string> NineSliceClasses = ["content-centered", "sliced-border", "sliced-border--nontransparent"];
     static readonly ImmutableArray<string> BoxClasses = ["box"];
@@ -24,8 +25,9 @@ public class DialogBoxElement : VisualElement
 
         Container = this.AddChild<NineSliceVisualElement>(name: "Container", classes: NineSliceClasses);
 
-        var type = scrollAsBox ? typeof(ScrollView) : typeof(VisualElement);
-        Content = Container.AddChild(type, name: "Box", BoxClasses);
+        Content = scrollAsBox ?
+            Container.AddGameScrollView(name: BoxName, additionalClasses: BoxClasses) :
+            Container.AddChild(name: BoxName, classes: BoxClasses);
     }
 
     public DialogBoxElement AddCloseButton(Action? customAction = default)
@@ -36,7 +38,7 @@ public class DialogBoxElement : VisualElement
         }
 
         CloseButton = new Button();
-        CloseButton.classList.Add("close-button");
+        CloseButton.classList.Add(UiCssClasses.CloseButton);
 
         Container.Add(CloseButton);
 
