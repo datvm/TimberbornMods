@@ -6,8 +6,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
-		<!--<DebugSymbols>false</DebugSymbols>
-		<DebugType>none</DebugType>-->
+		<DebugSymbols>false</DebugSymbols>
+		<DebugType>none</DebugType>
 
 		<ModPath>E:\SteamLibrary\steamapps\workshop\content\1062090\</ModPath>
 		
@@ -32,7 +32,6 @@
 	<ItemGroup>
 		<LocalizationFiles Include="$(OutputPath)Localizations\**\*.*" />
 		<DllFiles Include="$(OutputPath)\**\*.dll"/>
-		<PdbFiles Include="$(OutputPath)\**\*.pdb"/>
 		<Sprites Include="$(OutputPath)\Sprites\**\*"/>
 		<Blueprints Include="$(OutputPath)\Blueprints\**\*"/>
 		<Specifications Include="$(OutputPath)\Specifications\**\*"/>
@@ -45,7 +44,6 @@
 		<Message Text="Copying..." />
 		<Copy SourceFiles="$(OutputPath)manifest.json" DestinationFolder="$(ModFolder)" />
 		<Copy SourceFiles="@(DllFiles)" DestinationFolder="$(ModFolder)%(RecursiveDir)" />
-		<Copy SourceFiles="@(PdbFiles)" DestinationFolder="$(ModFolder)%(RecursiveDir)" />
 		<Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(ModFolder)Localizations\%(RecursiveDir)" />
 		<Copy SourceFiles="@(Sprites)" DestinationFolder="$(ModFolder)Sprites\%(RecursiveDir)" />
 		<Copy SourceFiles="@(Blueprints)" DestinationFolder="$(ModFolder)Blueprints\%(RecursiveDir)" />

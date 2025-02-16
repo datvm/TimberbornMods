@@ -1,7 +1,6 @@
 ﻿#if TIMBER7
 
 using Timberborn.BlueprintSystem;
-using Timberborn.Goods;
 using Timberborn.WaterBuildings;
 using Timberborn.Workshops;
 
@@ -12,10 +11,11 @@ public static class SpecPatches
 {
     const string WaterId = "Water";
     const string BadwaterId = "Badwater";
+    static readonly ImmutableHashSet<string> WaterIds = [WaterId, BadwaterId];
 
     public static float? OriginalMechPumpWater { get; private set; }
 
-    static readonly PropertyInfo GoodAmountSetter = typeof(GoodAmountSpecNew).Property(nameof(GoodAmountSpecNew.Amount));
+    static readonly MethodInfo CycleDurationInHoursSetter = typeof(RecipeSpec).PropertySetter(nameof(RecipeSpec.CycleDurationInHours));
     [HarmonyPostfix, HarmonyPatch(typeof(BasicDeserializer), nameof(BasicDeserializer.Deserialize))]
     public static void PatchDeserialize(ref object __result)
     {
@@ -24,26 +24,13 @@ public static class SpecPatches
             OriginalMechPumpWater = wms._waterPerSecond;
             wms._waterPerSecond = MSettings.MechPumpWater;
         }
-        else if (MSettings.WaterProdMultiplier != 1
+        else if (MSettings.WaterProdTimeMultiplier != 1
             && __result is RecipeSpec r
             && (r.Ingredients.Length == 0 || r.Products.Length == 0)
+            && (r.Ingredients.Any(q => WaterIds.Contains( q.Id ))  || r.Products.Any(q => WaterIds.Contains(q.Id)))
         )
         {
-            foreach (var item in r.Ingredients)
-            {
-                if (item.Id == WaterId || item.Id == BadwaterId)
-                {
-                    GoodAmountSetter.SetValue(item, (int)MathF.Ceiling(item.Amount * MSettings.WaterProdMultiplier));
-                }
-            }
-
-            foreach (var item in r.Products)
-            {
-                if (item.Id == WaterId || item.Id == BadwaterId)
-                {
-                    GoodAmountSetter.SetValue(item, (int)MathF.Ceiling(item.Amount * MSettings.WaterProdMultiplier));
-                }
-            }
+            CycleDurationInHoursSetter.Invoke(r, [r.CycleDurationInHours * MSettings.WaterProdTimeMultiplier]);
         }
     }
 

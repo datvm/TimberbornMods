@@ -8,15 +8,16 @@ public static class SpecPatches
 {
     const string WaterId = "Water";
     const string BadwaterId = "Badwater";
+    static readonly ImmutableHashSet<string> WaterIds = new[] { WaterId, BadwaterId }.ToImmutableHashSet();
 
-    [HarmonyPostfix, HarmonyPatch(typeof(GoodAmount), nameof(GoodAmount.Amount), MethodType.Getter)]
-    public static void PatchWaterAmount(ref int __result, GoodAmount __instance)
+    [HarmonyPostfix, HarmonyPatch(typeof(RecipeSpecification), nameof(RecipeSpecification.CycleDurationInHours), MethodType.Getter)]
+    public static void PatchCycleDurationInHours(RecipeSpecification __instance, ref float __result)
     {
-        if (MSettings.WaterProdMultiplier == 1) { return; }
-
-        if (__instance.GoodId == WaterId || __instance.GoodId == BadwaterId)
+        if (MSettings.WaterProdTimeMultiplier != 1
+            && (__instance.Ingredients.Count == 0 || __instance.Products.Count == 0)
+            && (__instance.Ingredients.Any(q => WaterIds.Contains(q.GoodId)) || __instance.Products.Any(q => WaterIds.Contains(q.GoodId))))
         {
-            __result = (int)MathF.Ceiling(__result * MSettings.WaterProdMultiplier);
+            __result *= MSettings.WaterProdTimeMultiplier;
         }
     }
 
