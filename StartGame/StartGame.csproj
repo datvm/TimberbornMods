@@ -13,7 +13,7 @@
 
 	<ItemGroup>
 		<!--<ProjectReference Include="..\TimberUi\TimberUiDemo\TimberUiDemo.csproj" />-->
-		<ProjectReference Include="..\ConfigurablePumps\ConfigurablePumps.csproj" />
+		<ProjectReference Include="..\ConfigurableTubeZipLine\ConfigurableTubeZipLine.csproj" />
 
 		
 	</ItemGroup>
