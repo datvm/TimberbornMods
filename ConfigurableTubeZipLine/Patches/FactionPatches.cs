@@ -75,14 +75,14 @@ public static class FactionPatches
                         if (replace is not null) { __result = replace; }
                     }
 
-                    return;
+                    break;
                 case MaterialGroupSpec matGrp:
                     {
                         var replace = AppendValue("IronTeeth", "Materials/UberAtlas/Materials/IronTeeth/BaseMetal.IronTeeth", ZiplineMaterials, matGrp);
                         if (replace is not null) { __result = replace; }
                     }
 
-                    return;
+                    break;
             }
         }
 
@@ -96,14 +96,14 @@ public static class FactionPatches
                         if (replace is not null) { __result = replace; }
                     }
 
-                    return;
+                    break;
                 case MaterialGroupSpec matGrp:
                     {
                         var replace = AppendValue("Folktails", "Materials/UberAtlas/Materials/Folktails/BaseMetal.Folktails", TubewayMaterials, matGrp);
                         if (replace is not null) { __result = replace; }
                     }
 
-                    return;
+                    break;
             }
         }
     }
