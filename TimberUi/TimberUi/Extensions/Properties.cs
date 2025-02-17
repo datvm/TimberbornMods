@@ -3,23 +3,23 @@
 public static partial class UiBuilderExtensions
 {
 
-    public static TElement AddClass<TElement>(this TElement element, string className) where TElement : VisualElement
+    public static T AddClass<T>(this T element, string className) where T : VisualElement
     {
         element.classList.Add(className);
         return element;
     }
 
-    public static TElement AddClasses<TElement>(this TElement element, params string[] classNames) where TElement : VisualElement
+    public static T AddClasses<T>(this T element, params string[] classNames) where T : VisualElement
     {
         element.classList.AddRange(classNames);
         return element;
     }
 
-    public static TElement SetMargin<TElement>(this TElement element, float margin) where TElement : VisualElement => element.SetMargin(margin, margin);
+    public static T SetMargin<T>(this T element, float margin) where T : VisualElement => element.SetMargin(margin, margin);
 
-    public static TElement SetMargin<TElement>(this TElement element, float marginX = 0, float marginY = 0) where TElement : VisualElement => element.SetMargin(marginY, marginX, marginY, marginX);
+    public static T SetMargin<T>(this T element, float marginX = 0, float marginY = 0) where T : VisualElement => element.SetMargin(marginY, marginX, marginY, marginX);
 
-    public static TElement SetMargin<TElement>(this TElement element, float top = 0, float right = 0, float bottom = 0, float left = 0) where TElement : VisualElement
+    public static T SetMargin<T>(this T element, float top = 0, float right = 0, float bottom = 0, float left = 0) where T : VisualElement
     {
         element.style.marginTop = top;
         element.style.marginRight = right;
@@ -28,7 +28,20 @@ public static partial class UiBuilderExtensions
         return element;
     }
 
-    public static TElement SetSize<TElement>(this TElement element, float? width = default, float? height = default) where TElement : VisualElement
+    public static T SetPadding<T>(this T element, float padding) where T : VisualElement => element.SetPadding(padding, padding);
+
+    public static T SetPadding<T>(this T element, float paddingX = 0, float paddingY = 0) where T : VisualElement => element.SetPadding(paddingY, paddingX, paddingY, paddingX);
+
+    public static T SetPadding<T>(this T element, float top = 0, float right = 0, float bottom = 0, float left = 0) where T : VisualElement
+    {
+        element.style.paddingTop = top;
+        element.style.paddingRight = right;
+        element.style.paddingBottom = bottom;
+        element.style.paddingLeft = left;
+        return element;
+    }
+
+    public static T SetSize<T>(this T element, float? width = default, float? height = default) where T : VisualElement
     {
         if (width is not null)
         {
@@ -43,11 +56,23 @@ public static partial class UiBuilderExtensions
         return element;
     }
 
-    public static TElement SetSize<TElement>(this TElement element, float widthAndHeight) where TElement : VisualElement => element.SetSize(widthAndHeight, widthAndHeight);
+    public static T SetSize<T>(this T element, float widthAndHeight) where T : VisualElement => element.SetSize(widthAndHeight, widthAndHeight);
 
-    public static TElement SetAsRow<TElement>(this TElement element) where TElement : VisualElement
+    public static T SetAsRow<T>(this T element) where T : VisualElement
     {
         element.style.flexDirection = FlexDirection.Row;
+        return element;
+    }
+
+    public static T SetWrap<T>(this T element, bool wrap = true) where T : VisualElement
+    {
+        element.style.flexWrap = wrap ? Wrap.Wrap : Wrap.NoWrap;
+        return element;
+    }
+
+    public static T SetMaxHeight<T>(this T element, float maxHeight) where T : VisualElement
+    {
+        element.style.maxHeight = maxHeight;
         return element;
     }
 
