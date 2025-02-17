@@ -1,6 +1,4 @@
-﻿using Timberborn.MainMenuPanels;
-
-namespace UnityEngine.UIElements;
+﻿namespace UnityEngine.UIElements;
 
 public static partial class UiBuilderExtensions
 {

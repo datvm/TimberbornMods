@@ -14,4 +14,6 @@ public static partial class UiCssClasses
     public const string CloseButton = "close-button";
 
     public const string ScrollGreenDecorated = "scroll--green-decorated";
+
+    public const string BottomBarButtonRed = "bottom-bar-button--red";
 }

@@ -1,13 +1,10 @@
-﻿global using Timberborn.MainMenuPanels;
-global using UiBuilder;
-global using UiBuilder.CommonUi;
-
+﻿
 namespace TimberUiDemo.Services;
 
 public class MenuService(PanelStack stack, MainMenuPanel menu, VisualElementLoader veLoader, DialogBoxShower diagShower) : ILoadableSingleton
 {
 
-    static readonly string[] Assets = ["modding/ModManagerBox"];
+    static readonly string[] Assets = ["Common/GameUI"];
 
     void PrintDebugInfo()
     {

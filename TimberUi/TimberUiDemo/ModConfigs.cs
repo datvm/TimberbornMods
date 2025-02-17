@@ -1,14 +1,28 @@
 ﻿global using TimberUiDemo.Services;
+global using Timberborn.BottomBarSystem;
+global using TimberUiDemo.UI;
 
 namespace TimberUiDemo;
 
 [Context("MainMenu")]
-public class MainMenuConfigs : IConfigurator
+public class MainMenuConfigs : Configurator
 {
-    public void Configure(IContainerDefinition containerDefinition)
+    public override void Configure()
     {
-        Debug.Log("Binding MainMenu");
-
-        containerDefinition.Bind<MenuService>().AsSingleton();
+        Bind<MenuService>().AsSingleton();
     }
+}
+
+[Context("Game")]
+public class GameConfigs : Configurator
+{
+
+    public override void Configure()
+    {
+        Bind<DevModeButton>().AsSingleton();
+        Bind<GameService>().AsSingleton();
+
+        MultiBind<BottomBarModule>().ToProvider<BottomBarModuleProvider<DevModeButton>>().AsSingleton();
+    }
+
 }
