@@ -4,10 +4,10 @@ namespace UnityEngine.UIElements;
 public static partial class UiBuilderExtensions
 {
 
-    public static TElement AddChild<TElement>(this VisualElement parent, string? name = default, IEnumerable<string>? classes = default)
-        where TElement : VisualElement, new()
+    public static T AddChild<T>(this VisualElement parent, string? name = default, IEnumerable<string>? classes = default)
+        where T : VisualElement, new()
     {
-        return (TElement)parent.AddChild(typeof(TElement), name, classes);
+        return (T)parent.AddChild(typeof(T), name, classes);
     }
 
     public static VisualElement AddChild(this VisualElement parent, Type? type = default, string? name = default, IEnumerable<string>? classes = default)
@@ -43,16 +43,25 @@ public static partial class UiBuilderExtensions
     public static VisualElement InsertSelfBefore(this VisualElement element, VisualElement target) => element.InsertSelfAsSibling(target, 0);
     public static VisualElement InsertSelfAfter(this VisualElement element, VisualElement target) => element.InsertSelfAsSibling(target, 1);
 
-    public static NineSliceButton AddButton(this VisualElement parent, string text, Action? onClick = default, string? name = default, IEnumerable<string>? additionalClasses = default, GameButtonStyle style = GameButtonStyle.Menu, GameButtonSize? size = default, bool stretched = false)
+    public static NineSliceButton AddButton(this VisualElement parent, string text, string? name = default, Action? onClick = default, IEnumerable<string>? additionalClasses = default, GameButtonStyle style = GameButtonStyle.Menu, GameButtonSize? size = default, bool stretched = false)
+    {
+        EventCallback<ClickEvent>? callback = onClick is null
+            ? null
+            : (_) => onClick();
+
+        return AddButton(parent, text, callback, name, additionalClasses, style, size, stretched);
+    }
+
+    public static NineSliceButton AddButton(this VisualElement parent, string text, EventCallback<ClickEvent>? clickCb, string? name = default, IEnumerable<string>? additionalClasses = default, GameButtonStyle style = GameButtonStyle.Menu, GameButtonSize? size = default, bool stretched = false)
     {
         var btnClasses = GetClasses(style, size, stretched);
 
         var btn = parent.AddChild<NineSliceButton>(name, [.. btnClasses, .. (additionalClasses ?? [])]);
         btn.text = text;
 
-        if (onClick is not null)
+        if (clickCb is not null)
         {
-            btn.clicked += onClick;
+            btn.RegisterCallback(clickCb);
         }
 
         return btn;
@@ -60,7 +69,7 @@ public static partial class UiBuilderExtensions
 
     public static NineSliceButton AddMenuButton(this VisualElement parent, string text, Action? onClick = default, string? name = default, IEnumerable<string>? additionalClasses = default, GameButtonSize? size = default, bool stretched = false)
     {
-        return AddButton(parent, text, onClick, name, additionalClasses, GameButtonStyle.Menu, size, stretched);
+        return AddButton(parent, text, name, onClick, additionalClasses, GameButtonStyle.Menu, size, stretched);
     }
 
     public static Label AddLabel(this VisualElement parent, string text, string? name = default, IEnumerable<string>? additionalClasses = default, GameLabelStyle style = GameLabelStyle.Default)
@@ -103,20 +112,29 @@ public static partial class UiBuilderExtensions
 
     public static IEnumerable<string> GetClasses(GameButtonStyle style, GameButtonSize? size = default, bool stretched = false)
     {
+        List<string> result = [];
+
         var styleClass = style switch
         {
-            GameButtonStyle.Text => throw new NotImplementedException(),
+            GameButtonStyle.Text => null,
             GameButtonStyle.Menu => UiCssClasses.ButtonMenu,
             GameButtonStyle.WideMenu => UiCssClasses.ButtonWideMenu,
             _ => throw new NotImplementedException(style.ToString()),
         };
-        List<string> result = [styleClass];
+
+        if (styleClass is null)
+        {
+            result.AddRange(UiCssClasses.ButtonText);
+        }
+        else
+        {
+            result.Add(styleClass);
+        }
 
         if (size is not null)
         {
             var sizeClass = styleClass + size switch
             {
-                GameButtonSize.Small => UiCssClasses.ButtonPfSmall,
                 GameButtonSize.Medium => UiCssClasses.ButtonPfMedium,
                 GameButtonSize.Large => UiCssClasses.ButtonPfLarge,
                 _ => throw new NotImplementedException(size.ToString()),

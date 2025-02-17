@@ -6,8 +6,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
-		<DebugSymbols>false</DebugSymbols>
-		<DebugType>none</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>embedded</DebugType>
 
 		<ModPath>E:\SteamLibrary\steamapps\workshop\content\1062090\</ModPath>
 		
