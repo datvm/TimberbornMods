@@ -45,8 +45,8 @@
 		<Copy SourceFiles="$(OutputPath)manifest.json" DestinationFolder="$(ModFolder)" />
 		<Copy SourceFiles="@(DllFiles)" DestinationFolder="$(ModFolder)%(RecursiveDir)" />
 		<Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(ModFolder)Localizations\%(RecursiveDir)" />
-		<Copy SourceFiles="@(Sprites)" DestinationFolder="$(ModFolder)Sprites\%(RecursiveDir)" />
-		<Copy SourceFiles="@(Blueprints)" DestinationFolder="$(ModFolder)Blueprints\%(RecursiveDir)" />
+		<Copy SourceFiles="@(Sprites)" DestinationFolder="$(ModFolder)sprites\%(RecursiveDir)" />
+		<Copy SourceFiles="@(Blueprints)" DestinationFolder="$(ModFolder)blueprints\%(RecursiveDir)" />
 		<Copy SourceFiles="@(Specifications)" DestinationFolder="$(ModFolder)Specifications\%(RecursiveDir)" />
 
 
