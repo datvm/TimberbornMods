@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Common.target" />
+
+	<ItemGroup>
+		<Reference Include="$(AssemblyPath)\System.Windows.Forms.dll">
+			<Private>False</Private>
+		</Reference>
+	</ItemGroup>
+
+</Project>

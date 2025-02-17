@@ -1,0 +1,12 @@
+﻿ID,Text,Comment
+Modding.ThumbnailInfo,"Click Refresh to pick a mod thumbnail if 'Pick upload thumbnail' option is checked",
+LV.TIMod.PickThumbnail,"Pick upload thumbnail",
+LV.TIMod.PickThumbnailDesc,"Pick a thumbnail for your upload instead of using thumbnail.png.",
+LV.TIMod.OpenExternalBrowser,"Always open external browser",
+LV.TIMod.OpenExternalBrowserDesc,"Always open with external browser instead of Steam overlay browser.",
+LV.TIMod.DevModeOnDefault,"Enable DevMode on load",
+LV.TIMod.DevModeOnDefaultDesc,"Enable DevMode by default when loading the game.",
+LV.TIMod.QuickQuit,"Enable Quick/Force Quit [Ctrl Shift Q][!]",
+LV.TIMod.QuickQuitDesc,"Enable quick quit when pressing [Ctrl Shift Q]. This option use Process.Kill() so no save will be made.",
+LV.TIMod.QuickRestart,"Enable Quick Restart [Ctrl Shift R][!]",
+LV.TIMod.QuickRestartDesc,"Enable quick restart when pressing [Ctrl Shift R]. This option use Process.Kill() so no save will be made.",
