@@ -79,6 +79,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimberUiDemo", "TimberUi\Ti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialPlzNoCrashes", "MaterialPlzNoCrashes\MaterialPlzNoCrashes.csproj", "{F7A518A6-6EFC-474B-980C-5872CCDF7703}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TImprove4Modders", "TImprove4Modders\TImprove4Modders.csproj", "{6EC58861-EFA0-4778-8483-8224CB04EAF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -213,6 +215,10 @@ Global
 		{F7A518A6-6EFC-474B-980C-5872CCDF7703}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7A518A6-6EFC-474B-980C-5872CCDF7703}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7A518A6-6EFC-474B-980C-5872CCDF7703}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EC58861-EFA0-4778-8483-8224CB04EAF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EC58861-EFA0-4778-8483-8224CB04EAF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EC58861-EFA0-4778-8483-8224CB04EAF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EC58861-EFA0-4778-8483-8224CB04EAF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

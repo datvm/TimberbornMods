@@ -3,6 +3,5 @@
     "Version": "7.0.0",
     "Id": "TimberUi",
     "MinimumGameVersion": "0.7.0.0",
-    "Description": "UI Library for Timberborn",
-    "RequiredMods": []
+    "Description": "(Yet another) UI Library for Timberborn. Docs incoming. This is for developers only. This mod itself does nothing."
 }
