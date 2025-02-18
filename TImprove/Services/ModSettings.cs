@@ -99,13 +99,6 @@ public class ModSettings : ModSettingsOwner
         AddCustomModSetting(biggerBuildDragArea, nameof(biggerBuildDragArea));
 
         onlyShowHeight!.Descriptor.SetEnableCondition(() => showCoords!.Value);
-        showCoords!.Descriptor.SetEnableCondition(() =>
-#if TIMBER6
-        true
-#elif TIMBER7
-        false
-#endif
-            );
 
         allDayLightValue.ValueChanged += (_, _) => InternalOnSettingsChanged();
         biggerBuildDragArea.ValueChanged += (_, _) => InternalOnSettingsChanged();
