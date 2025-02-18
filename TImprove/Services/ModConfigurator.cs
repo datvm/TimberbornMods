@@ -29,9 +29,7 @@ public class CameraModConfigurator : IConfigurator
 {
     public void Configure(IContainerDefinition containerDefinition)
     {
-#if TIMBER6
         containerDefinition.Bind<CoordsPanel>().AsSingleton();
         containerDefinition.Bind<CoordsService>().AsSingleton();
-#endif
     }
 }

@@ -1,30 +1,22 @@
 ﻿namespace TImprove.UI;
 
-#if TIMBER6
-public class CoordsPanel(UILayout layout, UIBuilder builder) : ILoadableSingleton
+#if TIMBER7
+public class CoordsPanel(UILayout layout) : ILoadableSingleton
 {
-    NineSliceVisualElement? panel;
-    Label? lblCoords;
+    NineSliceVisualElement panel = null!;
+    Label lblCoords = null!;
 
     public void Load()
     {
-        const string LabelName = "Coords";
+        panel = new NineSliceVisualElement();
+        panel.classList.AddRange(["top-right-item", "square-large--green"]);
+        panel.style.flexDirection = FlexDirection.Row;
+        panel.style.justifyContent = Justify.Center;
 
-        panel = builder.Create<VisualElementBuilder>().SetName("HeightShowerContainer").AddClass("top-right-item")
-            .AddClass("square-large--green")
-            .SetFlexDirection(FlexDirection.Row)
-            .SetFlexWrap(Wrap.Wrap)
-            .SetJustifyContent(Justify.Center)
-            .AddComponent<LabelBuilder>(
-                LabelName,
-                (builder) => builder
-                    .AddClass("text--centered")
-                    .AddClass("text--yellow")
-                    .AddClass("date-panel__text")
-                    .AddClass("game-text--normal"))
-            .BuildAndInitialize();
+        lblCoords = new Label();
+        panel.Add(lblCoords);
+        lblCoords.classList.AddRange(["text--centered", "text--yellow", "game-text--normal"]);
 
-        lblCoords = panel.Q<Label>(LabelName);
         layout.AddTopRight(panel, 7);
 
         SetVisibility(false);
@@ -32,15 +24,11 @@ public class CoordsPanel(UILayout layout, UIBuilder builder) : ILoadableSingleto
 
     public void SetVisibility(bool visible)
     {
-        if (panel is null) { return; }
-
         panel.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
     }
 
     public void SetText(string text)
     {
-        if (lblCoords is null) { return; }
-
         lblCoords.text = text;
     }
 

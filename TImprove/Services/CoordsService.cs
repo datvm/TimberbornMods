@@ -1,6 +1,5 @@
 ﻿namespace TImprove.Services;
 
-#if TIMBER6
 public class CoordsService(
     MSettings s,
     CoordsPanel panel,
@@ -64,4 +63,3 @@ public class CoordsService(
         input.RemoveInputProcessor(this);
     }
 }
-#endif
