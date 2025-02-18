@@ -1,0 +1,14 @@
+﻿ID,Text,Comment
+LV.SC.Nothing,"No beaver land",
+LV.SC.Stockpile,"Stockpile",
+LV.SC.Coord,"Height: {0} - (X, Y): ({1}, {2})",
+LV.SC.Water,"Water",
+LV.SC.WaterDepth,"  Depth: {0}cm",
+LV.SC.WaterDepthFrom,"  Depth: {0}cm ({1}cm from here)",
+LV.SC.WaterCurrent,"  Current: {0}cm³/s",
+LV.SC.WaterContamination,"  Contamination: {0}%",
+LV.SC.Dwellers,"Adult: {0}, Children: {1}",
+LV.SC.WaterSpecifiedStrength,"  Strength: {0} (usually {1})",
+LV.SC.WaterStrength,"  Strength: {0}",
+LV.SC.BeaverChildGrow,"Growing: {0}/{1} ({2}%)",
+LV.SC.BlockStat,"Moisture: {0} blocks, Contamination: {1}%"

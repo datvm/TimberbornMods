@@ -81,6 +81,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialPlzNoCrashes", "Mat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TImprove4Modders", "TImprove4Modders\TImprove4Modders.csproj", "{6EC58861-EFA0-4778-8483-8224CB04EAF8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperCursor", "SuperCursor\SuperCursor.csproj", "{1DF42F16-4D2A-44F5-BE71-838328139FE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -219,6 +221,10 @@ Global
 		{6EC58861-EFA0-4778-8483-8224CB04EAF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EC58861-EFA0-4778-8483-8224CB04EAF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6EC58861-EFA0-4778-8483-8224CB04EAF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DF42F16-4D2A-44F5-BE71-838328139FE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DF42F16-4D2A-44F5-BE71-838328139FE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DF42F16-4D2A-44F5-BE71-838328139FE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DF42F16-4D2A-44F5-BE71-838328139FE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

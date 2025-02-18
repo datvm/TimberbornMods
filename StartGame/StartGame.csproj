@@ -13,7 +13,7 @@
 
 	<ItemGroup>
 		<!--<ProjectReference Include="..\TimberUi\TimberUiDemo\TimberUiDemo.csproj" />-->
-		<ProjectReference Include="..\TImprove\TImprove.csproj" />
+		<ProjectReference Include="..\SuperCursor\SuperCursor.csproj" />
 
 	</ItemGroup>
 
