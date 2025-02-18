@@ -1,4 +1,6 @@
 ﻿
+using TimberUi.CommonUi;
+
 namespace UnityEngine.UIElements;
 
 public static partial class UiBuilderExtensions
@@ -103,12 +105,58 @@ public static partial class UiBuilderExtensions
         return parent.AddChild<ListView>(name, additionalClasses);
     }
 
-    public static string[] GetClasses(GameLabelStyle style) => style switch
+    public static EntityPanelFragmentElement AddFragment(this VisualElement parent, EntityPanelFragmentBackground? background = default, string? name = default, IEnumerable<string>? additionalClasses = default)
+    {
+        var fragment = parent.AddChild<EntityPanelFragmentElement>(name, additionalClasses);
+
+        if (background is not null)
+        {
+            fragment.Background = background.Value;
+        }
+
+        return fragment;
+    }
+
+    public static IEnumerable<string> GetClasses(GameLabelStyle style, GameLabelSize size = default, GameLabelColor? color = default, bool bold = default) => style switch
     {
         GameLabelStyle.Default => ["text--default"],
         GameLabelStyle.Header => ["text--header"],
+        GameLabelStyle.Game => GetGameLabelClasses(size, color, bold),
         _ => [],
     };
+
+    public static IEnumerable<string> GetGameLabelClasses(GameLabelSize size = default, GameLabelColor? color = default, bool bold = default, bool centered = default)
+    {
+        List<string> result = [
+            size switch
+            {
+                GameLabelSize.Normal =>  UiCssClasses.LabelGameTextNormal,
+                GameLabelSize.Big => UiCssClasses.LabelGameTextBig,
+                _ => throw new NotImplementedException(size.ToString()),
+            },
+        ];
+
+        if (color is not null && color.Value != GameLabelColor.Default)
+        {
+            result.Add(UiCssClasses.LabelGamePrefix + color.Value switch
+            {
+                GameLabelColor.Yellow => UiCssClasses.Yellow,
+                _ => throw new NotImplementedException(color.ToString()),
+            });
+        }
+
+        if (bold)
+        {
+            result.Add(UiCssClasses.LabelGameTextBold);
+        }
+
+        if (centered)
+        {
+            result.Add(UiCssClasses.LabelGameTextCentered);
+        }
+
+        return result;
+    }
 
     public static IEnumerable<string> GetClasses(GameButtonStyle style, GameButtonSize? size = default, bool stretched = false)
     {
@@ -119,6 +167,8 @@ public static partial class UiBuilderExtensions
             GameButtonStyle.Text => null,
             GameButtonStyle.Menu => UiCssClasses.ButtonMenu,
             GameButtonStyle.WideMenu => UiCssClasses.ButtonWideMenu,
+            GameButtonStyle.BottomBar => UiCssClasses.ButtonBottomBar,
+            GameButtonStyle.DevPanel => UiCssClasses.ButtonDevPanel,
             _ => throw new NotImplementedException(style.ToString()),
         };
 

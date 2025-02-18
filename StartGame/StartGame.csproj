@@ -12,8 +12,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<!--<ProjectReference Include="..\TimberUi\TimberUiDemo\TimberUiDemo.csproj" />-->
-		<ProjectReference Include="..\TImprove4Modders\TImprove4Modders.csproj" />
+		<ProjectReference Include="..\TimberUi\TimberUiDemo\TimberUiDemo.csproj" />
+		<!--<ProjectReference Include="..\TImprove4Modders\TImprove4Modders.csproj" />-->
 
 	</ItemGroup>
 

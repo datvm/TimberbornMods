@@ -23,6 +23,7 @@ public class GameConfigs : Configurator
         Bind<GameService>().AsSingleton();
 
         MultiBind<BottomBarModule>().ToProvider<BottomBarModuleProvider<DevModeButton>>().AsSingleton();
+        MultiBind<IDevModule>().To<PrintVisualTreeDevModule>().AsSingleton();
     }
 
 }
