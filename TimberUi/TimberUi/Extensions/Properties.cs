@@ -76,4 +76,10 @@ public static partial class UiBuilderExtensions
         return element;
     }
 
+    public static T AddLabelClasses<T>(this T element, GameLabelStyle style, GameLabelSize size = default, GameLabelColor? color = default, bool bold = default) where T : TextElement
+    {
+        element.classList.AddRange(GetClasses(style, size, color, bold));
+        return element;
+    }
+
 }

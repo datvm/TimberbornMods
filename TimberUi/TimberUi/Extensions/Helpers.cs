@@ -26,7 +26,17 @@ public static partial class UiBuilderExtensions
         var classNames = string.Join(", ", el.GetClasses().Select(q => $"\"{q}\""));
         var styles = ExtractChangedElementStyles(el);
 
-        builder.AppendLine($"{indent}{el.name}: {el.GetType()}, classes = [{classNames}], styles = \"{styles}\"");
+        builder.Append(indent)
+            .Append(string.IsNullOrEmpty(el.name) ? "_" : el.name)
+            .Append(": ")
+            .Append(el.GetType());
+
+        if (el is TextElement textElement)
+        {
+            builder.Append($": {textElement.text}");
+        }
+
+        builder.AppendLine($", classes = [{classNames}], styles = \"{styles}\"");
 
         foreach (var child in el.Children())
         {
