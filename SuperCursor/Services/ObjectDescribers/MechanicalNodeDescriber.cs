@@ -6,6 +6,11 @@ public class MechanicalNodeDescriber(ILoc t) : BaseObjectDescriber<MechanicalNod
 
     protected override void DescribeComponent(StringBuilder builder, MechanicalNode component)
     {
+        if (component?.enabled != true) { return; }
+
+        var power = component.Graph?.CurrentPower;
+        if (power is null) { return; }
+
         builder.AppendLine(t.T("ToolGroups.Power").Bold());
 
         if (component.IsGenerator)
@@ -18,8 +23,7 @@ public class MechanicalNodeDescriber(ILoc t) : BaseObjectDescriber<MechanicalNod
             builder.AppendLine(MechanicalNodeTextFormatter.FormatConsumerText(t, component).Indent());
         }
 
-        var power = component.Graph.CurrentPower;
-        builder.AppendLine(t.T("Mechanical.NetworkPower", power.PowerSupply, power.PowerDemand).Indent());
+        builder.AppendLine(t.T("Mechanical.NetworkPower", power.Value.PowerSupply, power.Value.PowerDemand).Indent());
     }
 
 }
