@@ -18,6 +18,10 @@ public static partial class UiCssClasses
 
     public const string CloseButton = "close-button";
 
+    public static readonly ImmutableArray<string> ToggleSettings = ["settings-element", "settings-text", "settings-toggle"];
+
+    public const string ScrollViewClass = "panel-list-view";
+    public const string ListViewClass = "panel-list-view";
     public const string ScrollGreenDecorated = "scroll--green-decorated";
 
     public const string BottomBarButtonRed = "bottom-bar-button--red";
