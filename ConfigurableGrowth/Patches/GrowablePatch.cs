@@ -1,15 +1,15 @@
-﻿using System.Runtime.CompilerServices;
-using Timberborn.Growing;
-using Timberborn.Yielding;
+﻿global using System.Runtime.CompilerServices;
+global using Timberborn.Growing;
+global using Timberborn.Yielding;
 
-namespace ConfigurableGrowth;
+namespace ConfigurableGrowth.Patches;
 
 [HarmonyPatch(typeof(Growable), nameof(Growable.GrowthTimeInDays), MethodType.Getter)]
 public static class GrowablePatch
 {
     static readonly ConditionalWeakTable<GrowableSpec, object?> ModifiedSpecs = [];
     static readonly FieldInfo growableGrowthDays = typeof(GrowableSpec).GetField("_growthTimeInDays", BindingFlags.NonPublic | BindingFlags.Instance);
-    
+
     public static void Prefix(Growable __instance, GrowableSpec ____growableSpec)
     {
         if (ModifiedSpecs.TryGetValue(____growableSpec, out _)) { return; }

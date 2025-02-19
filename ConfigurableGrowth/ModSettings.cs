@@ -1,44 +1,62 @@
 ﻿namespace ConfigurableGrowth;
 
-public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
+public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository)
+    : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
 
     public static float TreeGrowthRate { get; private set; } = 1;
     public static float CropGrowthRate { get; private set; } = 1;
     public static float GatherableGrowthRate { get; private set; } = 1;
+    public static int SpreadDistance { get; private set; } = 1;
+    public static bool SpreadVertically { get; private set; } = false;
+    public static float ReproducibleChanceMultiplier { get; private set; } = 1;
 
+    readonly ModSetting<float> treeRate = new(
+        2,
+        ModSettingDescriptor
+            .CreateLocalized("CG.TreeGrowthRate")
+            .SetLocalizedTooltip("CG.TreeGrowthRateDesc"));
 
-    ModSetting<float>? treeRate, cropRate, gatherableRate;
+    readonly ModSetting<float> cropRate = new(
+        1,
+        ModSettingDescriptor
+            .CreateLocalized("CG.CropGrowthRate")
+            .SetLocalizedTooltip("CG.CropGrowthRateDesc"));
+
+    readonly ModSetting<float> gatherableRate = new(
+        1,
+        ModSettingDescriptor
+            .CreateLocalized("CG.GatherableGrowthRate")
+            .SetLocalizedTooltip("CG.GatherableGrowthRateDesc"));
+
+    readonly ModSetting<float> reproducibleChanceMultiplier = new(
+        1,
+        ModSettingDescriptor
+            .CreateLocalized("CG.ReproducibleChanceMultiplier")
+            .SetLocalizedTooltip("CG.ReproducibleChanceMultiplierDesc"));
+
+    readonly ModSetting<int> spreadDistance = new(
+        1,
+        ModSettingDescriptor
+            .CreateLocalized("CG.SpreadDistance")
+            .SetLocalizedTooltip("CG.SpreadDistanceDesc"));
+
+    readonly ModSetting<bool> spreadVertically = new(
+        false,
+        ModSettingDescriptor
+            .CreateLocalized("CG.SpreadVertically")
+            .SetLocalizedTooltip("CG.SpreadVerticallyDesc"));
 
     public override string ModId => nameof(ConfigurableGrowth);
 
     public override void OnAfterLoad()
     {
-        treeRate = new ModSetting<float>(
-            2,
-            ModSettingDescriptor
-                .CreateLocalized("CG.TreeGrowthRate")
-                .SetLocalizedTooltip("CG.TreeGrowthRateDesc"));
-
-        cropRate = new ModSetting<float>(
-            1,
-            ModSettingDescriptor
-                .CreateLocalized("CG.CropGrowthRate")
-                .SetLocalizedTooltip("CG.CropGrowthRateDesc"));
-
-        gatherableRate = new ModSetting<float>(
-            1,
-            ModSettingDescriptor
-                .CreateLocalized("CG.GatherableGrowthRate")
-                .SetLocalizedTooltip("CG.GatherableGrowthRateDesc"));
-
         AddCustomModSetting(treeRate, nameof(TreeGrowthRate));
         AddCustomModSetting(cropRate, nameof(CropGrowthRate));
         AddCustomModSetting(gatherableRate, nameof(GatherableGrowthRate));
-
-        treeRate.ValueChanged += (_, _) => UpdateValues();
-        cropRate.ValueChanged += (_, _) => UpdateValues();
-        gatherableRate.ValueChanged += (_, _) => UpdateValues();
+        AddCustomModSetting(reproducibleChanceMultiplier, nameof(ReproducibleChanceMultiplier));
+        AddCustomModSetting(spreadDistance, nameof(SpreadDistance));
+        AddCustomModSetting(spreadVertically, nameof(SpreadVertically));
 
         UpdateValues();
     }
@@ -50,9 +68,12 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
 
     void UpdateValues()
     {
-        TreeGrowthRate = treeRate?.Value ?? 1;
-        CropGrowthRate = cropRate?.Value ?? 1;
-        GatherableGrowthRate = gatherableRate?.Value ?? 1;
+        TreeGrowthRate = treeRate.Value;
+        CropGrowthRate = cropRate.Value;
+        GatherableGrowthRate = gatherableRate.Value;
+        SpreadDistance = spreadDistance.Value;
+        SpreadVertically = spreadVertically.Value;
+        ReproducibleChanceMultiplier = reproducibleChanceMultiplier.Value;
     }
 
 }

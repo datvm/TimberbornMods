@@ -1,4 +1,4 @@
-﻿using Timberborn.Gathering;
+﻿global using Timberborn.Gathering;
 
 namespace ConfigurableGrowth;
 
