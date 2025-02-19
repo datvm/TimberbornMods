@@ -13,8 +13,7 @@
 
 	<ItemGroup>
 		<!--<ProjectReference Include="..\TimberUi\TimberUiDemo\TimberUiDemo.csproj" />-->
-		<ProjectReference Include="..\SuperCursor\SuperCursor.csproj" />
-
+		<ProjectReference Include="..\ConfigurableGrowth\ConfigurableGrowth.csproj" />
 	</ItemGroup>
 
 </Project>
