@@ -28,6 +28,12 @@ public static partial class UiBuilderExtensions
         return element;
     }
 
+    public static T SetMarginBottom<T>(this T element, float margin = 20f) where T : VisualElement
+    {
+        element.style.marginBottom = margin;
+        return element;
+    }
+
     public static T SetPadding<T>(this T element, float padding) where T : VisualElement => element.SetPadding(padding, padding);
 
     public static T SetPadding<T>(this T element, float paddingX = 0, float paddingY = 0) where T : VisualElement => element.SetPadding(paddingY, paddingX, paddingY, paddingX);
