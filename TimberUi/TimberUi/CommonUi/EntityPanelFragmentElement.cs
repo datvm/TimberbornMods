@@ -1,6 +1,6 @@
 ﻿namespace TimberUi.CommonUi;
 
-public class EntityPanelFragmentElement : VisualElement
+public class EntityPanelFragmentElement : NineSliceVisualElement
 {
 
     public EntityPanelFragmentBackground Background
@@ -12,6 +12,12 @@ public class EntityPanelFragmentElement : VisualElement
             field = value;
             classList.Add(GetBackgroundClass(value));
         }
+    }
+
+    public bool Visible
+    {
+        get => this.IsDisplayed();
+        set => this.ToggleDisplayStyle(value);
     }
 
     public EntityPanelFragmentElement()

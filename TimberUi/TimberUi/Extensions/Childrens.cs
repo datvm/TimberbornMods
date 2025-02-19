@@ -1,7 +1,4 @@
-﻿
-using TimberUi.CommonUi;
-
-namespace UnityEngine.UIElements;
+﻿namespace UnityEngine.UIElements;
 
 public static partial class UiBuilderExtensions
 {
@@ -85,6 +82,14 @@ public static partial class UiBuilderExtensions
 
     public static Label AddLabelHeader(this VisualElement parent, string text, string? name = default, IEnumerable<string>? additionalClasses = default)
         => parent.AddLabel(text, name, additionalClasses, GameLabelStyle.Header);
+
+    public static Label AddLabelGame(this VisualElement parent, string text, string? name = default, IEnumerable<string>? additionalClasses = default, GameLabelSize size = default, GameLabelColor? color = default, bool bold = default, bool centered = default)
+    {
+        var labelClasses = GetGameLabelClasses(size, color, bold, centered);
+        var label = parent.AddChild<Label>(name, [.. labelClasses, .. (additionalClasses ?? [])]);
+        label.text = text;
+        return label;
+    }
 
     public static ScrollView AddGameScrollView(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, bool greenDecorated = true)
     {
