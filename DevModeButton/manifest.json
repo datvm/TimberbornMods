@@ -1,0 +1,13 @@
+{
+    "Name": "Dev Mode Button",
+    "Version": "7.0.0",
+    "Id": "DevModeButton",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Add a DevMode button to the bottom tool bar. A small demo for my mod TimberUI.",
+    "RequiredMods": [
+        {
+            "Id": "TimberUi",
+            "MinimumVersion": "7.0.0"
+        }
+    ]
+}
