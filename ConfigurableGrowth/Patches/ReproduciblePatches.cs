@@ -25,15 +25,15 @@ public class ReproduciblePatches
         if (!ver && d == 1) { return true; }
 
         var comp = reproducible.GetComponentFast<BlockObject>();
-        for (int x = -d; x < d; x++)
+        for (int x = -d; x <= d; x++)
         {
-            for (int y = -d; y < d; y++)
+            for (int y = -d; y <= d; y++)
             {
                 if (x == 0 && y == 0) { continue; }
 
                 if (ver)
                 {
-                    for (int z = -d; z < d; z++)
+                    for (int z = -d; z <= d; z++)
                     {
                         MarkAtCoord(new(comp.Coordinates.x + x, comp.Coordinates.y + y, comp.Coordinates.z + z));
                     }
@@ -62,9 +62,9 @@ public class ReproduciblePatches
 
         if (!ver && d == 1) { return true; }
 
-        for (int x = -d; x < d; x++)
+        for (int x = -d; x <= d; x++)
         {
-            for (int y = -d; y < d; y++)
+            for (int y = -d; y <= d; y++)
             {
                 if (x == 0 && y == 0) { continue; }
 
@@ -72,7 +72,7 @@ public class ReproduciblePatches
 
                 if (ver)
                 {
-                    for (int z = -d; z < d; z++)
+                    for (int z = -d; z <= d; z++)
                     {
                         if (CheckAtCoord(new(coordinates.x + x, coordinates.y + y, coordinates.z + z)))
                         {
