@@ -37,3 +37,8 @@ public enum GameButtonSize
     Medium = 1,
     Large = 2,
 }
+
+public enum ToggleStyle
+{
+    Settings,
+}

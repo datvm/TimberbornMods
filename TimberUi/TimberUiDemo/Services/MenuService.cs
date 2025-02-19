@@ -1,10 +1,9 @@
-﻿
-namespace TimberUiDemo.Services;
+﻿namespace TimberUiDemo.Services;
 
 public class MenuService(PanelStack stack, MainMenuPanel menu, VisualElementLoader veLoader, DialogBoxShower diagShower) : ILoadableSingleton
 {
 
-    static readonly string[] Assets = ["Common/GameUI"];
+    static readonly string[] Assets = ["Options/SettingsBox", "Options/KeyBindingsBox"];
 
     void PrintDebugInfo()
     {
@@ -25,18 +24,18 @@ public class MenuService(PanelStack stack, MainMenuPanel menu, VisualElementLoad
 
     void ShowDemoDialog()
     {
-        var diag = new DialogBoxElement()
+        var diag = new DialogBoxElement(true)
             .SetTitle("Dialog title")
             .AddCloseButton();
+        var con = diag.Content;
 
-        diag.Content.AddLabelHeader("Label: Header");
-        diag.Content.AddLabel("Label: Default")
+        con.AddLabelHeader("Label: Header");
+        con.AddLabel("Label: Default")
             .SetMargin(bottom: 10);
 
-        diag.Content.AddLabelHeader("Buttons");
+        con.AddLabelHeader("Buttons");
 
-        var menuBtns = diag.Content
-            .AddChild(name: "MenuButtons")
+        var menuBtns = con.AddChild(name: "MenuButtons")
             .SetAsRow()
             .SetWrap()
             .SetMargin(bottom: 20);
@@ -46,19 +45,24 @@ public class MenuService(PanelStack stack, MainMenuPanel menu, VisualElementLoad
             menuBtns.AddMenuButton("Large", OnButtonClicked, size: GameButtonSize.Large);
         }
 
-        diag.Content
-            .AddChild()
+        con.AddChild()
             .SetMargin(bottom: 20)
             .AddMenuButton("Menu button - Stretched", OnButtonClicked, stretched: true);
 
-        diag.Content
-            .AddButton("Wide menu button", onClick: OnButtonClicked, style: GameButtonStyle.WideMenu)
-            .SetMargin(bottom: 20);
+        var otherBtns = con.AddChild()
+            .SetAsRow()
+            .SetMarginBottom();
+        {
+            otherBtns
+                .AddButton("Wide menu button", onClick: OnButtonClicked, style: GameButtonStyle.WideMenu)
+                .SetMargin(right: 20);
+            otherBtns.AddButton("Text button", onClick: OnButtonClicked, style: GameButtonStyle.Text);
+        }
 
-        diag.Content.AddButton("Text button", onClick: OnButtonClicked, style: GameButtonStyle.Text);
+        con.AddToggle("Toggle (Checkbox)", onValueChanged: (c) => ShowMsgBox($"You {(c ? "checked" : "unchecked")} the Toggle"));
 
-        diag.Content.AddLabelHeader("ListView");
-        var lst = diag.Content.AddGameListView()
+        con.AddLabelHeader("ListView (ScrollView+)");
+        var lst = con.AddListView()
             .SetMaxHeight(200);
         PopulateListView(lst);
 
@@ -102,7 +106,12 @@ public class MenuService(PanelStack stack, MainMenuPanel menu, VisualElementLoad
         var index = (e.target as Button)?.dataSource
             ?? throw new InvalidOperationException("Button has no data source");
 
-        diagShower.Create().SetMessage($"You clicked a button at index {index}")
+        ShowMsgBox($"You clicked a button at index {index}");
+    }
+
+    void ShowMsgBox(string text)
+    {
+        diagShower.Create().SetMessage(text)
             .SetConfirmButton(() => { }, "OK")
             .Show();
     }

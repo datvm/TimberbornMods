@@ -91,23 +91,33 @@ public static partial class UiBuilderExtensions
         return label;
     }
 
-    public static ScrollView AddGameScrollView(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, bool greenDecorated = true)
+    public static T AddWrappedChild<TWrapper, T>(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, IEnumerable<string>? additionalWrapperClasses = default) 
+        where T: VisualElement, new()
+        where TWrapper : VisualElement, new()
     {
-        if (greenDecorated)
-        {
-            additionalClasses = (additionalClasses ?? []).Append(UiCssClasses.ScrollGreenDecorated);
-        }
-
-        return parent.AddChild<ScrollView>(name, additionalClasses);
+        var wrapper = parent.AddChild<TWrapper>(classes: additionalWrapperClasses);
+        return wrapper.AddChild<T>(name, additionalClasses);
     }
 
-    public static ListView AddGameListView(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, bool greenDecorated = true)
+    static T InternalAddScrollView<T>(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, IEnumerable<string>? additionalWrapperClasses = default, bool greenDecorated = true)
+        where T : VisualElement, new()
     {
+        var wrapper = parent.AddChild(classes: [UiCssClasses.ScrollViewClass, .. (additionalWrapperClasses ?? [])]);
         if (greenDecorated)
         {
-            additionalClasses = (additionalClasses ?? []).Append(UiCssClasses.ScrollGreenDecorated);
+            wrapper.classList.Add(UiCssClasses.ScrollGreenDecorated);
         }
-        return parent.AddChild<ListView>(name, additionalClasses);
+        return wrapper.AddChild<T>(name, additionalClasses);
+    }
+
+    public static ScrollView AddScrollView(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, IEnumerable<string>? additionalWrapperClasses = default, bool greenDecorated = true)
+    {
+        return InternalAddScrollView<ScrollView>(parent, name, additionalClasses, additionalWrapperClasses, greenDecorated);
+    }
+
+    public static ListView AddListView(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, bool greenDecorated = true)
+    {
+        return InternalAddScrollView<ListView>(parent, name, additionalClasses, greenDecorated: greenDecorated);
     }
 
     public static EntityPanelFragmentElement AddFragment(this VisualElement parent, EntityPanelFragmentBackground? background = default, string? name = default, IEnumerable<string>? additionalClasses = default)
@@ -120,6 +130,27 @@ public static partial class UiBuilderExtensions
         }
 
         return fragment;
+    }
+
+    [Obsolete($"What you are looking for is {nameof(AddToggle)}")]
+    public static VisualElement AddCheckbox(this VisualElement parent)
+    {
+        throw new NotImplementedException($"What you are looking for is {nameof(AddToggle)}");
+    }
+
+    public static Toggle AddToggle(this VisualElement parent, string? text = default, string? name = default, IEnumerable<string>? additionalClasses = default, Action<bool>? onValueChanged = default, ToggleStyle style = default)
+    {
+        var classes = GetClasses(style);
+
+        var toggle = parent.AddChild<Toggle>(name, [.. classes, .. (additionalClasses ?? [])]);
+        toggle.text = text;
+
+        if (onValueChanged is not null)
+        {
+            toggle.RegisterValueChangedCallback((e) => onValueChanged(e.newValue));
+        }
+
+        return toggle;
     }
 
     public static IEnumerable<string> GetClasses(GameLabelStyle style, GameLabelSize size = default, GameLabelColor? color = default, bool bold = default) => style switch
@@ -205,5 +236,13 @@ public static partial class UiBuilderExtensions
         return result;
     }
 
+    public static IEnumerable<string> GetClasses(ToggleStyle style)
+    {
+        return style switch
+        {
+            ToggleStyle.Settings => UiCssClasses.ToggleSettings,
+            _ => throw new NotImplementedException(style.ToString()),
+        };
+    }
 
 }

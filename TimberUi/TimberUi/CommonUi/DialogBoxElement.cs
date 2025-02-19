@@ -26,7 +26,7 @@ public class DialogBoxElement : VisualElement
         Container = this.AddChild<NineSliceVisualElement>(name: "Container", classes: NineSliceClasses);
 
         Content = scrollAsBox ?
-            Container.AddGameScrollView(name: BoxName, additionalClasses: BoxClasses) :
+            Container.AddScrollView(name: BoxName, additionalClasses: BoxClasses) :
             Container.AddChild(name: BoxName, classes: BoxClasses);
     }
 
