@@ -12,3 +12,4 @@ LV.SC.WaterSpecifiedStrength,"  Strength: {0} (usually {1})",
 LV.SC.WaterStrength,"  Strength: {0}",
 LV.SC.BeaverChildGrow,"Growing: {0}/{1} ({2}%)",
 LV.SC.BlockStat,"Moisture: {0} blocks, Contamination: {1}%"
+LV.SC.KeyBinding,"Super Cursor",

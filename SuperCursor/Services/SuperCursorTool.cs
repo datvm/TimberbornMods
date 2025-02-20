@@ -8,7 +8,9 @@ public class SuperCursorTool(EntitySelectionService entitySelectionService, Inpu
     ILoc loc
 ) : CursorTool(entitySelectionService, inputService, optionsBox, uiVisibilityManager, selectableObjectRaycaster), IInputProcessor
 {
+    const string Keybinding = "SuperCursor";
     readonly SelectableObjectRaycaster selectableObjectRaycaster = selectableObjectRaycaster;
+    readonly InputService inputService = inputService;
 
     static readonly Vector2 MouseMargin = new(10, 0);
     void ProcessInfo()
@@ -65,7 +67,7 @@ public class SuperCursorTool(EntitySelectionService entitySelectionService, Inpu
     {
         var result = ProcessInput();
 
-        if (Keyboard.current.shiftKey.isPressed)
+        if (inputService.IsKeyHeld(Keybinding))
         {
             ProcessInfo();
         }
