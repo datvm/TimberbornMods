@@ -5,7 +5,7 @@ VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableBeaverWalk", "ConfigurableBeaverWalk\ConfigurableBeaverWalk.csproj", "{B3789C87-5409-4F45-A0BF-39BE0BEADAF2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F8D652F8-309B-4D55-B138-86DF92959C02}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Targets", "_Targets", "{F8D652F8-309B-4D55-B138-86DF92959C02}"
 	ProjectSection(SolutionItems) = preProject
 		Common.target = Common.target
 		CommonDebug.target = CommonDebug.target
@@ -53,7 +53,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FasterUnderwaterMovement", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheArchitectsToolkit", "TheArchitectsToolkit\TheArchitectsToolkit.csproj", "{49FD8EF9-74FF-486C-A07A-ED9896B232D9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{36EBDCB0-09D8-4A7D-AF62-89D5C49B6B44}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Utils", "_Utils", "{36EBDCB0-09D8-4A7D-AF62-89D5C49B6B44}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartGame", "StartGame\StartGame.csproj", "{E41BC21D-ED7F-4B4C-9E29-FC8385B0F887}"
 EndProject
@@ -84,6 +84,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperCursor", "SuperCursor\SuperCursor.csproj", "{1DF42F16-4D2A-44F5-BE71-838328139FE3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevModeButton", "DevModeButton\DevModeButton.csproj", "{433E66A9-36C9-46E6-B2FB-71DE0EFB8B7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuffDebuff", "BuffDebuff\BuffDebuff.csproj", "{FA529251-A0A1-47BE-9A73-ADF864AE1480}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMod", "TestMod\TestMod.csproj", "{019DECAD-E146-4014-8D02-54DD7BE40AC5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Buffs", "Buffs", "{1BC29315-F84D-4AA2-8157-84BF67FD6914}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalWellbeing", "GlobalWellbeing\GlobalWellbeing.csproj", "{5C826442-F65C-4CC9-84FB-5EC09CB8926C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -231,6 +239,18 @@ Global
 		{433E66A9-36C9-46E6-B2FB-71DE0EFB8B7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{433E66A9-36C9-46E6-B2FB-71DE0EFB8B7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{433E66A9-36C9-46E6-B2FB-71DE0EFB8B7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA529251-A0A1-47BE-9A73-ADF864AE1480}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA529251-A0A1-47BE-9A73-ADF864AE1480}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA529251-A0A1-47BE-9A73-ADF864AE1480}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA529251-A0A1-47BE-9A73-ADF864AE1480}.Release|Any CPU.Build.0 = Release|Any CPU
+		{019DECAD-E146-4014-8D02-54DD7BE40AC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{019DECAD-E146-4014-8D02-54DD7BE40AC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{019DECAD-E146-4014-8D02-54DD7BE40AC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{019DECAD-E146-4014-8D02-54DD7BE40AC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C826442-F65C-4CC9-84FB-5EC09CB8926C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C826442-F65C-4CC9-84FB-5EC09CB8926C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C826442-F65C-4CC9-84FB-5EC09CB8926C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C826442-F65C-4CC9-84FB-5EC09CB8926C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -241,5 +261,6 @@ Global
 		{47306E7F-53C9-4D1B-837E-FF2563DE037D} = {36EBDCB0-09D8-4A7D-AF62-89D5C49B6B44}
 		{5910E9C1-E64D-4EC2-9926-A4AF7A291E4B} = {B9EE59FC-AF99-4702-ADC6-8FAA6B7C3341}
 		{E2DCF1DD-4B91-482E-AFF4-CAB5D0594EF0} = {B9EE59FC-AF99-4702-ADC6-8FAA6B7C3341}
+		{FA529251-A0A1-47BE-9A73-ADF864AE1480} = {1BC29315-F84D-4AA2-8157-84BF67FD6914}
 	EndGlobalSection
 EndGlobal

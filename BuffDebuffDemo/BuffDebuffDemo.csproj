@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Common.target" />
+
+	<ItemGroup>
+	  <ProjectReference Include="..\BuffDebuff\BuffDebuff.csproj" />
+	</ItemGroup>
+
+</Project>

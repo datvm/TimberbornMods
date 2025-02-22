@@ -13,8 +13,12 @@
 		<Using Include="UnityEngine.UIElements" />
 	</ItemGroup>
 
+	<PropertyGroup>
+		<TimberUiPath>$(ModPath)3430626620\version-0.7\TimberUi.dll</TimberUiPath>
+	</PropertyGroup>
+	
 	<ItemGroup>
-		<Reference Condition="$(IsU7)" Include="$(ModPath)3430626620\version-0.7\TimberUi.dll">
+		<Reference Condition="$(IsU7)" Include="$(TimberUiPath)">
 			<Private>False</Private>
 		</Reference>
 		
