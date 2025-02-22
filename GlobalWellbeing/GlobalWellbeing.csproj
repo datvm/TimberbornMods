@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Common.target" />
+
+	<ItemGroup>
+	  <Folder Include="Patches\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\BuffDebuff\BuffDebuff.csproj" />
+	</ItemGroup>
+
+</Project>

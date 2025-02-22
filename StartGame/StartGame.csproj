@@ -13,7 +13,8 @@
 
 	<ItemGroup>
 		<!--<ProjectReference Include="..\TimberUi\TimberUiDemo\TimberUiDemo.csproj" />-->
-		<ProjectReference Include="..\DevModeButton\DevModeButton.csproj" />
+		<ProjectReference Include="..\GlobalWellbeing\GlobalWellbeing.csproj" />
+		<!--<ProjectReference Include="..\TestMod\TestMod.csproj" />-->
 	</ItemGroup>
 
 </Project>

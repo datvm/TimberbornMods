@@ -1,0 +1,5 @@
+ID,Text,Comment
+LV.GW.WellbeingBuff,"Global Wellbeing",
+LV.GW.WellbeingBuff,"The morale of your colony can really affect the productivity of your colonists.",
+LV.GW.Bonus,"{0}: {1}%\r\n(Next at {2}: {3})"
+LV.GW.BonusEnd,"{0}: {1}%\r\n(Next at {2}: {3})"

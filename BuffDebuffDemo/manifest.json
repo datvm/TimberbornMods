@@ -1,0 +1,21 @@
+{
+    "Name": "Buff & Debuff System Demo",
+    "Version": "7.0.0",
+    "Id": "BuffDebuffDemo",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Demo for Buff & Debuff System",
+    "RequiredMods": [
+        {
+            "Id": "TimberUi",
+            "MinimumVersion": "7.0.0"
+        },
+        {
+            "Id": "BuffDebuff",
+            "MinimumVersion": "7.0.0"
+        },
+        {
+            "Id": "Harmony",
+            "MinimumVersion": "0.0.0"
+        }
+    ]
+}
