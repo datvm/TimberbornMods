@@ -3,11 +3,9 @@
 	<Import Project="../Common.target" />
 
 	<ItemGroup>
-	  <Folder Include="Patches\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\BuffDebuff\BuffDebuff.csproj" />
+		<ProjectReference Include="..\BuffDebuff\BuffDebuff.csproj">
+			<Private>False</Private>
+		</ProjectReference>
 	</ItemGroup>
 
 </Project>

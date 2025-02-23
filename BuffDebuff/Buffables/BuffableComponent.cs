@@ -11,11 +11,13 @@ public class BuffableComponent : BaseComponent, IBuffEntity, IPersistentEntity
     public IEnumerable<BuffInstance> Buffs => buffs;
 
     EventBus eventBus = null!;
+    IBuffableService buffable = null!;
 
     [Inject]
-    public void Inject(EventBus eventBus)
+    public void Inject(EventBus eventBus, IBuffableService buffable)
     {
         this.eventBus = eventBus;
+        this.buffable = buffable;
     }
 
     public IEnumerable<T> GetBuffs<T>() where T : BuffInstance
@@ -32,7 +34,17 @@ public class BuffableComponent : BaseComponent, IBuffEntity, IPersistentEntity
             .OfType<T>();
     }
 
+    public void Start()
+    {
+        buffable.Register(this);
+    }
+
     public void Load(IEntityLoader entityLoader)
+    {
+        LoadId(entityLoader);
+    }
+
+    void LoadId(IEntityLoader entityLoader)
     {
         if (!entityLoader.HasComponent(SaveKey)) { return; }
 

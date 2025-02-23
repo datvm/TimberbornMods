@@ -22,7 +22,18 @@ public abstract class GlobalBuffTarget(IBuffableService buffables, EventBus even
 
         Dirty = false;
         Targets = buffables.Buffables
-            .Where(Filter)
+            .Where(b =>
+            {
+                try
+                {
+                    return Filter(b);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError($"Error filtering buffable {b}: {ex}");
+                    return false;
+                }
+            })
             .ToHashSet();
         TargetsChanged = true;
     }

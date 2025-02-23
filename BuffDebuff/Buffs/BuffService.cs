@@ -1,14 +1,17 @@
-﻿
-namespace BuffDebuff;
+﻿namespace BuffDebuff;
 
-public class BuffService(BuffEntityService buffEntities, IEnumerable<IBuff> buffs, ISingletonLoader loader, EntityService entities, EventBus eventBus)
-    : ISaveableSingleton, ILoadableSingleton, IBuffService, ITickableSingleton
+public class BuffService(
+    IBuffEntityService buffEntities,
+    ISingletonLoader loader,
+    IContainer container,
+    EventBus eventBus
+) : ISaveableSingleton, ILoadableSingleton, IPostLoadableSingleton, IBuffService, ITickableSingleton
 {
     static readonly SingletonKey SaveKey = new("BuffService");
-    static readonly ListKey<string> BuffIds = new("BuffIds");
-    static readonly ListKey<string> ActiveInstanceIds = new("ActiveInstanceIds");
+    static readonly ListKey<string> BuffIdsKey = new("BuffIds");
+    static readonly PropertyKey<string> ActiveInstancesKey = new("ActiveInstance");
 
-    FrozenDictionary<long, IBuff> allBuffs = null!;
+    readonly Dictionary<long, IBuff> allBuffs = [];
 
     public IBuff this[long id] => allBuffs[id];
     public IEnumerable<IBuff> Buffs => allBuffs.Values;
@@ -16,41 +19,22 @@ public class BuffService(BuffEntityService buffEntities, IEnumerable<IBuff> buff
     readonly Dictionary<long, BuffInstance> buffInstances = [];
     readonly Dictionary<BuffInstance, List<BuffableComponent>> affected = [];
     public IEnumerable<BuffInstance> ActiveInstances => buffInstances.Values;
-    HashSet<long> expectingLoadInstances = [];
+    Dictionary<string, long> expectingLoadBuffs = [];
 
     public void Load()
     {
         LoadExistingKeys();
-
-        foreach (var b in buffs)
-        {
-            Register(b);
-        }
-
-        allBuffs = buffs.ToFrozenDictionary(q => q.Id);
-    }
-
-    public void OnInstanceLoaded<T>(T instance) where T : BuffInstance
-    {
-        if (!expectingLoadInstances.Contains(instance.Id))
-        {
-            Debug.LogWarning($"Unexpected buff instance: {instance.Id}. It will be ignored");
-        }
-
-        Apply(instance);
-        expectingLoadInstances.Remove(instance.Id);
     }
 
     public void Apply<T>(T instance) where T : BuffInstance
     {
         if (!allBuffs.ContainsKey(instance.Buff.Id))
         {
-            Debug.LogError($"Buff {instance.Buff.Name} ({instance.Buff.Id}) is not registered. Ignoring request.");
+            Debug.LogError($"Instace {instance.Id} of {instance.Buff.GetHumanFriendlyId()} is not registered. Ignoring request.");
             return;
         }
 
         buffEntities.Register(instance);
-        CreateAndAttachBuffInstance(instance);
 
         foreach (var item in instance.Targets)
         {
@@ -80,6 +64,12 @@ public class BuffService(BuffEntityService buffEntities, IEnumerable<IBuff> buff
 
     public void Remove<T>(T instance) where T : BuffInstance
     {
+        var affectedBuffables = affected.TryGetValue(instance, out var list) ? list : [];
+        foreach (var buffable in affectedBuffables)
+        {
+            buffable.RemoveBuff(instance);
+        }
+
         foreach (var item in instance.Targets)
         {
             item.CleanUp();
@@ -108,7 +98,8 @@ public class BuffService(BuffEntityService buffEntities, IEnumerable<IBuff> buff
     {
         if (instance.Active == active)
         {
-            Debug.LogWarning($"Buff instance {instance.Buff.Name}({instance.Id}) is already {(active ? "active" : "inactive")}. Ignoring request.");
+            Debug.LogWarning($"Buff instance {instance.Id} from {instance.Buff.GetHumanFriendlyId()} is already {(active ? "active" : "inactive")}." +
+                $" Ignoring request.");
             return;
         }
 
@@ -134,14 +125,72 @@ public class BuffService(BuffEntityService buffEntities, IEnumerable<IBuff> buff
         SetActive(instance, false);
     }
 
-    EntityComponent CreateAndAttachBuffInstance<T>(T instance) where T : BuffInstance
+    public TInstance CreateBuffInstance<TBuff, TInstance>(TBuff buff)
+        where TBuff : IBuff
+        where TInstance : BuffInstance, IBuffInstance<TBuff>, new()
     {
-        return entities.Instantiate(instance);
+        if (!allBuffs.TryGetValue(buff.Id, out var buffType))
+        {
+            throw new InvalidOperationException($"{buff.GetHumanFriendlyId()} was not registered");
+        }
+
+        if ((IBuff)buff != buffType)
+        {
+            throw new InvalidOperationException(
+                $"{buff.GetHumanFriendlyId()} is not the same as the registered buff {buffType.GetHumanFriendlyId()}");
+        }
+
+        var instance = new TInstance();
+        instance.SetBuff(buff);
+        container.Inject(instance);
+
+        return instance;
     }
 
-    void Register(IBuff b)
+    public TInstance CreateBuffInstance<TBuff, TInstance, TValue>(TBuff buff, TValue value)
+        where TBuff : IBuff
+        where TInstance : BuffInstance, IBuffInstance<TBuff>, IValuedBuffInstance<TValue>, new()
+        where TValue : notnull
     {
+        var comp = CreateBuffInstance<TBuff, TInstance>(buff);
+        comp.Value = value;
+
+        return comp;
+    }
+
+    public void Register<T>(T b) where T : IBuff
+    {
+        var t = b.GetType().FullName;
+        var expectingType = expectingLoadBuffs.TryGetValue(t, out var expectingId);
+        if (b.Id > 0)
+        {
+            if (!expectingType)
+            {
+                Debug.LogError($"The save is not expecting the {b.GetHumanFriendlyId()}. Ignoring request.");
+                return;
+            }
+
+            if (expectingId != b.Id)
+            {
+                Debug.LogError($"The save is expecting the buff with Type {t} to have ID {expectingId} " +
+                    $"but instead received {b.GetHumanFriendlyId()}. Ignoring request.");
+                return;
+            }
+        }
+        else if (expectingType)
+        {
+            Debug.LogError($"The save is expecting the type {t} to have ID {expectingId} but instead is receving one without ID ({b.GetHumanFriendlyId()}). "
+                + $"Ignoring request.");
+            return;
+        }
+
         buffEntities.Register(b);
+        Debug.Log($"Registered {b.GetHumanFriendlyId()}");
+
+
+        allBuffs.Add(b.Id, b);
+
+        expectingLoadBuffs.Remove(t);
     }
 
     void LoadExistingKeys()
@@ -149,43 +198,90 @@ public class BuffService(BuffEntityService buffEntities, IEnumerable<IBuff> buff
         if (!loader.HasSingleton(SaveKey)) { return; }
 
         var s = loader.GetSingleton(SaveKey);
-        var ids = s.Get(BuffIds)
-            .Select(q => q.Split(';'))
-            .ToFrozenDictionary(q => q[0], q => q[1]);
 
-        foreach (var buff in buffs)
+        expectingLoadBuffs = s.Get(BuffIdsKey)
+            .Select(q => q.Split(';'))
+            .ToDictionary(q => q[0], q => long.Parse(q[1]));
+    }
+
+    public void PostLoad()
+    {
+        if (expectingLoadBuffs.Count > 0)
         {
-            if (ids.TryGetValue(buff.GetType().FullName, out var rawId))
+            foreach (var buff in expectingLoadBuffs)
             {
-                buff.Id = long.Parse(rawId);
+                Debug.LogWarning($"The save is expecting the type {buff.Key} with ID {buff.Value} to register but it did not. Instances of those buffs will be ignored");
             }
+
+            expectingLoadBuffs.Clear();
         }
 
-        expectingLoadInstances = s.Get(ActiveInstanceIds)
-            .Select(long.Parse)
-            .ToHashSet();
+        LoadInstances();
+    }
+
+    void LoadInstances()
+    {
+        if (!loader.HasSingleton(SaveKey)) { return; }
+        var s = loader.GetSingleton(SaveKey);
+
+        var rawJson = s.Get(ActiveInstancesKey);
+        var entries = JsonConvert.DeserializeObject<IEnumerable<BuffInstanceSaveEntry>>(rawJson) ?? [];
+
+        foreach (var entry in entries)
+        {
+            if (!allBuffs.TryGetValue(entry.BuffId, out var buff))
+            {
+                Debug.LogError($"Buff with ID {entry.BuffId} was not registered. Ignoring request.");
+                continue;
+            }
+
+            var type = AccessTools.TypeByName(entry.Type);
+            if (type == null)
+            {
+                Debug.LogError($"Type {entry.Type} was not found. Ignoring request.");
+                continue;
+            }
+
+            var constructor = type.GetConstructor([]);
+            if (constructor == null)
+            {
+                Debug.LogError($"Type {entry.Type} does not have a parameterless constructor. Ignoring request.");
+                continue;
+            }
+
+            var instance = (BuffInstance)constructor.Invoke([]);
+            instance.SetBuff(buff);
+
+            if (instance.Load(entry.SavedData))
+            {
+                Apply(instance);
+            }
+        }
     }
 
     public void Save(ISingletonSaver singletonSaver)
     {
         var s = singletonSaver.GetSingleton(SaveKey);
 
-        s.Set(BuffIds, buffs
-            .Select(q => $"{q.GetType().FullName};{q.Id}")
-            .ToImmutableArray());
-        s.Set(ActiveInstanceIds, buffInstances.Keys
-            .Select(q => q.ToString())
-            .ToImmutableArray());
+        s.Set(BuffIdsKey, [.. allBuffs.Values.Select(q => $"{q.GetType().FullName};{q.Id}")]);
+
+        IEnumerable<BuffInstanceSaveEntry> entries = GetSaveEntries();
+        s.Set(ActiveInstancesKey, JsonConvert.SerializeObject(entries));
+    }
+
+    IEnumerable<BuffInstanceSaveEntry> GetSaveEntries()
+    {
+        foreach (var entry in buffInstances.Values)
+        {
+            var save = entry.Save();
+            if (save is null) { continue; } // This instance chose not to save
+
+            yield return new BuffInstanceSaveEntry(entry.GetType().FullName, entry.Buff.Id, save);
+        }
     }
 
     public void Tick()
     {
-        if (expectingLoadInstances.Count > 0)
-        {
-            Debug.LogWarning("Some buff instances were not restored. It may be intentional.");
-            expectingLoadInstances.Clear();
-        } 
-
         ProcessBuffs();
     }
 
@@ -247,3 +343,5 @@ public class BuffService(BuffEntityService buffEntities, IEnumerable<IBuff> buff
     }
 
 }
+
+readonly record struct BuffInstanceSaveEntry(string Type, long BuffId, string SavedData);
