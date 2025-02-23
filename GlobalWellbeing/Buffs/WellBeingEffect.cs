@@ -11,7 +11,7 @@ public readonly struct WellBeingEffectStat(string name, float value, int wellbei
     public string Name => name;
     public float Value => value;
     public int Wellbeing => wellbeing;
-    public string Percent => (value * 100).ToString("F0");
+    public string Percent => (value > 0 ? "+" : "") + (value * 100).ToString("F0");
 }
 
 public class WellBeingEffect : IBuffEffect
@@ -31,17 +31,19 @@ public class WellBeingEffect : IBuffEffect
 
         var current = pair.Current;
         var next = pair.Next;
+
+        var name = t.T("Bonus." + current.Name);
         if (next is null)
         {
             Description = string.Format(t.T("LV.GW.BonusEnd"),
-                t.T("LV.GW.Bonus" + current.Name),
+                name,
                 current.Percent
             );
         }
         else
         {
             Description = string.Format(t.T("LV.GW.Bonus"),
-                t.T("LV.GW.Bonus" + current.Name),
+                name,
                 current.Percent,
                 next.Value.Wellbeing,
                 next.Value.Percent

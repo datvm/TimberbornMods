@@ -2,5 +2,9 @@
 
 	<Import Project="../Common.target" />
 	<Import Project="../CommonUI.target" />
-
+	
+	<PropertyGroup>
+		<ModFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\BuffDebuff\$(TimberbornVersion)\</ModFolder>
+	</PropertyGroup>
+	
 </Project>

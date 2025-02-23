@@ -10,14 +10,14 @@
 		<DebugType>embedded</DebugType>
 
 		<ModPath>E:\SteamLibrary\steamapps\workshop\content\1062090\</ModPath>
-		
+
 		<TimberbornVersion>version-0.7</TimberbornVersion>
 		<IsU6>false</IsU6>
 		<IsU7>false</IsU7>
 
 		<IsU6 Condition="$(TimberbornVersion)=='version-0.6'">true</IsU6>
 		<IsU7 Condition="$(TimberbornVersion)=='version-0.7'">true</IsU7>
-		
+
 		<AssemblyPath Condition="$(IsU6)">D:\Personal\Mods\Timberborn\U6Data\AuxiliaryFiles\GameAssemblies\</AssemblyPath>
 		<AssemblyPath Condition="$(IsU7)">E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed</AssemblyPath>
 
@@ -40,7 +40,7 @@
 	<Target Name="CopyFiles" AfterTargets="Build">
 		<Message Text="Deleting..." />
 		<RemoveDir Directories="$(ModFolder)" />
-		
+
 		<Message Text="Copying..." />
 		<Copy SourceFiles="$(OutputPath)manifest.json" DestinationFolder="$(ModFolder)" />
 		<Copy SourceFiles="@(DllFiles)" DestinationFolder="$(ModFolder)%(RecursiveDir)" />
@@ -120,6 +120,9 @@
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="$(AssemblyPath)\System.Collections.Immutable.dll">
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="$(AssemblyPath)\Newtonsoft.Json.dll">
 			<Private>False</Private>
 		</Reference>
 

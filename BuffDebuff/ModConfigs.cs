@@ -1,7 +1,10 @@
 ﻿namespace BuffDebuff;
 
+[Context("Game")]
 public class ModConfig : Configurator
 {
+
+    public class FragmentProvider(BuffPanel buff, DebuffPanel debuff) : EntityPanelFragmentProvider([buff, debuff]);
 
     public override void Configure()
     {
@@ -9,14 +12,16 @@ public class ModConfig : Configurator
         Bind<IBuffableService>().To<BuffableService>().AsSingleton();
         Bind<IBuffService>().To<BuffService>().AsSingleton();
 
-        Bind<TemplateModule>().ToProvider(() =>
+        MultiBind<TemplateModule>().ToProvider(static () =>
         {
             TemplateModule.Builder builder = new();
 
-            builder.AddDecorator<EntityComponent, BuffableComponent>();
+            builder.AddDecorator<Transform, BuffableComponent>();
 
             return builder.Build();
         }).AsSingleton();
+
+        this.BindFragments<FragmentProvider>();
     }
 
 }

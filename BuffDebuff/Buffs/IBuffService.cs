@@ -15,5 +15,13 @@ public interface IBuffService
 
     void Load();
     void Save(ISingletonSaver singletonSaver);
+    void Register<T>(T b) where T : IBuff;
 
+    TInstance CreateBuffInstance<TBuff, TInstance>(TBuff buff)
+        where TBuff : IBuff
+        where TInstance : BuffInstance, IBuffInstance<TBuff>, new();
+    TInstance CreateBuffInstance<TBuff, TInstance, TValue>(TBuff buff, TValue value)
+        where TBuff : IBuff
+        where TValue : notnull
+        where TInstance : BuffInstance, IBuffInstance<TBuff>, IValuedBuffInstance<TValue>, new();
 }

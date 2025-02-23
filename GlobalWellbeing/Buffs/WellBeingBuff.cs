@@ -1,15 +1,27 @@
-﻿namespace GlobalWellbeing.Buffs;
+﻿using Unity.Collections;
 
-public class WellBeingBuff(ILoc t, WellbeingService wellbeings, IBuffService buffs) : SimpleValueBuff<int, WellBeingBuff, WellBeingBuffInstance>, ILoadableSingleton, ITickableSingleton
+namespace GlobalWellbeing.Buffs;
+
+public class WellBeingBuff(ILoc t, WellbeingService wellbeings, IBuffService buffs, ISingletonLoader loader) 
+    : SimpleValueBuff<WellBeingBuffInstanceData, WellBeingBuff, WellBeingBuffInstance>(loader, buffs),
+    ITickableSingleton
 {
-    public override string Name => t.T("LV.GW.WellbeingBuff");
+    static readonly SingletonKey SaveKey = new("WellBeingBuff");
+
+    readonly IBuffService buffs = buffs;
+
+    string name = "";
+    public override string Name => name;
     public override string Description => t.T("LV.GW.WellbeingBuffDesc");
+
+    protected override SingletonKey SingletonKey => SaveKey;
 
     ImmutableArray<BuffInstance> currentBuffs = [];
     int? prevWellbeing;
 
-    public void Load()
+    protected override void AfterLoad()
     {
+        base.AfterLoad();
         UpdateBuffs();
     }
 
@@ -22,24 +34,22 @@ public class WellBeingBuff(ILoc t, WellbeingService wellbeings, IBuffService buf
     {
         var wellbeing = wellbeings.AverageGlobalWellbeing;
         if (wellbeing == prevWellbeing) { return; }
+
         prevWellbeing = wellbeing;
+        name = t.T("LV.GW.WellbeingBuff", wellbeing);
 
         foreach (var b in currentBuffs)
         {
             buffs.Remove(b);
         }
 
-        var adultBuff = new WellBeingBuffInstance(this, wellbeings.AverageGlobalWellbeing, false);
-        var childBuff = new WellBeingBuffInstance(this, wellbeings.AverageGlobalWellbeing, true);
+        var adultBuff = CreateInstance(new(wellbeing, false));
+        var childBuff = CreateInstance(new(wellbeing, true));
+
         currentBuffs = [adultBuff, childBuff];
 
         buffs.Apply(adultBuff);
         buffs.Apply(childBuff);
-    }
-
-    protected override WellBeingBuffInstance CreateInstance(IBuff buff, int value)
-    {
-        throw new NotImplementedException("No need for this");
     }
 
 }

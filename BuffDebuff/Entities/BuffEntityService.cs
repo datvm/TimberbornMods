@@ -18,9 +18,13 @@ public class BuffEntityService(ISingletonLoader loader) : ISaveableSingleton, IL
         {
             entity.Id = NewUuid();
         }
-        else if (entites.ContainsKey(globalUuid))
+        else if (entites.ContainsKey(entity.Id))
         {
             throw new InvalidOperationException($"Entity with UUID {entity.Id} already exists.");
+        }
+        else if (entity.Id >= globalUuid)
+        {
+            globalUuid = entity.Id + 1;
         }
 
         entites.Add(entity.Id, entity);

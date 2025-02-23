@@ -5,7 +5,7 @@ public class GameModConfig : Configurator
 {
     public override void Configure()
     {
-        
+        Bind<WellBeingBuff>().AsSingleton();
     }
 }
 
