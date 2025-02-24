@@ -92,6 +92,7 @@
 		<Using Include="Timberborn.Localization"/>
 		<Using Include="Timberborn.Persistence"/>
 		<Using Include="Timberborn.BaseComponentSystem"/>
+		<Using Include="Timberborn.TemplateSystem"/>
 		<Using Include="System.Collections.Immutable"/>
 		<Using Include="UnityEngine"/>
 

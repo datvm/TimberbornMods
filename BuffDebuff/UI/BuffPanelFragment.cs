@@ -3,7 +3,6 @@
 public class BuffPanelFragment : EntityPanelFragmentElement
 {
     const string BuffNameLabel = "BuffName";
-    const string BuffDescLabel = "BuffDesc";
 
     const string BuffNameFormat = "<color=#00CA00>+ {0}</color>";
     const string DeBuffNameFormat = "<color=#E00000>- {0}</color>";
@@ -23,11 +22,10 @@ public class BuffPanelFragment : EntityPanelFragmentElement
     public BuffPanelFragment(bool isBuff, ITooltipRegistrar tooltip)
     {
         IsBuff = isBuff;
-        this.tooltips = tooltip;
+        tooltips = tooltip;
 
         list = this.AddListView(isBuff ? "BuffPanel" : "DebuffPanel");
-        list.virtualizationMethod = CollectionVirtualizationMethod.DynamicHeight;
-        list.style.maxHeight = 200;
+        list.SetMaxHeight(100);
 
         list.makeItem = MakeItem;
         list.bindItem = BindItem;
@@ -40,7 +38,7 @@ public class BuffPanelFragment : EntityPanelFragmentElement
         var container = new VisualElement();
 
         container.AddGameLabel("", BuffNameLabel, bold: true);
-        
+
         return container;
     }
 
@@ -60,9 +58,18 @@ public class BuffPanelFragment : EntityPanelFragmentElement
         StringBuilder tooltipText = new();
         tooltipText.AppendLine(instance.Buff.Description);
 
+        var instanceDesc = instance.AdditionalDescription;
+        if (instanceDesc is not null)
+        {
+            tooltipText.AppendLine(instanceDesc);
+        }
+
         foreach (var e in instance.Effects)
         {
-            tooltipText.AppendLine(e.Description);
+            var desc = e.Description;
+            if (desc is null) { continue; }
+
+            tooltipText.AppendLine(desc);
         }
 
         return tooltipText.ToString();

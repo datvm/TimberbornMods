@@ -8,3 +8,4 @@ global using Timberborn.TemplateSystem;
 global using Timberborn.TickSystem;
 global using Newtonsoft.Json;
 global using Timberborn.TooltipSystem;
+global using Timberborn.TimeSystem;

@@ -105,6 +105,12 @@ public class BuffService(
 
         instance.Active = active;
 
+        var buffables = affected.TryGetValue(instance, out var list) ? list : [];
+        foreach (var buffable in buffables)
+        {
+            buffable.BuffActiveChanged(instance);
+        }
+
         if (active)
         {
             eventBus.Post(new BuffInstanceActivatedEvent(instance));
@@ -166,8 +172,8 @@ public class BuffService(
         {
             if (!expectingType)
             {
-                Debug.LogError($"The save is not expecting the {b.GetHumanFriendlyId()}. Ignoring request.");
-                return;
+                Debug.LogError($"The save is not expecting the {b.GetHumanFriendlyId()}. Will register as a new Buff (you will gain a new Id)");
+                b.Id = 0;
             }
 
             if (expectingId != b.Id)
@@ -192,6 +198,13 @@ public class BuffService(
         expectingLoadBuffs.Remove(t);
     }
 
+    public IEnumerable<T> GetInstances<T>() where T : BuffInstance
+    {
+        return [..buffInstances.Values
+            .Where(q => q is T)
+            .Cast<T>()];
+    }
+
     void LoadExistingKeys()
     {
         if (!loader.HasSingleton(SaveKey)) { return; }
@@ -201,6 +214,7 @@ public class BuffService(
         expectingLoadBuffs = s.Get(BuffIdsKey)
             .Select(q => q.Split(';'))
             .ToDictionary(q => q[0], q => long.Parse(q[1]));
+        Debug.Log($"Expecting {expectingLoadBuffs.Count} buffs to be registered: {string.Join(", ", expectingLoadBuffs.Keys)}");
     }
 
     public void PostLoad()
@@ -250,6 +264,7 @@ public class BuffService(
 
             var instance = (BuffInstance)constructor.Invoke([]);
             instance.SetBuff(buff);
+            container.Inject(instance);
 
             if (instance.Load(entry.SavedData))
             {
@@ -294,6 +309,7 @@ public class BuffService(
 
     void ProcessBuff(BuffInstance b)
     {
+        b.Update();
         if (!b.Active) { return; }
 
         var targetsChanged = false;

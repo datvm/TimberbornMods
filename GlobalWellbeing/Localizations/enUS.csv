@@ -3,3 +3,6 @@ LV.GW.WellbeingBuff,"Global Wellbeing ({0})",
 LV.GW.WellbeingBuffDesc,"The morale of your colony can really affect the productivity of your colonists.",
 LV.GW.Bonus,"{0}: {1}% (Next at {2}: {3}%)",
 LV.GW.BonusEnd,"{0}: {1}% (Maximum achieved!)",
+LV.GW.NewScoreBuff,"New Highscore!",
+LV.GW.NewScoreBuffDesc,"Your beavers are happier than ever!",
+LV.GW.NewScoreBuffMs,"{0} Movement Speed"

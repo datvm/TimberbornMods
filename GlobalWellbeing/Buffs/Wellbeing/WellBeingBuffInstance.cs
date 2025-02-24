@@ -1,14 +1,19 @@
-﻿namespace GlobalWellbeing.Buffs;
+﻿namespace GlobalWellbeing.Buffs.Wellbeing;
 
 public readonly record struct WellBeingBuffInstanceData(int Wellbeing, bool ForKid);
 
 public class WellBeingBuffInstance : BuffInstance<WellBeingBuffInstanceData, WellBeingBuff>
 {
-    ImmutableArray<IBuffTarget> targets = [];
-    ImmutableArray<IBuffEffect> effects = [];
+    ImmutableArray<WellBeingEffect> effects = [];
 
-    public override IEnumerable<IBuffTarget> Targets => targets;
-    public override IEnumerable<IBuffEffect> Effects => effects;
+    public override IEnumerable<IBuffTarget> Targets { get; protected set; } = [];
+    public override IEnumerable<IBuffEffect> Effects
+    {
+        get => effects;
+        protected set => effects = (ImmutableArray<WellBeingEffect>)value;
+    }
+
+    public IEnumerable<WellBeingEffect> WellBeingEffect => effects;
 
     public override bool IsBuff { get; protected set; }
 
@@ -43,7 +48,7 @@ public class WellBeingBuffInstance : BuffInstance<WellBeingBuffInstanceData, Wel
 
         IsBuff = Value.Wellbeing >= 0;
 
-        targets = [Value.ForKid
+        Targets = [Value.ForKid
             ? new GlobalChildBeaverBuffTarget(buffable, eventBus)
             : new GlobalAdultBeaverBuffTarget(buffable, eventBus)
         ];
@@ -71,6 +76,10 @@ public class WellBeingBuffInstance : BuffInstance<WellBeingBuffInstanceData, Wel
 
     protected override string? Save() => null; // No need to save this, the buff can simply create a new instance on load
 
-    protected override bool Load(string savedState) => false;
-
+    protected override bool Load(string savedState)
+    {
+        invalidState = true;
+        Active = false;
+        return false;
+    }
 }
