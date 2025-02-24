@@ -35,7 +35,6 @@ public abstract class SimpleValueBuff<TValue, TBuff, TInstance>(ISingletonLoader
     protected virtual void LoadSingleton(IObjectLoader loader)
     {
         Id = loader.GetBuffEntityId();
-        Debug.Log("Loaded " + this.GetHumanFriendlyId());
     }
 
     protected virtual void AfterLoad() { }
@@ -48,7 +47,6 @@ public abstract class SimpleValueBuff<TValue, TBuff, TInstance>(ISingletonLoader
 
     protected virtual void SaveSingleton(IObjectSaver saver)
     {
-        Debug.Log("Saving " + this.GetHumanFriendlyId());
         saver.SetBuffEntityId(Id);
     }
 

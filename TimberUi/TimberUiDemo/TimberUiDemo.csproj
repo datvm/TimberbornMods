@@ -12,4 +12,8 @@
 		</ProjectReference>
 	</ItemGroup>
 
+	<PropertyGroup>
+		<ModFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\TimberUiDemo\$(TimberbornVersion)\</ModFolder>
+	</PropertyGroup>
+
 </Project>

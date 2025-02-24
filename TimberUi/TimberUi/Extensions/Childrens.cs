@@ -71,19 +71,27 @@ public static partial class UiBuilderExtensions
         return AddButton(parent, text, name, onClick, additionalClasses, GameButtonStyle.Menu, size, stretched);
     }
 
-    public static Label AddLabel(this VisualElement parent, string text, string? name = default, IEnumerable<string>? additionalClasses = default, GameLabelStyle style = GameLabelStyle.Default)
+    public static Button AddCloseButton(this VisualElement parent, string? name = default)
+    {
+        return parent.AddChild<Button>(name: name, classes: [UiCssClasses.CloseButton]);
+    }
+
+    public static Label AddLabel(this VisualElement parent, string? text = default, string? name = default, IEnumerable<string>? additionalClasses = default, GameLabelStyle style = GameLabelStyle.Default)
     {
         var labelClasses = GetClasses(style);
 
         var label = parent.AddChild<Label>(name, [.. labelClasses, .. (additionalClasses ?? [])]);
-        label.text = text;
+        if (text is not null)
+        {
+            label.text = text;
+        }
         return label;
     }
 
     public static Label AddLabelHeader(this VisualElement parent, string text, string? name = default, IEnumerable<string>? additionalClasses = default)
         => parent.AddLabel(text, name, additionalClasses, GameLabelStyle.Header);
 
-    public static Label AddLabelGame(this VisualElement parent, string text, string? name = default, IEnumerable<string>? additionalClasses = default, GameLabelSize size = default, GameLabelColor? color = default, bool bold = default, bool centered = default)
+    public static Label AddGameLabel(this VisualElement parent, string text, string? name = default, IEnumerable<string>? additionalClasses = default, GameLabelSize size = default, GameLabelColor? color = default, bool bold = default, bool centered = default)
     {
         var labelClasses = GetGameLabelClasses(size, color, bold, centered);
         var label = parent.AddChild<Label>(name, [.. labelClasses, .. (additionalClasses ?? [])]);
@@ -91,33 +99,60 @@ public static partial class UiBuilderExtensions
         return label;
     }
 
-    public static T AddWrappedChild<TWrapper, T>(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, IEnumerable<string>? additionalWrapperClasses = default) 
-        where T: VisualElement, new()
-        where TWrapper : VisualElement, new()
+    public static Dropdown AddDropdown(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default)
     {
-        var wrapper = parent.AddChild<TWrapper>(classes: additionalWrapperClasses);
-        return wrapper.AddChild<T>(name, additionalClasses);
+        var dropdown = parent.AddChild<Dropdown>(name, additionalClasses);
+        return dropdown;
     }
 
-    static T InternalAddScrollView<T>(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, IEnumerable<string>? additionalWrapperClasses = default, bool greenDecorated = true)
+    static T InternalAddScrollView<T>(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, bool greenDecorated = true)
         where T : VisualElement, new()
     {
-        var wrapper = parent.AddChild(classes: [UiCssClasses.ScrollViewClass, .. (additionalWrapperClasses ?? [])]);
         if (greenDecorated)
         {
-            wrapper.classList.Add(UiCssClasses.ScrollGreenDecorated);
+            additionalClasses = [.. (additionalClasses ?? []), UiCssClasses.ScrollGreenDecorated];
         }
-        return wrapper.AddChild<T>(name, additionalClasses);
+        return parent.AddChild<T>(name, additionalClasses);
     }
 
-    public static ScrollView AddScrollView(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, IEnumerable<string>? additionalWrapperClasses = default, bool greenDecorated = true)
+    public static ScrollView AddScrollView(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, bool greenDecorated = true)
     {
-        return InternalAddScrollView<ScrollView>(parent, name, additionalClasses, additionalWrapperClasses, greenDecorated);
+        return InternalAddScrollView<ScrollView>(parent, name, additionalClasses, greenDecorated);
     }
 
     public static ListView AddListView(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, bool greenDecorated = true)
     {
         return InternalAddScrollView<ListView>(parent, name, additionalClasses, greenDecorated: greenDecorated);
+    }
+
+    static T InternalAddSlider<T, TSlider, TValue>(this VisualElement parent, string? label = default, string? name = default, IEnumerable<string>? additionalClasses = default, in SliderValues<TValue>? values = default)
+        where T : GameSlider<TSlider, TValue>, new()
+        where TSlider : BaseSlider<TValue>, new()
+        where TValue : IComparable<TValue>
+    {
+        var s = parent.AddChild<T>(name, additionalClasses);
+
+        if (label is not null)
+        {
+            s.SetLabel(label);
+        }
+
+        if (values is not null)
+        {
+            s.SetHorizontalSlider(values.Value);
+        }
+
+        return s;
+    }
+
+    public static GameSlider AddSlider(this VisualElement parent, string? label = default, string? name = default, IEnumerable<string>? additionalClasses = default, in SliderValues<float>? values = default)
+    {
+        return InternalAddSlider<GameSlider, Slider, float>(parent, label, name, additionalClasses, values);
+    }
+
+    public static GameSliderInt AddSliderInt(this VisualElement parent, string? label = default, string? name = default, IEnumerable<string>? additionalClasses = default, in SliderValues<int>? values = default)
+    {
+        return InternalAddSlider<GameSliderInt, SliderInt, int>(parent, label, name, additionalClasses, values);
     }
 
     public static EntityPanelFragmentElement AddFragment(this VisualElement parent, EntityPanelFragmentBackground? background = default, string? name = default, IEnumerable<string>? additionalClasses = default)

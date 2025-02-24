@@ -10,6 +10,7 @@ public class BuffPanelFragment : EntityPanelFragmentElement
 
     public bool IsBuff { get; }
     readonly ListView list;
+    readonly ITooltipRegistrar tooltips;
 
     public List<BuffInstance>? Buffs
     {
@@ -19,9 +20,10 @@ public class BuffPanelFragment : EntityPanelFragmentElement
         }
     }
 
-    public BuffPanelFragment(bool isBuff)
+    public BuffPanelFragment(bool isBuff, ITooltipRegistrar tooltip)
     {
         IsBuff = isBuff;
+        this.tooltips = tooltip;
 
         list = this.AddListView(isBuff ? "BuffPanel" : "DebuffPanel");
         list.virtualizationMethod = CollectionVirtualizationMethod.DynamicHeight;
@@ -38,9 +40,7 @@ public class BuffPanelFragment : EntityPanelFragmentElement
         var container = new VisualElement();
 
         container.AddLabelGame("", BuffNameLabel, bold: true);
-        container.AddLabelGame("", BuffDescLabel, color: UiBuilder.GameLabelColor.Yellow)
-            .SetPadding(left: 20);
-
+        
         return container;
     }
 
@@ -52,7 +52,11 @@ public class BuffPanelFragment : EntityPanelFragmentElement
         var label = ve.Q<Label>(BuffNameLabel);
         label.text = string.Format(IsBuff ? BuffNameFormat : DeBuffNameFormat, instance.Buff.Name);
 
-        var desc = ve.Q<Label>(BuffDescLabel);
+        tooltips.Register(ve, () => CreateTooltip(instance));
+    }
+
+    static string CreateTooltip(BuffInstance instance)
+    {
         StringBuilder tooltipText = new();
         tooltipText.AppendLine(instance.Buff.Description);
 
@@ -61,7 +65,7 @@ public class BuffPanelFragment : EntityPanelFragmentElement
             tooltipText.AppendLine(e.Description);
         }
 
-        desc.text = tooltipText.ToString();
+        return tooltipText.ToString();
     }
 
 }

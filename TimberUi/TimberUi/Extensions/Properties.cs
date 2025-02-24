@@ -9,7 +9,7 @@ public static partial class UiBuilderExtensions
         return element;
     }
 
-    public static T AddClasses<T>(this T element, params string[] classNames) where T : VisualElement
+    public static T AddClasses<T>(this T element, params IEnumerable<string> classNames) where T : VisualElement
     {
         element.classList.AddRange(classNames);
         return element;
@@ -31,6 +31,12 @@ public static partial class UiBuilderExtensions
     public static T SetMarginBottom<T>(this T element, float margin = 20f) where T : VisualElement
     {
         element.style.marginBottom = margin;
+        return element;
+    }
+
+    public static T SetMarginRight<T>(this T element, float margin = 20f) where T : VisualElement
+    {
+        element.style.marginRight = margin;
         return element;
     }
 
@@ -86,6 +92,14 @@ public static partial class UiBuilderExtensions
     {
         element.classList.AddRange(GetClasses(style, size, color, bold));
         return element;
+    }
+
+    public static IDropdownProvider SetItems<T>(this T dropdown, DropdownItemsSetter setter, IReadOnlyList<string> list, string? defaultValue) where T : Dropdown
+    {
+        var provider = new SimpleDropdownItemProvider(list, defaultValue);
+        setter.SetItems(dropdown, provider);
+
+        return provider;
     }
 
 }

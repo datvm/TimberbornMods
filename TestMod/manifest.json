@@ -12,6 +12,9 @@
         {
             "Id": "Harmony",
             "MinimumVersion": "2.3.3"
+        },
+        {
+            "Id": "TimberUi"
         }
     ]
 }

@@ -15,13 +15,13 @@ public class CoordinatesFragment : IEntityPanelFragment
             Background = EntityPanelFragmentBackground.Green
         };
 
-        panel.AddLabelGame("<b>Coordinates</b>");
+        panel.AddGameLabel("<b>Coordinates</b>");
 
         var container = panel.AddChild()
             .SetAsRow();
 
-        container.AddLabelGame("(X, Y, Z): ");
-        lbl = container.AddLabelGame("N/A");
+        container.AddGameLabel("(X, Y, Z): ");
+        lbl = container.AddGameLabel("N/A");
 
         return panel;
     }
