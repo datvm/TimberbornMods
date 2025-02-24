@@ -4,7 +4,7 @@ namespace TimberUiDemo.Services;
 public class MenuService(PanelStack stack, MainMenuPanel menu, VisualElementLoader veLoader, DialogBoxShower diagShower, DropdownItemsSetter dropdownSetter) : ILoadableSingleton
 {
 
-    static readonly string[] Assets = ["Options/SettingsBox"];
+    static readonly string[] Assets = [];
 
     void PrintDebugInfo()
     {
@@ -62,7 +62,9 @@ public class MenuService(PanelStack stack, MainMenuPanel menu, VisualElementLoad
             otherBtns.AddButton("Text button", onClick: OnButtonClicked, style: GameButtonStyle.Text);
         }
 
-        con.AddToggle("Toggle (Checkbox)", onValueChanged: (c) => ShowMsgBox($"You {(c ? "checked" : "unchecked")} the Toggle"));
+        con.AddToggle(
+            "Toggle (Checkbox)",
+            onValueChanged: (c) => ShowMsgBox($"You {(c ? "checked" : "unchecked")} the Toggle"));
 
         // Slider
         var sliderCon = con.AddChild()
@@ -84,9 +86,10 @@ public class MenuService(PanelStack stack, MainMenuPanel menu, VisualElementLoad
             .SetMarginBottom();
 
         dropdownCon.AddLabel("Dropdown:")
-            .SetFlexGrow();
+            .SetMarginRight();
         var dropdown = dropdownCon.AddMenuDropdown()
-            .SetMarginBottom();
+            .SetMarginBottom()
+            .SetFlexGrow();
         
 
         // Scroll & ListView

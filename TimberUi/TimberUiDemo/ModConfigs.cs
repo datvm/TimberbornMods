@@ -19,7 +19,7 @@ public class MainMenuConfigs : Configurator
 public class GameConfigs : Configurator
 {
 
-    public class FragmentsProvider(CoordinatesFragment coord) : EntityPanelFragmentProvider([coord]);
+    public class FragmentsProvider(DemoFragment coord) : EntityPanelFragmentProvider([coord]);
 
     public override void Configure()
     {

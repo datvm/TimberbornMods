@@ -12,7 +12,7 @@ public class PrintVisualTreeDevModule(PanelStack panelStack) : IDevModule
 
     void PrintVisualTree()
     {
-        panelStack._root.PrintVisualTree();
+        panelStack._root.PrintVisualTree(true);
     }
 
 }

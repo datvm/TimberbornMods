@@ -31,6 +31,14 @@ public static partial class UiBuilderExtensions
         return child;
     }
 
+    public static VisualElement AddHorizontalContainer(this VisualElement parent, bool marginBottom = true)
+    {
+        var con = parent.AddChild().SetAsRow();
+        if (marginBottom) { con.SetMarginBottom(); }
+
+        return con;
+    }
+
     public static VisualElement InsertSelfAsSibling(this VisualElement element, VisualElement target, int delta)
     {
         var parent = target.parent;
@@ -42,45 +50,11 @@ public static partial class UiBuilderExtensions
     public static VisualElement InsertSelfBefore(this VisualElement element, VisualElement target) => element.InsertSelfAsSibling(target, 0);
     public static VisualElement InsertSelfAfter(this VisualElement element, VisualElement target) => element.InsertSelfAsSibling(target, 1);
 
-    public static NineSliceButton AddButton(this VisualElement parent, string text, string? name = default, Action? onClick = default, IEnumerable<string>? additionalClasses = default, GameButtonStyle style = GameButtonStyle.Menu, GameButtonSize? size = default, bool stretched = false)
-    {
-        EventCallback<ClickEvent>? callback = onClick is null
-            ? null
-            : (_) => onClick();
-
-        return AddButton(parent, text, callback, name, additionalClasses, style, size, stretched);
-    }
-
-    public static NineSliceButton AddButton(this VisualElement parent, string text, EventCallback<ClickEvent>? clickCb, string? name = default, IEnumerable<string>? additionalClasses = default, GameButtonStyle style = GameButtonStyle.Menu, GameButtonSize? size = default, bool stretched = false)
-    {
-        var btnClasses = GetClasses(style, size, stretched);
-
-        var btn = parent.AddChild<NineSliceButton>(name, [.. btnClasses, .. (additionalClasses ?? [])]);
-        btn.text = text;
-
-        if (clickCb is not null)
-        {
-            btn.RegisterCallback(clickCb);
-        }
-
-        return btn;
-    }
-
-    public static NineSliceButton AddMenuButton(this VisualElement parent, string text, Action? onClick = default, string? name = default, IEnumerable<string>? additionalClasses = default, GameButtonSize? size = default, bool stretched = false)
-    {
-        return AddButton(parent, text, name, onClick, additionalClasses, GameButtonStyle.Menu, size, stretched);
-    }
-
-    public static Button AddCloseButton(this VisualElement parent, string? name = default)
-    {
-        return parent.AddChild<Button>(name: name, classes: [UiCssClasses.CloseButton]);
-    }
-
     public static Label AddLabel(this VisualElement parent, string? text = default, string? name = default, IEnumerable<string>? additionalClasses = default, GameLabelStyle style = GameLabelStyle.Default)
     {
         var labelClasses = GetClasses(style);
 
-        var label = parent.AddChild<Label>(name, [.. labelClasses, .. (additionalClasses ?? [])]);
+        var label = parent.AddChild<Label>(name, [.. labelClasses, .. additionalClasses ?? []]);
         if (text is not null)
         {
             label.text = text;
@@ -88,25 +62,15 @@ public static partial class UiBuilderExtensions
         return label;
     }
 
-    public static Label AddLabelHeader(this VisualElement parent, string text, string? name = default, IEnumerable<string>? additionalClasses = default)
+    public static Label AddLabelHeader(this VisualElement parent, string? text = default, string? name = default, IEnumerable<string>? additionalClasses = default)
         => parent.AddLabel(text, name, additionalClasses, GameLabelStyle.Header);
 
-    public static Label AddGameLabel(this VisualElement parent, string text, string? name = default, IEnumerable<string>? additionalClasses = default, GameLabelSize size = default, GameLabelColor? color = default, bool bold = default, bool centered = default)
+    public static Label AddGameLabel(this VisualElement parent, string? text = default, string? name = default, IEnumerable<string>? additionalClasses = default, GameLabelSize size = default, GameLabelColor? color = default, bool bold = default, bool centered = default)
     {
         var labelClasses = GetGameLabelClasses(size, color, bold, centered);
-        var label = parent.AddChild<Label>(name, [.. labelClasses, .. (additionalClasses ?? [])]);
+        var label = parent.AddChild<Label>(name, [.. labelClasses, .. additionalClasses ?? []]);
         label.text = text;
         return label;
-    }
-
-    public static Dropdown AddDropdown(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default)
-    {
-       return parent.AddChild<Dropdown>(name: name, classes: [.. additionalClasses??[], ]);
-    }
-
-    public static Dropdown AddMenuDropdown(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default)
-    {
-        return parent.AddDropdown(name, additionalClasses: [.. additionalClasses ?? [], UiCssClasses.DropDownMenuClass]);
     }
 
     static T InternalAddScrollView<T>(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, bool greenDecorated = true)
@@ -114,7 +78,7 @@ public static partial class UiBuilderExtensions
     {
         if (greenDecorated)
         {
-            additionalClasses = [.. (additionalClasses ?? []), UiCssClasses.ScrollGreenDecorated];
+            additionalClasses = [.. additionalClasses ?? [], UiCssClasses.ScrollGreenDecorated];
         }
         return parent.AddChild<T>(name, additionalClasses);
     }
@@ -127,36 +91,6 @@ public static partial class UiBuilderExtensions
     public static ListView AddListView(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, bool greenDecorated = true)
     {
         return InternalAddScrollView<ListView>(parent, name, additionalClasses, greenDecorated: greenDecorated);
-    }
-
-    static T InternalAddSlider<T, TSlider, TValue>(this VisualElement parent, string? label = default, string? name = default, IEnumerable<string>? additionalClasses = default, in SliderValues<TValue>? values = default)
-        where T : GameSlider<TSlider, TValue>, new()
-        where TSlider : BaseSlider<TValue>, new()
-        where TValue : IComparable<TValue>
-    {
-        var s = parent.AddChild<T>(name, additionalClasses);
-
-        if (label is not null)
-        {
-            s.SetLabel(label);
-        }
-
-        if (values is not null)
-        {
-            s.SetHorizontalSlider(values.Value);
-        }
-
-        return s;
-    }
-
-    public static GameSlider AddSlider(this VisualElement parent, string? label = default, string? name = default, IEnumerable<string>? additionalClasses = default, in SliderValues<float>? values = default)
-    {
-        return InternalAddSlider<GameSlider, Slider, float>(parent, label, name, additionalClasses, values);
-    }
-
-    public static GameSliderInt AddSliderInt(this VisualElement parent, string? label = default, string? name = default, IEnumerable<string>? additionalClasses = default, in SliderValues<int>? values = default)
-    {
-        return InternalAddSlider<GameSliderInt, SliderInt, int>(parent, label, name, additionalClasses, values);
     }
 
     public static EntityPanelFragmentElement AddFragment(this VisualElement parent, EntityPanelFragmentBackground? background = default, string? name = default, IEnumerable<string>? additionalClasses = default)
@@ -181,7 +115,7 @@ public static partial class UiBuilderExtensions
     {
         var classes = GetClasses(style);
 
-        var toggle = parent.AddChild<Toggle>(name, [.. classes, .. (additionalClasses ?? [])]);
+        var toggle = parent.AddChild<Toggle>(name, [.. classes, .. additionalClasses ?? []]);
         toggle.text = text;
 
         if (onValueChanged is not null)
@@ -197,6 +131,7 @@ public static partial class UiBuilderExtensions
         GameLabelStyle.Default => ["text--default"],
         GameLabelStyle.Header => ["text--header"],
         GameLabelStyle.Game => GetGameLabelClasses(size, color, bold),
+        GameLabelStyle.EntityFragment => [UiCssClasses.LabelEntityPanelText],
         _ => [],
     };
 
@@ -228,48 +163,6 @@ public static partial class UiBuilderExtensions
         if (centered)
         {
             result.Add(UiCssClasses.LabelGameTextCentered);
-        }
-
-        return result;
-    }
-
-    public static IEnumerable<string> GetClasses(GameButtonStyle style, GameButtonSize? size = default, bool stretched = false)
-    {
-        List<string> result = [];
-
-        var styleClass = style switch
-        {
-            GameButtonStyle.Text => null,
-            GameButtonStyle.Menu => UiCssClasses.ButtonMenu,
-            GameButtonStyle.WideMenu => UiCssClasses.ButtonWideMenu,
-            GameButtonStyle.BottomBar => UiCssClasses.ButtonBottomBar,
-            GameButtonStyle.DevPanel => UiCssClasses.ButtonDevPanel,
-            _ => throw new NotImplementedException(style.ToString()),
-        };
-
-        if (styleClass is null)
-        {
-            result.AddRange(UiCssClasses.ButtonText);
-        }
-        else
-        {
-            result.Add(styleClass);
-        }
-
-        if (size is not null)
-        {
-            var sizeClass = styleClass + size switch
-            {
-                GameButtonSize.Medium => UiCssClasses.ButtonPfMedium,
-                GameButtonSize.Large => UiCssClasses.ButtonPfLarge,
-                _ => throw new NotImplementedException(size.ToString()),
-            };
-            result.Add(sizeClass);
-        }
-
-        if (stretched)
-        {
-            result.Add(styleClass + UiCssClasses.ButtonPfStretched);
         }
 
         return result;
