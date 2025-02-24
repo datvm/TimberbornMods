@@ -1,16 +1,16 @@
 ﻿namespace BuffDebuff.UI;
 
-public class BuffPanel() : BuffDebuffPanel(true);
-public class DebuffPanel() : BuffDebuffPanel(false);
+public class BuffPanel(ITooltipRegistrar tooltip) : BuffDebuffPanel(true, tooltip);
+public class DebuffPanel(ITooltipRegistrar tooltip) : BuffDebuffPanel(false, tooltip);
 
-public class BuffDebuffPanel(bool isBuff) : IEntityPanelFragment
+public class BuffDebuffPanel(bool isBuff, ITooltipRegistrar tooltip) : IEntityPanelFragment
 {
     BuffPanelFragment fragment = null!;
     BuffableComponent? comp;
     
     public VisualElement InitializeFragment()
     {
-        return fragment = new BuffPanelFragment(isBuff);
+        return fragment = new BuffPanelFragment(isBuff, tooltip);
     }
     
     public void ClearFragment()

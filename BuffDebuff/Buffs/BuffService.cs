@@ -185,7 +185,6 @@ public class BuffService(
         }
 
         buffEntities.Register(b);
-        Debug.Log($"Registered {b.GetHumanFriendlyId()}");
 
 
         allBuffs.Add(b.Id, b);

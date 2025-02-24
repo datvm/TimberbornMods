@@ -35,6 +35,7 @@
 		<Sprites Include="$(OutputPath)\Sprites\**\*"/>
 		<Blueprints Include="$(OutputPath)\Blueprints\**\*"/>
 		<Specifications Include="$(OutputPath)\Specifications\**\*"/>
+		<ModResources Include="$(OutputPath)\Resources\**\*"/>
 	</ItemGroup>
 
 	<Target Name="CopyFiles" AfterTargets="Build">
@@ -48,8 +49,7 @@
 		<Copy SourceFiles="@(Sprites)" DestinationFolder="$(ModFolder)sprites\%(RecursiveDir)" />
 		<Copy SourceFiles="@(Blueprints)" DestinationFolder="$(ModFolder)blueprints\%(RecursiveDir)" />
 		<Copy SourceFiles="@(Specifications)" DestinationFolder="$(ModFolder)Specifications\%(RecursiveDir)" />
-
-
+		<Copy SourceFiles="@(ModResources)" DestinationFolder="$(ModFolder)Resources\%(RecursiveDir)" />
 	</Target>
 
 	<ItemGroup>
@@ -60,6 +60,9 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="Specifications\**\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\**\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

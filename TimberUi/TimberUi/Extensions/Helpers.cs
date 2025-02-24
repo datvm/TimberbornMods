@@ -1,55 +1,58 @@
-﻿namespace UnityEngine.UIElements;
+﻿
+namespace UnityEngine.UIElements;
 
 public static partial class UiBuilderExtensions
 {
 
-    public static T PrintVisualTree<T>(this T el) where T : VisualElement
+    public static T Initialize<T>(this T el, VisualElementLoader loader) where T : VisualElement
+        => el.Initialize(loader._visualElementInitializer);
+
+    public static T Initialize<T>(this T el, VisualElementInitializer initializer) where T : VisualElement
     {
-        var tree = DescribeVisualTree(el);
+        initializer.InitializeVisualElement(el);
+        return el;
+    }
+
+    public static T PrintVisualTree<T>(this T el, bool printTemplates) where T : VisualElement
+        => PrintVisualTree(el, options: UxmlExporter.ExportOptions.PrintTemplate);
+
+    public static T PrintVisualTree<T>(this T el, string? templateId = default, UxmlExporter.ExportOptions options = default) where T : VisualElement
+    {
+        var tree = DescribeVisualTree(el, templateId, options);
         Debug.Log(tree);
 
         return el;
     }
 
-    public static string DescribeVisualTree<T>(this T el) where T : VisualElement
+    public static string DescribeVisualTree<T>(this T el, string? templateId = default, UxmlExporter.ExportOptions options = default) where T : VisualElement
     {
-        var builder = new StringBuilder();
-        ScanVisualTree(el, 0, builder);
+        templateId ??= el.fullTypeName;
 
-        return builder.ToString();
+        return UxmlExporter.Dump(el, templateId, options);
     }
 
-    static void ScanVisualTree(VisualElement el, int depth, StringBuilder builder)
+    public static T PrintStylesheet<T>(this T el, UssExportOptions? options = default) where T : VisualElement
     {
-        var indent = new string(' ', depth * 2);
-
-        var classNames = string.Join(", ", el.GetClasses().Select(q => $"\"{q}\""));
-        var styles = ExtractChangedElementStyles(el);
-
-        builder.Append(indent)
-            .Append(string.IsNullOrEmpty(el.name) ? "_" : el.name)
-            .Append(": ")
-            .Append(el.GetType());
-
-        if (el is TextElement textElement)
+        for (int i = 0; i < el.styleSheets.count; i++)
         {
-            builder.Append($": {textElement.text}");
+            Debug.Log("Stylesheet " + i);
+            el.styleSheets[i].Print();
         }
 
-        builder.AppendLine($", classes = [{classNames}], styles = \"{styles}\"");
-
-        foreach (var child in el.Children())
-        {
-            ScanVisualTree(child, depth + 1, builder);
-        }
+        return el;
     }
 
-    static string ExtractChangedElementStyles(VisualElement el)
+    public static T Print<T>(this T stylesheet, UssExportOptions? options = default) where T : StyleSheet
     {
-        if (el.style is not StyleValueCollection styles) { return ""; }
+        var tree = Describe(stylesheet, options);
+        Debug.Log(tree);
 
-        return string.Join(";", styles.m_Values.Select(q =>
-            $"{q.id} {q.keyword} {q.number}  {q.color} {q.resource}"));
+        return stylesheet;
+    }
+
+    public static string Describe<T>(this T stylesheet, UssExportOptions? options = default) where T : StyleSheet
+    {
+        return StyleSheetToUss.ToUssString(stylesheet, options);
     }
 
 }

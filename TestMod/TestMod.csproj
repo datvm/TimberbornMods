@@ -1,5 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<Import Project="../Common.target" />
+	<Import Project="../CommonUI.target" />
+	
+	<ItemGroup>
+		<!-- Use local project instead -->
+		<Reference Condition="$(IsU7)" Remove="$(TimberUiPath)" />
+
+		<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj">
+			<Private>False</Private>
+		</ProjectReference>
+	</ItemGroup>
+	
+	<PropertyGroup>
+		<ModFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\TestMod\$(TimberbornVersion)\</ModFolder>
+	</PropertyGroup>
 
 </Project>

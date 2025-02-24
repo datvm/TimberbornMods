@@ -6,11 +6,11 @@ public class BuffEntityService(ISingletonLoader loader) : ISaveableSingleton, IL
     static readonly SingletonKey SaveKey = new("BuffEntity");
     static readonly PropertyKey<string> UuidKey = new("Uuid");
 
-    long globalUuid;
+    long globalUuid = 1;
 
     readonly Dictionary<long, IBuffEntity> entites = [];
 
-    public long NewUuid() => globalUuid++;
+    public long NewUuid() => ++globalUuid;
 
     public void Register<T>(T entity) where T : IBuffEntity
     {

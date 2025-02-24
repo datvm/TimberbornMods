@@ -19,7 +19,7 @@ public class ColorfulFragments(EntityPanelFragmentBackground background) : IEnti
             Background = background,
         };
 
-        panel.AddLabelGame($"{background} colorful fragment");
+        panel.AddGameLabel($"{background} colorful fragment");
 
         return panel;
     }

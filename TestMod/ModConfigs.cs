@@ -5,7 +5,9 @@ public class ModStarter : IModStarter
 
     public void StartMod(IModEnvironment modEnvironment)
     {
-        new Harmony(nameof(TestMod)).PatchAll();
+        var harmony = new Harmony(nameof(TestMod));
+        harmony.PatchAll();
+
     }
 
 }

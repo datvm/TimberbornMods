@@ -23,8 +23,6 @@ public class WellBeingBuffInstance : BuffInstance<WellBeingBuffInstanceData, Wel
     {
         if (invalidState) { return; }
 
-        Debug.Log("Injecting to buff instance");
-
         if (itier is not WellbeingTierService tier)
         {
             throw new NotSupportedException($"Game has been updated ({nameof(IWellbeingTierService)} is no longer {nameof(WellbeingTierService)})." +
@@ -40,8 +38,6 @@ public class WellBeingBuffInstance : BuffInstance<WellBeingBuffInstanceData, Wel
     public override void Init()
     {
         if (invalidState) { return; }
-
-        Debug.Log("Init buff instance");
 
         base.Init();
 

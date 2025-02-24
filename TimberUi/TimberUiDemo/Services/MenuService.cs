@@ -1,15 +1,16 @@
-﻿namespace TimberUiDemo.Services;
+﻿
+namespace TimberUiDemo.Services;
 
-public class MenuService(PanelStack stack, MainMenuPanel menu, VisualElementLoader veLoader, DialogBoxShower diagShower) : ILoadableSingleton
+public class MenuService(PanelStack stack, MainMenuPanel menu, VisualElementLoader veLoader, DialogBoxShower diagShower, DropdownItemsSetter dropdownSetter) : ILoadableSingleton
 {
 
-    static readonly string[] Assets = ["Options/SettingsBox", "Options/KeyBindingsBox"];
+    static readonly string[] Assets = ["Options/SettingsBox"];
 
     void PrintDebugInfo()
     {
         foreach (var a in Assets)
         {
-            veLoader.LoadVisualElement(a).PrintVisualTree();
+            veLoader.LoadVisualElement(a).PrintVisualTree(true);
         }
     }
 
@@ -24,21 +25,23 @@ public class MenuService(PanelStack stack, MainMenuPanel menu, VisualElementLoad
 
     void ShowDemoDialog()
     {
-        var diag = new DialogBoxElement(true)
+        var diag = new DialogBoxElement()
             .SetTitle("Dialog title")
             .AddCloseButton();
+
         var con = diag.Content;
+        con.SetMaxHeight(500);
 
         con.AddLabelHeader("Label: Header");
         con.AddLabel("Label: Default")
-            .SetMargin(bottom: 10);
+            .SetMarginBottom();
 
         con.AddLabelHeader("Buttons");
 
         var menuBtns = con.AddChild(name: "MenuButtons")
             .SetAsRow()
             .SetWrap()
-            .SetMargin(bottom: 20);
+            .SetMarginBottom();
         {
             menuBtns.AddMenuButton("Menu button", OnButtonClicked);
             menuBtns.AddMenuButton("Medium", OnButtonClicked, size: GameButtonSize.Medium);
@@ -46,7 +49,7 @@ public class MenuService(PanelStack stack, MainMenuPanel menu, VisualElementLoad
         }
 
         con.AddChild()
-            .SetMargin(bottom: 20)
+            .SetMarginBottom()
             .AddMenuButton("Menu button - Stretched", OnButtonClicked, stretched: true);
 
         var otherBtns = con.AddChild()
@@ -55,20 +58,52 @@ public class MenuService(PanelStack stack, MainMenuPanel menu, VisualElementLoad
         {
             otherBtns
                 .AddButton("Wide menu button", onClick: OnButtonClicked, style: GameButtonStyle.WideMenu)
-                .SetMargin(right: 20);
+                .SetMarginRight();
             otherBtns.AddButton("Text button", onClick: OnButtonClicked, style: GameButtonStyle.Text);
         }
 
         con.AddToggle("Toggle (Checkbox)", onValueChanged: (c) => ShowMsgBox($"You {(c ? "checked" : "unchecked")} the Toggle"));
 
-        con.AddLabelHeader("ListView (ScrollView+)");
+        // Slider
+        var sliderCon = con.AddChild()
+            .SetMarginBottom();
+        {
+            sliderCon
+                .AddSliderInt(label: "SliderInt", values: new(0, 100, 50))
+                .AddEndLabel(v => $"{v}%")
+                .SetMarginBottom();
+
+            sliderCon   
+                .AddSlider(label: "Slider (Float)", values: new(-.5f, .5f, 0f))
+                .AddEndLabel(v => $"{v:P2}");
+        }
+
+        // Dropdown
+        var dropdown = con.AddDropdown()
+            .SetMarginBottom();
+
+        // Scroll & ListView
+        con.AddLabelHeader("ScrollView");
+        {
+            var scrollView = con.AddScrollView()
+                .SetMaxHeight(100);
+
+            for (int i = 0; i < 20; i++)
+            {
+                scrollView.AddLabel($"ScrollView's item {i + 1}");
+            }
+        }
+
+        con.AddLabelHeader("ListView");
         var lst = con.AddListView()
             .SetMaxHeight(200);
         PopulateListView(lst);
 
         diag
-            .PrintVisualTree()
-            .Show(stack);
+            .PrintVisualTree(true)
+            .Show(veLoader, stack);
+
+        dropdown.SetItems(dropdownSetter, [.. Enumerable.Range(0, 10).Select(i => $"Item {i}")], "Item 3");
     }
 
     void PopulateListView(ListView l)

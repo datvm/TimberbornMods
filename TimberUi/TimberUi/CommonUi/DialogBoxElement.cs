@@ -2,45 +2,48 @@
 
 public class DialogBoxElement : VisualElement
 {
-    const string BoxName = "Box";
-    static readonly ImmutableArray<string> MainClasses = ["content-row-centered"];
-    static readonly ImmutableArray<string> NineSliceClasses = ["content-centered", "sliced-border", "sliced-border--nontransparent"];
-    static readonly ImmutableArray<string> BoxClasses = ["box"];
-
-    public VisualElement Container { get; private set; }
+    const string DialogClass = "content-row-centered";
+    static readonly ImmutableArray<string> BoxClasses = ["options-panel"];
+    static readonly ImmutableArray<string> ContainerClasses = ["sliced-border", "box__content-container"];
 
     public Label? TitleEl { get; private set; }
     public string? Title { get; private set; }
 
-    public Button? CloseButton { get; private set; }
+    public Button? CloseButton { get; private set; } = null!;
     bool hasCustomCloseAction;
 
-    public VisualElement Content { get; private set; }
+    public VisualElement Container { get; private set; }
+    public ScrollView Content { get; private set; }
 
-    public DialogBoxElement() : this(false) { }
-
-    public DialogBoxElement(bool scrollAsBox)
+    public DialogBoxElement()
     {
-        classList.AddRange(MainClasses);
+        this.AddClass(DialogClass);
 
-        Container = this.AddChild<NineSliceVisualElement>(name: "Container", classes: NineSliceClasses);
+        var box = this.AddChild(name: "Box", classes: BoxClasses);
 
-        Content = scrollAsBox ?
-            Container.AddScrollView(name: BoxName, additionalClasses: BoxClasses) :
-            Container.AddChild(name: BoxName, classes: BoxClasses);
+        Container = box.AddChild<NineSliceVisualElement>(name: "Container", classes: ContainerClasses);
+        Content = Container.AddScrollView(name: "Content");
+    }
+
+    static readonly ImmutableArray<string> TitleWrapperClasses = ["capsule-header", "capsule-header--lower", "content-centered",];
+    static readonly ImmutableArray<string> TitleClasses = ["capsule-header__text",];
+    void AddTitle()
+    {
+        var wrapper = Container.AddChild<NineSliceVisualElement>(name: "HeaderWrapper", classes: TitleWrapperClasses);
+        TitleEl = wrapper.AddLabel(name: "Title", additionalClasses: TitleClasses);
     }
 
     public DialogBoxElement AddCloseButton(Action? customAction = default)
     {
-        if (CloseButton is not null)
+        if (hasCustomCloseAction)
         {
-            throw new InvalidOperationException("Close button already exists.");
+            throw new InvalidOperationException("Close button already register a custom action.");
         }
 
-        CloseButton = new Button();
-        CloseButton.classList.Add(UiCssClasses.CloseButton);
-
-        Container.Add(CloseButton);
+        if (CloseButton is null)
+        {
+            CloseButton = Container.AddCloseButton("CloseButton");
+        }
 
         if (customAction is not null)
         {
@@ -55,19 +58,25 @@ public class DialogBoxElement : VisualElement
     {
         if (TitleEl is null)
         {
-            var wrapper = this.Q("Container")
-                .AddChild<NineSliceVisualElement>(classes: ["capsule-header", "capsule-header--lower", "content-centered"]);
-
-            TitleEl = wrapper.AddChild<Label>(title, ["capsule-header__text"]);
+            AddTitle();
         }
 
-        TitleEl.text = Title = title;
-
+        TitleEl!.text = Title = title;
         return this;
     }
 
-    public DialogBox Show(PanelStack panelStack, Action? confirm = default, Action? cancel = default)
+    public DialogBox Show(VisualElementLoader loader, PanelStack panelStack, Action? confirm = default, Action? cancel = default)
     {
+        return Show(loader._visualElementInitializer, panelStack, confirm, cancel);
+    }
+
+    public DialogBox Show(VisualElementInitializer? initializer, PanelStack panelStack, Action? confirm = default, Action? cancel = default)
+    {
+        if (initializer is not null)
+        {
+            this.Initialize(initializer);
+        }
+
         DialogBox diag = new(panelStack, confirm ?? DoNothing, cancel ?? DoNothing, this);
 
         if (CloseButton is not null && !hasCustomCloseAction)
