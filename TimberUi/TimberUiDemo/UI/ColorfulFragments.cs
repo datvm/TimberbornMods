@@ -1,6 +1,4 @@
-﻿using TimberUi.CommonProviders;
-
-namespace TimberUiDemo.UI;
+﻿namespace TimberUiDemo.UI;
 
 public class ColorfulFragments(EntityPanelFragmentBackground background) : IEntityPanelFragment
 {

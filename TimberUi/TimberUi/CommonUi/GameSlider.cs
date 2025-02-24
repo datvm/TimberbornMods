@@ -69,4 +69,22 @@ public class GameSlider<TSlider, TValue> : VisualElement
         return this;
     }
 
+    public GameSlider<TSlider, TValue> RegisterChangeCallback(EventCallback<ChangeEvent<TValue>> ev)
+    {
+        Slider.RegisterCallback(ev);
+        return this;
+    }
+
+    public GameSlider<TSlider, TValue> RegisterChange(Action<TValue> action)
+    {
+        Slider.RegisterValueChangedCallback((e) => action(e.newValue));
+        return this;
+    }
+
+    public GameSlider<TSlider, TValue> SetValue(TValue value)
+    {
+        Slider.value = value;
+        return this;
+    }
+
 }

@@ -100,24 +100,4 @@ public static partial class UiBuilderExtensions
         return element;
     }
 
-    public static IDropdownProvider SetItems<T>(this T dropdown, DropdownItemsSetter setter, IReadOnlyList<string> list, string? defaultValue) where T : Dropdown
-    {
-        var provider = new SimpleDropdownItemProvider(list, defaultValue);
-        setter.SetItems(dropdown, provider);
-
-        return provider;
-    }
-
-    public static string? GetSelectedValue<T>(this T dropdown) where T : Dropdown
-    {
-        return dropdown._dropdownProvider?.GetValue();
-    }
-
-    public static int GetSelectedIndex<T>(this T dropdown) where T : Dropdown
-    {
-        if (dropdown._dropdownProvider is null) { return -1; }
-
-        return dropdown._dropdownProvider.Items.IndexOf(dropdown._dropdownProvider.GetValue());
-    }
-
 }

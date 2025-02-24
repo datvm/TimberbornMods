@@ -7,3 +7,4 @@ global using TimberUi;
 global using TimberUi.CommonUi;
 global using UiBuilder;
 global using UiBuilder.CommonUi;
+global using ProgressBar = Timberborn.CoreUI.ProgressBar;

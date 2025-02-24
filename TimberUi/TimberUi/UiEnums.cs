@@ -6,6 +6,7 @@ public enum GameLabelStyle
     Default = 0,
     Header = 1,
     Game = 2,
+    EntityFragment = 3,
 
 }
 
@@ -29,12 +30,15 @@ public enum GameButtonStyle
     WideMenu = 2,
     BottomBar = 3,
     DevPanel = 4,
+    Game = 5,
+    EntityFragment = 6,
 
 }
 
 public enum GameButtonSize
 {
-    Medium = 1,
+    Medium = 0,
+    Small = 1,
     Large = 2,
 }
 

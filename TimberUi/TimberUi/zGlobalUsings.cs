@@ -11,3 +11,4 @@ global using UiBuilder;
 global using UnityEditor.StyleSheets;
 global using UnityEditor.UIElements.Debugger;
 global using Timberborn.DropdownSystem;
+global using TProgressBar = Timberborn.CoreUI.ProgressBar;
