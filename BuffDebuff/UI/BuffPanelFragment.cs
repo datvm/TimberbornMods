@@ -39,7 +39,7 @@ public class BuffPanelFragment : EntityPanelFragmentElement
     {
         var container = new VisualElement();
 
-        container.AddLabelGame("", BuffNameLabel, bold: true);
+        container.AddGameLabel("", BuffNameLabel, bold: true);
         
         return container;
     }

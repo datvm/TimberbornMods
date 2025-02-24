@@ -1,4 +1,4 @@
-﻿namespace TimberUi.Extensions;
+﻿namespace Bindito.Core;
 
 public static partial class UiBuilderExtensions
 {

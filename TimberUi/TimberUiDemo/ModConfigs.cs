@@ -1,8 +1,4 @@
-﻿global using TimberUiDemo.Services;
-global using Timberborn.BottomBarSystem;
-global using TimberUiDemo.UI;
-using TimberUi.CommonProviders;
-using TimberUi.Extensions;
+﻿
 
 namespace TimberUiDemo;
 
