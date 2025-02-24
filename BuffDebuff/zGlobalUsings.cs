@@ -6,6 +6,5 @@ global using Timberborn.Bots;
 global using Timberborn.EntitySystem;
 global using Timberborn.TemplateSystem;
 global using Timberborn.TickSystem;
-global using TimberUi.Extensions;
 global using Newtonsoft.Json;
 global using Timberborn.TooltipSystem;

@@ -1,4 +1,5 @@
-﻿namespace BuffDebuff;
+﻿
+namespace BuffDebuff;
 
 [Context("Game")]
 public class ModConfig : Configurator

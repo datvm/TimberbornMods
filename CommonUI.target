@@ -9,12 +9,13 @@
 		<Using Include="TimberUi" />
 		<Using Include="TimberUi.CommonUi" />
 		<Using Include="TimberUi.CommonProviders" />
-		
+
+
 		<Using Include="UnityEngine.UIElements" />
 	</ItemGroup>
 
 	<PropertyGroup>
-		<TimberUiPath>$(ModPath)3430626620\version-0.7\TimberUi.dll</TimberUiPath>
+		<TimberUiPath>$(GameModsFolder)TimberUi\version-0.7\TimberUi.dll</TimberUiPath>
 	</PropertyGroup>
 	
 	<ItemGroup>

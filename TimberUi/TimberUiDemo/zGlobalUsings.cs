@@ -1,10 +1,13 @@
 ﻿global using Timberborn.AssetSystem;
 global using Timberborn.BlockSystem;
+global using Timberborn.BottomBarSystem;
 global using Timberborn.Debugging;
 global using Timberborn.DropdownSystem;
 global using Timberborn.MainMenuPanels;
 global using TimberUi;
 global using TimberUi.CommonUi;
+global using TimberUiDemo.Services;
+global using TimberUiDemo.UI;
 global using UiBuilder;
 global using UiBuilder.CommonUi;
 global using ProgressBar = Timberborn.CoreUI.ProgressBar;

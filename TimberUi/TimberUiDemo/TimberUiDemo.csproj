@@ -13,7 +13,7 @@
 	</ItemGroup>
 
 	<PropertyGroup>
-		<ModFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\TimberUiDemo\$(TimberbornVersion)\</ModFolder>
+		<ModFolder>$(GameModsFolder)\TimberUiDemo\$(TimberbornVersion)\</ModFolder>
 	</PropertyGroup>
 
 </Project>

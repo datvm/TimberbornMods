@@ -26,7 +26,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<ModFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\Tmp\$(TimberbornVersion)\</ModFolder>
+		<GameModsFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\</GameModsFolder>
+		<ModFolder>$(GameModsFolder)Tmp\$(TimberbornVersion)\</ModFolder>
 	</PropertyGroup>
 
 	<ItemGroup>
