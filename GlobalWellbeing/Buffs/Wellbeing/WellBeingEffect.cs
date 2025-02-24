@@ -1,4 +1,4 @@
-﻿namespace GlobalWellbeing.Buffs;
+﻿namespace GlobalWellbeing.Buffs.Wellbeing;
 
 public readonly struct WellBeingEffectStatPair(WellBeingEffectStat current, WellBeingEffectStat? next)
 {

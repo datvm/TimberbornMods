@@ -6,6 +6,14 @@ public class GameModConfig : Configurator
     public override void Configure()
     {
         Bind<WellBeingBuff>().AsSingleton();
+        Bind<HighscoreWellbeingBuff>().AsSingleton();
+
+        MultiBind<TemplateModule>().ToProvider(() =>
+        {
+            TemplateModule.Builder b = new();
+            b.AddDecorator<BeaverSpec, BeaverBuffTracker>();
+            return b.Build();
+        }).AsSingleton();
     }
 }
 

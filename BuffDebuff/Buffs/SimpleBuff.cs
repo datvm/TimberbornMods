@@ -1,23 +1,13 @@
 ﻿namespace BuffDebuff;
 
-public abstract class SimpleValueBuff<TValue, TBuff, TInstance>(ISingletonLoader loader, IBuffService buffs)
-    : IBuff, ILoadableSingleton, ISaveableSingleton
-    where TValue : notnull
-    where TBuff : SimpleValueBuff<TValue, TBuff, TInstance>
-    where TInstance : BuffInstance<TValue, TBuff>, new()
+public abstract class SimpleBuff(ISingletonLoader loader, IBuffService buffs) : IBuff, ILoadableSingleton, ISaveableSingleton
 {
     protected abstract SingletonKey SingletonKey { get; }
 
     public long Id { get; set; }
 
-    public abstract string Name { get; }
-    public abstract string Description { get; }
-
-    public virtual TInstance CreateInstance(TValue value)
-    {
-        var instance = buffs.CreateBuffInstance<TBuff, TInstance, TValue>((TBuff)this, value);
-        return instance;
-    }
+    public abstract string Name { get; protected set; }
+    public abstract string Description { get; protected set; }
 
     public virtual void Load()
     {
@@ -48,6 +38,21 @@ public abstract class SimpleValueBuff<TValue, TBuff, TInstance>(ISingletonLoader
     protected virtual void SaveSingleton(IObjectSaver saver)
     {
         saver.SetBuffEntityId(Id);
+    }
+}
+
+public abstract class SimpleValueBuff<TValue, TBuff, TInstance>(ISingletonLoader loader, IBuffService buffs)
+    : SimpleBuff(loader, buffs)
+    where TValue : notnull
+    where TBuff : SimpleValueBuff<TValue, TBuff, TInstance>
+    where TInstance : BuffInstance<TValue, TBuff>, new()
+{
+    readonly IBuffService buffs = buffs;
+
+    public virtual TInstance CreateInstance(TValue value)
+    {
+        var instance = buffs.CreateBuffInstance<TBuff, TInstance, TValue>((TBuff)this, value);
+        return instance;
     }
 
 }

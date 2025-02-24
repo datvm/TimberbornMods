@@ -1,6 +1,4 @@
-﻿using Unity.Collections;
-
-namespace GlobalWellbeing.Buffs;
+﻿namespace GlobalWellbeing.Buffs.Wellbeing;
 
 public class WellBeingBuff(ILoc t, WellbeingService wellbeings, IBuffService buffs, ISingletonLoader loader) 
     : SimpleValueBuff<WellBeingBuffInstanceData, WellBeingBuff, WellBeingBuffInstance>(loader, buffs),
@@ -10,9 +8,8 @@ public class WellBeingBuff(ILoc t, WellbeingService wellbeings, IBuffService buf
 
     readonly IBuffService buffs = buffs;
 
-    string name = "";
-    public override string Name => name;
-    public override string Description => t.T("LV.GW.WellbeingBuffDesc");
+    public override string Name { get; protected set; } = "";
+    public override string Description { get; protected set; } = t.T("LV.GW.WellbeingBuffDesc");
 
     protected override SingletonKey SingletonKey => SaveKey;
 
@@ -36,7 +33,7 @@ public class WellBeingBuff(ILoc t, WellbeingService wellbeings, IBuffService buf
         if (wellbeing == prevWellbeing) { return; }
 
         prevWellbeing = wellbeing;
-        name = t.T("LV.GW.WellbeingBuff", wellbeing);
+        Name = t.T("LV.GW.WellbeingBuff", wellbeing);
 
         foreach (var b in currentBuffs)
         {

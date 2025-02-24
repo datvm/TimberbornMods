@@ -7,11 +7,15 @@ public class BuffableComponent : BaseComponent, IBuffEntity, IPersistentEntity
     public long Id { get; set; }
 
     readonly HashSet<BuffInstance> buffs = [];
-    readonly Dictionary<Type, List<BuffInstance>> buffsByTypes = [];
+    readonly Dictionary<Type, List<BuffInstance>> instancesByBuffTypes = [];
     public IEnumerable<BuffInstance> Buffs => buffs;
 
     EventBus eventBus = null!;
     IBuffableService buffable = null!;
+
+    public event EventHandler<BuffInstance> OnBuffAdded = delegate { };
+    public event EventHandler<BuffInstance> OnBuffRemoved = delegate { };
+    public event EventHandler<BuffInstance> OnBuffActiveChanged = delegate { };
 
     [Inject]
     public void Inject(EventBus eventBus, IBuffableService buffable)
@@ -20,10 +24,12 @@ public class BuffableComponent : BaseComponent, IBuffEntity, IPersistentEntity
         this.buffable = buffable;
     }
 
-    public IEnumerable<T> GetBuffs<T>() where T : BuffInstance
+    public IEnumerable<T> GetBuffInstances<T>(bool activeOnly = true) where T : BuffInstance
     {
-        if (!buffsByTypes.TryGetValue(typeof(T), out var list)) { return []; }
-        return list.Cast<T>();
+        if (!instancesByBuffTypes.TryGetValue(typeof(T), out var list)) { return []; }
+        return [..list
+            .Where(b => !activeOnly || b.Active)
+            .Cast<T>()];
     }
 
     public IEnumerable<T> GetEffects<T>(bool includeDisabled = false) where T : IBuffEffect
@@ -63,14 +69,15 @@ public class BuffableComponent : BaseComponent, IBuffEntity, IPersistentEntity
         buffs.Add(buff);
 
         var type = buff.GetType();
-        if (!buffsByTypes.TryGetValue(type, out var list))
+        if (!instancesByBuffTypes.TryGetValue(type, out var list))
         {
-            buffsByTypes[type] = list = [];
+            instancesByBuffTypes[type] = list = [];
         }
 
         list.Add(buff);
 
         eventBus.Post(new BuffAddedToEntityEvent(buff, this));
+        OnBuffAdded(this, buff);
     }
 
     internal void RemoveBuff(BuffInstance buff)
@@ -80,11 +87,19 @@ public class BuffableComponent : BaseComponent, IBuffEntity, IPersistentEntity
         buffs.Remove(buff);
 
         var type = buff.GetType();
-        if (!buffsByTypes.TryGetValue(type, out var list)) { return; }
+        if (!instancesByBuffTypes.TryGetValue(type, out var list)) { return; }
 
         list.Remove(buff);
 
         eventBus.Post(new BuffRemovedFromEntityEvent(buff, this));
+        OnBuffRemoved(this, buff);
+    }
+
+    internal void BuffActiveChanged(BuffInstance buff)
+    {
+        if (!Buffs.Contains(buff)) { return; }
+
+        OnBuffActiveChanged(this, buff);
     }
 
 }

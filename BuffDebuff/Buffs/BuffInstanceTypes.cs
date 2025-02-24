@@ -9,7 +9,7 @@ public interface IBuffInstance<TBuff>
 public interface IValuedBuffInstance<TValue>
     where TValue : notnull
 {
-    TValue Value { get; internal set; }
+    TValue Value { get; protected internal set; }
 }
 
 public abstract class BuffInstance<TValue, TBuff> : ValuedBuffInstance<TValue>, IBuffInstance<TBuff>, IValuedBuffInstance<TValue>

@@ -1,5 +1,13 @@
 ﻿namespace TestMod;
 
+[Context("Game")]
+public class GameConfig : Configurator
+{
+    public override void Configure()
+    {
+    }
+}
+
 public class ModStarter : IModStarter
 {
 

@@ -24,4 +24,5 @@ public interface IBuffService
         where TBuff : IBuff
         where TValue : notnull
         where TInstance : BuffInstance, IBuffInstance<TBuff>, IValuedBuffInstance<TValue>, new();
+    IEnumerable<T> GetInstances<T>() where T : BuffInstance;
 }
