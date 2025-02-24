@@ -79,8 +79,15 @@ public class MenuService(PanelStack stack, MainMenuPanel menu, VisualElementLoad
         }
 
         // Dropdown
-        var dropdown = con.AddDropdown()
+        var dropdownCon = con.AddChild()
+            .SetAsRow()
             .SetMarginBottom();
+
+        dropdownCon.AddLabel("Dropdown:")
+            .SetFlexGrow();
+        var dropdown = dropdownCon.AddMenuDropdown()
+            .SetMarginBottom();
+        
 
         // Scroll & ListView
         con.AddLabelHeader("ScrollView");
@@ -104,6 +111,7 @@ public class MenuService(PanelStack stack, MainMenuPanel menu, VisualElementLoad
             .Show(veLoader, stack);
 
         dropdown.SetItems(dropdownSetter, [.. Enumerable.Range(0, 10).Select(i => $"Item {i}")], "Item 3");
+        dropdown.ValueChanged += (_, _) => ShowMsgBox($"You selected {dropdown.GetSelectedValue()} (index {dropdown.GetSelectedIndex()})");
     }
 
     void PopulateListView(ListView l)

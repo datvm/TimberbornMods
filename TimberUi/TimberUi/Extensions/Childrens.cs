@@ -101,8 +101,12 @@ public static partial class UiBuilderExtensions
 
     public static Dropdown AddDropdown(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default)
     {
-        var dropdown = parent.AddChild<Dropdown>(name, additionalClasses);
-        return dropdown;
+       return parent.AddChild<Dropdown>(name: name, classes: [.. additionalClasses??[], ]);
+    }
+
+    public static Dropdown AddMenuDropdown(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default)
+    {
+        return parent.AddDropdown(name, additionalClasses: [.. additionalClasses ?? [], UiCssClasses.DropDownMenuClass]);
     }
 
     static T InternalAddScrollView<T>(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, bool greenDecorated = true)

@@ -88,6 +88,12 @@ public static partial class UiBuilderExtensions
         return element;
     }
 
+    public static T SetFlexGrow<T>(this T element, float flexGrow = 1) where T : VisualElement
+    {
+        element.style.flexGrow = flexGrow;
+        return element;
+    }
+
     public static T AddLabelClasses<T>(this T element, GameLabelStyle style, GameLabelSize size = default, GameLabelColor? color = default, bool bold = default) where T : TextElement
     {
         element.classList.AddRange(GetClasses(style, size, color, bold));
@@ -100,6 +106,18 @@ public static partial class UiBuilderExtensions
         setter.SetItems(dropdown, provider);
 
         return provider;
+    }
+
+    public static string? GetSelectedValue<T>(this T dropdown) where T : Dropdown
+    {
+        return dropdown._dropdownProvider?.GetValue();
+    }
+
+    public static int GetSelectedIndex<T>(this T dropdown) where T : Dropdown
+    {
+        if (dropdown._dropdownProvider is null) { return -1; }
+
+        return dropdown._dropdownProvider.Items.IndexOf(dropdown._dropdownProvider.GetValue());
     }
 
 }
