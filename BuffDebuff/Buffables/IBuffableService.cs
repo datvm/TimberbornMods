@@ -8,4 +8,5 @@ public interface IBuffableService
 
     void Load();
     void Register(BuffableComponent c);
+    void Unregister(BuffableComponent c);
 }

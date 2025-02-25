@@ -1,6 +1,6 @@
 {
     "Name": "Buff & Debuff System",
-    "Version": "7.0.1",
+    "Version": "7.0.2",
     "Id": "BuffDebuff",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Buff & Debuff System for your mod to be built upon. This mod provides a feature for other mods to use. It does nothing by itself.",

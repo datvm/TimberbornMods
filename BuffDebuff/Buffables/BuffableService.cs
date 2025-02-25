@@ -25,4 +25,10 @@ public class BuffableService(IBuffEntityService buffEntities, EntityRegistry reg
         buffables[c.Id] = c;
     }
 
+    public void Unregister(BuffableComponent c)
+    {
+        buffEntities.Unregister(c);
+        buffables.Remove(c.Id);
+    }
+
 }
