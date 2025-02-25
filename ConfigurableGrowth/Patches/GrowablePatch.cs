@@ -23,6 +23,6 @@ public static class GrowablePatch
         growableGrowthDays.SetValue(____growableSpec, (float)growableGrowthDays.GetValue(____growableSpec) / mul);
     }
 
-    static bool IsYieldLog(Yielder yielder) => yielder.YielderSpecification.Yield.GoodId == "Log";
+    static bool IsYieldLog(Yielder yielder) => yielder.YielderSpec.Yield.GoodId == "Log";
 
 }
