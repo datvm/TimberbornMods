@@ -45,6 +45,12 @@ public class BuffableComponent : BaseComponent, IBuffEntity, IPersistentEntity
         buffable.Register(this);
     }
 
+    public void OnDestroy()
+    {
+        if (Id == 0) { return; }
+        buffable.Unregister(this);
+    }
+
     public void Load(IEntityLoader entityLoader)
     {
         LoadId(entityLoader);
@@ -59,6 +65,8 @@ public class BuffableComponent : BaseComponent, IBuffEntity, IPersistentEntity
 
     public void Save(IEntitySaver entitySaver)
     {
+        if (Id == 0) { return; }
+
         entitySaver.GetComponent(SaveKey).SetBuffEntityId(Id);
     }
 

@@ -5,7 +5,7 @@
 	
 	<!-- Remove self reference -->
 	<ItemGroup>
-		<Reference Remove="$(ModPath)3433810580\$(TimberbornVersion)\Scripts\BuffDebuff.dll" />
+		<Reference Remove="$(ModPath)3433810580\$(TimberbornVersion)\BuffDebuff.dll" />
 	</ItemGroup>
 
 	<PropertyGroup>
