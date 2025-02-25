@@ -7,6 +7,13 @@ namespace ConfigurableTubeZipLine.Patches;
 public static class ZiplinePatches
 {
 
+    [HarmonyPrefix, HarmonyPatch(typeof(ZiplineCableNavMeshSpec), nameof(ZiplineCableNavMeshSpec.CableUnitCost), MethodType.Getter)]
+    public static bool ChangeZiplineSpeed(ref float __result)
+    {
+        __result = MSettings.CalculateCost(MSettings.ZiplineSpeed);
+        return false;
+    }
+
     [HarmonyPrefix, HarmonyPatch(typeof(ZiplineConnectionServiceSpec), nameof(ZiplineConnectionServiceSpec.MaxCableInclination), MethodType.Getter)]
     public static bool ChangeZiplineMaxInclination(ref int __result)
     {
@@ -33,11 +40,12 @@ public static class ZiplinePatches
     {
         if (!MSettings.ZiplineThroughObstacles) { return; }
 
-        ref var blocksSpec = ref __instance.ZiplineConnectionBlock._blocksSpecification;
+        ref var blocksSpec = ref __instance.ZiplineConnectionBlock._blocksSpec;
+        ref var blockSpecs = ref blocksSpec._blockSpecs;
 
-        for (int i = 0; i < blocksSpec._blockSpecifications.Length; i++)
+        for (int i = 0; i < blockSpecs.Length; i++)
         {
-            ref var blockSpec = ref blocksSpec._blockSpecifications[i];
+            ref var blockSpec = ref blockSpecs[i];
             blockSpec._occupations = Timberborn.BlockSystem.BlockOccupations.None;
         }
     }

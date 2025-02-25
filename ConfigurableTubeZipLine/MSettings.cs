@@ -87,13 +87,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
 
         UpdateValues();
     }
-
-    static readonly FieldInfo cableUnitCostField = typeof(ZiplineCableNavMesh).Field(nameof(ZiplineCableNavMesh.CableUnitCost));
-    void OnZiplineSpeedChanged()
-    {
-        cableUnitCostField.SetValue(null, CalculateCost(ZiplineSpeed));
-    }
-
+        
     void UpdateValues()
     {
         TubewaySpeed = tubewaySpeed.Value;
@@ -105,8 +99,6 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         TubewayForFolktails = tubewayForFolktails.Value;
         NoWaterPenalty = noWaterPenalty.Value;
         ZiplineThroughObstacles = ziplineThroughObstacles.Value;
-
-        OnZiplineSpeedChanged();
     }
 
     public static float CalculateCost(int bonusSpeed)

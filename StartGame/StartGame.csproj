@@ -16,7 +16,7 @@
 		<ProjectReference Include="..\TimberUi\TimberUiDemo\TimberUiDemo.csproj" />
 		<ProjectReference Include="..\TestMod\TestMod.csproj" />-->
 
-		<ProjectReference Include="..\GlobalWellbeing\GlobalWellbeing.csproj" />
+		<ProjectReference Include="..\ConfigurableTubeZipLine\ConfigurableTubeZipLine.csproj" />
 
 	</ItemGroup>
 
