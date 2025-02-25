@@ -43,8 +43,6 @@ public abstract class BuffInstance : IBuffEntity
     /// <returns>True if the instance was successfully loaded and should be applied; false if the data is no longer valid or this instance does not need to be restored.</returns>
     internal protected virtual bool Load(string savedState)
     {
-        Debug.Log($"Loading BuffInstance: {savedState}");
-
         JsonConvert.PopulateObject(savedState, this);
         return true;
     }
@@ -56,7 +54,6 @@ public abstract class BuffInstance : IBuffEntity
     internal protected virtual string? Save()
     {
         var json = JsonConvert.SerializeObject(this);
-        Debug.Log($"Saved BuffInstance: {json}");
         return json;
     }
 

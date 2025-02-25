@@ -214,7 +214,6 @@ public class BuffService(
         expectingLoadBuffs = s.Get(BuffIdsKey)
             .Select(q => q.Split(';'))
             .ToDictionary(q => q[0], q => long.Parse(q[1]));
-        Debug.Log($"Expecting {expectingLoadBuffs.Count} buffs to be registered: {string.Join(", ", expectingLoadBuffs.Keys)}");
     }
 
     public void PostLoad()
@@ -301,7 +300,7 @@ public class BuffService(
 
     void ProcessBuffs()
     {
-        foreach (var b in ActiveInstances)
+        foreach (var b in ActiveInstances.ToList())
         {
             ProcessBuff(b);
         }

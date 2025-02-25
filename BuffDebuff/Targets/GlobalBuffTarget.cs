@@ -26,7 +26,7 @@ public abstract class GlobalBuffTarget(IBuffableService buffables, EventBus even
             {
                 try
                 {
-                    return Filter(b);
+                    return b._componentCache is not null && Filter(b);
                 }
                 catch (Exception ex)
                 {
