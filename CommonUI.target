@@ -15,7 +15,7 @@
 	</ItemGroup>
 
 	<PropertyGroup>
-		<TimberUiPath>$(GameModsFolder)TimberUi\version-0.7\TimberUi.dll</TimberUiPath>
+		<TimberUiPath>$(ModPath)3430626620\$(TimberbornVersion)\**\*.dll</TimberUiPath>
 	</PropertyGroup>
 	
 	<ItemGroup>

@@ -2,10 +2,4 @@
 
 	<Import Project="../Common.target" />
 
-	<ItemGroup>
-		<ProjectReference Include="..\BuffDebuff\BuffDebuff.csproj">
-			<Private>False</Private>
-		</ProjectReference>
-	</ItemGroup>
-
 </Project>
