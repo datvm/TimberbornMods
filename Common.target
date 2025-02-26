@@ -51,6 +51,9 @@
 		<Copy SourceFiles="@(Blueprints)" DestinationFolder="$(ModFolder)blueprints\%(RecursiveDir)" />
 		<Copy SourceFiles="@(Specifications)" DestinationFolder="$(ModFolder)Specifications\%(RecursiveDir)" />
 		<Copy SourceFiles="@(ModResources)" DestinationFolder="$(ModFolder)Resources\%(RecursiveDir)" />
+
+		<!-- Delete the workshop_data.json just to be sure -->
+		<Delete Files="$(ModFolder)..\workshop_data.json" />
 	</Target>
 
 	<ItemGroup>

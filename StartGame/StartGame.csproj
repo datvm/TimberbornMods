@@ -16,7 +16,7 @@
 		<ProjectReference Include="..\TimberUi\TimberUiDemo\TimberUiDemo.csproj" />
 		<ProjectReference Include="..\TestMod\TestMod.csproj" />-->
 
-		<ProjectReference Include="..\ConfigurableGrowth\ConfigurableGrowth.csproj" />
+		<ProjectReference Include="..\BeaverAscent\BeaverAscent.csproj" />
 
 	</ItemGroup>
 
