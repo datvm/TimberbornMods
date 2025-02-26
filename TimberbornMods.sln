@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Targets", "_Targets", "{F8
 		Common.target = Common.target
 		CommonDebug.target = CommonDebug.target
 		CommonTimberApi.target = CommonTimberApi.target
+		CommonTimberUI.target = CommonTimberUI.target
 		CommonUI.target = CommonUI.target
 	EndProjectSection
 EndProject

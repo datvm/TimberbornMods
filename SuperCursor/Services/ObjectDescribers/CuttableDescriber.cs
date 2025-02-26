@@ -10,7 +10,7 @@ public class CuttableDescriber(DeadNaturalResourceDescriber deadDescriber, ILoc 
     {
         DescribeDying(builder, component);
 
-        var yield = component.YielderSpecification.Yield;
+        var yield = component.YielderSpec.Yield;
         var growable = component.GetComponentFast<Growable>();
         if (growable is not null)
         {
@@ -24,7 +24,7 @@ public class CuttableDescriber(DeadNaturalResourceDescriber deadDescriber, ILoc 
         }
     }
 
-    string GetYieldText(GoodAmountSpecification yield) 
+    string GetYieldText(GoodAmountSpec yield) 
         => $"  {yield.Amount}x {goods.GetGood(yield.GoodId).PluralDisplayName.Value}: ";
 
     string GetGrowthText(float progress, float total)
@@ -40,7 +40,7 @@ public class CuttableDescriber(DeadNaturalResourceDescriber deadDescriber, ILoc 
 
     void DescribeGatherable(StringBuilder builder, Gatherable gatherable)
     {
-        var yield = gatherable.YielderSpecification.Yield;
+        var yield = gatherable.YielderSpec.Yield;
         builder.Append(GetYieldText(yield));
 
         var grower = gatherable.GetComponentFast<GatherableYieldGrower>();
@@ -49,7 +49,7 @@ public class CuttableDescriber(DeadNaturalResourceDescriber deadDescriber, ILoc 
         builder.AppendLine(GetGrowthText(gatherProgress, gatherTotalTime));
     }
 
-    void DescribeGrowable(StringBuilder builder, Growable growable, GoodAmountSpecification yield)
+    void DescribeGrowable(StringBuilder builder, Growable growable, GoodAmountSpec yield)
     {
         builder.Append(GetYieldText(yield));
 

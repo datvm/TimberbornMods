@@ -5,9 +5,9 @@ namespace BeaverAscent;
 public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository)
 {
 
-    static readonly FieldInfo MaxMapEditorTerrainHeightField = typeof(MapSize).GetField(nameof(MapSize.MaxMapEditorTerrainHeight), BindingFlags.Public | BindingFlags.Static);
-    static readonly FieldInfo MaxGameTerrainHeightField = typeof(MapSize).GetField(nameof(MapSize.MaxGameTerrainHeight), BindingFlags.Public | BindingFlags.Static);
-    static readonly FieldInfo MaxMapEditorAboveTerrainHeightField = typeof(MapSize).GetField("MaxHeightAboveTerrain", BindingFlags.NonPublic | BindingFlags.Static);
+    static readonly FieldInfo MaxMapEditorTerrainHeightField = typeof(MapSize).GetField(nameof(MapSize.MaxMapEditorTerrainHeight));
+    static readonly FieldInfo MaxGameTerrainHeightField = typeof(MapSize).GetField(nameof(MapSize.MaxGameTerrainHeight));
+    static readonly FieldInfo MaxMapEditorAboveTerrainHeightField = typeof(MapSize).Field(nameof(MapSize.MaxHeightAboveTerrain));
 
     public override string ModId => nameof(BeaverAscent);
     public override ModSettingsContext ChangeableOn => ModSettingsContext.All;

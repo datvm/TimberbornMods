@@ -6,23 +6,10 @@
 		<Using Include="Timberborn.CoreUI" />
 		<Using Include="Timberborn.UILayoutSystem" />
 
-		<Using Include="TimberUi" />
-		<Using Include="TimberUi.CommonUi" />
-		<Using Include="TimberUi.CommonProviders" />
-
-
 		<Using Include="UnityEngine.UIElements" />
 	</ItemGroup>
 
-	<PropertyGroup>
-		<TimberUiPath>$(ModPath)3430626620\$(TimberbornVersion)\**\*.dll</TimberUiPath>
-	</PropertyGroup>
-	
 	<ItemGroup>
-		<Reference Condition="$(IsU7)" Include="$(TimberUiPath)">
-			<Private>False</Private>
-		</Reference>
-		
 		<!-- Timber API -->
 		<Reference Condition="$(IsU6)" Include="$(ModPath)3288241660\core\TimberApi.dll" Publicize="true">
 			<DestinationSubDirectory>libs/</DestinationSubDirectory>
