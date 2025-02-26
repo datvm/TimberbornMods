@@ -139,11 +139,6 @@
 			<DestinationSubDirectory>libs/</DestinationSubDirectory>
 			<Private>False</Private>
 		</Reference>
-		
-		<!-- Buff Debuff -->
-		<Reference Include="$(ModPath)3433810580\$(TimberbornVersion)\**\*.dll">
-			<Private>False</Private>
-		</Reference>
 	</ItemGroup>
 
 </Project>

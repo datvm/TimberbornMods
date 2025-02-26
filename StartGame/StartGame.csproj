@@ -12,9 +12,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />
-		<ProjectReference Include="..\TimberUi\TimberUiDemo\TimberUiDemo.csproj" />
-		<ProjectReference Include="..\TestMod\TestMod.csproj" />-->
+		<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />
+		<!--<ProjectReference Include="..\TimberUi\TimberUiDemo\TimberUiDemo.csproj" />-->
+		<!--<ProjectReference Include="..\TestMod\TestMod.csproj" />-->
 
 		<ProjectReference Include="..\BeaverAscent\BeaverAscent.csproj" />
 

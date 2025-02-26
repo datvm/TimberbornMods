@@ -1,3 +1,7 @@
 ID,Text,Comment
-LV.BuffDebuffDemo.SpeedBuff,"Extra movement speed",
-LV.BuffDebuffDemo.SpeedBuffDesc,"Everyone was motivated to move faster!",
+LV.BuffDebuffDemo.PositiveBuff,"Positive of the day",
+LV.BuffDebuffDemo.PositiveBuffDesc,"Your beavers are feeling good today",
+LV.BuffDebuffDemo.NegativeBuff,"Negative of the day",
+LV.BuffDebuffDemo.NegativeBuffDesc,"Your beavers are feeling bad today",
+LV.BuffDebuffDemo.RandomBoost,"Random boost",
+LV.BuffDebuffDemo.RandomBoostDesc,"Your beavers are feeling lucky today",

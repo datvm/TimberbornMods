@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<Import Project="../Common.target" />
-
-	<ItemGroup>
-	  <ProjectReference Include="..\BuffDebuff\BuffDebuff.csproj" />
-	</ItemGroup>
+	<Import Project="../CommonBuffDebuff.target" />
+	
+	<PropertyGroup>
+		<ModFolder>$(GameModsFolder)BuffDebuffDemo\$(TimberbornVersion)\</ModFolder>
+	</PropertyGroup>
 
 </Project>
