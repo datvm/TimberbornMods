@@ -97,6 +97,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalWellbeing", "GlobalWe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuffDebuffDemo", "BuffDebuffDemo\BuffDebuffDemo.csproj", "{2C2E9AD7-CF3C-4ED2-A995-E2CD08143E88}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolHotkey", "ToolHotkey\ToolHotkey.csproj", "{77668163-5B05-403C-B02C-D883B55E1031}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -259,6 +261,10 @@ Global
 		{2C2E9AD7-CF3C-4ED2-A995-E2CD08143E88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C2E9AD7-CF3C-4ED2-A995-E2CD08143E88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C2E9AD7-CF3C-4ED2-A995-E2CD08143E88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77668163-5B05-403C-B02C-D883B55E1031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77668163-5B05-403C-B02C-D883B55E1031}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77668163-5B05-403C-B02C-D883B55E1031}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77668163-5B05-403C-B02C-D883B55E1031}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

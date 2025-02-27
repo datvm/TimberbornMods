@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Common.target" />
+
+	<ItemGroup>
+	  <Folder Include="Blueprints\KeyBindingGroups\" />
+	</ItemGroup>
+
+</Project>
