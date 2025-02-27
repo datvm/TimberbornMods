@@ -3,7 +3,7 @@
     "Version": "7.0.0",
     "Id": "BuffDebuffDemo",
     "MinimumGameVersion": "0.7.0.0",
-    "Description": "Demo for Buff & Debuff System mod. Each day all beavers get a random buff and debuff to movement speed, and an extra buff for a random period of time.",
+    "Description": "Demo for Buff & Debuff System mod. Each day all beavers get a random buff and debuff to movement speed, and an extra buff/debuff for a random period of time.",
     "RequiredMods": [
         {
             "Id": "Harmony",

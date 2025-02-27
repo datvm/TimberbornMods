@@ -1,7 +1,8 @@
 ID,Text,Comment
-LV.BuffDebuffDemo.PositiveBuff,"Positive of the day",
-LV.BuffDebuffDemo.PositiveBuffDesc,"Your beavers are feeling good today",
-LV.BuffDebuffDemo.NegativeBuff,"Negative of the day",
-LV.BuffDebuffDemo.NegativeBuffDesc,"Your beavers are feeling bad today",
-LV.BuffDebuffDemo.RandomBoost,"Random boost",
-LV.BuffDebuffDemo.RandomBoostDesc,"Your beavers are feeling lucky today",
+LV.BuffDebuffDemo.PositiveBuff,"Positive of the day",The name of the positive buff
+LV.BuffDebuffDemo.PositiveBuffDesc,"Your beavers are feeling good today",The description of the positive buff
+LV.BuffDebuffDemo.NegativeBuff,"Negative of the day",The name of the negative buff
+LV.BuffDebuffDemo.NegativeBuffDesc,"Your beavers are feeling bad today",The description of the negative buff
+LV.BuffDebuffDemo.LuckyBuff,"Random boost",The name of the random boost
+LV.BuffDebuffDemo.LuckyBuffDesc,"Your beavers are feeling lucky (or unlucky) today",The description of the random boost
+LV.BuffDebuffDemo.SpeedBuffEffectDesc,"Movement speed: {0}",The description of the speed buff effect
