@@ -27,3 +27,4 @@ The Buff & Debuff System consists of the following components:
 
 - `BuffableComponent`: Attached to all entities in the game. They have a unique ID to identify them. You can get them all from the `IBuffableService` singleton.
 
+More coming soon...

@@ -160,7 +160,7 @@ public override bool IsBuff { get; protected set; } = true;
 ```
 
 - This is for UI only. The positive (buff) and negative (debuff) buffs will be displayed in different panels, one in green and one in red:  
-![Buff & Debuff](./img/nev-buff.jpg)
+![Buff & Debuff](./img/neg-buff.jpg)
 
 > ![TIP]  
 > This means you can create a single `IBuff` that generate both Buff & Debuff. For example, instead of creating two separate buffs a day that cancel one another, I can create a single buff and set `IBuff` like this:  
@@ -518,3 +518,7 @@ You can just reuse <code>SpeedBuffEffect</code> for this buff as well, just with
 <summary>Tip 2</summary>
 If you don't see the buff, make sure you have the <code>NegativeBuff</code> registered in the mod configuration.
 </details>
+
+## Create Lucky Buff (with Timed Buff Instance)
+
+Docs for this part is coming soon.
