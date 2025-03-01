@@ -11,9 +11,41 @@ This is a step-by-step guide for creating [Buff Debuff Demo](https://github.com/
 
 ![Random Buff](./img/random-buff.jpg)
 
+## TOC
+
+1. [Refer to the mod assembly (DLL)](#1-refer-to-the-mod-assembly-dll)
+2. [Create Positive Buff](#2-create-positive-buff)
+    1. [Create `PositiveBuff` class](#21-create-positivebuff-class)
+    2. [Create `PositiveBuffInstance` class](#22-create-positivebuffinstance-class)
+    3. [Create `SpeedBuffEffect` class](#23-create-speedbuffeffect-class)
+    4. [Register the Buff](#24-register-the-buff)
+    5. [Test the Buff](#25-test-the-buff)
+3. [Create `BeaverBuffComponent`](#3-create-beaverbuffcomponent)
+    1. [Create `BeaverBuffComponent` class](#31-create-beaverbuffcomponent-class)
+    2. [Register the Component](#32-register-the-component)
+    3. [Test the Buff](#33-test-the-buff)
+- [Practice 1](#practice-1)
+- [Practice 2](#practice-2)
+4. [Create Lucky Buff (with Timed Buff Instance)](#create-lucky-buff-with-timed-buff-instance)
+
 ## 1. Refer to the mod assembly (DLL)
 
 - Add the mod reference to your project. The file should be at _SteamLibrary\steamapps\workshop\content\1062090\3433810580\version-0.7\BuffDebuff.dll_.
+
+- Add `BuffDebuff` as a required mod for your mod:
+
+**manifest.json**
+```jsonc
+{
+    // Other entries
+    "RequiredMods": [
+        {
+            "Id": "BuffDebuff",
+            "MinimumVersion": "7.0.0"
+        }
+    ]
+}
+```
 
 - Optionally add `global using BuffDebuff` or `<Using Include="BuffDebuff" />` as this will be the namespace for all Buff & Debuff System classes.
 
@@ -519,6 +551,151 @@ You can just reuse <code>SpeedBuffEffect</code> for this buff as well, just with
 If you don't see the buff, make sure you have the <code>NegativeBuff</code> registered in the mod configuration.
 </details>
 
-## Create Lucky Buff (with Timed Buff Instance)
+## 4. Create Lucky Buff (with Timed Buff Instance)
 
-Docs for this part is coming soon.
+Each day, the beavers also get a random movement speed buff that lasts for a random amount of time between 0 to 30 hours. This is a bit more complex because we need a timed buff instance, and this time there is a chance two or more buff instances are present at the same time.
+
+### 4.1 Create `LuckyBuff` class
+
+[See full content with helpful comments here: **LuckyBuff.cs**](https://github.com/datvm/TimberbornMods/blob/master/BuffDebuffDemo/Buffs/LuckyBuff.cs)
+
+```cs
+// This buff will create LuckyBuffInstance, a timed buff.
+// Since LuckyBuffInstance is not a BuffInstance<TValue, TBuff>, we cannot use SimpleValueBuff but only SimpleBuff
+// We then make our own `CreateInstance` that was provided by SimpleValueBuff.
+public class LuckyBuff(ISingletonLoader loader, IBuffService buffs, ILoc t, EventBus eb) : SimpleBuff(loader, buffs), IUnloadableSingleton
+{
+    // ...
+}
+```
+
+- Since `LuckyBuffInstance` is not a `BuffInstance<TValue, TBuff>`, we cannot use `SimpleValueBuff` but only `SimpleBuff`.
+    - What we will be missing is only a `CreateInstance` method that we can easily implement.
+
+```cs
+LuckyBuffInstance CreateInstance(float hours, float perc)
+{
+    // Do not just create an instance directly, you need to inject the services
+    // And values if it's of IValuedBuffInstance
+    return buffs.CreateBuffInstance<LuckyBuff, LuckyBuffInstance, LuckyBuffInstanceValue>(this, new(hours, perc));
+}
+```
+
+- Note: `LuckyBuffInstance` is not available yet, but we will create it in the next step.
+
+- To create an instance of `LuckyBuffInstance`, we need to use `IBuffService.CreateBuffInstance()` method. This method will inject the necessary services _and value_ into the instance.
+
+```cs
+[OnEvent]
+public void OnDaytimeStart(DaytimeStartEvent _)
+{
+    const float MaxBuffPerc = .2f; // Only 20% compared to other buffs' 100%
+    const float MaxBuffHours = 30f; // There is a chance two or more buffs exist at once
+
+    // We do not remove existing instance like the other buffs
+
+    // Now we create a random boost for a random amount of hours
+    var hours = UnityEngine.Random.Range(0, MaxBuffHours);
+    var perc = UnityEngine.Random.Range(0, MaxBuffPerc);
+
+    // Lucky buff is applied with positive percentage
+    var instance = CreateInstance(hours, perc);
+    buffs.Apply(instance);
+
+    Debug.Log($"Lucky buff applied with {perc:P} speed increased for {hours:F1} hours");
+}
+```
+
+- The logic is similar to the `PositiveBuff` but we do not remove the existing instance. This is because we do not remove the buff when the day starts, but when the buff duration ends.
+
+_Other parts of the code are similar to `PositiveBuff` so I will not repeat them here._
+
+### 4.2 Create `LuckyBuffInstance` class
+
+[See full content with helpful comments here: **LuckyBuffInstance.cs**](https://github.com/datvm/TimberbornMods/blob/master/BuffDebuffDemo/Buffs/LuckyBuffInstance.cs)
+
+```cs
+// Since this BuffInstance needs a few values, we create a record to hold them.
+public readonly record struct LuckyBuffInstanceValue(float Hours, float Speed);
+```
+
+- This time instead of using a `float` as the sole value, we use a `struct` (or anything you like) to hold both the hours and the speed boost value.
+
+```cs
+// This BuffInstance is timed so we use TimedBuffInstance which already has the logic for processing it
+// We also implement IValuedBuffInstance<LuckyBuffInstanceValue> because TimedBuffInstance doesn't support it out of the box.
+public class LuckyBuffInstance : TimedBuffInstance<LuckyBuff>, IValuedBuffInstance<LuckyBuffInstanceValue>
+{
+    // Property for IValuedBuffInstance<LuckyBuffInstanceValue> so the IBuffService can set it automatically
+    public LuckyBuffInstanceValue Value { get; set; }
+
+    // ...
+}
+```
+
+- We use `TimedBuffInstance` as the base class because this buff is timed. The base class already has the logic for: saving and loading the remaining time, removing the buff when the time is up.
+
+- We implement `IValuedBuffInstance<LuckyBuffInstanceValue>` because we can then use `IBuffService.CreateBuffInstance()` to inject the `Value` property into the instance.
+
+```cs
+// This is the total time when the buff starts. Make sure it's available before Init() call of the base class.
+public override float StartingTime => Value.Hours;
+
+// If you override AdditionalDescription, note that the base class already has a logic to show the time left.
+// public override string? AdditionalDescription { get => base.AdditionalDescription; protected set => base.AdditionalDescription = value; }
+```
+
+- `AdditionalDescription` is already implemented in the base class to show the remaining time. You can override it to show more information.
+
+- `StartingTime` is the total time when the buff starts. Make sure it's available before `Init()` call of the base class.
+
+> ![TIP]  
+> Unless you have special logic, saving `StartingTime` is not necessary because the base class already saves and loads the remaining time for you.
+
+```cs
+// These are the dependencies that the TimedBuffInstance needs to process it,
+// so we need to inject them as well beside what extra you may need
+protected override IBuffService Buffs { get; set; } = null!;
+protected override IDayNightCycle DayNight { get; set; } = null!;
+protected override ILoc T { get; set; } = null!;
+
+IBuffableService buffables = null!;
+EventBus eb = null!;
+
+[Inject]
+public void InjectDeps(IBuffService buffs, IDayNightCycle dayNight, ILoc t, IBuffableService buffables, EventBus eb)
+{
+    // Beside injecting your own dependencies, you need to inject the base class dependencies as well
+    base.Inject(buffs, dayNight, t);
+
+    this.buffables = buffables;
+    this.eb = eb;
+}
+```
+
+- Beside the dependencies you need, you also need to inject the base class dependencies. You can do this by calling `base.Inject()`. Those are the services the base class needs to process the timed buff.
+
+_Other parts of the code are similar to `PositiveBuffInstance` so I will not repeat them here._
+
+### 4.3 Register the Buff
+
+In your mod configuration, register the buff like the other buffs:
+
+```cs
+public override void Configure()
+{
+    // ...
+
+    Bind<LuckyBuff>().AsSingleton();
+}
+```
+
+### 4.4 Test the Buff
+
+Now load the game again, you should see the lucky buff applied to the beavers every day. The buff will last for a random amount of time between 0 to 30 hours.
+
+![Lucky Buff](./img/random-buff.jpg)
+
+This buff's bonus should stack with the positive buff and the negative buff you created.
+
+You can also try saving the game, then reloading it to make sure the value and remaining time is saved and loaded correctly.
