@@ -3,3 +3,4 @@ plugins:
 - jekyll-remote-theme
 title: Luke's Timberborn Mods
 description: My collection of mods for Timberborn with documentations.
+show_downloads: false

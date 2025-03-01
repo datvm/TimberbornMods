@@ -11,6 +11,10 @@ This is a step-by-step guide for creating [Buff Debuff Demo](https://github.com/
 
 ![Random Buff](./img/random-buff.jpg)
 
+- Full source code: [GitHub](https://github.com/datvm/TimberbornMods/tree/master/BuffDebuffDemo)
+
+- Mod: [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3436101949)
+
 ## TOC
 
 1. [Refer to the mod assembly (DLL)](#1-refer-to-the-mod-assembly-dll)
@@ -26,7 +30,11 @@ This is a step-by-step guide for creating [Buff Debuff Demo](https://github.com/
     3. [Test the Buff](#33-test-the-buff)
 - [Practice 1](#practice-1)
 - [Practice 2](#practice-2)
-4. [Create Lucky Buff (with Timed Buff Instance)](#create-lucky-buff-with-timed-buff-instance)
+4. [Create Lucky Buff (with Timed Buff Instance)](#4-create-lucky-buff-with-timed-buff-instance)
+    1. [Create `LuckyBuff` class](#41-create-luckybuff-class)
+    2. [Create `LuckyBuffInstance` class](#42-create-luckybuffinstance-class)
+    3. [Register the Buff](#43-register-the-buff)
+    4. [Test the Buff](#44-test-the-buff)
 
 ## 1. Refer to the mod assembly (DLL)
 
