@@ -9,5 +9,21 @@ With this mod, you can effortlessly apply buffs or debuffs to any in-game entity
 
 ![Buff & Debuff System](../img/buffdemo.jpg)
 
-# Entities
+You can check out a complete [Demo project](https://github.com/datvm/TimberbornMods/tree/master/BuffDebuffDemo) or the mod [Global Wellbeing](https://github.com/datvm/TimberbornMods/tree/master/GlobalWellbeing) for usage. This guide will walk you through making a mod like `BuffDebuffDemo`.
+
+# Guides
+
+![Buff & Debuff Flow](./img/buffdebuffarch.png)
+
+- [Quick Read](./quickstart)
+- [Step-by-step Guide](./stepbystep.MD)
+
+# Architecture
+
+The Buff & Debuff System consists of the following components:
+
+- `IBuffEntity`: everything is a buff entity and they have a unique `long Id` assigned when registered to the `IBuffEntityService`.
+    - `IBuffEntityService`: the singleton service that manages all buff entities. You can get all or one by Id with this service. `Register` and `Unregister` most likely won't need to be called by you.
+
+- `BuffableComponent`: Attached to all entities in the game. They have a unique ID to identify them. You can get them all from the `IBuffableService` singleton.
 
