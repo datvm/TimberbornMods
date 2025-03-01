@@ -4,8 +4,8 @@ title: Luke's Timberborn Mods
 
 All source code are available at https://github.com/datvm/TimberbornMods (on the `master` branch).
 
-- [TimberUI](#timberui) \| [Docs](./TimberUI)
-- [Buff & Debuff System](#buff--debuff-system) \| [Docs](./BuffDebuff)
+- [TimberUI](#timberui): [Docs](./TimberUI)
+- [Buff & Debuff System](#buff--debuff-system): [Docs](./BuffDebuff) \| [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3433810580) \| [Mod.io](https://mod.io/g/timberborn/m/buff-debuff-system)
 
 # TimberUI
 

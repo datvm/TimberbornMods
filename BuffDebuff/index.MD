@@ -9,7 +9,8 @@ With this mod, you can effortlessly apply buffs or debuffs to any in-game entity
 
 ![Buff & Debuff System](../img/buffdemo.jpg)
 
-- Demo project: [Source code](https://github.com/datvm/TimberbornMods/tree/master/BuffDebuffDemo), [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3436101949)
+- Buff & Debuff System mod: [Source code](https://github.com/datvm/TimberbornMods/tree/master/BuffDebuff), [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3433810580), [Mod.io](https://mod.io/g/timberborn/m/buff-debuff-system)
+- Demo project: [Source code](https://github.com/datvm/TimberbornMods/tree/master/BuffDebuffDemo), [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3436101949), [Mod.io](https://mod.io/g/timberborn/m/buff-debuff-demo)
 - Global Wellbeing (using this mod): [Source code](https://github.com/datvm/TimberbornMods/tree/master/GlobalWellbeing), [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3433812252)
 
 # Guides
