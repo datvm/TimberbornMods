@@ -16,7 +16,7 @@
 		<!--<ProjectReference Include="..\TimberUi\TimberUiDemo\TimberUiDemo.csproj" />-->
 		<!--<ProjectReference Include="..\TestMod\TestMod.csproj" />-->
 
-		<ProjectReference Include="..\ToolHotkey\ToolHotkey.csproj" />
+		<ProjectReference Include="..\WaterSourcesDontCrash\WaterSourcesDontCrash.csproj" />
 
 	</ItemGroup>
 
