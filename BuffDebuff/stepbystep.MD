@@ -223,7 +223,7 @@ public override void Init()
 - `SpeedBuffEffect` is created later.
 
 - Instead of using constructor or field initialization, `Init()` is called after the instance is created and injected. This is where you set up the instance.
-    - It is guanranteed to be called before any `Update()` happens, including after the game is loaded and the values are loaded from the save if relevant.
+    - It is guaranteed to be called before any `Update()` happens, including after the game is loaded and the values are loaded from the save if relevant.
 
 - In this `BuffInstance` since we only have one Effect of a known type, we add the `Effect` property so we can easily access it later without iterating through the Effects.
 
@@ -493,7 +493,7 @@ You can add a property to determine if an initial buff is applied or not.
 
 <details>
 <summary>Tip 2</summary>
-To save additional properties, you should override `LoadSingleton` and `SaveSingleton` instead of `Load` and `Save` to retain the logic of the base class.
+To save additional properties, you should override <code>LoadSingleton</code> and <code>SaveSingleton</code> instead of <code>Load</code> and <code>Save</code> to retain the logic of the base class.
 
 > ![IMPORTANT]  
 > You should call `base.LoadSingleton` and `base.SaveSingleton` in your override.
@@ -511,10 +511,10 @@ You can see the solution in the [`NegativeBuff.cs`](https://github.com/datvm/Tim
 
 <details>
 <summary>Tip 1</summary>
-You can just reuse `SpeedBuffEffect` for this buff as well, just with a negative value. This way you don't even need to create any new processing logic.
+You can just reuse <code>SpeedBuffEffect</code> for this buff as well, just with a negative value. This way you don't even need to create any new processing logic.
 </details>
 
 <details>
 <summary>Tip 2</summary>
-If you don't see the buff, make sure you have the `NegativeBuff` registered in the mod configuration.
+If you don't see the buff, make sure you have the <code>NegativeBuff</code> registered in the mod configuration.
 </details>
