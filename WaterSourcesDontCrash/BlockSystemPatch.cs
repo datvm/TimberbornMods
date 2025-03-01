@@ -6,7 +6,7 @@ namespace WaterSourcesDontCrash;
 public static class BlockObjectPatch
 {
 
-    [HarmonyPostfix, HarmonyPatch(typeof(BlockSpecification), "MatterBelow", MethodType.Getter)]
+    [HarmonyPostfix, HarmonyPatch(typeof(BlockSpec), "MatterBelow", MethodType.Getter)]
     public static void GroundOnlyPrefix(ref MatterBelow __result)
     {
         if (__result == MatterBelow.Ground)
