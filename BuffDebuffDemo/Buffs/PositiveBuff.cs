@@ -22,6 +22,16 @@ public class PositiveBuff(ISingletonLoader loader, IBuffService buffs, ILoc t, E
     {
         base.AfterLoad();
         eb.Register(this);
+
+        #region Fix for initial run (In Practice 1, do not open this if you want to try)
+        // Run once when the game is loaded for the first time
+        // so player doesn't have to wait for the next day to get the buff
+        if (!hadFirstRun)
+        {
+            OnDaytimeStart(new());
+            hadFirstRun = true;
+        }
+        #endregion
     }
 
     public void Unload()
@@ -58,6 +68,25 @@ public class PositiveBuff(ISingletonLoader loader, IBuffService buffs, ILoc t, E
         // When you are used to this, you can actually make a single buff and create all 3 buff instances here.
         // However, all 3 buff instances will only get one name and description (though there is extra info at buff instance description and effects).
     }
+
+    #region Fix for initial run (In Practice 1, do not open this if you want to try)
+
+    bool hadFirstRun;
+    static readonly PropertyKey<bool> hadFirstRunKey = new("PositiveBuffHadFirstRun");
+
+    protected override void LoadSingleton(IObjectLoader loader)
+    {
+        base.LoadSingleton(loader);
+        hadFirstRun = loader.Get(hadFirstRunKey);
+    }
+
+    protected override void SaveSingleton(IObjectSaver saver)
+    {
+        base.SaveSingleton(saver);
+        saver.Set(hadFirstRunKey, hadFirstRun);
+    }
+
+    #endregion
 
     // Below is one way to process the buff instance when it is applied to the Buffable
     // However I do not recommend using this because there would be a huge amount of calls to these methods
