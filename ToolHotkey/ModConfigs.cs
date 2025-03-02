@@ -1,6 +1,4 @@
-﻿global using ToolHotkey.Patches;
-global using Timberborn.BlueprintSystem;
-global using Timberborn.KeyBindingSystem;
+﻿global using Timberborn.KeyBindingSystem;
 global using ToolHotkey.Services;
 global using Timberborn.BlockSystem;
 global using Timberborn.InputSystem;
