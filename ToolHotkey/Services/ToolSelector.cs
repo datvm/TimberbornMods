@@ -4,66 +4,129 @@ using Timberborn.ToolSystem;
 
 namespace ToolHotkey.Services;
 
+public readonly record struct ToolButtonInfo(ToolGroupButton? Group, ToolButton Tool);
+
 public class ToolSelector(
     InputService input,
-    PrefabService prefabs,
-    ILoc t,
     KeyBindingRegistry keyBindingRegistry,
     ToolButtonService toolButtons,
-    ToolManager tools
+    ILoc t,
+    PreviewFactory previewFac
 ) : IInputProcessor, ILoadableSingleton, IUnloadableSingleton
 {
-    readonly Dictionary<string, AdditionalToolSpec> assignedKeys = [];
+    readonly Dictionary<string, ToolButtonInfo> assignedKeys = [];
 
     public void Load()
     {
-        InitToolList();
-        LoadAssignedList();
+        var tools = LoadToolList();
+        LoadAssignedList(tools);
 
         input.AddInputProcessor(this);
     }
 
-    void InitToolList()
+    List<AdditionalToolSpec> LoadToolList()
     {
-        var tools = prefabs.GetAll<PlaceableBlockObjectSpec>();
-
-        List<AdditionalToolSpec> additionalTools = [];
-        foreach (var tool in tools)
+        List<AdditionalToolSpec> tools = [];
+        HashSet<string> ids = [];
+        ScanAllButtons(null, info =>
         {
-            var id = tool.name;
-            var groupid = tool.ToolGroupId;
+            var spec = ExtractToolButtonInfo(in info);
+            if (spec is null
+                || ids.Contains(spec.Value.Id)) { return; }
 
-            var nameKey = tool.GetComponentFast<LabeledEntitySpec>()?.DisplayNameLocKey ?? id;
+            ids.Add(spec.Value.Id);
+            tools.Add(spec.Value);
+        });
 
-            additionalTools.Add(new(id, groupid, nameKey, t.T(nameKey)));
-        }
-
-        ToolPersistence.SaveTools(additionalTools);
+        ToolPersistence.SaveTools(tools);
+        return tools;
     }
 
-    void LoadAssignedList()
+    void LoadAssignedList(List<AdditionalToolSpec> tools)
     {
-        var tools = ToolPersistence.LoadTools();
         assignedKeys.Clear();
 
         var bindings = keyBindingRegistry.KeyBindings
             .Where(q => q.GroupId == ModStarter.KeyGroupId)
             .ToDictionary(q => q.Id);
 
-        foreach (var t in tools)
+        ScanAllButtons(null, info =>
         {
-            var keybindId = string.Format(ModStarter.ToolKeyId, t.Id);
+            var spec = ExtractToolButtonInfo(info);
+            if (spec is null) { return; }
 
-            // Outdated keybindings
-            if (!bindings.TryGetValue(keybindId, out var binding))
+            var hotKeyId = string.Format(ModStarter.ToolKeyId, spec.Value.Id);
+            if (assignedKeys.ContainsKey(hotKeyId)) { return; }
+
+            if (!bindings.TryGetValue(hotKeyId, out var binding)) { return; }
+            assignedKeys.Add(hotKeyId, info);
+        });
+    }
+
+    AdditionalToolSpec? ExtractToolButtonInfo(in ToolButtonInfo info)
+    {
+        var (grpBtn, toolBtn) = info;
+        var tool = toolBtn.Tool;
+
+        string? descTitle;
+        if (tool is BlockObjectTool boTool)
+        {
+            var prefab = boTool.Prefab;
+            var preview = previewFac.Create(prefab);
+
+            var label = preview.GetComponentFast<LabeledEntity>();
+            if (label is null)
             {
-                Debug.Log($"Keybinding not found {keybindId} for tool {t.Id}, probably a new tool was added");
-                continue;
+                Debug.Log($"Prefab {prefab.name} has no label");
+                return default;
             }
 
-            if (!binding.PrimaryInputBinding.IsDefined && !binding.SecondaryInputBinding.IsDefined) { continue; }
-            Debug.Log($"Keybinding {keybindId} for tool {t.Id} is defined");
-            assignedKeys.Add(keybindId, t);
+            descTitle = label.DisplayName;
+        }
+        else
+        {
+            var desc = tool.Description();
+            descTitle = desc?.HasTitle == true ? desc.Title : null;
+        }
+
+        if (descTitle is null)
+        {
+            Debug.Log($"Tool {tool.GetType().FullName} has no title");
+            return default;
+        }
+
+        var toolName = descTitle;
+        var grpName = grpBtn?._toolGroup.DisplayNameLocKey;
+
+        var toolId = grpName is null ? toolName : $"{grpName}.{toolName}";
+        var toolDisplay = grpName is null ? toolName : $"{t.T(grpName)} -> {toolName}";
+
+        return new(toolId, toolDisplay, grpName);
+    }
+
+    void ScanAllButtons(Action<ToolGroupButton>? onGroupFound, Action<ToolButtonInfo>? onButtonFound)
+    {
+        foreach (var btn in toolButtons._rootButtons)
+        {
+            if (btn is ToolGroupButton grp)
+            {
+                onGroupFound?.Invoke(grp);
+                if (onButtonFound is null) { continue; }
+
+                ScanGroupButtons(grp, onButtonFound);
+            }
+            else if (btn is ToolButton toolBtn && onButtonFound is not null)
+            {
+                onButtonFound?.Invoke(new(null, toolBtn));
+            }
+        }
+    }
+
+    void ScanGroupButtons(ToolGroupButton grp, Action<ToolButtonInfo> onButtonFound)
+    {
+        foreach (var btn in grp._toolButtons)
+        {
+            onButtonFound.Invoke(new(grp, btn));
         }
     }
 
@@ -81,42 +144,15 @@ public class ToolSelector(
         return false;
     }
 
-    void SelectTool(in AdditionalToolSpec tool)
+    void SelectTool(in ToolButtonInfo info)
     {
-        var id = tool.Id;
-
-        var btn = toolButtons._toolButtons.FirstOrDefault(q =>
-        {
-            switch (q.Tool)
-            {
-                case BlockObjectTool bo:
-                    if (bo.Prefab.name == id)
-                    {
-                        return true;
-                    }
-
-                    return false;
-            }
-
-            return false;
-        });
-
-        if (btn is null)
-        {
-            Debug.Log($"Tool button not found for tool {id}. This should not happen");
-            return;
-        }
-
-        var grp = toolButtons.GetToolGroupButton(btn);
-        grp.Select();
-        btn.Select();
+        info.Group?.Select();
+        info.Tool.Select();
     }
 
     public void Unload()
     {
         input.RemoveInputProcessor(this);
     }
-
-
 
 }

@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<Import Project="../Common.target" />
+	<Import Project="../CommonUI.target" />
+	<Import Project="../CommonTimberUI.target" />
 
 	<ItemGroup>
 		<Reference Include="$(AssemblyPath)\System.Windows.Forms.dll">

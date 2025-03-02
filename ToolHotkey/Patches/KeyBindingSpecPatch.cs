@@ -13,28 +13,12 @@ public static class KeyBindingSpecPatch
         if (!tools.Any()) { return; }
 
         tools = tools
-            .OrderBy(q => q.TName);
-
-        HashSet<string> names = [];
-        HashSet<string> duplicateNames = [];
-        foreach (var t in tools)
-        {
-            if (names.Contains(t.NameLoc))
-            {
-                duplicateNames.Add(t.NameLoc);
-            }
-            else
-            {
-                names.Add(t.NameLoc);
-            }
-        }
+            .OrderBy(q => q.Name);
 
         var counter = 0;
         foreach (var t in tools)
         {
-            var display = duplicateNames.Contains(t.NameLoc)
-                ? $"{t.TName} ({t.Id})"
-                : t.NameLoc;
+            var display = t.Name;
 
             __instance._defaultKeyBindingSpecs.Add(new()
             {
