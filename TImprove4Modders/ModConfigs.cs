@@ -1,4 +1,6 @@
-﻿namespace TImprove4Modders;
+﻿using TImprove4Modders.DevModules;
+
+namespace TImprove4Modders;
 
 [Context("MainMenu")]
 [Context("Game")]
@@ -9,6 +11,7 @@ public class AllContextConfig : Configurator
     {
         Bind<MSettings>().AsSingleton();
         Bind<QuickQuitService>().AsSingleton();
+
     }
 
 }
@@ -19,16 +22,23 @@ public class NonMenuContextConfig : Configurator
 {
     public override void Configure()
     {
-        Bind<AutoDevModeService>().AsSingleton();
+        Bind<DevModeService>().AsSingleton();
+
+        MultiBind<IDevModule>().To<PrintUiModule>().AsSingleton();
+        MultiBind<IDevModule>().To<ScienceModule>().AsSingleton();
+        MultiBind<IDevModule>().To<PlantModule>().AsSingleton();
     }
 
 }
 
 public class ModStarter : IModStarter
 {
+    public static string ModPath { get; private set; } = null!;
 
     public void StartMod(IModEnvironment modEnvironment)
     {
+        ModPath = modEnvironment.ModPath;
+
         new Harmony(nameof(TImprove4Modders)).PatchAll();
     }
 

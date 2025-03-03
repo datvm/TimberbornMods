@@ -9,6 +9,12 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
 
     #region Settings
 
+    readonly ModSetting<bool> swapBuildFinishedModifier = new(
+        true,
+        ModSettingDescriptor
+            .CreateLocalized("LV.TIMod.SwapBuildFinishedModifier")
+            .SetLocalizedTooltip("LV.TIMod.SwapBuildFinishedModifierDesc"));
+
     readonly ModSetting<bool> pickThumbnail = new(
         true,
         ModSettingDescriptor
@@ -39,29 +45,41 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
             .CreateLocalized("LV.TIMod.QuickRestart")
             .SetLocalizedTooltip("LV.TIMod.QuickRestartDesc"));
 
+    readonly ModSetting<bool> noClearDevFilter = new(
+        true,
+        ModSettingDescriptor
+            .CreateLocalized("LV.TIMod.NoClearDevFilter")
+            .SetLocalizedTooltip("LV.TIMod.NoClearDevFilterDesc"));
+
     #endregion
 
+    public static bool SwapBuildFinishedModifier { get; private set; }
     public static bool PickThumbnail { get; private set; }
     public static bool OpenExternalBrowser { get; private set; }
     public static bool DevModeOnDefault { get; private set; }
     public static bool QuickQuit { get; private set; }
     public static bool QuickRestart { get; private set; }
+    public static bool NoClearDevFilter { get; private set; }
 
     public event Action OnSettingsChanged = delegate { };
 
     public override void OnAfterLoad()
     {
+        AddCustomModSetting(swapBuildFinishedModifier, nameof(swapBuildFinishedModifier));
+        AddCustomModSetting(noClearDevFilter, nameof(noClearDevFilter));
         AddCustomModSetting(pickThumbnail, nameof(pickThumbnail));
         AddCustomModSetting(openExternalBrowser, nameof(openExternalBrowser));
         AddCustomModSetting(devModeOnDefault, nameof(devModeOnDefault));
         AddCustomModSetting(quickQuit, nameof(quickQuit));
         AddCustomModSetting(quickRestart, nameof(quickRestart));
 
+        swapBuildFinishedModifier.ValueChanged += (_, _) => InternalOnSettingsChanged();
         pickThumbnail.ValueChanged += (_, _) => InternalOnSettingsChanged();
         openExternalBrowser.ValueChanged += (_, _) => InternalOnSettingsChanged();
         devModeOnDefault.ValueChanged += (_, _) => InternalOnSettingsChanged();
         quickQuit.ValueChanged += (_, _) => InternalOnSettingsChanged();
         quickRestart.ValueChanged += (_, _) => InternalOnSettingsChanged();
+        noClearDevFilter.ValueChanged += (_, _) => InternalOnSettingsChanged();
 
         InternalOnSettingsChanged();
     }
@@ -73,6 +91,8 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         DevModeOnDefault = devModeOnDefault.Value;
         QuickQuit = quickQuit.Value;
         QuickRestart = quickRestart.Value;
+        SwapBuildFinishedModifier = swapBuildFinishedModifier.Value;
+        NoClearDevFilter = noClearDevFilter.Value;
 
         OnSettingsChanged();
     }

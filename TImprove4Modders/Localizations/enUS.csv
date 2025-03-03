@@ -1,4 +1,8 @@
 ﻿ID,Text,Comment
+LV.TIMod.SwapBuildFinishedModifier,"Swap Build Finished Modifier",
+LV.TIMod.SwapBuildFinishedModifierDesc,"When Dev Mode is enabled, auto finish building when placing a building while holding Ctrl would place the building normally for construction",
+LV.TIMod.NoClearDevFilter,"Do not clear Dev Mode filter",
+LV.TIMod.NoClearDevFilterDesc,"Do not clear Dev Mode filter when invoking one or adding/removing them from favourites",
 Modding.ThumbnailInfo,"Click Refresh to pick a mod thumbnail if 'Pick upload thumbnail' option is checked",
 LV.TIMod.PickThumbnail,"Pick upload thumbnail",
 LV.TIMod.PickThumbnailDesc,"Pick a thumbnail for your upload instead of using thumbnail.png.",
