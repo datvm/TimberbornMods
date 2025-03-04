@@ -15,9 +15,9 @@
 		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
 		<!--<ProjectReference Include="..\TimberUi\TimberUiDemo\TimberUiDemo.csproj" />-->
 		<!--<ProjectReference Include="..\TestMod\TestMod.csproj" />-->
-		<ProjectReference Include="..\TImprove4Modders\TImprove4Modders.csproj" />
+		<!--<ProjectReference Include="..\TImprove4Modders\TImprove4Modders.csproj" />-->
 		
-		<!--<ProjectReference Include="..\ToolHotkey\ToolHotkey.csproj" />-->
+		<ProjectReference Include="..\ConfigurableIrrigation\ConfigurableIrrigation.csproj" />
 
 	</ItemGroup>
 

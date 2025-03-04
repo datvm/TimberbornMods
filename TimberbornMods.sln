@@ -99,6 +99,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuffDebuffDemo", "BuffDebuf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolHotkey", "ToolHotkey\ToolHotkey.csproj", "{77668163-5B05-403C-B02C-D883B55E1031}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScientificProjects", "ScientificProjects\ScientificProjects.csproj", "{6D055A5B-DD23-4FF3-8026-82DB6B806193}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableIrrigation", "ConfigurableIrrigation\ConfigurableIrrigation.csproj", "{60E857C3-12F0-4280-9588-F45D809AC2F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -265,6 +269,14 @@ Global
 		{77668163-5B05-403C-B02C-D883B55E1031}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77668163-5B05-403C-B02C-D883B55E1031}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77668163-5B05-403C-B02C-D883B55E1031}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D055A5B-DD23-4FF3-8026-82DB6B806193}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D055A5B-DD23-4FF3-8026-82DB6B806193}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D055A5B-DD23-4FF3-8026-82DB6B806193}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D055A5B-DD23-4FF3-8026-82DB6B806193}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60E857C3-12F0-4280-9588-F45D809AC2F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60E857C3-12F0-4280-9588-F45D809AC2F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60E857C3-12F0-4280-9588-F45D809AC2F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60E857C3-12F0-4280-9588-F45D809AC2F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
