@@ -1,0 +1,8 @@
+{
+    "Name": "Scientific Projects",
+    "Version": "7.0.0",
+    "Id": "ScientificProjects",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "More ways to spend your Science!",
+    "RequiredMods": []
+}
