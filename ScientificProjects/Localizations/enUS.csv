@@ -1,0 +1,26 @@
+ID,Text,Comment
+LV.SP.Title,"Scientific Projects",
+LV.SP.Unlocked,"Unlocked!",
+LV.SP.PreqLocked,"Requires {0} to unlock.",
+LV.SP.NoScienceUpkeep,"Not enough science to maintain this project",
+LV.SP.UnlockErrUnlocked,"This project is already unlocked",
+LV.SP.UnlockErrRequirementLocked,"This project requires {0} to unlock",
+LV.SP.UnlockErrCostLocked,"Not enough science to unlock this project",
+LV.SP.CustomCost,"cost per day:",This show to the right of the science icon if a project has a custom cost per day
+LV.SP.ScienceStepCost,"{0} per Level",
+LV.SP.CurrentCost,"Current cost: {0}/d",
+LV.SP.Level,"Level",So user know to use the slider to adjust the level of the project
+LV.SP.DayCostNotice,"Daily Science cost are deducted at the start of each day and remain the same for the entire day.",
+LV.SP.WorkEffGroup,"Work Efficiency",
+LV.SP.WorkEffGroupDesc,"Increase work efficiency for your colony",
+LV.SP.LogisticGroup,"Logistics",
+LV.SP.LogisticGroupDesc,"Increase movement speed and the flow of resources",
+LV.SP.WorkEffUpgrade1,"Precision Work Tools",
+LV.SP.WorkEffUpgrade1Eff,"Permanently increases work efficiency of all beavers by {0:#%}.",
+LV.SP.WorkEffUpgrade2,"Precision Tool Maintenance",
+LV.SP.WorkEffUpgrade2Eff,"{0:#%} additional work efficiency per level.",
+LV.SP.WorkEffUpgrade2Cost,"[Cost] per Level, and +{1} for every {2} Adult Beavers (rounded up)",
+LV.SP.MoveSpeedUpgrade1,"Lightweight Slippers",
+LV.SP.MoveSpeedUpgradeEff,"Permanently increases movement speed of all beavers by {0:#%} (stack with other projects).",
+LV.SP.MoveSpeedUpgrade2,"Durable Trail Boots",
+LV.SP.MoveSpeedUpgrade3,"Aerodynamic Sprint Gear"
