@@ -1,0 +1,12 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "MoveSpeedUp2",
+        "RequiredId": "MoveSpeedUp1",
+        "GroupId": "Logistics",
+        "NameKey": "LV.SP.MoveSpeedUpgrade2",
+        "EffectKey": "LV.SP.MoveSpeedUpgradeEff",
+        "ScienceCost": 500,
+        "Parameters": [ 0.15 ],
+        "Order": 20
+    }
+}

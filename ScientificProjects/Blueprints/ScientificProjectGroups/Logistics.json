@@ -1,0 +1,8 @@
+{
+    "ScientificProjectGroupSpec": {
+        "Id": "Logistics",
+        "NameKey": "LV.SP.LogisticGroup",
+        "DescKey": "LV.SP.LogisticGroupDesc",
+        "Order": 20
+    }
+}

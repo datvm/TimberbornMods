@@ -3,6 +3,10 @@
     "Version": "7.0.0",
     "Id": "ScientificProjects",
     "MinimumGameVersion": "0.7.0.0",
-    "Description": "More ways to spend your Science!",
-    "RequiredMods": []
+    "Description": "Scientific ways to spend your Science!",
+    "RequiredMods": [
+        { "Id": "Harmony" },
+        { "Id": "TimberUi" },
+        { "Id": "BuffDebuff" }
+    ]
 }

@@ -1,0 +1,16 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "WorkEffUpgrade2",
+        "RequiredId": "WorkEffUpgrade1",
+        "GroupId": "WorkEff",
+        "NameKey": "LV.SP.WorkEffUpgrade2",
+        "EffectKey": "LV.SP.WorkEffUpgrade2Eff",
+        "Icon": "Sprites/Projects/WorkEffUpgrade2",
+        "ScienceCost": 3,
+        "MaxSteps": 5,
+        "HasScalingCost": true,
+        "ScalingCostKey": "LV.SP.WorkEffUpgrade2Cost",
+        "Parameters": [ 0.1, 1, 20 ],
+        "Order": 20
+    }
+}

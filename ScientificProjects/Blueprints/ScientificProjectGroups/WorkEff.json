@@ -1,0 +1,8 @@
+{
+    "ScientificProjectGroupSpec": {
+        "Id": "WorkEff",
+        "NameKey": "LV.SP.WorkEffGroup",
+        "DescKey": "LV.SP.WorkEffGroupDesc",
+        "Order": 10
+    }
+}
