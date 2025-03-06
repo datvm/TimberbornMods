@@ -1,9 +1,9 @@
-﻿
-namespace ScientificProjects.Buffs;
+﻿namespace ScientificProjects.Buffs;
 
 public class BeaverBuffComponent : BaseComponent
 {
     const string SpeedBonusId = "MovementSpeed";
+    const string WorkEffBonusId = "WorkingSpeed";
 
     BuffableComponent buffable = null!;
     BonusManager bonus = null!;
@@ -26,8 +26,11 @@ public class BeaverBuffComponent : BaseComponent
 
         switch (e)
         {
-            case MovementSpeedUpgradeBuffInstance ms:
+            case MoveSpeedBuffInst ms:
                 ApplySpeedBuff(ms, false);
+                break;
+            case WorkEffBuffInst we:
+                ApplyWorkEffBuff(we, false);
                 break;
         }
     }
@@ -38,18 +41,30 @@ public class BeaverBuffComponent : BaseComponent
 
         switch (e)
         {
-            case MovementSpeedUpgradeBuffInstance ms:
+            case MoveSpeedBuffInst ms:
                 ApplySpeedBuff(ms, true);
+                break;
+            case WorkEffBuffInst we:
+                ApplyWorkEffBuff(we, true);
                 break;
         }
     }
 
-    void ApplySpeedBuff(MovementSpeedUpgradeBuffInstance instance, bool negative)
+    void ApplySpeedBuff(MoveSpeedBuffInst instance, bool negative)
     {
-        var effects = instance.Effects.Where(q => q is MovementSpeedBuffEffect).Cast<MovementSpeedBuffEffect>();
+        var effects = instance.Effects.Where(q => q is MoveSpeedBuffEff).Cast<MoveSpeedBuffEff>();
         foreach (var e in effects)
         {
-            bonus.AddBonus(SpeedBonusId, e.Speed * (negative ? -1 : 1));
+            bonus.AddBonus(SpeedBonusId, e.Value * (negative ? -1 : 1));
+        }
+    }
+
+    void ApplyWorkEffBuff(WorkEffBuffInst instance, bool negative)
+    {
+        var effects = instance.Effects.Where(q => q is WorkEffBuffEff).Cast<WorkEffBuffEff>();
+        foreach (var e in effects)
+        {
+            bonus.AddBonus(WorkEffBonusId, e.Value * (negative ? -1 : 1));
         }
     }
 

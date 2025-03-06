@@ -9,17 +9,26 @@ partial class ScientificProjectDialog
         var status = projects.TryToUnlock(p.Spec.Id, ForceUnlock);
         if (status is not null)
         {
-            ShowUnlockError(status.Value);
+            ShowUnlockError(status.Value, 
+                requiredName: status == ScientificProjectUnlockStatus.RequirementLocked 
+                    ? p.PreqProject!.Spec.DisplayName
+                    : null);
             return;
         }
 
         RefreshContent();
     }
 
-    void ShowUnlockError(ScientificProjectUnlockStatus error)
+    void ShowUnlockError(ScientificProjectUnlockStatus error, string? requiredName)
     {
+        var msg = $"LV.SP.UnlockErr{error}".T(t);
+        if (requiredName is not null)
+        {
+            msg = string.Format(msg, requiredName);
+        }
+
         diagShower.Create()
-            .SetMessage($"LV.SP.UnlockErr{error}".T(t))
+            .SetMessage(msg)
             .SetConfirmButton(DoNothing, "Core.OK".T(t))
             .Show();
     }

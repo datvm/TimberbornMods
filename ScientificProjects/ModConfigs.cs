@@ -19,7 +19,8 @@ public class ModGameConfig : Configurator
     void BindBuffStuff()
     {
         // Buffs
-        Bind<MovementSpeedUpgradeBuff>().AsSingleton();
+        Bind<MoveSpeedBuff>().AsSingleton();
+        Bind<WorkEffBuff>().AsSingleton();
 
         // Components
         MultiBind<TemplateModule>().ToProvider(() =>

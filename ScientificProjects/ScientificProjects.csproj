@@ -4,8 +4,5 @@
 	<Import Project="../CommonUI.target" />
 	<Import Project="../CommonTimberUI.target" />
 	<Import Project="../CommonBuffDebuff.target" />
-	<ItemGroup>
-	  <Folder Include="Blueprints\Keybindings\" />
-	</ItemGroup>
 
 </Project>
