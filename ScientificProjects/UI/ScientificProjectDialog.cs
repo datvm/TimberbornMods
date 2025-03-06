@@ -80,7 +80,7 @@ public partial class ScientificProjectDialog : DialogBoxElement
             .AddChild<ProjectRow>(name: "ProjectRow")
             .SetInfo(p, defaultIcon, t);
 
-        if (p.Spec.HasSteps || p.Spec.HasScalingCost)
+        if ((p.Spec.HasSteps || p.Spec.HasScalingCost) && p.Unlocked)
         {
             var cost = projects.GetCost(p);
             dailyCost += cost;

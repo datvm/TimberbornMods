@@ -64,6 +64,12 @@ partial class ScientificProjectService
                 Debug.LogWarning($"Project {id} has {nameof(spec.MaxSteps)} = {spec.MaxSteps}. Level {level} from {logDictName} is invalid and will be turned down.");
                 projectLevels[id] = spec.MaxSteps;
             }
+
+            if (level > 0 && !IsUnlocked(id))
+            {
+                Debug.LogWarning($"Project {id} is not unlocked but has level {level} from {logDictName}. Level will be set to 0.");
+                projectLevels[id] = 0;
+            }
         }
     }
 
