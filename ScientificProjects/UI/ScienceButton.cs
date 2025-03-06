@@ -1,5 +1,4 @@
-﻿global using Timberborn.UIFormatters;
-
+﻿
 namespace ScientificProjects.UI;
 
 public class ScienceButton : NineSliceVisualElement

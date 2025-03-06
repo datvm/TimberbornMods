@@ -1,7 +1,4 @@
-﻿global using ScientificProjects.Specs;
-global using ScientificProjects.UI;
-global using ScientificProjects.Management;
-
+﻿
 namespace ScientificProjects;
 
 [Context("Game")]
@@ -15,7 +12,24 @@ public class ModGameConfig : Configurator
         Bind<ScientificProjectScreen>().AsSingleton();
         
         MultiBind<IProjectCostProvider>().To<ModProjectCostProvider>().AsSingleton();
+
+        BindBuffStuff();
     }
+
+    void BindBuffStuff()
+    {
+        // Buffs
+        Bind<MovementSpeedUpgradeBuff>().AsSingleton();
+
+        // Components
+        MultiBind<TemplateModule>().ToProvider(() =>
+        {
+            TemplateModule.Builder b = new();
+            b.AddDecorator<BeaverSpec, BeaverBuffComponent>();
+            return b.Build();
+        }).AsSingleton();
+    }
+
 }
 
 public class ModStarter : IModStarter

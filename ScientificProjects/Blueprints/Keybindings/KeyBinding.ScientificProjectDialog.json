@@ -1,0 +1,11 @@
+{
+    "KeyBindingSpec": {
+        "Id": "ScientificProjectDialog",
+        "GroupId": "UI",
+        "LocKey": "KeyBinding.ScientificProjectDialog",
+        "Order": 80,
+        "PrimaryInputBindingSpec": {
+            "Path": "/Keyboard/y"
+        }
+    }
+}
