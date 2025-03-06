@@ -1,8 +1,4 @@
-﻿global using Timberborn.AssetSystem;
-global using Timberborn.WellbeingUI;
-global using Timberborn.Debugging;
-
-namespace ScientificProjects.UI;
+﻿namespace ScientificProjects.UI;
 
 public class ScientificProjectScreen(
     VisualElementInitializer veInit,
@@ -13,22 +9,39 @@ public class ScientificProjectScreen(
     IAssetLoader assets,
     DialogBoxShower diagShower,
     InputService input,
-    DevModeManager devMode
-) : ILoadableSingleton
+    DevModeManager devMode,
+    EventBus eb,
+    ScienceService sciences,
+    BindableButtonFactory bindableButtonFac
+) : ILoadableSingleton, IUnloadableSingleton
 {
+    const string Keybinding = "ScientificProjectDialog";
+
     VisualElement btnScienceHeader = null!;
 
     public void Load()
     {
+        RegisterScienceClick();
+
+        eb.Register(this);
+    }
+
+    void RegisterScienceClick()
+    {
         btnScienceHeader = statPanel._root.Q<VisualElement>(name: "ScienceCountHeader")
             ?? throw new InvalidOperationException("ScienceCountHeader not found");
 
-        btnScienceHeader.RegisterCallback<ClickEvent>(OnScienceHeaderClick);
+        bindableButtonFac.CreateAndBind(btnScienceHeader, Keybinding, OnScienceHeaderClick);
     }
 
-    public void ShowScienceDialog()
+    public void ShowScienceDialog(OnScientificProjectDailyNotEnoughEvent? notEnough = default)
     {
-        var diag = new ScientificProjectDialog(t, projects, assets, diagShower, input);
+        var diag = new ScientificProjectDialog(t, projects, assets, diagShower, input, sciences);
+
+        if (notEnough is not null)
+        {
+            diag.AddNotEnoughScience(notEnough.Value);
+        }
 
         if (devMode.Enabled)
         {
@@ -38,9 +51,20 @@ public class ScientificProjectScreen(
         diag.Show(veInit, panelStack);
     }
 
-    void OnScienceHeaderClick(ClickEvent _)
+    public void Unload()
+    {
+        eb.Unregister(this);
+    }
+
+    void OnScienceHeaderClick()
     {
         ShowScienceDialog();
+    }
+
+    [OnEvent]
+    public void OnScienceNotEnough(OnScientificProjectDailyNotEnoughEvent ev)
+    {
+        ShowScienceDialog(notEnough: ev);
     }
 
 }

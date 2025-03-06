@@ -1,5 +1,4 @@
-﻿global using Timberborn.BlueprintSystem;
-
+﻿
 namespace ScientificProjects;
 
 public record ScientificProjectSpec : ComponentSpec

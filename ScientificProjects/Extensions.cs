@@ -29,4 +29,12 @@ internal static class ModExtensions
         return element;
     }
 
+    public static T SetFlex101<T>(this T element) where T : VisualElement
+    {
+        element.style.flexGrow = 1;
+        element.style.flexShrink = 0;
+        element.style.flexBasis = 1;
+        return element;
+    }
+
 }

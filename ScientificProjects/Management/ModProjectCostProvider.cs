@@ -1,6 +1,4 @@
-﻿global using Timberborn.Beavers;
-
-namespace ScientificProjects.Management;
+﻿namespace ScientificProjects.Management;
 
 public class ModProjectCostProvider(
     BeaverPopulation pops

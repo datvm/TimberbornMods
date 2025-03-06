@@ -1,5 +1,4 @@
-﻿global using System.Collections.Frozen;
-
+﻿
 namespace ScientificProjects.Specs;
 
 public class ScientificProjectRegistry(ISpecService specs, IEnumerable<IProjectCostProvider> costProviders, ILoc t) : ILoadableSingleton
@@ -8,7 +7,7 @@ public class ScientificProjectRegistry(ISpecService specs, IEnumerable<IProjectC
     FrozenDictionary<string, List<ScientificProjectSpec>> groupProjects = null!;
     ImmutableArray<ScientificProjectGroupSpec> allGroups = [];
 
-    FrozenDictionary<string, ScientificProjectSpec> projectsById = null!;
+    internal FrozenDictionary<string, ScientificProjectSpec> projectsById = null!;
     ILookup<string, ScientificProjectSpec> projectsUnlockedById = null!;
     ImmutableArray<ScientificProjectSpec> allProjects = [];
 
@@ -25,12 +24,17 @@ public class ScientificProjectRegistry(ISpecService specs, IEnumerable<IProjectC
 
     public void Load()
     {
+        var sw = System.Diagnostics.Stopwatch.StartNew();
+
         LoadGroups();
         
         LoadProjects();
         CheckForCircularRequirement();
 
         LoadCostProviders();
+
+        sw.Stop();
+        Debug.Log($"Loaded {allProjects.Length} projects in {sw.ElapsedMilliseconds}ms");
     }
 
     void LoadGroups()
@@ -116,8 +120,6 @@ public class ScientificProjectRegistry(ISpecService specs, IEnumerable<IProjectC
 
         foreach (var p in AllProjects)
         {
-            Debug.Log("Checking for " + p.Id);
-
             if (items.Contains(p.Id)) { continue; }
             items.Add(p.Id);
 

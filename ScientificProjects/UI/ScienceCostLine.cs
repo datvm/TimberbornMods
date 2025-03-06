@@ -18,14 +18,16 @@ public class ScienceCostLine : VisualElement
 
         this.AddGameLabel(text: text)
             .SetMarginRight(10)
-            .SetFlexShrink(); 
+            .SetFlexShrink();
 
         return this;
     }
 
     public ScienceCostLine SetCost(string msg)
     {
-        lbl ??= this.AddGameLabel(name: "CostText").SetFlexGrow();
+        lbl ??= this.AddGameLabel(name: "CostText").SetFlexGrow()
+            .SetFlexShrink(1)
+            .SetWrap(true);
 
         lbl.text = msg;
         return this;
