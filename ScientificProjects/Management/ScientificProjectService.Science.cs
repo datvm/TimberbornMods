@@ -5,29 +5,46 @@ partial class ScientificProjectService
     HashSet<string> unlockedProjects = [];
     public IEnumerable<string> UnlockedProjectIds => unlockedProjects;
 
-    public ScientificProjectUnlockStatus CanUnlock(string id)
+    public string? CanUnlock(string id)
     {
         if (unlockedProjects.Contains(id))
         {
-            return ScientificProjectUnlockStatus.Unlocked;
+            return "LV.SP.UnlockErrUnlocked".T(t);
         }
 
         var proj = GetProjectSpec(id);
 
         if (proj.HasSteps)
         {
-            return ScientificProjectUnlockStatus.Unlocked;
+            return "LV.SP.UnlockErrUnlocked".T(t);
         }
 
         if (proj.RequiredId is not null && !IsUnlocked(proj.RequiredId))
         {
-            return ScientificProjectUnlockStatus.RequirementLocked;
+            var reqProj = GetProjectSpec(proj.RequiredId);
+
+            return "LV.SP.UnlockErrRequirementLocked".T(t, reqProj.DisplayName);
         }
 
         // Unlockable projects cannot have scaling cost so at this step, only check for fixed cost
-        return sciences.SciencePoints > proj.ScienceCost
-            ? ScientificProjectUnlockStatus.CanUnlock
-            : ScientificProjectUnlockStatus.CostLocked;
+        if (sciences.SciencePoints < proj.ScienceCost)
+        {
+            return "LV.SP.UnlockErrCostLocked".T(t, sciences.SciencePoints, proj.ScienceCost);
+        }
+
+        if (proj.HasCustomUnlockCondition)
+        {
+            return CanCustomUnlock(GetProject(proj));
+        }
+
+        return null;
+    }
+    string? CanCustomUnlock(ScientificProjectInfo info)
+    {
+        var provider = registry.GetUnlockConditionProviderFor(info.Spec.Id);
+        var condition = provider.CheckForUnlockCondition(info);
+
+        return condition;
     }
 
     public bool IsUnlocked(string projectId)
@@ -40,15 +57,14 @@ partial class ScientificProjectService
     }
     public bool IsPreqUnlocked(ScientificProjectSpec p) => p.RequiredId is null || IsUnlocked(p.RequiredId);
 
-    public ScientificProjectUnlockStatus? TryToUnlock(string id, bool force = false)
+    public string? TryToUnlock(string id, bool force = false)
     {
         if (!force)
         {
-            var canUnlock = CanUnlock(id);
-
-            if (canUnlock != ScientificProjectUnlockStatus.CanUnlock)
+            var unlockBlocked = CanUnlock(id);
+            if (unlockBlocked is not null)
             {
-                return canUnlock;
+                return unlockBlocked;
             }
 
             sciences.SubtractPoints(GetProjectSpec(id).ScienceCost);

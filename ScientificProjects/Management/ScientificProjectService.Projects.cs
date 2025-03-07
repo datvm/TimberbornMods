@@ -3,6 +3,20 @@ namespace ScientificProjects.Management;
 
 partial class ScientificProjectService
 {
+    readonly HashSet<string> collapsedGroupIds = [];
+
+    public bool IsGroupCollased(string id) => collapsedGroupIds.Contains(id);
+    public bool SetGroupCollapsed(string id, bool collapsed)
+    {
+        if (collapsed)
+        {
+            return collapsedGroupIds.Add(id);
+        }
+        else
+        {
+            return collapsedGroupIds.Remove(id);
+        }
+    }
 
     public bool TryGetProjectSpec(string id, [MaybeNullWhen(false)] out ScientificProjectSpec spec)
     {
@@ -60,10 +74,10 @@ partial class ScientificProjectService
             return [..AllGroups.Select(q => new ScientificProjectGroupInfo(
                 q,
                 [..registry.GetProjects(q.Id)
-                    .Select(q => GetProject(q))])
-            )];
+                    .Select(q => GetProject(q))],
+                IsGroupCollased(q.Id)
+            ))];
         });
     }
-
 
 }

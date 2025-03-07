@@ -17,3 +17,8 @@ global using Timberborn.UIFormatters;
 global using Timberborn.WellbeingUI;
 global using UiBuilder.CommonUi;
 global using Timberborn.BonusSystem;
+global using Timberborn.WeatherSystem;
+global using Timberborn.HazardousWeatherSystemUI;
+global using ScientificProjects.Processors;
+global using Timberborn.WalkingSystem;
+global using Timberborn.Characters;

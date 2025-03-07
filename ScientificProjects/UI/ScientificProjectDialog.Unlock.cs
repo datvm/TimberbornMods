@@ -6,29 +6,46 @@ partial class ScientificProjectDialog
 
     void RequestUnlock(ScientificProjectInfo p)
     {
-        var status = projects.TryToUnlock(p.Spec.Id, ForceUnlock);
-        if (status is not null)
+        var forceUnlock = ForceUnlock;
+        if (forceUnlock)
         {
-            ShowUnlockError(status.Value, 
-                requiredName: status == ScientificProjectUnlockStatus.RequirementLocked 
-                    ? p.PreqProject!.Spec.DisplayName
-                    : null);
+            OnConfirmedUnlock(p, forceUnlock);
+        }
+        else
+        {
+            var locked = projects.CanUnlock(p.Spec.Id);
+            if (locked is null)
+            {
+                diagShower.Create()
+                    .SetMessage("LV.SP.UnlockConfirm".T(t, p.Spec.DisplayName, p.Spec.ScienceCost))
+                    .SetConfirmButton(() => OnConfirmedUnlock(p, forceUnlock), "Core.OK".T(t))
+                    .SetCancelButton(DoNothing, "Core.Cancel".T(t))
+                    .Show();
+            }
+            else
+            {
+                ShowUnlockError(locked);
+                return;
+            }
+        }
+    }
+
+    void OnConfirmedUnlock(ScientificProjectInfo p, bool forceUnlock)
+    {
+        var error = projects.TryToUnlock(p.Spec.Id, forceUnlock);
+        if (error is not null)
+        {
+            ShowUnlockError(error);
             return;
         }
 
         RefreshContent();
     }
 
-    void ShowUnlockError(ScientificProjectUnlockStatus error, string? requiredName)
+    void ShowUnlockError(string error)
     {
-        var msg = $"LV.SP.UnlockErr{error}".T(t);
-        if (requiredName is not null)
-        {
-            msg = string.Format(msg, requiredName);
-        }
-
         diagShower.Create()
-            .SetMessage(msg)
+            .SetMessage(error)
             .SetConfirmButton(DoNothing, "Core.OK".T(t))
             .Show();
     }

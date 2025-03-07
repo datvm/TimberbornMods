@@ -1,0 +1,12 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "Wheelbarrows",
+        "GroupId": "Logistics",
+        "NameKey": "LV.SP.Wheelbarrows",
+        "EffectKey": "LV.SP.WheelbarrowsEff",
+        "Icon": "Sprites/Projects/wheelbarrow",
+        "ScienceCost": 350,
+        "Parameters": [],
+        "Order": 40
+    }
+}

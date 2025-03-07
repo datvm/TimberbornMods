@@ -5,13 +5,11 @@ public record class OnScientificProjectLevelChangeEvent(ScientificProjectSpec Pr
 public readonly record struct OnScientificProjectDailyCostChargedEvent(int Cost);
 public readonly record struct OnScientificProjectDailyNotEnoughEvent(int Need, int Current);
 
-public record class ScientificProjectGroupInfo(ScientificProjectGroupSpec Spec, IEnumerable<ScientificProjectInfo> Projects);
-public record class ScientificProjectInfo(ScientificProjectSpec Spec, bool Unlocked, int Level, int TodayLevel, ScientificProjectInfo? PreqProject);
-
-public enum ScientificProjectUnlockStatus
+public record class ScientificProjectGroupInfo(ScientificProjectGroupSpec Spec, IEnumerable<ScientificProjectInfo> Projects, bool Collapsed)
 {
-    CanUnlock,
-    Unlocked,
-    RequirementLocked,
-    CostLocked,
+
+    public bool Collapsed { get; set; } = Collapsed;
+
 }
+
+public record class ScientificProjectInfo(ScientificProjectSpec Spec, bool Unlocked, int Level, int TodayLevel, ScientificProjectInfo? PreqProject);

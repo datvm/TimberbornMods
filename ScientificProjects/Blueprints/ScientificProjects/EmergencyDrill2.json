@@ -1,0 +1,13 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "EmergencyDrill2",
+        "GroupId": "Emergencies",
+        "NameKey": "LV.SP.EmergencyDrill2",
+        "EffectKey": "LV.SP.EmergencyDrill2Desc",
+        "Icon": "Sprites/Projects/drill2",
+        "ScienceCost": 3500,
+        "HasCustomUnlockCondition": true,
+        "Parameters": [ 3 ],
+        "Order": 20
+    }
+}

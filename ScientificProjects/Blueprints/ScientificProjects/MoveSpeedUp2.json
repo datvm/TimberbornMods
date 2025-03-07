@@ -5,6 +5,7 @@
         "GroupId": "Logistics",
         "NameKey": "LV.SP.MoveSpeedUpgrade2",
         "EffectKey": "LV.SP.MoveSpeedUpgradeEff",
+        "Icon": "Sprites/Projects/ms2",
         "ScienceCost": 500,
         "Parameters": [ 0.15 ],
         "Order": 20

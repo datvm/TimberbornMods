@@ -1,7 +1,12 @@
 ﻿
 namespace ScientificProjects.Specs;
 
-public class ScientificProjectRegistry(ISpecService specs, IEnumerable<IProjectCostProvider> costProviders, ILoc t) : ILoadableSingleton
+public class ScientificProjectRegistry(
+    ISpecService specs,
+    IEnumerable<IProjectCostProvider> costProviders,
+    IEnumerable<IProjectUnlockConditionProvider> unlockConditionProviders,
+    ILoc t
+) : ILoadableSingleton
 {
     FrozenDictionary<string, ScientificProjectGroupSpec> groupsById = null!;
     FrozenDictionary<string, List<ScientificProjectSpec>> groupProjects = null!;
@@ -12,6 +17,7 @@ public class ScientificProjectRegistry(ISpecService specs, IEnumerable<IProjectC
     ImmutableArray<ScientificProjectSpec> allProjects = [];
 
     FrozenDictionary<string, IProjectCostProvider> costProvidersById = null!;
+    FrozenDictionary<string, IProjectUnlockConditionProvider> unlockConditionProvidersById = null!;
 
     public IEnumerable<ScientificProjectGroupSpec> AllGroups => allGroups;
     public IEnumerable<ScientificProjectSpec> AllProjects => allProjects;
@@ -19,6 +25,7 @@ public class ScientificProjectRegistry(ISpecService specs, IEnumerable<IProjectC
     public ScientificProjectSpec GetProject(string id) => projectsById[id];
     public ScientificProjectGroupSpec GetGroup(string id) => groupsById[id];
     public IProjectCostProvider GetCostProviderFor(string id) => costProvidersById[id];
+    public IProjectUnlockConditionProvider GetUnlockConditionProviderFor(string id) => unlockConditionProvidersById[id];
 
     public IEnumerable<ScientificProjectSpec> GetProjects(string groupId) => groupProjects[groupId];
 
@@ -32,6 +39,7 @@ public class ScientificProjectRegistry(ISpecService specs, IEnumerable<IProjectC
         CheckForCircularRequirement();
 
         LoadCostProviders();
+        LoadUnlockConditionProviders();
 
         sw.Stop();
         Debug.Log($"Loaded {allProjects.Length} projects in {sw.ElapsedMilliseconds}ms");
@@ -51,6 +59,7 @@ public class ScientificProjectRegistry(ISpecService specs, IEnumerable<IProjectC
     }
 
     readonly HashSet<string> expectingCostProviderIds = [];
+    readonly HashSet<string> expectingUnlockConditionProviderIds = [];
     void LoadProjects()
     {
         var projects = specs.GetSpecs<ScientificProjectSpec>();
@@ -77,6 +86,16 @@ public class ScientificProjectRegistry(ISpecService specs, IEnumerable<IProjectC
                     .Replace("[Cost]", NumberFormatter.Format(p.ScienceCost));
 
                 expectingCostProviderIds.Add(p.Id);
+            }
+
+            if (p.HasCustomUnlockCondition)
+            {
+                if (p.HasSteps)
+                {
+                    throw new InvalidDataException($"Projects with Steps ({nameof(p.MaxSteps)} > 0) does not support custom unlock conditions. Violated project Id: {p.Id}");
+                }
+
+                expectingUnlockConditionProviderIds.Add(p.Id);
             }
         }
 
@@ -114,6 +133,27 @@ public class ScientificProjectRegistry(ISpecService specs, IEnumerable<IProjectC
         costProvidersById = providers.ToFrozenDictionary();
     }
 
+    void LoadUnlockConditionProviders()
+    {
+        Dictionary<string, IProjectUnlockConditionProvider> providers = [];
+        foreach (var p in unlockConditionProviders)
+        {
+            var ids = p.CanCheckUnlockConditionForIds;
+            foreach (var id in ids)
+            {
+                providers[id] = p;
+                expectingUnlockConditionProviderIds.Remove(id);
+            }
+        }
+
+        if (expectingUnlockConditionProviderIds.Count > 0)
+        {
+            throw new InvalidOperationException($"Missing unlock condition providers for: {string.Join(", ", expectingUnlockConditionProviderIds)}");
+        }
+
+        unlockConditionProvidersById = providers.ToFrozenDictionary();
+    }
+
     void CheckForCircularRequirement()
     {
         HashSet<string> items = [];
@@ -144,5 +184,5 @@ public class ScientificProjectRegistry(ISpecService specs, IEnumerable<IProjectC
             }
         }
     }
-
+    
 }
