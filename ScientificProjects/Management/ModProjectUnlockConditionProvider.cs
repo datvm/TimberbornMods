@@ -1,6 +1,9 @@
 ﻿namespace ScientificProjects.Management;
 
-public class ModProjectUnlockConditionProvider(HazardousWeatherApproachingTimer hazardTimer, ILoc t) : IProjectUnlockConditionProvider
+public class ModProjectUnlockConditionProvider(
+    HazardousWeatherApproachingTimer hazardTimer,
+    ILoc t
+) : IProjectUnlockConditionProvider
 {
 
     public static readonly ImmutableHashSet<string> EmergencyDrillIds = ["EmergencyDrill1", "EmergencyDrill2", "EmergencyDrill3"];
@@ -11,7 +14,9 @@ public class ModProjectUnlockConditionProvider(HazardousWeatherApproachingTimer 
     {
         if (EmergencyDrillIds.Contains(project.Spec.Id))
         {
-            return hazardTimer.DaysToHazardousWeather <= HazardousWeatherApproachingTimer.ApproachingNotificationDays 
+            var day = hazardTimer.DaysToHazardousWeather;
+
+            return (day > 0 && day <= HazardousWeatherApproachingTimer.ApproachingNotificationDays)
                 ? null :
                 "LV.SP.BadWeatherConditionErr".T(t);
         }

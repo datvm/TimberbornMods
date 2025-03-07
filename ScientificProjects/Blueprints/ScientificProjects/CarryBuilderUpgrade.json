@@ -1,0 +1,16 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "CarryBuilderUpgrade",
+        "RequiredId": "CarryUpgrade1",
+        "GroupId": "Logistics",
+        "NameKey": "LV.SP.CarryBuilderUpgrade",
+        "EffectKey": "LV.SP.CarryBuilderUpgradeEff",
+        "Icon": "Sprites/Projects/carrybuilder",
+        "ScienceCost": 2,
+        "MaxSteps": 8,
+        "HasScalingCost": true,
+        "ScalingCostKey": "LV.SP.CarryBuilderUpgradeCost",
+        "Parameters": [ 0.1 ],
+        "Order": 21
+    }
+}

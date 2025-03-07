@@ -1,6 +1,6 @@
 ﻿namespace ScientificProjects.Buffs;
 
-public abstract class SimpleValueEffect<TValue> : IBuffEffect
+public abstract class SimpleValueBuffEffect<TValue> : IBuffEffect
 {
     public string? Description { get; }
     public TValue Value { get; protected set; }
@@ -9,7 +9,7 @@ public abstract class SimpleValueEffect<TValue> : IBuffEffect
 
     public long Id { get; set; }
 
-    public SimpleValueEffect(TValue value)
+    public SimpleValueBuffEffect(TValue value)
     {
         Value = value;
         Description = GetDescription(value);

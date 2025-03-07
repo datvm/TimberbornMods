@@ -8,6 +8,6 @@
         "Icon": "Sprites/Projects/ms2",
         "ScienceCost": 500,
         "Parameters": [ 0.15 ],
-        "Order": 20
+        "Order": 12
     }
 }
