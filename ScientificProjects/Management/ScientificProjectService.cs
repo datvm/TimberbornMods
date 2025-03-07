@@ -4,7 +4,8 @@ public partial class ScientificProjectService(
     ISingletonLoader loader,
     ScientificProjectRegistry registry,
     EventBus eb,
-    ScienceService sciences
+    ScienceService sciences,
+    ILoc t
 ) : ILoadableSingleton, ISaveableSingleton, IUnloadableSingleton
 {
     

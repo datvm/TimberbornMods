@@ -57,28 +57,18 @@
 	</Target>
 
 	<ItemGroup>
-		<None Update="Sprites\**\*">
+		<Content Include="Sprites\**\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Blueprints\**\*">
+		</Content>
+		<Content Include="Blueprints\**\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Specifications\**\*">
+		</Content>
+		<Content Include="Specifications\**\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Resources\**\*">
+		</Content>
+		<Content Include="Resources\**\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
-
-	<!-- Harmony -->
-	<ItemGroup>
-		<Using Include="HarmonyLib"/>
-
-		<Reference Include="0Harmony">
-			<HintPath>$(ModPath)3284904751\0Harmony.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
+		</Content>
 	</ItemGroup>
 
 	<ItemGroup>

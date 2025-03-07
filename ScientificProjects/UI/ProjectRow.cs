@@ -3,13 +3,17 @@
 public class ProjectRow : VisualElement
 {
     const int IconSize = 32;
-
+    
+    public ScientificProjectInfo ScientificProjectInfo { get; private set; } = null!;
+    public ProjectGroupRow ProjectGroupRow { get; private set; } = null!;
     public ProjectRowInfo ProjectRowInfo { get; private set; } = null!;
 
     public event Action<ScientificProjectInfo, ProjectRow> OnUnlockRequested = delegate { };
 
-    public ProjectRow SetInfo(ScientificProjectInfo p, Texture2D defaultIcon, ILoc t)
+    public ProjectRow SetInfo(ScientificProjectInfo p, Texture2D defaultIcon, ILoc t, ProjectGroupRow projectGroupRow)
     {
+        ProjectGroupRow = projectGroupRow;
+        ScientificProjectInfo = p;
         var spec = p.Spec;
 
         this.SetAsRow().SetMarginBottom();

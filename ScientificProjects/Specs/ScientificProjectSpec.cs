@@ -32,6 +32,9 @@ public record ScientificProjectSpec : ComponentSpec
     public bool HasScalingCost { get; init; }
 
     [Serialize(isOptional: true)]
+    public bool HasCustomUnlockCondition { get; init; }
+
+    [Serialize(isOptional: true)]
     public string? ScalingCostKey { get; init; }
     public string? ScalingCostDisplay { get; internal set; }
 

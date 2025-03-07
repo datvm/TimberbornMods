@@ -1,0 +1,8 @@
+{
+    "ScientificProjectGroupSpec": {
+        "Id": "Emergencies",
+        "NameKey": "LV.SP.EmergenciesGroup",
+        "DescKey": "LV.SP.EmergenciesGroupDesc",
+        "Order": 30
+    }
+}

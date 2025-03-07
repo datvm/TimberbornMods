@@ -11,7 +11,7 @@ public partial class ScientificProjectDialog : DialogBoxElement
     readonly Texture2D defaultIcon;
 
     ScrollView list = null!;
-    readonly List<(VisualElement, List<ProjectRow>)> projectGroupEls = [];
+    readonly List<ProjectGroupRow> projectGroupRows = [];
 
     DialogBox? diag;
 
@@ -33,11 +33,14 @@ public partial class ScientificProjectDialog : DialogBoxElement
         SetTitle("LV.SP.Title".T(t));
         AddCloseButton(OnCloseButtonClicked);
 
-        this.SetMaxHeight(Screen.height * .75f);
-        style.maxWidth = MathF.Min(600f, Screen.width * .75f);
+        Content.style.height = Screen.height * .75f;
+        Content.style.maxWidth = MathF.Min(600f, Screen.width * .75f);
 
         CreateScienceStatus(Content);
-        list = Content.AddScrollView(name: "ProjectList");
+
+        list = Content.AddScrollView(name: "ProjectList")
+            .SetFlexGrow(1).SetFlexShrink(1);
+        list.style.minHeight = 0;
 
         RefreshContent();
     }
@@ -45,7 +48,7 @@ public partial class ScientificProjectDialog : DialogBoxElement
     public void RefreshContent()
     {
         list.Clear();
-        projectGroupEls.Clear();
+        projectGroupRows.Clear();
         dailyCost = 0;
 
         ReloadList();
@@ -58,39 +61,32 @@ public partial class ScientificProjectDialog : DialogBoxElement
 
         foreach (var g in groups)
         {
-            var groupEl = list.AddChild();
-            var projectEls = new List<ProjectRow>();
-            projectGroupEls.Add((groupEl, projectEls));
+            var projectGroupRow = list.AddChild<ProjectGroupRow>()
+                .SetInfo(g, defaultIcon, t);
+            projectGroupRows.Add(projectGroupRow);
+            projectGroupRow.OnGroupCollapsedToggled += ToggleGroupCollapse;
 
-            groupEl.AddGameLabel(g.Spec.DisplayName.Bold().Color(TimberbornTextColor.Solid), size: UiBuilder.GameLabelSize.Big);
-            groupEl.AddGameLabel(g.Spec.Description.Color(TimberbornTextColor.Solid)).SetMarginBottom();
-
-            var container = groupEl.AddChild();
             foreach (var p in g.Projects)
             {
-                var row = CreateProjectRow(container, p);
-                projectEls.Add(row);
+                var row = projectGroupRow.AddProject(p);
+
+                if ((p.Spec.HasSteps || p.Spec.HasScalingCost) && p.Unlocked)
+                {
+                    var cost = projects.GetCost(p);
+                    dailyCost += cost;
+                    row.ProjectRowInfo.SetCurrentCost(cost);
+                }
+
+                row.OnUnlockRequested += (info, _) => RequestUnlock(info);
+                row.ProjectRowInfo.OnLevelSelected += OnLevelSelected;
             }
         }
     }
 
-    ProjectRow CreateProjectRow(VisualElement container, ScientificProjectInfo p)
+    public void ToggleGroupCollapse(ScientificProjectGroupInfo info)
     {
-        var row = container
-            .AddChild<ProjectRow>(name: "ProjectRow")
-            .SetInfo(p, defaultIcon, t);
-
-        if ((p.Spec.HasSteps || p.Spec.HasScalingCost) && p.Unlocked)
-        {
-            var cost = projects.GetCost(p);
-            dailyCost += cost;
-            row.ProjectRowInfo.SetCurrentCost(cost);
-        }
-
-        row.OnUnlockRequested += (info, _) => RequestUnlock(info);
-        row.ProjectRowInfo.OnLevelSelected += OnLevelSelected;
-
-        return row;
+        info.Collapsed = !info.Collapsed;
+        projects.SetGroupCollapsed(info.Spec.Id, info.Collapsed);
     }
 
     public new DialogBox Show(VisualElementInitializer? initializer, PanelStack panelStack, Action? confirm = default, Action? cancel = default)

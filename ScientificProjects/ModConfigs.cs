@@ -1,5 +1,4 @@
-﻿
-namespace ScientificProjects;
+﻿namespace ScientificProjects;
 
 [Context("Game")]
 public class ModGameConfig : Configurator
@@ -12,7 +11,9 @@ public class ModGameConfig : Configurator
         Bind<ScientificProjectScreen>().AsSingleton();
         
         MultiBind<IProjectCostProvider>().To<ModProjectCostProvider>().AsSingleton();
+        MultiBind<IProjectUnlockConditionProvider>().To<ModProjectUnlockConditionProvider>().AsSingleton();
 
+        Bind<OneTimeUnlockProcessor>().AsSingleton();
         BindBuffStuff();
     }
 
@@ -27,19 +28,9 @@ public class ModGameConfig : Configurator
         {
             TemplateModule.Builder b = new();
             b.AddDecorator<BeaverSpec, BeaverBuffComponent>();
+            b.AddDecorator<Character, CharacterBuffComponent>();
             return b.Build();
         }).AsSingleton();
-    }
-
-}
-
-public class ModStarter : IModStarter
-{
-
-    void IModStarter.StartMod(IModEnvironment modEnvironment)
-    {
-        var h = new Harmony(nameof(ScientificProjects));
-        h.PatchAll();
     }
 
 }

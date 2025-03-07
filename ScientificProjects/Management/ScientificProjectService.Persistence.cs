@@ -4,8 +4,10 @@ partial class ScientificProjectService
 {
     static readonly SingletonKey SaveKey = new("ScientificProjects");
     static readonly ListKey<string> UnlockedProjectsKey = new("UnlockedProjects");
+    static readonly ListKey<string> CollapsedGroupsKey = new("CollapsedGroups");
     static readonly ListKey<string> ProjectLevelsKey = new("ProjectLevels");
     static readonly ListKey<string> TodayProjectLevelsKey = new("TodayProjectLevels");
+
 
     public void Load()
     {
@@ -20,6 +22,10 @@ partial class ScientificProjectService
         var s = loader.GetSingleton(SaveKey);
 
         unlockedProjects = [.. s.Get(UnlockedProjectsKey)];
+        if (s.Has(CollapsedGroupsKey))
+        {
+            collapsedGroupIds.AddRange(s.Get(CollapsedGroupsKey));
+        }
 
         LoadSavedDict(s, ProjectLevelsKey, levels);
         FixSavedDataIfNeeded(levels, "Tomorrow levels");
@@ -78,6 +84,7 @@ partial class ScientificProjectService
         var s = saver.GetSingleton(SaveKey);
 
         s.Set(UnlockedProjectsKey, unlockedProjects);
+        s.Set(CollapsedGroupsKey, collapsedGroupIds);
         SaveDict(s, ProjectLevelsKey, levels);
         SaveDict(s, TodayProjectLevelsKey, todayLevels);
     }
