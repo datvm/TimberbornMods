@@ -205,6 +205,14 @@ public class BuffService(
             .Cast<T>()];
     }
 
+    public void RemoveAllInstances<T>() where T : BuffInstance
+    {
+        foreach (var instance in GetInstances<T>())
+        {
+            Remove(instance);
+        }
+    }
+
     void LoadExistingKeys()
     {
         if (!loader.HasSingleton(SaveKey)) { return; }
@@ -247,7 +255,7 @@ public class BuffService(
                 continue;
             }
 
-            var type = AccessTools.TypeByName(entry.Type);
+            var type = BuffDebuffUtils.GetTypeFrom(entry.Type);
             if (type == null)
             {
                 Debug.LogError($"Type {entry.Type} was not found. Ignoring request.");

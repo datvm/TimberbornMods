@@ -12,6 +12,8 @@ public abstract class BuffInstance : IBuffEntity
 
     public IBuff Buff { get; private set; } = null!;
 
+    public virtual string? OverrideName { get; protected set; }
+    public virtual string? OverrideDescription { get; protected set; }
     public virtual string? AdditionalDescription { get; protected set; }
 
     public abstract bool IsBuff { get; protected set; }

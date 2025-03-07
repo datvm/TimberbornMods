@@ -48,7 +48,7 @@ public class BuffPanelFragment : EntityPanelFragmentElement
             ?? throw new InvalidOperationException($"Item is not a {nameof(BuffInstance)}");
 
         var label = ve.Q<Label>(BuffNameLabel);
-        label.text = string.Format(IsBuff ? BuffNameFormat : DeBuffNameFormat, instance.Buff.Name);
+        label.text = string.Format(IsBuff ? BuffNameFormat : DeBuffNameFormat, instance.OverrideName ?? instance.Buff.Name);
 
         tooltips.Register(ve, () => CreateTooltip(instance));
     }
@@ -56,7 +56,7 @@ public class BuffPanelFragment : EntityPanelFragmentElement
     static string CreateTooltip(BuffInstance instance)
     {
         StringBuilder tooltipText = new();
-        tooltipText.AppendLine(instance.Buff.Description);
+        tooltipText.AppendLine(instance.OverrideDescription ?? instance.Buff.Description);
 
         var instanceDesc = instance.AdditionalDescription;
         if (instanceDesc is not null)
