@@ -22,6 +22,7 @@ public class ModGameConfig : Configurator
         // Buffs
         Bind<MoveSpeedBuff>().AsSingleton();
         Bind<WorkEffBuff>().AsSingleton();
+        Bind<CarryingBuff>().AsSingleton();
 
         // Components
         MultiBind<TemplateModule>().ToProvider(() =>

@@ -71,6 +71,11 @@ public class ScientificProjectRegistry(
                 throw new InvalidOperationException($"Project Id must not have a semi-colon: {p.Id}");
             }
 
+            if (!groupsById.ContainsKey(p.GroupId))
+            {
+                throw new InvalidOperationException($"Project {p.Id} has undefined {nameof(p.GroupId)}: {p.GroupId}");
+            }
+
             p.DisplayName = t.T(p.NameKey);
             p.Effect = string.Format(t.T(p.EffectKey), [.. p.Parameters]);
 

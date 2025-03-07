@@ -1,0 +1,12 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "CarryUpgrade1",
+        "GroupId": "Logistics",
+        "NameKey": "LV.SP.CarryUpgrade1",
+        "EffectKey": "LV.SP.CarryUpgrade1Eff",
+        "Icon": "Sprites/Projects/carry1",
+        "ScienceCost": 250,
+        "Parameters": [ 0.2 ],
+        "Order": 20
+    }
+}

@@ -12,4 +12,7 @@ public record class ScientificProjectGroupInfo(ScientificProjectGroupSpec Spec, 
 
 }
 
-public record class ScientificProjectInfo(ScientificProjectSpec Spec, bool Unlocked, int Level, int TodayLevel, ScientificProjectInfo? PreqProject);
+public record class ScientificProjectInfo(ScientificProjectSpec Spec, bool Unlocked, int Level, int TodayLevel, ScientificProjectInfo? PreqProject)
+{
+    public string TodayName => Spec.HasSteps ? $"{Spec.DisplayName} ({TodayLevel})" : Spec.DisplayName;
+}
