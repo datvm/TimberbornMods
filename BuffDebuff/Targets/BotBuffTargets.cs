@@ -1,6 +1,6 @@
 ﻿namespace BuffDebuff;
 
-public class GlobalBotBuffTarget(EventBus eventBus, BotPopulation botPops) : EntityBasedBuffTarget(eventBus)
+public class BotBuffTarget(EventBus eventBus, BotPopulation botPops) : EntityBasedBuffTarget(eventBus)
 {
     protected readonly BotPopulation botPops = botPops;
 
