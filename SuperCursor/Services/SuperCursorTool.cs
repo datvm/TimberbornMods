@@ -1,16 +1,21 @@
-﻿namespace SuperCursor.Services;
+﻿using Timberborn.CameraSystem;
+
+namespace SuperCursor.Services;
 
 public class SuperCursorTool(EntitySelectionService entitySelectionService, InputService inputService, IOptionsBox optionsBox, UIVisibilityManager uiVisibilityManager, SelectableObjectRaycaster selectableObjectRaycaster,
     SuperCursorText label,
     IEnumerable<IObjectDescriber> objDescribers,
     CursorCoordinatesPicker cursorCoords,
     IEnumerable<ICoordDescriber> coordDescribers,
-    ILoc loc
+    ILoc loc,
+    CameraService camera
 ) : CursorTool(entitySelectionService, inputService, optionsBox, uiVisibilityManager, selectableObjectRaycaster), IInputProcessor
 {
     const string Keybinding = "SuperCursor";
     readonly SelectableObjectRaycaster selectableObjectRaycaster = selectableObjectRaycaster;
     readonly InputService inputService = inputService;
+
+    Rect? worldRect;
 
     static readonly Vector2 MouseMargin = new(10, 0);
     void ProcessInfo()
@@ -27,13 +32,27 @@ public class SuperCursorTool(EntitySelectionService entitySelectionService, Inpu
 
         label.Text = info.ToString();
 
+        MoveLabel();
+        label.Visible = true;
+    }
+
+    void MoveLabel()
+    {
         var mousePos = _inputService.MousePosition;
+
         var x = mousePos.x + MouseMargin.x;
         // y is upside-down between the game and the UI
         var y = Screen.height - mousePos.y + MouseMargin.y;
 
-        label.MoveTo(x, y);
-        label.Visible = true;
+        var scale = label.panel.scaledPixelsPerPoint;
+
+        var scaledX = x / scale;
+        var scaledY = y / scale;
+
+        scaledX = Math.Min(scaledX, Screen.width / scale - label.layout.width);
+        scaledY = Math.Min(scaledY, Screen.height / scale - label.layout.height);
+
+        label.MoveTo(scaledX, scaledY);
     }
 
     void ProcessObject(StringBuilder builder)
