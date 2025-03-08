@@ -1,6 +1,6 @@
 ﻿namespace BuffDebuff;
 
-public abstract class BaseGlobalBeaverBuffTarget<TSpec>(EventBus eventBus, BeaverPopulation beaverPops) : EntityBasedBuffTarget(eventBus)
+public abstract class BaseBeaverBuffTarget<TSpec>(EventBus eventBus, BeaverPopulation beaverPops) : EntityBasedBuffTarget(eventBus)
     where TSpec : BaseComponent
 {
     protected readonly BeaverPopulation beaverPops = beaverPops;
@@ -11,18 +11,17 @@ public abstract class BaseGlobalBeaverBuffTarget<TSpec>(EventBus eventBus, Beave
     protected abstract IEnumerable<BeaverSpec> GetSpec(BeaverCollection c);
 }
 
-public class GlobalBeaverBuffTarget(EventBus eventBus, BeaverPopulation beaverPops) : BaseGlobalBeaverBuffTarget<BeaverSpec>(eventBus, beaverPops)
+public class BeaverBuffTarget(EventBus eventBus, BeaverPopulation beaverPops) : BaseBeaverBuffTarget<BeaverSpec>(eventBus, beaverPops)
 {
     protected override IEnumerable<BeaverSpec> GetSpec(BeaverCollection c) => c.Beavers;
 }
 
-
-public class GlobalAdultBeaverBuffTarget(EventBus eventBus, BeaverPopulation beaverPops) : BaseGlobalBeaverBuffTarget<AdultSpec>(eventBus, beaverPops)
+public class AdultBeaverBuffTarget(EventBus eventBus, BeaverPopulation beaverPops) : BaseBeaverBuffTarget<AdultSpec>(eventBus, beaverPops)
 {
     protected override IEnumerable<BeaverSpec> GetSpec(BeaverCollection c) => c.Adults;
 }
 
-public class GlobalChildBeaverBuffTarget(EventBus eventBus, BeaverPopulation beaverPops) : BaseGlobalBeaverBuffTarget<ChildSpec>(eventBus, beaverPops)
+public class ChildBeaverBuffTarget(EventBus eventBus, BeaverPopulation beaverPops) : BaseBeaverBuffTarget<ChildSpec>(eventBus, beaverPops)
 {
     protected override IEnumerable<BeaverSpec> GetSpec(BeaverCollection c) => c.Children;
 }

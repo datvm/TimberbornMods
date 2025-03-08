@@ -17,7 +17,7 @@
 		<!--<ProjectReference Include="..\TestMod\TestMod.csproj" />-->
 		<!--<ProjectReference Include="..\TImprove4Modders\TImprove4Modders.csproj" />-->
 		
-		<ProjectReference Include="..\SuperCursor\SuperCursor.csproj" />
+		<ProjectReference Include="..\ScientificProjects\ScientificProjects.csproj" />
 
 	</ItemGroup>
 
