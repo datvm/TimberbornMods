@@ -34,8 +34,8 @@ public class SuperCursorText : NineSliceVisualElement, ILoadableSingleton
 
     public void MoveTo(float x, float y)
     {
-        style.left = MathF.Min(x, Screen.width - layout.width);
-        style.top = MathF.Min(y, Screen.height - layout.height);
+        style.left = x;
+        style.top = y;
 
     }
 

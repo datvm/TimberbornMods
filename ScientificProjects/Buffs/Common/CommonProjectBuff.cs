@@ -66,10 +66,7 @@ public abstract class CommonProjectBuff<TBuff, TInstance>(
 
     protected void RemoveExistingBuff<T>() where T : BuffInstance
     {
-        foreach (var i in buffs.GetInstances<T>())
-        {
-            buffs.Remove(i);
-        }
+        buffs.RemoveAllInstances<T>();
     }
 
     /// <summary>
