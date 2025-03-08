@@ -12,6 +12,7 @@ public class ModConfig : Configurator
         Bind<IBuffEntityService>().To<BuffEntityService>().AsSingleton();
         Bind<IBuffableService>().To<BuffableService>().AsSingleton();
         Bind<IBuffService>().To<BuffService>().AsSingleton();
+        Bind<WorkplaceManager>().AsSingleton();
 
         MultiBind<TemplateModule>().ToProvider(static () =>
         {

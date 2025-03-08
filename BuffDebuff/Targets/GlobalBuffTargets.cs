@@ -11,9 +11,10 @@ public abstract class EntityBasedBuffTarget(EventBus eventBus) : IBuffTarget
     public bool TargetsChanged { get; private set; }
 
     protected abstract bool Filter(EntityComponent entity);
+    protected virtual bool DirtyFilter(EntityComponent entity) => Filter(entity);
     protected abstract HashSet<BuffableComponent> GetTargets();
 
-    public void Init()
+    public virtual void Init()
     {
         eventBus.Register(this);
     }
@@ -29,16 +30,16 @@ public abstract class EntityBasedBuffTarget(EventBus eventBus) : IBuffTarget
     }
 
     [OnEvent]
-    public void OnEntityInitializedEvent(EntityInitializedEvent e)
+    public virtual void OnEntityInitializedEvent(EntityInitializedEvent e)
     {
-        if (Filter(e.Entity))
+        if (DirtyFilter(e.Entity))
         {
             Dirty = true;
         }
     }
 
     [OnEvent]
-    public void OnEntityDeletedEvent(EntityDeletedEvent e)
+    public virtual void OnEntityDeletedEvent(EntityDeletedEvent e)
     {
         if (Targets.Contains(e.Entity.GetBuffable()))
         {
@@ -46,7 +47,7 @@ public abstract class EntityBasedBuffTarget(EventBus eventBus) : IBuffTarget
         }
     }
 
-    public void CleanUp()
+    public virtual void CleanUp()
     {
         eventBus.Unregister(this);
     }

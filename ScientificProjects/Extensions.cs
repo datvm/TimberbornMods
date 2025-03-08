@@ -1,5 +1,18 @@
 ﻿namespace System;
 
+public static class ResearchProjectsModExtensions
+{
+
+    public static TInstance CreateInstance<TBuff, TInstance>(this TBuff buff, IEnumerable<ScientificProjectInfo> projects, out TInstance result)
+        where TBuff : CommonProjectsBuff
+        where TInstance : CommonProjectBuffInstance<TBuff>, new()
+    {
+        result = buff.buffs.CreateBuffInstance<TBuff, TInstance, IEnumerable<ScientificProjectInfo>>(buff, projects);
+        return result;
+    }
+
+}
+
 internal static class ModExtensions
 {
 

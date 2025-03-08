@@ -21,11 +21,18 @@ public abstract class GlobalWorkplaceBuffTarget : EntityBasedBuffTarget
         }
     }
 
-    public virtual bool AllowBeavers => true;
-    public virtual bool AllowBots => true;
-    public abstract HashSet<Type> Workplaces { get; }
+    public virtual bool AllowBeavers { get; protected set; } = true;
+    public virtual bool AllowBots { get; protected set; } = true;
+    public abstract ImmutableHashSet<Type> Workplaces { get; }
 
     protected override bool Filter(EntityComponent entity) => Filter(entity);
+    protected override bool DirtyFilter(EntityComponent entity) => DirtyFilter(entity);
+
+    protected bool DirtyFilter(BaseComponent entity)
+    {
+        return (AllowBeavers && entity.GetComponentFast<BeaverSpec>())
+            || (AllowBots && entity.GetComponentFast<BotSpec>());
+    }
 
     protected bool Filter(BaseComponent entity)
     {
@@ -78,10 +85,16 @@ public abstract class GlobalWorkplaceBuffTarget : EntityBasedBuffTarget
         }
     }
 
-    [OnEvent]
+    public override void Init()
+    {
+        base.Init();
+
+
+    }
+
     public void OnWorkerChanged(WorkerChangedEventArgs ev)
     {
-        if (Filter(ev.Worker))
+        if (DirtyFilter(ev.Worker))
         {
             Dirty = true;
         }
@@ -89,7 +102,14 @@ public abstract class GlobalWorkplaceBuffTarget : EntityBasedBuffTarget
 
 }
 
+public class BuilderTrackingWorkplace : ITrackingWorkplace
+{
+    public IEnumerable<Type> TrackingTypes => GlobalBuilderBuffTarget.BuilderBuildingTypes;
+}
+
 public class GlobalBuilderBuffTarget(EventBus eventBus, BeaverPopulation beaverPops, BotPopulation botPops) : GlobalWorkplaceBuffTarget(eventBus, beaverPops, botPops)
 {
-    public override HashSet<Type> Workplaces => [typeof(DistrictCenter), typeof(BuilderHubSpec)];
+    public static readonly ImmutableHashSet<Type> BuilderBuildingTypes = [typeof(DistrictCenter), typeof(BuilderHubSpec)];
+
+    public override ImmutableHashSet<Type> Workplaces => BuilderBuildingTypes;
 }

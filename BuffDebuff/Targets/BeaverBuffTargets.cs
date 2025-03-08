@@ -25,3 +25,10 @@ public class ChildBeaverBuffTarget(EventBus eventBus, BeaverPopulation beaverPop
 {
     protected override IEnumerable<BeaverSpec> GetSpec(BeaverCollection c) => c.Children;
 }
+
+public enum BeaverTarget
+{
+    All = 0,
+    Adult = 1,
+    Child = 2,
+}

@@ -12,3 +12,5 @@ global using Timberborn.TickSystem;
 global using Timberborn.TimeSystem;
 global using Timberborn.TooltipSystem;
 global using Timberborn.WorkSystem;
+global using System.Collections.Frozen;
+global using Timberborn.BlockSystem;

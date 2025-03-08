@@ -22,6 +22,19 @@
             return $"Buff {b.Name} (Id {b.Id}, Type {b.GetType().FullName})";
         }
 
+        public static bool IsBeaver(this BaseComponent comp, BeaverTarget target = default)
+        {
+            return target switch
+            {
+                BeaverTarget.All => comp.GetComponentFast<BeaverSpec>() is not null,
+                BeaverTarget.Adult => comp.GetComponentFast<AdultSpec>() is not null,
+                BeaverTarget.Child => comp.GetComponentFast<ChildSpec>() is not null,
+                _ => false,
+            };
+        }
+
+        public static BotSpec? IsBot(this BaseComponent comp) => comp.GetComponentFast<BotSpec>();
+
     }
 }
 
