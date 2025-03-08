@@ -47,6 +47,7 @@ public class BuffService(
         }
 
         buffInstances[instance.Id] = instance;
+        instance.Init();
 
         foreach (var item in instance.Targets)
         {
@@ -57,7 +58,6 @@ public class BuffService(
         {
             item.Init();
         }
-        instance.Init();
 
         eventBus.Post(new BuffInstanceAppliedEvent(instance));
     }

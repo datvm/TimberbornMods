@@ -1,11 +1,14 @@
 ﻿namespace ScientificProjects.Buffs;
 
 public abstract class CommonProjectBuffInstance<TBuff> : BuffInstance<IEnumerable<ScientificProjectInfo>, TBuff>
-    where TBuff : IBuff
+    where TBuff : CommonProjectsBuff
 {
     public override bool IsBuff { get; protected set; } = true;
     public override IEnumerable<IBuffTarget> Targets { get; protected set; } = [];
     public override IEnumerable<IBuffEffect> Effects { get; protected set; } = [];
+
+    protected abstract string GetBuffName(ILoc t);
+    protected abstract string GetBuffDescription(ILoc t);
 
     protected ILoc t = null!;
     protected IBuffableService buffables = null!;
@@ -22,6 +25,9 @@ public abstract class CommonProjectBuffInstance<TBuff> : BuffInstance<IEnumerabl
     public override void Init()
     {
         base.Init();
+
+        OverrideName = GetBuffName(t);
+        OverrideDescription = GetBuffDescription(t);
 
         Targets = CreateTargets();
         Effects = [..Value.Select(CreateBuffEffect)
@@ -64,9 +70,32 @@ public abstract class CommonProjectBuffInstance<TBuff> : BuffInstance<IEnumerabl
 }
 
 public abstract class CommonProjectBeaverBuffInstance<TBuff> : CommonProjectBuffInstance<TBuff>
-    where TBuff : IBuff
+    where TBuff : CommonProjectsBuff
 {
+    protected BeaverPopulation beaverPops = null!;
+    protected virtual BeaverTarget Target => BeaverTarget.All;
 
-    protected override IBuffTarget[] CreateTargets() => [new GlobalBeaverBuffTarget(buffables, ev)];
+    [Inject]
+    public void CommonProjectBeaverBuffInstanceInject(BeaverPopulation beaverPops)
+    {
+        this.beaverPops = beaverPops;
+    }
 
+    protected override IBuffTarget[] CreateTargets() => [
+        Target switch
+        {
+            BeaverTarget.All => new BeaverBuffTarget(ev, beaverPops),
+            BeaverTarget.Adult => new AdultBeaverBuffTarget(ev, beaverPops),
+            BeaverTarget.Child => new ChildBeaverBuffTarget(ev, beaverPops),
+            _ => throw new ArgumentOutOfRangeException()
+        }
+    ];
+
+}
+
+public enum BeaverTarget
+{
+    All = 0,
+    Adult = 1,
+    Child = 2,
 }
