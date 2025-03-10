@@ -6,7 +6,6 @@
     "Description": "Weather-related scientific projects.",
     "RequiredMods": [
         { "Id": "Harmony" },
-        { "Id": "ScientificProjects" },
-        { "Id": "BuffDebuff", "MinimumVersion": "7.0.6" }
+        { "Id": "ScientificProjects" }
     ]
 }

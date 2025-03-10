@@ -7,7 +7,7 @@
         "EffectKey": "LV.WSP.Pred2Desc",
         "Icon": "Sprites/Projects/WeatherPred2",
         "ScienceCost": 500,
-        "Parameters": [ 0.4 ],
+        "Parameters": [ 0.2, 0 ],
         "Order": 50
     }
 }

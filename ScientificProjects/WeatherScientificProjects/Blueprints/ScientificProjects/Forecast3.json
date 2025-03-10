@@ -8,7 +8,7 @@
         "Icon": "Sprites/Projects/WeatherPred3",
         "MaxSteps": 10,
         "ScienceCost": 2,
-        "Parameters": [ 0.01 ],
+        "Parameters": [ 0, 0.01 ],
         "Order": 70,
         "HasScalingCost": true,
         "ScalingCostKey": "LV.WSP.PrewarningCost"

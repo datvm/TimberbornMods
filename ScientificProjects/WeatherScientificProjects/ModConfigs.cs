@@ -1,5 +1,6 @@
 ﻿global using WeatherScientificProjects.Management;
 global using WeatherScientificProjects.Processors;
+global using WeatherScientificProjects.UI;
 
 namespace WeatherScientificProjects;
 
@@ -9,11 +10,20 @@ public class ModGameConfig : Configurator
     
     public override void Configure()
     {
-        Bind<WarningExtensionProcessor>().AsSingleton();
+        Bind<WeatherUpgradeProcessor>().AsSingleton();
+        Bind<WeatherForecastPanel>().AsSingleton();
 
         MultiBind<IDevModule>().To<WeatherDevModule>().AsSingleton();
         MultiBind<ITrackingEntities>().To<WaterSourceTracking>().AsSingleton();
         MultiBind<IProjectCostProvider>().To<WeatherProjectsCostProvider>().AsSingleton();
     }
 
+}
+
+public class ModStarter : IModStarter
+{
+    public void StartMod(IModEnvironment modEnvironment)
+    {
+        new Harmony(nameof(WeatherScientificProjects)).PatchAll();
+    }
 }
