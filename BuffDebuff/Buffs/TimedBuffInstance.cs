@@ -62,7 +62,7 @@ public abstract class TimedBuffInstance : BuffInstance
     string FormatTime(float hours)
     {
         var allDayLength = DayNight.DaytimeLengthInHours + DayNight.NighttimeLengthInHours;
-        var days = (int)( hours / allDayLength);
+        var days = (int)(hours / allDayLength);
 
         var dayStr = "";
         if (days > 1)
@@ -74,11 +74,15 @@ public abstract class TimedBuffInstance : BuffInstance
         return "⏱︎ " + dayStr + T.T("Time.HoursShort", (int)hours);
     }
 
-    protected virtual void Inject(IBuffService buffs, IDayNightCycle dayNight, ILoc t)
+    [Inject]
+    public void InjectTimedBuff(IBuffService buffs, IDayNightCycle dayNight, ILoc t)
     {
         Buffs = buffs;
         DayNight = dayNight;
         T = t;
     }
+
+    [Obsolete("You no longer need to call this since v7.0.6. The base class call InjectTiSmedBuff for you")]
+    protected virtual void Inject(IBuffService buffs, IDayNightCycle dayNight, ILoc t) { }
 
 }

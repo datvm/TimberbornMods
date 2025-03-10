@@ -1,7 +1,8 @@
 ﻿namespace ScientificProjects.Management;
 
 public class ModProjectCostProvider(
-    BeaverPopulation pops
+    BeaverPopulation pops,
+    EntityManager entities
 ) : IProjectCostProvider
 {
     private const string WorkEffUpgrade2 = "WorkEffUpgrade2";
@@ -25,11 +26,24 @@ public class ModProjectCostProvider(
         };
     }
 
-    int LevelOr0(ScientificProjectInfo info, Func<int, int> calculate) => info.Level == 0 ? 0 : calculate(info.Level);
     int LevelOr0F(ScientificProjectInfo info, Func<int, float> calculate) => info.Level == 0 ? 0 : (int)MathF.Ceiling(calculate(info.Level));
 
     int CountAdultBeavers() => pops.NumberOfAdults;
+    int CountBuilders() => CountEmployees<DistrictCenter>() + CountEmployees<BuilderHubSpec>();
 
-    int CountBuilders() => 0;
+    int CountEmployees<T>() where T : BaseComponent
+    {
+        var building = entities.Get<T>();
+        var total = 0;
+        foreach (var b in building)
+        {
+            var wp = b.GetComponentFast<Workplace>();
+            if (wp is null) { continue; }
+
+            total += wp.NumberOfAssignedWorkers;
+        }
+
+        return total;
+    }
 
 }

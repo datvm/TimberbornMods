@@ -24,6 +24,13 @@ public class ResearchProjectsBuff(
 
     protected override IEnumerable<Type> DailyBuffInstanceTypes { get; } = [];
 
+    protected override void AfterLoad()
+    {
+        Debug.Log("Registered " + this.GetHumanFriendlyId());
+
+        base.AfterLoad();
+    }
+
     protected override void ProcessDailyBuffs(IEnumerable<ScientificProjectInfo> activeProjects)
     {
         ProcessWorkEffBuffs();

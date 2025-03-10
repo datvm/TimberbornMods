@@ -30,6 +30,9 @@ public class ModGameConfig : Configurator
             b.AddDecorator<Character, CharacterBuffComponent>();
             return b.Build();
         }).AsSingleton();
+
+        // Type Trackers
+        MultiBind<ITrackingEntities>().To<BuilderTrackingWorkplace>().AsSingleton();
     }
 
 }

@@ -92,7 +92,8 @@ public abstract class GlobalWorkplaceBuffTarget : EntityBasedBuffTarget
 
     }
 
-    public void OnWorkerChanged(WorkerChangedEventArgs ev)
+    [OnEvent]
+    public void OnWorkerChanged(WorkplaceWorkerChangedEvent ev)
     {
         if (DirtyFilter(ev.Worker))
         {
@@ -102,7 +103,7 @@ public abstract class GlobalWorkplaceBuffTarget : EntityBasedBuffTarget
 
 }
 
-public class BuilderTrackingWorkplace : ITrackingWorkplace
+public class BuilderTrackingWorkplace : ITrackingEntities
 {
     public IEnumerable<Type> TrackingTypes => GlobalBuilderBuffTarget.BuilderBuildingTypes;
 }
