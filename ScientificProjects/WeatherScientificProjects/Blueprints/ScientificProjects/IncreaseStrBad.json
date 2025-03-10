@@ -1,0 +1,16 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "WeatherIncreaseStrBad",
+        "RequiredId": "WeatherIncreaseStr",
+        "GroupId": "Weather",
+        "NameKey": "LV.WSP.IncreaseStrBad",
+        "EffectKey": "LV.WSP.IncreaseStrBadDesc",
+        "Icon": "Sprites/Projects/WeatherIncreaseStrBad",
+        "ScienceCost": 40,
+        "MaxSteps": 10,
+        "HasScalingCost": true,
+        "ScalingCostKey": "LV.WSP.StrCostBad",
+        "Parameters": [ 0.2 ],
+        "Order": 90
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "WeatherExt3",
+        "RequiredId": "WeatherExt2",
+        "GroupId": "Weather",
+        "NameKey": "LV.WSP.Ext3",
+        "EffectKey": "LV.WSP.Ext3Desc",
+        "Icon": "Sprites/Projects/WeatherExt3",
+        "MaxSteps": 3,
+        "ScienceCost": 20,
+        "Parameters": [ 1 ],
+        "Order": 30,
+        "HasScalingCost": true,
+        "ScalingCostKey": "LV.WSP.PrewarningCost"
+    }
+}

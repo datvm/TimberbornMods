@@ -1,0 +1,15 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<ScientificProjectsPath>$(GameModsFolder)ScientificProjects\$(TimberbornVersion)\</ScientificProjectsPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Include="ScientificProjects" />
+
+		<Reference Include="$(ScientificProjectsPath)**\*.dll">
+			<Private>False</Private>
+		</Reference>		
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,13 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "WeatherExt2",
+        "RequiredId": "WeatherExt1",
+        "GroupId": "Weather",
+        "NameKey": "LV.WSP.Ext2",
+        "EffectKey": "LV.WSP.Ext2Desc",
+        "Icon": "Sprites/Projects/WeatherExt2",
+        "ScienceCost": 450,
+        "Parameters": [ 1 ],
+        "Order": 20
+    }
+}

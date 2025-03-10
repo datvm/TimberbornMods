@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Targets", "_Targets", "{F8
 		CommonBuffDebuff.target = CommonBuffDebuff.target
 		CommonDebug.target = CommonDebug.target
 		CommonHarmony.target = CommonHarmony.target
+		CommonScientificProjects.target = CommonScientificProjects.target
 		CommonTimberApi.target = CommonTimberApi.target
 		CommonTimberUI.target = CommonTimberUI.target
 		CommonUI.target = CommonUI.target
@@ -100,9 +101,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuffDebuffDemo", "BuffDebuf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolHotkey", "ToolHotkey\ToolHotkey.csproj", "{77668163-5B05-403C-B02C-D883B55E1031}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScientificProjects", "ScientificProjects\ScientificProjects.csproj", "{6D055A5B-DD23-4FF3-8026-82DB6B806193}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableIrrigation", "ConfigurableIrrigation\ConfigurableIrrigation.csproj", "{60E857C3-12F0-4280-9588-F45D809AC2F2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScientificProjects", "ScientificProjects", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScientificProjects", "ScientificProjects\ScientificProjects\ScientificProjects.csproj", "{B345D031-25CD-4A24-2C28-D82FDF226056}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherScientificProjects", "ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj", "{2B9C5D23-6215-4F8E-9265-59A3F185EE14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -270,14 +275,18 @@ Global
 		{77668163-5B05-403C-B02C-D883B55E1031}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77668163-5B05-403C-B02C-D883B55E1031}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77668163-5B05-403C-B02C-D883B55E1031}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D055A5B-DD23-4FF3-8026-82DB6B806193}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D055A5B-DD23-4FF3-8026-82DB6B806193}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D055A5B-DD23-4FF3-8026-82DB6B806193}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D055A5B-DD23-4FF3-8026-82DB6B806193}.Release|Any CPU.Build.0 = Release|Any CPU
 		{60E857C3-12F0-4280-9588-F45D809AC2F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{60E857C3-12F0-4280-9588-F45D809AC2F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60E857C3-12F0-4280-9588-F45D809AC2F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60E857C3-12F0-4280-9588-F45D809AC2F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B345D031-25CD-4A24-2C28-D82FDF226056}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B345D031-25CD-4A24-2C28-D82FDF226056}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B345D031-25CD-4A24-2C28-D82FDF226056}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B345D031-25CD-4A24-2C28-D82FDF226056}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B9C5D23-6215-4F8E-9265-59A3F185EE14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B9C5D23-6215-4F8E-9265-59A3F185EE14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B9C5D23-6215-4F8E-9265-59A3F185EE14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B9C5D23-6215-4F8E-9265-59A3F185EE14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -290,6 +299,8 @@ Global
 		{E2DCF1DD-4B91-482E-AFF4-CAB5D0594EF0} = {B9EE59FC-AF99-4702-ADC6-8FAA6B7C3341}
 		{FA529251-A0A1-47BE-9A73-ADF864AE1480} = {1BC29315-F84D-4AA2-8157-84BF67FD6914}
 		{2C2E9AD7-CF3C-4ED2-A995-E2CD08143E88} = {1BC29315-F84D-4AA2-8157-84BF67FD6914}
+		{B345D031-25CD-4A24-2C28-D82FDF226056} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{2B9C5D23-6215-4F8E-9265-59A3F185EE14} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}

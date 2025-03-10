@@ -1,4 +1,5 @@
-﻿global using ScientificProjects.Buffs;
+﻿global using ScientificProjects;
+global using ScientificProjects.Buffs;
 global using ScientificProjects.Management;
 global using ScientificProjects.Processors;
 global using ScientificProjects.Specs;
@@ -25,3 +26,4 @@ global using Timberborn.WeatherSystem;
 global using Timberborn.WellbeingUI;
 global using Timberborn.WorkSystem;
 global using UiBuilder.CommonUi;
+global using System.Collections;

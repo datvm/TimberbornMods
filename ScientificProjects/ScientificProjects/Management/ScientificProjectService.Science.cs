@@ -88,11 +88,11 @@ partial class ScientificProjectService
     {
         if (info.Spec.HasScalingCost)
         {
-            var provider = registry.GetCostProviderFor(info.Spec.Id);            
+            var provider = registry.GetCostProviderFor(info.Spec.Id);
             return provider.CalculateCost(info);
         }
 
-        return info.Spec.ScienceCost;
+        return info.Spec.ScienceCost * (info.Spec.HasSteps ? info.Level : 1);
     }
 
     void PerformUnlock(string id)

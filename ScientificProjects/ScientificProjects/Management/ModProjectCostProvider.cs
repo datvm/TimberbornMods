@@ -19,14 +19,13 @@ public class ModProjectCostProvider(
         return spec.Id switch
         {
             // 3 per level + 1 per 20 adult beavers (rounded up)
-            WorkEffUpgrade2 => LevelOr0F(project, l => spec.ScienceCost * l + (spec.Parameters[1] * CountAdultBeavers() / spec.Parameters[2])),
-            BuilderCarryUpgrade => LevelOr0F(project, l => spec.ScienceCost * l * CountBuilders()),
+            WorkEffUpgrade2 => this.LevelOr0F(project, l => spec.ScienceCost * l + (spec.Parameters[1] * CountAdultBeavers() / spec.Parameters[2])),
+            BuilderCarryUpgrade => this.LevelOr0F(project, l => spec.ScienceCost * l * CountBuilders()),
 
-            _ => throw new NotSupportedException($"Cannot calculate cost for Id {spec.Id} ({spec.DisplayName})"),
+            _ => throw spec.ThrowNotSupportedEx(),
         };
     }
 
-    int LevelOr0F(ScientificProjectInfo info, Func<int, float> calculate) => info.Level == 0 ? 0 : (int)MathF.Ceiling(calculate(info.Level));
 
     int CountAdultBeavers() => pops.NumberOfAdults;
     int CountBuilders() => CountEmployees<DistrictCenter>() + CountEmployees<BuilderHubSpec>();

@@ -1,0 +1,8 @@
+{
+    "ScientificProjectGroupSpec": {
+        "Id": "Weather",
+        "NameKey": "LV.WSP.WeatherGroup",
+        "DescKey": "LV.WSP.WeatherGroupDesc",
+        "Order": 30
+    }
+}
