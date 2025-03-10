@@ -5,7 +5,6 @@
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Scientific ways to spend your Science!",
     "RequiredMods": [
-        { "Id": "Harmony" },
         { "Id": "TimberUi" },
         { "Id": "BuffDebuff", "MinimumVersion": "7.0.6" }
     ]

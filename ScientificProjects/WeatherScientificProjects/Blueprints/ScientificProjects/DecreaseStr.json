@@ -1,0 +1,12 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "WeatherDecreaseStr",
+        "GroupId": "Weather",
+        "NameKey": "LV.WSP.DecreaseStr",
+        "EffectKey": "LV.WSP.DecreaseStrDesc",
+        "Icon": "Sprites/Projects/WeatherDecreaseStr",
+        "ScienceCost": 1500,
+        "Parameters": [],
+        "Order": 100
+    }
+}

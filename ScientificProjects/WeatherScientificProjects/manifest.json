@@ -1,0 +1,12 @@
+{
+    "Name": "Weather Scientific Projects",
+    "Version": "7.0.0",
+    "Id": "WeatherScientificProjects",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Weather-related scientific projects.",
+    "RequiredMods": [
+        { "Id": "Harmony" },
+        { "Id": "ScientificProjects" },
+        { "Id": "BuffDebuff", "MinimumVersion": "7.0.6" }
+    ]
+}

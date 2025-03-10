@@ -4,8 +4,7 @@
 	<ItemGroup>
 		<Using Include="HarmonyLib"/>
 
-		<Reference Include="0Harmony">
-			<HintPath>$(ModPath)3284904751\0Harmony.dll</HintPath>
+		<Reference Include="$(ModPath)3284904751\0Harmony.dll">
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>

@@ -1,5 +1,18 @@
 ﻿namespace System;
 
+public readonly struct EnumerableReadonlyHashset<T>(ReadOnlyHashSet<T> set) : IEnumerable<T>
+{
+    public IEnumerator<T> GetEnumerator()
+    {
+        return set.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return set.GetEnumerator();
+    }
+}
+
 public static class ResearchProjectsModExtensions
 {
 
@@ -10,6 +23,18 @@ public static class ResearchProjectsModExtensions
         result = buff.buffs.CreateBuffInstance<TBuff, TInstance, IEnumerable<ScientificProjectInfo>>(buff, projects);
         return result;
     }
+
+
+    public static int LevelOr0(this IProjectCostProvider _, ScientificProjectInfo info, Func<int, int> calculate) 
+        => info.Level == 0 ? 0 : calculate(info.Level);
+    public static int LevelOr0F(this IProjectCostProvider _, ScientificProjectInfo info, Func<int, float> calculate)
+        => info.Level == 0 ? 0 : (int)MathF.Ceiling(calculate(info.Level));
+    public static NotSupportedException ThrowNotSupportedEx(this ScientificProjectSpec spec)
+    {
+        return new NotSupportedException($"Cannot calculate cost for Id {spec.Id} ({spec.DisplayName})");
+    }
+
+    public static EnumerableReadonlyHashset<T> AsEnumerable<T>(this ReadOnlyHashSet<T> set) => new(set);
 
 }
 

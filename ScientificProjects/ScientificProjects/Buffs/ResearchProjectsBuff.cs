@@ -23,14 +23,7 @@ public class ResearchProjectsBuff(
     protected override HashSet<string> SupportedDailyIds { get; } = [..CarryBuilderUpgrade, ..WorkEffDailyUpgrade];
 
     protected override IEnumerable<Type> DailyBuffInstanceTypes { get; } = [];
-
-    protected override void AfterLoad()
-    {
-        Debug.Log("Registered " + this.GetHumanFriendlyId());
-
-        base.AfterLoad();
-    }
-
+    
     protected override void ProcessDailyBuffs(IEnumerable<ScientificProjectInfo> activeProjects)
     {
         ProcessWorkEffBuffs();
