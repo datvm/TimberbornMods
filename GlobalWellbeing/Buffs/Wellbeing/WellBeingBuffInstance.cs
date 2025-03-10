@@ -17,14 +17,14 @@ public class WellBeingBuffInstance : BuffInstance<WellBeingBuffInstanceData, Wel
 
     public override bool IsBuff { get; protected set; }
 
-    IBuffableService buffable = null!;
+    BeaverPopulation beaverPops = null!;
     EventBus eventBus = null!;
     WellbeingTierService tier = null!;
     ILoc t = null!;
     bool invalidState = false;
 
     [Inject]
-    public void Inject(IBuffableService buffable, EventBus eventBus, IWellbeingTierService itier, ILoc t)
+    public void Inject(BeaverPopulation beaverPops, EventBus eventBus, IWellbeingTierService itier, ILoc t)
     {
         if (invalidState) { return; }
 
@@ -34,7 +34,7 @@ public class WellBeingBuffInstance : BuffInstance<WellBeingBuffInstanceData, Wel
                 $" Please wait for this mod to be updated");
         }
 
-        this.buffable = buffable;
+        this.beaverPops = beaverPops;
         this.eventBus = eventBus;
         this.tier = tier;
         this.t = t;
@@ -49,8 +49,8 @@ public class WellBeingBuffInstance : BuffInstance<WellBeingBuffInstanceData, Wel
         IsBuff = Value.Wellbeing >= 0;
 
         Targets = [Value.ForKid
-            ? new GlobalChildBeaverBuffTarget(buffable, eventBus)
-            : new GlobalAdultBeaverBuffTarget(buffable, eventBus)
+            ? new ChildBeaverBuffTarget(eventBus, beaverPops)
+            : new AdultBeaverBuffTarget(eventBus, beaverPops)
         ];
 
         var bonuses = Process(Value.ForKid ?

@@ -16,25 +16,24 @@ public class HighscoreWellbeingBuffInstance : TimedBuffInstance<HighscoreWellbei
     protected override IBuffService Buffs { get; set; } = null!;
     protected override IDayNightCycle DayNight { get; set; } = null!;
     protected override ILoc T { get; set; } = null!;
-    IBuffableService buffables = null!;
     EventBus eb = null!;
+    BeaverPopulation beaverPops = null!;
 
     [JsonProperty]
     public HighscoreWellbeingValue Value { get; set; }
 
     [Inject]
-    public void Inject(IBuffService buffs, IDayNightCycle dayNight, ILoc t, IBuffableService buffables, EventBus eb)
+    public void Inject(EventBus eb, BeaverPopulation beaverPops)
     {
-        base.Inject(buffs, dayNight, t);
-        this.buffables = buffables;
         this.eb = eb;
+        this.beaverPops = beaverPops;
     }
 
     public override void Init()
     {
         base.Init();
 
-        Targets = [new GlobalBeaverBuffTarget(buffables, eb)];
+        Targets = [new BeaverBuffTarget(eb, beaverPops)];
 
         Effect = new HighscoreWellbeingBuffEffect(T, Value.Speed);
         Effects = [Effect];

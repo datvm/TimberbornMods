@@ -1,121 +1,70 @@
 ﻿namespace BuffDebuff;
 
-public interface ITrackingWorkplace
+public class WorkplaceTrackingEntity : ITrackingEntities
 {
-    IEnumerable<Type> TrackingTypes { get; }
+    public IEnumerable<Type> TrackingTypes => [typeof(Workplace)];
 }
 
-public class WorkplaceManager(EventBus eb, EntityRegistry registry, IEnumerable<ITrackingWorkplace> trackingWorkplaces) : ILoadableSingleton
+public class WorkplaceWorkerChangedEvent(Workplace workplace, Worker worker)
 {
+    public Workplace Workplace { get; } = workplace;
+    public Worker Worker { get; } = worker;
+}
+public class WorkplaceWorkerAssignedEvent(Workplace workplace, Worker worker) : WorkplaceWorkerChangedEvent(workplace, worker);
+public class WorkplaceWorkerUnassignedEvent(Workplace workplace, Worker worker) : WorkplaceWorkerChangedEvent(workplace, worker);
 
-    FrozenDictionary<Type, WorkplaceManagerType> workplacesDict = null!;
-    readonly HashSet<Workplace> workplaces = [];
+public class WorkplaceManager(EventBus eb, EntityManager entities) : ILoadableSingleton
+{
+    readonly HashSet<Workplace> activeWorkplaces = [];
 
-    public ReadOnlyHashSet<Workplace> Workplaces => workplaces.AsReadOnly();
-    
-    public ReadOnlyHashSet<T> Get<T>() where T : BaseComponent
-    {
-        if (!workplacesDict.TryGetValue(typeof(T), out var list))
-        {
-            throw new InvalidOperationException($"{typeof(T)} was not registered to be tracked. Use {nameof(ITrackingWorkplace)} to register it.");
-        }
-
-        return list.Get<T>();
-    }
+    public ReadOnlyHashSet<Workplace> AllWorkplaces => entities.Get<Workplace>();
+    public ReadOnlyHashSet<Workplace> ActiveWorkplaces => activeWorkplaces.AsReadOnly();
 
     public void Load()
     {
-        workplacesDict = trackingWorkplaces
-            .SelectMany(q => q.TrackingTypes)
-            .Distinct()
-            .ToFrozenDictionary(q => q, WorkplaceManagerType.Create);
-
-        foreach (var e in registry.Entities)
-        {
-            var wp = e.GetComponentFast<Workplace>();
-            if (wp) { AddWorkplace(wp); }
-        }
-
         eb.Register(this);
     }
-
-    void AddWorkplace(Workplace workplace)
-    {
-        workplaces.Add(workplace);
-        foreach (var list in workplacesDict.Values)
-        {
-            var comp = (BaseComponent)list.GetComponentFast.Invoke(workplace, []);
-            if (comp is not null)
-            {
-                list.Add(comp);
-            }
-        }
-    }
-
-    void RemoveWorkplace(Workplace workplace)
-    {
-        workplaces.Remove(workplace);
-        foreach (var list in workplacesDict.Values)
-        {
-            var comp = (BaseComponent)list.GetComponentFast.Invoke(workplace, []);
-            if (comp is not null)
-            {
-                list.Remove(comp);
-            }
-        }
-    }
-
-#warning Add event for when a workplace is added or removed, and maybe also when workers are changed
 
     [OnEvent]
     public void OnEnteredFinishedState(EnteredFinishedStateEvent ev)
     {
         var wp = ev.BlockObject.GetComponentFast<Workplace>();
-        if (wp is not null) { AddWorkplace(wp); }
+        if (wp is null) { return; }
+
+        wp.WorkerAssigned += Wp_WorkerAssigned;
+        wp.WorkerUnassigned += Wp_WorkerUnassigned;
+
+        activeWorkplaces.Add(wp);
     }
 
     [OnEvent]
     public void OnExitedFinishedState(ExitedFinishedStateEvent ev)
     {
         var wp = ev.BlockObject.GetComponentFast<Workplace>();
-        if (wp is not null) { RemoveWorkplace(wp); }
+        if (wp is null) { return; }
+
+        wp.WorkerAssigned -= Wp_WorkerAssigned;
+        wp.WorkerUnassigned -= Wp_WorkerUnassigned;
+
+        activeWorkplaces.Remove(wp);
     }
 
-}
-
-abstract class WorkplaceManagerType(Type type)
-{
-    public Type Type => type;
-    public MethodBase GetComponentFast = typeof(BaseComponent).GetMethod(nameof(BaseComponent.GetComponentFast)).MakeGenericMethod(type);
-
-    public abstract void Add(BaseComponent comp);
-    public abstract void Remove(BaseComponent comp);
-    public abstract ReadOnlyHashSet<T> Get<T>() where T : BaseComponent;
-
-    public static WorkplaceManagerType Create(Type t)
+    private void Wp_WorkerUnassigned(object sender, WorkerChangedEventArgs e)
     {
-        var type = typeof(WorkplaceManagerType<>).MakeGenericType(t);
-        return (WorkplaceManagerType)Activator.CreateInstance(type, [t])!;
+        // Don't use e.Worker.Workplace because it may be null already
+        var workplace = (Workplace)sender;
+        
+        eb.Post(new WorkplaceWorkerUnassignedEvent(workplace, e.Worker));
+        eb.Post(new WorkplaceWorkerChangedEvent(workplace, e.Worker));
     }
-}
 
-class WorkplaceManagerType<T>(Type type) : WorkplaceManagerType(type)
-    where T : BaseComponent
-{
-    public HashSet<T> Workplaces { get; } = [];
-
-    public override void Add(BaseComponent comp)
+    private void Wp_WorkerAssigned(object sender, WorkerChangedEventArgs e)
     {
-        Workplaces.Add((T)comp);
+        // Don't use e.Worker.Workplace because it may still be null
+        var workplace = (Workplace)sender;
+
+        eb.Post(new WorkplaceWorkerAssignedEvent(workplace, e.Worker));
+        eb.Post(new WorkplaceWorkerChangedEvent(workplace, e.Worker));
     }
 
-    public override ReadOnlyHashSet<T1> Get<T1>()
-    {
-        return ((HashSet<T1>)(object)Workplaces).AsReadOnly();
-    }
-
-    public override void Remove(BaseComponent comp)
-    {
-        Workplaces.Remove((T)comp);
-    }
 }

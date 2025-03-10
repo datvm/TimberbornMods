@@ -7,6 +7,6 @@
     "RequiredMods": [
         { "Id": "Harmony" },
         { "Id": "TimberUi" },
-        { "Id": "BuffDebuff", "MinimumVersion": "7.0.5" }
+        { "Id": "BuffDebuff", "MinimumVersion": "7.0.6" }
     ]
 }

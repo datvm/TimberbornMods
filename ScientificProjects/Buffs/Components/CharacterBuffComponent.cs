@@ -4,6 +4,7 @@ public class CharacterBuffComponent : BaseComponent
 {
     const string SpeedBonusId = "MovementSpeed";
     const string WorkEffBonusId = "WorkingSpeed";
+    const string CarryingCapacityBonusId = "CarryingCapacity";
 
     BuffableComponent buffable = null!;
     BonusManager bonus = null!;
@@ -64,11 +65,19 @@ public class CharacterBuffComponent : BaseComponent
             case WorkEffUpgradeBuffInst we:
                 ApplyWorkEffBuff(we, remove);
                 break;
+            case CarryingUpgradeBuffInst cc:
+                ApplyCarryingCapacityBuff(cc, remove);
+                break;
+            case CarryingBuilderUpgradeBuffInst ccb:
+                ApplyCarryingBuilderCapacityBuff(ccb, remove);
+                break;
         }
     }
 
     void ApplySpeedBuff(MoveSpeedUpgradeBuffInst instance, bool negative) => ApplyBonusBuff<MoveSpeedBuffEff>(instance, SpeedBonusId, negative);
     void ApplyWorkEffBuff(WorkEffUpgradeBuffInst instance, bool negative) => ApplyBonusBuff<WorkEffBuffEff>(instance, WorkEffBonusId, negative);
+    void ApplyCarryingCapacityBuff(CarryingUpgradeBuffInst instance, bool negative) => ApplyBonusBuff<CarryingBuffEff>(instance, CarryingCapacityBonusId, negative);
+    void ApplyCarryingBuilderCapacityBuff(CarryingBuilderUpgradeBuffInst instance, bool negative) => ApplyBonusBuff<CarryingBuffEff>(instance, CarryingCapacityBonusId, negative);
 
     void ApplyBonusBuff<TEffect>(BuffInstance instance, string bonusId, bool negative)
         where TEffect : SimpleValueBuffEffect<float>
