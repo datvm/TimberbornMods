@@ -39,12 +39,7 @@ public class WeatherProjectsCostProvider(EntityManager entities, HazardousWeathe
 
     int CalculatePrewarningCost(ScientificProjectInfo info)
     {
-        if (hazardTimer.DaysToHazardousWeather < HazardousWeatherApproachingTimer.ApproachingNotificationDays)
-        {
-            return 0;
-        }
-
-        return info.Spec.ScienceCost * info.Level;
+        return hazardTimer.IsPreWarning(false) ? info.Spec.ScienceCost * info.Level : 0;
     }
 
     int CountWaterSources(bool fresh)

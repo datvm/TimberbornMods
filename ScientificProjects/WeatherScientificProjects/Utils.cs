@@ -21,6 +21,7 @@ public static class WeatherProjectsUtils
     public static readonly ImmutableHashSet<string> PrewarningIds = [WeatherForecast3Id, WeatherWarningExt3Id];
 
     public static readonly ImmutableHashSet<string> WeatherWarningExtIds = ["WeatherExt1", "WeatherExt2", WeatherWarningExt3Id];
+    public static readonly ImmutableHashSet<string> WeatherForecastIds = ["WeatherPred1", "WeatherPred2", WeatherForecast3Id];
 
 }
 
