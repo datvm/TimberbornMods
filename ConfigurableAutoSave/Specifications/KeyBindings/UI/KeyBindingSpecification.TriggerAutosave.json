@@ -1,7 +1,7 @@
 {
     "Id": "TriggerAutosave",
     "GroupId": "UI",
-    "LocKey": "LV.SE.KeyBindingTriggerAutosave",
+    "LocKey": "LV.CAS.KeyBindingTriggerAutosave",
     "Order": 300,
     "PrimaryInputBindingSpecification": {
         "Path": "/Keyboard/s",
