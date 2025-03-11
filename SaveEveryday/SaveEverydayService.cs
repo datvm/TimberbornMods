@@ -1,7 +1,9 @@
-﻿using Timberborn.GameSaveRepositorySystem;
+﻿#if TIMBER7
+using Timberborn.GameCycleSystem;
+using Timberborn.GameSaveRepositorySystem;
 using Timberborn.GameSaveRuntimeSystem;
+using Timberborn.HazardousWeatherSystemUI;
 using Timberborn.SettlementNameSystem;
-using Timberborn.TickSystem;
 using Timberborn.TimeSystem;
 
 namespace SaveEveryday;
@@ -12,33 +14,43 @@ public class SaveEverydayService(
     IDayNightCycle time,
     SettlementNameService settlementNameService,
     GameSaver gameSaver,
-    GameSaveRepository gameSaveRepository
-) : ILoadableSingleton, ISaveableSingleton, ITickableSingleton
+    GameSaveRepository gameSaveRepository,
+    EventBus eb,
+    HazardousWeatherApproachingTimer hazardTimer
+) : ILoadableSingleton, ISaveableSingleton
 {
     const string NamePostfix = ".saveeveryday";
     const string NameFormat = "SaveDay{0}" + NamePostfix;
+    const string BadweatherSaveName = "weatherwarning.save";
 
     static readonly SingletonKey SaveEverydayKey = new(nameof(SaveEveryday));
     static readonly PropertyKey<int> LastDayKey = new("LastAutosaveDay");
+    static readonly PropertyKey<int> LastWarningCycleKey = new("LastAutosaveWarningCycle");
 
     public int LastAutoSaveDay { get; private set; }
+    public int LastAutoSaveWarningCycle { get; private set; }
 
     public void Load()
     {
         if (singletonLoader.HasSingleton(SaveEverydayKey))
         {
             var set = singletonLoader.GetSingleton(SaveEverydayKey);
-            LastAutoSaveDay = set.Has(LastDayKey)
-                ? set.Get(LastDayKey) : 0;
+            LastAutoSaveDay = set.Has(LastDayKey) ? set.Get(LastDayKey) : 0;
+            LastAutoSaveWarningCycle = set.Has(LastWarningCycleKey) ? set.Get(LastWarningCycleKey) : 0;
         }
+
+        eb.Register(this);
     }
 
     public void Save(ISingletonSaver singletonSaver)
     {
-        singletonSaver.GetSingleton(SaveEverydayKey).Set(LastDayKey, LastAutoSaveDay);
+        var s = singletonSaver.GetSingleton(SaveEverydayKey);
+        s.Set(LastDayKey, LastAutoSaveDay);
+        s.Set(LastWarningCycleKey, LastAutoSaveWarningCycle);
     }
 
-    public void Tick()
+    [OnEvent]
+    public void OnNextDay(CycleDayStartedEvent _)
     {
         if (!settings.Enabled) { return; }
 
@@ -48,12 +60,24 @@ public class SaveEverydayService(
             LastAutoSaveDay = day;
             SaveGame(day);
         }
+
+        if (settings.SaveWeatherWarning)
+        {
+            var cycle = hazardTimer._gameCycleService.Cycle;
+
+            if (LastAutoSaveWarningCycle != cycle &&
+                hazardTimer.DaysToHazardousWeather <= HazardousWeatherApproachingTimer.ApproachingNotificationDays)
+            {
+                LastAutoSaveWarningCycle = hazardTimer._gameCycleService.Cycle;
+                SaveGame(day, true);
+            }
+        }
     }
 
-    void SaveGame(int day)
+    void SaveGame(int day, bool badweather = false)
     {
         string settlementName = settlementNameService.SettlementName;
-        string saveName = string.Format(NameFormat, day);
+        string saveName = badweather ? BadweatherSaveName : string.Format(NameFormat, day);
         Debug.Log($"Saving game as {saveName}");
 
         var saveReference = new SaveReference(settlementName, saveName);
@@ -84,8 +108,6 @@ public class SaveEverydayService(
             {
                 gameSaveRepository.DeleteSave(save);
             }
-
-            Debug.Log($"Deleted {exceedingSaves.Length} autosaves");
         }
         catch (GameSaverException ex)
         {
@@ -94,3 +116,4 @@ public class SaveEverydayService(
     }
 
 }
+#endif

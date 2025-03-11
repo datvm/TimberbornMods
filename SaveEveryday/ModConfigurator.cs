@@ -2,7 +2,7 @@
 
 [Context("MainMenu")]
 [Context("Game")]
-public class ModConfigurator : IConfigurator
+public class SettingConfigurator : IConfigurator
 {
     public void Configure(IContainerDefinition containerDefinition)
     {
@@ -11,7 +11,7 @@ public class ModConfigurator : IConfigurator
 }
 
 [Context("Game")]
-public class CameraConfigurator : IConfigurator
+public class ServiceConfigurator : IConfigurator
 {
     public void Configure(IContainerDefinition containerDefinition)
     {
