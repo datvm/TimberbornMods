@@ -1,5 +1,4 @@
-﻿#if TIMBER7
-using Timberborn.GameCycleSystem;
+﻿#if TIMBER6
 using Timberborn.GameSaveRepositorySystem;
 using Timberborn.GameSaveRuntimeSystem;
 using Timberborn.HazardousWeatherSystemUI;
@@ -50,7 +49,7 @@ public class SaveEverydayService(
     }
 
     [OnEvent]
-    public void OnNextDay(CycleDayStartedEvent _)
+    public void OnNextDay(DaytimeStartEvent _)
     {
         if (!settings.Enabled) { return; }
 
@@ -63,12 +62,12 @@ public class SaveEverydayService(
 
         if (settings.SaveWeatherWarning)
         {
-            var cycle = hazardTimer._gameCycleService.Cycle;
+            var cycle = hazardTimer._weatherService.Cycle;
 
             if (LastAutoSaveWarningCycle != cycle &&
                 hazardTimer.DaysToHazardousWeather <= HazardousWeatherApproachingTimer.ApproachingNotificationDays)
             {
-                LastAutoSaveWarningCycle = hazardTimer._gameCycleService.Cycle;
+                LastAutoSaveWarningCycle = cycle;
                 SaveGame(day, true);
             }
         }

@@ -19,9 +19,10 @@
 		<!--<ProjectReference Include="..\BuffDebuff\BuffDebuff.csproj" />-->
 		
 		<!--<ProjectReference Include="..\ScientificProjects\ScientificProjects\ScientificProjects.csproj" />-->
-		<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />
-		
+		<!--<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />-->
 
+		<ProjectReference Include="..\SaveEveryday\SaveEveryday.csproj" />
+		
 	</ItemGroup>
 
 </Project>
