@@ -5,26 +5,26 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     readonly ModSetting<bool> enabled = new(
         true,
         ModSettingDescriptor
-            .CreateLocalized("LV.SE.Enabled")
-            .SetLocalizedTooltip("LV.SE.EnabledDesc"));
+            .CreateLocalized("LV.CAS.Enabled")
+            .SetLocalizedTooltip("LV.CAS.EnabledDesc"));
 
     readonly ModSetting<float> saveFrequency = new(
         5,
         ModSettingDescriptor
-            .CreateLocalized("LV.SE.SaveFrequency")
-            .SetLocalizedTooltip("LV.SE.SaveFrequencyDesc"));
+            .CreateLocalized("LV.CAS.SaveFrequency")
+            .SetLocalizedTooltip("LV.CAS.SaveFrequencyDesc"));
 
     readonly RangeIntModSetting saveCount = new(
         5, 1, 20,
         ModSettingDescriptor
-            .CreateLocalized("LV.SE.SaveCount")
-            .SetLocalizedTooltip("LV.SE.SaveCountDesc"));
+            .CreateLocalized("LV.CAS.SaveCount")
+            .SetLocalizedTooltip("LV.CAS.SaveCountDesc"));
 
     readonly ModSetting<bool> saveWeatherWarning = new(
         false,
         ModSettingDescriptor
-            .CreateLocalized("LV.SE.SaveWeatherWarning")
-            .SetLocalizedTooltip("LV.SE.SaveWeatherWarningDesc"));
+            .CreateLocalized("LV.CAS.SaveWeatherWarning")
+            .SetLocalizedTooltip("LV.CAS.SaveWeatherWarningDesc"));
 
     public event Action OnSettingsChanged = delegate { };
 
