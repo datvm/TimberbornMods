@@ -109,6 +109,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScientificProjects", "Scien
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherScientificProjects", "ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj", "{2B9C5D23-6215-4F8E-9265-59A3F185EE14}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableAutoSave", "ConfigurableAutoSave\ConfigurableAutoSave.csproj", "{AC1EE00C-F5D1-4B3F-85B3-34D1AB163F62}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -287,6 +289,10 @@ Global
 		{2B9C5D23-6215-4F8E-9265-59A3F185EE14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B9C5D23-6215-4F8E-9265-59A3F185EE14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B9C5D23-6215-4F8E-9265-59A3F185EE14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC1EE00C-F5D1-4B3F-85B3-34D1AB163F62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC1EE00C-F5D1-4B3F-85B3-34D1AB163F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC1EE00C-F5D1-4B3F-85B3-34D1AB163F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC1EE00C-F5D1-4B3F-85B3-34D1AB163F62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
