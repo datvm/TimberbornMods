@@ -42,7 +42,6 @@ public class ScientificProjectRegistry(
         LoadUnlockConditionProviders();
 
         sw.Stop();
-        Debug.Log($"Loaded {allProjects.Length} projects in {sw.ElapsedMilliseconds}ms");
     }
 
     void LoadGroups()
