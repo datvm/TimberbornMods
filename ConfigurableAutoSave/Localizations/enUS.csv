@@ -1,0 +1,10 @@
+ID,Text,Comment
+LV.SE.Enabled,"Enabled",
+LV.SE.EnabledDesc,"Whether this mod is enabled.",
+LV.SE.SaveFrequency,"Auto-save frequency (real-life minute)",
+LV.SE.SaveFrequencyDesc,"How often should auto-save saves. Game default: 10",
+LV.SE.SaveCount,"Auto-save count",
+LV.SE.SaveCountDesc,"How many auto-saves should be kept. Game default: 3",
+LV.SE.SaveWeatherWarning,"Extra save on weather warning",
+LV.SE.SaveWeatherWarningDesc,"When a weather warning is issued, make an extra save named 'weatherwarning.save' that is only overwritten by the next cycle's warning. This save is not counted towards the save count.",
+LV.SE.KeyBindingTriggerAutosave,"Trigger auto-save",

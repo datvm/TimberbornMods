@@ -21,7 +21,7 @@
 		<!--<ProjectReference Include="..\ScientificProjects\ScientificProjects\ScientificProjects.csproj" />-->
 		<!--<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />-->
 
-		<ProjectReference Include="..\WaterSourcesDontCrash\WaterSourcesDontCrash.csproj" />
+		<ProjectReference Include="..\ConfigurableAutoSave\ConfigurableAutoSave.csproj" />
 		
 	</ItemGroup>
 

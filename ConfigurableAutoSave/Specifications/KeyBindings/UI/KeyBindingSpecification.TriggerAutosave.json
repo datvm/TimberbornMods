@@ -1,0 +1,12 @@
+{
+    "Id": "TriggerAutosave",
+    "GroupId": "UI",
+    "LocKey": "LV.SE.KeyBindingTriggerAutosave",
+    "Order": 300,
+    "PrimaryInputBindingSpecification": {
+        "Path": "/Keyboard/s",
+        "InputModifiers": {
+            "Value": "Ctrl"
+        }
+    }
+}
