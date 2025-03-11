@@ -4,7 +4,7 @@ namespace WeatherScientificProjects.Management;
 
 public class WaterSourceTracking : ITrackingEntities
 {
-    public IEnumerable<Type> TrackingTypes => [typeof(WaterSourceContaminationSpec)];
+    public IEnumerable<Type> TrackingTypes => [typeof(WaterSourceContaminationSpec), typeof(WeatherUpgradeWaterStrengthModifier)];
 }
 
 public class WeatherProjectsCostProvider(EntityManager entities, HazardousWeatherApproachingTimer hazardTimer) : IProjectCostProvider
@@ -45,9 +45,13 @@ public class WeatherProjectsCostProvider(EntityManager entities, HazardousWeathe
     int CountWaterSources(bool fresh)
     {
         var result = entities.Get<WaterSourceContaminationSpec>().AsEnumerable()
-            .Count(spec => fresh ? spec.DefaultContamination == 0 : spec.DefaultContamination > 0);
+            .Count(spec =>
+            {
+                var water = spec.GetComponentFast<WaterSource>();
+                if (water?.CurrentStrength == 0) { return false; } // Don't count if it's being disabled somehow (drought, sealed)
 
-        Debug.Log($"CountWaterSources({fresh}) = {result}");
+                return fresh ? spec.DefaultContamination == 0 : spec.DefaultContamination > 0;
+            });
 
         return result;
     }

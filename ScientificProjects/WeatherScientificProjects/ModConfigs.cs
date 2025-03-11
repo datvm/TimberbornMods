@@ -12,10 +12,18 @@ public class ModGameConfig : Configurator
     {
         Bind<WeatherUpgradeProcessor>().AsSingleton();
         Bind<WeatherForecastPanel>().AsSingleton();
+        Bind<WeatherBuff>().AsSingleton();
 
         MultiBind<IDevModule>().To<WeatherDevModule>().AsSingleton();
         MultiBind<ITrackingEntities>().To<WaterSourceTracking>().AsSingleton();
         MultiBind<IProjectCostProvider>().To<WeatherProjectsCostProvider>().AsSingleton();
+
+        MultiBind<TemplateModule>().ToProvider(() =>
+        {
+            TemplateModule.Builder builder = new();
+            builder.AddDecorator<WaterSourceContamination, WeatherUpgradeWaterStrengthModifier>();
+            return builder.Build();
+        }).AsSingleton();
     }
 
 }

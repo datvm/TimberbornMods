@@ -14,7 +14,6 @@ public static class WeatherProjectsUtils
     public const string WeatherForecast3Id = "WeatherPred3";
     public const string WeatherWarningExt3Id = "WeatherExt3";
 
-
     public static readonly ImmutableHashSet<string> FreshWaterStrengthIds = [WeatherDecreaseStrFresh, WeatherIncreaseStrFresh];
     public static readonly ImmutableHashSet<string> BadWaterStrengthIds = [WeatherDecreaseStrBad, WeatherIncreaseStrBad];
 
