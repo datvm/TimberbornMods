@@ -27,11 +27,3 @@ public class ModGameConfig : Configurator
     }
 
 }
-
-public class ModStarter : IModStarter
-{
-    public void StartMod(IModEnvironment modEnvironment)
-    {
-        new Harmony(nameof(WeatherScientificProjects)).PatchAll();
-    }
-}

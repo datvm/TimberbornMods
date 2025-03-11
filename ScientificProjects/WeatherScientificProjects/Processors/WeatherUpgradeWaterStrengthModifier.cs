@@ -26,8 +26,6 @@ public class WeatherUpgradeWaterStrengthModifier : BaseComponent, IWaterStrength
         waterSource.AddWaterStrengthModifier(this);
         IsBadwaterSource = conta.Contamination > 0f;
 
-        Debug.Log($"{name} has {nameof(IsBadwaterSource)} = {IsBadwaterSource}, Contamination = {conta.Contamination:#%}");
-
         buffable.OnBuffAdded += Buffable_OnBuffAdded;
         buffable.OnBuffRemoved += Buffable_OnBuffRemoved;
     }
