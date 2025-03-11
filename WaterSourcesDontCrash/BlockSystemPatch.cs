@@ -1,4 +1,5 @@
-﻿using Timberborn.BlockSystem;
+﻿#if TIMBER7
+using Timberborn.BlockSystem;
 
 namespace WaterSourcesDontCrash;
 
@@ -42,3 +43,4 @@ public static class BlockObjectPatch
     }
 
 }
+#endif
