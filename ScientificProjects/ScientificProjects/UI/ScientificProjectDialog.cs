@@ -48,7 +48,7 @@ public partial class ScientificProjectDialog : DialogBoxElement
 
         var scale = panel.scaledPixelsPerPoint;
         Content.style.height = Screen.height * .75f / scale;
-        Content.style.maxWidth = MathF.Min(600f, Screen.width * .75f) / scale;
+        style.maxWidth = Screen.width * .75f / scale;
     }
 
     public void RefreshContent()
