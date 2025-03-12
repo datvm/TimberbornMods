@@ -18,10 +18,10 @@
 		<!--<ProjectReference Include="..\TImprove4Modders\TImprove4Modders.csproj" />-->
 		<!--<ProjectReference Include="..\BuffDebuff\BuffDebuff.csproj" />-->
 		
-		<!--<ProjectReference Include="..\ScientificProjects\ScientificProjects\ScientificProjects.csproj" />-->
+		<ProjectReference Include="..\ScientificProjects\ScientificProjects\ScientificProjects.csproj" />
 		<!--<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />-->
 
-		<ProjectReference Include="..\ConfigurableAutoSave\ConfigurableAutoSave.csproj" />
+		<!--<ProjectReference Include="..\ConfigurableAutoSave\ConfigurableAutoSave.csproj" />-->
 		
 	</ItemGroup>
 
