@@ -33,9 +33,6 @@ public partial class ScientificProjectDialog : DialogBoxElement
         SetTitle("LV.SP.Title".T(t));
         AddCloseButton(OnCloseButtonClicked);
 
-        Content.style.height = Screen.height * .75f;
-        Content.style.maxWidth = MathF.Min(600f, Screen.width * .75f);
-
         CreateScienceStatus(Content);
 
         list = Content.AddScrollView(name: "ProjectList")
@@ -43,6 +40,15 @@ public partial class ScientificProjectDialog : DialogBoxElement
         list.style.minHeight = 0;
 
         RefreshContent();
+    }
+
+    void SetDialogSize()
+    {
+        if (panel is null) { return; }
+
+        var scale = panel.scaledPixelsPerPoint;
+        Content.style.height = Screen.height * .75f / scale;
+        Content.style.maxWidth = MathF.Min(600f, Screen.width * .75f) / scale;
     }
 
     public void RefreshContent()
@@ -91,7 +97,10 @@ public partial class ScientificProjectDialog : DialogBoxElement
 
     public new DialogBox Show(VisualElementInitializer? initializer, PanelStack panelStack, Action? confirm = default, Action? cancel = default)
     {
-        return diag = base.Show(initializer, panelStack, confirm, cancel);
+        diag = base.Show(initializer, panelStack, confirm, cancel);
+        SetDialogSize();
+
+        return diag;
     }
 
     static void DoNothing() { }
