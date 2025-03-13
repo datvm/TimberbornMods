@@ -14,9 +14,7 @@ public class ModProjectUnlockConditionProvider(
     {
         if (EmergencyDrillIds.Contains(project.Spec.Id))
         {
-            var day = hazardTimer.DaysToHazardousWeather;
-
-            return (day > 0 && day <= HazardousWeatherApproachingTimer.ApproachingNotificationDays)
+            return hazardTimer.GetWeatherStage() == GameWeatherStage.Warning
                 ? null :
                 "LV.SP.BadWeatherConditionErr".T(t);
         }

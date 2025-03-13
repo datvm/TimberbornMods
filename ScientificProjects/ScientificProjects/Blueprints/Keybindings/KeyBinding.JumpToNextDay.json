@@ -1,0 +1,11 @@
+{
+    "KeyBindingSpec": {
+        "Id": "JumpToNextDay",
+        "GroupId": "Dev",
+        "Order": 80,
+        "PrimaryInputBindingSpec": {
+            "Path": "/Keyboard/6"
+        },
+        "DevModeOnly": true
+    }
+}

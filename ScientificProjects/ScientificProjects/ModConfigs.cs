@@ -12,6 +12,7 @@ public class ModGameConfig : Configurator
         
         MultiBind<IProjectCostProvider>().To<ModProjectCostProvider>().AsSingleton();
         MultiBind<IProjectUnlockConditionProvider>().To<ModProjectUnlockConditionProvider>().AsSingleton();
+        MultiBind<IDevModule>().To<ScientificProjectDevModule>().AsSingleton();
 
         Bind<OneTimeUnlockProcessor>().AsSingleton();
         BindBuffStuff();

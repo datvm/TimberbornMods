@@ -1,5 +1,4 @@
-﻿global using Timberborn.CoreUI;
-global using Timberborn.Debugging;
+﻿global using Timberborn.Debugging;
 global using Timberborn.WeatherSystem;
 
 namespace WeatherScientificProjects;
@@ -20,11 +19,13 @@ public class WeatherDevModule(DialogBoxShower shower, WeatherService weather) : 
         var hazardLen = weather.HazardousWeatherDuration;
 
         var hazardName = weather._hazardousWeatherService.CurrentCycleHazardousWeather.Id;
+        var approachingDay = WeatherUpgradeProcessor.WarningDays;
 
         var msg = $"""
             Current day: {today}
-            Temperate weather duration: {temperate} ({temperate - today} days left)
-            Hazardous weather: {hazardName} for {hazardLen} days
+            Temperate weather duration: {temperate} ({(temperate - today) + 1} days left)
+            Hazardous weather: {hazardName} for {hazardLen} days.
+            Approaching notification: {approachingDay} days.
             """;
 
         shower.Create()

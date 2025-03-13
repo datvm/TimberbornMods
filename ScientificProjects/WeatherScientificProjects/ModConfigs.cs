@@ -4,6 +4,14 @@ global using WeatherScientificProjects.UI;
 
 namespace WeatherScientificProjects;
 
+public class ModStarter : IModStarter
+{
+    public void StartMod(IModEnvironment modEnvironment)
+    {
+        new Harmony(nameof(WeatherScientificProjects)).PatchAll();
+    }
+}
+
 [Context("Game")]
 public class ModGameConfig : Configurator
 {

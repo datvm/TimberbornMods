@@ -36,6 +36,22 @@ public static class ResearchProjectsModExtensions
 
     public static EnumerableReadonlyHashset<T> AsEnumerable<T>(this ReadOnlyHashSet<T> set) => new(set);
 
+    public static GameWeatherStage GetWeatherStage(this HazardousWeatherApproachingTimer timer)
+    {
+        return timer._weatherService.IsHazardousWeather
+            ? GameWeatherStage.Hazardous
+            : (timer.GetProgress() >= 0
+                ? GameWeatherStage.Warning
+                : GameWeatherStage.Temperate);
+    }
+
+}
+
+public enum GameWeatherStage
+{
+    Temperate,
+    Warning,
+    Hazardous,
 }
 
 internal static class ModExtensions

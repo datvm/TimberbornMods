@@ -1,5 +1,5 @@
 ﻿global using Timberborn.HazardousWeatherSystem;
-global using Timerborn.HazardousWeatherSystemUI;
+global using Timberborn.HazardousWeatherSystemUI;
 
 namespace WeatherScientificProjects.Processors;
 
@@ -18,13 +18,17 @@ public class WeatherUpgradeProcessor(
 {
     static readonly SingletonKey SaveKey = new("WeatherUpgradeProcessor");
     static readonly PropertyKey<string> TodayForecastKey = new("TodayForecast");
+    static readonly PropertyKey<int> CycleWarnedKey = new("CycleWarned");
 
-    static readonly int defaultApproachingDay = HazardousWeatherApproachingTimer.ApproachingNotificationDays;
-    static readonly FieldInfo approachingDay = typeof(HazardousWeatherApproachingTimer)
-        .GetField(nameof(HazardousWeatherApproachingTimer.ApproachingNotificationDays), BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
+    static readonly int DefaultWarningDays = HazardousWeatherApproachingTimer.ApproachingNotificationDays;
+    public static int WarningDays = DefaultWarningDays;
+
+    public int CycleWarned { get; private set; } = 0;
+
+    public static WeatherUpgradeProcessor? Instance { get; private set; }
 
     readonly ImmutableArray<IHazardousWeatherUISpecification> allHazards = [drought, badtide];
-
+    
     TodayForecast? TodayForecast
     {
         get;
@@ -49,6 +53,9 @@ public class WeatherUpgradeProcessor(
 
     public void Load()
     {
+        Instance = this;
+        WarningDays = DefaultWarningDays;
+
         LoadSavedData();
 
         SetApproachingDay();
@@ -64,6 +71,12 @@ public class WeatherUpgradeProcessor(
         if (!loader.HasSingleton(SaveKey)) { return; }
 
         var s = loader.GetSingleton(SaveKey);
+
+        if (s.Has(CycleWarnedKey))
+        {
+            CycleWarned = s.Get(CycleWarnedKey);
+        }
+
         if (s.Has(TodayForecastKey))
         {
             var data = s.Get(TodayForecastKey).Split(';');
@@ -78,7 +91,7 @@ public class WeatherUpgradeProcessor(
 
     void SetWeatherForecast()
     {
-        if (!hazardTimer.IsPreWarning(false))
+        if (hazardTimer.GetWeatherStage() != GameWeatherStage.Temperate)
         {
             TodayForecast = null;
             return;
@@ -152,18 +165,26 @@ public class WeatherUpgradeProcessor(
 
     void SetApproachingDay()
     {
-        var info = WeatherProjectsUtils.WeatherWarningExtIds
+        if (hazardTimer.GetWeatherStage() == GameWeatherStage.Temperate)
+        {
+            // Do not change the value if it's not temperate weather
+            // This will mess up the warning of this cycle
+
+            var info = WeatherProjectsUtils.WeatherWarningExtIds
             .Select(projects.GetProject)
             .Where(q => q.Unlocked);
 
-        int newValue = defaultApproachingDay;
-        foreach (var p in info)
-        {
-            var mul = p.Spec.HasSteps ? p.TodayLevel : 1;
-            newValue = (int)MathF.Round(newValue + p.Spec.Parameters[0] * mul);
+            int newValue = DefaultWarningDays;
+            foreach (var p in info)
+            {
+                var mul = p.Spec.HasSteps ? p.TodayLevel : 1;
+                newValue = (int)MathF.Round(newValue + p.Spec.Parameters[0] * mul);
+            }
+
+            WarningDays = newValue;
         }
 
-        approachingDay.SetValue(null, newValue);
+        CheckAndWarnWeather();
     }
 
     [OnEvent]
@@ -187,10 +208,27 @@ public class WeatherUpgradeProcessor(
         SetWeatherForecast();
     }
 
+    public void CheckAndWarnWeather()
+    {
+        var cycle = hazardTimer._gameCycleService.Cycle;
+
+        if (cycle == CycleWarned) { return; }
+
+        var progress = hazardTimer.GetProgress();
+
+        var stage = hazardTimer.GetWeatherStage();
+        if (stage != GameWeatherStage.Warning
+            || hazardTimer.DaysToHazardousWeather <= 0) { return; }
+
+        CycleWarned = cycle;
+        eb.Post(new HazardousWeatherApproachingEvent());
+    }
+
     public void Unload()
     {
+        Instance = null;
         // Reset to default value so player doesn't exploit it on another save
-        approachingDay.SetValue(null, defaultApproachingDay);
+        WarningDays = DefaultWarningDays;
     }
 
     public void Save(ISingletonSaver singletonSaver)
@@ -205,4 +243,5 @@ public class WeatherUpgradeProcessor(
             s.Set(TodayForecastKey, string.Format("{0};{1};{2};{3};{4}", weather.NameLocKey, chance, day, duration.x, duration.y));
         }
     }
+
 }
