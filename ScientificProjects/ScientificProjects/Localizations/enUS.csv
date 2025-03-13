@@ -1,5 +1,6 @@
 ID,Text,Comment
 LV.SP.Title,"Scientific Projects",
+LV.SP.Welcome,"Thank you for using Scientific Projects mod. This screen is where you can unlock and manage the projects. You can open it by clicking on the Science button on the top-left of the screen or pressing a hotkey (default: Y, you can rebind it in the Keybindings Settings).",
 KeyBinding.ScientificProjectDialog,"Scientific Projects Screen",
 LV.SP.Unlocked,"Unlocked!",
 LV.SP.PreqLocked,"Requires {0} to unlock.",

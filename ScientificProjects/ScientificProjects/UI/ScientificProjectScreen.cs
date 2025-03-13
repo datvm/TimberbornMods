@@ -12,18 +12,38 @@ public class ScientificProjectScreen(
     DevModeManager devMode,
     EventBus eb,
     ScienceService sciences,
-    BindableButtonFactory bindableButtonFac
-) : ILoadableSingleton, IUnloadableSingleton
+    BindableButtonFactory bindableButtonFac,
+    ISingletonLoader loader
+) : ILoadableSingleton, IUnloadableSingleton, ISaveableSingleton
 {
+    static readonly SingletonKey SaveKey = new("ScientificProjectScreen");
+    static readonly PropertyKey<bool> IntroKey = new("FirstIntro");
+
+    bool firstIntroShowed;
     const string Keybinding = "ScientificProjectDialog";
 
     VisualElement btnScienceHeader = null!;
 
     public void Load()
     {
-        RegisterScienceClick();
+        LoadSavedData();
 
+        RegisterScienceClick();
         eb.Register(this);
+
+        if (!firstIntroShowed)
+        {
+            firstIntroShowed = true;
+            ShowScienceDialog(firstIntro: true);
+        }
+    }
+
+    void LoadSavedData()
+    {
+        if (!loader.HasSingleton(SaveKey)) { return; }
+
+        var s = loader.GetSingleton(SaveKey);
+        firstIntroShowed = s.Has(IntroKey) && s.Get(IntroKey);
     }
 
     void RegisterScienceClick()
@@ -34,7 +54,7 @@ public class ScientificProjectScreen(
         bindableButtonFac.CreateAndBind(btnScienceHeader, Keybinding, OnScienceHeaderClick);
     }
 
-    public void ShowScienceDialog(OnScientificProjectDailyNotEnoughEvent? notEnough = default)
+    public void ShowScienceDialog(OnScientificProjectDailyNotEnoughEvent? notEnough = default, bool firstIntro = false)
     {
         var diag = new ScientificProjectDialog(t, projects, assets, diagShower, input, sciences);
 
@@ -49,6 +69,13 @@ public class ScientificProjectScreen(
         }
 
         diag.Show(veInit, panelStack);
+
+        if (firstIntro)
+        {
+            diagShower.Create()
+                .SetMessage("LV.SP.Welcome".T(t))
+                .Show();
+        }
     }
 
     public void Unload()
@@ -67,4 +94,9 @@ public class ScientificProjectScreen(
         ShowScienceDialog(notEnough: ev);
     }
 
+    public void Save(ISingletonSaver singletonSaver)
+    {
+        var s = singletonSaver.GetSingleton(SaveKey);
+        s.Set(IntroKey, firstIntroShowed);
+    }
 }
