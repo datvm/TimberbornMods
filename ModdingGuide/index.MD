@@ -1,6 +1,6 @@
 ---
 title: "Timberborn Modding Guide"
-description: A comprehensive guide for making mods for Timberborn
+description: A comprehensive guide to making mods for Timberborn
 date: 2025-03-13
 tags: mods timberborn guide modding
 ---
@@ -26,7 +26,7 @@ Useful external links:
 
 1. [Getting Started](./getting-started): Setting up your modding environment and making a simple code-less mod.
 2. [Modding Basics](./modding-basics): Make a simple C# mod for Timberborn.
-3. [Mod Settings and Harmony](./use-harmony): How to use Harmony to patch Timberborn's code and use Mod Settings to configure your mods.
+3. [Modding with Harmony and Mod Settings](./mod-settings-and-harmony): How to use Harmony to patch Timberborn's code and use Mod Settings to configure your mods.
 4. _(Optional)_ [Useful knowledge of Timberborn architecture](./timberborn-architecture): My experience and knowledge about Timberborn's codebase that may come in handy when making mods.
 5. _(Optional)_ [Advanced Modding Techniques](./advanced-modding): Some techniques I use in my mods to make modding easier and less repetitive.
 

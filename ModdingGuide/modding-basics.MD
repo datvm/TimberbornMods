@@ -1,6 +1,6 @@
 ---
 title: "Part 2: Modding Basics"
-description: A comprehensive guide for making mods for Timberborn
+description: A comprehensive guide to making mods for Timberborn
 date: 2025-03-13
 tags: mods timberborn guide modding
 ---
@@ -11,11 +11,11 @@ In this part, we will make a copy of [Faster Underwater Movement](https://steamc
 
 ## Tools
 
-Beside the assets from [previous part](./getting-started.MD#assetripper), you will need some more tools for coding mods.
+Besides the assets from [previous part](./getting-started.MD#assetripper), you will need some more tools for coding mods.
 
 ### .NET
 
-_Personal choice: .NET 9 or latest_
+_Personal choice: .NET 9 or the latest_
 
 The game uses .NET so you need to have the .NET SDK installed on your computer. The game uses `netstandard2.1` but you can install the latest version of the .NET SDK to use the latest language features as long as they are syntactical sugar and not new features.
 
@@ -153,7 +153,7 @@ public class ModSettings : ILoadableSingleton
 Using ILSpy or DnSpy, we can find the `SwimmingPenalty` field in `WalkerSpeedManager` class. We use reflection to set the value of this field to `-0.5f` to make beavers swim 50% faster.
 
 > **Warning:**  
-> I use Reflection here because the variable is a `readonly` one. However recently I discovered it's a bad idea to set a `readonly` field using reflection because of some optimization. Luckily for this mod it's only set once before the value is grabbed so it still work.
+> I use Reflection here because the variable is a `readonly` one. However, recently I discovered it's a bad idea to set a `readonly` field using reflection because of some optimization. Luckily, for this mod, it's only set once before the value is grabbed so it still work.
 
 ### Register the singleton
 
@@ -191,3 +191,7 @@ Personally, I find keeping VS Code open at the `Assets` folder, plus opening the
 ## Conclusion
 
 In this part, we have made a simple mod that makes beavers swim faster. We have also learned how to use reflection to modify the game's code. In the next part, we will learn how to use Harmony to patch the game's code and use Mod Settings to let players configure our mods.
+
+[Part 3: Modding with Harmony and Mod Settings](./mod-settings-and-harmony)
+
+[Back to Modding Guide](./)

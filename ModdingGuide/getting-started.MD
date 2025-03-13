@@ -1,6 +1,6 @@
 ---
 title: "Part 1: Getting Started"
-description: A comprehensive guide for making mods for Timberborn
+description: A comprehensive guide to making mods for Timberborn
 date: 2025-03-13
 tags: mods timberborn guide modding
 ---
@@ -11,13 +11,13 @@ In this part of the series, we will set up your modding environment and make a s
 
 ## A simple IDE
 
-You can use any IDE you like (even Notepad) but I recommend using Visual Studio Code because it is lightweight and has a lot of useful extensions for C# development.
+You can use any IDE you like (even Notepad) but I recommend using Visual Studio Code because it is lightweight.
 
 Download: https://code.visualstudio.com/
 
 ## AssetRipper
 
-AssetRipper is a tool that can extract game assets from Unity games. It is useful for modding because it allows you to extract textures, models, and other assets from the game and use them in your mods.
+AssetRipper is a tool that can extract game assets from Unity games. It is useful for modding because it allows you to extract textures, models, and other assets from the game to use them in your mods.
 
 - Download: https://github.com/AssetRipper/AssetRipper/releases
 
@@ -66,7 +66,7 @@ The above snippet is a basic manifest file for a mod. It's pretty self-explanato
 
 ### Step 2: Make a modification
 
-> [!WARNING]  
+> **Warning:**  
 > For Update 6, the game (and official modding guide) uses `Specifications` folder but for Update 7, it is renamed to `Blueprints`. I will use `Blueprints` in this guide.
 
 Now you can look at the Assets you have extracted and find something you want to modify. For example, I will modify the `Good.Log.log` blueprint (the Log resource) and reduce its weight from 6 to 3.
@@ -95,5 +95,7 @@ You can also put all above files into `version-0.7` folder so it will only loads
 Unfortunately, you cannot do much with JSON mods beside some simple modifications.
 
 In the next part, we will learn how to make mods with code.
+
+[Part 2: Modding Basics](./modding-basics)
 
 [Back to Modding Guide](./)
