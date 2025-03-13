@@ -1,11 +1,11 @@
 ---
-title: "Getting Started"
+title: "Part 1: Getting Started"
 description: A comprehensive guide for making mods for Timberborn
 date: 2025-03-13
 tags: mods timberborn guide modding
 ---
 
-[Home](/../..) / [Modding Guide](../) / Getting Started
+[Home](../) / [Modding Guide](./) / Getting Started
 
 In this part of the series, we will set up your modding environment and make a simple code-less mod. This will help you to understand the basic structure of a mod and how to make it work in Timberborn.
 
@@ -61,7 +61,7 @@ _Reference: [Official Timberborn Modding](https://github.com/mechanistry/timberb
 
 The above snippet is a basic manifest file for a mod. It's pretty self-explanatory and we can remove the `RequiredMods` and `OptionalMods` sections if we don't need them.
 
-> [!NOTE]  
+> **Note:**  
 > The game uses `0.7.0.0` for update 7 and `0.6.0.0` for update 6.
 
 ### Step 2: Make a modification
@@ -85,7 +85,15 @@ Now run the game, you should see your mod in the mod list and the Log resource s
 
 ![JSON mod](./img/jsonmod.jpg)
 
-> [!TIP]  
-> - You can use Dev Mode (<kbd>Alt + Shift Z</kbd>) to quickly test your mod.
+> **Tips:**  
+> You can use Dev Mode (<kbd>Alt + Shift Z</kbd>) to quickly test your mod.
 
 You can also put all above files into `version-0.7` folder so it will only loads for Update 7. For example it would be: `Documents\Timberborn\Mods\MyJsonMod\version-0.7\manifest.json`. This is how modders make mods compatible with multiple game versions.
+
+## Conclusion
+
+Unfortunately, you cannot do much with JSON mods beside some simple modifications.
+
+In the next part, we will learn how to make mods with code.
+
+[Back to Modding Guide](./)
