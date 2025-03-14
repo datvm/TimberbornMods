@@ -5,7 +5,7 @@
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Weather-related scientific projects.",
     "RequiredMods": [
-        { "Id": "ScientificProjects" },
+        { "Id": "ScientificProjects", "MinimumVersion": "7.0.4" },
         { "Id": "Harmony" }
     ]
 }
