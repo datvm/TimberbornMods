@@ -9,6 +9,7 @@ public class CharacterBuffComponent : BaseComponent
     BuffableComponent buffable = null!;
     BonusManager bonus = null!;
     OneTimeUnlockProcessor processor = null!;
+    WalkerSpeedManager? walker;
 
     [Inject]
     public void Inject(OneTimeUnlockProcessor processor)
@@ -20,6 +21,23 @@ public class CharacterBuffComponent : BaseComponent
     {
         buffable = GetComponentFast<BuffableComponent>();
         bonus = GetComponentFast<BonusManager>();
+        TryGetWalker();
+    }
+
+    WalkerSpeedManager? TryGetWalker()
+    {
+        if (walker == null)
+        {
+            try
+            {
+                walker = GetComponentFast<WalkerSpeedManager>();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError(ex);
+            }
+        }
+        return walker;
     }
 
     public void Start()
@@ -39,11 +57,11 @@ public class CharacterBuffComponent : BaseComponent
         // This is not used in this project but we process it anyway in case some other mods use it
         buffable.OnBuffActiveChanged += Buffable_OnBuffActiveChanged;
     }
-
+    
     void ActivateWheelbarrow()
     {
-        var walker = GetComponentFast<WalkerSpeedManager>()
-            ?? throw new MissingComponentException($"{nameof(WalkerSpeedManager)} component not found for Wheelbarrow activation");
+        var walker = TryGetWalker();
+        if (walker is null) { return; }
 
         var spec = walker._walkerSpeedManagerSpec;
         spec._baseSlowedSpeed = spec._baseWalkingSpeed;
@@ -55,7 +73,7 @@ public class CharacterBuffComponent : BaseComponent
 
     void ProcessBuffAddRemove(BuffInstance e, bool remove, bool ignoreActive = false)
     {
-        if (!ignoreActive  && !e.Active) { return; }
+        if (!ignoreActive && !e.Active) { return; }
 
         switch (e)
         {
