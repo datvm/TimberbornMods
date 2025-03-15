@@ -83,16 +83,13 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<Compile Include="$(GameSolutionFolder)GameAssemblyPublicizer\IgnoresAccessChecksToAttribute.cs" Link="IgnoresAccessChecksToAttribute.cs" />
+		<Compile Include="$(GameSolutionFolder)GameAssemblyPublicizer\IgnoresAccessChecks.cs" Link="IgnoresAccessChecks.cs" />
 		
 		<Reference Include="$(GameSolutionFolder)GameAssemblyPublicizer\out\**\*.dll">
 			<Private>false</Private>
 		</Reference>
 
 		<!-- These are not publicized -->
-		<Reference Include="$(AssemblyPath)\Unity*.dll">
-			<Private>false</Private>
-		</Reference>
 		<Reference Include="$(AssemblyPath)\System.Collections.Immutable.dll">
 			<Private>false</Private>
 		</Reference>
