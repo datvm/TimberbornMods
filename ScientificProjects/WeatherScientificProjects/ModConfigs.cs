@@ -8,6 +8,8 @@ public class ModStarter : IModStarter
 {
     public void StartMod(IModEnvironment modEnvironment)
     {
+        _ = WeatherUpgradeProcessor.WarningDays;
+
         new Harmony(nameof(WeatherScientificProjects)).PatchAll();
     }
 }

@@ -1,11 +1,11 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="Validate">
 
 	<Import Project=".\CommonProperties.target" />
-	
+
 	<Target Name="Validate">
 		<Error Condition="'$(OutputModFolderName)'==''" Text="OutputModFolderName was not specified" />
 	</Target>
-	
+
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<LangVersion>preview</LangVersion>
@@ -17,7 +17,7 @@
 	</PropertyGroup>
 
 
-	
+
 	<Target Name="CopyFiles" AfterTargets="PrepareFilesForCopy">
 		<Message Text="Deleting..." />
 		<RemoveDir Directories="$(ModFolder)" />
@@ -76,21 +76,28 @@
 		<Using Include="System.Collections.Immutable"/>
 		<Using Include="UnityEngine"/>
 	</ItemGroup>
-	
+
 	<ItemGroup>
-		<!-- Reference to the game's assemblies -->
-		<!-- First: To make sure the publicizer works -->
-		<ProjectReference Include="$(GameSolutionFolder)PublicizedAssemblies\PublicizedAssemblies.csproj" Private="False" />
+		<!-- Pre-publicized DLLs, to generate them, run GameAssemblyPublicizer once -->
+		<PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<Compile Include="$(GameSolutionFolder)GameAssemblyPublicizer\IgnoresAccessChecksToAttribute.cs" Link="IgnoresAccessChecksToAttribute.cs" />
 		
-		<!-- Then: import the DLLs -->
-		<Reference Include="$(GameSolutionFolder)PublicizedAssemblies\obj\Debug\**\publicized\**\*.dll" Private="False" />
+		<Reference Include="$(GameSolutionFolder)GameAssemblyPublicizer\out\**\*.dll">
+			<Private>false</Private>
+		</Reference>
 
 		<!-- These are not publicized -->
+		<Reference Include="$(AssemblyPath)\Unity*.dll">
+			<Private>false</Private>
+		</Reference>
 		<Reference Include="$(AssemblyPath)\System.Collections.Immutable.dll">
-			<Private>False</Private>
+			<Private>false</Private>
 		</Reference>
 		<Reference Include="$(AssemblyPath)\Newtonsoft.Json.dll">
-			<Private>False</Private>
+			<Private>false</Private>
 		</Reference>
 	</ItemGroup>
 

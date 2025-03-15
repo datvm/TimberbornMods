@@ -34,7 +34,7 @@ public class ScientificProjectRegistry(
         var sw = System.Diagnostics.Stopwatch.StartNew();
 
         LoadGroups();
-        
+
         LoadProjects();
         CheckForCircularRequirement();
 
@@ -77,6 +77,11 @@ public class ScientificProjectRegistry(
 
             p.DisplayName = t.T(p.NameKey);
             p.Effect = string.Format(t.T(p.EffectKey), [.. p.Parameters]);
+
+            if (p.LoreKey is not null)
+            {
+                p.Lore = t.T(p.LoreKey);
+            }
 
             if (p.HasScalingCost)
             {
@@ -177,7 +182,7 @@ public class ScientificProjectRegistry(
 
                 items.Add(required.Id);
                 curr = required.RequiredId;
-                
+
                 if (curr is null) { break; }
 
                 if (currCycle.Contains(curr))
@@ -188,5 +193,5 @@ public class ScientificProjectRegistry(
             }
         }
     }
-    
+
 }

@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
-		<TimberUiPath>$(ModPath)3430626620\$(TimberbornVersion)\**\*.dll</TimberUiPath>
+		<TimberUiPath>$(GameModsFolder)TimberUi\$(TimberbornVersion)\**\*.dll</TimberUiPath>
 	</PropertyGroup>
 
 	<ItemGroup>
