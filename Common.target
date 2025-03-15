@@ -23,7 +23,8 @@
 		<RemoveDir Directories="$(ModFolder)" />
 
 		<Message Text="Copying..." />
-		<Copy SourceFiles="$(OutputPath)manifest.json" DestinationFolder="$(ModFolder)" />
+		<Copy SourceFiles="@(ModManifestFile)" DestinationFolder="$(ModFolder)" />
+		<Copy SourceFiles="@(ModWorkshopDataFile)" DestinationFolder="$(ModFolder)..\" />
 		<Copy SourceFiles="@(DllFiles)" DestinationFolder="$(ModFolder)%(RecursiveDir)" />
 		<Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(ModFolder)Localizations\%(RecursiveDir)" />
 		<Copy SourceFiles="@(Sprites)" DestinationFolder="$(ModFolder)sprites\%(RecursiveDir)" />
@@ -45,10 +46,13 @@
 		<Content Include="Resources\**\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="Localizations\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="manifest.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="Localizations\**">
+		<Content Condition="Exists('workshop_data.json')" Include="workshop_data.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
