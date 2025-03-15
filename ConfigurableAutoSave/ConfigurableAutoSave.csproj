@@ -1,8 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-	<OutputModFolderName>ConfigurableAutoSave</OutputModFolderName>
-</PropertyGroup>
-<Import Project="../Common.target" />
-
+    <PropertyGroup>
+        <OutputModFolderName>ConfigurableAutoSave</OutputModFolderName>
+    </PropertyGroup>
+    <Import Project="../Common.target" />
 </Project>

@@ -1,8 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-	<OutputModFolderName>SaveEveryday</OutputModFolderName>
-</PropertyGroup>
-<Import Project="../Common.target" />
-
+    <PropertyGroup>
+        <OutputModFolderName>SaveEveryday</OutputModFolderName>
+    </PropertyGroup>
+    <Import Project="../Common.target" />
 </Project>

@@ -1,9 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-	<OutputModFolderName>ToggleAllMods</OutputModFolderName>
-</PropertyGroup>
-<Import Project="../Common.target" />
-	<Import Project="../CommonUI.target" />
-	
+    <PropertyGroup>
+        <OutputModFolderName>ToggleAllMods</OutputModFolderName>
+    </PropertyGroup>
+    <Import Project="../Common.target" />
+    <Import Project="../CommonUI.target" />
 </Project>
