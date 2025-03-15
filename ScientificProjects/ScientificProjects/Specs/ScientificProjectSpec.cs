@@ -14,6 +14,10 @@ public record ScientificProjectSpec : ComponentSpec
     public string NameKey { get; init; } = null!;
     public string DisplayName { get; internal set; } = null!;
 
+    [Serialize(true)]
+    public string? LoreKey { get; init; }
+    public string? Lore { get; internal set; }
+
     [Serialize]
     public string EffectKey { get; init; } = null!;
     public string Effect { get; internal set; } = null!;
