@@ -1,7 +1,7 @@
 ﻿using BepInEx.AssemblyPublicizer;
 using System.Collections.Immutable;
 
-ImmutableArray<string> Prefixes = ["Bindito.", "Timberborn."];
+ImmutableArray<string> Prefixes = ["Bindito.", "Timberborn.", "Unity"];
 const string GameAssembliesPath = @"E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed";
 ImmutableArray<string> SpecialFolders = [
     @"E:\SteamLibrary\steamapps\workshop\content\1062090\3283831040\version-0.7\Scripts",
