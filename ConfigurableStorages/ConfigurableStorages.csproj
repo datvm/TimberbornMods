@@ -1,15 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-	<OutputModFolderName>ConfigurableStorages</OutputModFolderName>
-</PropertyGroup>
-<Import Project="../Common.target" />
-
-	<ItemGroup>
-		<Reference Include="Timberborn.Stockpiles">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Stockpiles.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-	</ItemGroup>
-
+    <PropertyGroup>
+        <OutputModFolderName>ConfigurableStorages</OutputModFolderName>
+    </PropertyGroup>
+    <Import Project="../Common.target" />
+    <ItemGroup>
+        <Reference Include="Timberborn.Stockpiles">
+            <HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.Stockpiles.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
 </Project>
