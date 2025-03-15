@@ -1,6 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
-	<Import Project="../Common.target" />
+	<PropertyGroup>
+	<OutputModFolderName>ToolHotkey</OutputModFolderName>
+</PropertyGroup>
+<Import Project="../Common.target" />
 
 	<ItemGroup>
 	  <Folder Include="Blueprints\KeyBindingGroups\" />

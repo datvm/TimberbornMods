@@ -1,12 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+	<PropertyGroup>
+		<OutputModFolderName>ScientificProjects</OutputModFolderName>
+		<GameSolutionFolder>..\..\</GameSolutionFolder>
+	</PropertyGroup>
+
 	<Import Project="../../Common.target" />
 	<Import Project="../../CommonUI.target" />
 	<Import Project="../../CommonTimberUI.target" />
 	<Import Project="../../CommonBuffDebuff.target" />
 
-	<PropertyGroup>
-		<ModFolder>$(GameModsFolder)ScientificProjects\$(TimberbornVersion)\</ModFolder>
-	</PropertyGroup>
-	
 </Project>

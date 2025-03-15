@@ -1,12 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputModFolderName>AlwaysConnected</OutputModFolderName>
+	</PropertyGroup>
 
 	<Import Project="../Common.target" />
-
-	<ItemGroup>
-		<Reference Include="Timberborn.MechanicalSystem">
-			<HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.MechanicalSystem.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-	</ItemGroup>
-
+	<Import Project="../CommonHarmony.target" />
+	
 </Project>
