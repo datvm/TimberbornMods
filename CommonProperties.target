@@ -24,13 +24,15 @@
 		<ModFolder>$(GameModsFolder)$(OutputModFolderName)\$(TimberbornVersion)\</ModFolder>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<LocalizationFiles Include="$(OutputPath)Localizations\**\*.*" />
-		<DllFiles Include="$(OutputPath)\**\*.dll"/>
-		<Sprites Include="$(OutputPath)\Sprites\**\*"/>
-		<Blueprints Include="$(OutputPath)\Blueprints\**\*"/>
-		<Specifications Include="$(OutputPath)\Specifications\**\*"/>
-		<ModResources Include="$(OutputPath)\Resources\**\*"/>
-	</ItemGroup>
+	<Target Name="PrepareFilesForCopy" AfterTargets="Build">
+		<ItemGroup>
+			<LocalizationFiles Include="$(OutputPath)Localizations\**\*.*" />
+			<DllFiles Include="$(OutputPath)\**\*.dll"/>
+			<Sprites Include="$(OutputPath)\Sprites\**\*"/>
+			<Blueprints Include="$(OutputPath)\Blueprints\**\*"/>
+			<Specifications Include="$(OutputPath)\Specifications\**\*"/>
+			<ModResources Include="$(OutputPath)\Resources\**\*"/>
+		</ItemGroup>
+	</Target>
 
 </Project>

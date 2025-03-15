@@ -2,7 +2,8 @@
     <PropertyGroup>
         <IsBuffDebuff>true</IsBuffDebuff>
         <OutputModFolderName>BuffDebuff</OutputModFolderName>
-    </PropertyGroup>
+	</PropertyGroup>
+	
     <Import Project="../Common.target" />
     <Import Project="../CommonUI.target" />
     <Import Project="../CommonTimberUI.target" />

@@ -12,10 +12,10 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
         ModSettingDescriptor.CreateLocalized("CW.WindStrength")
             .SetLocalizedTooltip("CW.WindStrengthDesc"));
 
-    protected override string ModId => nameof(ConstantWind);
+    public override string ModId => nameof(ConstantWind);
     public override ModSettingsContext ChangeableOn => ModSettingsContext.All;
 
-    protected override void OnAfterLoad()
+    public override void OnAfterLoad()
     {
         AddCustomModSetting(windStrength, nameof(windStrength));
 

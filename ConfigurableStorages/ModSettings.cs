@@ -13,14 +13,14 @@ public class ModSettings : ModSettingsOwner, IUnloadableSingleton
         this.assets = assets;
     }
 
-    protected override string ModId => nameof(ConfigurableStorages);
+    public override string ModId => nameof(ConfigurableStorages);
 
     RangeIntModSetting globalMultiplier = null!;
 
     readonly Dictionary<string, ModSetting<int>> values = [];
     static readonly Dictionary<string, int> defaultValues = [];
 
-    protected override void OnAfterLoad()
+    public override void OnAfterLoad()
     {
         {
             globalMultiplier = new RangeIntModSetting(
