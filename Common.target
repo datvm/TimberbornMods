@@ -16,7 +16,9 @@
 		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
-	<Target Name="CopyFiles" AfterTargets="Build">
+
+	
+	<Target Name="CopyFiles" AfterTargets="PrepareFilesForCopy">
 		<Message Text="Deleting..." />
 		<RemoveDir Directories="$(ModFolder)" />
 

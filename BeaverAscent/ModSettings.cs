@@ -4,10 +4,11 @@ using Timberborn.MapStateSystem;
 namespace BeaverAscent;
 public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository)
 {
+    static readonly BindingFlags AllFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
 
-    static readonly FieldInfo MaxMapEditorTerrainHeightField = typeof(MapSize).GetField(nameof(MapSize.MaxMapEditorTerrainHeight));
-    static readonly FieldInfo MaxGameTerrainHeightField = typeof(MapSize).GetField(nameof(MapSize.MaxGameTerrainHeight));
-    static readonly FieldInfo MaxMapEditorAboveTerrainHeightField = typeof(MapSize).Field(nameof(MapSize.MaxHeightAboveTerrain));
+    static readonly FieldInfo MaxMapEditorTerrainHeightField = typeof(MapSize).GetField(nameof(MapSize.MaxMapEditorTerrainHeight), AllFlags);
+    static readonly FieldInfo MaxGameTerrainHeightField = typeof(MapSize).GetField(nameof(MapSize.MaxGameTerrainHeight), AllFlags);
+    static readonly FieldInfo MaxMapEditorAboveTerrainHeightField = typeof(MapSize).GetField(nameof(MapSize.MaxHeightAboveTerrain), AllFlags);
 
     public override string ModId => nameof(BeaverAscent);
     public override ModSettingsContext ChangeableOn => ModSettingsContext.All;
