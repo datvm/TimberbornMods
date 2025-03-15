@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Targets", "_Targets", "{F8
 		CommonBuffDebuff.target = CommonBuffDebuff.target
 		CommonDebug.target = CommonDebug.target
 		CommonHarmony.target = CommonHarmony.target
+		CommonProperties.target = CommonProperties.target
 		CommonScientificProjects.target = CommonScientificProjects.target
 		CommonTimberApi.target = CommonTimberApi.target
 		CommonTimberUI.target = CommonTimberUI.target
@@ -110,6 +111,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherScientificProjects", "ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj", "{2B9C5D23-6215-4F8E-9265-59A3F185EE14}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableAutoSave", "ConfigurableAutoSave\ConfigurableAutoSave.csproj", "{AC1EE00C-F5D1-4B3F-85B3-34D1AB163F62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicizedAssemblies", "PublicizedAssemblies\PublicizedAssemblies.csproj", "{596D74DA-6284-4273-8585-267AA5D27882}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -293,6 +296,10 @@ Global
 		{AC1EE00C-F5D1-4B3F-85B3-34D1AB163F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC1EE00C-F5D1-4B3F-85B3-34D1AB163F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC1EE00C-F5D1-4B3F-85B3-34D1AB163F62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{596D74DA-6284-4273-8585-267AA5D27882}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{596D74DA-6284-4273-8585-267AA5D27882}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{596D74DA-6284-4273-8585-267AA5D27882}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{596D74DA-6284-4273-8585-267AA5D27882}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -307,6 +314,7 @@ Global
 		{2C2E9AD7-CF3C-4ED2-A995-E2CD08143E88} = {1BC29315-F84D-4AA2-8157-84BF67FD6914}
 		{B345D031-25CD-4A24-2C28-D82FDF226056} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{2B9C5D23-6215-4F8E-9265-59A3F185EE14} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{596D74DA-6284-4273-8585-267AA5D27882} = {36EBDCB0-09D8-4A7D-AF62-89D5C49B6B44}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}

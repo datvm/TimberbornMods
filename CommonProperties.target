@@ -1,0 +1,36 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	
+	<PropertyGroup>
+		<ModPath>E:\SteamLibrary\steamapps\workshop\content\1062090\</ModPath>
+
+		<TimberbornVersion>version-0.7</TimberbornVersion>
+		<IsU6>false</IsU6>
+		<IsU7>false</IsU7>
+
+		<IsU6 Condition="$(TimberbornVersion)=='version-0.6'">true</IsU6>
+		<IsU7 Condition="$(TimberbornVersion)=='version-0.7'">true</IsU7>
+
+		<AssemblyPath Condition="$(IsU6)">D:\Personal\Mods\Timberborn\U6Data\AuxiliaryFiles\GameAssemblies\</AssemblyPath>
+		<AssemblyPath Condition="$(IsU7)">E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed</AssemblyPath>
+
+		<DefineConstants Condition="$(IsU6)">TIMBER6</DefineConstants>
+		<DefineConstants Condition="$(IsU7)">TIMBER7</DefineConstants>
+
+		<GameSolutionFolder Condition="'$(GameSolutionFolder)'==''">..\</GameSolutionFolder>		
+	</PropertyGroup>
+	
+	<PropertyGroup>		
+		<GameModsFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\</GameModsFolder>
+		<ModFolder>$(GameModsFolder)$(OutputModFolderName)\$(TimberbornVersion)\</ModFolder>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<LocalizationFiles Include="$(OutputPath)Localizations\**\*.*" />
+		<DllFiles Include="$(OutputPath)\**\*.dll"/>
+		<Sprites Include="$(OutputPath)\Sprites\**\*"/>
+		<Blueprints Include="$(OutputPath)\Blueprints\**\*"/>
+		<Specifications Include="$(OutputPath)\Specifications\**\*"/>
+		<ModResources Include="$(OutputPath)\Resources\**\*"/>
+	</ItemGroup>
+
+</Project>

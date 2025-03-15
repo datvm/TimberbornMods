@@ -1,5 +1,11 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="Validate">
 
+	<Import Project=".\CommonProperties.target" />
+	
+	<Target Name="Validate">
+		<Error Condition="'$(OutputModFolderName)'==''" Text="OutputModFolderName was not specified" />
+	</Target>
+	
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<LangVersion>preview</LangVersion>
@@ -8,36 +14,7 @@
 
 		<DebugSymbols>true</DebugSymbols>
 		<DebugType>embedded</DebugType>
-
-		<ModPath>E:\SteamLibrary\steamapps\workshop\content\1062090\</ModPath>
-
-		<TimberbornVersion>version-0.7</TimberbornVersion>
-		<IsU6>false</IsU6>
-		<IsU7>false</IsU7>
-
-		<IsU6 Condition="$(TimberbornVersion)=='version-0.6'">true</IsU6>
-		<IsU7 Condition="$(TimberbornVersion)=='version-0.7'">true</IsU7>
-
-		<AssemblyPath Condition="$(IsU6)">D:\Personal\Mods\Timberborn\U6Data\AuxiliaryFiles\GameAssemblies\</AssemblyPath>
-		<AssemblyPath Condition="$(IsU7)">E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed</AssemblyPath>
-
-		<DefineConstants Condition="$(IsU6)">TIMBER6</DefineConstants>
-		<DefineConstants Condition="$(IsU7)">TIMBER7</DefineConstants>
 	</PropertyGroup>
-
-	<PropertyGroup>
-		<GameModsFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\</GameModsFolder>
-		<ModFolder>$(GameModsFolder)Tmp\$(TimberbornVersion)\</ModFolder>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<LocalizationFiles Include="$(OutputPath)Localizations\**\*.*" />
-		<DllFiles Include="$(OutputPath)\**\*.dll"/>
-		<Sprites Include="$(OutputPath)\Sprites\**\*"/>
-		<Blueprints Include="$(OutputPath)\Blueprints\**\*"/>
-		<Specifications Include="$(OutputPath)\Specifications\**\*"/>
-		<ModResources Include="$(OutputPath)\Resources\**\*"/>
-	</ItemGroup>
 
 	<Target Name="CopyFiles" AfterTargets="Build">
 		<Message Text="Deleting..." />
@@ -51,9 +28,6 @@
 		<Copy SourceFiles="@(Blueprints)" DestinationFolder="$(ModFolder)blueprints\%(RecursiveDir)" />
 		<Copy SourceFiles="@(Specifications)" DestinationFolder="$(ModFolder)Specifications\%(RecursiveDir)" />
 		<Copy SourceFiles="@(ModResources)" DestinationFolder="$(ModFolder)Resources\%(RecursiveDir)" />
-
-		<!-- Delete the workshop_data.json just to be sure -->
-		<Delete Files="$(ModFolder)..\workshop_data.json" />
 	</Target>
 
 	<ItemGroup>
@@ -69,9 +43,16 @@
 		<Content Include="Resources\**\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="manifest.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Localizations\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 	<ItemGroup>
+		<!-- Common Global Usings-->
 		<Using Include="System.Reflection" />
 		<Using Include="Timberborn.ModManagerScene"/>
 		<Using Include="Bindito.Core"/>
@@ -88,45 +69,21 @@
 		<Using Include="Timberborn.TemplateSystem"/>
 		<Using Include="System.Collections.Immutable"/>
 		<Using Include="UnityEngine"/>
-
-		<None Update="manifest.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Localizations\**">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
 	</ItemGroup>
-
+	
 	<ItemGroup>
-		<!-- Publicizer -->
-		<PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
+		<!-- Reference to the game's assemblies -->
+		<!-- First: To make sure the publicizer works -->
+		<ProjectReference Include="$(GameSolutionFolder)PublicizedAssemblies\PublicizedAssemblies.csproj" Private="False" />
+		
+		<!-- Then: import the DLLs -->
+		<Reference Include="$(GameSolutionFolder)PublicizedAssemblies\obj\Debug\**\publicized\**\*.dll" Private="False" />
 
-		<!-- Game Assemblies -->
-		<Reference Include="$(AssemblyPath)\Unity*.dll" Publicize="true">
-			<DestinationSubDirectory>libs/</DestinationSubDirectory>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="$(AssemblyPath)\Timberborn.*.dll" Publicize="true">
-			<DestinationSubDirectory>libs/</DestinationSubDirectory>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="$(AssemblyPath)\Bindito.*.dll" Publicize="true">
-			<DestinationSubDirectory>libs/</DestinationSubDirectory>
-			<Private>False</Private>
-		</Reference>
+		<!-- These are not publicized -->
 		<Reference Include="$(AssemblyPath)\System.Collections.Immutable.dll">
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="$(AssemblyPath)\Newtonsoft.Json.dll">
-			<Private>False</Private>
-		</Reference>
-
-		<!-- Mod Settings -->
-		<Reference Include="$(ModPath)3283831040\$(TimberbornVersion)\Scripts\ModSettings.*.dll" Publicize="true">
-			<DestinationSubDirectory>libs/</DestinationSubDirectory>
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>

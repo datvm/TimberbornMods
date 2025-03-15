@@ -1,5 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+	
+	<PropertyGroup>
+		<OutputModFolderName>TimberUi</OutputModFolderName>
+	</PropertyGroup>
+	
 	<Import Project="../../Common.target" />
 	<Import Project="../../CommonUI.target" />
 	<Import Project="../../CommonTimberUI.target" />
@@ -8,9 +12,5 @@
 		<!-- Don't refer to itself -->
 		<Reference Condition="$(IsU7)" Remove="$(TimberUiPath)" />
 	</ItemGroup>
-
-	<PropertyGroup>
-		<ModFolder>$(GameModsFolder)\TimberUi\$(TimberbornVersion)\</ModFolder>
-	</PropertyGroup>
 
 </Project>

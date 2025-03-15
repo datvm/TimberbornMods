@@ -1,4 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	
+	<PropertyGroup>
+		<OutputModFolderName>TimberUiDemo</OutputModFolderName>
+	</PropertyGroup>
 
 	<Import Project="../../Common.target" />
 	<Import Project="../../CommonUI.target" />
@@ -11,9 +15,5 @@
 			<Private>False</Private>
 		</ProjectReference>
 	</ItemGroup>
-
-	<PropertyGroup>
-		<ModFolder>$(GameModsFolder)\TimberUiDemo\$(TimberbornVersion)\</ModFolder>
-	</PropertyGroup>
 
 </Project>
