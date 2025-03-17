@@ -4,6 +4,7 @@
         "GroupId": "Weather",
         "NameKey": "LV.WSP.Pred1",
         "EffectKey": "LV.WSP.Pred1Desc",
+        "LoreKey": "LV.WSP.Pred1Lore",
         "Icon": "Sprites/Projects/WeatherPred1",
         "ScienceCost": 150,
         "Parameters": [ 0.2, 0.05 ],

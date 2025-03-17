@@ -19,6 +19,11 @@ partial class ScientificProjectService
             return "LV.SP.UnlockErrUnlocked".T(t);
         }
 
+        if (proj.Factions?.Contains(factions.Current.Id) != true)
+        {
+            return "LV.SP.WrongFaction".T(t);
+        }
+
         if (proj.RequiredId is not null && !IsUnlocked(proj.RequiredId))
         {
             var reqProj = GetProjectSpec(proj.RequiredId);

@@ -4,6 +4,7 @@
         "GroupId": "Weather",
         "NameKey": "LV.WSP.DecreaseStr",
         "EffectKey": "LV.WSP.DecreaseStrDesc",
+        "LoreKey": "LV.WSP.DecreaseStrLore",
         "Icon": "Sprites/Projects/WeatherDecreaseStr",
         "ScienceCost": 1500,
         "Parameters": [],

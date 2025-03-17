@@ -5,6 +5,7 @@
         "GroupId": "WorkEff",
         "NameKey": "LV.SP.WorkEffUpgrade2",
         "EffectKey": "LV.SP.WorkEffUpgrade2Eff",
+        "LoreKey": "LV.SP.WorkEffUpgrade2Lore",
         "Icon": "Sprites/Projects/WorkEffUpgrade2",
         "ScienceCost": 15,
         "MaxSteps": 5,

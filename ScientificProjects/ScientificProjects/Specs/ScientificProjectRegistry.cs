@@ -12,7 +12,7 @@ public class ScientificProjectRegistry(
     FrozenDictionary<string, List<ScientificProjectSpec>> groupProjects = null!;
     ImmutableArray<ScientificProjectGroupSpec> allGroups = [];
 
-    internal FrozenDictionary<string, ScientificProjectSpec> projectsById = null!;
+    FrozenDictionary<string, ScientificProjectSpec> projectsById = null!;
     ILookup<string, ScientificProjectSpec> projectsUnlockedById = null!;
     ImmutableArray<ScientificProjectSpec> allProjects = [];
 
@@ -22,12 +22,19 @@ public class ScientificProjectRegistry(
     public IEnumerable<ScientificProjectGroupSpec> AllGroups => allGroups;
     public IEnumerable<ScientificProjectSpec> AllProjects => allProjects;
 
+    public bool TryGetProject(string id, [MaybeNullWhen(false)] out ScientificProjectSpec? project) => projectsById.TryGetValue(id, out project);
     public ScientificProjectSpec GetProject(string id) => projectsById[id];
     public ScientificProjectGroupSpec GetGroup(string id) => groupsById[id];
     public IProjectCostProvider GetCostProviderFor(string id) => costProvidersById[id];
     public IProjectUnlockConditionProvider GetUnlockConditionProviderFor(string id) => unlockConditionProvidersById[id];
 
     public IEnumerable<ScientificProjectSpec> GetProjects(string groupId) => groupProjects[groupId];
+    public IEnumerable<ScientificProjectSpec> GetProjects(string groupId, string? faction)
+    {
+        var projects = GetProjects(groupId);
+        
+        return faction is null ? projects : projects.Where(q => q.IsAvailableTo(faction));
+    }
 
     public void Load()
     {

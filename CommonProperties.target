@@ -1,5 +1,5 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	
+
 	<PropertyGroup>
 		<ModPath>E:\SteamLibrary\steamapps\workshop\content\1062090\</ModPath>
 
@@ -16,12 +16,12 @@
 		<DefineConstants Condition="$(IsU6)">TIMBER6</DefineConstants>
 		<DefineConstants Condition="$(IsU7)">TIMBER7</DefineConstants>
 
-		<GameSolutionFolder Condition="'$(GameSolutionFolder)'==''">..\</GameSolutionFolder>		
-	</PropertyGroup>
-	
-	<PropertyGroup>		
+		<GameSolutionFolder Condition="'$(GameSolutionFolder)'==''">..\</GameSolutionFolder>
 		<GameModsFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\</GameModsFolder>
 		<ModFolder>$(GameModsFolder)$(OutputModFolderName)\$(TimberbornVersion)\</ModFolder>
+
+		<!-- For ignoring Member Accessibility, see https://stackoverflow.com/a/79512179/653457 -->
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 
 	<Target Name="PrepareFilesForCopy" AfterTargets="Build">

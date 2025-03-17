@@ -4,6 +4,7 @@
         "GroupId": "Logistics",
         "NameKey": "LV.SP.MoveSpeedUpgrade1",
         "EffectKey": "LV.SP.MoveSpeedUpgradeEff",
+        "LoreKey": "LV.SP.MoveSpeedUpgrade1Lore",
         "Icon": "Sprites/Projects/ms1",
         "ScienceCost": 150,
         "Parameters": [ 0.07 ],

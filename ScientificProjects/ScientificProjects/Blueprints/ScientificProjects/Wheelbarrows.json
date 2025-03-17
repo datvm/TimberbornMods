@@ -4,6 +4,7 @@
         "GroupId": "Logistics",
         "NameKey": "LV.SP.Wheelbarrows",
         "EffectKey": "LV.SP.WheelbarrowsEff",
+        "LoreKey": "LV.SP.WheelbarrowsLore",
         "Icon": "Sprites/Projects/wheelbarrow",
         "ScienceCost": 350,
         "Parameters": [],

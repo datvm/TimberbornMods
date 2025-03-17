@@ -63,7 +63,7 @@ public partial class ScientificProjectDialog : DialogBoxElement
 
     void ReloadList()
     {
-        var groups = projects.GetAllProjectGroups();
+        var groups = projects.GetAllProjectGroups(true);
 
         foreach (var g in groups)
         {

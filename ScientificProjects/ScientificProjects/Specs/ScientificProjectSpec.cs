@@ -18,6 +18,9 @@ public record ScientificProjectSpec : ComponentSpec
     public string? LoreKey { get; init; }
     public string? Lore { get; internal set; }
 
+    [Serialize(true)]
+    public ImmutableArray<string>? Factions { get; init; }
+
     [Serialize]
     public string EffectKey { get; init; } = null!;
     public string Effect { get; internal set; } = null!;

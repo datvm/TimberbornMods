@@ -5,6 +5,7 @@
         "GroupId": "Weather",
         "NameKey": "LV.WSP.Ext2",
         "EffectKey": "LV.WSP.Ext2Desc",
+        "LoreKey": "LV.WSP.Ext2Lore",
         "Icon": "Sprites/Projects/WeatherExt2",
         "ScienceCost": 450,
         "Parameters": [ 1 ],

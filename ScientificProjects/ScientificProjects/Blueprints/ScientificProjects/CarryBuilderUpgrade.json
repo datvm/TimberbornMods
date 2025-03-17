@@ -5,6 +5,7 @@
         "GroupId": "Logistics",
         "NameKey": "LV.SP.CarryBuilderUpgrade",
         "EffectKey": "LV.SP.CarryBuilderUpgradeEff",
+        "LoreKey": "LV.SP.CarryBuilderUpgradeLore",
         "Icon": "Sprites/Projects/carrybuilder",
         "ScienceCost": 2,
         "MaxSteps": 8,
