@@ -1,0 +1,8 @@
+{
+    "ScientificProjectGroupSpec": {
+        "Id": "Factions",
+        "NameKey": "LV.SP.FactionsGroup",
+        "DescKey": "LV.SP.FactionsGroupDesc",
+        "Order": 40
+    }
+}

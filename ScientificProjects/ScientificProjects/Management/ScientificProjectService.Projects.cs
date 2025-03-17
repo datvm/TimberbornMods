@@ -74,7 +74,7 @@ partial class ScientificProjectService
         {
             faction = factions.Current.Id;
         }
-
+        
         return RunWithProjectCache<IEnumerable<ScientificProjectGroupInfo>>(() =>
         {
             return [..AllGroups.Select(q => new ScientificProjectGroupInfo(

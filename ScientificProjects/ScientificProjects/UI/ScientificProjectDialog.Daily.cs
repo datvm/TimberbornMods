@@ -70,7 +70,7 @@ partial class ScientificProjectDialog
     void OnDailyCostChanged()
     {
         SetDailyCost();
-        SetCurrentScience(sciences.SciencePoints, dailyCost);
+        SetCurrentScience(sciences.SciencePoints, dailyCost, projects.ScienceGainedToday);
     }
 
     void OnCloseButtonClicked()
@@ -103,9 +103,15 @@ partial class ScientificProjectDialog
         lblDailyCost.text = "LV.SP.NextDayCost".T(t, NumberFormatter.Format(dailyCost));
     }
 
-    void SetCurrentScience(int current, int dailyCost)
+    void SetCurrentScience(int current, int dailyCost, int? gainedYesterday)
     {
-        var text = "LV.SP.CurrentScience".T(t, NumberFormatter.Format(current));
+        var formattedSci = NumberFormatter.Format(current);
+
+        var text = gainedYesterday is null
+            ? "LV.SP.CurrentScience".T(t, formattedSci)
+            : "LV.SP.CurrentSciencePlus".T(t, 
+                formattedSci,
+                (gainedYesterday > 0 ? "+" : "") + NumberFormatter.Format(gainedYesterday.Value));
 
         if (current < dailyCost)
         {
@@ -123,7 +129,6 @@ partial class ScientificProjectDialog
     public void AddNotEnoughScience(OnScientificProjectDailyNotEnoughEvent e)
     {
         isPaying = true;
-        SetCurrentScience(e.Current, e.Need);
         pnlNotEnough.ToggleDisplayStyle(true);
     }
 

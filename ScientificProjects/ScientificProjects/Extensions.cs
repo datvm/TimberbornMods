@@ -24,7 +24,7 @@ public static class ResearchProjectsModExtensions
         return result;
     }
 
-    public static int LevelOr0(this IProjectCostProvider _, ScientificProjectInfo info, Func<int, int> calculate) 
+    public static int LevelOr0(this IProjectCostProvider _, ScientificProjectInfo info, Func<int, int> calculate)
         => info.Level == 0 ? 0 : calculate(info.Level);
     public static int LevelOr0F(this IProjectCostProvider _, ScientificProjectInfo info, Func<int, float> calculate)
         => info.Level == 0 ? 0 : (int)MathF.Ceiling(calculate(info.Level));
@@ -44,8 +44,8 @@ public static class ResearchProjectsModExtensions
                 : GameWeatherStage.Temperate);
     }
 
-    public static bool IsAvailableTo(this ScientificProjectSpec spec, string factionId) => spec.Factions is null || spec.Factions.Value.Contains(factionId);
-
+    public static bool IsAvailableTo(this ScientificProjectSpec spec, string factionId) 
+        => spec.Factions.Length == 0 || spec.Factions.Contains(factionId);
 }
 
 public enum GameWeatherStage

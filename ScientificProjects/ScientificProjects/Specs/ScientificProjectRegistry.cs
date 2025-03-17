@@ -122,10 +122,20 @@ public class ScientificProjectRegistry(
             .Where(p => p.RequiredId is not null)
             .ToLookup(p => p.RequiredId!);
 
-        groupProjects = allProjects.GroupBy(q => q.GroupId)
-            .ToFrozenDictionary(
+        var groups = allProjects.GroupBy(q => q.GroupId)
+            .ToDictionary(
                 q => q.Key,
                 q => q.OrderBy(q => q.Order).ToList());
+
+        // For empty groups
+        foreach (var g in allGroups)
+        {
+            if (!groups.ContainsKey(g.Id))
+            {
+                groups[g.Id] = [];
+            }
+        }
+        groupProjects = groups.ToFrozenDictionary();
     }
 
     void LoadCostProviders()

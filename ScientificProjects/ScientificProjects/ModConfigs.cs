@@ -29,11 +29,13 @@ public class ModGameConfig : Configurator
             TemplateModule.Builder b = new();
             b.AddDecorator<BeaverSpec, BeaverBuffComponent>();
             b.AddDecorator<Character, CharacterBuffComponent>();
+            b.AddDecorator<Manufactory, ManufactoryBuffComponent>();
             return b.Build();
         }).AsSingleton();
 
         // Type Trackers
         MultiBind<ITrackingEntities>().To<BuilderTrackingWorkplace>().AsSingleton();
+        MultiBind<ITrackingEntities>().To<ManufactoryEntityTracker>().AsSingleton();
     }
 
 }
