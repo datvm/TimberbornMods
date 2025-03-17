@@ -3,7 +3,7 @@ LV.WSP.WeatherGroup,"Weather",
 LV.WSP.WeatherGroupDesc,"Scientific projects related to the weather & forecast",
 LV.WSP.Ext1,"Galesniffer's Totem",
 LV.WSP.Ext1Desc,"Warnings of bad weather come {0:+#} day earlier.",
-LV.WSP.Ext1Lore,"A simple pole where your beavers can 'sniff' the wind for early weather hints."
+LV.WSP.Ext1Lore,"A simple pole where your beavers can 'sniff' the wind for early weather hints.",
 LV.WSP.Ext2,"Mistweaver's Dial",
 LV.WSP.Ext2Desc,"Warnings of bad weather come {0:+#} day earlier.",
 LV.WSP.Ext2Lore,"A dial that can predict the weather based on the humidity and air pressure.",

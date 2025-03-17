@@ -116,6 +116,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrainPowerSPs", "Scientific
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameAssemblyPublicizer", "GameAssemblyPublicizer\GameAssemblyPublicizer.csproj", "{B3F3BF1B-D82E-4D56-98FE-8B5CCB2DD9CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableHousing", "ConfigurableHousing\ConfigurableHousing.csproj", "{D7C6E893-3AA0-4771-A992-E93AA3B3519C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -302,6 +304,10 @@ Global
 		{B3F3BF1B-D82E-4D56-98FE-8B5CCB2DD9CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3F3BF1B-D82E-4D56-98FE-8B5CCB2DD9CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3F3BF1B-D82E-4D56-98FE-8B5CCB2DD9CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7C6E893-3AA0-4771-A992-E93AA3B3519C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7C6E893-3AA0-4771-A992-E93AA3B3519C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7C6E893-3AA0-4771-A992-E93AA3B3519C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7C6E893-3AA0-4771-A992-E93AA3B3519C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
