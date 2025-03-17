@@ -20,7 +20,7 @@ partial class ScientificProjectService
 
     public bool TryGetProjectSpec(string id, [MaybeNullWhen(false)] out ScientificProjectSpec spec)
     {
-        return registry.projectsById.TryGetValue(id, out spec);
+        return registry.TryGetProject(id, out spec);
     }
 
     public ScientificProjectSpec GetProjectSpec(string id) => registry.GetProject(id);
@@ -67,13 +67,20 @@ partial class ScientificProjectService
         return result;
     }
 
-    public IEnumerable<ScientificProjectGroupInfo> GetAllProjectGroups()
+    public IEnumerable<ScientificProjectGroupInfo> GetAllProjectGroups(bool currentFactionOnly = false)
     {
+        string? faction = null;
+        if (currentFactionOnly)
+        {
+            faction = factions.Current.Id;
+        }
+
         return RunWithProjectCache<IEnumerable<ScientificProjectGroupInfo>>(() =>
         {
             return [..AllGroups.Select(q => new ScientificProjectGroupInfo(
                 q,
-                [..registry.GetProjects(q.Id)
+                [..registry
+                    .GetProjects(q.Id, faction)
                     .Select(q => GetProject(q))],
                 IsGroupCollased(q.Id)
             ))];

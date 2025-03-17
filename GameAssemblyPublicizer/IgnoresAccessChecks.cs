@@ -449,3 +449,14 @@
 [assembly: System.Runtime.CompilerServices.IgnoresAccessChecksToAttribute("Timberborn.ZiplineMovementSystem")]
 [assembly: System.Runtime.CompilerServices.IgnoresAccessChecksToAttribute("Timberborn.ZiplineSystem")]
 [assembly: System.Runtime.CompilerServices.IgnoresAccessChecksToAttribute("Timberborn.ZiplineSystemUI")]
+
+namespace System.Runtime.CompilerServices
+{
+    [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
+    internal sealed class IgnoresAccessChecksToAttribute : Attribute
+    {
+        public IgnoresAccessChecksToAttribute(string assemblyName)
+        {
+        }
+    }
+}

@@ -4,6 +4,7 @@
         "GroupId": "Emergencies",
         "NameKey": "LV.SP.EmergencyDrill2",
         "EffectKey": "LV.SP.EmergencyDrill2Desc",
+        "LoreKey": "LV.SP.EmergencyDrill2Lore",
         "Icon": "Sprites/Projects/drill2",
         "ScienceCost": 1500,
         "HasCustomUnlockCondition": true,

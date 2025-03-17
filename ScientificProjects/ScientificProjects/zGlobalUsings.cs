@@ -27,3 +27,4 @@ global using Timberborn.WellbeingUI;
 global using Timberborn.WorkSystem;
 global using UiBuilder.CommonUi;
 global using System.Collections;
+global using Timberborn.GameFactionSystem;

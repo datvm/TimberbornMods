@@ -10,6 +10,7 @@ public class ProjectRowInfo : VisualElement
 
     public event Action<ScientificProjectSpec, int, ProjectRowInfo> OnLevelSelected = delegate { };
 
+    static readonly ImmutableArray<string> FlavorTextClasses = ["flavor-text"];
     public ProjectRowInfo SetInfo(ScientificProjectInfo p, Texture2D defaultIcon, ILoc t)
     {
         this.defaultIcon = defaultIcon;
@@ -26,7 +27,21 @@ public class ProjectRowInfo : VisualElement
             display = display.Italic();
         }
         this.AddGameLabel(display, size: UiBuilder.GameLabelSize.Big);
-        this.AddGameLabel(spec.Effect).SetMarginBottom();
+        var lblEff = this.AddGameLabel(spec.Effect);
+
+        if (spec.Lore is null)
+        {
+            lblEff.SetMarginBottom();
+        }
+        else
+        {
+            this.AddGameLabel(
+                text: spec.Lore,
+                name: "Lore",
+                color: UiBuilder.GameLabelColor.Yellow,
+                additionalClasses: FlavorTextClasses)
+                .SetMarginBottom();
+        }
 
         if (spec.HasScalingCost)
         {

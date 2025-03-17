@@ -1,11 +1,13 @@
-﻿namespace ScientificProjects.Management;
+﻿
+namespace ScientificProjects.Management;
 
 public partial class ScientificProjectService(
     ISingletonLoader loader,
     ScientificProjectRegistry registry,
     EventBus eb,
     ScienceService sciences,
-    ILoc t
+    ILoc t,
+    FactionService factions
 ) : ILoadableSingleton, ISaveableSingleton, IUnloadableSingleton
 {
     

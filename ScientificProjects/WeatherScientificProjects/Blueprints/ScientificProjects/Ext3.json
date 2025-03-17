@@ -5,6 +5,7 @@
         "GroupId": "Weather",
         "NameKey": "LV.WSP.Ext3",
         "EffectKey": "LV.WSP.Ext3Desc",
+        "LoreKey": "LV.WSP.Ext3Lore",
         "Icon": "Sprites/Projects/WeatherExt3",
         "MaxSteps": 3,
         "ScienceCost": 20,
