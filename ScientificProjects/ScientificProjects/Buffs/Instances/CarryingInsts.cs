@@ -1,5 +1,4 @@
-﻿using Timberborn.Bots;
-
+﻿
 namespace ScientificProjects.Buffs;
 
 public class CarryingUpgradeBuffInst : CommonProjectBeaverBuffInstance<ResearchProjectsBuff>

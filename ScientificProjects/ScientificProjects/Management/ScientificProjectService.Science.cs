@@ -19,7 +19,7 @@ partial class ScientificProjectService
             return "LV.SP.UnlockErrUnlocked".T(t);
         }
 
-        if (proj.Factions?.Contains(factions.Current.Id) != true)
+        if (!proj.IsAvailableTo(factions.Current.Id))
         {
             return "LV.SP.WrongFaction".T(t);
         }

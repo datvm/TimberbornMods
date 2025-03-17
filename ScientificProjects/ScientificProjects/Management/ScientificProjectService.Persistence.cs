@@ -7,7 +7,9 @@ partial class ScientificProjectService
     static readonly ListKey<string> CollapsedGroupsKey = new("CollapsedGroups");
     static readonly ListKey<string> ProjectLevelsKey = new("ProjectLevels");
     static readonly ListKey<string> TodayProjectLevelsKey = new("TodayProjectLevels");
-
+    static readonly PropertyKey<int> YesterdayScienceKey = new("YesterdayScience");
+    static readonly PropertyKey<int> ScienceGainedKey = new("ScienceGained");
+    static readonly PropertyKey<bool> HasYesterdayScienceKey = new("HasYesterdayScience");
 
     public void Load()
     {
@@ -32,6 +34,10 @@ partial class ScientificProjectService
 
         LoadSavedDict(s, TodayProjectLevelsKey, todayLevels);
         FixSavedDataIfNeeded(todayLevels, "Today levels");
+
+        if (s.Has(YesterdayScienceKey)) { yesterdayScience = s.Get(YesterdayScienceKey); }
+        if (s.Has(ScienceGainedKey)) { ScienceGainedToday = s.Get(ScienceGainedKey); }
+        if (s.Has(HasYesterdayScienceKey)) { hasYesterdayScience = s.Get(HasYesterdayScienceKey); }
     }
 
     void LoadSavedDict(IObjectLoader loader, ListKey<string> key, Dictionary<string, int> dict)
@@ -85,6 +91,9 @@ partial class ScientificProjectService
 
         s.Set(UnlockedProjectsKey, unlockedProjects);
         s.Set(CollapsedGroupsKey, collapsedGroupIds);
+        s.Set(YesterdayScienceKey, yesterdayScience);
+        s.Set(ScienceGainedKey, ScienceGainedToday ?? 0);
+        s.Set(HasYesterdayScienceKey, hasYesterdayScience);
         SaveDict(s, ProjectLevelsKey, levels);
         SaveDict(s, TodayProjectLevelsKey, todayLevels);
     }

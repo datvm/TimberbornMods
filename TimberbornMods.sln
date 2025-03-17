@@ -118,6 +118,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameAssemblyPublicizer", "G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableHousing", "ConfigurableHousing\ConfigurableHousing.csproj", "{D7C6E893-3AA0-4771-A992-E93AA3B3519C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnlockableRecipe", "UnlockableRecipe", "{DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnlockableRecipe", "UnlockableRecipe\UnlockableRecipe.csproj", "{71D4AB22-50FD-4CE1-8408-5F532FCC9224}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -308,6 +312,10 @@ Global
 		{D7C6E893-3AA0-4771-A992-E93AA3B3519C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7C6E893-3AA0-4771-A992-E93AA3B3519C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7C6E893-3AA0-4771-A992-E93AA3B3519C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71D4AB22-50FD-4CE1-8408-5F532FCC9224}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71D4AB22-50FD-4CE1-8408-5F532FCC9224}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71D4AB22-50FD-4CE1-8408-5F532FCC9224}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71D4AB22-50FD-4CE1-8408-5F532FCC9224}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -327,6 +335,7 @@ Global
 		{2B9C5D23-6215-4F8E-9265-59A3F185EE14} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{C5A01972-897C-41C6-95A6-61BD233551C1} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{B3F3BF1B-D82E-4D56-98FE-8B5CCB2DD9CC} = {36EBDCB0-09D8-4A7D-AF62-89D5C49B6B44}
+		{71D4AB22-50FD-4CE1-8408-5F532FCC9224} = {DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}

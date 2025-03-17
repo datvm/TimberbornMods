@@ -2,7 +2,8 @@
 using System.Collections.Frozen;
 using System.Text.Json;
 
-const string Input = """
+const string FileInput = @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\wood\forester\Forester.Folktails.prefab";
+string input = """
     - {fileID: 2100000, guid: 43830de5a666cdb4a98ea4c530b01c94, type: 2}
     - {fileID: 2100000, guid: 34e965c6cf90d6f4d8809140bb342d17, type: 2}
         - {fileID: 2100000, guid: 43830de5a666cdb4a98ea4c530b01c94, type: 2}
@@ -18,18 +19,25 @@ const string Input = """
     - {fileID: 2100000, guid: 77c4c296ca4321549990642014cfb34c, type: 2}
     """;
 
+if (!string.IsNullOrEmpty(FileInput))
+{
+    input = await File.ReadAllTextAsync(FileInput);
+}
+
 FileMapper mapper = new();
 await mapper.LoadAsync();
 
-List<GameFile?> output = [];
-foreach (var line in Input.Split('\n'))
+List<(string, GameFile)?> output = [];
+HashSet<string> parsedGuid = [];
+foreach (var line in input.Split('\n'))
 {
     var guid = ParseForGuid(line);
-    if (guid is null) { continue; }
+    if (guid is null || parsedGuid.Contains(guid)) { continue; }
 
+    parsedGuid.Add(guid);
     if (mapper.FilesByGuid.TryGetValue(guid, out var file))
     {
-        output.Add(file);
+        output.Add((guid, file));
     }
     else
     {
@@ -37,11 +45,25 @@ foreach (var line in Input.Split('\n'))
     }
 }
 
-Console.WriteLine(string.Join(Environment.NewLine,
-    output
-        .Select(q => $"\"{q?.Path[FileMapper.AssetFolder.Length..] ?? "N/A"}\",")
-        .Distinct()
-));
+foreach (var o in output)
+{
+    if (o is null) { continue; }
+    var (guid, f) = o.Value;
+
+    var print = f.Path[FileMapper.AssetFolder.Length..];
+    if (f.Path.EndsWith(".mat"))
+    {
+        print = print.Replace("Resources/", "").Replace(".mat", "");
+        print = $"\"{print}\"";
+    }
+    else
+    {
+        print = $"{guid}: {print}";
+    }
+
+    Console.WriteLine(print);
+}
+
 
 string? ParseForGuid(string line)
 {
@@ -90,7 +112,7 @@ public class FileMapper
         ConcurrentBag<GameFile> files = [];
 
         await Parallel.ForEachAsync(
-            Directory.EnumerateFiles(AssetFolder, "*.meta", SearchOption.AllDirectories), 
+            Directory.EnumerateFiles(AssetFolder, "*.meta", SearchOption.AllDirectories),
             new ParallelOptions()
             {
                 MaxDegreeOfParallelism = 1,
@@ -111,11 +133,11 @@ public class FileMapper
 
                         path = path[..^".meta".Length].Replace('\\', '/');
                         files.Add(new(guid,
-                            path, 
+                            path,
                             Path.GetFileName(path)));
                         return;
                     }
-                }                
+                }
             });
 
         await using var fs = File.Create(FileName);

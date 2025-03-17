@@ -19,14 +19,21 @@ public record ScientificProjectSpec : ComponentSpec
     public string? Lore { get; internal set; }
 
     [Serialize(true)]
-    public ImmutableArray<string>? Factions { get; init; }
+    public ImmutableArray<string> Factions
+    {
+        get;
+        init
+        {
+            field = value == default ? [] : value;
+        }
+    } = [];
 
     [Serialize]
     public string EffectKey { get; init; } = null!;
     public string Effect { get; internal set; } = null!;
 
     [Serialize(isOptional: true)]
-    public ImmutableArray<float> Parameters { get; init; } 
+    public ImmutableArray<float> Parameters { get; init; }
 
     [Serialize]
     public int ScienceCost { get; init; }

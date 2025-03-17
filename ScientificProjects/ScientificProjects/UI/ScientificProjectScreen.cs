@@ -13,11 +13,10 @@ public class ScientificProjectScreen(
     EventBus eb,
     ScienceService sciences,
     BindableButtonFactory bindableButtonFac,
-    ISingletonLoader loader
-) : ILoadableSingleton, IUnloadableSingleton, ISaveableSingleton
+    ISettings settings
+) : ILoadableSingleton, IUnloadableSingleton
 {
-    static readonly SingletonKey SaveKey = new("ScientificProjectScreen");
-    static readonly PropertyKey<bool> IntroKey = new("FirstIntro");
+    static readonly string FirstIntroKey = $"ScientificProjects.FirstIntro";
 
     bool firstIntroShowed;
     const string Keybinding = "ScientificProjectDialog";
@@ -34,16 +33,15 @@ public class ScientificProjectScreen(
         if (!firstIntroShowed)
         {
             firstIntroShowed = true;
+            settings.SetBool(FirstIntroKey, true);
+
             ShowScienceDialog(firstIntro: true);
         }
     }
 
     void LoadSavedData()
     {
-        if (!loader.HasSingleton(SaveKey)) { return; }
-
-        var s = loader.GetSingleton(SaveKey);
-        firstIntroShowed = s.Has(IntroKey) && s.Get(IntroKey);
+        firstIntroShowed = settings.GetBool(FirstIntroKey);
     }
 
     void RegisterScienceClick()
@@ -94,9 +92,4 @@ public class ScientificProjectScreen(
         ShowScienceDialog(notEnough: ev);
     }
 
-    public void Save(ISingletonSaver singletonSaver)
-    {
-        var s = singletonSaver.GetSingleton(SaveKey);
-        s.Set(IntroKey, firstIntroShowed);
-    }
 }

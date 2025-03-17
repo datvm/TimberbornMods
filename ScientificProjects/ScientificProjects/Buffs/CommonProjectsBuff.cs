@@ -1,5 +1,4 @@
-﻿
-namespace ScientificProjects.Buffs;
+﻿namespace ScientificProjects.Buffs;
 
 public abstract class CommonProjectsBuff(
     ISingletonLoader loader,

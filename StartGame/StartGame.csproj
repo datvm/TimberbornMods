@@ -17,12 +17,13 @@
 		<!--<ProjectReference Include="..\TestMod\TestMod.csproj" />-->
 		<!--<ProjectReference Include="..\TImprove4Modders\TImprove4Modders.csproj" />-->
 		<!--<ProjectReference Include="..\BuffDebuff\BuffDebuff.csproj" />-->
-		
+		<ProjectReference Include="..\UnlockableRecipe\UnlockableRecipe.csproj" />
+
 		<!--<ProjectReference Include="..\ScientificProjects\ScientificProjects\ScientificProjects.csproj" />-->
 		<!--<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />-->
 		<!--<ProjectReference Include="..\ScientificProjects\BrainPowerSPs\BrainPowerSPs.csproj" />-->
 
-		<ProjectReference Include="..\ConfigurableHousing\ConfigurableHousing.csproj" />
+		<!--<ProjectReference Include="..\ConfigurableHousing\ConfigurableHousing.csproj" />-->
 		
 	</ItemGroup>
 

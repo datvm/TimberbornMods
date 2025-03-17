@@ -10,20 +10,24 @@ public class ResearchProjectsBuff(
     static readonly SingletonKey SaveKey = new("ResearchProjectsBuff");
     protected override SingletonKey SingletonKey => SaveKey;
 
+    public const string FolktailsFactionUpgrade = "FtPlankUpgrade";
+    public const string IronTeethFactionUpgrade = "ItSmelterUpgrade";
+
     public static readonly ImmutableHashSet<string> MoveSpeedUpgrades = ["MoveSpeedUp1", "MoveSpeedUp2", "MoveSpeedUp3"];
     public static readonly ImmutableHashSet<string> OnceCarryUpgrades = ["CarryUpgrade1"];
     public static readonly ImmutableHashSet<string> OnceWorkEffUpgrades = ["WorkEffUpgrade1"];
+    public static readonly ImmutableHashSet<string> OnceFactionUpgrades = [FolktailsFactionUpgrade, IronTeethFactionUpgrade];
 
     public static readonly ImmutableHashSet<string> CarryBuilderUpgrade = ["CarryBuilderUpgrade"];
     public static readonly ImmutableHashSet<string> WorkEffDailyUpgrade = ["WorkEffUpgrade2"];
 
-    public static readonly ImmutableArray<string> AllWorkEffUpgrades = [.. OnceWorkEffUpgrades, ..WorkEffDailyUpgrade];
+    public static readonly ImmutableArray<string> AllWorkEffUpgrades = [.. OnceWorkEffUpgrades, .. WorkEffDailyUpgrade];
 
-    protected override HashSet<string> SupportedOneTimeIds { get; } = [.. MoveSpeedUpgrades, .. OnceCarryUpgrades, .. OnceWorkEffUpgrades,];
-    protected override HashSet<string> SupportedDailyIds { get; } = [..CarryBuilderUpgrade, ..WorkEffDailyUpgrade];
+    protected override HashSet<string> SupportedOneTimeIds { get; } = [.. MoveSpeedUpgrades, .. OnceCarryUpgrades, .. OnceWorkEffUpgrades, .. OnceFactionUpgrades];
+    protected override HashSet<string> SupportedDailyIds { get; } = [.. CarryBuilderUpgrade, .. WorkEffDailyUpgrade];
 
     protected override IEnumerable<Type> DailyBuffInstanceTypes { get; } = [];
-    
+
     protected override void ProcessDailyBuffs(IEnumerable<ScientificProjectInfo> activeProjects)
     {
         ProcessWorkEffBuffs();
@@ -46,6 +50,22 @@ public class ResearchProjectsBuff(
         {
             ProcessCarryBuffs();
         }
+
+        if (justUnlocked is null || OnceFactionUpgrades.Contains(justUnlocked.Id))
+        {
+            ProcessFactionBuffs();
+        }
+    }
+
+    void ProcessFactionBuffs()
+    {
+        RemoveBuffInstances<FactionUpgradeBuffInst>();
+
+        var projs = GetUnlockedOrActiveProjects(OnceFactionUpgrades);
+        if (projs.Count == 0) { return; }
+
+        this.CreateInstance(projs, out FactionUpgradeBuffInst instant);
+        buffs.Apply(instant);
     }
 
     void ProcessMovementBuffs()

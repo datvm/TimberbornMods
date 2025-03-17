@@ -5,6 +5,10 @@ partial class ScientificProjectService
     readonly Dictionary<string, int> levels = [];
     readonly Dictionary<string, int> todayLevels = [];
 
+    bool hasYesterdayScience = false;
+    int yesterdayScience = -1;
+    public int? ScienceGainedToday { get; private set; }
+
     public int GetLevel(string id) => levels.TryGetValue(id, out var l) ? l : 0;
     public int GetTodayLevel(string id) => todayLevels.TryGetValue(id, out var l) ? l : 0;
     public void SetLevel(ScientificProjectSpec project, int level)
@@ -26,6 +30,17 @@ partial class ScientificProjectService
     [OnEvent]
     public void OnDayStart(DaytimeStartEvent _)
     {
+        if (hasYesterdayScience || yesterdayScience != -1)
+        {
+            hasYesterdayScience = true;
+            ScienceGainedToday = sciences.SciencePoints - yesterdayScience;
+            yesterdayScience = sciences.SciencePoints;
+        }
+        else
+        {
+            yesterdayScience = sciences.SciencePoints;
+        }
+
         SkipTodayPayment();
 
         var totalCost = GetTotalTodayCost();
