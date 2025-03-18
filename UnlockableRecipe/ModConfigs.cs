@@ -1,5 +1,4 @@
-﻿
-namespace UnlockableRecipe;
+﻿namespace UnlockableRecipe;
 
 [Context("Game")]
 public class UnlockableRecipeGameConfig : Configurator
@@ -31,13 +30,6 @@ public class UnlockableRecipeMenuConfig : Configurator
     public override void Configure()
     {
         Bind<RecipeModRegistry>().AsSingleton();
-
-        MultiBind<RecipeAdder>()
-            .ToProvider(() => new RecipeAdder()
-                .Add("LumberMill.Folktails", UnlockableRecipeModUtils.InferiorTreatedPlankRecipeId)
-                .Add("IndustrialLumberMill.IronTeeth", UnlockableRecipeModUtils.InferiorTreatedPlankRecipeId)
-            )
-            .AsSingleton();
     }
 }
 
