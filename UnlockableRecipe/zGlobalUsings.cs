@@ -6,3 +6,4 @@ global using Timberborn.PrefabSystem;
 global using Timberborn.ScienceSystem;
 global using Timberborn.Workshops;
 global using UnlockableRecipe.InferiorTreating;
+global using Timberborn.BlueprintSystem;
