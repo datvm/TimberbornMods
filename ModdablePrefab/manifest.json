@@ -1,0 +1,10 @@
+{
+    "Name": "Moddable Prefab",
+    "Version": "7.0.0",
+    "Id": "ModdablePrefab",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Allow other modders to make changes to prefabs",
+    "RequiredMods": [
+        { "Id": "Harmony" }
+    ]
+}
