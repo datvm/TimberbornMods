@@ -1,0 +1,12 @@
+{
+    "Name": "Colorful Buildings",
+    "Version": "7.0.0",
+    "Id": "ColorfulBuildings",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Color your buildings",
+    "RequiredMods": [
+        {
+            "Id": "TimberUi"
+        }
+    ]
+}
