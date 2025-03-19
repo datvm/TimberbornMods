@@ -13,6 +13,15 @@ public class SpecPrefabModder(ISpecService specServ) : IPrefabModder, ILoadableS
     public void Load()
     {
         var specs = specServ.GetSpecs<PrefabModderSpec>();
+        try
+        {
+            if (specs is null || !specs.Any()) { return; }
+        }
+        catch (Exception)
+        {
+            return;
+        }
+        
         
         Dictionary<string, Type> typeCache = [];
         Dictionary<Type, List<PrefabModderSpec>> specsByTypes = [];
