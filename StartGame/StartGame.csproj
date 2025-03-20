@@ -23,7 +23,7 @@
 		<!--<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />-->
 		<!--<ProjectReference Include="..\ScientificProjects\BrainPowerSPs\BrainPowerSPs.csproj" />-->
 
-		<ProjectReference Include="..\ColorfulBuildings\ColorfulBuildings.csproj" />
+		<ProjectReference Include="..\ColorfulBeavers\ColorfulBeavers.csproj" />
 		
 	</ItemGroup>
 

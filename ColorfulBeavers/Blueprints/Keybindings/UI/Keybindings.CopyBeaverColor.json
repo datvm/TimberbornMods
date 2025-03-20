@@ -1,0 +1,14 @@
+{
+    "KeyBindingSpec": {
+        "Id": "CopyBeaverColor",
+        "GroupId": "UI",
+        "LocKey": "LV.CBv.KeybindingCopy",
+        "Order": 600,
+        "PrimaryInputBindingSpec": {
+            "Path": "/Keyboard/i",
+            "InputModifiers": {
+                "Value": "Ctrl"
+            }
+        }
+    }
+}
