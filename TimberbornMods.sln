@@ -126,6 +126,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModdablePrefab", "ModdableP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorfulBuildings", "ColorfulBuildings\ColorfulBuildings.csproj", "{025B3517-CB5C-466D-A108-D1DC9A32B69E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorfulBeavers", "ColorfulBeavers\ColorfulBeavers.csproj", "{57E72EAD-8917-4CD1-BC58-0A71AE3E341D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -328,6 +330,10 @@ Global
 		{025B3517-CB5C-466D-A108-D1DC9A32B69E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{025B3517-CB5C-466D-A108-D1DC9A32B69E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{025B3517-CB5C-466D-A108-D1DC9A32B69E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57E72EAD-8917-4CD1-BC58-0A71AE3E341D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57E72EAD-8917-4CD1-BC58-0A71AE3E341D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57E72EAD-8917-4CD1-BC58-0A71AE3E341D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57E72EAD-8917-4CD1-BC58-0A71AE3E341D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

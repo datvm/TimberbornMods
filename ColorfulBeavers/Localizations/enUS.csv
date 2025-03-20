@@ -1,0 +1,13 @@
+ID,Text,Comment
+LV.CBv.Title,"Colorful Beavers",
+LV.CBv.Reset,"Reset",
+LV.CBv.ResetAll,"Reset all",
+LV.CBv.ResetAllConfirm,"Are you sure to re-assign colors to all beavers and bots according to the current settings?",
+LV.CBv.KeybindingCopy,"Copy Beaver color",
+LV.CBv.KeybindingPaste,"Paste Beaver color",
+LV.CBv.AssignNamed,"Assign name-based color",
+LV.CBv.AssignNamedDesc,"Some beavers with special names will have specific colors. Editable file located at: Documents\Timberborn\ColorfulBeavers\ColorNames.txt",
+LV.CBv.AssignRandom,"Assign random color",
+LV.CBv.AssignRandomDesc,"Assign a random color to every beaver. Editable color list at: Documents\Timberborn\ColorfulBeavers\RandomColors.txt",
+LV.CBv.ApplyToBot,"  Apply to bot",
+LV.CBv.ApplyToBotDesc,"Apply random color to the bots as well.",
