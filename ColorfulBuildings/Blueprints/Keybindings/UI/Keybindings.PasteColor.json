@@ -1,0 +1,14 @@
+{
+    "KeyBindingSpec": {
+        "Id": "PasteColor",
+        "GroupId": "UI",
+        "LocKey": "LV.CB.KeybindingPaste",
+        "Order": 510,
+        "PrimaryInputBindingSpec": {
+            "Path": "/Keyboard/o",
+            "InputModifiers": {
+                "Value": "Ctrl"
+            }
+        }
+    }
+}

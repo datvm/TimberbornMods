@@ -1,0 +1,14 @@
+{
+    "KeyBindingSpec": {
+        "Id": "CopyColor",
+        "GroupId": "UI",
+        "LocKey": "LV.CB.KeybindingCopy",
+        "Order": 500,
+        "PrimaryInputBindingSpec": {
+            "Path": "/Keyboard/i",
+            "InputModifiers": {
+                "Value": "Ctrl"
+            }
+        }
+    }
+}
