@@ -1,7 +1,14 @@
-﻿namespace ColorfulBuildings;
+﻿global using Timberborn.InputSystem;
 
-public class BuildingColorFragment(VisualElementInitializer initializer, ILoc t) : IEntityPanelFragment
+namespace ColorfulBuildings;
+
+public class BuildingColorFragment(VisualElementInitializer initializer, ILoc t, InputService input) : IEntityPanelFragment, IInputProcessor
 {
+    const string CopyColorKeyId = "CopyColor";
+    const string PasteColorKeyId = "PasteColor";
+
+    Vector3Int? clipboard;
+
     EntityPanelFragmentElement panel = null!;
     BuildingColorComponent? buildingColor;
 
@@ -12,6 +19,7 @@ public class BuildingColorFragment(VisualElementInitializer initializer, ILoc t)
 
     public void ClearFragment()
     {
+        input.RemoveInputProcessor(this);
         panel.Visible = false;
         buildingColor = null;
     }
@@ -55,12 +63,9 @@ public class BuildingColorFragment(VisualElementInitializer initializer, ILoc t)
         }
 
         var color = buildingColor.Color ?? DefaultColor;
-        for (int i = 0; i < sliders.Length; i++)
-        {
-            sliders[i].Slider.value = color[i];
-        }
-
+        UpdateColorSliders(color);
         panel.Visible = true;
+        input.AddInputProcessor(this);
     }
 
     public void UpdateFragment() { }
@@ -80,4 +85,34 @@ public class BuildingColorFragment(VisualElementInitializer initializer, ILoc t)
         buildingColor?.ClearColor();
     }
 
+    public bool ProcessInput()
+    {
+        if (buildingColor is null) { return false; }
+
+        if (input.IsKeyHeld(CopyColorKeyId))
+        {
+            if (buildingColor.Color is null) { return false; }
+
+            clipboard = buildingColor.Color;
+            return true;
+        }
+        else if (input.IsKeyHeld(PasteColorKeyId))
+        {
+            if (clipboard is null) { return false; }
+            
+            buildingColor.SetColor(clipboard.Value);
+            UpdateColorSliders(clipboard.Value);
+            return true;
+        }
+
+        return false;
+    }
+
+    void UpdateColorSliders(in Vector3Int color)
+    {
+        for (int i = 0; i < sliders.Length; i++)
+        {
+            sliders[i].Slider.value = color[i];
+        }
+    }
 }

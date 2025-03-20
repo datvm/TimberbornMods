@@ -1,3 +1,5 @@
 ID,Text,Comment
 LV.CB.Title,"Colorful Buildings",
 LV.CB.Reset,"Reset",
+LV.CB.KeybindingCopy,"Copy building color",
+LV.CB.KeybindingPaste,"Paste building color",
