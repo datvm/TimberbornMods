@@ -9,16 +9,4 @@
 		<Using Include="UnityEngine.UIElements" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<!-- Timber API -->
-		<Reference Condition="$(IsU6)" Include="$(ModPath)3288241660\core\TimberApi.dll" Publicize="true">
-			<DestinationSubDirectory>libs/</DestinationSubDirectory>
-			<Private>False</Private>
-		</Reference>
-		<Reference Condition="$(IsU6)" Include="$(ModPath)3288241660\core\TimberApi.*.dll" Publicize="true">
-			<DestinationSubDirectory>libs/</DestinationSubDirectory>
-			<Private>False</Private>
-		</Reference>
-	</ItemGroup>
-
 </Project>

@@ -1,6 +1,5 @@
 ﻿namespace TImprove.UI;
 
-#if TIMBER7
 public class CoordsPanel(UILayout layout) : ILoadableSingleton
 {
     NineSliceVisualElement panel = null!;
@@ -33,4 +32,3 @@ public class CoordsPanel(UILayout layout) : ILoadableSingleton
     }
 
 }
-#endif

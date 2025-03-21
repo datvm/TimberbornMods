@@ -450,6 +450,8 @@
 [assembly: System.Runtime.CompilerServices.IgnoresAccessChecksToAttribute("Timberborn.ZiplineSystem")]
 [assembly: System.Runtime.CompilerServices.IgnoresAccessChecksToAttribute("Timberborn.ZiplineSystemUI")]
 
+#if !GameAssemblyPublicizer
+
 namespace System.Runtime.CompilerServices
 {
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
@@ -460,3 +462,4 @@ namespace System.Runtime.CompilerServices
         }
     }
 }
+#endif
