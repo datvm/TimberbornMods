@@ -6,8 +6,7 @@ public class MainMenuModConfig : Configurator
 
     public override void Configure()
     {
-        MultiBind<IPrefabModder>().To<SpecPrefabModder>().AsSingleton();
-        Bind<PrefabModderRegistry>().AsSingleton();
+        Bind<SpecPrefabModder>().AsSingleton();
     }
 
 }

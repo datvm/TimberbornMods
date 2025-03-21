@@ -1,12 +1,13 @@
 ﻿global using Newtonsoft.Json;
 global using System.Collections;
 global using Timberborn.PrefabSystem;
+global using System.Collections.Frozen;
 
 namespace ModdablePrefab;
 
-public class SpecPrefabModder(ISpecService specServ) : IPrefabModder, ILoadableSingleton
+public class SpecPrefabModder(ISpecService? specServ) : ILoadableSingleton
 {
-    public ImmutableHashSet<Type> PrefabTypes { get; private set; } = [];
+    public static SpecPrefabModder? Instance { get; private set; }
 
     FrozenDictionary<Type, ImmutableArray<PrefabModderSpec>> moddersByTypes = null!;
     FrozenDictionary<Type, ImmutableArray<PrefabAddComponentSpec>> compAddersByTypes = null!;
@@ -18,14 +19,16 @@ public class SpecPrefabModder(ISpecService specServ) : IPrefabModder, ILoadableS
         moddersByTypes = GroupSpecs<PrefabModderSpec>(typeCache);
         compAddersByTypes = GroupSpecs<PrefabAddComponentSpec>(typeCache);
 
+        ConvertJsonStrings();
         PopulateAddComponentSpecTypes(typeCache);
 
-        PrefabTypes = [.. moddersByTypes.Keys, .. compAddersByTypes.Keys];
+        Instance = this;
+        specServ = null; // No longer needed, release to let the GC collect it
     }
 
     FrozenDictionary<Type, ImmutableArray<T>> GroupSpecs<T>(Dictionary<string, Type> typeCache) where T : BasePrefabModSpec
     {
-        var specs = specServ.GetSpecs<T>();
+        var specs = specServ!.GetSpecs<T>();
         try
         {
             if (specs is null || !specs.Any()) { return FrozenDictionary<Type, ImmutableArray<T>>.Empty; }
@@ -49,6 +52,14 @@ public class SpecPrefabModder(ISpecService specServ) : IPrefabModder, ILoadableS
         return byTypes.ToFrozenDictionary(
             q => q.Key,
             q => q.Value.ToImmutableArray());
+    }
+
+    void ConvertJsonStrings()
+    {
+        foreach (var spec in moddersByTypes.SelectMany(q => q.Value))
+        {
+            spec.NormalizedNewValue = NormalizeJsonQuote(spec.NewValue);
+        }
     }
 
     void PopulateAddComponentSpecTypes(Dictionary<string, Type> typeCache)
@@ -79,12 +90,18 @@ public class SpecPrefabModder(ISpecService specServ) : IPrefabModder, ILoadableS
         }
     }
 
-    public void ModifyPrefab<T>(T prefab) where T : BaseComponent
+    public void ModifyPrefab(GameObject prefab)
     {
-        var type = prefab.GetType(); // Don't use the generic type parameter here
+        foreach (var comp in prefab.GetComponents<BaseComponent>())
+        {
+            AddPrefabComponents(comp, comp.GetType());
+        }
 
-        AddPrefabComponents(prefab, type);
-        ModifyPrefabValues(prefab, type);
+        // Do not reuse the components list, as it may change during the above loop
+        foreach (var comp in prefab.GetComponents<BaseComponent>())
+        {
+            ModifyPrefabValues(comp, comp.GetType());
+        }
     }
 
     void AddPrefabComponents(BaseComponent prefab, Type type)
@@ -131,7 +148,7 @@ public class SpecPrefabModder(ISpecService specServ) : IPrefabModder, ILoadableS
         {
             if (!MatchPrefab(prefab, spec)) { continue; }
 
-            Debug.Log($"{nameof(ModdablePrefab)}: Modifying prefab {prefab.name}");
+            Debug.Log($"{nameof(ModdablePrefab)}: Modifying component {spec.ComponentType} for prefab {prefab.name}");
             ModifyPrefabValue(prefab, spec);
         }
     }
@@ -151,34 +168,45 @@ public class SpecPrefabModder(ISpecService specServ) : IPrefabModder, ILoadableS
     {
         ContractResolver = new PrivateJsonContractResolver(),
     };
-    void ModifyPrefabValue(BaseComponent prefab, PrefabModderSpec spec)
+    void ModifyPrefabValue(BaseComponent comp, PrefabModderSpec spec)
     {
-        var (setValue, expectedType, original) = GetMember(prefab, spec);
-
-        var value = JsonConvert.DeserializeObject(spec.NewValue, expectedType, jsonSettings);
-
-        if (spec.AppendArray && value is IEnumerable enumerable && original is IEnumerable originalEnumerable)
+        if (spec.ValuePath == "_")
         {
-            // Use the JSON trick to concatenate two arrays
-            value = JsonConvert.DeserializeObject(
-                JsonConvert.SerializeObject(
-                    originalEnumerable.Cast<object>().Concat(enumerable.Cast<object>()),
-                    jsonSettings),
-                expectedType,
-                jsonSettings);
+            Debug.Log(spec.NormalizedNewValue);
+            JsonConvert.PopulateObject(spec.NormalizedNewValue, comp, new()
+            {
+                ContractResolver = new PrivateJsonContractResolver(),
+            });
         }
+        else
+        {
+            var (setValue, expectedType, original) = GetMember(comp, spec);
 
-        setValue(value);
+            var value = JsonConvert.DeserializeObject(spec.NormalizedNewValue, expectedType, jsonSettings);
+
+            if (spec.AppendArray && value is IEnumerable enumerable && original is IEnumerable originalEnumerable)
+            {
+                // Use the JSON trick to concatenate two arrays
+                value = JsonConvert.DeserializeObject(
+                    JsonConvert.SerializeObject(
+                        originalEnumerable.Cast<object>().Concat(enumerable.Cast<object>()),
+                        jsonSettings),
+                    expectedType,
+                    jsonSettings);
+            }
+
+            setValue(value);
+        }
     }
 
-    PrefabSpecReflectedMember GetMember(BaseComponent prefab, PrefabModderSpec spec)
+    PrefabSpecReflectedMember GetMember(BaseComponent comp, PrefabModderSpec spec)
     {
         // Determine the property/field
         var path = spec.ValuePath.Split('.');
         Action<object?>? setValue = null;
 
-        var currType = prefab.GetType();
-        object currObj = prefab;
+        var currType = comp.GetType();
+        object currObj = comp;
         var counter = 0;
 
         foreach (var p in path)
@@ -234,10 +262,25 @@ public class SpecPrefabModder(ISpecService specServ) : IPrefabModder, ILoadableS
 
         if (setValue is null)
         {
-            throw new InvalidOperationException($"No member found in {prefab.GetType()} from spec path: {spec.ValuePath}");
+            throw new InvalidOperationException($"No member found in {comp.GetType()} from spec path: {spec.ValuePath}");
         }
 
         return new(setValue, currType, currObj);
+    }
+
+    static string NormalizeJsonQuote(string input)
+    {
+        // Replace \' with a placeholder to preserve it during processing
+        string placeholder = "__SINGLE_QUOTE__";
+        input = input.Replace(@"\'", placeholder);
+
+        // Replace all single quotes with double quotes
+        input = input.Replace("'", "\"");
+
+        // Replace the placeholder back with the single quote
+        input = input.Replace(placeholder, "'");
+
+        return input;
     }
 
 }
