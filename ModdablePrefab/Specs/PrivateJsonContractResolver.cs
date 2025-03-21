@@ -15,16 +15,18 @@ public class PrivateJsonContractResolver : DefaultContractResolver
         return list;
     }
 
-    protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
+    protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
     {
-        return [.. GetSerializableMembers(type)
-            .Select(q =>
-            {
-                var prop = CreateProperty(q, memberSerialization);
-                prop.Writable = true;
-                prop.Readable = true;
-                return prop;
-            })];
+        var prop = base.CreateProperty(member, memberSerialization);
+
+        if (member is FieldInfo ||
+            (member is PropertyInfo propInfo && propInfo.CanWrite))
+        {
+            prop.Readable = true;
+            prop.Writable = true;
+        }
+
+        return prop;
     }
 
 }
