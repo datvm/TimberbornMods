@@ -1,6 +1,6 @@
-﻿global using System.Collections;
+﻿global using Newtonsoft.Json;
+global using System.Collections;
 global using Timberborn.PrefabSystem;
-global using Newtonsoft.Json;
 
 namespace ModdablePrefab;
 
@@ -8,91 +8,150 @@ public class SpecPrefabModder(ISpecService specServ) : IPrefabModder, ILoadableS
 {
     public ImmutableHashSet<Type> PrefabTypes { get; private set; } = [];
 
-    FrozenDictionary<Type, ImmutableArray<PrefabModderSpec>> specsByTypes = null!;
+    FrozenDictionary<Type, ImmutableArray<PrefabModderSpec>> moddersByTypes = null!;
+    FrozenDictionary<Type, ImmutableArray<PrefabAddComponentSpec>> compAddersByTypes = null!;
 
     public void Load()
     {
-        var specs = specServ.GetSpecs<PrefabModderSpec>();
-        try
-        {
-            if (specs is null || !specs.Any()) { return; }
-        }
-        catch (Exception)
-        {
-            return;
-        }
-        
-        
         Dictionary<string, Type> typeCache = [];
-        Dictionary<Type, List<PrefabModderSpec>> specsByTypes = [];
 
-        foreach (var spec in specs)
-        {
-            if (!typeCache.TryGetValue(spec.ComponentType, out var type))
-            {
-                typeCache[spec.ComponentType] = type = FindComponentType(spec.ComponentType);
-            }
+        moddersByTypes = GroupSpecs<PrefabModderSpec>(typeCache);
+        compAddersByTypes = GroupSpecs<PrefabAddComponentSpec>(typeCache);
 
-            if (!specsByTypes.TryGetValue(type, out var list))
-            {
-                specsByTypes[type] = list = [];
-            }
+        PopulateAddComponentSpecTypes(typeCache);
 
-            list.Add(spec);
-        }
-
-        this.specsByTypes = specsByTypes.ToFrozenDictionary(
-            q => q.Key,
-            q => q.Value.ToImmutableArray());
-        PrefabTypes = [.. specsByTypes.Keys];
+        PrefabTypes = [.. moddersByTypes.Keys, .. compAddersByTypes.Keys];
     }
 
-    static Type FindComponentType(string name)
+    FrozenDictionary<Type, ImmutableArray<T>> GroupSpecs<T>(Dictionary<string, Type> typeCache) where T : BasePrefabModSpec
     {
-        var t = AccessTools.TypeByName(name)
+        var specs = specServ.GetSpecs<T>();
+        try
+        {
+            if (specs is null || !specs.Any()) { return FrozenDictionary<Type, ImmutableArray<T>>.Empty; }
+        }
+        catch (Exception) // This awkward try-catch is needed because the game throws if there is no spec.
+        {
+            return FrozenDictionary<Type, ImmutableArray<T>>.Empty;
+        }
+
+        Dictionary<Type, List<T>> byTypes = [];
+        foreach (var spec in specs)
+        {
+            var type = FindComponentType(spec.ComponentType, typeCache);
+
+            if (!byTypes.TryGetValue(type, out var list))
+            {
+                byTypes[type] = list = [];
+            }
+            list.Add(spec);
+        }
+        return byTypes.ToFrozenDictionary(
+            q => q.Key,
+            q => q.Value.ToImmutableArray());
+    }
+
+    void PopulateAddComponentSpecTypes(Dictionary<string, Type> typeCache)
+    {
+        if (compAddersByTypes.Count == 0) { return; }
+
+        foreach (var spec in compAddersByTypes.SelectMany(q => q.Value))
+        {
+            spec.AddComponentTypes = [.. spec.AddComponents.Select(q => FindComponentType(q, typeCache))];
+        }
+    }
+
+    static Type FindComponentType(string name, Dictionary<string, Type> typeCache)
+    {
+        if (typeCache.TryGetValue(name, out var t)) { return t; }
+
+        t = AccessTools.TypeByName(name)
             ?? throw new InvalidOperationException($"Cannot find the type {name}");
 
-        return typeof(BaseComponent).IsAssignableFrom(t)
-            ? t
-            : throw new InvalidOperationException($"Type {name} is not a {nameof(BaseComponent)}");
+        if (typeof(BaseComponent).IsAssignableFrom(t))
+        {
+            typeCache[name] = t;
+            return t;
+        }
+        else
+        {
+            throw new InvalidOperationException($"Type {name} is not a {nameof(BaseComponent)}");
+        }
     }
 
     public void ModifyPrefab<T>(T prefab) where T : BaseComponent
     {
         var type = prefab.GetType(); // Don't use the generic type parameter here
-        if (!specsByTypes.TryGetValue(type, out var specs))
+
+        AddPrefabComponents(prefab, type);
+        ModifyPrefabValues(prefab, type);
+    }
+
+    void AddPrefabComponents(BaseComponent prefab, Type type)
+    {
+        if (!compAddersByTypes.TryGetValue(type, out var specs) || specs.Length == 0)
         {
-            throw new InvalidOperationException($"No specs found for {type}. This should not happen.");
+            return;
+        }
+
+        HashSet<Type>? addedComponents = []; // Only populate if needed once a prefab match
+
+        foreach (var spec in specs)
+        {
+            if (!MatchPrefab(prefab, spec)) { continue; }
+
+            // Fetch existing components
+            addedComponents ??= [.. prefab.GameObjectFast.GetComponents<BaseComponent>().Select(q => q.GetType())];
+
+            Debug.Log($"{nameof(ModdablePrefab)}: Adding components to prefab {prefab.name}");
+            foreach (var comp in spec.AddComponentTypes)
+            {
+                if (addedComponents.Contains(comp))
+                {
+                    Debug.Log($"{nameof(ModdablePrefab)}: Component {comp} already exists in prefab {prefab.name}");
+                    continue;
+                }
+                else
+                {
+                    Debug.Log($"{nameof(ModdablePrefab)}: Adding component {comp} to prefab {prefab.name}");
+                    prefab.GameObjectFast.AddComponent(comp);
+                }
+            }
+        }
+    }
+
+    void ModifyPrefabValues(BaseComponent prefab, Type type)
+    {
+        if (!moddersByTypes.TryGetValue(type, out var specs) || specs.Length == 0)
+        {
+            return;
         }
 
         foreach (var spec in specs)
         {
-            if (MatchPrefab(prefab, spec))
-            {
-                Debug.Log($"{nameof(ModdablePrefab)}: Modifying prefab {prefab.name}");
+            if (!MatchPrefab(prefab, spec)) { continue; }
 
-                ModifyPrefab(prefab, spec);
-            }
+            Debug.Log($"{nameof(ModdablePrefab)}: Modifying prefab {prefab.name}");
+            ModifyPrefabValue(prefab, spec);
         }
     }
-    
-    bool MatchPrefab(BaseComponent prefab, PrefabModderSpec spec)
+
+    bool MatchPrefab(BaseComponent prefab, BasePrefabModSpec spec)
     {
         var names = spec.PrefabNames;
         if (names == default || names.Length == 0 || names.Contains(prefab.name)) { return true; }
 
-        var buildingSpec = prefab.GetComponentFast<PrefabSpec>();
-        if (buildingSpec is null) { return false; }
+        var prefabSpec = prefab.GetComponentFast<PrefabSpec>();
+        if (prefabSpec is null) { return false; }
 
-        return names.Any(buildingSpec.IsNamed);
+        return names.Any(prefabSpec.IsNamed);
     }
 
     static readonly JsonSerializerSettings jsonSettings = new()
     {
         ContractResolver = new PrivateJsonContractResolver(),
     };
-
-    void ModifyPrefab(BaseComponent prefab, PrefabModderSpec spec)
+    void ModifyPrefabValue(BaseComponent prefab, PrefabModderSpec spec)
     {
         var (setValue, expectedType, original) = GetMember(prefab, spec);
 
@@ -117,7 +176,7 @@ public class SpecPrefabModder(ISpecService specServ) : IPrefabModder, ILoadableS
         // Determine the property/field
         var path = spec.ValuePath.Split('.');
         Action<object?>? setValue = null;
-        
+
         var currType = prefab.GetType();
         object currObj = prefab;
         var counter = 0;
