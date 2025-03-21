@@ -2,14 +2,8 @@
 
 namespace ModdablePrefab;
 
-public record PrefabModderSpec : ComponentSpec
+public record PrefabModderSpec : BasePrefabModSpec
 {
-
-    [Serialize]
-    public string ComponentType { get; init; } = null!;
-
-    [Serialize(true)]
-    public ImmutableArray<string> PrefabNames { get; init; }
 
     [Serialize]
     public string ValuePath { get; init; } = null!;
