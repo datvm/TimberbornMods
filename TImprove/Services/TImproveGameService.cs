@@ -47,7 +47,11 @@ public class TImproveGameService(
         sun.Fog = !s.DisableFog;
         cam.FreeMode = s.EnableFreeCamera;
 
+#if TIMBER6
+        sun.Update();
+#else
         sun.UpdateSingleton();
+#endif
     }
 
     [OnEvent]

@@ -8,6 +8,7 @@ public class GameModConfigurator : IConfigurator
     {
         containerDefinition.Bind<TImproveGameService>().AsSingleton();
         containerDefinition.Bind<GameDepServices>().AsSingleton();
+        containerDefinition.Bind<RealTimeComponent>().AsSingleton();
     }
 }
 

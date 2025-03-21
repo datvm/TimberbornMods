@@ -23,7 +23,7 @@ public class ModSettings : ModSettingsOwner
 
         allDayLight,
 
-        showGameTime,
+        showGameTime, addRealTimeClock,
         enableSpeedS25, enableSpeed4, enableSpeed5,
         quickQuit;
 #pragma warning restore IDE0044, CS0649
@@ -44,6 +44,7 @@ public class ModSettings : ModSettingsOwner
     public string StaticDayLight => allDayLightValue?.Value ?? Lights[1];
 
     public bool ShowGameTime => showGameTime?.Value == true;
+    public bool AddRealTimeClock => addRealTimeClock?.Value == true;
 
     public bool EnableSpeedS25 => enableSpeedS25?.Value == true;
     public bool EnableSpeed4 => enableSpeed4?.Value == true;

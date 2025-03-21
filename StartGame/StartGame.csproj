@@ -1,5 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+	<Import Project="../CommonProperties.target" />
+	
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net8.0</TargetFramework>
@@ -8,11 +10,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.Collections.Immutable" Version="9.0.0" />
+		<PackageReference Condition="$(IsU7)" Include="System.Collections.Immutable" Version="9.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />
+		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
 		<!--<ProjectReference Include="..\TimberUi\TimberUiDemo\TimberUiDemo.csproj" />-->
 		<!--<ProjectReference Include="..\TestMod\TestMod.csproj" />-->
 		<!--<ProjectReference Include="..\TImprove4Modders\TImprove4Modders.csproj" />-->
@@ -23,7 +25,7 @@
 		<!--<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />-->
 		<!--<ProjectReference Include="..\ScientificProjects\BrainPowerSPs\BrainPowerSPs.csproj" />-->
 
-		<ProjectReference Include="..\ColorfulBeavers\ColorfulBeavers.csproj" />
+		<ProjectReference Include="..\TImprove\TImprove.csproj" />
 		
 	</ItemGroup>
 

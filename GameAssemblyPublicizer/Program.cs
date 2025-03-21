@@ -8,6 +8,13 @@ ImmutableArray<string> SpecialFolders = [
 ];
 
 var outputFolder = Path.Combine(FindCsProjFolder(Environment.CurrentDirectory), "out");
+
+if (Directory.Exists(outputFolder))
+{
+    Directory.Delete(outputFolder, true);
+    await Task.Delay(500);
+}
+
 Directory.CreateDirectory(outputFolder);
 
 foreach (var prefix in Prefixes)
