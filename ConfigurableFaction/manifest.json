@@ -1,0 +1,16 @@
+{
+    "Name": "Configurable Faction",
+    "Version": "7.0.0",
+    "Id": "ConfigurableFaction",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Mix up the faction to your desires!",
+    "RequiredMods": [
+        {
+            "Id": "eMka.ModSettings",
+            "MinimumVersion": "0.7.0.0"
+        },
+        { "Id": "Harmony" },
+        { "Id": "AppendVanillaMaterials" },
+        { "Id": "MaterialPlzNoCrashes" }
+    ]
+}

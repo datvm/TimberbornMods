@@ -1,0 +1,7 @@
+ID,Text,Comment
+LV.VF.RemoveCorner,"Remove corner occupation",
+LV.VF.RemoveCornerDesc,"Remove the corner occupation so you can build things like Platforms over plants",
+LV.VF.RemovePath,"Remove path occupation",
+LV.VF.RemovePathDesc,"Remove the path occupation so you can build things like Path through plants",
+LV.VF.WithoutGround,"Plant without ground",
+LV.VF.WithoutGroundDesc,"Plant without ground so you can put them on roofs and platforms",
