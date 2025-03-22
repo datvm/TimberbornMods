@@ -128,6 +128,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorfulBuildings", "Colorf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorfulBeavers", "ColorfulBeavers\ColorfulBeavers.csproj", "{57E72EAD-8917-4CD1-BC58-0A71AE3E341D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableFaction", "ConfigurableFaction\ConfigurableFaction.csproj", "{8D08397E-BCB1-401B-A6FF-F51629B1B017}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VerticalFarming", "VerticalFarming\VerticalFarming.csproj", "{46C4FF8B-D449-4A62-BC0D-8B3E16D3D473}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -334,6 +338,14 @@ Global
 		{57E72EAD-8917-4CD1-BC58-0A71AE3E341D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57E72EAD-8917-4CD1-BC58-0A71AE3E341D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57E72EAD-8917-4CD1-BC58-0A71AE3E341D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D08397E-BCB1-401B-A6FF-F51629B1B017}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D08397E-BCB1-401B-A6FF-F51629B1B017}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D08397E-BCB1-401B-A6FF-F51629B1B017}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D08397E-BCB1-401B-A6FF-F51629B1B017}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46C4FF8B-D449-4A62-BC0D-8B3E16D3D473}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46C4FF8B-D449-4A62-BC0D-8B3E16D3D473}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46C4FF8B-D449-4A62-BC0D-8B3E16D3D473}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46C4FF8B-D449-4A62-BC0D-8B3E16D3D473}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,14 @@
+{
+    "Name": "Vertical Farming (Configurable Plants)",
+    "Version": "7.0.0",
+    "Id": "VerticalFarming",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Enable even more vertical farming",
+    "RequiredMods": [
+        {
+            "Id": "eMka.ModSettings",
+            "MinimumVersion": "0.7.0.0"
+        },
+        { "Id": "Harmony" }
+    ]
+}
