@@ -172,7 +172,6 @@ public class SpecPrefabModder(ISpecService? specServ) : ILoadableSingleton
     {
         if (spec.ValuePath == "_")
         {
-            Debug.Log(spec.NormalizedNewValue);
             JsonConvert.PopulateObject(spec.NormalizedNewValue, comp, new()
             {
                 ContractResolver = new PrivateJsonContractResolver(),
@@ -189,7 +188,7 @@ public class SpecPrefabModder(ISpecService? specServ) : ILoadableSingleton
                 // Use the JSON trick to concatenate two arrays
                 value = JsonConvert.DeserializeObject(
                     JsonConvert.SerializeObject(
-                        originalEnumerable.Cast<object>().Concat(enumerable.Cast<object>()),
+                        originalEnumerable.Cast<object>().Concat(enumerable.Cast<object>().Distinct()),
                         jsonSettings),
                     expectedType,
                     jsonSettings);

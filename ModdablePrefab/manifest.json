@@ -1,6 +1,6 @@
 {
     "Name": "Moddable Prefab",
-    "Version": "7.1.0",
+    "Version": "7.1.1",
     "Id": "ModdablePrefab",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Allow other modders to make changes to prefabs",
