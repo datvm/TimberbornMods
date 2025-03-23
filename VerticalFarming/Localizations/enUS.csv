@@ -1,7 +1,9 @@
 ID,Text,Comment
 LV.VF.RemoveCorner,"Remove corner occupation",
-LV.VF.RemoveCornerDesc,"Remove the corner occupation so you can build things like Platforms over plants",
+LV.VF.RemoveCornerDesc,"Allow you to build structures like Platforms over plants",
 LV.VF.RemovePath,"Remove path occupation",
-LV.VF.RemovePathDesc,"Remove the path occupation so you can build things like Path through plants",
+LV.VF.RemovePathDesc,"Allow you to build Paths through plants",
 LV.VF.WithoutGround,"Plant without ground",
-LV.VF.WithoutGroundDesc,"Plant without ground so you can put them on roofs and platforms",
+LV.VF.WithoutGroundDesc,"Allow placement on roofs and platforms directly without soil. Those plants get irrigation (moisture) and contamination from the land under it.",
+LV.VF.NoConUp,"  No contamination up (cheater :P)",
+LV.VF.NoConUpDesc,"Do not bring land contamination up, which means you can plant trees or crops on platforms while you can not on the land below",

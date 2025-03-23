@@ -10,6 +10,7 @@ public class MSettings(
     public static bool RemoveCorner { get; private set; } = true;
     public static bool RemovePath { get; private set; } = true;
     public static bool WithoutGround { get; private set; } = true;
+    public static bool NoConUp { get; private set; } = false;
 
     public override string ModId { get; } = nameof(VerticalFarming);
 
@@ -28,11 +29,19 @@ public class MSettings(
         ModSettingDescriptor.CreateLocalized("LV.VF.WithoutGround")
             .SetLocalizedTooltip("LV.VF.WithoutGroundDesc"));
 
+    readonly ModSetting<bool> noConUp = new(
+        false,
+        ModSettingDescriptor.CreateLocalized("LV.VF.NoConUp")
+            .SetLocalizedTooltip("LV.VF.NoConUpDesc"));
+
     public override void OnAfterLoad()
     {
         AddCustomModSetting(removeCorner, nameof(removeCorner));
         AddCustomModSetting(removePath, nameof(removePath));
         AddCustomModSetting(withoutGround, nameof(withoutGround));
+        AddCustomModSetting(noConUp, nameof(noConUp));
+
+        noConUp.Descriptor.SetEnableCondition(() => withoutGround.Value);
 
         UpdateValues();
     }
@@ -42,6 +51,7 @@ public class MSettings(
         RemoveCorner = removeCorner.Value;
         RemovePath = removePath.Value;
         WithoutGround = withoutGround.Value;
+        NoConUp = noConUp.Value;
     }
 
     public void Unload()

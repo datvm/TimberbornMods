@@ -15,7 +15,7 @@ public class GameModConfig : Configurator
     public override void Configure()
     {
         Bind<MSettings>().AsSingleton();
-        Bind<ModCursorService>().AsSingleton();
+        Bind<ModTerrainService>().AsSingleton();
     }
 }
 
