@@ -1,0 +1,11 @@
+ID,Text,Comment
+LV.NBR.RemoveGroundOnly,"Remove Ground-only restriction",
+LV.NBR.RemoveGroundOnlyDesc,"Remove the restriction for Ground-only buildings (like Campfire)",
+LV.NBR.RemoveRoofOnly,"Remove Roof-only restriction",
+LV.NBR.RemoveRoofOnlyDesc,"Remove the restriction for Roof-only buildings (like Rooftop Terrace)",
+LV.NBR.AlwaysSolid,"All solid",
+LV.NBR.AlwaysSolidDesc,"All buildings are solid and can be placed on top",
+LV.NBR.AllowFlooded,"No more flooded buildings",
+LV.NBR.AllowFloodedDesc,"Buildings no longer get flooded",
+LV.NBR.SuperStructure,"Super foundation",
+LV.NBR.SuperStructureDesc,"Any building with an entrance can be built with the entrance on the ground only",
