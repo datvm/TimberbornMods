@@ -1,0 +1,23 @@
+{
+    "RealLightsSpec": {
+        "PrefabNames": [ "Lantern.Folktails" ],
+        "Lights": [
+            {
+                "Range": 5,
+                "Intensity": 2,
+                "IsNightLight": true,
+                "Position": {
+                    "X": 0.5,
+                    "Y": 0.3,
+                    "Z": 1.15
+                },
+                "Color": {
+                    "r": 1,
+                    "g": 0.8,
+                    "b": 0.6,
+                    "a": 1
+                }
+            }
+        ]
+    }
+}

@@ -11,11 +11,10 @@ public class GameConfig : Configurator
 public class ModStarter : IModStarter
 {
 
-    public void StartMod(IModEnvironment modEnvironment)
+    void IModStarter.StartMod(IModEnvironment modEnvironment)
     {
         var harmony = new Harmony(nameof(TestMod));
         harmony.PatchAll();
-
     }
 
 }
