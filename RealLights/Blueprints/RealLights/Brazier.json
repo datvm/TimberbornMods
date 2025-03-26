@@ -1,0 +1,23 @@
+{
+    "RealLightsSpec": {
+        "PrefabNames": [ "Brazier.IronTeeth" ],
+        "Lights": [
+            {
+                "Range": 4,
+                "Intensity": 3,
+                "IsNightLight": true,
+                "Position": {
+                    "X": 0.5,
+                    "Y": 0.5,
+                    "Z": 0.6
+                },
+                "Color": {
+                    "r": 1,
+                    "g": 0.89,
+                    "b": 0.03,
+                    "a": 1
+                }
+            }
+        ]
+    }
+}

@@ -25,6 +25,7 @@ public class RealLightsFragment(VisualElementInitializer initializer, ILoc t, De
         panel = new()
         {
             Background = EntityPanelFragmentBackground.PurpleStriped,
+            Visible = false,
         };
 
         panel.AddGameLabel(t.T("LV.RL.Title").Bold()).SetMarginBottom(10);

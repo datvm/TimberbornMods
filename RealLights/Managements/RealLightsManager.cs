@@ -4,7 +4,7 @@ global using Timberborn.BlueprintSystem;
 
 namespace RealLights.Managements;
 
-public class RealLightsManager(ISpecService specs, EventBus eb, MSettings s) : ILoadableSingleton
+public class RealLightsManager(ISpecService specs, EventBus eb) : ILoadableSingleton
 {
     FrozenDictionary<string, RealLightsSpec> realLightSpecs = null!;
     readonly HashSet<RealLightsComponent> instances = [];
@@ -35,15 +35,6 @@ public class RealLightsManager(ISpecService specs, EventBus eb, MSettings s) : I
         realLightSpecs = dict.ToFrozenDictionary();
 
         eb.Register(this);
-        s.SettingsChanged += OnSettingsChanged;
-    }
-
-    void OnSettingsChanged()
-    {
-        foreach (var i in instances)
-        {
-            i.UpdateShadows(MSettings.Shadows);
-        }
     }
 
     public RealLightsSpec? GetRealLightFor(PrefabSpec prefab) => TryGetRealLightFor(prefab, out var spec) ? spec : null;
@@ -53,7 +44,6 @@ public class RealLightsManager(ISpecService specs, EventBus eb, MSettings s) : I
     public void Register(RealLightsComponent comp)
     {
         instances.Add(comp);
-        comp.UpdateShadows(MSettings.Shadows);
     }
 
     public void Unregister(RealLightsComponent comp)

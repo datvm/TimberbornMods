@@ -7,10 +7,3 @@ LV.RL.Color,"Color",
 LV.RL.Range,"Range",
 LV.RL.Reset,"Reset",
 LV.RL.Shadow,"Shadow",
-LV.RL.ShadowDesc,"Choose shadow quality:
-- None: No shadow, fastest
-- Hard: Sharp edge, less realistic, faster
-- Soft: Soft edge, more realistic, slower",
-LV.RL.ShadowNone,"None",
-LV.RL.ShadowHard,"Hard",
-LV.RL.ShadowSoft,"Soft",
