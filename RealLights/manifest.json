@@ -1,0 +1,10 @@
+{
+    "Name": "Real & Moddable Lights",
+    "Version": "7.0.0",
+    "Id": "RealLights",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Use real lights instead of fake material colors.",
+    "RequiredMods": [
+        { "Id": "TimberUi" }
+    ]
+}

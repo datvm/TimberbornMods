@@ -9,9 +9,9 @@ public class MSettings(
 
     public static bool RemoveGroundOnly { get; private set; } = true;
     public static bool RemoveRoofOnly { get; private set; } = true;
-    public static bool AllowFlooded { get; private set; } = true;
-    public static bool AlwaysSolid { get; private set; } = true;
-    public static bool SuperStructure { get; private set; } = true;
+    public static bool AllowFlooded { get; private set; } = false;
+    public static bool AlwaysSolid { get; private set; } = false;
+    public static bool SuperStructure { get; private set; } = false;
 
     public override string ModId { get; } = nameof(NoBuildRestriction);
 
@@ -26,17 +26,17 @@ public class MSettings(
             .SetLocalizedTooltip("LV.NBR.RemoveRoofOnlyDesc"));
 
     readonly ModSetting<bool> allowFlooded = new(
-        true,
+        false,
         ModSettingDescriptor.CreateLocalized("LV.NBR.AllowFlooded")
             .SetLocalizedTooltip("LV.NBR.AllowFloodedDesc"));
 
     readonly ModSetting<bool> alwaysSolid = new(
-        true,
+        false,
         ModSettingDescriptor.CreateLocalized("LV.NBR.AlwaysSolid")
             .SetLocalizedTooltip("LV.NBR.AlwaysSolidDesc"));
 
     readonly ModSetting<bool> superStructure = new(
-        true,
+        false,
         ModSettingDescriptor.CreateLocalized("LV.NBR.SuperStructure")
             .SetLocalizedTooltip("LV.NBR.SuperStructureDesc"));
 
