@@ -37,6 +37,7 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity
     public void Start()
     {
         var prefabSpec = GetComponentFast<PrefabSpec>();
+
         if (prefabSpec is null
             || !registry.TryGetRealLightFor(prefabSpec, out var spec)) { return; }
         Spec = spec;
@@ -148,16 +149,6 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity
         if (!HasNightLight || ForceNightLightOn) { return; }
 
         ToggleLightsState();
-    }
-
-    public void UpdateShadows(LightShadows shadows)
-    {
-        if (lights == default) { return; }
-
-        foreach (var l in lights)
-        {
-            l.shadows = shadows;
-        }
     }
 
     void UpdateAllLights()
