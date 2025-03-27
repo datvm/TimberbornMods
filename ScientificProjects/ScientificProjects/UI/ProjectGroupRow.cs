@@ -16,6 +16,19 @@ public class ProjectGroupRow : VisualElement
 
     public event Action<ScientificProjectGroupInfo> OnGroupCollapsedToggled = delegate { };
 
+    public ProjectGroupRow SetFilter(in ScientificProjectFilter filter)
+    {
+        var hasMatch = false;
+        foreach (var row in projectRows)
+        {
+            if (row.SetFilter(filter)) { hasMatch = true; }
+        }
+
+        this.ToggleDisplayStyle(hasMatch);
+
+        return this;
+    }
+
     public ProjectGroupRow SetInfo(ScientificProjectGroupInfo g, Texture2D defaultIcon, ILoc t)
     {
         this.defaultIcon = defaultIcon;
@@ -32,7 +45,7 @@ public class ProjectGroupRow : VisualElement
             btnExpand = header.AddPlusButton(name: "ExpandGroup", size: UiBuilder.GameButtonSize.Medium).AddAction(ToggleCollapse).SetFlexShrink();
             btnCollapse = header.AddMinusButton(name: "CollapseGroup", size: UiBuilder.GameButtonSize.Medium).AddAction(ToggleCollapse).SetFlexShrink();
         }
-        
+
         projectList = this.AddChild();
 
         SetCollapsedVisibility();

@@ -10,8 +10,11 @@ public partial class ScientificProjectDialog : DialogBoxElement
     readonly ScienceService sciences;
     readonly Texture2D defaultIcon;
 
+    FilterBox filterBox = null!;
+    ScientificProjectFilter filter = ScientificProjectFilter.Default;
+
     ScrollView list = null!;
-    readonly List<ProjectGroupRow> projectGroupRows = [];
+    readonly List<ProjectGroupRow> projectGroupRows = [];    
 
     DialogBox? diag;
 
@@ -35,11 +38,23 @@ public partial class ScientificProjectDialog : DialogBoxElement
 
         CreateScienceStatus(Content);
 
+        filterBox = Content.AddChild<FilterBox>().Init(t);
+        filterBox.OnFilterChanged += OnFilterChanged;
+
         list = Content.AddScrollView(name: "ProjectList")
             .SetFlexGrow(1).SetFlexShrink(1);
         list.style.minHeight = 0;
 
         RefreshContent();
+    }
+
+    void OnFilterChanged(ScientificProjectFilter filter)
+    {
+        this.filter = filter;
+        foreach (var row in projectGroupRows)
+        {
+            row.SetFilter(filter);
+        }
     }
 
     void SetDialogSize()
@@ -65,6 +80,8 @@ public partial class ScientificProjectDialog : DialogBoxElement
     {
         var groups = projects.GetAllProjectGroups(true);
 
+        ref var filter = ref this.filter;
+
         foreach (var g in groups)
         {
             var projectGroupRow = list.AddChild<ProjectGroupRow>()
@@ -86,6 +103,8 @@ public partial class ScientificProjectDialog : DialogBoxElement
                 row.OnUnlockRequested += (info, _) => RequestUnlock(info);
                 row.ProjectRowInfo.OnLevelSelected += OnLevelSelected;
             }
+
+            projectGroupRow.SetFilter(in filter);
         }
     }
 

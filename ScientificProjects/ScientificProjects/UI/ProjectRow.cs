@@ -46,4 +46,12 @@ public class ProjectRow : VisualElement
         return this;
     }
 
+    public bool SetFilter(in ScientificProjectFilter filter)
+    {
+        var match = ScientificProjectInfo.MatchFilter(filter);
+        this.ToggleDisplayStyle(match);
+
+        return match;
+    }
+
 }

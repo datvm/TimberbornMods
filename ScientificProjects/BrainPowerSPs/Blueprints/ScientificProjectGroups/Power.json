@@ -1,8 +1,8 @@
 {
     "ScientificProjectGroupSpec": {
         "Id": "Powers",
-        "NameKey": "LV.SP.PowersGroup",
-        "DescKey": "LV.SP.PowersGroupDesc",
+        "NameKey": "LV.BPSP.PowersGroup",
+        "DescKey": "LV.BPSP.PowersGroupDesc",
         "Order": 50
     }
 }
