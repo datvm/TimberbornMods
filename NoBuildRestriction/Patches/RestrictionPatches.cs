@@ -1,6 +1,6 @@
 ﻿global using Timberborn.BlockSystem;
-global using Timberborn.PrefabGroupSystem;
 global using Timberborn.Buildings;
+global using Timberborn.PrefabGroupSystem;
 global using Timberborn.WaterBuildings;
 
 namespace NoBuildRestriction.Patches;
@@ -16,7 +16,8 @@ public static class RestrictionPatches
             || MSettings.RemoveRoofOnly
             || MSettings.AllowFlooded
             || MSettings.AlwaysSolid
-            || MSettings.SuperStructure)) { return; }
+            || MSettings.SuperStructure
+            || MSettings.PlatformOver1x1)) { return; }
 
         foreach (var prefab in __instance.AllPrefabs)
         {
@@ -35,6 +36,7 @@ public static class RestrictionPatches
                     RemovePlacementRestriction(blockObj!, blocks);
 
                     blocks = blockObj!._blocksSpec._blockSpecs; // Blocks may have changed
+                    Remove1x1Corners(blockObj, blocks);
                     AddSolidTop(blockObj, blocks);
                     AddSuperFoundation(blockObj, blocks, building);
                 }
@@ -86,6 +88,27 @@ public static class RestrictionPatches
         return false;
     }
 
+    static readonly ImmutableHashSet<string> Excluded1x1Buildings = ["TerrainBlock.Folktails", "TerrainBlock.IronTeeth", "Dynamite.Folktails", "Dynamite.IronTeeth"];
+    static void Remove1x1Corners(BlockObjectSpec blockObj, BlockSpec[] blocks)
+    {
+        if (!MSettings.PlatformOver1x1 || Excluded1x1Buildings.Contains(blockObj.name)) { return; }
+
+        var size = blockObj.BlocksSpec.Size;
+        if (size.x != 1 || size.y != 1) { return; }
+
+        var removingCorner = ~BlockOccupations.Corners;
+        for (int z = size.z - 1; z >= 0; z--)
+        {
+            var index = GetIndex(0, 0, z, in size);
+
+            var value = blocks[index]._occupations & removingCorner;
+            if (value != BlockOccupations.None)
+            {
+                blocks[index]._occupations &= removingCorner;
+            }
+        }
+    }
+
     static void AddSolidTop(BlockObjectSpec blockObj, BlockSpec[] blocks)
     {
         if (!MSettings.AlwaysSolid) { return; }
@@ -133,6 +156,11 @@ public static class RestrictionPatches
                 placable._customPivot._hasCustomPivot = true;
                 placable._customPivot._coordinates = new Vector3(mainX + .5f, mainY + .5f, 0);
             }
+        }
+
+        if (MSettings.MagicStructure)
+        {
+            mainX = mainY = -1;
         }
 
         for (int x = 0; x < size.x; x++)
