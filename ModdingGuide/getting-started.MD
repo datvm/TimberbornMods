@@ -92,7 +92,7 @@ You can also put all above files into `version-0.7` folder so it will only loads
 
 ## Conclusion
 
-Unfortunately, you cannot do much with JSON mods beside some simple modifications.
+Unfortunately, you cannot do much with JSON mods beside some simple modifications. With my mod [Moddable Prefab](./ModdablePrefab.MD) you can do some more advanced modifications but it is still limited.
 
 In the next part, we will learn how to make mods with code.
 
