@@ -85,3 +85,8 @@ LV.SP.ItSmelterUpgradeLore,"A breakthrough in furnace design doubles metal outpu
 LV.SP.ItSmelterUpgradeEff,"Smelter no longer uses power and {0:+#%} the Metal Blocks output.",
 LV.SP.BuffNoPowerEff,"-100% Power Usage",
 LV.SP.BuffIncreasedOutput,"{0:+#%} increased Output",
+LV.SP.Filter,"Filter",
+LV.SP.FilterLocked,"Locked",
+LV.SP.FilterUnlocked,"Unlocked",
+LV.SP.FilterDaily,"Daily",
+LV.SP.FilterOneTime,"One-time",

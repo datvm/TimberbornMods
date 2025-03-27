@@ -44,8 +44,28 @@ public static class ResearchProjectsModExtensions
                 : GameWeatherStage.Temperate);
     }
 
-    public static bool IsAvailableTo(this ScientificProjectSpec spec, string factionId) 
+    public static bool IsAvailableTo(this ScientificProjectSpec spec, string factionId)
         => spec.Factions.Length == 0 || spec.Factions.Contains(factionId);
+
+    public static bool MatchFilter(this ScientificProjectInfo info, in ScientificProjectFilter filter)
+    {
+        var spec = info.Spec;
+        var (kw, flags) = filter;
+
+        if (!string.IsNullOrWhiteSpace(kw) &&
+            !(spec.DisplayName.Contains(kw) || spec.Effect.Contains(kw)))
+        {
+            return false;
+        }
+
+        if ((flags & ScientificProjectFilterFlags.Unlocked) == 0 && info.Unlocked) { return false; }
+        if ((flags & ScientificProjectFilterFlags.Locked) == 0 && !info.Unlocked) { return false; }
+        if ((flags & ScientificProjectFilterFlags.Daily) == 0 && spec.HasSteps) { return false; }
+        if ((flags & ScientificProjectFilterFlags.OneTime) == 0 && !spec.HasSteps) { return false; }
+
+        return true;
+    }
+
 }
 
 public enum GameWeatherStage
