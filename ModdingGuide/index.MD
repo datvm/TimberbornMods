@@ -30,8 +30,13 @@ Useful external links:
 4. _(Optional)_ [Useful knowledge of Timberborn architecture](./timberborn-architecture): My experience and knowledge about Timberborn's codebase that may come in handy when making mods.
 5. _(Optional)_ [Advanced Modding Techniques](./advanced-modding): Some techniques I use in my mods to make modding easier and less repetitive.
 
+Extra useful stuff:
+
+- [Attach a debugger to Timberborn](./attach-debugger): How to attach a debugger to Timberborn and debug the game code or your mods using DnSpy and Visual Studio.
+
 The following sections are more specific to certain types of mods that I made:
 
 1. [UI modding with TimberUi](./timber-ui): How to make UI mods for Timberborn using [TimberUi](../TimberUI).
 2. [Make a mod with Buff & Debuff mod](../BuffDebuff): Adding customizable buffs and debuffs to various in-game entities.
 3. [Make a mod with Scientific Projects mod](../ScientificProjects): Adding new research projects to the game.
+4. [Make a code-less mod (using JSON) with Moddable prefab](../ModdablePrefab): Adding components to a prefab or changing their values using JSON (Blueprints) files.
