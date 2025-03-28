@@ -13,6 +13,7 @@ partial class ScientificProjectDialog
         AddDevButton(row, "Set science to Daily Cost", DevSetToDailyCost);
         AddDevButton(row, "Add 100 science", DevAdd100Science);
         AddDevButton(row, "Remove 100 science", DevRemove100Science);
+        AddDevButton(row, "Print dialog UXML & USS to Log", PrintUi);
 
         row.InsertSelfBefore(Content.Children().First());
     }
@@ -28,6 +29,12 @@ partial class ScientificProjectDialog
     {
         projects.ClearAllUpgrades();
         RefreshContent();
+    }
+
+    void PrintUi()
+    {
+        this.PrintVisualTree(true);
+        this.PrintStylesheet();
     }
 
     void DevSetScienceTo0() => DevSetScienceTo(0);

@@ -10,6 +10,7 @@ public class FactionUpgradeBuffInst : CommonProjectBuffInstance<ResearchProjects
     
     EntityManager entities = null!;
 
+    public LessPowerBuffEffect LessPowerBuffEffect { get; private set; } = null!;
     public OutputBuffEffect OutputBuffEffect { get; private set; } = null!;
 
     [Inject]
@@ -25,12 +26,16 @@ public class FactionUpgradeBuffInst : CommonProjectBuffInstance<ResearchProjects
     {
         base.Init();
 
+        var spec = Value.First().Spec;
         OutputBuffEffect = new(
-            Value.First().Spec.Parameters[0],
+            spec.Parameters[0],
+            t);
+        LessPowerBuffEffect = new(
+            spec.Parameters[1],
             t);
 
         Effects = [
-            new NoPowerBuffEffect(true, t),
+            LessPowerBuffEffect,
             OutputBuffEffect,
         ];
     }
@@ -65,9 +70,9 @@ public class FactionUpgradeWorkplaceBuffTarget(bool isFolktail, EntityManager en
 
 }
 
-public class NoPowerBuffEffect(bool value, ILoc t) : SimpleValueBuffEffect<bool>(value)
+public class LessPowerBuffEffect(float value, ILoc t) : SimpleValueBuffEffect<float>(value)
 {
-    protected override string? GetDescription(bool value) => "LV.SP.BuffNoPowerEff".T(t);
+    protected override string? GetDescription(float value) => string.Format("LV.SP.BuffLessPowerEff".T(t), value);
 }
 
 public class OutputBuffEffect(float value, ILoc t) : SimpleValueBuffEffect<float>(value)

@@ -1,0 +1,15 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "WaterWheelUp2",
+        "RequiredId": "WaterWheelUp1",
+
+        "GroupId": "Powers",
+        "NameKey": "LV.BPSP.WaterWheelUp2",
+        "EffectKey": "LV.BPSP.WaterWheelUpEff",
+        "LoreKey": "LV.BPSP.WaterWheelUp2Lore",
+        "Icon": "Sprites/Projects/WaterWheels/up2",
+        "ScienceCost": 350,
+        "Parameters": [ 0.5, 1 ],
+        "Order": 200
+    }
+}

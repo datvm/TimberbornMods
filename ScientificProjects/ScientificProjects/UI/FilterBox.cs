@@ -37,7 +37,7 @@ public class FilterBox : VisualElement
     {
         var p = this.AddChild().SetMarginBottom();
 
-        txtFilter = p.AddChild<TextField>(name: "Keyword")
+        txtFilter = p.AddChild<NineSliceTextField>(name: "Keyword", ["text-field"])
             .SetFlexGrow()
             .SetMarginBottom();
         txtFilter.RegisterCallback<ChangeEvent<string>>(_ => TriggerFilterChange());

@@ -44,11 +44,11 @@ public class ManufactoryBuffComponent : BaseComponent
     {
         if (!e.Active || e is not FactionUpgradeBuffInst factionUpg) { return; }
 
-        SetPowerTo0(add);
+        ChangePowerUsage(add ? factionUpg.LessPowerBuffEffect.Value : 0);
         IncreaseRecipeAmount(1 + (add ? factionUpg.OutputBuffEffect.Value : 0));
     }
 
-    void SetPowerTo0(bool enabled)
+    void ChangePowerUsage(float delta)
     {
         if (mechNode is null || mechBuilding is null)
         {
@@ -58,7 +58,8 @@ public class ManufactoryBuffComponent : BaseComponent
 
         graphMan.RemoveNode(mechNode);
         originalPowerInput ??= mechNode._nominalPowerInput;
-        mechNode._nominalPowerInput = enabled ? 1 : originalPowerInput.Value;
+        mechNode._nominalPowerInput = Math.Max(1, (int)MathF.Ceiling(
+            originalPowerInput.Value * (enabled ? delta : 1)));
 
         graphMan.AddNode(mechNode);
     }

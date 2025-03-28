@@ -2,22 +2,8 @@
 using System.Collections.Frozen;
 using System.Text.Json;
 
-const string FileInput = @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\wood\forester\Forester.Folktails.prefab";
-string input = """
-    - {fileID: 2100000, guid: 43830de5a666cdb4a98ea4c530b01c94, type: 2}
-    - {fileID: 2100000, guid: 34e965c6cf90d6f4d8809140bb342d17, type: 2}
-        - {fileID: 2100000, guid: 43830de5a666cdb4a98ea4c530b01c94, type: 2}
-    - {fileID: 2100000, guid: d3324c7cb72cefa4daa2018145e57e61, type: 2}
-    - {fileID: 2100000, guid: 1959430fc2199124393b748eafccf8c8, type: 2}
-    - {fileID: 2100000, guid: 77c4c296ca4321549990642014cfb34c, type: 2}
-        - {fileID: 2100000, guid: 43830de5a666cdb4a98ea4c530b01c94, type: 2}
-    - {fileID: 2100000, guid: 34e965c6cf90d6f4d8809140bb342d17, type: 2}
-        - {fileID: 2100000, guid: 43830de5a666cdb4a98ea4c530b01c94, type: 2}
-    - {fileID: 2100000, guid: d3324c7cb72cefa4daa2018145e57e61, type: 2}
-    - {fileID: 2100000, guid: 1cf423d4361133844b2a1dc63700fe92, type: 2}
-    - {fileID: 2100000, guid: 1959430fc2199124393b748eafccf8c8, type: 2}
-    - {fileID: 2100000, guid: 77c4c296ca4321549990642014cfb34c, type: 2}
-    """;
+const string FileInput = @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\power\waterwheel\WaterWheel.Folktails.prefab";
+string input = "";
 
 if (!string.IsNullOrEmpty(FileInput))
 {

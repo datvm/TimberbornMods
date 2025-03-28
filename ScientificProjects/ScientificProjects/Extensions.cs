@@ -53,7 +53,8 @@ public static class ResearchProjectsModExtensions
         var (kw, flags) = filter;
 
         if (!string.IsNullOrWhiteSpace(kw) &&
-            !(spec.DisplayName.Contains(kw) || spec.Effect.Contains(kw)))
+            !(spec.DisplayName.Contains(kw, StringComparison.OrdinalIgnoreCase) 
+                || spec.Effect.Contains(kw, StringComparison.OrdinalIgnoreCase)))
         {
             return false;
         }

@@ -7,7 +7,7 @@
         "LoreKey": "LV.SP.ItSmelterUpgradeLore",
         "Icon": "Sprites/Projects/itsmelter",
         "ScienceCost": 2500,
-        "Parameters": [ 1 ],
+        "Parameters": [ 1, -0.9999 ],
         "Order": 10,
         "Factions": [ "IronTeeth" ]
     }

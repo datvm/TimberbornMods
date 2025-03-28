@@ -1,0 +1,17 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "WaterWheelFlowUp2",
+        "RequiredId": "WaterWheelFlowUp1",
+        "GroupId": "Powers",
+        "NameKey": "LV.BPSP.WaterWheelFlowUp2",
+        "EffectKey": "LV.BPSP.WaterWheelFlowUp2Eff",
+        "LoreKey": "LV.BPSP.WaterWheelFlowUp2Lore",
+        "Icon": "Sprites/Projects/WaterWheels/flowup2",
+        "ScienceCost": 20,
+        "MaxSteps": 4,
+        "HasScalingCost": true,
+        "ScalingCostKey": "LV.BPSP.WaterWheelFlowUp2Cost",
+        "Parameters": [ 0.2 ],
+        "Order": 500
+    }
+}
