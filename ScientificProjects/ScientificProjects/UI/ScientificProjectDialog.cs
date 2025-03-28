@@ -14,7 +14,7 @@ public partial class ScientificProjectDialog : DialogBoxElement
     ScientificProjectFilter filter = ScientificProjectFilter.Default;
 
     ScrollView list = null!;
-    readonly List<ProjectGroupRow> projectGroupRows = [];    
+    readonly List<ProjectGroupRow> projectGroupRows = [];
 
     DialogBox? diag;
 
