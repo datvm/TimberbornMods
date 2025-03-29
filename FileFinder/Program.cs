@@ -2,7 +2,7 @@
 using System.Collections.Frozen;
 using System.Text.Json;
 
-const string FileInput = @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\power\waterwheel\WaterWheel.Folktails.prefab";
+const string FileInput = @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\storage\undergroundpile\UndergroundPile.Folktails.prefab";
 string input = "";
 
 if (!string.IsNullOrEmpty(FileInput))

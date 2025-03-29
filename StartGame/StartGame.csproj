@@ -21,11 +21,11 @@
 		<!--<ProjectReference Include="..\BuffDebuff\BuffDebuff.csproj" />-->
 		<!--<ProjectReference Include="..\UnlockableRecipe\UnlockableRecipe.csproj" />-->
 
-		<ProjectReference Include="..\ScientificProjects\ScientificProjects\ScientificProjects.csproj" />
+		<!--<ProjectReference Include="..\ScientificProjects\ScientificProjects\ScientificProjects.csproj" />-->
 		<!--<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />-->
-		<ProjectReference Include="..\ScientificProjects\BrainPowerSPs\BrainPowerSPs.csproj" />
+		<!--<ProjectReference Include="..\ScientificProjects\BrainPowerSPs\BrainPowerSPs.csproj" />-->
 
-		<!--<ProjectReference Include="..\NoBuildRestriction\NoBuildRestriction.csproj" />-->
+		<ProjectReference Include="..\NoBuildRestriction\NoBuildRestriction.csproj" />
 		
 	</ItemGroup>
 
