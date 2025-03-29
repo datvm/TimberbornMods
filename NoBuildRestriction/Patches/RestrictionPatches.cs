@@ -60,21 +60,22 @@ public static class RestrictionPatches
             }
         }
 
-        if (removedGround && blockObj._baseZ > 0)
+        var baseZ = blockObj._baseZ;
+        if (removedGround && baseZ > 0)
         {
-            // Remove all occupation below
             var size = blockObj._blocksSpec._size;
-            var removingLength = blockObj._baseZ * size.y * size.x;
-
-            blockObj._blocksSpec._blockSpecs = [.. blocks.Skip(removingLength)];
-            blockObj._blocksSpec._size = size with { z = size.z - blockObj._baseZ };
-
-            if (blockObj._entrance._hasEntrance)
+            for (int x = 0; x < size.x; x++)
             {
-                blockObj._entrance._coordinates = blockObj._entrance._coordinates with { z = blockObj._entrance._coordinates.z - blockObj._baseZ };
+                for (int y = 0; y < size.y; y++)
+                {
+                    for (int z = 0; z < size.z; z++)
+                    {
+                        var index = GetIndex(x, y, z, in size);
+                        blocks[index]._matterBelow = z == baseZ ? MatterBelow.GroundOrStackable : MatterBelow.Any;
+                        blocks[index]._underground = false;
+                    }
+                }
             }
-
-            blockObj._baseZ = 0;
         }
     }
 
