@@ -1,5 +1,5 @@
 {
-    "Name": "Configurable Faction",
+    "Name": "Configurable Faction (Faction Mixer)",
     "Version": "7.0.0",
     "Id": "ConfigurableFaction",
     "MinimumGameVersion": "0.7.0.0",
@@ -10,7 +10,6 @@
             "MinimumVersion": "0.7.0.0"
         },
         { "Id": "Harmony" },
-        { "Id": "AppendVanillaMaterials" },
         { "Id": "MaterialPlzNoCrashes" }
     ]
 }

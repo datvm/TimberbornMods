@@ -1,0 +1,3 @@
+ID,Text,Comment
+LV.CFac.RemoveDup,"Try removing duplicates (Restart required)",
+LV.CFac.RemoveDupDesc,"Try to remove buildings with similar names when all factions have them (like Path or Platforms)",

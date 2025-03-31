@@ -25,7 +25,7 @@
 		<!--<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />-->
 		<!--<ProjectReference Include="..\ScientificProjects\BrainPowerSPs\BrainPowerSPs.csproj" />-->
 
-		<ProjectReference Include="..\NoBuildRestriction\NoBuildRestriction.csproj" />
+		<ProjectReference Include="..\ConfigurableFaction\ConfigurableFaction.csproj" />
 		
 	</ItemGroup>
 
