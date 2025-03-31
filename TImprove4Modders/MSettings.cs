@@ -15,6 +15,12 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
             .CreateLocalized("LV.TIMod.SwapBuildFinishedModifier")
             .SetLocalizedTooltip("LV.TIMod.SwapBuildFinishedModifierDesc"));
 
+    readonly ModSetting<bool> betterModOrder = new(
+        true,
+        ModSettingDescriptor
+            .CreateLocalized("LV.TIMod.BetterResetLoadOrder")
+            .SetLocalizedTooltip("LV.TIMod.BetterResetLoadOrderDesc"));
+
     readonly ModSetting<bool> pickThumbnail = new(
         true,
         ModSettingDescriptor
@@ -51,6 +57,12 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
             .CreateLocalized("LV.TIMod.NoClearDevFilter")
             .SetLocalizedTooltip("LV.TIMod.NoClearDevFilterDesc"));
 
+    readonly ModSetting<bool> noExitSave = new(
+        false,
+        ModSettingDescriptor
+            .CreateLocalized("LV.TIMod.NoExitSave")
+            .SetLocalizedTooltip("LV.TIMod.NoExitSaveDesc"));
+
     #endregion
 
     public static bool SwapBuildFinishedModifier { get; private set; }
@@ -60,6 +72,8 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     public static bool QuickQuit { get; private set; }
     public static bool QuickRestart { get; private set; }
     public static bool NoClearDevFilter { get; private set; }
+    public static bool BetterModOrder { get; private set; }
+    public static bool NoExitSave { get; private set; }
 
     public event Action OnSettingsChanged = delegate { };
 
@@ -70,6 +84,8 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         AddCustomModSetting(pickThumbnail, nameof(pickThumbnail));
         AddCustomModSetting(openExternalBrowser, nameof(openExternalBrowser));
         AddCustomModSetting(devModeOnDefault, nameof(devModeOnDefault));
+        AddCustomModSetting(betterModOrder, nameof(betterModOrder));
+        AddCustomModSetting(noExitSave, nameof(noExitSave));
         AddCustomModSetting(quickQuit, nameof(quickQuit));
         AddCustomModSetting(quickRestart, nameof(quickRestart));
 
@@ -80,6 +96,8 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         quickQuit.ValueChanged += (_, _) => InternalOnSettingsChanged();
         quickRestart.ValueChanged += (_, _) => InternalOnSettingsChanged();
         noClearDevFilter.ValueChanged += (_, _) => InternalOnSettingsChanged();
+        betterModOrder.ValueChanged += (_, _) => InternalOnSettingsChanged();
+        noExitSave.ValueChanged += (_, _) => InternalOnSettingsChanged();
 
         InternalOnSettingsChanged();
     }
@@ -93,6 +111,8 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         QuickRestart = quickRestart.Value;
         SwapBuildFinishedModifier = swapBuildFinishedModifier.Value;
         NoClearDevFilter = noClearDevFilter.Value;
+        BetterModOrder = betterModOrder.Value;
+        NoExitSave = noExitSave.Value;
 
         OnSettingsChanged();
     }
