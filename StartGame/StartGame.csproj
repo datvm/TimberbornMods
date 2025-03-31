@@ -25,7 +25,7 @@
 		<!--<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />-->
 		<!--<ProjectReference Include="..\ScientificProjects\BrainPowerSPs\BrainPowerSPs.csproj" />-->
 
-		<ProjectReference Include="..\TImprove4Modders\TImprove4Modders.csproj" />
+		<ProjectReference Include="..\NoBuildRestriction\NoBuildRestriction.csproj" />
 		
 	</ItemGroup>
 

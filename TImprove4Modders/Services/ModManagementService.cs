@@ -8,7 +8,6 @@ public class ModManagementService(MSettings _, ModListView lstMods) : ILoadableS
     {
         if (MSettings.BetterModOrder)
         {
-            Debug.Log("Resorting mods");
             lstMods.SortList();
         }
     }

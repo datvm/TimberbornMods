@@ -26,20 +26,17 @@ public static class RestrictionPatches
 
             AddFloodBlocker(building, prefab);
 
-            if (MSettings.RemoveGroundOnly || MSettings.RemoveRoofOnly || MSettings.AlwaysSolid || MSettings.SuperStructure)
+            var blockObj = building.GetComponentFast<BlockObjectSpec>();
+            var blocks = blockObj?._blocksSpec._blockSpecs;
+
+            if (blocks is not null)
             {
-                var blockObj = building.GetComponentFast<BlockObjectSpec>();
-                var blocks = blockObj?._blocksSpec._blockSpecs;
+                RemovePlacementRestriction(blockObj!, blocks);
 
-                if (blocks is not null)
-                {
-                    RemovePlacementRestriction(blockObj!, blocks);
-
-                    blocks = blockObj!._blocksSpec._blockSpecs; // Blocks may have changed
-                    Remove1x1Corners(blockObj, blocks);
-                    AddSolidTop(blockObj, blocks);
-                    AddSuperFoundation(blockObj, blocks, building);
-                }
+                blocks = blockObj!._blocksSpec._blockSpecs; // Blocks may have changed
+                Remove1x1Corners(blockObj, blocks);
+                AddSolidTop(blockObj, blocks);
+                AddSuperFoundation(blockObj, blocks, building);
             }
         }
     }
@@ -96,6 +93,8 @@ public static class RestrictionPatches
 
         var size = blockObj.BlocksSpec.Size;
         if (size.x != 1 || size.y != 1) { return; }
+
+        Debug.Log($"Removing 1x1 corners from {blockObj.name}");
 
         var removingCorner = ~BlockOccupations.Corners;
         for (int z = size.z - 1; z >= 0; z--)
