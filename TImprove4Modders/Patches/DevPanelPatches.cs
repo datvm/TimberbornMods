@@ -1,6 +1,4 @@
-﻿using Timberborn.DebuggingUI;
-
-namespace TImprove4Modders.Patches;
+﻿namespace TImprove4Modders.Patches;
 
 [HarmonyPatch]
 public static class DevPanelPatches

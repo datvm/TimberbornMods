@@ -1,7 +1,4 @@
-﻿global using Timberborn.Buildings;
-global using Timberborn.BuildingTools;
-
-namespace TImprove4Modders.Patches;
+﻿namespace TImprove4Modders.Patches;
 
 [HarmonyPatch]
 public static class ConstructionPatches

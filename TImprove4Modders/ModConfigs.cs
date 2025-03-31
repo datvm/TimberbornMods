@@ -3,6 +3,15 @@
 namespace TImprove4Modders;
 
 [Context("MainMenu")]
+public class MenuContextConfig : Configurator
+{
+    public override void Configure()
+    {
+        Bind<ModManagementService>().AsSingleton();
+    }
+}
+
+[Context("MainMenu")]
 [Context("Game")]
 [Context("MapEditor")]
 public class AllContextConfig : Configurator
@@ -11,7 +20,6 @@ public class AllContextConfig : Configurator
     {
         Bind<MSettings>().AsSingleton();
         Bind<QuickQuitService>().AsSingleton();
-
     }
 
 }
