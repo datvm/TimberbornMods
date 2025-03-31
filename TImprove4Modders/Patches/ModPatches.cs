@@ -9,10 +9,9 @@ public static class ModPatches
     readonly record struct ModWithPriority(Mod Mod, int CurrPriority);
 
     [HarmonyPrefix, HarmonyPatch(typeof(ModPlayerPrefsHelper), nameof(ModPlayerPrefsHelper.SetModPriority))]
-    public static void PatchPriority(Mod mod, ref int priority)
+    public static void PatchPriority(ref int priority)
     {
         var spacedOut = GetSpacedOutPriority(priority);
-        Debug.Log($"Mod {mod.Manifest.Name} was set priority {priority}, which is set to {spacedOut}");
         priority = spacedOut;
     }
 
