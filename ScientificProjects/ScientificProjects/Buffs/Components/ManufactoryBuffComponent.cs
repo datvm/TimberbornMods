@@ -1,10 +1,12 @@
-﻿
+﻿global using Timberborn.BlockSystem;
+
 namespace ScientificProjects.Buffs;
 
-public class ManufactoryBuffComponent : BaseComponent
+public class ManufactoryBuffComponent : BaseComponent, IFinishedStateListener, IUnfinishedStateListener
 {
+    static readonly Dictionary<string, int> originalRecipesOutput = [];
+
     int? originalPowerInput;
-    int? originalProduction;
 
     EntityComponent entity = null!;
     MechanicalNode? mechNode;
@@ -17,17 +19,14 @@ public class ManufactoryBuffComponent : BaseComponent
 
     bool Deleted => !entity || entity.Deleted;
 
-    public void Awake()
+    public void Start()
     {
         buffable = this.GetBuffable();
 
         manufactory = GetComponentFast<Manufactory>();
         mechNode = GetComponentFast<MechanicalNode>();
         mechBuilding = GetComponentFast<MechanicalBuilding>();
-    }
 
-    public void Start()
-    {
         if (buffable is null) { return; }
 
         entity = GetComponentFast<EntityComponent>();
@@ -55,11 +54,13 @@ public class ManufactoryBuffComponent : BaseComponent
 
     void ChangePowerUsage(float delta)
     {
-        if (mechNode is null || mechBuilding is null)
+        if (!mechNode || !mechBuilding || graphMan is null || mechNode.Graph is null)
         {
             Debug.LogWarning("Cannot find any MechanicalNode or MechanicalBuilding for reducing power.");
             return;
         }
+
+        if (!mechNode.enabled) { return; }
 
         graphMan.RemoveNode(mechNode);
         originalPowerInput ??= mechNode._nominalPowerInput;
@@ -74,7 +75,7 @@ public class ManufactoryBuffComponent : BaseComponent
         .SetMethod;
     void IncreaseRecipeAmount(float multiplier)
     {
-        if (manufactory is null)
+        if (!manufactory)
         {
             Debug.LogWarning("Cannot find any Manufactory for increasing output.");
             return;
@@ -88,7 +89,7 @@ public class ManufactoryBuffComponent : BaseComponent
             return;
         }
 
-        originalProduction ??= recipe.Products[0].Amount;
+        var originalProduction = originalRecipesOutput.GetOrAdd(recipe.Id, () => recipe.Products[0].Amount);
 
         var newRecipes = recipe.Products
             .Select(q => new GoodAmountSpecNew()
@@ -103,4 +104,31 @@ public class ManufactoryBuffComponent : BaseComponent
         manufactory.SetRecipe(recipe);
     }
 
+    void RefreshPowerBuff()
+    {
+        if (buffable?.Buffs.FirstOrDefault(q => q is FactionUpgradeBuffInst)
+            is not FactionUpgradeBuffInst instant) { return; }
+
+        ChangePowerUsage(instant.LessPowerBuffEffect.Value);
+    }
+
+    public void OnEnterFinishedState()
+    {
+        RefreshPowerBuff();
+    }
+
+    public void OnExitFinishedState()
+    {
+        RefreshPowerBuff();
+    }
+
+    public void OnEnterUnfinishedState()
+    {
+        RefreshPowerBuff();
+    }
+
+    public void OnExitUnfinishedState()
+    {
+        RefreshPowerBuff();
+    }
 }
