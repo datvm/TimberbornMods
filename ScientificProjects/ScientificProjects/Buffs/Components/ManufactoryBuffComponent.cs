@@ -6,6 +6,7 @@ public class ManufactoryBuffComponent : BaseComponent
     int? originalPowerInput;
     int? originalProduction;
 
+    EntityComponent entity = null!;
     MechanicalNode? mechNode;
     MechanicalBuilding? mechBuilding;
     Manufactory? manufactory;
@@ -13,6 +14,8 @@ public class ManufactoryBuffComponent : BaseComponent
     BuffableComponent? buffable;
 
     public static readonly ImmutableHashSet<string> RecipeIds = ["MetalBlock", "TreatedPlank"];
+
+    bool Deleted => !entity || entity.Deleted;
 
     public void Awake()
     {
@@ -26,6 +29,8 @@ public class ManufactoryBuffComponent : BaseComponent
     public void Start()
     {
         if (buffable is null) { return; }
+
+        entity = GetComponentFast<EntityComponent>();
 
         buffable.OnBuffAdded += Buffable_OnBuffAdded;
         buffable.OnBuffRemoved += Buffable_OnBuffRemoved;
@@ -42,7 +47,7 @@ public class ManufactoryBuffComponent : BaseComponent
 
     void ProcessBuffAddRemove(BuffInstance e, bool add)
     {
-        if (!e.Active || e is not FactionUpgradeBuffInst factionUpg) { return; }
+        if (!e.Active || e is not FactionUpgradeBuffInst factionUpg || Deleted) { return; }
 
         ChangePowerUsage(add ? factionUpg.LessPowerBuffEffect.Value : 0);
         IncreaseRecipeAmount(1 + (add ? factionUpg.OutputBuffEffect.Value : 0));
