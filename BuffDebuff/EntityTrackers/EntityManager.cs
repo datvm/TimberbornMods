@@ -1,10 +1,5 @@
 ﻿namespace BuffDebuff;
 
-public interface ITrackingEntities
-{
-    IEnumerable<Type> TrackingTypes { get; }
-}
-
 public record class TrackingEntityEvent(EntityComponent Entity, HashSet<BaseComponent> TrackingComponents);
 public record class TrackingEntityInitializedEvent(EntityComponent Entity, HashSet<BaseComponent> TrackingComponents) : TrackingEntityEvent(Entity, TrackingComponents);
 public record class TrackingEntityDeletedEvent(EntityComponent Entity, HashSet<BaseComponent> TrackingComponents) : TrackingEntityEvent(Entity, TrackingComponents);

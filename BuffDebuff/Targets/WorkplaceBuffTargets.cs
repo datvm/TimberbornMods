@@ -103,14 +103,9 @@ public abstract class GlobalWorkplaceBuffTarget : EntityBasedBuffTarget
 
 }
 
-public class BuilderTrackingWorkplace : ITrackingEntities
-{
-    public IEnumerable<Type> TrackingTypes => GlobalBuilderBuffTarget.BuilderBuildingTypes;
-}
+
 
 public class GlobalBuilderBuffTarget(EventBus eventBus, BeaverPopulation beaverPops, BotPopulation botPops) : GlobalWorkplaceBuffTarget(eventBus, beaverPops, botPops)
 {
-    public static readonly ImmutableHashSet<Type> BuilderBuildingTypes = [typeof(DistrictCenter), typeof(BuilderHubSpec)];
-
-    public override ImmutableHashSet<Type> Workplaces => BuilderBuildingTypes;
+    public override ImmutableHashSet<Type> Workplaces => TrackingEntityHelper.BuilderBuildingTypes;
 }

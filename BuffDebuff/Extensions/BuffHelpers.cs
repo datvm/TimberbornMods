@@ -3,6 +3,8 @@
     public static class BuffHelpers
     {
 
+        public static TrackingEntityHelper TrackEntities(this Configurator configurator) => new(configurator);
+
         public static BuffableComponent GetBuffable<T>(this T comp) where T : BaseComponent
         {
             var result = comp.GetComponentFast<BuffableComponent>();
@@ -11,9 +13,6 @@
 
         public static IEnumerable<BuffInstance> GetBuffs<T>(this T comp) where T : BaseComponent => comp.GetBuffable().Buffs;
 
-        public static IEnumerable<T> GetBuffs<T>(this BaseComponent comp) where T : BuffInstance => GetBuffable(comp).GetBuffs<T>();
-        public static IEnumerable<T> GetBuffEffects<T>(this BaseComponent comp, bool includeDisabled = false) where T : IBuffEffect
-            => GetBuffable(comp).GetEffects<T>(includeDisabled);
         public static IEnumerable<T> GetBuffEffects<T>(this BuffInstance instance, bool includeDisabled = false) where T : IBuffEffect 
             => (includeDisabled || instance.Active) ? instance.Effects.OfType<T>() : [];
 
