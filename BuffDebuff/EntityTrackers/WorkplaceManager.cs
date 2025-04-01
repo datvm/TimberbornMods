@@ -1,9 +1,6 @@
 ﻿namespace BuffDebuff;
 
-public class WorkplaceTrackingEntity : ITrackingEntities
-{
-    public IEnumerable<Type> TrackingTypes => [typeof(Workplace)];
-}
+
 
 public class WorkplaceWorkerChangedEvent(Workplace workplace, Worker worker)
 {

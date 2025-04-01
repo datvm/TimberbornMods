@@ -329,15 +329,16 @@ public class BuffService(
             }
         }
 
-        if (!targetsChanged) { return; }
-
-        HashSet<BuffableComponent> buffables = [];
-        foreach (var target in b.Targets)
+        if (targetsChanged)
         {
-            buffables.AddRange(target.Targets);
-        }
+            HashSet<BuffableComponent> buffables = [];
+            foreach (var target in b.Targets)
+            {
+                buffables.AddRange(target.Targets);
+            }
 
-        ApplyBuffTo(b, buffables);
+            ApplyBuffTo(b, buffables);
+        }
 
         foreach (var e in b.Effects)
         {
