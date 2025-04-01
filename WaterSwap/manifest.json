@@ -1,0 +1,10 @@
+{
+    "Name": "Water Swap (April Fools 2025)",
+    "Version": "2025.4.1",
+    "Id": "WaterSwap",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "Swap badwater and fresh water, including during badtides.",
+    "RequiredMods": [
+        { "Id": "Harmony" }
+    ]
+}

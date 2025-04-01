@@ -136,6 +136,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoBuildRestriction", "NoBui
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealLights", "RealLights\RealLights.csproj", "{6B731303-4128-49AD-9C64-5165045F1BC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterSwap", "WaterSwap\WaterSwap.csproj", "{48B85283-6640-472D-8B46-094A08ED30AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -358,6 +360,10 @@ Global
 		{6B731303-4128-49AD-9C64-5165045F1BC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B731303-4128-49AD-9C64-5165045F1BC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B731303-4128-49AD-9C64-5165045F1BC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48B85283-6640-472D-8B46-094A08ED30AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48B85283-6640-472D-8B46-094A08ED30AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48B85283-6640-472D-8B46-094A08ED30AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48B85283-6640-472D-8B46-094A08ED30AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
