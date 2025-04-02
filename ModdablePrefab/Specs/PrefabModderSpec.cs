@@ -12,7 +12,7 @@ public record PrefabModderSpec : BasePrefabModSpec
     public string NewValue { get; init; } = null!;
     public string NormalizedNewValue { get; internal set; } = null!;
 
-    [Serialize(true)]
+    [Serialize]
     public bool AppendArray { get; init; }
 
 }
