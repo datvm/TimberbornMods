@@ -30,7 +30,7 @@ public class CoordsService(
     {
         if (!show) { return false; }
 
-        var coords = picker.CursorCoordinates();
+        var coords = picker.Pick();
         string text;
         if (coords.HasValue)
         {
