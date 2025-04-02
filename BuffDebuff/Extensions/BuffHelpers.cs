@@ -5,6 +5,8 @@
 
         public static TrackingEntityHelper BindTrackingEntities(this Configurator configurator) => new(configurator);
 
+        public static TemplateModuleHelper BindTemplateModule(this Configurator configurator) => new(configurator);
+
         public static BuffableComponent GetBuffable<T>(this T comp) where T : BaseComponent
         {
             var result = comp.GetComponentFast<BuffableComponent>();

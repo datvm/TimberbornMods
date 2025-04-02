@@ -34,7 +34,7 @@ public class EntityManager(EventBus eb, EntityRegistry registry, IEnumerable<ITr
 
     public ReadOnlyHashSet<BaseComponent> GetTrackingComponents(EntityComponent entity)
     {
-        return entities.TryGetValue(entity, out var list) ? list.AsReadOnly() : default;
+        return entities.TryGetValue(entity, out var list) ? list.AsReadOnlyHashSet() : default;
     }
 
     public void Load()
@@ -132,7 +132,7 @@ class EntityManagerType<T>(Type type) : EntityManagerType(type)
 
     public override ReadOnlyHashSet<T1> Get<T1>()
     {
-        return ((HashSet<T1>)(object)Entities).AsReadOnly();
+        return ((HashSet<T1>)(object)Entities).AsReadOnlyHashSet();
     }
 
     public override int Count => Entities.Count;

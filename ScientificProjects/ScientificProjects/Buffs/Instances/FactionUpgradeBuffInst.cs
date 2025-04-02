@@ -7,7 +7,9 @@ public class ManufactoryEntityTracker : ITrackingEntities
 
 public class FactionUpgradeBuffInst : CommonProjectBuffInstance<ResearchProjectsBuff>
 {
-    
+
+    bool IsFolktails => Value.Any(q => q.Spec.Id == ResearchProjectsBuff.FolktailsFactionUpgrade);
+
     EntityManager entities = null!;
 
     public LessPowerBuffEffect LessPowerBuffEffect { get; private set; } = null!;
@@ -19,8 +21,8 @@ public class FactionUpgradeBuffInst : CommonProjectBuffInstance<ResearchProjects
         this.entities = entities;
     }
 
-    protected override string GetBuffName(ILoc t) => "LV.SP.FtPlankUpgrade".T(t);
-    protected override string GetBuffDescription(ILoc t) => "LV.SP.FtPlankUpgradeLore".T(t);
+    protected override string GetBuffName(ILoc t) => (IsFolktails ? "LV.SP.FtPlankUpgrade" : "LV.SP.ItSmelterUpgrade").T(t);
+    protected override string GetBuffDescription(ILoc t) => (IsFolktails ? "LV.SP.FtPlankUpgradeLore" : "LV.SP.ItSmelterUpgradeLore").T(t);
 
     public override void Init()
     {
