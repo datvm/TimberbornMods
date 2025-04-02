@@ -38,7 +38,7 @@ public class TrackingEntityHelper(Configurator configurator)
         return Track<MechanicalNode>();
     }
 
-    public TrackingEntityHelper TrackManufactorer()
+    public TrackingEntityHelper TrackManufactory()
     {
         return Track<Manufactory>();
     }

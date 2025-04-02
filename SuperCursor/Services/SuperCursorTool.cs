@@ -1,21 +1,16 @@
-﻿using Timberborn.CameraSystem;
-
-namespace SuperCursor.Services;
+﻿namespace SuperCursor.Services;
 
 public class SuperCursorTool(EntitySelectionService entitySelectionService, InputService inputService, IOptionsBox optionsBox, UIVisibilityManager uiVisibilityManager, SelectableObjectRaycaster selectableObjectRaycaster,
     SuperCursorText label,
     IEnumerable<IObjectDescriber> objDescribers,
     CursorCoordinatesPicker cursorCoords,
     IEnumerable<ICoordDescriber> coordDescribers,
-    ILoc loc,
-    CameraService camera
+    ILoc loc
 ) : CursorTool(entitySelectionService, inputService, optionsBox, uiVisibilityManager, selectableObjectRaycaster), IInputProcessor
 {
     const string Keybinding = "SuperCursor";
     readonly SelectableObjectRaycaster selectableObjectRaycaster = selectableObjectRaycaster;
     readonly InputService inputService = inputService;
-
-    Rect? worldRect;
 
     static readonly Vector2 MouseMargin = new(10, 0);
     void ProcessInfo()
@@ -67,7 +62,7 @@ public class SuperCursorTool(EntitySelectionService entitySelectionService, Inpu
 
     void ProcessCoords(StringBuilder builder)
     {
-        var coords = cursorCoords.CursorCoordinates();
+        var coords = cursorCoords.Pick();
         if (coords is null) { return; }
 
         foreach (var desc in coordDescribers)

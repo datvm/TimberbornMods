@@ -3,7 +3,7 @@
     public static class BuffHelpers
     {
 
-        public static TrackingEntityHelper TrackEntities(this Configurator configurator) => new(configurator);
+        public static TrackingEntityHelper BindTrackingEntities(this Configurator configurator) => new(configurator);
 
         public static BuffableComponent GetBuffable<T>(this T comp) where T : BaseComponent
         {

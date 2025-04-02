@@ -12,14 +12,24 @@ public class EntityManager(EventBus eb, EntityRegistry registry, IEnumerable<ITr
 
     public IReadOnlyCollection<EntityComponent> Entities => entities.Keys;
 
+    EntityManagerType GetList(Type type)
+    {
+        if (!entitiesDict.TryGetValue(type, out var list))
+        {
+            throw new InvalidOperationException($"{type} was not registered to be tracked. Use {nameof(ITrackingEntities)} to register it.");
+        }
+        return list;
+    }
+
     public ReadOnlyHashSet<T> Get<T>() where T : BaseComponent
     {
-        if (!entitiesDict.TryGetValue(typeof(T), out var list))
-        {
-            throw new InvalidOperationException($"{typeof(T)} was not registered to be tracked. Use {nameof(ITrackingEntities)} to register it.");
-        }
-
+        var list = GetList(typeof(T));
         return list.Get<T>();
+    }
+
+    public int Count<T>() where T : BaseComponent
+    {
+        return GetList(typeof(T)).Count;
     }
 
     public ReadOnlyHashSet<BaseComponent> GetTrackingComponents(EntityComponent entity)
@@ -101,7 +111,7 @@ abstract class EntityManagerType(Type type)
     public abstract void Add(BaseComponent comp);
     public abstract void Remove(BaseComponent comp);
     public abstract ReadOnlyHashSet<T> Get<T>() where T : BaseComponent;
-
+    public abstract int Count { get; }
 
     public static EntityManagerType Create(Type t)
     {
@@ -124,6 +134,8 @@ class EntityManagerType<T>(Type type) : EntityManagerType(type)
     {
         return ((HashSet<T1>)(object)Entities).AsReadOnly();
     }
+
+    public override int Count => Entities.Count;
 
     public override void Remove(BaseComponent comp)
     {

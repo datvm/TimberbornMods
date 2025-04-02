@@ -1,0 +1,14 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "WindmillHeightUp",
+        "GroupId": "Powers",
+        "NameKey": "LV.BPSP.WindmillHeightUp",
+        "EffectKey": "LV.BPSP.WindmillHeightUpEff",
+        "LoreKey": "LV.BPSP.WindmillHeightUpLore",
+        "Icon": "Sprites/Projects/Windmills/WindmillHeightUp",
+        "ScienceCost": 500,
+        "Parameters": [ 0.05 ],
+        "Order": 800,
+        "Factions": [ "Folktails" ]
+    }
+}
