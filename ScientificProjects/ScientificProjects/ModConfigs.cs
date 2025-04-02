@@ -24,18 +24,16 @@ public class ModGameConfig : Configurator
         Bind<ResearchProjectsBuff>().AsSingleton();
 
         // Components
-        MultiBind<TemplateModule>().ToProvider(() =>
-        {
-            TemplateModule.Builder b = new();
-            b.AddDecorator<BeaverSpec, BeaverBuffComponent>();
-            b.AddDecorator<Character, CharacterBuffComponent>();
-            b.AddDecorator<Manufactory, ManufactoryBuffComponent>();
-            return b.Build();
-        }).AsSingleton();
+        this.BindTemplateModule()
+            .AddDecorator<BeaverSpec, BeaverBuffComponent>()
+            .AddDecorator<Character, CharacterBuffComponent>()
+            .AddDecorator<Manufactory, ManufactoryBuffComponent>()
+            .Bind();
 
         // Type Trackers
         this.BindTrackingEntities()
-            .TrackManufactorer()
+            .TrackBuilderBuildings()
+            .TrackManufactory()
             .TrackWorkplace();
     }
 

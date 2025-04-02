@@ -6,6 +6,6 @@
     "Description": "Scientific ways to spend your Science!",
     "RequiredMods": [
         { "Id": "TimberUi" },
-        { "Id": "BuffDebuff", "MinimumVersion": "7.0.7" }
+        { "Id": "BuffDebuff", "MinimumVersion": "7.1.0" }
     ]
 }

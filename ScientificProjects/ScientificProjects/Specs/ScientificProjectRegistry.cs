@@ -83,6 +83,8 @@ public class ScientificProjectRegistry(
             }
 
             p.DisplayName = t.T(p.NameKey);
+
+            Debug.Log($"Loading {p.Id}: Parameters has {p.Parameters.Length} elements");
             p.Effect = string.Format(t.T(p.EffectKey), [.. p.Parameters]);
 
             if (p.LoreKey is not null)

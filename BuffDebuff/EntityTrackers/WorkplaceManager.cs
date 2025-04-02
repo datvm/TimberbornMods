@@ -13,7 +13,7 @@ public class WorkplaceManager(EventBus eb, EntityManager entities) : ILoadableSi
     readonly HashSet<Workplace> activeWorkplaces = [];
 
     public ReadOnlyHashSet<Workplace> AllWorkplaces => entities.Get<Workplace>();
-    public ReadOnlyHashSet<Workplace> ActiveWorkplaces => activeWorkplaces.AsReadOnly();
+    public ReadOnlyHashSet<Workplace> ActiveWorkplaces => activeWorkplaces.AsReadOnlyHashSet();
 
     public void Load()
     {

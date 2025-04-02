@@ -73,13 +73,14 @@
 		<Using Include="Timberborn.Persistence"/>
 		<Using Include="Timberborn.BaseComponentSystem"/>
 		<Using Include="Timberborn.TemplateSystem"/>
+		<Using Include="Timberborn.WorldPersistence"/>
 		<Using Include="System.Collections.Immutable"/>
 		<Using Include="UnityEngine"/>
 	</ItemGroup>
 
-	<ItemGroup>		
+	<ItemGroup>
 		<Compile Include="$(GameSolutionFolder)GameAssemblyPublicizer\IgnoresAccessChecks.cs" Link="IgnoresAccessChecks.cs" />
-		
+
 		<Reference Include="$(GameSolutionFolder)GameAssemblyPublicizer\out\**\*.dll">
 			<Private>false</Private>
 		</Reference>

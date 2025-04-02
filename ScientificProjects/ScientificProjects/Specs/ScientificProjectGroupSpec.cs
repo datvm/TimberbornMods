@@ -13,7 +13,7 @@ public record ScientificProjectGroupSpec : ComponentSpec
     public string DescKey { get; init; } = null!;
     public string Description { get; internal set; } = null!;
 
-    [Serialize(isOptional: true)]
+    [Serialize]
     public int Order { get; init; }
 
     public override string ToString() => $"Group {Id}: {NameKey}";

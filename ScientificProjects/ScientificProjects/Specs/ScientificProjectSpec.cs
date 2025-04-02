@@ -14,11 +14,11 @@ public record ScientificProjectSpec : ComponentSpec
     public string NameKey { get; init; } = null!;
     public string DisplayName { get; internal set; } = null!;
 
-    [Serialize(true)]
+    [Serialize]
     public string? LoreKey { get; init; }
     public string? Lore { get; internal set; }
 
-    [Serialize(true)]
+    [Serialize]
     public ImmutableArray<string> Factions
     {
         get;
@@ -32,36 +32,36 @@ public record ScientificProjectSpec : ComponentSpec
     public string EffectKey { get; init; } = null!;
     public string Effect { get; internal set; } = null!;
 
-    [Serialize(isOptional: true)]
+    [Serialize]
     public ImmutableArray<float> Parameters { get; init; }
 
     [Serialize]
     public int ScienceCost { get; init; }
 
-    [Serialize(isOptional: true)]
+    [Serialize]
     public int MaxSteps { get; init; }
     public bool HasSteps => MaxSteps > 0;
 
-    [Serialize(isOptional: true)]
+    [Serialize]
     public bool HasScalingCost { get; init; }
 
-    [Serialize(isOptional: true)]
+    [Serialize]
     public bool HasCustomUnlockCondition { get; init; }
 
-    [Serialize(isOptional: true)]
+    [Serialize]
     public string? ScalingCostKey { get; init; }
     public string? ScalingCostDisplay { get; internal set; }
 
-    [Serialize(isOptional: true)]
+    [Serialize]
     public string? RequiredId { get; init; }
 
-    [Serialize(isOptional: true)]
+    [Serialize]
     public Texture2D? Icon { get; init; }
 
-    [Serialize(isOptional: true)]
+    [Serialize]
     public int Order { get; init; }
 
-    [Serialize(true)]
+    [Serialize]
     public bool NeedReload { get; init; }
 
     public override string ToString() => $"Project {Id}: {DisplayName}";
