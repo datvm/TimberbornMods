@@ -1,5 +1,6 @@
 ID,Text,Comment
 LV.RL.Title,"Real Lights",
+LV.RL.ForceOff,"Turn off",
 LV.RL.ForceNightLight,"Force Night light on",
 LV.RL.LightConfig,"Light {0}:","In case there are more than 1 light, it will show up as Light 1, Light 2 etc"
 LV.RL.Intensity,"Intensity",
@@ -7,3 +8,5 @@ LV.RL.Color,"Color",
 LV.RL.Range,"Range",
 LV.RL.Reset,"Reset",
 LV.RL.Shadow,"Shadow",
+LV.RL.KeybindingCopy,"Copy Light settings",
+LV.RL.KeybindingPaste,"Paste Light settings",

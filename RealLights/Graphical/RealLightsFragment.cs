@@ -1,23 +1,31 @@
 ﻿global using Timberborn.Debugging;
+global using Timberborn.InputSystem;
 
 namespace RealLights.Graphical;
 
-public class RealLightsFragment(VisualElementInitializer initializer, ILoc t, DevModeManager devs) : IEntityPanelFragment
+public class RealLightsFragment(VisualElementInitializer initializer, ILoc t, DevModeManager devs, InputService input) : IEntityPanelFragment, IInputProcessor
 {
+    const string CopyKeyId = "CopyLightColor";
+    const string PasteKeyId = "PasteLightColor";
+
     EntityPanelFragmentElement panel = null!;
     RealLightsComponent? realLight;
 
+    Toggle chkForceOff = null!;
     Toggle chkForceNightLight = null!;
     VisualElement lightConfigs = null!;
     VisualElement devPanel = null!;
+
+    RealLightClipboard? clipboard;
 
     ImmutableArray<GameSliderInt> devPositions;
 
     public void ClearFragment()
     {
+        input.RemoveInputProcessor(this);
         panel.Visible = false;
         lightConfigs.Clear();
-        realLight = null;
+        realLight = null;        
     }
 
     public VisualElement InitializeFragment()
@@ -30,8 +38,10 @@ public class RealLightsFragment(VisualElementInitializer initializer, ILoc t, De
 
         panel.AddGameLabel(t.T("LV.RL.Title").Bold()).SetMarginBottom(10);
 
+        chkForceOff = panel.AddToggle(t.T("LV.RL.ForceOff"), onValueChanged: OnForceOffChanged)
+            .SetMarginBottom(5);
         chkForceNightLight = panel.AddToggle(t.T("LV.RL.ForceNightLight"), onValueChanged: OnForceNightLightChanged)
-            .SetMarginBottom();
+            .SetMarginBottom(10);
 
         lightConfigs = panel.AddChild().SetMarginBottom();
 
@@ -79,11 +89,18 @@ public class RealLightsFragment(VisualElementInitializer initializer, ILoc t, De
         if (realLight is null || !realLight.HasRealLight) { return; }
 
         UpdatePanelValues();
+        input.AddInputProcessor(this);
     }
 
     void OnForceNightLightChanged(bool on)
     {
         realLight?.SetForceNightLightOn(on);
+    }
+
+    void OnForceOffChanged(bool on)
+    {
+        realLight?.SetForceOff(on);
+        chkForceNightLight.enabledSelf = !on;
     }
 
     void OnLightCustomSet(int index, CustomRealLightProperties props)
@@ -99,8 +116,11 @@ public class RealLightsFragment(VisualElementInitializer initializer, ILoc t, De
 
     void UpdatePanelValues()
     {
-        chkForceNightLight.ToggleDisplayStyle(realLight!.HasNightLight);
+        chkForceOff.value = realLight!.ForceOff;
+
+        chkForceNightLight.ToggleDisplayStyle(realLight.HasNightLight);
         chkForceNightLight.value = realLight.ForceNightLightOn;
+        chkForceNightLight.enabledSelf = !realLight.ForceOff;
 
         var lightCount = realLight.Spec!.Lights.Length;
 
@@ -158,4 +178,26 @@ public class RealLightsFragment(VisualElementInitializer initializer, ILoc t, De
     }
 
     public void UpdateFragment() { }
+
+    public bool ProcessInput()
+    {
+        if (realLight is null) { return false; }
+
+        if (input.IsKeyHeld(CopyKeyId))
+        {
+            clipboard = realLight.ToClipboard();
+            return true;
+        }
+        else if (input.IsKeyHeld(PasteKeyId))
+        {
+            if (clipboard is null) { return false; }
+
+            realLight.ImportClipboard(clipboard.Value);
+            UpdatePanelValues();
+            return true;
+        }
+
+        return false;
+    }
 }
+

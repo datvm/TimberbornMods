@@ -8,6 +8,7 @@ namespace RealLights.Components;
 public class RealLightsComponent : BaseComponent, IPersistentEntity
 {
     static readonly ComponentKey SaveKey = new("BuildingRealLights");
+    static readonly PropertyKey<bool> ForceOffKey = new("ForceOff");
     static readonly PropertyKey<bool> ForceNightLightOnKey = new("ForceNightLightOn");
     static readonly PropertyKey<string> CustomProperties = new("CustomProperties");
 
@@ -17,6 +18,7 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity
 
     public bool HasNightLight { get; private set; }
     public bool ForceNightLightOn { get; private set; }
+    public bool ForceOff { get; private set; }
 
     public RealLightsSpec? Spec { get; private set; }
     public bool HasRealLight => Spec is not null;
@@ -93,6 +95,7 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity
         customs = null;
         SetLightPosition(Spec!.Lights[0].Position);
         ForceNightLightOn = false;
+        ForceOff = false;
 
         UpdateAllLights();
     }
@@ -115,6 +118,12 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity
         var modified = modifier(currColor);
 
         SetCustomProperties(index, new() { Color = modified });
+    }
+
+    public void SetForceOff(bool value)
+    {
+        ForceOff = value;
+        ToggleLightsState();
     }
 
     public void SetForceNightLightOn(bool value)
@@ -187,7 +196,7 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity
         }
     }
 
-    public bool ShouldLightsBeOn => !HasNightLight || ForceNightLightOn || dayNightCycle.IsNighttime;
+    public bool ShouldLightsBeOn => !ForceOff && (!HasNightLight || ForceNightLightOn || dayNightCycle.IsNighttime);
 
     static readonly ColorHandler jsonColorHandler = new();
     public void Save(IEntitySaver entitySaver)
@@ -197,6 +206,11 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity
         if (ForceNightLightOn)
         {
             s.Set(ForceNightLightOnKey, ForceNightLightOn);
+        }
+
+        if (ForceOff)
+        {
+            s.Set(ForceOffKey, ForceOff);
         }
 
         if (customs is not null)
@@ -212,11 +226,29 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity
         var s = entityLoader.GetComponent(SaveKey);
 
         ForceNightLightOn = s.Has(ForceNightLightOnKey) && s.Get(ForceNightLightOnKey);
+        ForceOff = s.Has(ForceOffKey) && s.Get(ForceOffKey);
 
         if (s.Has(CustomProperties))
         {
             customs = JsonConvert.DeserializeObject<CustomRealLightProperties[]>(s.Get(CustomProperties), jsonColorHandler);
         }
+    }
+
+    public RealLightClipboard ToClipboard() => new(ForceOff, ForceNightLightOn, [.. lights.Select((_, i) => GetLightProperties(i))]);
+
+    public void ImportClipboard(RealLightClipboard clipboard)
+    {
+        ForceOff = clipboard.ForceOff;
+        ForceNightLightOn = clipboard.ForceNightLight;
+
+        customs ??= new CustomRealLightProperties[lights.Length];
+        var minSize = Math.Min(customs.Length, clipboard.CustomProperties.Length);
+        for (int i = 0; i < minSize; i++)
+        {
+            customs[i] = clipboard.CustomProperties[i];
+        }
+
+        UpdateAllLights();
     }
 
 }

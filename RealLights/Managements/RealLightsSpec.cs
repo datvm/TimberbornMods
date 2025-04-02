@@ -13,7 +13,7 @@ public record RealLightsSpec : ComponentSpec
 
 public record RealLightLightSpec : ComponentSpec
 {
-    [Serialize(true)]
+    [Serialize]
     public float Range
     {
         get; init => field = value == default ? 3 : value;
@@ -22,19 +22,19 @@ public record RealLightLightSpec : ComponentSpec
     [Serialize]
     public Vector3 Position { get; init; }
 
-    [Serialize(true)]
+    [Serialize]
     public float Intensity
     {
         get; init => field = value == default ? 1 : value;
     }
 
-    [Serialize(true)]
+    [Serialize]
     public Color Color
     {
         get; init => field = value == default ? Color.white : value;
     }
 
-    [Serialize(true)]
+    [Serialize]
     public bool IsNightLight { get; init; }
 
 }
