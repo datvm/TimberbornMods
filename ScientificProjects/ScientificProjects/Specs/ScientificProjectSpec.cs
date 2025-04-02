@@ -61,6 +61,9 @@ public record ScientificProjectSpec : ComponentSpec
     [Serialize(isOptional: true)]
     public int Order { get; init; }
 
+    [Serialize(true)]
+    public bool NeedReload { get; init; }
+
     public override string ToString() => $"Project {Id}: {DisplayName}";
 
 }

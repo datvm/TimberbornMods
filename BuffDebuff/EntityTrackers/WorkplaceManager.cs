@@ -1,7 +1,5 @@
 ﻿namespace BuffDebuff;
 
-
-
 public class WorkplaceWorkerChangedEvent(Workplace workplace, Worker worker)
 {
     public Workplace Workplace { get; } = workplace;

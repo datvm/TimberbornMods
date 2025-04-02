@@ -34,8 +34,9 @@ public class ModGameConfig : Configurator
         }).AsSingleton();
 
         // Type Trackers
-        MultiBind<ITrackingEntities>().To<BuilderTrackingWorkplace>().AsSingleton();
-        MultiBind<ITrackingEntities>().To<ManufactoryEntityTracker>().AsSingleton();
+        this.BindTrackingEntities()
+            .TrackManufactorer()
+            .TrackWorkplace();
     }
 
 }

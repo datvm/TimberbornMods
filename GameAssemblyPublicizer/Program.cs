@@ -42,7 +42,7 @@ void PublicizeFile(string dll)
     AssemblyPublicizer.Publicize(dll, output, new()
     {
         IncludeOriginalAttributesAttribute = true,
-        Strip = true,
+        Strip = false,
     });
 }
 

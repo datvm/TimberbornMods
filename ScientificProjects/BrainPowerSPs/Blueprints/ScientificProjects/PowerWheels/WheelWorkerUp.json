@@ -1,0 +1,14 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "WheelWorkerUp",
+        "GroupId": "Powers",
+        "NameKey": "LV.BPSP.WheelWorkerUp",
+        "EffectKey": "LV.BPSP.WheelWorkerUpEff",
+        "LoreKey": "LV.BPSP.WheelWorkerUpLore",
+        "Icon": "Sprites/Projects/PowerWheels/WheelWorkerUp",
+        "ScienceCost": 350,
+        "Parameters": [ 2 ],
+        "Order": 600,
+        "Factions": [ "IronTeeth" ]
+    }
+}

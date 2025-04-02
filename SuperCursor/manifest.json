@@ -1,6 +1,6 @@
 {
     "Name": "Super Cursor",
-    "Version": "7.1.2",
+    "Version": "7.1.3",
     "Id": "SuperCursor",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "More info with Cursor tool when holding Shift",

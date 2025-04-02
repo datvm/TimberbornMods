@@ -40,6 +40,13 @@ partial class ScientificProjectDialog
         }
 
         RefreshContent();
+
+        if (p.Spec.NeedReload)
+        {
+            diagShower.Create()
+                .SetLocalizedMessage("LV.SP.ReloadNotice")
+                .Show();
+        }
     }
 
     void ShowUnlockError(string error)

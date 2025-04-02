@@ -1,0 +1,13 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "WheelBotUp",
+        "GroupId": "Powers",
+        "NameKey": "LV.BPSP.WheelBotUp",
+        "EffectKey": "LV.BPSP.WheelBotUpEff",
+        "LoreKey": "LV.BPSP.WheelBotUpLore",
+        "Icon": "Sprites/Projects/PowerWheels/WheelBotUp",
+        "ScienceCost": 500,
+        "Parameters": [],
+        "Order": 700
+    }
+}

@@ -23,3 +23,15 @@ LV.BPSP.PowerOutputMulDayEff,"{0:+#%} power output (from {1:+#%} to {2:+#%})",
 LV.BPSP.PowerOutputFlatEff,"{0:+#}HP power output from {1}",
 LV.BPSP.GeneratorStrMinEff,"{0:+#%} Minimum power output from {1}",
 LV.BPSP.GeneratorStrMinEffNoWater,"{0} does not give Minimum power (no water)",
+LV.BPSP.WheelWorkerUp,"Gearshift Labor Sync",
+LV.BPSP.WheelWorkerUpEff,"Reduces Large Power Wheel Worker need by {0}, maintains full power output."
+LV.BPSP.WheelWorkerUpLore,"'We've got the gears turning in perfect sync—no need for extra hands!' — Gearshift Foreman",
+LV.BPSP.WheelBotUp,"Bot-Integrated Axles",
+LV.BPSP.WheelBotUpEff,"Allows Bots to operate Power Wheels instead of only Beavers."
+LV.BPSP.WheelBotUpLore,"'Bots spin better than tails ever could—efficiency’s our game!' — Axlegrind Botmaster",
+LV.BPSP.WindmillHeightUp,"High-Altitude Gust Harness",
+LV.BPSP.WindmillHeightUpEff,"Windmills (Regular and Large) gain {0:+#%} power per height level."
+LV.BPSP.WindmillHeightUpLore,"'Skyward we perch, sipping gusts the treetops envy!' — Leafwhirl, Keeper of Breezes"
+LV.BPSP.WindmillSizeUp,"Compact Wind Sails",
+LV.BPSP.WindmillSizeUpEff,"Windmills now only occupy a 1x1 instead of 3x3 area (reload needed, visual is not updated)."
+LV.BPSP.WindmillSizeUpLore,"Folktails wove tighter sails from willow threads—less ground claimed, more whispers of wind."

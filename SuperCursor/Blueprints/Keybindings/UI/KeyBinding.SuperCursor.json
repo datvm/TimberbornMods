@@ -1,15 +1,15 @@
 {
-  "KeyBindingSpec": {
-    "Id": "SuperCursor",
-    "GroupId": "UI",
-    "LocKey": "LV.SC.KeyBinding",
-    "Order": 90,
+    "KeyBindingSpec": {
+        "Id": "SuperCursor",
+        "GroupId": "UI",
+        "LocKey": "LV.SC.KeyBinding",
+        "Order": 90,
+        "AllowOtherModifiers": true
+    },
     "PrimaryInputBindingSpec": {
-      "Path": "/Keyboard/leftShift"
+        "Path": "/Keyboard/leftShift"
     },
     "SecondaryInputBindingSpec": {
-      "Path": "/Keyboard/rightShift"
-    },
-    "AllowOtherModifiers": true
-  }
+        "Path": "/Keyboard/rightShift"
+    }
 }
