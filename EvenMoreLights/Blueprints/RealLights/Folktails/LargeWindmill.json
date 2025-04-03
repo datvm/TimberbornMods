@@ -1,0 +1,22 @@
+{
+    "RealLightsSpec": {
+        "PrefabNames": [ "LargeWindmill.Folktails" ],
+        "Lights": [
+            {
+                "Range": 4,
+                "Intensity": 4,
+                "Position": {
+                    "X": 1.5,
+                    "Y": 1.5,
+                    "Z": 3.5
+                },
+                "Color": {
+                    "r": 0,
+                    "g": 0.5,
+                    "b": 0.1,
+                    "a": 1
+                }
+            }
+        ]
+    }
+}

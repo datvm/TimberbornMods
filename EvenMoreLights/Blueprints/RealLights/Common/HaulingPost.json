@@ -1,0 +1,23 @@
+{
+    "RealLightsSpec": {
+        "PrefabNames": [ "HaulingPost.Folktails", "HaulingPost.IronTeeth" ],
+        "Lights": [
+            {
+                "Range": 1,
+                "Intensity": 1,
+                "IsNightLight": true,
+                "Position": {
+                    "X": 1.5,
+                    "Y": -0.1,
+                    "Z": 1.15
+                },
+                "Color": {
+                    "r": 1,
+                    "g": 0.8,
+                    "b": 0.6,
+                    "a": 1
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "RealLightsSpec": {
+        "PrefabNames": [ "FountainOfJoy.Folktails" ],
+        "Lights": [
+            {
+                "Range": 6,
+                "Intensity": 6,
+                "IsNightLight": true,
+                "Position": {
+                    "X": 2.5,
+                    "Y": 1.7,
+                    "Z": 3.5
+                },
+                "Color": {
+                    "r": 1,
+                    "g": 0.8,
+                    "b": 0.6,
+                    "a": 1
+                }
+            }
+        ]
+    }
+}

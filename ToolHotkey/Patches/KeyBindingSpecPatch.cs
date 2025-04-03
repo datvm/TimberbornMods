@@ -20,16 +20,17 @@ public static class KeyBindingSpecPatch
         {
             var display = t.Name;
 
-            __instance._defaultKeyBindingSpecs.Add(new()
+            KeyBindingSpec spec = new()
             {
                 Id = string.Format(ModStarter.ToolKeyId, t.Id),
                 GroupId = ModStarter.KeyGroupId,
                 Order = counter++,
                 LocKey = display,
+            };
 
-                PrimaryInputBindingSpec = new(),
-                SecondaryInputBindingSpec = new(),
-            });
+            __instance._keyBindingDefinitions.Add(KeyBindingDefinition.Create(spec,
+                __instance.GetCustomPrimaryBinding(spec),
+                __instance.GetCustomSecondaryBinding(spec)));
         }
     }
 

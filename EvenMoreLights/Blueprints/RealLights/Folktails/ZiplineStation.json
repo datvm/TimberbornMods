@@ -1,0 +1,22 @@
+{
+    "RealLightsSpec": {
+        "PrefabNames": [ "ZiplineStation.Folktails" ],
+        "Lights": [
+            {
+                "Range": 2,
+                "Intensity": 2,
+                "Position": {
+                    "X": 1.5,
+                    "Y": 1.5,
+                    "Z": 4.2
+                },
+                "Color": {
+                    "r": 1,
+                    "g": 0,
+                    "b": 0,
+                    "a": 1
+                }
+            }
+        ]
+    }
+}

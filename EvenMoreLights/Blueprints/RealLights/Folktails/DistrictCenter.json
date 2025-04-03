@@ -1,0 +1,22 @@
+{
+    "RealLightsSpec": {
+        "PrefabNames": [ "DistrictCenter.Folktails" ],
+        "Lights": [
+            {
+                "Range": 8,
+                "Intensity": 8,
+                "Position": {
+                    "X": 1.5,
+                    "Y": 0.8,
+                    "Z": 2
+                },
+                "Color": {
+                    "r": 0,
+                    "g": 0,
+                    "b": 1,
+                    "a": 1
+                }
+            }
+        ]
+    }
+}

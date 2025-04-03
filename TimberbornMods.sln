@@ -138,6 +138,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealLights", "RealLights\Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterSwap", "WaterSwap\WaterSwap.csproj", "{48B85283-6640-472D-8B46-094A08ED30AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvenMoreLights", "EvenMoreLights\EvenMoreLights.csproj", "{E44DD0D9-5807-4799-A792-BA652EB348CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -364,6 +366,10 @@ Global
 		{48B85283-6640-472D-8B46-094A08ED30AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48B85283-6640-472D-8B46-094A08ED30AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48B85283-6640-472D-8B46-094A08ED30AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E44DD0D9-5807-4799-A792-BA652EB348CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E44DD0D9-5807-4799-A792-BA652EB348CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E44DD0D9-5807-4799-A792-BA652EB348CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E44DD0D9-5807-4799-A792-BA652EB348CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

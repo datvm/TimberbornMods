@@ -1,0 +1,23 @@
+{
+    "RealLightsSpec": {
+        "PrefabNames": [ "DistrictCrossing.Folktails", "DistrictCrossing.IronTeeth" ],
+        "Lights": [
+            {
+                "Range": 1,
+                "Intensity": 1,
+                "IsNightLight": true,
+                "Position": {
+                    "X": 1.5,
+                    "Y": 0.1,
+                    "Z": 1.5
+                },
+                "Color": {
+                    "r": 0,
+                    "g": 0.5,
+                    "b": 0.1,
+                    "a": 1
+                }
+            }
+        ]
+    }
+}

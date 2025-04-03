@@ -1,0 +1,23 @@
+{
+    "RealLightsSpec": {
+        "PrefabNames": [ "DoubleLodge.Folktails", "TripleLodge.Folktails" ],
+        "Lights": [
+            {
+                "Range": 1,
+                "Intensity": 1,
+                "IsNightLight": true,
+                "Position": {
+                    "X": 0.5,
+                    "Y": 0.5,
+                    "Z": 1.6
+                },
+                "Color": {
+                    "r": 1,
+                    "g": 0.8,
+                    "b": 0.6,
+                    "a": 1
+                }
+            }
+        ]
+    }
+}
