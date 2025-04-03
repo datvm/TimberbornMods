@@ -1,6 +1,6 @@
 {
     "RealLightsSpec": {
-        "PrefabNames": [ "Mine.Folktails", "Mine.IronTeeth" ],
+        "PrefabNames": [ "Mine.Folktails", "EfficientMine.IronTeeth" ],
         "Lights": [
             {
                 "Range": 4,

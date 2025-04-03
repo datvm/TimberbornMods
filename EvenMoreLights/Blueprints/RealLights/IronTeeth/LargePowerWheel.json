@@ -1,0 +1,22 @@
+{
+    "RealLightsSpec": {
+        "PrefabNames": [ "LargePowerWheel.IronTeeth" ],
+        "Lights": [
+            {
+                "Range": 2,
+                "Intensity": 2,
+                "Position": {
+                    "X": 1.5,
+                    "Y": 1.5,
+                    "Z": 1.15
+                },
+                "Color": {
+                    "r": 1,
+                    "g": 0.5,
+                    "b": 0,
+                    "a": 1
+                }
+            }
+        ]
+    }
+}
