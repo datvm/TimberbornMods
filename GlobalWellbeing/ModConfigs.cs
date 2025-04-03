@@ -8,12 +8,9 @@ public class GameModConfig : Configurator
         Bind<WellBeingBuff>().AsSingleton();
         Bind<HighscoreWellbeingBuff>().AsSingleton();
 
-        MultiBind<TemplateModule>().ToProvider(() =>
-        {
-            TemplateModule.Builder b = new();
-            b.AddDecorator<BeaverSpec, BeaverBuffTracker>();
-            return b.Build();
-        }).AsSingleton();
+        this.BindTemplateModule()
+            .AddDecorator<BeaverSpec, BeaverBuffTracker>()
+            .Bind();
     }
 }
 

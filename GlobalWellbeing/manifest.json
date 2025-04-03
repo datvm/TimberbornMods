@@ -1,6 +1,6 @@
 {
     "Name": "Global Wellbeing",
-    "Version": "7.0.1",
+    "Version": "7.0.2",
     "Id": "GlobalWellbeing",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Beaver stats are based on the global wellbeing instead of their own. Demo for Buff & Debuff System",
@@ -11,7 +11,7 @@
         },
         {
             "Id": "BuffDebuff",
-            "MinimumVersion": "7.0.5"
+            "MinimumVersion": "7.1.0"
         },
         {
             "Id": "Harmony",
