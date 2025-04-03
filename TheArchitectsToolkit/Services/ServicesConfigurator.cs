@@ -11,14 +11,3 @@ public class AllContextModConfigurator : IConfigurator
         containerDefinition.Bind<ToolkitService>().AsSingleton();
     }
 }
-
-[Context("MapEditor")]
-public class MapEditorModConfigurator : IConfigurator
-{
-    
-    public void Configure(IContainerDefinition containerDefinition)
-    {
-        containerDefinition.Bind<ToolkitMapEditorService>().AsSingleton();
-    }
-
-}
