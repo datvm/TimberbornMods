@@ -83,7 +83,7 @@ public class ModTerrainService : IUnloadableSingleton
 
         ray = CoordinateSystem.GridToWorld(ray);
 
-        if (Physics.Raycast(ray, out var hitInfo) && raycaster.HitIsCloserThanTerrain(ray, hitInfo))
+        if (Physics.Raycast(ray, out var hitInfo) && raycaster.HitIsCloserThanTerrain(ray, true, hitInfo))
         {
             GameObject gameObject = hitInfo.collider.gameObject;
             if ((bool)gameObject)

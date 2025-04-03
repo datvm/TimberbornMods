@@ -9,7 +9,7 @@ public record RecipeModderSpec : ComponentSpec
     [Serialize]
     public ImmutableArray<string> RecipeIds { get; init; }
 
-    [Serialize(true)]
+    [Serialize]
     public bool Remove { get; init; }
 
 }
