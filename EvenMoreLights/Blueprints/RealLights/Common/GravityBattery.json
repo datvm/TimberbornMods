@@ -1,18 +1,18 @@
 {
     "RealLightsSpec": {
-        "PrefabNames": [ "Mine.Folktails", "EfficientMine.IronTeeth" ],
+        "PrefabNames": [ "GravityBattery.Folktails", "GravityBattery.IronTeeth" ],
         "Lights": [
             {
-                "Range": 4,
-                "Intensity": 4,
+                "Range": 2,
+                "Intensity": 2,
                 "Position": {
-                    "X": 2.5,
-                    "Y": 1.8,
-                    "Z": 2.5
+                    "X": 1,
+                    "Y": 0.3,
+                    "Z": 3.9
                 },
                 "Color": {
                     "r": 1,
-                    "g": 0.4,
+                    "g": 0,
                     "b": 0,
                     "a": 1
                 }

@@ -1,14 +1,14 @@
 {
     "RealLightsSpec": {
-        "PrefabNames": [ "BuildersHut.Folktails", "BuildersHut.IronTeeth" ],
+        "PrefabNames": [ "Barrack.IronTeeth", "LargeBarrack.IronTeeth" ],
         "Lights": [
             {
-                "Range": 2,
-                "Intensity": 2,
+                "Range": 1,
+                "Intensity": 1,
                 "IsNightLight": true,
                 "Position": {
                     "X": 1.5,
-                    "Y": -0.2,
+                    "Y": 0,
                     "Z": 1.5
                 },
                 "Color": {

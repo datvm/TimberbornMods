@@ -1,18 +1,18 @@
 {
     "RealLightsSpec": {
-        "PrefabNames": [ "Mine.Folktails", "EfficientMine.IronTeeth" ],
+        "PrefabNames": [ "LaborerMonument.IronTeeth" ],
         "Lights": [
             {
                 "Range": 4,
                 "Intensity": 4,
                 "Position": {
-                    "X": 2.5,
-                    "Y": 1.8,
-                    "Z": 2.5
+                    "X": 1,
+                    "Y": 0.2,
+                    "Z": 3.2
                 },
                 "Color": {
                     "r": 1,
-                    "g": 0.4,
+                    "g": 0.5,
                     "b": 0,
                     "a": 1
                 }

@@ -1,17 +1,18 @@
 {
     "RealLightsSpec": {
-        "PrefabNames": [ "StreamGauge.Folktails", "StreamGauge.IronTeeth" ],
+        "PrefabNames": [ "ChargingStation.IronTeeth" ],
         "Lights": [
             {
-                "Range": 2,
-                "Intensity": 2,
+                "Range": 1,
+                "Intensity": 1,
+                "IsNightLight": true,
                 "Position": {
                     "X": 0.5,
                     "Y": 0.5,
-                    "Z": 3.2
+                    "Z": 1
                 },
                 "Color": {
-                    "r": 0.15,
+                    "r": 1,
                     "g": 0.5,
                     "b": 0,
                     "a": 1

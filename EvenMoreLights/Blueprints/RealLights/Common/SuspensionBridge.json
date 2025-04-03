@@ -1,0 +1,36 @@
+{
+    "RealLightsSpec": {
+        "PrefabNames": [
+            "SuspensionBridge1x1.Folktails",
+            "SuspensionBridge2x1.Folktails",
+            "SuspensionBridge3x1.Folktails",
+            "SuspensionBridge4x1.Folktails",
+            "SuspensionBridge5x1.Folktails",
+            "SuspensionBridge6x1.Folktails",
+            "SuspensionBridge1x1.IronTeeth",
+            "SuspensionBridge2x1.IronTeeth",
+            "SuspensionBridge3x1.IronTeeth",
+            "SuspensionBridge4x1.IronTeeth",
+            "SuspensionBridge5x1.IronTeeth",
+            "SuspensionBridge6x1.IronTeeth"
+        ],
+        "Lights": [
+            {
+                "Range": 1,
+                "Intensity": 1,
+                "IsNightLight": true,
+                "Position": {
+                    "X": 1,
+                    "Y": 1,
+                    "Z": 1
+                },
+                "Color": {
+                    "r": 0.15,
+                    "g": 0.5,
+                    "b": 0,
+                    "a": 1
+                }
+            }
+        ]
+    }
+}
