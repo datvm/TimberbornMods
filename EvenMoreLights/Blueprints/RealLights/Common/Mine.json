@@ -1,0 +1,22 @@
+{
+    "RealLightsSpec": {
+        "PrefabNames": [ "Mine.Folktails", "Mine.IronTeeth" ],
+        "Lights": [
+            {
+                "Range": 4,
+                "Intensity": 4,
+                "Position": {
+                    "X": 2.5,
+                    "Y": 1.8,
+                    "Z": 2.5
+                },
+                "Color": {
+                    "r": 1,
+                    "g": 0.4,
+                    "b": 0,
+                    "a": 1
+                }
+            }
+        ]
+    }
+}

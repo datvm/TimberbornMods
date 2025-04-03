@@ -4,13 +4,23 @@ global using Timberborn.BlueprintSystem;
 
 namespace RealLights.Managements;
 
-public class RealLightsManager(ISpecService specs, EventBus eb) : ILoadableSingleton
+public class RealLightsManager(
+    ISpecService specs,
+    EventBus eb,
+    ISingletonLoader loader
+) : ILoadableSingleton, ISaveableSingleton
 {
+    static readonly SingletonKey SaveKey = new("RealLightsManager");
+    static readonly ListKey<string> TurnedOffPrefabs = new("TurnedOffPrefabs");
+
     FrozenDictionary<string, RealLightsSpec> realLightSpecs = null!;
     readonly HashSet<RealLightsComponent> instances = [];
+    HashSet<string> turnedOffPrefabs = [];
 
     public void Load()
     {
+        LoadData();
+
         var lights = specs.GetSpecs<RealLightsSpec>();
         Dictionary<string, RealLightsSpec> dict = [];
 
@@ -51,6 +61,30 @@ public class RealLightsManager(ISpecService specs, EventBus eb) : ILoadableSingl
         instances.Remove(comp);
     }
 
+    public bool IsTurnedOff(string prefabName) => turnedOffPrefabs.Contains(prefabName);
+
+    public void SetForceOffPrefab(string prefabName, bool enabled)
+    {
+        if (enabled)
+        {
+            turnedOffPrefabs.Add(prefabName);
+        }
+        else
+        {
+            turnedOffPrefabs.Remove(prefabName);
+        }
+
+        Debug.Log($"{prefabName} is now {(enabled ? "disabled" : "enabled")} for real lights");
+
+        foreach (var i in instances)
+        {
+            if (i.PrefabName == prefabName)
+            {
+                i.ToggleLightsState();
+            }
+        }
+    }
+
     [OnEvent]
     public void OnNighttime(NighttimeStartEvent _)
     {
@@ -66,6 +100,23 @@ public class RealLightsManager(ISpecService specs, EventBus eb) : ILoadableSingl
         foreach (var i in instances)
         {
             i.UpdateDayNightLights();
+        }
+    }
+
+    public void Save(ISingletonSaver singletonSaver)
+    {
+        var s = singletonSaver.GetSingleton(SaveKey);
+        s.Set(TurnedOffPrefabs, turnedOffPrefabs);
+    }
+
+    void LoadData()
+    {
+        if (!loader.HasSingleton(SaveKey)) { return; }
+
+        var s = loader.GetSingleton(SaveKey);
+        if (s.Has(TurnedOffPrefabs))
+        {
+            turnedOffPrefabs = [..s.Get(TurnedOffPrefabs)];
         }
     }
 

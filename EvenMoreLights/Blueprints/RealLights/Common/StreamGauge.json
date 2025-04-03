@@ -1,0 +1,22 @@
+{
+    "RealLightsSpec": {
+        "PrefabNames": [ "StreamGauge.Folktails", "StreamGauge.IronTeeth" ],
+        "Lights": [
+            {
+                "Range": 2,
+                "Intensity": 2,
+                "Position": {
+                    "X": 0.5,
+                    "Y": 0.5,
+                    "Z": 3.2
+                },
+                "Color": {
+                    "r": 1,
+                    "g": 0,
+                    "b": 0,
+                    "a": 1
+                }
+            }
+        ]
+    }
+}

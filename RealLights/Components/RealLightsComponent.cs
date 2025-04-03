@@ -2,6 +2,7 @@
 global using Timberborn.Coordinates;
 global using Timberborn.PrefabSystem;
 global using Timberborn.TimeSystem;
+global using Timberborn.EntitySystem;
 
 namespace RealLights.Components;
 
@@ -21,9 +22,13 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity
     public bool ForceOff { get; private set; }
 
     public RealLightsSpec? Spec { get; private set; }
+    public string? BuildingName { get; private set; }
+    public string? PrefabName { get; private set; }
     public bool HasRealLight => Spec is not null;
 
     CustomRealLightProperties[]? customs;
+
+    public bool ForcedOffPrefab => registry.IsTurnedOff(PrefabName ?? throw new InvalidOperationException());
 
     public bool IsDrawingDebugLight { get; private set; }
 
@@ -43,6 +48,10 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity
         if (prefabSpec is null
             || !registry.TryGetRealLightFor(prefabSpec, out var spec)) { return; }
         Spec = spec;
+
+        var label = GetComponentFast<LabeledEntity>();
+        PrefabName = prefabSpec.PrefabName;
+        BuildingName = label ? label.DisplayName : PrefabName;
 
         AttachLights(spec.Lights, TransformFast);
         HasNightLight = spec.Lights.FastAny(q => q.IsNightLight);
@@ -120,6 +129,13 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity
         SetCustomProperties(index, new() { Color = modified });
     }
 
+    public void SetForceOffPrefab(bool enabled)
+    {
+        if (PrefabName is null) { return; }
+
+        registry.SetForceOffPrefab(PrefabName, enabled);
+    }
+
     public void SetForceOff(bool value)
     {
         ForceOff = value;
@@ -179,24 +195,27 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity
         light.range = range;
         light.color = color;
         light.intensity = intensity;
-        light.enabled = ShouldLightsBeOn;
+
+        ToggleLightsState();
     }
 
-    void ToggleLightsState()
+    public void ToggleLightsState()
     {
         if (lights == default || Spec is null) { return; }
 
         var lightSpecs = Spec.Lights;
 
-        var shouldBeOn = ShouldLightsBeOn;
+        var shouldAllDayLightBeOn = ShouldAllDayLightsBeOn;
+        var shouldNightLightOn = shouldAllDayLightBeOn && ShouldNightLightsBeOn;
         for (int i = 0; i < lights.Length; i++)
         {
             var l = lights[i];
-            l.enabled = shouldBeOn || !lightSpecs[i].IsNightLight;
+            l.enabled = lightSpecs[i].IsNightLight ? shouldNightLightOn : shouldAllDayLightBeOn;
         }
     }
 
-    public bool ShouldLightsBeOn => !ForceOff && (!HasNightLight || ForceNightLightOn || dayNightCycle.IsNighttime);
+    public bool ShouldAllDayLightsBeOn => !ForcedOffPrefab && !ForceOff;
+    public bool ShouldNightLightsBeOn => HasNightLight && (ForceNightLightOn || dayNightCycle.IsNighttime);
 
     static readonly ColorHandler jsonColorHandler = new();
     public void Save(IEntitySaver entitySaver)

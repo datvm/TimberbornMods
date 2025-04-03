@@ -1,6 +1,7 @@
 ID,Text,Comment
 LV.RL.Title,"Real Lights",
 LV.RL.ForceOff,"Turn off",
+LV.RL.ForceOffAll,"Turn off for all {0}",
 LV.RL.ForceNightLight,"Force Night light on",
 LV.RL.LightConfig,"Light {0}:","In case there are more than 1 light, it will show up as Light 1, Light 2 etc"
 LV.RL.Intensity,"Intensity",

@@ -11,6 +11,7 @@ public class RealLightsFragment(VisualElementInitializer initializer, ILoc t, De
     EntityPanelFragmentElement panel = null!;
     RealLightsComponent? realLight;
 
+    Toggle chkForceOffAll = null!;
     Toggle chkForceOff = null!;
     Toggle chkForceNightLight = null!;
     VisualElement lightConfigs = null!;
@@ -36,26 +37,33 @@ public class RealLightsFragment(VisualElementInitializer initializer, ILoc t, De
             Visible = false,
         };
 
-        panel.AddGameLabel(t.T("LV.RL.Title").Bold()).SetMarginBottom(10);
+        var container = panel.AddChild<NineSliceVisualElement>();
 
-        chkForceOff = panel.AddToggle(t.T("LV.RL.ForceOff"), onValueChanged: OnForceOffChanged)
+        container.AddGameLabel(t.T("LV.RL.Title").Bold()).SetMarginBottom(10);
+
+        var scroll = container.AddScrollView(greenDecorated: false, additionalClasses: ["game-scroll-view"])
+            .SetMaxHeight(200);
+        
+        chkForceOffAll = scroll.AddToggle(t.T("LV.RL.ForceOffAll"), onValueChanged: OnForceOffPrefabChanged)
             .SetMarginBottom(5);
-        chkForceNightLight = panel.AddToggle(t.T("LV.RL.ForceNightLight"), onValueChanged: OnForceNightLightChanged)
+        chkForceOff = scroll.AddToggle(t.T("LV.RL.ForceOff"), onValueChanged: OnForceOffChanged)
+            .SetMarginBottom(5);
+        chkForceNightLight = scroll.AddToggle(t.T("LV.RL.ForceNightLight"), onValueChanged: OnForceNightLightChanged)
             .SetMarginBottom(10);
 
-        lightConfigs = panel.AddChild().SetMarginBottom();
+        lightConfigs = scroll.AddChild().SetMarginBottom();
 
-        panel.AddGameButton(t.T("LV.RL.Reset"), OnReset, "ResetColor", stretched: true)
+        scroll.AddGameButton(t.T("LV.RL.Reset"), OnReset, "ResetColor", stretched: true)
             .SetFlexGrow();
 
-        AddDevPanel();
+        AddDevPanel(scroll);
 
         return panel.Initialize(initializer);
     }
 
-    void AddDevPanel()
+    void AddDevPanel(VisualElement parent)
     {
-        devPanel = panel.AddChild().SetMargin(top: 20);
+        devPanel = parent.AddChild().SetMargin(top: 20);
 
         devPanel.AddGameButton(
             "Toggle Light positions indicators",
@@ -92,6 +100,12 @@ public class RealLightsFragment(VisualElementInitializer initializer, ILoc t, De
         input.AddInputProcessor(this);
     }
 
+    public void OnForceOffPrefabChanged(bool enabled)
+    {
+        realLight?.SetForceOffPrefab(enabled);
+        SetToggleUi();
+    }
+
     void OnForceNightLightChanged(bool on)
     {
         realLight?.SetForceNightLightOn(on);
@@ -100,7 +114,7 @@ public class RealLightsFragment(VisualElementInitializer initializer, ILoc t, De
     void OnForceOffChanged(bool on)
     {
         realLight?.SetForceOff(on);
-        chkForceNightLight.enabledSelf = !on;
+        SetToggleUi();
     }
 
     void OnLightCustomSet(int index, CustomRealLightProperties props)
@@ -117,10 +131,14 @@ public class RealLightsFragment(VisualElementInitializer initializer, ILoc t, De
     void UpdatePanelValues()
     {
         chkForceOff.value = realLight!.ForceOff;
+        
+        chkForceOffAll.value = realLight!.ForcedOffPrefab;
+        chkForceOffAll.text = t.T("LV.RL.ForceOffAll", realLight.BuildingName);
 
         chkForceNightLight.ToggleDisplayStyle(realLight.HasNightLight);
         chkForceNightLight.value = realLight.ForceNightLightOn;
-        chkForceNightLight.enabledSelf = !realLight.ForceOff;
+
+        SetToggleUi();
 
         var lightCount = realLight.Spec!.Lights.Length;
 
@@ -199,5 +217,12 @@ public class RealLightsFragment(VisualElementInitializer initializer, ILoc t, De
 
         return false;
     }
+
+    void SetToggleUi()
+    {
+        chkForceOff.enabledSelf = !chkForceOffAll.value;
+        chkForceNightLight.enabledSelf = !chkForceOffAll.value && !chkForceOff.value;
+    }
+
 }
 
