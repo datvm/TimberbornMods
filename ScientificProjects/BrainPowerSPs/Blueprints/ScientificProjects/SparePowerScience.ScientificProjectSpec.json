@@ -1,0 +1,13 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "SparePowerScience",
+        "GroupId": "Powers",
+        "NameKey": "LV.BPSP.SparePowerScience",
+        "EffectKey": "LV.BPSP.SparePowerScienceEff",
+        "LoreKey": "LV.BPSP.SparePowerScienceLore",
+        "Icon": "Sprites/Projects/SparePowerScience",
+        "ScienceCost": 2000,
+        "Parameters": [ 100 ],
+        "Order": 1000
+    }
+}

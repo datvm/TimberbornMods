@@ -2,7 +2,7 @@
 
 namespace BrainPowerSPs.Buffs;
 
-public class WaterWheelBuff(
+public class PowerBuffs(
     ISingletonLoader loader,
     IBuffService buffs,
     EventBus eb,
@@ -13,7 +13,7 @@ public class WaterWheelBuff(
 
     protected override SingletonKey SingletonKey { get; } = SaveKey;
 
-    protected override HashSet<string> SupportedOneTimeIds { get; } = [.. ModUtils.WaterWheelUpIds, ModUtils.WaterWheelFlowUp1Id];
+    protected override HashSet<string> SupportedOneTimeIds { get; } = [.. ModUtils.WaterWheelUpIds, ModUtils.WaterWheelFlowUp1Id, ModUtils.WindmillHeightUpId];
     protected override HashSet<string> SupportedDailyIds { get; } = [ModUtils.WaterWheelFlowUp2Id];
     protected override IEnumerable<Type> DailyBuffInstanceTypes { get; } = [];
 
@@ -33,6 +33,11 @@ public class WaterWheelBuff(
         {
             RefreshWaterWheelFlowUpBuff();
         }
+
+        if (justUnlocked is null || justUnlocked.Id == ModUtils.WindmillHeightUpId)
+        {
+            RefreshWindmillBuffs();
+        }
     }
 
     void RefreshWaterWheelUpBuffs()
@@ -42,7 +47,7 @@ public class WaterWheelBuff(
         var unlocked = GetUnlockedOrActiveProjects(ModUtils.WaterWheelUpIds);
         if (unlocked.Count == 0) { return; }
 
-        var instance = buffs.CreateBuffInstance<WaterWheelBuff, WaterWheelUpBuffInst, IEnumerable<ScientificProjectInfo>>(this, unlocked);
+        this.CreateInstance(unlocked, out WaterWheelUpBuffInst instance);
         buffs.Apply(instance);
     }
 
@@ -53,7 +58,17 @@ public class WaterWheelBuff(
         var unlocked = GetUnlockedOrActiveProjects(ModUtils.WaterWheelFlowUpIds);
         if (unlocked.Count == 0) { return; }
 
-        var instance = buffs.CreateBuffInstance<WaterWheelBuff, WaterWheelFlowUpBuffInst, IEnumerable<ScientificProjectInfo>>(this, unlocked);
+        this.CreateInstance(unlocked, out WaterWheelFlowUpBuffInst instance);
+        buffs.Apply(instance);
+    }
+
+    void RefreshWindmillBuffs()
+    {
+        RemoveBuffInstances<WindmillBuffInstant>();
+        var unlocked = GetUnlockedOrActiveProjects([ModUtils.WindmillHeightUpId]);
+        if (unlocked.Count == 0) { return; }
+
+        this.CreateInstance(unlocked, out WindmillBuffInstant instance);
         buffs.Apply(instance);
     }
 

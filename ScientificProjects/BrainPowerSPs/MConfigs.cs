@@ -2,6 +2,7 @@
 global using ScientificProjects.Management;
 global using BrainPowerSPs.Buffs.Components;
 global using BrainPowerSPs.Buffs;
+global using BrainPowerSPs.Patches;
 
 namespace BrainPowerSPs;
 
@@ -10,19 +11,22 @@ public class ModGameConfig : Configurator
 {
     public override void Configure()
     {
-        Bind<WaterWheelBuff>().AsSingleton();
+        Bind<PowerBuffs>().AsSingleton();
+        Bind<SparePowerConverter>().AsSingleton();
 
         MultiBind<IProjectCostProvider>().To<ProjectsCostProvider>().AsSingleton();
-        MultiBind<ITrackingEntities>().To<ModEntityTracker>().AsSingleton();
 
-        MultiBind<TemplateModule>().ToProvider(() =>
-        {
-            TemplateModule.Builder b = new();
+        this.MultiBindAndBindSingleton<IPrefabGroupServiceFrontRunner, PrefabModifier>();
 
-            b.AddDecorator<WaterPoweredGenerator, WaterWheelBuffComponent>();
+        this.BindTrackingEntities()
+            .TrackWorkplace()
+            .Track<WaterPoweredGenerator>()
+            .Track<WindPoweredGeneratorSpec>();
 
-            return b.Build();
-        }).AsSingleton();
+        this.BindTemplateModule()
+            .AddDecorator<WaterPoweredGenerator, WaterWheelBuffComponent>()
+            .AddDecorator<WindPoweredGeneratorSpec, WindmillBuffComponent>()
+            .Bind();
     }
 }
 

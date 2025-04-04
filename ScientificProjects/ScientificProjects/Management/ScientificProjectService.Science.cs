@@ -2,12 +2,9 @@
 
 partial class ScientificProjectService
 {
-    HashSet<string> unlockedProjects = [];
-    public IEnumerable<string> UnlockedProjectIds => unlockedProjects;
-
     public string? CanUnlock(string id)
     {
-        if (unlockedProjects.Contains(id))
+        if (unlocks.Contains(id))
         {
             return "LV.SP.UnlockErrUnlocked".T(t);
         }
@@ -54,7 +51,7 @@ partial class ScientificProjectService
 
     public bool IsUnlocked(string projectId)
     {
-        if (unlockedProjects.Contains(projectId)) { return true; }
+        if (unlocks.Contains(projectId)) { return true; }
 
         var proj = GetProjectSpec(projectId);
         return proj.HasSteps &&
@@ -102,7 +99,7 @@ partial class ScientificProjectService
 
     void PerformUnlock(string id)
     {
-        unlockedProjects.Add(id);
+        unlocks.Unlock(id);
 
         eb.Post(new OnScientificProjectUnlockedEvent(GetProjectSpec(id)));
     }

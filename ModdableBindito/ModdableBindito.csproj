@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputModFolderName>ModdableBindito</OutputModFolderName>
+	</PropertyGroup>
+	
+    <Import Project="../Common.target" />
+</Project>

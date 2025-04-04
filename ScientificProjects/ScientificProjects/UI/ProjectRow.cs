@@ -37,13 +37,26 @@ public class ProjectRow : VisualElement
             }
             else
             {
-                var btn = this.AddChild<ScienceButton>(name: "UnlockSection");
-                btn.Cost = p.Spec.ScienceCost;
-                btn.RegisterCallback<ClickEvent>(_ => OnUnlockRequested(p, this));
+                AddUnlockSection(this, p, t);
             }
         }
 
         return this;
+    }
+
+    void AddUnlockSection(VisualElement parent, ScientificProjectInfo p, ILoc t)
+    {
+        var unlockPanel = parent.AddChild();
+
+        var btn = unlockPanel.AddChild<ScienceButton>(name: "UnlockSection")
+            .SetMarginBottom(10);
+        btn.Cost = p.Spec.ScienceCost;
+        btn.RegisterCallback<ClickEvent>(_ => OnUnlockRequested(p, this));
+
+        if (p.Spec.NeedReload)
+        {
+            unlockPanel.AddLabel(text: "LV.SP.ReloadNeeded".T(t));
+        }
     }
 
     public bool SetFilter(in ScientificProjectFilter filter)

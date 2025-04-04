@@ -7,7 +7,8 @@ public partial class ScientificProjectService(
     EventBus eb,
     ScienceService sciences,
     ILoc t,
-    FactionService factions
+    FactionService factions,
+    ScientificProjectUnlockManager unlocks
 ) : ILoadableSingleton, ISaveableSingleton, IUnloadableSingleton
 {
     

@@ -7,7 +7,7 @@
         "LoreKey": "LV.BPSP.WindmillHeightUpLore",
         "Icon": "Sprites/Projects/Windmills/WindmillHeightUp",
         "ScienceCost": 500,
-        "Parameters": [ 0.05 ],
+        "Parameters": [ 0.03 ],
         "Order": 800,
         "Factions": [ "Folktails" ]
     }

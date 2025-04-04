@@ -11,4 +11,12 @@ static internal class ModUtils
 
     public static ImmutableHashSet<string> WaterWheelsPrefabNames = [];
 
+    public const string PowerWheelBotUpId = "WheelBotUp";
+    public const string PowerWheelWorkerUpId = "WheelWorkerUp";
+
+    public const string WindmillHeightUpId = "WindmillHeightUp";
+    public const string WindmillSizeUpId = "WindmillSizeUp";
+
+    public const string SparePowerScienceId = "SparePowerScience";
+
 }

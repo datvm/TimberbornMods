@@ -76,7 +76,7 @@ public enum GameWeatherStage
     Hazardous,
 }
 
-internal static class ModExtensions
+public static class ScientificModExtensions
 {
 
     public static string T(this string s, ILoc t)

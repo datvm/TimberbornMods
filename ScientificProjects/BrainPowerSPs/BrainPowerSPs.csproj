@@ -10,4 +10,5 @@
 	<Import Project="../../CommonTimberUI.target" />
 	<Import Project="../../CommonBuffDebuff.target" />
 	<Import Project="../../CommonScientificProjects.target" />
+	<Import Project="../../CommonModdableBindito.target" />
 </Project>
