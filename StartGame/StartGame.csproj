@@ -23,9 +23,9 @@
 
 		<!--<ProjectReference Include="..\ScientificProjects\ScientificProjects\ScientificProjects.csproj" />-->
 		<!--<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />-->
-		<!--<ProjectReference Include="..\ScientificProjects\BrainPowerSPs\BrainPowerSPs.csproj" />-->
+		<ProjectReference Include="..\ScientificProjects\BrainPowerSPs\BrainPowerSPs.csproj" />
 
-		<ProjectReference Include="..\BeaverAscent\BeaverAscent.csproj" />
+		<ProjectReference Include="..\ModdableBindito\ModdableBindito.csproj" />
 		
 	</ItemGroup>
 

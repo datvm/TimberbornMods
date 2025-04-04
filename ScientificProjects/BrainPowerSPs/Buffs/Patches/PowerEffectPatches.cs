@@ -20,14 +20,23 @@ public static class PowerEffectPatches
             {
                 switch (eff)
                 {
-                    case PowerOutputDayMultiplierBuffEff podm:
-                        output += podm.CurrentValue;
+                    case IPowerFlatEffect flat:
+                        if (flat.Enabled)
+                        {
+                            flatPower += flat.Value;
+                        }
                         break;
-                    case PowerOutputMultiplierBuffEff pom:
-                        output += pom.Value;
+                    case IPowerMultiplierEffect mult:
+                        if (mult.Enabled)
+                        {
+                            output += mult.Value;
+                        }
                         break;
-                    case PowerOutputFlatBuffEff pof:
-                        flatPower += pof.Value;
+                    case IPowerCustomMultiplierEffect custom:
+                        if (custom.Enabled)
+                        {
+                            output += custom.GetValue(buffable);
+                        }
                         break;
                 }
             }

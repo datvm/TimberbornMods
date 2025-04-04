@@ -2,8 +2,7 @@
 
 partial class ScientificProjectService
 {
-    static readonly SingletonKey SaveKey = new("ScientificProjects");
-    static readonly ListKey<string> UnlockedProjectsKey = new("UnlockedProjects");
+    public static readonly SingletonKey SaveKey = new("ScientificProjects");
     static readonly ListKey<string> CollapsedGroupsKey = new("CollapsedGroups");
     static readonly ListKey<string> ProjectLevelsKey = new("ProjectLevels");
     static readonly ListKey<string> TodayProjectLevelsKey = new("TodayProjectLevels");
@@ -23,7 +22,6 @@ partial class ScientificProjectService
         if (!loader.HasSingleton(SaveKey)) { return; }
         var s = loader.GetSingleton(SaveKey);
 
-        unlockedProjects = [.. s.Get(UnlockedProjectsKey)];
         if (s.Has(CollapsedGroupsKey))
         {
             collapsedGroupIds.AddRange(s.Get(CollapsedGroupsKey));
@@ -89,7 +87,6 @@ partial class ScientificProjectService
     {
         var s = saver.GetSingleton(SaveKey);
 
-        s.Set(UnlockedProjectsKey, unlockedProjects);
         s.Set(CollapsedGroupsKey, collapsedGroupIds);
         s.Set(YesterdayScienceKey, yesterdayScience);
         s.Set(ScienceGainedKey, ScienceGainedToday ?? 0);

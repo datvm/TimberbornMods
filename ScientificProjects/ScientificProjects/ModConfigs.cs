@@ -5,6 +5,7 @@ public class ModGameConfig : Configurator
 {
     public override void Configure()
     {
+        Bind<ScientificProjectUnlockManager>().AsSingleton();
         Bind<ScientificProjectRegistry>().AsSingleton();
         Bind<ScientificProjectService>().AsSingleton();
 

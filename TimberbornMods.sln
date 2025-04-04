@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Targets", "_Targets", "{F8
 		CommonBuffDebuff.target = CommonBuffDebuff.target
 		CommonDebug.target = CommonDebug.target
 		CommonHarmony.target = CommonHarmony.target
+		CommonModdableBindito.target = CommonModdableBindito.target
 		CommonProperties.target = CommonProperties.target
 		CommonScientificProjects.target = CommonScientificProjects.target
 		CommonTimberApi.target = CommonTimberApi.target
@@ -118,7 +119,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameAssemblyPublicizer", "G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableHousing", "ConfigurableHousing\ConfigurableHousing.csproj", "{D7C6E893-3AA0-4771-A992-E93AA3B3519C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnlockableRecipe", "UnlockableRecipe", "{DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Moddable", "Moddable", "{DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnlockableRecipe", "UnlockableRecipe\UnlockableRecipe.csproj", "{71D4AB22-50FD-4CE1-8408-5F532FCC9224}"
 EndProject
@@ -139,6 +140,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterSwap", "WaterSwap\WaterSwap.csproj", "{48B85283-6640-472D-8B46-094A08ED30AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvenMoreLights", "EvenMoreLights\EvenMoreLights.csproj", "{E44DD0D9-5807-4799-A792-BA652EB348CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModdableBindito", "ModdableBindito\ModdableBindito.csproj", "{27799912-15DE-48DE-8C37-E16A873F6734}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -370,6 +373,10 @@ Global
 		{E44DD0D9-5807-4799-A792-BA652EB348CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E44DD0D9-5807-4799-A792-BA652EB348CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E44DD0D9-5807-4799-A792-BA652EB348CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27799912-15DE-48DE-8C37-E16A873F6734}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27799912-15DE-48DE-8C37-E16A873F6734}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27799912-15DE-48DE-8C37-E16A873F6734}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27799912-15DE-48DE-8C37-E16A873F6734}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -392,6 +399,8 @@ Global
 		{B3F3BF1B-D82E-4D56-98FE-8B5CCB2DD9CC} = {36EBDCB0-09D8-4A7D-AF62-89D5C49B6B44}
 		{71D4AB22-50FD-4CE1-8408-5F532FCC9224} = {DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}
 		{E7C5083D-79D5-458F-A6AD-ED6256683720} = {DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}
+		{6B731303-4128-49AD-9C64-5165045F1BC8} = {DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}
+		{27799912-15DE-48DE-8C37-E16A873F6734} = {DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}

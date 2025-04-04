@@ -5,7 +5,7 @@ partial class ScientificProjectService
 
     public void ClearAllUpgrades()
     {
-        unlockedProjects.Clear();
+        unlocks.Clear();
     }
 
 }

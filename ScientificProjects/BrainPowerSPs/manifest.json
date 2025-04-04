@@ -7,8 +7,9 @@
     "RequiredMods": [
         {
             "Id": "ScientificProjects",
-            "MinimumVersion": "7.1.3"
+            "MinimumVersion": "7.1.4"
         },
-        { "Id": "Harmony" }
+        { "Id": "Harmony" },
+        { "Id": "ModdableBindito" }
     ]
 }

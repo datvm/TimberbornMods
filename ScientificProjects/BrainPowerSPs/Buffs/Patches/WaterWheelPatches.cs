@@ -10,10 +10,11 @@ public static class WaterWheelPatches
         var buffable = __instance.GetBuffable();
         if (buffable is null) { return; }
 
+        var buffComp = __instance.GetComponentFast<WaterWheelBuffComponent>();
+        if (!buffComp || !buffComp.HasWater) { return; }
+
         var effs = buffable.GetEffects<GeneratorMinStrengthBuffEff>();
-        var min = effs
-            .Where(q => q.Enabled)
-            .Sum(q => q.Value);
+        var min = effs.Sum(q => q.Value);
 
         if (min > Math.Abs(__result))
         {

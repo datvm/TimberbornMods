@@ -3,7 +3,7 @@ global using Timberborn.EntitySystem;
 
 namespace BrainPowerSPs.Buffs;
 
-public class WaterWheelUpBuffInst : CommonProjectBuffInstance<WaterWheelBuff>
+public class WaterWheelUpBuffInst : CommonProjectBuffInstance<PowerBuffs>
 {
     // We only create one buff effect using the best one
     protected override IBuffEffect? CreateBuffEffect(ScientificProjectInfo info)
@@ -45,7 +45,7 @@ public class WaterWheelUpBuffInst : CommonProjectBuffInstance<WaterWheelBuff>
 
 }
 
-public class WaterWheelFlowUpBuffInst : CommonProjectBuffInstance<WaterWheelBuff>
+public class WaterWheelFlowUpBuffInst : CommonProjectBuffInstance<PowerBuffs>
 {
     protected override IBuffEffect? CreateBuffEffect(ScientificProjectInfo info)
         => CreateFlatOrLevelEffect(info, (value, name) => new GeneratorMinStrengthBuffEff(value, name, t));
@@ -64,7 +64,7 @@ public class WaterWheelFlowUpBuffInst : CommonProjectBuffInstance<WaterWheelBuff
 
 public class WaterWheelBuffTarget(EventBus eventBus, EntityManager entities) : EntityBasedBuffTarget(eventBus)
 {
-    protected override bool Filter(EntityComponent entity) => entity.GetComponentFast<WaterPoweredGenerator>() is not null;
+    protected override bool Filter(EntityComponent entity) => !entity.GetComponentFast<WaterPoweredGenerator>();
 
     protected override HashSet<BuffableComponent> GetTargets() => [
         .. entities.Get<WaterPoweredGenerator>()

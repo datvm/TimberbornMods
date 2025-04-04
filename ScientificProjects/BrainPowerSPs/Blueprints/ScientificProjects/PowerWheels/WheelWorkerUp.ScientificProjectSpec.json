@@ -6,9 +6,10 @@
         "EffectKey": "LV.BPSP.WheelWorkerUpEff",
         "LoreKey": "LV.BPSP.WheelWorkerUpLore",
         "Icon": "Sprites/Projects/PowerWheels/WheelWorkerUp",
-        "ScienceCost": 350,
+        "ScienceCost": 500,
         "Parameters": [ 2 ],
         "Order": 600,
-        "Factions": [ "IronTeeth" ]
+        "Factions": [ "IronTeeth" ],
+        "NeedReload": true
     }
 }

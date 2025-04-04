@@ -6,8 +6,9 @@
         "EffectKey": "LV.BPSP.WheelBotUpEff",
         "LoreKey": "LV.BPSP.WheelBotUpLore",
         "Icon": "Sprites/Projects/PowerWheels/WheelBotUp",
-        "ScienceCost": 500,
+        "ScienceCost": 1500,
         "Parameters": [],
-        "Order": 700
+        "Order": 700,
+        "NeedReload": true
     }
 }
