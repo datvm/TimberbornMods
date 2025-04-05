@@ -23,14 +23,14 @@ LV.BPSP.PowerOutputMulDayEff,"{0:+#%} power output (from {1:+#%} to {2:+#%})",
 LV.BPSP.PowerOutputFlatEff,"{0:+#}HP power output from {1}",
 LV.BPSP.GeneratorStrMinEff,"{0:+#%} Minimum power output when there is water from {1}",
 LV.BPSP.WheelWorkerUp,"Gearshift Labor Sync",
-LV.BPSP.WheelWorkerUpEff,"Reduces Large Power Wheel Worker need by {0}, maintains full power output."
+LV.BPSP.WheelWorkerUpEff,"Reduces Large Power Wheel Worker need by {0}, maintains full power output.",
 LV.BPSP.WheelWorkerUpLore,"'Gears dance alone now—fewer tails, same thunderous spin!' — Clanktail Overseer",
 LV.BPSP.WheelBotUp,"Bot-Integrated Axles",
-LV.BPSP.WheelBotUpEff,"Allows Bots to operate Power Wheels instead of only Beavers."
+LV.BPSP.WheelBotUpEff,"Allows Bots to operate Power Wheels instead of only Beavers.",
 LV.BPSP.WheelBotUpLore,"'Bots spin better than tails ever could—efficiency’s our game!' — Boltwhirr Botmaster",
 LV.BPSP.WindmillHeightUp,"High-Altitude Gust Harness",
 LV.BPSP.WindmillHeightUpEff,"Windmills (Regular and Large) get {0:+#%} more power for each height level at their tallest point.",
-LV.BPSP.WindmillHeightUpLore,"'Skyward we perch, sipping gusts the treetops envy!' — Leafwhirl, Keeper of Breezes"
+LV.BPSP.WindmillHeightUpLore,"'Skyward we perch, sipping gusts the treetops envy!' — Leafwhirl, Keeper of Breezes",
 LV.BPSP.WindmillHeightBuffEff,"{0:+#%} power per height level",
 LV.BPSP.WindmillSizeUp,"Compact Wind Sails",
 LV.BPSP.WindmillSizeUpEff,"Windmills now only occupy 1x1 instead of a 3x3 area.",

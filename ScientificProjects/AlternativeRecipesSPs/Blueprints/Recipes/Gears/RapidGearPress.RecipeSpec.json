@@ -1,0 +1,21 @@
+{
+    "RecipeSpec": {
+        "Id": "AR.RapidGearPress",
+        "DisplayLocKey": "LV.ARSP.RapidGearPress",
+        "CycleDurationInHours": 2,
+        "CyclesCapacity": 5,
+        "Ingredients": [
+            {
+                "Id": "Plank",
+                "Amount": 3
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Gear",
+                "Amount": 2
+            }
+        ],
+        "Icon": "Sprites/Goods/GearIcon"
+    }
+}

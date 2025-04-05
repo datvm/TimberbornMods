@@ -1,0 +1,13 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "AR.PlankBulkProcessing",
+        "GroupId": "AlternativeRecipes",
+        "NameKey": "LV.ARSP.PlankBulkProcessing",
+        "EffectKey": "LV.ARSP.PlankBulkProcessingEff",
+        "LoreKey": "LV.ARSP.PlankBulkProcessingLore",
+        "Icon": "Sprites/Goods/PlankIcon",
+        "ScienceCost": 150,
+        "Parameters": [ 7, 10, 10 ],
+        "Order": 10
+    }
+}
