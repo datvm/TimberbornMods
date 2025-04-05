@@ -15,7 +15,7 @@ public class DefaultRecipeLockerController(
     HashSet<string> unlockedRecipes = [];
     FrozenDictionary<string, IDefaultRecipeLocker> lockers = null!;
 
-    public ImmutableHashSet<string> MayLockRecipeIds { get; } = [.. defaultLockers.SelectMany(q => q.MayLockRecipeIds)];
+    public ImmutableHashSet<string> MayLockRecipeIds { get; private set; } = null!;
 
     /// <summary>
     /// Unlock a recipe. Also raise an event if the recipe was previously locked.
@@ -60,6 +60,7 @@ public class DefaultRecipeLockerController(
 
     public void Load()
     {
+        MayLockRecipeIds = [.. defaultLockers.SelectMany(q => q.MayLockRecipeIds)];
         LoadLockers();
         LoadSavedData();
     }

@@ -1,0 +1,8 @@
+{
+    "ScientificProjectGroupSpec": {
+        "Id": "AlternativeRecipes",
+        "NameKey": "LV.ARSP.AlternativeRecipesGroup",
+        "DescKey": "LV.ARSP.AlternativeRecipesGroupDesc",
+        "Order": 30
+    }
+}

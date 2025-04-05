@@ -1,0 +1,13 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "AR.DirectLogForging",
+        "GroupId": "AlternativeRecipes",
+        "NameKey": "LV.ARSP.DirectLogForging",
+        "EffectKey": "LV.ARSP.DirectLogForgingEff",
+        "LoreKey": "LV.ARSP.DirectLogForgingLore",
+        "Icon": "Sprites/Goods/GearIcon",
+        "ScienceCost": 75,
+        "Parameters": [ 1, 1, 6 ],
+        "Order": 20
+    }
+}

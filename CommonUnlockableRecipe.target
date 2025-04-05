@@ -1,0 +1,15 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<UnlockableRecipePath>$(GameModsFolder)UnlockableRecipe\$(TimberbornVersion)\**\*.dll</UnlockableRecipePath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Include="UnlockableRecipe" />
+
+		<Reference Condition="$(IsU7)" Include="$(UnlockableRecipePath)">
+			<Private>False</Private>
+		</Reference>
+	</ItemGroup>
+
+</Project>

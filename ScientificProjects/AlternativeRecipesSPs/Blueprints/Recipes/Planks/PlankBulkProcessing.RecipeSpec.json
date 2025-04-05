@@ -1,0 +1,21 @@
+{
+    "RecipeSpec": {
+        "Id": "AR.PlankBulkProcessing",
+        "DisplayLocKey": "LV.ARSP.PlankBulkProcessing",
+        "CycleDurationInHours": 10,
+        "CyclesCapacity": 1,
+        "Ingredients": [
+            {
+                "Id": "Log",
+                "Amount": 7
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Plank",
+                "Amount": 10
+            }
+        ],
+        "Icon": "Sprites/Goods/PlankIcon"
+    }
+}

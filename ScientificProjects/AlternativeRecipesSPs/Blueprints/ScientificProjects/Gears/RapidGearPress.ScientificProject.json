@@ -1,0 +1,13 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "AR.RapidGearPress",
+        "GroupId": "AlternativeRecipes",
+        "NameKey": "LV.ARSP.RapidGearPress",
+        "EffectKey": "LV.ARSP.RapidGearPressEff",
+        "LoreKey": "LV.ARSP.RapidGearPressLore",
+        "Icon": "Sprites/Goods/GearIcon",
+        "ScienceCost": 75,
+        "Parameters": [ 3, 2, 2 ],
+        "Order": 30
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "RecipeSpec": {
+        "Id": "AR.DirectLogForging",
+        "DisplayLocKey": "LV.ARSP.DirectLogForging",
+        "CycleDurationInHours": 6,
+        "CyclesCapacity": 5,
+        "Ingredients": [
+            {
+                "Id": "Log",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Gear",
+                "Amount": 1
+            }
+        ],
+        "Icon": "Sprites/Goods/GearIcon"
+    }
+}

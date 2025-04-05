@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Targets", "_Targets", "{F8
 		CommonTimberApi.target = CommonTimberApi.target
 		CommonTimberUI.target = CommonTimberUI.target
 		CommonUI.target = CommonUI.target
+		CommonUnlockableRecipe.target = CommonUnlockableRecipe.target
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableStorages", "ConfigurableStorages\ConfigurableStorages.csproj", "{A58730DB-2E1E-4B19-A793-FB710DF27F99}"
@@ -142,6 +143,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvenMoreLights", "EvenMoreLights\EvenMoreLights.csproj", "{E44DD0D9-5807-4799-A792-BA652EB348CC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModdableBindito", "ModdableBindito\ModdableBindito.csproj", "{27799912-15DE-48DE-8C37-E16A873F6734}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlternativeRecipesSPs", "ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj", "{2C02FC74-0218-4A94-8515-725C08AB1FFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -377,6 +380,10 @@ Global
 		{27799912-15DE-48DE-8C37-E16A873F6734}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27799912-15DE-48DE-8C37-E16A873F6734}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27799912-15DE-48DE-8C37-E16A873F6734}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C02FC74-0218-4A94-8515-725C08AB1FFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C02FC74-0218-4A94-8515-725C08AB1FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C02FC74-0218-4A94-8515-725C08AB1FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C02FC74-0218-4A94-8515-725C08AB1FFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -401,6 +408,7 @@ Global
 		{E7C5083D-79D5-458F-A6AD-ED6256683720} = {DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}
 		{6B731303-4128-49AD-9C64-5165045F1BC8} = {DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}
 		{27799912-15DE-48DE-8C37-E16A873F6734} = {DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}
+		{2C02FC74-0218-4A94-8515-725C08AB1FFB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}
