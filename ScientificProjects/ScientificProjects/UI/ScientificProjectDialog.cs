@@ -1,6 +1,4 @@
-﻿using ScientificProjects.Extensions;
-
-namespace ScientificProjects.UI;
+﻿namespace ScientificProjects.UI;
 
 public partial class ScientificProjectDialog : DialogBoxElement
 {

@@ -1,6 +1,4 @@
-﻿using ScientificProjects.Extensions;
-
-namespace ScientificProjects.Management;
+﻿namespace ScientificProjects.Management;
 
 public class ModProjectUnlockConditionProvider(
     HazardousWeatherApproachingTimer hazardTimer,

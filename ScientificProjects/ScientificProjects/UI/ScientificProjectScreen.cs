@@ -1,6 +1,4 @@
-﻿using ScientificProjects.Extensions;
-
-namespace ScientificProjects.UI;
+﻿namespace ScientificProjects.UI;
 
 public class ScientificProjectScreen(
     VisualElementInitializer veInit,
