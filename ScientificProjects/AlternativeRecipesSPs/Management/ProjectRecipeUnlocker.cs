@@ -13,7 +13,14 @@ public class ProjectRecipeUnlocker(EventBus eb, DefaultRecipeLockerController un
     [OnEvent]
     public void OnProjectUnlocked(OnScientificProjectUnlockedEvent ev)
     {
-        if (ev.Project.IsAlternativeRecipe())
+        if (ev.Project.Id == ModUtils.TimberbotId)
+        {
+            foreach (var id in ModUtils.TimberbotRecipes)
+            {
+                unlocker.Unlock(id);
+            }
+        }
+        else if (ev.Project.IsAlternativeRecipe())
         {
             unlocker.Unlock(ev.Project.Id);
         }

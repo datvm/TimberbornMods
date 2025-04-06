@@ -1,0 +1,25 @@
+{
+    "RecipeSpec": {
+        "Id": "AR.PrecisionOilYield",
+        "DisplayLocKey": "LV.ARSP.PrecisionOilYield",
+        "CycleDurationInHours": 2.5,
+        "CyclesCapacity": 30,
+        "Ingredients": [
+            {
+                "Id": "CanolaSeeds",
+                "Amount": 2
+            },
+            {
+                "Id": "Water",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "CanolaOil",
+                "Amount": 3
+            }
+        ],
+        "Icon": "Sprites/Goods/CanolaOilIcon"
+    }
+}

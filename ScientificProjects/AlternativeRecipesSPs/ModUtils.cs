@@ -6,12 +6,8 @@ internal static class ModUtils
     public const string RecipePrefix = "AR.";
     public const int RecipePrefixLength = 3;
 
-    public static bool IsAlternativeRecipe(this ScientificProjectSpec spec)
-    {
-        var result = spec.Id.StartsWith(RecipePrefix);
+    public const string TimberbotId = "TimberbotFramework";
+    public static readonly ImmutableHashSet<string> TimberbotRecipes = ["AR.TimberbotChassis", "AR.TimberbotHeads"];
 
-        Debug.Log($"IsAlternativeRecipe({spec.Id}): {result}");
-
-        return result;
-    }
+    public static bool IsAlternativeRecipe(this ScientificProjectSpec spec) => spec.Id.StartsWith(RecipePrefix);
 }

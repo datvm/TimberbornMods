@@ -1,4 +1,6 @@
 ﻿
+using ScientificProjects.Extensions;
+
 namespace ScientificProjects.Buffs;
 
 public class CarryingUpgradeBuffInst : CommonProjectBeaverBuffInstance<ResearchProjectsBuff>

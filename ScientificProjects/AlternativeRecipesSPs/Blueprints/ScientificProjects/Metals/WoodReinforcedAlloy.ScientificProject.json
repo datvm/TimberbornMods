@@ -8,8 +8,8 @@
         "LoreKey": "LV.ARSP.WoodReinforcedAlloyLore",
         "Icon": "Sprites/Goods/MetalBlockIcon",
         "ScienceCost": 1400,
-        "Parameters": [ 2, 1, 2, 4 ],
-        "Order": 70,
+        "Parameters": [ 2, 1, 2, 2.5 ],
+        "Order": 1400,
         "Factions": [ "Folktails" ]
     }
 }

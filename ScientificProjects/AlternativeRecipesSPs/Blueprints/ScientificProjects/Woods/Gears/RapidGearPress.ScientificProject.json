@@ -8,6 +8,6 @@
         "Icon": "Sprites/Goods/GearIcon",
         "ScienceCost": 75,
         "Parameters": [ 3, 2, 2 ],
-        "Order": 30
+        "Order": 300
     }
 }

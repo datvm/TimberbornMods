@@ -1,0 +1,14 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "AR.CrudeLogPressExtract",
+        "GroupId": "AlternativeRecipes",
+        "NameKey": "LV.ARSP.CrudeLogPressExtract",
+        "EffectKey": "LV.ARSP.CrudeLogPressExtractEff",
+        "LoreKey": "LV.ARSP.CrudeLogPressExtractLore",
+        "Icon": "Sprites/Goods/ExtractIcon",
+        "ScienceCost": 75,
+        "Parameters": [ 50, 5, 5, 1, 5 ],
+        "Order": 900,
+        "Factions": [ "IronTeeth" ]
+    }
+}

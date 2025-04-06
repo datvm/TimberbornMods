@@ -2,7 +2,7 @@
     "RecipeSpec": {
         "Id": "AR.ResinFiredSmelter",
         "DisplayLocKey": "LV.ARSP.ResinFiredSmelter",
-        "CycleDurationInHours": 2,
+        "CycleDurationInHours": 1.5,
         "CyclesCapacity": 13,
         "Ingredients": [
             {

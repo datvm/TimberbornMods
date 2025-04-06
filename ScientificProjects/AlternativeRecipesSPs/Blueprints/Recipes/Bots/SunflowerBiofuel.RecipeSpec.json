@@ -1,0 +1,25 @@
+{
+    "RecipeSpec": {
+        "Id": "AR.SunflowerBiofuel",
+        "DisplayLocKey": "LV.ARSP.SunflowerBiofuel",
+        "CycleDurationInHours": 4,
+        "CyclesCapacity": 4,
+        "Ingredients": [
+            {
+                "Id": "Potato",
+                "Amount": 1
+            },
+            {
+                "Id": "SunflowerSeeds",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Biofuel",
+                "Amount": 20
+            }
+        ],
+        "Icon": "Sprites/Goods/BiofuelIcon"
+    }
+}

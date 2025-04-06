@@ -1,4 +1,6 @@
-﻿namespace ScientificProjects.UI;
+﻿using ScientificProjects.Extensions;
+
+namespace ScientificProjects.UI;
 
 public class ScienceCostLine : VisualElement
 {

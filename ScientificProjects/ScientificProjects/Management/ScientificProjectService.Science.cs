@@ -1,4 +1,6 @@
-﻿namespace ScientificProjects.Management;
+﻿using ScientificProjects.Extensions;
+
+namespace ScientificProjects.Management;
 
 partial class ScientificProjectService
 {
