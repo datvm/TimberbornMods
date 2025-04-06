@@ -1,0 +1,13 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "AR.ExtractChargedExplosive",
+        "GroupId": "AlternativeRecipes",
+        "NameKey": "LV.ARSP.ExtractChargedExplosive",
+        "EffectKey": "LV.ARSP.ExtractChargedExplosiveEff",
+        "LoreKey": "LV.ARSP.ExtractChargedExplosiveLore",
+        "Icon": "Sprites/Goods/ExplosivesIcon",
+        "ScienceCost": 150,
+        "Parameters": [ 1, 2, 3 ],
+        "Order": 1200
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "RecipeSpec": {
+        "Id": "AR.SunDriedPulpSheets",
+        "DisplayLocKey": "LV.ARSP.SunDriedPulpSheets",
+        "CycleDurationInHours": 3,
+        "CyclesCapacity": 5,
+        "Ingredients": [
+            {
+                "Id": "Log",
+                "Amount": 1
+            },
+            {
+                "Id": "SunflowerSeeds",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Paper",
+                "Amount": 5
+            }
+        ],
+        "Icon": "Sprites/Goods/PaperIcon"
+    }
+}

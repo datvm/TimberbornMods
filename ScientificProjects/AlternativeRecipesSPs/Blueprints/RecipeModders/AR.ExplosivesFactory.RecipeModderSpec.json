@@ -1,0 +1,6 @@
+{
+    "RecipeModderSpec": {
+        "PrefabNames": [ "ExplosivesFactory.Folktails", "ExplosivesFactory.IronTeeth" ],
+        "RecipeIds": [ "AR.ExtractChargedExplosive" ]
+    }
+}

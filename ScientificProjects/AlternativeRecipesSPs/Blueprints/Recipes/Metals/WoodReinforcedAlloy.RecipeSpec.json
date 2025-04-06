@@ -2,7 +2,7 @@
     "RecipeSpec": {
         "Id": "AR.WoodReinforcedAlloy",
         "DisplayLocKey": "LV.ARSP.WoodReinforcedAlloy",
-        "CycleDurationInHours": 4,
+        "CycleDurationInHours": 2.5,
         "CyclesCapacity": 13,
         "Ingredients": [
             {

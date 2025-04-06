@@ -1,4 +1,4 @@
-﻿namespace System;
+﻿namespace ScientificProjects.Extensions;
 
 public readonly struct EnumerableReadonlyHashset<T>(ReadOnlyHashSet<T> set) : IEnumerable<T>
 {
@@ -39,9 +39,9 @@ public static class ResearchProjectsModExtensions
     {
         return timer._weatherService.IsHazardousWeather
             ? GameWeatherStage.Hazardous
-            : (timer.GetProgress() >= 0
+            : timer.GetProgress() >= 0
                 ? GameWeatherStage.Warning
-                : GameWeatherStage.Temperate);
+                : GameWeatherStage.Temperate;
     }
 
     public static bool IsAvailableTo(this ScientificProjectSpec spec, string factionId)

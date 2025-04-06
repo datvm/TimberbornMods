@@ -8,6 +8,6 @@
         "Icon": "Sprites/Goods/PlankIcon",
         "ScienceCost": 150,
         "Parameters": [ 7, 10, 10 ],
-        "Order": 10
+        "Order": 100
     }
 }

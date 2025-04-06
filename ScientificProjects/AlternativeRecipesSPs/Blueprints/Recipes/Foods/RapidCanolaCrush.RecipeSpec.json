@@ -1,0 +1,21 @@
+{
+    "RecipeSpec": {
+        "Id": "AR.RapidCanolaCrush",
+        "DisplayLocKey": "LV.ARSP.RapidCanolaCrush",
+        "CycleDurationInHours": 0.5,
+        "CyclesCapacity": 30,
+        "Ingredients": [
+            {
+                "Id": "CanolaSeeds",
+                "Amount": 2
+            }
+        ],
+        "Products": [
+            {
+                "Id": "CanolaOil",
+                "Amount": 1
+            }
+        ],
+        "Icon": "Sprites/Goods/CanolaOilIcon"
+    }
+}

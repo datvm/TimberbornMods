@@ -7,7 +7,7 @@
     "RequiredMods": [
         {
             "Id": "ScientificProjects",
-            "MinimumVersion": "7.1.4"
+            "MinimumVersion": "7.1.6"
         },
         { "Id": "Harmony" },
         {

@@ -17,12 +17,16 @@ public class ProjectRecipeLocker(ILoc t, ScientificProjectRegistry registry) : I
 
     static ImmutableHashSet<string> GetLockedRecipeIds(ScientificProjectRegistry registry)
     {
-        var result = registry.AllProjects
-            .Where(q => q.IsAlternativeRecipe())
-            .Select(q => q.Id)
-            .ToImmutableHashSet();
+        var recipeProjects = registry.AllProjects
+            .Where(q => q.IsAlternativeRecipe());
 
-        Debug.Log("Alternative Recipes: " + string.Join(", ", result));
+        ScientificProjectsUtils.Log(() =>
+            string.Join(Environment.NewLine, recipeProjects.Select(q => q.ScienceCost + " Science to " + q.Effect)));
+
+        var result = recipeProjects
+            .Select(q => q.Id)
+            .Concat(ModUtils.TimberbotRecipes)
+            .ToImmutableHashSet();
 
         return result;
     }

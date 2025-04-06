@@ -1,4 +1,6 @@
-﻿namespace ScientificProjects.Management;
+﻿using ScientificProjects.Extensions;
+
+namespace ScientificProjects.Management;
 
 public class ModProjectCostProvider(
     BeaverPopulation pops,

@@ -1,0 +1,13 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "AR.DilutedExtract",
+        "GroupId": "AlternativeRecipes",
+        "NameKey": "LV.ARSP.DilutedExtract",
+        "EffectKey": "LV.ARSP.DilutedExtractEff",
+        "LoreKey": "LV.ARSP.DilutedExtractLore",
+        "Icon": "Sprites/Goods/ExtractIcon",
+        "ScienceCost": 500,
+        "Parameters": [ 4, 2, 0.1, 2, 0.75 ],
+        "Order": 1000
+    }
+}

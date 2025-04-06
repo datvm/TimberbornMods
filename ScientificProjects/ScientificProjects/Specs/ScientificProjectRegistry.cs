@@ -1,4 +1,6 @@
 ﻿
+using ScientificProjects.Extensions;
+
 namespace ScientificProjects.Specs;
 
 public class ScientificProjectRegistry(
@@ -56,6 +58,8 @@ public class ScientificProjectRegistry(
         var groups = specs.GetSpecs<ScientificProjectGroupSpec>();
         foreach (var g in groups)
         {
+            ScientificProjectsUtils.Log(() => $"{nameof(ScientificProjects)}: Loading Group {g.Id}");
+
             g.DisplayName = t.T(g.NameKey);
             g.Description = t.T(g.DescKey);
         }
@@ -72,6 +76,8 @@ public class ScientificProjectRegistry(
 
         foreach (var p in projects)
         {
+            ScientificProjectsUtils.Log(() => $"{nameof(ScientificProjects)}: Loading Project {p.Id}");
+
             if (p.Id.Contains(';'))
             {
                 throw new InvalidOperationException($"Project Id must not have a semi-colon: {p.Id}");
@@ -144,6 +150,8 @@ public class ScientificProjectRegistry(
         Dictionary<string, IProjectCostProvider> providers = [];
         foreach (var p in costProviders)
         {
+            ScientificProjectsUtils.Log(() => $"{nameof(ScientificProjects)}: Loading Cost Provider {p.GetType().FullName}");
+
             var ids = p.CanCalculateCostForIds;
             foreach (var id in ids)
             {
@@ -165,6 +173,8 @@ public class ScientificProjectRegistry(
         Dictionary<string, IProjectUnlockConditionProvider> providers = [];
         foreach (var p in unlockConditionProviders)
         {
+            ScientificProjectsUtils.Log(() => $"{nameof(ScientificProjects)}: Loading Unlock Condition Provider {p.GetType().FullName}");
+
             var ids = p.CanCheckUnlockConditionForIds;
             foreach (var id in ids)
             {

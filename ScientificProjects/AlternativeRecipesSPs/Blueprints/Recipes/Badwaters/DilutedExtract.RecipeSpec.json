@@ -1,0 +1,28 @@
+{
+    "RecipeSpec": {
+        "Id": "AR.DilutedExtract",
+        "DisplayLocKey": "LV.ARSP.DilutedExtract",
+        "CycleDurationInHours": 1.5,
+        "CyclesCapacity": 4,
+        "Ingredients": [
+            {
+                "Id": "Badwater",
+                "Amount": 4
+            },
+            {
+                "Id": "Water",
+                "Amount": 2
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Extract",
+                "Amount": 2
+            }
+        ],
+        "Fuel": "Log",
+        "CyclesFuelLasts": 10,
+        "FuelCapacity": 5,
+        "Icon": "Sprites/Goods/ExtractIcon"
+    }
+}

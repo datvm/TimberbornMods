@@ -7,8 +7,8 @@
         "LoreKey": "LV.ARSP.ResinFiredSmelterLore",
         "Icon": "Sprites/Goods/MetalBlockIcon",
         "ScienceCost": 500,
-        "Parameters": [ 2, 0.1, 1, 2 ],
-        "Order": 60,
+        "Parameters": [ 2, 0.1, 1, 1.5 ],
+        "Order": 1300,
         "Factions": [ "Folktails" ]
     }
 }

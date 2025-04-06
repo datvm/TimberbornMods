@@ -1,0 +1,14 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "AR.SteelBoundPlanks",
+        "GroupId": "AlternativeRecipes",
+        "NameKey": "LV.ARSP.SteelBoundPlanks",
+        "EffectKey": "LV.ARSP.SteelBoundPlanksEff",
+        "LoreKey": "LV.ARSP.SteelBoundPlanksLore",
+        "Icon": "Sprites/Goods/TreatedPlankIcon",
+        "ScienceCost": 1200,
+        "Parameters": [ 3, 1, 3, 8 ],
+        "Order": 500,
+        "Factions": [ "IronTeeth" ]
+    }
+}

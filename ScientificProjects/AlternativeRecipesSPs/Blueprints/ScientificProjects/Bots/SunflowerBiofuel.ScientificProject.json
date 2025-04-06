@@ -1,0 +1,14 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "AR.SunflowerBiofuel",
+        "GroupId": "AlternativeRecipes",
+        "NameKey": "LV.ARSP.SunflowerBiofuel",
+        "EffectKey": "LV.ARSP.SunflowerBiofuelEff",
+        "LoreKey": "LV.ARSP.SunflowerBiofuelLore",
+        "Icon": "Sprites/Goods/BiofuelIcon",
+        "ScienceCost": 150,
+        "Parameters": [ 1, 1, 20, 2 ],
+        "Order": 1500,
+        "Factions": [ "Folktails" ]
+    }
+}
