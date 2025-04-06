@@ -2,6 +2,7 @@
 global using Timberborn.Buildings;
 global using Timberborn.PrefabGroupSystem;
 global using Timberborn.WaterBuildings;
+using Timberborn.TerrainPhysics;
 
 namespace NoBuildRestriction.Patches;
 
@@ -198,6 +199,15 @@ public static class RestrictionPatches
 
         return false;
     }
+
+    [HarmonyPrefix, HarmonyPatch(typeof(TerrainPhysicsPostLoader), nameof(TerrainPhysicsPostLoader.RemoveBlockObjects))]
+    public static bool DontRemoveBlockObjects()
+    {
+        return !MSettings.SuperHangingTerrain && (!MSettings.SuperStructure || !MSettings.MagicStructure);
+    }
+
+    [HarmonyPrefix, HarmonyPatch(typeof(TerrainPhysicsPostLoader), nameof(TerrainPhysicsPostLoader.RemoveTerrain))]
+    public static bool DontRemoveTerrain() => DontRemoveBlockObjects();
 
     static int GetIndex(int x, int y, int z, in Vector3Int size) => (z * size.y + y) * size.x + x;
 

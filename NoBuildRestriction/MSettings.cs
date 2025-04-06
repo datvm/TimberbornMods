@@ -1,4 +1,6 @@
-﻿namespace NoBuildRestriction;
+﻿using NoBuildRestriction.Patches;
+
+namespace NoBuildRestriction;
 
 public class MSettings(
    ISettings settings,
@@ -13,6 +15,7 @@ public class MSettings(
     public static bool SuperStructure { get; private set; } = false;
     public static bool PlatformOver1x1 { get; private set; } = true;
     public static bool MagicStructure { get; private set; } = false;
+    public static bool SuperHangingTerrain { get; private set; } = false;
 
     public override string ModId { get; } = nameof(NoBuildRestriction);
 
@@ -51,6 +54,11 @@ public class MSettings(
         ModSettingDescriptor.CreateLocalized("LV.NBR.MagicStructure")
             .SetLocalizedTooltip("LV.NBR.MagicStructureDesc"));
 
+    readonly ModSetting<bool> superHangingTerrain = new(
+        false,
+        ModSettingDescriptor.CreateLocalized("LV.NBR.SuperHangingTerrain")
+            .SetLocalizedTooltip("LV.NBR.SuperHangingTerrainDesc"));
+
     public override void OnAfterLoad()
     {
         magicStructure.Descriptor.SetEnableCondition(() => superStructure.Value);
@@ -62,6 +70,7 @@ public class MSettings(
         AddCustomModSetting(allowFlooded, nameof(allowFlooded));
         AddCustomModSetting(superStructure, nameof(superStructure));
         AddCustomModSetting(magicStructure, nameof(magicStructure));
+        AddCustomModSetting(superHangingTerrain, nameof(superHangingTerrain));
 
         UpdateValues();
     }
@@ -75,6 +84,12 @@ public class MSettings(
         SuperStructure = superStructure.Value;
         PlatformOver1x1 = platformOver1x1.Value;
         MagicStructure = magicStructure.Value;
+        SuperHangingTerrain = superHangingTerrain.Value;
+
+        if (SuperHangingTerrain)
+        {
+            HangingTerrainPatches.PatchHangingTerrain();
+        }
     }
 
     public void Unload()
