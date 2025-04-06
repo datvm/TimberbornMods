@@ -1,4 +1,4 @@
-﻿namespace ScientificProjects.Extensions;
+﻿namespace ScientificProjects;
 
 public readonly struct EnumerableReadonlyHashset<T>(ReadOnlyHashSet<T> set) : IEnumerable<T>
 {

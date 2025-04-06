@@ -1,5 +1,5 @@
 ID,Text,Comment
-LV.BPSP.PowersGroup,"Powers",
+LV.BPSP.PowersGroup,"Power",
 LV.BPSP.PowersGroupDesc,"Projects that improve your power generation",
 LV.BPSP.WaterWheelUp1,"Gentle Mist Flow",
 LV.BPSP.WaterWheelUpEff,"Water Wheel power output increases from {0:+#%} to {1:+#%} over the course of the day.",

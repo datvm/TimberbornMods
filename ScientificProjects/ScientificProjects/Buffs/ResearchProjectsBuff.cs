@@ -1,6 +1,4 @@
-﻿using ScientificProjects.Extensions;
-
-namespace ScientificProjects.Buffs;
+﻿namespace ScientificProjects.Buffs;
 
 public class ResearchProjectsBuff(
     ISingletonLoader loader,

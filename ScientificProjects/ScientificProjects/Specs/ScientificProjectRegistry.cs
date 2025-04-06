@@ -1,7 +1,4 @@
-﻿
-using ScientificProjects.Extensions;
-
-namespace ScientificProjects.Specs;
+﻿namespace ScientificProjects.Specs;
 
 public class ScientificProjectRegistry(
     ISpecService specs,
