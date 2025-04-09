@@ -1,6 +1,6 @@
 {
     "Name": "Alternative Recipes Scientific Projects",
-    "Version": "7.1.0",
+    "Version": "7.1.1",
     "Id": "AlternativeRecipesSPs",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Scientific projects that give you alternative recipes.",
@@ -12,7 +12,7 @@
         { "Id": "Harmony" },
         {
             "Id": "UnlockableRecipe",
-            "MinimumVersion": "7.1.2"
+            "MinimumVersion": "7.1.3"
         }
     ]
 }

@@ -18,7 +18,7 @@ public class ProjectRecipeLocker(ILoc t, ScientificProjectRegistry registry) : I
     static ImmutableHashSet<string> GetLockedRecipeIds(ScientificProjectRegistry registry)
     {
         var recipeProjects = registry.AllProjects
-            .Where(q => q.IsAlternativeRecipe());
+            .Where(q => q.IsAlternativeRecipePrefix());
 
         ScientificProjectsUtils.Log(() =>
             string.Join(Environment.NewLine, recipeProjects.Select(q => q.ScienceCost + " Science to " + q.Effect)));
