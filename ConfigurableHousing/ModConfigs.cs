@@ -1,12 +1,34 @@
-﻿namespace ConfigurableHousing;
+﻿global using Timberborn.DwellingSystem;
+global using Timberborn.Reproduction;
+
+namespace ConfigurableHousing;
 
 [Context("MainMenu")]
-[Context("Game")]
-public class ModSettingConfig : Configurator
+public class ModMainMenuConfig : Configurator
 {
     public override void Configure()
     {
         Bind<MSettings>().AsSingleton();
+    }
+}
+
+[Context("Game")]
+public class ModGameContextConfig : Configurator
+{
+    public override void Configure()
+    {
+        Bind<MSettings>().AsSingleton();
+
+        if (MSettings.AddOtherFaction && MSettings.AddProcreation)
+        {
+            MultiBind<TemplateModule>().ToProvider(() =>
+            {
+                TemplateModule.Builder b = new();
+                b.AddDecorator<Dwelling, ProcreationHouseSpec>();
+                b.AddDecorator<Dwelling, ProcreationHouse>();
+                return b.Build();
+            }).AsSingleton();
+        }
     }
 }
 
