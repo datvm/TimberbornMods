@@ -1,6 +1,6 @@
 {
     "RecipeModderSpec": {
-        "PrefabNames": [ "GearWorkshop.IronTeeth" ],
+        "PrefabNames": [ "IndustrialLumberMill.IronTeeth" ],
         "RecipeIds": [ "AR.CrudeLogPressExtract" ]
     }
 }

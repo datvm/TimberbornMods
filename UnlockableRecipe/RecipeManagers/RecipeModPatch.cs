@@ -4,16 +4,13 @@
 public static class RecipeModPatch
 {
 
-    [HarmonyPrefix, HarmonyPatch(typeof(RecipeSpec), nameof(RecipeSpec.BackwardCompatibleIds), MethodType.Setter)]
-    public static void FixBackwardCompatibleIds(RecipeSpec __instance, ref ImmutableArray<string> value)
+    [HarmonyPostfix, HarmonyPatch(typeof(RecipeSpec), nameof(RecipeSpec.BackwardCompatibleIds), MethodType.Getter)]
+    public static void FixBackwardCompatibleIds(ref ImmutableArray<string> __result)
     {
         // Currently the game code does not handle this properly and causes crash
         // Because it assigns default, which can't be iterated of used
         // See https://github.com/dotnet/sdk/issues/47647
-        if (value == default)
-        {
-            value = [];
-        }
+        if (__result == default) { __result = []; }
     }
 
     [HarmonyPostfix, HarmonyPatch(typeof(PrefabGroupService), nameof(PrefabGroupService.Load))]
@@ -26,6 +23,9 @@ public static class RecipeModPatch
         {
             return;
         }
+
+        var recipes = __instance._specService.GetSpecs<RecipeSpec>()
+            .ToFrozenDictionary(q => q.Id);
 
         foreach (var p in __instance.AllPrefabs)
         {
@@ -56,7 +56,37 @@ public static class RecipeModPatch
             }
 
             man._productionRecipeIds = [.. list];
+            ValidateRecipes(prefab.Name, list, recipes);
+
             Debug.Log($"{nameof(UnlockableRecipe)}: Complete list of recipes for {prefab.Name}: {string.Join(", ", list)}");
+        }
+    }
+
+    static void ValidateRecipes(string prefabName, IEnumerable<string> recipeIds, FrozenDictionary<string, RecipeSpec> recipes)
+    {
+        HashSet<string> output = [];
+
+        foreach (var id in recipeIds)
+        {
+            var recipe = recipes[id];
+
+            foreach (var p in recipe.Products)
+            {
+                output.Add(p.Id);
+            }
+        }
+
+        foreach (var id in recipeIds)
+        {
+            var recipe = recipes[id];
+
+            foreach (var i in recipe.Ingredients)
+            {
+                if (output.Contains(i.Id))
+                {
+                    throw new InvalidDataException($"Recipe {id} for {prefabName} contains an ingredient that is also a product: {i.Id}. This will cause issue with Hauler");
+                }
+            }
         }
     }
 
