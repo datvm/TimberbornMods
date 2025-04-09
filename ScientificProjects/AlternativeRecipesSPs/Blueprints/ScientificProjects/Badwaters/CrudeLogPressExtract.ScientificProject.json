@@ -9,6 +9,6 @@
         "ScienceCost": 75,
         "Parameters": [ 50, 5, 5, 1, 5 ],
         "Order": 900,
-        "Factions": [ "IronTeeth" ]
+        "Factions": [ "IronTeeth", "GreedyBuilders" ]
     }
 }
