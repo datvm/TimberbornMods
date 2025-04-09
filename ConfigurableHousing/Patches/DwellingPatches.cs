@@ -13,6 +13,8 @@ public static class DwellingPatches
     [HarmonyPostfix, HarmonyPatch(typeof(PrefabGroupService), nameof(PrefabGroupService.Load))]
     public static void LoadPostfix(PrefabGroupService __instance)
     {
+        var shouldRemoveProcreation = MSettings.AddOtherFaction && MSettings.RemoveProcreation;
+
         var dwelling = __instance.AllPrefabs.SelectMany(q => q.GetComponents<DwellingSpec>());
         Debug.Log($"ConfigurableHousing: Found {dwelling.Count()} dwelling specs");
         foreach (var spec in dwelling)
@@ -61,6 +63,21 @@ public static class DwellingPatches
                     case "Shelter":
                         eff._pointsPerHour = def.Shelter * MSettings.ShelterSatisfactionMultiplier;
                         break;
+                }
+            }
+
+            if (shouldRemoveProcreation)
+            {
+                var proSpec = spec.GetComponentFast<ProcreationHouseSpec>();
+                if (proSpec)
+                {
+                    UnityEngine.Object.Destroy(proSpec);
+                }
+
+                var pro = spec.GetComponentFast<ProcreationHouse>();
+                if (pro)
+                {
+                    UnityEngine.Object.Destroy(pro);
                 }
             }
         }

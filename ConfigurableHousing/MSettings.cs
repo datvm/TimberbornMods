@@ -7,6 +7,8 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     public static float ShelterSatisfactionMultiplier { get; private set; } = 1;
     public static bool MoveEntranceFloor { get; private set; } = false;
     public static bool AddOtherFaction { get; private set; } = false;
+    public static bool AddProcreation { get; private set; } = false;
+    public static bool RemoveProcreation { get; private set; } = false;
 
     readonly ModSetting<float> maxBeaverMultiplier = new(
         1.5f,
@@ -38,6 +40,18 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
             .CreateLocalized("LV.CH.AddOtherFaction")
             .SetLocalizedTooltip("LV.CH.AddOtherFactionDesc"));
 
+    readonly ModSetting<bool> addProcreation = new(
+        false,
+        ModSettingDescriptor
+            .CreateLocalized("LV.CH.AddProcreation")
+            .SetLocalizedTooltip("LV.CH.AddProcreationDesc"));
+
+    readonly ModSetting<bool> removeProcreation = new(
+        false,
+        ModSettingDescriptor
+            .CreateLocalized("LV.CH.RemoveProcreation")
+            .SetLocalizedTooltip("LV.CH.RemoveProcreationDesc"));
+
     public override string ModId { get; } = nameof(ConfigurableHousing);
 
     public override void OnAfterLoad()
@@ -47,6 +61,11 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         AddCustomModSetting(shelterSatisfactionMultiplier, nameof(ShelterSatisfactionMultiplier));
         AddCustomModSetting(moveEntranceFloor, nameof(MoveEntranceFloor));
         AddCustomModSetting(addOtherFaction, nameof(AddOtherFaction));
+        AddCustomModSetting(addProcreation, nameof(AddProcreation));
+        AddCustomModSetting(removeProcreation, nameof(RemoveProcreation));
+
+        addProcreation.Descriptor.SetEnableCondition(() => addOtherFaction.Value && !removeProcreation.Value);
+        removeProcreation.Descriptor.SetEnableCondition(() => addOtherFaction.Value && !addProcreation.Value);
 
         UpdateValues();
     }
@@ -58,6 +77,8 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         ShelterSatisfactionMultiplier = shelterSatisfactionMultiplier.Value;
         MoveEntranceFloor = moveEntranceFloor.Value;
         AddOtherFaction = addOtherFaction.Value;
+        AddProcreation = addProcreation.Value;
+        RemoveProcreation = removeProcreation.Value;
     }
 
     public void Unload()
