@@ -146,6 +146,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModdableBindito", "Moddable
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlternativeRecipesSPs", "ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj", "{2C02FC74-0218-4A94-8515-725C08AB1FFB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroManagement", "MicroManagement\MicroManagement.csproj", "{3A6B1E54-B610-4CE0-B75C-BE7DAC7EE999}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -384,6 +386,10 @@ Global
 		{2C02FC74-0218-4A94-8515-725C08AB1FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C02FC74-0218-4A94-8515-725C08AB1FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C02FC74-0218-4A94-8515-725C08AB1FFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A6B1E54-B610-4CE0-B75C-BE7DAC7EE999}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A6B1E54-B610-4CE0-B75C-BE7DAC7EE999}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A6B1E54-B610-4CE0-B75C-BE7DAC7EE999}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A6B1E54-B610-4CE0-B75C-BE7DAC7EE999}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
