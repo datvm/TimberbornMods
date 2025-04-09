@@ -9,6 +9,6 @@
         "ScienceCost": 150,
         "Parameters": [ 1, 1, 20, 2 ],
         "Order": 1500,
-        "Factions": [ "Folktails" ]
+        "Factions": [ "Folktails", "GreedyBuilders" ]
     }
 }

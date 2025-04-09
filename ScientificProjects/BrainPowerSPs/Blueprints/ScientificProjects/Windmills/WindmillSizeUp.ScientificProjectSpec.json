@@ -9,7 +9,7 @@
         "ScienceCost": 1000,
         "Parameters": [],
         "Order": 900,
-        "Factions": [ "Folktails" ],
+        "Factions": [ "Folktails", "GreedyBuilders" ],
         "NeedReload": true
     }
 }

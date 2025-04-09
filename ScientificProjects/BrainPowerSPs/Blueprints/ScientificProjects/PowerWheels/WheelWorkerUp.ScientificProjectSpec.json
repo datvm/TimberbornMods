@@ -9,7 +9,7 @@
         "ScienceCost": 500,
         "Parameters": [ 2 ],
         "Order": 600,
-        "Factions": [ "IronTeeth" ],
+        "Factions": [ "IronTeeth", "GreedyBuilders" ],
         "NeedReload": true
     }
 }
