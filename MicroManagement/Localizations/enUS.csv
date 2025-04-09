@@ -1,0 +1,10 @@
+ID,Text,Comment
+LV.MM.AssignHouse,"Assign housing",
+LV.MM.AssignWorkplace,"Assign workplace",
+LV.MM.UnassignHouse,"Unassign housing",
+LV.MM.UnassignWorkplace,"Unassign workplace",
+LV.MM.AssignDistrict,"Assign district",
+LV.MM.PickDwelling,"Pick a house",
+LV.MM.PickWorkplace,"Pick a workplace",
+LV.MM.PickDistrict,"Pick a district",
+LV.MM.ErrNoDistrict,"The selected building does not belong to a district",
