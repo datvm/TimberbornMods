@@ -1,24 +1,36 @@
 ﻿namespace ModdableBindito.Wrappers;
 
-public class SpecServiceWrapper(
-    SerializedObjectReaderWriter serializedObjectReaderWriter,
-    IAssetLoader assetLoader,
-    BlueprintDeserializer blueprintDeserializer,
-    IEnumerable<IBlueprintModifierProvider> blueprintModifierProviders,
-    IEnumerable<ISpecServiceFrontRunner> frontRunners) : ISpecService, ILoadableSingleton
+public class SpecServiceWrapper : ISpecService, ILoadableSingleton
 {
 
-    readonly SpecService wrapped = new(
+    // For TimberApi
+    private readonly Dictionary<Type, List<Lazy<Blueprint>>> _cachedBlueprints;
+
+    readonly SpecService wrapped;
+    readonly ImmutableArray<ISpecLoader> loaders;
+    readonly ImmutableArray<ISpecModifier> modifiers;
+
+    public SpecServiceWrapper(
+        SerializedObjectReaderWriter serializedObjectReaderWriter,
+        IAssetLoader assetLoader,
+        BlueprintDeserializer blueprintDeserializer,
+        IEnumerable<IBlueprintModifierProvider> blueprintModifierProviders,
+        IEnumerable<ISpecServiceFrontRunner> frontRunners
+    )
+    {
+        wrapped = new(
             serializedObjectReaderWriter,
             assetLoader,
             blueprintDeserializer,
             blueprintModifierProviders);
-    readonly ImmutableArray<ISpecLoader> loaders = [.. frontRunners
+        loaders = [.. frontRunners
             .OfType<ISpecLoader>()
             .OrderByDescending(x => x.Priority)];
-    readonly ImmutableArray<ISpecModifier> modifiers = [.. frontRunners
+        modifiers = [.. frontRunners
             .OfType<ISpecModifier>()
             .OrderByDescending(x => x.Priority)];
+        _cachedBlueprints = wrapped._cachedBlueprints;
+    }
 
     public T GetSingleSpec<T>() where T : ComponentSpec
     {
@@ -47,7 +59,7 @@ public class SpecServiceWrapper(
 
         foreach (var loader in loaders)
         {
-            if (tryLoader(loader,out result))
+            if (tryLoader(loader, out result))
             {
                 hasResult = true;
                 break;
