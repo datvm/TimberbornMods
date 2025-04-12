@@ -26,6 +26,7 @@ public class MechanicalFilterPumpComponent : BaseComponent, IPersistentEntity
     public void Start()
     {
         OriginalPowerInput = mechanicalNode._nominalPowerInput;
+        SetPowerMultiplier();
     }
 
     public void SetActive(bool isActive)
