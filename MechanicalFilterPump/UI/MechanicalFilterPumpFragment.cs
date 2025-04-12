@@ -25,6 +25,7 @@ public class MechanicalFilterPumpFragment(ILoc t, DevModeManager devs) : IEntity
         chkNoPower = panel.AddToggle(t.T("LV.MFP.FilterPowerCheat"), onValueChanged: OnNoPowerChanged)
             .SetMargin(left: 20);
 
+        panel.ToggleDisplayStyle(false);
         return panel;
     }
 
