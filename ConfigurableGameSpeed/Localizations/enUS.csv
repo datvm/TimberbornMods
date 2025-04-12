@@ -1,0 +1,5 @@
+ID,Text,Comment
+LV.CGS.Speed,"Speed {0}",
+LV.CGS.SpeedDev,"This speed is available in Dev Mode or through other mods only.",
+LV.CGS.SpeedSlow,"Slow Speed",
+LV.CGS.SpeedSlowDesc,"Default x0.25 speed, normally available only in Dev Mode with hotkey Shift + 1",
