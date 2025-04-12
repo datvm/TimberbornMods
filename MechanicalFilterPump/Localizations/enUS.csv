@@ -1,0 +1,4 @@
+ID,Text,Comment
+LV.MFP.Filter,"Filter water",
+LV.MFP.FilterPower,"Increase power usage by {0}HP when active",
+LV.MFP.FilterPowerCheat,"No power increase",
