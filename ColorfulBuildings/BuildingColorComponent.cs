@@ -59,9 +59,7 @@ public class BuildingColorComponent : BaseComponent, IPersistentEntity, IDeletab
 
     public void Load(IEntityLoader entityLoader)
     {
-        if (!entityLoader.HasComponent(SaveKey)) { return; }
-
-        var s = entityLoader.GetComponent(SaveKey);
+        if (!entityLoader.TryGetComponent(SaveKey, out var s)) { return; }
 
         if (s.Has(ColorKey))
         {
