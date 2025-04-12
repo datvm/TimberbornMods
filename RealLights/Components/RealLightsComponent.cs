@@ -240,9 +240,7 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity
 
     public void Load(IEntityLoader entityLoader)
     {
-        if (!entityLoader.HasComponent(SaveKey)) { return; }
-
-        var s = entityLoader.GetComponent(SaveKey);
+        if (!entityLoader.TryGetComponent(SaveKey, out var s)) { return; }
 
         ForceNightLightOn = s.Has(ForceNightLightOnKey) && s.Get(ForceNightLightOnKey);
         ForceOff = s.Has(ForceOffKey) && s.Get(ForceOffKey);

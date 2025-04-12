@@ -1,6 +1,6 @@
 {
     "Name": "Mark All Trees",
-    "Version": "7.0.1",
+    "Version": "7.0.2",
     "Id": "MarkAllTrees",
     "MinimumGameVersion": "0.6.0.0",
     "Description": "Tired of marking areas for cutting trees? This mod marks the entire map as 'cutting area' when you first load a save or start a new game. You only need to remove areas where you need to keep trees instead.",

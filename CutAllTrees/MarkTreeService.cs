@@ -22,8 +22,8 @@ public class MarkTreeService(
     {
         if (!settings.Enabled) { return; }
 
-        activated = singletonLoader.HasSingleton(singletonKey)
-            && singletonLoader.GetSingleton(singletonKey).Get(activatedListKey);
+        activated = singletonLoader.TryGetSingleton(singletonKey, out var s)
+            && s.Get(activatedListKey);
 
         if (activated && !settings.AlwaysEnabled) { return; }
 
