@@ -58,9 +58,8 @@ public class BuffableComponent : BaseComponent, IBuffEntity, IPersistentEntity
 
     void LoadId(IEntityLoader entityLoader)
     {
-        if (!entityLoader.HasComponent(SaveKey)) { return; }
-
-        Id = entityLoader.GetComponent(SaveKey).GetBuffEntityId();
+        if (!entityLoader.TryGetComponent(SaveKey, out var save)) { return; }
+        Id = save.GetBuffEntityId();
     }
 
     public void Save(IEntitySaver entitySaver)

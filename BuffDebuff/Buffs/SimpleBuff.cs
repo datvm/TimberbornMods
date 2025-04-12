@@ -11,9 +11,8 @@ public abstract class SimpleBuff(ISingletonLoader loader, IBuffService buffs) : 
 
     public virtual void Load()
     {
-        if (loader.HasSingleton(SingletonKey))
+        if (loader.TryGetSingleton(SingletonKey, out var s))
         {
-            var s = loader.GetSingleton(SingletonKey);
             LoadSingleton(s);
         }
 
