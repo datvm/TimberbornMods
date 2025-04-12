@@ -46,10 +46,9 @@ public class ConfigurableAutoSaveService(
 
     void LoadData()
     {
-        if (loader.HasSingleton(SaveEverydayKey))
+        if (loader.TryGetSingleton(SaveEverydayKey, out var s))
         {
-            var set = loader.GetSingleton(SaveEverydayKey);
-            LastAutoSaveWarningCycle = set.Has(LastWarningCycleKey) ? set.Get(LastWarningCycleKey) : 0;
+            LastAutoSaveWarningCycle = s.Has(LastWarningCycleKey) ? s.Get(LastWarningCycleKey) : 0;
         }
     }
 
