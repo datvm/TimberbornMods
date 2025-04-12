@@ -68,9 +68,7 @@ public class WeatherUpgradeProcessor(
 
     void LoadSavedData()
     {
-        if (!loader.HasSingleton(SaveKey)) { return; }
-
-        var s = loader.GetSingleton(SaveKey);
+        if (!loader.TryGetSingleton(SaveKey, out var s)) { return; }
 
         if (s.Has(CycleWarnedKey))
         {

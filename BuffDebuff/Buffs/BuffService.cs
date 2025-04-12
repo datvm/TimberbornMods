@@ -215,9 +215,7 @@ public class BuffService(
 
     void LoadExistingKeys()
     {
-        if (!loader.HasSingleton(SaveKey)) { return; }
-
-        var s = loader.GetSingleton(SaveKey);
+        if (!loader.TryGetSingleton(SaveKey, out var s)) { return; }
 
         expectingLoadBuffs = s.Get(BuffIdsKey)
             .Select(q => q.Split(';'))
@@ -241,8 +239,7 @@ public class BuffService(
 
     void LoadInstances()
     {
-        if (!loader.HasSingleton(SaveKey)) { return; }
-        var s = loader.GetSingleton(SaveKey);
+        if (!loader.TryGetSingleton(SaveKey, out var s)) { return; }
 
         var rawJson = s.Get(ActiveInstancesKey);
         var entries = JsonConvert.DeserializeObject<IEnumerable<BuffInstanceSaveEntry>>(rawJson) ?? [];

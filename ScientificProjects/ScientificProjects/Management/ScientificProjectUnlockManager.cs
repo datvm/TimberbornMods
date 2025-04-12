@@ -20,8 +20,7 @@ public class ScientificProjectUnlockManager(ISingletonLoader loader) : ILoadable
 
     void LoadSavedData()
     {
-        if (!loader.HasSingleton(ScientificProjectService.SaveKey)) { return; }
-        var s = loader.GetSingleton(ScientificProjectService.SaveKey);
+        if (!loader.TryGetSingleton(ScientificProjectService.SaveKey, out var s)) { return; }
 
         unlockedProjects = [.. s.Get(UnlockedProjectsKey)];
     }

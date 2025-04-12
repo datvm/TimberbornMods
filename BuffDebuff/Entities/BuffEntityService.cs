@@ -65,9 +65,8 @@ public class BuffEntityService(ISingletonLoader loader) : ISaveableSingleton, IL
 
     void LoadUuid()
     {
-        if (!loader.HasSingleton(SaveKey)) { return; }
+        if (!loader.TryGetSingleton(SaveKey, out var s)) { return; }
 
-        var s = loader.GetSingleton(SaveKey);
         globalUuid = long.Parse(s.Get(UuidKey));
     }
 

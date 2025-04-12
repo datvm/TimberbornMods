@@ -60,9 +60,8 @@ public class SparePowerConverter(
 
     void LoadSavedData()
     {
-        if (!loader.HasSingleton(SaveKey)) { return; }
+        if (!loader.TryGetSingleton(SaveKey, out var s)) { return; }
 
-        var s = loader.GetSingleton(SaveKey);
         if (s.Has(AccumulationKey))
         {
             powerAccumulation = long.Parse(s.Get(AccumulationKey));

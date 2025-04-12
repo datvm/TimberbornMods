@@ -1,6 +1,6 @@
 {
     "Name": "Moddable and Unlockable Recipe",
-    "Version": "7.1.3",
+    "Version": "7.1.4",
     "Id": "UnlockableRecipe",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Make adding and removing recipes easy for modders. Also add Locking & Unlocking recipes feature.",
