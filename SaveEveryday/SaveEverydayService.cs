@@ -32,11 +32,10 @@ public class SaveEverydayService(
 
     public void Load()
     {
-        if (singletonLoader.HasSingleton(SaveEverydayKey))
+        if (singletonLoader.TryGetSingleton(SaveEverydayKey, out var s))
         {
-            var set = singletonLoader.GetSingleton(SaveEverydayKey);
-            LastAutoSaveDay = set.Has(LastDayKey) ? set.Get(LastDayKey) : 0;
-            LastAutoSaveWarningCycle = set.Has(LastWarningCycleKey) ? set.Get(LastWarningCycleKey) : 0;
+            LastAutoSaveDay = s.Has(LastDayKey) ? s.Get(LastDayKey) : 0;
+            LastAutoSaveWarningCycle = s.Has(LastWarningCycleKey) ? s.Get(LastWarningCycleKey) : 0;
         }
 
         eb.Register(this);
