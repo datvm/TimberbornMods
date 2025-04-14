@@ -14,6 +14,7 @@ public class BuildingColorFragment(VisualElementInitializer initializer, ILoc t,
 
     static readonly string[] SliderTexts = ["R", "G", "B"];
     readonly GameSliderInt[] sliders = new GameSliderInt[3];
+    GameSliderInt rotationSlider = null!;
 
     static readonly Vector3Int DefaultColor = new(255, 255, 255);
 
@@ -46,7 +47,12 @@ public class BuildingColorFragment(VisualElementInitializer initializer, ILoc t,
             slider.RegisterChange(v => ChangeColorPart(index, v));
         }
 
-        panel.AddGameButton(t.T("LV.CB.Reset"), ResetColor, "ResetColor", stretched: true)
+        rotationSlider = panel.AddSliderInt(t.T("LV.CB.Rotation"), values: new(-180, 180, 0));
+        rotationSlider
+            .RegisterChange(SetRotation)
+            .AddEndLabel(v => v + "°");
+
+        panel.AddGameButton(t.T("LV.CB.Reset"), Reset, "ResetColor", stretched: true)
             .SetMargin(top: 20)
             .SetFlexGrow();
 
@@ -62,9 +68,7 @@ public class BuildingColorFragment(VisualElementInitializer initializer, ILoc t,
             return;
         }
 
-        var color = buildingColor.Color ?? DefaultColor;
-        UpdateColorSliders(color);
-        panel.Visible = true;
+        UpdatePanelContent();
         input.AddInputProcessor(this);
     }
 
@@ -80,9 +84,24 @@ public class BuildingColorFragment(VisualElementInitializer initializer, ILoc t,
         buildingColor.SetColor(color);
     }
 
-    void ResetColor()
+    void SetRotation(int rotation)
     {
-        buildingColor?.ClearColor();
+        buildingColor?.SetRotation(rotation);
+    }
+
+    void Reset()
+    {
+        buildingColor?.Reset();
+        UpdatePanelContent();
+    }
+
+    void UpdatePanelContent()
+    {
+        var color = buildingColor!.Color ?? DefaultColor;
+        UpdateColorSliders(color);
+        rotationSlider.SetValue(buildingColor.Rotation ?? 0);
+
+        panel.Visible = true;
     }
 
     public bool ProcessInput()
@@ -99,7 +118,7 @@ public class BuildingColorFragment(VisualElementInitializer initializer, ILoc t,
         else if (input.IsKeyHeld(PasteColorKeyId))
         {
             if (clipboard is null) { return false; }
-            
+
             buildingColor.SetColor(clipboard.Value);
             UpdateColorSliders(clipboard.Value);
             return true;
