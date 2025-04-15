@@ -1,0 +1,4 @@
+ID,Text,Comment
+LV.CE.MaxDepth,"Max Depth of {0}",
+LV.CE.NoCostIncrease,"No cost increase (cheater :P)",
+LV.CE.NoCostIncreaseDesc,"Do not increase the science and construction cost when you increase the Max depth",
