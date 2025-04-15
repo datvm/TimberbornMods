@@ -20,9 +20,6 @@ public class ProjectRecipeLocker(ILoc t, ScientificProjectRegistry registry) : I
         var recipeProjects = registry.AllProjects
             .Where(q => q.IsAlternativeRecipePrefix());
 
-        ScientificProjectsUtils.Log(() =>
-            string.Join(Environment.NewLine, recipeProjects.Select(q => q.ScienceCost + " Science to " + q.Effect)));
-
         var result = recipeProjects
             .Select(q => q.Id)
             .Concat(ModUtils.TimberbotRecipes)

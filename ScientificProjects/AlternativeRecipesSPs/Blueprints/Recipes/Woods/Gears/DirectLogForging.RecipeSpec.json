@@ -1,7 +1,7 @@
 {
     "RecipeSpec": {
         "Id": "AR.DirectLogForging",
-        "DisplayLocKey": "LV.ARSP.DirectLogForging",
+        "DisplayLocKey": "LV.ARSP.DirectLogForgingRecipe",
         "CycleDurationInHours": 6,
         "CyclesCapacity": 5,
         "Ingredients": [
