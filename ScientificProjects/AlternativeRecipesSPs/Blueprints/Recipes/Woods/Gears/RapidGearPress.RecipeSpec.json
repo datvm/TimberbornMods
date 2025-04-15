@@ -1,7 +1,7 @@
 {
     "RecipeSpec": {
         "Id": "AR.RapidGearPress",
-        "DisplayLocKey": "LV.ARSP.RapidGearPress",
+        "DisplayLocKey": "LV.ARSP.RapidGearPressRecipe",
         "CycleDurationInHours": 2,
         "CyclesCapacity": 5,
         "Ingredients": [

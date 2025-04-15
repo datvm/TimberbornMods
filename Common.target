@@ -81,7 +81,7 @@
 	<ItemGroup>
 		<Compile Include="$(GameSolutionFolder)GameAssemblyPublicizer\IgnoresAccessChecks.cs" Link="IgnoresAccessChecks.cs" />
 
-		<Reference Include="$(GameSolutionFolder)GameAssemblyPublicizer\out\**\*.dll">
+		<Reference Include="$(GameSolutionFolder)GameAssemblyPublicizer\out\common\**\*.dll">
 			<Private>false</Private>
 		</Reference>
 

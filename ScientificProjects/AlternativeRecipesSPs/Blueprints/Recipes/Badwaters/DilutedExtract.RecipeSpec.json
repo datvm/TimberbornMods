@@ -1,7 +1,7 @@
 {
     "RecipeSpec": {
         "Id": "AR.DilutedExtract",
-        "DisplayLocKey": "LV.ARSP.DilutedExtract",
+        "DisplayLocKey": "LV.ARSP.DilutedExtractRecipe",
         "CycleDurationInHours": 1.5,
         "CyclesCapacity": 4,
         "Ingredients": [

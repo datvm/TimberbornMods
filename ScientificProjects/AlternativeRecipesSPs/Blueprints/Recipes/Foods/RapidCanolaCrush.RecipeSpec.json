@@ -1,7 +1,7 @@
 {
     "RecipeSpec": {
         "Id": "AR.RapidCanolaCrush",
-        "DisplayLocKey": "LV.ARSP.RapidCanolaCrush",
+        "DisplayLocKey": "LV.ARSP.RapidCanolaCrushRecipe",
         "CycleDurationInHours": 0.5,
         "CyclesCapacity": 30,
         "Ingredients": [

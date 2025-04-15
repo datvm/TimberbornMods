@@ -7,9 +7,9 @@
 	<ItemGroup>
 		<Using Include="ScientificProjects" />
 
-		<Reference Include="$(ScientificProjectsPath)**\*.dll">
-			<Private>False</Private>
-		</Reference>		
+		<Reference Include="$(GameSolutionFolder)GameAssemblyPublicizer\out\ScientificProjects\**\*.dll">
+			<Private>false</Private>
+		</Reference>	
 	</ItemGroup>
 
 </Project>

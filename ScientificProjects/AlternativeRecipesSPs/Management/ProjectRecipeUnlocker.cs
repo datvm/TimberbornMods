@@ -28,18 +28,26 @@ public class ProjectRecipeUnlocker(EventBus eb, DefaultRecipeLockerController un
         UnlockRecipeFor(ev.Project);
     }
 
-    void UnlockRecipeFor(ScientificProjectSpec proj)
+    public static IEnumerable<string> GetUnlockingRecipes(ScientificProjectSpec proj)
     {
         if (proj.Id == ModUtils.TimberbotId)
         {
             foreach (var id in ModUtils.TimberbotRecipes)
             {
-                unlocker.Unlock(id);
+                yield return id;
             }
         }
         else if (proj.IsAlternativeRecipePrefix())
         {
-            unlocker.Unlock(proj.Id);
+            yield return proj.Id;
+        }
+    }
+
+    void UnlockRecipeFor(ScientificProjectSpec proj)
+    {
+        foreach (var id in GetUnlockingRecipes(proj))
+        {
+            unlocker.Unlock(id);
         }
     }
 

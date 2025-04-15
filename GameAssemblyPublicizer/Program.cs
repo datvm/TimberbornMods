@@ -6,8 +6,12 @@ const string GameAssembliesPath = @"E:\SteamLibrary\steamapps\common\Timberborn\
 ImmutableArray<string> SpecialFolders = [
     @"E:\SteamLibrary\steamapps\workshop\content\1062090\3283831040\version-0.7\Scripts",
 ];
+ImmutableArray<string> ScientificProjects = [
+    @"C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\ScientificProjects\version-0.7",
+];
 
 var outputFolder = Path.Combine(FindCsProjFolder(Environment.CurrentDirectory), "out");
+var commonOutput = Path.Combine(outputFolder, "common");
 
 if (Directory.Exists(outputFolder))
 {
@@ -15,30 +19,42 @@ if (Directory.Exists(outputFolder))
     await Task.Delay(500);
 }
 
-Directory.CreateDirectory(outputFolder);
+Directory.CreateDirectory(commonOutput);
 
+// Common
 foreach (var prefix in Prefixes)
 {
-    foreach (var dll in Directory.EnumerateFiles(GameAssembliesPath, $"{prefix}*.dll"))
+    foreach (var dll in Directory.EnumerateFiles(GameAssembliesPath, $"{prefix}*.dll", SearchOption.AllDirectories))
     {
-        PublicizeFile(dll);
+        PublicizeFile(dll, commonOutput);
     }
 }
 
 foreach (var folder in SpecialFolders)
 {
-    foreach (var file in Directory.EnumerateFiles(folder, "*.dll"))
+    foreach (var file in Directory.EnumerateFiles(folder, "*.dll", SearchOption.AllDirectories))
     {
-        PublicizeFile(file);
+        PublicizeFile(file, commonOutput);
     }
 }
 
-void PublicizeFile(string dll)
+// Scientific Projects
+var spOutput = Path.Combine(outputFolder, "ScientificProjects");
+Directory.CreateDirectory(spOutput);
+foreach (var folder in ScientificProjects)
+{
+    foreach (var dll in Directory.EnumerateFiles(folder, "*.dll", SearchOption.AllDirectories))
+    {
+        PublicizeFile(dll, spOutput);
+    }
+}
+
+void PublicizeFile(string dll, string outputFolder)
 {
     var name = Path.GetFileName(dll);
     var output = Path.Combine(outputFolder, name);
 
-    Console.WriteLine($"Publicizing {name} to {output}");
+    Console.WriteLine($"Publicizing {name} to {outputFolder}");
     AssemblyPublicizer.Publicize(dll, output, new()
     {
         IncludeOriginalAttributesAttribute = true,

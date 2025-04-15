@@ -1,7 +1,7 @@
 {
     "RecipeSpec": {
         "Id": "AR.SunflowerBiofuel",
-        "DisplayLocKey": "LV.ARSP.SunflowerBiofuel",
+        "DisplayLocKey": "LV.ARSP.SunflowerBiofuelRecipe",
         "CycleDurationInHours": 4,
         "CyclesCapacity": 4,
         "Ingredients": [

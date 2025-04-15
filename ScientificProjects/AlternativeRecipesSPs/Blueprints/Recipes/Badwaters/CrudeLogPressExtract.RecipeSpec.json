@@ -1,7 +1,7 @@
 {
     "RecipeSpec": {
         "Id": "AR.CrudeLogPressExtract",
-        "DisplayLocKey": "LV.ARSP.CrudeLogPressExtract",
+        "DisplayLocKey": "LV.ARSP.CrudeLogPressExtractRecipe",
         "CycleDurationInHours": 10,
         "CyclesCapacity": 2,
         "Ingredients": [
