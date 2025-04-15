@@ -27,7 +27,7 @@
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 		
 
-		<ProjectReference Include="..\ColorfulBuildings\ColorfulBuildings.csproj" />
+		<ProjectReference Include="..\HueAndTurn\HueAndTurn.csproj" />
 		
 	</ItemGroup>
 
