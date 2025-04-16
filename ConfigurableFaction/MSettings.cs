@@ -1,5 +1,6 @@
-﻿global using Timberborn.BlueprintSystem;
-global using ConfigurableFaction.Services;
+﻿global using ConfigurableFaction.Services;
+global using Timberborn.BlueprintSystem;
+global using Timberborn.CoreUI;
 
 namespace ConfigurableFaction;
 
@@ -8,20 +9,29 @@ public class MSettings(
     ModSettingsOwnerRegistry modSettingsOwnerRegistry,
     ModRepository modRepository,
     FactionBuildingService factionBuildings,
-    ILoc t
+    ILoc t,
+    DialogBoxShower diagShower
 ) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
     public static bool TryRemovingDuplicates { get; private set; } = true;
+    public static bool AddPlants { get; private set; } = false;
 
     public override string ModId { get; } = nameof(ConfigurableFaction);
 
     readonly ModSetting<bool> tryRemovingDuplicates = new(true,
         ModSettingDescriptor.CreateLocalized("LV.CFac.RemoveDup")
-            .SetLocalizedTooltip("LV.CFac.RemoveDup"));
+            .SetLocalizedTooltip("LV.CFac.RemoveDupDesc"));
+    readonly ModSetting<bool> addPlants = new(false,
+        ModSettingDescriptor.CreateLocalized("LV.CFac.AddPlants")
+            .SetLocalizedTooltip("LV.CFac.AddPlantsDesc"));
 
     public override void OnAfterLoad()
     {
         AddCustomModSetting(tryRemovingDuplicates, nameof(tryRemovingDuplicates));
+        
+        AddCustomModSetting(addPlants, nameof(addPlants));
+        addPlants.ValueChanged += (_, v) => ShowWarningMessage(v);
+        
         AddFactionsSettings();
 
         UpdateValues();
@@ -41,7 +51,7 @@ public class MSettings(
         bool skipDuplicate = tryRemovingDuplicates.Value;
 
         var factionS = new ModSetting<bool>(
-            false, 
+            false,
             ModSettingDescriptor.Create(info.Faction.DisplayName.Value));
         AddCustomModSetting(factionS, GetFactionKey(facId));
 
@@ -59,7 +69,7 @@ public class MSettings(
                 ModSettingDescriptor.Create("  " + t.T(b.NameKey))
                     .SetEnableCondition(() => factionS.Value));
             AddCustomModSetting(bS, GetBuildingKey(facId, bId));
-            
+
             bS.ValueChanged += (_, e) => OnBuildingSettingChanged(e, b);
             OnBuildingSettingChanged(bS.Value, b);
         }
@@ -83,6 +93,16 @@ public class MSettings(
     void UpdateValues()
     {
         TryRemovingDuplicates = tryRemovingDuplicates.Value;
+        AddPlants = addPlants.Value;
+    }
+
+    void ShowWarningMessage(bool enabled)
+    {
+        if (!enabled) { return; }
+
+        diagShower.Create()
+            .SetMessage(t.T("LV.CFac.AddPlantsNotif"))
+            .Show();
     }
 
     string GetFactionKey(string id) => "Faction." + id;

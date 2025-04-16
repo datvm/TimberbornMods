@@ -1,3 +1,6 @@
 ID,Text,Comment
 LV.CFac.RemoveDup,"Try removing duplicates (Restart required)",
 LV.CFac.RemoveDupDesc,"Try to remove buildings with similar names when all factions have them (like Path or Platforms)",
+LV.CFac.AddPlants,"Add plants (Crops & Trees)",
+LV.CFac.AddPlantsDesc,"You can grow crops and trees of other factions. You must add the Folktails' Aquatic Farmhouse to all other factions to prevent crash.",
+LV.CFac.AddPlantsNotif,"You must add Aquatic Farmhouse to Iron Teeth or it will crash when loading for Iron Teeth.",
