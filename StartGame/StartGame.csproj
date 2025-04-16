@@ -27,7 +27,7 @@
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 		
 
-		<ProjectReference Include="..\ConfigurableExplosives\ConfigurableExplosives.csproj" />
+		<ProjectReference Include="..\LunchBreak\LunchBreak.csproj" />
 		
 	</ItemGroup>
 
