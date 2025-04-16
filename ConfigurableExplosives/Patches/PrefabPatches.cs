@@ -1,11 +1,23 @@
 ﻿global using Timberborn.Buildings;
 global using Timberborn.Explosions;
+global using Timberborn.PrefabGroupSystem;
 global using Timberborn.PrefabSystem;
 
 namespace ConfigurableExplosives.Patches;
 
-public class PrefabPatches : IPrefabModifier
+[HarmonyPatch]
+public class PrefabPatches
 {
+
+    [HarmonyPostfix, HarmonyPatch(typeof(PrefabGroupService), nameof(PrefabGroupService.Load))]
+    public static void PatchDynamitePrefab(PrefabGroupService __instance)
+    {
+        foreach (var prefab in __instance.AllPrefabs)
+        {
+            ModifyPrefab(prefab);
+        }
+    }
+
     static readonly ImmutableArray<ImmutableHashSet<string>> DynamitePrefabNames = [
         ["Dynamite.Folktails", "Dynamite.IronTeeth"],
         ["DoubleDynamite.Folktails", "DoubleDynamite.IronTeeth"],
@@ -17,19 +29,17 @@ public class PrefabPatches : IPrefabModifier
 
     const int StepExtractCost = 1;
 
-    public int Priority { get; } = 0;
-
     static int CalculateScienceCost(int maxDepth) => BaseScienceCost + (maxDepth - 1) * (MSettings.NoCostIncrease ? 0 : StepScienceCost);
 
     static int CalculateExtractCost(int maxDepth) => MSettings.NoCostIncrease ? 0 : StepExtractCost * (maxDepth - 1);
 
-    public GameObject ModifyPrefab(GameObject prefab)
+    static void ModifyPrefab(GameObject prefab)
     {
         var spec = prefab.GetComponent<PrefabSpec>();
-        if (!spec) { return prefab; }
+        if (!spec) { return; }
 
         var depth = GetPrefabDepth(spec);
-        if (depth == -1) { return prefab; }
+        if (depth == -1) { return; }
 
         var dynamite = spec.GetComponentFast<DynamiteSpec>();
 
@@ -39,8 +49,6 @@ public class PrefabPatches : IPrefabModifier
         var building = spec.GetComponentFast<BuildingSpec>();
         building._scienceCost = CalculateScienceCost(maxDepth);
         SetExtractCost(building, maxDepth);
-
-        return prefab;
     }
 
     static int GetPrefabDepth(PrefabSpec spec)

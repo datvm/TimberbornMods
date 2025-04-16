@@ -1,6 +1,4 @@
-﻿global using ConfigurableExplosives.Patches;
-
-namespace ConfigurableExplosives;
+﻿namespace ConfigurableExplosives;
 
 [Context("MainMenu")]
 public class ModMenuConfig : Configurator
@@ -20,8 +18,25 @@ public class ModGameConfig : Configurator
     public override void Configure()
     {
         Bind<MSettings>().AsSingleton();
+        Bind<ConfigurableDynamiteCopyTool>().AsSingleton();
+        this.BindFragments<EntityPanelFragmentProvider<ConfigurableDynamiteFragment>>();
 
-        this.MultiBindAndBindSingleton<IPrefabModifier, PrefabPatches>();
+        MultiBind<TemplateModule>().ToProvider(() =>
+        {
+            TemplateModule.Builder b = new();
+            b.AddDecorator<Dynamite, ConfigurableDynamiteComponent>();
+            return b.Build();
+        }).AsSingleton();
+    }
+
+}
+
+public class ModStarter : IModStarter
+{
+
+    void IModStarter.StartMod(IModEnvironment modEnvironment)
+    {
+        new Harmony(nameof(ConfigurableExplosives)).PatchAll();
     }
 
 }
