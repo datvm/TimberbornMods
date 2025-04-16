@@ -1,0 +1,10 @@
+{
+    "Name": "Lunch Break",
+    "Version": "7.0.0",
+    "Id": "LunchBreak",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Allow your beavers to have a lunch break",
+    "RequiredMods": [
+        { "Id": "Harmony" }
+    ]
+}
