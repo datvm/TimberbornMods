@@ -29,6 +29,7 @@ public static class FactionPatches
         List<string> needs = [.. factionSpec.Needs];
         List<string> materialGroups = [.. factionSpec.MaterialGroups];
         List<string> goods = [.. factionSpec.Goods];
+        List<string> prefabGroups = [.. factionSpec.PrefabGroups];
 
         foreach (var otherFacInfo in FactionBuildingService.Instance!.Factions.Values)
         {
@@ -38,20 +39,40 @@ public static class FactionPatches
             needs.AddRange(otherFac.Needs);
             materialGroups.AddRange(otherFac.MaterialGroups);
             goods.AddRange(otherFac.Goods);
+
+            if (MSettings.AddPlants)
+            {
+                var naturalResources = otherFac.PrefabGroups.FirstOrDefault(q => q.StartsWith("NaturalResources."));
+                if (naturalResources is not null)
+                {
+                    prefabGroups.Add(naturalResources);
+                }
+            }
         }
 
         return factionSpec with
         {
             Needs = [.. needs.Distinct()],
             MaterialGroups = [.. materialGroups.Distinct()],
-            Goods = [.. goods.Distinct()]
+            Goods = [.. goods.Distinct()],
+            PrefabGroups = [..prefabGroups.Distinct()],
         };
     }
 
     static PrefabGroupSpec ModifyPrefabGroupSpec(PrefabGroupSpec prefabGroupSpec)
     {
-        if (!prefabGroupSpec.Id.StartsWith("Buildings.")) { return prefabGroupSpec; }
+        if (prefabGroupSpec.Id.StartsWith("Buildings."))
+        {
+            return ModifyBuildingGroupSpec(prefabGroupSpec);
+        }
+        else
+        {
+            return prefabGroupSpec;
+        }
+    }
 
+    static PrefabGroupSpec ModifyBuildingGroupSpec(PrefabGroupSpec prefabGroupSpec)
+    {
         OriginalPaths[prefabGroupSpec.Id] = prefabGroupSpec.Paths;
         List<string> allBuildings = [.. prefabGroupSpec.Paths];
 
