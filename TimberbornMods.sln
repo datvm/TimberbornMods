@@ -160,6 +160,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableExplosives", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunchBreak", "LunchBreak\LunchBreak.csproj", "{F9F3F2F3-AD78-40B3-9E46-F6E2A9618819}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchmarkAndOptimizer", "BenchmarkAndOptimizer\BenchmarkAndOptimizer.csproj", "{D02F770B-B384-4F63-9A62-F73020ED56EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -422,6 +424,10 @@ Global
 		{F9F3F2F3-AD78-40B3-9E46-F6E2A9618819}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9F3F2F3-AD78-40B3-9E46-F6E2A9618819}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9F3F2F3-AD78-40B3-9E46-F6E2A9618819}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D02F770B-B384-4F63-9A62-F73020ED56EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D02F770B-B384-4F63-9A62-F73020ED56EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D02F770B-B384-4F63-9A62-F73020ED56EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D02F770B-B384-4F63-9A62-F73020ED56EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

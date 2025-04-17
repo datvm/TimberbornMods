@@ -1,0 +1,12 @@
+{
+    "Name": "Benchmark & Optimizer",
+    "Version": "7.0.0",
+    "Id": "BenchmarkAndOptimizer",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Benchmark and optimizer",
+    "RequiredMods": [
+        {
+            "Id": "Harmony"
+        }
+    ]
+}
