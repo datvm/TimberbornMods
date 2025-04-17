@@ -30,27 +30,32 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
             .CreateLocalized("LV.SE.SaveWeatherWarning")
             .SetLocalizedTooltip("LV.SE.SaveWeatherWarningDesc"));
 
+    readonly ModSetting<bool> autosaveWarning = new(
+        false,
+        ModSettingDescriptor
+            .CreateLocalized("LV.SE.AutosaveWarning")
+            .SetLocalizedTooltip("LV.SE.AutosaveWarningDesc"));
+
     public bool Enabled { get; private set; } = false;
     public int SaveFrequency { get; private set; } = 1;
     public int SaveCount { get; private set; } = 3;
     public bool SaveWeatherWarning { get; private set; } = false;
+    public bool AutosaveWarning { get; private set; } = false;
 
     public override void OnAfterLoad()
     {
         saveFrequency.Descriptor.SetEnableCondition(() => enabled.Value);
         saveCount.Descriptor.SetEnableCondition(() => enabled.Value);
         saveWeatherWarning.Descriptor.SetEnableCondition(() => enabled.Value);
+        autosaveWarning.Descriptor.SetEnableCondition(() => enabled.Value);
 
         AddCustomModSetting(enabled, nameof(enabled));
         AddCustomModSetting(saveFrequency, nameof(saveFrequency));
         AddCustomModSetting(saveCount, nameof(saveCount));
+        AddCustomModSetting(autosaveWarning, nameof(autosaveWarning));
         AddCustomModSetting(saveWeatherWarning, nameof(saveWeatherWarning));
 
-        enabled.ValueChanged += (_, _) => UpdateValues();
-        saveFrequency.ValueChanged += (_, _) => UpdateValues();
-        saveCount.ValueChanged += (_, _) => UpdateValues();
-        saveWeatherWarning.ValueChanged += (_, _) => UpdateValues();
-
+        ModSettingChanged += (_, _) => UpdateValues();
         UpdateValues();
     }
 
@@ -60,6 +65,7 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
         SaveFrequency = saveFrequency.Value;
         SaveCount = saveCount.Value;
         SaveWeatherWarning = saveWeatherWarning.Value;
+        AutosaveWarning = autosaveWarning.Value;
     }
 
 }

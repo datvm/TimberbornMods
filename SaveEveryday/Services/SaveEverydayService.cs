@@ -1,12 +1,11 @@
 ﻿#if TIMBER7
-using Timberborn.GameCycleSystem;
-using Timberborn.GameSaveRepositorySystem;
-using Timberborn.GameSaveRuntimeSystem;
-using Timberborn.HazardousWeatherSystemUI;
-using Timberborn.SettlementNameSystem;
-using Timberborn.TimeSystem;
+global using Timberborn.GameCycleSystem;
+global using Timberborn.GameSaveRepositorySystem;
+global using Timberborn.GameSaveRuntimeSystem;
+global using Timberborn.HazardousWeatherSystemUI;
+global using Timberborn.SettlementNameSystem;
 
-namespace SaveEveryday;
+namespace SaveEveryday.Services;
 
 public class SaveEverydayService(
     ModSettings settings,
@@ -16,7 +15,9 @@ public class SaveEverydayService(
     GameSaver gameSaver,
     GameSaveRepository gameSaveRepository,
     EventBus eb,
-    HazardousWeatherApproachingTimer hazardTimer
+    HazardousWeatherApproachingTimer hazardTimer,
+    QuickNotificationService notf,
+    ILoc t
 ) : ILoadableSingleton, ISaveableSingleton
 {
     const string NamePostfix = ".saveeveryday";
@@ -29,6 +30,14 @@ public class SaveEverydayService(
 
     public int LastAutoSaveDay { get; private set; }
     public int LastAutoSaveWarningCycle { get; private set; }
+
+    public bool WillSaveNextDay
+    {
+        get
+        {
+            return time.DayNumber + 1 - LastAutoSaveDay >= settings.SaveFrequency;
+        }
+    }
 
     public void Load()
     {
@@ -82,7 +91,7 @@ public class SaveEverydayService(
         var saveReference = new SaveReference(settlementName, saveName);
         try
         {
-            gameSaver.QueueSaveSkippingNameValidation(saveReference, DeleteOldestExcessAutosaves);
+            gameSaver.QueueSaveSkippingNameValidation(saveReference, OnSaveDone);
         }
         catch (GameSaverException ex)
         {
@@ -92,6 +101,12 @@ public class SaveEverydayService(
     }
 
     static bool IsAutosaveName(string name) => name.EndsWith(NamePostfix);
+
+    void OnSaveDone()
+    {
+        notf.SendNotification(t.T("LV.SE.AutosaveDoneText"));
+        DeleteOldestExcessAutosaves();
+    }
 
     void DeleteOldestExcessAutosaves()
     {
