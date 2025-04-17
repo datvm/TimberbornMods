@@ -2,7 +2,6 @@
 global using Timberborn.Buildings;
 global using Timberborn.PrefabGroupSystem;
 global using Timberborn.WaterBuildings;
-using Timberborn.TerrainPhysics;
 
 namespace NoBuildRestriction.Patches;
 
@@ -23,7 +22,7 @@ public static class RestrictionPatches
         foreach (var prefab in __instance.AllPrefabs)
         {
             var building = prefab.GetComponent<BuildingSpec>();
-            if (building is null) { continue; }
+            if (!building) { continue; }
 
             AddFloodBlocker(building, prefab);
 
@@ -145,23 +144,26 @@ public static class RestrictionPatches
         var mainY = size.y / 2;
 
         var hasEntrance = blockObj.Entrance.HasEntrance;
-        if (hasEntrance)
+        var placable = spec.GetComponentFast<PlaceableBlockObjectSpec>();
+
+        if (hasEntrance && placable)
         {
             var entrance = blockObj.Entrance.Coordinates;
             mainX = entrance.x;
             mainY = entrance.y + 1;
 
-            var placable = spec.GetComponentFast<PlaceableBlockObjectSpec>();
-            if (placable is not null)
-            {
-                placable._customPivot._hasCustomPivot = true;
-                placable._customPivot._coordinates = new Vector3(mainX + .5f, mainY + .5f, 0);
-            }
+            placable._customPivot._hasCustomPivot = true;
+            placable._customPivot._coordinates = new Vector3(mainX + .5f, mainY + .5f, 0);
         }
 
         if (MSettings.MagicStructure)
         {
             mainX = mainY = -1;
+
+            if (MSettings.HangingStructure && placable)
+            {
+                placable._canBeAttachedToTerrainSide = true;
+            }
         }
 
         for (int x = 0; x < size.x; x++)

@@ -27,7 +27,7 @@
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 		
 
-		<ProjectReference Include="..\ConfigurableAutoSave\ConfigurableAutoSave.csproj" />
+		<ProjectReference Include="..\NoBuildRestriction\NoBuildRestriction.csproj" />
 		
 	</ItemGroup>
 
