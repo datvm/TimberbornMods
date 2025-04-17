@@ -7,7 +7,7 @@ global using Timberborn.GameSaveRuntimeSystem;
 global using Timberborn.SettlementNameSystem;
 global using Timberborn.TimeSystem;
 
-namespace ConfigurableAutoSave;
+namespace ConfigurableAutoSave.Services;
 
 public class ConfigurableAutoSaveService(
     Autosaver autosaver,

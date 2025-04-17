@@ -1,4 +1,6 @@
-﻿namespace ConfigurableAutoSave;
+﻿global using ConfigurableAutoSave.Services;
+
+namespace ConfigurableAutoSave;
 
 [Context("Game")]
 [Context("MainMenu")]
@@ -16,5 +18,6 @@ public class GameServiceConfig : IConfigurator
     public void Configure(IContainerDefinition containerDefinition)
     {
         containerDefinition.Bind<ConfigurableAutoSaveService>().AsSingleton();
+        containerDefinition.Bind<AutosaveWarningService>().AsSingleton();
     }
 }
