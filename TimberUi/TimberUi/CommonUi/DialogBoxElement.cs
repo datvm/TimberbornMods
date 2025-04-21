@@ -14,6 +14,7 @@ public class DialogBoxElement : VisualElement
 
     public VisualElement Container { get; private set; }
     public ScrollView Content { get; private set; }
+    public DialogBox? DialogBox { get; private set; }
 
     public DialogBoxElement()
     {
@@ -40,10 +41,7 @@ public class DialogBoxElement : VisualElement
             throw new InvalidOperationException("Close button already register a custom action.");
         }
 
-        if (CloseButton is null)
-        {
-            CloseButton = Container.AddCloseButton("CloseButton");
-        }
+        CloseButton ??= Container.AddCloseButton("CloseButton");
 
         if (customAction is not null)
         {
@@ -77,7 +75,7 @@ public class DialogBoxElement : VisualElement
             this.Initialize(initializer);
         }
 
-        DialogBox diag = new(panelStack, confirm ?? DoNothing, cancel ?? DoNothing, this);
+        var diag = DialogBox = new(panelStack, confirm ?? DoNothing, cancel ?? DoNothing, this);
 
         if (CloseButton is not null && !hasCustomCloseAction)
         {

@@ -1,0 +1,12 @@
+﻿global using Timberborn.OptionsGame;
+global using UiBuilder.CommonUi;
+global using Timberborn.Options;
+global using MapResizer.Services;
+global using Timberborn.GameSaveRuntimeSystem;
+global using Timberborn.SettlementNameSystem;
+global using Timberborn.MapIndexSystem;
+global using Timberborn.TerrainSystem;
+global using Timberborn.TerrainLevelValidation;
+global using Timberborn.SoilContaminationSystem;
+global using Timberborn.SoilMoistureSystem;
+global using Timberborn.WaterSystem;

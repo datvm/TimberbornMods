@@ -1,0 +1,11 @@
+{
+    "Name": "Map Resizer (Beaver Ascent)",
+    "Version": "7.0.0",
+    "Id": "MapResizer",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Resize the map",
+    "RequiredMods": [
+        { "Id": "Harmony" },
+        { "Id": "TimberUi", "MinimumVersion": "7.1.2" }
+    ]
+}

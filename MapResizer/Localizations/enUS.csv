@@ -1,0 +1,7 @@
+ID,Text,Comment
+LV.MRe.ResizeMap,"Resize map",
+LV.MRe.Size0,"Width (X)",
+LV.MRe.Size1,"Depth (Y)",
+LV.MRe.Size2,"Max Terrain Height (Z1)",
+LV.MRe.Size3,"Max Above Terrain (Z1+)",
+LV.MRe.Resize,"Resize",
