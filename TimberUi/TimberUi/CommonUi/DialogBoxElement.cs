@@ -1,4 +1,4 @@
-﻿namespace UiBuilder.CommonUi;
+﻿namespace TimberUi.CommonUi;
 
 public class DialogBoxElement : VisualElement
 {
@@ -75,11 +75,16 @@ public class DialogBoxElement : VisualElement
             this.Initialize(initializer);
         }
 
-        var diag = DialogBox = new(panelStack, confirm ?? DoNothing, cancel ?? DoNothing, this);
+        var diag = DialogBox = new(
+            panelStack,
+            confirm ?? TimberUiUtils.DoNothing,
+            cancel ?? TimberUiUtils.DoNothing,
+            this
+        );
 
         if (CloseButton is not null && !hasCustomCloseAction)
         {
-            CloseButton.clicked += diag.OnUICancelled;
+            CloseButton.clicked += OnUICancelled;
         }
 
         panelStack.PushDialog(diag);
@@ -87,6 +92,38 @@ public class DialogBoxElement : VisualElement
         return diag;
     }
 
-    static void DoNothing() { }
+    public async Task<bool> ShowAsync(VisualElementInitializer? initializer, PanelStack panelStack, Action? confirm = default, Action? cancel = default)
+    {
+        TaskCompletionSource<bool> tcs = new();
+
+        Show(initializer, panelStack,
+            confirm: () =>
+            {
+                tcs.SetResult(true);
+                confirm?.Invoke();
+            },
+            cancel: () =>
+            {
+                tcs.SetResult(false);
+                cancel?.Invoke();
+            });
+
+        return await tcs.Task;
+    }
+
+    public void OnUICancelled()
+    {
+        DialogBox?.OnUICancelled();
+    }
+
+    public void OnUIConfirmed()
+    {
+        DialogBox?.OnUIConfirmed();
+    }
+
+    public void Close()
+    {
+        DialogBox?.Close();
+    }
 
 }

@@ -33,5 +33,4 @@ public static partial class UiBuilderExtensions
         return InternalAddSlider<GameSliderInt, SliderInt, int>(parent, label, name, additionalClasses, values);
     }
 
-
 }

@@ -94,6 +94,18 @@ public static partial class UiBuilderExtensions
         return element;
     }
 
+    public static T SetFlexShrink<T>(this T element, float flexShrink = 1) where T : VisualElement
+    {
+        element.style.flexShrink = flexShrink;
+        return element;
+    }
+
+    public static T SetDisplay<T>(this T element, bool display) where T : VisualElement
+    {
+        element.style.display = display ? DisplayStyle.Flex : DisplayStyle.None;
+        return element;
+    }
+
     public static T AddLabelClasses<T>(this T element, GameLabelStyle style, GameLabelSize size = default, GameLabelColor? color = default, bool bold = default) where T : TextElement
     {
         element.classList.AddRange(GetClasses(style, size, color, bold));

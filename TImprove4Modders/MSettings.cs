@@ -1,7 +1,12 @@
 ﻿
 namespace TImprove4Modders;
 
-public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository)
+public class MSettings(
+    ISettings settings,
+    ModSettingsOwnerRegistry modSettingsOwnerRegistry,
+    ModRepository modRepository,
+    ModManagerBox modManagerBox
+)
     : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
     public override string ModId => nameof(TImprove4Modders);
@@ -63,6 +68,12 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
             .CreateLocalized("LV.TIMod.NoExitSave")
             .SetLocalizedTooltip("LV.TIMod.NoExitSaveDesc"));
 
+    readonly ModSetting<bool> tallerModManBox = new(
+        false,
+        ModSettingDescriptor
+            .CreateLocalized("LV.TIMod.TallerModManBox")
+            .SetLocalizedTooltip("LV.TIMod.TallerModManBoxDesc"));
+
     #endregion
 
     public static bool SwapBuildFinishedModifier { get; private set; }
@@ -74,8 +85,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     public static bool NoClearDevFilter { get; private set; }
     public static bool BetterModOrder { get; private set; }
     public static bool NoExitSave { get; private set; }
-
-    public event Action OnSettingsChanged = delegate { };
+    public static bool TallerModManBox { get; private set; }
 
     public override void OnAfterLoad()
     {
@@ -85,20 +95,12 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         AddCustomModSetting(openExternalBrowser, nameof(openExternalBrowser));
         AddCustomModSetting(devModeOnDefault, nameof(devModeOnDefault));
         AddCustomModSetting(betterModOrder, nameof(betterModOrder));
+        AddCustomModSetting(tallerModManBox, nameof(tallerModManBox));
         AddCustomModSetting(noExitSave, nameof(noExitSave));
         AddCustomModSetting(quickQuit, nameof(quickQuit));
         AddCustomModSetting(quickRestart, nameof(quickRestart));
 
-        swapBuildFinishedModifier.ValueChanged += (_, _) => InternalOnSettingsChanged();
-        pickThumbnail.ValueChanged += (_, _) => InternalOnSettingsChanged();
-        openExternalBrowser.ValueChanged += (_, _) => InternalOnSettingsChanged();
-        devModeOnDefault.ValueChanged += (_, _) => InternalOnSettingsChanged();
-        quickQuit.ValueChanged += (_, _) => InternalOnSettingsChanged();
-        quickRestart.ValueChanged += (_, _) => InternalOnSettingsChanged();
-        noClearDevFilter.ValueChanged += (_, _) => InternalOnSettingsChanged();
-        betterModOrder.ValueChanged += (_, _) => InternalOnSettingsChanged();
-        noExitSave.ValueChanged += (_, _) => InternalOnSettingsChanged();
-
+        ModSettingChanged += (_, _) => InternalOnSettingsChanged();
         InternalOnSettingsChanged();
     }
 
@@ -113,8 +115,23 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         NoClearDevFilter = noClearDevFilter.Value;
         BetterModOrder = betterModOrder.Value;
         NoExitSave = noExitSave.Value;
+        TallerModManBox = tallerModManBox.Value;
 
-        OnSettingsChanged();
+        UpdateModManagerBox();
+    }
+
+    void UpdateModManagerBox()
+    {
+        var box = modManagerBox._root.Q(className: "mod-manager-box");
+
+        box.style.height = TallerModManBox
+            ? new StyleLength(new Length(90, LengthUnit.Percent))
+            : StyleKeyword.Null;
+    }
+
+    int GetScreenHeightScaled()
+    {
+        return Mathf.FloorToInt(Screen.height / modManagerBox._root.scaledPixelsPerPoint);
     }
 
     public void Unload()

@@ -3,6 +3,7 @@
 public static partial class UiCssClasses
 {
 
+    // Buttons
     public static readonly ImmutableArray<string> ButtonText = ["text--default", "text--bold"];
     public const string ButtonMenu = "menu-button";
     public const string ButtonWideMenu = "wide-menu-button";
@@ -24,18 +25,23 @@ public static partial class UiCssClasses
     public const string ButtonPfLarge = "--large";
     public const string ButtonPfClickable = "--clickable";
 
+    public const string BottomBarButtonRed = "bottom-bar-button--red";
+
+    // Dialogs
     public const string CloseButton = "close-button";
 
+    // Dropdown
     public const string DropDownMenuClass = "settings-dropdown";
 
+    // Toggle
     public static readonly ImmutableArray<string> ToggleSettings = ["settings-element", "settings-text", "settings-toggle"];
 
+    // List/Scroll View
     public const string ScrollViewClass = "panel-list-view";
     public const string ListViewClass = "panel-list-view";
     public const string ScrollGreenDecorated = "scroll--green-decorated";
 
-    public const string BottomBarButtonRed = "bottom-bar-button--red";
-
+    // Labels
     public const string LabelGamePrefix = "text--";
     public const string LabelGameTextNormal = "game-text-normal";
     public const string LabelGameTextBig = "game-text-big";
@@ -43,6 +49,7 @@ public static partial class UiCssClasses
     public const string LabelGameTextCentered = "text--centered";
     public const string LabelEntityPanelText = "entity-panel__text";
 
+    // Panel Fragment
     public const string FragmentClass = "entity-sub-panel";
     public const string FragmentBgPrefix = "bg-sub-box--";
 
@@ -50,7 +57,11 @@ public static partial class UiCssClasses
 
     public const string BgStripedGreen = "bg-striped--green";
 
+    // Progress
     public const string ProgressBarClass = "progress-bar";
+
+    // Textfields
+    public const string TextFieldClass = "text-field";
 
     // Common colors
     public const string Brown = "brown";
