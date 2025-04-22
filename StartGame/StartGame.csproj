@@ -27,7 +27,7 @@
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 		
 
-		<ProjectReference Include="..\ColorfulBeavers\ColorfulBeavers.csproj" />
+		<ProjectReference Include="..\RealLights\RealLights.csproj" />
 		
 	</ItemGroup>
 
