@@ -2,9 +2,51 @@
 
 public readonly record struct SliderValues<TValue>(TValue Low, TValue High, TValue Default) where TValue : IComparable<TValue>;
 
-public class GameSlider : GameSlider<Slider, float> { }
+public class GameSlider : GameSlider<GameSlider, Slider, float>
+{
 
-public class GameSliderInt : GameSlider<SliderInt, int> { }
+    public GameSlider RegisterAlternativeManualValue(InputService inputService, ILoc t, VisualElementInitializer veInit, PanelStack panelStack, string? prompt = default)
+    {
+        RegisterAlternativeManualValue(inputService, veInit, panelStack,
+            () => InputDialogBox.CreateFloat(t),
+            prompt);
+
+        return this;
+    }
+
+}
+
+public class GameSliderInt : GameSlider<GameSliderInt, SliderInt, int>
+{
+
+    public GameSliderInt RegisterAlternativeManualValue(InputService inputService, ILoc t, VisualElementInitializer veInit, PanelStack panelStack, string? prompt = default)
+    {
+        RegisterAlternativeManualValue(inputService, veInit, panelStack,
+            () => InputDialogBox.CreateInteger(t),
+            prompt);
+
+        return this;
+    }
+
+}
+
+public class GameSlider<TSelf, TSlider, TValue> : GameSlider<TSlider, TValue>
+    where TSelf : GameSlider<TSelf, TSlider, TValue>
+    where TSlider : BaseSlider<TValue>, new()
+    where TValue : IComparable<TValue>
+{
+
+    public new TSelf SetLabel(string label) => (TSelf)base.SetLabel(label);
+    public new TSelf SetHorizontalSlider(in SliderValues<TValue> values) => (TSelf)base.SetHorizontalSlider(values);
+    public new TSelf AddEndLabel(string text) => (TSelf)base.AddEndLabel(text);
+    public new TSelf AddEndLabel(Func<TValue, string> textFunc) => (TSelf)base.AddEndLabel(textFunc);
+    public new TSelf RegisterChangeCallback(EventCallback<ChangeEvent<TValue>> ev) => (TSelf)base.RegisterChangeCallback(ev);
+    public new TSelf RegisterChange(Action<TValue> action) => (TSelf)base.RegisterChange(action);
+    public new TSelf SetValue(TValue value) => (TSelf)base.SetValue(value);
+    public new TSelf SetValueWithoutNotify(TValue value) => (TSelf)base.SetValueWithoutNotify(value);
+    public new TSelf RegisterAlternativeClickCallback(InputService inputService, Action action) => (TSelf)base.RegisterAlternativeClickCallback(inputService, action);
+
+}
 
 public class GameSlider<TSlider, TValue> : VisualElement
     where TSlider : BaseSlider<TValue>, new()
@@ -14,8 +56,17 @@ public class GameSlider<TSlider, TValue> : VisualElement
     public static readonly ImmutableArray<string> SliderClasses = ["settings-slider__slider"];
     public static readonly ImmutableArray<string> EndLabelClasses = ["settings-slider__end-label"];
 
+    const string AlternateClickableActionKey = "AlternateClickableAction";
+    EventCallback<ChangeEvent<TValue>>? endLabelCallback;
+
     public TSlider Slider { get; private set; }
     public Label? EndLabel { get; private set; }
+
+    public TValue Value
+    {
+        get => Slider.value;
+        set => Slider.value = value;
+    }
 
     public GameSlider()
     {
@@ -61,10 +112,17 @@ public class GameSlider<TSlider, TValue> : VisualElement
         AddEndLabel();
 
         EndLabel!.text = textFunc(Slider.value);
-        Slider.RegisterValueChangedCallback((e) =>
+
+        if (endLabelCallback is not null)
         {
-            EndLabel.text = textFunc(e.newValue);
-        });
+            Slider.UnregisterCallback(endLabelCallback);
+        }
+
+        endLabelCallback = e =>
+        {
+            EndLabel!.text = textFunc(e.newValue);
+        };
+        Slider.RegisterValueChangedCallback(endLabelCallback);
 
         return this;
     }
@@ -85,6 +143,63 @@ public class GameSlider<TSlider, TValue> : VisualElement
     {
         Slider.value = value;
         return this;
+    }
+
+    public GameSlider<TSlider, TValue> SetValueWithoutNotify(TValue value)
+    {
+        var oldValue = Slider.value;
+
+        Slider.SetValueWithoutNotify(value);
+        endLabelCallback?.Invoke(new ChangeEvent<TValue>()
+        {
+            previousValue = oldValue,
+            newValue = value,
+            currentTarget = Slider,
+            target = Slider,
+            elementTarget = Slider,
+        });
+
+        return this;
+    }
+
+    public GameSlider<TSlider, TValue> RegisterAlternativeClickCallback(InputService inputService, Action action)
+    {
+        RegisterCallback<MouseUpEvent>(_ =>
+        {
+            if (inputService.IsKeyHeld(AlternateClickableActionKey))
+            {
+                action();
+            }
+        });
+
+        return this;
+    }
+
+    protected void RegisterAlternativeManualValue<TInput>(
+        InputService inputService,
+        VisualElementInitializer veInit,
+        PanelStack panelStack,
+        Func<InputDialogBox<TInput, TValue>> diagFunc,
+        string? prompt
+    )
+        where TInput : BaseField<TValue>, new()
+    {
+        RegisterAlternativeClickCallback(inputService, async () =>
+        {
+            var diag = diagFunc()
+                .AddCloseButton()
+                .SetValue(Value);
+
+            if (prompt is not null)
+            {
+                diag.SetPrompt(prompt);
+            }
+
+            var (result, value) = await diag.ShowAsync(veInit, panelStack);
+            if (!result) { return; }
+
+            SetValue(value!);
+        });
     }
 
 }

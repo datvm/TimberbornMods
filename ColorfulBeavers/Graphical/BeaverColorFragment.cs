@@ -2,7 +2,14 @@
 
 namespace ColorfulBeavers.Graphical;
 
-public class BeaverColorFragment(VisualElementInitializer initializer, ILoc t, InputService input, DialogBoxShower diagShower, EntityRegistry entities) : IEntityPanelFragment, IInputProcessor
+public class BeaverColorFragment(
+    VisualElementInitializer veInitializer,
+    ILoc t,
+    InputService input,
+    DialogBoxShower diagShower,
+    EntityRegistry entities,
+    PanelStack panelStack
+) : IEntityPanelFragment, IInputProcessor
 {
     const string CopyColorKeyId = "CopyBeaverColor";
     const string PasteColorKeyId = "PasteBeaverColor";
@@ -35,15 +42,16 @@ public class BeaverColorFragment(VisualElementInitializer initializer, ILoc t, I
 
         for (int i = 0; i < sliders.Length; i++)
         {
+            var z = i;
+
             var slider = sliders[i] = panel.AddSliderInt(
                 label: SliderTexts[i],
                 name: "Color-" + i,
-                values: new(0, 255, 255));
-
-            slider.AddEndLabel(i => i.ToString());
-
-            var index = i;
-            slider.RegisterChange(v => ChangeColorPart(index, v));
+                values: new(0, 255, 255))
+                
+                .AddEndLabel(i => i.ToString())
+                .RegisterChange(v => ChangeColorPart(z, v))
+                .RegisterAlternativeManualValue(input, t, veInitializer, panelStack);
         }
 
         panel.AddGameButton(t.T("LV.CBv.Reset"), ResetColor, "ResetColor", stretched: true)
@@ -52,7 +60,7 @@ public class BeaverColorFragment(VisualElementInitializer initializer, ILoc t, I
         panel.AddGameButton(t.T("LV.CBv.ResetAll"), ResetAll, "ResetColorAll", stretched: true)
             .SetFlexGrow();
 
-        return panel.Initialize(initializer);
+        return panel.Initialize(veInitializer);
     }
 
     public void ShowFragment(BaseComponent entity)
@@ -137,7 +145,7 @@ public class BeaverColorFragment(VisualElementInitializer initializer, ILoc t, I
     {
         for (int i = 0; i < sliders.Length; i++)
         {
-            sliders[i].Slider.value = color[i];
+            sliders[i].SetValueWithoutNotify(color[i]);
         }
     }
 }

@@ -31,6 +31,12 @@ public static partial class UiBuilderExtensions
         return child;
     }
 
+    public static VisualElement AddRow(this VisualElement parent, string? name = default)
+    {
+        var row = parent.AddChild(name: name);
+        return row.SetAsRow();
+    }
+
     public static VisualElement AddHorizontalContainer(this VisualElement parent, bool marginBottom = true)
     {
         var con = parent.AddChild().SetAsRow();

@@ -12,7 +12,7 @@ public class SuperCursorTool(EntitySelectionService entitySelectionService, Inpu
     readonly SelectableObjectRaycaster selectableObjectRaycaster = selectableObjectRaycaster;
     readonly InputService inputService = inputService;
 
-    static readonly Vector2 MouseMargin = new(10, 0);
+    static readonly Vector2 MouseMargin = new(10, 10);
     void ProcessInfo()
     {
         StringBuilder info = new();
