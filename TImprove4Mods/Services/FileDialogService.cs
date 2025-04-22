@@ -1,4 +1,5 @@
 ﻿global using System.Windows.Forms;
+global using Timberborn.PlatformUtilities;
 
 namespace TImprove4Mods.Services;
 
@@ -6,7 +7,7 @@ public class FileDialogService
 {
 
     public static readonly bool IsWindows = Environment.OSVersion.Platform == PlatformID.Win32NT;
-    static string GetDefaultFolder() => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"Timberborn\PlayerData");
+    static string GetDefaultFolder() => Path.Combine(UserDataFolder.Folder, @"PlayerData");
 
     const string WindowsFormsTextFilter = "Text Files (*.txt)|*.txt";
     public string? OpenFile()
