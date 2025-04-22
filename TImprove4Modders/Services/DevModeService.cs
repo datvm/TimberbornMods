@@ -3,12 +3,13 @@
 public class DevModeService(DevModeManager dev, EventBus eb) : ILoadableSingleton, IUnloadableSingleton
 {
     public static bool IsDevModeOn = false;
+    public static bool HasDevModeArgument = CommandLineArguments.CreateWithCommandLineArgs().Has("devMode");
 
     public void Load()
     {
         eb.Register(this);
 
-        if (MSettings.DevModeOnDefault)
+        if (MSettings.DevModeOnDefault || HasDevModeArgument)
         {
             dev.Enable();
         }
