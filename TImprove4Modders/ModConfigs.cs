@@ -20,7 +20,6 @@ public class AllContextConfig : Configurator
     {
         Bind<MSettings>().AsSingleton();
         Bind<QuickQuitService>().AsSingleton();
-        Bind<DevModeService>().AsSingleton();
     }
 
 }
@@ -31,6 +30,7 @@ public class NonMenuContextConfig : Configurator
 {
     public override void Configure()
     {
+        Bind<DevModeService>().AsSingleton();
 
         MultiBind<IDevModule>().To<PrintUiModule>().AsSingleton();
         MultiBind<IDevModule>().To<ScienceModule>().AsSingleton();
