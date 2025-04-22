@@ -1,7 +1,11 @@
 ﻿
 namespace TImprove4Modders;
 
-public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository)
+public class MSettings(
+    ISettings settings,
+    ModSettingsOwnerRegistry modSettingsOwnerRegistry,
+    ModRepository modRepository
+)
     : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
     public override string ModId => nameof(TImprove4Modders);
@@ -75,8 +79,6 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     public static bool BetterModOrder { get; private set; }
     public static bool NoExitSave { get; private set; }
 
-    public event Action OnSettingsChanged = delegate { };
-
     public override void OnAfterLoad()
     {
         AddCustomModSetting(swapBuildFinishedModifier, nameof(swapBuildFinishedModifier));
@@ -89,16 +91,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         AddCustomModSetting(quickQuit, nameof(quickQuit));
         AddCustomModSetting(quickRestart, nameof(quickRestart));
 
-        swapBuildFinishedModifier.ValueChanged += (_, _) => InternalOnSettingsChanged();
-        pickThumbnail.ValueChanged += (_, _) => InternalOnSettingsChanged();
-        openExternalBrowser.ValueChanged += (_, _) => InternalOnSettingsChanged();
-        devModeOnDefault.ValueChanged += (_, _) => InternalOnSettingsChanged();
-        quickQuit.ValueChanged += (_, _) => InternalOnSettingsChanged();
-        quickRestart.ValueChanged += (_, _) => InternalOnSettingsChanged();
-        noClearDevFilter.ValueChanged += (_, _) => InternalOnSettingsChanged();
-        betterModOrder.ValueChanged += (_, _) => InternalOnSettingsChanged();
-        noExitSave.ValueChanged += (_, _) => InternalOnSettingsChanged();
-
+        ModSettingChanged += (_, _) => InternalOnSettingsChanged();
         InternalOnSettingsChanged();
     }
 
@@ -114,7 +107,6 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         BetterModOrder = betterModOrder.Value;
         NoExitSave = noExitSave.Value;
 
-        OnSettingsChanged();
     }
 
     public void Unload()
