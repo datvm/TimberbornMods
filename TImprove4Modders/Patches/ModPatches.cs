@@ -64,7 +64,7 @@ public static class ModPatches
             // First, sort by enabled then name
             list = [.. list
                 .OrderByDescending(q => ModPlayerPrefsHelper.IsModEnabled(q.Mod)) // Don't use Mod.IsEnabled, it's not updated
-                .ThenBy(q => q.Mod.Manifest.Name)]; 
+                .ThenBy(q => q.Mod.Manifest.Name)];
 
             // Then, scan one by one and bring the dependencies up
             for (int i = 0; i < list.Count; i++)
@@ -74,21 +74,6 @@ public static class ModPatches
 
                 i = BringDependenciesUp(mod, i);
                 availableMods.Add(mod.Manifest.Id);
-            }
-
-            // Then, move all mods with the same ID up next to each other
-            for (int i = 0; i < list.Count; i++)
-            {
-                var id = list[i].Mod.Manifest.Id;
-
-                for (int j = i + 1; j < list.Count; j++)
-                {
-                    var mod = list[j];
-                    if (mod.Mod.Manifest.Id != id) { continue; }
-
-                    list.RemoveAt(j);
-                    list.Insert(++i, mod);
-                }
             }
 
             for (int i = 0; i < list.Count; i++)
