@@ -44,6 +44,15 @@ public class PositionPickerElement : VisualElement
         return this;
     }
 
+    public PositionPickerElement RegisterAlternativeManualValue(InputService inputService, ILoc t, VisualElementInitializer veInit, PanelStack panelStack)
+    {
+        for (int i = 0; i < sliders.Length; i++)
+        {
+            sliders[i].RegisterAlternativeManualValue(inputService, t, veInit, panelStack);
+        }
+        return this;
+    }
+
     public PositionPickerElement RegisterChange(Action<Vector3Int> value)
     {
         PositionChanged += value;
@@ -56,7 +65,7 @@ public class PositionPickerElement : VisualElement
         for (int i = 0; i < sliders.Length; i++)
         {
             var slider = sliders[i];
-            slider.SetValue(p[i]);
+            slider.SetValueWithoutNotify(p[i]);
         }
     }
 

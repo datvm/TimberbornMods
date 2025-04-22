@@ -5,7 +5,8 @@ public class HueAndTurnFragment(
     VisualElementInitializer initializer,
     ILoc t,
     InputService input,
-    HueAndTurnMassApplier massApplier
+    HueAndTurnMassApplier massApplier,
+    PanelStack panelStack
 ) : IEntityPanelFragment, IInputProcessor
 {
     const string CopyId = "CopyHueAndTurn";
@@ -64,6 +65,7 @@ public class HueAndTurnFragment(
             onValueChanged: OnColorToggled);
 
         colorPicker = container.AddChild<ColorPickerElement>()
+            .RegisterAlternativeManualValue(input, t, initializer, panelStack)
             .RegisterChange(OnColorPicked);
     }
 
@@ -72,6 +74,7 @@ public class HueAndTurnFragment(
         rotationSlider = parent.AddSliderInt(t.T("LV.HNT.Rotation"), values: new(-180, 180, 0));
         rotationSlider
             .RegisterChange(SetRotation)
+            .RegisterAlternativeManualValue(input, t, initializer, panelStack)
             .AddEndLabel(v => v + "°");
     }
 
@@ -86,11 +89,13 @@ public class HueAndTurnFragment(
         rotationPivotPicker = advOptionsPanel.AddChild<PositionPickerElement>()
             .SetAxes(2)
             .RegisterChange(SetRotationPivot)
+            .RegisterAlternativeManualValue(input, t, initializer, panelStack)
             .SetMarginBottom();
 
         advOptionsPanel.AddGameLabel(t.T("LV.HNT.Translate")).SetMarginBottom(5);
         translatePicker = advOptionsPanel.AddChild<PositionPickerElement>()
             .RegisterChange(SetTranslation)
+            .RegisterAlternativeManualValue(input, t, initializer, panelStack)
             .SetMarginBottom(10);
 
         AddApplyAllOptions(advOptionsPanel);
@@ -214,7 +219,7 @@ public class HueAndTurnFragment(
             colorPicker.Color = props.Color.Value;
         }
 
-        rotationSlider.SetValue(props.Rotation ?? 0);
+        rotationSlider.SetValueWithoutNotify(props.Rotation ?? 0);
         rotationPivotPicker.Position = props.RotationPivot?.ToVector3Int(0) ?? null;
         translatePicker.Position = props.Translation;
 

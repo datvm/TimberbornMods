@@ -24,16 +24,28 @@ public class ColorPickerElement : VisualElement
         sliders = new GameSliderInt[ColorSliderTexts.Length];
         for (int i = 0; i < sliders.Length; i++)
         {
+            var z = i;
+
             var slider = sliders[i] = this.AddSliderInt(
                 label: ColorSliderTexts[i],
                 name: "Color-" + i,
-                values: new(0, 255, 255));
-
-            slider.AddEndLabel(i => i.ToString());
-
-            var index = i;
-            slider.RegisterChange(v => ChangePart(index, v));
+                values: new(0, 255, 255))
+                
+                .AddEndLabel(i => i.ToString())
+                .RegisterChange(v => ChangePart(z, v));
         }
+
+        Color = DefaultColor;
+    }
+
+    public ColorPickerElement RegisterAlternativeManualValue(InputService inputService, ILoc t, VisualElementInitializer veInit, PanelStack panelStack)
+    {
+        for (int i = 0; i < sliders.Length; i++)
+        {
+            sliders[i].RegisterAlternativeManualValue(inputService, t, veInit, panelStack);
+        }
+
+        return this;
     }
 
     public ColorPickerElement RegisterChange(Action<Color> action)
@@ -47,7 +59,7 @@ public class ColorPickerElement : VisualElement
         for (int i = 0; i < sliders.Length; i++)
         {
             var slider = sliders[i];
-            slider.SetValue(Mathf.RoundToInt(Color[i] * 255));
+            slider.SetValueWithoutNotify(Mathf.RoundToInt(Color[i] * 255));
         }
     }
 

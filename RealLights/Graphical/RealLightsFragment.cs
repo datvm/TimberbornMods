@@ -3,7 +3,13 @@ global using Timberborn.InputSystem;
 
 namespace RealLights.Graphical;
 
-public class RealLightsFragment(VisualElementInitializer initializer, ILoc t, DevModeManager devs, InputService input) : IEntityPanelFragment, IInputProcessor
+public class RealLightsFragment(
+    VisualElementInitializer initializer,
+    ILoc t,
+    DevModeManager devs,
+    InputService input,
+    PanelStack panelStack
+) : IEntityPanelFragment, IInputProcessor
 {
     const string CopyKeyId = "CopyLightColor";
     const string PasteKeyId = "PasteLightColor";
@@ -78,14 +84,14 @@ public class RealLightsFragment(VisualElementInitializer initializer, ILoc t, De
 
         GameSliderInt AddPositionSlider(string name, Func<float, Vector3, Vector3> getValue)
         {
-            var slider = devPanel.AddSliderInt(name, values: new(-100, 100, 0));
-            slider
+            var slider = devPanel.AddSliderInt(name, values: new(-100, 100, 0))
                 .AddEndLabel(v => (v / 10f).ToString())
                 .RegisterChangeCallback(ev =>
                 {
                     var curr = realLight!.FirstLightPosition;
                     realLight.SetLightPosition(getValue(ev.newValue / 10f, curr));
-                });
+                })
+                .RegisterAlternativeManualValue(input, t, initializer, panelStack);
 
             return slider;
         }
@@ -158,10 +164,12 @@ public class RealLightsFragment(VisualElementInitializer initializer, ILoc t, De
 
             config.AddSliderInt(label: t.T("LV.RL.Range"), values: new(0, 20, (int)props.Range))
                 .AddEndLabel(v => v.ToString())
+                .RegisterAlternativeManualValue(input, t, initializer, panelStack)
                 .RegisterChangeCallback(ev => OnLightCustomSet(z, new() { Range = ev.newValue }));
 
             config.AddSliderInt(label: t.T("LV.RL.Intensity"), values: new(0, 20, (int)props.Intensity))
                 .AddEndLabel(v => v.ToString())
+                .RegisterAlternativeManualValue(input, t, initializer, panelStack)
                 .RegisterChangeCallback(ev => OnLightCustomSet(z, new() { Intensity = ev.newValue }));
 
             var colorPanel = config.AddChild();
@@ -191,7 +199,8 @@ public class RealLightsFragment(VisualElementInitializer initializer, ILoc t, De
                 .RegisterChangeCallback(ev => realLight.SetCustomColor(
                     index,
                     curr => getColorValue(ev.newValue / 255f, curr)
-                ));
+                ))
+                .RegisterAlternativeManualValue(input, t, initializer, panelStack);
         }
     }
 
