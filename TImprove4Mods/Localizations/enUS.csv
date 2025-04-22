@@ -1,0 +1,11 @@
+﻿ID,Text,Comment
+LV.T4Mods.LegacyWarning,"You have ""Toggle All Mods & Profiles"" mods enabled. You should disable and/or unsubscribe that mod as ""TImprove 4 Mods"" has all the features and is getting updated",
+LV.T4Mods.EnableAll,"Enable All",
+LV.T4Mods.DisableAll,"Disable All",
+LV.T4Mods.ConfirmEnableAll,"Are you sure you want to enable all mods?",
+LV.T4Mods.ConfirmDisableAll,"Are you sure you want to disable all mods?",
+LV.T4Mods.LoadProfile,"Load profile",
+LV.T4Mods.SaveProfile,"Save profile",
+LV.T4Mods.RestartGame,"OK & Restart the game",
+LV.T4Mods.Enabled,"Enabled",
+LV.T4Mods.Disabled,"Disabled",
