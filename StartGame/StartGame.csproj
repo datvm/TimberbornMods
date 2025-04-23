@@ -27,7 +27,7 @@
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 		
 
-		<ProjectReference Include="..\ScrollableEntityPanel\ScrollableEntityPanel.csproj" />
+		<ProjectReference Include="..\ConfigurableWorkplace\ConfigurableWorkplace.csproj" />
 		
 	</ItemGroup>
 

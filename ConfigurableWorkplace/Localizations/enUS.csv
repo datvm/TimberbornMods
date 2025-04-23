@@ -1,0 +1,11 @@
+ID,Text,Comment
+LV.CWk.BuildingShift,"Workplace-specific shift",
+LV.CWk.BuildingShiftDesc,"Enable setting a specific shift for this workplace.",
+LV.CWk.MaxWorkerMul,"Max Worker Multiplier",
+LV.CWk.MaxWorkerMulDesc,"Multiply the max worker count by this value. Rounded down but to minimum of 1.",
+LV.CWk.BotEverywhere,"Bot Everywhere",
+LV.CWk.BotEverywhereDesc,"Bots will be able to work in any workplace.",
+LV.CWk.EnableShift,"Building-specific shift",
+LV.CWk.ShiftHours,"Shift hours:",
+LV.CWk.LunchBreakStart,"Lunch break start:",
+LV.CWk.LunchBreakEnd,"Lunch break end:",
