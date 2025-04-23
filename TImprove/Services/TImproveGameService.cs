@@ -50,7 +50,7 @@ public class TImproveGameService(
 #if TIMBER6
         sun.Update();
 #else
-        sun.UpdateSingleton();
+        sun.LateUpdateSingleton();
 #endif
     }
 
