@@ -17,8 +17,6 @@ public class ModManagerBoxService(
         UpdateModManagerBox();
         InsertTopContent();
         InsertRestartButton();
-
-        root.PrintVisualTree(true);
     }
 
     void UpdateModManagerBox()
