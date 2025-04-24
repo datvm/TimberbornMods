@@ -43,9 +43,12 @@ public class ScollAdder(IEntityPanel entityPanel, VisualElementInitializer veIni
         parent.Insert(index, scrollContainer);
 
         // Move the Good selection panel out of the scroll to prevent issue
-        stockpileInventory.style.flexShrink = 0;
-        scrollContainer.Add(stockpileInventory);
-
+        if (stockpileInventory is not null)
+        {
+            stockpileInventory.style.flexShrink = 0;
+            scrollContainer.Add(stockpileInventory);
+        }
+        
         scrollContainer.Add(scroll);
 
     }
