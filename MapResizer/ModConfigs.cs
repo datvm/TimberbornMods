@@ -8,7 +8,12 @@ public class ModGameConfig : Configurator
     public override void Configure()
     {
         Bind<MapResizerDialogTrigger>().AsSingleton();
-        Bind<MapResizerService>().AsSingleton();
+
+        Bind<MapResizeService>().AsSingleton();
+        Bind<TerrainMapResizeService>().AsSingleton();
+        Bind<ColumnTerrainMapResizeService>().AsSingleton();
+        Bind<SoilMapResizeService>().AsSingleton();
+        Bind<WaterMapResizeService>().AsSingleton();
     }
 }
 

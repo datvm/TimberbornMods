@@ -1,11 +1,10 @@
 ﻿
-using Timberborn.BlockSystem;
-
 namespace MapResizer.Patches;
 
 [HarmonyPatch]
 public static class MapSizePatches
 {
+
     static readonly PropertyKey<Vector2Int> MapSizeHeightKey = new("MapHeight");
     static WeakReference<MapSize>? mapSizeRef;
 
@@ -53,5 +52,8 @@ public static class MapSizePatches
         if (mapSizeRef is null || !mapSizeRef.TryGetTarget(out var mapSize)) { return; }
         __result = __result with { z = WorldTiling.VerticalTileCount(mapSize.TerrainSize.z), };
     }
+
+    [HarmonyPrefix, HarmonyPatch(typeof(Ticker), nameof(Ticker.FinishFullTick))]
+    public static bool SkipFullTick() => !MapResizeService.SkipFullTick;
 
 }

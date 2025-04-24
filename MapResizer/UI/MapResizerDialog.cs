@@ -27,7 +27,7 @@ public class MapResizerDialog : DialogBoxElement
             );
         }
 
-        Content.AddMenuButton(t.T("LV.MRe.Resize"), () => DialogBox!.OnUIConfirmed());
+        Content.AddMenuButton(t.T("LV.MRe.Resize"), OnUIConfirmed);
     }
 
     IntegerField AddSize(VisualElement parent, string key, int initValue)
