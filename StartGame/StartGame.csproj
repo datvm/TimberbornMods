@@ -27,7 +27,7 @@
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 		
 
-		<ProjectReference Include="..\ConfigurableWorkplace\ConfigurableWorkplace.csproj" />
+		<ProjectReference Include="..\MapResizer\MapResizer.csproj" />
 		
 	</ItemGroup>
 

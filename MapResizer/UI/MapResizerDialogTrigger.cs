@@ -6,10 +6,10 @@ public class MapResizerDialogTrigger(
     MapSize mapSize,
     VisualElementInitializer veInit,
     PanelStack panelStack,
-    MapResizerService resizer
+    MapResizeService mapResizer
 ) : ILoadableSingleton
 {
-    GameOptionsBox? gameOptionsBox = optionsBox as GameOptionsBox;
+    readonly GameOptionsBox? gameOptionsBox = optionsBox as GameOptionsBox;
     public void Load()
     {
         if (gameOptionsBox is null) { return; }
@@ -35,7 +35,10 @@ public class MapResizerDialogTrigger(
 
         // Show the resize dialog
         var diag = new MapResizerDialog(mapSize, t);
-        diag.Show(veInit, panelStack, () => resizer.PerformResize(diag.Size));
+        diag.Show(
+            veInit,
+            panelStack, 
+            async () => await mapResizer.PerformResizeAsync(diag.Size, EnlargeStrategy.Mirror));
     }
 
 }

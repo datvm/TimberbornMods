@@ -6,6 +6,6 @@
     "Description": "Resize the map",
     "RequiredMods": [
         { "Id": "Harmony" },
-        { "Id": "TimberUi", "MinimumVersion": "7.1.2" }
+        { "Id": "TimberUi" }
     ]
 }
