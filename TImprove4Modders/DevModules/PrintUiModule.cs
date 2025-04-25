@@ -22,22 +22,31 @@ public class PrintUiModule(PanelStack panelStack, IAssetLoader loader) : IDevMod
 
         foreach (var a in assets)
         {
-            var ve = a.Asset.Instantiate();
-
-            var path = Path.Combine(folder, a.Asset.name + ".uxml");
-            var uxml = ve.DescribeVisualTree(options: 
-                UxmlExporter.ExportOptions.PrintTemplate |
-                UxmlExporter.ExportOptions.StyleFields |
-                UxmlExporter.ExportOptions.AutoNameElements);
-            File.WriteAllText(path, uxml);
-
-            for (int i = 0; i < ve.styleSheets.count; i++)
+            try
             {
-                var ss = ve.styleSheets[i];
+                var ve = a.Asset.Instantiate();
 
-                path = Path.Combine(folder, $"{ss.name}.uss");
-                File.WriteAllText(path, ss.Describe());
+                var path = Path.Combine(folder, a.Asset.name + ".uxml");
+                var uxml = ve.DescribeVisualTree(options:
+                    UxmlExporter.ExportOptions.PrintTemplate |
+                    UxmlExporter.ExportOptions.StyleFields |
+                    UxmlExporter.ExportOptions.AutoNameElements);
+                File.WriteAllText(path, uxml);
+
+                for (int i = 0; i < ve.styleSheets.count; i++)
+                {
+                    var ss = ve.styleSheets[i];
+
+                    path = Path.Combine(folder, $"{ss.name}.uss");
+                    File.WriteAllText(path, ss.Describe());
+                }
             }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to export { a.Asset.name}: { ex.Message}");
+                Debug.LogError(ex);
+            }
+            
         }
 
         System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(folder)
