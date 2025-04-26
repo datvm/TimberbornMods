@@ -1,19 +1,40 @@
-﻿global using MapResizer.UI;
+﻿namespace MapResizer;
 
-namespace MapResizer;
-
-[Context("Game")]
-public class ModGameConfig : Configurator
+public class ModCommonConfig : Configurator
 {
     public override void Configure()
     {
-        Bind<MapResizerDialogTrigger>().AsSingleton();
-
+        Bind<MapResizerController>().AsSingleton();
         Bind<MapResizeService>().AsSingleton();
         Bind<TerrainMapResizeService>().AsSingleton();
         Bind<ColumnTerrainMapResizeService>().AsSingleton();
         Bind<SoilMapResizeService>().AsSingleton();
         Bind<WaterMapResizeService>().AsSingleton();
+        Bind<BlockObjectResizeValidationService>().AsSingleton();
+        Bind<PlantingMapResizer>().AsSingleton();
+    }
+}
+
+[Context("Game")]
+public class ModGameConfig : ModCommonConfig
+{
+    public override void Configure()
+    {
+        base.Configure();
+
+        Bind<ISaverService>().To<GameSaverService>().AsSingleton();
+    }
+
+}
+
+[Context("MapEditor")]
+public class ModMapEditorConfig : ModCommonConfig
+{
+    public override void Configure()
+    {
+        base.Configure();
+
+        Bind<ISaverService>().To<MapEditorSaverService>().AsSingleton();
     }
 }
 

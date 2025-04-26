@@ -1,4 +1,5 @@
-﻿
+﻿using Timberborn.LevelVisibilitySystem;
+
 namespace MapResizer.Patches;
 
 [HarmonyPatch]
@@ -18,6 +19,8 @@ public static class MapSizePatches
         var height = s.Get(MapSizeHeightKey);
         __instance.TerrainSize = new Vector3Int(size.x, size.y, height.x);
         __instance.TotalSize = new Vector3Int(size.x, size.y, height.y);
+
+        Debug.Log($"{nameof(MapResizer)}: Map size changed: {__instance.TerrainSize} - {__instance.TotalSize}");
 
         mapSizeRef = new(__instance);
     }
@@ -55,5 +58,11 @@ public static class MapSizePatches
 
     [HarmonyPrefix, HarmonyPatch(typeof(Ticker), nameof(Ticker.FinishFullTick))]
     public static bool SkipFullTick() => !MapResizeService.SkipFullTick;
+
+    [HarmonyPrefix, HarmonyPatch(typeof(LevelVisibilityService), nameof(LevelVisibilityService.Load))]
+    public static void SetVisibilityServiceMaxVisibleLevel(LevelVisibilityService __instance)
+    {
+        __instance.MaxVisibleLevel = __instance._mapSize.TerrainSize.z - 1;
+    }
 
 }

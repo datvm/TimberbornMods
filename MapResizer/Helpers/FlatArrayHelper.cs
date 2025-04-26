@@ -29,7 +29,7 @@ public class FlatArrayHelper<T>(T[] array, Vector3Int size)
         File.WriteAllText(
             filePath, 
             $"{size.x};{size.y};{size.z};" +
-            string.Join("", array.Select(q => q.ToString() == "True" ? "1" : "0")));
+            string.Join("", array.Select(q => q?.ToString() == "True" ? "1" : "0")));
 
         return this;
     }
