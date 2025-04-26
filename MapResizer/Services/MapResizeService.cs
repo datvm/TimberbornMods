@@ -1,38 +1,44 @@
-﻿using System.Threading.Tasks;
-
+﻿
 namespace MapResizer.Services;
 
 public class MapResizeService(
     MapSize mapSize,
-    GameSaver gameSaver,
-    SettlementNameService settlementNameService,
+    Ticker ticker,
+    ISaverService gameSaver,
     MapIndexService mapIndexService,
     TerrainMapResizeService terrainMapResizeService,
     ColumnTerrainMapResizeService columnTerrainMapResizeService,
     SoilMapResizeService soilMapResizeService,
-    WaterMapResizeService waterMapResizeService
+    WaterMapResizeService waterMapResizeService,
+    PlantingMapResizer plantingMapResizer
 )
 {
     public static bool SkipFullTick { get; private set; }
 
-    public async Task PerformResizeAsync(ResizeValues size, EnlargeStrategy enlargeStrategy)
+    public async Task<ISaveReference> PerformResizeAsync(ResizeValues resizeValues)
     {
+        ticker.FinishFullTick();
         SkipFullTick = true;
 
         var oldData = RetainOldMapSize();
 
-        ResizeMapSize(size);
+        ResizeMapSize(resizeValues);
         ResizeMapIndexService();
 
-        terrainMapResizeService.ResizeTerrainMap(oldData, enlargeStrategy);
+        terrainMapResizeService.Resize(oldData, resizeValues.EnlargeStrategy);
         columnTerrainMapResizeService.Resize();
         soilMapResizeService.Resize();
         waterMapResizeService.Resize(oldData);
+        plantingMapResizer.Resize();
 
-        await SaveGameAsync();
+        var saveRef = await SaveGameAsync();
 
         SkipFullTick = false;
+
+        return saveRef;
     }
+
+    public void LoadGame(ISaveReference saveReference) => gameSaver.Load(saveReference);
 
     ResizeData RetainOldMapSize()
     {
@@ -50,8 +56,8 @@ public class MapResizeService(
 
     void ResizeMapSize(in ResizeValues size)
     {
-        mapSize.TerrainSize = new(size.X, size.Y, size.Z1);
-        mapSize.TotalSize = new(size.X, size.Y, size.Z1 + size.Z2);
+        mapSize.TerrainSize = size.TerrainSize;
+        mapSize.TotalSize = size.TotalSize;
     }
 
     void ResizeMapIndexService()
@@ -59,20 +65,7 @@ public class MapResizeService(
         mapIndexService.Load();
     }
 
-    async Task SaveGameAsync()
-    {
-        TaskCompletionSource<bool> tcs = new();
-
-        gameSaver.QueueSave(
-            new(settlementNameService.SettlementName, "MapResized"),
-            () =>
-            {
-                Debug.Log("Resized map saved.");
-                tcs.TrySetResult(true);
-            });
-
-        await tcs.Task;
-    }
+    async Task<ISaveReference> SaveGameAsync() => await gameSaver.SaveAsync();
 
 }
 

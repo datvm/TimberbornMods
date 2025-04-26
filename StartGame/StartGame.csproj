@@ -22,7 +22,7 @@
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 		
 
-		<ProjectReference Include="..\TImprove4Modders\TImprove4Modders.csproj" />
+		<ProjectReference Include="..\MapResizer\MapResizer.csproj" />
 		
 	</ItemGroup>
 

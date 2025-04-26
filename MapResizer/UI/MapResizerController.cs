@@ -1,0 +1,84 @@
+﻿namespace MapResizer.UI;
+
+public class MapResizerController(
+    IOptionsBox optionsBox,
+    ILoc t,
+    MapSize mapSize,
+    VisualElementInitializer veInit,
+    PanelStack panelStack,
+    MapResizeService mapResizer,
+    DropdownItemsSetter dropdownItemsSetter,
+    DialogBoxShower diagShower,
+    BlockObjectResizeValidationService blockObjectResizeValidationService
+) : ILoadableSingleton
+{
+    readonly GameOptionsBox? gameOptionsBox = optionsBox as GameOptionsBox;
+    readonly MapEditorOptionsBox? mapEditorOptionsBox = optionsBox as MapEditorOptionsBox;
+
+    public void Load()
+    {
+        InsertResizeButton(
+            gameOptionsBox?._root 
+            ?? mapEditorOptionsBox?._root
+            ?? throw new InvalidOperationException("No options box found.")
+        );
+    }
+
+    void InsertResizeButton(VisualElement box)
+    {
+        var btn = box.AddMenuButton(t.T("LV.MRe.ResizeMap"), stretched: true);
+        var btnResume = box.Q("ResumeButton") ?? box.Q("Resume");
+        btn.InsertSelfAfter(btnResume);
+
+        btn.clicked += OnShowResizeDialogClicked;
+    }
+
+    void OnShowResizeDialogClicked()
+    {
+        // Close the game options box
+        gameOptionsBox?.ResumeClicked(null);
+        mapEditorOptionsBox?.OnResumeClicked(null);
+
+        // Show the resize dialog
+        var diag = new MapResizerDialog(mapSize, t, dropdownItemsSetter, veInit);
+        diag.Show(
+            veInit,
+            panelStack,
+            async () => await ResizeAsync(diag.ResizeValues));
+    }
+
+    async Task ResizeAsync(ResizeValues resizeValues)
+    {
+        if (!ValidateBlockObjects(resizeValues)) { return; }
+
+        var saveRef = await mapResizer.PerformResizeAsync(resizeValues);
+
+        diagShower.Create()
+            .SetMessage("LV.MRe.OfferToLoad".T(t))
+            .SetConfirmButton(() => LoadSave(saveRef))
+            .SetDefaultCancelButton()
+            .Show();
+    }
+
+    bool ValidateBlockObjects(in ResizeValues resizeValues)
+    {
+        var totalSize = resizeValues.TotalSize;
+        var terrainSize = resizeValues.TerrainSize;
+
+        if (blockObjectResizeValidationService.ValidateBlockObjects(totalSize, terrainSize)) { return true; }
+
+        diagShower.Create()
+            .SetMessage("LV.MRe.ResizeInvalidObj".T(t))
+            .SetConfirmButton(() => blockObjectResizeValidationService.DeleteInvalidBlockObjects(totalSize, terrainSize), "LV.MRe.AutoRemove".T(t))
+            .SetDefaultCancelButton()
+            .Show();
+
+        return false;
+    }
+
+    void LoadSave(ISaveReference saveRef)
+    {
+        mapResizer.LoadGame(saveRef);
+    }
+
+}

@@ -74,7 +74,9 @@ public class WaterMapResizeService(
     void ResizeThreadSafeWaterMap()
     {
         threadSafeWaterMap.Load();
-        threadSafeWaterMap.UpdateData();
+
+        threadSafeWaterMap._waterColumns = [.. waterMap._waterColumns];
+        threadSafeWaterMap._columnCount = [.. waterMap.ColumnCount];
     }
 
 }

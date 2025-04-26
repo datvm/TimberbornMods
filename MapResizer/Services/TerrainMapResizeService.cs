@@ -6,17 +6,22 @@ public class TerrainMapResizeService(
     MapSize mapSize
 )
 {
-    Vector3Int terrainSizePadding = new(2, 2, 0);
 
-    public void ResizeTerrainMap(in ResizeData oldData, EnlargeStrategy strat)
+    static readonly Vector3Int TerrainSizePadding = new(2, 2, 0);
+
+    public void Resize(in ResizeData oldData, EnlargeStrategy strat)
+    {
+        ResizeTerrainMap(oldData, strat);
+    }
+
+    void ResizeTerrainMap(in ResizeData oldData, EnlargeStrategy strat)
     {
         var (oldMapSize, _) = oldData;
 
         var oldTerrainSize = oldMapSize.TerrainSize;
         var newTerrainSize = mapSize.TerrainSize;
 
-        var oldTerrainVoxels = new FlatArrayHelper<bool>(terrainMap._terrainVoxels, oldTerrainSize + terrainSizePadding)
-            .PrintDebug(@"D:\Temp\voxel-old.txt")
+        var oldTerrainVoxels = new FlatArrayHelper<bool>(terrainMap._terrainVoxels, oldTerrainSize + TerrainSizePadding)
             .RemovePadding();
         var newTerrainVoxels = new FlatArrayHelper<bool>(newTerrainSize);
 
@@ -31,9 +36,9 @@ public class TerrainMapResizeService(
             {
                 var srcX = GetEnlargeCoord(x0, x, strat);
 
-                for (int z = 0; z < z1; z++)
+                for (int z = 0; z < z1 - 1; z++) // Top layer is always empty
                 {
-                    newTerrainVoxels[x,y,z] =
+                    newTerrainVoxels[x, y, z] =
                         z < z0
                         && oldTerrainVoxels[srcX, srcY, z];
                 }
@@ -41,7 +46,6 @@ public class TerrainMapResizeService(
         }
 
         terrainMap._terrainVoxels = newTerrainVoxels.AddPadding()
-            .PrintDebug(@"D:\Temp\voxel-new.txt")
             .Array;
     }
 
