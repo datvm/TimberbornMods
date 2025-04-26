@@ -221,6 +221,7 @@ public class HueAndTurnFragment(
 
         rotationSlider.SetValueWithoutNotify(props.Rotation ?? 0);
         rotationPivotPicker.Position = props.RotationPivot?.ToVector3Int(0) ?? null;
+        rotationPivotPicker.SetEnabled(comp.RotationPivotSupported);
         translatePicker.Position = props.Translation;
 
         UpdateColorEnabled();
