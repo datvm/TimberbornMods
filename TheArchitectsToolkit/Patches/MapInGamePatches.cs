@@ -1,4 +1,5 @@
-﻿namespace TheArchitectsToolkit.Patches;
+﻿
+namespace TheArchitectsToolkit.Patches;
 
 #if !TIMBER6
 
