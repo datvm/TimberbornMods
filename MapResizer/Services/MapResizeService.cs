@@ -1,4 +1,5 @@
 ﻿
+
 namespace MapResizer.Services;
 
 public class MapResizeService(
