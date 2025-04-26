@@ -1,7 +1,9 @@
 ﻿global using Timberborn.BlockSystem;
 global using Timberborn.Coordinates;
 global using Timberborn.EntitySystem;
+global using Timberborn.NaturalResourcesModelSystem;
 global using Timberborn.SelectionSystem;
+global using Timberborn.TransformControl;
 
 namespace HueAndTurn.Components;
 
@@ -11,6 +13,7 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
     static readonly ComponentKey SaveKey = new("HueAndTurn");
 
     public HueAndTurnProperties Properties { get; private set; } = new();
+    public bool RotationPivotSupported => positionModifier is null;
 
     Vector3? originalPosition;
     Quaternion? originalRotation;
@@ -20,6 +23,8 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
     Renderer renderer = null!;
 
     LabeledEntity? labeledEntity;
+    PositionModifier? positionModifier;
+
     public PrefabSpec? PrefabSpec { get; private set; }
     public string PrefabName => PrefabSpec?.PrefabName ?? name;
     public string DisplayName => labeledEntity?.DisplayName ?? PrefabName;
@@ -68,17 +73,38 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
         translation.Scale(size / 100f);
 
         // Rotate
-        _transform.Translate(rotationPivot);
+        if (positionModifier is null)
+        {
+            _transform.Translate(rotationPivot);
+        }
         _transform.Rotate(Vector3.up, rotation, Space.Self);
-        _transform.Translate(-rotationPivot);
+        if (positionModifier is null)
+        {
+            _transform.Translate(-rotationPivot);
+        }
 
         // Translate
-        _transform.Translate(translation, Space.World);
+        if (positionModifier is null)
+        {
+            _transform.Translate(translation, Space.World);
+        }
+        else
+        {
+            positionModifier.Set(translation);
+        }
     }
 
     void ResetPositioning()
     {
-        _transform.position = originalPosition!.Value;
+        if (positionModifier is null)
+        {
+            _transform.position = originalPosition!.Value;
+        }
+        else
+        {
+            positionModifier.Reset();
+        }
+
         _transform.rotation = originalRotation!.Value;
     }
 
@@ -109,6 +135,12 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
         blockObject = GetComponentFast<BlockObject>();
         PrefabSpec = GetComponentFast<PrefabSpec>();
         labeledEntity = GetComponentFast<LabeledEntity>();
+
+        if (GetComponentFast<NaturalResourceModel>())
+        {
+            positionModifier = GetComponentFast<TransformController>()
+                ?.AddPositionModifier();
+        }
     }
 
     public void Start()

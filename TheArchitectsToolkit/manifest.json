@@ -1,8 +1,8 @@
 {
     "Name": "The Architect's Toolkit - Tools & QoL",
-    "Version": "7.0.0",
+    "Version": "7.1.0",
     "Id": "TheArchitectsToolkit",
-    "MinimumGameVersion": "0.6.0.0",
+    "MinimumGameVersion": "0.7.0.0",
     "Description": "Various tools for Map Creators",
     "RequiredMods": [
         {
@@ -12,6 +12,9 @@
         {
             "Id": "Harmony",
             "MinimumVersion": "0.6.0.0"
+        },
+        {
+            "Id": "TimberUi"
         }
     ]
 }

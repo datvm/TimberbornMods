@@ -22,7 +22,7 @@
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 		
 
-		<ProjectReference Include="..\MapResizer\MapResizer.csproj" />
+		<ProjectReference Include="..\HueAndTurn\HueAndTurn.csproj" />
 		
 	</ItemGroup>
 
