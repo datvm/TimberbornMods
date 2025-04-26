@@ -17,20 +17,21 @@ public class MapResizerController(
 
     public void Load()
     {
-        InsertResizeButton(
-            gameOptionsBox?._root 
+        var root = gameOptionsBox?._root
             ?? mapEditorOptionsBox?._root
-            ?? throw new InvalidOperationException("No options box found.")
-        );
+            ?? throw new InvalidOperationException("No options box found.");
+
+        InsertResizeButton(root);
     }
 
-    void InsertResizeButton(VisualElement box)
+    NineSliceButton InsertResizeButton(VisualElement box)
     {
-        var btn = box.AddMenuButton(t.T("LV.MRe.ResizeMap"), stretched: true);
         var btnResume = box.Q("ResumeButton") ?? box.Q("Resume");
+
+        var btn = box.AddMenuButton(t.T("LV.MRe.ResizeMap"), stretched: true, onClick: OnShowResizeDialogClicked);
         btn.InsertSelfAfter(btnResume);
 
-        btn.clicked += OnShowResizeDialogClicked;
+        return btn;
     }
 
     void OnShowResizeDialogClicked()

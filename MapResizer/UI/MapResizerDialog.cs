@@ -7,6 +7,7 @@ public class MapResizerDialog : DialogBoxElement
 
     readonly ILoc t;
     readonly IntegerField[] txtSizes = new IntegerField[4];
+
     public ResizeValues ResizeValues => new(
         txtSizes[0].value,
         txtSizes[1].value,
@@ -15,9 +16,14 @@ public class MapResizerDialog : DialogBoxElement
         EnlargeStrategy
     );
 
-    public EnlargeStrategy EnlargeStrategy { get; private set; } = EnlargeStrategy.Copy;
+    public EnlargeStrategy EnlargeStrategy { get; private set; } = EnlargeStrategy.Mirror;
 
-    public MapResizerDialog(MapSize mapSize, ILoc t, DropdownItemsSetter dropdownItemsSetter, VisualElementInitializer veInit)
+    public MapResizerDialog(
+        MapSize mapSize,
+        ILoc t,
+        DropdownItemsSetter dropdownItemsSetter,
+        VisualElementInitializer veInit
+    )
     {
         this.t = t;
 

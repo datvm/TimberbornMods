@@ -9,8 +9,9 @@ public static class MapSizePatches
     static readonly PropertyKey<Vector2Int> MapSizeHeightKey = new("MapHeight");
     static WeakReference<MapSize>? mapSizeRef;
 
+    static readonly FieldInfo MaxMapEditorTerrainHeight = typeof(MapSize).Field(nameof(MapSize.MaxMapEditorTerrainHeight));
     [HarmonyPostfix, HarmonyPatch(typeof(MapSize), nameof(MapSize.Initialize))]
-    public static void AddHeightSave(MapSize __instance, Vector2Int size)
+    public static void LoadHeight(MapSize __instance, Vector2Int size)
     {
         if (!__instance._singletonLoader.TryGetSingleton(MapSize.MapSizeKey, out var s)) { return; }
 
@@ -20,6 +21,7 @@ public static class MapSizePatches
         __instance.TerrainSize = new Vector3Int(size.x, size.y, height.x);
         __instance.TotalSize = new Vector3Int(size.x, size.y, height.y);
 
+        MaxMapEditorTerrainHeight.SetValue(null, height.x - 1);
         Debug.Log($"{nameof(MapResizer)}: Map size changed: {__instance.TerrainSize} - {__instance.TotalSize}");
 
         mapSizeRef = new(__instance);
