@@ -1,4 +1,5 @@
-﻿namespace TheArchitectsToolkit.Services;
+﻿
+namespace TheArchitectsToolkit.Services;
 
 public class ToolkitService(MSettings s) : ILoadableSingleton
 {
