@@ -3,9 +3,9 @@
 namespace NoBuildRestriction;
 
 public class MSettings(
-   ISettings settings,
-   ModSettingsOwnerRegistry modSettingsOwnerRegistry,
-   ModRepository modRepository
+  ISettings settings,
+  ModSettingsOwnerRegistry modSettingsOwnerRegistry,
+  ModRepository modRepository
 ) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
     public static bool RemoveGroundOnly { get; private set; } = true;
@@ -17,6 +17,7 @@ public class MSettings(
     public static bool MagicStructure { get; private set; } = false;
     public static bool HangingStructure { get; private set; } = false;
     public static bool SuperHangingTerrain { get; private set; } = false;
+    public static bool NoBottomOfMap { get; private set; } = false;
 
     public override string ModId { get; } = nameof(NoBuildRestriction);
 
@@ -65,6 +66,11 @@ public class MSettings(
         ModSettingDescriptor.CreateLocalized("LV.NBR.SuperHangingTerrain")
             .SetLocalizedTooltip("LV.NBR.SuperHangingTerrainDesc"));
 
+    readonly ModSetting<bool> noBottomOfMap = new(
+        false,
+        ModSettingDescriptor.CreateLocalized("LV.NBR.NoBottomOfMap")
+            .SetLocalizedTooltip("LV.NBR.NoBottomOfMapDesc"));
+
     public override void OnAfterLoad()
     {
         magicStructure.Descriptor.SetEnableCondition(() => superStructure.Value);
@@ -79,6 +85,7 @@ public class MSettings(
         AddCustomModSetting(magicStructure, nameof(magicStructure));
         AddCustomModSetting(hangingStructure, nameof(hangingStructure));
         AddCustomModSetting(superHangingTerrain, nameof(superHangingTerrain));
+        AddCustomModSetting(noBottomOfMap, nameof(noBottomOfMap));
 
         UpdateValues();
     }
@@ -94,6 +101,7 @@ public class MSettings(
         MagicStructure = magicStructure.Value;
         HangingStructure = hangingStructure.Value;
         SuperHangingTerrain = superHangingTerrain.Value;
+        NoBottomOfMap = noBottomOfMap.Value;
 
         if (SuperHangingTerrain)
         {
