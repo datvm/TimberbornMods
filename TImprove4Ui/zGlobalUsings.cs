@@ -8,3 +8,4 @@ global using Timberborn.SelectionSystem;
 global using Timberborn.ToolPanelSystem;
 global using TImprove4Ui.Patches;
 global using TImprove4Ui.Services;
+global using Timberborn.TopBarSystem;

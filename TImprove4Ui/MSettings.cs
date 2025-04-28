@@ -14,7 +14,9 @@ public class MSettings(
     public static bool ScrollableEntityPanel { get; private set; }
     public static bool RemovePathHighlight { get; private set; }
     public static bool HighlightPowerNetwork { get; private set; }
+    public static bool AutoExpandCounter { get; private set; }
     public static string ToolDescPos { get; private set; } = ToolDescPositions[1].Value;
+
 
     public override string ModId { get; } = nameof(TImprove4Ui);
     public override ModSettingsContext ChangeableOn { get; } = ModSettingsContext.All;
@@ -22,6 +24,7 @@ public class MSettings(
     readonly ModSetting<bool> scrollableEntityPanel = CreateBoolModSettings("LV.T4UI.ScrollableEntityPanel", true);
     readonly ModSetting<bool> removePathHighlight = CreateBoolModSettings("LV.T4UI.RemovePathHighlight");
     readonly ModSetting<bool> highlightPowerNetwork = CreateBoolModSettings("LV.T4UI.HighlightPowerNetwork");
+    readonly ModSetting<bool> autoExpandCounter = CreateBoolModSettings("LV.T4UI.AutoExpandCounter");
 
     public readonly LimitedStringModSetting toolDescPos = new(
         1,
@@ -42,6 +45,7 @@ public class MSettings(
         AddCustomModSetting(removePathHighlight, nameof(removePathHighlight));
         AddCustomModSetting(highlightPowerNetwork, nameof(highlightPowerNetwork));
         AddCustomModSetting(toolDescPos, nameof(toolDescPos));
+        AddCustomModSetting(autoExpandCounter, nameof(autoExpandCounter));
 
         ModSettingChanged += (_, _) => UpdateValues();
         UpdateValues();
@@ -53,6 +57,7 @@ public class MSettings(
         RemovePathHighlight = removePathHighlight.Value;
         HighlightPowerNetwork = highlightPowerNetwork.Value;
         ToolDescPos = toolDescPos.Value;
+        AutoExpandCounter = autoExpandCounter.Value;
     }
 
     static ModSetting<bool> CreateBoolModSettings(string loc, bool defaultValue = false) =>
