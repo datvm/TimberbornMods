@@ -11,9 +11,6 @@ public static class HangingTerrainPatches
 
         typeof(TerrainPhysicsValidator).Field(nameof(TerrainPhysicsValidator.MaxSupportDistanceDoubled)).SetValue(null, Max * 2);
         typeof(TerrainPhysicsValidator).Field(nameof(TerrainPhysicsValidator.MaxSupportDistance)).SetValue(null, Max);
-
-        Debug.Log("MaxSupportDistance: " + TerrainPhysicsValidator.MaxSupportDistance);
-        Debug.Log(TerrainPhysicsValidator.MaxSupportDistanceDoubled);
     }
 
 }

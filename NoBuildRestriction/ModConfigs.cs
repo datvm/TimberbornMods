@@ -1,4 +1,6 @@
-﻿namespace NoBuildRestriction;
+﻿global using NoBuildRestriction.Patches;
+
+namespace NoBuildRestriction;
 
 [Context("MainMenu")]
 public class MenuModConfig : Configurator
@@ -24,7 +26,8 @@ public class ModStarter : IModStarter
 
     void IModStarter.StartMod(IModEnvironment modEnvironment)
     {
-        new Harmony(nameof(NoBuildRestriction)).PatchAll();
+        var harmony = new Harmony(nameof(NoBuildRestriction));
+        harmony.PatchAll();
     }
 
 }

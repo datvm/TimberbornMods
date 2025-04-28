@@ -1,6 +1,7 @@
 ﻿global using Timberborn.BlockSystem;
 global using Timberborn.Buildings;
 global using Timberborn.PrefabGroupSystem;
+global using Timberborn.TerrainLevelValidation;
 global using Timberborn.WaterBuildings;
 
 namespace NoBuildRestriction.Patches;
@@ -17,27 +18,52 @@ public static class RestrictionPatches
             || MSettings.AllowFlooded
             || MSettings.AlwaysSolid
             || MSettings.SuperStructure
-            || MSettings.PlatformOver1x1)) { return; }
+            || MSettings.PlatformOver1x1
+            || MSettings.NoBottomOfMap)) { return; }
 
         foreach (var prefab in __instance.AllPrefabs)
         {
-            var building = prefab.GetComponent<BuildingSpec>();
-            if (!building) { continue; }
+            RemoveBuildingRestrictions(prefab);
 
-            AddFloodBlocker(building, prefab);
-
-            var blockObj = building.GetComponentFast<BlockObjectSpec>();
-            var blocks = blockObj?._blocksSpec._blockSpecs;
-
-            if (blocks is not null)
+            if (MSettings.NoBottomOfMap)
             {
-                RemovePlacementRestriction(blockObj!, blocks);
-
-                blocks = blockObj!._blocksSpec._blockSpecs; // Blocks may have changed
-                Remove1x1Corners(blockObj, blocks);
-                AddSolidTop(blockObj, blocks);
-                AddSuperFoundation(blockObj, blocks, building);
+                RemoveContinuousTerrainConstraintOccupation(prefab);
             }
+        }
+    }
+
+    public static void RemoveContinuousTerrainConstraintOccupation(GameObject prefab)
+    {
+        if (!prefab.GetComponent<ContinuousTerrainConstraintSpec>()) { return; }
+
+        var blockObj = prefab.GetComponent<BlockObjectSpec>();
+        if (!blockObj) { return; }
+
+        var blockSpecs = blockObj.BlocksSpec.BlockSpecs;
+        for (int i = 0; i < blockSpecs.Length; i++)
+        {
+            blockSpecs[i]._occupyAllBelow = false;
+        }
+    }
+
+    static void RemoveBuildingRestrictions(GameObject prefab)
+    {
+        var building = prefab.GetComponent<BuildingSpec>();
+        if (!building) { return; }
+
+        AddFloodBlocker(building, prefab);
+
+        var blockObj = building.GetComponentFast<BlockObjectSpec>();
+        var blocks = blockObj?._blocksSpec._blockSpecs;
+
+        if (blocks is not null)
+        {
+            RemovePlacementRestriction(blockObj!, blocks);
+
+            blocks = blockObj!._blocksSpec._blockSpecs; // Blocks may have changed
+            Remove1x1Corners(blockObj, blocks);
+            AddSolidTop(blockObj, blocks);
+            AddSuperFoundation(blockObj, blocks, building);
         }
     }
 
@@ -93,8 +119,6 @@ public static class RestrictionPatches
 
         var size = blockObj.BlocksSpec.Size;
         if (size.x != 1 || size.y != 1) { return; }
-
-        Debug.Log($"Removing 1x1 corners from {blockObj.name}");
 
         var removingCorner = ~BlockOccupations.Corners;
         for (int z = size.z - 1; z >= 0; z--)
@@ -210,6 +234,15 @@ public static class RestrictionPatches
 
     [HarmonyPrefix, HarmonyPatch(typeof(TerrainPhysicsPostLoader), nameof(TerrainPhysicsPostLoader.RemoveTerrain))]
     public static bool DontRemoveTerrain() => DontRemoveBlockObjects();
+
+    [HarmonyPrefix, HarmonyPatch(typeof(TerrainLevelValidationConfigurator), nameof(TerrainLevelValidationConfigurator.ProvideTemplateModule))]
+    public static bool RemoveContinuousTerrainConstraint(ref TemplateModule __result)
+    {
+        if (!MSettings.NoBottomOfMap) { return true; }
+
+        __result = new TemplateModule.Builder().Build();
+        return false;
+    }
 
     static int GetIndex(int x, int y, int z, in Vector3Int size) => (z * size.y + y) * size.x + x;
 

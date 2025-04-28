@@ -1,6 +1,6 @@
 {
     "Name": "No Build Restriction",
-    "Version": "7.3.0",
+    "Version": "7.4.0",
     "Id": "NoBuildRestriction",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Buildings can be placed anywhere and everywhere",
