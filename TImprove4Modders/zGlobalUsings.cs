@@ -6,6 +6,7 @@ global using Timberborn.Debugging;
 global using Timberborn.DebuggingUI;
 global using Timberborn.MainMenuModdingUI;
 global using Timberborn.ModdingUI;
+global using Timberborn.SelectionSystem;
 global using Timberborn.SteamOverlaySystem;
 global using Timberborn.SteamWorkshopModUploadingUI;
 global using TImprove4Modders.Services;
