@@ -35,6 +35,7 @@ public class NonMenuContextConfig : Configurator
         MultiBind<IDevModule>().To<PrintUiModule>().AsSingleton();
         MultiBind<IDevModule>().To<ScienceModule>().AsSingleton();
         MultiBind<IDevModule>().To<PlantModule>().AsSingleton();
+        MultiBind<IDevModule>().To<ComponentModule>().AsSingleton();
     }
 
 }
