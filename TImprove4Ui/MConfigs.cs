@@ -19,6 +19,7 @@ public class ModGameConfig : Configurator
         Bind<ScrollableEntityPanelService>().AsSingleton();
         Bind<PowerNetworkHighlighter>().AsSingleton();
         Bind<ToolPanelDescriptionMover>().AsSingleton();
+        Bind<MaterialCounterExpansionService>().AsSingleton();
     }
 }
 
