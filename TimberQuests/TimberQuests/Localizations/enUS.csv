@@ -1,0 +1,7 @@
+﻿ID,Text,Comment
+LV.TQ.UpdateFreq,"Update Frequency",
+LV.TQ.UpdateFreqDesc,"How often (in game tick) for TimberQuests to check for updates.
+Increase this to increase performance but your progress may not be updated as often.
+1 game tick is about 0.66s. Mod default: 5 (~3s)",
+LV.TQ.QuestsTitle,"Quests",
+LV.TQ.NoQuest,"There is no active quest",
