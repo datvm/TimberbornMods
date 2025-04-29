@@ -16,7 +16,7 @@ public class MSettings(
     public static bool HighlightPowerNetwork { get; private set; }
     public static bool AutoExpandCounter { get; private set; }
     public static string ToolDescPos { get; private set; } = ToolDescPositions[1].Value;
-
+    public static bool NeverHideCounter { get; private set; }
 
     public override string ModId { get; } = nameof(TImprove4Ui);
     public override ModSettingsContext ChangeableOn { get; } = ModSettingsContext.All;
@@ -25,6 +25,7 @@ public class MSettings(
     readonly ModSetting<bool> removePathHighlight = CreateBoolModSettings("LV.T4UI.RemovePathHighlight");
     readonly ModSetting<bool> highlightPowerNetwork = CreateBoolModSettings("LV.T4UI.HighlightPowerNetwork");
     readonly ModSetting<bool> autoExpandCounter = CreateBoolModSettings("LV.T4UI.AutoExpandCounter");
+    readonly ModSetting<bool> neverHideCounter = CreateBoolModSettings("LV.T4UI.NeverHideCounter");
 
     public readonly LimitedStringModSetting toolDescPos = new(
         1,
@@ -36,7 +37,12 @@ public class MSettings(
 
     public override void OnBeforeLoad()
     {
-        scrollableEntityPanel.Descriptor.SetEnableCondition(() => contextProvider.Context == ModSettingsContext.MainMenu);
+        ModSetting[] menuOnly = [scrollableEntityPanel];
+
+        foreach (var s in menuOnly)
+        {
+            s.Descriptor.SetEnableCondition(() => contextProvider.Context == ModSettingsContext.MainMenu);
+        }        
     }
 
     public override void OnAfterLoad()
@@ -46,6 +52,7 @@ public class MSettings(
         AddCustomModSetting(highlightPowerNetwork, nameof(highlightPowerNetwork));
         AddCustomModSetting(toolDescPos, nameof(toolDescPos));
         AddCustomModSetting(autoExpandCounter, nameof(autoExpandCounter));
+        AddCustomModSetting(neverHideCounter, nameof(neverHideCounter));
 
         ModSettingChanged += (_, _) => UpdateValues();
         UpdateValues();
@@ -58,6 +65,7 @@ public class MSettings(
         HighlightPowerNetwork = highlightPowerNetwork.Value;
         ToolDescPos = toolDescPos.Value;
         AutoExpandCounter = autoExpandCounter.Value;
+        NeverHideCounter = neverHideCounter.Value;
     }
 
     static ModSetting<bool> CreateBoolModSettings(string loc, bool defaultValue = false) =>

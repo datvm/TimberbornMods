@@ -19,7 +19,7 @@ public class ModGameConfig : Configurator
         Bind<ScrollableEntityPanelService>().AsSingleton();
         Bind<PowerNetworkHighlighter>().AsSingleton();
         Bind<ToolPanelDescriptionMover>().AsSingleton();
-        Bind<MaterialCounterExpansionService>().AsSingleton();
+        Bind<MaterialCounterService>().AsSingleton();
     }
 }
 
@@ -39,6 +39,7 @@ public class ModStarter : IModStarter
 {
     void IModStarter.StartMod(IModEnvironment modEnvironment)
     {
-        new Harmony(nameof(TImprove4Ui)).PatchAll();
+        var harmony = new Harmony(nameof(TImprove4Ui));
+        harmony.PatchAll();
     }
 }

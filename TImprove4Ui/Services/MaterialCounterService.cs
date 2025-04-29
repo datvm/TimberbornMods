@@ -1,10 +1,25 @@
 ﻿namespace TImprove4Ui.Services;
 
-public class MaterialCounterExpansionService(
-    TopBarPanel topBarPanel
-) : IPostLoadableSingleton
+public class MaterialCounterService(
+    TopBarPanel topBarPanel,
+    ISingletonLoader loader
+) : ILoadableSingleton, IPostLoadableSingleton, ISaveableSingleton, IUnloadableSingleton
 {
+    public static MaterialCounterService? Instance { get; private set; }
+
+    static readonly SingletonKey SaveKey = new("MaterialCounter");
+    static readonly ListKey<string> ProducedGoodsKey = new("ProducedGoods");
+
+    HashSet<string> producedGoods = [];
+
     const string RootName = "Counter";
+
+    public void Load()
+    {
+        Instance = this;
+
+        LoadSavedData();
+    }
 
     public void PostLoad()
     {
@@ -50,6 +65,9 @@ public class MaterialCounterExpansionService(
         return true;
     }
 
+    public bool HasProducedGood(string id) => producedGoods.Contains(id);
+    public void AddProducedGood(string id) => producedGoods.Add(id);
+
     static VisualElement FindRootFor(ExtendableTopBarCounter counter)
     {
         VisualElement root = counter._value;
@@ -67,4 +85,24 @@ public class MaterialCounterExpansionService(
         return root;
     }
 
+    public void Save(ISingletonSaver singletonSaver)
+    {
+        var s = singletonSaver.GetSingleton(SaveKey);
+        s.Set(ProducedGoodsKey, producedGoods);
+    }
+
+    void LoadSavedData()
+    {
+        if (!loader.TryGetSingleton(SaveKey, out var s)) { return; }
+
+        if (s.Has(ProducedGoodsKey))
+        {
+            producedGoods = [..s.Get(ProducedGoodsKey)];
+        }
+    }
+
+    public void Unload()
+    {
+        Instance = null;
+    }
 }

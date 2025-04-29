@@ -14,3 +14,5 @@ LV.T4UI.ToolDescPosRight,"Right",
 LV.T4UI.AutoExpandCounter,"Auto-expand material counters",
 LV.T4UI.AutoExpandCounterDesc,"Close all material counters (top-left corner) on start.
 Automatically expand any closed counter when you hover over them.",
+LV.T4UI.NeverHideCounter,"Never hide unlocked counters",
+LV.T4UI.NeverHideCounterDesc,"Never hide unlocked material counters even when you have 0 of that material."
