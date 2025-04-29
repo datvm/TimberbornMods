@@ -1,0 +1,11 @@
+{
+    "Name": "TimberQuests",
+    "Version": "7.0.0",
+    "Id": "TimberQuests",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "A moddable quest system for Timberborn!",
+    "RequiredMods": [
+        { "Id": "TimberUi" },
+        { "Id": "eMka.ModSettings" }
+    ]
+}

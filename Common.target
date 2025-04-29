@@ -1,6 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="Validate">
 
 	<Import Project=".\CommonProperties.target" />
+	<Import Project=".\CommonGlobalUsings.target" />
 
 	<Target Name="Validate">
 		<Error Condition="'$(OutputModFolderName)'==''" Text="OutputModFolderName was not specified" />
@@ -15,8 +16,6 @@
 		<DebugSymbols>true</DebugSymbols>
 		<DebugType>embedded</DebugType>
 	</PropertyGroup>
-
-
 
 	<Target Name="CopyFiles" AfterTargets="PrepareFilesForCopy">
 		<Message Text="Deleting..." />
@@ -55,27 +54,6 @@
 		<Content Condition="Exists('workshop_data.json')" Include="workshop_data.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-	</ItemGroup>
-
-	<ItemGroup>
-		<!-- Common Global Usings-->
-		<Using Include="System.Reflection" />
-		<Using Include="Timberborn.ModManagerScene"/>
-		<Using Include="Bindito.Core"/>
-		<Using Include="Bindito.Unity"/>
-		<Using Include="ModSettings.Common"/>
-		<Using Include="ModSettings.Core"/>
-		<Using Include="Timberborn.Common"/>
-		<Using Include="Timberborn.Modding"/>
-		<Using Include="Timberborn.SettingsSystem"/>
-		<Using Include="Timberborn.SingletonSystem"/>
-		<Using Include="Timberborn.Localization"/>
-		<Using Include="Timberborn.Persistence"/>
-		<Using Include="Timberborn.BaseComponentSystem"/>
-		<Using Include="Timberborn.TemplateSystem"/>
-		<Using Include="Timberborn.WorldPersistence"/>
-		<Using Include="System.Collections.Immutable"/>
-		<Using Include="UnityEngine"/>
 	</ItemGroup>
 
 	<ItemGroup>

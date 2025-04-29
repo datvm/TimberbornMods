@@ -1,0 +1,13 @@
+{
+    "TimberQuestSpec": {
+        "Id": "TutorialLumber",
+        "NameKey": "Timber!",
+        "DescriptionKey": "Welcome! This tutorial will help you with all the basics of building a beaver settlement.",
+        "Steps": [
+            {
+                "NameKey": "Build a Lumberjack",
+                "DescriptionKey": ""
+            }
+        ]
+    }
+}

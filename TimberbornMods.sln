@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Targets", "_Targets", "{F8
 		Common.target = Common.target
 		CommonBuffDebuff.target = CommonBuffDebuff.target
 		CommonDebug.target = CommonDebug.target
+		CommonGlobalUsings.target = CommonGlobalUsings.target
 		CommonHarmony.target = CommonHarmony.target
 		CommonModdableBindito.target = CommonModdableBindito.target
 		CommonProperties.target = CommonProperties.target
@@ -173,6 +174,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableWorkplace", "ConfigurableWorkplace\ConfigurableWorkplace.csproj", "{73EFD9B3-4079-419E-B184-A7ABB1819B6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TImprove4Ui", "TImprove4Ui\TImprove4Ui.csproj", "{44150560-6018-4649-AC97-8C699B70417D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TimberQuests", "TimberQuests", "{4AEA39FF-D724-4CB7-97D0-F90664E1475A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimberQuests", "TimberQuests\TimberQuests\TimberQuests.csproj", "{83A7A7AA-B337-415E-BB19-9F679B42CCB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -460,6 +465,10 @@ Global
 		{44150560-6018-4649-AC97-8C699B70417D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44150560-6018-4649-AC97-8C699B70417D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44150560-6018-4649-AC97-8C699B70417D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83A7A7AA-B337-415E-BB19-9F679B42CCB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83A7A7AA-B337-415E-BB19-9F679B42CCB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83A7A7AA-B337-415E-BB19-9F679B42CCB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83A7A7AA-B337-415E-BB19-9F679B42CCB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -497,6 +506,7 @@ Global
 		{28880C02-03F3-46FF-B0B9-5D5E791E7268} = {D67673ED-4BAD-43CB-B284-FF830384FA41}
 		{88AD84D8-3B50-4F33-983E-297828CDC9D2} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
 		{44150560-6018-4649-AC97-8C699B70417D} = {D67673ED-4BAD-43CB-B284-FF830384FA41}
+		{83A7A7AA-B337-415E-BB19-9F679B42CCB9} = {4AEA39FF-D724-4CB7-97D0-F90664E1475A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}
