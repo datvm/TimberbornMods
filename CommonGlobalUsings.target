@@ -20,8 +20,16 @@
 		<Using Include="Timberborn.WorldPersistence"/>
 		<Using Include="Timberborn.BlueprintSystem"/>
 		<Using Include="Timberborn.TickSystem"/>
+		<Using Include="Timberborn.LifeSystem"/>
+		<Using Include="Timberborn.Beavers"/>
+		<Using Include="Timberborn.Bots"/>
+		<Using Include="Timberborn.DeteriorationSystem"/>
+
+		
 		<Using Include="System.Collections.Immutable"/>
 		<Using Include="System.Collections.Frozen"/>
+		<Using Include="System.Runtime.CompilerServices"/>
+
 		<Using Include="UnityEngine"/>
 	</ItemGroup>
 </Project>

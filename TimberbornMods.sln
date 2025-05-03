@@ -179,6 +179,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TimberQuests", "TimberQuest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimberQuests", "TimberQuests\TimberQuests\TimberQuests.csproj", "{83A7A7AA-B337-415E-BB19-9F679B42CCB9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableLifetime", "ConfigurableLifetime\ConfigurableLifetime.csproj", "{D183000C-9E84-4959-9235-AC77A8F2FBE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -469,6 +471,10 @@ Global
 		{83A7A7AA-B337-415E-BB19-9F679B42CCB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83A7A7AA-B337-415E-BB19-9F679B42CCB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83A7A7AA-B337-415E-BB19-9F679B42CCB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D183000C-9E84-4959-9235-AC77A8F2FBE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D183000C-9E84-4959-9235-AC77A8F2FBE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D183000C-9E84-4959-9235-AC77A8F2FBE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D183000C-9E84-4959-9235-AC77A8F2FBE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

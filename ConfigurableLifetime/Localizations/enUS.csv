@@ -1,0 +1,13 @@
+ID,Text,Comment
+LV.CLt.BeaverLifeMul,"Beaver Aging Multiplier",
+LV.CLt.BeaverLifeMulDesc,"Adult Beavers' aging is multiplied by this value, similar to a ""Life expectancy"" bonus.
+Note: higher is harder as beavers will age faster.
+Setting to 0 means beavers will never age.",
+LV.CLt.ChildhoodDaysMul,"Childhood Growth Multiplier",
+LV.CLt.ChildhoodDaysMulDesc,"Children Beavers' childhood growth is multiplied by this value, similar to a ""Growth speed"" bonus.
+Note: higher is easier as young beavers will grow faster.
+Setting to 0 means children will never grow.",
+LV.CLt.BotLifeMul,"Bot Deterioration Multiplier",
+LV.CLt.BotLifeMulDesc,"Bots' deterioration is multiplied by this value, similar to a ""Life expectancy"" bonus.
+Note: higher is harder as bots will deteriorate faster.
+Setting to 0 means bots will never deteriorate.",
