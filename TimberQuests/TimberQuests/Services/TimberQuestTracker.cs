@@ -7,19 +7,71 @@ public class TimberQuestTracker(
 ) : ISaveableSingleton, ILoadableSingleton
 {
     static readonly ListKey<string> QuestStatusKey = new("QuestStatus");
+    static readonly ListKey<string> SuccessfulQuestsKey = new("SuccessfulQuests");
+    static readonly ListKey<string> FailedQuestsKey = new("FailedQuests");
 
-    readonly Dictionary<string, TimberQuestStatusInfo> questStatusInfo = [];
+    readonly Dictionary<string, TimberQuestStatusInfo> activeQuests = [];
+    readonly HashSet<string> successfulQuests = [];
+    readonly HashSet<string> failedQuests = [];
 
-    public bool TryGet(string id, [MaybeNullWhen(false)] out TimberQuestStatusInfo statusInfo)
-        => questStatusInfo.TryGetValue(id, out statusInfo);
-
-    public void SetQuestStatus(string id, TimberQuestStatus status)
+    public TimberQuestStatus GetStatus(string id)
     {
-        if (!TryGet(id, out var statusInfo))
+        if (successfulQuests.Contains(id))
         {
-            var spec = registry.Get(id);
-            statusInfo = questStatusInfo[id] = new(spec);
+            return TimberQuestStatus.Completed;
         }
+        else if (activeQuests.TryGetValue(id, out var statusInfo))
+        {
+            return statusInfo.QuestStatus;
+        }
+        else
+        {
+            return TimberQuestStatus.Pending;
+        }
+    }
+
+    public bool TryGetActive(string id, [MaybeNullWhen(false)] out TimberQuestStatusInfo statusInfo)
+        => activeQuests.TryGetValue(id, out statusInfo);
+
+    public TimberQuestStatusInfo GetActive(string id)
+        => TryGetActive(id, out var result) 
+            ? result 
+            : throw new InvalidOperationException($"Quest {id} is not active. You must call {nameof(StartQuest)} first.");
+
+    public TimberQuestStatusInfo StartQuest(string id)
+    {
+        if (activeQuests.ContainsKey(id))
+        {
+            throw new InvalidOperationException($"Quest {id} is already active.");
+        }
+
+        successfulQuests.Remove(id);
+        failedQuests.Remove(id);
+
+        var spec = registry.Get(id);
+        registry.InitializeQuestDetailsIfNeeded(spec);
+
+        var statusInfo = activeQuests[id] = new(spec);
+        SetQuestStatus(id, TimberQuestStatus.InProgress);
+
+        return statusInfo;
+    }
+
+    public TimberQuestStatusInfo FinishQuest(string id, bool successful)
+    {
+        var statusInfo = GetActive(id);
+        
+        (successful ? successfulQuests : failedQuests).Add(id);
+
+        activeQuests.Remove(id);
+        SetQuestStatus(id, successful ? TimberQuestStatus.Completed : TimberQuestStatus.Failed);
+
+        return statusInfo;
+    }
+
+    void SetQuestStatus(string id, TimberQuestStatus status)
+    {
+        var statusInfo = GetActive(id);
 
         var args = statusInfo.SetQuestStatus(status);
         if (args is not null) { eb.Post(args.Value); }
@@ -27,15 +79,7 @@ public class TimberQuestTracker(
 
     public void SetQuestStepStatus(string id, int index, TimberQuestStatus status)
     {
-        if (!TryGet(id, out var statusInfo))
-        {
-            throw new InvalidOperationException($"You must initialize the quest first by calling {nameof(SetQuestStatus)}.");
-        }
-
-        if (statusInfo.QuestStatus == TimberQuestStatus.Pending)
-        {
-            throw new InvalidOperationException($"You must set the quest status out of {TimberQuestStatus.Pending} before setting the step status.");
-        }
+        var statusInfo = GetActive(id);
 
         var args = statusInfo.SetQuestStepStatus(index, status);
         if (args is not null) { eb.Post(args.Value); }
@@ -52,7 +96,7 @@ public class TimberQuestTracker(
 
         if (s.Has(QuestStatusKey))
         {
-            questStatusInfo.Clear();
+            activeQuests.Clear();
             var statuses = s.Get(QuestStatusKey);
 
             foreach (var statusStr in statuses)
@@ -60,9 +104,21 @@ public class TimberQuestTracker(
                 var status = TimberQuestStatusInfo.TryDeserialize(statusStr, registry.GetOrDefault);
                 if (status != null)
                 {
-                    questStatusInfo[status.Quest.Id] = status;
+                    activeQuests[status.Spec.Id] = status;
                 }
             }
+        }
+
+        if (s.Has(SuccessfulQuestsKey))
+        {
+            successfulQuests.Clear();
+            successfulQuests.AddRange(s.Get(SuccessfulQuestsKey));
+        }
+
+        if (s.Has(FailedQuestsKey))
+        {
+            failedQuests.Clear();
+            failedQuests.AddRange(s.Get(FailedQuestsKey));
         }
     }
 
@@ -72,8 +128,10 @@ public class TimberQuestTracker(
 
         s.Set(
             QuestStatusKey,
-            [.. questStatusInfo.Values
+            [.. activeQuests.Values
                 .Select(q => q.Serialize())]);
+        s.Set(SuccessfulQuestsKey, successfulQuests);
+        s.Set(FailedQuestsKey, failedQuests);
     }
 
 }

@@ -21,9 +21,9 @@
 		<!--<ProjectReference Include="..\ScientificProjects\BrainPowerSPs\BrainPowerSPs.csproj" />-->
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
-		<!--<ProjectReference Include="..\TimberQuests\TimberQuests\TimberQuests.csproj" />-->
+		<ProjectReference Include="..\TimberQuests\TimberQuests\TimberQuests.csproj" />
 
-		<ProjectReference Include="..\ConfigurableLifetime\ConfigurableLifetime.csproj" />
+		<!--<ProjectReference Include="..\ConfigurableLifetime\ConfigurableLifetime.csproj" />-->
 		
 	</ItemGroup>
 

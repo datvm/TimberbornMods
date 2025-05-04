@@ -2,24 +2,24 @@
 
 public class TimberQuestStatusInfo(TimberQuestSpec quest)
 {
+    public TimberQuestSpec Spec { get; } = quest;
 
-    public TimberQuestSpec Quest { get; } = quest;
-    readonly TimberQuestStatus[] statuses = new TimberQuestStatus[quest.Steps.Length + 1];
+    readonly TimberQuestStatus[] stepStatuses = new TimberQuestStatus[quest.Steps.Length];
 
-    public TimberQuestStatus QuestStatus => statuses[0];
-    public TimberQuestStatus GetStepStatus(int index) => statuses[index + 1];
-    public ImmutableArray<TimberQuestStatus> GetStepsStatuses => [..statuses.Skip(1)];
+    public TimberQuestStatus QuestStatus { get; private set; } = TimberQuestStatus.Pending;
+    public ImmutableArray<TimberQuestStatus> StepsStatuses => [.. stepStatuses];
+    public TimberQuestStatus GetStepStatus(int index) => stepStatuses[index];
 
     public event EventHandler<TimberQuestStatusChanged>? QuestStatusChanged;
     public event EventHandler<TimberQuestStepStatusChanged>? StepStatusChanged;
 
     internal TimberQuestStatusChanged? SetQuestStatus(TimberQuestStatus status)
     {
-        var prev = statuses[0];
+        var prev = QuestStatus;
         if (prev == status) { return null; }
 
-        statuses[0] = status;
-        TimberQuestsUtils.Log(() => $"{Quest} status changed from {prev} to {status}");
+        QuestStatus = status;
+        TimberQuestsUtils.Log(() => $"{Spec} status changed from {prev} to {status}");
 
         TimberQuestStatusChanged args = new(this, prev, status);
         QuestStatusChanged?.Invoke(this, args);
@@ -28,11 +28,11 @@ public class TimberQuestStatusInfo(TimberQuestSpec quest)
 
     internal TimberQuestStepStatusChanged? SetQuestStepStatus(int index, TimberQuestStatus status)
     {
-        var prev = statuses[index + 1];
+        var prev = stepStatuses[index];
         if (prev == status) { return null; }
 
-        statuses[index + 1] = status;
-        TimberQuestsUtils.Log(() => $"{Quest} step {index} ({Quest.Steps[index].Name}) status changed from {prev} to {status}");
+        stepStatuses[index] = status;
+        TimberQuestsUtils.Log(() => $"{Spec} step {index} ({Spec.Steps[index].Name}) status changed from {prev} to {status}");
 
         TimberQuestStepStatusChanged args = new(this, index, prev, status);
         StepStatusChanged?.Invoke(this, args);
@@ -40,7 +40,7 @@ public class TimberQuestStatusInfo(TimberQuestSpec quest)
     }
 
     public string Serialize() =>
-        $"{Quest.Id};{string.Join(';', statuses.Select(s => (int)s))}";
+        $"{Spec.Id};{(int)QuestStatus};{string.Join(';', stepStatuses.Select(s => (int)s))}";
 
     public static TimberQuestStatusInfo? TryDeserialize(string data, Func<string, TimberQuestSpec?> specFunc)
     {
@@ -54,21 +54,31 @@ public class TimberQuestStatusInfo(TimberQuestSpec quest)
             return null;
         }
 
-        var status = new TimberQuestStatusInfo(spec);
-        if (spec.Steps.Length != parts.Length - 1)
+        if (parts.Length < 2)
         {
-            Debug.LogWarning($"{spec} has different number of steps now ({spec.Steps.Length} now vs expected {parts.Length - 1}).");
+            Debug.LogWarning($"Quest Id {id} has invalid saved data. Removing this quest data.");
+            return null;
         }
 
-        var copyingMax = Math.Min(status.statuses.Length, parts.Length - 1);
-        for (var i = 0; i < copyingMax; i++)
+        var status = new TimberQuestStatusInfo(spec);
+        // Expecting 1 part for QuestStatus and one for each step
+        if (parts.Length != spec.Steps.Length + 2)
         {
-            var value = (TimberQuestStatus)int.Parse(parts[i + 1]);
-            status.statuses[i] = value;
+            Debug.LogWarning($"{spec} has different number of steps now ({spec.Steps.Length} now vs expected {parts.Length - 2}).");
+        }
+
+        // Deserialize quest status
+        status.QuestStatus = (TimberQuestStatus)int.Parse(parts[1]);
+
+        // Deserialize step statuses
+        var stepsCount = Math.Min(spec.Steps.Length, parts.Length - 2);
+        for (var i = 0; i < stepsCount; i++)
+        {
+            var value = (TimberQuestStatus)int.Parse(parts[i + 2]);
+            status.stepStatuses[i] = value;
         }
 
         return status;
     }
-
 }
 
