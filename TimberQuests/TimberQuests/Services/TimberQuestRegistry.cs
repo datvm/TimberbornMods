@@ -2,7 +2,8 @@
 
 public class TimberQuestRegistry(
     ISpecService specs,
-    ILoc t
+    ILoc t,
+    IGoodService goods
 ) : ILoadableSingleton
 {
 
@@ -67,17 +68,27 @@ public class TimberQuestRegistry(
 
         q.Name = q.NameKey.T(t);
 
+        
+    }
+
+    public TimberQuestSpec InitializeQuestDetailsIfNeeded(TimberQuestSpec q)
+    {
+        if (q.Initialized) { return q; }
+        q.Initialized = true;
+
+        InitQuestInfo(q);
+        InitQuestSteps(q);
+        InitQuestRewards(q);
+
+        return q;
+    }
+
+    void InitQuestInfo(TimberQuestSpec q)
+    {
         if (q.DescriptionKey is not null)
         {
             q.Description = q.DescriptionKey.TFormat(t, q.Parameters);
         }
-
-        if (q.RewardsKey is not null)
-        {
-            q.Rewards = q.RewardsKey.TFormat(t, q.Parameters);
-        }
-
-        InitQuestSteps(q);
     }
 
     void InitQuestSteps(TimberQuestSpec q)
@@ -97,6 +108,24 @@ public class TimberQuestRegistry(
                     .Replace("]", "}")
                     .Replace("__SPECIAL[__", "[[")
                     .Replace("__SPECIAL]__", "]]");
+            }
+        }
+    }
+
+    void InitQuestRewards(TimberQuestSpec q)
+    {
+        foreach (var r in q.Rewards)
+        {
+            if (r.GoodId is not null)
+            {
+                var good = goods.GetGood(r.GoodId);
+                r.GoodName = r.Amount > 1 ? good.PluralDisplayName.Value : good.DisplayName.Value;
+                r.Icon ??= good.Icon;
+            }
+
+            if (r.CustomTextKey is not null)
+            {
+                r.CustomText = r.CustomTextKey.TFormat(t, [r.Amount, ..q.Parameters]);
             }
         }
     }

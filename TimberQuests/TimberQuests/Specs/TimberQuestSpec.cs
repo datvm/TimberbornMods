@@ -15,17 +15,19 @@ public record TimberQuestSpec : ComponentSpec
     public string? Description { get; set; }
 
     [Serialize]
-    public string? RewardsKey { get; init; }
-    public string? Rewards { get; set; }
-
-    [Serialize]
-    public Texture2D? Icon { get; init; }
+    public Sprite? Icon { get; init; }
 
     [Serialize]
     public ImmutableArray<float> Parameters { get; init; } = [];
 
     [Serialize]
     public ImmutableArray<TimberQuestStepSpec> Steps { get; init; } = [];
+
+    [Serialize]
+    public ImmutableArray<TimberQuestRewardSpec> Rewards { get; init; } = [];
+    
+    public bool Initialized { get; internal set; }
+    public bool HasReward => Rewards.Length > 0;
 
     public override string ToString()
     {
