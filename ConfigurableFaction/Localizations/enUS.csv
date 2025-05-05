@@ -4,3 +4,7 @@ LV.CFac.RemoveDupDesc,"Try to remove buildings with similar names when all facti
 LV.CFac.AddPlants,"Add plants (Crops & Trees)",
 LV.CFac.AddPlantsDesc,"You can grow crops and trees of other factions. You must add the Folktails' Aquatic Farmhouse to all other factions to prevent crash.",
 LV.CFac.AddPlantsNotif,"You must add Aquatic Farmhouse to Iron Teeth or it will crash when loading for Iron Teeth.",
+LV.CFac.NoBotNeeds,"Don't add Bot's needs",
+LV.CFac.NoBotNeedsDesc,"Don't add Bot's needs to other factions (Biofuel and Energy)
+You must not add Biofuel production building (Refinery) to Iron Teeth or the game would crash on building it.",
+LV.CFac.NoBotNeedsNotif,"You must not add Biofuel production building (Refinery) to Iron Teeth or the game would crash on building it.",

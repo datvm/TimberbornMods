@@ -1,10 +1,10 @@
-﻿global using Timberborn.PrefabGroupSystem;
-
-namespace ConfigurableFaction.Patches;
+﻿namespace ConfigurableFaction.Patches;
 
 [HarmonyPatch]
 public static class FactionPatches
 {
+    static readonly ImmutableHashSet<string> BlacklistedGoods = ["Biofuel"];
+    static readonly ImmutableHashSet<string> BlacklistedNeeds = ["Energy", "Biofuel"];
 
     public static Dictionary<string, ImmutableArray<string>> OriginalPaths = [];
 
@@ -24,6 +24,18 @@ public static class FactionPatches
         }
     }
 
+    [HarmonyPrefix, HarmonyPatch(typeof(PlantablePreviewFactory), nameof(PlantablePreviewFactory.CreatePrefabPreview))]
+    public static bool AllowDuplicatePlants(PlantablePreviewFactory __instance, string prefabName)
+    {
+        return !MSettings.AddPlants || !__instance._previewPrefabs.ContainsKey(prefabName);
+    }
+
+    [HarmonyPrefix, HarmonyPatch(typeof(PrefabNameMapper), nameof(PrefabNameMapper.TryAddPrefab))]
+    public static void AllowDuplicatePrefab(ref bool throwIfDuplicated)
+    {
+        throwIfDuplicated = false;
+    }
+
     static FactionSpec ModifyFactionSpec(FactionSpec factionSpec)
     {
         List<string> needs = [.. factionSpec.Needs];
@@ -36,9 +48,9 @@ public static class FactionPatches
             if (!otherFacInfo.Enabled || otherFacInfo.Id == factionSpec.Id) { continue; }
             var (otherFac, _) = otherFacInfo;
 
-            needs.AddRange(otherFac.Needs);
+            needs.AddRange(otherFac.Needs.Except(MSettings.NoBotNeeds ? BlacklistedNeeds : []));
             materialGroups.AddRange(otherFac.MaterialGroups);
-            goods.AddRange(otherFac.Goods);
+            goods.AddRange(otherFac.Goods.Except(MSettings.NoBotNeeds ? BlacklistedGoods : []));
 
             if (MSettings.AddPlants)
             {
@@ -55,7 +67,7 @@ public static class FactionPatches
             Needs = [.. needs.Distinct()],
             MaterialGroups = [.. materialGroups.Distinct()],
             Goods = [.. goods.Distinct()],
-            PrefabGroups = [..prefabGroups.Distinct()],
+            PrefabGroups = [.. prefabGroups.Distinct()],
         };
     }
 

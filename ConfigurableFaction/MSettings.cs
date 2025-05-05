@@ -1,8 +1,4 @@
-﻿global using ConfigurableFaction.Services;
-global using Timberborn.BlueprintSystem;
-global using Timberborn.CoreUI;
-
-namespace ConfigurableFaction;
+﻿namespace ConfigurableFaction;
 
 public class MSettings(
     ISettings settings,
@@ -15,6 +11,7 @@ public class MSettings(
 {
     public static bool TryRemovingDuplicates { get; private set; } = true;
     public static bool AddPlants { get; private set; } = false;
+    public static bool NoBotNeeds { get; private set; } = false;
 
     public override string ModId { get; } = nameof(ConfigurableFaction);
 
@@ -24,14 +21,20 @@ public class MSettings(
     readonly ModSetting<bool> addPlants = new(false,
         ModSettingDescriptor.CreateLocalized("LV.CFac.AddPlants")
             .SetLocalizedTooltip("LV.CFac.AddPlantsDesc"));
+    readonly ModSetting<bool> noBotNeeds = new(false,
+        ModSettingDescriptor.CreateLocalized("LV.CFac.NoBotNeeds")
+            .SetLocalizedTooltip("LV.CFac.NoBotNeedsDesc"));
 
     public override void OnAfterLoad()
     {
         AddCustomModSetting(tryRemovingDuplicates, nameof(tryRemovingDuplicates));
-        
+
         AddCustomModSetting(addPlants, nameof(addPlants));
-        addPlants.ValueChanged += (_, v) => ShowWarningMessage(v);
-        
+        addPlants.ValueChanged += (_, v) => ShowWarningMessage("LV.CFac.AddPlantsNotif", v);
+
+        AddCustomModSetting(noBotNeeds, nameof(noBotNeeds));
+        noBotNeeds.ValueChanged += (_, v) => ShowWarningMessage("LV.CFac.NoBotNeedsNotif", v);
+
         AddFactionsSettings();
 
         UpdateValues();
@@ -94,14 +97,15 @@ public class MSettings(
     {
         TryRemovingDuplicates = tryRemovingDuplicates.Value;
         AddPlants = addPlants.Value;
+        NoBotNeeds = noBotNeeds.Value;
     }
 
-    void ShowWarningMessage(bool enabled)
+    void ShowWarningMessage(string key, bool enabled)
     {
         if (!enabled) { return; }
 
         diagShower.Create()
-            .SetMessage(t.T("LV.CFac.AddPlantsNotif"))
+            .SetMessage(t.T(key))
             .Show();
     }
 
