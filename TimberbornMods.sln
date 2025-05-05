@@ -182,6 +182,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableLifetime", "Con
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omnibar", "Omnibar\Omnibar.csproj", "{FBEB16E6-8E30-423D-AE06-F48F80550222}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditSaveDifficulty", "EditSaveDifficulty\EditSaveDifficulty.csproj", "{8C7D40AA-1F51-4E7F-8E2B-A67FEE167106}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -480,6 +482,10 @@ Global
 		{FBEB16E6-8E30-423D-AE06-F48F80550222}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBEB16E6-8E30-423D-AE06-F48F80550222}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBEB16E6-8E30-423D-AE06-F48F80550222}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C7D40AA-1F51-4E7F-8E2B-A67FEE167106}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C7D40AA-1F51-4E7F-8E2B-A67FEE167106}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C7D40AA-1F51-4E7F-8E2B-A67FEE167106}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C7D40AA-1F51-4E7F-8E2B-A67FEE167106}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

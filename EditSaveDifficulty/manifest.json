@@ -1,0 +1,10 @@
+{
+    "Name": "Edit Save Difficulty",
+    "Version": "7.0.0",
+    "Id": "EditSaveDifficulty",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Edit a save difficulty",
+    "RequiredMods": [
+        { "Id": "TimberUi" }
+    ]
+}

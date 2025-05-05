@@ -23,7 +23,7 @@
 
 		<!--<ProjectReference Include="..\TimberQuests\TimberQuests\TimberQuests.csproj" />-->
 
-		<ProjectReference Include="..\HueAndTurn\HueAndTurn.csproj" />
+		<ProjectReference Include="..\EditSaveDifficulty\EditSaveDifficulty.csproj" />
 		
 	</ItemGroup>
 
