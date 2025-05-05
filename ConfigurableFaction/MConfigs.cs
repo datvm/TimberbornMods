@@ -1,4 +1,7 @@
-﻿namespace ConfigurableFaction;
+﻿global using ConfigurableFaction.Patches;
+global using ConfigurableFaction.Services;
+
+namespace ConfigurableFaction;
 
 [Context("MainMenu")]
 public class MenuModConfig : Configurator

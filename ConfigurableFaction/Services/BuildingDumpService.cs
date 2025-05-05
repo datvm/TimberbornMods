@@ -2,7 +2,6 @@
 global using Timberborn.EntitySystem;
 global using Timberborn.GameFactionSystem;
 global using Timberborn.PrefabSystem;
-using ConfigurableFaction.Patches;
 
 namespace ConfigurableFaction.Services;
 
@@ -10,7 +9,6 @@ public class BuildingDumpService(
     PrefabGroupService prefabs,
     FactionBuildingService infoService,
     FactionService factions,
-    ISpecService specs,
     ILoc t
 ) : ILoadableSingleton
 {

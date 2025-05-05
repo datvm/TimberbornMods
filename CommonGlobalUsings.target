@@ -1,9 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="Validate">
 	<ItemGroup>
 		<!-- Common Global Usings-->
-		<Using Include="System.Reflection" />
-		<Using Include="System.Diagnostics.CodeAnalysis"/>
-
 		<Using Include="Timberborn.ModManagerScene"/>
 		<Using Include="Bindito.Core"/>
 		<Using Include="Bindito.Unity"/>
@@ -25,12 +22,25 @@
 		<Using Include="Timberborn.Bots"/>
 		<Using Include="Timberborn.DeteriorationSystem"/>
 		<Using Include="Timberborn.Goods"/>
+		<Using Include="Timberborn.PrefabSystem"/>
+		<Using Include="Timberborn.BottomBarSystem"/>
+		<Using Include="Timberborn.PrefabGroupSystem"/>
+		<Using Include="Timberborn.CoreUI"/>
+		<Using Include="Timberborn.BaseComponentSystem" />
+		<Using Include="Timberborn.EntityPanelSystem" />
+		<Using Include="Timberborn.UILayoutSystem" />
+		<Using Include="Timberborn.PlantingUI" />
 
 		
 		<Using Include="System.Collections.Immutable"/>
 		<Using Include="System.Collections.Frozen"/>
 		<Using Include="System.Runtime.CompilerServices"/>
-
+		<Using Include="System.Reflection" />
+		<Using Include="System.Diagnostics.CodeAnalysis"/>
+		
 		<Using Include="UnityEngine"/>
+		<Using Include="UnityEngine.UIElements" />
+
+		<Using Include="Newtonsoft.Json"/>
 	</ItemGroup>
 </Project>
