@@ -24,6 +24,7 @@ public class HueAndTurnFragment(
     GameSliderInt rotationSlider;
     PositionPickerElement rotationPivotPicker;
     PositionPickerElement translatePicker;
+    PositionPickerElement scalePicker;
     VisualElement advOptionsPanel;
     Label lblResetAll;
 #nullable enable
@@ -98,6 +99,12 @@ public class HueAndTurnFragment(
             .RegisterAlternativeManualValue(input, t, initializer, panelStack)
             .SetMarginBottom(10);
 
+        advOptionsPanel.AddGameLabel(t.T("LV.HNT.Scale")).SetMarginBottom(5);
+        scalePicker = advOptionsPanel.AddChild<PositionPickerElement>()
+            .RegisterChange(SetScale)
+            .RegisterAlternativeManualValue(input, t, initializer, panelStack)
+            .SetMarginBottom(10);
+
         AddApplyAllOptions(advOptionsPanel);
 
         ToggleAdv(); // Hide it
@@ -134,8 +141,8 @@ public class HueAndTurnFragment(
             return;
         }
 
-        
-        lblResetAll.text = t.T("LV.HNT.ToAll", comp.PrefabName);
+        var label = entity.GetComponentFast<LabeledEntity>();
+        lblResetAll.text = t.T("LV.HNT.ToAll", label.DisplayName);
 
         UpdatePanelContent();
         input.AddInputProcessor(this);
@@ -198,6 +205,13 @@ public class HueAndTurnFragment(
         comp.ApplyRepositioning();
     }
 
+    void SetScale(Vector3Int scale)
+    {
+        if (internalSet || !comp) { return; }
+        comp.Properties.Scale = scale;
+        comp.ApplyRepositioning();
+    }
+
     void Reset()
     {
         if (!comp) { return; }
@@ -222,7 +236,9 @@ public class HueAndTurnFragment(
         rotationSlider.SetValueWithoutNotify(props.Rotation ?? 0);
         rotationPivotPicker.Position = props.RotationPivot?.ToVector3Int(0) ?? null;
         rotationPivotPicker.SetEnabled(comp.RotationPivotSupported);
+        
         translatePicker.Position = props.Translation;
+        scalePicker.Position = props.Scale;
 
         UpdateColorEnabled();
         panel.Visible = true;

@@ -25,7 +25,7 @@ public class PositionPickerElement : VisualElement
             var slider = sliders[i] = this.AddSliderInt(
                 label: PositionSliderTexts[i],
                 name: "Position-" + i,
-                values: new(-50, 50, 0));
+                values: new(-100, 100, 0));
 
             slider.AddEndLabel(i => i.ToString() + "%");
 

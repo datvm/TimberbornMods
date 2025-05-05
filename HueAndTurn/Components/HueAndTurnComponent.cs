@@ -9,7 +9,6 @@ namespace HueAndTurn.Components;
 
 public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableEntity
 {
-    static readonly ComponentKey LegacySaveKey = new("BuildingColor");
     static readonly ComponentKey SaveKey = new("HueAndTurn");
 
     public HueAndTurnProperties Properties { get; private set; } = new();
@@ -24,6 +23,7 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
 
     LabeledEntity? labeledEntity;
     PositionModifier? positionModifier;
+    ScaleModifier? scaleModifier;
 
     public PrefabSpec? PrefabSpec { get; private set; }
     public string PrefabName => PrefabSpec?.PrefabName ?? name;
@@ -92,6 +92,15 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
         {
             positionModifier.Set(translation);
         }
+
+        // Scale
+        if (scaleModifier is not null)
+        {
+            var scale = Vector3.one + (Vector3)(Properties.Scale ?? Vector3Int.zero) / 100f;
+            scale = CoordinateSystem.GridToWorld(scale);
+
+            scaleModifier.Set(scale);
+        }
     }
 
     void ResetPositioning()
@@ -135,16 +144,18 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
         blockObject = GetComponentFast<BlockObject>();
         PrefabSpec = GetComponentFast<PrefabSpec>();
         labeledEntity = GetComponentFast<LabeledEntity>();
-
-        if (GetComponentFast<NaturalResourceModel>())
-        {
-            positionModifier = GetComponentFast<TransformController>()
-                ?.AddPositionModifier();
-        }
     }
 
     public void Start()
     {
+        var transformController = GetComponentFast<TransformController>();
+
+        if (GetComponentFast<NaturalResourceModel>())
+        {
+            positionModifier = transformController?.AddPositionModifier();
+        }
+        scaleModifier = transformController?.AddScaleModifier();
+
         if (Properties.Color is not null)
         {
             ApplyColor();
@@ -159,9 +170,8 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
     public void Load(IEntityLoader entityLoader)
     {
         if (!entityLoader.TryGetComponent(SaveKey, out var s)) { return; }
-        entityLoader.TryGetComponent(LegacySaveKey, out var legacy);
-
-        Properties = HueAndTurnProperties.Load(s, legacy);
+        
+        Properties = HueAndTurnProperties.Load(s);
     }
 
     public void Save(IEntitySaver entitySaver)

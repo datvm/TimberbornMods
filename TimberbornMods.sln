@@ -17,7 +17,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Targets", "_Targets", "{F8
 		CommonScientificProjects.target = CommonScientificProjects.target
 		CommonTimberApi.target = CommonTimberApi.target
 		CommonTimberUI.target = CommonTimberUI.target
-		CommonUI.target = CommonUI.target
 		CommonUnlockableRecipe.target = CommonUnlockableRecipe.target
 	EndProjectSection
 EndProject
@@ -180,6 +179,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimberQuests", "TimberQuests\TimberQuests\TimberQuests.csproj", "{83A7A7AA-B337-415E-BB19-9F679B42CCB9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableLifetime", "ConfigurableLifetime\ConfigurableLifetime.csproj", "{D183000C-9E84-4959-9235-AC77A8F2FBE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omnibar", "Omnibar\Omnibar.csproj", "{FBEB16E6-8E30-423D-AE06-F48F80550222}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -475,6 +476,10 @@ Global
 		{D183000C-9E84-4959-9235-AC77A8F2FBE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D183000C-9E84-4959-9235-AC77A8F2FBE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D183000C-9E84-4959-9235-AC77A8F2FBE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBEB16E6-8E30-423D-AE06-F48F80550222}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBEB16E6-8E30-423D-AE06-F48F80550222}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBEB16E6-8E30-423D-AE06-F48F80550222}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBEB16E6-8E30-423D-AE06-F48F80550222}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
