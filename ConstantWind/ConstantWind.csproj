@@ -3,10 +3,4 @@
         <OutputModFolderName>ConstantWind</OutputModFolderName>
     </PropertyGroup>
     <Import Project="../Common.target" />
-    <ItemGroup>
-        <Reference Include="Timberborn.WindSystem">
-            <HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.WindSystem.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-    </ItemGroup>
 </Project>

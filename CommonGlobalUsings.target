@@ -30,14 +30,25 @@
 		<Using Include="Timberborn.EntityPanelSystem" />
 		<Using Include="Timberborn.UILayoutSystem" />
 		<Using Include="Timberborn.PlantingUI" />
+		<Using Include="Timberborn.Options" />
+		<Using Include="Timberborn.OptionsGame" />
+		<Using Include="Timberborn.GameSceneLoading" />
+		<Using Include="Timberborn.MainMenuPanels" />
+		<Using Include="Timberborn.FactionSystem" />
+		<Using Include="Timberborn.GameFactionSystem" />
+		<Using Include="Timberborn.MapItemsUI" />
+		<Using Include="Timberborn.WeatherSystem" />
+		<Using Include="Timberborn.HazardousWeatherSystem" />
+		<Using Include="Timberborn.NeedApplication" />
+		<Using Include="Timberborn.RecoverableGoodSystem" />
 
-		
+
 		<Using Include="System.Collections.Immutable"/>
 		<Using Include="System.Collections.Frozen"/>
 		<Using Include="System.Runtime.CompilerServices"/>
 		<Using Include="System.Reflection" />
 		<Using Include="System.Diagnostics.CodeAnalysis"/>
-		
+
 		<Using Include="UnityEngine"/>
 		<Using Include="UnityEngine.UIElements" />
 

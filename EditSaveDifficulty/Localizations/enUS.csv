@@ -1,0 +1,4 @@
+ID,Text,Comment
+LV.ESD.ChangeDifficulty,"Change difficulty",
+LV.ESD.SaveWarning,"Be sure to save your game before performing this action.",
+LV.ESD.Changed,"Parameters set. Please make a save and reload the game with that save to apply the changes.",
