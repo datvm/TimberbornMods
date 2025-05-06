@@ -3,6 +3,6 @@
 public interface IOmnibarProvider
 {
 
-    IReadOnlyList<IOmnibarItem> ProvideItems(string? filter);
+    IReadOnlyList<IOmnibarItem> ProvideItems(string filter);
 
 }
