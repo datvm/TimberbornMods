@@ -1,0 +1,15 @@
+{
+    "KeyBindingSpec": {
+        "Id": "OmnibarOpen",
+        "GroupId": "UI",
+        "LocKey": "LV.OB.KeyBindingOpen",
+        "Order": 500
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/enter"
+    },
+    "SecondaryInputBindingSpec": {
+        "Path": "/Keyboard/q",
+        "InputModifiers": "Ctrl"
+    }
+}

@@ -1,4 +1,7 @@
-﻿namespace TImprove4Ui;
+﻿global using TImprove4Ui.Patches;
+global using TImprove4Ui.Services;
+
+namespace TImprove4Ui;
 
 [Context("MainMenu")]
 public class ModMenuConfig : Configurator
@@ -20,6 +23,9 @@ public class ModGameConfig : Configurator
         Bind<PowerNetworkHighlighter>().AsSingleton();
         Bind<ToolPanelDescriptionMover>().AsSingleton();
         Bind<MaterialCounterService>().AsSingleton();
+
+        Bind<BatchControlBoxService>().AsSingleton();
+        Bind<WorkplacesBatchControlTabService>().AsSingleton();
     }
 }
 
