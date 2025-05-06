@@ -28,7 +28,7 @@ public class MaterialCounterService(
         foreach (var counter in topBarPanel._counters)
         {
             if (counter is not ExtendableTopBarCounter extendableCounter) { continue; }
-            
+
             ExtendableCounterVisibilityManager item = new(extendableCounter);
             if (shouldClose)
             {
@@ -59,7 +59,7 @@ public class MaterialCounterService(
 
         if (s.Has(ProducedGoodsKey))
         {
-            producedGoods = [..s.Get(ProducedGoodsKey)];
+            producedGoods = [.. s.Get(ProducedGoodsKey)];
         }
     }
 
