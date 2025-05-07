@@ -4,7 +4,8 @@ public class ModManagerBoxService(
     ModManagerBox modManagerBox,
     ILoc t,
     ModManagementService mods,
-    VisualElementInitializer veInit
+    VisualElementInitializer veInit,
+    ModCompWarningService modCompWarning
 ) : ILoadableSingleton
 {
 
@@ -39,6 +40,7 @@ public class ModManagerBoxService(
 
         AddButton(btns, "LV.T4Mods.EnableAll", () => mods.ToggleAll(true));
         AddButton(btns, "LV.T4Mods.DisableAll", () => mods.ToggleAll(false));
+        AddButton(btns, "LV.T4Mods.CheckForIssue", async () => await modCompWarning.CheckForIssueAsync());
         AddButton(btns, "LV.T4Mods.LoadProfile", mods.LoadProfile);
         AddButton(btns, "LV.T4Mods.SaveProfile", mods.SaveProfile);
 

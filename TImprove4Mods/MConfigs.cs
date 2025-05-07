@@ -1,4 +1,5 @@
 ﻿global using TImprove4Mods.Services;
+global using TImprove4Mods.Models;
 
 namespace TImprove4Mods;
 
@@ -10,7 +11,7 @@ public class ModMenuConfig : Configurator
     public override void Configure()
     {
         Bind<FileDialogService>().AsSingleton();
-        Bind<LegacyModWarningService>().AsSingleton();
+        Bind<ModCompWarningService>().AsSingleton();
         Bind<ModManagerBoxService>().AsSingleton();
         Bind<ModManagementService>().AsSingleton();
     }
@@ -19,12 +20,10 @@ public class ModMenuConfig : Configurator
 
 public class ModStarter : IModStarter
 {
-    public static bool HasLegacyMod;
 
     void IModStarter.StartMod(IModEnvironment modEnvironment)
     {
-        HasLegacyMod = AppDomain.CurrentDomain.GetAssemblies()
-            .Any(q => q.GetName().Name == "ToggleAllMods");
+        ModCompatibilityService.Instance.Init(modEnvironment.ModPath);
     }
 
 }
