@@ -1,0 +1,33 @@
+{
+    "TImprove4Mods": {
+        "Incompatibles": {
+            "ToggleAllMods": {
+                "Reason": "Replace",
+                "Note": "TImprove 4 Mods provides the same functionality as Toggle All Mods and more."
+            }
+        }
+    },
+    "TImprove4Ui": {
+        "Incompatibles": {
+            "ScrollableEntityPanel": {
+                "Reason": "Replace",
+                "Note": "TImprove 4 UI provides the same functionality as Scrollable Entity Panel but using both will cause issues."
+            }
+        }
+    },
+    "BobingaboutVerticalTPowerShafts": {
+        "Obsolete": {
+            "Note": "This mod is Redundant as of game update V0.7.6.0."
+        }
+    },
+    "BeaverAscent": {
+        "Obsolete": {
+            "Replacement": {
+                "Id": "MapResizer",
+                "Name": "Map Resizer",
+                "Url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3470646045"
+            },
+            "Note": "This mod does not work for U7"
+        }
+    }
+}
