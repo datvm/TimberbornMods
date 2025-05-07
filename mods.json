@@ -17,7 +17,7 @@
     },
     "BobingaboutVerticalTPowerShafts": {
         "Obsolete": {
-            "Note": "This mod is Redundant as of game update V0.7.6.0."
+            "Note": "This mod is Redundant as of game update V0.7.6.0. This version overwrites the new vanilla shafts to add migration. load, migrate, save, uninstall. You should not use it for new games."
         }
     },
     "BeaverAscent": {
