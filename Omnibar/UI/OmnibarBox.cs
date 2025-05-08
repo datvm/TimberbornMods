@@ -2,13 +2,11 @@
 
 public class OmnibarBox : IPanelController, ILoadableSingleton
 {
-
     readonly VisualElement box;
-    Texture2D question = null!;
 
     public bool IsOpen { get; private set; }
     readonly NineSliceTextField txtContent;
-    readonly ListView lstItems;
+    readonly OmnibarBoxListView lstItems;
 
     readonly PanelStack panelStack;
     readonly OmnibarService omnibarService;
@@ -16,9 +14,13 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
     readonly VisualElementInitializer veInit;
 
     List<OmnibarFilteredItem>? items;
-    int selectingIndex = -1;
 
-    public OmnibarBox(PanelStack panelStack, OmnibarService omnibarService, VisualElementInitializer veInit, IAssetLoader assetLoader)
+    public OmnibarBox(
+        PanelStack panelStack,
+        OmnibarService omnibarService,
+        VisualElementInitializer veInit,
+        IAssetLoader assetLoader
+    )
     {
         this.panelStack = panelStack;
         this.omnibarService = omnibarService;
@@ -31,14 +33,15 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
         txtContent = CreateContentText(container);
         txtContent.RegisterValueChangedCallback(_ => OnTextChanged());
 
-        lstItems = CreateListView(container);
-        lstItems.makeItem = MakeListItem;
-        lstItems.bindItem = BindListItem;
+        box.RegisterCallback<KeyUpEvent>(ProcessTextInput);
+        //txtContent.RegisterCallback<KeyUpEvent>(ProcessTextInput);
+
+        lstItems = container.AddChild<OmnibarBoxListView>();
     }
 
     public void Load()
     {
-        question = assetLoader.Load<Texture2D>("Sprites/Omnibar/question");
+        lstItems.QuestionTexture = assetLoader.Load<Texture2D>("Sprites/Omnibar/question");
         veInit.InitializeVisualElement(box);
     }
 
@@ -65,6 +68,11 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
     public bool OnUIConfirmed()
     {
         Close();
+
+        var selectingItem = lstItems.SelectingItem;
+        if (selectingItem is null) { return false; }
+
+        selectingItem.Value.Item.Execute();
         return true;
     }
 
@@ -85,46 +93,37 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
         var kw = txtContent.text?.Trim();
         if (string.IsNullOrEmpty(kw))
         {
-            lstItems.visible = false;
+            lstItems.SetItems(null);
             return;
         }
 
         items = omnibarService.GetItems(kw.ToLower());
-        if (items.Count == 0)
+        lstItems.SetItems(items);
+    }
+
+    void ProcessTextInput(KeyUpEvent e)
+    {
+        var processed = false;
+
+        if (e.keyCode == KeyCode.UpArrow)
         {
-            lstItems.visible = false;
-            return;
+            processed = lstItems.SelectItemWithKey(-1);
+        }
+        else if (e.keyCode == KeyCode.DownArrow)
+        {
+            processed = lstItems.SelectItemWithKey(1);
+        }
+        else if (e.keyCode is KeyCode.Return or KeyCode.KeypadEnter)
+        {
+            processed = true;
+            OnUIConfirmed();
         }
 
-        lstItems.itemsSource = items;
-        SetSelectingIndex(0);
-        lstItems.visible = true;
-    }
-
-    OmnibarListItem MakeListItem() => new(question);
-
-    void BindListItem(VisualElement ve, int index)
-    {
-        if (items is null) { return; } // Should not happen
-
-        var item = items[index];
-        var el = (OmnibarListItem)ve;
-
-        el.SetItem(item);
-    }
-
-    void OnItemSelected(OmnibarListItem item)
-    {
-
-    }
-
-    void SetSelectingIndex(int index)
-    {
-        if (items is null) { return; }
-
-        if (selectingIndex > -1 && selectingIndex < items.Count)
+        if (processed)
         {
-            
+            e.StopImmediatePropagation();
+            e.StopPropagation();
+            txtContent.focusController?.IgnoreEvent(e);
         }
     }
 
@@ -157,18 +156,6 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
         txt.style.fontSize = 22;
 
         return txt;
-    }
-
-    static ListView CreateListView(VisualElement container)
-    {
-        var lst = container.AddListView("OmnibarListView")
-            .SetMargin(top: 30)
-            .SetSize(height: 150)
-            .SetFlexGrow(1);
-
-        lst.fixedItemHeight = OmnibarListItem.ItemHeight;
-
-        return lst;
     }
 
 }

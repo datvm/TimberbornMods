@@ -1,3 +1,5 @@
 ID,Text,Comment
-LV.OB.KeyBindingOpen,"Open Omnibar",
+LV.OB.KeyBindingOpen,"Omnibar: Open",
+LV.OB.KeyBindingUp,"Omnibar: Move up",
+LV.OB.KeyBindingDown,"Omnibar: Move down",
 LV.OB.Cursor,"Cursor tool",
