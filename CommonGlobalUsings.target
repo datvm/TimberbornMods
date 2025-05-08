@@ -14,6 +14,10 @@
 		<Using Include="System.Diagnostics.CodeAnalysis"/>
 		<Using Include="System.Reflection"/>
 		<Using Include="System.Runtime.CompilerServices"/>
+		<Using Include="System.Text"/>
+
+		<Using Include="UnityEngine"/>
+		<Using Include="UnityEngine.UIElements" />
 
 		<Using Include="Timberborn.AlertPanelSystem"/>
 		<Using Include="Timberborn.Analytics"/>
@@ -457,8 +461,5 @@
 		<Using Include="Timberborn.ZiplineMovementSystem"/>
 		<Using Include="Timberborn.ZiplineSystem"/>
 		<Using Include="Timberborn.ZiplineSystemUI"/>
-
-		<Using Include="UnityEngine"/>
-		<Using Include="UnityEngine.UIElements" />
 	</ItemGroup>
 </Project>

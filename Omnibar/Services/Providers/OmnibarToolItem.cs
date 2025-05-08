@@ -8,15 +8,15 @@ public class OmnibarToolItem : IOmnibarItem
 
     public ToolButton ToolButton { get; }
 
-    public OmnibarToolItem(ToolButton toolButton)
+    public OmnibarToolItem(ToolButton toolButton, ILoc t)
     {
         ToolButton = toolButton;
 
         var desc = toolButton.Tool.Description();
         Debug.Log(toolButton.Tool.GetType() + ": " + desc?.Title);
-        Title = desc?.Title ?? "?";
-        
 
+        Title = GetToolName(toolButton.Tool, t) ?? "N/A";
+        
         try
         {
             Sprite = toolButton.Root.Q("ToolImage")?.style.backgroundImage.value.sprite;
@@ -39,4 +39,27 @@ public class OmnibarToolItem : IOmnibarItem
         image.sprite = Sprite;
         return true;
     }
+
+    static string? GetToolName(Tool tool, ILoc t)
+    {
+        switch (tool)
+        {
+            case CursorTool:
+                return "LV.OB.Cursor".T(t);
+            case PlantingTool pt:
+                return pt.PlantableSpec.GetComponentFast<LabeledEntitySpec>().DisplayNameLocKey.T(t);
+            case BuilderPriorityTool bt:
+                return $"{"ToolGroups.Priority".T(t)}: {bt.Description().Title}";
+            case BlockObjectTool bot:
+                return bot.Prefab.GetComponentFast<LabeledEntitySpec>().DisplayNameLocKey.T(t);
+            case BeaverGeneratorTool:
+            case BotGeneratorTool:
+            case WaterHeightBrushTool:
+                return tool.GetType().Name;
+            default:
+                var desc = tool.Description();
+                return desc?.Title;
+        }
+    }
+
 }

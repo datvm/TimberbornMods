@@ -2,6 +2,7 @@
 
 public class OmnibarListItem : VisualElement
 {
+    public const int ItemHeight = 42;
 
     readonly Image icon;
     readonly Label lblTitle;
@@ -10,13 +11,19 @@ public class OmnibarListItem : VisualElement
     readonly VisualElement descriptionPanel;
     readonly Texture2D question;
 
-    public IOmnibarItem? Item { get; private set; }
+    public int Index { get; private set; }
+    public bool IsSelected { get; private set; }
+
+    public OmnibarFilteredItem? FilteredItem { get; private set; }
+
+    public event Action<OmnibarListItem> OnSelected = null!;
 
     public OmnibarListItem(Texture2D question)
     {
         this.question = question;
 
         this.SetAsRow();
+        style.alignContent = Align.Center;
 
         icon = this.AddImage()
             .SetSize(32, 32)
@@ -27,13 +34,17 @@ public class OmnibarListItem : VisualElement
         lblTitle = container.AddGameLabel();
         lblSimpleDesc = container.AddGameLabel().SetDisplay(false);
         descriptionPanel = container.AddRow().SetDisplay(false);
+
+        RegisterCallback<MouseEnterEvent>(_ => OnMouseEnter());
     }
 
-    public void SetItem(IOmnibarItem item)
+    public void SetItem(int index, in OmnibarFilteredItem filteredItem)
     {
-        Item = item;
+        Index = index;
+        FilteredItem = filteredItem;
+        var item = filteredItem.Item;
 
-        lblTitle.text = item.Title;
+        SetItemTitle();
         if (item.Description is not null)
         {
             lblSimpleDesc.text = item.Description;
@@ -45,6 +56,34 @@ public class OmnibarListItem : VisualElement
         {
             icon.image = question;
         }
+    }
+
+    public void UnsetItem()
+    {
+        Index = -1;
+        FilteredItem = null;
+    }
+
+    void SetItemTitle()
+    {
+        StringBuilder title = new(FilteredItem!.Value.Item.Title);
+        var chars = FilteredItem.Value.Match.Positions;
+
+        for (int i = chars.Length - 1; i >= 0; i--)
+        {
+            var pos = chars[i];
+            var c = title[pos];
+            title.Remove(pos, 1);
+
+            title.Insert(pos, c.ToString().Bold());
+        }
+
+        lblTitle.text = title.ToString();
+    }
+
+    void OnMouseEnter()
+    {
+        OnSelected(this);
     }
 
 }

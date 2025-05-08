@@ -15,7 +15,7 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
     readonly IAssetLoader assetLoader;
     readonly VisualElementInitializer veInit;
 
-    IReadOnlyList<IOmnibarItem>? items;
+    List<OmnibarFilteredItem>? items;
     int selectingIndex = -1;
 
     public OmnibarBox(PanelStack panelStack, OmnibarService omnibarService, VisualElementInitializer veInit, IAssetLoader assetLoader)
@@ -56,6 +56,7 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
         panelStack.PushDialog(this);
 
         IsOpen = true;
+        OnTextChanged();
         txtContent.Focus();
     }
 
@@ -84,21 +85,20 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
         var kw = txtContent.text?.Trim();
         if (string.IsNullOrEmpty(kw))
         {
-            lstItems.SetDisplay(false);
+            lstItems.visible = false;
             return;
         }
 
         items = omnibarService.GetItems(kw.ToLower());
-        Debug.Log(string.Join(", ", items.Select(q => q.Title)));
-
         if (items.Count == 0)
         {
-            lstItems.SetDisplay(false);
+            lstItems.visible = false;
             return;
         }
 
-        lstItems.dataSource = items;
-        lstItems.SetDisplay(true);
+        lstItems.itemsSource = items;
+        SetSelectingIndex(0);
+        lstItems.visible = true;
     }
 
     OmnibarListItem MakeListItem() => new(question);
@@ -113,6 +113,21 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
         el.SetItem(item);
     }
 
+    void OnItemSelected(OmnibarListItem item)
+    {
+
+    }
+
+    void SetSelectingIndex(int index)
+    {
+        if (items is null) { return; }
+
+        if (selectingIndex > -1 && selectingIndex < items.Count)
+        {
+            
+        }
+    }
+
     static VisualElement CreateBox()
     {
         VisualElement box = new();
@@ -120,13 +135,16 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
         boxS.minWidth = boxS.maxWidth = new Length(100, LengthUnit.Percent);
         boxS.minHeight = boxS.maxHeight = new Length(100, LengthUnit.Percent);
         boxS.alignItems = Align.Center;
+        boxS.justifyContent = Justify.Center;
 
         return box;
     }
 
     static VisualElement CreateBoxContainer(VisualElement box)
     {
-        var container = box.AddChild();
+        var container = box.AddChild<NineSliceVisualElement>(classes: [UiCssClasses.ButtonTopBarPrefix + UiCssClasses.Green])
+            .SetPadding(20);
+
         container.style.width = new Length(70, LengthUnit.Percent);
 
         return container;
@@ -143,10 +161,14 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
 
     static ListView CreateListView(VisualElement container)
     {
-        return container.AddListView("OmnibarListView")
+        var lst = container.AddListView("OmnibarListView")
             .SetMargin(top: 30)
-            .SetMaxHeight(150)
+            .SetSize(height: 150)
             .SetFlexGrow(1);
+
+        lst.fixedItemHeight = OmnibarListItem.ItemHeight;
+
+        return lst;
     }
 
 }
