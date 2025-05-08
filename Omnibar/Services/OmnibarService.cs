@@ -5,11 +5,11 @@ public class OmnibarService(
 )
 {
 
-    public IReadOnlyList<IOmnibarItem> GetItems(string request)
+    public List<OmnibarFilteredItem> GetItems(string request)
     {
         return [..providers
             .SelectMany(q => q.ProvideItems(request))
-            .OrderBy(q => q.Title.Length)
+            .OrderByDescending(q => q.Match.Score)
         ];
     }
 
