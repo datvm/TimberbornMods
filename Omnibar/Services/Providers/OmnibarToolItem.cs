@@ -11,10 +11,6 @@ public class OmnibarToolItem : IOmnibarItem
     public OmnibarToolItem(ToolButton toolButton, ILoc t)
     {
         ToolButton = toolButton;
-
-        var desc = toolButton.Tool.Description();
-        Debug.Log(toolButton.Tool.GetType() + ": " + desc?.Title);
-
         Title = GetToolName(toolButton.Tool, t) ?? "N/A";
         
         try

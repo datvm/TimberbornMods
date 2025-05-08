@@ -1,8 +1,8 @@
 ﻿namespace Omnibar.UI;
 
-public class OmnibarListItem : VisualElement
+public class OmnibarListItem : NineSliceVisualElement
 {
-    public const int ItemHeight = 42;
+    public static readonly Color SelectingColor = new(.835f, .831f, .721f, 1f);
 
     readonly Image icon;
     readonly Label lblTitle;
@@ -16,14 +16,16 @@ public class OmnibarListItem : VisualElement
 
     public OmnibarFilteredItem? FilteredItem { get; private set; }
 
-    public event Action<OmnibarListItem> OnSelected = null!;
-
     public OmnibarListItem(Texture2D question)
     {
         this.question = question;
 
-        this.SetAsRow();
-        style.alignContent = Align.Center;
+        this.SetAsRow()
+            .SetPadding(5)
+            .AddClasses("clickable-hierarchy");
+        style.alignItems = Align.Center;
+        style.borderLeftWidth = style.borderRightWidth =
+            style.borderTopWidth = style.borderBottomWidth = 2;
 
         icon = this.AddImage()
             .SetSize(32, 32)
@@ -34,11 +36,9 @@ public class OmnibarListItem : VisualElement
         lblTitle = container.AddGameLabel();
         lblSimpleDesc = container.AddGameLabel().SetDisplay(false);
         descriptionPanel = container.AddRow().SetDisplay(false);
-
-        RegisterCallback<MouseEnterEvent>(_ => OnMouseEnter());
     }
 
-    public void SetItem(int index, in OmnibarFilteredItem filteredItem)
+    public void SetItem(int index, in OmnibarFilteredItem filteredItem, int selectingIndex)
     {
         Index = index;
         FilteredItem = filteredItem;
@@ -56,12 +56,31 @@ public class OmnibarListItem : VisualElement
         {
             icon.image = question;
         }
+
+        SetSelectedIndex(selectingIndex);
     }
 
     public void UnsetItem()
     {
         Index = -1;
         FilteredItem = null;
+        IsSelected = false;
+        SetSelectionUi(false);
+    }
+
+    public void SetSelectedIndex(int index)
+    {
+        var shoudSelect = index == Index;
+        if (shoudSelect == IsSelected) { return; }
+
+        IsSelected = shoudSelect;
+        SetSelectionUi(shoudSelect);
+    }
+
+    void SetSelectionUi(bool selected)
+    {
+        style.borderLeftColor = style.borderRightColor = style.borderTopColor = style.borderBottomColor =
+            selected ? SelectingColor : Color.clear;
     }
 
     void SetItemTitle()
@@ -79,11 +98,6 @@ public class OmnibarListItem : VisualElement
         }
 
         lblTitle.text = title.ToString();
-    }
-
-    void OnMouseEnter()
-    {
-        OnSelected(this);
     }
 
 }
