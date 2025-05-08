@@ -3,7 +3,6 @@
 public class OmnibarToolItem : IOmnibarItem
 {
     public string Title { get; }
-    public string? Description { get; }
     public Sprite? Sprite { get; }
 
     public ToolButton ToolButton { get; }
@@ -58,4 +57,8 @@ public class OmnibarToolItem : IOmnibarItem
         }
     }
 
+    public bool SetDescription(VisualElement container)
+    {
+        throw new NotImplementedException();
+    }
 }

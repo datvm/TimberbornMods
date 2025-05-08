@@ -39,7 +39,7 @@ public class BuildingDumpService(
             var labelSpec = b.GetComponentFast<LabeledEntitySpec>();
             if (!labelSpec) { continue; }
 
-            var validPaths = paths.Where(q => q.EndsWith(prefabSpec.Name)).ToArray();
+            var validPaths = paths.Where(q => q.EndsWith("/" + prefabSpec.Name)).ToArray();
             if (validPaths.Length != 1)
             {
                 if (validPaths.Length > 1) // == 0 means it's added by the mod so don't log warnings

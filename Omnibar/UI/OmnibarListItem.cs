@@ -7,7 +7,6 @@ public class OmnibarListItem : NineSliceVisualElement
     readonly Image icon;
     readonly Label lblTitle;
 
-    readonly Label lblSimpleDesc;
     readonly VisualElement descriptionPanel;
     readonly Texture2D question;
 
@@ -30,11 +29,11 @@ public class OmnibarListItem : NineSliceVisualElement
         icon = this.AddImage()
             .SetSize(32, 32)
             .SetMarginRight();
+        icon.image = question;
 
         var container = this.AddChild();
 
         lblTitle = container.AddGameLabel();
-        lblSimpleDesc = container.AddGameLabel().SetDisplay(false);
         descriptionPanel = container.AddRow().SetDisplay(false);
     }
 
@@ -45,12 +44,9 @@ public class OmnibarListItem : NineSliceVisualElement
         var item = filteredItem.Item;
 
         SetItemTitle();
-        if (item.Description is not null)
-        {
-            lblSimpleDesc.text = item.Description;
-            lblSimpleDesc.SetDisplay(true);
-            descriptionPanel.SetDisplay(false);
-        }
+
+        descriptionPanel.Clear();
+        descriptionPanel.SetDisplay(item.SetDescription(descriptionPanel));
 
         if (!item.SetIcon(icon))
         {
@@ -63,6 +59,8 @@ public class OmnibarListItem : NineSliceVisualElement
     public void UnsetItem()
     {
         Index = -1;
+        descriptionPanel.Clear();
+        icon.image = question;
         FilteredItem = null;
         IsSelected = false;
         SetSelectionUi(false);
