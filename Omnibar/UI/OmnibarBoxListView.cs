@@ -2,7 +2,7 @@
 
 public class OmnibarBoxListView : ListView
 {
-    public const int ItemHeight = 42;
+    const int ItemHeight = 70;
     static readonly OmnibarFilteredItem[] Empty = [];
 
     readonly List<OmnibarListItem> listItems = [];
@@ -17,7 +17,7 @@ public class OmnibarBoxListView : ListView
     public OmnibarBoxListView()
     {
         this.SetMargin(top: 30)
-            .SetSize(height: 150)
+            .SetSize(height: 300)
             .SetFlexGrow(1)
             .AddClasses(UiCssClasses.ScrollGreenDecorated, "panel-list-view", "text--default");
 
@@ -59,6 +59,8 @@ public class OmnibarBoxListView : ListView
             visible = true;
             SetSelectingIndex(0);
         }
+
+        RefreshItems();
     }
 
     void BindListItem(VisualElement ve, int index)
@@ -89,6 +91,7 @@ public class OmnibarBoxListView : ListView
         }
 
         ScrollToItem(index);
+        RefreshItem(index);
     }
 
     public bool SelectItemWithKey(int delta)

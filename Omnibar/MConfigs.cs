@@ -12,6 +12,7 @@ public class ModGameConfig : Configurator
     public override void Configure()
     {
         this.MultiBindAndBindSingleton<IOmnibarProvider, OmnibarToolProvider>();
+        MultiBind<IOmnibarProvider>().To<OmnibarMathProvider>().AsSingleton();
 
         Bind<OmnibarService>().AsSingleton();
         Bind<ToDoListManager>().AsSingleton();

@@ -6,12 +6,24 @@ public class OmnibarToolItem : IOmnibarItem
     public Sprite? Sprite { get; }
 
     public ToolButton ToolButton { get; }
+    public IOmnibarDescriptor? Description { get; }
 
-    public OmnibarToolItem(ToolButton toolButton, ILoc t)
+    public OmnibarToolItem(
+        ToolButton toolButton,
+        ILoc t,
+        IContainer container
+    )
     {
         ToolButton = toolButton;
-        Title = GetToolName(toolButton.Tool, t) ?? "N/A";
-        
+
+        var (title, desc) = GetToolInfo(
+            toolButton.Tool,
+            t,
+            container
+        );
+        Title = title ?? "N/A";
+        Description = desc;
+
         try
         {
             Sprite = toolButton.Root.Q("ToolImage")?.style.backgroundImage.value.sprite;
@@ -35,30 +47,52 @@ public class OmnibarToolItem : IOmnibarItem
         return true;
     }
 
-    static string? GetToolName(Tool tool, ILoc t)
+    static (string?, IOmnibarDescriptor?) GetToolInfo(
+        Tool tool,
+        ILoc t
+,
+        IContainer container)
     {
+        string? title = null;
+        IOmnibarDescriptor? desc = null;
+
         switch (tool)
         {
             case CursorTool:
-                return "LV.OB.Cursor".T(t);
+                title = "LV.OB.Cursor".T(t);
+                break;
             case PlantingTool pt:
-                return pt.PlantableSpec.GetComponentFast<LabeledEntitySpec>().DisplayNameLocKey.T(t);
+                title = pt.PlantableSpec.GetComponentFast<LabeledEntitySpec>().DisplayNameLocKey.T(t);
+                desc = new PlantingToolDescriptor(container, pt.PlantableSpec.GetComponentFast<GrowableSpec>());
+                break;
             case BuilderPriorityTool bt:
-                return $"{"ToolGroups.Priority".T(t)}: {bt.Description().Title}";
+                title = $"{"ToolGroups.Priority".T(t)}: {bt.Description().Title}";
+                goto default;
             case BlockObjectTool bot:
-                return bot.Prefab.GetComponentFast<LabeledEntitySpec>().DisplayNameLocKey.T(t);
-            case BeaverGeneratorTool:
-            case BotGeneratorTool:
-            case WaterHeightBrushTool:
-                return tool.GetType().Name;
+                title = bot.Prefab.GetComponentFast<LabeledEntitySpec>().DisplayNameLocKey.T(t);
+                desc = new BuildingToolDescriptor(bot, container);
+                break;
             default:
-                var desc = tool.Description();
-                return desc?.Title;
+                if (tool.DevModeTool)
+                {
+                    title = tool.GetType().Name;
+                    desc = new SimpleLabelDescriptor("This is a DEV TOOL!");
+                    break;
+                }
+
+                var toolDesc = tool.Description();
+                title ??= toolDesc?.Title;
+
+                var descText = toolDesc?.Sections.FirstOrDefault().Content;
+                if (!string.IsNullOrEmpty(descText))
+                {
+                    desc = new SimpleLabelDescriptor(descText!);
+                }
+
+                break;
         }
+
+        return (title, desc);
     }
 
-    public bool SetDescription(VisualElement container)
-    {
-        throw new NotImplementedException();
-    }
 }

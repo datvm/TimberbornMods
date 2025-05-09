@@ -2,6 +2,12 @@
 
 public static class OmnibarUtils
 {
+    public const char MathTrigger = '=';
+    public const char CommandTrigger = '/';
+    public static readonly ImmutableHashSet<char> SpecialTriggers = 
+        new HashSet<char>([MathTrigger, CommandTrigger]).ToImmutableHashSet();
+
+
 
     public static FuzzyMatchResult? MatchText(string kw, string text)
     {
@@ -30,7 +36,7 @@ public static class OmnibarUtils
 
         // ‑‑ Relevance score ----------------------------------------------------
         // 1. Compactness bonus – closer characters = higher score
-        int span = pos[^1] - pos[0] + 1;   // distance that covers the match
+        int span = pos[pos.Count - 1] - pos[0] + 1;   // distance that covers the match
         int compactness = kw.Length * 2 - span;
 
         // 2. Early‑match bonus – matches nearer the start are better

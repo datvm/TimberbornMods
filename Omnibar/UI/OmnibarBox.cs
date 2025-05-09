@@ -97,7 +97,7 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
             return;
         }
 
-        items = omnibarService.GetItems(kw.ToLower());
+        items = omnibarService.GetItems(kw!.ToLower());
         lstItems.SetItems(items);
     }
 
@@ -117,6 +117,11 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
         {
             processed = true;
             OnUIConfirmed();
+        }
+        else if (e.keyCode is KeyCode.Escape)
+        {
+            processed = true;
+            OnUICancelled();
         }
 
         if (processed)
