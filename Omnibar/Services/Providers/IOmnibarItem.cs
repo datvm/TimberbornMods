@@ -3,8 +3,8 @@
 public interface IOmnibarItem
 {
     string Title { get; }
+    IOmnibarDescriptor? Description { get; }
 
-    bool SetDescription(VisualElement container);  
     bool SetIcon(Image image);
 
     void Execute();

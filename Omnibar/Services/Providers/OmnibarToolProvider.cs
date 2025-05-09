@@ -1,23 +1,25 @@
-﻿
-namespace Omnibar.Services.Providers;
+﻿namespace Omnibar.Services.Providers;
 
 public class OmnibarToolProvider(
     ToolButtonService toolButtonService,
     DevModeManager devModeManager,
-    ILoc t
+    ILoc t,
+    IContainer container
 ) : IOmnibarProvider, ILoadableSingleton
 {
 
-    ImmutableArray<OmnibarToolItem> items;
+    OmnibarToolItem[] items = [];
 
     public void Load()
     {
-        items = [..toolButtonService.ToolButtons
-            .Select(q => new OmnibarToolItem(q, t))];
+        items = [.. toolButtonService.ToolButtons.Select(q => new OmnibarToolItem(q, t, container))];
     }
 
     public IReadOnlyList<OmnibarFilteredItem> ProvideItems(string filter)
     {
+        // Only work for non-special triggers
+        if (OmnibarUtils.SpecialTriggers.Contains(filter[0])) { return []; }
+
         var devModeOn = devModeManager.Enabled;
 
         return [..items

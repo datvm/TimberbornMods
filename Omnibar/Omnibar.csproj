@@ -8,5 +8,12 @@
 	<Import Project="../CommonUI.target" />
 	<Import Project="../CommonTimberUI.target" />
 
-</Project>
+	<PropertyGroup>
+		<TargetFramework>net462</TargetFramework>
+	</PropertyGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Jace" Version="1.0.0" />
+	</ItemGroup>
+
+</Project>
