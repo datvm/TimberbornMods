@@ -1,15 +1,18 @@
-﻿using UnityEngine.UIElements;
+﻿namespace Omnibar.Services.Providers;
 
-namespace Omnibar.Services.Providers;
-
-public class OmnibarMathProvider : IOmnibarProvider
+public class OmnibarMathProvider(IAssetLoader assets) : IOmnibarProvider, ILoadableSingleton
 {
     const int MaxQueueLength = 10;
+
+    public Texture2D Icon { get; private set; } = null!;
 
     readonly Queue<OmnibarFilteredItem> history = [];
     int index = 0;
 
-    readonly Jace.CalculationEngine engine = new();
+    public void Load()
+    {
+        Icon = assets.Load<Texture2D>("Sprites/Omnibar/calculator");
+    }
 
     public IReadOnlyList<OmnibarFilteredItem> ProvideItems(string filter)
     {
@@ -25,10 +28,9 @@ public class OmnibarMathProvider : IOmnibarProvider
 
         try
         {
-            result = engine.Formula(exp)
-                .Result(Jace.DataType.FloatingPoint)
-                .Build()
-                .DynamicInvoke().ToString();
+            result = new Mathos.Parser.MathParser()
+                .Parse(exp)
+                .ToString();
         }
         catch (Exception)
         {
@@ -52,16 +54,20 @@ public class OmnibarMathProvider : IOmnibarProvider
 
 public class OmnibarMathResult(string? result, string expression, OmnibarMathProvider provider) : IOmnibarItem
 {
-    public string Title { get; } = result ?? "?";
-    public IOmnibarDescriptor? Description { get; } = new SimpleLabelDescriptor(expression);
+    public string Title { get; } = (result ?? "?").Color(TimberbornTextColor.Solid).Bold().Size(20);
+    public IOmnibarDescriptor? Description { get; } = new SimpleLabelDescriptor("= " + expression.Trim());
 
     public void Execute()
     {
-        if (Title != "?")
+        if (result is not null)
         {
             provider.AppendHistory(this);
         }
     }
 
-    public bool SetIcon(Image image) { return false; }
+    public bool SetIcon(Image image)
+    {
+        image.image = provider.Icon;
+        return true;
+    }
 }

@@ -27,7 +27,7 @@ public class OmnibarListItem : NineSliceVisualElement
             style.borderTopWidth = style.borderBottomWidth = 2;
 
         icon = this.AddImage()
-            .SetSize(64, 64)
+            .SetSize(55)
             .SetMarginRight();
         icon.image = question;
 

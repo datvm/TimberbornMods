@@ -9,11 +9,11 @@
 	<Import Project="../CommonTimberUI.target" />
 
 	<PropertyGroup>
-		<TargetFramework>net462</TargetFramework>
+		<TargetFramework>net48</TargetFramework>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Jace" Version="1.0.0" />
+		<PackageReference Include="MathosParser" Version="2.0.0" />
 	</ItemGroup>
 
 </Project>
