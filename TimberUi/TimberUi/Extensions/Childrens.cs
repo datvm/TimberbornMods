@@ -56,6 +56,15 @@ public static partial class UiBuilderExtensions
     public static VisualElement InsertSelfBefore(this VisualElement element, VisualElement target) => element.InsertSelfAsSibling(target, 0);
     public static VisualElement InsertSelfAfter(this VisualElement element, VisualElement target) => element.InsertSelfAsSibling(target, 1);
 
+    public static T RemoveSelf<T>(this T element) where T : VisualElement
+    {
+        var parent = element.parent;
+        if (parent is null) { return element; }
+
+        parent.Remove(element);
+        return element;
+    }
+
     public static Label AddLabel(this VisualElement parent, string? text = default, string? name = default, IEnumerable<string>? additionalClasses = default, GameLabelStyle style = GameLabelStyle.Default)
     {
         var labelClasses = GetClasses(style);

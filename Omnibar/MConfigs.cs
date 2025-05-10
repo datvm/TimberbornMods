@@ -2,6 +2,7 @@
 global using Omnibar.Services;
 global using Omnibar.Services.Providers;
 global using Omnibar.UI;
+global using Omnibar.UI.TodoList;
 global using Omnibar.Helpers;
 
 namespace Omnibar;
@@ -19,5 +20,10 @@ public class ModGameConfig : Configurator
 
         Bind<OmnibarController>().AsSingleton();
         Bind<OmnibarBox>().AsSingleton();
+
+        Bind<TodoListController>().AsSingleton();
+        Bind<TodoListPanel>().AsSingleton();
+        Bind<TodoListDialog>().AsTransient();
+        Bind<TodoListUpdater>().AsSingleton();
     }
 }

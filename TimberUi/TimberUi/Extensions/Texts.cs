@@ -6,6 +6,11 @@ public static partial class UiBuilderExtensions
     public static string Bold(this string input) => $"<b>{input}</b>";
     public static string Italic(this string input) => $"<i>{input}</i>";
     public static string Size(this string input, int size) => $"<size={size}>{input}</size>";
+    public static string Strikethrough(this string input) => $"<s>{input}</s>";
+
+    public static string Strikethrough(this string input, bool strikethrough)
+        => strikethrough ? input.Strikethrough() : input;
+
     public static string Color(this string input, string color) 
         => $"<color={(color.StartsWith('#') ? color : ('#' + color))}>{input}</color>";
 
