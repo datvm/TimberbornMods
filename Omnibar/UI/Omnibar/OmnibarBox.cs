@@ -134,12 +134,10 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
 
     static VisualElement CreateBox()
     {
-        VisualElement box = new();
-        var boxS = box.style;
-        boxS.minWidth = boxS.maxWidth = new Length(100, LengthUnit.Percent);
-        boxS.minHeight = boxS.maxHeight = new Length(100, LengthUnit.Percent);
-        boxS.alignItems = Align.Center;
-        boxS.justifyContent = Justify.Center;
+        var box = new VisualElement()
+            .SetMinMaxSizePercent(100, 100)
+            .AlignItems()
+            .JustifyContent();
 
         return box;
     }
@@ -147,17 +145,16 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
     static VisualElement CreateBoxContainer(VisualElement box)
     {
         var container = box.AddChild<NineSliceVisualElement>(classes: [UiCssClasses.ButtonTopBarPrefix + UiCssClasses.Green])
-            .SetPadding(20);
-
-        container.style.width = new Length(70, LengthUnit.Percent);
+            .SetPadding(20)
+            .SetWidthPercent(70);
 
         return container;
     }
 
     static NineSliceTextField CreateContentText(VisualElement container)
     {
-        var txt = container.AddTextField("OmnibarTextField");
-        txt.style.width = new Length(100, LengthUnit.Percent);
+        var txt = container.AddTextField("OmnibarTextField")
+            .SetWidthPercent(100);
         txt.style.fontSize = 22;
 
         return txt;

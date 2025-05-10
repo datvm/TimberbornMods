@@ -5,6 +5,6 @@
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Add an Omnibar and Todo List to your game",
     "RequiredMods": [
-        { "Id": "TimberUi" }
+        { "Id": "TimberUi", "MinimumVersion": "7.3.0" }
     ]
 }

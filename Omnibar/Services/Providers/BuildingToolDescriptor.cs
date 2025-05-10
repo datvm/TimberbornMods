@@ -10,8 +10,9 @@ public class BuildingToolDescriptor(BlockObjectTool tool, IContainer container) 
         {
             if (tool.Locker != null && buildingSpec.ScienceCost > 0)
             {
-                var sciencePanel = el.AddRow().SetMarginRight();
-                sciencePanel.style.alignItems = Align.Center;
+                var sciencePanel = el.AddRow()
+                    .SetMarginRight()
+                    .AlignItems();
 
                 sciencePanel.AddChild(classes: ["science-cost-section__lock-icon"]);
                 sciencePanel.AddGameLabel(buildingSpec.ScienceCost.ToString("#,0"));
