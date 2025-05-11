@@ -1,4 +1,5 @@
-﻿namespace Omnibar.Services;
+﻿
+namespace Omnibar.Services.Omnibar;
 
 public class OmnibarService(
     IEnumerable<IOmnibarProvider> providers

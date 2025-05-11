@@ -21,8 +21,8 @@ public class OmnibarListItem : NineSliceVisualElement
 
         this.SetAsRow()
             .SetPadding(5)
-            .AddClasses("clickable-hierarchy");
-        style.alignItems = Align.Center;
+            .AddClasses("clickable-hierarchy")
+            .AlignItems();
         style.borderLeftWidth = style.borderRightWidth =
             style.borderTopWidth = style.borderBottomWidth = 2;
 

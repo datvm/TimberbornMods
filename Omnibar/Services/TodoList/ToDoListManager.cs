@@ -1,7 +1,8 @@
-﻿namespace Omnibar.Services;
+﻿namespace Omnibar.Services.TodoList;
 
 public class ToDoListManager(
-    ISingletonLoader loader
+    ISingletonLoader loader,
+    OmnibarToolProvider omnibarToolProvider
 ) : ILoadableSingleton, ISaveableSingleton
 {
     static readonly SingletonKey SaveKey = new(nameof(Omnibar));
@@ -14,7 +15,7 @@ public class ToDoListManager(
     public event Action<ToDoListEntry>? EntryChanged;
     public event Action<List<ToDoListEntry>>? EntriesChanged;
 
-    public List<ToDoListEntry> Entries => [..entries];
+    public List<ToDoListEntry> Entries => [.. entries];
 
     public ToDoListEntry Add(ToDoListEntry entry)
     {
@@ -44,6 +45,22 @@ public class ToDoListManager(
             var completed = a.Completed.CompareTo(b.Completed);
             return completed == 0 ? a.Id.CompareTo(b.Id) : completed;
         });
+
+        foreach (var entry in entries)
+        {
+            if (entry.BuildingTool is null && entry.Building is not null)
+            {
+                if (omnibarToolProvider.BuildingTools.TryGetValue(entry.Building, out var buildingSpec))
+                {
+                    entry.BuildingTool = buildingSpec;
+                }
+                else
+                {
+                    Debug.LogWarning($"Could not find building spec for {entry.Building}");
+                    entry.Building = null;
+                }
+            }
+        }
 
         EntriesChanged?.Invoke(entries);
     }

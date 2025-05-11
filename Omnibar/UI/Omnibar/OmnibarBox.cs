@@ -34,7 +34,6 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
         txtContent.RegisterValueChangedCallback(_ => OnTextChanged());
 
         box.RegisterCallback<KeyUpEvent>(ProcessTextInput);
-        //txtContent.RegisterCallback<KeyUpEvent>(ProcessTextInput);
 
         lstItems = container.AddChild<OmnibarBoxListView>();
     }
@@ -74,6 +73,11 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
 
         selectingItem.Value.Item.Execute();
         return true;
+    }
+
+    public void AddToTodoList(IOmnibarItemWithTodoList item)
+    {
+        item.AddToTodoList();
     }
 
     public void OnUICancelled()
@@ -122,6 +126,15 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
         {
             processed = true;
             OnUICancelled();
+        }
+        else if (e.keyCode == TodoListController.AddBuildingToTodoListKeyCode)
+        {
+            var item = lstItems.SelectingItem;
+            if (item?.Item is IOmnibarItemWithTodoList tdItem && tdItem.CanAddToTodoList)
+            {
+                processed = true;
+                AddToTodoList(tdItem);
+            }
         }
 
         if (processed)

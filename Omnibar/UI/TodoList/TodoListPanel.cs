@@ -4,8 +4,13 @@ public class TodoListPanel(
     ILoc t,
     VisualElementInitializer veInit,
     ToDoListManager man,
-    IAssetLoader assetLoader
-) : ILoadableSingleton, ITickableSingleton
+    IAssetLoader assetLoader,
+    ScienceService scienceService,
+    GoodItemFactory goodItemFactory,
+#pragma warning disable CS9113 // This is here to make sure the PostLoad is run after this service
+    ToolUnlockingService _toolUnlockingService
+#pragma warning restore CS9113 // Parameter is unread.
+) : ILoadableSingleton, ITickableSingleton, IPostLoadableSingleton
 {
 
 #nullable disable
@@ -35,6 +40,11 @@ public class TodoListPanel(
         Root.Initialize(veInit);
 
         man.EntriesChanged += ReloadList;
+    }
+
+    public void PostLoad()
+    {
+        // Only now that the tool lockers are in place
         ReloadList(null);
     }
 
@@ -100,7 +110,7 @@ public class TodoListPanel(
         {
             foreach (var entry in entries)
             {
-                var item = new TodoListPanelItem(entry, timerIcon);
+                var item = new TodoListPanelItem(entry, timerIcon, scienceService, goodItemFactory);
                 items.Add(item);
                 itemsContainer.Add(item);
             }
@@ -120,7 +130,9 @@ public class TodoListPanel(
     {
         foreach (var item in items)
         {
-            item.UpdateTimer();
+            item.UpdateData();
         }
     }
+
+    
 }

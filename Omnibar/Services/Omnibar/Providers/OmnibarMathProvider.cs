@@ -1,4 +1,4 @@
-﻿namespace Omnibar.Services.Providers;
+﻿namespace Omnibar.Services.Omnibar.Providers;
 
 public class OmnibarMathProvider(IAssetLoader assets) : IOmnibarProvider, ILoadableSingleton
 {
@@ -56,6 +56,7 @@ public class OmnibarMathResult(string? result, string expression, OmnibarMathPro
 {
     public string Title { get; } = (result ?? "?").Color(TimberbornTextColor.Solid).Bold().Size(20);
     public IOmnibarDescriptor? Description { get; } = new SimpleLabelDescriptor("= " + expression.Trim());
+    public bool CanAddToTodoList { get; } = false;
 
     public void Execute()
     {
