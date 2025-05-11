@@ -1,6 +1,6 @@
-﻿namespace Omnibar.Services.Providers;
+﻿namespace Omnibar.Services.Omnibar.Providers.Descriptors;
 
-public class BuildingToolDescriptor(BlockObjectTool tool, IContainer container) : IOmnibarDescriptor
+public class BuildingToolDescriptor(BlockObjectTool tool, IContainer container, ILoc t, bool canAddToToDoList) : IOmnibarDescriptor
 {
     readonly BuildingSpec buildingSpec = tool.Prefab.GetComponentFast<BuildingSpec>();
 
@@ -27,6 +27,12 @@ public class BuildingToolDescriptor(BlockObjectTool tool, IContainer container) 
                 {
                     el.Add(fac.Create(cost));
                 }
+            }
+
+            if (canAddToToDoList)
+            {
+                el.AddGameLabel("LV.OB.AddToTodoList".T(t, TodoListController.AddBuildingToTodoListKeyName))
+                    .SetMargin(left: 20);
             }
         }
 

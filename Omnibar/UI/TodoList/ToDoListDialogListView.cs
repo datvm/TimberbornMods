@@ -21,6 +21,14 @@ public class ToDoListDialogListView : ListView
         makeItem = MakeItem;
         bindItem = BindItem;
         unbindItem = UnbindItem;
+
+        selectionChanged += OnItemSelected;
+    }
+
+    private void OnItemSelected(IEnumerable<object> obj)
+    {
+        var entry = obj.FirstOrDefault() as ToDoListEntry;
+        OnEntrySelected(entry);
     }
 
     public ToDoListDialogListView Init(ToDoListManager man, VisualElementLoader loader)
@@ -50,16 +58,10 @@ public class ToDoListDialogListView : ListView
         var currId = SelectedEntry?.Id;
 
         itemsSource = Entries = entries ?? man.Entries;
+        RefreshItems();
 
         SelectItem(currId ?? -1);
         OnEntrySelected(SelectedEntry);
-
-        RefreshItems();
-
-        if (Entries.Count == 0)
-        {
-            OnEntrySelected(null);
-        }
     }
 
     public void SelectItem(int id)
@@ -75,24 +77,10 @@ public class ToDoListDialogListView : ListView
         OnEntrySelected(Entries[finalIndex]);
     }
 
-    public void UpdateEntry()
-    {
-
-    }
-
     VisualElement MakeItem()
     {
         ToDoListDialogListViewItem result = new(loader);
         items.Add(result);
-
-        result.OnClick += entry =>
-        {
-            if (entry is not null)
-            {
-                SelectItem(entry.Id);
-            }
-        };
-
         return result.Root;
     }
 
@@ -110,8 +98,6 @@ public class ToDoListDialogListView : ListView
 
 public class ToDoListDialogListViewItem
 {
-    public event Action<ToDoListEntry?> OnClick = null!;
-
     public ToDoListEntry? Entry { get; private set; }
 
     public VisualElement Root { get; private set; }
@@ -126,12 +112,6 @@ public class ToDoListDialogListViewItem
             .SetMaxSizePercent(100, null);
         lblTitle.style.textOverflow = TextOverflow.Ellipsis;
         lblTitle.style.whiteSpace = WhiteSpace.NoWrap;
-
-        Root.RegisterCallback<MouseDownEvent>(ev =>
-        {
-            OnClick(Entry);
-        });
-
     }
 
     public void SetItem(ToDoListEntry entry)

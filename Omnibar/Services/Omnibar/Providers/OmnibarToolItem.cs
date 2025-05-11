@@ -1,12 +1,19 @@
-﻿namespace Omnibar.Services.Providers;
+﻿namespace Omnibar.Services.Omnibar.Providers;
 
-public class OmnibarToolItem : IOmnibarItem
+public class OmnibarToolItem : IOmnibarItemWithTodoList
 {
     public string Title { get; }
     public Sprite? Sprite { get; }
 
     public ToolButton ToolButton { get; }
     public IOmnibarDescriptor? Description { get; }
+
+    public BuildingSpec? BuildingSpec { get; }
+    public string? BuildingName { get; }
+    public string? BuildingDisplayName { get; }
+
+    public bool CanAddToTodoList { get; }
+    readonly IContainer container;
 
     public OmnibarToolItem(
         ToolButton toolButton,
@@ -15,14 +22,20 @@ public class OmnibarToolItem : IOmnibarItem
     )
     {
         ToolButton = toolButton;
+        this.container = container;
 
-        var (title, desc) = GetToolInfo(
+        var (title, desc, buildingSpec) = GetToolInfo(
             toolButton.Tool,
             t,
             container
         );
         Title = title ?? "N/A";
         Description = desc;
+        CanAddToTodoList = buildingSpec;
+
+        BuildingSpec = buildingSpec;
+        BuildingName = buildingSpec?.GetComponentFast<PrefabSpec>().Name;
+        BuildingDisplayName = buildingSpec?.GetComponentFast<LabeledEntitySpec>().DisplayNameLocKey.T(t);
 
         try
         {
@@ -39,6 +52,12 @@ public class OmnibarToolItem : IOmnibarItem
         ToolButton.Select();
     }
 
+    public void AddToTodoList()
+    {
+        var ctrl = container.GetInstance<TodoListController>();
+        ctrl.AddBuilding(BuildingName!, BuildingDisplayName!);
+    }
+
     public bool SetIcon(Image image)
     {
         if (Sprite is null) { return false; }
@@ -47,14 +66,14 @@ public class OmnibarToolItem : IOmnibarItem
         return true;
     }
 
-    static (string?, IOmnibarDescriptor?) GetToolInfo(
+    static (string?, IOmnibarDescriptor?, BuildingSpec?) GetToolInfo(
         Tool tool,
-        ILoc t
-,
+        ILoc t,
         IContainer container)
     {
         string? title = null;
         IOmnibarDescriptor? desc = null;
+        BuildingSpec? buildingSpec = null;
 
         switch (tool)
         {
@@ -70,7 +89,8 @@ public class OmnibarToolItem : IOmnibarItem
                 goto default;
             case BlockObjectTool bot:
                 title = bot.Prefab.GetComponentFast<LabeledEntitySpec>().DisplayNameLocKey.T(t);
-                desc = new BuildingToolDescriptor(bot, container);
+                buildingSpec = CanAddToToDoList(bot);
+                desc = new BuildingToolDescriptor(bot, container, t, buildingSpec);
                 break;
             default:
                 if (tool.DevModeTool)
@@ -92,7 +112,13 @@ public class OmnibarToolItem : IOmnibarItem
                 break;
         }
 
-        return (title, desc);
+        return (title, desc, buildingSpec);
+    }
+
+    static BuildingSpec? CanAddToToDoList(BlockObjectTool bot)
+    {
+        var buildingSpec = bot.Prefab.GetComponentFast<BuildingSpec>();
+        return buildingSpec && (buildingSpec.ScienceCost > 0 || buildingSpec.BuildingCost.Count > 0) ? buildingSpec : null;
     }
 
 }

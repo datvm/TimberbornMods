@@ -6,17 +6,32 @@ public class ToDoListEntryEditor : VisualElement
     public ToDoListEntry? Entry { get; private set; }
 
 #nullable disable
-    ToDoListManager man;
+    readonly ToDoListManager man;
+    readonly ILoc t;
+    readonly IAssetLoader assetLoader;
+    readonly ScienceService scienceService;
+    readonly GoodItemFactory goodItemFactory;
 
-    Button btnResetTimer;
-    Label lblTimer;
-    TextField txtTitle, txtNote;
-    Toggle chkTimer, chkPin, chkComplete;
+    readonly Button btnResetTimer;
+    readonly Label lblTimer;
+    readonly TextField txtTitle, txtNote;
+    readonly Toggle chkTimer, chkPin, chkComplete;
+
+    VisualElement buildingPanel;
+    Image icoBuilding;
+    Button btnBuildingSub;
+    Label lblBuildingName, lblBuildingQuan;
+    VisualElement buildingCostPanel;
+
 #nullable enable
 
-    public ToDoListEntryEditor Init(ILoc t, ToDoListManager man, VisualElementLoader loader)
+    public ToDoListEntryEditor(ILoc t, ToDoListManager man, VisualElementLoader loader, IAssetLoader assetLoader, ScienceService scienceService, GoodItemFactory goodItemFactory)
     {
+        this.t = t;
         this.man = man;
+        this.assetLoader = assetLoader;
+        this.scienceService = scienceService;
+        this.goodItemFactory = goodItemFactory;
 
         var container = this.AddChild().SetMargin(left: 20);
 
@@ -53,7 +68,35 @@ public class ToDoListEntryEditor : VisualElement
         chkComplete = completed.AddToggle("LV.OB.TodoListCompleted".T(t), onValueChanged: SetCompleted).SetMarginRight();
         completed.AddGameLabel("LV.OB.TodoListCompletedNote".T(t));
 
-        return this;
+        AddBuildingPanel(container);
+    }
+
+    void AddBuildingPanel(VisualElement parent)
+    {
+        buildingPanel = parent.AddChild().SetMargin(top: 20);
+
+        var header = buildingPanel.AddRow().AlignItems();
+        icoBuilding = header.AddImage()
+            .SetSize(32, 32)
+            .SetMarginRight();
+        lblBuildingName = header.AddGameLabel();
+        lblBuildingName.style.fontSize = 24;
+
+        var quantity = buildingPanel.AddRow().AlignItems();
+        quantity.AddGameLabel("LV.OB.TodoBuildingQuantity".T(t)).SetMarginRight();
+        lblBuildingQuan = quantity.AddGameLabel("0").SetMarginRight();
+        quantity.AddPlusButton().AddAction(() => SetQuantity(1));
+        btnBuildingSub = quantity.AddMinusButton().AddAction(() => SetQuantity(-1));
+
+        buildingCostPanel = buildingPanel.AddRow().AlignItems();
+    }
+
+    void SetQuantity(int delta)
+    {
+        if (Entry?.Building is null) { return; }
+
+        Entry.BuildingQuantity += delta;
+        SetBuildingQuantityUI();
     }
 
     void SetTitle(string title)
@@ -78,7 +121,7 @@ public class ToDoListEntryEditor : VisualElement
         if (completed)
         {
             Entry.Pin = false;
-            
+
         }
 
         man.Sort();
@@ -89,7 +132,7 @@ public class ToDoListEntryEditor : VisualElement
         Entry!.Timer = isChecked ? 0 : null;
         SetTimerUi();
     }
-    
+
     public void SetEntry(ToDoListEntry? entry)
     {
         Entry = entry;
@@ -102,6 +145,7 @@ public class ToDoListEntryEditor : VisualElement
         chkPin.SetValueWithoutNotify(entry.Pin);
 
         SetTimerUi();
+        SetBuildingUI();
     }
 
     void SetTimerUi()
@@ -115,6 +159,50 @@ public class ToDoListEntryEditor : VisualElement
         if (hasTimer)
         {
             lblTimer.text = Entry.Timer!.Value.ToString("0.00");
+        }
+    }
+
+    void SetBuildingUI()
+    {
+        if (Entry?.BuildingTool is null)
+        {
+            buildingPanel.SetDisplay(false);
+            return;
+        }
+
+        var labelEntity = Entry.BuildingTool.Prefab.GetComponentFast<LabeledEntitySpec>();
+        if (labelEntity.ImagePath is not null)
+        {
+            var icon = assetLoader.Load<Sprite>(labelEntity.ImagePath);
+            icoBuilding.sprite = icon;
+        }
+        lblBuildingName.text = labelEntity.DisplayNameLocKey.T(t);
+
+        SetBuildingQuantityUI();
+        buildingPanel.SetDisplay(true);
+    }
+
+    void SetBuildingQuantityUI()
+    {
+        var quantity = Entry!.BuildingQuantity;
+        lblBuildingQuan.text = quantity.ToString();
+        btnBuildingSub.enabledSelf = Entry.BuildingQuantity > 1;
+
+        var building = Entry.BuildingTool!.Prefab.GetComponentFast<BuildingSpec>();
+
+        buildingCostPanel.Clear();
+
+        var tool = Entry.BuildingTool!;
+        if (tool.Locker is not null && building.ScienceCost > 0)
+        {
+            buildingCostPanel.AddChild(classes: ["science-cost-section__lock-icon"]);
+            buildingCostPanel.AddGameLabel($"{scienceService.SciencePoints:#,0}/{building.ScienceCost:#,0}");
+            buildingCostPanel.AddChild(classes: ["science-cost-section__science-icon"]).SetMarginRight();
+        }
+
+        foreach (var cost in building.BuildingCost)
+        {
+            buildingCostPanel.Add(goodItemFactory.Create(cost with { _amount = cost._amount * quantity }));
         }
     }
 

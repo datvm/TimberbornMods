@@ -10,8 +10,11 @@ public class ToDoListEntry
 
     public float? Timer { get; set; }
 
-    public ToDoListItem? Item { get; set; }
-    public List<ToDoListItem>? Ingredients { get; set; }
+    public string? Building { get; set; }
+    public int BuildingQuantity { get; set; }
+
+    [JsonIgnore]
+    public BlockObjectTool? BuildingTool { get; set; }
 
     public string Serialize() => JsonConvert.SerializeObject(this);
     public static ToDoListEntry Deserialize(string json) => JsonConvert.DeserializeObject<ToDoListEntry>(json) ?? new();

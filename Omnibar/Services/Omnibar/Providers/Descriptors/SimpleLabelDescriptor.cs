@@ -1,5 +1,4 @@
-﻿
-namespace Omnibar.Services.Providers;
+﻿namespace Omnibar.Services.Omnibar.Providers.Descriptors;
 
 public class SimpleLabelDescriptor(string content) : IOmnibarDescriptor
 {

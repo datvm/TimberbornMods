@@ -1,4 +1,4 @@
-﻿namespace Omnibar.UI.TodoList;
+﻿namespace Omnibar.Services.TodoList;
 
 public class TodoListUpdater(
     ToDoListManager man

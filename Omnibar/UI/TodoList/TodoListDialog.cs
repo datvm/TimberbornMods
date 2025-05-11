@@ -10,6 +10,7 @@ public class TodoListDialog : DialogBoxElement
     readonly ILoc t;
     readonly DialogBoxShower diagShower;
     readonly VisualElementLoader veLoader;
+    readonly IContainer container;
 
     readonly VisualElement contentWrapper;
 
@@ -18,13 +19,15 @@ public class TodoListDialog : DialogBoxElement
         VisualElementInitializer veInit,
         ToDoListManager man,
         DialogBoxShower diagShower,
-        VisualElementLoader veLoader
+        VisualElementLoader veLoader,
+        IContainer container
     )
     {
         this.t = t;
         this.man = man;
         this.diagShower = diagShower;
         this.veLoader = veLoader;
+        this.container = container;
 
         SetTitle("LV.OB.TodoList".T(t));
         AddCloseButton();
@@ -71,9 +74,9 @@ public class TodoListDialog : DialogBoxElement
 
         lstItems.OnEntrySelected += OnEntrySelected;
 
-        editor = row.AddChild<ToDoListEntryEditor>()
-            .SetFlexGrow(1)
-            .Init(t, man, veLoader);
+        editor = container.GetInstance<ToDoListEntryEditor>()
+            .SetFlexGrow(1);
+        row.Add(editor);
 
         return row;
     }
@@ -83,12 +86,15 @@ public class TodoListDialog : DialogBoxElement
         editor.SetEntry(obj);
     }
 
-    void AddNewItem()
+    public void AddNewItem() => AddNewItem(null, null);
+    public void AddNewItem(string? building, string? buildingTitle)
     {
         var entry = man.Add(new()
         {
-            Title = "LV.OB.NewEntryTitle".T(t),
+            Title = buildingTitle ?? "LV.OB.NewEntryTitle".T(t),
             Pin = true,
+            Building = building,
+            BuildingQuantity = 1,
         });
 
         lstItems.SelectItem(entry.Id);

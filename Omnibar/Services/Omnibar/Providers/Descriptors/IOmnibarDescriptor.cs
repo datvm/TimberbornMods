@@ -1,4 +1,4 @@
-﻿namespace Omnibar.Services.Providers;
+﻿namespace Omnibar.Services.Omnibar.Providers.Descriptors;
 
 public interface IOmnibarDescriptor
 {
