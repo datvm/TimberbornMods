@@ -23,6 +23,7 @@ public class ModGameConfig : Configurator
         Bind<PowerNetworkHighlighter>().AsSingleton();
         Bind<ToolPanelDescriptionMover>().AsSingleton();
         Bind<MaterialCounterService>().AsSingleton();
+        Bind<ObjectSelectionService>().AsSingleton();
 
         Bind<BatchControlBoxService>().AsSingleton();
         Bind<WorkplacesBatchControlTabService>().AsSingleton();

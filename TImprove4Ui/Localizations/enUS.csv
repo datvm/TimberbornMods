@@ -16,3 +16,7 @@ LV.T4UI.AutoExpandCounterDesc,"Close all material counters (top-left corner) on 
 Automatically expand any closed counter when you hover over them.",
 LV.T4UI.NeverHideCounter,"Never hide unlocked counters",
 LV.T4UI.NeverHideCounterDesc,"Never hide unlocked material counters even when you have 0 of that material."
+LV.T4UI.HighlightSimilar,"Highlight similar objects",
+LV.T4UI.HighlightSimilarDesc,"When you select an object, all objects of the same type will be highlighted."
+LV.T4UI.HighlightSimilarColor,"Highlight similar objects color",
+LV.T4UI.HighlightSimilarColorDesc,"Color of the highlight for similar objects."
