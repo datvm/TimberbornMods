@@ -1,17 +1,11 @@
 {
     "Name": "Configurable Beaver Stats",
-    "Version": "7.0.0",
+    "Version": "7.1.0",
     "Id": "ConfigurableBeaverWalk",
-    "MinimumGameVersion": "0.6.0.0",
+    "MinimumGameVersion": "0.7.0.0",
     "Description": "Change the walking speed and carrying capacity of beavers, optionally different speed for bots.",
     "RequiredMods": [
-        {
-            "Id": "eMka.ModSettings",
-            "MinimumVersion": "0.6.0.0"
-        },
-        {
-            "Id": "Harmony",
-            "MinimumVersion": "0.6.0.0"
-        }
+        { "Id": "eMka.ModSettings" },
+        { "Id": "Harmony" }
     ]
 }

@@ -1,6 +1,4 @@
-﻿using Timberborn.Carrying;
-
-namespace ConfigurableBeaverWalk;
+﻿namespace ConfigurableBeaverWalk.Patches;
 
 [HarmonyPatch(typeof(GoodCarrier), nameof(GoodCarrier.LiftingCapacity), MethodType.Getter)]
 public static class GoodCarrierPatch

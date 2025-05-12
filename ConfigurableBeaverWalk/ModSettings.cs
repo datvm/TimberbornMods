@@ -13,16 +13,19 @@ public class ModSettings(
 
     public static float BaseWalkingSpeed { get; private set; }
     public static float BaseSlowedSpeed { get; private set; }
+    public static float WorkSpeedMultiplier { get; private set; } = 1;
 
     public static bool DifferentForBots { get; private set; }
     public static float BaseBotWalkingSpeed { get; private set; }
     public static float BaseBotSlowedSpeed { get; private set; }
+    public static float BotWorkSpeedMultiplier { get; private set; } = 1;
 
     public static float CarryingWeightMultiplier { get; private set; } = 1;
 
     RangeIntModSetting? baseWalkingSpeed, baseSlowedSpeed, baseBotWalkingSpeed, baseBotSlowedSpeed;
-    ModSetting<float>? carryingWeightMultiplier;
+    ModSetting<float>? carryingWeightMultiplier, workSpeedMultiplier, botWorkSpeedMultiplier;
     ModSetting<bool>? changeWalkingSpeed, differentBotSpeed;
+
 
     public override void OnAfterLoad()
     {
@@ -45,11 +48,15 @@ public class ModSettings(
                 .SetLocalizedTooltip("CBW.BaseSlowedSpeedDesc")
                 .SetEnableCondition(() => changeWalkingSpeed.Value));
 
+        workSpeedMultiplier = new(
+            1,
+            ModSettingDescriptor.CreateLocalized("CBW.WorkSpeedMultiplier")
+                .SetLocalizedTooltip("CBW.WorkSpeedMultiplierDesc"));
+
         differentBotSpeed = new(
             false,
             ModSettingDescriptor.CreateLocalized("CBW.DifferentBotSpeed")
-                .SetLocalizedTooltip("CBW.DifferentBotSpeedDesc")
-                .SetEnableCondition(() => changeWalkingSpeed.Value));
+                .SetLocalizedTooltip("CBW.DifferentBotSpeedDesc"));
 
         baseBotWalkingSpeed = new(
             6, 0, 100,
@@ -63,6 +70,12 @@ public class ModSettings(
                 .SetLocalizedTooltip("CBW.BaseBotSlowedSpeedDesc")
                 .SetEnableCondition(() => changeWalkingSpeed.Value && differentBotSpeed.Value));
 
+        botWorkSpeedMultiplier = new(
+            1,
+            ModSettingDescriptor.CreateLocalized("CBW.BotWorkSpeedMultiplier")
+                .SetLocalizedTooltip("CBW.BotWorkSpeedMultiplierDesc")
+                .SetEnableCondition(() => differentBotSpeed.Value));
+
         carryingWeightMultiplier = new(
             1,
             ModSettingDescriptor.CreateLocalized("CBW.CarryingWeightMultiplier")
@@ -71,19 +84,14 @@ public class ModSettings(
         AddCustomModSetting(changeWalkingSpeed, "beaver_change_walking_speed");
         AddCustomModSetting(baseWalkingSpeed, "beaver_base_walking_speed");
         AddCustomModSetting(baseSlowedSpeed, "beaver_base_slowed_speed");
+        AddCustomModSetting(workSpeedMultiplier, "beaver_work_speed_multiplier");
         AddCustomModSetting(differentBotSpeed, "beaver_different_bot_speed");
         AddCustomModSetting(baseBotWalkingSpeed, "beaver_base_bot_walking_speed");
         AddCustomModSetting(baseBotSlowedSpeed, "beaver_base_bot_slowed_speed");
+        AddCustomModSetting(botWorkSpeedMultiplier, "beaver_bot_work_speed_multiplier");
         AddCustomModSetting(carryingWeightMultiplier, "beaver_carrying_weight_multiplier");
 
-        changeWalkingSpeed.ValueChanged += (_, _) => UpdateValues();
-        baseWalkingSpeed.ValueChanged += (_, _) => UpdateValues();
-        baseSlowedSpeed.ValueChanged += (_, _) => UpdateValues();
-        differentBotSpeed.ValueChanged += (_, _) => UpdateValues();
-        baseBotWalkingSpeed.ValueChanged += (_, _) => UpdateValues();
-        baseBotSlowedSpeed.ValueChanged += (_, _) => UpdateValues();
-        carryingWeightMultiplier.ValueChanged += (_, _) => UpdateValues();
-
+        ModSettingChanged += (_, _) => UpdateValues();
         UpdateValues();
     }
 
@@ -96,6 +104,8 @@ public class ModSettings(
         BaseBotWalkingSpeed = baseBotWalkingSpeed?.Value ?? 0;
         BaseBotSlowedSpeed = baseBotSlowedSpeed?.Value ?? 0;
         CarryingWeightMultiplier = carryingWeightMultiplier?.Value ?? 1;
+        WorkSpeedMultiplier = workSpeedMultiplier?.Value ?? 1;
+        BotWorkSpeedMultiplier = botWorkSpeedMultiplier?.Value ?? 1;
     }
 
     public void Unload()
