@@ -1,11 +1,4 @@
-﻿global using Timberborn.BlockSystem;
-global using Timberborn.Coordinates;
-global using Timberborn.EntitySystem;
-global using Timberborn.NaturalResourcesModelSystem;
-global using Timberborn.SelectionSystem;
-global using Timberborn.TransformControl;
-
-namespace HueAndTurn.Components;
+﻿namespace HueAndTurn.Components;
 
 public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableEntity
 {
@@ -78,6 +71,23 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
             _transform.Translate(rotationPivot);
         }
         _transform.Rotate(Vector3.up, rotation, Space.Self);
+
+        if (Properties.RotationXZ.HasValue)
+        {
+            var rotX = Properties.RotationXZ.Value.x;
+            var rotZ = Properties.RotationXZ.Value.y;
+
+            if (rotX != 0)
+            {
+                _transform.Rotate(Vector3.right, rotX, Space.Self);
+            }
+
+            if (rotZ != 0)
+            {
+                _transform.Rotate(Vector3.forward, rotZ, Space.Self);
+            }
+        }
+
         if (positionModifier is null)
         {
             _transform.Translate(-rotationPivot);
@@ -161,10 +171,7 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
             ApplyColor();
         }
 
-        if (Properties.Rotation is not null || Properties.Translation is not null)
-        {
-            ApplyRepositioning();
-        }
+        ApplyRepositioning();
     }
 
     public void Load(IEntityLoader entityLoader)
