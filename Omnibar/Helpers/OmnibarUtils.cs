@@ -4,10 +4,18 @@ public static class OmnibarUtils
 {
     public const char MathTrigger = '=';
     public const char CommandTrigger = '/';
-    public static readonly ImmutableHashSet<char> SpecialTriggers = 
+    public static readonly ImmutableHashSet<char> SpecialTriggers =
         new HashSet<char>([MathTrigger, CommandTrigger]).ToImmutableHashSet();
 
+    public static bool IsCommand(this string filter) => SpecialTriggers.Contains(filter[0]);
 
+    public static IReadOnlyList<OmnibarFilteredItem> StandardFilter<T>(IEnumerable<T> items, string filter, Func<T, string> textFunc)
+        where T : IOmnibarItem
+    {
+        return [.. items
+            .Select(q => new OmnibarFilteredItem(q, MatchText(filter, textFunc(q)) ?? default))
+            .Where(q => q.Match != default)];
+    }
 
     public static FuzzyMatchResult? MatchText(string kw, string text)
     {
@@ -40,7 +48,7 @@ public static class OmnibarUtils
         int compactness = kw.Length * 2 - span;
 
         // 2. Early‑match bonus – matches nearer the start are better
-        int earlyBonus = text.Length - pos[0];
+        int earlyBonus = (int)((text.Length - pos[0]) * (kw.Length / (double)text.Length));
 
         // 3. Contiguity bonus – reward consecutive runs (e.g. “foo” in “foobar”)
         int contiguousRuns = 1;
@@ -52,10 +60,10 @@ public static class OmnibarUtils
 
         // Final score (tweak weights to taste)
         int score =
-            compactness * 5         // compactness is most important
-            + contiguousRuns * 10     // contiguous characters matter
-            + earlyBonus              // slight bias for earlier matches
-            + lenBonus;              // longer words are worse
+            compactness * 5
+            + contiguousRuns * 10
+            + earlyBonus * 10
+            + lenBonus;
 
         return new([.. pos], score);
     }

@@ -2,7 +2,7 @@
 using System.Collections.Frozen;
 using System.Text.Json;
 
-const string FileInput = @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\path\Path.Folktails.prefab";
+const string FileInput = @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\wood\printingpress\PrintingPress.Folktails.prefab";
 string input = "";
 
 if (!string.IsNullOrEmpty(FileInput))

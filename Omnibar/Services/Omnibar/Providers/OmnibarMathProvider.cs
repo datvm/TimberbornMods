@@ -1,10 +1,12 @@
 ﻿namespace Omnibar.Services.Omnibar.Providers;
 
-public class OmnibarMathProvider(IAssetLoader assets) : IOmnibarProvider, ILoadableSingleton
+public class OmnibarMathProvider(IAssetLoader assets, ILoc t) : IOmnibarCommandProvider, ILoadableSingleton
 {
     const int MaxQueueLength = 10;
 
     public Texture2D Icon { get; private set; } = null!;
+    public string Command { get; } = "=";
+    public string CommandDesc { get; } = "LV.OB.CommandDescMath".T(t);
 
     readonly Queue<OmnibarFilteredItem> history = [];
     int index = 0;

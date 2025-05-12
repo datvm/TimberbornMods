@@ -10,6 +10,8 @@ public class OmnibarToolProvider(
 
     OmnibarToolItem[] items = [];
     public FrozenDictionary<string, BlockObjectTool> BuildingTools { get; private set; } = null!;
+    public IReadOnlyList<OmnibarToolItem> Items => items;
+
 
     public void Load()
     {
@@ -22,8 +24,7 @@ public class OmnibarToolProvider(
 
     public IReadOnlyList<OmnibarFilteredItem> ProvideItems(string filter)
     {
-        // Only work for non-special triggers
-        if (OmnibarUtils.SpecialTriggers.Contains(filter[0])) { return []; }
+        if (filter.IsCommand()) { return []; }
 
         var devModeOn = devModeManager.Enabled;
 

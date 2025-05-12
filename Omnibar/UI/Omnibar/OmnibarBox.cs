@@ -66,12 +66,24 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
 
     public bool OnUIConfirmed()
     {
-        Close();
-
         var selectingItem = lstItems.SelectingItem;
+
+        IInplaceExecutionOmnibarItem? inplace = selectingItem?.Item as IInplaceExecutionOmnibarItem;
+        if (inplace is null)
+        {
+            Close();
+        }
         if (selectingItem is null) { return false; }
 
-        selectingItem.Value.Item.Execute();
+        if (inplace is null)
+        {
+            selectingItem.Value.Item.Execute();
+        }
+        else
+        {
+            inplace.Execute(this);
+        }
+
         return true;
     }
 
@@ -91,15 +103,22 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
         panelStack.Pop(this);
     }
 
+    public void SetText(string text)
+    {
+        txtContent.text = text;
+        txtContent.selectAllOnFocus = false;
+        txtContent.Focus();
+
+        var pos = text.Length;
+        txtContent.textSelection.SelectRange(pos, pos);
+
+        OnTextChanged();
+    }
+
     void OnTextChanged()
     {
         items = null;
-        var kw = txtContent.text?.Trim();
-        if (string.IsNullOrEmpty(kw))
-        {
-            lstItems.SetItems(null);
-            return;
-        }
+        var kw = txtContent.text?.TrimStart() ?? "";
 
         items = omnibarService.GetItems(kw!.ToLower());
         lstItems.SetItems(items);
