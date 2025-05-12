@@ -1,9 +1,4 @@
-﻿global using Timberborn.BlockSystem;
-global using Timberborn.EntitySystem;
-global using Timberborn.GameFactionSystem;
-global using Timberborn.PrefabSystem;
-
-namespace ConfigurableFaction.Services;
+﻿namespace ConfigurableFaction.Services;
 
 public class BuildingDumpService(
     PrefabGroupService prefabs,

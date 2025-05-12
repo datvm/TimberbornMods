@@ -52,6 +52,13 @@ public static class FactionPatches
             materialGroups.AddRange(otherFac.MaterialGroups);
             goods.AddRange(otherFac.Goods.Except(MSettings.NoBotNeeds ? BlacklistedGoods : []));
 
+            // Look for Planes
+            var planes = otherFac.PrefabGroups.FirstOrDefault(q => q.StartsWith("Planes."));
+            if (planes is not null)
+            {
+                prefabGroups.Add(planes);
+            }
+
             if (MSettings.AddPlants)
             {
                 var naturalResources = otherFac.PrefabGroups.FirstOrDefault(q => q.StartsWith("NaturalResources."));
