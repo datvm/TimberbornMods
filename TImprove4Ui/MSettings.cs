@@ -7,9 +7,10 @@ public class MSettings(
    IModSettingsContextProvider contextProvider
 ) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository)
 {
-    public static readonly ImmutableArray<LimitedStringModSettingValue> ToolDescPositions = 
+    public static readonly ImmutableArray<LimitedStringModSettingValue> ToolDescPositions =
         [..new string[] { "Left", "Center", "Right" }
         .Select(q => new LimitedStringModSettingValue(q, "LV.T4UI.ToolDescPos" + q))];
+    static readonly Color DefaultHighlightColor = new(1, 61 / 255f, 131 / 255f);
 
     public static bool ScrollableEntityPanel { get; private set; }
     public static bool RemovePathHighlight { get; private set; }
@@ -26,6 +27,10 @@ public class MSettings(
     readonly ModSetting<bool> highlightPowerNetwork = CreateBoolModSettings("LV.T4UI.HighlightPowerNetwork");
     readonly ModSetting<bool> autoExpandCounter = CreateBoolModSettings("LV.T4UI.AutoExpandCounter");
     readonly ModSetting<bool> neverHideCounter = CreateBoolModSettings("LV.T4UI.NeverHideCounter");
+    public ModSetting<bool> HighlightSimilar { get; } = CreateBoolModSettings("LV.T4UI.HighlightSimilar");
+    public ColorModSetting HighlightSimilarColor { get; } = new(DefaultHighlightColor, ModSettingDescriptor
+        .CreateLocalized("LV.T4UI.HighlightSimilarColor")
+        .SetLocalizedTooltip("LV.T4UI.HighlightSimilarColorDesc"), false);
 
     public readonly LimitedStringModSetting toolDescPos = new(
         1,
@@ -42,18 +47,20 @@ public class MSettings(
         foreach (var s in menuOnly)
         {
             s.Descriptor.SetEnableCondition(() => contextProvider.Context == ModSettingsContext.MainMenu);
-        }        
-    }
+        }
 
-    public override void OnAfterLoad()
-    {
+        HighlightSimilarColor.Descriptor.SetEnableCondition(() => HighlightSimilar.Value);
+
         AddCustomModSetting(scrollableEntityPanel, nameof(scrollableEntityPanel));
         AddCustomModSetting(removePathHighlight, nameof(removePathHighlight));
         AddCustomModSetting(highlightPowerNetwork, nameof(highlightPowerNetwork));
         AddCustomModSetting(toolDescPos, nameof(toolDescPos));
         AddCustomModSetting(autoExpandCounter, nameof(autoExpandCounter));
         AddCustomModSetting(neverHideCounter, nameof(neverHideCounter));
+    }
 
+    public override void OnAfterLoad()
+    {
         ModSettingChanged += (_, _) => UpdateValues();
         UpdateValues();
     }
