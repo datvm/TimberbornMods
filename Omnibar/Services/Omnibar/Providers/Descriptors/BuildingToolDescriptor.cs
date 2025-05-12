@@ -31,8 +31,7 @@ public class BuildingToolDescriptor(BlockObjectTool tool, IContainer container, 
 
             if (canAddToToDoList)
             {
-                el.AddGameLabel("LV.OB.AddToTodoList".T(t, TodoListController.AddBuildingToTodoListKeyName))
-                    .SetMargin(left: 20);
+                AddToDoListPrompt(el, t);
             }
         }
 
@@ -42,6 +41,12 @@ public class BuildingToolDescriptor(BlockObjectTool tool, IContainer container, 
         }
 
         return true;
+    }
+
+    public static void AddToDoListPrompt(VisualElement parent, ILoc t)
+    {
+        parent.AddGameLabel("LV.OB.AddToTodoList".T(t, TodoListController.AddBuildingToTodoListKeyName))
+            .SetMargin(left: 20);
     }
 
 }

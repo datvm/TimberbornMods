@@ -7,6 +7,12 @@ public class ModGameConfig : Configurator
     {
         this.MultiBindAndBindSingleton<IOmnibarProvider, OmnibarToolProvider>();
         MultiBind<IOmnibarProvider>().To<OmnibarMathProvider>().AsSingleton();
+        MultiBind<IOmnibarProvider>().To<OmnibarBatchControlProvider>().AsSingleton();
+        MultiBind<IOmnibarProvider>().To<OmnibarRecipeProvider>().AsSingleton();
+        MultiBind<IOmnibarProvider>().To<OmnibarBeaverProvider>().AsSingleton();
+
+        // Special provider, do not multibind to the interface
+        Bind<OmnibarCommandProvider>().AsSingleton();
 
         Bind<OmnibarService>().AsSingleton();
         Bind<ToDoListManager>().AsSingleton();

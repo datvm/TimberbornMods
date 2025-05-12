@@ -3,7 +3,6 @@
 public class OmnibarBoxListView : ListView
 {
     const int ItemHeight = 70;
-    static readonly OmnibarFilteredItem[] Empty = [];
 
     readonly List<OmnibarListItem> listItems = [];
     List<OmnibarFilteredItem>? items;
@@ -45,17 +44,15 @@ public class OmnibarBoxListView : ListView
 
     public void SetItems(List<OmnibarFilteredItem>? items)
     {
-        this.items = items;
-        selectedIndex = -1;
+        items ??= [];
+        itemsSource = this.items = items;
 
-        if (items is null || items.Count == 0)
+        if (items.Count == 0)
         {
-            itemsSource = Empty;
             visible = false;
         }
         else
         {
-            itemsSource = items;
             visible = true;
             SetSelectingIndex(0);
         }
@@ -65,7 +62,7 @@ public class OmnibarBoxListView : ListView
 
     void BindListItem(VisualElement ve, int index)
     {
-        if (items is null) { return; } // Should not happen
+        if (items is null || index >= items.Count || index < 0) { return; } // Should not happen
 
         var item = items[index];
         var el = (OmnibarListItem)ve;

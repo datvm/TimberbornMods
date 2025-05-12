@@ -34,7 +34,7 @@ public class OmnibarListItem : NineSliceVisualElement
         var container = this.AddChild();
 
         lblTitle = container.AddGameLabel();
-        descriptionPanel = container.AddRow().SetDisplay(false);
+        descriptionPanel = container.AddRow().AlignItems().SetDisplay(false);
     }
 
     public void SetItem(int index, in OmnibarFilteredItem filteredItem, int selectingIndex)
