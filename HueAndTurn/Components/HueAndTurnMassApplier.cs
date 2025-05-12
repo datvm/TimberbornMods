@@ -1,6 +1,4 @@
-﻿global using Timberborn.PrefabSystem;
-
-namespace HueAndTurn.Components;
+﻿namespace HueAndTurn.Components;
 
 public class HueAndTurnMassApplier(EntityRegistry entities, ILoc t, DialogBoxShower diagShower)
 {

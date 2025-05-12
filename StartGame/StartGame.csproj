@@ -23,7 +23,7 @@
 
 		<!--<ProjectReference Include="..\TimberQuests\TimberQuests\TimberQuests.csproj" />-->
 
-		<ProjectReference Include="..\ConfigurableFaction\ConfigurableFaction.csproj" />
+		<ProjectReference Include="..\HueAndTurn\HueAndTurn.csproj" />
 		
 	</ItemGroup>
 

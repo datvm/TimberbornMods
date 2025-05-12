@@ -1,6 +1,4 @@
-﻿global using Timberborn.InputSystem;
-
-namespace HueAndTurn.UI;
+﻿namespace HueAndTurn.UI;
 public class HueAndTurnFragment(
     VisualElementInitializer initializer,
     ILoc t,
@@ -22,6 +20,8 @@ public class HueAndTurnFragment(
     Toggle chkColor;
     ColorPickerElement colorPicker;
     GameSliderInt rotationSlider;
+    GameSliderInt rotationXSlider;
+    GameSliderInt rotationZSlider;
     PositionPickerElement rotationPivotPicker;
     PositionPickerElement translatePicker;
     PositionPickerElement scalePicker;
@@ -47,7 +47,7 @@ public class HueAndTurnFragment(
         panel.AddGameLabel(t.T("LV.HNT.Title").Bold()).SetMarginBottom(10);
 
         AddColorPicker(panel);
-        AddRotationPicker(panel);
+        rotationSlider = AddRotationPicker(panel, "LV.HNT.Rotation", SetRotation);
 
         panel.AddGameButton(t.T("LV.HNT.Reset"), Reset, "ResetColor", stretched: true)
             .SetMargin(top: 20, bottom: 20)
@@ -70,11 +70,10 @@ public class HueAndTurnFragment(
             .RegisterChange(OnColorPicked);
     }
 
-    void AddRotationPicker(VisualElement parent)
+    GameSliderInt AddRotationPicker(VisualElement parent, string text, Action<int> onChange)
     {
-        rotationSlider = parent.AddSliderInt(t.T("LV.HNT.Rotation"), values: new(-180, 180, 0));
-        rotationSlider
-            .RegisterChange(SetRotation)
+        return parent.AddSliderInt(t.T(text), values: new(-180, 180, 0))
+            .RegisterChange(onChange)
             .RegisterAlternativeManualValue(input, t, initializer, panelStack)
             .AddEndLabel(v => v + "°");
     }
@@ -104,6 +103,9 @@ public class HueAndTurnFragment(
             .RegisterChange(SetScale)
             .RegisterAlternativeManualValue(input, t, initializer, panelStack)
             .SetMarginBottom(10);
+
+        rotationXSlider = AddRotationPicker(advOptionsPanel, "LV.HNT.RotationX", v => SetAdvRotation(true, v));
+        rotationZSlider = AddRotationPicker(advOptionsPanel, "LV.HNT.RotationZ", v => SetAdvRotation(false, v));
 
         AddApplyAllOptions(advOptionsPanel);
 
@@ -189,6 +191,22 @@ public class HueAndTurnFragment(
         comp.ApplyRepositioning();
     }
 
+    void SetAdvRotation(bool isX, int rotation)
+    {
+        if (internalSet || !comp) { return; }
+
+        var curr = comp.Properties.RotationXZ ?? default;
+        if (isX)
+        {
+            comp.Properties.RotationXZ = curr with { x = rotation };
+        }
+        else
+        {
+            comp.Properties.RotationXZ = curr with { y = rotation };
+        }
+        comp.ApplyRepositioning();
+    }
+
     void SetRotationPivot(Vector3Int pivot)
     {
         if (internalSet || !comp) { return; }
@@ -237,6 +255,10 @@ public class HueAndTurnFragment(
         rotationPivotPicker.Position = props.RotationPivot?.ToVector3Int(0) ?? null;
         rotationPivotPicker.SetEnabled(comp.RotationPivotSupported);
         
+        var rotationXZ = props.RotationXZ ?? default;
+        rotationXSlider.SetValueWithoutNotify(rotationXZ.x);
+        rotationZSlider.SetValueWithoutNotify(rotationXZ.y);
+
         translatePicker.Position = props.Translation;
         scalePicker.Position = props.Scale;
 
