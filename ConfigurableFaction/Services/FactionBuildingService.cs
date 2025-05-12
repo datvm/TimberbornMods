@@ -1,8 +1,4 @@
-﻿global using Newtonsoft.Json;
-global using System.Collections.Frozen;
-global using Timberborn.FactionSystem;
-
-namespace ConfigurableFaction.Services;
+﻿namespace ConfigurableFaction.Services;
 
 public class FactionBuildingService(ISpecService specs) : ILoadableSingleton
 {
