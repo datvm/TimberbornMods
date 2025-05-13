@@ -23,7 +23,7 @@
 
 		<!--<ProjectReference Include="..\TimberQuests\TimberQuests\TimberQuests.csproj" />-->
 
-		<ProjectReference Include="..\ConfigurableBeaverWalk\ConfigurableBeaverWalk.csproj" />
+		<ProjectReference Include="..\MoreNaming\MoreNaming.csproj" />
 		
 	</ItemGroup>
 
