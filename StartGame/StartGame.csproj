@@ -23,7 +23,7 @@
 
 		<!--<ProjectReference Include="..\TimberQuests\TimberQuests\TimberQuests.csproj" />-->
 
-		<ProjectReference Include="..\MoreNaming\MoreNaming.csproj" />
+		<ProjectReference Include="..\Omnibar\Omnibar.csproj" />
 		
 	</ItemGroup>
 
