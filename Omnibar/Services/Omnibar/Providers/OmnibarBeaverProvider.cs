@@ -1,16 +1,16 @@
 ﻿namespace Omnibar.Services.Omnibar.Providers;
 
 public class OmnibarBeaverProvider(
-    IAssetLoader assets, 
+    IAssetLoader assets,
     ILoc t,
     EntityRegistry entities,
     EntityBadgeService entityBadgeService,
     EntitySelectionService entitySelectionService
 ) : IOmnibarCommandProvider
 {
-    public string Command { get; } = "/char ";
+    public string Command { get; } = "/find ";
     public string CommandDesc { get; } = "LV.OB.CommandDescFind".T(t);
-    public Texture2D Icon { get; } = assets.Load<Texture2D>("Sprites/BatchControl/Characters");
+    public Texture2D Icon { get; } = assets.Load<Texture2D>("Sprites/Omnibar/tag");
 
     public IReadOnlyList<OmnibarFilteredItem> ProvideItems(string filter)
     {
@@ -23,17 +23,17 @@ public class OmnibarBeaverProvider(
 
         foreach (var entity in entities.Entities)
         {
-            var character = entity.GetComponentFast<Character>();
-            if (!character || !character.Alive) { continue; }
+            if (entity.Deleted) { continue; }
 
-            var citizen = entity.GetComponentFast<Citizen>();
-            if (!citizen) { continue; }
+            var badge = entityBadgeService.GetHighestPriorityEntityBadge(entity);
+            var name = badge?.GetEntityName();
+            if (string.IsNullOrEmpty(name)) { continue; }
 
-            var match = OmnibarUtils.MatchText(nameKw, character.FirstName);
+            var match = OmnibarUtils.MatchText(nameKw, name!);
             if (!match.HasValue) { continue; }
 
             result.Add(new(
-                new OmnibarBeaverItem(character, citizen, t, entityBadgeService, entitySelectionService),
+                new OmnibarBeaverItem(badge!, name!, entitySelectionService, Icon),
                 match.Value));
         }
 
@@ -43,29 +43,41 @@ public class OmnibarBeaverProvider(
 }
 
 public class OmnibarBeaverItem(
-    Character character,
-    Citizen citizen,
-    ILoc t,
-    EntityBadgeService entityBadgeService,
-    EntitySelectionService entitySelectionService
+    IEntityBadge badge,
+    string name,
+    EntitySelectionService entitySelectionService,
+    Texture2D defaultIcon
 ) : IOmnibarItem
 {
-    public string Title { get; } = character.FirstName;
-    public IOmnibarDescriptor? Description { get; } = new SimpleLabelDescriptor(citizen.AssignedDistrict 
-        ? citizen.AssignedDistrict.DistrictName : 
-        "BatchControl.NoDistrict".T(t));
+    public string Title { get; } = name;
+    public IOmnibarDescriptor? Description { get; } = GetDescription(badge);
 
     public void Execute()
     {
-        entitySelectionService.SelectAndFocusOn(character);
+        entitySelectionService.SelectAndFocusOn((BaseComponent)badge);
     }
 
     public bool SetIcon(Image image)
     {
-        var sprite = entityBadgeService.GetEntityAvatar(character);
-        if (sprite is null) { return false; }
+        var sprite = badge.GetEntityAvatar();
+        if (sprite is null)
+        {
+            image.image = defaultIcon;
+        }
+        else
+        {
+            image.sprite = sprite;
+        }
 
-        image.sprite = sprite;
         return true;
     }
+
+    static SimpleLabelDescriptor? GetDescription(IEntityBadge badge)
+    {
+        var desc = badge.GetEntitySubtitle();
+        if (string.IsNullOrEmpty(desc)) { return null; }
+
+        return new SimpleLabelDescriptor(desc);
+    }
+
 }
