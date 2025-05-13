@@ -86,15 +86,16 @@ public class TodoListDialog : DialogBoxElement
         editor.SetEntry(obj);
     }
 
-    public void AddNewItem() => AddNewItem(null, null);
-    public void AddNewItem(string? building, string? buildingTitle)
+    public void AddNewItem() => AddNewItem(null);
+    public void AddNewItem(string? building = null, string? title = null, bool timer = false)
     {
         var entry = man.Add(new()
         {
-            Title = buildingTitle ?? "LV.OB.NewEntryTitle".T(t),
+            Title = string.IsNullOrWhiteSpace(title) ? "LV.OB.NewEntryTitle".T(t) : title!,
             Pin = true,
             Building = building,
             BuildingQuantity = 1,
+            Timer = timer ? 0 : null,
         });
 
         lstItems.SelectItem(entry.Id);

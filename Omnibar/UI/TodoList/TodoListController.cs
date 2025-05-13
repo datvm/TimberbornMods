@@ -13,25 +13,25 @@ public class TodoListController(
     public void Load()
     {
         uiLayout.AddBottomLeft(todoListPanel.Root, -200);
-        todoListPanel.OnToDoListRequested += OpenDialog;
+        todoListPanel.OnToDoListRequested += OpenDialogWithId;
     }
 
     public void AddBuilding(string prefabName, string buildingName)
     {        
-        OpenDialog(prefabName, buildingName);
+        OpenDialog(addBuilding: prefabName, title: buildingName);
     }
 
-    void OpenDialog(int? id)
+    public void AddItem(string title, bool timer)
     {
-        OpenDialog(id, null, null);
+        OpenDialog(title: title, timer: timer);
     }
 
-    void OpenDialog(string? addBuilding, string? buildingTitle)
+    void OpenDialogWithId(int? id)
     {
-        OpenDialog(null, addBuilding, buildingTitle);
+        OpenDialog(id: id);
     }
 
-    private async void OpenDialog(int? id, string? addBuilding, string? buildingTitle)
+    private async void OpenDialog(int? id = null, string? addBuilding = null, string? title = null, bool timer = false)
     {
         var diag = container.GetInstance<TodoListDialog>()
             .SetDialogSize(panelStack._root.panel.scaledPixelsPerPoint);
@@ -41,9 +41,9 @@ public class TodoListController(
             diag.SetInitialItem(id.Value);
         }
 
-        if (addBuilding is not null)
+        if (addBuilding is not null || title is not null)
         {
-            diag.AddNewItem(addBuilding, buildingTitle);
+            diag.AddNewItem(addBuilding, title, timer);
         }
 
         await diag.ShowAsync(null, panelStack);

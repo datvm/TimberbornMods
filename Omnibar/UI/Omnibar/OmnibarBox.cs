@@ -14,6 +14,9 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
     readonly VisualElementInitializer veInit;
 
     List<OmnibarFilteredItem>? items;
+    string? prev;
+
+    public string Text => txtContent.text;
 
     public OmnibarBox(
         PanelStack panelStack,
@@ -54,6 +57,7 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
 
     public void Open()
     {
+        prev = null;
         txtContent.text = "";
         panelStack.PushDialog(this);
 
@@ -66,35 +70,36 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
 
     public bool OnUIConfirmed()
     {
-        var selectingItem = lstItems.SelectingItem;
-
-        IInplaceExecutionOmnibarItem? inplace = selectingItem?.Item as IInplaceExecutionOmnibarItem;
-        if (inplace is null)
-        {
-            Close();
-        }
-        if (selectingItem is null) { return false; }
-
-        if (inplace is null)
-        {
-            selectingItem.Value.Item.Execute();
-        }
-        else
-        {
-            inplace.Execute(this);
-        }
-
+        Close();
         return true;
-    }
-
-    public void AddToTodoList(IOmnibarItemWithTodoList item)
-    {
-        item.AddToTodoList();
     }
 
     public void OnUICancelled()
     {
         Close();
+    }
+
+    void ExecuteItem(OmnibarFilteredItem item)
+    {
+        IInplaceExecutionOmnibarItem? inplace = item.Item as IInplaceExecutionOmnibarItem;
+        if (inplace is null)
+        {
+            OnUIConfirmed();
+        }
+
+        if (inplace is null)
+        {
+            item.Item.Execute();
+        }
+        else
+        {
+            inplace.Execute(this);
+        }
+    }
+
+    public void AddToTodoList(IOmnibarItemWithTodoList item)
+    {
+        item.AddToTodoList();
     }
 
     public void Close()
@@ -117,10 +122,11 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
 
     void OnTextChanged()
     {
-        items = null;
-        var kw = txtContent.text?.TrimStart() ?? "";
+        var kw = txtContent.text ?? "";
+        if (kw == prev) { return; }
+        prev = kw;
 
-        items = omnibarService.GetItems(kw!.ToLower());
+        items = omnibarService.GetItems(kw);
         lstItems.SetItems(items);
     }
 
@@ -138,8 +144,18 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
         }
         else if (e.keyCode is KeyCode.Return or KeyCode.KeypadEnter)
         {
+            var item = lstItems.SelectingItem;
+
+            if (item is not null)
+            {
+                ExecuteItem(item.Value);
+            }
+            else
+            {
+                OnUICancelled();
+            }
+
             processed = true;
-            OnUIConfirmed();
         }
         else if (e.keyCode is KeyCode.Escape)
         {

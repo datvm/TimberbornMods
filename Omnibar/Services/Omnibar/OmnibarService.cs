@@ -9,10 +9,17 @@ public class OmnibarService(
 
     public List<OmnibarFilteredItem> GetItems(string request)
     {
-        var commands = commandProvider.ProvideItems(request);
+        var lowerCase = request.TrimStart().ToLower();
+
+        IEnumerable<OmnibarFilteredItem> commands = commandProvider.ProvideItems(lowerCase);
         
-        return commands.Count > 0 ? [..commands] : [..providers
-            .SelectMany(q => q.ProvideItems(request))
+        if (!commands.Any())
+        {
+            commands = providers
+                .SelectMany(q => q.ProvideItems(lowerCase));
+        }
+
+        return [..commands
             .OrderByDescending(q => q.Match.Score)
             .ThenBy(q => q.Item.Title)
         ];

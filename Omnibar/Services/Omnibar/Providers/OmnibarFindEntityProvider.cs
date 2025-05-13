@@ -1,6 +1,6 @@
 ﻿namespace Omnibar.Services.Omnibar.Providers;
 
-public class OmnibarBeaverProvider(
+public class OmnibarFindEntityProvider(
     IAssetLoader assets,
     ILoc t,
     EntityRegistry entities,
@@ -33,7 +33,7 @@ public class OmnibarBeaverProvider(
             if (!match.HasValue) { continue; }
 
             result.Add(new(
-                new OmnibarBeaverItem(badge!, name!, entitySelectionService, Icon),
+                new OmnibarEntityNameItem(badge!, name!, entitySelectionService, Icon),
                 match.Value));
         }
 
@@ -42,7 +42,7 @@ public class OmnibarBeaverProvider(
 
 }
 
-public class OmnibarBeaverItem(
+public class OmnibarEntityNameItem(
     IEntityBadge badge,
     string name,
     EntitySelectionService entitySelectionService,

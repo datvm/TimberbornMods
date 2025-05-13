@@ -15,4 +15,7 @@ public interface IOmnibarCommandProvider : IOmnibarProvider
 }
 
 public readonly record struct OmnibarFilteredItem(IOmnibarItem Item, FuzzyMatchResult Match);
-public readonly record struct FuzzyMatchResult(int[] Positions, int Score);
+public readonly record struct FuzzyMatchResult(int[] Positions, int Score)
+{
+    public static readonly FuzzyMatchResult Empty = new([], 0);
+}
