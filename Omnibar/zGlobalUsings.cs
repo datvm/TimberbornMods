@@ -1,5 +1,4 @@
 ﻿global using Omnibar.Models;
-
 global using Omnibar.UI;
 global using Omnibar.Helpers;
 
