@@ -1,0 +1,12 @@
+{
+    "Name": "Scenario Editor",
+    "Version": "7.0.0",
+    "Id": "ScenarioEditor",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "More tools for Map Creators",
+    "RequiredMods": [
+        { "Id": "TimberUi" },
+        { "Id": "Harmony" },
+        { "Id": "eMka.ModSettings" }
+    ]
+}
