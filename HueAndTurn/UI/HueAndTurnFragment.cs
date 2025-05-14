@@ -25,8 +25,7 @@ public class HueAndTurnFragment(
     PositionPickerElement rotationPivotPicker;
     PositionPickerElement translatePicker;
     PositionPickerElement scalePicker;
-    VisualElement advOptionsPanel;
-    Label lblResetAll;
+    ConfigGroup grpApplyAll;
 #nullable enable
 
     public void ClearFragment()
@@ -46,21 +45,22 @@ public class HueAndTurnFragment(
 
         panel.AddGameLabel(t.T("LV.HNT.Title").Bold()).SetMarginBottom(10);
 
-        AddColorPicker(panel);
-        rotationSlider = AddRotationPicker(panel, "LV.HNT.Rotation", SetRotation);
+        AddColorGroup(panel);
+        AddRotationGroup(panel);
+        AddPositioningGroup(panel);
+        grpApplyAll = AddApplyAllGroup(panel);
 
         panel.AddGameButton(t.T("LV.HNT.Reset"), Reset, "ResetColor", stretched: true)
-            .SetMargin(top: 20, bottom: 20)
             .SetFlexGrow();
-
-        AddAdvancedOptions(panel);
 
         return panel.Initialize(initializer);
     }
 
-    void AddColorPicker(VisualElement parent)
+    void AddColorGroup(VisualElement parent)
     {
-        var container = parent.AddChild();
+        var grp = parent.AddChild<ConfigGroup>()
+            .SetHeader("LV.HNT.Color".T(t));
+        var container = grp.Content;
 
         chkColor = container.AddToggle(t.T("LV.HNT.Color"),
             onValueChanged: OnColorToggled);
@@ -70,68 +70,71 @@ public class HueAndTurnFragment(
             .RegisterChange(OnColorPicked);
     }
 
-    GameSliderInt AddRotationPicker(VisualElement parent, string text, Action<int> onChange)
+    void AddRotationGroup(VisualElement parent)
     {
-        return parent.AddSliderInt(t.T(text), values: new(-180, 180, 0))
-            .RegisterChange(onChange)
-            .RegisterAlternativeManualValue(input, t, initializer, panelStack)
-            .AddEndLabel(v => v + "°");
-    }
+        var grp = parent.AddChild<ConfigGroup>()
+            .SetHeader("LV.HNT.Rotation".T(t));
+        var container = grp.Content;
 
-    void AddAdvancedOptions(VisualElement parent)
-    {
-        panel.AddGameButton(t.T("LV.HNT.Advanced"), ToggleAdv, stretched: true)
-            .SetMarginBottom(10);
+        rotationSlider = AddRotationPicker(container, "LV.HNT.Rotation", SetRotation);
+        rotationXSlider = AddRotationPicker(container, "LV.HNT.RotationX", v => SetAdvRotation(true, v));
+        rotationZSlider = AddRotationPicker(container, "LV.HNT.RotationZ", v => SetAdvRotation(false, v));
 
-        advOptionsPanel = parent.AddChild(name: "AdvancedOptions");
-
-        advOptionsPanel.AddGameLabel(t.T("LV.HNT.RotationPivot")).SetMarginBottom(5);
-        rotationPivotPicker = advOptionsPanel.AddChild<PositionPickerElement>()
+        container.AddGameLabel(t.T("LV.HNT.RotationPivot")).SetMarginBottom(5);
+        rotationPivotPicker = container.AddChild<PositionPickerElement>()
             .SetAxes(2)
             .RegisterChange(SetRotationPivot)
             .RegisterAlternativeManualValue(input, t, initializer, panelStack)
-            .SetMarginBottom();
+            .SetMarginBottom(10);
 
-        advOptionsPanel.AddGameLabel(t.T("LV.HNT.Translate")).SetMarginBottom(5);
-        translatePicker = advOptionsPanel.AddChild<PositionPickerElement>()
+        GameSliderInt AddRotationPicker(VisualElement parent, string text, Action<int> onChange)
+        {
+            return parent.AddSliderInt(t.T(text), values: new(-180, 180, 0))
+                .RegisterChange(onChange)
+                .RegisterAlternativeManualValue(input, t, initializer, panelStack)
+                .AddEndLabel(v => v + "°")
+                .SetMarginBottom(10);
+        }
+    }
+
+    void AddPositioningGroup(VisualElement parent)
+    {
+        var grp = parent.AddChild<ConfigGroup>()
+            .SetHeader("LV.HNT.Positioning".T(t));
+        var container = grp.Content;
+
+        container.AddGameLabel(t.T("LV.HNT.Translate")).SetMarginBottom(5);
+        translatePicker = container.AddChild<PositionPickerElement>()
             .RegisterChange(SetTranslation)
             .RegisterAlternativeManualValue(input, t, initializer, panelStack)
             .SetMarginBottom(10);
 
-        advOptionsPanel.AddGameLabel(t.T("LV.HNT.Scale")).SetMarginBottom(5);
-        scalePicker = advOptionsPanel.AddChild<PositionPickerElement>()
+        container.AddGameLabel(t.T("LV.HNT.Scale")).SetMarginBottom(5);
+        scalePicker = container.AddChild<PositionPickerElement>()
             .RegisterChange(SetScale)
             .RegisterAlternativeManualValue(input, t, initializer, panelStack)
             .SetMarginBottom(10);
-
-        rotationXSlider = AddRotationPicker(advOptionsPanel, "LV.HNT.RotationX", v => SetAdvRotation(true, v));
-        rotationZSlider = AddRotationPicker(advOptionsPanel, "LV.HNT.RotationZ", v => SetAdvRotation(false, v));
-
-        AddApplyAllOptions(advOptionsPanel);
-
-        ToggleAdv(); // Hide it
     }
 
-    void AddApplyAllOptions(VisualElement parent)
+    ConfigGroup AddApplyAllGroup(VisualElement parent)
     {
-        var container = parent.AddChild();
-
-        lblResetAll = container.AddGameLabel("").SetMarginBottom(5);
+        var grp = parent.AddChild<ConfigGroup>()
+            .SetHeader("LV.HNT.ApplyAll".T(t));
+        var container = grp.Content;
 
         AddApplyAllButton("LV.HNT.ColorAll", massApplier.CopyColor);
         AddApplyAllButton("LV.HNT.ApplyAll", massApplier.CopyAllProps);
         AddApplyAllButton("LV.HNT.RotateRandomAll", massApplier.RandomizeRotations);
         AddApplyAllButton("LV.HNT.ResetAll", massApplier.Reset);
 
+        return grp;
+
         void AddApplyAllButton(string key, Action<HueAndTurnComponent> action)
         {
-            container.AddGameButton(t.T(key), () => ApplyAll(action), stretched: true);
+            container.AddGameButton(t.T(key), () => ApplyAll(action), stretched: true)
+                .SetMarginBottom(5)
+                .SetPadding(paddingY: 5);
         }
-    }
-
-    void ToggleAdv()
-    {
-        advOptionsPanel.ToggleDisplayStyle(!advOptionsPanel.IsDisplayed());
     }
 
     public void ShowFragment(BaseComponent entity)
@@ -144,7 +147,7 @@ public class HueAndTurnFragment(
         }
 
         var label = entity.GetComponentFast<LabeledEntity>();
-        lblResetAll.text = t.T("LV.HNT.ToAll", label.DisplayName);
+        grpApplyAll.SetHeader(t.T("LV.HNT.ToAll", label.DisplayName));
 
         UpdatePanelContent();
         input.AddInputProcessor(this);
