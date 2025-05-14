@@ -1,5 +1,4 @@
-﻿global using ScientificProjects.Buffs;
-
+﻿
 namespace BrainPowerSPs.Buffs;
 
 public class PowerBuffs(
@@ -13,16 +12,16 @@ public class PowerBuffs(
 
     protected override SingletonKey SingletonKey { get; } = SaveKey;
 
-    protected override HashSet<string> SupportedOneTimeIds { get; } = [.. ModUtils.WaterWheelUpIds, ModUtils.WaterWheelFlowUp1Id, ModUtils.WindmillHeightUpId];
-    protected override HashSet<string> SupportedDailyIds { get; } = [ModUtils.WaterWheelFlowUp2Id];
-    protected override IEnumerable<Type> DailyBuffInstanceTypes { get; } = [];
+    public override HashSet<string> SupportedOneTimeIds { get; } = [.. ModUtils.WaterWheelUpIds, ModUtils.WaterWheelFlowUp1Id, ModUtils.WindmillHeightUpId];
+    public override HashSet<string> SupportedDailyIds { get; } = [ModUtils.WaterWheelFlowUp2Id];
+    public override IEnumerable<Type> DailyBuffInstanceTypes { get; } = [];
 
-    protected override void ProcessDailyBuffs(IEnumerable<ScientificProjectInfo> activeProjects)
+    public override void ProcessDailyBuffs(IEnumerable<ScientificProjectInfo> activeProjects)
     {
         RefreshWaterWheelFlowUpBuff();
     }
 
-    protected override void RefreshOnetimeBuffs(ScientificProjectSpec? justUnlocked)
+    public override void RefreshOnetimeBuffs(ScientificProjectSpec? justUnlocked)
     {
         if (justUnlocked is null || ModUtils.WaterWheelUpIds.Contains(justUnlocked.Id))
         {

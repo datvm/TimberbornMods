@@ -1,10 +1,4 @@
-﻿global using BrainPowerSPs.Mangement;
-global using ScientificProjects.Management;
-global using BrainPowerSPs.Buffs.Components;
-global using BrainPowerSPs.Buffs;
-global using BrainPowerSPs.Patches;
-
-namespace BrainPowerSPs;
+﻿namespace BrainPowerSPs;
 
 [Context("Game")]
 public class ModGameConfig : Configurator
@@ -16,14 +10,14 @@ public class ModGameConfig : Configurator
 
         MultiBind<IProjectCostProvider>().To<ProjectsCostProvider>().AsSingleton();
 
-        this.MultiBindAndBindSingleton<IPrefabGroupServiceFrontRunner, PrefabModifier>();
+        Bindito.Core.UiBuilderExtensions.MultiBindAndBindSingleton<IPrefabGroupServiceFrontRunner, PrefabModifier>(this);
 
         this.BindTrackingEntities()
             .TrackWorkplace()
             .Track<WaterPoweredGenerator>()
             .Track<WindPoweredGeneratorSpec>();
 
-        this.BindTemplateModule()
+        Bindito.Core.UiBuilderExtensions.BindTemplateModule(this)
             .AddDecorator<WaterPoweredGenerator, WaterWheelBuffComponent>()
             .AddDecorator<WindPoweredGeneratorSpec, WindmillBuffComponent>()
             .Bind();
