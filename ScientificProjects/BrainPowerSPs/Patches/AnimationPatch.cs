@@ -1,6 +1,4 @@
-﻿using Timberborn.TimbermeshAnimations;
-
-namespace BrainPowerSPs.Patches;
+﻿namespace BrainPowerSPs.Patches;
 
 
 [HarmonyPatch]

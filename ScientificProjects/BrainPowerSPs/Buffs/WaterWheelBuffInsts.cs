@@ -1,12 +1,9 @@
-﻿global using Timberborn.TimeSystem;
-global using Timberborn.EntitySystem;
-
-namespace BrainPowerSPs.Buffs;
+﻿namespace BrainPowerSPs.Buffs;
 
 public class WaterWheelUpBuffInst : CommonProjectBuffInstance<PowerBuffs>
 {
     // We only create one buff effect using the best one
-    protected override IBuffEffect? CreateBuffEffect(ScientificProjectInfo info)
+    public override IBuffEffect? CreateBuffEffect(ScientificProjectInfo info)
     {
         var spec = info.Spec;
         var v1 = spec.Parameters[0];
@@ -38,16 +35,16 @@ public class WaterWheelUpBuffInst : CommonProjectBuffInstance<PowerBuffs>
         base.Init();
     }
 
-    protected override IBuffTarget[] CreateTargets() => [new WaterWheelBuffTarget(ev, entities)];
+    public override IBuffTarget[] CreateTargets() => [new WaterWheelBuffTarget(ev, entities)];
 
-    protected override string GetBuffName(ILoc t) => t.T($"LV.BPSP.{bestUpgrade?.Spec.Id}");
-    protected override string GetBuffDescription(ILoc t) => t.T($"LV.BPSP.WaterWheelUpBuffDesc");
+    public override string GetBuffName(ILoc t) => t.T($"LV.BPSP.{bestUpgrade?.Spec.Id}");
+    public override string GetBuffDescription(ILoc t) => t.T($"LV.BPSP.WaterWheelUpBuffDesc");
 
 }
 
 public class WaterWheelFlowUpBuffInst : CommonProjectBuffInstance<PowerBuffs>
 {
-    protected override IBuffEffect? CreateBuffEffect(ScientificProjectInfo info)
+    public override IBuffEffect? CreateBuffEffect(ScientificProjectInfo info)
         => CreateFlatOrLevelEffect(info, (value, name) => new GeneratorMinStrengthBuffEff(value, name, t));
 
     EntityManager entities = null!;
@@ -57,9 +54,9 @@ public class WaterWheelFlowUpBuffInst : CommonProjectBuffInstance<PowerBuffs>
         this.entities = entities;
     }
 
-    protected override IBuffTarget[] CreateTargets() => [new WaterWheelBuffTarget(ev, entities)];
-    protected override string GetBuffName(ILoc t) => t.T("LV.BPSP.WaterWheelFlowUp1");
-    protected override string GetBuffDescription(ILoc t) => t.T("LV.BPSP.WaterWheelFlowUpBuffDesc");
+    public override IBuffTarget[] CreateTargets() => [new WaterWheelBuffTarget(ev, entities)];
+    public override string GetBuffName(ILoc t) => t.T("LV.BPSP.WaterWheelFlowUp1");
+    public override string GetBuffDescription(ILoc t) => t.T("LV.BPSP.WaterWheelFlowUpBuffDesc");
 }
 
 public class WaterWheelBuffTarget(EventBus eventBus, EntityManager entities) : EntityBasedBuffTarget(eventBus)

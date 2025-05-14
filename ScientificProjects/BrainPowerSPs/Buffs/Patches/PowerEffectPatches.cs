@@ -1,6 +1,4 @@
-﻿global using Timberborn.MechanicalSystem;
-
-namespace BrainPowerSPs.Buffs.Patches;
+﻿namespace BrainPowerSPs.Buffs.Patches;
 
 [HarmonyPatch]
 public static class PowerEffectPatches

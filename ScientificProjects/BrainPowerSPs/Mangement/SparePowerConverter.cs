@@ -1,6 +1,4 @@
-﻿global using Timberborn.ScienceSystem;
-
-namespace BrainPowerSPs.Mangement;
+﻿namespace BrainPowerSPs.Mangement;
 
 public class SparePowerConverter(
     IDayNightCycle time,

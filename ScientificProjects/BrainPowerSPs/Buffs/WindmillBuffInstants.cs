@@ -3,10 +3,10 @@
 public class WindmillBuffInstant : CommonProjectBuffInstance<PowerBuffs>
 {
 
-    protected override IBuffEffect? CreateBuffEffect(ScientificProjectInfo info)
+    public override IBuffEffect? CreateBuffEffect(ScientificProjectInfo info)
         => CreateFlatEffect(info, (v, _) => new WindmillHeightBuffEff(v, t));
 
-    protected override IBuffTarget[] CreateTargets() => [new WindmillBuffTarget(ev, entities)];
+    public override IBuffTarget[] CreateTargets() => [new WindmillBuffTarget(ev, entities)];
 
     EntityManager entities = null!;
     [Inject]
@@ -15,8 +15,8 @@ public class WindmillBuffInstant : CommonProjectBuffInstance<PowerBuffs>
         this.entities = entities;
     }
 
-    protected override string GetBuffName(ILoc t) => t.T("LV.BPSP.WindmillHeightUp");
-    protected override string GetBuffDescription(ILoc t) => t.T("LV.BPSP.WindmillHeightUpLore");
+    public override string GetBuffName(ILoc t) => t.T("LV.BPSP.WindmillHeightUp");
+    public override string GetBuffDescription(ILoc t) => t.T("LV.BPSP.WindmillHeightUpLore");
 
 }
 

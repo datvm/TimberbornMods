@@ -1,10 +1,4 @@
-﻿global using System.Runtime.CompilerServices;
-global using Timberborn.BlockSystem;
-global using Timberborn.PrefabGroupSystem;
-global using Timberborn.PrefabSystem;
-global using Timberborn.WorkSystem;
-
-namespace BrainPowerSPs.Patches;
+﻿namespace BrainPowerSPs.Patches;
 
 public class PrefabModifier(ScientificProjectService projects) : IPrefabGroupServiceFrontRunner
 {
@@ -31,18 +25,30 @@ public class PrefabModifier(ScientificProjectService projects) : IPrefabGroupSer
 
         if (prefabSpec.PrefabName == LargePowerWheelName)
         {
-            var hasOriginalValue = modifiedPrefabs.TryGetValue(prefab, out var originalValue);
+            var hasOriginalValue = modifiedPrefabs.TryGetValue(prefab, out var originalValues);
             if (!hasOriginalValue)
             {
-                originalValue = workplace._maxWorkers;
+                originalValues = new Tuple<int, int>(workplace._maxWorkers, workplace._defaultWorkers);
             }
 
-            workplace._maxWorkers = (int)originalValue -
+            var (originalMaxWorker, originalDefaultWorker) = (Tuple<int, int>)originalValues;
+
+            var expectedMaxWorkers = originalMaxWorker -
                 (workerProject.Unlocked ? Mathf.RoundToInt(workerProject.Spec.Parameters[0]) : 0);
+            workplace._maxWorkers = expectedMaxWorkers;
+
+            // Reset to default first
+            workplace._defaultWorkers = originalDefaultWorker;
+
+            // Then set to max if needed
+            if (workplace._defaultWorkers > expectedMaxWorkers)
+            {
+                workplace._defaultWorkers = expectedMaxWorkers;
+            }
 
             if (!hasOriginalValue)
             {
-                modifiedPrefabs.Add(prefab, originalValue);
+                modifiedPrefabs.Add(prefab, originalValues);
             }
         }
     }

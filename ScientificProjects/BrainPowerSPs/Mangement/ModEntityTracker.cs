@@ -1,6 +1,4 @@
-﻿global using Timberborn.PowerGenerating;
-
-namespace BrainPowerSPs.Mangement;
+﻿namespace BrainPowerSPs.Mangement;
 
 public class ModEntityTracker : ITrackingEntities
 {

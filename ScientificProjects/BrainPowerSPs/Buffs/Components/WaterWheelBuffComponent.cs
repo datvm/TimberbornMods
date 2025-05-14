@@ -1,6 +1,4 @@
-﻿global using Timberborn.TickSystem;
-
-namespace BrainPowerSPs.Buffs.Components;
+﻿namespace BrainPowerSPs.Buffs.Components;
 
 public class WaterWheelBuffComponent : TickableComponent
 {
