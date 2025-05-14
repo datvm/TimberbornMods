@@ -23,8 +23,8 @@
 
 		<!--<ProjectReference Include="..\TimberQuests\TimberQuests\TimberQuests.csproj" />-->
 
-		<ProjectReference Include="..\HueAndTurn\HueAndTurn.csproj" />
-		
+		<ProjectReference Include="..\ScenarioEditor\ScenarioEditor.csproj" />
+
 	</ItemGroup>
 
 </Project>

@@ -1,0 +1,5 @@
+ID,Text,Comment
+LV.ScE.CameraShake,"Enable camera shake",
+LV.ScE.CameraShakeDesc,"Allow camera shake effect",
+LV.ScE.TimeTrigger,"Game Time",
+LV.ScE.CameraShakeAction,"Camera Shake",
