@@ -11,6 +11,7 @@ public class DialogBoxElement : VisualElement
 
     public Button? CloseButton { get; private set; } = null!;
     bool hasCustomCloseAction;
+    bool closeButtonEventSet;
 
     public VisualElement Container { get; private set; }
     public ScrollView Content { get; private set; }
@@ -82,9 +83,14 @@ public class DialogBoxElement : VisualElement
             this
         );
 
-        if (CloseButton is not null && !hasCustomCloseAction)
+        if (!closeButtonEventSet)
         {
-            CloseButton.clicked += OnUICancelled;
+            closeButtonEventSet = true;
+
+            if (CloseButton is not null && !hasCustomCloseAction)
+            {
+                CloseButton.clicked += OnUICancelled;
+            }
         }
 
         panelStack.PushDialog(diag);
