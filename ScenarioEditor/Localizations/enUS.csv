@@ -2,5 +2,7 @@ ID,Text,Comment
 LV.ScE.CameraShake,"Enable camera shake",
 LV.ScE.CameraShakeDesc,"Allow camera shake effect",
 LV.ScE.TimeTrigger,"Game Time",
+LV.ScE.AreaTrigger,"Area",
 LV.ScE.CameraShakeAction,"Camera Shake",
 LV.ScE.CustomStart,"Custom start",
+LV.ScE.ScenarioEvents,"Scenario Events",

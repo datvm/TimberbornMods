@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
-		<ModPath>E:\SteamLibrary\steamapps\workshop\content\1062090\</ModPath>
+		<ModPath>D:\Software\SteamLibrary\steamapps\workshop\content\1062090\</ModPath>
 
 		<TimberbornVersion>version-0.7</TimberbornVersion>
 		<IsU6>false</IsU6>
@@ -11,7 +11,7 @@
 		<IsU7 Condition="$(TimberbornVersion)=='version-0.7'">true</IsU7>
 
 		<AssemblyPath Condition="$(IsU6)">D:\Personal\Mods\Timberborn\U6Data\AuxiliaryFiles\GameAssemblies\</AssemblyPath>
-		<AssemblyPath Condition="$(IsU7)">E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed</AssemblyPath>
+		<AssemblyPath Condition="$(IsU7)">D:\Software\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed</AssemblyPath>
 
 		<DefineConstants Condition="$(IsU6)">$(DefineConstants);TIMBER6</DefineConstants>
 		<DefineConstants Condition="$(IsU7)">$(DefineConstants);TIMBER7</DefineConstants>
