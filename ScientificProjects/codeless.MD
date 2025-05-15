@@ -1,8 +1,8 @@
 ---
-title: "Scientific Projects"
-description: Modify Scientific Projects without any code.
+title: Modify Scientific Projects without any code
+description: Learn to modify Timberborn Scientific Projects using only JSON, no coding required.
 date: 2025-05-14
-tags: mods timberborn guide modding scientific projects
+tags: mods timberborn guide modding scientific projects json
 ---
 
 With this guide you can make an extension mod that **modifies** other Scientific Projects (including the ones added by other extension mods). Note that you _cannot_ add a new project without code. You can also rearrange the grouping of the projects, including creating a new group and moving the projects around into different groups.
