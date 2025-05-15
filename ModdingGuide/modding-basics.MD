@@ -17,7 +17,7 @@ Besides the assets from [previous part](./getting-started.MD#assetripper), you w
 
 _Personal choice: .NET 9 or the latest_
 
-The game uses .NET so you need to have the .NET SDK installed on your computer. The game uses `netstandard2.1` but you can install the latest version of the .NET SDK to use the latest language features as long as they are syntactical sugar and not new features.
+The game uses .NET so you need to have the .NET SDK installed on your computer. The game uses Mono that conforms to `netstandard2.1` but you can install the latest version of the .NET SDK to use the latest language features as long as they are syntactical sugar and do not need new underlying members to support them.
 
 ### IDE
 
