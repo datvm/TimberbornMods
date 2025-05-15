@@ -11,7 +11,7 @@ You should have read at least the first step of the guide: [Getting Started](../
 
 # Changing a simple project
 
-All projects are defined by `ScientificProjectSpec` JSON files. You can find them in the mods' `Blueprints` folders or in the mods' source code [here](#to-be-updated). For example, consider the _Resin-Infused Planks_ project:
+All projects are defined by `ScientificProjectSpec` JSON files. You can find them in the mods' `Blueprints` folders or in the mods' source code [here](https://github.com/datvm/TimberbornMods/tree/master/ScientificProjects/ScientificProjects/Blueprints). For example, consider the _Resin-Infused Planks_ project:
 
 ```jsonc
 // ScientificProjects\Factions\FtPlankUpgrade.ScientificProjectSpec.json
@@ -55,7 +55,7 @@ For example, let's say you want to increase the science cost but also increase t
 
 As you can see above, the project has the `"GroupId": "Factions"` property. You should see the `blueprints\ScientificProjectGroups\Factions.ScientificProjectGroupSpec.json` file that defines that group:
 
-```json
+```jsonc
 // ScientificProjectGroups\Factions.ScientificProjectGroupSpec.json
 {
     "ScientificProjectGroupSpec": {
@@ -107,7 +107,7 @@ With `"HasScalingCost": true`, `ScalingCostKey` is required and it's handled wit
 
 For example, let's say we want to keep the flat cost but increase the science cost to 30 per 30 beavers instead, and also increase the maximum Levels/Steps to 10:
 
-```json
+```jsonc
 // Blueprints\Vanilla\WorkEffUpgrade2.ScientificProjectSpec.json
 {
     "ScientificProjectSpec": {
