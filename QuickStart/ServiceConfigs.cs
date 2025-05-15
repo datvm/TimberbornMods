@@ -1,10 +1,15 @@
-﻿namespace QuickStart;
+﻿global using QuickStart.Services;
+
+namespace QuickStart;
 
 [Context("MainMenu")]
-public class MainMenuConfig : IConfigurator
+public class MainMenuConfig : Configurator
 {
-    public void Configure(IContainerDefinition containerDefinition)
+
+    public override void Configure()
     {
-        containerDefinition.Bind<MSettings>().AsSingleton();
+        Bind<MSettings>().AsSingleton();
+        Bind<AutoLoadService>().AsSingleton();
+        Bind<QuickMapEditorService>().AsSingleton();
     }
 }
