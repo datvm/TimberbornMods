@@ -1,6 +1,4 @@
-﻿global using Timberborn.MainMenuScene;
-
-namespace QuickStart.Patches;
+﻿namespace QuickStart.Patches;
 
 [HarmonyPatch]
 public static class WelcomeBoxPatches
