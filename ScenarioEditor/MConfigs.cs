@@ -1,4 +1,6 @@
 ﻿
+using ScenarioEditor.UI.ScenarioEvents;
+
 namespace ScenarioEditor;
 
 [Context("MainMenu")]
@@ -31,6 +33,11 @@ public class ModMapEditorConfig : CommonGameplayConfig
         base.Configure();
 
         this.BindFragment<CustomStartFragment>();
+
+        Bind<PrefabNameProvider>().AsSingleton();
+
+        Bind<ScenarioEventsController>().AsSingleton();
+        Bind<ScenarioEventsDialog>().AsSingleton();
     }
 }
 
@@ -44,6 +51,7 @@ public class ModGameConfig : CommonGameplayConfig
         Bind<ScenarioEventRegistry>().AsSingleton();
         Bind<CameraShakeService>().AsSingleton();
         Bind<MultiStartingLocationsService>().AsSingleton();
+        Bind<TriggerAreaService>().AsSingleton();
 
         MultiBind<IDevModule>().To<ScenarioEditorDevModule>().AsSingleton();
     }
@@ -52,8 +60,12 @@ public class ModGameConfig : CommonGameplayConfig
 public class ModStarter : IModStarter
 {
 
+    public static string ModPath { get; private set; } = "";
+
     void IModStarter.StartMod(IModEnvironment modEnvironment)
     {
+        ModPath = modEnvironment.ModPath;
+
         new Harmony(nameof(ScenarioEditor)).PatchAll();
     }
 
