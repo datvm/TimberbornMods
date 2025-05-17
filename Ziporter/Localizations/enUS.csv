@@ -1,0 +1,10 @@
+ID,Text,Comment
+LV.Ziporter.ZiporterHubName,"Ziporter Hub",
+LV.Ziporter.ZiporterHubDesc,"The future of transportation is NOW! Two hubs are needed to establish a connection.
+<RedHighlight><b>WARNING:</b> Prepare power ahead of time!</RedHighlight>",
+LV.Ziporter.ZiporterHubFlavor,"The beavers salvaged this ridiculously high-tech blueprint from a hooman lab built just before they disappeared.",
+LV.Ziporter.StabilizerUse,"Stabilizer is being used",
+LV.Ziporter.StabilizerCharging,"Stabilizer is charging",
+LV.Ziporter.StabilizerStable,"Stabilizer stable",
+LV.Ziporter.WarningDraining,"Stabilizer is being drained due to not enough power. Quickly bring power back up to stabilize it.",
+LV.Ziporter.WarningDrainingShort,"Draining stabilizer",

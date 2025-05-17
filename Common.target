@@ -26,6 +26,8 @@
 		<Copy SourceFiles="@(ModWorkshopDataFile)" DestinationFolder="$(ModFolder)..\" />
 		<Copy SourceFiles="@(DllFiles)" DestinationFolder="$(ModFolder)%(RecursiveDir)" />
 		<Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(ModFolder)Localizations\%(RecursiveDir)" />
+		<Copy SourceFiles="@(Assets)" DestinationFolder="$(ModFolder)assets\%(RecursiveDir)" />
+		<Copy SourceFiles="@(AssetBundles)" DestinationFolder="$(ModFolder)AssetBundles\%(RecursiveDir)" />
 		<Copy SourceFiles="@(Sprites)" DestinationFolder="$(ModFolder)sprites\%(RecursiveDir)" />
 		<Copy SourceFiles="@(Blueprints)" DestinationFolder="$(ModFolder)blueprints\%(RecursiveDir)" />
 		<Copy SourceFiles="@(Specifications)" DestinationFolder="$(ModFolder)Specifications\%(RecursiveDir)" />
@@ -33,6 +35,13 @@
 	</Target>
 
 	<ItemGroup>
+		
+		<Content Include="Assets\**\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="AssetBundles\**\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="Sprites\**\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>

@@ -28,6 +28,8 @@
 		<ItemGroup>
 			<LocalizationFiles Include="$(OutputPath)Localizations\**\*.*" />
 			<DllFiles Include="$(OutputPath)\**\*.dll"/>
+			<Assets Include="$(OutputPath)\Assets\**\*"/>
+			<AssetBundles Include="$(OutputPath)\AssetBundles\**\*"/>
 			<Sprites Include="$(OutputPath)\Sprites\**\*"/>
 			<Blueprints Include="$(OutputPath)\Blueprints\**\*"/>
 			<Specifications Include="$(OutputPath)\Specifications\**\*"/>

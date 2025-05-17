@@ -21,29 +21,39 @@ public static partial class UiBuilderExtensions
 
     public static T SetColor<T>(this T bar, ProgressBarColor color, bool removeColor = false) where T : TProgressBar
     {
-        if (color == default) { return bar; }
-
         var className = UiCssClasses.ProgressBarClass + "--" + color switch
         {
+            ProgressBarColor.Green => UiCssClasses.Green,
             ProgressBarColor.Teal => UiCssClasses.Teal,
             ProgressBarColor.Red => UiCssClasses.Red,
             ProgressBarColor.Blue => UiCssClasses.Blue,
             _ => throw new NotImplementedException($"Unknown ProgressBarColor: {color}"),
         };
 
+        var progressBar = bar.Q("ProgressBar");
+
         if (removeColor)
         {
             bar.classList.Remove(className);
+            progressBar.classList.Remove(className);
         }
         else
         {
-            bar.AddClass(className);
+            bar.classList.Add(className);
+            progressBar.classList.Add(className);
         }
 
         return bar;
     }
 
     public static T SetProgress<T>(this T bar, float progress, Label? label, string? text = default) where T : TProgressBar
+    {
+        return bar.SetProgress(progress, label, text, default, default);
+    }
+
+    public static T SetProgress<T>(this T bar,
+        float progress, Label? label = default, string? text = default,
+        ProgressBarColor? oldColor = default, ProgressBarColor? newColor = default) where T : TProgressBar
     {
         bar.SetProgress(progress);
 
@@ -53,6 +63,19 @@ public static partial class UiBuilderExtensions
             if (label is not null)
             {
                 label.text = text;
+            }
+        }
+
+        if (oldColor != newColor)
+        {
+            if (oldColor.HasValue)
+            {
+                bar.SetColor(oldColor.Value, true);
+            }
+
+            if (newColor.HasValue)
+            {
+                bar.SetColor(newColor.Value);
             }
         }
 

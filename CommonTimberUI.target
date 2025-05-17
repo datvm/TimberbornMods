@@ -8,6 +8,7 @@
 		<Using Include="TimberUi" />
 		<Using Include="TimberUi.CommonUi" />
 		<Using Include="TimberUi.CommonProviders" />
+		<Using Include="TimberUi.Services" />
 
 		<Reference Condition="$(IsU7)" Include="$(TimberUiPath)">
 			<Private>False</Private>

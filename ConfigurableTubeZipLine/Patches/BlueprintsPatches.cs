@@ -1,16 +1,19 @@
-﻿using Timberborn.BlueprintSystem;
-using Timberborn.PrefabGroupSystem;
-using Timberborn.TimbermeshMaterials;
-
-namespace ConfigurableTubeZipLine.Patches;
+﻿namespace ConfigurableTubeZipLine.Patches;
 
 [HarmonyPatch]
-public static class FactionPatches
+public static class BlueprintsPatches
 {
-    static readonly ImmutableArray<string> ZiplinePrefabs =
+    #region Definitions
+
+    static readonly ImmutableArray<string> ZiporterRemovals =
     [
         "Buildings/Paths/ZiplineBeam/ZiplineBeam.Folktails",
         "Buildings/Paths/ZiplinePylon/ZiplinePylon.Folktails",
+    ];
+
+    static readonly ImmutableArray<string> ZiplinePrefabs =
+    [
+        ..ZiporterRemovals,
         "Buildings/Paths/ZiplineStation/ZiplineStation.Folktails",
     ];
 
@@ -43,6 +46,8 @@ public static class FactionPatches
         "materials/uberatlas/materials/ironteeth/BaseWood_Grey.IronTeeth",
         "materials/uberatlas/materials/ironteeth/RoofPlanks.IronTeeth",
     ];
+
+    #endregion
 
     static ImmutableArray<string>? AppendValue(string expectedId, string actualId, string expectedPath, IEnumerable<string> appending, IEnumerable<string> paths)
     {
@@ -107,5 +112,6 @@ public static class FactionPatches
             }
         }
     }
+
 
 }
