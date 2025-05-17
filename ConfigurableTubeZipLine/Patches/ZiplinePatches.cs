@@ -1,7 +1,4 @@
-﻿global using Timberborn.ZiplineSystem;
-
-
-namespace ConfigurableTubeZipLine.Patches;
+﻿namespace ConfigurableTubeZipLine.Patches;
 
 [HarmonyPatch]
 public static class ZiplinePatches
@@ -46,7 +43,7 @@ public static class ZiplinePatches
         for (int i = 0; i < blockSpecs.Length; i++)
         {
             ref var blockSpec = ref blockSpecs[i];
-            blockSpec._occupations = Timberborn.BlockSystem.BlockOccupations.None;
+            blockSpec._occupations = BlockOccupations.None;
         }
     }
 

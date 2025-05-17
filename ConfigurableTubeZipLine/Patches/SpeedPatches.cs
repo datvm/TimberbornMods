@@ -1,8 +1,4 @@
-﻿global using Timberborn.CharacterMovementSystem;
-global using Timberborn.TubeSystem;
-using Timberborn.WalkingSystem;
-
-namespace ConfigurableTubeZipLine.Patches;
+﻿namespace ConfigurableTubeZipLine.Patches;
 
 [HarmonyPatch]
 public static class SpeedPatches

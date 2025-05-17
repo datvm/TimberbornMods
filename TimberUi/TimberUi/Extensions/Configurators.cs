@@ -74,4 +74,28 @@ public static partial class UiBuilderExtensions
         return binding;
     }
 
+    /// <summary>
+    /// Bind a type if it has not been bound yet.
+    /// </summary>
+    public static ISingleBindingBuilder<T>? TryBind<T>(this Configurator configurator) where T : class
+    {
+        var cd = (ContainerDefinition)configurator._containerDefinition;
+        var registry = (BindingBuilderRegistry)cd._bindingBuilderRegistry;
+
+        if (registry._boundBindingBuilders.ContainsKey(typeof(T))) { return null; }
+
+        return configurator.Bind<T>();
+    }
+
+    public static Configurator TryAddingCameraShake(this Configurator configurator, bool isMenuContext)
+    {
+        if (!isMenuContext)
+        {
+            configurator.TryBind<CameraShakeService>()?.AsSingleton();
+        }
+        configurator.TryBind<CameraShakeSettingService>()?.AsSingleton();
+
+        return configurator;
+    }
+
 }

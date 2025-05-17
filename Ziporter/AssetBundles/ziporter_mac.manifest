@@ -1,0 +1,81 @@
+ManifestFileVersion: 0
+UnityVersion: 6000.0.46f1
+CRC: 4118839404
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: cdab49fc7ccb1944e8daeddeb30234ae
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 18d76709d341ba25aa34bb370e8853f6
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 6affdd30f287941ce6985bb3c0dee36a
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 437054131, guid: 644c1295076bbdbb604b7f96aa6be9c2, type: 3}
+- Class: 114
+  Script: {fileID: 1672878266, guid: a01d35f43886f4b46e413d3c2ea20811, type: 3}
+- Class: 114
+  Script: {fileID: 484218558, guid: a01d35f43886f4b46e413d3c2ea20811, type: 3}
+- Class: 114
+  Script: {fileID: 1566945626, guid: b5f268a4cb31a93ed707a95d3a502b0e, type: 3}
+- Class: 114
+  Script: {fileID: 652365310, guid: b6b9d4cc3090b6fceb2eb6438dd271f1, type: 3}
+- Class: 114
+  Script: {fileID: -1146001497, guid: 4ed0189b1e1d234e361262ab78b6f74b, type: 3}
+- Class: 114
+  Script: {fileID: -329412848, guid: f52221e1b73d7a1af6ce63101ea50e01, type: 3}
+- Class: 114
+  Script: {fileID: 1475725842, guid: 1bd6ccb667024f9c2b77daf7f62a4eed, type: 3}
+- Class: 114
+  Script: {fileID: 1596376676, guid: 1bd6ccb667024f9c2b77daf7f62a4eed, type: 3}
+- Class: 114
+  Script: {fileID: -579399493, guid: 1bd6ccb667024f9c2b77daf7f62a4eed, type: 3}
+- Class: 114
+  Script: {fileID: 447443988, guid: c1ff95bb5ae0e8b420075ec58add6f36, type: 3}
+- Class: 114
+  Script: {fileID: -1706396145, guid: c1ff95bb5ae0e8b420075ec58add6f36, type: 3}
+- Class: 114
+  Script: {fileID: -1925074215, guid: 79523a2b71f4fae881a60ad2e723d456, type: 3}
+- Class: 114
+  Script: {fileID: -1587067794, guid: 6db671ca2a10521151a0623ea7cc13c9, type: 3}
+- Class: 114
+  Script: {fileID: -87641975, guid: 4f86215eeb86a5b54ca2a4c5a8d9d99f, type: 3}
+- Class: 114
+  Script: {fileID: 1820374275, guid: d41d64d5ba37c349c7bfe47e85f95ebe, type: 3}
+- Class: 114
+  Script: {fileID: -1942782917, guid: 40833514e55bcf2135fbcf9411078554, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: Timberborn.BlockSystemNavigation
+  ClassName: Timberborn.BlockSystemNavigation.BlockObjectNavMeshEdgeGroupSpec
+- AssemblyName: Timberborn.BlockSystemNavigation
+  ClassName: Timberborn.BlockSystemNavigation.BlockObjectNavMeshEdgeSpec
+- AssemblyName: Timberborn.BlockSystemNavigation
+  ClassName: Timberborn.BlockSystemNavigation.BlockObjectNavMeshGroup
+- AssemblyName: Timberborn.BlockSystemNavigation
+  ClassName: Timberborn.BlockSystemNavigation.BlockObjectNavMeshUnblockedCoordinatesSpec
+- AssemblyName: Timberborn.BlockSystem
+  ClassName: Timberborn.BlockSystem.BlockSpec
+- AssemblyName: Timberborn.BlockSystem
+  ClassName: Timberborn.BlockSystem.BlocksSpec
+- AssemblyName: Timberborn.BlockSystem
+  ClassName: Timberborn.BlockSystem.CustomPivotSpec
+- AssemblyName: Timberborn.BlockSystem
+  ClassName: Timberborn.BlockSystem.EntranceBlockSpec
+- AssemblyName: Timberborn.Clusters
+  ClassName: Timberborn.Clusters.ConnectableBlock
+- AssemblyName: Timberborn.Goods
+  ClassName: Timberborn.Goods.GoodAmountSpec
+Assets:
+- Assets/Mods/Ziporter/AssetBundles/Resources/Buildings/Paths/Ziporter/Ziporter.Folktails.prefab
+Dependencies: []

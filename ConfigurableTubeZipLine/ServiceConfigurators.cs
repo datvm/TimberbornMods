@@ -1,25 +1,26 @@
-﻿using Timberborn.TemplateSystem;
+﻿using Bindito.Core.Internal;
+using UnityEngine.InputSystem.Utilities;
 
 namespace ConfigurableTubeZipLine;
 
 [Context("Game")]
 [Context("MainMenu")]
-public class SettingConfigurator : IConfigurator
+public class SettingConfigurator : Configurator
 {
 
-    public void Configure(IContainerDefinition containerDefinition)
+    public override void Configure()
     {
-        containerDefinition.Bind<MSettings>().AsSingleton();
+        Bind<MSettings>().AsSingleton();
     }
-
 }
 
 [Context("Game")]
-public class GameConfigurator : IConfigurator
+public class GameConfigurator : Configurator
 {
-    public void Configure(IContainerDefinition containerDefinition)
+
+    public override void Configure()
     {
-        containerDefinition.MultiBind<TemplateModule>().ToProvider(() =>
+        MultiBind<TemplateModule>().ToProvider(() =>
         {
             var b = new TemplateModule.Builder();
 
@@ -27,5 +28,7 @@ public class GameConfigurator : IConfigurator
 
             return b.Build();
         }).AsSingleton();
+
     }
+
 }

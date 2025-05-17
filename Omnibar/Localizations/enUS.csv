@@ -5,7 +5,7 @@ LV.OB.KeyBindingDown,"Omnibar: Move down",
 LV.OB.Cursor,"Cursor tool",
 LV.OB.TodoList,"Todo List",
 LV.OB.TodoListEmpty,"No entry",
-LV.OB.ManageTodo,"Manage"
+LV.OB.ManageTodo,"Manage",
 LV.OB.TodoListAdd,"Add new",
 LV.OB.TodoListRemove,"Remove",
 LV.OB.TodoListCompleted,"Completed",

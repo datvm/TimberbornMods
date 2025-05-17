@@ -3,6 +3,7 @@
 		<!-- Common Global Usings-->
 		<Using Include="Bindito.Core"/>
 		<Using Include="Bindito.Unity"/>
+		<Using Include="Bindito.Core.Internal"/>
 
 		<Using Include="ModSettings.Common"/>
 		<Using Include="ModSettings.Core"/>

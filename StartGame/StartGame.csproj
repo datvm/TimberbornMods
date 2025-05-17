@@ -23,8 +23,10 @@
 
 		<!--<ProjectReference Include="..\TimberQuests\TimberQuests\TimberQuests.csproj" />-->
 
-		<ProjectReference Include="..\QuickStart\QuickStart.csproj" />
+		<ProjectReference Include="..\ConfigurableTubeZipLine\ConfigurableTubeZipLine.csproj" />
+		<ProjectReference Include="..\Ziporter\Ziporter.csproj" />
 
+		
 	</ItemGroup>
 
 </Project>
