@@ -10,6 +10,8 @@ namespace NoBuildRestriction.Patches;
 public static class RestrictionPatches
 {
 
+    static readonly ImmutableHashSet<string> HangingStructureExclusions = ["MechanicalFluidPump.Folktails", "DeepMechanicalFluidPump.IronTeeth"];
+
     [HarmonyPostfix, HarmonyPatch(typeof(PrefabGroupService), nameof(PrefabGroupService.Load))]
     public static void RemoveRestriction(PrefabGroupService __instance)
     {
@@ -186,7 +188,11 @@ public static class RestrictionPatches
 
             if (MSettings.HangingStructure && placable)
             {
-                placable._canBeAttachedToTerrainSide = true;
+                var prefabSpec = spec.GetComponentFast<PrefabSpec>();
+                if (!HangingStructureExclusions.Contains(prefabSpec.Name))
+                {
+                    placable._canBeAttachedToTerrainSide = true;
+                }
             }
         }
 

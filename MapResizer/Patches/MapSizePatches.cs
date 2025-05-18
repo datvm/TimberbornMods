@@ -1,6 +1,4 @@
-﻿using Timberborn.LevelVisibilitySystem;
-
-namespace MapResizer.Patches;
+﻿namespace MapResizer.Patches;
 
 [HarmonyPatch]
 public static class MapSizePatches
@@ -13,9 +11,12 @@ public static class MapSizePatches
     [HarmonyPostfix, HarmonyPatch(typeof(MapSize), nameof(MapSize.Initialize))]
     public static void LoadHeight(MapSize __instance, Vector2Int size)
     {
-        if (!__instance._singletonLoader.TryGetSingleton(MapSize.MapSizeKey, out var s)) { return; }
-
-        if (!s.Has(MapSizeHeightKey)) { return; }
+        if (__instance._singletonLoader is null
+            || !__instance._singletonLoader.TryGetSingleton(MapSize.MapSizeKey, out var s)
+            || !s.Has(MapSizeHeightKey))
+        {
+            return;
+        }
 
         var height = s.Get(MapSizeHeightKey);
         __instance.TerrainSize = new Vector3Int(size.x, size.y, height.x);
