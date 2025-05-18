@@ -23,7 +23,12 @@ public class GameConfig : Configurator
 
         Bind<SunLightOverrider>().AsSingleton();
 
+        Bind<ZiporterConnectionService>().AsSingleton();
+        Bind<ZiporterNavGroupService>().AsSingleton();
+        Bind<ZiporterConnectionTool>().AsSingleton();
+
         this.BindFragment<ZiporterFragment>();
+        Bind<ZiporterConnectionButtonFactory>().AsSingleton();
 
         MultiBind<TemplateModule>().ToProvider(() =>
         {
@@ -32,6 +37,7 @@ public class GameConfig : Configurator
             b.AddDecorator<ZiporterSpec, ZiporterLighting>();
             b.AddDecorator<ZiporterSpec, ZiporterBattery>();
             b.AddDecorator<ZiporterSpec, ZiporterStabilizer>();
+            b.AddDecorator<ZiporterSpec, ZiporterConnection>();
             b.AddDecorator<ZiporterSpec, BatteryController>();
 
             return b.Build();

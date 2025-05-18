@@ -6,6 +6,6 @@
     "Description": "Zip!",
     "RequiredMods": [
         { "Id": "Harmony" },
-        { "Id": "TimberUi" }
+        { "Id": "TimberUi", "MinimumVersion": "7.4.0" }
     ]
 }
