@@ -2,12 +2,16 @@
 
 public partial class ZiporterStabilizer : TickableComponent, IDeletableEntity, IFinishedStateListener
 {
+    public const float StabilizerRecoveryRate = .2f;
     public const float StabilizerMax = 60f;
+
+    public bool StabilizerNeeded => !mechNode.Powered || mechNode.PowerInput < mechNode._nominalPowerInput;
 
     #region Inject
 
 #nullable disable
-    ZiporterBattery battery;
+    MechanicalNode mechNode;
+
     StatusToggle stabilizerStatus;
     CameraShakeService cameraShakeService;
     EntityService entityService;
@@ -40,7 +44,7 @@ public partial class ZiporterStabilizer : TickableComponent, IDeletableEntity, I
 
     public void Awake()
     {
-        battery = GetComponentFast<ZiporterBattery>();
+        mechNode = GetComponentFast<MechanicalNode>();
     }
 
     #endregion
@@ -55,8 +59,6 @@ public partial class ZiporterStabilizer : TickableComponent, IDeletableEntity, I
     {
         Stabilizer = Mathf.Clamp(stabilizer, 0, StabilizerMax);
         IsEverFinished = isEverFinished;
-
-        Debug.Log("Loaded IsEverFinished: " + isEverFinished);
     }
 
     public override void StartTickable()
@@ -68,9 +70,9 @@ public partial class ZiporterStabilizer : TickableComponent, IDeletableEntity, I
 
     public override void Tick()
     {
-        if (IsExploding) { return; }
+        if (IsExploding || !IsEverFinished) { return; }
 
-        if (battery.Charge <= 0)
+        if (StabilizerNeeded)
         {
             Stabilizer -= Time.fixedDeltaTime;
             stabilizerStatus.Activate();
@@ -87,10 +89,15 @@ public partial class ZiporterStabilizer : TickableComponent, IDeletableEntity, I
         {
             stabilizerStatus.Deactivate();
 
-            var add = Time.fixedDeltaTime;
+            var add = Time.fixedDeltaTime * StabilizerRecoveryRate;
             Stabilizer = Mathf.Clamp(Stabilizer + add, 0, StabilizerMax);
             IsStabilizerCharging = true;
         }
+    }
+
+    public void SetPercent(int perc)
+    {
+        Stabilizer = Mathf.Clamp(perc / 100f * StabilizerMax, 0, StabilizerMax);
     }
 
     void OnStabilizerFailed()
@@ -107,8 +114,6 @@ public partial class ZiporterStabilizer : TickableComponent, IDeletableEntity, I
 
     public void OnEnterFinishedState()
     {
-        Debug.Log("OnEnterFinishedState");
-
         if (IsEverFinished) { return; }
 
         IsEverFinished = true;

@@ -5,6 +5,8 @@ public static class BlueprintsPatches
 {
     #region Definitions
 
+    const string ZiporterPrefabPath = "Buildings/Paths/Ziporter/Ziporter.Folktails";
+
     static readonly ImmutableArray<string> ZiporterRemovals =
     [
         "Buildings/Paths/ZiplineBeam/ZiplineBeam.Folktails",
@@ -76,7 +78,13 @@ public static class BlueprintsPatches
             {
                 case PrefabGroupSpec prefGrp:
                     {
-                        var replace = AppendValue("Buildings.IronTeeth", "Buildings/Paths/Path/Path.IronTeeth", ZiplinePrefabs, prefGrp);
+                        IEnumerable<string> addingPrefabs = ZiplinePrefabs;
+                        if (ModStarter.ZiporterInstalled)
+                        {
+                            addingPrefabs = addingPrefabs.Append(ZiporterPrefabPath);
+                        }
+
+                        var replace = AppendValue("Buildings.IronTeeth", "Buildings/Paths/Path/Path.IronTeeth", addingPrefabs, prefGrp);
                         if (replace is not null) { __result = replace; }
                     }
 

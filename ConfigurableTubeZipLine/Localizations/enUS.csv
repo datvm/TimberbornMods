@@ -12,7 +12,7 @@ LV.CTZ.ZiplineSpeedMaxInclinationDesc,"The maximum inclination of the zipline ca
 LV.CTZ.ZiplineThroughObstacles,"Zipline through obstacles",
 LV.CTZ.ZiplineThroughObstaclesDesc,"Allow ziplines to go through obstacles (Game default: false)",
 LV.CTZ.ZiplineForIronTeeth,"Zipline for Iron Teeth",
-LV.CTZ.ZiplineForIronTeethDesc,"Let the Iron Teeth build Ziplines (Game default: false)",
+LV.CTZ.ZiplineForIronTeethDesc,"Let the Iron Teeth build Ziplines (Game default: false). Also let them build Ziporter if you have that mod installed.",
 LV.CTZ.TubewayForFolktails,"Tubeway for Folktails",
 LV.CTZ.TubewayForFolktailsDesc,"Let the Folktails build Tubeways (Game default: false)",
 LV.CTZ.NoWaterPenalty,"No water speed penalty",

@@ -1,6 +1,6 @@
 {
     "Name": "Configurable Tubeway & Zipline",
-    "Version": "7.4.0",
+    "Version": "7.4.1",
     "Id": "ConfigurableTubeZipLine",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Change various aspect of Tubeways and Ziplines",
