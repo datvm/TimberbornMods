@@ -22,7 +22,7 @@
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
 		<!--<ProjectReference Include="..\TimberQuests\TimberQuests\TimberQuests.csproj" />-->
-		<ProjectReference Include="..\Ziporter\Ziporter.csproj" />
+		<ProjectReference Include="..\ConfigurableHousing\ConfigurableHousing.csproj" />
 
 		
 	</ItemGroup>
