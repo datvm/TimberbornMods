@@ -2,7 +2,7 @@
     "KeyBindingSpec": {
         "Id": "PasteHueAndTurn",
         "GroupId": "UI",
-        "LocKey": "LV.CB.KeybindingPaste",
+        "LocKey": "LV.HNT.KeybindingPaste",
         "Order": 510
     },
     "PrimaryInputBindingSpec": {
