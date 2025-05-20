@@ -190,6 +190,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScenarioEditor", "ScenarioE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ziporter", "Ziporter\Ziporter.csproj", "{68EABD66-B242-4318-968A-E82C0C203E12}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModdableWeather", "ModdableWeather\ModdableWeather.csproj", "{0E1EC076-8827-4E5D-ACB7-AD1F86377E8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -504,6 +506,10 @@ Global
 		{68EABD66-B242-4318-968A-E82C0C203E12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68EABD66-B242-4318-968A-E82C0C203E12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68EABD66-B242-4318-968A-E82C0C203E12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E1EC076-8827-4E5D-ACB7-AD1F86377E8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E1EC076-8827-4E5D-ACB7-AD1F86377E8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E1EC076-8827-4E5D-ACB7-AD1F86377E8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E1EC076-8827-4E5D-ACB7-AD1F86377E8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -545,6 +551,7 @@ Global
 		{FBEB16E6-8E30-423D-AE06-F48F80550222} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
 		{F479DF6C-F0B0-4049-AC2D-D2FB4445C947} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
 		{B998848B-8436-4CC4-8474-062F4039D6B3} = {4AEA39FF-D724-4CB7-97D0-F90664E1475A}
+		{0E1EC076-8827-4E5D-ACB7-AD1F86377E8F} = {DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}

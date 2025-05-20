@@ -2,7 +2,7 @@
     "KeyBindingSpec": {
         "Id": "CopyHueAndTurn",
         "GroupId": "UI",
-        "LocKey": "LV.CB.KeybindingCopy",
+        "LocKey": "LV.HNT.KeybindingCopy",
         "Order": 500
     },
     "PrimaryInputBindingSpec": {
