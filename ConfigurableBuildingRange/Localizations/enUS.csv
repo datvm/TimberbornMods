@@ -1,0 +1,5 @@
+ID,Text,Comment
+LV.CBldR.ResourceBuildingsRange,"Resource Buildings Ranges",
+LV.CBldR.ResourceBuildingsRangeDesc,"The range of resource gathering buildings. Game default: 20.",
+LV.CBldR.DistrictTerrainRange,"District Terrain Ranges",
+LV.CBldR.DistrictTerrainRangeDesc,"The range of District Center 'overflow'. Game default: 10",

@@ -1,0 +1,11 @@
+{
+    "Name": "Configurable Building Range",
+    "Version": "7.0.0",
+    "Id": "ConfigurableBuildingRange",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Change the range of buildings",
+    "RequiredMods": [
+        { "Id": "Harmony" },
+        { "Id": "eMka.ModSettings" }
+    ]
+}
