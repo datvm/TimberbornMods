@@ -1,0 +1,9 @@
+{
+    "PrefabModderSpec": {
+        "ComponentType": "Timberborn.Workshops.ManufactorySpec",
+        "PrefabNames": [ "Bakery.Folktails" ],
+        "ValuePath": "_productionRecipeIds",
+        "NewValue": "['Timbit.Folktails']",
+        "AppendArray": true
+    }
+}
