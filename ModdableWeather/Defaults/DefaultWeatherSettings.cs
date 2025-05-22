@@ -14,6 +14,8 @@ public abstract class DefaultWeatherSettings(
 
     public override string HeaderLocKey => WeatherNameLocKey;
 
+    public abstract WeatherParameters DefaultSettings { get; }
+
 #nullable disable
     public ModSetting<bool> EnableWeather { get; protected set; }
     public ModSetting<int> StartCycle { get; protected set; }
@@ -42,13 +44,15 @@ public abstract class DefaultWeatherSettings(
 
     protected virtual void InititalizeSettings()
     {
-        EnableWeather = new(true, CreateDescriptor("EnableWeather", true));
-        StartCycle = new(0, CreateDescriptor("StartCycle"));
-        Chance = new(50, 0, 100, CreateDescriptor("Chance"));
-        MinDay = new(4, CreateDescriptor("MinDay"));
-        MaxDay = new(10, CreateDescriptor("MaxDay"));
-        HandicapPerc = new(15, 1, 100, CreateDescriptor("HandicapPerc"));
-        HandicapCycles = new(4, CreateDescriptor("HandicapCycles"));
+        var inits = DefaultSettings;
+
+        EnableWeather = new(inits.Enabled, CreateDescriptor("EnableWeather", true));
+        StartCycle = new(inits.StartCycle, CreateDescriptor("StartCycle"));
+        Chance = new(inits.Chance, 0, 100, CreateDescriptor("Chance"));
+        MinDay = new(inits.MinDay, CreateDescriptor("MinDay"));
+        MaxDay = new(inits.MaxDay, CreateDescriptor("MaxDay"));
+        HandicapPerc = new(inits.HandicapPerc, 1, 100, CreateDescriptor("HandicapPerc"));
+        HandicapCycles = new(inits.HandicapCycles, CreateDescriptor("HandicapCycles"));
     }
 
     ModSettingDescriptor CreateDescriptor(string name, bool doNotDisable = false)

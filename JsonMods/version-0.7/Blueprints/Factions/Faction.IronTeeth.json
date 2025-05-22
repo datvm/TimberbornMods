@@ -1,0 +1,12 @@
+{
+    "FactionSpec": {
+        "Needs#append": [
+            "Timbit",
+            "Timbot"
+        ],
+        "Goods#append": [
+            "Timbit",
+            "Timbot"
+        ]
+    }
+}
