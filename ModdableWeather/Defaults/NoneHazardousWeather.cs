@@ -1,6 +1,6 @@
 ﻿namespace ModdableWeather.Defaults;
 
-public class NoneHazardousWeather : DefaultHazardousWeather
+public class NoneHazardousWeather : DefaultModdedWeather, IModdedHazardousWeather
 {
 
     public override string Id { get; } = nameof(NoneHazardousWeather);

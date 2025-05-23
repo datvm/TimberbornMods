@@ -1,11 +1,11 @@
 ﻿namespace ModdableWeather.Models;
 
-public class ModdableWeatherCycle
+public record ModdableWeatherCycle(int Cycle, ModdableWeatherCycleWeather TemperateWeather, ModdableWeatherCycleWeather HazardousWeather)
 {
-    public int Cycle { get; init; }
-    
-    public ModdableWeatherCycleWeather TemperateWeather { get; init; }
-    public ModdableWeatherCycleWeather HazardousWeather { get; init; }
+    public int HazardousWeatherDuration => HazardousWeather.Duration;
+    public int TemperateWeatherDuration => TemperateWeather.Duration;
+    public int HazardousWeatherStartCycleDay => TemperateWeatherDuration + 1;
+    public int CycleLengthInDays => TemperateWeatherDuration + HazardousWeatherDuration;
 }
 
 public readonly record struct ModdableWeatherCycleWeather(string Id, int Duration);
