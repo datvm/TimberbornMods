@@ -4,14 +4,18 @@ public abstract class DefaultWeatherSettings(
     ISettings settings,
     ModSettingsOwnerRegistry modSettingsOwnerRegistry,
     ModRepository modRepository,
-    ILoc t
+    ILoc t,
+    ModdableWeatherSpecService specs
 ) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository)
 {
 
-    public abstract override string ModId { get; }
-    public abstract string WeatherNameLocKey { get; }
-    public virtual string WeatherNameDisplay { get; protected set; } = null!;
+    public abstract string WeatherId { get; }
 
+    string modId = null!;
+    public override string ModId => modId;
+
+    protected string WeatherNameLocKey { get; set; } = null!;
+    public virtual string WeatherNameDisplay { get; protected set; } = null!;
     public override string HeaderLocKey => WeatherNameLocKey;
 
     public abstract WeatherParameters DefaultSettings { get; }
@@ -28,6 +32,11 @@ public abstract class DefaultWeatherSettings(
 
     public override void OnBeforeLoad()
     {
+        modId = GetType().Assembly.GetName().Name;
+
+        var spec = specs.Specs[WeatherId];
+        WeatherNameLocKey = spec.DisplayLoc;
+
         WeatherNameDisplay = t.T(WeatherNameLocKey);
         InititalizeSettings();
     }
@@ -48,7 +57,7 @@ public abstract class DefaultWeatherSettings(
 
         EnableWeather = new(inits.Enabled, CreateDescriptor("EnableWeather", true));
         StartCycle = new(inits.StartCycle, CreateDescriptor("StartCycle"));
-        Chance = new(inits.Chance, 0, 100, CreateDescriptor("Chance"));
+        Chance = new(inits.Chance, 0, 200, CreateDescriptor("Chance"));
         MinDay = new(inits.MinDay, CreateDescriptor("MinDay"));
         MaxDay = new(inits.MaxDay, CreateDescriptor("MaxDay"));
         HandicapPerc = new(inits.HandicapPerc, 1, 100, CreateDescriptor("HandicapPerc"));

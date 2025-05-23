@@ -20,3 +20,6 @@ LV.T4UI.HighlightSimilar,"Highlight similar objects",
 LV.T4UI.HighlightSimilarDesc,"When you select an object, all objects of the same type will be highlighted.",
 LV.T4UI.HighlightSimilarColor,"Highlight similar objects color",
 LV.T4UI.HighlightSimilarColorDesc,"Color of the highlight for similar objects.",
+LV.T4UI.HighlightTubeway,"Highlight Tubeway path",
+LV.T4UI.HighlightTubewayDesc,"Highlight all the connected Tubeways when you select a Tubeway.
+This is useful to see the whole path of a Tubeway when you select it.",

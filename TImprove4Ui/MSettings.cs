@@ -10,7 +10,7 @@ public class MSettings(
     public static readonly ImmutableArray<LimitedStringModSettingValue> ToolDescPositions =
         [..new string[] { "Left", "Center", "Right" }
         .Select(q => new LimitedStringModSettingValue(q, "LV.T4UI.ToolDescPos" + q))];
-    static readonly Color DefaultHighlightColor = new(1, 61 / 255f, 131 / 255f);
+    static readonly Color DefaultHighlightColor = new(61 / 255f, 100 / 255f, 255 / 255f);
 
     public static bool ScrollableEntityPanel { get; private set; }
     public static bool RemovePathHighlight { get; private set; }
@@ -31,6 +31,7 @@ public class MSettings(
     public ColorModSetting HighlightSimilarColor { get; } = new(DefaultHighlightColor, ModSettingDescriptor
         .CreateLocalized("LV.T4UI.HighlightSimilarColor")
         .SetLocalizedTooltip("LV.T4UI.HighlightSimilarColorDesc"), false);
+    public ModSetting<bool> HighlightTubeway { get; } = CreateBoolModSettings("LV.T4UI.HighlightTubeway");
 
     public readonly LimitedStringModSetting toolDescPos = new(
         1,
@@ -49,7 +50,7 @@ public class MSettings(
             s.Descriptor.SetEnableCondition(() => contextProvider.Context == ModSettingsContext.MainMenu);
         }
 
-        HighlightSimilarColor.Descriptor.SetEnableCondition(() => HighlightSimilar.Value);
+        HighlightSimilarColor.Descriptor.SetEnableCondition(() => HighlightSimilar.Value || HighlightTubeway.Value);
 
         AddCustomModSetting(scrollableEntityPanel, nameof(scrollableEntityPanel));
         AddCustomModSetting(removePathHighlight, nameof(removePathHighlight));
