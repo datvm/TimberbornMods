@@ -19,8 +19,6 @@ public class ObjectSelectionService(
     [OnEvent]
     public void OnObjectSelected(SelectableObjectSelectedEvent ev)
     {
-        if (!s.HighlightSimilar.Value) { return; }
-
         var prefab = ev.SelectableObject.GetComponentFast<PrefabSpec>();
         if (!prefab) { return; }
 
@@ -34,6 +32,8 @@ public class ObjectSelectionService(
 
     void HighlightSimilarObjects(PrefabSpec prefab)
     {
+        if (!s.HighlightSimilar.Value) { return; }
+
         var name = prefab.Name;
         var color = s.HighlightSimilarColor.Color;
         foreach (var e in entities.Entities)
