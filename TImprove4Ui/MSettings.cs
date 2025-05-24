@@ -27,10 +27,11 @@ public class MSettings(
     readonly ModSetting<bool> highlightPowerNetwork = CreateBoolModSettings("LV.T4UI.HighlightPowerNetwork");
     readonly ModSetting<bool> autoExpandCounter = CreateBoolModSettings("LV.T4UI.AutoExpandCounter");
     readonly ModSetting<bool> neverHideCounter = CreateBoolModSettings("LV.T4UI.NeverHideCounter");
-    public ModSetting<bool> HighlightSimilar { get; } = CreateBoolModSettings("LV.T4UI.HighlightSimilar");
+
     public ColorModSetting HighlightSimilarColor { get; } = new(DefaultHighlightColor, ModSettingDescriptor
         .CreateLocalized("LV.T4UI.HighlightSimilarColor")
         .SetLocalizedTooltip("LV.T4UI.HighlightSimilarColorDesc"), false);
+    public ModSetting<bool> HighlightSimilar { get; } = CreateBoolModSettings("LV.T4UI.HighlightSimilar");
     public ModSetting<bool> HighlightTubeway { get; } = CreateBoolModSettings("LV.T4UI.HighlightTubeway");
 
     public readonly LimitedStringModSetting toolDescPos = new(
@@ -49,8 +50,6 @@ public class MSettings(
         {
             s.Descriptor.SetEnableCondition(() => contextProvider.Context == ModSettingsContext.MainMenu);
         }
-
-        HighlightSimilarColor.Descriptor.SetEnableCondition(() => HighlightSimilar.Value || HighlightTubeway.Value);
 
         AddCustomModSetting(scrollableEntityPanel, nameof(scrollableEntityPanel));
         AddCustomModSetting(removePathHighlight, nameof(removePathHighlight));
