@@ -2,7 +2,7 @@
 using System.Collections.Frozen;
 using System.Text.Json;
 
-const string FileInput = @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\tubewaystation\TubewayStation.IronTeeth.prefab";
+const string FileInput = @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\wellbeing\decontaminationpod\DecontaminationPod.IronTeeth.prefab";
 string input = "";
 
 if (!string.IsNullOrEmpty(FileInput))

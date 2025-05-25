@@ -17,10 +17,13 @@ public class HueAndTurnMassApplier(EntityRegistry entities, ILoc t, DialogBoxSho
     public void CopyColor(HueAndTurnComponent comp)
     {
         var o = comp.Properties.Color;
+        var transparency = comp.Properties.Transparency;
         ApplyToAll(comp, c =>
         {
             c.Properties.Color = o;
+            c.Properties.Transparency = transparency;
             c.ApplyColor();
+            c.ApplyTransparency();
         });
     }
 

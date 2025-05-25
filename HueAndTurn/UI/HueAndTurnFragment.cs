@@ -19,6 +19,7 @@ public class HueAndTurnFragment(
     EntityPanelFragmentElement panel;
     Toggle chkColor;
     ColorPickerElement colorPicker;
+    GameSliderInt transparencySlider;
     GameSliderInt rotationSlider;
     GameSliderInt rotationXSlider;
     GameSliderInt rotationZSlider;
@@ -68,6 +69,12 @@ public class HueAndTurnFragment(
         colorPicker = container.AddChild<ColorPickerElement>()
             .RegisterAlternativeManualValue(input, t, initializer, panelStack)
             .RegisterChange(OnColorPicked);
+
+        transparencySlider = container.AddSliderInt(
+            t.T("LV.HNT.Transparency"),
+            values: new(0, 100, 100))
+            .RegisterChange(SetTransparency);
+        transparencySlider.RemoveFromHierarchy();
     }
 
     void AddRotationGroup(VisualElement parent)
@@ -186,6 +193,13 @@ public class HueAndTurnFragment(
         UpdateColorEnabled();
     }
 
+    void SetTransparency(int transparency)
+    {
+        if (internalSet || !comp) { return; }
+        comp.Properties.Transparency = transparency;
+        comp.ApplyTransparency();
+    }
+
     void SetRotation(int rotation)
     {
         if (internalSet || !comp) { return; }
@@ -253,11 +267,12 @@ public class HueAndTurnFragment(
         {
             colorPicker.Color = props.Color.Value;
         }
+        transparencySlider.SetValueWithoutNotify(props.Transparency ?? 100);
 
         rotationSlider.SetValueWithoutNotify(props.Rotation ?? 0);
         rotationPivotPicker.Position = props.RotationPivot?.ToVector3Int(0) ?? null;
         rotationPivotPicker.SetEnabled(comp.RotationPivotSupported);
-        
+
         var rotationXZ = props.RotationXZ ?? default;
         rotationXSlider.SetValueWithoutNotify(rotationXZ.x);
         rotationZSlider.SetValueWithoutNotify(rotationXZ.y);

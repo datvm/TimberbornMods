@@ -1,0 +1,10 @@
+{
+    "Name": "Hospital",
+    "Version": "7.0.0",
+    "Id": "Hospital",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "",
+    "RequiredMods": [
+        { "Id": "ModdableBindito" }
+    ]
+}

@@ -3,6 +3,14 @@ global using HueAndTurn.UI;
 
 namespace HueAndTurn;
 
+[Context("MainMenu")]
+public class ModMainMenuConfig : Configurator
+{
+    public override void Configure()
+    {
+    }
+}
+
 [Context("Game")]
 [Context("MapEditor")]
 public class ModGameConfig : Configurator

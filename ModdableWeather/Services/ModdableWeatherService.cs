@@ -42,4 +42,11 @@ public class ModdableWeatherService(
     {
         instance = null;
     }
+
+    [OnEvent]
+    public new void OnCycleDayStarted(CycleDayStartedEvent cycleDayStartedEvent)
+    {
+        Debug.Log("Shadowed OnCycleDayStarted");
+    }
+
 }

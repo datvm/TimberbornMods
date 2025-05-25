@@ -42,4 +42,25 @@ public static class ServiceRedirectionPatches
     [HarmonyPrefix, HarmonyPatch(nameof(WeatherService.Load))]
     public static bool IgnoreLoad() => false;
 
+    [HarmonyPrefix, HarmonyPatch(nameof(WeatherService.NextDayIsHazardousWeather))]
+    public static bool GetNextDayIsHazardousWeather(ref bool __result)
+    {
+        __result = ModdableWeatherService.Instance.IsHazardousWeather;
+        return false;
+    }
+
+    [HarmonyPrefix, HarmonyPatch(nameof(WeatherService.OnCycleDayStarted))]
+    public static bool IgnoreOnCycleDayStarted()
+    {
+        Debug.Log("Original OnCycleDayStarted");
+        return false;
+    }
+
+    [HarmonyPrefix, HarmonyPatch(nameof(WeatherService.OnCycleEndedEvent))]
+    public static bool IgnoreOnCycleEndedEvent()
+    {
+        Debug.Log("Original OnCycleEndedEvent");
+        return false;
+    }
+
 }

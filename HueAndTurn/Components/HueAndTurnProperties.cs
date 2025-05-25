@@ -3,6 +3,7 @@
 public record HueAndTurnProperties
 {
     static readonly PropertyKey<Color> ColorKey = new(nameof(Color));
+    static readonly PropertyKey<int> TransparencyKey = new(nameof(Transparency));
     static readonly PropertyKey<int> RotationKey = new(nameof(Rotation));
     static readonly PropertyKey<Vector2Int> RotationPivotKey = new(nameof(RotationPivot));
     static readonly PropertyKey<Vector3Int> TranslationKey = new(nameof(Translation));
@@ -10,6 +11,8 @@ public record HueAndTurnProperties
     static readonly PropertyKey<Vector2Int> RotationXZKey = new(nameof(RotationXZ));
 
     public Color? Color { get; set; }
+    public int? Transparency { get; set; }
+
     public int? Rotation { get; set; }
     public Vector2Int? RotationXZ { get; set; }
     public Vector2Int? RotationPivot { get; set; }
@@ -22,13 +25,20 @@ public record HueAndTurnProperties
         && RotationXZ is null
         && RotationPivot is null
         && Translation is null
-        && Scale is null;
+        && Scale is null
+        && Transparency is null
+    ;
 
     public void Save(IObjectSaver s)
     {
         if (Color is not null)
         {
             s.Set(ColorKey, Color.Value);
+        }
+
+        if (Transparency is not null)
+        {
+            s.Set(TransparencyKey, Transparency.Value);
         }
 
         if (Rotation is not null)
@@ -64,6 +74,7 @@ public record HueAndTurnProperties
             HueAndTurnProperties props = new()
             {
                 Color = s.Has(ColorKey) ? s.Get(ColorKey) : null,
+                Transparency = s.Has(TransparencyKey) ? s.Get(TransparencyKey) : null,
                 Rotation = s.Has(RotationKey) ? s.Get(RotationKey) : null,
                 RotationXZ = s.Has(RotationXZKey) ? s.Get(RotationXZKey) : null,
                 RotationPivot = s.Has(RotationPivotKey) ? s.Get(RotationPivotKey) : null,
