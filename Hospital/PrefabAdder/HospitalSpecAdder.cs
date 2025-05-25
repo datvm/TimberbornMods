@@ -20,6 +20,10 @@ public class HospitalSpecAdder : ISpecModifier
                         Paths = [.. spec.Paths.Concat(HospitalAssetProvider.HospitalPaths)]
                     });
                 }
+                else
+                {
+                    yield return (T)(ComponentSpec) spec;
+                }
             }
         }
         else
