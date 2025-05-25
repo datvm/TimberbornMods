@@ -196,6 +196,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurables", "Configurab
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableBuildingRange", "ConfigurableBuildingRange\ConfigurableBuildingRange.csproj", "{A11D2B46-2B49-4335-A19E-977EE1AE8A9E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital", "Hospital\Hospital.csproj", "{57182B1B-FCFB-4201-AD35-DDAE9C28D074}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -518,6 +520,10 @@ Global
 		{A11D2B46-2B49-4335-A19E-977EE1AE8A9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A11D2B46-2B49-4335-A19E-977EE1AE8A9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A11D2B46-2B49-4335-A19E-977EE1AE8A9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57182B1B-FCFB-4201-AD35-DDAE9C28D074}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57182B1B-FCFB-4201-AD35-DDAE9C28D074}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57182B1B-FCFB-4201-AD35-DDAE9C28D074}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57182B1B-FCFB-4201-AD35-DDAE9C28D074}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

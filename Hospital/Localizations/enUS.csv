@@ -1,0 +1,7 @@
+ID,Text,Comment
+LV.Hospt.DoubleBed,"Double Medical Bed",
+LV.Hospt.DoubleBedDesc,"A spot where two injured beavers come to rest.",
+LV.Hospt.DoubleBedFlavor,"""I call dibs on the left side!"" —Sawbuck",
+LV.Hospt.Hospital,"Hospital",
+LV.Hospt.HospitalDesc,"A place where beavers can rest and recover from injuries.",
+LV.Hospt.HospitalFlavor,"""Nurse! I think I have splinters... everywhere."" —Splinty",

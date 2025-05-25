@@ -41,6 +41,11 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
         highlighter.SetColor(this, Properties.Color.Value);
     }
 
+    public void ApplyTransparency()
+    {
+        return;
+    }
+
     void ClearColor()
     {
         highlighter.ResetColor(this);
@@ -130,6 +135,7 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
     void ApplyEverything()
     {
         ApplyColor();
+        ApplyTransparency();
         ApplyRepositioning();
     }
 
@@ -171,13 +177,14 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
             ApplyColor();
         }
 
+        ApplyTransparency();
         ApplyRepositioning();
     }
 
     public void Load(IEntityLoader entityLoader)
     {
         if (!entityLoader.TryGetComponent(SaveKey, out var s)) { return; }
-        
+
         Properties = HueAndTurnProperties.Load(s);
     }
 
