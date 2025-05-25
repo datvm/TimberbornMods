@@ -1,6 +1,6 @@
 ﻿namespace ModdableWeather.Specs;
 
-public interface IModdedHazardousWeather : IModdedWeather
+public interface IModdedHazardousWeather : IModdedWeather, IHazardousWeather
 {
 
 }

@@ -1,6 +1,6 @@
 ﻿namespace ModdableWeather.Specs;
 
-public record ModdedWeatherSpec : ComponentSpec
+public record ModdedWeatherSpec : ComponentSpec, IHazardousWeatherUISpecification
 {
 
 #nullable disable
@@ -28,4 +28,12 @@ public record ModdedWeatherSpec : ComponentSpec
     [Serialize]
     public Sprite? WeatherPanelBlinkBackground { get; init; }
 
+    public string NameLocKey => DisplayLoc;
+    public string ApproachingLocKey => MessageApproaching;
+    public string InProgressLocKey => MessageInProgress;
+    public string StartedNotificationLocKey => MessageStart;
+    public string EndedNotificationLocKey => MessageEnd;
+    public string InProgressClass => "";
+    public string IconClass => "";
+    public string NotificationBackgroundClass => "";
 }

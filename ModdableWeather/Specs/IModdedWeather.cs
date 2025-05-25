@@ -8,6 +8,6 @@ public interface IModdedWeather
     public IModdedHazardousWeather? IsHazardous() => this as IModdedHazardousWeather;
     public IModdedTemperateWeather? IsTemperate() => this as IModdedTemperateWeather;
 
-    int GetDurationAtCycle(int cycle, ModdableWeatherService service);
-    int GetChance(int cycle, ModdableWeatherService service);
+    int GetDurationAtCycle(int cycle, ModdableWeatherHistoryProvider history);
+    int GetChance(int cycle, ModdableWeatherHistoryProvider history);
 }

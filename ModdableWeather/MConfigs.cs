@@ -28,9 +28,17 @@ public class ModGameConfig : Configurator
         this.BindHazardousWeather<GameDroughtWeather, GameDroughtWeatherSettings>(false);
         this.BindHazardousWeather<GameBadtideWeather, GameBadtideWeatherSettings>(false);
 
-        // Services
-        this.ReplaceBinding<WeatherService, ModdableWeatherService>();
+        // Cycle
+        this.RemoveMultibinding<ICycleDuration>();
+        Bind<ModdableWeatherCycleService>().AsSingleton();
+        MultiBind<ICycleDuration>().ToExisting<ModdableWeatherCycleService>();
 
+        // Old Services
+        this.ReplaceBinding<WeatherService, ModdableWeatherService>();
+        this.ReplaceBinding<HazardousWeatherService, ModdableHazardousWeatherService>();
+        this.ReplaceBinding<HazardousWeatherApproachingTimer, ModdableHazardousWeatherApproachingTimer>();
+
+        // New Services
         Bind<ModdableWeatherSpecService>().AsSingleton();
         Bind<ModdableWeatherRegistry>().AsSingleton();
         Bind<ModdableWeatherHistoryProvider>().AsSingleton();

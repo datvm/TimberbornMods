@@ -7,7 +7,7 @@ public abstract class DefaultModdedWeather : IModdedWeather
 
     public abstract WeatherParameters Parameters { get; }
 
-    public virtual int GetDurationAtCycle(int cycle, ModdableWeatherService service)
+    public virtual int GetDurationAtCycle(int cycle, ModdableWeatherHistoryProvider history)
     {
         var parameters = Parameters;
 
@@ -16,7 +16,7 @@ public abstract class DefaultModdedWeather : IModdedWeather
 
         if (parameters.HandicapCycles > 0)
         {
-            var counter = service.GetWeatherCycleCount(Id);
+            var counter = history.GetWeatherCycleCount(Id);
             if (counter < parameters.HandicapCycles)
             {
                 var initHandicap = parameters.HandicapPerc;
@@ -31,10 +31,16 @@ public abstract class DefaultModdedWeather : IModdedWeather
         return Random.RandomRangeInt(minDay, maxDay + 1);
     }
 
-    public virtual int GetChance(int cycle, ModdableWeatherService service)
+    public virtual int GetChance(int cycle, ModdableWeatherHistoryProvider history)
     {
         return cycle < Parameters.StartCycle ? 0 : Parameters.Chance;
     }
+
+    /// <summary>
+    /// This is for the game interface that will not be called anymore
+    /// </summary>
+    public int GetDurationAtCycle(int cycle) => throw new NotImplementedException();
+
 }
 
 public abstract class DefaultModdedWeather<TSettings>(TSettings settings) : DefaultModdedWeather
