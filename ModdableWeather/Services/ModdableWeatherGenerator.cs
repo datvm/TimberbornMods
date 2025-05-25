@@ -1,19 +1,20 @@
 ﻿namespace ModdableWeather.Services;
 
 public class ModdableWeatherGenerator(
-    ModdableWeatherRegistry registry
+    ModdableWeatherRegistry registry,
+    ModdableWeatherHistoryProvider history
 )
 {
 
-    public CycleWeatherPair DecideForCycle(int cycle, ModdableWeatherService service)
+    public CycleWeatherPair DecideForCycle(int cycle)
     {
         return new(
-            DecideForCycle(cycle, service, registry.TemperateWeathers, null),
-            DecideForCycle(cycle, service, registry.HazardousWeathers, registry.NoneHazardousWeather)
+            DecideForCycle(cycle, registry.TemperateWeathers, null),
+            DecideForCycle(cycle, registry.HazardousWeathers, registry.NoneHazardousWeather)
         );
     }
 
-    static T DecideForCycle<T>(int cycle, ModdableWeatherService service, IEnumerable<T> weathers, T? fallback)
+    T DecideForCycle<T>(int cycle, IEnumerable<T> weathers, T? fallback)
         where T : IModdedWeather
     {
         var max = 0;
@@ -23,7 +24,7 @@ public class ModdableWeatherGenerator(
 
         foreach (var w in weathers)
         {
-            var chance = w.GetChance(cycle, service);
+            var chance = w.GetChance(cycle, history);
             if (chance <= 0) { continue; }
 
             max += chance;

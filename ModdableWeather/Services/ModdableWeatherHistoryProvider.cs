@@ -21,10 +21,11 @@ public class ModdableWeatherHistoryProvider(
     /// </summary>
     public IReadOnlyList<ModdableWeatherCycle> Cycles => cycles;
 
+    ModdableWeatherCycle? currentCycle;
     /// <summary>
     /// Gets the most recent weather cycle, or null if none exist.
     /// </summary>
-    public ModdableWeatherCycle? CurrentCycle { get; private set; }
+    public ModdableWeatherCycle CurrentCycle => currentCycle ?? throw new InvalidOperationException("No weather cycles available.");
 
     public void Load()
     {
@@ -46,7 +47,7 @@ public class ModdableWeatherHistoryProvider(
 
     void InitData()
     {
-        CurrentCycle = cycles.LastOrDefault();
+        currentCycle = cycles.LastOrDefault();
         counters = registry.AllWeathers.ToDictionary(q => q.Id, _ => 0);
 
         foreach (var cycle in cycles)
@@ -125,7 +126,7 @@ public class ModdableWeatherHistoryProvider(
         counters[c.TemperateWeather.Id]++;
         counters[c.HazardousWeather.Id]++;
 
-        CurrentCycle = c;
+        currentCycle = c;
     }
         
     public void Save(ISingletonSaver singletonSaver)

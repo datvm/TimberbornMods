@@ -3,6 +3,9 @@
 public static class ModdableWeatherExtensions
 {
 
+    public static T InstanceOrThrow<T>(this T? instance) where T : class 
+        => instance ?? throw new InvalidOperationException($"{typeof(T).Name} is not loaded yet!");
+
     public static Configurator BindHazardousWeather<T>(this Configurator configurator)
         where T : class, IModdedHazardousWeather
         => MultibindAndBind<IModdedHazardousWeather, T>(configurator);
@@ -39,8 +42,7 @@ public static class ModdableWeatherExtensions
 
     public static Configurator RemoveBinding<T>(this Configurator configurator)
     {
-        var def = (ContainerDefinition)configurator._containerDefinition;
-        var registry = (BindingBuilderRegistry)def._bindingBuilderRegistry;
+        var registry = GetRegistry(configurator);
 
         registry._boundBindingBuilders.Remove(typeof(T));
         return configurator;
@@ -54,6 +56,22 @@ public static class ModdableWeatherExtensions
         configurator.Bind<T>().To<TRep>().AsSingleton();
 
         return configurator;
+    }
+
+    public static Configurator RemoveMultibinding<T>(this Configurator configurator)
+        where T : class
+    {
+        var registry = GetRegistry(configurator);
+        registry._boundMultiBindingBuilders.Remove(typeof(T));
+        return configurator;
+    }
+
+    static BindingBuilderRegistry GetRegistry(Configurator configurator)
+    {
+        var def = (ContainerDefinition)configurator._containerDefinition;
+        var registry = (BindingBuilderRegistry)def._bindingBuilderRegistry;
+
+        return registry;
     }
 
     static Configurator MultibindAndBind<TInterface, T>(Configurator configurator)

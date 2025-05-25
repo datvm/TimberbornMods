@@ -1,7 +1,7 @@
 ﻿namespace ModdableWeather.Patches;
 
 [HarmonyPatch(typeof(WeatherService))]
-public static class ServiceRedirectionPatches
+public static class WeatherServiceRedirectionPatches
 {
 
     [HarmonyGetterPatch(nameof(WeatherService.HazardousWeatherDuration))]
@@ -39,9 +39,6 @@ public static class ServiceRedirectionPatches
         return false;
     }
 
-    [HarmonyPrefix, HarmonyPatch(nameof(WeatherService.Load))]
-    public static bool IgnoreLoad() => false;
-
     [HarmonyPrefix, HarmonyPatch(nameof(WeatherService.NextDayIsHazardousWeather))]
     public static bool GetNextDayIsHazardousWeather(ref bool __result)
     {
@@ -49,18 +46,6 @@ public static class ServiceRedirectionPatches
         return false;
     }
 
-    [HarmonyPrefix, HarmonyPatch(nameof(WeatherService.OnCycleDayStarted))]
-    public static bool IgnoreOnCycleDayStarted()
-    {
-        Debug.Log("Original OnCycleDayStarted");
-        return false;
-    }
-
-    [HarmonyPrefix, HarmonyPatch(nameof(WeatherService.OnCycleEndedEvent))]
-    public static bool IgnoreOnCycleEndedEvent()
-    {
-        Debug.Log("Original OnCycleEndedEvent");
-        return false;
-    }
+    // Load & Unload & other methods are no longer called
 
 }

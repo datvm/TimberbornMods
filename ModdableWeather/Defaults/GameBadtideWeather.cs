@@ -5,6 +5,7 @@ public class GameBadtideWeather(GameBadtideWeatherSettings settings) : DefaultMo
     public const string WeatherId = "BadtideWeather";
 
     public override string Id { get; } = WeatherId;
+
 }
 
 public class GameBadtideWeatherSettings(
