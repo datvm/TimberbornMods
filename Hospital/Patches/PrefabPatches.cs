@@ -1,91 +1,70 @@
-﻿namespace Hospital.PrefabAdder;
+﻿namespace Hospital.Patches;
 
-public class HospitalPrefabLoader(HospitalAssetProvider assetProvider) : IPrefabGroupServiceFrontRunner
+[HarmonyPatch(typeof(PrefabGroupService))]
+public static class PrefabPatches
 {
-    public const string FolktailsMedicalBed = "MedicalBed.Folktails";
-    public const string IronTeethMedicalBed = "MedicalBed.IronTeeth";
 
-    public void AfterPrefabLoad(PrefabGroupService prefabGroupService)
+    [HarmonyPostfix, HarmonyPatch(nameof(PrefabGroupService.Load))]
+    public static void UpdateMedicalPrefabs(PrefabGroupService __instance)
     {
-        List<GameObject> all = [];
-        GameObject? medicalBed = null;
-        var placeholder = assetProvider.PlaceholderAsset.Asset as GameObject;
-
-        foreach (var prefab in prefabGroupService.AllPrefabs)
+        foreach (var prefab in __instance.AllPrefabs)
         {
-            if (prefab == placeholder) { continue; }
+            var name = prefab.GetComponent<PrefabSpec>()?.PrefabName;
 
-            var comp = prefab.GetComponent<PrefabSpec>();
-            if (comp && comp.PrefabName is FolktailsMedicalBed or IronTeethMedicalBed)
+            if (name is "DoubleMedicalBed.Folktails" or "DoubleMedicalBed.IronTeeth")
             {
-                medicalBed = prefab;
+                ModifyPrefab(prefab, "DoubleBed",
+                350,
+                [
+                    new() {
+                        _goodId = "Log",
+                        _amount = 10
+                    },
+                    new() {
+                        _goodId = "Plank",
+                        _amount = 8
+                    }
+                ],
+                2, 2, 0.015f);
             }
-
-            all.Add(prefab);
+            else if (name is "Hospital.Folktails" or "Hospital.IronTeeth")
+            {
+                ModifyPrefab(prefab, "Hospital",
+                1500,
+                [
+                    new() {
+                        _goodId = "Log",
+                        _amount = 40
+                    },
+                    new() {
+                        _goodId = "Plank",
+                        _amount = 20
+                    },
+                    new() {
+                        _goodId = "MetalBlock",
+                        _amount = 20
+                    }
+                ],
+                10, 4,
+                0.06f,
+                new()
+                {
+                    _supply = "Extract",
+                    _capacity = 10,
+                    _goodPerHour = 1f,
+                });
+            }
         }
-
-        if (medicalBed is null)
-        {
-            throw new InvalidOperationException("Medical bed prefab not found in the loaded prefabs.");
-        }
-
-        all.Add(MakeDoubleBedPrefab(medicalBed));
-        all.Add(MakeHospitalPrefab(medicalBed));
-
-        prefabGroupService.AllPrefabs = [.. all];
     }
 
-    GameObject MakeDoubleBedPrefab(GameObject medicalBed) => MakeCopiedPrefab(
-        medicalBed, "DoubleBed",
-        350,
-        [
-            new() {
-                _goodId = "Log",
-                _amount = 10
-            },
-            new() {
-                _goodId = "Plank",
-                _amount = 8
-            }
-        ],
-        2, 2, 0.015f
-    );
-
-    GameObject MakeHospitalPrefab(GameObject medicalBed) => MakeCopiedPrefab(
-        medicalBed, "Hospital",
-        1500,
-        [
-            new() {
-                _goodId = "Log",
-                _amount = 40
-            },
-            new() {
-                _goodId = "Plank",
-                _amount = 20
-            },
-            new() {
-                _goodId = "MetalBlock",
-                _amount = 20
-            }
-        ],
-        10, 4,
-        0.06f,
-        new()
-        {
-            _supply = "Extract",
-            _capacity = 10,
-            _goodPerHour = 1f,
-        }
-    );
-
-    static GameObject MakeCopiedPrefab(GameObject medicalBed, string name,
+    static void ModifyPrefab(GameObject obj, string name,
         int scienceCost, GoodAmountSpec[] buildingCost,
         int slots,
         int height,
         float injuryPerHours,
-        GoodConsumingBuildingSpec? goodConsuming = null)
+        GoodConsumingBuildingSpec? goodConsuming = null
+    )
     {
-        var obj = UnityEngine.Object.Instantiate(medicalBed);
         obj.AddComponent<HospitalComponentSpec>();
 
         var prefab = obj.GetComponent<PrefabSpec>();
@@ -126,8 +105,6 @@ public class HospitalPrefabLoader(HospitalAssetProvider assetProvider) : IPrefab
 
             obj.AddComponent<GoodConsumingAttractionSpec>();
         }
-
-        return obj;
     }
 
     static void ResizeBlockObj(BlockObjectSpec blockObj, int height)
@@ -155,5 +132,6 @@ public class HospitalPrefabLoader(HospitalAssetProvider assetProvider) : IPrefab
 
         blockObj._blocksSpec = spec;
     }
+
 
 }

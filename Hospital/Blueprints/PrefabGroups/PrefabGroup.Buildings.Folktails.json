@@ -1,0 +1,9 @@
+{
+    "PrefabGroupSpec": {
+        "Id": "Buildings.Folktails",
+        "Paths#append": [
+            "Buildings/Wellbeing/MedicalBed/DoubleMedicalBed.Folktails",
+            "Buildings/Wellbeing/MedicalBed/Hospital.Folktails"
+        ]
+    }
+}
