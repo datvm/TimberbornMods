@@ -1,13 +1,4 @@
-﻿global using Timberborn.Autosaving;
-global using Timberborn.Buildings;
-global using Timberborn.BuildingTools;
-global using Timberborn.CommandLine;
-global using Timberborn.Debugging;
-global using Timberborn.DebuggingUI;
-global using Timberborn.MainMenuModdingUI;
-global using Timberborn.ModdingUI;
-global using Timberborn.SelectionSystem;
-global using Timberborn.SteamOverlaySystem;
-global using Timberborn.SteamWorkshopModUploadingUI;
-global using TImprove4Modders.Services;
+﻿global using TImprove4Modders.Services;
+global using UnityEditor.UIElements.Debugger;
 global using UnityEngine.InputSystem;
+global using TImprove4Modders.DevModules;

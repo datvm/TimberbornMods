@@ -1,7 +1,4 @@
-﻿global using Timberborn.AssetSystem;
-using UnityEditor.UIElements.Debugger;
-
-namespace TImprove4Modders.DevModules;
+﻿namespace TImprove4Modders.DevModules;
 
 public class PrintUiModule(PanelStack panelStack, IAssetLoader loader) : IDevModule
 {
