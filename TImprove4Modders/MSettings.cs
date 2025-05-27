@@ -1,5 +1,4 @@
-﻿
-namespace TImprove4Modders;
+﻿namespace TImprove4Modders;
 
 public class MSettings(
     ISettings settings,
