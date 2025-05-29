@@ -9,8 +9,6 @@ public class ObjectSelectionService(
 ) : ILoadableSingleton
 {
 
-    public static readonly ImmutableHashSet<string> TubewayPrefabs = ["Tubeway.IronTeeth", "SolidTubeway.IronTeeth", "TubewayStation.IronTeeth"];
-
     public void Load()
     {
         eb.Register(this);
@@ -45,9 +43,11 @@ public class ObjectSelectionService(
         }
     }
 
+    bool IsTubeway(PrefabSpec obj) => obj.GetComponentFast<TubeSpec>() || obj.GetComponentFast<TubeStationSpec>(); 
+
     bool HighlightTubeways(PrefabSpec obj)
     {
-        if (!s.HighlightTubeway.Value || !TubewayPrefabs.Contains(obj.Name)) { return false; }
+        if (!s.HighlightTubeway.Value || !IsTubeway(obj)) { return false; }
 
         var startingObj = obj.GetComponentFast<BlockObject>();
         var color = s.HighlightSimilarColor.Color;
@@ -67,7 +67,7 @@ public class ObjectSelectionService(
             foreach (var block in blockObjs)
             {
                 var prefab = block.GetComponentFast<PrefabSpec>();
-                if (!prefab || !TubewayPrefabs.Contains(prefab.Name)) { continue; }
+                if (!prefab || !IsTubeway(prefab)) { continue; }
 
                 if (prefab != obj)
                 {
