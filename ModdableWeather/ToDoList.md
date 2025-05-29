@@ -15,8 +15,8 @@ Next patches:
 	- `HazardousWeatherNotificationPanel` - ✅
     - `DayStageCycle` - ✅
         - `Sun` - ✅
-    - `BadtideWaterSourceContaminationController`
-    - `DroughtWaterStrengthModifier`
-- `HazardousWeatherService`
-- `BadtideWeather`
-- `DroughtWeather`
+    - `BadtideWaterSourceContaminationController` - ✅
+    - `DroughtWaterStrengthModifier` - ✅
+- `HazardousWeatherService` - ✅
+- `BadtideWeather` - ✅
+- `DroughtWeather` - ✅

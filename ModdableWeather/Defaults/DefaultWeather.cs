@@ -5,6 +5,12 @@ public abstract class DefaultModdedWeather : IModdedWeather
     public abstract string Id { get; }
     public ModdedWeatherSpec Spec { get; set; } = null!;
 
+    public event EventHandler? OnWeatherStarted;
+    public event EventHandler? OnWeatherEnded;
+    public event EventHandler? OnWeatherActiveChanged;
+
+    public bool Active { get; protected set; }
+
     public abstract WeatherParameters Parameters { get; }
 
     public virtual int GetDurationAtCycle(int cycle, ModdableWeatherHistoryProvider history)
@@ -42,10 +48,26 @@ public abstract class DefaultModdedWeather : IModdedWeather
         return cycle < Parameters.StartCycle ? 0 : Parameters.Chance;
     }
 
+    public virtual void Start()
+    {
+        Active = true;
+        OnWeatherStarted?.Invoke(this, EventArgs.Empty);
+        OnWeatherActiveChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public virtual void End()
+    {
+        Active = false;
+        OnWeatherEnded?.Invoke(this, EventArgs.Empty);
+        OnWeatherActiveChanged?.Invoke(this, EventArgs.Empty);
+    }
+
     /// <summary>
     /// This is for the game interface that will not be called anymore
     /// </summary>
     public int GetDurationAtCycle(int cycle) => throw new NotImplementedException();
+
+    public override string ToString() => $"{Spec.Display} ({Id} - {GetType().FullName})";
 
 }
 

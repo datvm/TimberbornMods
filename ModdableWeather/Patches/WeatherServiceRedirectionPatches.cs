@@ -46,6 +46,18 @@ public static class WeatherServiceRedirectionPatches
         return false;
     }
 
-    // Load & Unload & other methods are no longer called
+    [HarmonyPrefix, HarmonyPatch(nameof(WeatherService.OnCycleDayStarted))]
+    public static bool RedirectOnCycleDayStarted()
+    {
+        ModdableWeatherService.Instance.NewOnCycleDayStarted();
+        return false;
+    }
+
+    [HarmonyPrefix, HarmonyPatch(nameof(WeatherService.OnCycleEndedEvent))]
+    public static bool RedirectOnCycleEndedEvent()
+    {
+        ModdableWeatherService.Instance.NewOnCycleEnded();
+        return false;
+    }
 
 }

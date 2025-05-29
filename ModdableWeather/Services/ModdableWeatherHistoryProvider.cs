@@ -10,8 +10,11 @@ public class ModdableWeatherHistoryProvider(
     HazardousWeatherHistory hazardousWeatherHistory,
     GameTemperateWeather gameTemperateWeather,
     ModdableWeatherGenerator generator
-) : ISaveableSingleton, ILoadableSingleton
+) : ISaveableSingleton, ILoadableSingleton, IUnloadableSingleton
 {
+    static ModdableWeatherHistoryProvider? instance;
+    public static ModdableWeatherHistoryProvider Instance => instance.InstanceOrThrow();
+
     static readonly ListKey<ModdableWeatherCycle> CyclesKey = new("HistoricalCycles");
     static readonly PropertyKey<string> NextTemperateWeatherIdKey = new("NextTemperateWeatherId");
 
@@ -45,8 +48,23 @@ public class ModdableWeatherHistoryProvider(
     public bool HasNextCycleTemperateWeather => nextCycleTemperate is not null;
     public IModdedTemperateWeather NextCycleTemperateWeather => nextCycleTemperate.InstanceOrThrow();
 
+    public bool PreviousCycleHadDrought
+    {
+        get
+        {
+            if (cycles.Count <= 1) { return false; }
+
+            var lastCycle = cycles[^2];
+            return lastCycle.HazardousWeather.Id == GameDroughtWeather.WeatherId;
+        }
+    }
+
+    public bool IsCycleWithDrought => CurrentCycleDetails.HazardousWeather.IsDrought();
+
     public void Load()
     {
+        instance = this;
+
         if (!LoadSavedData())
         {
             ExtractFromCurrentData();
@@ -171,4 +189,8 @@ public class ModdableWeatherHistoryProvider(
             registry.GetTemperateWeather(cycle.TemperateWeather.Id),
             registry.GetHazardousWeather(cycle.HazardousWeather.Id));
 
+    public void Unload()
+    {
+        instance = null;
+    }
 }

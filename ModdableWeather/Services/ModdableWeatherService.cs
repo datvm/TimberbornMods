@@ -13,6 +13,7 @@ public class ModdableWeatherService(
     public static ModdableWeatherService Instance => instance.InstanceOrThrow();
 
     readonly GameCycleService gameCycleService = gameCycleService;
+    readonly ModdableHazardousWeatherService hazardousWeatherService = hazardousWeatherService;
 
     public int Cycle => gameCycleService.Cycle;
     public int CycleDay => gameCycleService.CycleDay;
@@ -62,11 +63,39 @@ public class ModdableWeatherService(
     {
         instance = this;
         base.Load();
+
+        CurrentWeather.Start();
     }
 
     public void Unload()
     {
         instance = null;
+    }
+
+    // Don't shadow these or EventBus will cause crashes
+    public void NewOnCycleDayStarted()
+    {
+        if (CycleDay != HazardousWeatherStartCycleDay) { return; }
+
+        ModdableWeatherUtils.Log(() => $"Ending temperate weather {history.CurrentTemperateWeather} for cycle {Cycle} on day {CycleDay}.");
+        history.CurrentTemperateWeather.End();
+
+        ModdableWeatherUtils.Log(() => $"Starting hazardous weather {history.CurrentHazardousWeather} for cycle {Cycle} on day {CycleDay}.");
+        history.CurrentHazardousWeather.Start();
+        hazardousWeatherService.StartHazardousWeather();
+    }
+
+    public void NewOnCycleEnded()
+    {
+        if (HazardousWeatherDuration <= 0)
+        {
+            ModdableWeatherUtils.Log(() => $"Cycle {Cycle} ended without hazardous weather.");
+            return;
+        }
+
+        ModdableWeatherUtils.Log(() => $"Ending hazardous weather {history.CurrentHazardousWeather} for cycle {Cycle} on day {CycleDay}.");
+        history.CurrentHazardousWeather.End();
+        hazardousWeatherService.EndHazardousWeather();
     }
 
 }
