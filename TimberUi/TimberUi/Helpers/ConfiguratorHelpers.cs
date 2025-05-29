@@ -18,7 +18,45 @@ public class TemplateModuleHelper(Configurator configurator)
 
 }
 
-public class SimpleProvider<T>(T input) : IProvider<T>
+public class MassRebindingHelper(Configurator configurator)
 {
-    public T Get() => input;
+
+    readonly List<KeyValuePair<Type, Type>> replacings = [];
+    readonly List<Type> removing = [];
+    readonly HashSet<Type> bindings = [];
+
+    public MassRebindingHelper Replace<TRemove, TReplace>(bool alsoBindReplacement = true)
+        where TReplace : TRemove
+    {
+        replacings.Add(new(typeof(TRemove), typeof(TReplace)));
+        if (alsoBindReplacement)
+        {
+            bindings.Add(typeof(TReplace));
+        }
+
+        return this;
+    }
+
+    public MassRebindingHelper Remove<T>() where T : class
+    {
+        removing.Add(typeof(T));
+        return this;
+    }
+
+    public Configurator Bind()
+    {
+        // First remove alls bindings
+        configurator.MassRemoveBindings(replacings
+            .Select(q => q.Key)
+            .Concat(removing));
+
+        // Then re-add replacements
+        foreach (var (src, dst) in replacings)
+        {
+            configurator.BindSingleton(src, dst, bindings.Contains(dst));
+        }
+
+        return configurator;
+    }
+
 }

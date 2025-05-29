@@ -1,7 +1,7 @@
 namespace ModdableWeather.Patches;
 
 [HarmonyPatch(typeof(HazardousWeatherService))]
-public static class ModdableHazardousWeatherServiceRedirectionPatches
+public static class HazardousWeatherServiceRedirectionPatches
 {
     [HarmonyGetterPatch(nameof(HazardousWeatherService.HazardousWeatherDuration))]
     public static bool GetHazardousWeatherDuration(ref int __result)

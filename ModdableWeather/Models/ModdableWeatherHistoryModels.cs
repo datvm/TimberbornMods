@@ -8,9 +8,11 @@ public record ModdableWeatherCycle(int Cycle, ModdableWeatherCycleWeather Temper
     public int CycleLengthInDays => TemperateWeatherDuration + HazardousWeatherDuration;
 }
 
+public readonly record struct ModdableWeatherCycleDetails(ModdableWeatherCycle Cycle, IModdedTemperateWeather TemperateWeather, IModdedHazardousWeather HazardousWeather);
+
 public readonly record struct ModdableWeatherCycleWeather(string Id, int Duration);
 
-public readonly record struct OnModdableWeatherCycleDecided(ModdableWeatherCycle WeatherCycle);
+public readonly record struct OnModdableWeatherCycleDecided(ModdableWeatherCycleDetails WeatherCycle);
 
 public class ModdableWeatherCycleSerializer : IValueSerializer<ModdableWeatherCycle>
 {

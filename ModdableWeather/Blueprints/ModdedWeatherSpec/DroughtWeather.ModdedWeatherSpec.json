@@ -5,7 +5,8 @@
         "WeatherPanelProgressBackground": "UI/Images/Game/weather-progress-dry",
         "WeatherPanelBlinkBackground": "UI/Images/Backgrounds/bg-striped-6",
         "DatePanelIcon": "UI/Images/Core/ico-weather-drought",
-        "WeatherNotification": "UI/Images/Game/weather-notification-dry"
+        "WeatherNotification": "UI/Images/Game/weather-notification-dry",
+        "StartSound": "UI.Weather.DroughtStarted"
     },
     "ModdedWeatherSkySpec": {
         "Sunrise": {

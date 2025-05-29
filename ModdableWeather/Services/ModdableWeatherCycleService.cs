@@ -2,15 +2,21 @@
 
 public class ModdableWeatherCycleService(
     ModdableWeatherGenerator generator,
-    ModdableWeatherHistoryProvider moddableWeatherHistoryProvider
+    ModdableWeatherHistoryProvider history
 ) : ICycleDuration
 {
 
-    public int DurationInDays => moddableWeatherHistoryProvider.CurrentCycle.CycleLengthInDays;
+    public int DurationInDays => history.CurrentCycle.CycleLengthInDays;
 
     public void SetForCycle(int cycle)
     {
-        generator.DecideForCycle(cycle);
+        var weather = generator.DecideForCycle(cycle, history);
+        var nextTemperate = generator.DecideTemperateWeatherForCycle(cycle + 1, history);
+
+        ModdableWeatherUtils.Log(() => 
+            $"Next temperate weather: {nextTemperate}");
+
+        history.AddCycle(weather, nextTemperate);
     }
 
 }

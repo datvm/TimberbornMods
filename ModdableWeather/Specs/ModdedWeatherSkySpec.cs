@@ -5,21 +5,22 @@ public record ModdedWeatherSkySpec : ComponentSpec
 
 #nullable disable
     [Serialize]
-    public ModdedWeatherSkyStageSpec Sunrise { get; init; }
+    public FogSettingsSpec Sunrise { get; init; }
     [Serialize]
-    public ModdedWeatherSkyStageSpec Day { get; init; }
+    public FogSettingsSpec Day { get; init; }
     [Serialize]
-    public ModdedWeatherSkyStageSpec Sunset { get; init; }
+    public FogSettingsSpec Sunset { get; init; }
     [Serialize]
-    public ModdedWeatherSkyStageSpec Night { get; init; }
+    public FogSettingsSpec Night { get; init; }
 #nullable enable
 
-}
+    public FogSettingsSpec this[DayStage dayStage] => dayStage switch
+    {
+        DayStage.Sunrise => Sunrise,
+        DayStage.Day => Day,
+        DayStage.Sunset => Sunset,
+        DayStage.Night => Night,
+        _ => throw new ArgumentOutOfRangeException(nameof(dayStage), dayStage, $"Unknown {nameof(DayStage)}"),
+    };
 
-public record ModdedWeatherSkyStageSpec : ComponentSpec
-{
-    [Serialize]
-    public Color FogColor { get; init; }
-    [Serialize]
-    public float FogDensity { get; init; }
 }

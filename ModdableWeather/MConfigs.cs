@@ -1,4 +1,5 @@
-﻿namespace ModdableWeather;
+﻿
+namespace ModdableWeather;
 
 [Context("MainMenu")]
 public class ModMenuConfig : Configurator
@@ -8,10 +9,9 @@ public class ModMenuConfig : Configurator
     {
         Bind<ModdableWeatherSpecService>().AsSingleton();
 
-        this.BindTemperateWeather<GameTemperateWeather, GameTemperateWeatherSettings>(true);
-
-        this.BindHazardousWeather<GameDroughtWeather, GameDroughtWeatherSettings>(true);
-        this.BindHazardousWeather<GameBadtideWeather, GameBadtideWeatherSettings>(true);
+        this.BindTemperateWeather<GameTemperateWeather, GameTemperateWeatherSettings>(true)
+            .BindHazardousWeather<GameDroughtWeather, GameDroughtWeatherSettings>(true)
+            .BindHazardousWeather<GameBadtideWeather, GameBadtideWeatherSettings>(true);
     }
 
 }
@@ -23,30 +23,39 @@ public class ModGameConfig : Configurator
     public override void Configure()
     {
         // Weathers
-        this.BindTemperateWeather<GameTemperateWeather, GameTemperateWeatherSettings>(false);
+        this
+            .BindTemperateWeather<GameTemperateWeather, GameTemperateWeatherSettings>(false)
+            .BindHazardousWeather<GameDroughtWeather, GameDroughtWeatherSettings>(false)
+            .BindHazardousWeather<GameBadtideWeather, GameBadtideWeatherSettings>(false);
 
-        this.BindHazardousWeather<GameDroughtWeather, GameDroughtWeatherSettings>(false);
-        this.BindHazardousWeather<GameBadtideWeather, GameBadtideWeatherSettings>(false);
+        // Replace/remove Services
+        this.MassRebind()
+            .Replace<WeatherService, ModdableWeatherService>()
+            .Replace<HazardousWeatherService, ModdableHazardousWeatherService>()
+            .Replace<HazardousWeatherApproachingTimer, ModdableHazardousWeatherApproachingTimer>()
+            .Replace<HazardousWeatherNotificationPanel, ModdableHazardousWeatherNotificationPanel>()
+            .Replace<DatePanel, ModdableDatePanel>()
+            .Replace<WeatherPanel, ModdableWeatherPanel>()
+            .Replace<Sun, ModdableSun>()
+            .Replace<DayStageCycle, ModdableDayStageCycle>()
 
-        // Cycle
+            .Remove<HazardousWeatherSoundPlayer>()
+        .Bind();
+            
         this.RemoveMultibinding<ICycleDuration>();
-        Bind<ModdableWeatherCycleService>().AsSingleton();
-        MultiBind<ICycleDuration>().ToExisting<ModdableWeatherCycleService>();
+        this.MultiBindAndBindSingleton<ICycleDuration, ModdableWeatherCycleService>();
 
-        // Old Services
-        this.ReplaceBinding<WeatherService, ModdableWeatherService>();
-        this.ReplaceBinding<HazardousWeatherService, ModdableHazardousWeatherService>();
-        this.ReplaceBinding<HazardousWeatherApproachingTimer, ModdableHazardousWeatherApproachingTimer>();
+        this.BindSingleton<ModdableHazardousWeatherSoundPlayer>();
 
         // New Services
-        Bind<ModdableWeatherSpecService>().AsSingleton();
-        Bind<ModdableWeatherRegistry>().AsSingleton();
-        Bind<ModdableWeatherHistoryProvider>().AsSingleton();
-        Bind<ModdableWeatherService>().AsSingleton();
-        Bind<ModdableWeatherGenerator>().AsSingleton();
+        this
+            .BindSingleton<ModdableWeatherSpecService>()
+            .BindSingleton<ModdableWeatherRegistry>()
+            .BindSingleton<ModdableWeatherHistoryProvider>()
+            .BindSingleton<ModdableWeatherGenerator>()
 
-        // Bind but do NOT multibind this special weather for record keeping
-        Bind<NoneHazardousWeather>().AsSingleton();
+            // Bind but do NOT multibind this special weather for record keeping
+            .BindSingleton<NoneHazardousWeather>();
     }
 
 }
