@@ -1,12 +1,12 @@
 ﻿namespace ModdableWeather.Services;
 
 public class ModdableWeatherService(
-    ModdableWeatherHistoryProvider historyProvider,
+    ModdableWeatherHistoryProvider history,
     GameCycleService gameCycleService,
     EventBus eventBus,
     TemperateWeatherDurationService temperateWeatherDurationService,
-    HazardousWeatherService hazardousWeatherService
-) : WeatherService(eventBus, temperateWeatherDurationService, gameCycleService, hazardousWeatherService), 
+    ModdableHazardousWeatherService hazardousWeatherService
+) : WeatherService(eventBus, temperateWeatherDurationService, gameCycleService, hazardousWeatherService),
     ILoadableSingleton, IUnloadableSingleton
 {
     static ModdableWeatherService? instance;
@@ -18,7 +18,36 @@ public class ModdableWeatherService(
     public int CycleDay => gameCycleService.CycleDay;
     public float PartialCycleDay => gameCycleService.PartialCycleDay;
 
-    public ModdableWeatherCycle WeatherCycle => historyProvider.CurrentCycle;
+    public ModdableWeatherCycle WeatherCycle => history.CurrentCycle;
+    public ModdableWeatherCycleDetails WeatherCycleDetails => history.CurrentCycleDetails;
+    public IModdedWeather CurrentWeather
+    {
+        get
+        {
+            var curr = history.CurrentCycleDetails;
+            return IsHazardousWeather ? curr.HazardousWeather : curr.TemperateWeather;
+        }
+    }
+
+    public IModdedWeather NextDayWeather
+    {
+        get
+        {
+            var day = CycleDay + 1;
+            if (day > WeatherCycle.CycleLengthInDays)
+            {
+                return history.NextCycleTemperateWeather;
+            }
+            else if (day >= WeatherCycle.HazardousWeatherStartCycleDay)
+            {
+                return WeatherCycleDetails.HazardousWeather;
+            }
+            else
+            {
+                return WeatherCycleDetails.TemperateWeather;
+            }
+        }
+    }
 
     public new int HazardousWeatherDuration => WeatherCycle.HazardousWeatherDuration;
     public new int TemperateWeatherDuration => WeatherCycle.TemperateWeatherDuration;
@@ -27,13 +56,12 @@ public class ModdableWeatherService(
 
     public new bool IsHazardousWeather => CycleDay >= HazardousWeatherStartCycleDay;
 
-    public int DurationInDays { get; }
+    public bool NextDayIsTemperateWeather() => !NextDayIsHazardousWeather();
 
-    public int GetWeatherCycleCount(string id) => historyProvider.GetWeatherCycleCount(id);
-
-    void ILoadableSingleton.Load()
+    public new void Load()
     {
         instance = this;
+        base.Load();
     }
 
     public void Unload()

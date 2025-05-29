@@ -5,7 +5,8 @@
         "WeatherPanelProgressBackground": "UI/Images/Game/weather-progress-badtide",
         "WeatherPanelBlinkBackground": "UI/Images/Backgrounds/bg-striped-4",
         "DatePanelIcon": "UI/Images/Core/ico-weather-badtide",
-        "WeatherNotification": "UI/Images/Game/weather-notification-badtide"
+        "WeatherNotification": "UI/Images/Game/weather-notification-badtide",
+        "StartSound": "UI.Weather.BadtideStarted"
     },
     "ModdedWeatherSkySpec": {
         "Sunrise": {

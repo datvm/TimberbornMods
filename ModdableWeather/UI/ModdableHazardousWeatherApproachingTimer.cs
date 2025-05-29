@@ -1,4 +1,4 @@
-﻿namespace ModdableWeather.Services;
+﻿namespace ModdableWeather.UI;
 
 public class ModdableHazardousWeatherApproachingTimer(
     EventBus eventBus,
@@ -17,6 +17,9 @@ public class ModdableHazardousWeatherApproachingTimer(
     public new float MaxDayProgressLeftToNotify { get; set; } = DefaultMaxDayProgressLeftToNotify;
 
     public new bool TooCloseToNotify => DaysToHazardousWeather < MaxDayProgressLeftToNotify;
+
+    public int WarningDay => _weatherService.HazardousWeatherStartCycleDay - ApproachingNotificationDays;
+    public int DaysUntilWarning => WarningDay - _gameCycleService.CycleDay;
 
     public new void Load()
     {
@@ -38,7 +41,7 @@ public class ModdableHazardousWeatherApproachingTimer(
 
     public new void OnCycleDayStarted(CycleDayStartedEvent cycleDayStartedEvent)
     {
-        if (_gameCycleService.CycleDay == _weatherService.TemperateWeatherDuration - ApproachingNotificationDays + 1)
+        if (_gameCycleService.CycleDay == WarningDay)
         {
             NotifyHazardousWeatherApproaching();
         }

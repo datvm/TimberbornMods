@@ -8,16 +8,14 @@ public class ModdableHazardousWeatherService(
     BadtideWeather badtideWeather,
     HazardousWeatherRandomizer hazardousWeatherRandomizer,
     HazardousWeatherHistory hazardousWeatherHistory,
-    ModdableWeatherHistoryProvider history,
-    ModdableWeatherRegistry registry
+    ModdableWeatherHistoryProvider history
 ) : HazardousWeatherService(eventBus, singletonLoader, mapEditorMode, droughtWeather, badtideWeather, hazardousWeatherRandomizer, hazardousWeatherHistory),
     ILoadableSingleton, IUnloadableSingleton
 {
     static ModdableHazardousWeatherService? instance;
     public static ModdableHazardousWeatherService Instance => instance.InstanceOrThrow();
 
-    public new IHazardousWeather CurrentCycleHazardousWeather => registry.GetHazardousWeather(
-        history.CurrentCycle.HazardousWeather.Id);
+    public new IHazardousWeather CurrentCycleHazardousWeather => history.CurrentHazardousWeather;
 
     public new int HazardousWeatherDuration => history.CurrentCycle.HazardousWeatherDuration;
     public new int DurationInDays => history.CurrentCycle.HazardousWeatherDuration;

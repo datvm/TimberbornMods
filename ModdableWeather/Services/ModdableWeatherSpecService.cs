@@ -7,6 +7,7 @@ public class ModdableWeatherSpecService(
 {
 
     public FrozenDictionary<string, ModdedWeatherSpec> Specs { get; private set; } = FrozenDictionary<string, ModdedWeatherSpec>.Empty;
+    readonly Dictionary<string, ModdedWeatherSkySpec> cachedSkySpecByIds = [];
 
 #nullable disable
     public ModdedWeatherSpec TemperateWeatherSpec { get; private set; }
@@ -47,7 +48,23 @@ public class ModdableWeatherSpecService(
             ?? throw new InvalidDataException($"{nameof(TemperateWeatherSpec)} does not have a sky spec");
     }
 
-    public ModdedWeatherSkySpec GetSkySpec(ModdedWeatherSpec spec) 
+    public ModdedWeatherSkySpec GetSkySpec(string? id)
+    {
+        if (id is null) { return DefaultSkySpec; }
+
+        if (!cachedSkySpecByIds.TryGetValue(id, out var skySpec))
+        {
+            var spec = Specs[id];
+            cachedSkySpecByIds[id] = skySpec = GetSkySpec(spec);
+        }
+
+        return skySpec;
+    }
+
+    public ModdedWeatherSkySpec GetSkySpec(ModdedWeatherSpec spec)
         => spec.GetSpec<ModdedWeatherSkySpec>() ?? DefaultSkySpec;
+
+    public string DefaultTemperateSound => TemperateWeatherSpec.StartSound!;
+    public string DefaultDroughtSound => DroughtWeatherSpec.StartSound!;
 
 }

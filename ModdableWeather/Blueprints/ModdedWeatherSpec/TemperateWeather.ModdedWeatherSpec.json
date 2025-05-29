@@ -4,7 +4,8 @@
         "DisplayLoc": "Weather.Temperate",
         "WeatherPanelProgressBackground": "UI/Images/Game/weather-progress-wet",
         "DatePanelIcon": "UI/Images/Core/ico-weather-temperate",
-        "WeatherNotification": "UI/Images/Game/weather-notification-wet"
+        "WeatherNotification": "UI/Images/Game/weather-notification-wet",
+        "StartSound": "UI.Weather.TemperateWeatherStarted"
     },
     "ModdedWeatherSkySpec": {
         "Sunrise": {

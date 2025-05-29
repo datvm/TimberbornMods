@@ -1,20 +1,45 @@
 ﻿namespace ModdableWeather.Services;
 
 public class ModdableWeatherGenerator(
-    ModdableWeatherRegistry registry,
-    ModdableWeatherHistoryProvider history
+    ModdableWeatherRegistry registry
 )
 {
 
-    public CycleWeatherPair DecideForCycle(int cycle)
+    public ModdableWeatherCycle DecideForCycle(int cycle, ModdableWeatherHistoryProvider history)
     {
+        var (temperate, hazard) = DecideWeatherForCycle(cycle, history);
+
+        var tempDuration = temperate.GetDurationAtCycle(cycle, history);
+        var hazardDuration = hazard.GetDurationAtCycle(cycle, history);
+
+        ModdableWeatherUtils.Log(() => 
+            $"Decided weather for cycle {cycle}:" +
+            $" {temperate.Id} ({tempDuration} days)," +
+            $" {hazard.WeatherId} ({hazardDuration} days)");
+
         return new(
-            DecideForCycle(cycle, registry.TemperateWeathers, null),
-            DecideForCycle(cycle, registry.HazardousWeathers, registry.NoneHazardousWeather)
+            cycle,
+            new(temperate.Id, tempDuration),
+            new(hazard.WeatherId, hazardDuration)
         );
     }
 
-    T DecideForCycle<T>(int cycle, IEnumerable<T> weathers, T? fallback)
+    public IModdedTemperateWeather DecideTemperateWeatherForCycle(int cycle, ModdableWeatherHistoryProvider history)
+        => DecideForCycle(cycle, history, registry.TemperateWeathers, null);
+
+    CycleWeatherPair DecideWeatherForCycle(int cycle, ModdableWeatherHistoryProvider history)
+    {
+        var temperateWeather = history.HasNextCycleTemperateWeather ?
+            history.NextCycleTemperateWeather :
+            DecideTemperateWeatherForCycle(cycle, history);
+
+        return new(
+            temperateWeather,
+            DecideForCycle(cycle, history, registry.HazardousWeathers, registry.NoneHazardousWeather)
+        );
+    }
+
+    T DecideForCycle<T>(int cycle, ModdableWeatherHistoryProvider history, IEnumerable<T> weathers, T? fallback)
         where T : IModdedWeather
     {
         var max = 0;

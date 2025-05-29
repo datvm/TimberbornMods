@@ -5,28 +5,31 @@ public record ModdedWeatherSpec : ComponentSpec, IHazardousWeatherUISpecificatio
 
 #nullable disable
     [Serialize]
-    public string Id { get; init; } = null!;
+    public string Id { get; init; }
 
     [Serialize]
-    public string DisplayLoc { get; init; } = null!;
-    public string Display { get; set; } = null!;
-    public string MessageStart { get; set; } = null!;
-    public string MessageEnd { get; set; } = null!;
-    public string MessageApproaching { get; set; } = null!;
-    public string MessageInProgress { get; set; } = null!;
+    public string DisplayLoc { get; init; }
+    public string Display { get; set; }
+    public string MessageStart { get; set; }
+    public string MessageEnd { get; set; }
+    public string MessageApproaching { get; set; }
+    public string MessageInProgress { get; set; }
 
     [Serialize]
-    public Sprite WeatherPanelProgressBackground { get; init; } = null!;    
+    public Sprite WeatherPanelProgressBackground { get; init; }
     [Serialize]
-    public Sprite DatePanelIcon { get; init; } = null!;
+    public Sprite DatePanelIcon { get; init; }
     [Serialize]
-    public Sprite WeatherNotification { get; init; } = null!;
+    public Sprite WeatherNotification { get; init; }
 
     public ModdedWeatherSkySpec Sky { get; set; }
 #nullable enable
 
     [Serialize]
     public Sprite? WeatherPanelBlinkBackground { get; init; }
+
+    [Serialize]
+    public string? StartSound { get; set; }
 
     public string NameLocKey => DisplayLoc;
     public string ApproachingLocKey => MessageApproaching;

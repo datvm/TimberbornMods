@@ -5,6 +5,8 @@ public interface IModdedWeather
     string Id { get; }
     ModdedWeatherSpec Spec { get; set; }
 
+    public string WeatherId => Id;
+
     public IModdedHazardousWeather? IsHazardous() => this as IModdedHazardousWeather;
     public IModdedTemperateWeather? IsTemperate() => this as IModdedTemperateWeather;
 

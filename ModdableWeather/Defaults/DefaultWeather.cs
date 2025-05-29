@@ -28,6 +28,12 @@ public abstract class DefaultModdedWeather : IModdedWeather
             }
         }
 
+        if (minDay < 1) { minDay = 1; }
+        if (minDay >= maxDay)
+        {
+            return Mathf.Max(1, maxDay);
+        }
+
         return Random.RandomRangeInt(minDay, maxDay + 1);
     }
 
