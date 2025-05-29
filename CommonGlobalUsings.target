@@ -12,6 +12,7 @@
 
 		<Using Include="System.Collections.Frozen"/>
 		<Using Include="System.Collections.Immutable"/>
+		<Using Include="System.Collections.Concurrent"/>
 		<Using Include="System.Diagnostics.CodeAnalysis"/>
 		<Using Include="System.Reflection"/>
 		<Using Include="System.Runtime.CompilerServices"/>
