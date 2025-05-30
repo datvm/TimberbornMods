@@ -1,8 +1,4 @@
-﻿- All imports are in GlobalUsings so no using is needed.
-- Use file-scoped namespace.
-- Use `[]` for initializing empty collections.
-
-Next patches:
+﻿Next patches:
 
 - `WeatherService` - ✅
     - `HazardousWeatherUIHelper`: - ✅
@@ -20,3 +16,14 @@ Next patches:
 - `HazardousWeatherService` - ✅
 - `BadtideWeather` - ✅
 - `DroughtWeather` - ✅
+
+New weathers:
+- Temperate weather:
+    - Rain (all soils get moisture)
+    - Progressively shortening Temperate
+    - Disappointingly Short Temperate (only 1-2 days temperate, as a back-to-back Hazardous weather)
+- Hazardous Weather:
+    - Monsoon (like Flood mod)
+    - Surprisingly Refreshing (short, low chance "hazardous" where badwater sources produce fresh water).
+
+Credit: Pixabay for sounds: Alex_Jauk, SSPsurvival, 

@@ -1,0 +1,10 @@
+{
+    "ModdedWeatherSpec": {
+        "Id": "ProgressiveTemperate",
+        "DisplayLoc": "LV.MW.ProgressiveTemperate",
+        "WeatherPanelProgressBackground": "Sprites/UI/Images/Weathers/weather-progress-short-temperate",
+        "DatePanelIcon": "Sprites/UI/Images/Weathers/ico-weather-short-temperate",
+        "WeatherNotification": "Sprites/UI/Images/Weathers/weather-notification-short-temperate",
+        "StartSound": "UI.Weather.TemperateWeatherStarted"
+    }
+}

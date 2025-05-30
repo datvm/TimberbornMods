@@ -1,9 +1,9 @@
 ﻿namespace ModdableWeather.Defaults;
 
-public abstract class DefaultModdedWeather : IModdedWeather
+public abstract class DefaultModdedWeather(ModdableWeatherSpecService moddableWeatherSpecService) : IModdedWeather, ILoadableSingleton
 {
     public abstract string Id { get; }
-    public ModdedWeatherSpec Spec { get; set; } = null!;
+    public ModdedWeatherSpec Spec { get; protected set; } = null!;
 
     public event EventHandler? OnWeatherStarted;
     public event EventHandler? OnWeatherEnded;
@@ -69,9 +69,13 @@ public abstract class DefaultModdedWeather : IModdedWeather
 
     public override string ToString() => $"{Spec.Display} ({Id} - {GetType().FullName})";
 
+    public virtual void Load()
+    {
+        Spec = moddableWeatherSpecService.Specs[Id];
+    }
 }
 
-public abstract class DefaultModdedWeather<TSettings>(TSettings settings) : DefaultModdedWeather
+public abstract class DefaultModdedWeather<TSettings>(TSettings settings, ModdableWeatherSpecService moddableWeatherSpecService) : DefaultModdedWeather(moddableWeatherSpecService)
     where TSettings : DefaultWeatherSettings
 {
 

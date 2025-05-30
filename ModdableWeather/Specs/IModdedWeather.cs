@@ -4,7 +4,7 @@ namespace ModdableWeather.Specs;
 public interface IModdedWeather
 {
     string Id { get; }
-    ModdedWeatherSpec Spec { get; set; }
+    ModdedWeatherSpec Spec { get; }
 
     public string WeatherId => Id;
 

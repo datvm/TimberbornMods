@@ -5,5 +5,6 @@ global using ModdableWeather.Patches;
 global using ModdableWeather.Services;
 global using ModdableWeather.Specs;
 global using ModdableWeather.UI;
+global using ModdableWeather.Weathers.Rain;
 global using System.Reflection.Emit;
 global using Random = UnityEngine.Random;
