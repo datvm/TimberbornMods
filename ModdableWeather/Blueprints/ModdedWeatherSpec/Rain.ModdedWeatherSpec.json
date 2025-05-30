@@ -2,9 +2,9 @@
     "ModdedWeatherSpec": {
         "Id": "Rain",
         "DisplayLoc": "LV.MW.Rain",
-        "WeatherPanelProgressBackground": "Sprites/UI/Images/Weathers/weather-progress-rain",
-        "DatePanelIcon": "Sprites/UI/Images/Weathers/ico-weather-rain",
-        "WeatherNotification": "Sprites/UI/Images/Weathers/weather-notification-rain",
-        "StartSound": "sprites/sounds/weathers/ui.weather.rain"
+        "WeatherPanelProgressBackground": "Resources/UI/Images/Weathers/weather-progress-rain",
+        "DatePanelIcon": "Resources/UI/Images/Weathers/ico-weather-rain",
+        "WeatherNotification": "Resources/UI/Images/Weathers/weather-notification-rain",
+        "StartSound": "resources/sounds/weathers/ui.weather.rain"
     }
 }
