@@ -1,0 +1,10 @@
+{
+    "ModdedWeatherSpec": {
+        "Id": "SurprisinglyRefreshing",
+        "DisplayLoc": "LV.MW.SurprisinglyRefreshing",
+        "WeatherPanelProgressBackground": "Sprites/UI/Images/Weathers/weather-progress-surprisingly-fresh",
+        "DatePanelIcon": "Sprites/UI/Images/Weathers/ico-weather-surprisingly-fresh",
+        "WeatherNotification": "Sprites/UI/Images/Weathers/weather-notification-surprisingly-fresh",
+        "StartSound": "UI.Weather.Fresh"
+    }
+}

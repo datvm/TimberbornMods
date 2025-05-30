@@ -1,5 +1,4 @@
-﻿
-namespace ModdableWeather;
+﻿namespace ModdableWeather;
 
 [Context("MainMenu")]
 public class ModMenuConfig : Configurator
@@ -7,11 +6,10 @@ public class ModMenuConfig : Configurator
 
     public override void Configure()
     {
-        Bind<ModdableWeatherSpecService>().AsSingleton();
-
-        this.BindTemperateWeather<GameTemperateWeather, GameTemperateWeatherSettings>(true)
-            .BindHazardousWeather<GameDroughtWeather, GameDroughtWeatherSettings>(true)
-            .BindHazardousWeather<GameBadtideWeather, GameBadtideWeatherSettings>(true);
+        this
+            .BindSingleton<ModdableWeatherSpecService>()
+            .BindModdedWeathers(true)
+            .BindModdedAudioClips();
     }
 
 }
@@ -23,10 +21,7 @@ public class ModGameConfig : Configurator
     public override void Configure()
     {
         // Weathers
-        this
-            .BindTemperateWeather<GameTemperateWeather, GameTemperateWeatherSettings>(false)
-            .BindHazardousWeather<GameDroughtWeather, GameDroughtWeatherSettings>(false)
-            .BindHazardousWeather<GameBadtideWeather, GameBadtideWeatherSettings>(false);
+        this.BindModdedWeathers(false);
 
         // Replace/remove Services
         this.MassRebind()
@@ -55,7 +50,9 @@ public class ModGameConfig : Configurator
             .BindSingleton<ModdableWeatherGenerator>()
 
             // Bind but do NOT multibind this special weather for record keeping
-            .BindSingleton<NoneHazardousWeather>();
+            .BindSingleton<NoneHazardousWeather>()
+            // Modded Sounds
+            .BindModdedAudioClips();
     }
 
 }

@@ -4,14 +4,13 @@
 /// Registry for all moddable weather types, providing lookup and access to weather definitions and their specifications.
 /// </summary>
 public class ModdableWeatherRegistry(
-    ModdableWeatherSpecService specs,
     IEnumerable<IModdedTemperateWeather> temperateWeathers,
     IEnumerable<IModdedHazardousWeather> hazardousWeathers,
     NoneHazardousWeather noneHazardousWeather,
     GameTemperateWeather gameTemperateWeather,
     GameDroughtWeather gameDroughtWeather,
     GameBadtideWeather gameBadtideWeather
-) : ILoadableSingleton
+)
 {
     /// <summary>
     /// Gets the built-in temperate weather instance.
@@ -72,23 +71,5 @@ public class ModdableWeatherRegistry(
     /// <param name="id">The weather ID.</param>
     /// <returns>The hazardous weather instance.</returns>
     public IModdedHazardousWeather GetHazardousWeather(string id) => (IModdedHazardousWeather)WeatherByIds[id];
-
-    /// <summary>
-    /// Loads weather specifications and assigns them to all registered weather types.
-    /// Throws if a weather is missing a specification.
-    /// </summary>
-    public void Load()
-    {
-        foreach (var weather in AllWeathers)
-        {
-            if (specs.Specs.TryGetValue(weather.Id, out var spec))
-            {
-                weather.Spec = spec;
-            } else
-            {
-                throw new MissingComponentException($"Weather {weather.Id} does not have a {nameof(ModdedWeatherSpec)}.");
-            }
-        }
-    }
 
 }

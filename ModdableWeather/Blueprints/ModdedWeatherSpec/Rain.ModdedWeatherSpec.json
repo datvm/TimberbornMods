@@ -1,0 +1,10 @@
+{
+    "ModdedWeatherSpec": {
+        "Id": "Rain",
+        "DisplayLoc": "LV.MW.Rain",
+        "WeatherPanelProgressBackground": "Sprites/UI/Images/Weathers/weather-progress-rain",
+        "DatePanelIcon": "Sprites/UI/Images/Weathers/ico-weather-rain",
+        "WeatherNotification": "Sprites/UI/Images/Weathers/weather-notification-rain",
+        "StartSound": "sprites/sounds/weathers/ui.weather.rain"
+    }
+}

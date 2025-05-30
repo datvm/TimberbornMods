@@ -1,6 +1,6 @@
 ﻿namespace ModdableWeather.Defaults;
 
-public class GameDroughtWeather(GameDroughtWeatherSettings settings) : DefaultModdedWeather<GameDroughtWeatherSettings>(settings), IModdedHazardousWeather
+public class GameDroughtWeather(GameDroughtWeatherSettings settings, ModdableWeatherSpecService moddableWeatherSpecService) : DefaultModdedWeather<GameDroughtWeatherSettings>(settings, moddableWeatherSpecService), IModdedHazardousWeather
 {
     public const string WeatherId = "DroughtWeather";
 
