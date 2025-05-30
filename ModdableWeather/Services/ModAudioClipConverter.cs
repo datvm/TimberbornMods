@@ -7,11 +7,6 @@ public class ModAudioClipConverter : IModFileConverter<AudioClip>
 
     readonly List<AudioClip> audioClips = [];
 
-    public ModAudioClipConverter()
-    {
-        Debug.Log("ModAudioClipConverter created");
-    }
-
     public void Reset()
     {
         foreach (var aud in audioClips)

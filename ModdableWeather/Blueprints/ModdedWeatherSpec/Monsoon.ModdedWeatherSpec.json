@@ -2,9 +2,9 @@
     "ModdedWeatherSpec": {
         "Id": "Monsoon",
         "DisplayLoc": "LV.MW.Monsoon",
-        "WeatherPanelProgressBackground": "Sprites/UI/Images/Weathers/weather-progress-monsoon",
-        "DatePanelIcon": "Sprites/UI/Images/Weathers/ico-weather-monsoon",
-        "WeatherNotification": "Sprites/UI/Images/Weathers/weather-notification-monsoon",
+        "WeatherPanelProgressBackground": "Resources/UI/Images/Weathers/weather-progress-monsoon",
+        "DatePanelIcon": "Resources/UI/Images/Weathers/ico-weather-monsoon",
+        "WeatherNotification": "Resources/UI/Images/Weathers/weather-notification-monsoon",
         "StartSound": "UI.Weather.Monsoon"
     }
 }

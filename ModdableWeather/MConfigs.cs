@@ -1,5 +1,15 @@
 ﻿namespace ModdableWeather;
 
+[Context("Bootstrapper")]
+public class ModBootstrapperConfig : Configurator
+{
+    public override void Configure()
+    {
+        Bind<IModFileConverter<AudioClip>>().To<ModAudioClipConverter>().AsSingleton();
+        MultiBind<IAssetProvider>().To<ModSystemFileProvider<AudioClip>>().AsSingleton();
+    }
+}
+
 [Context("MainMenu")]
 public class ModMenuConfig : Configurator
 {
@@ -8,8 +18,7 @@ public class ModMenuConfig : Configurator
     {
         this
             .BindSingleton<ModdableWeatherSpecService>()
-            .BindModdedWeathers(true)
-            .BindModdedAudioClips();
+            .BindModdedWeathers(true);
     }
 
 }
@@ -50,9 +59,7 @@ public class ModGameConfig : Configurator
             .BindSingleton<ModdableWeatherGenerator>()
 
             // Bind but do NOT multibind this special weather for record keeping
-            .BindSingleton<NoneHazardousWeather>()
-            // Modded Sounds
-            .BindModdedAudioClips();
+            .BindSingleton<NoneHazardousWeather>();
     }
 
 }
