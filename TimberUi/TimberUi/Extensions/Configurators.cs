@@ -194,6 +194,19 @@ public static partial class UiBuilderExtensions
         return configurator;
     }
 
+    /// <summary>
+    /// A convenience method to multi-bind a type as a multibinding source and also bind it as a singleton.
+    /// </summary>
+    public static Configurator MultiBindAndBindSingleton<T, TImpl>(this Configurator configurator)
+        where TImpl : class, T
+        where T : class
+    {
+        configurator.Bind<TImpl>().AsSingleton();
+        configurator.MultiBind<T>().ToExisting<TImpl>();
+        
+        return configurator;
+    }
+
     #endregion
 
     #region Remove Bindings
