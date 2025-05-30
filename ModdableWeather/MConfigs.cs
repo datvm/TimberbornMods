@@ -5,8 +5,7 @@ public class ModBootstrapperConfig : Configurator
 {
     public override void Configure()
     {
-        Bind<IModFileConverter<AudioClip>>().To<ModAudioClipConverter>().AsSingleton();
-        MultiBind<IAssetProvider>().To<ModSystemFileProvider<AudioClip>>().AsSingleton();
+        this.TryAddingModdableAudioClip();
     }
 }
 

@@ -5,6 +5,6 @@
         "WeatherPanelProgressBackground": "Resources/UI/Images/Weathers/weather-progress-rain",
         "DatePanelIcon": "Resources/UI/Images/Weathers/ico-weather-rain",
         "WeatherNotification": "Resources/UI/Images/Weathers/weather-notification-rain",
-        "StartSound": "resources/sounds/weathers/ui.weather.rain"
+        "StartSound": "UI.Weather.Rain"
     }
 }

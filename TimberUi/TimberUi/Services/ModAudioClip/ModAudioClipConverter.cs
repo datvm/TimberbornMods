@@ -1,5 +1,4 @@
-﻿
-namespace ModdableWeather.Services;
+﻿namespace TimberUi.Services;
 
 public class ModAudioClipConverter : IModFileConverter<AudioClip>
 {
@@ -18,13 +17,16 @@ public class ModAudioClipConverter : IModFileConverter<AudioClip>
 
     public bool TryConvert(FileInfo fileInfo, SerializedObject metadata, out AudioClip asset)
     {
-        Debug.Log("Trying audio: " + fileInfo.FullName);
-
-        asset = WavUtility.ToAudioClip(fileInfo.FullName)
-            ?? throw new InvalidDataException("Invalid WAV file: " + fileInfo.FullName);
+        try
+        {
+            asset = WavUtility.ToAudioClip(fileInfo.FullName);
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidDataException("Invalid WAV file: " + fileInfo.FullName, ex);
+        }
+        
         audioClips.Add(asset);
-
-        Debug.Log(asset.name);
 
         return true;
     }

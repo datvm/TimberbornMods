@@ -1,4 +1,4 @@
-﻿namespace ModdableWeather.Helpers;
+﻿namespace TimberUi.Helpers;
 
 /// <summary>
 /// Source: https://github.com/deadlyfingers/UnityWav/blob/master/WavUtility.cs
@@ -14,15 +14,10 @@ public static class WavUtility
     /// </summary>
     /// <returns>The AudioClip.</returns>
     /// <param name="filePath">Local file path to .wav file</param>
-    public static AudioClip? ToAudioClip(string filePath)
+    public static AudioClip ToAudioClip(string filePath)
     {
-        if (!filePath.StartsWith(Application.persistentDataPath) && !filePath.StartsWith(Application.dataPath))
-        {
-            Debug.LogWarning("This only supports files that are stored using Unity's Application data path. \nTo load bundled resources use 'Resources.Load(\"filename\") typeof(AudioClip)' method. \nhttps://docs.unity3d.com/ScriptReference/Resources.Load.html");
-            return null;
-        }
         byte[] fileBytes = File.ReadAllBytes(filePath);
-        return ToAudioClip(fileBytes, 0);
+        return ToAudioClip(fileBytes, 0, Path.GetFileNameWithoutExtension(filePath));
     }
 
     public static AudioClip ToAudioClip(byte[] fileBytes, int offsetSamples = 0, string name = "wav")

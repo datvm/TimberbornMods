@@ -34,6 +34,7 @@
 			<Blueprints Include="$(OutputPath)\Blueprints\**\*"/>
 			<Specifications Include="$(OutputPath)\Specifications\**\*"/>
 			<ModResources Include="$(OutputPath)\Resources\**\*"/>
+			<ModSounds Include="$(OutputPath)\Sounds\**\*"/>
 			<ModManifestFile Include="$(OutputPath)\**\manifest.json" />
 			<ModWorkshopDataFile Include="$(OutputPath)\**\workshop_data.json" />
 		</ItemGroup>
