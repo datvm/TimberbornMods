@@ -34,7 +34,7 @@ public static class BlueprintsPatches
 
     static readonly ImmutableArray<string> TubewayPrefabs =
     [
-        "Buildings/Paths/SolidTubeway/SolidTubeway.IronTeeth",
+        "Buildings/Paths/VerticalTubeway/VerticalTubeway.IronTeeth",
         "Buildings/Paths/Tubeway/Tubeway.IronTeeth",
         "Buildings/Paths/TubewayStation/TubewayStation.IronTeeth",
     ];
