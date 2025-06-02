@@ -18,14 +18,16 @@ public static class PrefabPatches
             UpdateZiporterPrefab(prefab);
         }
     }
-    
+
     static void UpdateZiporterPrefab(GameObject prefab)
     {
-        var spec = prefab.AddComponent<ZiporterSpec>();
+        prefab.AddComponent<ZiporterSpec>();
 
-        // Correct the Cluster
-        var cluster = spec.GetComponentFast<ClusterElementSpec>();
-        cluster._connectableBlocks = [
+        // Correct the Transput
+        prefab.AddComponent<MechanicalConnectorReceiverSpec>();
+        var transputs = prefab.AddComponent<TransputProviderSpec>();
+
+        transputs._transputSpecs = [
             new(new(0,0,0), Directions3D.Left | Directions3D.Down),
             new(new(2,0,0), Directions3D.Right | Directions3D.Down),
             new(new(0,1,0), Directions3D.Left | Directions3D.Up),

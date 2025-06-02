@@ -27,7 +27,6 @@ public class ZiporterConnection : TickableComponent, IFinishedStateListener
     BlockObject blockObject;
     EntityComponent entityComponent;
     ZiporterBattery battery;
-    StatusToggle connectionStatus;
 #nullable enable
 
     [Inject]
@@ -51,15 +50,6 @@ public class ZiporterConnection : TickableComponent, IFinishedStateListener
 
     #endregion
 
-    public override void StartTickable()
-    {
-        connectionStatus = StatusToggle.CreatePriorityStatusWithAlertAndFloatingIcon(
-            "ziporter-charge-draining", 
-            "LV.Ziporter.WarningChargeDraining".T(t, DeactivateCapacity),
-            "LV.Ziporter.WarningChargeDrainingShort".T(t));
-        GetComponentFast<StatusSubject>().RegisterStatus(connectionStatus);
-    }
-
     public override void Tick()
     {
         if (!finished) { return; }
@@ -70,21 +60,11 @@ public class ZiporterConnection : TickableComponent, IFinishedStateListener
             if (charge < DeactivateCapacity)
             {
                 ToggleActive(false);
-                connectionStatus.Deactivate();
-            }
-            else if (charge < ActivateCapacity && !battery.IsCharging)
-            {
-                connectionStatus.Activate();
             }
         }
         else if (!active && charge > ActivateCapacity)
         {
             ToggleActive(true);
-        }
-
-        if (battery.IsCharging)
-        {
-            connectionStatus.Deactivate();
         }
     }
 

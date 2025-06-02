@@ -9,7 +9,7 @@ public class ModMenuConfig : Configurator
 {
     public override void Configure()
     {
-        this.TryAddingCameraShake(true);
+        this.TryBindingCameraShake(true);
     }
 
 }
@@ -19,7 +19,7 @@ public class GameConfig : Configurator
 {
     public override void Configure()
     {
-        this.TryAddingCameraShake(false);
+        this.TryBindingCameraShake(false);
 
         Bind<SunLightOverrider>().AsSingleton();
 
@@ -38,6 +38,7 @@ public class GameConfig : Configurator
             b.AddDecorator<ZiporterSpec, ZiporterBattery>();
             b.AddDecorator<ZiporterSpec, ZiporterStabilizer>();
             b.AddDecorator<ZiporterSpec, ZiporterConnection>();
+            b.AddDecorator<ZiporterSpec, ZiporterWarning>();
             b.AddDecorator<ZiporterSpec, BatteryController>();
 
             return b.Build();

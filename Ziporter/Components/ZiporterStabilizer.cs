@@ -5,21 +5,19 @@ public partial class ZiporterStabilizer : TickableComponent, IDeletableEntity, I
     public const float StabilizerRecoveryRate = .2f;
     public const float StabilizerMax = 60f;
 
-    public bool StabilizerNeeded => !mechNode.Powered || mechNode.PowerInput < mechNode._nominalPowerInput;
+    public bool StabilizerNeeded { get; private set; }
 
     #region Inject
 
 #nullable disable
     MechanicalNode mechNode;
 
-    StatusToggle stabilizerStatus;
     CameraShakeService cameraShakeService;
     EntityService entityService;
     IBlockService blockService;
     TerrainDestroyer terrainDestroyer;
     MapIndexService mapIndexService;
     SunLightOverrider sunLightOverrider;
-    ILoc t;
 #nullable enable
 
     [Inject]
@@ -29,8 +27,7 @@ public partial class ZiporterStabilizer : TickableComponent, IDeletableEntity, I
         IBlockService blockService,
         TerrainDestroyer terrainDestroyer,
         MapIndexService mapIndexService,
-        SunLightOverrider sunLightOverrider,
-        ILoc t
+        SunLightOverrider sunLightOverrider
     )
     {
         this.cameraShakeService = cameraShakeService;
@@ -39,7 +36,6 @@ public partial class ZiporterStabilizer : TickableComponent, IDeletableEntity, I
         this.terrainDestroyer = terrainDestroyer;
         this.mapIndexService = mapIndexService;
         this.sunLightOverrider = sunLightOverrider;
-        this.t = t;
     }
 
     public void Awake()
@@ -61,21 +57,15 @@ public partial class ZiporterStabilizer : TickableComponent, IDeletableEntity, I
         IsEverFinished = isEverFinished;
     }
 
-    public override void StartTickable()
-    {
-        stabilizerStatus = StatusToggle.CreatePriorityStatusWithAlertAndFloatingIcon(
-            "stabilizer-draining", "LV.Ziporter.WarningDraining".T(t), "LV.Ziporter.WarningDrainingShort".T(t));
-        GetComponentFast<StatusSubject>().RegisterStatus(stabilizerStatus);
-    }
-
     public override void Tick()
     {
         if (IsExploding || !IsEverFinished) { return; }
 
+        StabilizerNeeded = !mechNode.Powered || mechNode.PowerInput < mechNode._nominalPowerInput;
+
         if (StabilizerNeeded)
         {
             Stabilizer -= Time.fixedDeltaTime;
-            stabilizerStatus.Activate();
 
             IsStabilizerCharging = false;
 
@@ -87,8 +77,6 @@ public partial class ZiporterStabilizer : TickableComponent, IDeletableEntity, I
         }
         else if (Stabilizer < StabilizerMax)
         {
-            stabilizerStatus.Deactivate();
-
             var add = Time.fixedDeltaTime * StabilizerRecoveryRate;
             Stabilizer = Mathf.Clamp(Stabilizer + add, 0, StabilizerMax);
             IsStabilizerCharging = true;
