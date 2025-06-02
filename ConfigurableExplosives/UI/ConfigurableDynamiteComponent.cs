@@ -1,6 +1,4 @@
-﻿global using Timberborn.TickSystem;
-
-namespace ConfigurableExplosives.UI;
+﻿namespace ConfigurableExplosives.UI;
 
 public class ConfigurableDynamiteComponent : TickableComponent, IPersistentEntity
 {

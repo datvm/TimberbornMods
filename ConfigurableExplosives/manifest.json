@@ -1,15 +1,12 @@
 {
     "Name": "Configurable Explosives",
-    "Version": "7.0.0",
+    "Version": "7.0.1",
     "Id": "ConfigurableExplosives",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Have a blast!",
     "RequiredMods": [
         { "Id": "Harmony" },
-        {
-            "Id": "eMka.ModSettings",
-            "MinimumVersion": "0.7.0.0"
-        },
+        { "Id": "eMka.ModSettings" },
         { "Id": "TimberUi" }
     ]
 }

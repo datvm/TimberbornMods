@@ -1,8 +1,4 @@
-﻿global using Timberborn.AreaSelectionSystem;
-global using Timberborn.InputSystem;
-global using Timberborn.BlockSystem;
-
-namespace ConfigurableExplosives.UI;
+﻿namespace ConfigurableExplosives.UI;
 
 public class ConfigurableDynamiteCopyTool(
     AreaBlockObjectPickerFactory _areaBlockObjectPickerFactory,
