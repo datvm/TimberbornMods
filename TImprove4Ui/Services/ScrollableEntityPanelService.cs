@@ -13,12 +13,13 @@ public class ScrollableEntityPanelService(
     {
         if (!MSettings.ScrollableEntityPanel) { return; }
 
-        AddScroll();
+        var root = entityPanel._root;
+        AddScroll(root);
+        AddStockpileInventoryScroll(root);
     }
 
-    void AddScroll()
+    void AddScroll(VisualElement root)
     {
-        var root = entityPanel._root;
         root.style.maxHeight = new Length(80, LengthUnit.Percent);
 
         var stockpileInventory = root.Q("StockpileInventoryFragmentWrapper");
@@ -55,6 +56,19 @@ public class ScrollableEntityPanelService(
             stockpileInventory.SetFlexShrink(0);
             stockpileInventory.InsertSelfBefore(scroll);
         }
+    }
+
+    void AddStockpileInventoryScroll(VisualElement root)
+    {
+        var el = root.Q("GoodSelection");
+
+        var scrollView = root
+            .AddScrollView(greenDecorated: false, additionalClasses: ["game-scroll-view"])
+            .Initialize(veInit)
+            .SetMaxHeight(400);
+
+        scrollView.InsertSelfAfter(el);
+        scrollView.Add(el);
     }
 
 }
