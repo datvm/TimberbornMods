@@ -1,5 +1,4 @@
-﻿global using Timberborn.SoilMoistureSystem;
-using System.Reflection.Emit;
+﻿global using System.Reflection.Emit;
 
 namespace ConfigurableIrrigation.Patches;
 
@@ -29,14 +28,14 @@ public static class IrrigationPatches
         return false;
     }
 
-    [HarmonyPrefix, HarmonyPatch(typeof(SoilMoistureSimulator), nameof(SoilMoistureSimulator.GetInitialMoisturizerRange))]
-    public static bool PatchInitialMoisturizerRange(int index3D, ref float __result, SoilMoistureSimulator __instance)
+    [HarmonyPrefix, HarmonyPatch(typeof(MoistureCalculationJob), nameof(MoistureCalculationJob.GetInitialMoisturizerRange))]
+    public static bool PatchInitialMoisturizerRange(int index3D, ref float __result, MoistureCalculationJob __instance)
     {
-        __result = __instance._clusterSaturation[index3D] * (MSettings.MaxSpread / __instance._soilMoistureSimulatorSettings.MaxClusterSaturation);
+        __result = 2 * __instance._clusterSaturation[index3D] * (MSettings.MaxSpread / DefaultMaxSpread);
         return false;
     }
 
-    [HarmonyTranspiler, HarmonyPatch(typeof(SoilMoistureSimulator), nameof(SoilMoistureSimulator.CalculateMoistureForCell))]
+    [HarmonyTranspiler, HarmonyPatch(typeof(MoistureCalculationJob), nameof(MoistureCalculationJob.CalculateMoistureForCell))]
     public static IEnumerable<CodeInstruction> PatchMaxSpread(IEnumerable<CodeInstruction> instructions)
     {
         foreach (var i in instructions)
