@@ -1,9 +1,4 @@
-﻿global using Timberborn.Buildings;
-global using Timberborn.Explosions;
-global using Timberborn.PrefabGroupSystem;
-global using Timberborn.PrefabSystem;
-
-namespace ConfigurableExplosives.Patches;
+﻿namespace ConfigurableExplosives.Patches;
 
 [HarmonyPatch]
 public class PrefabPatches

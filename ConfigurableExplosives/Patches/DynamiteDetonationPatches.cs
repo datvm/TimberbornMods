@@ -1,6 +1,4 @@
-﻿global using ConfigurableExplosives.UI;
-
-namespace ConfigurableExplosives.Patches;
+﻿namespace ConfigurableExplosives.Patches;
 
 [HarmonyPatch]
 public static class DynamiteDetonationPatches

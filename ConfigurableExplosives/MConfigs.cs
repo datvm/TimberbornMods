@@ -1,4 +1,6 @@
-﻿namespace ConfigurableExplosives;
+﻿global using ConfigurableExplosives.UI;
+
+namespace ConfigurableExplosives;
 
 [Context("MainMenu")]
 public class ModMenuConfig : Configurator
