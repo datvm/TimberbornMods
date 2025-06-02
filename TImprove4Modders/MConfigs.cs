@@ -4,7 +4,9 @@ public class CommonConfig : Configurator
 {
     public override void Configure()
     {
+        this.TryBindingSystemFileDialogService();
         Bind<MSettings>().AsSingleton();
+
         Bind<QuickQuitService>().AsSingleton();
         Bind<DevModeService>().AsSingleton();
     }
@@ -33,7 +35,6 @@ public class ModMenuConfig : CommonConfig
         base.Configure();
 
         Bind<ModManagementService>().AsSingleton();
-        this.TryBindingSystemFileDialogService();
     }
 }
 
