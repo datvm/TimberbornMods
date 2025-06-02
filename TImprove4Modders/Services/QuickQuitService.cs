@@ -26,15 +26,12 @@ public class QuickQuitService : IUpdatableSingleton
 
     public void ForceRestart()
     {
-        var exePath = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
-        System.Diagnostics.Process.Start(exePath);
-
-        ForceQuit();
+        TimberUiUtils.Restart();
     }
 
     public void ForceQuit()
     {
-        System.Diagnostics.Process.GetCurrentProcess().Kill();
+        TimberUiUtils.KillProcess();
     }
 
 }

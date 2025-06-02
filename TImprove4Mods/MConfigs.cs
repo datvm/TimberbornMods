@@ -10,7 +10,8 @@ public class ModMenuConfig : Configurator
 
     public override void Configure()
     {
-        Bind<FileDialogService>().AsSingleton();
+        this.TryBindingSystemFileDialogService();
+
         Bind<ModCompWarningService>().AsSingleton();
         Bind<ModManagerBoxService>().AsSingleton();
         Bind<ModManagementService>().AsSingleton();

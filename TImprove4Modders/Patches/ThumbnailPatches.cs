@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace TImprove4Modders.Patches;
+﻿namespace TImprove4Modders.Patches;
 
 [HarmonyPatch]
 public static class ThumbnailPatches
@@ -12,20 +10,8 @@ public static class ThumbnailPatches
         previewPath = null;
         if (!MSettings.PickThumbnail) { return true; }
 
-        OpenFileDialog diag = new()
-        {
-            Filter = "Image Files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg"
-        };
-
-        if (diag.ShowDialog() == DialogResult.OK)
-        {
-            previewPath = diag.FileName;
-            __result = true;
-        }
-        else
-        {
-            __result = false;
-        }
+        previewPath = MSettings.SystemFileDialogService?.ShowOpenFileDialog(".png;.jpg;.jpeg");
+        __result = previewPath is not null;
 
         return false;
     }

@@ -32,7 +32,8 @@ public class ModMenuConfig : CommonConfig
     {
         base.Configure();
 
-        Bind<ModManagementService>().AsSingleton();        
+        Bind<ModManagementService>().AsSingleton();
+        this.TryBindingSystemFileDialogService();
     }
 }
 

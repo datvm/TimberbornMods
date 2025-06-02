@@ -10,9 +10,7 @@ public class NoneHazardousWeather : IModdedHazardousWeather
 
     public bool Active { get; }
 
-    public event EventHandler? OnWeatherStarted;
-    public event EventHandler? OnWeatherEnded;
-    public event EventHandler? OnWeatherActiveChanged;
+    public event WeatherChangedEventHandler? OnWeatherActiveChanged;
 
     public int GetDurationAtCycle(int cycle, ModdableWeatherHistoryProvider history)
         => 0;
@@ -20,7 +18,7 @@ public class NoneHazardousWeather : IModdedHazardousWeather
     public int GetChance(int cycle, ModdableWeatherHistoryProvider history)
         => 100;
 
-    public void Start()
+    public void Start(bool onLoad)
     {
     }
 

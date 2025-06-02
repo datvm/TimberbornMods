@@ -4,8 +4,6 @@ LV.T4UI.ScrollableEntityPanelDesc,"Add a scroll bar to the entity panel (the pan
 Useful when you have many mods that add stuff to it.",
 LV.T4UI.RemovePathHighlight,"Remove Path Highlight",
 LV.T4UI.RemovePathHighlightDesc,"Paths are no longer highlighted when you select a building. You can still see it when selecting a path",
-LV.T4UI.HighlightPowerNetwork,"Highlight Power Network",
-LV.T4UI.HighlightPowerNetworkDesc,"When you select a building, the power network it is connected to will be highlighted.",
 LV.T4UI.ToolDescPos,"Tool description location",
 LV.T4UI.ToolDescPosDesc,"Choose a location for the tool description panel (the one in the middle when you are building). Game default: center.",
 LV.T4UI.ToolDescPosLeft,"Left",

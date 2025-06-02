@@ -1,5 +1,6 @@
 ﻿global using System.Globalization;
 global using System.Runtime.CompilerServices;
+global using System.Runtime.InteropServices;
 global using System.Text;
 global using System.Xml;
 global using System.Xml.Linq;
@@ -7,6 +8,7 @@ global using TimberUi;
 global using TimberUi.CommonUi;
 global using TimberUi.Helpers;
 global using TimberUi.Services;
+global using TimberUi.Services.SystemFileDialog;
 global using UiBuilder;
 global using UnityEditor.StyleSheets;
 global using UnityEditor.UIElements.Debugger;

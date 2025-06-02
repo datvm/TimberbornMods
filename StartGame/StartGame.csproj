@@ -14,7 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />
+		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
 
 		<!--<ProjectReference Include="..\ScientificProjects\ScientificProjects\ScientificProjects.csproj" />-->
 		<!--<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />-->
@@ -22,7 +22,7 @@
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
 		<!--<ProjectReference Include="..\TimberQuests\TimberQuests\TimberQuests.csproj" />-->
-		<ProjectReference Include="..\ModdableWeather\ModdableWeather.csproj" />
+		<!--<ProjectReference Include="..\ModdableWeather\ModdableWeather.csproj" />-->
 
 		
 	</ItemGroup>
