@@ -3,16 +3,16 @@ public class ModSettings : ModSettingsOwner
 {
     public static MSettings? Instance { get; private set; }
 
-    static readonly ImmutableList<FieldInfo> AllBoolSettings = typeof(MSettings).GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
-        .Where(q => q.FieldType == typeof(ModSetting<bool>))
-        .ToImmutableList();
+    static readonly ImmutableList<FieldInfo> AllBoolSettings = [.. 
+        typeof(MSettings).GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+            .Where(q => q.FieldType == typeof(ModSetting<bool>))];
 
     public event Action OnSettingsChanged = delegate { };
 
-    public static readonly string[] Lights = ["Sunrise", "Day", "Sunset", "Night"];
-    static readonly HashSet<string> DefaultTrues = [nameof(showGameTime), nameof(enableSpeed4)];
+    public static readonly ImmutableArray<string> Lights = ["Sunrise", "Day", "Sunset", "Night"];
+    static readonly ImmutableHashSet<string> DefaultTrues = [nameof(showGameTime), nameof(enableSpeed4)];
 
-    public override string ModId => nameof(TImprove);
+    public override string ModId { get; } = nameof(TImprove);
     public override ModSettingsContext ChangeableOn => ModSettingsContext.All;
     readonly IModSettingsContextProvider context;
 
@@ -21,7 +21,7 @@ public class ModSettings : ModSettingsOwner
 
         showCoords, onlyShowHeight,
 
-        allDayLight,
+        allDayLight, disableShadowRotation,
 
         showGameTime, addRealTimeClock,
         enableSpeedS25, enableSpeed4, enableSpeed5,
@@ -42,6 +42,7 @@ public class ModSettings : ModSettingsOwner
 
     public bool AllDayLight => allDayLight?.Value == true;
     public string StaticDayLight => allDayLightValue?.Value ?? Lights[1];
+    public bool DisableShadowRotation => disableShadowRotation?.Value == true;
 
     public bool ShowGameTime => showGameTime?.Value == true;
     public bool AddRealTimeClock => addRealTimeClock?.Value == true;
