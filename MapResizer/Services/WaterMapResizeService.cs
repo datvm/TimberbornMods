@@ -68,15 +68,18 @@ public class WaterMapResizeService(
 
     void ResizeWaterEvaporationMap()
     {
-        waterEvaporationMap.OnMaxColumnCountChanged(waterMap, waterMap.MaxColumnCount);
+        waterEvaporationMap.OnMaxWaterColumnCountChanged(waterMap, waterMap.MaxColumnCount);
     }
 
     void ResizeThreadSafeWaterMap()
     {
         threadSafeWaterMap.Load();
 
-        threadSafeWaterMap._waterColumns = [.. waterMap._waterColumns];
-        threadSafeWaterMap._columnCount = [.. waterMap.ColumnCount];
+        threadSafeWaterMap._waterColumns = [.. waterMap._waterColumns
+            .Select(q => new ReadOnlyWaterColumn(
+                q.Floor, q.Ceiling, q.WaterDepth, q.Contamination, q.Overflow
+            ))];
+        threadSafeWaterMap._columnCounts = [.. waterMap.ColumnCount];
     }
 
 }
