@@ -20,7 +20,6 @@ public class ModGameConfig : Configurator
         Bind<MSettings>().AsSingleton();
 
         Bind<ScrollableEntityPanelService>().AsSingleton();
-        Bind<PowerNetworkHighlighter>().AsSingleton();
         Bind<ToolPanelDescriptionMover>().AsSingleton();
         Bind<MaterialCounterService>().AsSingleton();
         Bind<ObjectSelectionService>().AsSingleton();

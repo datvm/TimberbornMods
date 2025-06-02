@@ -9,11 +9,9 @@ public interface IModdedWeather
     public string WeatherId => Id;
 
     bool Active { get; }
-    event EventHandler? OnWeatherStarted;
-    event EventHandler? OnWeatherEnded;
-    event EventHandler? OnWeatherActiveChanged;
+    event WeatherChangedEventHandler? OnWeatherActiveChanged;
 
-    void Start();
+    void Start(bool onLoad);
     void End();
 
     public IModdedHazardousWeather? IsHazardous() => this as IModdedHazardousWeather;
@@ -22,3 +20,5 @@ public interface IModdedWeather
     int GetDurationAtCycle(int cycle, ModdableWeatherHistoryProvider history);
     int GetChance(int cycle, ModdableWeatherHistoryProvider history);
 }
+
+public delegate void WeatherChangedEventHandler(IModdedWeather weather, bool active, bool onLoad);

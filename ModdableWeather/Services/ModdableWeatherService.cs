@@ -64,12 +64,21 @@ public class ModdableWeatherService(
         instance = this;
         base.Load();
 
-        CurrentWeather.Start();
+        CurrentWeather.Start(true);
     }
 
     public void Unload()
     {
         instance = null;
+    }
+
+    [OnEvent]
+    public void OnCycleWeatherDecided(OnModdableWeatherCycleDecided ev)
+    {
+        ModdableWeatherUtils.Log(() =>
+            $"Starting temperate weather {ev.WeatherCycle.TemperateWeather} for cycle {ev.WeatherCycle.Cycle.Cycle}");
+
+        ev.WeatherCycle.TemperateWeather.Start(false);
     }
 
     // Don't shadow these or EventBus will cause crashes
@@ -81,7 +90,7 @@ public class ModdableWeatherService(
         history.CurrentTemperateWeather.End();
 
         ModdableWeatherUtils.Log(() => $"Starting hazardous weather {history.CurrentHazardousWeather} for cycle {Cycle} on day {CycleDay}.");
-        history.CurrentHazardousWeather.Start();
+        history.CurrentHazardousWeather.Start(false);
         hazardousWeatherService.StartHazardousWeather();
     }
 

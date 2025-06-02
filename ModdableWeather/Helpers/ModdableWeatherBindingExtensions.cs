@@ -8,11 +8,21 @@ public static class ModdableWeatherBindingExtensions
 
     public static Configurator BindHazardousWeather<T>(this Configurator configurator)
         where T : class, IModdedHazardousWeather
-        => configurator.MultiBindAndBindSingleton<IModdedHazardousWeather, T>();
+    {
+        configurator.MultiBindAndBindSingleton<IModdedHazardousWeather, T>();
+        configurator.MultiBind<IModdedWeather>().ToExisting<T>();
+
+        return configurator;
+    }
 
     public static Configurator BindTemperateWeather<T>(this Configurator configurator)
         where T : class, IModdedTemperateWeather
-        => configurator.MultiBindAndBindSingleton<IModdedTemperateWeather, T>();
+    {
+        configurator.MultiBindAndBindSingleton<IModdedTemperateWeather, T>();
+        configurator.MultiBind<IModdedWeather>().ToExisting<T>();
+
+        return configurator;
+    }
 
     public static Configurator BindHazardousWeather<TWeather, TSettings>(this Configurator configurator, bool menuContext)
         where TWeather : DefaultModdedWeather<TSettings>, IModdedHazardousWeather

@@ -12,7 +12,7 @@ public class ModFilterParameters
 public class ModManagementService(
     DialogBoxShower diagShower,
     ModManagerBox modManagerBox,
-    FileDialogService fileDialogs
+    ISystemFileDialogService fileDialogs
 )
 {
 
@@ -37,15 +37,12 @@ public class ModManagementService(
 
     public void RestartGame()
     {
-        var exePath = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
-        System.Diagnostics.Process.Start(exePath);
-
-        System.Diagnostics.Process.GetCurrentProcess().Kill();
+        TimberUiUtils.Restart();
     }
 
     public void SaveProfile()
     {
-        var filePath = fileDialogs.SaveFile();
+        var filePath = fileDialogs.ShowSaveFileDialog(".txt");
         if (filePath is null) { return; }
 
         if (Path.GetFileName(filePath).IndexOf('.') == -1) { filePath += ".txt"; }
@@ -59,7 +56,7 @@ public class ModManagementService(
 
     public void LoadProfile()
     {
-        var filePath = fileDialogs.OpenFile();
+        var filePath = fileDialogs.ShowOpenFileDialog(".txt");
         if (filePath is null || !File.Exists(filePath)) { return; }
 
         var ids = File.ReadAllLines(filePath)

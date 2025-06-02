@@ -3,12 +3,15 @@
 public class MSettings(
     ISettings settings,
     ModSettingsOwnerRegistry modSettingsOwnerRegistry,
-    ModRepository modRepository
+    ModRepository modRepository,
+    ISystemFileDialogService systemFileDialogService
 )
     : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
     public override string ModId => nameof(TImprove4Modders);
     public override ModSettingsContext ChangeableOn => ModSettingsContext.All;
+
+    public static ISystemFileDialogService? SystemFileDialogService { get; private set; }
 
     #region Settings
 
@@ -80,6 +83,8 @@ public class MSettings(
 
     public override void OnAfterLoad()
     {
+        SystemFileDialogService = systemFileDialogService;
+
         AddCustomModSetting(swapBuildFinishedModifier, nameof(swapBuildFinishedModifier));
         AddCustomModSetting(noClearDevFilter, nameof(noClearDevFilter));
         AddCustomModSetting(pickThumbnail, nameof(pickThumbnail));
@@ -111,5 +116,6 @@ public class MSettings(
     public void Unload()
     {
         InternalOnSettingsChanged();
+        SystemFileDialogService = null;
     }
 }

@@ -79,7 +79,7 @@
 		<Using Include="Timberborn.BuildingsUI"/>
 		<Using Include="Timberborn.BuildingTools"/>
 		<Using Include="Timberborn.CameraSystem"/>
-		<Using Include="Timberborn.CameraWorldPosition"/>
+		<Using Include="Timberborn.CameraWorldState"/>
 		<Using Include="Timberborn.Carrying"/>
 		<Using Include="Timberborn.CarryingUI"/>
 		<Using Include="Timberborn.CharacterControlSystem"/>
@@ -91,8 +91,6 @@
 		<Using Include="Timberborn.Characters"/>
 		<Using Include="Timberborn.CharactersBatchControl"/>
 		<Using Include="Timberborn.CharactersUI"/>
-		<Using Include="Timberborn.Clusters"/>
-		<Using Include="Timberborn.ClustersUI"/>
 		<Using Include="Timberborn.Colliders"/>
 		<Using Include="Timberborn.CommandLine"/>
 		<Using Include="Timberborn.Common"/>
@@ -239,7 +237,9 @@
 		<Using Include="Timberborn.MapThumbnailCapturing"/>
 		<Using Include="Timberborn.MapThumbnailCapturingUI"/>
 		<Using Include="Timberborn.MapThumbnailOverlaySystem"/>
+		<Using Include="Timberborn.MechanicalConnectorSystem"/>
 		<Using Include="Timberborn.MechanicalSystem"/>
+		<Using Include="Timberborn.MechanicalSystemHighlighting"/>
 		<Using Include="Timberborn.MechanicalSystemUI"/>
 		<Using Include="Timberborn.MergeableObjects"/>
 		<Using Include="Timberborn.Metrics"/>

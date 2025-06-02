@@ -1,13 +1,14 @@
 ﻿namespace ModdableWeather.Defaults;
 
-public abstract class DefaultModdedWeather(ModdableWeatherSpecService moddableWeatherSpecService) : IModdedWeather, ILoadableSingleton
+public abstract class DefaultModdedWeather(
+    ModdableWeatherSpecService moddableWeatherSpecService
+) : IModdedWeather, ILoadableSingleton
 {
+
     public abstract string Id { get; }
     public ModdedWeatherSpec Spec { get; protected set; } = null!;
 
-    public event EventHandler? OnWeatherStarted;
-    public event EventHandler? OnWeatherEnded;
-    public event EventHandler? OnWeatherActiveChanged;
+    public event WeatherChangedEventHandler? OnWeatherActiveChanged;
 
     public bool Active { get; protected set; }
 
@@ -35,12 +36,11 @@ public abstract class DefaultModdedWeather(ModdableWeatherSpecService moddableWe
         }
 
         if (minDay < 1) { minDay = 1; }
-        if (minDay >= maxDay)
-        {
-            return Mathf.Max(1, maxDay);
-        }
+        ModdableWeatherUtils.Log(() => $"Weather {ToString()} at cycle {cycle} has minDay: {minDay}, maxDay: {maxDay}.");
 
-        return Random.RandomRangeInt(minDay, maxDay + 1);
+        var result = minDay >= maxDay ? Mathf.Max(1, maxDay) : Random.RandomRangeInt(minDay, maxDay + 1);
+        ModdableWeatherUtils.Log(() => $"  Hit: {result}.");
+        return result;
     }
 
     public virtual int GetChance(int cycle, ModdableWeatherHistoryProvider history)
@@ -48,18 +48,16 @@ public abstract class DefaultModdedWeather(ModdableWeatherSpecService moddableWe
         return cycle < Parameters.StartCycle ? 0 : Parameters.Chance;
     }
 
-    public virtual void Start()
+    public virtual void Start(bool onLoad)
     {
         Active = true;
-        OnWeatherStarted?.Invoke(this, EventArgs.Empty);
-        OnWeatherActiveChanged?.Invoke(this, EventArgs.Empty);
+        OnWeatherActiveChanged?.Invoke(this, true, onLoad);
     }
 
     public virtual void End()
     {
         Active = false;
-        OnWeatherEnded?.Invoke(this, EventArgs.Empty);
-        OnWeatherActiveChanged?.Invoke(this, EventArgs.Empty);
+        OnWeatherActiveChanged?.Invoke(this, false, false);
     }
 
     /// <summary>
@@ -73,6 +71,7 @@ public abstract class DefaultModdedWeather(ModdableWeatherSpecService moddableWe
     {
         Spec = moddableWeatherSpecService.Specs[Id];
     }
+
 }
 
 public abstract class DefaultModdedWeather<TSettings>(TSettings settings, ModdableWeatherSpecService moddableWeatherSpecService) : DefaultModdedWeather(moddableWeatherSpecService)
