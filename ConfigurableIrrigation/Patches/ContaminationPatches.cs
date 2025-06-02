@@ -1,6 +1,4 @@
-﻿using Timberborn.SoilContaminationSystem;
-
-namespace ConfigurableIrrigation.Patches;
+﻿namespace ConfigurableIrrigation.Patches;
 
 [HarmonyPatch]
 public static class ContaminationPatches
