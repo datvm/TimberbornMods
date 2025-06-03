@@ -26,7 +26,7 @@ public abstract class DefaultWeatherSettings(
     public RangeIntModSetting Chance { get; protected set; }
     public ModSetting<int> MinDay { get; set; }
     public ModSetting<int> MaxDay { get; set; }
-    public RangeIntModSetting HandicapPerc { get; set; }
+    public ModSetting<int> HandicapPerc { get; set; }
     public ModSetting<int> HandicapCycles { get; set; }
 #nullable enable
 
@@ -60,7 +60,7 @@ public abstract class DefaultWeatherSettings(
         Chance = new(inits.Chance, 0, 200, CreateDescriptor("Chance"));
         MinDay = new(inits.MinDay, CreateDescriptor("MinDay"));
         MaxDay = new(inits.MaxDay, CreateDescriptor("MaxDay"));
-        HandicapPerc = new(inits.HandicapPerc, 1, 100, CreateDescriptor("HandicapPerc"));
+        HandicapPerc = new(inits.HandicapPerc, CreateDescriptor("HandicapPerc"));
         HandicapCycles = new(inits.HandicapCycles, CreateDescriptor("HandicapCycles"));
     }
 

@@ -21,11 +21,15 @@ public static class ModdableWeatherUtils
         configurator
             .BindTemperateWeather<GameTemperateWeather, GameTemperateWeatherSettings>(menuContext)
             .BindHazardousWeather<GameDroughtWeather, GameDroughtWeatherSettings>(menuContext)
-            .BindHazardousWeather<GameBadtideWeather, GameBadtideWeatherSettings>(menuContext);
+            .BindHazardousWeather<GameBadtideWeather, GameBadtideWeatherSettings>(menuContext)
+        ;
 
         // Modded
         configurator
-            .BindTemperateWeather<RainWeather, RainWeatherSettings>(menuContext);
+            .BindTemperateWeather<RainWeather, RainWeatherSettings>(menuContext)
+            .BindTemperateWeather<ShortTemperateWeather, ShortTemperateWeatherSettings>(menuContext)
+            .BindTemperateWeather<ProgressiveTemperateWeather, ProgressiveTemperateWeatherSettings>(menuContext)
+        ;
 
         return configurator;
     }

@@ -31,6 +31,7 @@ public class MSettings(
         .SetLocalizedTooltip("LV.T4UI.HighlightSimilarColorDesc"), false);
     public ModSetting<bool> HighlightSimilar { get; } = CreateBoolModSettings("LV.T4UI.HighlightSimilar");
     public ModSetting<bool> HighlightTubeway { get; } = CreateBoolModSettings("LV.T4UI.HighlightTubeway");
+    public ModSetting<bool> DisableShadows { get; } = CreateBoolModSettings("LV.T4UI.DisableShadows");
 
     public readonly LimitedStringModSetting toolDescPos = new(
         1,

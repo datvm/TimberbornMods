@@ -1,4 +1,4 @@
-﻿namespace ModdableWeather.Weathers.Rain;
+﻿namespace ModdableWeather.Weathers;
 
 public class RainWeather(
     RainWeatherSettings settings,

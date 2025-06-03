@@ -8,7 +8,7 @@ public class ModMenuConfig : Configurator
 {
     public override void Configure()
     {
-        Bind<MSettings>().AsSingleton();
+        this.BindSingleton<MSettings>();
     }
 }
 
@@ -17,15 +17,19 @@ public class ModGameConfig : Configurator
 {
     public override void Configure()
     {
-        Bind<MSettings>().AsSingleton();
+        this
+            .BindSingleton<MSettings>()
 
-        Bind<ScrollableEntityPanelService>().AsSingleton();
-        Bind<ToolPanelDescriptionMover>().AsSingleton();
-        Bind<MaterialCounterService>().AsSingleton();
-        Bind<ObjectSelectionService>().AsSingleton();
+            .BindSingleton<ShadowService>()
 
-        Bind<BatchControlBoxService>().AsSingleton();
-        Bind<WorkplacesBatchControlTabService>().AsSingleton();
+            .BindSingleton<ScrollableEntityPanelService>()
+            .BindSingleton<ToolPanelDescriptionMover>()
+            .BindSingleton<MaterialCounterService>()
+            .BindSingleton<ObjectSelectionService>()
+
+            .BindSingleton<BatchControlBoxService>()
+            .BindSingleton<WorkplacesBatchControlTabService>()
+        ;
     }
 }
 
@@ -34,10 +38,13 @@ public class ModMapEditorConfig : Configurator
 {
     public override void Configure()
     {
-        Bind<MSettings>().AsSingleton();
+        this
+            .BindSingleton<MSettings>()
 
-        Bind<ScrollableEntityPanelService>().AsSingleton();
-        Bind<ToolPanelDescriptionMover>().AsSingleton();
+            .BindSingleton<ShadowService>()
+            .BindSingleton<ScrollableEntityPanelService>()
+            .BindSingleton<ToolPanelDescriptionMover>()
+        ;
     }
 }
 

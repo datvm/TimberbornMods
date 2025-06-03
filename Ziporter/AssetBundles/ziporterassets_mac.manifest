@@ -1,16 +1,16 @@
 ManifestFileVersion: 0
-UnityVersion: 6000.0.46f1
-CRC: 2227165945
+UnityVersion: 6000.1.4f1
+CRC: 3848166500
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 78755c9bf945a5c9ac9bf6e0bd9c114e
+    Hash: f745e2de3d62a146564a4690cc60f444
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 18d76709d341ba25aa34bb370e8853f6
+    Hash: ab87fc332e90c9e0d48754f9d1845ab4
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 8343ccf0b626f4afa6af19cd5ba42aa3
+    Hash: bf5e9871e41a2ece3f02401d9b0fe69f
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -20,11 +20,13 @@ ClassTypes:
 - Class: 65
   Script: {instanceID: 0}
 - Class: 114
+  Script: {fileID: 1612436499, guid: eb9080bf06f168df6f5c272e99e27c71, type: 3}
+- Class: 114
   Script: {fileID: 437054131, guid: 644c1295076bbdbb604b7f96aa6be9c2, type: 3}
 - Class: 114
-  Script: {fileID: 1672878266, guid: a01d35f43886f4b46e413d3c2ea20811, type: 3}
-- Class: 114
   Script: {fileID: 484218558, guid: a01d35f43886f4b46e413d3c2ea20811, type: 3}
+- Class: 114
+  Script: {fileID: 808986059, guid: a01d35f43886f4b46e413d3c2ea20811, type: 3}
 - Class: 114
   Script: {fileID: 1566945626, guid: b5f268a4cb31a93ed707a95d3a502b0e, type: 3}
 - Class: 114
@@ -44,9 +46,9 @@ ClassTypes:
 - Class: 114
   Script: {fileID: -1706396145, guid: c1ff95bb5ae0e8b420075ec58add6f36, type: 3}
 - Class: 114
-  Script: {fileID: -1925074215, guid: 79523a2b71f4fae881a60ad2e723d456, type: 3}
+  Script: {fileID: 1996131132, guid: 948419c1896aad842bc2afb1c6b071d2, type: 3}
 - Class: 114
-  Script: {fileID: -1587067794, guid: 6db671ca2a10521151a0623ea7cc13c9, type: 3}
+  Script: {fileID: -1925074215, guid: 79523a2b71f4fae881a60ad2e723d456, type: 3}
 - Class: 114
   Script: {fileID: -87641975, guid: 4f86215eeb86a5b54ca2a4c5a8d9d99f, type: 3}
 - Class: 114
@@ -72,10 +74,10 @@ SerializeReferenceClassIdentifiers:
   ClassName: Timberborn.BlockSystem.CustomPivotSpec
 - AssemblyName: Timberborn.BlockSystem
   ClassName: Timberborn.BlockSystem.EntranceBlockSpec
-- AssemblyName: Timberborn.Clusters
-  ClassName: Timberborn.Clusters.ConnectableBlock
 - AssemblyName: Timberborn.Goods
   ClassName: Timberborn.Goods.GoodAmountSpec
+- AssemblyName: Timberborn.MechanicalSystem
+  ClassName: Timberborn.MechanicalSystem.TransputSpec
 Assets:
-- Assets/Mods/Ziporter/AssetBundles/Resources/Buildings/Paths/Ziporter/Ziporter.Folktails.prefab
+- Assets/Mods/ZiporterAssets/AssetBundles/Resources/Buildings/Paths/Ziporter/Ziporter.Folktails.prefab
 Dependencies: []
