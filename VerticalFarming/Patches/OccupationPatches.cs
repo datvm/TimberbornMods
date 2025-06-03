@@ -1,8 +1,4 @@
-﻿global using Timberborn.PrefabGroupSystem;
-global using Timberborn.Planting;
-global using Timberborn.BlockSystem;
-
-namespace VerticalFarming.Patches;
+﻿namespace VerticalFarming.Patches;
 
 [HarmonyPatch]
 public static class OccupationPatches

@@ -1,10 +1,4 @@
-﻿using Timberborn.AreaSelectionSystem;
-using Timberborn.MapIndexSystem;
-using Timberborn.SoilContaminationSystem;
-using Timberborn.SoilMoistureSystem;
-using Timberborn.TerrainQueryingSystem;
-using Timberborn.TerrainSystem;
-using static Timberborn.AreaSelectionSystem.AreaPicker;
+﻿using static Timberborn.AreaSelectionSystem.AreaPicker;
 
 namespace VerticalFarming.Patches;
 
@@ -103,12 +97,30 @@ public static class AreaPickerPatches
         if (__result || !MSettings.WithoutGround) { return; }
 
         var index2D = map.CellToIndex(coordinates.XY());
-        var ceiling = terrainMap.GetCeilingAtOrBelowHeight(index2D, coordinates.z);
+        var ceiling = TryGetCeilingAtOrBelowHeight(terrainMap, index2D, coordinates.z);
 
         if (ceiling == coordinates.z) { return; }
 
         var newCoords = coordinates with { z = ceiling };
         __result = isSoilAt(newCoords);
+    }
+
+    static int TryGetCeilingAtOrBelowHeight(IThreadSafeColumnTerrainMap imap, int index2D, int z)
+    {
+        var map = (ThreadSafeColumnTerrainMap)imap;
+
+        byte b = map._columnCounts[index2D];
+        for (int i = b - 1; i >= 0; i--)
+        {
+            var index3D = i * map._verticalStride + index2D;
+            var ceiling = map._terrainColumns[index3D].Ceiling;
+            if (ceiling <= z)
+            {
+                return ceiling;
+            }
+        }
+
+        return 0;
     }
 
     static void PatchSetSoilLevel<T>(
