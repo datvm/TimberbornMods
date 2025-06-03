@@ -1,10 +1,12 @@
-﻿namespace ModdableWeather.Patches.Weathers;
+﻿using ModdableWeather.Weathers;
+
+namespace ModdableWeather.Patches.Weathers;
 
 [HarmonyPatch]
 public static class RainWeatherPatches
 {
 
-    [HarmonyPrefix, HarmonyPatch(typeof(SoilMoistureSimulator), nameof(SoilMoistureSimulator.CalculateMoistureForCell))]
+    [HarmonyPrefix, HarmonyPatch(typeof(SoilMoistureSimulator), nameof(MoistureCalculationJob.CalculateMoistureForCell))]
     public static bool SetMoistureIfRaining(ref float __result)
     {
         if (!RainWeather.IsRaining) { return true; }

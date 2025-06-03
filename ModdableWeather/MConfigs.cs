@@ -5,7 +5,7 @@ public class ModBootstrapperConfig : Configurator
 {
     public override void Configure()
     {
-        this.TryAddingModdableAudioClip();
+        this.TryBindingModdableAudioClip();
     }
 }
 
