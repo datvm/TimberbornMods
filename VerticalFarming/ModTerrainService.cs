@@ -1,10 +1,4 @@
-﻿global using Timberborn.CursorToolSystem;
-global using Timberborn.GridTraversing;
-using Timberborn.AreaSelectionSystem;
-using Timberborn.Coordinates;
-using Timberborn.SelectionSystem;
-
-namespace VerticalFarming;
+﻿namespace VerticalFarming;
 
 public class ModTerrainService : IUnloadableSingleton
 {
