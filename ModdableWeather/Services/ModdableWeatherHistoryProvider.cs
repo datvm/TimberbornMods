@@ -82,11 +82,14 @@ public class ModdableWeatherHistoryProvider(
 
     void InitData()
     {
-        // First game
+        // First time with mod/new game
         nextCycleTemperate ??= generator.DecideTemperateWeatherForCycle(Cycles.Count + 1, this);
 
         var info = cycles.LastOrDefault();
-        currentCycleDetails = GetDetails(info);
+        if (info is not null)
+        {
+            currentCycleDetails = GetDetails(info);
+        }
 
         counters = registry.AllWeathers.ToDictionary(q => q.Id, _ => 0);
 

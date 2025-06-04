@@ -8,7 +8,7 @@ public class NoneHazardousWeather : IModdedHazardousWeather
     public string Id { get; } = nameof(NoneHazardousWeather);
     public ModdedWeatherSpec Spec { get; } = new() { Id = nameof(NoneHazardousWeather), };
 
-    public bool Active { get; }
+    public bool Active { get; private set; }
 
     public event WeatherChangedEventHandler? OnWeatherActiveChanged;
 
@@ -20,10 +20,14 @@ public class NoneHazardousWeather : IModdedHazardousWeather
 
     public void Start(bool onLoad)
     {
+        Active = true;
+        OnWeatherActiveChanged?.Invoke(this, true, onLoad);
     }
 
     public void End()
     {
+        Active = false;
+        OnWeatherActiveChanged?.Invoke(this, false, false);
     }
 
     public int GetDurationAtCycle(int cycle) => 0;

@@ -54,7 +54,7 @@ public static class DwellingPatches
                 DefaultDwellingValues[spec.name] = def;
             }
 
-            var maxBeavers = Math.Max(1, (int)(def.MaxBeavers * MSettings.MaxBeaverMultiplier));
+            var maxBeavers = Math.Max(1, (int)(def.MaxBeavers * MSettings.MaxBeaverMultiplier + MSettings.MaxBeaverAdd));
             spec._maxBeavers = maxBeavers;
 
             if (hasEntrance)
