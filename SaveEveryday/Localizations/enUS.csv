@@ -11,3 +11,8 @@ LV.SE.AutosaveWarning,"Warn before autosave",
 LV.SE.AutosaveWarningDesc,"Show a warning some time before the game autosaves. This is useful for players who dislike game stuttering on autosave.",
 LV.SE.AutosaveWarningText,"Autosave imminent in {0} game hours!",
 LV.SE.AutosaveDoneText,"Game autosaved (Save Everyday)!",
+LV.SE.AutoSaveFilename,"Auto-save filename",
+LV.SE.AutoSaveFilenameDesc,"Custom filename for auto-saves. If you use this,
+make sure to put .saveeveryday at the end to auto delete. If not, the game will not delete the save file automatically.
+Use {0} for cycle number and {1} for cycle day number and {2} for total day. For example: C{0}_D{1}.saveeveryday.
+Leave empty to use the default filename (SaveDay{2}.saveeveryday).",

@@ -1,16 +1,10 @@
-﻿#if TIMBER7
-global using Timberborn.GameCycleSystem;
-global using Timberborn.GameSaveRepositorySystem;
-global using Timberborn.GameSaveRuntimeSystem;
-global using Timberborn.HazardousWeatherSystemUI;
-global using Timberborn.SettlementNameSystem;
-
-namespace SaveEveryday.Services;
+﻿namespace SaveEveryday.Services;
 
 public class SaveEverydayService(
     ModSettings settings,
     ISingletonLoader singletonLoader,
     IDayNightCycle time,
+    GameCycleService cycles,
     SettlementNameService settlementNameService,
     GameSaver gameSaver,
     GameSaveRepository gameSaveRepository,
@@ -21,7 +15,7 @@ public class SaveEverydayService(
 ) : ILoadableSingleton, ISaveableSingleton
 {
     const string NamePostfix = ".saveeveryday";
-    const string NameFormat = "SaveDay{0}" + NamePostfix;
+    const string NameFormat = "SaveDay{2}" + NamePostfix;
     const string BadweatherSaveName = "weatherwarning.save";
 
     static readonly SingletonKey SaveEverydayKey = new(nameof(SaveEveryday));
@@ -85,7 +79,7 @@ public class SaveEverydayService(
     void SaveGame(int day, bool badweather = false)
     {
         string settlementName = settlementNameService.SettlementName;
-        string saveName = badweather ? BadweatherSaveName : string.Format(NameFormat, day);
+        string saveName = GetSaveName(day, badweather);
         Debug.Log($"Saving game as {saveName}");
 
         var saveReference = new SaveReference(settlementName, saveName);
@@ -98,6 +92,22 @@ public class SaveEverydayService(
             Debug.LogError($"Error occured while saving: {ex.InnerException}");
             gameSaveRepository.DeleteSaveSafely(saveReference);
         }
+    }
+
+    string GetSaveName(int day, bool badweather)
+    {
+        if (badweather) { return BadweatherSaveName; }
+
+        var nameFormat = settings.AutoSaveFilename;
+        if (string.IsNullOrEmpty(nameFormat))
+        {
+            nameFormat = NameFormat;
+        }
+
+        return string.Format(nameFormat,
+            cycles.Cycle,
+            cycles.CycleDay,
+            day);
     }
 
     static bool IsAutosaveName(string name) => name.EndsWith(NamePostfix);
@@ -130,4 +140,3 @@ public class SaveEverydayService(
     }
 
 }
-#endif
