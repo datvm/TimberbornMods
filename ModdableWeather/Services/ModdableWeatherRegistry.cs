@@ -72,4 +72,9 @@ public class ModdableWeatherRegistry(
     /// <returns>The hazardous weather instance.</returns>
     public IModdedHazardousWeather GetHazardousWeather(string id) => (IModdedHazardousWeather)WeatherByIds[id];
 
+    /// <summary>
+    /// Checks if a weather type with the specified ID exists in the registry.
+    /// </summary>
+    public bool HasWeather(string id) => WeatherByIds.ContainsKey(id);
+
 }

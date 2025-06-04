@@ -7,6 +7,7 @@ public abstract class DefaultModdedWeather(
 
     public abstract string Id { get; }
     public ModdedWeatherSpec Spec { get; protected set; } = null!;
+    public bool Enabled => Parameters.Enabled;
 
     public event WeatherChangedEventHandler? OnWeatherActiveChanged;
 
@@ -24,14 +25,12 @@ public abstract class DefaultModdedWeather(
         if (parameters.HandicapCycles > 0)
         {
             var counter = history.GetWeatherCycleCount(Id);
-            if (counter < parameters.HandicapCycles)
-            {
-                var initHandicap = parameters.HandicapPerc;
-                var deltaPerCycle = (100 - parameters.HandicapPerc) / parameters.HandicapCycles;
+            var handicap = ModdableWeatherUtils.CalculateHandicap(counter, parameters.HandicapCycles, () => parameters.HandicapPerc);
 
-                var handicap = initHandicap + (deltaPerCycle * counter);
-                minDay = minDay * handicap / 100;
-                maxDay = maxDay * handicap / 100;
+            if (handicap != 1f)
+            {
+                minDay = Mathf.RoundToInt(minDay * handicap);
+                maxDay = Mathf.RoundToInt(maxDay * handicap);
             }
         }
 
@@ -45,7 +44,7 @@ public abstract class DefaultModdedWeather(
 
     public virtual int GetChance(int cycle, ModdableWeatherHistoryProvider history)
     {
-        return cycle < Parameters.StartCycle ? 0 : Parameters.Chance;
+        return (!Enabled || cycle < Parameters.StartCycle) ? 0 : Parameters.Chance;
     }
 
     public virtual void Start(bool onLoad)

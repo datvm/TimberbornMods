@@ -11,6 +11,7 @@ public class ShortTemperateWeatherSettings(ISettings settings, ModSettingsOwnerR
 {
     public override string WeatherId { get; } = ShortTemperateWeather.WeatherId;
     public override WeatherParameters DefaultSettings { get; } = new(
+        Enabled: false,
         StartCycle: 10,
         Chance: 20,
         MinDay: 1,

@@ -30,7 +30,8 @@ public class RainWeatherSettings(ISettings settings, ModSettingsOwnerRegistry mo
     public override string WeatherId { get; } = RainWeather.WeatherId;
 
     public override WeatherParameters DefaultSettings { get; } = new(
-        StartCycle: 1,
+        Enabled: false,
+        StartCycle: 0,
         Chance: 50,
         MinDay: 9,
         MaxDay: 12);

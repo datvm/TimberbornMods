@@ -32,7 +32,7 @@ public class ModGameConfig : Configurator
         this.BindModdedWeathers(false);
 
         // Replace/remove Services
-        this.MassRebind()
+        this.MassRebind(h => h
             .Replace<WeatherService, ModdableWeatherService>()
             .Replace<HazardousWeatherService, ModdableHazardousWeatherService>()
             .Replace<HazardousWeatherApproachingTimer, ModdableHazardousWeatherApproachingTimer>()
@@ -43,7 +43,7 @@ public class ModGameConfig : Configurator
             .Replace<DayStageCycle, ModdableDayStageCycle>()
 
             .Remove<HazardousWeatherSoundPlayer>()
-        .Bind();
+        );
             
         this.RemoveMultibinding<ICycleDuration>();
         this.MultiBindAndBindSingleton<ICycleDuration, ModdableWeatherCycleService>();
@@ -56,9 +56,7 @@ public class ModGameConfig : Configurator
             .BindSingleton<ModdableWeatherRegistry>()
             .BindSingleton<ModdableWeatherHistoryProvider>()
             .BindSingleton<ModdableWeatherGenerator>()
-
-            // Bind but do NOT multibind this special weather for record keeping
-            .BindSingleton<NoneHazardousWeather>();
+        ;
     }
 
 }
