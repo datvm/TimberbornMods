@@ -1,21 +1,23 @@
 ﻿namespace TImprove.Services;
 
-public class GameDepServices
+public class GameDepServices(
+    EntityService entities
+) : ILoadableSingleton, IUnloadableSingleton
 {
     public static GameDepServices? Instance { get; private set; }
-
-    readonly EntityService entities;
-
-    public GameDepServices(EntityService entities)
-    {
-        Instance = this;
-
-        this.entities = entities;
-    }
 
     public void DeleteObject(BlockObject obj)
     {
         entities.Delete(obj);
     }
 
+    public void Load()
+    {
+        Instance = this;
+    }
+
+    public void Unload()
+    {
+        Instance = null;
+    }
 }

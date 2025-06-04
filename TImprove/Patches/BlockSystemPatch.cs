@@ -9,7 +9,7 @@ public static class BlockSystemPatch
     {
         if (__result <= 2) { return; }
 
-        var add = Services.ModSettings.BiggerBuildDragArea;
+        var add = MSettings.BiggerBuildDragArea;
 
         if (blockObjectLayout == BlockObjectLayout.Rectangle)
         {

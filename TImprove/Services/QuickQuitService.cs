@@ -24,7 +24,7 @@ public class QuickQuitService(MSettings s) : IUpdatableSingleton, ILoadableSingl
 
     public void Load()
     {
-        s.OnSettingsChanged += () => quickQuit = s.QuickQuit;
+        s.ModSettingChanged += (_, _) => quickQuit = s.QuickQuit;
         quickQuit = s.QuickQuit;
     }
 
