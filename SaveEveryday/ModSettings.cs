@@ -36,11 +36,18 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
             .CreateLocalized("LV.SE.AutosaveWarning")
             .SetLocalizedTooltip("LV.SE.AutosaveWarningDesc"));
 
+    readonly ModSetting<string> autoSaveFilename = new(
+        "",
+        ModSettingDescriptor
+            .CreateLocalized("LV.SE.AutoSaveFilename")
+            .SetLocalizedTooltip("LV.SE.AutoSaveFilenameDesc"));
+
     public bool Enabled { get; private set; } = false;
     public int SaveFrequency { get; private set; } = 1;
     public int SaveCount { get; private set; } = 3;
     public bool SaveWeatherWarning { get; private set; } = false;
     public bool AutosaveWarning { get; private set; } = false;
+    public string AutoSaveFilename { get; private set; } = "";
 
     public override void OnAfterLoad()
     {
@@ -48,10 +55,12 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
         saveCount.Descriptor.SetEnableCondition(() => enabled.Value);
         saveWeatherWarning.Descriptor.SetEnableCondition(() => enabled.Value);
         autosaveWarning.Descriptor.SetEnableCondition(() => enabled.Value);
+        autoSaveFilename.Descriptor.SetEnableCondition(() => enabled.Value);
 
         AddCustomModSetting(enabled, nameof(enabled));
         AddCustomModSetting(saveFrequency, nameof(saveFrequency));
         AddCustomModSetting(saveCount, nameof(saveCount));
+        AddCustomModSetting(autoSaveFilename, nameof(autoSaveFilename));
         AddCustomModSetting(autosaveWarning, nameof(autosaveWarning));
         AddCustomModSetting(saveWeatherWarning, nameof(saveWeatherWarning));
 
@@ -66,6 +75,7 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
         SaveCount = saveCount.Value;
         SaveWeatherWarning = saveWeatherWarning.Value;
         AutosaveWarning = autosaveWarning.Value;
+        AutoSaveFilename = autoSaveFilename.Value.Trim();
     }
 
 }

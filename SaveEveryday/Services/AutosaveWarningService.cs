@@ -1,8 +1,4 @@
-﻿global using Timberborn.QuickNotificationSystem;
-global using Timberborn.TickSystem;
-global using Timberborn.TimeSystem;
-
-namespace SaveEveryday.Services;
+﻿namespace SaveEveryday.Services;
 public class AutosaveWarningService(
     ModSettings s,
     QuickNotificationService notf,
