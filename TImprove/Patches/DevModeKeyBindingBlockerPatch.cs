@@ -22,7 +22,7 @@ public static class DevModeKeyBindingBlockerPatch
 
     public static bool Prefix(KeyBinding keyBinding, ref bool __result)
     {
-        var s = Services.ModSettings.Instance;
+        var s = MSettings.Instance;
         if (s is null) { return true; }
 
         if (

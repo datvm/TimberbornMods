@@ -1,6 +1,4 @@
-﻿global using Timberborn.WorkSystemUI;
-
-namespace TImprove.UI;
+﻿namespace TImprove.UI;
 
 public class RealTimeComponent(WorkingHoursPanel workingHours) : IUpdatableSingleton, ILoadableSingleton
 {

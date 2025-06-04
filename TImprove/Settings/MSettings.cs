@@ -1,23 +1,27 @@
-﻿namespace TImprove.Services;
-public class ModSettings : ModSettingsOwner
+﻿namespace TImprove.Settings;
+public class MSettings(
+    ISettings settings,
+    ModSettingsOwnerRegistry modSettingsOwnerRegistry,
+    ModRepository modRepository,
+    IModSettingsContextProvider context
+) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository),
+    IUnloadableSingleton
 {
     public static MSettings? Instance { get; private set; }
 
-    static readonly ImmutableList<FieldInfo> AllBoolSettings = [.. 
+    static readonly ImmutableList<FieldInfo> AllBoolSettings = [..
         typeof(MSettings).GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
             .Where(q => q.FieldType == typeof(ModSetting<bool>))];
 
-    public event Action OnSettingsChanged = delegate { };
-
     public static readonly ImmutableArray<string> Lights = ["Sunrise", "Day", "Sunset", "Night"];
     static readonly ImmutableHashSet<string> DefaultTrues = [nameof(showGameTime), nameof(enableSpeed4)];
+    static readonly ImmutableArray<ClearDeadStumpModeValue> ClearDeadStumpModes = TImproveUtils.GetEnumValues<ClearDeadStumpModeValue>();
 
     public override string ModId { get; } = nameof(TImprove);
     public override ModSettingsContext ChangeableOn => ModSettingsContext.All;
-    readonly IModSettingsContextProvider context;
 
 #pragma warning disable IDE0044, CS0649 // Actually set by Reflection
-    ModSetting<bool>? enableFreeCamera, disableFog, pauseBadWeather, prioritizeRubbles, autoClearDeadTrees,
+    ModSetting<bool>? enableFreeCamera, disableFog, prioritizeRubbles,
 
         showCoords, onlyShowHeight,
 
@@ -33,9 +37,7 @@ public class ModSettings : ModSettingsOwner
 
     public bool EnableFreeCamera => enableFreeCamera?.Value == true;
     public bool DisableFog => disableFog?.Value == true;
-    public bool PauseBadWeather => pauseBadWeather?.Value == true;
     public bool PrioritizeRubbles => prioritizeRubbles?.Value == true;
-    public bool AutoClearDeadTrees => autoClearDeadTrees?.Value == true;
 
     public bool ShowCoords => showCoords?.Value == true;
     public bool OnlyShowHeight => onlyShowHeight?.Value == true;
@@ -54,10 +56,12 @@ public class ModSettings : ModSettingsOwner
     public bool QuickQuit => quickQuit?.Value == true;
     public static int BiggerBuildDragArea { get; private set; }
 
-    public ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository, IModSettingsContextProvider context) : base(settings, modSettingsOwnerRegistry, modRepository)
+    public ClearDeadStumpModeValue ClearDeadStumpValue { get; private set; }
+    public LimitedStringModSetting ClearDeadStumpMode { get; } = TImproveUtils.CreateLimitedStringModSetting(ClearDeadStumpModes, "LV.TI.AutoClearDeadTrees");
+
+    public override void OnBeforeLoad()
     {
         Instance = this;
-        this.context = context;
     }
 
     public override void OnAfterLoad()
@@ -95,24 +99,39 @@ public class ModSettings : ModSettingsOwner
             {
                 AddCustomModSetting(allDayLightValue, nameof(allDayLightValue));
             }
-
-            f.ValueChanged += (_, _) => InternalOnSettingsChanged();
         }
         AddCustomModSetting(biggerBuildDragArea, nameof(biggerBuildDragArea));
 
         onlyShowHeight!.Descriptor.SetEnableCondition(() => showCoords!.Value);
 
-        allDayLightValue.ValueChanged += (_, _) => InternalOnSettingsChanged();
-        biggerBuildDragArea.ValueChanged += (_, _) => InternalOnSettingsChanged();
-
+        ModSettingChanged += (_, _) => InternalOnSettingsChanged();
         InternalOnSettingsChanged();
     }
 
     void InternalOnSettingsChanged()
     {
-        OnSettingsChanged();
-
+        
         BiggerBuildDragArea = biggerBuildDragArea!.Value;
+        ClearDeadStumpValue = Enum.Parse<ClearDeadStumpModeValue>(ClearDeadStumpMode.Value);
     }
 
+    public void Unload()
+    {
+        Instance = null;
+    }
+
+}
+
+public enum ClearDeadStumpModeValue
+{
+    No,
+    Tool,
+    Auto,
+}
+
+public enum NewDayActionValue
+{
+    None,
+    Pause,
+    Speed1,
 }

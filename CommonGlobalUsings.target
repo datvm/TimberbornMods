@@ -20,6 +20,7 @@
 
 		<Using Include="UnityEngine"/>
 		<Using Include="UnityEngine.UIElements" />
+		<Using Include="UnityEngine.InputSystem" />
 
 		<Using Include="Timberborn.AlertPanelSystem"/>
 		<Using Include="Timberborn.Analytics"/>

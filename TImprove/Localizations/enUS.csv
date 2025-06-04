@@ -33,9 +33,27 @@ LV.TI.QuickQuit,"Quick/Force Quit [Ctrl + Shift + Q] (!)",
 LV.TI.QuickQuitDesc,"Press Ctrl + Shift + Q to force exit the game immediately by killing the game process. NO SAVE or game state clean up. Be careful!",
 LV.TI.BiggerBuildDragArea,"Bigger build drag area (!)",
 LV.TI.BiggerBuildDragAreaDesc,"Increase the build drag area for buildings like Dams (default 10x10) or Roads (25). This significantly increases the load time and memory usage so use it with caution. Example: setting this to 5 will make the drag area 15x15 Dams or 30 Roads. Can only be changed at the Main Menu",
-LV.TI.AutoClearDeadTrees,"Clear dead trees immediately",
-LV.TI.AutoClearDeadTreesDesc,"When using the 'Mark Resources for Demolition' tool, automatically clear dead trees immediately without beavers (as if you are building stuff on it)",
+LV.TI.AutoClearDeadTrees,"Clear dead stumps",
+LV.TI.AutoClearDeadTreesDesc,"Automatically clear dead stumps or bushes (those that you could have destroyed immediately by building over):
+- No: do not clear anything
+- Tool: when using Demolishing Tool
+- Auto: just clear them right when they appear",
+LV.TI.AutoClearDeadTreesNo,"No",
+LV.TI.AutoClearDeadTreesTool,"Tool",
+LV.TI.AutoClearDeadTreesAuto,"Auto",
 LV.TI.AddRealTimeClock,"Add real-time clock",
 LV.TI.AddRealTimeClockDesc,"Add a real-time clock in the top right corner. This is useful for players who want to keep track of the time while playing.",
 LV.TI.DisableShadowRotation,"Disable shadow rotation",
 LV.TI.DisableShadowRotationDesc,"This will make shadows static and not rotate with the sun.",
+LV.TI.NewDayAction,"On new day",
+LV.TI.NewDayActionDesc,"Choose what to do on a new day:
+- None: do nothing
+- Pause: pause the game
+- Speed 1: set the game speed to 1x",
+LV.TI.NewDayActionNone,"None",
+LV.TI.NewDayActionPause,"Pause",
+LV.TI.NewDayActionSpeed1,"Speed 1",
+LV.TI.NewDayAll,"Every day",
+LV.TI.NewDayWarning,"On weather warning days",
+LV.TI.NewDayHazard,"On hazardous weather begin days",
+LV.TI.NewDayNewCycle,"On new cycle days",

@@ -14,7 +14,7 @@ public class CoordsService(
     {
         input.AddInputProcessor(this);
 
-        s.OnSettingsChanged += UpdateValues;
+        s.ModSettingChanged += (_, _) => UpdateValues();
         UpdateValues();
     }
 

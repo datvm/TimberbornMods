@@ -1,17 +1,11 @@
 {
     "Name": "TImprove - Various QoL Timberborn-Improvements",
-    "Version": "7.3.0",
+    "Version": "7.4.0",
     "Id": "TImprove",
-    "MinimumGameVersion": "0.6.0.0",
+    "MinimumGameVersion": "0.7.0.0",
     "Description": "Various small improvements for Timberborn.",
     "RequiredMods": [
-        {
-            "Id": "eMka.ModSettings",
-            "MinimumVersion": "0.6.0.0"
-        },
-        {
-            "Id": "Harmony",
-            "MinimumVersion": "2.3.3"
-        }
+        { "Id": "eMka.ModSettings" },
+        { "Id": "Harmony" }
     ]
 }
