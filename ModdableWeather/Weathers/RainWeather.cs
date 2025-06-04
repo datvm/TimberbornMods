@@ -34,4 +34,9 @@ public class RainWeatherSettings(ISettings settings, ModSettingsOwnerRegistry mo
         Chance: 50,
         MinDay: 9,
         MaxDay: 12);
+
+    public ModSetting<bool> EnableRainEffect { get; } = new(true, ModSettingDescriptor
+        .CreateLocalized("LV.MW.RainEffect")
+        .SetLocalizedTooltip("LV.MW.RainEffectDesc"));
+
 }

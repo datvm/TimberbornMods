@@ -31,6 +31,12 @@ public static class ModdableWeatherUtils
             .BindTemperateWeather<ProgressiveTemperateWeather, ProgressiveTemperateWeatherSettings>(menuContext)
         ;
 
+        // Weather-specific services
+        if (!menuContext)
+        {
+            configurator.BindSingleton<RainEffect>();
+        }
+
         return configurator;
     }
 

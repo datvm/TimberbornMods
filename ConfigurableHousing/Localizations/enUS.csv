@@ -13,3 +13,6 @@ LV.CH.AddProcreation,"  Add Procreation to all Housings",
 LV.CH.AddProcreationDesc,"Add Procreation to all Housings, so Folktails can procreate in Iron Teeth's Housings",
 LV.CH.RemoveProcreation,"  Remove Procreation from all Housings",
 LV.CH.RemoveProcreationDesc,"Remove Procreation from all Housings, so Iron Teeth can not procreate in Folktails' Housings",
+LV.CH.MaxBeaverAdd,"Max Beavers Addition",
+LV.CH.MaxBeaverAddDesc,"Add this value to the max beavers a house can have AFTER multiplying.
+Can be negative. The final minimum value is still 1.",

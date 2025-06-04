@@ -3,6 +3,7 @@
 public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
     public static float MaxBeaverMultiplier { get; private set; } = 1;
+    public static int MaxBeaverAdd { get; private set; } = 0;    
     public static float SleepSatisfactionMultiplier { get; private set; } = 1;
     public static float ShelterSatisfactionMultiplier { get; private set; } = 1;
     public static bool MoveEntranceFloor { get; private set; } = false;
@@ -15,6 +16,12 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         ModSettingDescriptor
             .CreateLocalized("LV.CH.MaxBeaverMul")
             .SetLocalizedTooltip("LV.CH.MaxBeaverMulDesc"));
+
+    readonly ModSetting<int> maxBeaverAdd = new(
+        0,
+        ModSettingDescriptor
+            .CreateLocalized("LV.CH.MaxBeaverAdd")
+            .SetLocalizedTooltip("LV.CH.MaxBeaverAddDesc"));
 
     readonly ModSetting<float> sleepSatisfactionMultiplier = new(
         1,
@@ -57,6 +64,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     public override void OnAfterLoad()
     {
         AddCustomModSetting(maxBeaverMultiplier, nameof(MaxBeaverMultiplier));
+        AddCustomModSetting(maxBeaverAdd, nameof(MaxBeaverAdd));
         AddCustomModSetting(sleepSatisfactionMultiplier, nameof(SleepSatisfactionMultiplier));
         AddCustomModSetting(shelterSatisfactionMultiplier, nameof(ShelterSatisfactionMultiplier));
         AddCustomModSetting(moveEntranceFloor, nameof(MoveEntranceFloor));
@@ -73,6 +81,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     void UpdateValues()
     {
         MaxBeaverMultiplier = maxBeaverMultiplier.Value;
+        MaxBeaverAdd = maxBeaverAdd.Value;
         SleepSatisfactionMultiplier = sleepSatisfactionMultiplier.Value;
         ShelterSatisfactionMultiplier = shelterSatisfactionMultiplier.Value;
         MoveEntranceFloor = moveEntranceFloor.Value;
