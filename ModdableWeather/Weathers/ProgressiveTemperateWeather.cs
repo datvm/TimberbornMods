@@ -11,6 +11,7 @@ public class ProgressiveTemperateWeatherSettings(ISettings settings, ModSettings
 {
     public override string WeatherId { get; } = ProgressiveTemperateWeather.WeatherId;
     public override WeatherParameters DefaultSettings { get; } = new(
+        Enabled: false,
         StartCycle: 0,
         Chance: 100,
         MinDay: 3,

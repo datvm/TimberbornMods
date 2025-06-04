@@ -7,6 +7,7 @@ public class NoneHazardousWeather : IModdedHazardousWeather
 
     public string Id { get; } = nameof(NoneHazardousWeather);
     public ModdedWeatherSpec Spec { get; } = new() { Id = nameof(NoneHazardousWeather), };
+    public bool Enabled { get; } = false;
 
     public bool Active { get; private set; }
 

@@ -11,4 +11,11 @@ public static class DatePanelPatches
         return false;
     }
 
+    [HarmonyPrefix, HarmonyPatch(nameof(DatePanel.UpdateText))]
+    public static bool PatchUpdateText()
+    {
+        ModdableDatePanel.Instance.NewUpdateText(ModdableWeatherService.Instance.CurrentWeather.Spec);
+        return false;
+    }
+
 }

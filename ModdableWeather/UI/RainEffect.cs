@@ -9,7 +9,9 @@ public class RainEffect(
 ) : ILoadableSingleton
 {
     const float RainParticlePerSquare = 200f / (32 * 32);
+    const int MaxParticleRate = 1000;
     const float WindStrengthModifier = 5f;
+    const float ParticleLifetime = 2.5f;
 
     public bool CanRain { get; private set; }
     public bool IsRaining { get; private set; }
@@ -25,9 +27,12 @@ public class RainEffect(
         AttachRain();
         eb.Register(this);
         OnWindChanged(null!);
-
-        EnableRain();
         rainWeather.OnWeatherActiveChanged += RainWeather_OnWeatherActiveChanged;
+
+        if (rainWeather.Active)
+        {
+            EnableRain();
+        }
     }
 
     private void RainWeather_OnWeatherActiveChanged(IModdedWeather weather, bool active, bool onLoad)
@@ -84,20 +89,20 @@ public class RainEffect(
         var main = ps.main;
         main.startSpeed = 0f;
         main.startSize3D = true;
-        main.startSizeX = new(.05f / 2f, .1f / 2f);
-        main.startSizeY = new(.2f /2f, .4f /2f);
-        main.startSizeZ = 1f;
+        main.startSizeX = new(.025f, .05f);
+        main.startSizeY = new(.1f, .2f);
+        main.startSizeZ = new(1f, 1f);
 
-        main.startLifetime = 2.5f;
+        main.startLifetime = ParticleLifetime;
         main.gravitySource = ParticleSystemGravitySource.Physics3D;
-        main.gravityModifier = 2f;
+        main.gravityModifier = 1f;
         main.loop = true;
-        main.maxParticles = 1_000_000;
+        main.maxParticles = Mathf.CeilToInt(MaxParticleRate * ParticleLifetime * 2);
 
         var size = mapSize.TotalSize;
 
         var emission = ps.emission;
-        emission.rateOverTime = (int)(RainParticlePerSquare * size.x * size.y);
+        emission.rateOverTime = Math.Min(MaxParticleRate, (int)(RainParticlePerSquare * size.x * size.y));
 
         var shape = ps.shape;
         shape.shapeType = ParticleSystemShapeType.Box;
@@ -106,22 +111,16 @@ public class RainEffect(
 
         var velocity = ps.velocityOverLifetime;
         velocity.enabled = true;
+        velocity.y = -10f;
 
         var collision = ps.collision;
-        collision.type = ParticleSystemCollisionType.Planes;
-        collision.AddPlane(CreateCollisionPlane());
+        collision.enabled = true;
+        collision.type = ParticleSystemCollisionType.World;
+        //collision.AddPlane(CreateCollisionPlane());
         collision.lifetimeLoss = 1f;
 
         var renderer = ps.GetComponent<ParticleSystemRenderer>();
         renderer.material = material;
-    }
-
-    Transform CreateCollisionPlane()
-    {
-        var obj = new GameObject();
-        obj.transform.localScale = new(1E6f, 1, 1E6f);
-
-        return obj.transform;
     }
 
     [OnEvent]

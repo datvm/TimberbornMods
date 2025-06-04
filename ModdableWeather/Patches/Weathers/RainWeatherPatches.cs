@@ -13,21 +13,12 @@ public static class RainWeatherPatches
         return false;
     }
 
-    [HarmonyPrefix, HarmonyPatch(typeof(SoilContaminationService), nameof(SoilContaminationService.Contamination))]
+    [HarmonyPrefix, HarmonyPatch(typeof(ContaminationCandidatesCountingJob), nameof(ContaminationCandidatesCountingJob.GetContaminationCandidate))]
     public static bool SetContaminationIfRaining(ref float __result)
     {
         if (!RainWeather.IsRaining) { return true; }
 
         __result = 0;
-        return false;
-    }
-
-    [HarmonyPrefix, HarmonyPatch(typeof(SoilContaminationService), nameof(SoilContaminationService.SoilIsContaminated))]
-    public static bool SetContaminationIfRaining(ref bool __result)
-    {
-        if (!RainWeather.IsRaining) { return true; }
-
-        __result = false;
         return false;
     }
 

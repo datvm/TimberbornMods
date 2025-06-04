@@ -25,7 +25,7 @@ public class ModdableWeatherGenerator(
     }
 
     public IModdedTemperateWeather DecideTemperateWeatherForCycle(int cycle, ModdableWeatherHistoryProvider history)
-        => DecideForCycle(cycle, history, registry.TemperateWeathers, null);
+        => DecideForCycle(cycle, history, registry.TemperateWeathers, registry.GameTemperateWeather);
 
     CycleWeatherPair DecideWeatherForCycle(int cycle, ModdableWeatherHistoryProvider history)
     {
@@ -39,7 +39,7 @@ public class ModdableWeatherGenerator(
         );
     }
 
-    T DecideForCycle<T>(int cycle, ModdableWeatherHistoryProvider history, IEnumerable<T> weathers, T? fallback)
+    T DecideForCycle<T>(int cycle, ModdableWeatherHistoryProvider history, IEnumerable<T> weathers, T fallback)
         where T : IModdedWeather
     {
         var max = 0;
@@ -49,6 +49,8 @@ public class ModdableWeatherGenerator(
 
         foreach (var w in weathers)
         {
+            if (!w.Enabled) { continue; }
+
             var chance = w.GetChance(cycle, history);
             if (chance <= 0) { continue; }
 
@@ -59,15 +61,14 @@ public class ModdableWeatherGenerator(
 
         if (values.Count == 0)
         {
-            return fallback ??
-                throw new InvalidOperationException($"No registered {typeof(T).Name} weather for cycle {cycle}.");
+            return fallback;
         }
         else if (values.Count == 1)
         {
             return values[0].Item1;
         }
 
-        var hit = UnityEngine.Random.RandomRangeInt(0, max);
+        var hit = Random.RandomRangeInt(0, max);
         ModdableWeatherUtils.Log(() => $"  * Hit: {hit}");
         foreach (var weather in values)
         {

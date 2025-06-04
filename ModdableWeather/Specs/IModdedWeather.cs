@@ -5,6 +5,7 @@ public interface IModdedWeather
 {
     string Id { get; }
     ModdedWeatherSpec Spec { get; }
+    bool Enabled { get; }
 
     public string WeatherId => Id;
 

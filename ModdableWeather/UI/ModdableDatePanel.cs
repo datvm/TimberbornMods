@@ -47,7 +47,7 @@ public class ModdableDatePanel(
         icon.style.backgroundImage = new(spec.DatePanelIcon);
     }
 
-    void NewUpdateText(ModdedWeatherSpec spec)
+    internal void NewUpdateText(ModdedWeatherSpec spec)
     {
         _text.text = _timestampFormatter.FormatLongLocalized(_gameCycleService.Cycle, _gameCycleService.CycleDay);
         _tooltipText = spec.Display;

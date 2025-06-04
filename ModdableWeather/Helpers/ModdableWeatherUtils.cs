@@ -29,15 +29,36 @@ public static class ModdableWeatherUtils
             .BindTemperateWeather<RainWeather, RainWeatherSettings>(menuContext)
             .BindTemperateWeather<ShortTemperateWeather, ShortTemperateWeatherSettings>(menuContext)
             .BindTemperateWeather<ProgressiveTemperateWeather, ProgressiveTemperateWeatherSettings>(menuContext)
+            .BindHazardousWeather<MonsoonWeather, MonsoonWeatherSettings>(menuContext)
+            .BindHazardousWeather<SurprisinglyRefreshingWeather, SurprisinglyRefreshingWeatherSettings>(menuContext)
         ;
 
-        // Weather-specific services
+
         if (!menuContext)
         {
+            configurator.BindHazardousWeather<NoneHazardousWeather>();
+
+            // Weather-specific services
             configurator.BindSingleton<RainEffect>();
+
+            configurator.BindTemplateModule(h => h
+                .AddDecorator<WaterSource, MonsoonWaterStrengthModifier>()
+                .AddDecorator<WaterSourceContamination, SurprisinglyRefreshingController>()
+            );
         }
 
         return configurator;
+    }
+
+    public static float CalculateHandicap(int counter, int handicapCycles, Func<int> getInitHandicapPercent)
+    {
+        if (counter >= handicapCycles || handicapCycles == 0) { return 1f; }
+
+        var initHandicap = getInitHandicapPercent();
+        var deltaPerCycle = (100 - initHandicap) / handicapCycles;
+
+        var handicap = initHandicap + (deltaPerCycle * counter);
+        return handicap / 100f;
     }
 
 }

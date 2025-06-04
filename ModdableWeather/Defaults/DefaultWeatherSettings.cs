@@ -41,15 +41,20 @@ public abstract class DefaultWeatherSettings(
         InititalizeSettings();
     }
 
-    public virtual WeatherParameters Parameters => new(
-        EnableWeather.Value,
-        StartCycle.Value,
-        Chance.Value,
-        MinDay.Value,
-        MaxDay.Value,
-        HandicapPerc.Value,
-        HandicapCycles.Value
-    );
+    public override void OnAfterLoad()
+    {
+        Parameters = new(
+            EnableWeather.Value,
+            StartCycle.Value,
+            Chance.Value,
+            MinDay.Value,
+            MaxDay.Value,
+            HandicapPerc.Value,
+            HandicapCycles.Value
+        );
+    }
+
+    public WeatherParameters Parameters { get; protected set; } = null!;
 
     protected virtual void InititalizeSettings()
     {
@@ -68,7 +73,7 @@ public abstract class DefaultWeatherSettings(
     {
         var s = ModSettingDescriptor
             .Create(t.T("LV.MW." + name, WeatherNameDisplay))
-            .SetLocalizedTooltip(t.T($"LV.MW.{name}Desc", WeatherNameDisplay));
+            .SetTooltip(t.T($"LV.MW.{name}Desc", WeatherNameDisplay));
 
         if (!doNotDisable)
         {

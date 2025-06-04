@@ -2,9 +2,9 @@
     "ModdedWeatherSpec": {
         "Id": "ProgressiveTemperate",
         "DisplayLoc": "LV.MW.ProgressiveTemperate",
-        "WeatherPanelProgressBackground": "Resources/UI/Images/Weathers/weather-progress-short-temperate",
-        "DatePanelIcon": "Resources/UI/Images/Weathers/ico-weather-short-temperate",
-        "WeatherNotification": "Resources/UI/Images/Weathers/weather-notification-short-temperate",
+        "WeatherPanelProgressBackground": "UI/Images/Game/weather-progress-wet",
+        "DatePanelIcon": "UI/Images/Core/ico-weather-temperate",
+        "WeatherNotification": "UI/Images/Game/weather-notification-wet",
         "StartSound": "UI.Weather.TemperateWeatherStarted"
     }
 }

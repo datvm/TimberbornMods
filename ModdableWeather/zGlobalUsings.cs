@@ -1,4 +1,5 @@
-﻿global using ModdableWeather.Defaults;
+﻿global using ModdableWeather.Components;
+global using ModdableWeather.Defaults;
 global using ModdableWeather.Helpers;
 global using ModdableWeather.Models;
 global using ModdableWeather.Patches;

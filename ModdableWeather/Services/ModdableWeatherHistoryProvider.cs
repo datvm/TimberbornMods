@@ -102,23 +102,46 @@ public class ModdableWeatherHistoryProvider(
 
     bool LoadSavedData()
     {
-        if (!loader.TryGetSingleton(ModdableWeatherUtils.SaveKey, out var s)) { return false; }
+        if (!(loader.TryGetSingleton(ModdableWeatherUtils.SaveKey, out var s)
+            && s.Has(CyclesKey))) { return false; }
 
-        if (s.Has(CyclesKey))
+        cycles = s.Get(CyclesKey, ModdableWeatherCycleSerializer.Instance);
+
+        // Ensure the weather is valid
+        if (cycles.Count > 0)
         {
-            cycles = s.Get(CyclesKey, ModdableWeatherCycleSerializer.Instance);
+            var lastCycle = cycles[^1];
 
-            if (s.Has(NextTemperateWeatherIdKey))
+            ModdableWeatherCycleWeather? temperateReplacement = registry.HasWeather(lastCycle.TemperateWeather.Id)
+                ? null : new ModdableWeatherCycleWeather(
+                    gameTemperateWeather.Id,
+                    lastCycle.TemperateWeather.Duration);
+            ModdableWeatherCycleWeather? hazReplacement = registry.HasWeather(lastCycle.HazardousWeather.Id)
+                ? null : new ModdableWeatherCycleWeather(
+                    registry.NoneHazardousWeather.Id,
+                    lastCycle.HazardousWeather.Duration);
+
+            if (temperateReplacement is not null || hazReplacement is not null)
             {
-                nextCycleTemperate = registry.GetTemperateWeather(s.Get(NextTemperateWeatherIdKey));
+                cycles[^1] = lastCycle with
+                {
+                    TemperateWeather = temperateReplacement ?? lastCycle.TemperateWeather,
+                    HazardousWeather = hazReplacement ?? lastCycle.HazardousWeather,
+                };
             }
+        }
 
-            return true;
-        }
-        else
+        if (s.Has(NextTemperateWeatherIdKey))
         {
-            return false;
+            var id = s.Get(NextTemperateWeatherIdKey);
+
+            nextCycleTemperate = registry.HasWeather(id)
+                ? registry.GetTemperateWeather(id)
+                : registry.GameTemperateWeather;
         }
+
+        return true;
+
     }
 
     void ExtractFromCurrentData()
