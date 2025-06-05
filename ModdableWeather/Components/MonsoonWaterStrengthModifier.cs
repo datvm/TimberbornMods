@@ -1,6 +1,6 @@
 ﻿namespace ModdableWeather.Components;
 
-public class MonsoonWaterStrengthModifier : BaseComponent, IWaterStrengthModifier
+public class MonsoonWaterStrengthModifier : BaseComponent, IWaterStrengthModifier, IDeletableEntity
 {
 
 #nullable disable
@@ -47,4 +47,8 @@ public class MonsoonWaterStrengthModifier : BaseComponent, IWaterStrengthModifie
 
     public float GetStrengthModifier() => monsoon.WaterModifier;
 
+    public void DeleteEntity()
+    {
+        monsoon.OnWeatherActiveChanged -= Monsoon_OnWeatherActiveChanged;
+    }
 }
