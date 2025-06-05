@@ -1,0 +1,639 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1057387171801215
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4501093675332636}
+  - component: {fileID: 65792082642631876}
+  - component: {fileID: 136427472066633692}
+  - component: {fileID: 114175695696442813}
+  m_Layer: 0
+  m_Name: '#Finished'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4501093675332636
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057387171801215}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4837040221154647}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: -0}
+--- !u!65 &65792082642631876
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057387171801215}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.9, y: 1.0209901, z: 0.9}
+  m_Center: {x: 0.5, y: 0.51049507, z: 0.5}
+--- !u!136 &136427472066633692
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057387171801215}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 1
+  m_Direction: 2
+  m_Center: {x: 0.5, y: 2.1, z: 0.5}
+--- !u!114 &114175695696442813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057387171801215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1942782917, guid: 40833514e55bcf2135fbcf9411078554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _modelName: Buildings\Landscaping\Floodgate\Floodgate.Folktails.Model
+--- !u!1 &1079994434364512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4692787442068027}
+  - component: {fileID: 65892038787223536}
+  - component: {fileID: 114420062196104223}
+  - component: {fileID: 65931647923067878}
+  - component: {fileID: 65891582043943824}
+  - component: {fileID: 65992341004744279}
+  - component: {fileID: 65874923341333215}
+  m_Layer: 0
+  m_Name: ConstructionStage0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4692787442068027
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079994434364512}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4781461476683817}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65892038787223536
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079994434364512}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.1, z: 1}
+  m_Center: {x: 0.5, y: 0.05, z: 0.5}
+--- !u!114 &114420062196104223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079994434364512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1942782917, guid: 40833514e55bcf2135fbcf9411078554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _modelName: Buildings/Landscaping/Floodgate/Floodgate.Folktails.ConstructionStage0.Model
+--- !u!65 &65931647923067878
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079994434364512}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.13677976, y: 1.3408854, z: 0.12822022}
+  m_Center: {x: 0.94, y: 0.6757244, z: 0.05400767}
+--- !u!65 &65891582043943824
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079994434364512}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.13677976, y: 1.3408854, z: 0.12822022}
+  m_Center: {x: 0.05326183, y: 0.6757244, z: 0.94}
+--- !u!65 &65992341004744279
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079994434364512}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.13677976, y: 1.3408854, z: 0.12822022}
+  m_Center: {x: 0.05326183, y: 0.6757244, z: 0.05400767}
+--- !u!65 &65874923341333215
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079994434364512}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.13677976, y: 1.3408854, z: 0.12822022}
+  m_Center: {x: 0.94, y: 0.6757244, z: 0.94}
+--- !u!1 &1123082503124699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4944487975089191}
+  - component: {fileID: 65737980617204530}
+  - component: {fileID: 114842721404491110}
+  m_Layer: 0
+  m_Name: ConstructionBase1x1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4944487975089191
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123082503124699}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4781461476683817}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65737980617204530
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123082503124699}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.1, z: 1}
+  m_Center: {x: 0.5, y: 0.05, z: 0.5}
+--- !u!114 &114842721404491110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123082503124699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1942782917, guid: 40833514e55bcf2135fbcf9411078554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _modelName: ConstructionBases\ConstructionBase1x1\ConstructionBase1x1.Model
+--- !u!1 &1274464386605044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4837040221154647}
+  - component: {fileID: 114290217158822650}
+  - component: {fileID: 114490459370888416}
+  - component: {fileID: 114076338276444461}
+  - component: {fileID: 114292557431883586}
+  - component: {fileID: 114012582234184771}
+  - component: {fileID: 114101143323528880}
+  - component: {fileID: 114187277507467359}
+  - component: {fileID: 114657649542735928}
+  - component: {fileID: 114785691216101177}
+  - component: {fileID: -6142855494002985121}
+  - component: {fileID: -7639031475591387472}
+  - component: {fileID: 7193760026524076952}
+  m_Layer: 0
+  m_Name: Gate.Folktails
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4837040221154647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274464386605044}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4501093675332636}
+  - {fileID: 4781461476683817}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+--- !u!114 &114290217158822650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274464386605044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -579399493, guid: 1bd6ccb667024f9c2b77daf7f62a4eed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentCache: {fileID: 0}
+  _selectionSoundName: Floodgate
+  _loopingSoundName: 
+  _buildingCost:
+  - _goodId: Log
+    _amount: 10
+  - _goodId: Plank
+    _amount: 5
+  _scienceCost: 150
+  _placeFinished: 0
+  _finishableWithBeaversOnSite: 1
+  _drawRangeBoundsOnIt: 1
+--- !u!114 &114490459370888416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274464386605044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1596376676, guid: 1bd6ccb667024f9c2b77daf7f62a4eed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentCache: {fileID: 0}
+  _finishedModelName: '#Finished'
+  _unfinishedModelName: '#Unfinished'
+  _finishedUncoveredModelName: 
+  _undergroundModelName: 
+  _constructionModeModel: 0
+  _undergroundModelDepth: 0
+--- !u!114 &114076338276444461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274464386605044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1566945626, guid: b5f268a4cb31a93ed707a95d3a502b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentCache: {fileID: 0}
+  _prefabName: Gate.Folktails
+  _backwardCompatiblePrefabNames: []
+  _requiredFeatureToggle: 
+  _disablingFeatureToggle: 
+--- !u!114 &114292557431883586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274464386605044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 447443988, guid: c1ff95bb5ae0e8b420075ec58add6f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentCache: {fileID: 0}
+  _blocksSpec:
+    _size: {x: 1, y: 1, z: 3}
+    _blockSpecs:
+    - _matterBelow: 1
+      _legacyOccupation: 0
+      _useNewOccupation: 1
+      _occupations: 16
+      _stackable: 0
+      _occupyAllBelow: 0
+      _underground: 0
+    - _matterBelow: 3
+      _legacyOccupation: 0
+      _useNewOccupation: 1
+      _occupations: 58
+      _stackable: 0
+      _occupyAllBelow: 0
+      _underground: 0
+    - _matterBelow: 3
+      _legacyOccupation: 0
+      _useNewOccupation: 1
+      _occupations: 58
+      _stackable: 0
+      _occupyAllBelow: 0
+      _underground: 0
+  _entrance:
+    _hasEntrance: 0
+    _coordinates: {x: 0, y: 0, z: 0}
+  _baseZ: 0
+  _overridable: 0
+  _flippable: 0
+--- !u!114 &114012582234184771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274464386605044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1925074215, guid: 79523a2b71f4fae881a60ad2e723d456, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentCache: {fileID: 0}
+  _noAutoWalls: 0
+  _generateFloorsOnStackable: 0
+  _blockAllEdges: 0
+  _edgeGroups:
+  - _cost: 1
+    _group:
+      _useGroup: 0
+      _groupName: 
+    _isPath: 1
+    _addedEdges:
+    - _start: {x: 0, y: 0, z: 0}
+      _end: {x: 0, y: -1, z: 0}
+      _isTwoWay: 0
+    - _start: {x: 0, y: 0, z: 0}
+      _end: {x: 0, y: 1, z: 0}
+      _isTwoWay: 0
+  _unblockedCoordinates: []
+--- !u!114 &114101143323528880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274464386605044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1706396145, guid: c1ff95bb5ae0e8b420075ec58add6f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentCache: {fileID: 0}
+  _toolGroupId: Paths
+  _toolOrder: 15
+  _toolShape: 0
+  _layout: 0
+  _customPivot:
+    _hasCustomPivot: 0
+    _coordinates: {x: 0, y: 0, z: 0}
+  _canBeAttachedToTerrainSide: 0
+  _devModeTool: 0
+--- !u!114 &114187277507467359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274464386605044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -968648488, guid: f52221e1b73d7a1af6ce63101ea50e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentCache: {fileID: 0}
+  _gateName: '#Floodgate1x1FolktailsMisc'
+--- !u!114 &114657649542735928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274464386605044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 652365310, guid: b6b9d4cc3090b6fceb2eb6438dd271f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentCache: {fileID: 0}
+  _displayNameLocKey: LV.Gate.Gate
+  _descriptionLocKey: LV.Gate.GateDesc
+  _flavorDescriptionLocKey: LV.Gate.GateFlavor
+  _imagePath: Sprites/Buildings/Path/Gate
+--- !u!114 &114785691216101177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274464386605044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 437054131, guid: 644c1295076bbdbb604b7f96aa6be9c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentCache: {fileID: 0}
+  _progressThresholds:
+  - 0
+--- !u!114 &-6142855494002985121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274464386605044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1146001497, guid: 4ed0189b1e1d234e361262ab78b6f74b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentCache: {fileID: 0}
+  _mainPathCoordinates: {x: 0, y: 0, z: 0}
+--- !u!114 &-7639031475591387472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274464386605044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -923837550, guid: 79523a2b71f4fae881a60ad2e723d456, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentCache: {fileID: 0}
+--- !u!114 &7193760026524076952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274464386605044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 59574725, guid: 4ed0189b1e1d234e361262ab78b6f74b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentCache: {fileID: 0}
+  _driveway: 6
+  _hasCustomCoordinates: 1
+  _customCoordinates: {x: 0, y: -1, z: 0}
+  _customDirection: 0
+  _drivewayMode: 0
+--- !u!1 &1865216688918221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4781461476683817}
+  m_Layer: 0
+  m_Name: '#Unfinished'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4781461476683817
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865216688918221}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4944487975089191}
+  - {fileID: 4692787442068027}
+  m_Father: {fileID: 4837040221154647}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}

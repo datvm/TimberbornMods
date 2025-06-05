@@ -200,6 +200,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital", "Hospital\Hospit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TailsManager", "TailsManager\TailsManager.csproj", "{8F8B4A66-31EC-4EBB-9211-2FD140332AEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gate", "Gate\Gate.csproj", "{5B435807-94CC-444F-B950-4A7A8BD1473E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -530,6 +532,10 @@ Global
 		{8F8B4A66-31EC-4EBB-9211-2FD140332AEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F8B4A66-31EC-4EBB-9211-2FD140332AEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F8B4A66-31EC-4EBB-9211-2FD140332AEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B435807-94CC-444F-B950-4A7A8BD1473E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B435807-94CC-444F-B950-4A7A8BD1473E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B435807-94CC-444F-B950-4A7A8BD1473E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B435807-94CC-444F-B950-4A7A8BD1473E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

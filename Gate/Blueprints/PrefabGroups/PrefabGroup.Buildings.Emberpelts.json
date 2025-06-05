@@ -1,0 +1,8 @@
+{
+    "PrefabGroupSpec": {
+        "Id": "Buildings.GreedyBuilders",
+        "Paths#append": [
+            "Buildings/Paths/Gate/Gate.Folktails"
+        ]
+    }
+}
