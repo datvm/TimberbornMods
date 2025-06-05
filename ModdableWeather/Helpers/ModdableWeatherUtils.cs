@@ -44,6 +44,7 @@ public static class ModdableWeatherUtils
             configurator.BindTemplateModule(h => h
                 .AddDecorator<WaterSource, MonsoonWaterStrengthModifier>()
                 .AddDecorator<WaterSourceContamination, SurprisinglyRefreshingController>()
+                .AddDecorator<NeedManager, RainSoakedEffectApplier>()
             );
         }
 
