@@ -1,6 +1,6 @@
 ﻿namespace ModdableWeather.Components;
 
-public class RainSoakedEffectApplier : TickableComponent
+public class RainSoakedEffectApplier : TickableComponent, IDeletableEntity
 {
 
 #nullable disable
@@ -45,7 +45,10 @@ public class RainSoakedEffectApplier : TickableComponent
 
     private void OnRainChanged(IModdedWeather weather, bool active, bool onLoad)
     {
-        enabled = active;
+        if (this)
+        {
+            enabled = active;
+        }
     }
 
     public override void Tick()
@@ -58,4 +61,8 @@ public class RainSoakedEffectApplier : TickableComponent
         }
     }
 
+    public void DeleteEntity()
+    {
+        rainWeather.OnWeatherActiveChanged -= OnRainChanged;
+    }
 }

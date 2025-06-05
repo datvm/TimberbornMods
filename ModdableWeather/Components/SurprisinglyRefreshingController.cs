@@ -1,6 +1,6 @@
 ﻿namespace ModdableWeather.Components;
 
-public class SurprisinglyRefreshingController : BaseComponent
+public class SurprisinglyRefreshingController : BaseComponent, IDeletableEntity
 {
 
 #nullable disable
@@ -38,5 +38,10 @@ public class SurprisinglyRefreshingController : BaseComponent
         {
             waterSourceContamination.ResetContamination();
         }
+    }
+
+    public void DeleteEntity()
+    {
+        refreshingWeather.OnWeatherActiveChanged -= OnWeatherChanged;
     }
 }
