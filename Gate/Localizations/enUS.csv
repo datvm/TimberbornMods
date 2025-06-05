@@ -1,0 +1,5 @@
+ID,Text,Comment
+LV.Gate.Gate,"Gate",
+LV.Gate.GateDesc,"A road that can be closed.",
+LV.Gate.GateFlavor,"""They called me mad when I blocked the road with a floodgate. Now they call me 'Sir.'"" — Beavrick",
+LV.Gate.Closed,"Closed",

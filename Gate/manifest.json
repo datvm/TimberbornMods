@@ -1,0 +1,10 @@
+{
+    "Name": "Gate",
+    "Version": "7.0.0",
+    "Id": "Gate",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "A gate!",
+    "RequiredMods": [
+        { "Id": "Harmony" }
+    ]
+}
