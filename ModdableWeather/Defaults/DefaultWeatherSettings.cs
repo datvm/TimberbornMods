@@ -6,7 +6,7 @@ public abstract class DefaultWeatherSettings(
     ModRepository modRepository,
     ILoc t,
     ModdableWeatherSpecService specs
-) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository)
+) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IExportableSettings
 {
 
     public abstract string WeatherId { get; }
@@ -82,4 +82,27 @@ public abstract class DefaultWeatherSettings(
 
         return s;
     }
+
+    public virtual string Export() => JsonConvert.SerializeObject(GetExportObject());
+    protected virtual object GetExportObject() => Parameters;
+
+    public virtual void Import(string value)
+    {
+        var parameters = JsonConvert.DeserializeObject<WeatherParameters>(value);
+        if (parameters is null) { return; }
+
+        ImportFromParameters(parameters);
+    }
+
+    protected virtual void ImportFromParameters(WeatherParameters parameters)
+    {
+        EnableWeather.Value = parameters.Enabled;
+        StartCycle.Value = parameters.StartCycle;
+        Chance.Value = parameters.Chance;
+        MinDay.Value = parameters.MinDay;
+        MaxDay.Value = parameters.MaxDay;
+        HandicapPerc.Value = parameters.HandicapPerc;
+        HandicapCycles.Value = parameters.HandicapCycles;
+    }
+
 }

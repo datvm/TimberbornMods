@@ -17,8 +17,15 @@ public class ModMenuConfig : Configurator
     {
         this
             .BindSingleton<ModdableWeatherSpecService>()
+            .BindSingleton<ModdableWeatherProfileSettings>()
+            .TryBindingSystemFileDialogService()
+
             .BindDifficultyButtons()
-            .BindModdedWeathers(true);
+            .BindModdedWeathers(true)
+        ;
+
+        Bind<ModdableWeatherProfileElement>().AsTransient();
+        MultiBind<IModSettingElementFactory>().To<ModdableWeatherSettingsProfileFactory>().AsSingleton();
     }
 
 }

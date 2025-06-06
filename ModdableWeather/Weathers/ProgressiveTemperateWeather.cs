@@ -15,6 +15,7 @@ public class ProgressiveTemperateWeatherSettings(ISettings settings, ModSettings
     const int TotalHandicapCycles = 15;
 
     public override string WeatherId { get; } = ProgressiveTemperateWeather.WeatherId;
+    public override int Order { get; } = 6;
 
     protected override WeatherParameters GetDifficultyParameters(WeatherDifficulty difficulty)
     {

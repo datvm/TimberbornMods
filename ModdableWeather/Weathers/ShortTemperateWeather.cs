@@ -10,6 +10,8 @@ public class ShortTemperateWeather(ShortTemperateWeatherSettings settings, Modda
 public class ShortTemperateWeatherSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository, ILoc t, ModdableWeatherSpecService specs) : DefaultWeatherSettings(settings, modSettingsOwnerRegistry, modRepository, t, specs)
 {
     public override string WeatherId { get; } = ShortTemperateWeather.WeatherId;
+    public override int Order { get; } = 7;
+
     public override WeatherParameters DefaultSettings { get; } = new(
         StartCycle: 10,
         Chance: 20,

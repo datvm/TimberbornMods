@@ -13,18 +13,4 @@
 		<PackageReference Condition="$(IsU7)" Include="System.Collections.Immutable" Version="9.0.0" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
-
-		<!--<ProjectReference Include="..\ScientificProjects\ScientificProjects\ScientificProjects.csproj" />-->
-		<!--<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />-->
-		<!--<ProjectReference Include="..\ScientificProjects\BrainPowerSPs\BrainPowerSPs.csproj" />-->
-		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
-
-		<!--<ProjectReference Include="..\TimberQuests\TimberQuests\TimberQuests.csproj" />-->
-		<ProjectReference Include="..\Gate\Gate.csproj" />
-
-		
-	</ItemGroup>
-
 </Project>

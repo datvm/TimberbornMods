@@ -12,6 +12,7 @@ public class GameTemperateWeatherSettings(ISettings settings, ModSettingsOwnerRe
 {
     public override string WeatherId { get; } = GameTemperateWeather.WeatherId;
     public override string ModId { get; } = nameof(ModdableWeather);
+    public override int Order { get; } = 1;
 
     protected override WeatherParameters GetDifficultyParameters(WeatherDifficulty difficulty) => StaticGetDifficultyParameters(difficulty);
 

@@ -1,6 +1,4 @@
-﻿
-
-namespace ModdableWeather.Weathers;
+﻿namespace ModdableWeather.Weathers;
 
 public class MonsoonWeather(
     MonsoonWeatherSettings settings,
@@ -62,6 +60,7 @@ public class MonsoonWeather(
 public class MonsoonWeatherSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository, ILoc t, ModdableWeatherSpecService specs, ModSettingsBox modSettingsBox) : DefaultWeatherDifficultySettings(settings, modSettingsOwnerRegistry, modRepository, t, specs, modSettingsBox)
 {
     public override string WeatherId { get; } = MonsoonWeather.WeatherId;
+    public override int Order { get; } = 5;
     public ModSetting<float> MonsoonMultiplier { get; } = new(2.5f, ModSettingDescriptor
         .CreateLocalized("LV.MW.MonsoonMultiplier")
         .SetLocalizedTooltip("LV.MW.MonsoonMultiplierDesc"));
@@ -87,4 +86,18 @@ public class MonsoonWeatherSettings(ISettings settings, ModSettingsOwnerRegistry
             HandicapCycles: v.DroughtDurationHandicapCycles
         );
     }
+
+    protected override object GetExportObject() => new MonsoonExportParameters(MonsoonMultiplier.Value, Parameters);
+
+    public override void Import(string value)
+    {
+        var parameters = JsonConvert.DeserializeObject<MonsoonExportParameters>(value);
+        if (parameters == default) { return; }
+
+        ImportFromParameters(parameters.WeatherParameters);
+        MonsoonMultiplier.SetValue(parameters.Multiplier);
+    }
+
 }
+
+public readonly record struct MonsoonExportParameters(float Multiplier, WeatherParameters WeatherParameters);

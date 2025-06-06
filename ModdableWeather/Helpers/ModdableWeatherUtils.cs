@@ -68,6 +68,17 @@ public static class ModdableWeatherUtils
         return configurator;
     }
 
+    internal static ModSettingsBox CloseAndOpenAgain(this ModSettingsBox box, string modId, ModRepository modRepository)
+    {
+        var mod = modRepository.EnabledMods.FirstOrDefault(q => q.Manifest.Id == modId);
+        if (mod is null) { return box; }
+
+        box.Close();
+        box.Open(mod);
+
+        return box;
+    }
+
     public static float CalculateHandicap(int counter, int handicapCycles, Func<int> getInitHandicapPercent)
     {
         if (counter >= handicapCycles || handicapCycles == 0) { return 1f; }
