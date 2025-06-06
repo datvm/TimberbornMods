@@ -202,6 +202,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TailsManager", "TailsManage
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gate", "Gate\Gate.csproj", "{5B435807-94CC-444F-B950-4A7A8BD1473E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingsProfile", "SettingsProfile\SettingsProfile.csproj", "{7E689957-CF8E-428F-BF52-6CE799A8D015}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -536,6 +538,10 @@ Global
 		{5B435807-94CC-444F-B950-4A7A8BD1473E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B435807-94CC-444F-B950-4A7A8BD1473E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B435807-94CC-444F-B950-4A7A8BD1473E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E689957-CF8E-428F-BF52-6CE799A8D015}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E689957-CF8E-428F-BF52-6CE799A8D015}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E689957-CF8E-428F-BF52-6CE799A8D015}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E689957-CF8E-428F-BF52-6CE799A8D015}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

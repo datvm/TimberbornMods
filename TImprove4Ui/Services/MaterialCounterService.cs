@@ -47,6 +47,8 @@ public class MaterialCounterService(
     public bool HasProducedGood(string id) => producedGoods.Contains(id);
     public void AddProducedGood(string id) => producedGoods.Add(id);
 
+
+
     public void Save(ISingletonSaver singletonSaver)
     {
         var s = singletonSaver.GetSingleton(SaveKey);

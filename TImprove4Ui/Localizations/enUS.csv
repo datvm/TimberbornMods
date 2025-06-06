@@ -21,5 +21,9 @@ LV.T4UI.HighlightSimilarColorDesc,"Color of the highlight for similar objects.",
 LV.T4UI.HighlightTubeway,"Highlight Tubeway path",
 LV.T4UI.HighlightTubewayDesc,"Highlight all the connected Tubeways when you select a Tubeway.
 This is useful to see the whole path of a Tubeway when you select it.",
+LV.T4UI.HighlightStorage,"Highlight & Select Material Buildings",
+LV.T4UI.HighlightStorageDesc,"Hover over a material counter to highlight all buildings that are containing that material.
+Clicking it will cycle through those buildings.
+Holding Alternate key (default: Shift) to cycle through them in selecting district only.",
 LV.T4UI.DisableShadows,"Disable shadows",
 LV.T4UI.DisableShadowsDesc,"Disable shadows from the sun.",

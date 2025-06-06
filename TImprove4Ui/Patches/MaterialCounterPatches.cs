@@ -1,10 +1,30 @@
 ﻿namespace TImprove4Ui.Patches;
 
-[HarmonyPatch]
+[HarmonyPatch(typeof(TopBarCounterRow))]
 public static class MaterialCounterPatches
 {
 
-    [HarmonyPostfix, HarmonyPatch(typeof(TopBarCounterRow), nameof(TopBarCounterRow.UpdateAndGetStock))]
+    public static void AddCounterEvents(TopBarCounterRow __instance)
+    {
+        var root = __instance._root;
+        
+        root.RegisterCallback<MouseEnterEvent>(_ =>
+        {
+            MaterialFinderService.Instance?.OnCounterHover(__instance);
+        });
+
+        root.RegisterCallback<MouseLeaveEvent>(_ =>
+        {
+            MaterialFinderService.Instance?.OnCounterLeft(__instance);
+        });
+
+        root.RegisterCallback<ClickEvent>(_ =>
+        {
+            MaterialFinderService.Instance?.OnCounterClicked(__instance);
+        });
+    }
+
+    [HarmonyPostfix, HarmonyPatch(nameof(TopBarCounterRow.UpdateAndGetStock))]
     public static void CheckForVisibility(TopBarCounterRow __instance)
     {
         if (!MSettings.NeverHideCounter) { return; }
