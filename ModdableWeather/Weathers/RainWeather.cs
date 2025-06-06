@@ -28,6 +28,7 @@ public class RainWeather(
 public class RainWeatherSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository, ILoc t, ModdableWeatherSpecService specs, ModSettingsBox modSettingsBox) : DefaultWeatherDifficultySettings(settings, modSettingsOwnerRegistry, modRepository, t, specs, modSettingsBox)
 {
     public override string WeatherId { get; } = RainWeather.WeatherId;
+    public override int Order { get; } = 4;
 
     public ModSetting<bool> EnableRainEffect { get; } = new(true, ModSettingDescriptor
         .CreateLocalized("LV.MW.RainEffect")

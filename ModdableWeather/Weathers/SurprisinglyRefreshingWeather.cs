@@ -10,6 +10,8 @@ public class SurprisinglyRefreshingWeather(SurprisinglyRefreshingWeatherSettings
 public class SurprisinglyRefreshingWeatherSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository, ILoc t, ModdableWeatherSpecService specs) : DefaultWeatherSettings(settings, modSettingsOwnerRegistry, modRepository, t, specs)
 {
     public override string WeatherId { get; } = SurprisinglyRefreshingWeather.WeatherId;
+    public override int Order { get; } = 8;
+
     public override WeatherParameters DefaultSettings { get; } = new(
         Chance: 10,
         MinDay: 1,

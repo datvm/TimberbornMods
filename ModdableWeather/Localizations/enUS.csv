@@ -29,3 +29,8 @@ LV.MW.MonsoonMultiplierDesc,"The maximum additional multiplier for the monsoon w
 This value is affected by handicap like Duration.
 Default value: 2.5 (250%) meaning when no handicap is applied (default cycle 5),
 all water sources strength is at 350%.",
+LV.MW.Profiles,"Profiles",
+LV.MW.ProfilesDesc,"Export and import settings for supported Moddable Weathers",
+LV.MW.ProfileImport,"Import",
+LV.MW.ProfileExport,"Export",
+LV.MW.ProfileError,"There was an error: {0}",

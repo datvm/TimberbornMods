@@ -38,16 +38,7 @@ public abstract class DefaultWeatherDifficultySettings(
         HandicapPerc.SetValue(parameters.HandicapPerc);
         HandicapCycles.SetValue(parameters.HandicapCycles);
 
-        CloseAndOpenAgain();
-    }
-
-    void CloseAndOpenAgain()
-    {
-        var mod = _modRepository.EnabledMods.FirstOrDefault(q => q.Manifest.Id == ModId);
-        if (mod is null) { return; }
-
-        modSettingsBox.Close();
-        modSettingsBox.Open(mod);
+        modSettingsBox.CloseAndOpenAgain(ModId, _modRepository);
     }
 
 }
