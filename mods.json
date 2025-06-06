@@ -29,5 +29,17 @@
             },
             "Note": "This mod does not work for U7"
         }
+    },
+    "ModdableWeather": {
+        "Incompatibles": {
+            "Automation": {
+                "Reason": "Conflict",
+                "Note": "Automation may crash the game with this mod due to conflict."
+            },
+            "WeatherScientificProjects": {
+                "Reason": "Conflict",
+                "Note": "Since many features were modified, this mod is not compatible with Weather Scientific Projects. A new version that is compatible may be released in the future."
+            }
+        }
     }
 }
