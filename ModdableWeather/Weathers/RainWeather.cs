@@ -25,19 +25,25 @@ public class RainWeather(
 
 }
 
-public class RainWeatherSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository, ILoc t, ModdableWeatherSpecService specs) : DefaultWeatherSettings(settings, modSettingsOwnerRegistry, modRepository, t, specs)
+public class RainWeatherSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository, ILoc t, ModdableWeatherSpecService specs, ModSettingsBox modSettingsBox) : DefaultWeatherDifficultySettings(settings, modSettingsOwnerRegistry, modRepository, t, specs, modSettingsBox)
 {
     public override string WeatherId { get; } = RainWeather.WeatherId;
-
-    public override WeatherParameters DefaultSettings { get; } = new(
-        Enabled: false,
-        StartCycle: 0,
-        Chance: 50,
-        MinDay: 9,
-        MaxDay: 12);
 
     public ModSetting<bool> EnableRainEffect { get; } = new(true, ModSettingDescriptor
         .CreateLocalized("LV.MW.RainEffect")
         .SetLocalizedTooltip("LV.MW.RainEffectDesc"));
 
+    protected override WeatherParameters GetDifficultyParameters(WeatherDifficulty difficulty) => StaticGetDifficultyParameters(difficulty);
+
+    static WeatherParameters StaticGetDifficultyParameters(WeatherDifficulty difficulty)
+    {
+        var v = ModdableWeatherUtils.GetGameSettingsAtDifficulty(difficulty);
+
+        return new(
+            StartCycle: 0,
+            Chance: 100,
+            MinDay: Mathf.FloorToInt(v.TemperateWeatherDuration.Min * .75f),
+            MaxDay: Mathf.FloorToInt(v.TemperateWeatherDuration.Max * .75f)
+        );
+    }
 }

@@ -15,6 +15,23 @@ public static class ModdableWeatherUtils
         }
     }
 
+    public static NewGameMode GetGameSettingsAtDifficulty(WeatherDifficulty difficulty)
+    {
+        return difficulty switch
+        {
+            WeatherDifficulty.Easy => NewGameModes.Easy(),
+            WeatherDifficulty.Normal => NewGameModes.Normal(),
+            WeatherDifficulty.Hard => NewGameModes.Hard(),
+            _ => NewGameModes.Default(),
+        };
+    }
+
+    internal static Configurator BindDifficultyButtons(this Configurator configurator)
+    {
+        configurator.MultiBind<IModSettingElementFactory>().To<WeatherDifficultyModSettingFactory>().AsSingleton();
+        return configurator;
+    }
+
     internal static Configurator BindModdedWeathers(this Configurator configurator, bool menuContext)
     {
         // Game Default

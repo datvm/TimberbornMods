@@ -1,4 +1,6 @@
-﻿namespace ModdableWeather.Weathers;
+﻿
+
+namespace ModdableWeather.Weathers;
 
 public class ProgressiveTemperateWeather(ProgressiveTemperateWeatherSettings settings, ModdableWeatherSpecService moddableWeatherSpecService) : DefaultModdedWeather<ProgressiveTemperateWeatherSettings>(settings, moddableWeatherSpecService), IModdedTemperateWeather
 {
@@ -7,16 +9,26 @@ public class ProgressiveTemperateWeather(ProgressiveTemperateWeatherSettings set
     public override string Id { get; } = WeatherId;
 }
 
-public class ProgressiveTemperateWeatherSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository, ILoc t, ModdableWeatherSpecService specs) : DefaultWeatherSettings(settings, modSettingsOwnerRegistry, modRepository, t, specs)
+public class ProgressiveTemperateWeatherSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository, ILoc t, ModdableWeatherSpecService specs, ModSettingsBox modSettingsBox) : DefaultWeatherDifficultySettings(settings, modSettingsOwnerRegistry, modRepository, t, specs, modSettingsBox)
 {
+    const int FinalMinDay = 3;
+    const int TotalHandicapCycles = 15;
+
     public override string WeatherId { get; } = ProgressiveTemperateWeather.WeatherId;
-    public override WeatherParameters DefaultSettings { get; } = new(
-        Enabled: false,
-        StartCycle: 0,
-        Chance: 100,
-        MinDay: 3,
-        MaxDay: 5,
-        HandicapPerc: 450,
-        HandicapCycles: 10
-    );
+
+    protected override WeatherParameters GetDifficultyParameters(WeatherDifficulty difficulty)
+    {
+        var v = ModdableWeatherUtils.GetGameSettingsAtDifficulty(difficulty);
+
+        int calculatedHandicapPerc = Mathf.CeilToInt(v.TemperateWeatherDuration.Min * 100f / FinalMinDay);
+
+        return new(
+            StartCycle: 0,
+            Chance: 100,
+            MinDay: FinalMinDay,
+            MaxDay: 5,
+            HandicapCycles: TotalHandicapCycles,
+            HandicapPerc: calculatedHandicapPerc
+        );
+    }
 }

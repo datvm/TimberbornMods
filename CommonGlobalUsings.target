@@ -7,6 +7,8 @@
 
 		<Using Include="ModSettings.Common"/>
 		<Using Include="ModSettings.Core"/>
+		<Using Include="ModSettings.CoreUI"/>
+		<Using Include="ModSettings.CommonUI"/>
 
 		<Using Include="Newtonsoft.Json"/>
 

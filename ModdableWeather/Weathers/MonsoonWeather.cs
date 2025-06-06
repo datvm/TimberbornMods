@@ -1,11 +1,13 @@
-﻿namespace ModdableWeather.Weathers;
+﻿
+
+namespace ModdableWeather.Weathers;
 
 public class MonsoonWeather(
     MonsoonWeatherSettings settings,
     ModdableWeatherSpecService moddableWeatherSpecService,
     ISingletonLoader loader
-) : DefaultModdedWeather<MonsoonWeatherSettings>(settings, moddableWeatherSpecService), 
-    IModdedHazardousWeather,    ISaveableSingleton
+) : DefaultModdedWeather<MonsoonWeatherSettings>(settings, moddableWeatherSpecService),
+    IModdedHazardousWeather, ISaveableSingleton
 {
     static readonly SingletonKey SaveKey = new("MonsoonWeather");
     static readonly PropertyKey<float> WaterModifierKey = new("WaterModifier");
@@ -57,20 +59,9 @@ public class MonsoonWeather(
     }
 }
 
-public class MonsoonWeatherSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository, ILoc t, ModdableWeatherSpecService specs) : DefaultWeatherSettings(settings, modSettingsOwnerRegistry, modRepository, t, specs)
+public class MonsoonWeatherSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository, ILoc t, ModdableWeatherSpecService specs, ModSettingsBox modSettingsBox) : DefaultWeatherDifficultySettings(settings, modSettingsOwnerRegistry, modRepository, t, specs, modSettingsBox)
 {
-
     public override string WeatherId { get; } = MonsoonWeather.WeatherId;
-    public override WeatherParameters DefaultSettings { get; } = new(
-        Enabled: false,
-        StartCycle: 3,
-        Chance: 100,
-        MinDay: 5,
-        MaxDay: 9,
-        HandicapPerc: 38,
-        HandicapCycles: 3
-    );
-
     public ModSetting<float> MonsoonMultiplier { get; } = new(2.5f, ModSettingDescriptor
         .CreateLocalized("LV.MW.MonsoonMultiplier")
         .SetLocalizedTooltip("LV.MW.MonsoonMultiplierDesc"));
@@ -81,4 +72,19 @@ public class MonsoonWeatherSettings(ISettings settings, ModSettingsOwnerRegistry
         MonsoonMultiplier.Descriptor.SetEnableCondition(() => EnableWeather.Value);
     }
 
+    protected override WeatherParameters GetDifficultyParameters(WeatherDifficulty difficulty) => StaticGetDifficultyParameters(difficulty);
+
+    static WeatherParameters StaticGetDifficultyParameters(WeatherDifficulty difficulty)
+    {
+        var v = ModdableWeatherUtils.GetGameSettingsAtDifficulty(difficulty);
+
+        return new(
+            StartCycle: 3,
+            Chance: Mathf.FloorToInt(v.ChanceForBadtide),
+            MinDay: v.DroughtDuration.Min,
+            MaxDay: v.DroughtDuration.Max,
+            HandicapPerc: Mathf.FloorToInt(v.DroughtDurationHandicapMultiplier * 100f),
+            HandicapCycles: v.DroughtDurationHandicapCycles
+        );
+    }
 }
