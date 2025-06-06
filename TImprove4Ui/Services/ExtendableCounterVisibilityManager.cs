@@ -8,7 +8,6 @@ public class ExtendableCounterVisibilityManager
 
     bool openByAuto;
     bool openByTool;
-    bool openByToolGroup;
 
     public ExtendableCounterVisibilityManager(ExtendableTopBarCounter counter)
     {

@@ -26,6 +26,7 @@ public class ModGameConfig : Configurator
             .BindSingleton<ToolPanelDescriptionMover>()
             .BindSingleton<MaterialCounterService>()
             .BindSingleton<ObjectSelectionService>()
+            .BindSingleton<MaterialFinderService>()
 
             .BindSingleton<BatchControlBoxService>()
             .BindSingleton<WorkplacesBatchControlTabService>()
@@ -53,6 +54,11 @@ public class ModStarter : IModStarter
     void IModStarter.StartMod(IModEnvironment modEnvironment)
     {
         var harmony = new Harmony(nameof(TImprove4Ui));
+
+        harmony.Patch(
+            typeof(TopBarCounterRow).GetConstructors().First(),
+            postfix: typeof(MaterialCounterPatches).Method(nameof(MaterialCounterPatches.AddCounterEvents)));
+
         harmony.PatchAll();
     }
 }
