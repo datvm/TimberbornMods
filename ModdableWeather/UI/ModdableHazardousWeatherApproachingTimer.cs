@@ -13,8 +13,27 @@ public class ModdableHazardousWeatherApproachingTimer(
     static ModdableHazardousWeatherApproachingTimer? instance;
     public static ModdableHazardousWeatherApproachingTimer Instance => instance.InstanceOrThrow();
 
-    public new int ApproachingNotificationDays { get; set; } = DefaultApproachingNotificationDays;
-    public new float MaxDayProgressLeftToNotify { get; set; } = DefaultMaxDayProgressLeftToNotify;
+    readonly List<IHazardousWeatherApproachingTimerModifier> modifiers = [];
+
+    public new int ApproachingNotificationDays
+    {
+        get
+        {
+            var days = DefaultApproachingNotificationDays;
+            
+            if (modifiers.Count > 0)
+            {
+                for (int i = 0; i < modifiers.Count; i++)
+                {
+                    days = modifiers[i].Modify(days, DefaultApproachingNotificationDays);
+                }
+            }
+
+            return days;
+        }
+    }
+
+    public new float MaxDayProgressLeftToNotify { get; private set; } = DefaultMaxDayProgressLeftToNotify;
 
     public new bool TooCloseToNotify => DaysToHazardousWeather < MaxDayProgressLeftToNotify;
 
@@ -32,10 +51,36 @@ public class ModdableHazardousWeatherApproachingTimer(
         instance = null;
     }
 
+    public void RegisterModifier(IHazardousWeatherApproachingTimerModifier modifier)
+    {
+        if (modifiers.Count == 0)
+        {
+            modifiers.Add(modifier);
+        }
+        else
+        {
+            var insertIndex = modifiers.FindIndex(m => m.Order > modifier.Order);
+
+            if (insertIndex < 0)
+            {
+                modifiers.Add(modifier);
+            }
+            else
+            {
+                modifiers.Insert(insertIndex, modifier);
+            }
+        }
+    }
+
+    public void UnregisterModifier(IHazardousWeatherApproachingTimerModifier modifier)
+    {
+        modifiers.Remove(modifier);
+    }
+
     public new float GetProgress()
     {
-        return _weatherService.HazardousWeatherDuration <= 0 
-            ? 0f 
+        return _weatherService.HazardousWeatherDuration <= 0
+            ? 0f
             : 1f - DaysToHazardousWeather / ApproachingNotificationDays;
     }
 

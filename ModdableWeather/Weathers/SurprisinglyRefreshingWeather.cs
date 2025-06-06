@@ -11,7 +11,6 @@ public class SurprisinglyRefreshingWeatherSettings(ISettings settings, ModSettin
 {
     public override string WeatherId { get; } = SurprisinglyRefreshingWeather.WeatherId;
     public override WeatherParameters DefaultSettings { get; } = new(
-        Enabled: false,
         Chance: 10,
         MinDay: 1,
         MaxDay: 2

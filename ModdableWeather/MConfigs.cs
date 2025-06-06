@@ -17,6 +17,7 @@ public class ModMenuConfig : Configurator
     {
         this
             .BindSingleton<ModdableWeatherSpecService>()
+            .BindDifficultyButtons()
             .BindModdedWeathers(true);
     }
 
@@ -52,6 +53,7 @@ public class ModGameConfig : Configurator
 
         // New Services
         this
+            .BindDifficultyButtons()
             .BindSingleton<ModdableWeatherSpecService>()
             .BindSingleton<ModdableWeatherRegistry>()
             .BindSingleton<ModdableWeatherHistoryProvider>()

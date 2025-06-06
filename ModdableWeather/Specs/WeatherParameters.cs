@@ -1,7 +1,7 @@
 ﻿namespace ModdableWeather.Specs;
 
 public record WeatherParameters(
-    bool Enabled = true,
+    bool Enabled = false,
     int StartCycle = 0,
     int Chance = 100,
     int MinDay = 10,
