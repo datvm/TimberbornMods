@@ -61,6 +61,7 @@ public class ScrollableEntityPanelService(
     void AddStockpileInventoryScroll(VisualElement root)
     {
         var el = root.Q("GoodSelection");
+        if (el is null) { return; }
 
         var scrollView = root
             .AddScrollView(greenDecorated: false, additionalClasses: ["game-scroll-view"])

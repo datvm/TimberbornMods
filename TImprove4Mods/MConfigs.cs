@@ -12,13 +12,14 @@ public class ModMenuConfig : Configurator
     {
         this.TryBindingSystemFileDialogService();
 
-        Bind<ModCompWarningService>().AsSingleton();
-        Bind<ModManagerBoxService>().AsSingleton();
-        Bind<ModManagementService>().AsSingleton();
+        this
+            .BindSingleton<ModCompWarningService>()
+            .BindSingleton<ModManagerBoxService>()
+            .BindSingleton<ModManagementService>()
+            .BindSingleton<ModSettingBoxService>();
     }
 
 }
-
 public class ModStarter : IModStarter
 {
 
