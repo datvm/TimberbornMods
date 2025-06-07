@@ -5,8 +5,7 @@ public class SettingDialog(
     VisualElementInitializer veInit,
     FactionInfoService info,
     DropdownItemsSetter cboSetter,
-    IContainer container,
-    ModSettingsBox box
+    IContainer container
 ) : VisualElement
 {
 
@@ -16,8 +15,6 @@ public class SettingDialog(
 
     public SettingDialog Init()
     {
-        SetBoxHeight();
-
         info.ScanFactions();
 
         var container = this;
@@ -33,12 +30,6 @@ public class SettingDialog(
         cboFactionSetter();
 
         return this;
-    }
-
-    void SetBoxHeight()
-    {
-        var container = box.GetPanel().Q("Box");
-        container.SetMaxSizePercent(null, 90);
     }
 
     Action AddFactionSelector(VisualElement parent)
