@@ -13,4 +13,8 @@
 		<PackageReference Condition="$(IsU7)" Include="System.Collections.Immutable" Version="9.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\ConfigurableFaction\ConfigurableFaction.csproj" />
+	</ItemGroup>
+
 </Project>

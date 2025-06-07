@@ -1,47 +1,48 @@
-﻿global using ConfigurableFaction.Patches;
-global using ConfigurableFaction.Services;
-
-namespace ConfigurableFaction;
+﻿namespace ConfigurableFaction;
 
 [Context("MainMenu")]
-public class MenuModConfig : Configurator
+public class ModMenuConfig : Configurator
 {
     public override void Configure()
     {
-        Bind<MSettings>().AsSingleton();
-        Bind<FactionBuildingService>().AsSingleton();
-    }
-}
+        this
+            .BindSingleton<MSettings>()
 
-[Context("Game")]
-public class GameModConfig : Configurator
-{
-    public override void Configure()
-    {
-        Bind<MSettings>().AsSingleton();
-        Bind<FactionBuildingService>().AsSingleton();
-        Bind<BuildingDumpService>().AsSingleton();
+            .BindSingleton<FactionInfoService>()
+            .BindSingleton<PersistentService>()
+            .BindSingleton<FactionOptionsProvider>()
+            .BindSingleton<FactionOptionsService>()
+        ;
+
+        BindUI();
+        BindSpriteOperations();
     }
+
+    void BindUI()
+    {
+        Bind<FactionSettingPanel>().AsTransient();
+        Bind<FactionBuildingsPanel>().AsTransient();
+        Bind<SettingDialog>().AsTransient();
+        MultiBind<IModSettingElementFactory>().To<SettingDialogModSettingFactory>().AsSingleton();
+    }
+
+    void BindSpriteOperations()
+    {
+        // From SpriteOperationsConfigurator
+        Bind<SpriteResizer>().AsSingleton();
+        Bind<SpriteFlipper>().AsSingleton();
+        MultiBind<IDeserializer>().To<UISpriteDeserializer>().AsSingleton();
+        MultiBind<IDeserializer>().To<FlippedSpriteDeserializer>().AsSingleton();
+    }
+
 }
 
 public class ModStarter : IModStarter
 {
 
-    public static string ModFolder
-    {
-        get;
-        private set
-        {
-            FactionFolder = Path.Combine(value, "Factions");
-            Directory.CreateDirectory(FactionFolder);
-        }
-    } = null!;
-    public static string FactionFolder { get; private set; } = null!;
-
     void IModStarter.StartMod(IModEnvironment modEnvironment)
     {
-        ModFolder = modEnvironment.ModPath;
-
         new Harmony(nameof(ConfigurableFaction)).PatchAll();
     }
+
 }
