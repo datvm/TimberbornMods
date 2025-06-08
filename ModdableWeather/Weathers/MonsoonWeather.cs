@@ -79,7 +79,7 @@ public class MonsoonWeatherSettings(ISettings settings, ModSettingsOwnerRegistry
 
         return new(
             StartCycle: 3,
-            Chance: Mathf.FloorToInt(v.ChanceForBadtide),
+            Chance: Mathf.FloorToInt(v.ChanceForBadtide * 100f),
             MinDay: v.DroughtDuration.Min,
             MaxDay: v.DroughtDuration.Max,
             HandicapPerc: Mathf.FloorToInt(v.DroughtDurationHandicapMultiplier * 100f),
