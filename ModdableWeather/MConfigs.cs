@@ -66,6 +66,8 @@ public class ModGameConfig : Configurator
             .BindSingleton<ModdableWeatherHistoryProvider>()
             .BindSingleton<ModdableWeatherGenerator>()
         ;
+
+        MultiBind<IDevModule>().To<ModdableWeatherDevModule>().AsSingleton();
     }
 
 }
