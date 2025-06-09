@@ -4,13 +4,14 @@ public class ModAudioClipConverter : IModFileConverter<AudioClip>
 {
     public List<string> ValidExtensions { get; } = [".wav"];
 
-    readonly List<AudioClip> audioClips = [];
+    readonly List<ModAudioClip> audioClips = [];
+    public IReadOnlyList<ModAudioClip> AudioClips => audioClips.AsReadOnly();
 
     public void Reset()
     {
         foreach (var aud in audioClips)
         {
-            UnityEngine.Object.Destroy(aud);
+            UnityEngine.Object.Destroy(aud.AudioClip);
         }
         audioClips.Clear();
     }
@@ -26,8 +27,10 @@ public class ModAudioClipConverter : IModFileConverter<AudioClip>
             throw new InvalidDataException("Invalid WAV file: " + fileInfo.FullName, ex);
         }
         
-        audioClips.Add(asset);
+        audioClips.Add(new(fileInfo.FullName, asset));
 
         return true;
     }
 }
+
+public readonly record struct ModAudioClip(string FullName, AudioClip AudioClip);

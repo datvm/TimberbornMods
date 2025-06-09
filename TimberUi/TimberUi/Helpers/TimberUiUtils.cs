@@ -42,4 +42,8 @@ public static class TimberUiUtils
         KillProcess();
     }
 
+    public static AudioClip LoadAudioClipFrom(string filePath, string? name) => WavUtility.ToAudioClip(filePath, name: name);
+
+    public static AudioClip LoadAudioClipFrom(byte[] bytes, string name) => WavUtility.ToAudioClip(bytes, name: name);
+
 }

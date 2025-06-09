@@ -4,10 +4,11 @@ using System.Collections.Immutable;
 ImmutableArray<string> Prefixes = ["Bindito.", "Timberborn.", "Unity"];
 const string GameAssembliesPath = @"D:\Software\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed";
 ImmutableArray<string> SpecialFolders = [
-    @"D:\Software\SteamLibrary\steamapps\workshop\content\1062090\3283831040\version-0.7\Scripts",
+    @"D:\Software\SteamLibrary\steamapps\workshop\content\1062090\3283831040\version-0.7\Scripts", // Mod Settings
 ];
-ImmutableArray<string> ScientificProjects = [
-    @"C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\ScientificProjects\version-0.7",
+ImmutableArray<KeyValuePair<string, string>> OtherMods = [
+    new(@"C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\ScientificProjects\version-0.7", "ScientificProjects"),
+    new(@"D:\Software\SteamLibrary\steamapps\workshop\content\1062090\3275060459\version-0.7\Scripts", "ShantySpeaker"),
 ];
 
 var outputFolder = Path.Combine(FindCsProjFolder(Environment.CurrentDirectory), "out");
@@ -38,14 +39,15 @@ foreach (var folder in SpecialFolders)
     }
 }
 
-// Scientific Projects
-var spOutput = Path.Combine(outputFolder, "ScientificProjects");
-Directory.CreateDirectory(spOutput);
-foreach (var folder in ScientificProjects)
+// Other mods
+foreach (var (folder, name) in OtherMods)
 {
+    var specialOutput = Path.Combine(outputFolder, name);
+    Directory.CreateDirectory(specialOutput);
+
     foreach (var dll in Directory.EnumerateFiles(folder, "*.dll", SearchOption.AllDirectories))
     {
-        PublicizeFile(dll, spOutput);
+        PublicizeFile(dll, specialOutput);
     }
 }
 

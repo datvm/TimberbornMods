@@ -33,9 +33,20 @@ public static partial class UiBuilderExtensions
     /// </remarks>
     public static Configurator TryBindingModdableAudioClip(this Configurator configurator)
     {
-        configurator.TryBind<IModFileConverter<AudioClip>>()?.To<ModAudioClipConverter>().AsSingleton();
-        configurator.TryMultiBind<IAssetProvider, ModSystemFileProvider<AudioClip>>()?.AsSingleton();
+        if (configurator.IsBound<ModAudioClipConverter>()) { return configurator; }
 
+        configurator.Bind<ModAudioClipConverter>().AsSingleton().AsExported();
+        configurator.Bind<IModFileConverter<AudioClip>>().ToExisting<ModAudioClipConverter>();
+
+        configurator.Bind<ModSystemFileProvider<AudioClip>>().AsSingleton().AsExported();
+        configurator.MultiBind<IAssetProvider>().ToExisting<ModSystemFileProvider<AudioClip>>();
+
+        return configurator;
+    }
+
+    public static Configurator TryBindingAudioClipManagement(this Configurator configurator)
+    {
+        configurator.TryBind<AudioClipManagementService>()?.AsSingleton();
         return configurator;
     }
 
