@@ -1,0 +1,12 @@
+{
+    "Name": "Shanty Speaker O'Rhymes+",
+    "Version": "7.0.0",
+    "Id": "ConfigurableShantySpeaker",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Bring it on!",
+    "RequiredMods": [
+        { "Id": "TimberUi", "MinimumVersion": "7.7.2" },
+        { "Id": "Harmony" },
+        { "Id": "Timberborn.ModExamples.ShantySpeaker" }
+    ]
+}

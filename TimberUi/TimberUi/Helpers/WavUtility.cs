@@ -14,10 +14,11 @@ public static class WavUtility
     /// </summary>
     /// <returns>The AudioClip.</returns>
     /// <param name="filePath">Local file path to .wav file</param>
-    public static AudioClip ToAudioClip(string filePath)
+    public static AudioClip ToAudioClip(string filePath, string? name = default)
     {
-        byte[] fileBytes = File.ReadAllBytes(filePath);
-        return ToAudioClip(fileBytes, 0, Path.GetFileNameWithoutExtension(filePath));
+        var fileBytes = File.ReadAllBytes(filePath);
+        name ??= Path.GetFileNameWithoutExtension(filePath);
+        return ToAudioClip(fileBytes, name: name);
     }
 
     public static AudioClip ToAudioClip(byte[] fileBytes, int offsetSamples = 0, string name = "wav")

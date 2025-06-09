@@ -207,6 +207,21 @@ public static partial class UiBuilderExtensions
         return configurator;
     }
 
+    public static Configurator MultiBindSingleton<T, TImpl>(this Configurator configurator)
+        where T : class
+        where TImpl : class, T
+    {
+        configurator.MultiBind<T>().To<TImpl>().AsSingleton();
+        return configurator;
+    }
+
+    public static Configurator BindTransient<T>(this Configurator configurator)
+        where T : class
+    {
+        configurator.Bind<T>().AsTransient();
+        return configurator;
+    }
+
     #endregion
 
     #region Remove Bindings

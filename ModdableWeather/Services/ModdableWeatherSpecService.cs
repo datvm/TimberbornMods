@@ -50,12 +50,12 @@ public class ModdableWeatherSpecService(
 
     public ModdedWeatherSkySpec GetSkySpec(string? id)
     {
-        if (id is null) { return DefaultSkySpec; }
+        if (string.IsNullOrEmpty(id)) { return DefaultSkySpec; }
 
         if (!cachedSkySpecByIds.TryGetValue(id, out var skySpec))
         {
-            var spec = Specs[id];
-            cachedSkySpecByIds[id] = skySpec = GetSkySpec(spec);
+            skySpec = Specs.TryGetValue(id, out var spec) ? GetSkySpec(spec) : DefaultSkySpec;
+            cachedSkySpecByIds[id] = skySpec;
         }
 
         return skySpec;

@@ -14,7 +14,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\ConfigurableFaction\ConfigurableFaction.csproj" />
+		<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />
+
+		<ProjectReference Include="..\ConfigurableShantySpeaker\ConfigurableShantySpeaker.csproj" />
 	</ItemGroup>
 
 </Project>
