@@ -1,6 +1,6 @@
 ﻿namespace Gate.Components;
 
-public class GateComponent : BaseComponent, IPersistentEntity
+public class GateComponent : BaseComponent, IPersistentEntity, IFinishedStateListener
 {
     static readonly ComponentKey SaveKey = new("Gate");
     static readonly PropertyKey<bool> ClosedKey = new("Close");
@@ -9,8 +9,10 @@ public class GateComponent : BaseComponent, IPersistentEntity
     BlockObjectNavMesh blockObjectNavMesh;
     BlockObject blockObject;
     FloodgateAnimationController floodgateAnimationController;
+    WaterObstacle waterObstacle;
 #nullable enable
 
+    public bool IsFinished { get; private set; }
     public bool Closed { get; private set; }
 
     public void Awake()
@@ -18,6 +20,7 @@ public class GateComponent : BaseComponent, IPersistentEntity
         blockObjectNavMesh = GetComponentFast<BlockObjectNavMesh>();
         blockObject = GetComponentFast<BlockObject>();
         floodgateAnimationController = GetComponentFast<FloodgateAnimationController>();
+        waterObstacle = GetComponentFast<WaterObstacle>();
     }
 
     public void Start()
@@ -30,10 +33,13 @@ public class GateComponent : BaseComponent, IPersistentEntity
 
     public void ToggleClosedState(bool closed)
     {
+        if (!IsFinished) { return; }
+
         Closed = closed;
 
         ToggleNavMesh(closed);
         ToggleGatePosition(closed);
+        ToggleWaterObstacle(closed);
     }
 
     void ToggleNavMesh(bool closed)
@@ -56,6 +62,15 @@ public class GateComponent : BaseComponent, IPersistentEntity
         floodgateAnimationController.MoveGateSmoothly(closed ? 1f : 0f);
     }
 
+    void ToggleWaterObstacle(bool closed)
+    {
+        waterObstacle.RemoveFromWaterService();
+        if (closed)
+        {
+            waterObstacle.AddToWaterService(1f);
+        }
+    }
+
     public void Load(IEntityLoader entityLoader)
     {
         Closed = entityLoader.TryGetComponent(SaveKey, out var s)
@@ -69,5 +84,20 @@ public class GateComponent : BaseComponent, IPersistentEntity
             var s = entitySaver.GetComponent(SaveKey);
             s.Set(ClosedKey, Closed);
         }
+    }
+
+    public void OnEnterFinishedState()
+    {
+        IsFinished = true;
+
+        if (Closed)
+        {
+            ToggleWaterObstacle(true);
+        }
+    }
+
+    public void OnExitFinishedState()
+    {
+        IsFinished = false;
     }
 }
