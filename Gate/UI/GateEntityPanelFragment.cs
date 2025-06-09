@@ -33,10 +33,16 @@ public class GateEntityPanelFragment(
         if (!comp) { return; }
 
         chkClose.SetValueWithoutNotify(comp.Closed);
-        panel.Visible = true;
+        panel.Visible = comp.IsFinished;
     }
 
-    public void UpdateFragment() { }
+    public void UpdateFragment()
+    {
+        if (!panel.Visible)
+        {
+            panel.Visible = comp && comp.IsFinished;
+        }
+    }
 
     void SetGateClosed(bool closed)
     {

@@ -14,9 +14,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />
+		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
 
-		<ProjectReference Include="..\ConfigurableShantySpeaker\ConfigurableShantySpeaker.csproj" />
+		<ProjectReference Include="..\Gate\Gate.csproj" />
 	</ItemGroup>
 
 </Project>

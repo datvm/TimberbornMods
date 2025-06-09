@@ -54,6 +54,8 @@ GameObject:
   - component: {fileID: -634044723571336848}
   - component: {fileID: 5846395081909564326}
   - component: {fileID: -5449431540612138949}
+  - component: {fileID: 6252998341544819127}
+  - component: {fileID: 6387970861266073634}
   m_Layer: 0
   m_Name: Gate.IronTeeth
   m_TagString: Untagged
@@ -324,6 +326,36 @@ MonoBehaviour:
   _customCoordinates: {x: 0, y: -1, z: 0}
   _customDirection: 0
   _drivewayMode: 0
+--- !u!114 &6252998341544819127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246701677393694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1668926802, guid: 915d565361ffc0071cb972b12ad62c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentCache: {fileID: 0}
+  _coordinates:
+  - {x: 0, y: 0}
+--- !u!114 &6387970861266073634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246701677393694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1609027235, guid: 915d565361ffc0071cb972b12ad62c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentCache: {fileID: 0}
+  _obstacles:
+  - {x: 0, y: 0, z: 0}
 --- !u!1 &1449016762915395
 GameObject:
   m_ObjectHideFlags: 0

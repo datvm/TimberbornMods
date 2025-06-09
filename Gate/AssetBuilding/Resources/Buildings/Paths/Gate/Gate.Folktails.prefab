@@ -334,6 +334,8 @@ GameObject:
   - component: {fileID: -6142855494002985121}
   - component: {fileID: -7639031475591387472}
   - component: {fileID: 7193760026524076952}
+  - component: {fileID: -2052291742659034187}
+  - component: {fileID: -8296015848441605596}
   m_Layer: 0
   m_Name: Gate.Folktails
   m_TagString: Untagged
@@ -604,6 +606,36 @@ MonoBehaviour:
   _customCoordinates: {x: 0, y: -1, z: 0}
   _customDirection: 0
   _drivewayMode: 0
+--- !u!114 &-2052291742659034187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274464386605044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1668926802, guid: 915d565361ffc0071cb972b12ad62c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentCache: {fileID: 0}
+  _coordinates:
+  - {x: 0, y: 0}
+--- !u!114 &-8296015848441605596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274464386605044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1609027235, guid: 915d565361ffc0071cb972b12ad62c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentCache: {fileID: 0}
+  _obstacles:
+  - {x: 0, y: 0, z: 0}
 --- !u!1 &1865216688918221
 GameObject:
   m_ObjectHideFlags: 0
