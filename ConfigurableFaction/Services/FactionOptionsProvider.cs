@@ -1,10 +1,10 @@
 ﻿namespace ConfigurableFaction.Services;
 
 public class FactionOptionsProvider(
-    FactionSpecService factionSpecService,
     PersistentService persistentService
 ) : ILoadableSingleton, IUnloadableSingleton
 {
+    public const string PrefabGroupPrefix = "ConfigurableFaction.";
     public static FrozenDictionary<string, FactionOptions> LatestFactionOptions = FrozenDictionary<string, FactionOptions>.Empty;
     public FrozenDictionary<string, FactionOptions> FactionOptions { get; private set; } = null!;
 
@@ -15,11 +15,19 @@ public class FactionOptionsProvider(
 
     void LoadFactions()
     {
-        var factions = factionSpecService.Factions;
+        var savedFactionIds = persistentService.GetSavedFactionIds();
 
-        FactionOptions = factions
-            .Select(q => (q.Id, persistentService.Load<FactionOptions>(q.Id) ?? new(q.Id)))
-            .ToFrozenDictionary(q => q.Id, q => q.Item2);
+        FactionOptions = savedFactionIds
+            .Select(id => (id, persistentService.Load<FactionOptions>(id) ?? new(id)))
+            .ToFrozenDictionary(q => q.id, q => q.Item2);
+    }
+
+    public void AddMissingFactions(IEnumerable<string> allIds)
+    {
+        FactionOptions = FactionOptions.Concat(allIds
+            .Where(q => !FactionOptions.ContainsKey(q))
+            .Select(q => new KeyValuePair<string, FactionOptions>(q, new(q))))
+            .ToFrozenDictionary();
     }
 
     public void Save(string factionId) => persistentService.Save(factionId, FactionOptions[factionId]);
@@ -31,8 +39,14 @@ public class FactionOptionsProvider(
 
     public void Reset()
     {
+        var keys = FactionOptions.Keys.ToImmutableArray();
+
         persistentService.Clear();
         LoadFactions();
+
+        AddMissingFactions(keys);
     }
+
+    public static string GetPrefabGroupId(string factionId) => PrefabGroupPrefix + factionId;
 
 }

@@ -1,5 +1,4 @@
-﻿
-namespace ConfigurableFaction.UI;
+﻿namespace ConfigurableFaction.UI;
 
 public class FactionSettingPanel(
     FactionOptionsProvider optionsProvider,
@@ -8,29 +7,33 @@ public class FactionSettingPanel(
     ILoc t
 ) : VisualElement
 {
+    public static readonly ImmutableArray<Type> PanelTypes =
+    [
+        typeof(FactionBuildingsPanel),
+        typeof(FactionPlantsPanel),
+        typeof(FactionGoodsPanel),
+        typeof(FactionNeedsPanel),
+    ];
 
 #nullable disable
     FactionOptions options;
-    FactionInfo currFaction;
 #nullable enable
 
-    SettingsFilter filter = new();
+    readonly SettingsFilter filter = new();
     VisualElement? pnlFilters;
     ImmutableArray<FactionInfo> otherFactions = [];
 
-    FactionBuildingsPanel? buildingsPanel;
+    ImmutableArray<IFactionItemsPanel> panels = [];
 
     void Populate()
     {
         pnlFilters ??= PopulateFilter();
-        var parent = this;
+        var container = this;
 
-        parent.Clear();
+        container.Clear();
 
-        parent.Add(pnlFilters);
-
-        buildingsPanel = container.GetInstance<FactionBuildingsPanel>();
-        parent.Add(buildingsPanel.Init(options, currFaction, otherFactions));
+        container.Add(pnlFilters);
+        PopulatePanels(container);
     }
 
     VisualElement PopulateFilter()
@@ -39,7 +42,7 @@ public class FactionSettingPanel(
 
         el.AddLabel(t.T("LV.CFac.Filters").Bold().Color(TimberbornTextColor.Solid));
 
-        var row = el.AddRow();
+        var row = el.AddRow().SetMarginBottom(5);
         row.AddTextField("Filter", OnFilterTextChanged).SetFlexGrow(1);
 
         row.AddToggle(t.T("LV.CFac.FilterCheck"), onValueChanged: v => OnFilterCheckedChanged(true, v))
@@ -47,13 +50,39 @@ public class FactionSettingPanel(
         row.AddToggle(t.T("LV.CFac.FilterUncheck"), onValueChanged: v => OnFilterCheckedChanged(false, v))
             .SetFlexShrink(0).SetValueWithoutNotify(filter.ShowUnchecked);
 
+        el.AddToggle(t.T("LV.CFac.HideSimilar"), onValueChanged: OnFilterSimilarChanged)
+            .SetValueWithoutNotify(true);
+
         return el;
+    }
+
+    void PopulatePanels(VisualElement parent)
+    {
+        panels = [.. PanelTypes.Select(type =>
+        {
+            var panel = (IFactionItemsPanel)container.GetInstance(type);
+            panel.Init(options, otherFactions);
+
+            panel.OnItemChanged += OnPanelItemChanged;
+
+            var panelEl = (GroupPanel)panel;
+            panelEl.ToggleCollapse(true);
+
+            parent.Add(panelEl);
+            return panel;
+        })];
+
+        foreach (var panel in panels)
+        {
+            panel.SetFilter(filter);
+            panel.RefreshItems();
+        }
     }
 
     void OnFilterTextChanged(string text)
     {
         filter.Keyword = text;
-        buildingsPanel?.SetFilter(filter);
+        OnFilterChanged();
     }
 
     void OnFilterCheckedChanged(bool forChecked, bool show)
@@ -67,7 +96,29 @@ public class FactionSettingPanel(
             filter.ShowUnchecked = show;
         }
 
-        buildingsPanel?.SetFilter(filter);
+        OnFilterChanged();
+    }
+
+    void OnFilterSimilarChanged(bool enabled)
+    {
+        filter.HideSimilar = enabled;
+        OnFilterChanged();
+    }
+
+    void OnFilterChanged()
+    {
+        foreach (var panel in panels)
+        {
+            panel.SetFilter(filter);
+        }
+    }
+
+    void OnPanelItemChanged()
+    {
+        foreach (var panel in panels)
+        {
+            panel.RefreshItems();
+        }
     }
 
     public void SetFaction(FactionInfo faction)
@@ -75,7 +126,6 @@ public class FactionSettingPanel(
         var id = faction.Spec.Id;
         options = optionsProvider.FactionOptions[id];
 
-        currFaction = faction;
         otherFactions = [..info.FactionsInfo!.Factions
             .Where(q => q.Spec.Id != id)];
 

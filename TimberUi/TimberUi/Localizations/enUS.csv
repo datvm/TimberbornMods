@@ -1,2 +1,6 @@
 ID,Text,Comment
 LV.TimberUi.DisableCameraShake,"Disable camera shake",
+LV.TimberUi.UpdateMessage,"<b>{0} was updated to v{1}</b>:
+{2}",
+LV.TimberUi.UpdateDismiss,"Don't show again",
+LV.TimberUi.UpdateRemind,"Remind me later",

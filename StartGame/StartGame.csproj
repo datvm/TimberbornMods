@@ -16,7 +16,7 @@
 	<ItemGroup>
 		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
 
-		<ProjectReference Include="..\Gate\Gate.csproj" />
+		<ProjectReference Include="..\ConfigurableFaction\ConfigurableFaction.csproj" />
 	</ItemGroup>
 
 </Project>
