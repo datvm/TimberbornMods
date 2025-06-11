@@ -5,8 +5,8 @@ public class SettingDialogModSetting(FactionOptionsProvider options) : NonPersis
 
     public override void Reset()
     {
-        base.Reset();
         options.Reset();
+        base.Reset();
     }
 
 }
@@ -17,7 +17,7 @@ public class SettingDialogModSettingFactory(IContainer container) : IModSettingE
 
     public bool TryCreateElement(ModSetting modSetting, out IModSettingElement? element)
     {
-        if (modSetting is not SettingDialogModSetting setting)
+        if (modSetting is not SettingDialogModSetting)
         {
             element = null;
             return false;

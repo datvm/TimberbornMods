@@ -4,8 +4,10 @@ public class SettingDialog(
     ILoc t,
     VisualElementInitializer veInit,
     FactionInfoService info,
+    FactionOptionsService options,
     DropdownItemsSetter cboSetter,
-    IContainer container
+    IContainer container,
+    IExplorerOpener opener
 ) : VisualElement
 {
 
@@ -15,9 +17,13 @@ public class SettingDialog(
 
     public SettingDialog Init()
     {
-        info.ScanFactions();
+        options.Initialize();
 
         var container = this;
+
+        var row = container.AddRow().SetMarginBottom(5);
+        row.AddGameButton(t.T("LV.CFac.ShowFolder"), onClick: OpenStorageFolder)
+            .SetPadding(paddingX: 5).SetMarginLeftAuto();
 
         container.AddLabel(t.T("LV.CFac.Faction"));
         var cboFactionSetter = AddFactionSelector(container);
@@ -62,5 +68,7 @@ public class SettingDialog(
         var faction = info.FactionsInfo!.Factions[index];
         factionPanel.SetFaction(faction);
     }
+
+    void OpenStorageFolder() => opener.OpenDirectory(PersistentService.StoragePath);
 
 }

@@ -2,10 +2,12 @@
 
 public class FactionInfoService(
     ISpecService specs,
-    FactionSpecService factionSpecService,
+    ConfigurableFactionSpecService factionSpecService,
     IAssetLoader assets
 )
 {
+    public const string CommonGroup = "Common";
+    public static readonly ImmutableHashSet<string> SkipGroups = [CommonGroup];
 
     public FactionsInfo? FactionsInfo { get; private set; }
 
@@ -25,7 +27,7 @@ public class FactionInfoService(
     {
         if (!force && FactionsInfo is not null) { return; }
 
-        var factions = factionSpecService.Factions;
+        var factions = factionSpecService.OriginalFactions;
 
         Needs = specs.GetSpecs<NeedSpec>(q => q.Id);
         Goods = specs.GetSpecs<GoodSpec>(q => q.Id);
@@ -75,6 +77,8 @@ public class FactionInfoService(
 
         foreach (var grp in prefabGroups)
         {
+            if (grp.IsModPrefabGroup() || SkipGroups.Contains(grp.Id)) { continue; }
+
             foreach (var path in grp.Paths)
             {
                 var obj = assets.Load<GameObject>(path);
@@ -82,6 +86,7 @@ public class FactionInfoService(
                 if (!prefab) { continue; }
 
                 var normalized = NormalizedPrefabSpec.Create(prefab, path, spec.Id);
+                prefabsByPaths[normalized.Path] = normalized;
 
                 // Check for Plants
                 var plant = prefab.GetComponentFast<PlantableSpec>();

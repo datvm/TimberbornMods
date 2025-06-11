@@ -3,14 +3,19 @@
 public class PersistentService : ILoadableSingleton
 {
     const string Postfix = "-faction.json";
-    static readonly string StoragePath = Path.Combine(UserDataFolder.Folder, nameof(ConfigurableFaction));
 
-    public string GetFactionPath(string factionId) => Path.Combine(StoragePath, factionId + Postfix);
+    public static readonly string StoragePath = Path.Combine(UserDataFolder.Folder, nameof(ConfigurableFaction));
+    public static string GetFactionPath(string factionId) => Path.Combine(StoragePath, factionId + Postfix);
+
+    public ImmutableArray<string> GetSavedFactionIds() 
+        => [.. GetPersistentFiles().Select(q => Path.GetFileName(q)[..^Postfix.Length])];
 
     public void Save<T>(string factionId, T data)
     {
+        Debug.Log("Writing data to " + factionId);
+
         var path = GetFactionPath(factionId);
-        var json = JsonConvert.SerializeObject(data);
+        var json = JsonConvert.SerializeObject(data, Formatting.Indented);
         File.WriteAllText(path, json);
     }
 
@@ -30,7 +35,7 @@ public class PersistentService : ILoadableSingleton
 
     public void Clear()
     {
-        var files = Directory.GetFiles(StoragePath, "*" + Postfix);
+        var files = GetPersistentFiles();
         foreach (var file in files)
         {
             try
@@ -44,5 +49,7 @@ public class PersistentService : ILoadableSingleton
             }
         }
     }
+
+    static string[] GetPersistentFiles() => Directory.GetFiles(StoragePath, "*" + Postfix);
 
 }

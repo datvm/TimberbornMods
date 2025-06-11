@@ -38,4 +38,7 @@ public static class ConfigurableFactionExtensions
         return text.Length == 0 || text.Contains(filter.Keyword, StringComparison.OrdinalIgnoreCase);
     }
 
+    public static bool IsModPrefabGroup(this string id) => id.StartsWith(FactionOptionsProvider.PrefabGroupPrefix);
+    public static bool IsModPrefabGroup(this PrefabGroupSpec spec) => spec.Id.IsModPrefabGroup();
+
 }

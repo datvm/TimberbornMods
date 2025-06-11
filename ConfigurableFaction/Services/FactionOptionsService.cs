@@ -14,13 +14,11 @@ public class FactionOptionsService(
 
     public void Initialize()
     {
-        if (info.FactionsInfo is null)
-        {
-            info.ScanFactions();
-        }
+        info.ScanFactions();
 
         foreach (var opt in provider.FactionOptions.Values)
         {
+            InitializeSelfEntries(opt);
             RemoveInvalidEntries(opt);
         }
 
@@ -55,14 +53,14 @@ public class FactionOptionsService(
             throw new InvalidOperationException(validation);
         }
 
-       
+
         opt.Buildings.Add(path);
         if (SpecialPairBuildings.TryGetValue(path, out var pairPath))
         {
             opt.SpecialBuildings.Add(pairPath);
         }
 
-        LockInBuilding(opt, path);
+        LockInForBuilding(opt, path);
 
         provider.Save(opt.Id);
     }
@@ -82,7 +80,7 @@ public class FactionOptionsService(
     public void AddPlantable(FactionOptions opt, string path)
     {
         opt.Plantables.Add(path);
-        LockInPlant(opt, path);
+        LockInForPlant(opt, path);
         provider.Save(opt.Id);
     }
 
@@ -96,7 +94,6 @@ public class FactionOptionsService(
     public void AddNeed(FactionOptions opt, string id)
     {
         opt.Needs.Add(id);
-        opt.LockedInNeeds.Add(id);
         provider.Save(opt.Id);
     }
 
@@ -108,14 +105,14 @@ public class FactionOptionsService(
         }
 
         if (!opt.Needs.Remove(id)) { return; }
-        opt.LockedInNeeds.Remove(id);
+        LockIn(opt);
         provider.Save(opt.Id);
     }
 
     public void AddGood(FactionOptions opt, string id)
     {
         opt.Goods.Add(id);
-        opt.LockedInGoods.Add(id);
+        LockInForGood(opt, id);
         provider.Save(opt.Id);
     }
 
@@ -127,8 +124,14 @@ public class FactionOptionsService(
         }
 
         if (!opt.Goods.Remove(id)) { return; }
-        opt.LockedInGoods.Remove(id);
+        LockIn(opt);
         provider.Save(opt.Id);
+    }
+
+    public string? GetPlantableResourceGroup(PrefabSpec spec)
+    {
+        var planter = spec.GetComponentFast<PlanterBuildingSpec>();
+        return planter ? planter.PlantableResourceGroup : null;
     }
 
     void RemoveInvalidEntries(FactionOptions opt)
@@ -139,41 +142,78 @@ public class FactionOptionsService(
         opt.Goods.RemoveNoLongerExistEntries(info.Goods);
     }
 
+    void InitializeSelfEntries(FactionOptions opt)
+    {
+        opt.ExistingBuildingsPrefabName.Clear();
+        opt.ExistingPlantablesPrefabName.Clear();
+        opt.ExistingNeeds.Clear();
+        opt.ExistingGoods.Clear();
+
+        var faction = info.FactionsInfo!.Factions.First(q => q.Spec.Id == opt.Id);
+        foreach (var b in faction.Buildings)
+        {
+            opt.ExistingBuildingsPrefabName.Add(b);
+        }
+
+        foreach (var p in faction.Plantables.SelectMany(q => q.Plants))
+        {
+            opt.ExistingPlantablesPrefabName.Add(p);
+        }
+
+        foreach (var n in faction.Needs)
+        {
+            opt.ExistingNeeds.Add(n.Id);
+        }
+
+        foreach (var g in faction.Goods)
+        {
+            opt.ExistingGoods.Add(g.Id);
+        }
+    }
+
     void LockIn(FactionOptions opt)
     {
         opt.LockedInGoods.Clear();
         opt.LockedInNeeds.Clear();
         opt.LockedOutPlantGroup.Clear();
 
-        // Lock own buildings
+        // Lock own buildings (for planter groups)
         var faction = info.FactionsInfo!.Factions.First(q => q.Spec.Id == opt.Id);
 
         foreach (var building in faction.Buildings)
         {
-            LockInBuilding(opt, building.Path);
+            LockInForBuilding(opt, building.Path);
+        }
+
+        // Lock added options
+        foreach (var building in opt.Buildings)
+        {
+            LockInForBuilding(opt, building);
         }
 
         foreach (var plant in opt.Plantables)
         {
-            LockInPlant(opt, plant);
+            LockInForPlant(opt, plant);
         }
 
-        foreach (var building in opt.Buildings)
+        foreach (var good in opt.Goods)
         {
-            LockInBuilding(opt, building);
+            LockInForGood(opt, good);
         }
     }
 
-    void LockInBuilding(FactionOptions opt, string path)
+    void LockInForBuilding(FactionOptions opt, string path)
     {
         var prefab = info.PrefabsByPaths[path];
         var spec = prefab.PrefabSpec;
 
         CheckForManufactury(opt, spec);
         CheckForPlanters(opt, spec);
+        CheckForBuildingCost(opt, spec);
+        CheckForBuildingNeeds(opt, spec);
     }
 
-    void LockInPlant(FactionOptions opt, string path)
+    void LockInForPlant(FactionOptions opt, string path)
     {
         var plant = info.PrefabsByPaths[path].PrefabSpec;
 
@@ -181,32 +221,49 @@ public class FactionOptionsService(
         if (cuttable)
         {
             var good = cuttable.YielderSpec.Yield.GoodId;
-            AddAndLockInGood(opt, good);
+            AddLockedInGood(opt, good);
         }
 
         var gatherable = plant.GetComponentFast<GatherableSpec>();
         if (gatherable)
         {
             var good = gatherable.YielderSpec.Yield.GoodId;
-            AddAndLockInGood(opt, good);
+            AddLockedInGood(opt, good);
         }
     }
 
-    void AddAndLockInGood(FactionOptions opt, string id)
+    void AddLockedInGood(FactionOptions opt, string id)
     {
         opt.Goods.Add(id);
-        LockInGood(opt, id);
+        opt.LockedInGoods.Add(id);
+        LockInForGood(opt, id);
     }
 
-    void LockInGood(FactionOptions opt, string id)
+    void AddLockedInNeed(FactionOptions opt, string id)
+    {
+        opt.Needs.Add(id);
+        opt.LockedInNeeds.Add(id);
+    }
+
+    void LockInForGood(FactionOptions opt, string id)
     {
         var goodSpec = info.Goods[id];
 
         foreach (var eff in goodSpec.ConsumptionEffects)
         {
             var need = eff.NeedId;
-            opt.Needs.Add(need);
-            opt.LockedInNeeds.Add(need);
+            AddLockedInNeed(opt, need);
+        }
+    }
+
+    void CheckForBuildingCost(FactionOptions opt, PrefabSpec spec)
+    {
+        var buildingSpec = spec.GetComponentFast<BuildingSpec>();
+        if (!buildingSpec) { return; }
+
+        foreach (var cost in buildingSpec.BuildingCost)
+        {
+            AddLockedInGood(opt, cost.GoodId);
         }
     }
 
@@ -220,27 +277,52 @@ public class FactionOptionsService(
         {
             foreach (var item in recipe.Ingredients)
             {
-                AddAndLockInGood(opt, item.Id);
+                AddLockedInGood(opt, item.Id);
             }
 
             foreach (var item in recipe.Products)
             {
-                AddAndLockInGood(opt, item.Id);
+                AddLockedInGood(opt, item.Id);
             }
 
             if (recipe.ConsumesFuel)
             {
-                AddAndLockInGood(opt, recipe.Fuel);
+                AddLockedInGood(opt, recipe.Fuel);
             }
         }
     }
 
     void CheckForPlanters(FactionOptions opt, PrefabSpec spec)
     {
-        var planter = spec.GetComponentFast<PlanterBuildingSpec>();
-        if (!planter) { return; }
-
-        opt.LockedOutPlantGroup.Add(planter.PlantableResourceGroup);
+        var grp = GetPlantableResourceGroup(spec);
+        if (grp is not null)
+        {
+            opt.LockedOutPlantGroup.Add(grp);
+        }
     }
+
+    void CheckForBuildingNeeds(FactionOptions opt, PrefabSpec spec)
+    {
+        CheckForBuildingNeed<WorkshopRandomNeedApplierSpec>(spec => spec._effects.Select(q => q.NeedId));
+        CheckForBuildingNeed<ContinuousEffectBuildingSpec>(spec => spec._effects.Select(q => q.NeedId));
+        CheckForBuildingNeed<WonderEffectControllerSpec>(spec => spec._effects.Select(q => q.NeedId));
+        CheckForBuildingNeed<DwellingSpec>(spec => spec._sleepEffects.Select(q => q.NeedId));
+        CheckForBuildingNeed<AttractionSpec>(spec => spec._effects.Select(q => q.NeedId));
+        CheckForBuildingNeed<AreaNeedApplierSpec>(spec => [spec._effectPerHour._needId]);
+        
+        void CheckForBuildingNeed<T>(Func<T, IEnumerable<string>> needsFn) where T : BaseComponent
+        {
+            var comp = spec.GetComponentFast<T>();
+
+            if (!comp) { return; }
+
+            foreach (var needId in needsFn(comp))
+            {
+                AddLockedInNeed(opt, needId);
+            }
+        }
+    }
+
+
 
 }

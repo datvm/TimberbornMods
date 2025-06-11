@@ -36,7 +36,7 @@ public readonly record struct NormalizedPrefabSpec(string NormalizedName, string
 
         if (normalizedName.EndsWith('.' + faction))
         {
-            normalizedName = normalizedName[..^(faction.Length - 1)]; // Remove the faction suffix
+            normalizedName = normalizedName[..^(faction.Length + 1)];
         }
 
         return new NormalizedPrefabSpec(normalizedName, path, spec);

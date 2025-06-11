@@ -2,40 +2,29 @@
 
 public class FactionBuildingsPanel(
     FactionOptionsService optionsService,
-    FactionInfoService info,
     ILoc t
-) : GroupPanel
+) : GroupPanel, IFactionItemsPanel
 {
 
-    readonly HashSet<string> existingPath = [];
-    readonly HashSet<string> normalizedName = [];
-
-    readonly List<FactionBuildingPanelRow> buildings = [];
+    readonly List<FactionBuildingRow> buildings = [];
 
 #nullable disable
     FactionOptions options;
 #nullable enable
 
-    public FactionBuildingsPanel Init(
+    public event Action? OnItemChanged;
+
+    public IFactionItemsPanel Init(
         FactionOptions options,
-        FactionInfo currFaction,
         ImmutableArray<FactionInfo> otherFactions
     )
     {
         this.options = options;
 
         SetHeader(t.T("LV.CFac.Buildings"));
-
-        InitCurrFaction(currFaction);
         InitList(otherFactions);
 
         return this;
-    }
-
-    void InitCurrFaction(FactionInfo curr)
-    {
-        existingPath.AddRange(curr.Buildings.Select(q => q.Path));
-        normalizedName.AddRange(curr.Buildings.Select(q => q.NormalizedName));
     }
 
     void InitList(ImmutableArray<FactionInfo> otherFactions)
@@ -54,7 +43,7 @@ public class FactionBuildingsPanel(
 
                 var toolGrpHeader = grpRow.AddRow().AlignItems();
                 var img = toolGrpHeader.AddImage().SetSize(40).SetMarginRight();
-                if(toolGrp.ToolGroupSpec.Icon)
+                if (toolGrp.ToolGroupSpec.Icon)
                 {
                     img.sprite = toolGrp.ToolGroupSpec.Icon;
                 }
@@ -62,9 +51,10 @@ public class FactionBuildingsPanel(
 
                 foreach (var building in toolGrp.Prefabs)
                 {
-                    var row = grpRow.AddChild<FactionBuildingPanelRow>()
-                        .SetBuilding(building, t);
-                    row.Value = options.Buildings.Contains(building.Path);
+                    var row = grpRow.AddChild<FactionBuildingRow>();
+                    row.SetPrefab(building, t, options, optionsService);
+                    
+                    row.OnValueChanged += (_, _) => OnItemChanged?.Invoke();
 
                     buildings.Add(row);
                 }
@@ -76,46 +66,15 @@ public class FactionBuildingsPanel(
     {
         foreach (var row in buildings)
         {
-            row.Visible = filter.Match(row.Text, row.Value);
+            row.Filter(filter);
         }
     }
 
-}
-
-public class FactionBuildingPanelRow : VisualElement
-{
-
-    public NormalizedPrefabSpec Spec { get; private set; }
-
-    readonly Toggle chkEnabled;
-
-    public string Text { get; private set; } = "";
-
-    public bool Value
+    public void RefreshItems()
     {
-        get => chkEnabled.value;
-        set => chkEnabled.SetValueWithoutNotify(value);
+        foreach (var row in buildings)
+        {
+            row.Value = options.Buildings.Contains(row.Data.Path);
+        }
     }
-
-    public bool Visible
-    {
-        get => this.IsDisplayed();
-        set => this.SetDisplay(value);
-    }
-
-    public FactionBuildingPanelRow()
-    {
-        chkEnabled = this.AddToggle().SetWidthPercent(100);
-    }
-
-    public FactionBuildingPanelRow SetBuilding(NormalizedPrefabSpec spec, ILoc t)
-    {
-        Spec = spec;
-
-        var label = spec.PrefabSpec.GetComponentFast<LabeledEntitySpec>();
-        Text = chkEnabled.text = t.T(label.DisplayNameLocKey);
-
-        return this;
-    }
-
 }

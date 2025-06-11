@@ -8,6 +8,6 @@
         { "Id": "eMka.ModSettings" },
         { "Id": "Harmony" },
         { "Id": "MaterialPlzNoCrashes" },
-        { "Id": "TimberUi" }
+        { "Id": "TimberUi", "MinimumVersion": "7.7.3" }        
     ]
 }

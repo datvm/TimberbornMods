@@ -26,7 +26,7 @@ public class GroupPanel : VisualElement
         ToggleCollapse(false);
     }
 
-    void ToggleCollapse(bool collapse)
+    public void ToggleCollapse(bool collapse)
     {
         Content.SetDisplay(!collapse);
         btnCollapse.SetDisplay(!collapse);
