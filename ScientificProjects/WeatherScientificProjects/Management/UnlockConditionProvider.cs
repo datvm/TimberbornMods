@@ -1,4 +1,4 @@
-﻿namespace ScientificProjects.Management;
+﻿namespace WeatherScientificProjects.Management;
 
 public class ModProjectUnlockConditionProvider(
     HazardousWeatherApproachingTimer hazardTimer,
@@ -6,13 +6,11 @@ public class ModProjectUnlockConditionProvider(
 ) : IProjectUnlockConditionProvider
 {
 
-    public static readonly ImmutableHashSet<string> EmergencyDrillIds = ["EmergencyDrill1", "EmergencyDrill2", "EmergencyDrill3"];
-
-    public IEnumerable<string> CanCheckUnlockConditionForIds => EmergencyDrillIds;
+    public IEnumerable<string> CanCheckUnlockConditionForIds { get; } = WeatherProjectsUtils.EmergencyDrillIds;
 
     public string? CheckForUnlockCondition(ScientificProjectInfo project)
     {
-        if (EmergencyDrillIds.Contains(project.Spec.Id))
+        if (WeatherProjectsUtils.EmergencyDrillIds.Contains(project.Spec.Id))
         {
             return hazardTimer.GetWeatherStage() == GameWeatherStage.Warning
                 ? null :

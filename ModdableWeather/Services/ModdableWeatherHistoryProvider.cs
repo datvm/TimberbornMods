@@ -17,10 +17,11 @@ public class ModdableWeatherHistoryProvider(
 
     static readonly ListKey<ModdableWeatherCycle> CyclesKey = new("HistoricalCycles");
     static readonly PropertyKey<string> NextTemperateWeatherIdKey = new("NextTemperateWeatherId");
+    static readonly PropertyKey<ModdableWeatherNextCycleWeather> NextCycleWeatherKey = new("NextCycleWeatherKey");
 
     List<ModdableWeatherCycle> cycles = [];
     Dictionary<string, int> counters = [];
-    IModdedTemperateWeather? nextCycleTemperate;
+    ModdableWeatherNextCycleWeather? nextCycleWeather;
 
     /// <summary>
     /// Gets the list of all historical weather cycles.
@@ -45,8 +46,9 @@ public class ModdableWeatherHistoryProvider(
     /// </summary>
     public IModdedHazardousWeather CurrentHazardousWeather => CurrentCycleDetails.HazardousWeather;
 
-    public bool HasNextCycleTemperateWeather => nextCycleTemperate is not null;
-    public IModdedTemperateWeather NextCycleTemperateWeather => nextCycleTemperate.InstanceOrThrow();
+    public bool HasNextCycleWeather => nextCycleWeather is not null;
+    public ModdableWeatherNextCycleWeather NextCycleWeather => nextCycleWeather.InstanceOrThrow();
+    public IModdedTemperateWeather NextCycleTemperateWeather => NextCycleWeather.TemperateWeather ?? registry.GameTemperateWeather;
 
     public bool PreviousCycleHadDrought
     {
@@ -80,10 +82,29 @@ public class ModdableWeatherHistoryProvider(
     /// <returns>The count of cycles for the specified weather.</returns>
     public int GetWeatherCycleCount(string weatherId) => counters[weatherId];
 
+    public void ChangeWeatherDuration(bool temperate, int days)
+    {
+        var cycle = Cycles[^1];
+
+        if (temperate)
+        {
+            cycle = cycle with { TemperateWeather = cycle.TemperateWeather with { Duration = days } };
+        }
+        else
+        {
+            cycle = cycle with { HazardousWeather = cycle.HazardousWeather with { Duration = days } };
+        }
+
+        cycles[^1] = cycle;
+        var details = GetDetails(cycle);
+        currentCycleDetails = details;
+        eb.Post(new OnModdableWeatherChangedMidCycle(details));
+    }
+
     void InitData()
     {
         // First time with mod/new game
-        nextCycleTemperate ??= generator.DecideTemperateWeatherForCycle(Cycles.Count + 1, this);
+        nextCycleWeather ??= generator.DecideNextCycleWeather(Cycles.Count, this);
 
         var info = cycles.LastOrDefault();
         if (info is not null)
@@ -105,7 +126,7 @@ public class ModdableWeatherHistoryProvider(
         if (!(loader.TryGetSingleton(ModdableWeatherUtils.SaveKey, out var s)
             && s.Has(CyclesKey))) { return false; }
 
-        cycles = s.Get(CyclesKey, ModdableWeatherCycleSerializer.Instance);
+        cycles = s.Get(CyclesKey, ModdableWeatherJsonSerializer<ModdableWeatherCycle>.Instance);
 
         // Ensure the weather is valid
         if (cycles.Count > 0)
@@ -131,13 +152,24 @@ public class ModdableWeatherHistoryProvider(
             }
         }
 
-        if (s.Has(NextTemperateWeatherIdKey))
+        if (s.Has(NextCycleWeatherKey))
+        {
+            nextCycleWeather = s.Get(NextCycleWeatherKey, ModdableWeatherJsonSerializer<ModdableWeatherNextCycleWeather>.Instance);
+
+            if (registry.HasWeather(nextCycleWeather.TemperateWeatherId))
+            {
+                nextCycleWeather.TemperateWeather = registry.GetTemperateWeather(nextCycleWeather.TemperateWeatherId);
+            }
+            else
+            {
+                nextCycleWeather = new(nextCycleWeather.SingleMode, nextCycleWeather.IsTemperate, gameTemperateWeather);
+            }
+        }
+        else if (s.Has(NextTemperateWeatherIdKey)) // Compatible with previous save
         {
             var id = s.Get(NextTemperateWeatherIdKey);
 
-            nextCycleTemperate = registry.HasWeather(id)
-                ? registry.GetTemperateWeather(id)
-                : registry.GameTemperateWeather;
+            nextCycleWeather = new(false, true, id);
         }
 
         return true;
@@ -189,7 +221,7 @@ public class ModdableWeatherHistoryProvider(
         }
     }
 
-    public void AddCycle(ModdableWeatherCycle cycle, IModdedTemperateWeather nextTemperateWeather)
+    public void AddCycle(ModdableWeatherCycle cycle, ModdableWeatherNextCycleWeather nextCycleWeather)
     {
         cycles.Add(cycle);
 
@@ -198,7 +230,7 @@ public class ModdableWeatherHistoryProvider(
 
         var details = GetDetails(cycle);
         currentCycleDetails = details;
-        nextCycleTemperate = nextTemperateWeather;
+        this.nextCycleWeather = nextCycleWeather;
 
         eb.Post(new OnModdableWeatherCycleDecided(details));
     }
@@ -206,8 +238,8 @@ public class ModdableWeatherHistoryProvider(
     public void Save(ISingletonSaver singletonSaver)
     {
         var s = singletonSaver.GetSingleton(ModdableWeatherUtils.SaveKey);
-        s.Set(CyclesKey, cycles, ModdableWeatherCycleSerializer.Instance);
-        s.Set(NextTemperateWeatherIdKey, NextCycleTemperateWeather.Id);
+        s.Set(CyclesKey, cycles, ModdableWeatherJsonSerializer<ModdableWeatherCycle>.Instance);
+        s.Set(NextCycleWeatherKey, NextCycleWeather, ModdableWeatherJsonSerializer<ModdableWeatherNextCycleWeather>.Instance);
     }
 
     ModdableWeatherCycleDetails GetDetails(ModdableWeatherCycle cycle) =>

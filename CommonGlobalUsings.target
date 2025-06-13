@@ -12,6 +12,7 @@
 
 		<Using Include="Newtonsoft.Json"/>
 
+		<Using Include="System.Collections"/>
 		<Using Include="System.Collections.Frozen"/>
 		<Using Include="System.Collections.Immutable"/>
 		<Using Include="System.Collections.Concurrent"/>

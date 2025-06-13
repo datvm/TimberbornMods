@@ -1,5 +1,4 @@
-﻿
-namespace ModdableWeather.Defaults;
+﻿namespace ModdableWeather.Defaults;
 
 public abstract class DefaultPersistentModdedWeather<TSettings>(
     TSettings settings,

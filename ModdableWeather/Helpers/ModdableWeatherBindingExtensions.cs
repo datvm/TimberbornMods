@@ -6,6 +6,9 @@ public static class ModdableWeatherBindingExtensions
     public static T InstanceOrThrow<T>(this T? instance) where T : class
         => instance ?? throw new InvalidOperationException($"{typeof(T).Name} is not loaded yet!");
 
+    public static T InstanceOrThrow<T>(this T? instance) where T : struct
+        => instance ?? throw new InvalidOperationException($"{typeof(T).Name} is not loaded yet!");
+
     public static Configurator BindHazardousWeather<T>(this Configurator configurator)
         where T : class, IModdedHazardousWeather
     {

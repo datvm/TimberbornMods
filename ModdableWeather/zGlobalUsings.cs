@@ -7,5 +7,6 @@ global using ModdableWeather.Services;
 global using ModdableWeather.Specs;
 global using ModdableWeather.UI;
 global using ModdableWeather.Weathers;
+global using ModdableWeather.Settings;
 global using System.Reflection.Emit;
 global using Random = UnityEngine.Random;

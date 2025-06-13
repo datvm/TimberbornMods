@@ -1,10 +1,10 @@
 ﻿namespace ModdableWeather.UI;
 
 public class ModdableHazardousWeatherApproachingTimer(
-    EventBus eventBus,
-    WeatherService weatherService,
+    EventBus eb,
+    ModdableWeatherService weatherService,
     GameCycleService gameCycleService
-) : HazardousWeatherApproachingTimer(eventBus, weatherService, gameCycleService),
+) : HazardousWeatherApproachingTimer(eb, weatherService, gameCycleService),
     ILoadableSingleton, IUnloadableSingleton
 {
     public const int DefaultApproachingNotificationDays = 3;
@@ -14,6 +14,11 @@ public class ModdableHazardousWeatherApproachingTimer(
     public static ModdableHazardousWeatherApproachingTimer Instance => instance.InstanceOrThrow();
 
     readonly List<IHazardousWeatherApproachingTimerModifier> modifiers = [];
+
+    readonly EventBus eb = eb;
+    readonly ModdableWeatherService weatherService = weatherService;
+
+    public int LastCycleWarned { get; private set; } = 0;
 
     public new int ApproachingNotificationDays
     {
@@ -70,11 +75,20 @@ public class ModdableHazardousWeatherApproachingTimer(
                 modifiers.Insert(insertIndex, modifier);
             }
         }
+
+        RaiseWeatherChanged();
+        
     }
 
     public void UnregisterModifier(IHazardousWeatherApproachingTimerModifier modifier)
     {
         modifiers.Remove(modifier);
+        RaiseWeatherChanged();
+    }
+
+    void RaiseWeatherChanged()
+    {
+        eb.Post(new OnModdableWeatherChangedMidCycle(weatherService.WeatherCycleDetails));
     }
 
     public new float GetProgress()
@@ -84,10 +98,31 @@ public class ModdableHazardousWeatherApproachingTimer(
             : 1f - DaysToHazardousWeather / ApproachingNotificationDays;
     }
 
-    public new void OnCycleDayStarted(CycleDayStartedEvent cycleDayStartedEvent)
+    public new void OnCycleDayStarted(CycleDayStartedEvent _)
     {
-        if (_gameCycleService.CycleDay == WarningDay)
+        CheckForNotification();
+    }
+
+    [OnEvent]
+    public void OnWeatherChanged(OnModdableWeatherChangedMidCycle _)
+    {
+        CheckForNotification();
+    }
+
+    public void CheckForNotification()
+    {
+        var cycleDay = _gameCycleService.CycleDay;
+        var warningDay = WarningDay;
+
+        if (cycleDay < warningDay
+            || weatherService.IsHazardousWeather) { return; }
+
+        var cycle = _gameCycleService.Cycle;
+
+        if (cycleDay == warningDay
+            || LastCycleWarned < cycle)
         {
+            LastCycleWarned = cycle;
             NotifyHazardousWeatherApproaching();
         }
     }

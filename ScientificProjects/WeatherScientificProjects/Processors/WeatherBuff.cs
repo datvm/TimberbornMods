@@ -1,6 +1,4 @@
-﻿global using Timberborn.EntitySystem;
-
-namespace WeatherScientificProjects.Processors;
+﻿namespace WeatherScientificProjects.Processors;
 
 public class WeatherBuff(ISingletonLoader loader, IBuffService buffs, EventBus eb, ScientificProjectService projects) : SimpleBuff(loader, buffs)
 {

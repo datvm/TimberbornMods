@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Targets", "_Targets", "{F8
 		CommonGlobalUsings.target = CommonGlobalUsings.target
 		CommonHarmony.target = CommonHarmony.target
 		CommonModdableBindito.target = CommonModdableBindito.target
+		CommonModdableWeather.target = CommonModdableWeather.target
 		CommonProperties.target = CommonProperties.target
 		CommonScientificProjects.target = CommonScientificProjects.target
 		CommonTimberApi.target = CommonTimberApi.target

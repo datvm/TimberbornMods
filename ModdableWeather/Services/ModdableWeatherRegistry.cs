@@ -7,6 +7,7 @@ public class ModdableWeatherRegistry(
     IEnumerable<IModdedTemperateWeather> temperateWeathers,
     IEnumerable<IModdedHazardousWeather> hazardousWeathers,
     NoneHazardousWeather noneHazardousWeather,
+    NoneTemperateWeather noneTemperateWeather,
     GameTemperateWeather gameTemperateWeather,
     GameDroughtWeather gameDroughtWeather,
     GameBadtideWeather gameBadtideWeather
@@ -31,6 +32,11 @@ public class ModdableWeatherRegistry(
     /// Gets the special non-hazardous weather instance.
     /// </summary>
     public NoneHazardousWeather NoneHazardousWeather { get; } = noneHazardousWeather;
+
+    /// <summary>
+    /// Gets the special non-temperate weather instance.
+    /// </summary>
+    public NoneTemperateWeather NoneTemperateWeather { get; } = noneTemperateWeather;
 
     /// <summary>
     /// Gets all registered temperate weather types.

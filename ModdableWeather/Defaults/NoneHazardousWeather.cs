@@ -1,11 +1,10 @@
-﻿
-
-namespace ModdableWeather.Defaults;
+﻿namespace ModdableWeather.Defaults;
 
 public class NoneHazardousWeather : IModdedHazardousWeather
 {
+    public const string WeatherId = nameof(NoneHazardousWeather);
 
-    public string Id { get; } = nameof(NoneHazardousWeather);
+    public string Id { get; } = WeatherId;
     public ModdedWeatherSpec Spec { get; } = new() { Id = nameof(NoneHazardousWeather), };
     public bool Enabled { get; } = false;
 

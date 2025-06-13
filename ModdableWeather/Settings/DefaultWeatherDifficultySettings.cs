@@ -1,5 +1,4 @@
-﻿
-namespace ModdableWeather.Defaults;
+﻿namespace ModdableWeather.Settings;
 
 public abstract class DefaultWeatherDifficultySettings(
     ISettings settings,

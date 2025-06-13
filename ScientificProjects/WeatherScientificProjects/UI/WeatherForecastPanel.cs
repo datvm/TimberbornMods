@@ -15,7 +15,7 @@ public class WeatherForecastPanel(UILayout layout) : ILoadableSingleton
 
         layout.AddTopRight(container, 7);
 
-        container.ToggleDisplayStyle(false);
+        container.SetDisplay(false);
     }
 
     public void SetForecastText(string? text)
@@ -25,7 +25,7 @@ public class WeatherForecastPanel(UILayout layout) : ILoadableSingleton
             label.text = text;
         }
 
-        container.ToggleDisplayStyle(text is not null);
+        container.SetDisplay(text is not null);
     }
 
 }

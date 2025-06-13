@@ -23,7 +23,7 @@ public class ModdableWeatherDevModule(
             Cycle: {currCycle.Cycle}
             - Temperate Weather: {currCycleDetails.TemperateWeather}, {currCycle.TemperateWeatherDuration} days
             - Hazardous Weather: {currCycleDetails.HazardousWeather}, {currCycle.HazardousWeatherDuration} days
-            - Next Temperate Weather: {history.NextCycleTemperateWeather}
+            - Next Temperate Weather: {history.NextCycleWeather}
             """;
 
         diag.Create()
@@ -50,7 +50,7 @@ Cycle {cycle.Cycle}:
 """);
         }
 
-        str.AppendLine($"Next Temperate Weather: {history.NextCycleTemperateWeather}");
+        str.AppendLine($"Next Temperate Weather: {history.NextCycleWeather}");
         str.Append("===");
 
         Debug.Log(str);

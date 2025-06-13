@@ -10,7 +10,7 @@
         "MaxSteps": 10,
         "ScienceCost": 2,
         "Parameters": [ 0, 0.01 ],
-        "Order": 70,
+        "Order": 60,
         "HasScalingCost": true,
         "ScalingCostKey": "LV.WSP.PrewarningCost"
     }

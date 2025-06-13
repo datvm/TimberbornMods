@@ -9,6 +9,7 @@ ImmutableArray<string> SpecialFolders = [
 ImmutableArray<KeyValuePair<string, string>> OtherMods = [
     new(@"C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\ScientificProjects\version-0.7", "ScientificProjects"),
     new(@"D:\Software\SteamLibrary\steamapps\workshop\content\1062090\3275060459\version-0.7\Scripts", "ShantySpeaker"),
+    new(@"C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\ModdableWeather\version-0.7", "ModdableWeather"),
 ];
 
 var outputFolder = Path.Combine(FindCsProjFolder(Environment.CurrentDirectory), "out");

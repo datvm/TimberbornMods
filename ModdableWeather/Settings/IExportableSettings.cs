@@ -1,4 +1,4 @@
-﻿namespace ModdableWeather.Defaults;
+﻿namespace ModdableWeather.Settings;
 
 public interface IExportableSettings
 {

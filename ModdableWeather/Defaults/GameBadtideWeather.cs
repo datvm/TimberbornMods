@@ -1,5 +1,4 @@
-﻿
-namespace ModdableWeather.Defaults;
+﻿namespace ModdableWeather.Defaults;
 
 public class GameBadtideWeather(
     GameBadtideWeatherSettings settings,

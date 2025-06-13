@@ -11,12 +11,12 @@ public class ModdableWeatherCycleService(
     public void SetForCycle(int cycle)
     {
         var weather = generator.DecideForCycle(cycle, history);
-        var nextTemperate = generator.DecideTemperateWeatherForCycle(cycle + 1, history);
+        var nextCycle = generator.DecideNextCycleWeather(cycle, history);
 
         ModdableWeatherUtils.Log(() => 
-            $"Next temperate weather: {nextTemperate}");
+            $"Next cycle weather: {nextCycle}");
 
-        history.AddCycle(weather, nextTemperate);
+        history.AddCycle(weather, nextCycle);
     }
 
 }

@@ -1,39 +1,30 @@
 ﻿global using WeatherScientificProjects.Management;
 global using WeatherScientificProjects.Processors;
 global using WeatherScientificProjects.UI;
+global using WeatherScientificProjects.Helpers;
 
 namespace WeatherScientificProjects;
-
-public class ModStarter : IModStarter
-{
-    public void StartMod(IModEnvironment modEnvironment)
-    {
-        _ = WeatherUpgradeProcessor.WarningDays;
-
-        new Harmony(nameof(WeatherScientificProjects)).PatchAll();
-    }
-}
 
 [Context("Game")]
 public class ModGameConfig : Configurator
 {
-    
+
     public override void Configure()
     {
-        Bind<WeatherUpgradeProcessor>().AsSingleton();
-        Bind<WeatherForecastPanel>().AsSingleton();
-        Bind<WeatherBuff>().AsSingleton();
+        this
+            .BindSingleton<WeatherUpgradeProcessor>()
+            .BindSingleton<WeatherForecastPanel>()
+            .BindSingleton<WeatherBuff>()
+            .BindSingleton<ForecastHazardousWeatherApproachingTimerModifier>()
 
-        MultiBind<IDevModule>().To<WeatherDevModule>().AsSingleton();
-        MultiBind<ITrackingEntities>().To<WaterSourceTracking>().AsSingleton();
-        MultiBind<IProjectCostProvider>().To<WeatherProjectsCostProvider>().AsSingleton();
+            .MultiBindSingleton<ITrackingEntities, WaterSourceTracking>()
+            .MultiBindSingleton<IProjectCostProvider, WeatherProjectsCostProvider>()
+            .MultiBindSingleton<IProjectUnlockConditionProvider, ModProjectUnlockConditionProvider>()
 
-        MultiBind<TemplateModule>().ToProvider(() =>
-        {
-            TemplateModule.Builder builder = new();
-            builder.AddDecorator<WaterSourceContamination, WeatherUpgradeWaterStrengthModifier>();
-            return builder.Build();
-        }).AsSingleton();
+            .BindTemplateModule(h => h
+                .AddDecorator<WaterSourceContamination, WeatherUpgradeWaterStrengthModifier>()
+            );
+        ;
     }
 
 }

@@ -1,7 +1,8 @@
 ﻿namespace ModdableWeather.Services;
 
 public class ModdableWeatherGenerator(
-    ModdableWeatherRegistry registry
+    ModdableWeatherRegistry registry,
+    SingleWeatherModeSettings singleWeatherMode
 )
 {
 
@@ -9,13 +10,21 @@ public class ModdableWeatherGenerator(
     {
         var (temperate, hazard) = DecideWeatherForCycle(cycle, history);
 
-        var tempDuration = temperate.GetDurationAtCycle(cycle, history);
-        var hazardDuration = hazard.GetDurationAtCycle(cycle, history);
+        var next = history.NextCycleWeather;
 
-        ModdableWeatherUtils.Log(() => 
-            $"Decided weather for cycle {cycle}:" +
-            $" {temperate.Id} ({tempDuration} days)," +
-            $" {hazard.WeatherId} ({hazardDuration} days)");
+        var tempDuration = !next.SingleMode || next.IsTemperate
+            ? temperate.GetDurationAtCycle(cycle, history)
+            : 0;
+        var hazardDuration = !next.SingleMode || !next.IsTemperate
+            ? hazard.GetDurationAtCycle(cycle, history)
+            : 0;
+
+        ModdableWeatherUtils.Log(() => $"""
+            Decided weather for cycle {cycle}:
+            - Temperate: {temperate.Id} ({tempDuration} days),
+            - Hazardous: {hazard.WeatherId} ({hazardDuration} days)
+            - Single Mode: {next.SingleMode} {(next.SingleMode ? (next.IsTemperate ? "Temperate" : "Hazardous") : "")}
+        """);
 
         return new(
             cycle,
@@ -24,19 +33,55 @@ public class ModdableWeatherGenerator(
         );
     }
 
+    public ModdableWeatherNextCycleWeather DecideNextCycleWeather(int currentCycle, ModdableWeatherHistoryProvider history)
+    {
+        var isSingleWeather = DecideSingleWeatherMode();
+        var isSingleWeatherTemperate = !isSingleWeather || DecideSingleWeatherTemperate();
+
+        var nextTemperateWeather = isSingleWeatherTemperate
+            ? DecideTemperateWeatherForCycle(currentCycle + 1, history)
+            : registry.GameTemperateWeather;
+        return new(isSingleWeather, isSingleWeatherTemperate, nextTemperateWeather);
+    }
+
     public IModdedTemperateWeather DecideTemperateWeatherForCycle(int cycle, ModdableWeatherHistoryProvider history)
         => DecideForCycle(cycle, history, registry.TemperateWeathers, registry.GameTemperateWeather);
 
+    bool DecideSingleWeatherMode()
+    {
+        if (!singleWeatherMode.Enabled.Value) { return false; }
+
+        var chance = singleWeatherMode.Chance.Value;
+        if (chance <= 0) { return false; }
+        if (chance >= 100) { return true; }
+
+        return Random.RandomRangeInt(0, 100) < chance;
+    }
+
+    bool DecideSingleWeatherTemperate()
+    {
+        var chance = singleWeatherMode.TemperateChance.Value;
+        if (chance <= 0) { return false; }
+        if (chance >= 100) { return true; }
+
+        return Random.RandomRangeInt(0, 100) < chance;
+    }
+
     CycleWeatherPair DecideWeatherForCycle(int cycle, ModdableWeatherHistoryProvider history)
     {
-        var temperateWeather = history.HasNextCycleTemperateWeather ?
-            history.NextCycleTemperateWeather :
-            DecideTemperateWeatherForCycle(cycle, history);
+        var next = history.HasNextCycleWeather ?
+            history.NextCycleWeather :
+            new(false, true, registry.GameTemperateWeather);
 
-        return new(
-            temperateWeather,
-            DecideForCycle(cycle, history, registry.HazardousWeathers, registry.NoneHazardousWeather)
-        );
+        var temperateWeather = next.TemperateWeather is null ?
+            DecideTemperateWeatherForCycle(cycle, history) :
+            next.TemperateWeather;
+
+        var hazardousWeathers = next.SingleMode && next.IsTemperate
+            ? registry.NoneHazardousWeather
+            : DecideForCycle(cycle, history, registry.HazardousWeathers, registry.NoneHazardousWeather);
+
+        return new(temperateWeather, hazardousWeathers);
     }
 
     T DecideForCycle<T>(int cycle, ModdableWeatherHistoryProvider history, IEnumerable<T> weathers, T fallback)

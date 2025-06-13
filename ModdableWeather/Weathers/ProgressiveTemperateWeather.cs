@@ -1,6 +1,4 @@
-﻿
-
-namespace ModdableWeather.Weathers;
+﻿namespace ModdableWeather.Weathers;
 
 public class ProgressiveTemperateWeather(ProgressiveTemperateWeatherSettings settings, ModdableWeatherSpecService moddableWeatherSpecService) : DefaultModdedWeather<ProgressiveTemperateWeatherSettings>(settings, moddableWeatherSpecService), IModdedTemperateWeather
 {

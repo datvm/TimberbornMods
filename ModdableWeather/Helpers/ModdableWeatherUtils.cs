@@ -39,21 +39,24 @@ public static class ModdableWeatherUtils
             .BindTemperateWeather<GameTemperateWeather, GameTemperateWeatherSettings>(menuContext)
             .BindHazardousWeather<GameDroughtWeather, GameDroughtWeatherSettings>(menuContext)
             .BindHazardousWeather<GameBadtideWeather, GameBadtideWeatherSettings>(menuContext)
-        ;
 
-        // Modded
-        configurator
+
+            // Modded        
             .BindTemperateWeather<RainWeather, RainWeatherSettings>(menuContext)
             .BindTemperateWeather<ShortTemperateWeather, ShortTemperateWeatherSettings>(menuContext)
             .BindTemperateWeather<ProgressiveTemperateWeather, ProgressiveTemperateWeatherSettings>(menuContext)
             .BindHazardousWeather<MonsoonWeather, MonsoonWeatherSettings>(menuContext)
             .BindHazardousWeather<SurprisinglyRefreshingWeather, SurprisinglyRefreshingWeatherSettings>(menuContext)
-        ;
 
+            // Single Weather Settings
+            .BindSingleton<SingleWeatherModeSettings>()
+        ;
 
         if (!menuContext)
         {
-            configurator.BindHazardousWeather<NoneHazardousWeather>();
+            configurator
+                .BindHazardousWeather<NoneHazardousWeather>()
+                .BindTemperateWeather<NoneTemperateWeather>();
 
             // Weather-specific services
             configurator.BindSingleton<RainEffect>();
