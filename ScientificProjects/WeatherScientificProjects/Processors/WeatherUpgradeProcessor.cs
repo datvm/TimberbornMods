@@ -1,34 +1,25 @@
-﻿global using Timberborn.HazardousWeatherSystem;
-global using Timberborn.HazardousWeatherSystemUI;
+﻿namespace WeatherScientificProjects.Processors;
 
-namespace WeatherScientificProjects.Processors;
-
-readonly record struct TodayForecast(IHazardousWeatherUISpecification Weather, float Chance, int Day, Vector2Int Duration, bool StandardChanceIncreased);
+readonly record struct TodayForecast(IModdedHazardousWeather Weather, float Chance, int Day, Vector2Int Duration, bool StandardChanceIncreased);
 
 public class WeatherUpgradeProcessor(
     ScientificProjectService projects,
     EventBus eb,
     ISingletonLoader loader,
-    HazardousWeatherApproachingTimer hazardTimer,
-    DroughtWeatherUISpecification drought,
-    BadtideWeatherUISpecification badtide,
+    ModdableWeatherRegistry registry,
+    ModdableHazardousWeatherApproachingTimer hazardTimer,
+    ModdableWeatherHistoryProvider history,
+    ModdableWeatherService service,
     ILoc t,
     WeatherForecastPanel weatherForecastPanel
-) : ILoadableSingleton, IUnloadableSingleton, ISaveableSingleton
+) : ILoadableSingleton, ISaveableSingleton
 {
     static readonly SingletonKey SaveKey = new("WeatherUpgradeProcessor");
-    static readonly PropertyKey<string> TodayForecastKey = new("TodayForecast");
-    static readonly PropertyKey<int> CycleWarnedKey = new("CycleWarned");
+    static readonly PropertyKey<string> TodayForecastKey = new("TodayForecast2");
 
     static readonly int DefaultWarningDays = HazardousWeatherApproachingTimer.ApproachingNotificationDays;
     public static int WarningDays = DefaultWarningDays;
 
-    public int CycleWarned { get; private set; } = 0;
-
-    public static WeatherUpgradeProcessor? Instance { get; private set; }
-
-    readonly ImmutableArray<IHazardousWeatherUISpecification> allHazards = [drought, badtide];
-    
     TodayForecast? TodayForecast
     {
         get;
@@ -46,19 +37,16 @@ public class WeatherUpgradeProcessor(
 
         return string.Format(t.T(d.x == d.y ? "LV.WSP.Forecast1DayText" : "LV.WSP.ForecastText"),
             forecast.Chance,
-            t.T(forecast.Weather.NameLocKey),
+            forecast.Weather.Spec.Display,
             forecast.Duration.x,
             forecast.Duration.y);
     }
 
     public void Load()
     {
-        Instance = this;
         WarningDays = DefaultWarningDays;
 
         LoadSavedData();
-
-        SetApproachingDay();
 
         // Keep saved forecast, don't call this if there is saved data
         if (TodayForecast is null) { SetWeatherForecast(); }
@@ -70,19 +58,17 @@ public class WeatherUpgradeProcessor(
     {
         if (!loader.TryGetSingleton(SaveKey, out var s)) { return; }
 
-        if (s.Has(CycleWarnedKey))
-        {
-            CycleWarned = s.Get(CycleWarnedKey);
-        }
-
         if (s.Has(TodayForecastKey))
         {
             var data = s.Get(TodayForecastKey).Split(';');
-            var weather = allHazards.FirstOrDefault(q => q.NameLocKey == data[0]);
-            if (weather is not null && data.Length == 5) // Don't revert if and return here in case there are more data loading later
+
+            var weatherId = data[0];
+            if (registry.WeatherByIds.TryGetValue(weatherId, out var weather)
+                && weather is IModdedHazardousWeather haz
+                && data.Length == 5)
             {
                 var duration = new Vector2Int(int.Parse(data[3]), int.Parse(data[4]));
-                TodayForecast = new TodayForecast(weather, float.Parse(data[1]), int.Parse(data[2]), duration, true);
+                TodayForecast = new TodayForecast(haz, float.Parse(data[1]), int.Parse(data[2]), duration, true);
             }
         }
     }
@@ -132,18 +118,16 @@ public class WeatherUpgradeProcessor(
         TodayForecast = new(forecastHazard, chance, cycleDay, duration, true);
     }
 
-    IHazardousWeatherUISpecification GetForecastHazard(float correctChance)
+    IModdedHazardousWeather GetForecastHazard(float correctChance)
     {
         var isCorrect = correctChance >= .95f || UnityEngine.Random.value < correctChance;
 
-        var hazard = hazardTimer._weatherService._hazardousWeatherService.CurrentCycleHazardousWeather;
-        IHazardousWeatherUISpecification correctHazardSpec = hazard is BadtideWeather ? badtide : drought;
+        var correctHazard = history.CurrentHazardousWeather;
+        if (isCorrect) { return correctHazard; }
 
-        if (isCorrect) { return correctHazardSpec; }
-
-        var skip = UnityEngine.Random.Range(0, allHazards.Length - 1);
-        return allHazards
-            .Where(q => q != correctHazardSpec)
+        var skip = UnityEngine.Random.Range(0, registry.HazardousWeathers.Count - 1);
+        return registry.HazardousWeathers
+            .Where(q => q != correctHazard)
             .Skip(skip)
             .First();
     }
@@ -161,72 +145,24 @@ public class WeatherUpgradeProcessor(
         return new(correct + shift, correct + shift + shiftWindow);
     }
 
-    void SetApproachingDay()
-    {
-        if (hazardTimer.GetWeatherStage() == GameWeatherStage.Temperate)
-        {
-            // Do not change the value if it's not temperate weather
-            // This will mess up the warning of this cycle
-
-            var info = WeatherProjectsUtils.WeatherWarningExtIds
-            .Select(projects.GetProject)
-            .Where(q => q.Unlocked);
-
-            int newValue = DefaultWarningDays;
-            foreach (var p in info)
-            {
-                var mul = p.Spec.HasSteps ? p.TodayLevel : 1;
-                newValue = (int)MathF.Round(newValue + p.Spec.Parameters[0] * mul);
-            }
-
-            WarningDays = newValue;
-        }
-
-        CheckAndWarnWeather();
-    }
-
     [OnEvent]
     public void OnProjectsUnlocked(OnScientificProjectUnlockedEvent ev)
     {
         var id = ev.Project.Id;
-        if (WeatherProjectsUtils.WeatherWarningExtIds.Contains(id))
-        {
-            SetApproachingDay();
-        }
-        else if (WeatherProjectsUtils.WeatherForecastIds.Contains(id))
+        if (WeatherProjectsUtils.WeatherForecastIds.Contains(id))
         {
             SetWeatherForecast();
+        }
+        else if (WeatherProjectsUtils.EmergencyDrillIds.Contains(id))
+        {
+            ExtendTemperateWeather(ev.Project);
         }
     }
 
     [OnEvent]
     public void OnProjectsPaid(OnScientificProjectDailyCostChargedEvent _)
     {
-        SetApproachingDay();
         SetWeatherForecast();
-    }
-
-    public void CheckAndWarnWeather()
-    {
-        var cycle = hazardTimer._gameCycleService.Cycle;
-
-        if (cycle == CycleWarned) { return; }
-
-        var progress = hazardTimer.GetProgress();
-
-        var stage = hazardTimer.GetWeatherStage();
-        if (stage != GameWeatherStage.Warning
-            || hazardTimer.DaysToHazardousWeather <= 0) { return; }
-
-        CycleWarned = cycle;
-        eb.Post(new HazardousWeatherApproachingEvent());
-    }
-
-    public void Unload()
-    {
-        Instance = null;
-        // Reset to default value so player doesn't exploit it on another save
-        WarningDays = DefaultWarningDays;
     }
 
     public void Save(ISingletonSaver singletonSaver)
@@ -238,8 +174,14 @@ public class WeatherUpgradeProcessor(
             var (weather, chance, day, duration, _) = TodayForecast.Value;
 
             // Unlikely user will be able to save inbetween the frame so don't bother saving the standard chance increased
-            s.Set(TodayForecastKey, string.Format("{0};{1};{2};{3};{4}", weather.NameLocKey, chance, day, duration.x, duration.y));
+            s.Set(TodayForecastKey, string.Format("{0};{1};{2};{3};{4}", weather.WeatherId, chance, day, duration.x, duration.y));
         }
+    }
+
+    void ExtendTemperateWeather(ScientificProjectSpec project)
+    {
+        var days = Mathf.RoundToInt(project.Parameters[0]);
+        service.ExtendTemperateWeather(days);
     }
 
 }

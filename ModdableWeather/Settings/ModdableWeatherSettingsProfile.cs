@@ -1,11 +1,11 @@
-﻿namespace ModdableWeather.UI;
+﻿namespace ModdableWeather.Settings;
 
 public class ModdableWeatherProfileSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository)
 {
 
     public override string ModId { get; } = nameof(ModdableWeather);
     public override string HeaderLocKey { get; } = "LV.MW.Profiles";
-    public override int Order => -1;
+    public override int Order => -2;
 
     public ModdableWeatherSettingsProfile Profile { get; } = new();
 

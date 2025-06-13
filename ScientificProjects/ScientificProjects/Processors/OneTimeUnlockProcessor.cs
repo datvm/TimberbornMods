@@ -2,8 +2,7 @@
 
 public class OneTimeUnlockProcessor(
     EventBus eb,
-    ScientificProjectService projects,
-    TemperateWeatherDurationService temperateWeatherDurationService
+    ScientificProjectService projects
 ) : ILoadableSingleton
 {
     public const string WheelbarrowsId = "Wheelbarrows";
@@ -28,19 +27,7 @@ public class OneTimeUnlockProcessor(
             case WheelbarrowsId:
                 InternalWheelbarrowsUnlocked();
                 break;
-            default:
-                if (ModProjectUnlockConditionProvider.EmergencyDrillIds.Contains(id))
-                {
-                    ExtendGoodWeatherDays(ev.Project);
-                }
-
-                break;
         }
-    }
-
-    void ExtendGoodWeatherDays(ScientificProjectSpec spec)
-    {
-        temperateWeatherDurationService.TemperateWeatherDuration += (int)spec.Parameters[0];
     }
 
     void InternalWheelbarrowsUnlocked()

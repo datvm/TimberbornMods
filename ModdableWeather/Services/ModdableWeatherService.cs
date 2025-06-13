@@ -59,6 +59,26 @@ public class ModdableWeatherService(
 
     public bool NextDayIsTemperateWeather() => !NextDayIsHazardousWeather();
 
+    public void ExtendTemperateWeather(int deltaDays)
+    {
+        if (IsHazardousWeather)
+        {
+            throw new InvalidOperationException("Hazardous weather already started, cannot extend temperate weather.");
+        }
+
+        history.ChangeWeatherDuration(true, TemperateWeatherDuration + deltaDays);
+    }
+
+    public void ExtendHazardousWeather(int deltaDays)
+    {
+        if (history.CurrentHazardousWeather.WeatherId == NoneHazardousWeather.WeatherId)
+        {
+            return;
+        }
+
+        history.ChangeWeatherDuration(false, HazardousWeatherDuration + deltaDays);
+    }
+
     public new void Load()
     {
         instance = this;
@@ -75,10 +95,17 @@ public class ModdableWeatherService(
     [OnEvent]
     public void OnCycleWeatherDecided(OnModdableWeatherCycleDecided ev)
     {
-        ModdableWeatherUtils.Log(() =>
-            $"Starting temperate weather {ev.WeatherCycle.TemperateWeather} for cycle {ev.WeatherCycle.Cycle.Cycle}");
-
-        ev.WeatherCycle.TemperateWeather.Start(false);
+        var cycleNo = ev.WeatherCycle.Cycle.Cycle;
+        if (ev.WeatherCycle.Cycle.TemperateWeatherDuration > 0)
+        {
+            ModdableWeatherUtils.Log(() =>
+                $"Starting temperate weather {ev.WeatherCycle.TemperateWeather} for cycle {cycleNo}");
+            ev.WeatherCycle.TemperateWeather.Start(false);
+        }
+        else
+        {
+            ModdableWeatherUtils.Log(() => $"Cycle {cycleNo} does not have a temperate weather.");
+        }
     }
 
     // Don't shadow these or EventBus will cause crashes
@@ -86,8 +113,11 @@ public class ModdableWeatherService(
     {
         if (CycleDay != HazardousWeatherStartCycleDay) { return; }
 
-        ModdableWeatherUtils.Log(() => $"Ending temperate weather {history.CurrentTemperateWeather} for cycle {Cycle} on day {CycleDay}.");
-        history.CurrentTemperateWeather.End();
+        if (CycleDay > 1)
+        {
+            ModdableWeatherUtils.Log(() => $"Ending temperate weather {history.CurrentTemperateWeather} for cycle {Cycle} on day {CycleDay}.");
+            history.CurrentTemperateWeather.End();
+        }
 
         ModdableWeatherUtils.Log(() => $"Starting hazardous weather {history.CurrentHazardousWeather} for cycle {Cycle} on day {CycleDay}.");
         history.CurrentHazardousWeather.Start(false);
@@ -99,6 +129,14 @@ public class ModdableWeatherService(
         if (HazardousWeatherDuration <= 0)
         {
             ModdableWeatherUtils.Log(() => $"Cycle {Cycle} ended without hazardous weather.");
+
+            var temperateWeather = history.CurrentCycleDetails.TemperateWeather;
+            if (temperateWeather.Active)
+            {
+                ModdableWeatherUtils.Log(() => $"Ending temperate weather {temperateWeather}.");
+                temperateWeather.End();
+            }
+
             return;
         }
 

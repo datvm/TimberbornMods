@@ -1,6 +1,4 @@
-﻿
-
-namespace ModdableWeather.Defaults;
+﻿namespace ModdableWeather.Defaults;
 
 public class GameDroughtWeather(GameDroughtWeatherSettings settings, ModdableWeatherSpecService moddableWeatherSpecService) : DefaultModdedWeather<GameDroughtWeatherSettings>(settings, moddableWeatherSpecService), IModdedHazardousWeather
 {

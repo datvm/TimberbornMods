@@ -1,5 +1,4 @@
-﻿
-namespace ModdableWeather.Defaults;
+﻿namespace ModdableWeather.Defaults;
 
 public class GameTemperateWeather(GameTemperateWeatherSettings settings, ModdableWeatherSpecService moddableWeatherSpecService) : DefaultModdedWeather<GameTemperateWeatherSettings>(settings, moddableWeatherSpecService), IModdedTemperateWeather
 {

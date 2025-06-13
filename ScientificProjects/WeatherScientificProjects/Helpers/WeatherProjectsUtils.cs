@@ -1,7 +1,4 @@
-﻿global using ScientificProjects.Management;
-global using Timberborn.WaterSourceSystem;
-
-namespace WeatherScientificProjects;
+﻿namespace WeatherScientificProjects.Helpers;
 
 public static class WeatherProjectsUtils
 {
@@ -13,6 +10,8 @@ public static class WeatherProjectsUtils
 
     public const string WeatherForecast3Id = "WeatherPred3";
     public const string WeatherWarningExt3Id = "WeatherExt3";
+
+    public static readonly ImmutableHashSet<string> EmergencyDrillIds = ["EmergencyDrill1", "EmergencyDrill2", "EmergencyDrill3"];
 
     public static readonly ImmutableHashSet<string> FreshWaterStrengthIds = [WeatherDecreaseStrFresh, WeatherIncreaseStrFresh];
     public static readonly ImmutableHashSet<string> BadWaterStrengthIds = [WeatherDecreaseStrBad, WeatherIncreaseStrBad];

@@ -1,11 +1,11 @@
 {
     "Name": "Weather Scientific Projects",
-    "Version": "7.2.1",
-    "Id": "WeatherScientificProjects",
+    "Version": "7.3.0",
+    "Id": "WeatherScientificProjects2",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Weather-related scientific projects.",
     "RequiredMods": [
-        { "Id": "ScientificProjects", "MinimumVersion": "7.2.1" },
-        { "Id": "Harmony" }
+        { "Id": "ScientificProjects", "MinimumVersion": "7.3.0" },
+        { "Id": "ModdableWeather", "MinimumVersion": "7.1.0" }
     ]
 }
