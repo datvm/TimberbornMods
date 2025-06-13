@@ -21,6 +21,22 @@ public static class WeatherProjectsUtils
     public static readonly ImmutableHashSet<string> WeatherWarningExtIds = ["WeatherExt1", "WeatherExt2", WeatherWarningExt3Id];
     public static readonly ImmutableHashSet<string> WeatherForecastIds = ["WeatherPred1", "WeatherPred2", WeatherForecast3Id];
 
+    public static GameWeatherStage GetModdableWeatherStage(this HazardousWeatherApproachingTimer timer)
+    {
+        if (timer._weatherService.HazardousWeatherDuration <= 0)
+        {
+            return GameWeatherStage.Temperate;
+        }
+        else if (timer._weatherService.IsHazardousWeather)
+        {
+            return GameWeatherStage.Hazardous;
+        }
+        else
+        {
+            return timer.GetProgress() > 0 ? GameWeatherStage.Warning : GameWeatherStage.Temperate;
+        }
+    }
+
 }
 
 

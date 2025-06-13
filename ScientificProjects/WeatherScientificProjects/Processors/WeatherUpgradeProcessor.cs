@@ -75,7 +75,7 @@ public class WeatherUpgradeProcessor(
 
     void SetWeatherForecast()
     {
-        if (hazardTimer.GetWeatherStage() != GameWeatherStage.Temperate)
+        if (hazardTimer.GetModdableWeatherStage() != GameWeatherStage.Temperate)
         {
             TodayForecast = null;
             return;
