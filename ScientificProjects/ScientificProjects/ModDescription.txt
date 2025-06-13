@@ -1,0 +1,47 @@
+﻿Finally a scientific way to spend your Science points! This mod gives you the Scientific Projects dialog, accessible via the [b]top-left Science button[/b] or a [b]rebindable hotkey (default Y)[/b]. Choose between one-time and daily-cost projects to shape your colony's future.
+
+Don't like the default projects or even the numbers? This mod is developed with modding in mind, so you can easily add your own projects or tweak the existing ones. In fact, I am releasing this mod with a few extra projects that I hope you will enjoy. I will even write a step-by-step guide on how to make your own mod that uses this mod!
+
+[h1]Update 7.1: Faction-specific projects and UI Update[/h1]
+
+This mod now has faction-specific projects! This update comes with one new late-game powerful project for each faction.
+
+You should also see a new Filter section to allow you to search and filter projects by their type. This is a great way to find the project you want without having to scroll through all of them. And each project also has its own Flavor text giving both players and modders a way to make your projects more unique.
+
+- Resin-Infused Planks (Folktails): Woodworkshop uses -99.99% power and +100% the Treated Planks output.
+- Heat-Recycling Smelter (Iron Teeths): Smelter uses -99.99% power and +100% the Metal Blocks output.
+
+[i]Note:[/i] I have heard from the early feedbacks that Treated Planks are not as useful as Metal Blocks so the benefits are not equal. Stay tuned, a expansion mod is coming soon! It will use my Unlockable Recipes mod ;)
+
+Also don't forget to check Timberborn's official Discord server where there is a topic to discuss what I make and what you want to see in the future. I am also looking for feedbacks and suggestions for this mod, so please let me know if you have any ideas or suggestions.
+
+[h1]Projects[/h1]
+This mod gives the following projects (see screenshots):
+- Lightweight Slippers / Durable Trail Boots / Aerodynamic Sprint Gear: Increase beavers' movement speed.
+- Wheelbarrows: Beavers and bots no longer receive movement speed penalties when carrying. [i]This idea was suggested by an annonymous user, thank you![/i]
+- Precision Work Tools : Permanently increases work efficiency of all beavers. Unlocks [b]Precision Tool Maintenance[/b] which increases work efficiency of all beavers based on the level (and cost) you choose.
+- Reinforced Carry Packs: Permanently increases beavers' carrying capacity. Unlocks [b]Builder Sledges[/b] which further increases [i]Builders[/i] (workers at District Centers or Builder Huts, both beavers and bots) carrying capacity based on the level (and cost) you choose.
+
+Be sure to check out my other mods in the [url=https://steamcommunity.com/workshop/filedetails/?id=3442391455]Scientific Projects collection[/url], including [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3442395345]Weather Scientific Projects[/url] which adds weather-related projects to this mod.
+
+[h1]Modding Guide:[/h1]
+- [url=https://datvm.github.io/TimberbornMods/ScientificProjects/codeless]Modify Scientific Projects without any code[/url]
+
+If you need to contact me about this mod, please use the comment section below or ping me on [url=https://discord.gg/6VZfcKGM2Z]Timberborn's Discord[/url] at [url=https://discord.com/channels/558398674389172225/1348869700062412810]this mod's post[/url]
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods/tree/master/ScientificProjects
+
+v7.3.0: Removed Emergencies projects (moved to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3498474788]Weather Projects[/url]).
+v7.2.1: Should work with April 10 update now.
+v7.2.0: Greedy Builders can now use the faction-specific projects.
+v7.1.4-7: Added various support for the extension mods. Updated the keybinding specs following April 02 update.
+v7.1.3: Should work with April 02 update now.
+v7.1.2: Should fix the crash when placing and deleting Smelter and Wood Workshop with the new upgrades now. Also fix the recipe keeps getting doubled for each building instead of just once.
+v7.1.1: Fixed crash when deleting Smelter and Wood Workshop with the new upgrades.
+v7.1.0: Added faction-specific projects and UI update. Added a new filter section to the dialog. Added flavor text to each project.
+
+v7.0.5: should™️ fix the Wheelbarrow crashing. Unfortunately it is a blind fix because I can't reproduce that myself so I fix it based on a crash log I received. Please tell me if it still happens.
+v7.0.4: Provided a fix for Weather Prediction.
+v7.0.3: Added an intro box for the first load of each save so users know how to open the dialog.
+v7.0.2: Fixed dialog size on screen resolution with UI Scale.

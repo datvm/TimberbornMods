@@ -1,0 +1,30 @@
+﻿This is an expansion mod for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3442389397]Scientific Projects[/url] that add weather-related projects to the game.
+
+This version works with and requires [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3493039008]Moddable Weather[/url] mod. If you prefer not to use it, you can use the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3442395345]Legacy mod[/url] but if there is any update, only this one will be updated.
+
+[h1]Bad weather warning extension:[/h1]
+- Galesniffer's Totem: Warnings of bad weather come +1 day earlier. A simple pole where your beavers can 'sniff' the wind for early weather hints.
+- Mistweaver's Dial: Warnings of bad weather come +1 day earlier. A dial that can predict the weather based on the humidity and air pressure.
+- Thunderhub's Spire (daily project): Warnings of bad weather come +1 day earlier per Level. A tall spire that can detect the electric charge in the air. Does not cost science after the warning.
+
+[h1]Bad weather prediction:[/h1]
+- Weather Forecasting: Predict the bad weather of this cycle. The accuracy starts at 20% at the first day and increases by 5% every day.
+For example, in the screenshot it says "75% drought, lasts 5-11d" meaning the prediction accuracy is 75% (very likely it will be drought), and the drought will last anywhere between 5-11 days. The day range also gets narrower as the prediction accuracy increases.
+
+- Starlit Precision: Weather Forecasting now starts with additional 20% accuracy on the first day of the cycle (to 40%).
+- Hydrological Analysis (daily project): Add 1% accuracy per Level to Weather Forecasting everyday, up to 10% a day.
+
+[h1]Water source Strength:[/h1]
+
+These projects let you increase or decrease the water source strength. You need to unlock a one-time project to access the ongoing projects separately for fresh and bad water source:
+
+- Flowmaster's Conduit: Allow you to increase the strength of Water sources, up to +200%.
+- Tidebreaker's Gate: Allow you to decrease the strength of Water sources, up to -80%.
+
+[h1]Emergencies Drilling:[/h1]
+- 3 Emergency Drills projects: Add some days to this temperate season by drilling a recently discovered shallow water source (just flavor text, no water source on the map is actually affected). Can only be activated when bad weather is coming.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods/tree/master/ScientificProjects
+
+v7.3.0: Works with (and required) Moddable Weather now.

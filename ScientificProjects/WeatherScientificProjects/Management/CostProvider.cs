@@ -37,7 +37,7 @@ public class WeatherProjectsCostProvider(EntityManager entities, HazardousWeathe
 
     int CalculatePrewarningCost(ScientificProjectInfo info)
     {
-        return hazardTimer.GetWeatherStage() == GameWeatherStage.Temperate ? info.Spec.ScienceCost * info.Level : 0;
+        return hazardTimer.GetModdableWeatherStage() == GameWeatherStage.Temperate ? info.Spec.ScienceCost * info.Level : 0;
     }
 
     int CountWaterSources(bool fresh)

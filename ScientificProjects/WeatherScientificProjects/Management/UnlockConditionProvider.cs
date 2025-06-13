@@ -1,6 +1,7 @@
 ﻿namespace WeatherScientificProjects.Management;
 
 public class ModProjectUnlockConditionProvider(
+    ModdableWeatherService weatherService,
     HazardousWeatherApproachingTimer hazardTimer,
     ILoc t
 ) : IProjectUnlockConditionProvider
@@ -12,7 +13,9 @@ public class ModProjectUnlockConditionProvider(
     {
         if (WeatherProjectsUtils.EmergencyDrillIds.Contains(project.Spec.Id))
         {
-            return hazardTimer.GetWeatherStage() == GameWeatherStage.Warning
+            return 
+                weatherService.HazardousWeatherDuration > 0 
+                && hazardTimer.GetModdableWeatherStage() == GameWeatherStage.Warning
                 ? null :
                 "LV.SP.BadWeatherConditionErr".T(t);
         }
