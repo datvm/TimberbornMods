@@ -35,7 +35,7 @@ public class ModdableWeatherGenerator(
 
     public ModdableWeatherNextCycleWeather DecideNextCycleWeather(int currentCycle, ModdableWeatherHistoryProvider history)
     {
-        var isSingleWeather = DecideSingleWeatherMode();
+        var isSingleWeather = DecideSingleWeatherMode(currentCycle + 1);
         var isSingleWeatherTemperate = !isSingleWeather || DecideSingleWeatherTemperate();
 
         var nextTemperateWeather = isSingleWeatherTemperate
@@ -47,15 +47,23 @@ public class ModdableWeatherGenerator(
     public IModdedTemperateWeather DecideTemperateWeatherForCycle(int cycle, ModdableWeatherHistoryProvider history)
         => DecideForCycle(cycle, history, registry.TemperateWeathers, registry.GameTemperateWeather);
 
-    bool DecideSingleWeatherMode()
+    bool DecideSingleWeatherMode(int cycle)
     {
-        if (!singleWeatherMode.Enabled.Value) { return false; }
+        if (!singleWeatherMode.Enabled.Value
+            || cycle < singleWeatherMode.StartCycle.Value) { return false; }
 
         var chance = singleWeatherMode.Chance.Value;
+        ModdableWeatherUtils.Log(() => $"""
+            Deciding Single Weather Mode for cycle {cycle}:
+            - Chance: {chance}%,
+            """);
         if (chance <= 0) { return false; }
         if (chance >= 100) { return true; }
 
-        return Random.RandomRangeInt(0, 100) < chance;
+        var hit = Random.RandomRangeInt(0, 100);
+        ModdableWeatherUtils.Log(() => $"- Hit: {hit} ({hit < chance})");
+
+        return hit < chance;
     }
 
     bool DecideSingleWeatherTemperate()
@@ -64,7 +72,15 @@ public class ModdableWeatherGenerator(
         if (chance <= 0) { return false; }
         if (chance >= 100) { return true; }
 
-        return Random.RandomRangeInt(0, 100) < chance;
+        ModdableWeatherUtils.Log(() => $"""
+            Deciding Single Weather Temperate:
+            - Chance: {chance}%,
+            """);
+
+        var hit = Random.RandomRangeInt(0, 100);
+        ModdableWeatherUtils.Log(() => $"- Hit: {hit} ({hit < chance})");
+
+        return hit < chance;
     }
 
     CycleWeatherPair DecideWeatherForCycle(int cycle, ModdableWeatherHistoryProvider history)

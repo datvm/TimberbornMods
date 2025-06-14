@@ -79,6 +79,7 @@ If you need any help or feedback, you can leave a comment or Discord: https://di
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods/tree/master/ModdableWeather
 
+v7.1.1: Fixed Single Weather mode does not honor "Start Cycle" option.
 v7.1.0: Added "Single Weather mode".
 v7.0.6: Should™️probably fix Timberlapse crash and Harmony crash.
 v7.0.5: Chance setting is now a number input box instead of Slider. Fixed Monsoon default chance was 0 (now 40), this should not affect you if you changed the value. Added [spoiler]Dev command[/spoiler] for diagnosing any weather issue.
