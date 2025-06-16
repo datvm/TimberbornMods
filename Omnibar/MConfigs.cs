@@ -5,27 +5,35 @@ public class ModGameConfig : Configurator
 {
     public override void Configure()
     {
-        this.MultiBindAndBindSingleton<IOmnibarProvider, OmnibarToolProvider>();
-        MultiBind<IOmnibarProvider>().To<OmnibarMathProvider>().AsSingleton();
-        MultiBind<IOmnibarProvider>().To<OmnibarBatchControlProvider>().AsSingleton();
-        MultiBind<IOmnibarProvider>().To<OmnibarRecipeProvider>().AsSingleton();
-        MultiBind<IOmnibarProvider>().To<OmnibarFindEntityProvider>().AsSingleton();
-        MultiBind<IOmnibarProvider>().To<OmnibarTodoListProvider>().AsSingleton();
+        this
+            .MultiBindAndBindSingleton<IOmnibarProvider, OmnibarToolProvider>()
 
-        // Special provider, do not multibind to the interface
-        Bind<OmnibarCommandProvider>().AsSingleton();
+            .MultiBindSingleton<IOmnibarProvider, OmnibarMathProvider>()
+            .MultiBindSingleton<IOmnibarProvider, OmnibarBatchControlProvider>()
+            .MultiBindSingleton<IOmnibarProvider, OmnibarRecipeProvider>()
+            .MultiBindSingleton<IOmnibarProvider, OmnibarFindEntityProvider>()
+            .MultiBindSingleton<IOmnibarProvider, OmnibarTodoListProvider>()
 
-        Bind<OmnibarService>().AsSingleton();
-        Bind<ToDoListManager>().AsSingleton();
+            // Special provider, do not multibind to the interface
+            .BindSingleton<OmnibarCommandProvider>()
 
-        Bind<OmnibarController>().AsSingleton();
-        Bind<OmnibarBox>().AsSingleton();
+            .BindSingleton<OmnibarService>()
+            .BindSingleton<TodoListManager>()
 
-        Bind<TodoListController>().AsSingleton();
-        Bind<TodoListPanel>().AsSingleton();        
-        Bind<TodoListUpdater>().AsSingleton();
+            .BindSingleton<OmnibarController>()
+            .BindSingleton<OmnibarBox>()
 
-        Bind<TodoListDialog>().AsTransient();
-        Bind<ToDoListEntryEditor>().AsTransient();
+            .BindSingleton<TodoListController>()
+            .BindSingleton<TodoListPanel>()
+            .BindSingleton<TodoListUpdater>()
+
+            .BindTransient<TodoListDialog>()
+            .BindTransient<TodoListEntryEditor>()
+            .BindTransient<TodoListEntryBuildingEditor>()
+            .BindTransient<TodoListItemSelectorDialog>()
+
+            // Hotkey provider
+            .MultiBindSingleton<IOmnibarHotkeyProvider, TodoListHotkeyProvider>()
+        ;
     }
 }

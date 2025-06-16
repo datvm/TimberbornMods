@@ -3,6 +3,5 @@
 		<OutputModFolderName>MicroManagement</OutputModFolderName>
 	</PropertyGroup>
 	<Import Project="../Common.target" />
-	<Import Project="../CommonUI.target" />
 	<Import Project="../CommonTimberUI.target" />
 </Project>

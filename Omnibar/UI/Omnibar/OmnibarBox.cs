@@ -1,4 +1,6 @@
-﻿namespace Omnibar.UI;
+﻿using UnityEngine.InputSystem.LowLevel;
+
+namespace Omnibar.UI;
 
 public class OmnibarBox : IPanelController, ILoadableSingleton
 {
@@ -12,8 +14,9 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
     readonly OmnibarService omnibarService;
     readonly IAssetLoader assetLoader;
     readonly VisualElementInitializer veInit;
+    readonly InputModifiersService inputModifiersService;
 
-    List<OmnibarFilteredItem>? items;
+    List<OmnibarBoxItem>? items;
     string? prev;
 
     public string Text => txtContent.text;
@@ -22,13 +25,15 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
         PanelStack panelStack,
         OmnibarService omnibarService,
         VisualElementInitializer veInit,
-        IAssetLoader assetLoader
+        IAssetLoader assetLoader,
+        InputModifiersService inputModifiersService
     )
     {
         this.panelStack = panelStack;
         this.omnibarService = omnibarService;
         this.assetLoader = assetLoader;
         this.veInit = veInit;
+        this.inputModifiersService = inputModifiersService;
 
         box = CreateBox();
         var container = CreateBoxContainer(box);
@@ -64,6 +69,8 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
         IsOpen = true;
         OnTextChanged();
         txtContent.Focus();
+
+        InputSystem.onEvent += new Action<InputEventPtr, InputDevice>(OnInputSystemEvent);
     }
 
     public VisualElement GetPanel() => box;
@@ -97,13 +104,9 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
         }
     }
 
-    public void AddToTodoList(IOmnibarItemWithTodoList item)
-    {
-        item.AddToTodoList();
-    }
-
     public void Close()
     {
+        InputSystem.onEvent -= new Action<InputEventPtr, InputDevice>(OnInputSystemEvent);
         IsOpen = false;
         panelStack.Pop(this);
     }
@@ -118,6 +121,26 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
         txtContent.textSelection.SelectRange(pos, pos);
 
         OnTextChanged();
+    }
+
+    void OnInputSystemEvent(InputEventPtr inputEvent, InputDevice device)
+    {
+        if (!IsOpen || !inputEvent.IsAnyStateEvent()) { return; }
+
+        var item = lstItems.SelectingItem;
+
+        if (item is not null && item.Value.HotkeyActions.Count > 0)
+        {
+            var modifiers = inputModifiersService.PressedModifiers();
+
+            foreach (var action in item.Value.HotkeyActions)
+            {
+                if (action.ProcessInput(modifiers))
+                {
+                    return;
+                }
+            }
+        }
     }
 
     void OnTextChanged()
@@ -161,15 +184,6 @@ public class OmnibarBox : IPanelController, ILoadableSingleton
         {
             processed = true;
             OnUICancelled();
-        }
-        else if (e.keyCode == TodoListController.AddBuildingToTodoListKeyCode)
-        {
-            var item = lstItems.SelectingItem;
-            if (item?.Item is IOmnibarItemWithTodoList tdItem && tdItem.CanAddToTodoList)
-            {
-                processed = true;
-                AddToTodoList(tdItem);
-            }
         }
 
         if (processed)

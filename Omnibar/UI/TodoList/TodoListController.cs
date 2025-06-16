@@ -7,31 +7,40 @@ public class TodoListController(
     PanelStack panelStack
 ) : ILoadableSingleton
 {
-    public static readonly KeyCode AddBuildingToTodoListKeyCode = KeyCode.F5;
-    public static readonly string AddBuildingToTodoListKeyName = nameof(KeyCode.F5).Bold().Color(TimberbornTextColor.Solid);
 
     public void Load()
     {
         uiLayout.AddBottomLeft(todoListPanel.Root, -200);
-        todoListPanel.OnToDoListRequested += OpenDialogWithId;
+        todoListPanel.OnTodoListRequested += OpenDialog;
     }
 
-    public void AddBuilding(string prefabName, string buildingName)
-    {        
-        OpenDialog(addBuilding: prefabName, title: buildingName);
+    public async void AddBuildingAsync(string prefabName, string buildingName, bool append)
+    {
+        TodoListEntry? appendingEntry = null;
+        if (append)
+        {
+            var diag = container.GetInstance<TodoListItemSelectorDialog>();
+
+            var result = await diag.ShowAsync(null, panelStack);
+            if (!result) { return; }
+
+            appendingEntry = diag.SelectedEntry;
+        }
+
+        InternalOpenDialog(addBuilding: prefabName, title: buildingName, appendingEntry: appendingEntry);
     }
 
     public void AddItem(string title, bool timer)
     {
-        OpenDialog(title: title, timer: timer);
+        InternalOpenDialog(title: title, timer: timer);
     }
 
-    void OpenDialogWithId(int? id)
+    public void OpenDialog(int? id = default)
     {
-        OpenDialog(id: id);
+        InternalOpenDialog(id: id);
     }
 
-    private async void OpenDialog(int? id = null, string? addBuilding = null, string? title = null, bool timer = false)
+    private async void InternalOpenDialog(int? id = null, string? addBuilding = null, string? title = null, TodoListEntry? appendingEntry = null, bool timer = false)
     {
         var diag = container.GetInstance<TodoListDialog>()
             .SetDialogSize(panelStack._root.panel.scaledPixelsPerPoint);
@@ -41,9 +50,13 @@ public class TodoListController(
             diag.SetInitialItem(id.Value);
         }
 
-        if (addBuilding is not null || title is not null)
+        if (appendingEntry is not null)
         {
-            diag.AddNewItem(addBuilding, title, timer);
+            diag.AppendNewItem(appendingEntry, addBuilding ?? throw new ArgumentNullException(nameof(addBuilding)));
+        }
+        else if (addBuilding is not null || title is not null)
+        {
+            diag.AddNewItem(building: addBuilding, title: title, timer: timer);
         }
 
         await diag.ShowAsync(null, panelStack);

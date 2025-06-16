@@ -3,10 +3,12 @@
 public class OmnibarController(
     InputService inputs,
     OmnibarBox omnibarBox,
-    EventBus eb
+    EventBus eb,
+    TodoListController todoListController
 ) : IInputProcessor, ILoadableSingleton, IUnloadableSingleton
 {
     const string OpenKeyId = "OmnibarOpen";
+    const string OpenTodoListId = "OpenTodoList";
     bool keyDown;
 
     public void Load()
@@ -24,6 +26,12 @@ public class OmnibarController(
         else if (inputs.IsKeyDown(OpenKeyId))
         {
             keyDown = true;
+        }
+        
+        if (inputs.IsKeyDown(OpenTodoListId))
+        {
+            todoListController.OpenDialog();
+            return true;
         }
 
         return false;

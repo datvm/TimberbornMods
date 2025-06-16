@@ -68,4 +68,18 @@ public static class OmnibarUtils
         return new([.. pos], score);
     }
 
+    public static GoodAmountSpec Multiply(this GoodAmountSpec spec, int quantity)
+        => spec with { _amount = spec._amount * quantity, };
+
+    public static IEnumerable<GoodAmountSpec> Multiply<T>(this T collection, int quantity) 
+        where T: IEnumerable<GoodAmountSpec>
+        => collection.Select(q => q.Multiply(quantity));
+
+    public static string GetOmnibarItemHotkey(this ILoc t, string hotkey, string locKey) =>
+        $"{hotkey.Bold().Color(TimberbornTextColor.Solid)}: {t.T(locKey)}";
+
+    public static bool IsLocked(this BlockObjectTool tool) => tool.Locker is not null;
+    public static bool IsLocked(this TodoListEntryBuilding building) => 
+        building.BuildingTool?.IsLocked() == true;
+
 }

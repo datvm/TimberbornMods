@@ -1,7 +1,7 @@
 ﻿namespace Omnibar.Services.TodoList;
 
 public class TodoListUpdater(
-    ToDoListManager man
+    TodoListManager man
 ) : ITickableSingleton
 {
 

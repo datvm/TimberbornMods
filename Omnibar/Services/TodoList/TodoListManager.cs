@@ -1,6 +1,6 @@
 ﻿namespace Omnibar.Services.TodoList;
 
-public class ToDoListManager(
+public class TodoListManager(
     ISingletonLoader loader,
     OmnibarToolProvider omnibarToolProvider
 ) : ILoadableSingleton, ISaveableSingleton
@@ -9,15 +9,15 @@ public class ToDoListManager(
     static readonly ListKey<string> EntryListKey = new("ToDoListEntries");
     static readonly PropertyKey<int> TodoListCurrentId = new("ToDoListId");
 
-    readonly List<ToDoListEntry> entries = [];
+    readonly List<TodoListEntry> entries = [];
     int currId = 0;
 
-    public event Action<ToDoListEntry>? EntryChanged;
-    public event Action<List<ToDoListEntry>>? EntriesChanged;
+    public event Action<TodoListEntry>? EntryChanged;
+    public event Action<List<TodoListEntry>>? EntriesChanged;
 
-    public List<ToDoListEntry> Entries => [.. entries];
+    public List<TodoListEntry> Entries => [.. entries];
 
-    public ToDoListEntry Add(ToDoListEntry entry)
+    public TodoListEntry Add(TodoListEntry entry)
     {
         entry.Id = ++currId;
         entries.Add(entry);
@@ -26,7 +26,7 @@ public class ToDoListManager(
         return entry;
     }
 
-    public void Remove(ToDoListEntry entry)
+    public void Remove(TodoListEntry entry)
     {
         entries.Remove(entry);
         EntriesChanged?.Invoke(entries);
@@ -48,18 +48,7 @@ public class ToDoListManager(
 
         foreach (var entry in entries)
         {
-            if (entry.BuildingTool is null && entry.Building is not null)
-            {
-                if (omnibarToolProvider.BuildingTools.TryGetValue(entry.Building, out var buildingSpec))
-                {
-                    entry.BuildingTool = buildingSpec;
-                }
-                else
-                {
-                    Debug.LogWarning($"Could not find building spec for {entry.Building}");
-                    entry.Building = null;
-                }
-            }
+            FillInBuildings(entry);
         }
 
         EntriesChanged?.Invoke(entries);
@@ -70,8 +59,9 @@ public class ToDoListManager(
         LoadSavedData();
     }
 
-    public void OnEntryChanged(ToDoListEntry entry)
+    public void OnEntryChanged(TodoListEntry entry)
     {
+        FillInBuildings(entry);
         EntryChanged?.Invoke(entry);
     }
 
@@ -85,13 +75,36 @@ public class ToDoListManager(
             entries.AddRange(
                 s
                     .Get(EntryListKey)
-                    .Select(ToDoListEntry.Deserialize));
+                    .Select(TodoListEntry.Deserialize));
             Sort();
         }
 
         if (s.Has(TodoListCurrentId))
         {
             currId = s.Get(TodoListCurrentId);
+        }
+    }
+
+    void FillInBuildings(TodoListEntry entry)
+    {
+        if (entry.Buildings.Count == 0) { return; }
+
+        for (int i = 0; i < entry.Buildings.Count; i++)
+        {
+            var building = entry.Buildings[i];
+
+            if (building.BuildingTool is not null) { continue; }
+
+            if (omnibarToolProvider.BuildingTools.TryGetValue(building.Building, out var buildingSpec))
+            {
+                building.BuildingTool = buildingSpec;
+            }
+            else
+            {
+                Debug.LogWarning($"Could not find building spec for {building.Building}");
+                entry.Buildings.RemoveAt(i);
+                i--;
+            }
         }
     }
 
