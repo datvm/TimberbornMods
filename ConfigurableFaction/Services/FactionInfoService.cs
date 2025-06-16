@@ -58,7 +58,10 @@ public class FactionInfoService(
                 all[id] = curr = [];
             }
 
-            curr.AddRange(grp.Paths);
+            if (!grp.Paths.IsDefaultOrEmpty)
+            {
+                curr.AddRange(grp.Paths);
+            }
         }
 
         return all.ToFrozenDictionary(q => q.Key, q => new PrefabGroupSpec()
