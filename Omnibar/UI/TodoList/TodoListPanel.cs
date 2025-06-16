@@ -3,7 +3,7 @@
 public class TodoListPanel(
     ILoc t,
     VisualElementInitializer veInit,
-    ToDoListManager man,
+    TodoListManager man,
     IAssetLoader assetLoader,
     ScienceService scienceService,
     GoodItemFactory goodItemFactory,
@@ -20,7 +20,7 @@ public class TodoListPanel(
     Label lblNoItem;
     ScrollView itemsContainer;
 
-    public event Action<int?> OnToDoListRequested;
+    public event Action<int?> OnTodoListRequested;
     Texture2D timerIcon;
 #nullable enable
 
@@ -69,7 +69,7 @@ public class TodoListPanel(
         var el = parent.AddChild()
             .SetFlexGrow();
 
-        el.AddGameButton("LV.OB.ManageTodo".T(t), onClick: () => OnToDoListRequested(null))
+        el.AddGameButton("LV.OB.ManageTodo".T(t), onClick: () => OnTodoListRequested(null))
             .SetFlexShrink(0)
             .SetMargin(top: 10, bottom: 10);
 
@@ -95,7 +95,7 @@ public class TodoListPanel(
         btnCollapse.SetDisplay(expanded);
     }
 
-    public void ReloadList(List<ToDoListEntry>? entries)
+    public void ReloadList(List<TodoListEntry>? entries)
     {
         itemsContainer.Clear();
         items.Clear();
@@ -110,7 +110,7 @@ public class TodoListPanel(
         {
             foreach (var entry in entries)
             {
-                var item = new TodoListPanelItem(entry, timerIcon, scienceService, goodItemFactory);
+                var item = new TodoListPanelItem(entry, timerIcon, scienceService, goodItemFactory, t);
                 items.Add(item);
                 itemsContainer.Add(item);
             }

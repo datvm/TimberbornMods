@@ -1,0 +1,11 @@
+{
+    "KeyBindingSpec": {
+        "Id": "OmnibarCreateTodo",
+        "GroupId": "UI",
+        "LocKey": "LV.OB.KeyBindingOpenToDo",
+        "Order": 520
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/F5"
+    }
+}

@@ -57,7 +57,7 @@ public class OmnibarRecipeItem(
         productionItemFactory, describedAmountFactory, goodDescriber, t);
     public bool CanAddToTodoList { get; } = true;
 
-    public void AddToTodoList() => toolItem.AddToTodoList();
+    public void AddToTodoList(bool append) => toolItem.AddToTodoList(append);
 
     public void Execute()
     {

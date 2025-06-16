@@ -2,24 +2,27 @@
 
 public class TodoListPanelItem : VisualElement
 {
+    static readonly Color SeparatorColor = new(128 / 255f, 161 / 255f, 108 / 255f);
 
-    public ToDoListEntry Entry { get; }
-    readonly ScienceService scienceService;
+    public TodoListEntry Entry { get; }
 
     readonly Label? lblTimer;
+    BuildingCostBox[]? buildingCostBoxes;
+    readonly TodoListPanelItemBuildingTotal? totalEntry;
+    readonly ScienceService scienceService;
 
-    VisualElement? sciencePanel;
-    Label? lblScience;
-
-    public TodoListPanelItem(ToDoListEntry entry, Texture2D timerIcon, ScienceService scienceService, GoodItemFactory goodItemFactory)
+    public TodoListPanelItem(TodoListEntry entry, Texture2D timerIcon, ScienceService scienceService, GoodItemFactory goodItemFactory, ILoc t)
     {
         Entry = entry;
         this.scienceService = scienceService;
 
-        this.SetMarginBottom();
+        this.SetMargin(marginY: 10);
+
+        style.borderTopWidth = 1;
+        style.borderTopColor = SeparatorColor;
 
         var lblTitle = this.AddGameLabel();
-        lblTitle.text = GetTitle(entry);
+        lblTitle.text = GetTitle(entry).Bold().Color(TimberbornTextColor.Solid);
 
         if (entry.Timer is not null)
         {
@@ -33,35 +36,57 @@ public class TodoListPanelItem : VisualElement
             lblTimer = timer.AddGameLabel(entry.Timer.Value.ToString("0.00"));
         }
 
-        if (entry.BuildingTool is not null)
+        var buildingsCount = entry.Buildings.Count;
+        if (buildingsCount > 0)
         {
-            var costs = this.AddRow().AlignItems();
-            costs.style.flexWrap = Wrap.Wrap;
+            var buildingPanel = this.AddChild();
 
-            var buildingSpec = entry.BuildingTool.Prefab.GetComponentFast<BuildingSpec>();
+            var buildings = entry.Buildings.Select(q => new TodoListBuildingDetails(q)).ToArray();
+            var showDetails = entry.ShowBuildingDetails;
 
-            if (entry.BuildingTool.Locker is not null)
+            if (showDetails || buildingsCount == 1)
             {
-                sciencePanel = costs.AddRow().AlignItems().SetMarginRight(10);
-
-                sciencePanel.AddChild(classes: ["science-cost-section__lock-icon"]);
-                lblScience = sciencePanel.AddGameLabel("0");
-                sciencePanel.AddGameLabel("/" + buildingSpec.ScienceCost.ToString("#,0"));
-                sciencePanel.AddChild(classes: ["science-cost-section__science-icon"]);
+                buildingCostBoxes = new BuildingCostBox[buildings.Length];
             }
 
-            var quantity = entry.BuildingQuantity;
-            foreach (var cost in buildingSpec.BuildingCost)
+            var science = scienceService.SciencePoints;
+            for (int i = 0; i < buildingsCount; i++)
             {
-                costs.Add(goodItemFactory.Create(cost with { _amount = cost._amount * quantity }));
+                var building = buildings[i];
+
+                buildingPanel.AddLabel($"{t.T(building.LabelSpec.DisplayNameLocKey)} x{building.Entry.Quantity}");
+
+                if (showDetails || buildingsCount == 1)
+                {
+                    var box = buildingCostBoxes![i] = buildingPanel.AddChild<BuildingCostBox>();
+                    box.Building = building;
+                    box.SetMaterials(building.BuildingSpec.BuildingCost.Multiply(building.Entry.Quantity), goodItemFactory);
+
+                    if (building.Entry.IsLocked())
+                    {
+                        box.SetScience(science, building.BuildingSpec.ScienceCost);
+                    }
+                }
+            }
+
+            if (buildingsCount > 1)
+            {
+                if (showDetails)
+                {
+                    this.AddGameLabel(t.T("LV.OB.Total").Color(TimberbornTextColor.Solid));
+                }
+
+                totalEntry = this
+                    .AddChild<TodoListPanelItemBuildingTotal>()
+                    .Init(buildings, goodItemFactory, scienceService);
             }
         }
+
     }
 
-    static string GetTitle(ToDoListEntry entry)
+    static string GetTitle(TodoListEntry entry)
     {
-        return (entry.Title +
-            (entry.BuildingQuantity > 1 ? $" (x{entry.BuildingQuantity})" : ""))
+        return entry.Title
             .Bold()
             .Strikethrough(entry.Completed);
     }
@@ -73,18 +98,40 @@ public class TodoListPanelItem : VisualElement
             lblTimer.text = Entry.Timer.Value.ToString("0.00");
         }
 
-        if (lblScience is not null)
+        totalEntry?.UpdateData();
+
+        if (buildingCostBoxes is not null)
         {
-            if (Entry.BuildingTool?.Locker is null)
+            UpdateBuildingSciences();
+        }
+    }
+
+    void UpdateBuildingSciences()
+    {
+        var hasScience = false;
+        var science = scienceService.SciencePoints;
+
+        foreach (var box in buildingCostBoxes!)
+        {
+            if (!box.HasScience) { continue; }
+
+            var building = box.Building!.Value;
+            var isLocked = building.Entry.IsLocked();
+
+            if (isLocked)
             {
-                sciencePanel!.RemoveSelf();
-                sciencePanel = null;
-                lblScience = null;
+                box.SetScience(science, null);
+                hasScience = true;
             }
             else
             {
-                lblScience.text = scienceService.SciencePoints.ToString("#,0");
+                box.SetScience(null, null);
             }
+        }
+
+        if (!hasScience)
+        {
+            buildingCostBoxes = null;
         }
     }
 

@@ -16,9 +16,3 @@ public interface IInplaceExecutionOmnibarItem : IOmnibarItem
     void Execute(OmnibarBox box);
 
 }
-
-public interface IOmnibarItemWithTodoList : IOmnibarItem
-{
-    public bool CanAddToTodoList { get; }
-    void AddToTodoList();
-}

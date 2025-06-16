@@ -1,0 +1,33 @@
+﻿A productivity-focused UI mod to speed up your Timberborn gameplay!
+
+[h1]Omnibar[/h1]
+
+You can open it with a rebindable hotkey (default Enter and Ctrl + Q). Note that it only works while the Cursor Tool is active.
+
+- Search for buildings, tools and recipes by simply typing their name. Fuzzy search is supported so you can type "flo" for "[b]Flo[/b]odgate" or "Sun[b]flo[/b]wer". You can also press F5 or Shift + F5 (rebindable) to add buildings to the Todo list.
+- Search beavers, bots, buildings, or anything by name with /find. Fully compatible with my [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3480668755]More Naming[/url] mod.
+- Jump to panels with /manage (like /manage Housing or /manage Power). This is the only command that can work without typing /manage first. You can search for "Housing" for example.
+- Do quick math with = (e.g. [i]=2^8[/i] or [i]=sin(pi/2)[/i]). Achieved thanks to [url=https://github.com/MathosProject/Mathos-Parser]Mathos-Parser[/url].
+- Add a Todo list item with [b]/todo[/b] or optionally [b]/todo +timer title[/b].
+
+Note:
+- Known issue: while the hotkeys are rebindable and take effect immediately, the UI may show the old hotkey due to caching to improve performance. You can reload the save to see the new hotkey in the UI.
+
+[h1]Todo List[/h1]
+
+- Add items like “Build 5 Floodgates” directly from the building menu.
+- You can add multiple buildings to a single Todo item and set a quantity for each building using the Omnibar search.
+- Track progress, pin, complete, or set timers for tasks.
+
+You can open the Todo List with a rebindable hotkey (default O).
+
+If you have suggestions or bug reports, feel free to leave a comment or message me on Discord.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v7.1.0:
+- Also added a Hotkey for opening the Todo List management box (default O).
+- A Todo List entry can now have multiple buildings. Use the new hotkey (default Shift F5) to append to an existing entry.
+- All hotkeys are now reboundable (see UI issue note above).
+- Some UI refinement.

@@ -1,4 +1,5 @@
-﻿namespace Omnibar.Services.Omnibar.Providers;
+﻿
+namespace Omnibar.Services.Omnibar.Providers;
 
 public class OmnibarToolItem : IOmnibarItemWithTodoList
 {
@@ -13,6 +14,8 @@ public class OmnibarToolItem : IOmnibarItemWithTodoList
     public string? BuildingDisplayName { get; }
 
     public bool CanAddToTodoList { get; }
+    public IEnumerable<string> HotkeyPrompts { get; private set; } = [];
+
     readonly IContainer container;
 
     public OmnibarToolItem(
@@ -52,10 +55,10 @@ public class OmnibarToolItem : IOmnibarItemWithTodoList
         ToolButton.Select();
     }
 
-    public void AddToTodoList()
+    public void AddToTodoList(bool append)
     {
         var ctrl = container.GetInstance<TodoListController>();
-        ctrl.AddBuilding(BuildingName!, BuildingDisplayName!);
+        ctrl.AddBuildingAsync(BuildingName!, BuildingDisplayName!, append);
     }
 
     public bool SetIcon(Image image)
@@ -89,8 +92,8 @@ public class OmnibarToolItem : IOmnibarItemWithTodoList
                 goto default;
             case BlockObjectTool bot:
                 title = bot.Prefab.GetComponentFast<LabeledEntitySpec>().DisplayNameLocKey.T(t);
-                buildingSpec = CanAddToToDoList(bot);
-                desc = new BuildingToolDescriptor(bot, container, t, buildingSpec);
+                buildingSpec = GetCanAddToTodoList(bot);
+                desc = new BuildingToolDescriptor(bot, container);
                 break;
             default:
                 if (tool.DevModeTool)
@@ -115,7 +118,7 @@ public class OmnibarToolItem : IOmnibarItemWithTodoList
         return (title, desc, buildingSpec);
     }
 
-    static BuildingSpec? CanAddToToDoList(BlockObjectTool bot)
+    static BuildingSpec? GetCanAddToTodoList(BlockObjectTool bot)
     {
         var buildingSpec = bot.Prefab.GetComponentFast<BuildingSpec>();
         return buildingSpec && (buildingSpec.ScienceCost > 0 || buildingSpec.BuildingCost.Count > 0) ? buildingSpec : null;

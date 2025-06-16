@@ -12,6 +12,8 @@ public class ModCommonConfig : Configurator
         Bind<WaterMapResizeService>().AsSingleton();
         Bind<BlockObjectResizeValidationService>().AsSingleton();
         Bind<PlantingMapResizer>().AsSingleton();
+
+        Bind<FreeCameraService>().AsSingleton();
     }
 }
 

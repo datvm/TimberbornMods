@@ -5,11 +5,11 @@ public class OmnibarBoxListView : ListView
     const int ItemHeight = 70;
 
     readonly List<OmnibarListItem> listItems = [];
-    List<OmnibarFilteredItem>? items;
+    List<OmnibarBoxItem>? items;
 
     public Texture2D QuestionTexture { get; set; } = null!;
 
-    public OmnibarFilteredItem? SelectingItem => items is null || selectedIndex == -1
+    public OmnibarBoxItem? SelectingItem => items is null || selectedIndex == -1 || selectedIndex >= items.Count
         ? null
         : items[selectedIndex];
 
@@ -20,7 +20,8 @@ public class OmnibarBoxListView : ListView
             .SetFlexGrow(1)
             .AddClasses(UiCssClasses.ScrollGreenDecorated, "panel-list-view", "text--default");
 
-        fixedItemHeight = ItemHeight;
+        //fixedItemHeight = ItemHeight;
+        virtualizationMethod = CollectionVirtualizationMethod.DynamicHeight;
 
         makeItem = MakeListItem;
         bindItem = BindListItem;
@@ -42,7 +43,7 @@ public class OmnibarBoxListView : ListView
         return result;
     }
 
-    public void SetItems(List<OmnibarFilteredItem>? items)
+    public void SetItems(List<OmnibarBoxItem>? items)
     {
         items ??= [];
         itemsSource = this.items = items;

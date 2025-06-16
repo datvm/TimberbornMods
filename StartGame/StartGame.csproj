@@ -16,9 +16,9 @@
 	<ItemGroup>
 		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
 		
-		<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />
+		<!--<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />-->
 		
-		<!--<ProjectReference Include="..\ModdableWeather\ModdableWeather.csproj" />-->
+		<ProjectReference Include="..\Omnibar\Omnibar.csproj" />
 	</ItemGroup>
 
 </Project>

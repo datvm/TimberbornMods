@@ -1,12 +1,14 @@
-﻿namespace Omnibar.UI.TodoList;
+﻿using UnityEngine.Assertions.Must;
+
+namespace Omnibar.UI.TodoList;
 
 public class TodoListDialog : DialogBoxElement
 {
 
-    ToDoListDialogListView lstItems = null!;
-    ToDoListEntryEditor editor = null!;
+    TodoListDialogListView lstItems = null!;
+    TodoListEntryEditor editor = null!;
 
-    readonly ToDoListManager man;
+    readonly TodoListManager man;
     readonly ILoc t;
     readonly DialogBoxShower diagShower;
     readonly VisualElementLoader veLoader;
@@ -17,7 +19,7 @@ public class TodoListDialog : DialogBoxElement
     public TodoListDialog(
         ILoc t,
         VisualElementInitializer veInit,
-        ToDoListManager man,
+        TodoListManager man,
         DialogBoxShower diagShower,
         VisualElementLoader veLoader,
         IContainer container
@@ -66,7 +68,7 @@ public class TodoListDialog : DialogBoxElement
     {
         var row = parent.AddRow().SetFlexGrow();
 
-        lstItems = row.AddChild<ToDoListDialogListView>()
+        lstItems = row.AddChild<TodoListDialogListView>()
             .Init(man, veLoader)
             .SetFlexGrow(0)
             .SetFlexShrink(0);
@@ -74,29 +76,36 @@ public class TodoListDialog : DialogBoxElement
 
         lstItems.OnEntrySelected += OnEntrySelected;
 
-        editor = container.GetInstance<ToDoListEntryEditor>()
+        editor = container.GetInstance<TodoListEntryEditor>()
             .SetFlexGrow(1);
         row.Add(editor);
 
         return row;
     }
 
-    private void OnEntrySelected(ToDoListEntry? obj)
+    private void OnEntrySelected(TodoListEntry? obj)
     {
         editor.SetEntry(obj);
     }
 
     public void AddNewItem() => AddNewItem(null);
-    public void AddNewItem(string? building = null, string? title = null, bool timer = false)
+    public void AddNewItem(string? building, string? title = null, bool timer = false)
     {
         var entry = man.Add(new()
         {
             Title = string.IsNullOrWhiteSpace(title) ? "LV.OB.NewEntryTitle".T(t) : title!,
             Pin = true,
-            Building = building,
-            BuildingQuantity = 1,
+            Buildings = building is null ? [] : [new(building, 1)],
             Timer = timer ? 0 : null,
         });
+
+        lstItems.SelectItem(entry.Id);
+    }
+
+    public void AppendNewItem(TodoListEntry entry, string building)
+    {
+        entry.Buildings.Add(new(building, 1));
+        man.OnEntryChanged(entry);
 
         lstItems.SelectItem(entry.Id);
     }

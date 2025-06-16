@@ -8,12 +8,13 @@ public class OmnibarListItem : NineSliceVisualElement
     readonly Label lblTitle;
 
     readonly VisualElement descriptionPanel;
+    readonly VisualElement hotkeysPanel;
     readonly Texture2D question;
 
     public int Index { get; private set; }
     public bool IsSelected { get; private set; }
 
-    public OmnibarFilteredItem? FilteredItem { get; private set; }
+    public OmnibarBoxItem? OmnibarItem { get; private set; }
 
     public OmnibarListItem(Texture2D question)
     {
@@ -35,13 +36,14 @@ public class OmnibarListItem : NineSliceVisualElement
 
         lblTitle = container.AddGameLabel();
         descriptionPanel = container.AddRow().AlignItems().SetDisplay(false);
+        hotkeysPanel = container.AddRow().AlignItems().SetDisplay(false).SetMargin(top: 5);
     }
 
-    public void SetItem(int index, in OmnibarFilteredItem filteredItem, int selectingIndex)
+    public void SetItem(int index, in OmnibarBoxItem omnibarItem, int selectingIndex)
     {
         Index = index;
-        FilteredItem = filteredItem;
-        var item = filteredItem.Item;
+        OmnibarItem = omnibarItem;
+        var item = omnibarItem.Item;
 
         SetItemTitle();
 
@@ -53,15 +55,35 @@ public class OmnibarListItem : NineSliceVisualElement
             icon.image = question;
         }
 
+        if (omnibarItem.HotkeyActions.Count > 0)
+        {
+            SetHotkeys(omnibarItem.HotkeyActions);
+        }
+
         SetSelectedIndex(selectingIndex);
+    }
+
+    void SetHotkeys(IReadOnlyList<IOmnibarHotkeyAction> hotkeyActions)
+    {
+        foreach (var hotkey in hotkeyActions.SelectMany(q => q.HotkeyPrompts))
+        {
+            hotkeysPanel.AddGameLabel(hotkey).SetMarginRight();
+        }
+        hotkeysPanel.SetDisplay(true);
     }
 
     public void UnsetItem()
     {
         Index = -1;
+        
         descriptionPanel.Clear();
+        descriptionPanel.SetDisplay(false);
+
+        hotkeysPanel.Clear();
+        hotkeysPanel.SetDisplay(false);
+
         icon.image = question;
-        FilteredItem = null;
+        OmnibarItem = null;
         IsSelected = false;
         SetSelectionUi(false);
     }
@@ -83,8 +105,8 @@ public class OmnibarListItem : NineSliceVisualElement
 
     void SetItemTitle()
     {
-        StringBuilder title = new(FilteredItem!.Value.Item.Title);
-        var chars = FilteredItem.Value.Match.Positions;
+        StringBuilder title = new(OmnibarItem!.Value.Item.Title);
+        var chars = OmnibarItem.Value.Match.Positions;
 
         for (int i = chars.Length - 1; i >= 0; i--)
         {

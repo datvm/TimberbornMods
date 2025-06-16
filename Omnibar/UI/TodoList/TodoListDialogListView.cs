@@ -1,20 +1,20 @@
 ﻿namespace Omnibar.UI.TodoList;
 
-public class ToDoListDialogListView : ListView
+public class TodoListDialogListView : ListView
 {
     const int ItemHeight = 32;
 
-    ToDoListManager man = null!;
+    TodoListManager man = null!;
     VisualElementLoader loader = null!;
 
-    public List<ToDoListEntry> Entries { get; private set; } = [];
-    readonly List<ToDoListDialogListViewItem> items = [];
+    public List<TodoListEntry> Entries { get; private set; } = [];
+    readonly List<TodoListDialogListViewItem> items = [];
 
-    public event Action<ToDoListEntry?> OnEntrySelected = null!;
+    public event Action<TodoListEntry?> OnEntrySelected = null!;
 
-    public ToDoListEntry? SelectedEntry => selectedItem as ToDoListEntry;
+    public TodoListEntry? SelectedEntry => selectedItem as TodoListEntry;
 
-    public ToDoListDialogListView()
+    public TodoListDialogListView()
     {
         fixedItemHeight = ItemHeight;
 
@@ -27,11 +27,11 @@ public class ToDoListDialogListView : ListView
 
     private void OnItemSelected(IEnumerable<object> obj)
     {
-        var entry = obj.FirstOrDefault() as ToDoListEntry;
+        var entry = obj.FirstOrDefault() as TodoListEntry;
         OnEntrySelected(entry);
     }
 
-    public ToDoListDialogListView Init(ToDoListManager man, VisualElementLoader loader)
+    public TodoListDialogListView Init(TodoListManager man, VisualElementLoader loader)
     {
         this.man = man;
         this.loader = loader;
@@ -42,7 +42,7 @@ public class ToDoListDialogListView : ListView
         return this;
     }
 
-    private void ReloadTodoEntry(ToDoListEntry obj)
+    private void ReloadTodoEntry(TodoListEntry obj)
     {
         foreach (var item in items)
         {
@@ -53,7 +53,7 @@ public class ToDoListDialogListView : ListView
         }
     }
 
-    public void ReloadTodoList(List<ToDoListEntry>? entries = null)
+    public void ReloadTodoList(List<TodoListEntry>? entries = null)
     {
         var currId = SelectedEntry?.Id;
 
@@ -79,31 +79,31 @@ public class ToDoListDialogListView : ListView
 
     VisualElement MakeItem()
     {
-        ToDoListDialogListViewItem result = new(loader);
+        TodoListDialogListViewItem result = new(loader);
         items.Add(result);
         return result.Root;
     }
 
     void BindItem(VisualElement ve, int index)
     {
-        ((ToDoListDialogListViewItem)ve.dataSource).SetItem(Entries[index]);
+        ((TodoListDialogListViewItem)ve.dataSource).SetItem(Entries[index]);
     }
 
     static void UnbindItem(VisualElement ve, int index)
     {
-        ((ToDoListDialogListViewItem)ve.dataSource).UnsetItem();
+        ((TodoListDialogListViewItem)ve.dataSource).UnsetItem();
     }
 
 }
 
-public class ToDoListDialogListViewItem
+public class TodoListDialogListViewItem
 {
-    public ToDoListEntry? Entry { get; private set; }
+    public TodoListEntry? Entry { get; private set; }
 
     public VisualElement Root { get; private set; }
 
     readonly Label lblTitle;
-    public ToDoListDialogListViewItem(VisualElementLoader loader)
+    public TodoListDialogListViewItem(VisualElementLoader loader)
     {
         Root = loader.LoadVisualElement("Options/ListViewItem");
         Root.dataSource = this;
@@ -114,7 +114,7 @@ public class ToDoListDialogListViewItem
         lblTitle.style.whiteSpace = WhiteSpace.NoWrap;
     }
 
-    public void SetItem(ToDoListEntry entry)
+    public void SetItem(TodoListEntry entry)
     {
         Entry = entry;
         ShowItemContent();
