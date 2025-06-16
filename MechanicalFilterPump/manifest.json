@@ -1,10 +1,11 @@
 {
     "Name": "Mechanical Filter Pump",
-    "Version": "7.0.1",
+    "Version": "7.0.2",
     "Id": "MechanicalFilterPump",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Purify badwater with mechanical pump",
     "RequiredMods": [
-        { "Id": "Harmony" }
+        { "Id": "Harmony" },
+        { "Id": "TimberUi" }
     ]
 }
