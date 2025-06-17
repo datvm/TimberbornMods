@@ -26,15 +26,15 @@ public class CharacterBuffComponent : BaseComponent
 
     WalkerSpeedManager? TryGetWalker()
     {
-        if (walker == null)
+        if (this && !walker)
         {
             try
             {
                 walker = GetComponentFast<WalkerSpeedManager>();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Debug.LogError(ex);
+                Debug.LogError($"Could not get {nameof(WalkerSpeedManager)} for Wheelbarrows");
             }
         }
         return walker;

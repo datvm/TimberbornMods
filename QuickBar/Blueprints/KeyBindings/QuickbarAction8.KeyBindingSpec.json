@@ -1,0 +1,13 @@
+{
+    "KeyBindingSpec": {
+        "Id": "QuickbarAction8",
+        "GroupId": "Quickbar",
+        "LocKey": "LV.QkB.QuickbarAction8",
+        "Order": 8,
+        "AllowOtherModifiers": true
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/numpad8",
+        "InputModifiers": "None"
+    }
+}

@@ -32,6 +32,7 @@ If you need to contact me about this mod, please use the comment section below o
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods/tree/master/ScientificProjects
 
+v7.3.1: Removed excessive log printing when Wheelbarrows upgrade (rarely) fails.
 v7.3.0: Removed Emergencies projects (moved to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3498474788]Weather Projects[/url]).
 v7.2.1: Should work with April 10 update now.
 v7.2.0: Greedy Builders can now use the faction-specific projects.

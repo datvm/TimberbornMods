@@ -1,0 +1,7 @@
+{
+    "KeyBindingGroupSpec": {
+        "Id": "Quickbar",
+        "Order": 100,
+        "LocKey": "LV.QkB.QuickbarHotkeyGroup"
+    }
+}
