@@ -1,6 +1,4 @@
-﻿global using Timberborn.PrefabGroupSystem;
-
-namespace ModdableBindito.Wrappers;
+﻿namespace ModdableBindito.Wrappers;
 
 public class PrefabGroupServiceWrapper(
     ISpecService specService,
