@@ -1,0 +1,13 @@
+{
+    "KeyBindingSpec": {
+        "Id": "QuickbarAction5",
+        "GroupId": "Quickbar",
+        "LocKey": "LV.QkB.QuickbarAction5",
+        "Order": 5,
+        "AllowOtherModifiers": true
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/numpad5",
+        "InputModifiers": "None"
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "Name": "Quick Bar",
+    "Version": "7.0.0",
+    "Id": "QuickBar",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Add a Quick Bar to Timberborn",
+    "RequiredMods": [
+        {
+            "Id": "TimberUi",
+            "MinimumVersion": "7.3.0"
+        },
+        {
+            "Id": "Omnibar",
+            "MinimumVersion": "7.1.0"
+        }
+    ]
+}

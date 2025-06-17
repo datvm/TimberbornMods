@@ -205,6 +205,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gate", "Gate\Gate.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableShantySpeaker", "ConfigurableShantySpeaker\ConfigurableShantySpeaker.csproj", "{3BA0A5F8-9C1D-46F1-BE03-DE37BE0E0984}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickBar", "QuickBar\QuickBar.csproj", "{0ECC3C8C-E128-44F0-827B-ACB1C4F80C93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -543,6 +545,10 @@ Global
 		{3BA0A5F8-9C1D-46F1-BE03-DE37BE0E0984}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BA0A5F8-9C1D-46F1-BE03-DE37BE0E0984}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BA0A5F8-9C1D-46F1-BE03-DE37BE0E0984}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ECC3C8C-E128-44F0-827B-ACB1C4F80C93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ECC3C8C-E128-44F0-827B-ACB1C4F80C93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ECC3C8C-E128-44F0-827B-ACB1C4F80C93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ECC3C8C-E128-44F0-827B-ACB1C4F80C93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -601,6 +607,7 @@ Global
 		{A11D2B46-2B49-4335-A19E-977EE1AE8A9E} = {4C24DB61-A115-4B00-BDBF-E8CD4EA9FDF2}
 		{8F8B4A66-31EC-4EBB-9211-2FD140332AEE} = {BDCE3A0F-E546-41C0-A8E4-FE8A78BD85B6}
 		{3BA0A5F8-9C1D-46F1-BE03-DE37BE0E0984} = {4C24DB61-A115-4B00-BDBF-E8CD4EA9FDF2}
+		{0ECC3C8C-E128-44F0-827B-ACB1C4F80C93} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}
