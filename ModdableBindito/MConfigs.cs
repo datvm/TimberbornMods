@@ -11,7 +11,7 @@ public class ModdableBlueprintConfigurator : Configurator
     public override void Configure()
     {
         this.Remove<ISpecService>();
-        Bind<ISpecService>().To<SpecServiceWrapper>().AsSingleton();
+        Bind<ISpecService>().To<ModdableSpecService>().AsSingleton();
 
 #if REGISTER_TEST
         this.MultiBindAndBindSingleton<ISpecServiceFrontRunner, TestSpecFrontRunner>();
@@ -28,9 +28,5 @@ public class ModdablePrefabGroupSystemConfigurator : Configurator
     {
         this.Remove<PrefabGroupService>();
         Bind<PrefabGroupService>().To<PrefabGroupServiceWrapper>().AsSingleton();
-
-#if REGISTER_TEST
-        this.MultiBindAndBindSingleton<ISpecServiceFrontRunner, TestSpecFrontRunner>();
-#endif
     }
 }

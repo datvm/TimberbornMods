@@ -18,7 +18,9 @@
 		
 		<!--<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />-->
 		
-		<ProjectReference Include="..\QuickBar\QuickBar.csproj" />
+		<ProjectReference Include="..\ModdableBindito\ModdableBindito.csproj" />
+
+		<!--<ProjectReference Include="..\QuickBar\QuickBar.csproj" />-->
 	</ItemGroup>
 
 </Project>
