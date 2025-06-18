@@ -4,12 +4,15 @@ public class BeaverManagementFragment(ILoc t, BeaverAssignmentTool tool, InputSe
 {
     public const string AlternateClickableActionKey = "AlternateClickableAction";
 
-    EntityPanelFragmentElement panel = null!;
     Citizen? citizen;
 
-    Button btnAssignHousing = null!;
-    Button btnAssignWorkplace = null!;
-    Label lblStatus = null!;
+#nullable disable
+    EntityPanelFragmentElement panel;
+
+    Button btnAssignHousing;
+    Button btnAssignWorkplace;
+    Label lblStatus;
+#nullable enable
 
     bool isAlternative;
 
@@ -18,17 +21,25 @@ public class BeaverManagementFragment(ILoc t, BeaverAssignmentTool tool, InputSe
         panel = new()
         {
             Background = EntityPanelFragmentBackground.Blue,
+            Visible = false,
         };
 
-        btnAssignHousing = panel.AddGameButton(t.T("LV.MM.AssignHouse"), () => Assign(CitizenAssignmentType.Dwelling), stretched: true);
-        btnAssignWorkplace = panel.AddGameButton(t.T("LV.MM.AssignWorkplace"), () => Assign(CitizenAssignmentType.Workplace), stretched: true);
-        panel.AddGameButton(t.T("LV.MM.AssignDistrict"), () => Assign(CitizenAssignmentType.District), stretched: true);
+        btnAssignHousing = AddGameButton("LV.MM.AssignHouse", CitizenAssignmentType.Dwelling);
+        btnAssignWorkplace = AddGameButton("LV.MM.AssignWorkplace", CitizenAssignmentType.Workplace);
+        AddGameButton("LV.MM.AssignDistrict", CitizenAssignmentType.District);
 
         lblStatus = panel.AddGameLabel("", "Status")
             .SetMargin(top: 10);
 
-
         return panel;
+
+        Button AddGameButton(string locKey, CitizenAssignmentType type) 
+        {
+            return panel.AddGameButton(t.T(locKey), onClick: () => Assign(type))
+                .SetFlexGrow(1)
+                .SetPadding(paddingY: 5)
+                .SetMarginBottom(5);
+        }
     }
 
     public void ClearFragment()
