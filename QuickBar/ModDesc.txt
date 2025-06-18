@@ -1,0 +1,15 @@
+Add a useful Quick Bar to your game with this expansion mod for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3481116192]Omni Bar & Todo List[/url]!
+
+20 slots are available with customizable hotkeys. The default hotkeys are Numpad 0 to 9, you can edit or add more in Settings -> Keybindings. Please note not to use Shift in the hotkey because the mod uses Shift + Hotkey for assigning items to the hotbar.
+
+You can assign these items to the Quick Bar using [b]Shift + Hotkey[/b]:
+- Tools from the Omnibar search.
+- Any named entity (buildings, beavers, plants etc) that can be searched with "/find" command.
+- Select any entity in the world and use [b]Shift + Hotkey[/b] to assign it to the Quick Bar without Omnibar.
+
+You can also collapse the Quick Bar to save space. You can still use the hotkeys. The mod also let you change between two locations (horizontal or vertical).
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+If you need any support or feedback, feel free to contact me on Timberborn's official Discord ( https://discord.gg/6VZfcKGM2Z, on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] channel), or @theapologist316

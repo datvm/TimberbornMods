@@ -33,7 +33,7 @@ public class OmnibarFindEntityProvider(
             if (!match.HasValue) { continue; }
 
             result.Add(new(
-                new OmnibarEntityNameItem(badge!, name!, entitySelectionService, Icon),
+                new OmnibarEntityNameItem(entity, badge!, name!, entitySelectionService, Icon),
                 match.Value));
         }
 
@@ -43,6 +43,7 @@ public class OmnibarFindEntityProvider(
 }
 
 public class OmnibarEntityNameItem(
+    EntityComponent entity,
     IEntityBadge badge,
     string name,
     EntitySelectionService entitySelectionService,
@@ -51,10 +52,14 @@ public class OmnibarEntityNameItem(
 {
     public string Title { get; } = name;
     public IOmnibarDescriptor? Description { get; } = GetDescription(badge);
+    public EntityComponent Entity { get; } = entity;
 
     public void Execute()
     {
-        entitySelectionService.SelectAndFocusOn((BaseComponent)badge);
+        if (Entity)
+        {
+            entitySelectionService.SelectAndFocusOn(Entity);
+        }
     }
 
     public bool SetIcon(Image image)

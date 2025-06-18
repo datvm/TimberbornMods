@@ -5,14 +5,15 @@ public class OmnibarQuickbarProvider(
     ILoc t,
     KeyBindingRegistry registry,
     InputBindingDescriber inputBindingDescriber,
-    QuickBarService service
+    QuickBarService service,
+    QuickBarHotkeyService hotkeys
 ) : DefaultHotkeyProvider(t, registry, inputBindingDescriber)
 {
     readonly ILoc t = t;
 
-    public ImmutableArray<KeyBinding> AllKeybindings => service.AllKeybindings;
+    public ImmutableArray<KeyBinding> AllKeybindings => hotkeys.AllKeybindings;
 
-    protected override IEnumerable<OmnibarActionKeybindingSpec> KeybindingIds { get; } = QuickBarService.AllHotkeyIds
+    protected override IEnumerable<OmnibarActionKeybindingSpec> KeybindingIds { get; } = QuickBarHotkeyService.AllHotkeyIds
         .Select(q => new OmnibarActionKeybindingSpec(q, "Core.OK"));
 
     public override void Load()
@@ -51,8 +52,6 @@ public class OmnibarQuickbarAction(
             
             if (kb.IsPressed(modifiers, out _))
             {
-                Debug.Log($"Adding item {item} to quickbar slot {i + 1}.");
-
                 provider.AddToQuickBar(i, item);
                 return true;
             }

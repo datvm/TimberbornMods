@@ -2,34 +2,25 @@
 
 public class QuickBarService(
     ISingletonLoader loader,
-    KeyBindingRegistry keyBindingRegistry,
     QuickBarPersistentService persistent,
     IEnumerable<IQuickBarItemProvider> providers,
-    InputBindingDescriber inputBindingDescriber,
-    InputService inputService
-) : ILoadableSingleton, ISaveableSingleton, IInputProcessor, IUnloadableSingleton
+    EventBus eb
+) : ILoadableSingleton, ISaveableSingleton, IPostLoadableSingleton
 {
-
     static readonly ListKey<string> ItemsKey = new("Items");
 
-    // Hotkeys
-    public static readonly ImmutableArray<string> AllHotkeyIds = [..
-        Enumerable.Range(1, QuickBarModUtils.TotalQuickbarSlots)
-        .Select(i => string.Format(QuickBarModUtils.QuickbarHotKeyId, i))];
-    
-    public ImmutableArray<KeyBinding> AllKeybindings { get; private set; } = [];
-
-    // Items
     readonly IQuickBarItem?[] items = new IQuickBarItem[QuickBarModUtils.TotalQuickbarSlots];
     public IReadOnlyList<IQuickBarItem?> Items => items;
     public event Action<int, IQuickBarItem?>? ItemChanged;
 
     public void Load()
     {
-        LoadSavedData();
-        AllKeybindings = [.. AllHotkeyIds.Select(q => keyBindingRegistry.Get(q))];
+        eb.Register(this);
+    }
 
-        inputService.AddInputProcessor(this);
+    public void PostLoad()
+    {
+        LoadSavedData();
     }
 
     void LoadSavedData()
@@ -74,32 +65,22 @@ public class QuickBarService(
         return false;
     }
 
-    public string? GetShortcutText(int slotId)
+    public void RevalidateItems()
     {
-        var binding = AllKeybindings[slotId];
-        var main = binding.PrimaryInputBinding ?? binding.SecondaryInputBinding;
-
-        return main is null ? null : inputBindingDescriber.GetInputBindingText(main);
-    }
-
-    public bool ProcessInput()
-    {
-        for (int i = 0; i < AllHotkeyIds.Length; i++)
+        for (int i = 0; i < items.Length; i++)
         {
-            if (inputService.IsKeyDown(AllHotkeyIds[i]))
+            var item = items[i];
+            if(item is not null && !item.IsStillValid())
             {
-                var item = Items[i];
-                item?.Activate();
-
-                return true;
+                Set(i, null);
             }
         }
-
-        return false;
     }
 
-    public void Unload()
+    [OnEvent]
+    public void OnEntityDeleted(EntityDeletedEvent _)
     {
-        inputService.RemoveInputProcessor(this);
+        RevalidateItems();
     }
+
 }
