@@ -5,6 +5,7 @@ namespace MicroManagement.UI;
 public class BeaverAssignmentTool(InputService input, Highlighter highlighter, SelectableObjectRaycaster selectableObjectRaycaster) : IInputProcessor
 {
     static readonly Color PickColor = Color.green;
+    static readonly Color WarningColor = Color.orange;
 
     PickingAssignment? picking;
 
@@ -56,7 +57,8 @@ public class BeaverAssignmentTool(InputService input, Highlighter highlighter, S
         var obj = TryGetSelectableObject();
         if (!obj) { return false; }
 
-        highlighter.HighlightPrimary(obj, PickColor);
+        var warning = ShouldWarn(obj);
+        highlighter.HighlightPrimary(obj, warning ? WarningColor : PickColor);
         if (input.MainMouseButtonUp)
         {
             ProcessPick(obj);
@@ -65,6 +67,13 @@ public class BeaverAssignmentTool(InputService input, Highlighter highlighter, S
 
         return false;
     }
+
+    bool ShouldWarn(BaseComponent component) => component switch
+    {
+        Dwelling d => !d.HasFreeSlots,
+        Workplace w => w.AssignedWorkers.Count >= w.DesiredWorkers,
+        _ => false,
+    };
 
     void ProcessPick(BaseComponent obj)
     {
