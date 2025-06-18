@@ -9,12 +9,14 @@ public class ModGameConfig : Configurator
             .MultiBindSingleton<IOmnibarHotkeyProvider, OmnibarQuickbarProvider>()
 
             .BindSingleton<QuickBarPersistentService>()
+            .BindSingleton<QuickBarHotkeyService>()
             .BindSingleton<QuickBarService>()
 
             .BindSingleton<QuickBarController>()
             .BindSingleton<QuickBarElement>()
 
             .MultiBindSingleton<IQuickBarItemProvider, ToolQuickBarItemProvider>()
+            .MultiBindAndBindSingleton<IQuickBarItemProvider, EntityQuickBarItemProvider>()
         ;
     }
 }

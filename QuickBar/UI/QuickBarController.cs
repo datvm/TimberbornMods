@@ -1,9 +1,9 @@
 ﻿namespace QuickBar.UI;
 
 public class QuickBarController(
-    QuickBarElement display,
+    QuickBarElement quickBarEl,
     ISingletonLoader loader
-) : ILoadableSingleton, ISaveableSingleton
+) : ILoadableSingleton, ISaveableSingleton, IPostLoadableSingleton
 {
     static readonly PropertyKey<bool> VerticalBarKey = new("VerticalBar");
 
@@ -12,9 +12,12 @@ public class QuickBarController(
     public void Load()
     {
         LoadSavedData();
-        display.SwitchLocation(IsVertical);
+        quickBarEl.OnChangeLocationRequested += SwitchLocation;
+    }
 
-        display.OnChangeLocationRequested += SwitchLocation;
+    public void PostLoad()
+    {
+        quickBarEl.SwitchLocation(IsVertical);
     }
 
     void LoadSavedData()
@@ -30,7 +33,7 @@ public class QuickBarController(
     public void SwitchLocation()
     {
         IsVertical = !IsVertical;
-        display.SwitchLocation(IsVertical);
+        quickBarEl.SwitchLocation(IsVertical);
     }
 
     public void Save(ISingletonSaver singletonSaver)
@@ -38,4 +41,5 @@ public class QuickBarController(
         var s = singletonSaver.GetSingleton(QuickBarModUtils.SaveKey);
         if (IsVertical) { s.Set(VerticalBarKey, true); }
     }
+
 }

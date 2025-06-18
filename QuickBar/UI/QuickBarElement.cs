@@ -3,35 +3,37 @@
 public class QuickBarElement(
     IAssetLoader assets,
     QuickBarService service,
+    QuickBarHotkeyService hotkeys,
     UILayout uiLayout,
     VisualElementLoader veLoader,
     VisualElementInitializer veInit
 ) : VisualElement, ILoadableSingleton
 {
-    public const int GroupItemCount = 10;
+    public const int ItemsPerGroup = 10;
 
     bool init;
     bool locationVertical;
+    bool collapsed;
 
 #nullable disable
+    Texture2D bg;
     VisualElement content;
     VisualElement itemContainer;
 
     VisualTreeAsset buttonVisual;
+    Button btnCollapse, btnExpand;
 #nullable enable
 
+    VisualElement? headerButtons;
     QuickBarItemElement[] itemElements = [];
 
-    Button? changeLocation;
     public event Action? OnChangeLocationRequested;
 
     public void Load()
     {
         name = "QuickBar";
 
-        var bg = assets.Load<Texture2D>("UI/Images/BottomBar/bar-bg");
-        style.backgroundImage = bg;
-
+        bg = assets.Load<Texture2D>("UI/Images/BottomBar/bar-bg");
         buttonVisual = veLoader.LoadVisualTreeAsset("Common/BottomBar/GrouplessToolButton");
 
         service.ItemChanged += OnItemChanged;
@@ -43,8 +45,8 @@ public class QuickBarElement(
 
         var element = itemElements[index];
         element.SetItem(
-            item, 
-            service.GetShortcutText(index),
+            item,
+            hotkeys.GetShortcutText(index),
             buttonVisual.Instantiate().Initialize(veInit));
     }
 
@@ -54,17 +56,29 @@ public class QuickBarElement(
         locationVertical = vertical;
         init = true;
 
-        Debug.Log($"QuickBar location changed to {(vertical ? "vertical" : "horizontal")}.");
-
         ReloadUI();
+        AttachSelf(vertical);
+    }
+
+    void AttachSelf(bool vertical)
+    {
+        var s = style;
+        s.left = 0;
+        s.top = 0;
 
         if (vertical)
         {
+            s.position = Position.Relative;
             uiLayout._bottomRight.Add(this);
         }
         else
         {
-            uiLayout._topBar.Add(this);
+            s.position = Position.Absolute;
+            s.width = new Length(100, LengthUnit.Percent);
+            s.justifyContent = Justify.Center;
+            s.alignItems = Align.Center;
+
+            uiLayout._panelStack._root.Add(this);
         }
     }
 
@@ -73,25 +87,25 @@ public class QuickBarElement(
         Clear();
 
         content = this.AddChild();
-        if (!locationVertical)
-        {
-            content.SetAsRow();
-        }
-
-        content.Add(InitOrGetChangeLocationButton());
+        content.style.backgroundImage = bg;
+        content.Add(InitOrGetHeaderButtons());
 
         AddItems();
 
         this.Initialize(veInit);
+        ToggleCollapse(collapsed);
     }
 
     void AddItems()
     {
-        itemContainer = content.AddChild();
+        itemContainer = content.AddChild(name: "QuickBarItems");
+        itemContainer.style.flexDirection = locationVertical
+            ? FlexDirection.RowReverse
+            : FlexDirection.Column;
+        itemContainer.style.flexWrap = Wrap.NoWrap;
 
-        var itemsPerRow = CalculateItemPerRow();
-        var currRow = itemContainer.AddRow();
-        var currGrp = 0;
+        VisualElement currGrp = default!;
+        var currGrpCount = ItemsPerGroup;
 
         var items = service.Items;
         var count = items.Count;
@@ -100,43 +114,51 @@ public class QuickBarElement(
         {
             var item = items[i];
 
-            if (currGrp >= itemsPerRow)
+            if (currGrpCount >= ItemsPerGroup)
             {
-                currRow = itemContainer.AddRow();
-                currGrp = 0;
+                currGrp = itemContainer.AddChild(name: "QuickBarItemGroup");
+
+                if (!locationVertical)
+                {
+                    currGrp.SetAsRow();
+                }
+
+                currGrpCount = 0;
             }
 
-            var el = currRow.AddChild<QuickBarItemElement>()
+            var el = currGrp.AddChild<QuickBarItemElement>()
                 .SetItem(
                     item,
-                    service.GetShortcutText(i),
+                    hotkeys.GetShortcutText(i),
                     buttonVisual.Instantiate());
             itemElements[i] = el;
 
-            currGrp++;
+            currGrpCount++;
         }
     }
 
-    int CalculateItemPerRow()
+    VisualElement InitOrGetHeaderButtons()
     {
-        var count = service.Items.Count;
+        if (headerButtons is null)
+        {
+            headerButtons = content.AddRow();
 
-        return locationVertical // Using ceiling division
-            ? (count + GroupItemCount - 1) / GroupItemCount
-            : GroupItemCount;
+            var spacer = headerButtons.AddChild().SetMarginLeftAuto();
+
+            btnExpand = headerButtons.AddGameButton("+", onClick: () => ToggleCollapse(false)).SetPadding(10, 5);
+            btnCollapse = headerButtons.AddGameButton("-", onClick: () => ToggleCollapse(true)).SetPadding(10, 5);
+            headerButtons.AddGameButton("⇋", onClick: () => OnChangeLocationRequested?.Invoke()).SetPadding(10, 5);
+        }
+
+        return headerButtons;
     }
 
-    Button InitOrGetChangeLocationButton()
+    void ToggleCollapse(bool collapsed)
     {
-        if (changeLocation is not null) { return changeLocation; }
-
-        var row = content.AddRow();
-
-        changeLocation = row.AddGameButton("⇋", onClick: () => OnChangeLocationRequested?.Invoke())
-            .SetMarginLeftAuto()
-            .SetPadding(5);
-
-        return changeLocation;
+        this.collapsed = collapsed;
+        itemContainer.SetDisplay(!collapsed);
+        btnCollapse.SetDisplay(!collapsed);
+        btnExpand.SetDisplay(collapsed);
     }
 
 }

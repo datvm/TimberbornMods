@@ -23,6 +23,7 @@ public abstract class ToolQuickBarItem : IQuickBarItem
 
     public abstract ToolButton FindToolButton(IEnumerable<ToolButton> toolButtons, Dictionary<string, string> values);
 
+    public bool IsStillValid() => true;
 }
 
 public abstract class ToolQuickBarItem<T> : ToolQuickBarItem
@@ -63,7 +64,6 @@ public abstract class ToolQuickBarItem<T> : ToolQuickBarItem
 
     public override ToolButton FindToolButton(IEnumerable<ToolButton> toolButtons, Dictionary<string, string> values)
     {
-        Debug.Log(GetType().FullName + ": " + typeof(T).FullName);
         var filterByType = toolButtons.Where(q => q.Tool is T).ToArray();
 
         if (filterByType.Length == 0)
@@ -126,8 +126,6 @@ public class BuilderPriorityToolQuickBarItem : ToolQuickBarItem<BuilderPriorityT
     protected override ToolButton FindSingleTool(IEnumerable<ToolButton> toolButtons, Dictionary<string, string> values)
     {
         var value = values[nameof(Priority)];
-
-        Debug.Log(string.Join(", ", toolButtons.Select(q => q.Tool.GetType().Name)));
 
         var tool = toolButtons.FirstOrDefault(q => ((BuilderPriorityTool)q.Tool)._priority.ToString() == value);
         return tool ?? throw new Exception($"Cannot find BuilderPriorityTool with Priority '{value}'");

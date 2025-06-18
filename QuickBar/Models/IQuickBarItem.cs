@@ -6,4 +6,6 @@ public interface IQuickBarItem
     Sprite? Sprite { get; }
     Texture2D? Texture { get; }
     void Activate();
+
+    bool IsStillValid();
 }
