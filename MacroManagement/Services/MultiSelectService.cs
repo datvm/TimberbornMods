@@ -3,16 +3,21 @@
 public class MultiSelectService(
     EntityRegistry entities,
     Highlighter highlighter,
-    EventBus eb,
     EntitySelectionService entitySelectionService,
     EntityService entityService,
     IInstantiator instantiator,
-    EntityBadgeService entityBadgeService
-) : ILoadableSingleton
+    BaseInstantiator baseInstantiator,
+    EntityBadgeService entityBadgeService,
+    InputService inputService
+) : ILoadableSingleton, IUnloadableSingleton
 {
+    public const string AltKeyId = "AlternateClickableAction";
+
+    public static MultiSelectService? Instance { get; private set; }
+
     public void Load()
     {
-        eb.Register(this);
+        Instance = this;
     }
 
     public void SelectItems(in MacroManagementInfo info, MacroManagementSelectionFlags flags)
@@ -20,17 +25,96 @@ public class MultiSelectService(
         var matching = GetMatchingBuildings(info, flags);
         if (matching.IsDefaultOrEmpty) { return; }
 
-        var mmComp = CreateDummyObject(info, matching);
-        var entity = mmComp.GetComponentFast<EntityComponent>();
-        entitySelectionService.Select(entity);
+        var mm = CreateCollectionFor(info.PrefabSpec, matching);
+        entitySelectionService.Select(mm);
+    }
 
-        // Highlight all
-        foreach (var building in matching)
+    public MMComponent CreateCollectionFor(PrefabSpec originalPrefab, ImmutableArray<PrefabSpec> buildings)
+    {
+        if (originalPrefab.GetComponentFast<MMComponent>())
         {
-            highlighter.HighlightPrimary(building, entitySelectionService._entitySelectionColor);
+            throw new InvalidOperationException("Original prefab cannot be a dummy object");
         }
 
-        mmComp.OnSelectionChanged += OnBuildingSelectionChanged;
+        var mm = CreateDummyObject(originalPrefab, buildings);
+        mm.GetComponentFast<EntityComponent>();
+
+        // Highlight event
+        mm.OnSelectionChanged += OnBuildingSelectionChanged;
+
+        var selectable = mm.GetComponentFast<DummySelectableObject>();
+        selectable.OnSelected += OnDummySelected;
+        selectable.OnUnselected += OnDummyDeselected;
+
+        return mm;
+    }
+
+    private void OnDummyDeselected(DummySelectableObject obj)
+    {
+        highlighter.UnhighlightAllPrimary();
+
+        var mm = obj.MMComponent;
+        if (!mm) { return; }
+
+        mm.IsUnselecting = true;
+        entityService.Delete(mm);
+        UnityEngine.Object.Destroy(mm.GameObjectFast);
+    }
+
+    private void OnDummySelected(DummySelectableObject obj)
+    {
+        foreach (var building in obj.MMComponent.Buildings)
+        {
+            highlighter.HighlightPrimary(building.Prefab, entitySelectionService._entitySelectionColor);
+        }
+    }
+
+    public SelectableObject? TryAddSelection(SelectableObject target)
+    {
+        // Only when holding Shift
+        if (!inputService.IsKeyHeld(AltKeyId)) { return target; }
+
+        // If nothing is selected, just return the target
+        if (!entitySelectionService.IsAnythingSelected) { return target; }
+        var targetPrefab = target.GetComponentFast<PrefabSpec>();
+        if (!targetPrefab) { return target; }
+
+        var currSelection = entitySelectionService.SelectedObject;
+        if (!currSelection) { return target; }
+
+        var currPrefab = currSelection.GetComponentFast<PrefabSpec>();
+        if (!currPrefab) { return target; }
+
+        var mm = currPrefab.GetComponentFast<MMComponent>();
+        Debug.Log(mm);
+
+        foreach (var comp in currPrefab.AllComponents)
+        {
+            Debug.Log(comp);
+        }
+
+        if (mm)
+        {
+            // Check if the building is already selected
+            var selected = mm.Buildings.FirstOrDefault(q => q.Prefab == targetPrefab);
+            if (selected is not null)
+            {
+                selected.ToggleSelect(!selected.Select);
+
+                return null;
+            }
+
+            currPrefab = mm.Original.Prefab;
+        }
+        if (currPrefab.Name != targetPrefab.Name) { return target; }
+
+        var dummy = CreateCollectionFor(
+            currPrefab,
+            [
+                .. mm ? mm.Buildings.Select(q => q.Prefab) : [currPrefab],
+                targetPrefab
+            ]);
+        return dummy.GetComponentFast<SelectableObject>();
     }
 
     private void OnBuildingSelectionChanged(MMBuildingItem building, bool select)
@@ -89,14 +173,12 @@ public class MultiSelectService(
         return [.. result];
     }
 
-    MMComponent CreateDummyObject(MacroManagementInfo info, in ImmutableArray<PrefabSpec> matching)
+    MMComponent CreateDummyObject(PrefabSpec originalPrefab, in ImmutableArray<PrefabSpec> matching)
     {
-        var original = info.PrefabSpec;
+        var marker = InstantiateDummyObject(originalPrefab);
+        marker.Init(matching, originalPrefab, entityBadgeService);
 
-        var marker = InstantiateDummyObject(original);
-        marker.Init(matching, original, entityBadgeService);
-
-        MapDummyComponents(marker, original);
+        MapDummyComponents(marker, originalPrefab);
 
         return marker;
     }
@@ -108,8 +190,7 @@ public class MultiSelectService(
         // All buildings
         CopyLabel(gameObj, original);
         CopyBuildingSpec(gameObj, original);
-        CopySelectable(gameObj, original);
-
+        PerformMap<DummySelectableObject, SelectableObject>();
         PerformMap<DummyDistrictBuilding, DistrictBuilding>();
         PerformAdd<BlockableBuilding>();
         PerformMap<DummyBlockObject, BlockObject>();
@@ -171,7 +252,7 @@ public class MultiSelectService(
 
     TComponent MapEmptyComponent<TComponent>(GameObject gameObj)
         where TComponent : BaseComponent
-        => instantiator.AddComponent<TComponent>(gameObj);
+        => baseInstantiator.AddComponent<TComponent>(gameObj);
 
     TSelf? MapDummyComponent<TSelf, TComponent>(GameObject gameObj, MMComponent marker, PrefabSpec original)
         where TSelf : TComponent, IDummyComponent<TSelf, TComponent>
@@ -180,7 +261,7 @@ public class MultiSelectService(
         var comp = original.GetComponentFast<TComponent>();
         if (!comp) { return null; }
 
-        var dummy = instantiator.AddComponent<TSelf>(gameObj);
+        var dummy = baseInstantiator.AddComponent<TSelf>(gameObj);
         dummy.MMComponent = marker;
         dummy.Init(comp);
 
@@ -191,7 +272,7 @@ public class MultiSelectService(
     {
         var gameObj = instantiator.InstantiateEmpty("DummySelection");
 
-        var dummySpec = instantiator.AddComponent<PrefabSpec>(gameObj);
+        var dummySpec = instantiator.AddComponent<PrefabSpec>(gameObj); // This one use instantiator because it's not initialized yet
         dummySpec._prefabName = original._prefabName;
 
         var entity = entityService.Instantiate(dummySpec);
@@ -203,23 +284,17 @@ public class MultiSelectService(
 
         gameObj = entity.GameObjectFast;
 
-        var marker = instantiator.AddComponent<MMComponent>(gameObj);
+        var marker = baseInstantiator.AddComponent<MMComponent>(gameObj);
         entity._componentCache = marker._componentCache;
 
         return marker;
-    }
-
-    void CopySelectable(GameObject gameObj, PrefabSpec originalPrefab)
-    {
-        var selectable = instantiator.AddComponent<SelectableObject>(gameObj);
-        selectable._cameraTarget = new DummyCameraTarget(originalPrefab.GetComponentFast<ICameraTarget>().CameraTargetPosition);
     }
 
     void CopyLabel(GameObject gameObj, PrefabSpec originalPrefab)
     {
         {
             var originalSpec = originalPrefab.GetComponentFast<LabeledEntitySpec>();
-            var spec = instantiator.AddComponent<LabeledEntitySpec>(gameObj);
+            var spec = baseInstantiator.AddComponent<LabeledEntitySpec>(gameObj);
 
             spec._displayNameLocKey = originalSpec._displayNameLocKey;
             spec._descriptionLocKey = originalSpec._descriptionLocKey;
@@ -229,14 +304,14 @@ public class MultiSelectService(
 
         {
             var originalSpec = originalPrefab.GetComponentFast<LabeledEntity>();
-            var label = instantiator.AddComponent<LabeledEntity>(gameObj);
+            var label = baseInstantiator.AddComponent<LabeledEntity>(gameObj);
 
             label._displayName = originalSpec._displayName;
             label._image = originalSpec._image;
         }
 
         {
-            var badge = instantiator.AddComponent<DummyEntityBadge>(gameObj);
+            var badge = baseInstantiator.AddComponent<DummyEntityBadge>(gameObj);
             badge.Init(originalPrefab, entityBadgeService);
         }
     }
@@ -246,7 +321,7 @@ public class MultiSelectService(
         var original = originalPrefab.GetComponentFast<BuildingSpec>();
         if (!original) { return; }
 
-        var spec = instantiator.AddComponent<BuildingSpec>(gameObj);
+        var spec = baseInstantiator.AddComponent<BuildingSpec>(gameObj);
         spec._selectionSoundName = original._selectionSoundName;
         spec._loopingSoundName = original._loopingSoundName;
         spec._buildingCost = original._buildingCost;
@@ -258,7 +333,7 @@ public class MultiSelectService(
 
     void CopyWorkplaceSpec(GameObject gameObj, WorkplaceSpec original)
     {
-        var spec = instantiator.AddComponent<WorkplaceSpec>(gameObj);
+        var spec = baseInstantiator.AddComponent<WorkplaceSpec>(gameObj);
         spec._maxWorkers = original._maxWorkers;
         spec._defaultWorkers = original._defaultWorkers;
         spec._defaultWorkerType = original._defaultWorkerType;
@@ -268,29 +343,19 @@ public class MultiSelectService(
 
     void CopyStockpileSpec(GameObject gameObj, StockpileSpec original)
     {
-        var spec = instantiator.AddComponent<StockpileSpec>(gameObj);
+        var spec = baseInstantiator.AddComponent<StockpileSpec>(gameObj);
         spec._maxCapacity = original._maxCapacity;
         spec._whitelistedGoodType = original._whitelistedGoodType;
     }
 
     void CopyManufactorySpec(GameObject gameObj, ManufactorySpec original)
     {
-        var spec = instantiator.AddComponent<ManufactorySpec>(gameObj);
+        var spec = baseInstantiator.AddComponent<ManufactorySpec>(gameObj);
         spec._productionRecipeIds = original._productionRecipeIds;
     }
 
-    [OnEvent]
-    public void OnEntityDeselect(SelectableObjectUnselectedEvent e)
+    public void Unload()
     {
-        highlighter.UnhighlightAllPrimary();
-
-        var marker = e.SelectableObject.GetComponentFast<MMComponent>();
-        if (marker)
-        {
-            marker.IsUnselecting = true;
-            entityService.Delete(marker);
-            UnityEngine.Object.Destroy(marker.GameObjectFast);
-        }
+        Instance = null;
     }
-
 }

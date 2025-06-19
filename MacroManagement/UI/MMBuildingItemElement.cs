@@ -28,10 +28,12 @@ public class MMBuildingItemElement : VisualElement
             showingName += Environment.NewLine + item.DistrictName;
         }
 
-        row.AddToggle(showingName, onValueChanged: Item.ToggleSelect)
+        var chkSelect = row.AddToggle(showingName, onValueChanged: Item.ToggleSelect)
             .SetFlexGrow(1)
-            .SetMarginRight(5)
-            .SetValueWithoutNotify(item.Select);
+            .SetMarginRight(5);
+        item.OnSelectChanged += (_, select) => chkSelect.SetValueWithoutNotify(select);
+
+        chkSelect.SetValueWithoutNotify(item.Select);
 
         additionalInfo = row.AddGameLabel().SetMarginRight(5);
         icon = row.AddImage().SetSize(20).SetMarginRight(5);
