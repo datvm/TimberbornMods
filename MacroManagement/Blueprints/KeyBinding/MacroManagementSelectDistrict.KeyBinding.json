@@ -1,0 +1,12 @@
+{
+    "KeyBindingSpec": {
+        "Id": "MacroManagementSelectDistrict",
+        "GroupId": "UI",
+        "LocKey": "LV.MacM.KeyBindingSelectDistr",
+        "Order": 420
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/A",
+        "InputModifiers": "Ctrl, Shift"
+    }
+}

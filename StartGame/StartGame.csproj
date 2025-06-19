@@ -18,7 +18,7 @@
 		
 		<!--<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />-->
 		
-		<ProjectReference Include="..\MicroManagement\MicroManagement.csproj" />
+		<ProjectReference Include="..\MacroManagement\MacroManagement.csproj" />
 	</ItemGroup>
 
 </Project>

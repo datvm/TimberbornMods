@@ -1,0 +1,12 @@
+{
+    "KeyBindingSpec": {
+        "Id": "MacroManagementSelectAll",
+        "GroupId": "UI",
+        "LocKey": "LV.MacM.KeyBindingSelectAll",
+        "Order": 410
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/A",
+        "InputModifiers": "Ctrl"
+    }
+}
