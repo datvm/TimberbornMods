@@ -1,0 +1,16 @@
+{
+    "KeyBindingSpec": {
+        "Id": "MacroManagementCopy",
+        "GroupId": "UI",
+        "LocKey": "LV.MacM.KeyBindingCopy",
+        "Order": 400
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/C",
+        "InputModifiers": "Ctrl"
+    },
+    "SecondaryInputBindingSpec": {
+        "Path": "/Keyboard/Insert",
+        "InputModifiers": "Ctrl"
+    }
+}

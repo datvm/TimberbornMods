@@ -1,0 +1,13 @@
+ID,Text,Comment
+LV.MacM.KeyBindingCopy,"Macro Management: Build another",
+LV.MacM.KeyBindingSelectAll,"Macro Management: Select all",
+LV.MacM.KeyBindingSelectDistr,"Macro Management: Select in district",
+LV.MacM.BuildAnother,"Build another {0}",
+LV.MacM.Select,"Select {0}:",
+LV.MacM.SelectDistrict,"In District '{0}'",
+LV.MacM.NoDistrict,"No District",
+LV.MacM.SelectAll,"Everywhere",
+LV.MacM.SelectPaused,"Paused"
+LV.MacM.SelectRunning,"Running",
+LV.MacM.StockpileWarning,"Warning: you are about to change Items for <b>ALL</b> ({0}) selected storage buildings. Are you sure?",
+LV.MacM.ManufactoryWarning,"Warning: you are about to change Recipes for <b>ALL</b> ({0}) selected buildings. Are you sure?",

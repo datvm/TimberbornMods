@@ -1,0 +1,11 @@
+{
+    "Name": "Macro Management",
+    "Version": "7.0.0",
+    "Id": "MacroManagement",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Macro manage your colony",
+    "RequiredMods": [
+        { "Id": "TimberUi" },
+        { "Id": "Harmony" }
+    ]
+}

@@ -207,6 +207,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableShantySpeaker",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickBar", "QuickBar\QuickBar.csproj", "{0ECC3C8C-E128-44F0-827B-ACB1C4F80C93}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MacroManagement", "MacroManagement\MacroManagement.csproj", "{0758452D-6460-41EB-BFC1-165735726A88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -549,6 +551,10 @@ Global
 		{0ECC3C8C-E128-44F0-827B-ACB1C4F80C93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0ECC3C8C-E128-44F0-827B-ACB1C4F80C93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0ECC3C8C-E128-44F0-827B-ACB1C4F80C93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0758452D-6460-41EB-BFC1-165735726A88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0758452D-6460-41EB-BFC1-165735726A88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0758452D-6460-41EB-BFC1-165735726A88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0758452D-6460-41EB-BFC1-165735726A88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
