@@ -1,0 +1,38 @@
+With this mod you can now select and manage multiple buildings at the same time! It even comes with useful utilities like Copying and selecting all buildings with filters.
+
+All hotkeys are rebindable in the settings menu (Settings -> Keybindings -> UI group).
+
+[h1]Selecting multiple buildings[/h1]
+
+You can select multiple buildings of the same kind (Lumbermills, Large Tanks, etc.) by:
+
+- Holding Shift (or whichever you bind the "Alternate Action" key) and clicking on a building. Shift clicking a selected building to unselect it.
+- Select a building then click Select All (Ctrl + A) or Select in District (Ctrl + Shift + A).
+
+While one or more buildings is selected, you can also click Copy (Ctrl + C or Ctrl + Insert) to quickly select the Build tool to build the same type of building.
+
+[h1]Macro Management[/h1]
+
+With multiple buildings selected, you can then also uncheck or check to decide which buildings to be affected. You can see quick info of them including their names, the status (Pause/Running), the Storage's type, the Dwellings' number of beavers.
+
+You can (when applicable):
+- Pause/Unpause.
+- Set the Storage's type or remove it.
+- Set Workplace's settings: Workers, Priority and Type.
+- Set the Production's recipe.
+- Delete all selected ones (with Delete key).
+
+[h1]Tips & Roadmap[/h1]
+
+1. Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3480668755]More Naming[/url] to rename your buildings and it will show up in the list.
+2. Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3472334132]TImprove 4 UI[/url]'s Scrollable Entity Panel to add a scroll bar when the panel is too long.
+3. Selected buildings are highlighted.
+
+A few improvements on my mind right now:
+- Add some more info on priority to the list.
+- Add optional support to Quick Bar so you can save a building group.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+If you want to suggest more info to show or more management actions, feel free to contact me in the comments section or Discord  ([url=https://discord.gg/6VZfcKGM2Z]Official Timberborn Discord[/url], on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] channel), or @theapologist316
