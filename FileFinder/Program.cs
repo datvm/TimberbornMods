@@ -1,8 +1,12 @@
-﻿using System.Collections.Concurrent;
+﻿using FileFinder;
+using System.Collections.Concurrent;
 using System.Collections.Frozen;
 using System.Text.Json;
 
-const string FileInput = @"D:\Personal\Mods\Timberborn\TimberbornModdingRepo\Assets\Resources\Timberborn\Resources\buildings\paths\path\Path.Folktails.prefab";
+var mapShader = true;
+
+
+const string FileInput = @"D:\Personal\Mods\Timberborn\timberborn-modding-main\Assets\Resources\Timberborn\Resources\materials\uberatlas\materials\folktails\BaseMetal.Folktails.mat";
 string input = "";
 
 if (!string.IsNullOrEmpty(FileInput))
@@ -12,6 +16,12 @@ if (!string.IsNullOrEmpty(FileInput))
 
 FileMapper mapper = new();
 await mapper.LoadAsync();
+
+if (mapShader)
+{
+    await new ShaderMapper(mapper).PrintShaderMappingsAsync();
+    return;
+}
 
 List<(string, GameFile)?> output = [];
 HashSet<string> parsedGuid = [];

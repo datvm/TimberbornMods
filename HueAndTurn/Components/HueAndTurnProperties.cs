@@ -3,6 +3,7 @@
 public record HueAndTurnProperties
 {
     static readonly PropertyKey<Color> ColorKey = new(nameof(Color));
+    static readonly PropertyKey<Color> FluidColorKey = new(nameof(FluidColor));
     static readonly PropertyKey<int> TransparencyKey = new(nameof(Transparency));
     static readonly PropertyKey<int> RotationKey = new(nameof(Rotation));
     static readonly PropertyKey<Vector2Int> RotationPivotKey = new(nameof(RotationPivot));
@@ -11,6 +12,7 @@ public record HueAndTurnProperties
     static readonly PropertyKey<Vector2Int> RotationXZKey = new(nameof(RotationXZ));
 
     public Color? Color { get; set; }
+    public Color? FluidColor { get; set; }
     public int? Transparency { get; set; }
 
     public int? Rotation { get; set; }
@@ -18,16 +20,6 @@ public record HueAndTurnProperties
     public Vector2Int? RotationPivot { get; set; }
     public Vector3Int? Translation { get; set; }
     public Vector3Int? Scale { get; set; }
-
-    public bool IsDefault =>
-        Color is null
-        && Rotation is null
-        && RotationXZ is null
-        && RotationPivot is null
-        && Translation is null
-        && Scale is null
-        && Transparency is null
-    ;
 
     public void Save(IObjectSaver s)
     {
@@ -65,6 +57,11 @@ public record HueAndTurnProperties
         {
             s.Set(ScaleKey, Scale.Value);
         }
+
+        if (FluidColor is not null)
+        {
+            s.Set(FluidColorKey, FluidColor.Value);
+        }
     }
 
     public static HueAndTurnProperties Load(IObjectLoader s)
@@ -74,6 +71,7 @@ public record HueAndTurnProperties
             HueAndTurnProperties props = new()
             {
                 Color = s.Has(ColorKey) ? s.Get(ColorKey) : null,
+                FluidColor = s.Has(FluidColorKey) ? s.Get(FluidColorKey) : null,
                 Transparency = s.Has(TransparencyKey) ? s.Get(TransparencyKey) : null,
                 Rotation = s.Has(RotationKey) ? s.Get(RotationKey) : null,
                 RotationXZ = s.Has(RotationXZKey) ? s.Get(RotationXZKey) : null,

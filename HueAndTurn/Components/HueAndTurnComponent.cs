@@ -1,7 +1,10 @@
 ﻿namespace HueAndTurn.Components;
 
-public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableEntity
+public class HueAndTurnComponent : BaseComponent, IPersistentEntity
 {
+    public const string EnvironmentURPName = "EnvironmentURP";
+    public const string WaterURPName = "WaterURP";
+
     static readonly ComponentKey SaveKey = new("HueAndTurn");
 
     public HueAndTurnProperties Properties { get; private set; } = new();
@@ -9,10 +12,13 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
 
     Vector3? originalPosition;
     Quaternion? originalRotation;
+    bool hasSetTransparency;
 
-    Transform _transform = null!;
-    BlockObject blockObject = null!;
-    Renderer renderer = null!;
+#nullable disable
+    Transform _transform;
+    BlockObject blockObject;
+    TransparencyShaderService transparencyShaderService;
+#nullable enable
 
     LabeledEntity? labeledEntity;
     PositionModifier? positionModifier;
@@ -22,12 +28,16 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
     public string PrefabName => PrefabSpec?.PrefabName ?? name;
     public string DisplayName => labeledEntity?.DisplayName ?? PrefabName;
 
+    public bool HasFluid => GatherFluidMaterial().Any();
+    public bool CanHaveTransparency { get; private set; }
+
     ColorHighlighter highlighter = null!;
 
     [Inject]
-    public void Inject(ColorHighlighter highlighter)
+    public void Inject(ColorHighlighter highlighter, TransparencyShaderService transparencyShaderService)
     {
         this.highlighter = highlighter;
+        this.transparencyShaderService = transparencyShaderService;
     }
 
     public void ApplyColor()
@@ -43,7 +53,28 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
 
     public void ApplyTransparency()
     {
-        return;
+        var transparency = Properties.Transparency ?? 100;
+        if (!hasSetTransparency && transparency >= 100) { return; }
+
+        var alpha = Mathf.Clamp(transparency / 100f, 0f, 1f);
+        hasSetTransparency = true;
+        
+        var materials = transparencyShaderService.ReplaceMaterials(GameObjectFast);
+        foreach (var m in materials)
+        {
+            m.SetFloat("_Alpha", alpha);
+        }
+    }
+
+    public void ApplyFluidColor()
+    {
+        var color = Properties.FluidColor;
+        
+        foreach (var m in GatherFluidMaterial())
+        {
+            var target = color ?? MaterialColorer.UnhighlightedColor;
+            m.SetColor("_Color", target);
+        }
     }
 
     void ClearColor()
@@ -137,6 +168,7 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
         ApplyColor();
         ApplyTransparency();
         ApplyRepositioning();
+        ApplyFluidColor();
     }
 
     public void ApplyProperties(HueAndTurnProperties properties)
@@ -147,23 +179,24 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
 
     public void Reset()
     {
-        if (Properties.IsDefault) { return; }
-
         Properties = new HueAndTurnProperties();
         ApplyEverything();
     }
 
     public void Awake()
     {
-        renderer = GetComponentInChildren<Renderer>(true);
         _transform = TransformFast;
         blockObject = GetComponentFast<BlockObject>();
         PrefabSpec = GetComponentFast<PrefabSpec>();
         labeledEntity = GetComponentFast<LabeledEntity>();
+
+        CanHaveTransparency = !GetComponentFast<BuildingTerrainCutoutSpec>();
     }
 
     public void Start()
     {
+        GatherFluidMaterial();
+
         var transformController = GetComponentFast<TransformController>();
 
         if (GetComponentFast<NaturalResourceModel>())
@@ -196,12 +229,23 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IDeletableE
         Properties.Save(s);
     }
 
-    public void DeleteEntity()
+    IEnumerable<Material> GatherFluidMaterial() => GatherMaterialOf(WaterURPName);
+
+    IEnumerable<Material> GatherMaterialOf(string shaderName)
     {
-        var material = renderer?.material;
-        if (material is not null)
+        var renderers = GetComponentsInChildren<Renderer>(true);
+        foreach (var r in renderers)
         {
-            Destroy(material);
+            foreach (var m in r.materials)
+            {
+                if (m.shader.name.Contains(shaderName))
+                {
+                    yield return m;
+                }
+            }
         }
     }
+
 }
+
+public record FluidMaterialInfo(Material Material, Color OriginalColor);
