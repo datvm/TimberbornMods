@@ -17,8 +17,13 @@ public class HueAndTurnFragment(
 
 #nullable disable
     EntityPanelFragmentElement panel;
-    Toggle chkColor;
+    
+    Toggle chkColor;    
     ColorPickerElement colorPicker;
+    ConfigGroup grpFluidColor;
+    Toggle chkFluidColor;
+    ColorPickerElement fluidColorPicker;
+
     GameSliderInt transparencySlider;
     GameSliderInt rotationSlider;
     GameSliderInt rotationXSlider;
@@ -26,6 +31,7 @@ public class HueAndTurnFragment(
     PositionPickerElement rotationPivotPicker;
     PositionPickerElement translatePicker;
     PositionPickerElement scalePicker;
+
     ConfigGroup grpApplyAll;
 #nullable enable
 
@@ -47,6 +53,7 @@ public class HueAndTurnFragment(
         panel.AddGameLabel(t.T("LV.HNT.Title").Bold()).SetMarginBottom(10);
 
         AddColorGroup(panel);
+        grpFluidColor = AddFluidColorGroup(panel);
         AddRotationGroup(panel);
         AddPositioningGroup(panel);
         grpApplyAll = AddApplyAllGroup(panel);
@@ -74,7 +81,23 @@ public class HueAndTurnFragment(
             t.T("LV.HNT.Transparency"),
             values: new(0, 100, 100))
             .RegisterChange(SetTransparency);
-        transparencySlider.RemoveFromHierarchy();
+    }
+
+    ConfigGroup AddFluidColorGroup(VisualElement parent)
+    {
+        var grp = parent.AddChild<ConfigGroup>()
+            .SetHeader("LV.HNT.FluidColor".T(t))
+            .SetDisplay(false);
+        var container = grp.Content;
+
+        chkFluidColor = container.AddToggle(t.T("LV.HNT.FluidColor"),
+            onValueChanged: OnFluidColorToggled);
+
+        fluidColorPicker = container.AddChild<ColorPickerElement>()
+            .RegisterAlternativeManualValue(input, t, initializer, panelStack)
+            .RegisterChange(OnFluidColorPicked);
+
+        return grp;
     }
 
     void AddRotationGroup(VisualElement parent)
@@ -193,6 +216,23 @@ public class HueAndTurnFragment(
         UpdateColorEnabled();
     }
 
+    void OnFluidColorToggled(bool hasColor) => OnFluidColorChanged(hasColor ? fluidColorPicker.Color : null);
+
+    void OnFluidColorPicked(Color color)
+    {
+        if (!chkFluidColor.value) { return; }
+        OnFluidColorChanged(color);
+    }
+
+    void OnFluidColorChanged(Color? color)
+    {
+        if (internalSet || !comp) { return; }
+
+        comp.Properties.FluidColor = color;
+        comp.ApplyFluidColor();
+        UpdateColorEnabled();
+    }
+
     void SetTransparency(int transparency)
     {
         if (internalSet || !comp) { return; }
@@ -262,12 +302,20 @@ public class HueAndTurnFragment(
         internalSet = true;
         var props = comp.Properties;
 
-        chkColor.value = props.Color is not null;
+        chkColor.SetValueWithoutNotify(props.Color is not null);
         if (props.Color is not null)
         {
             colorPicker.Color = props.Color.Value;
         }
         transparencySlider.SetValueWithoutNotify(props.Transparency ?? 100);
+        transparencySlider.SetEnabled(comp.CanHaveTransparency);
+
+        //grpFluidColor.SetDisplay(comp.HasFluid);
+        //chkFluidColor.SetValueWithoutNotify(props.FluidColor is not null);
+        //if (props.FluidColor is not null)
+        //{
+        //    fluidColorPicker.Color = props.FluidColor.Value;
+        //}
 
         rotationSlider.SetValueWithoutNotify(props.Rotation ?? 0);
         rotationPivotPicker.Position = props.RotationPivot?.ToVector3Int(0) ?? null;
@@ -288,6 +336,7 @@ public class HueAndTurnFragment(
     void UpdateColorEnabled()
     {
         colorPicker.enabledSelf = chkColor.value;
+        fluidColorPicker.enabledSelf = chkFluidColor.value;
     }
 
     public bool ProcessInput()

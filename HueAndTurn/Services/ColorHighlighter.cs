@@ -1,4 +1,4 @@
-﻿namespace HueAndTurn.Components;
+﻿namespace HueAndTurn.Services;
 
 public class ColorHighlighter(IInstantiator instantiator) : ILoadableSingleton
 {

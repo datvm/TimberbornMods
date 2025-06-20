@@ -1,4 +1,5 @@
 ﻿global using HueAndTurn.Components;
+global using HueAndTurn.Services;
 global using HueAndTurn.UI;
 
 namespace HueAndTurn;
@@ -17,15 +18,16 @@ public class ModGameConfig : Configurator
 {
     public override void Configure()
     {
-        Bind<ColorHighlighter>().AsSingleton();
-        Bind<HueAndTurnMassApplier>().AsSingleton();
-        this.BindFragments<EntityPanelFragmentProvider<HueAndTurnFragment>>();
+        this
+            .BindSingleton<ColorHighlighter>()
+            .BindSingleton<HueAndTurnMassApplier>()
+            .BindSingleton<TransparencyShaderService>()
 
-        MultiBind<TemplateModule>().ToProvider(() =>
-        {
-            TemplateModule.Builder b = new();
-            b.AddDecorator<BlockObjectSpec, HueAndTurnComponent>();
-            return b.Build();
-        }).AsSingleton();
+            .BindFragment<HueAndTurnFragment>()
+            .BindTemplateModule(h => h
+                .AddDecorator<BlockObjectSpec, HueAndTurnComponent>()
+            )
+        ;
+
     }
 }
