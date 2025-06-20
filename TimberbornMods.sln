@@ -211,6 +211,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MacroManagement", "MacroMan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HydroFormaProjects", "ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj", "{2ABF3AA5-901B-3975-E483-9BBFF1DAEBDF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiveMoreMins", "FiveMoreMins\FiveMoreMins.csproj", "{2D19DF4F-D4F2-4E1A-AD00-3266392A9670}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -561,6 +563,10 @@ Global
 		{2ABF3AA5-901B-3975-E483-9BBFF1DAEBDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ABF3AA5-901B-3975-E483-9BBFF1DAEBDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ABF3AA5-901B-3975-E483-9BBFF1DAEBDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D19DF4F-D4F2-4E1A-AD00-3266392A9670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D19DF4F-D4F2-4E1A-AD00-3266392A9670}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D19DF4F-D4F2-4E1A-AD00-3266392A9670}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D19DF4F-D4F2-4E1A-AD00-3266392A9670}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
