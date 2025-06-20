@@ -80,6 +80,8 @@ public class HueAndTurnFragment(
         transparencySlider = container.AddSliderInt(
             t.T("LV.HNT.Transparency"),
             values: new(0, 100, 100))
+            .AddEndLabel(v => v + "%")
+            .RegisterAlternativeManualValue(input, t, initializer, panelStack)
             .RegisterChange(SetTransparency);
     }
 

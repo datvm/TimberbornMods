@@ -18,7 +18,7 @@
 		
 		<!--<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />-->
 		
-		<ProjectReference Include="..\HueAndTurn\HueAndTurn.csproj" />
+		<ProjectReference Include="..\FiveMoreMins\FiveMoreMins.csproj" />
 	</ItemGroup>
 
 </Project>

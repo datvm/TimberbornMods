@@ -1,0 +1,11 @@
+{
+    "Name": "5 More Mins Ma!",
+    "Version": "7.0.0",
+    "Id": "FiveMoreMins",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Staggered wake-up times to reduce lag from synchronized beavers.",
+    "RequiredMods": [
+        { "Id": "eMka.ModSettings" },
+        { "Id": "Harmony" }
+    ]
+}
