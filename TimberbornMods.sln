@@ -213,6 +213,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HydroFormaProjects", "Scien
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiveMoreMins", "FiveMoreMins\FiveMoreMins.csproj", "{2D19DF4F-D4F2-4E1A-AD00-3266392A9670}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerShaftSwitch", "PowerShaftSwitch\PowerShaftSwitch.csproj", "{C6138E8E-DC9D-47CD-8746-1BADEEE24C2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -567,6 +569,10 @@ Global
 		{2D19DF4F-D4F2-4E1A-AD00-3266392A9670}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D19DF4F-D4F2-4E1A-AD00-3266392A9670}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D19DF4F-D4F2-4E1A-AD00-3266392A9670}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6138E8E-DC9D-47CD-8746-1BADEEE24C2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6138E8E-DC9D-47CD-8746-1BADEEE24C2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6138E8E-DC9D-47CD-8746-1BADEEE24C2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6138E8E-DC9D-47CD-8746-1BADEEE24C2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
