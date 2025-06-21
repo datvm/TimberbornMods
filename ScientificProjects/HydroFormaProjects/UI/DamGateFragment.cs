@@ -2,7 +2,7 @@
 
 public class DamGateFragment(
     ILoc t,
-    DamGateService damGates
+    DamGateService damGateService
 ) : IEntityPanelFragment
 {
 
@@ -36,8 +36,14 @@ public class DamGateFragment(
 
     public void ShowFragment(BaseComponent entity)
     {
-        var comp = entity.GetComponentFast<DamGateComponent>();
+        comp = entity.GetComponentFast<DamGateComponent>();
         if (!comp) { return; }
+
+        if (!comp.Finished || !damGateService.CanCloseDam)
+        {
+            comp = null;
+            return;
+        }
 
         chkSync.SetValueWithoutNotify(comp.Synchronize);
         UpdateFragment();
@@ -53,7 +59,7 @@ public class DamGateFragment(
 
     void ToggleDamGate(bool closed)
     {
-        damGates.ToggleDamGate(comp!, closed);
+        damGateService.ToggleDamGate(comp!, closed);
     }
 
 }
