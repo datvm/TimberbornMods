@@ -3,7 +3,7 @@
 	<!-- Harmony -->
 	<ItemGroup>
 		<Using Include="HarmonyLib"/>
-
+		
 		<Reference Include="$(ModPath)3284904751\0Harmony.dll">
 			<Private>False</Private>
 		</Reference>

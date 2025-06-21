@@ -21,6 +21,9 @@ public class DamGateService(
         while (stack.Count > 0)
         {
             var current = stack.Pop();
+            if (!current.Finished 
+                || (!current.Synchronize && current != comp)) { continue; }
+
             if (current.Closed != closed)
             {
                 current.ToggleClosed(closed);

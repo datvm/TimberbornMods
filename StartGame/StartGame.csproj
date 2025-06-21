@@ -16,9 +16,9 @@
 	<ItemGroup>
 		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
 		
-		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
+		<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />
 		
-		<ProjectReference Include="..\QuickBar\QuickBar.csproj" />
+		<!--<ProjectReference Include="..\ConfigurableWorkplace\ConfigurableWorkplace.csproj" />-->
 	</ItemGroup>
 
 </Project>

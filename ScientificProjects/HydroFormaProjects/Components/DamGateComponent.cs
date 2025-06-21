@@ -1,25 +1,42 @@
 ﻿namespace HydroFormaProjects.Components;
 
-public class DamGateComponent : BaseComponent, IFinishedStateListener
+public class DamGateComponent : BaseComponent, IFinishedStateListener, IPersistentEntity
 {
+    static readonly Shader LockShader = Shader.Find("Shader Graphs/EnvironmentURP");
+    static readonly Color LockColor = new(118 / 255f, 107 / 255f, 99 / 255f);
+
+    static readonly ComponentKey SaveKey = new("DamGate");
+    static readonly PropertyKey<bool> ClosedKey = new("Closed");
+    static readonly PropertyKey<bool> SynchronizeKey = new("Synchronize");
+
 #nullable disable
-    Renderer lockRenderer;
     WaterObstacle waterObstacle;
 #nullable enable
 
-    bool hasMaterial;
+    GameObject? lockObj;
 
-    public bool Synchronize { get; set; }
+    public bool Synchronize { get; set; } = true;
     public bool Closed { get; private set; }
+
+    public bool Finished { get; private set; }
+    bool initialized;
 
     public void OnEnterFinishedState()
     {
-        BlockWater();
+        AttachLock();
+        Finished = true;
+
+        if (initialized)
+        {
+            ToggleClosed(Closed);
+        }
     }
 
     public void OnExitFinishedState()
     {
+        Finished = false;
         waterObstacle.RemoveFromWaterService();
+        DestroyLock();
     }
 
     void BlockWater()
@@ -35,7 +52,7 @@ public class DamGateComponent : BaseComponent, IFinishedStateListener
 
     public void Start()
     {
-        AttachLock();
+        initialized = true;
 
         if (Closed)
         {
@@ -45,6 +62,8 @@ public class DamGateComponent : BaseComponent, IFinishedStateListener
 
     public void ToggleClosed(bool closed)
     {
+        if (!Finished || !initialized) { return; }
+
         Closed = closed;
         SetVisual(closed);
         BlockWater();
@@ -52,34 +71,57 @@ public class DamGateComponent : BaseComponent, IFinishedStateListener
 
     void AttachLock()
     {
-        var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        var obj = lockObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Destroy(obj.GetComponent<Collider>());
-        lockRenderer = obj.GetComponent<Renderer>();
+
+        var renderer = obj.GetComponent<Renderer>();
+        renderer.material.shader = LockShader;
+        renderer.material.SetColor("_Color", LockColor);
 
         var t = obj.transform;
         t.parent = GameObjectFast.transform;
 
-        t.localScale = new(.8f, .8f,  .8f);
-        t.position = new(.5f, .5f, .5f);
+        t.localScale = new(.8f, .8f, .8f);
+        t.localPosition = new(.5f, .5f, .5f);
+
+        obj.SetActive(false);
+    }
+
+    void DestroyLock()
+    {
+        if (lockObj)
+        {
+            Destroy(lockObj);
+            lockObj = null;
+        }
     }
 
     void SetVisual(bool closed)
     {
-        if (!hasMaterial)
-        {
-            var renderer = GetComponentFast<Renderer>();
-            if (renderer)
-            {
-                var material = renderer.materials.FirstOrDefault(q => q.name.Contains("Wood"));
-                if (material)
-                {
-                    hasMaterial = true;
-                    renderer.material = material;
-                }
-            }
-        }
-
-        lockRenderer.enabled = closed;
+        if (!lockObj) { return; }
+        lockObj.SetActive(closed);
     }
 
+    public void Save(IEntitySaver entitySaver)
+    {
+        var s = entitySaver.GetComponent(SaveKey);
+
+        s.Set(ClosedKey, Closed);
+        s.Set(SynchronizeKey, Synchronize);
+    }
+
+    public void Load(IEntityLoader entityLoader)
+    {
+        if (!entityLoader.TryGetComponent(SaveKey, out var s)) { return; }
+
+        if (s.Has(ClosedKey))
+        {
+            Closed = s.Get(ClosedKey);
+        }
+
+        if (s.Has(SynchronizeKey))
+        {
+            Synchronize = s.Get(SynchronizeKey);
+        }
+    }
 }
