@@ -1,0 +1,13 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "HFDirtExcavatorUpgrade",
+        "GroupId": "HydroForma",
+        "NameKey": "LV.HF.DirtExcavatorUpgrade",
+        "EffectKey": "LV.HF.DirtExcavatorUpgradeEff",
+        "LoreKey": "LV.HF.DirtExcavatorUpgradeLore",
+        "Icon": "Sprites/Projects/HF/DirtExcavator",
+        "ScienceCost": 7500,
+        "Parameters": [ ],
+        "Order": 60
+    }
+}

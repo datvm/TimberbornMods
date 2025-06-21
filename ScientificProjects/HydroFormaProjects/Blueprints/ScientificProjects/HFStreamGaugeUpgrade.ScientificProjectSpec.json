@@ -1,0 +1,13 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "HFStreamGaugeUpgrade",
+        "GroupId": "HydroForma",
+        "NameKey": "LV.HF.StreamGaugeUpgrade",
+        "EffectKey": "LV.HF.StreamGaugeUpgradeEff",
+        "LoreKey": "LV.HF.StreamGaugeUpgradeLore",
+        "Icon": "Sprites/Projects/HF/StreamGauge",
+        "ScienceCost": 7500,
+        "Parameters": [ ],
+        "Order": 90
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "HFLeveeUpgrade",
+        "GroupId": "HydroForma",
+        "NameKey": "LV.HF.LeveeUpgrade",
+        "EffectKey": "LV.HF.LeveeUpgradeEff",
+        "LoreKey": "LV.HF.LeveeUpgradeLore",
+        "Icon": "Sprites/Projects/HF/Levee",
+        "ScienceCost": 7500,
+        "Parameters": [ ],
+        "Order": 20
+    }
+}

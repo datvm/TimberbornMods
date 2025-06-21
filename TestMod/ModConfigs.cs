@@ -1,54 +1,30 @@
 ﻿
 namespace TestMod;
 
-[Context("Bootstrapper")]
+[Context("Game")]
 public class ModMenuConfig : Configurator
 {
     public override void Configure()
     {
-        MultiBind<IAssetProvider>().To<MyAsset>().AsSingleton();
+        Bind<TestService>().AsSingleton();
     }
 }
 
-public class MyAsset : IAssetProvider
+class TestService : ILoadableSingleton
 {
-    public bool IsBuiltIn { get; }
-
-    public IEnumerable<OrderedAsset> LoadAll<T>(string path) where T : UnityEngine.Object
+    public void Load()
     {
-        return [];
-    }
-
-    public void Reset()
-    {
-        
-    }
-
-    public bool TryLoad(string path, Type type, out OrderedAsset orderedAsset)
-    {
-        orderedAsset = default;
-        return false;
+        Debug.LogException(new Exception("Test exception"));
+        Debug.Log("This should run");
     }
 }
 
 public class ModStarter : IModStarter
 {
 
-    public static void Print(IEnumerable<IAssetProvider> assetProviders)
-    {
-        Debug.Log(assetProviders.Count());
-        Debug.Log(string.Join(Environment.NewLine,
-            assetProviders.Select(q => q.GetType().FullName)));
-    }
-
     void IModStarter.StartMod(IModEnvironment modEnvironment)
     {
         var harmony = new Harmony(nameof(TestMod));
-
-        harmony.Patch(
-            typeof(AssetLoader).GetConstructor([typeof(IEnumerable<IAssetProvider>)]),
-            postfix: typeof(ModStarter).Method("Print"));
-
         harmony.PatchAll();
     }
 

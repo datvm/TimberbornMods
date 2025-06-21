@@ -162,4 +162,15 @@ public class BlockObjectToolQuickBarItem : ToolQuickBarItem<BlockObjectTool>
 public class GenericToolQuickBarItem : ToolQuickBarItem<Tool>
 {
     protected override string GetTitle(ILoc t) => GetDefaultTitle();
+
+    public override void SerializeValues(Dictionary<string, string> values)
+    {
+        values.Add("ToolType", ToolType);
+    }
+
+    protected override ToolButton FindSingleTool(IEnumerable<ToolButton> toolButtons, Dictionary<string, string> values)
+    {
+        var toolType = values["ToolType"];
+        return toolButtons.Single(q => q.Tool.GetType().FullName == toolType);
+    }
 }
