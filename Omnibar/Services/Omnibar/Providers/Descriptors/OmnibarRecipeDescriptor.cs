@@ -55,8 +55,9 @@ public class OmnibarRecipeDescriptor(
     string GetCraftingTime()
     {
         var workplace = item.Building.GetComponentFast<WorkplaceSpec>();
+        var workers = workplace ? workplace.MaxWorkers : 1;
 
-        float num = item.Recipe.CycleDurationInHours / workplace.MaxWorkers;
+        float num = item.Recipe.CycleDurationInHours / workers;
         string text = (num < 1f) ? num.ToString("0.##") : ((!(num < 10f)) ? num.ToString("F0") : num.ToString("0.#"));
         string param = text;
         return t.T("Time.HoursShort", param);

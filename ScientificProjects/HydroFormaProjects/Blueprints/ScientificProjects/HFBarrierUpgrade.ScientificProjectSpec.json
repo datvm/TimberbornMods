@@ -1,0 +1,13 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "HFBarrierUpgrade",
+        "GroupId": "HydroForma",
+        "NameKey": "LV.HF.BarrierUpgrade",
+        "EffectKey": "LV.HF.BarrierUpgradeEff",
+        "LoreKey": "LV.HF.BarrierUpgradeLore",
+        "Icon": "Sprites/Projects/HF/Barrier",
+        "ScienceCost": 7500,
+        "Parameters": [ ],
+        "Order": 80
+    }
+}

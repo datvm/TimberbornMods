@@ -1,0 +1,13 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "HFDamUpgrade",
+        "GroupId": "HydroForma",
+        "NameKey": "LV.HF.DamUpgrade",
+        "EffectKey": "LV.HF.DamUpgradeEff",
+        "LoreKey": "LV.HF.DamUpgradeLore",
+        "Icon": "Sprites/Projects/HF/Dam",
+        "ScienceCost": 7500,
+        "Parameters": [ ],
+        "Order": 10
+    }
+}

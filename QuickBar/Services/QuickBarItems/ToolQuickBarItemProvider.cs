@@ -80,7 +80,7 @@ public class ToolQuickBarItemProvider(
         catch (Exception ex)
         {
             Debug.LogWarning($"Failed to deserialize from data: {data}");
-            Debug.LogException(ex);
+            Debug.LogError(ex);
 
             return null;
         }

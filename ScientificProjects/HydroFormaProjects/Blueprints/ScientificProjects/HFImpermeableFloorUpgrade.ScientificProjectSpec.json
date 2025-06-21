@@ -1,0 +1,13 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "HFImpermeableFloorUpgrade",
+        "GroupId": "HydroForma",
+        "NameKey": "LV.HF.ImpermeableFloorUpgrade",
+        "EffectKey": "LV.HF.ImpermeableFloorUpgradeEff",
+        "LoreKey": "LV.HF.ImpermeableFloorUpgradeLore",
+        "Icon": "Sprites/Projects/HF/ImpermeableFloor",
+        "ScienceCost": 7500,
+        "Parameters": [ ],
+        "Order": 50
+    }
+}

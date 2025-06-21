@@ -1,8 +1,8 @@
 {
     "ScientificProjectGroupSpec": {
-        "Id": "Factions",
-        "NameKey": "LV.HFSP.HydroFormaGroup",
-        "DescKey": "LV.HFSP.HydroFormaGroupDesc",
+        "Id": "HydroForma",
+        "NameKey": "LV.HF.HydroFormaGroup",
+        "DescKey": "LV.HF.HydroFormaGroupDesc",
         "Order": 500
     }
 }

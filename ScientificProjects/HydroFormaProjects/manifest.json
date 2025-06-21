@@ -6,6 +6,7 @@
     "Description": "Landscape building scientific projects.",
     "RequiredMods": [
         { "Id": "ScientificProjects" },
+        { "Id": "Harmony" },
         { "Id": "ModdableBindito" }
     ]
 }
