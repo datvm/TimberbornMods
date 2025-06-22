@@ -32,7 +32,7 @@ public class ModCompatibilityService
         catch (Exception e)
         {
             Debug.LogError("Failed to load mod compatibility data: ");
-            Debug.LogException(e);
+            Debug.LogError(e);
             mods = FrozenDictionary<string, ModCompatibility>.Empty;
             File.Delete(path);
         }
@@ -49,7 +49,7 @@ public class ModCompatibilityService
         catch (Exception ex)
         {
             Debug.LogError("Failed to fetch mod compatibility data: ");
-            Debug.LogException(ex);
+            Debug.LogError(ex);
             return;
         }
         

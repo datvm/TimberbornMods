@@ -69,7 +69,7 @@ public static class DummyComponentExtensions
                 }
                 else
                 {
-                    Debug.LogException(ex);
+                    Debug.LogError(ex);
                 }
             }
         }
@@ -97,7 +97,7 @@ public static class DummyComponentExtensions
                 }
                 else
                 {
-                    Debug.LogException(ex);
+                    Debug.LogError(ex);
                 }
             }
         }
@@ -125,7 +125,7 @@ public static class DummyComponentExtensions
                 }
                 else
                 {
-                    Debug.LogException(ex);
+                    Debug.LogError(ex);
                 }
             }
         }
@@ -153,7 +153,7 @@ public static class DummyComponentExtensions
             }
             else
             {
-                Debug.LogException(ex);
+                Debug.LogError(ex);
             }
         }
 

@@ -82,7 +82,12 @@ public class EntityManager(EventBus eb, EntityRegistry registry, IEnumerable<ITr
 
         foreach (var comp in list)
         {
-            entitiesDict[comp.GetType()].Remove(comp);
+            var types = GetRelevantTypes(comp.GetType());
+
+            foreach (var t in types)
+            {
+                entitiesDict[t].Remove(comp);
+            }            
         }
 
         entities.Remove(entity);
@@ -99,6 +104,18 @@ public class EntityManager(EventBus eb, EntityRegistry registry, IEnumerable<ITr
     public void OnEntityDeleted(EntityDeletedEvent e)
     {
         RemoveEntity(e.Entity);
+    }
+
+    IEnumerable<Type> GetRelevantTypes(Type? type)
+    {
+        while (type is not null && type != typeof(BaseComponent))
+        {
+            if (entitiesDict.ContainsKey(type))
+            {
+                yield return type;
+            }
+            type = type.BaseType;
+        }
     }
 
 }
