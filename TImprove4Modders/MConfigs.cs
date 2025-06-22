@@ -4,11 +4,14 @@ public class CommonConfig : Configurator
 {
     public override void Configure()
     {
-        this.TryBindingSystemFileDialogService();
-        Bind<MSettings>().AsSingleton();
+        this
+            .TryBindingSystemFileDialogService()
 
-        Bind<QuickQuitService>().AsSingleton();
-        Bind<DevModeService>().AsSingleton();
+            .BindSingleton<MSettings>()
+
+            .BindSingleton<QuickQuitService>()
+            .BindSingleton<DevModeService>()
+        ;
     }
 }
 
@@ -19,10 +22,13 @@ public class NonMenuConfig : CommonConfig
     {
         base.Configure();
 
-        MultiBind<IDevModule>().To<PrintUiModule>().AsSingleton();
-        MultiBind<IDevModule>().To<ScienceModule>().AsSingleton();
-        MultiBind<IDevModule>().To<PlantModule>().AsSingleton();
-        MultiBind<IDevModule>().To<ComponentModule>().AsSingleton();
+        this
+            .MultiBindSingleton<IDevModule, PrintUiModule>()
+            .MultiBindSingleton<IDevModule, ScienceModule>()
+            .MultiBindSingleton<IDevModule, PlantModule>()
+            .MultiBindSingleton<IDevModule, ComponentModule>()
+            .MultiBindSingleton<IDevModule, BuildingsModule>()
+        ;
     }
 
 }
@@ -34,7 +40,9 @@ public class ModMenuConfig : CommonConfig
     {
         base.Configure();
 
-        Bind<ModManagementService>().AsSingleton();
+        this
+            .BindSingleton<ModManagementService>()
+        ;
     }
 }
 
@@ -45,7 +53,9 @@ public class ModGameConfig : NonMenuConfig
     {
         base.Configure();
 
-        MultiBind<IDevModule>().To<TimeModule>().AsSingleton();
+        this
+            .MultiBindSingleton<IDevModule, TimeModule>()
+        ;
     }
 }
 
