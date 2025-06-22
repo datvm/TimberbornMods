@@ -81,7 +81,7 @@ public class SuperCursorTool(EntitySelectionService entitySelectionService, Inpu
     {
         var result = ProcessInput();
 
-        if (inputService.IsKeyHeld(Keybinding))
+        if (!inputService.MouseOverUI && inputService.IsKeyHeld(Keybinding))
         {
             ProcessInfo();
         }

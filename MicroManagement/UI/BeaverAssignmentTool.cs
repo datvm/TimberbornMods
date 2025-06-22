@@ -52,6 +52,11 @@ public class BeaverAssignmentTool(InputService input, Highlighter highlighter, S
             return true;
         }
 
+        if (input.MouseOverUI)
+        {
+            return false;
+        }
+
         highlighter.UnhighlightAllPrimary();
 
         var obj = TryGetSelectableObject();
@@ -132,8 +137,8 @@ public class BeaverAssignmentTool(InputService input, Highlighter highlighter, S
 
         var index = UnityEngine.Random.RandomRangeInt(0, count - 1);
         var adultCount = dwelling.NumberOfAdultDwellers;
-        var dweller = index < adultCount ? 
-            dwelling.AdultDwellers.Skip(index).First() : 
+        var dweller = index < adultCount ?
+            dwelling.AdultDwellers.Skip(index).First() :
             dwelling.ChildDwellers.Skip(index - adultCount).First();
 
         dwelling.UnassignDweller(dweller);
