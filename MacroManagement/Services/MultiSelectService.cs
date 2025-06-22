@@ -70,12 +70,14 @@ public class MultiSelectService(
     }
 
     public SelectableObject? TryAddSelection(SelectableObject target)
-    {
-        // Only when holding Shift
-        if (!inputService.IsKeyHeld(AltKeyId)) { return target; }
+    {        
+        if (!inputService.IsKeyHeld(AltKeyId) // Only when holding Shift
+            || !entitySelectionService.IsAnythingSelected // Only when something is selected
+            || !target.GetComponentFast<BuildingSpec>()) // Only for buildings
+        {
+            return target;
+        }
 
-        // If nothing is selected, just return the target
-        if (!entitySelectionService.IsAnythingSelected) { return target; }
         var targetPrefab = target.GetComponentFast<PrefabSpec>();
         if (!targetPrefab) { return target; }
 
@@ -86,13 +88,7 @@ public class MultiSelectService(
         if (!currPrefab) { return target; }
 
         var mm = currPrefab.GetComponentFast<MMComponent>();
-        Debug.Log(mm);
-
-        foreach (var comp in currPrefab.AllComponents)
-        {
-            Debug.Log(comp);
-        }
-
+        
         if (mm)
         {
             // Check if the building is already selected

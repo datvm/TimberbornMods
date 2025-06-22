@@ -21,7 +21,8 @@ public class ModStarter : IModStarter
 
     void IModStarter.StartMod(IModEnvironment modEnvironment)
     {
-        new Harmony(nameof(MacroManagement)).PatchAll();
+        var harmony = new Harmony(nameof(MacroManagement));
+        harmony.PatchAll();
     }
 
 }
