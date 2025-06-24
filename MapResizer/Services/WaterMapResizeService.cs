@@ -68,7 +68,7 @@ public class WaterMapResizeService(
 
     void ResizeWaterEvaporationMap()
     {
-        waterEvaporationMap.OnMaxWaterColumnCountChanged(waterMap, waterMap.MaxColumnCount);
+        //waterEvaporationMap.OnMaxWaterColumnCountChanged(waterMap, waterMap.MaxColumnCount);
     }
 
     void ResizeThreadSafeWaterMap()

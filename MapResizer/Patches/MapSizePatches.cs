@@ -59,8 +59,7 @@ public static class MapSizePatches
         __result = __result with { z = WorldTiling.VerticalTileCount(mapSize.TerrainSize.z), };
     }
 
-    [HarmonyPrefix, HarmonyPatch(typeof(Ticker), nameof(Ticker.FinishFullTick))]
-    public static bool SkipFullTick() => !MapResizeService.SkipFullTick;
+
 
     [HarmonyPrefix, HarmonyPatch(typeof(LevelVisibilityService), nameof(LevelVisibilityService.Load))]
     public static void SetVisibilityServiceMaxVisibleLevel(LevelVisibilityService __instance)

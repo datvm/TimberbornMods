@@ -45,7 +45,8 @@ public class ModStarter : IModStarter
 
     void IModStarter.StartMod(IModEnvironment modEnvironment)
     {
-        new Harmony(nameof(MapResizer)).PatchAll();
+        var h = new Harmony(nameof(MapResizer));
+        h.PatchAll();
     }
 
 }
