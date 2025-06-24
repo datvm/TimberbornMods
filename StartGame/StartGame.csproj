@@ -18,7 +18,7 @@
 		
 		<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />
 		
-		<ProjectReference Include="..\TImprove4Modders\TImprove4Modders.csproj" />
+		<ProjectReference Include="..\MacroManagement\MacroManagement.csproj" />
 	</ItemGroup>
 
 </Project>
