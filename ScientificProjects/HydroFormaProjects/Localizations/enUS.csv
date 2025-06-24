@@ -30,3 +30,5 @@ LV.HF.StreamGaugeUpgradeEff,"Stream Gauges now detect water depth below their ow
 LV.HF.StreamGaugeUpgradeLore,"HydroForma's DepthSense™ sees beneath the surface—no permission required.",
 LV.HF.Closed,"Closed",
 LV.HF.DamSync,"Synchronize with adjacent Dams",
+LV.HF.FloodgateSetOnHaz,"Set Height on Hazardous weathers",
+LV.HF.FloodgateSetOnNewCycle,"Set Height on New Cycle",

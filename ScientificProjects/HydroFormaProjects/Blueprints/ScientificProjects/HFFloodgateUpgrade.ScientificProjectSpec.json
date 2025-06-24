@@ -6,7 +6,7 @@
         "EffectKey": "LV.HF.FloodgateUpgradeEff",
         "LoreKey": "LV.HF.FloodgateUpgradeLore",
         "Icon": "Sprites/Projects/HF/Floodgate",
-        "ScienceCost": 7500,
+        "ScienceCost": 5000,
         "Parameters": [ ],
         "Order": 30
     }

@@ -1,6 +1,4 @@
-﻿
-
-namespace HydroFormaProjects;
+﻿namespace HydroFormaProjects;
 
 [Context("Game")]
 public class ModGameConfig : Configurator
@@ -9,11 +7,21 @@ public class ModGameConfig : Configurator
     {
         this
             .BindSingleton<DamGateService>()
+            .BindSingleton<FloodgateAutoService>()
 
             .MultiBindSingleton<IPrefabModifier, PrefabModifier>()
 
             .BindFragment<DamGateFragment>()
+            .BindFragment<FloodgateAutoFragment>()
+
+            .BindTemplateModule(h => h
+                .AddDecorator<DamGateComponentSpec, DamGateComponent>()
+                .AddDecorator<FloodgateSpec, FloodgateAutoComponent>()
+            )
         ;
+
+        this.BindTrackingEntities()
+            .Track<FloodgateAutoComponent>();
     }
 }
 

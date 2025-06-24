@@ -1,3 +1,5 @@
 ﻿ID,Text,Comment
 LV.FMM.MaxDelay,"Maximum delayed wake up",
 LV.FMM.MaxDelayDesc,"Maximum time (in hours) that beavers can wake up after morning.",
+LV.FMM.MinDelay,"Minimum delayed wake up",
+LV.FMM.MinDelayDesc,"Minimum time (in hours) that beavers can wake up after morning.",

@@ -23,7 +23,7 @@ public class PrefabModifier(
 
     GameObject ModifyDam(GameObject prefab, PrefabSpec spec)
     {
-        prefab.AddComponent<DamGateComponent>();
+        prefab.AddComponent<DamGateComponentSpec>();
         Object.Destroy(spec.GetComponentFast<FinishableWaterObstacleSpec>());
 
         return prefab;

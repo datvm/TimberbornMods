@@ -1,5 +1,7 @@
 ﻿namespace HydroFormaProjects.Components;
 
+public class DamGateComponentSpec : BaseComponent { }
+
 public class DamGateComponent : BaseComponent, IFinishedStateListener, IPersistentEntity
 {
     static readonly Shader LockShader = Shader.Find("Shader Graphs/EnvironmentURP");
