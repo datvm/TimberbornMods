@@ -14,12 +14,12 @@ public class MapResizeService(
     PlantingMapResizer plantingMapResizer
 )
 {
-    public static bool SkipFullTick { get; private set; }
+    public static bool PerformingResize { get; private set; }
 
     public async Task<ISaveReference> PerformResizeAsync(ResizeValues resizeValues)
     {
         ticker.FinishFullTick();
-        SkipFullTick = true;
+        PerformingResize = true;
 
         var oldData = RetainOldMapSize();
 
@@ -34,7 +34,7 @@ public class MapResizeService(
 
         var saveRef = await SaveGameAsync();
 
-        SkipFullTick = false;
+        PerformingResize = false;
 
         return saveRef;
     }
