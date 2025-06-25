@@ -16,7 +16,7 @@ public class DamGateService(
         HashSet<Vector3Int> visited = [blockObj.Coordinates];
         Stack<DamGateComponent> stack = new([comp]);
 
-        var neighbors = Deltas.Neighbors6Vector3Int;
+        var neighbors = Deltas.Neighbors4Vector3Int;
 
         while (stack.Count > 0)
         {
