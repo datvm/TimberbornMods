@@ -1,6 +1,6 @@
 {
     "Name": "Save Everyday",
-    "Version": "7.3.0",
+    "Version": "7.3.1",
     "Id": "SaveEveryday",
     "MinimumGameVersion": "0.6.0.0",
     "Description": "Auto-save the game at the start of every day.",

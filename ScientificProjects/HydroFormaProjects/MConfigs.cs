@@ -8,15 +8,18 @@ public class ModGameConfig : Configurator
         this
             .BindSingleton<DamGateService>()
             .BindSingleton<FloodgateAutoService>()
+            .BindSingleton<SluiceUpstreamService>()
 
             .MultiBindSingleton<IPrefabModifier, PrefabModifier>()
 
             .BindFragment<DamGateFragment>()
             .BindFragment<FloodgateAutoFragment>()
+            .BindSingleton<SluiceUpstreamFragment>() // This is not a fragment
 
             .BindTemplateModule(h => h
                 .AddDecorator<DamGateComponentSpec, DamGateComponent>()
                 .AddDecorator<FloodgateSpec, FloodgateAutoComponent>()
+                .AddDecorator<Sluice, SluiceUpstreamComponent>()
             )
         ;
 
