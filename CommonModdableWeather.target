@@ -9,6 +9,10 @@
 		<Using Include="ModdableWeather.Specs" />
 		<Using Include="ModdableWeather.Services" />
 		<Using Include="ModdableWeather.UI" />
+		<Using Include="ModdableWeather.Settings" />
+		<Using Include="ModdableWeather.Models" />
+		<Using Include="ModdableWeather.Helpers" />
+		<Using Include="ModdableWeather.Defaults" />
 
 		<Reference Condition="$(IsU7)" Include="$(ModdableWeatherPath)">
 			<Private>False</Private>

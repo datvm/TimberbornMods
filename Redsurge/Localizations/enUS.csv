@@ -1,0 +1,7 @@
+ID,Text,Comment
+LV.MWRS.Redsurge,"Redsurge",
+LV.MWRS.RedsurgeMultiplier,"Redsurge maximum multiplier",
+LV.MWRS.RedsurgeMultiplierDesc,"The maximum additional multiplier for the Redsurge weather at maximum (no handicap).
+This value is affected by handicap like Duration.
+Default value: 2.5 (250%) meaning when no handicap is applied (default cycle 5),
+all water sources strength is at 350%.",

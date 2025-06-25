@@ -1,0 +1,10 @@
+{
+    "ModdedWeatherSpec": {
+        "Id": "Redsurge",
+        "DisplayLoc": "LV.MWRS.Redsurge",
+        "WeatherPanelProgressBackground": "Resources/UI/Images/Weathers/weather-progress-redsurge",
+        "DatePanelIcon": "Resources/UI/Images/Weathers/ico-weather-redsurge",
+        "WeatherNotification": "Resources/UI/Images/Weathers/weather-notification-redsurge",
+        "StartSound": "UI.Weather.Monsoon"
+    }
+}
