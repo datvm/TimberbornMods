@@ -1,0 +1,10 @@
+{
+    "Name": "Redsurge (Badtide Monsoon)",
+    "Version": "7.0.0",
+    "Id": "Redsurge",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "When Badtide or Monsoon alone isn't enough",
+    "RequiredMods": [
+        { "Id": "ModdableWeather" }
+    ]
+}
