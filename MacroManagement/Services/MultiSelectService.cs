@@ -191,6 +191,7 @@ public class MultiSelectService(
         PerformAdd<BlockableBuilding>();
         PerformMap<DummyBlockObject, BlockObject>();
         PerformMap<DummyRecoverableGoodProvider, RecoverableGoodProvider>();
+        PerformAdd<BlockObjectDeletionDescriber>();
 
         // Pause/Unpause
         PerformMap<DummyPausableBuilding, PausableBuilding>();

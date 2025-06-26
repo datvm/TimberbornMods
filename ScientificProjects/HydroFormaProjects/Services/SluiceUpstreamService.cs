@@ -5,9 +5,9 @@ public class SluiceUpstreamService(ScientificProjectService projects)
     bool canUseSluiceUpstream;
     public bool CanUseSluiceUpstream => canUseSluiceUpstream || ReloadCanUseSluiceUpstream();
 
-    public void SetSluiceUpstream(SluiceUpstreamComponent upstream, SluiceState sluiceState, float upstreamThreshold)
+    public void SyncSluice(SluiceState sluiceState)
     {
-        upstream.Threshold = upstreamThreshold;
+        sluiceState.Synchronize();
     }
 
     bool ReloadCanUseSluiceUpstream() => canUseSluiceUpstream = projects.IsUnlocked(HydroFormaModUtils.SluiceUpgrade);

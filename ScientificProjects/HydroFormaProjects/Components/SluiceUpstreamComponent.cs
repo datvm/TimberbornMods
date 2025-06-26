@@ -8,6 +8,23 @@ public class SluiceUpstreamComponent : BaseComponent, IPersistentEntity
 
     public bool AutoOpen { get; set; }
     public float Threshold { get; set; }
+    public float MaxThreshold { get; private set; }
+
+#nullable disable
+    MapSize mapSize;
+#nullable enable
+
+    [Inject]
+    public void Inject(MapSize mapSize)
+    {
+        this.mapSize = mapSize;
+    }
+
+    public void Start()
+    {
+        var bo = GetComponentFast<BlockObject>();
+        MaxThreshold = mapSize.TotalSize.z - bo.Coordinates.z;
+    }
 
     public void Load(IEntityLoader loader)
     {

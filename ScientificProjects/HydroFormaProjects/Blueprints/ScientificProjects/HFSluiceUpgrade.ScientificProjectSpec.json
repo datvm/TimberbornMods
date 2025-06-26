@@ -6,7 +6,7 @@
         "EffectKey": "LV.HF.SluiceUpgradeEff",
         "LoreKey": "LV.HF.SluiceUpgradeLore",
         "Icon": "Sprites/Projects/HF/Sluice",
-        "ScienceCost": 7500,
+        "ScienceCost": 10000,
         "Parameters": [ ],
         "Order": 40
     }

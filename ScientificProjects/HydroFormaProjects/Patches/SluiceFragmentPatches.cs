@@ -23,4 +23,14 @@ public static class SluiceFragmentPatches
     [HarmonyPostfix, HarmonyPatch(nameof(SluiceFragment.ClearFragment))]
     public static void OnClearFragment() => SluiceUpstreamFragment.Instance?.ClearFragment();
 
+    [HarmonyPostfix, HarmonyPatch(typeof(SluiceState), nameof(SluiceState.SetState))]
+    public static void OnSetState(SluiceState neighbor, SluiceState __instance)
+    {
+        var neighborUpstream = neighbor.GetComponentFast<SluiceUpstreamComponent>();
+        var upstream = __instance.GetComponentFast<SluiceUpstreamComponent>();
+
+        upstream.AutoOpen = neighborUpstream.AutoOpen;
+        upstream.Threshold = neighborUpstream.Threshold;
+    }
+
 }
