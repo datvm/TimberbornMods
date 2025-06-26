@@ -1,5 +1,4 @@
 ﻿using System.Reflection.Emit;
-using Timberborn.TimbermeshMaterials;
 
 namespace MaterialPlzNoCrashes;
 
@@ -14,7 +13,7 @@ public class Patch
         Debug.LogWarning("Duplicate materials detected: " + ex.ToString());
     }
 
-    [HarmonyTranspiler, HarmonyPatch(typeof(MaterialRepository), nameof(MaterialRepository.LoadMaterials))]
+    [HarmonyTranspiler, HarmonyPatch(typeof(MaterialRepository), nameof(MaterialRepository.Load))]
     public static IEnumerable<CodeInstruction> PatchLoadDuplicateMaterials(IEnumerable<CodeInstruction> instructions)
     {
         foreach (var ins in instructions)
