@@ -19,7 +19,9 @@ public class ModGameConfig : Configurator
             .BindTemplateModule(h => h
                 .AddDecorator<DamGateComponentSpec, DamGateComponent>()
                 .AddDecorator<FloodgateSpec, FloodgateAutoComponent>()
+                
                 .AddDecorator<Sluice, SluiceUpstreamComponent>()
+                .AddDecorator<Sluice, SluiceUpstreamMarker>()
             )
         ;
 

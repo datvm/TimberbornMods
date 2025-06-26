@@ -8,7 +8,7 @@ public class FloodgateAutoFragment(
 #nullable disable
     EntityPanelFragmentElement panel;
     Toggle chkSetOnHazard, chkSetOnNewCycle;
-    FloodGateHeightSlider heightHazard, heightNewCycle;
+    WaterHeightSlider heightHazard, heightNewCycle;
 #nullable enable
 
     FloodgateAutoComponent? comp;
@@ -40,13 +40,13 @@ public class FloodgateAutoFragment(
     }
 
     void AddHeightPanel(VisualElement parent, string locKey,
-        ref Toggle toggle, ref FloodGateHeightSlider slider,
+        ref Toggle toggle, ref WaterHeightSlider slider,
         Action<bool> onChecked, Action<float> onHeightChanged)
     {
         var container = parent.AddChild().SetMarginBottom(10);
 
         toggle = container.AddToggle(t.T(locKey), onValueChanged: onChecked);
-        slider = container.AddChild<FloodGateHeightSlider>()
+        slider = container.AddChild<WaterHeightSlider>()
             .RegisterHeightChange(onHeightChanged);
     }
 

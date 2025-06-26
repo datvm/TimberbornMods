@@ -1,6 +1,6 @@
 ﻿namespace HydroFormaProjects.UI;
 
-public class FloodGateHeightSlider : VisualElement
+public class WaterHeightSlider : VisualElement
 {
 
     readonly GameSliderInt slider;
@@ -18,18 +18,24 @@ public class FloodGateHeightSlider : VisualElement
         }
     }
 
-    public FloodGateHeightSlider()
+    public WaterHeightSlider()
     {
-        slider = this.AddSliderInt();
+        slider = this.AddSliderInt().SetWidthPercent(100);
         lblHeight = this.AddGameLabel("0");
         lblHeight.style.unityTextAlign = TextAnchor.MiddleCenter;
 
         slider.RegisterChange(_ => ReloadLabel());
     }
 
+    public WaterHeightSlider SetLabelVisible(bool visible)
+    {
+        lblHeight.SetDisplay(visible);
+        return this;
+    }
+
     public float MaxHeight { get; private set; } = 1f;
 
-    public FloodGateHeightSlider RegisterHeightChange(Action<float> callback)
+    public WaterHeightSlider RegisterHeightChange(Action<float> callback)
     {
         slider.RegisterChange(value => callback(UnitsToHeight(value)));
         return this;
@@ -40,6 +46,7 @@ public class FloodGateHeightSlider : VisualElement
         curr = Mathf.Clamp(curr, 0, maxHeight);
 
         var s = slider.Slider;
+        MaxHeight = maxHeight;
         s.SetHighValueWithoutNotify(HeightToUnits(maxHeight));
         s.SetValueWithoutNotify(HeightToUnits(curr));
         ReloadLabel();
