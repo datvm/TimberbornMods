@@ -1,6 +1,6 @@
 {
     "Name": "MaterialPlzNoCrashes",
-    "Version": "7.0.0",
+    "Version": "7.0.1",
     "Id": "MaterialPlzNoCrashes",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Duplicate materials should not crash the game anymore. This mod does nothing by itself, but is required by other mods.",
