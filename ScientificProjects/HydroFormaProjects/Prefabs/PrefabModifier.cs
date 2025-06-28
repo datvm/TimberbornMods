@@ -17,6 +17,8 @@ public class PrefabModifier(
         {
             "Dam.Folktails" or "Dam.IronTeeth" => ModifyDam(prefab, spec),
             "Levee.Folktails" or "Levee.IronTeeth" => ModifyLevee(prefab),
+            "DirtExcavator.Folktails" or "DirtExcavator.IronTeeth" => ModifyDirtExcavator(prefab),
+            "ContaminationBarrier.Folktails" or "IrrigationBarrier.IronTeeth" => ModifyBarriers(prefab),
             _ => prefab,
         };
     }
@@ -24,7 +26,7 @@ public class PrefabModifier(
     GameObject ModifyDam(GameObject prefab, PrefabSpec spec)
     {
         prefab.AddComponent<DamGateComponentSpec>();
-        Object.Destroy(spec.GetComponentFast<FinishableWaterObstacleSpec>());
+        DestroyIfExist<FinishableWaterObstacleSpec>(prefab);
 
         return prefab;
     }
@@ -44,6 +46,46 @@ public class PrefabModifier(
         prefab.AddComponent<ShaftSoundEmitterSpec>();
 
         return prefab;
+    }
+
+    GameObject ModifyDirtExcavator(GameObject prefab)
+    {
+        if (!unlockManager.Contains(HydroFormaModUtils.DirtExcavatorUpgrade)) { return prefab; }
+
+        var workplace = prefab.GetComponent<WorkplaceSpec>();
+        var modifier = 1f / workplace._maxWorkers;
+        workplace._maxWorkers = workplace._defaultWorkers = 1;
+        
+        var multiplier = prefab.AddComponent<RecipeTimeMultiplierSpec>();
+        multiplier.multiplier = modifier;
+        multiplier.id = "HFDirtExcavatorUpgrade";
+
+        return prefab;
+    }
+
+    GameObject ModifyBarriers(GameObject prefab)
+    {
+        const BlockOccupations RemovePath = ~BlockOccupations.Path;
+        if (!unlockManager.Contains(HydroFormaModUtils.BarrierUpgrade)) { return prefab; }
+
+        var blockSpec = prefab.GetComponent<BlockObjectSpec>();
+        var blocks = blockSpec._blocksSpec._blockSpecs;
+        for (int i = 0; i < blocks.Length; i++)
+        {
+            var value = blocks[i];
+            blocks[i] = value with { _occupations = value._occupations & RemovePath };
+        }
+
+        return prefab;
+    }
+
+    static void DestroyIfExist<T>(GameObject prefab) where T : Component
+    {
+        var comp = prefab.GetComponent<T>();
+        if (comp)
+        {
+            Object.Destroy(comp);
+        }
     }
 
 }

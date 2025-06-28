@@ -20,6 +20,9 @@ public static class SluiceFragmentPatches
     [HarmonyPostfix, HarmonyPatch(nameof(SluiceFragment.ShowFragment))]
     public static void OnShowFragment() => SluiceUpstreamFragment.Instance?.ShowFragment();
 
+    [HarmonyPostfix, HarmonyPatch(nameof(SluiceFragment.UpdateFragment))]
+    public static void OnUpdateFragment() => SluiceUpstreamFragment.Instance?.UpdateFragment();
+
     [HarmonyPostfix, HarmonyPatch(nameof(SluiceFragment.ClearFragment))]
     public static void OnClearFragment() => SluiceUpstreamFragment.Instance?.ClearFragment();
 

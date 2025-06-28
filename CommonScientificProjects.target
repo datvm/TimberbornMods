@@ -7,6 +7,8 @@
 	<ItemGroup>
 		<Using Include="ScientificProjects" />
 		<Using Include="ScientificProjects.Management" />
+		<Using Include="ScientificProjects.Specs" />
+		
 
 		<Reference Include="$(ScientificProjectsPath)">
 			<Private>false</Private>
