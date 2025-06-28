@@ -11,8 +11,6 @@ public class SluiceUpstreamMarker : BaseComponent, ISelectionListener
     SluiceUpstreamService sluiceUpstreamService;
     MarkerDrawerFactory markerDrawerFactory;
     MeshDrawer markerDrawer;
-
-    Vector3Int baseCoord;
 #nullable enable
 
     [Inject]
@@ -35,13 +33,12 @@ public class SluiceUpstreamMarker : BaseComponent, ISelectionListener
 
     public void Start()
     {
-        baseCoord = blockObject.Transform(new Vector3Int(0, -1, 0));
         enabled = false;
     }
 
     public void Update()
     {
-        markerDrawer.DrawAtCoordinates(baseCoord, sluiceUpstream.Threshold + SluiceMarker.MarkerYOffset);
+        markerDrawer.DrawAtCoordinates(sluiceUpstream.ThresholdCoordinates, sluiceUpstream.Threshold + SluiceMarker.MarkerYOffset);
     }
 
     public void OnSelect()

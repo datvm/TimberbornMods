@@ -7,8 +7,9 @@ public class SluiceUpstreamComponent : BaseComponent, IPersistentEntity
     static readonly PropertyKey<float> ThresholdKey = new("Threshold");
 
     public bool AutoOpen { get; set; }
-    public float Threshold { get; set; }
+    public float Threshold { get; set; } = .65f;
     public float MaxThreshold { get; private set; }
+    public Vector3Int ThresholdCoordinates { get; private set; }
 
 #nullable disable
     MapSize mapSize;
@@ -23,7 +24,8 @@ public class SluiceUpstreamComponent : BaseComponent, IPersistentEntity
     public void Start()
     {
         var bo = GetComponentFast<BlockObject>();
-        MaxThreshold = mapSize.TotalSize.z - bo.Coordinates.z;
+        ThresholdCoordinates = bo.Transform(new Vector3Int(0, -1, 0));
+        MaxThreshold = mapSize.TotalSize.z - ThresholdCoordinates.z;
     }
 
     public void Load(IEntityLoader loader)

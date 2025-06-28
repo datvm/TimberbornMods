@@ -11,6 +11,7 @@ public class ModGameConfig : Configurator
             .BindSingleton<SluiceUpstreamService>()
 
             .MultiBindSingleton<IPrefabModifier, PrefabModifier>()
+            .MultiBindSingleton<IPrefabGroupServiceFrontRunner, TerrainBlockUpgradeService>()
 
             .BindFragment<DamGateFragment>()
             .BindFragment<FloodgateAutoFragment>()
@@ -22,6 +23,8 @@ public class ModGameConfig : Configurator
                 
                 .AddDecorator<Sluice, SluiceUpstreamComponent>()
                 .AddDecorator<Sluice, SluiceUpstreamMarker>()
+
+                .AddDecorator<RecipeTimeMultiplierSpec, RecipeTimeMultiplier>()
             )
         ;
 
@@ -35,7 +38,9 @@ public class ModStarter : IModStarter
 
     void IModStarter.StartMod(IModEnvironment modEnvironment)
     {
-        new Harmony(nameof(HydroFormaProjects)).PatchAll();
+        new Harmony(nameof(HydroFormaProjects))
+            .PatchHangingTerrains()
+            .PatchAll();
     }
 
 }

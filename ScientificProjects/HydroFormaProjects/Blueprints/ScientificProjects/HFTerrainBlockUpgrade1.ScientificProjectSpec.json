@@ -1,0 +1,14 @@
+{
+    "ScientificProjectSpec": {
+        "Id": "HFTerrainBlockUpgrade1",
+        "GroupId": "HydroForma",
+        "NameKey": "LV.HF.TerrainBlockUpgrade1",
+        "EffectKey": "LV.HF.TerrainBlockUpgradeEff",
+        "LoreKey": "LV.HF.TerrainBlockUpgrade1Lore",
+        "Icon": "Sprites/Projects/HF/TerrainBlock1",
+        "ScienceCost": 10000,
+        "Parameters": [3],
+        "Order": 70,
+        "NeedReload": true
+    }
+}

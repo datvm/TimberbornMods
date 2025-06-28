@@ -19,6 +19,9 @@ public class SluiceUpstreamFragment(
     FloatField txtUpstream;
     WaterHeightSlider sldUpstream;
 
+    VisualElement upstreamHeightPanel;
+    Label lblUpstream;
+
     SluiceFragment sluiceFragment;
 #nullable enable
 
@@ -57,6 +60,11 @@ public class SluiceUpstreamFragment(
             .SetLabelVisible(false)
             .RegisterHeightChange(SetThresholdValue);
 
+        upstreamHeightPanel = upstreamPanel.AddRow().SetDisplay(false);
+        upstreamHeightPanel.AddGameLabel(t.T("LV.HF.SluiceUpstreamDepth")).SetMarginRight(5);
+        lblUpstream = upstreamHeightPanel.AddGameLabel("0.00", name: "UpstreamDepth");
+        upstreamHeightPanel.InsertSelfBefore(instance._root.Q("DepthLabel"));
+
         instance._root.Q("Automation").Add(
             upstreamPanel.Initialize(veInit)
         );
@@ -74,12 +82,22 @@ public class SluiceUpstreamFragment(
         }
 
         UpdateContentPanel();
+
+        upstreamHeightPanel.SetDisplay(true);
         upstreamPanel.SetDisplay(true);
+    }
+
+    public void UpdateFragment()
+    {
+        if (!comp || !sluiceFragment._sluice) { return; }
+
+        lblUpstream.text = sluiceFragment._sluice._threadSafeWaterMap.WaterDepth(comp.ThresholdCoordinates).ToString("0.00");
     }
 
     public void ClearFragment()
     {
         upstreamPanel.SetDisplay(false);
+        upstreamHeightPanel.SetDisplay(false);
         comp = null;
     }
 
