@@ -233,6 +233,14 @@ public class MultiSelectService(
             PerformAdd<ManufactoryDescriber>();
         }
 
+        // Hauler
+        var haulCandidate = original.GetComponentFast<HaulCandidate>();
+        if (haulCandidate)
+        {
+            PerformMap<DummyHaulCandidate, HaulCandidate>();
+            PerformMap<DummyHaulPrioritizable, HaulPrioritizable>();
+        }
+
         TComponent PerformAdd<TComponent>()
             where TComponent : BaseComponent
         {
