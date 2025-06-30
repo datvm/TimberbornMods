@@ -4,11 +4,10 @@ namespace HydroFormaProjects.Services;
 public class DamGateService(
     IBlockService blocks,
     ScientificProjectService projects
-)
+) : BaseProjectService(projects)
 {
 
-    bool canCloseDam;
-    public bool CanCloseDam => canCloseDam || ReloadCloseDam();
+    protected override string ProjectId { get; } = HydroFormaModUtils.DamUpgrade;
 
     public void ToggleDamGate(DamGateComponent comp, bool closed)
     {
@@ -21,7 +20,7 @@ public class DamGateService(
         while (stack.Count > 0)
         {
             var current = stack.Pop();
-            if (!current.Finished 
+            if (!current.Finished
                 || (!current.Synchronize && current != comp)) { continue; }
 
             if (current.Closed != closed)
@@ -47,7 +46,5 @@ public class DamGateService(
             }
         }
     }
-
-    bool ReloadCloseDam() => canCloseDam = projects.IsUnlocked(HydroFormaModUtils.DamUpgrade);
 
 }

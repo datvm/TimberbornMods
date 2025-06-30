@@ -4,11 +4,10 @@ public class FloodgateAutoService(
     ScientificProjectService projects,
     EventBus eb,
     EntityManager entities
-) : ILoadableSingleton
+) : BaseProjectService(projects), ILoadableSingleton
 {
 
-    bool hasAutoFloodgate;
-    public bool HasAutoFloodgate => hasAutoFloodgate || ReloadHasAutoFloodgate();
+    protected override string ProjectId { get; } = HydroFormaModUtils.FloodgateUpgrade;
 
     public void Load()
     {
@@ -29,11 +28,9 @@ public class FloodgateAutoService(
         f.SetHeight(f.HeightOnNewCycle);
     });
 
-    bool ReloadHasAutoFloodgate() => hasAutoFloodgate = projects.IsUnlocked(HydroFormaModUtils.FloodgateUpgrade);
-
     void PerformFloodgateAction(Action<FloodgateAutoComponent> action)
     {
-        if (!HasAutoFloodgate) { return; }
+        if (!CanUseProject) { return; }
 
         foreach (var f in entities.Get<FloodgateAutoComponent>())
         {

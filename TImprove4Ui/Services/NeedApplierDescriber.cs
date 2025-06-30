@@ -8,12 +8,14 @@ public class NeedApplierDescriber : BaseComponent, IEntityDescriber
 
     AreaNeedApplierSpec areaNeedSpec;
     WorkshopRandomNeedApplierSpec workshopRandomNeedApplierSpec;
+    MSettings settings;
 #nullable enable
 
     [Inject]
-    public void Inject(FactionNeedSpecService needs)
+    public void Inject(FactionNeedSpecService needs, MSettings settings)
     {
         this.needs = needs;
+        this.settings = settings;
     }
 
     public void Awake()
@@ -24,6 +26,8 @@ public class NeedApplierDescriber : BaseComponent, IEntityDescriber
 
     public IEnumerable<EntityDescription> DescribeEntity()
     {
+        if (!settings.AddNegativeNeeds.Value) { yield break; }
+
         if (areaNeedSpec && areaNeedSpec.EffectPerHour is not null)
         {
             yield return DescribeEffect(areaNeedSpec.EffectPerHour);

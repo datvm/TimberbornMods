@@ -9,6 +9,7 @@ public class ModGameConfig : Configurator
             .BindSingleton<DamGateService>()
             .BindSingleton<FloodgateAutoService>()
             .BindSingleton<SluiceUpstreamService>()
+            .BindSingleton<StreamGaugeSensorService>()
 
             .MultiBindSingleton<IPrefabModifier, PrefabModifier>()
             .MultiBindSingleton<IPrefabGroupServiceFrontRunner, TerrainBlockUpgradeService>()
@@ -20,11 +21,13 @@ public class ModGameConfig : Configurator
             .BindTemplateModule(h => h
                 .AddDecorator<DamGateComponentSpec, DamGateComponent>()
                 .AddDecorator<FloodgateSpec, FloodgateAutoComponent>()
-                
+
                 .AddDecorator<Sluice, SluiceUpstreamComponent>()
                 .AddDecorator<Sluice, SluiceUpstreamMarker>()
 
                 .AddDecorator<RecipeTimeMultiplierSpec, RecipeTimeMultiplier>()
+
+                .AddDecorator<StreamGaugeSpec, StreamGaugeSensor>()
             )
         ;
 
