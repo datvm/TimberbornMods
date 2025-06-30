@@ -31,6 +31,7 @@ public class QuickBarElement(
 
     public void Load()
     {
+        pickingMode = PickingMode.Ignore;
         name = "QuickBar";
 
         bg = assets.Load<Texture2D>("UI/Images/BottomBar/bar-bg");
