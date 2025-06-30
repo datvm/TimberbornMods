@@ -1,14 +1,13 @@
 ﻿namespace HydroFormaProjects.Services;
 
 public class SluiceUpstreamService(ScientificProjectService projects)
+    : BaseProjectService(projects)
 {
-    bool canUseSluiceUpstream;
-    public bool CanUseSluiceUpstream => canUseSluiceUpstream || ReloadCanUseSluiceUpstream();
+    protected override string ProjectId { get; } = HydroFormaModUtils.SluiceUpgrade;
 
     public void SyncSluice(SluiceState sluiceState)
     {
         sluiceState.Synchronize();
     }
 
-    bool ReloadCanUseSluiceUpstream() => canUseSluiceUpstream = projects.IsUnlocked(HydroFormaModUtils.SluiceUpgrade);
 }

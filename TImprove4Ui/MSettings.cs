@@ -33,6 +33,7 @@ public class MSettings(
     public ModSetting<bool> HighlightTubeway { get; } = CreateBoolModSettings("LV.T4UI.HighlightTubeway");
     public ModSetting<bool> HighlightStorage { get; } = CreateBoolModSettings("LV.T4UI.HighlightStorage");
     public ModSetting<bool> DisableShadows { get; } = CreateBoolModSettings("LV.T4UI.DisableShadows");
+    public ModSetting<bool> AddNegativeNeeds { get; } = CreateBoolModSettings("LV.T4UI.AddNegativeNeeds", true);
 
     public readonly LimitedStringModSetting toolDescPos = new(
         1,

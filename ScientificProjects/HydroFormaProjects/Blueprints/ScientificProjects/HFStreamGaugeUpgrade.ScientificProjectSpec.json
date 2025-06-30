@@ -6,8 +6,8 @@
         "EffectKey": "LV.HF.StreamGaugeUpgradeEff",
         "LoreKey": "LV.HF.StreamGaugeUpgradeLore",
         "Icon": "Sprites/Projects/HF/StreamGauge",
-        "ScienceCost": 7500,
-        "Parameters": [ ],
+        "ScienceCost": 5000,
+        "Parameters": [ 10 ],
         "Order": 90
     }
 }
