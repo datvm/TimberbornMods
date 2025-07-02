@@ -5,16 +5,21 @@ public class StreamGaugeSensorService(
     IThreadSafeWaterMap waterMap,
     ScienceService sciences,
     IDayNightCycle dayNightCycle,
-    MapSize mapSize
+    MapSize mapSize,
+    MapIndexService mapIndexService,
+    IThreadSafeColumnTerrainMap columnTerrainMap
 ) : BaseProjectService(projects), ILoadableSingleton
 {
     readonly ScientificProjectService projects = projects;
+    int verticalStride;
 
     protected override string ProjectId { get; } = HydroFormaModUtils.StreamGaugeUpgrade;
     public int MeasureVolumeScienceCost { get; private set; } = 10;
 
     public void Load()
     {
+        verticalStride = mapIndexService.VerticalStride;
+
         var projectSpec = projects.GetProjectSpec(ProjectId);
         MeasureVolumeScienceCost = (int)projectSpec.Parameters[0];
     }
@@ -23,12 +28,16 @@ public class StreamGaugeSensorService(
     {
         var coord = sensor.BlockObject.Coordinates;
         var z = coord.z;
+        var soilZ = GetSoilLevelAt(coord);
+
 
         var level = Mathf.Clamp(waterMap.WaterHeightOrFloor(coord),
             0f, z + sensor.StreamGaugeSpec.MaxWaterLevel);
 
-        return new(level, z);
+        return new(level, z, soilZ);
     }
+
+    public bool CanMeasureVolume => sciences.SciencePoints >= MeasureVolumeScienceCost;
 
     public bool MeasureVolumeRequested(StreamGaugeSensor sensor, bool fullCubeOnly)
     {
@@ -46,7 +55,10 @@ public class StreamGaugeSensorService(
         var volume = 0f;
         float? initialDepth = null;
 
-        var startCoord = sensor.BlockObject.Coordinates;
+        var blockCoord = sensor.BlockObject.Coordinates;
+        waterMap.TryGetColumnFloor(blockCoord, out var startFloor);
+
+        var startCoord = blockCoord with { z = startFloor };
         HashSet<Vector3Int> visited = [startCoord];
         Stack<Vector3Int> stack = new(visited);
 
@@ -57,7 +69,7 @@ public class StreamGaugeSensorService(
         {
             var coord = stack.Pop();
             
-            var depth = Mathf.Clamp01(waterMap.WaterHeightOrFloor(coord));
+            var depth = Mathf.Clamp01(waterMap.WaterHeightOrFloor(coord) - coord.z);
             initialDepth ??= depth - HeightFluctuationThreshold;
 
             volume += depth;
@@ -82,12 +94,27 @@ public class StreamGaugeSensorService(
 
         }
 
-        ScientificProjectsUtils.Log(() => "StreamGaugeSensor: measured in these cells: " + string.Join(", ", visited));
-
         return new(volume, visited.Count, dayNightCycle.DayNumber);
+    }
+
+    int GetSoilLevelAt(Vector3Int coord)
+    {
+        var index2D = mapIndexService.CellToIndex(coord.XY());
+        var count = columnTerrainMap.GetColumnCount(index2D);
+
+        for (int i = count - 1; i >= 0; i--)
+        {
+            var ceil = columnTerrainMap.GetColumnCeiling(index2D + i * verticalStride);
+            if (ceil <= coord.z)
+            {
+                return ceil;
+            }
+        }
+
+        throw new InvalidDataException("No soil underneath, this should not happen");
     }
 
 }
 
-public readonly record struct StreamGaugeSensorMeasurement(float Height, float BaseZ);
+public readonly record struct StreamGaugeSensorMeasurement(float Height, float BaseZ, int SoilZ);
 public readonly record struct StreamGaugeSensorVolumeMeasurement(float Volume, int Cubes, int Day);
