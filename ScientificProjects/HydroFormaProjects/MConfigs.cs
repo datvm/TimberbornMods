@@ -17,6 +17,7 @@ public class ModGameConfig : Configurator
             .BindFragment<DamGateFragment>()
             .BindFragment<FloodgateAutoFragment>()
             .BindSingleton<SluiceUpstreamFragment>() // This is not a fragment
+            .BindFragment<StreamGaugeUpgradeFragment>()
 
             .BindTemplateModule(h => h
                 .AddDecorator<DamGateComponentSpec, DamGateComponent>()

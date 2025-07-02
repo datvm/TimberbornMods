@@ -28,12 +28,6 @@ public class StreamGaugeSensor : TickableComponent, ISelectionListener
 
     public override void Tick()
     {
-        if (!enabled)
-        {
-            Debug.Log("Tick called when not enabled");
-            return;
-        }
-
         WaterLevel = service.MeasureSensorLevel(this);
     }
 
@@ -43,6 +37,7 @@ public class StreamGaugeSensor : TickableComponent, ISelectionListener
             && service.CanUseProject)
         {
             enabled = true;
+            Tick();
         }
     }
 

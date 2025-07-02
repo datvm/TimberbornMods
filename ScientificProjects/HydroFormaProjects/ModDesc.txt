@@ -1,0 +1,24 @@
+﻿The next [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3442389397]Scientific Projects[/url] introduces HydroForma Corp., the cutting-edge frontier of aquatic ingenuity where rivers obey and terrain trembles. This isn't Ol' Kazko's creaky contraptions from a bygone cycle. This is next-gen hydro-engineering, trademarked, patented, and impossibly shiny!
+
+[h1]Brand new [strike]projects[/strike] innovations™️[/h1]
+- Pressure Gate Module: Allows [b]Dams[/b] to be manually closed completely, stopping all water flow.
+- Power Conduction Core (the science cost is 9001 though the UI shows 9.0k): Enables [b]Levees[/b] to transmit [b]Power[/b] between structures. For reasons that can only be described as a universe-level meme, this project cost exactly over 9000 science effort.
+- Auto-Regulator Unit: [b]Floodgates[/b] automatically adjust height in response to weather conditions.
+- Source-Level Sensor: [b]Sluices[/b] automatically open based on upstream water level.
+- R&D Sponsorship™ Package: Unlocks early access to upcoming upgrades. Effect to be revealed in the future. T&C apply.
+- BurrowBot™ System: Reduces the workforce required to operate [b]Dirt Excavators[/b] to a single operator.
+- Deep Anchor Framework: Increases the number of unsupported [b]Terrain Blocks[/b] that can be safely placed.
+- Substrata Stress Extender: Requires "Deep Anchor Framework". Further improves unsupported [b]Terrain Block[/b] placement - now with extra plausible deniability.
+- Surface™ Access Coating: Allows paths to be built on top of [b]Contamination and Irrigation Barriers[/b] - even if you can't see them.
+- DepthSense™ Array: [b]Stream Gauges[/b] detect water depth all the way to the soil beneath their tile and can measure reservoir volume at a small science cost.
+
+Note: you can't see the paths built under the barriers but they are there. Trust us, we tested it. (Actually, it's due to technical limitation 🤷)
+
+[h1]Troubleshooting[/h1]
+
+- Currently Moddable Bindito does not work with both Automation or TimberApi (an attempt to make it compatible with Automation crashes TimberApi instead). To make it work with TimberApi (but not Automation), please download v7.1.1 at https://mod.io/g/timberborn/m/for-modders-moddable-bindito#description for now.
+
+If you need any support or feedback, feel free to contact me on Timberborn's official Discord ( https://discord.gg/timberborn, on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] channel), or @theapologist316
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods

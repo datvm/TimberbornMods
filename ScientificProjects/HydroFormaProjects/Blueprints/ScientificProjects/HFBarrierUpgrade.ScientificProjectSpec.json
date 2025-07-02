@@ -6,7 +6,7 @@
         "EffectKey": "LV.HF.BarrierUpgradeEff",
         "LoreKey": "LV.HF.BarrierUpgradeLore",
         "Icon": "Sprites/Projects/HF/Barrier",
-        "ScienceCost": 5000,
+        "ScienceCost": 3000,
         "Parameters": [],
         "Order": 80,
         "NeedReload": true
