@@ -1,4 +1,5 @@
-﻿global using MicroManagement.UI;
+﻿global using MicroManagement.Services;
+global using MicroManagement.UI;
 
 namespace MicroManagement;
 
@@ -7,7 +8,12 @@ public class ModGameConfig : Configurator
 {
     public override void Configure()
     {
-        this.BindFragments<EntityPanelFragmentProvider<BeaverManagementFragment>>();
-        Bind<BeaverAssignmentTool>().AsSingleton();
+        this
+            .BindSingleton<BeaverAssignmentTool>()
+            .BindSingleton<BeaverAssignmentService>()
+
+            .BindFragment<BeaverManagementFragment>()
+            .BindFragment<SendAllToDistrictCenterFragment>()
+        ;
     }
 }
