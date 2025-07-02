@@ -1,0 +1,10 @@
+{
+    "Name": "Syncable Settings",
+    "Version": "7.0.0",
+    "Id": "SyncableSettings",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Settings are stored in files and sync through Steam Cloud.",
+    "RequiredMods": [
+        { "Id": "Harmony" }
+    ]
+}
