@@ -221,6 +221,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redsurge", "Redsurge\Redsur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UselessMachine", "UselessMachine\UselessMachine.csproj", "{B13313EA-AF22-42AF-A854-CC7A3A82ECF8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncableSettings", "SyncableSettings\SyncableSettings.csproj", "{7E2EE64C-12A0-541B-E8C4-26F2F8A85EBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -587,6 +589,10 @@ Global
 		{B13313EA-AF22-42AF-A854-CC7A3A82ECF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B13313EA-AF22-42AF-A854-CC7A3A82ECF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B13313EA-AF22-42AF-A854-CC7A3A82ECF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E2EE64C-12A0-541B-E8C4-26F2F8A85EBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E2EE64C-12A0-541B-E8C4-26F2F8A85EBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E2EE64C-12A0-541B-E8C4-26F2F8A85EBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E2EE64C-12A0-541B-E8C4-26F2F8A85EBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -651,6 +657,7 @@ Global
 		{2ABF3AA5-901B-3975-E483-9BBFF1DAEBDF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{994A612C-538A-4CED-A35E-735656A47EEC} = {5D10D08B-18D1-40D6-B0B2-83778419FC99}
 		{B13313EA-AF22-42AF-A854-CC7A3A82ECF8} = {BDCE3A0F-E546-41C0-A8E4-FE8A78BD85B6}
+		{7E2EE64C-12A0-541B-E8C4-26F2F8A85EBA} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}

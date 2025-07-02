@@ -1,0 +1,11 @@
+This mod redirects Timberborn's settings (PlayerPrefs, mostly used by Mod Settings) to [b]Documents\Timberborn\PlayerData\SyncableSettings.json[/b], making your settings easy to sync with Steam Cloud, back up, or edit manually. You can also import or export your settings with any text editor.
+
+[i]Default Behavior:[/i]
+- Windows: Settings are stored in the Windows Registry at HKEY_CURRENT_USER\Software\Mechanistry\Timberborn.
+- Mac: Settings are stored in ~/Library/Preferences/unity.Mechanistry.Timberborn.plist.
+
+With this mod, all your settings are also saved in a single, easy-to-manage JSON file. Moreover, settings are still written to the original storage (registry or plist) just like before, ensuring compatibility and safety. When reading a setting, the mod will first look in the JSON file, and if the key isn't found there, it will automatically fall back to the original storage. This means you get an extra layer of sync and portability without losing the default behavior.
+
+[h1]Note:[/h1]
+- Due to limitations in Unity, it's not possible to read all existing PlayerPrefs data from the original storage. This means your current settings cannot be transferred automatically.If you'd like a fully synchronized setup, you can use a DevTool to clear your current settings and start fresh with the syncable version.
+- A few settings are read/written way too early before this mod can load (mostly the Mod list). You should put this mod on top just below Harmony but it likely to work in most cases you need.
