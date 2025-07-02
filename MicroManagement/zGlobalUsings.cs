@@ -1,9 +1,0 @@
-﻿global using Timberborn.BlockSystem;
-global using Timberborn.BuildingsBlocking;
-global using Timberborn.Coordinates;
-global using Timberborn.DwellingSystem;
-global using Timberborn.GameDistricts;
-global using Timberborn.InputSystem;
-global using Timberborn.SelectionSystem;
-global using Timberborn.WalkingSystem;
-global using Timberborn.WorkSystem;
