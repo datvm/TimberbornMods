@@ -1,18 +1,28 @@
 ﻿
 namespace ModdableBindito.Wrappers;
 
-public class ModdableSpecService(
-    SerializedObjectReaderWriter serializedObjectReaderWriter,
-    IAssetLoader assetLoader,
-    BlueprintDeserializer blueprintDeserializer,
-    IEnumerable<IBlueprintModifierProvider> blueprintModifierProviders,
-    IEnumerable<ISpecServiceFrontRunner> frontRunners
-) : SpecService(serializedObjectReaderWriter, assetLoader, blueprintDeserializer, blueprintModifierProviders),
+public class ModdableSpecService : SpecService,
     ILoadableSingleton, ISpecService
 {
 
+    // Do not remove this, it's for TimberApi
+    private readonly new Dictionary<Type, List<Lazy<Blueprint>>> _cachedBlueprints;
+
+    private readonly IEnumerable<ISpecServiceFrontRunner> frontRunners;
     ImmutableArray<ISpecLoader> loaders = [];
     ImmutableArray<ISpecModifier> modifiers = [];
+
+    public ModdableSpecService(
+        SerializedObjectReaderWriter serializedObjectReaderWriter,
+        IAssetLoader assetLoader,
+        BlueprintDeserializer blueprintDeserializer,
+        IEnumerable<IBlueprintModifierProvider> blueprintModifierProviders,
+        IEnumerable<ISpecServiceFrontRunner> frontRunners
+    ) : base(serializedObjectReaderWriter, assetLoader, blueprintDeserializer, blueprintModifierProviders)
+    {
+        this.frontRunners = frontRunners;
+        _cachedBlueprints = base._cachedBlueprints;
+    }
 
     void ILoadableSingleton.Load()
     {

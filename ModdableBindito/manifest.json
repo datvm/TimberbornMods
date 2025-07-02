@@ -1,6 +1,6 @@
 {
     "Name": "Moddable Bindito",
-    "Version": "7.1.2",
+    "Version": "7.1.3",
     "Id": "ModdableBindito",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Allow modders to perform some in-depth modifications",

@@ -18,7 +18,7 @@
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
 		
-		<ProjectReference Include="..\MicroManagement\MicroManagement.csproj" />
+		<ProjectReference Include="..\TestMod\TestMod.csproj" />
 	</ItemGroup>
 
 </Project>
