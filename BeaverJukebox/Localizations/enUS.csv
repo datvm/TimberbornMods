@@ -1,0 +1,11 @@
+ID,Text,Comment
+LV.BJb.OpenFolder,"Open override folder",
+LV.BJb.Muted,"Muted",
+LV.BJb.ToggleMute,"Toggle mute",
+LV.BJb.PlayOriginal,"Play original",
+LV.BJb.Play,"Play",
+LV.BJb.Replaced,"Replaced",
+LV.BJb.Restore,"Restore to original",
+LV.BJb.Replace,"Replace",
+LV.BJb.StopAll,"Stop all playing",
+LV.BJb.Filter,"Filter",
