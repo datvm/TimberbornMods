@@ -1,0 +1,12 @@
+{
+    "Name": "Beaver Jukebox",
+    "Version": "7.0.0",
+    "Id": "BeaverJukebox",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Change the game sounds",
+    "RequiredMods": [
+        { "Id": "TimberUi" },
+        { "Id": "Harmony" },
+        { "Id": "eMka.ModSettings" }
+    ]
+}
