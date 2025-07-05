@@ -8,9 +8,9 @@ public class BlockObjectResizeValidationService(
 )
 {
 
-    public bool ValidateBlockObjects(in Vector3Int totalSize, in Vector3Int terrainSize)
+    public BlockObject? GetFirstInvalidBlockObject(in Vector3Int totalSize, in Vector3Int terrainSize)
     {
-        return !GetInvalidBlockObjects(totalSize, terrainSize).Any();
+        return GetInvalidBlockObjects(totalSize, terrainSize).FirstOrDefault();
     }
 
     public void DeleteInvalidBlockObjects(in Vector3Int totalSize, in Vector3Int terrainSize)
@@ -21,7 +21,7 @@ public class BlockObjectResizeValidationService(
         }
     }
 
-    IEnumerable<BlockObject> GetInvalidBlockObjects(Vector3Int totalSize, Vector3Int terrainSize)
+    public IEnumerable<BlockObject> GetInvalidBlockObjects(Vector3Int totalSize, Vector3Int terrainSize)
     {
         foreach (var en in entities.Entities.ToArray())
         {
@@ -33,7 +33,7 @@ public class BlockObjectResizeValidationService(
                 blockObj.PositionedBlocks.GetAllBlocks()
                     .Any(q => !IsValid(
                         q.Coordinates, 
-                        q.IsFoundationBlock ? terrainSize : totalSize)))
+                        totalSize)))
             {
                 yield return blockObj;
             }
@@ -42,7 +42,7 @@ public class BlockObjectResizeValidationService(
 
     static bool IsValid(in Vector3Int coord, in Vector3Int size)
     {
-        return coord.x < size.x && coord.y < size.y && coord.z < size.z - 1;
+        return coord.x < size.x && coord.y < size.y && coord.z < size.z;
     }
 
 }

@@ -9,7 +9,8 @@ public class MapResizerController(
     MapResizeService mapResizer,
     DropdownItemsSetter dropdownItemsSetter,
     DialogBoxShower diagShower,
-    BlockObjectResizeValidationService blockObjectResizeValidationService
+    BlockObjectResizeValidationService blockObjectResizeValidationService,
+    EntitySelectionService entitySelectionService
 ) : ILoadableSingleton
 {
     readonly GameOptionsBox? gameOptionsBox = optionsBox as GameOptionsBox;
@@ -66,15 +67,23 @@ public class MapResizerController(
         var totalSize = resizeValues.TotalSize;
         var terrainSize = resizeValues.TerrainSize;
 
-        if (blockObjectResizeValidationService.ValidateBlockObjects(totalSize, terrainSize)) { return true; }
+        var firstInvalidBlockObject = blockObjectResizeValidationService.GetFirstInvalidBlockObject(totalSize, terrainSize);
+        if (!firstInvalidBlockObject) { return true; }
 
         diagShower.Create()
             .SetMessage("LV.MRe.ResizeInvalidObj".T(t))
             .SetConfirmButton(() => blockObjectResizeValidationService.DeleteInvalidBlockObjects(totalSize, terrainSize), "LV.MRe.AutoRemove".T(t))
             .SetDefaultCancelButton()
+            .SetInfoButton(() => SelectInvalidObject(firstInvalidBlockObject), t.T("LV.MRe.SeeInvalidObj"))
             .Show();
 
         return false;
+    }
+
+    void SelectInvalidObject(BlockObject obj)
+    {
+        Debug.Log($"Invalid object: {obj}, at {obj.Coordinates}");
+        entitySelectionService.SelectAndFocusOn(obj);
     }
 
     void LoadSave(ISaveReference saveRef)

@@ -1,6 +1,6 @@
 {
     "Name": "Beaver Jukebox",
-    "Version": "7.0.0",
+    "Version": "7.0.1",
     "Id": "BeaverJukebox",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Change the game sounds",
