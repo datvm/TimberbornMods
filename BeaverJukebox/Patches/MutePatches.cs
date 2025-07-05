@@ -12,8 +12,6 @@ public class MutePatches
 
     static void ReplaceWithMutedSoundName(ref string soundName)
     {
-        Debug.Log($"For {soundName}: should mute? {AudioMuteService.Instance?.ShouldMute(soundName)}");
-
         if (AudioMuteService.Instance?.ShouldMute(soundName) == true)
         {
             soundName = AudioMuteService.MuteSoundName;
