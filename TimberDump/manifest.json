@@ -1,6 +1,6 @@
 {
     "Name": "Timber Dump",
-    "Version": "7.0.0",
+    "Version": "7.1.0",
     "Id": "TimberDump",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Dump data for Timberborn",

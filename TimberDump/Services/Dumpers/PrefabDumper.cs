@@ -1,10 +1,11 @@
 ﻿namespace TimberDump.Services.Dumpers;
 
-public class PrefabDumper(IAssetLoader assets) : IDumper
+public class PrefabDumper(IAssetLoader assets) : IJsonDumper
 {
     static readonly Dictionary<Type, ImmutableArray<FieldInfo>> TypeCache = [];
 
     public string? Folder { get; } = "Objects";
+    public int Order { get; }
 
     public IEnumerable<(string Name, Func<object?> Data)> GetDumpData()
     {
@@ -48,4 +49,8 @@ public class PrefabDumper(IAssetLoader assets) : IDumper
         [.. type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
             .Where(f => f.GetCustomAttribute<SerializeField>() != null)];
 
+    public void Dump(string folder)
+    {
+        throw new NotImplementedException();
+    }
 }
