@@ -12,6 +12,7 @@ public class DumpService(
     {
         ContractResolver = new JsonIgnoreUnityObjectContract(),
         Formatting = Newtonsoft.Json.Formatting.Indented,
+        Converters = [ new UnityObjectConverter(), ],
     };
 
     public void Dump() => Dump(false);
