@@ -1,6 +1,4 @@
-﻿global using TimberDump.Services;
-
-namespace TimberDump;
+﻿namespace TimberDump;
 
 [Context("MainMenu")]
 public class ModMenuConfig : Configurator
@@ -19,9 +17,10 @@ public class ModMenuConfig : Configurator
 
         Bind<DumpController>().AsSingleton();
         Bind<DumpService>().AsSingleton();
+        Bind<TextureDumper>().AsSingleton();
 
         var dumpers = typeof(ModMenuConfig).Assembly.GetTypes()
-            .Where(q => q.IsClass && !q.IsAbstract && q.GetInterfaces().Contains(typeof(IDumper)));
+            .Where(q => q.IsClass && !q.IsAbstract && typeof(IDumper).IsAssignableFrom(q));
 
         foreach (var dumper in dumpers)
         {

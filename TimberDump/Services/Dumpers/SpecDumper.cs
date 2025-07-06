@@ -1,12 +1,18 @@
 ﻿namespace TimberDump.Services.Dumpers;
 
-public class SpecDumper(ISpecService specs) : IDumper
+public class SpecDumper(ISpecService specs) : IJsonDumper
 {
 
     static readonly MethodInfo GetAllMethod = typeof(ISpecService)
         .GetMethod(nameof(ISpecService.GetSpecs));
 
     public string? Folder { get; } = "Specs";
+    public int Order { get; }
+
+    public void Dump(string folder)
+    {
+        throw new NotImplementedException();
+    }
 
     public IEnumerable<(string Name, Func<object?> Data)> GetDumpData()
     {

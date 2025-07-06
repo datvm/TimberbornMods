@@ -11,48 +11,53 @@ public class DumpService(
     static readonly JsonSerializerSettings jsonSettings = new()
     {
         ContractResolver = new JsonIgnoreUnityObjectContract(),
-        Formatting = Formatting.Indented,
+        Formatting = Newtonsoft.Json.Formatting.Indented,
     };
 
-    public void Dump()
+    public void Dump() => Dump(false);
+    public void Dump(bool force)
     {
-        if (!ConfirmDump()) { return; }
-
-        Dictionary<string, Type> names = [];
-        Directory.CreateDirectory(DumpFolder);
-
-        foreach (var dumper in dumpers)
+        if (!force)
         {
+            if (!ConfirmDump()) { return; }
+        }
+
+        Directory.CreateDirectory(DumpFolder);
+        foreach (var dumper in dumpers.OrderBy(q => q.Order))
+        {
+            Debug.Log($"Dumping {dumper.GetType().FullName}");
+
             var outputFolder = dumper.Folder is null ? DumpFolder : Path.Combine(DumpFolder, dumper.Folder);
             Directory.CreateDirectory(outputFolder);
 
-            foreach (var (n, dataFunc) in dumper.GetDumpData())
+            if (dumper is IJsonDumper jsonDumper)
             {
-                var name = dumper.Folder is null ? n : $"{dumper.Folder}/{n}";
-
-                if (names.TryGetValue(name, out var type))
-                {
-                    throw new InvalidOperationException(
-                        $"Duplicate dumper name found: {name}. " +
-                        $"Types: {type.FullName} and {dumper.GetType().FullName}"
-                    );
-                }
-                names[name] = dumper.GetType();
-
-                Debug.Log($"Dumping {name}...");
-
-                var data = dataFunc();
-                if (data is null) { continue; }
-
-                var filePath = Path.Combine(outputFolder, $"{n}.json");
-                var json = JsonConvert.SerializeObject(data, jsonSettings);
-                File.WriteAllText(filePath, json);
+                DumpJson(jsonDumper, outputFolder);
             }
-
-            
+            else
+            {
+                dumper.Dump(outputFolder);
+            }
         }
 
         OpenFolder();
+    }
+
+    void DumpJson(IJsonDumper dumper, string outputFolder)
+    {
+        foreach (var (n, dataFunc) in dumper.GetDumpData())
+        {
+            var name = dumper.Folder is null ? n : $"{dumper.Folder}/{n}";
+
+            Debug.Log($"  Dumping {name}...");
+
+            var data = dataFunc();
+            if (data is null) { continue; }
+
+            var filePath = Path.Combine(outputFolder, $"{n}.json");
+            var json = JsonConvert.SerializeObject(data, jsonSettings);
+            File.WriteAllText(filePath, json);
+        }
     }
 
     bool ConfirmDump()
@@ -60,12 +65,8 @@ public class DumpService(
         if (Directory.Exists(DumpFolder))
         {
             diag.Create()
-                .SetMessage("The dump folder exists. It will be deleted if you proceed. Are you sure?")
-                .SetConfirmButton(() =>
-                {
-                    Directory.Delete(DumpFolder, true);
-                    Dump();
-                })
+                .SetMessage("The dump folder exists. Certain data may be overwritten and old data that should not be there anymore may persist. You can delete the folder yourself before continue. Do you want to continue?")
+                .SetConfirmButton(() => Dump(true))
                 .SetDefaultCancelButton()
                 .SetInfoButton(OpenFolder, "Open folder")
                 .Show();
