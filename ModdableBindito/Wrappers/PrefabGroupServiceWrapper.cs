@@ -27,6 +27,7 @@ public class PrefabGroupServiceWrapper(
             }
             prefabs[i] = curr;
         }
+        AllPrefabs = [..prefabs];
 
         foreach (var runner in frontRunners)
         {

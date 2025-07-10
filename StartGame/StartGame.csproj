@@ -16,9 +16,9 @@
 	<ItemGroup>
 		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
 		
-		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
+		<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />
 		
-		<ProjectReference Include="..\TimberDump\TimberDump.csproj" />
+		<!--<ProjectReference Include="..\ScenarioEditor\ScenarioEditor.csproj" />-->
 	</ItemGroup>
 
 </Project>
