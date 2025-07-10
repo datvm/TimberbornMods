@@ -5,15 +5,14 @@ public class OmnibarToolProvider(
     DevModeManager devModeManager,
     ILoc t,
     IContainer container
-) : IOmnibarProvider, ILoadableSingleton
+) : IOmnibarProvider, IPostLoadableSingleton
 {
 
     OmnibarToolItem[] items = [];
     public FrozenDictionary<string, BlockObjectTool> BuildingTools { get; private set; } = null!;
     public IReadOnlyList<OmnibarToolItem> Items => items;
 
-
-    public void Load()
+    public void PostLoad()
     {
         items = [.. toolButtonService.ToolButtons.Select(q => new OmnibarToolItem(q, t, container))];
 

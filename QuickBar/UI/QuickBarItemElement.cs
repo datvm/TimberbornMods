@@ -22,22 +22,25 @@ public class QuickBarItemElement : VisualElement
             btn.AddAction(() => Item!.Activate());
 
             var icon = ve.Q("ToolImage");
-            if (item.Sprite is not null)
+            if (icon is not null)
             {
-                icon.style.backgroundImage = new StyleBackground(item.Sprite);
-            }
-            else if (item.Texture is not null)
-            {
-                icon.style.backgroundImage = item.Texture;
-            }
-            else
-            {
-                icon.SetDisplay(false);
+                if (item.Sprite is not null)
+                {
+                    icon.style.backgroundImage = new StyleBackground(item.Sprite);
+                }
+                else if (item.Texture is not null)
+                {
+                    icon.style.backgroundImage = item.Texture;
+                }
+                else
+                {
+                    icon.SetDisplay(false);
+                }
             }
 
             if (item is BlockObjectToolQuickBarItem boTool && boTool.Tool.IsLocked())
             {
-                ve.Q<Image>("LockIcon").SetDisplay(true);
+                ve.Q<Image>("LockIcon")?.SetDisplay(true);
             }
         }
 
