@@ -1,12 +1,15 @@
 {
     "Name": "HydroForma Projects",
-    "Version": "7.0.0",
+    "Version": "7.0.1",
     "Id": "HydroFormaProjects",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Landscape building scientific projects.",
     "RequiredMods": [
         { "Id": "ScientificProjects" },
         { "Id": "Harmony" },
-        { "Id": "ModdableBindito" }
+        {
+            "Id": "ModdableBindito",
+            "MinimumVersion": "7.1.4"
+        }
     ]
 }

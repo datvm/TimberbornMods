@@ -1,5 +1,4 @@
-﻿
-using ScenarioEditor.UI.ScenarioEvents;
+﻿using ScenarioEditor.UI.ScenarioEvents;
 
 namespace ScenarioEditor;
 
@@ -16,12 +15,16 @@ public class CommonGameplayConfig : Configurator
 {
     public override void Configure()
     {
-        Bind<MSettings>().AsSingleton();
-        Bind<ScenarioEventManager>().AsSingleton();
+        this
+            .BindSingleton<MSettings>()
+            .BindSingleton<ScenarioEventManager>()
+            
+            .TryBindingCameraShake(false)
 
-        this.BindTemplateModule()
-            .AddDecorator<StartingLocationSpec, CustomStartComponent>()
-            .Bind();
+            .BindTemplateModule(h => h
+                .AddDecorator<StartingLocationSpec, CustomStartComponent>()
+            )
+        ;
     }
 }
 
@@ -32,12 +35,12 @@ public class ModMapEditorConfig : CommonGameplayConfig
     {
         base.Configure();
 
-        this.BindFragment<CustomStartFragment>();
-
-        Bind<PrefabNameProvider>().AsSingleton();
-
-        Bind<ScenarioEventsController>().AsSingleton();
-        Bind<ScenarioEventsDialog>().AsSingleton();
+        this
+            .BindFragment<CustomStartFragment>()
+            .BindSingleton<PrefabNameProvider>()
+            .BindSingleton<ScenarioEventsController>()
+            .BindSingleton<ScenarioEventsDialog>()
+        ;
     }
 }
 
@@ -48,12 +51,11 @@ public class ModGameConfig : CommonGameplayConfig
     {
         base.Configure();
 
-        Bind<ScenarioEventRegistry>().AsSingleton();
-        Bind<CameraShakeService>().AsSingleton();
-        Bind<MultiStartingLocationsService>().AsSingleton();
-        Bind<TriggerAreaService>().AsSingleton();
-
-        MultiBind<IDevModule>().To<ScenarioEditorDevModule>().AsSingleton();
+        this
+            .BindSingleton<ScenarioEventRegistry>()
+            .BindSingleton<MultiStartingLocationsService>()
+            .BindSingleton<TriggerAreaService>()
+        ;
     }
 }
 

@@ -5,6 +5,7 @@ public class PrefabModifier(
 ) : IPrefabModifier
 {
     static readonly Directions3D AllDirections = (Directions3D)(1 + 2 + 4 + 8 + 0x10 + 0x20);
+    static readonly Dictionary<GameObject, GameObject> originalObjects = [];
 
     public int Priority { get; }
 
@@ -13,20 +14,42 @@ public class PrefabModifier(
         var spec = prefab.GetComponent<PrefabSpec>();
         if (!spec) { return prefab; }
 
-        return spec.Name switch
+        if (originalObjects.TryGetValue(prefab, out var original) && original)
         {
-            "Dam.Folktails" or "Dam.IronTeeth" => ModifyDam(prefab, spec),
+            originalObjects.Remove(prefab);
+            prefab = original;
+        }
+
+        if (!prefab)
+        {
+            throw new InvalidOperationException("Prefab is somehow null");
+        }
+
+        var modified = spec.Name switch
+        {
+            "Dam.Folktails" or "Dam.IronTeeth" => ModifyDam(prefab),
             "Levee.Folktails" or "Levee.IronTeeth" => ModifyLevee(prefab),
             "DirtExcavator.Folktails" or "DirtExcavator.IronTeeth" => ModifyDirtExcavator(prefab),
             "ContaminationBarrier.Folktails" or "IrrigationBarrier.IronTeeth" => ModifyBarriers(prefab),
             _ => prefab,
         };
+
+        if (original && prefab != modified)
+        {
+            originalObjects.Add(modified, original);
+        }
+
+        return modified;
     }
 
-    GameObject ModifyDam(GameObject prefab, PrefabSpec spec)
+    GameObject Copy(GameObject o) => Object.Instantiate(o);
+
+    GameObject ModifyDam(GameObject prefab)
     {
-        prefab.AddComponent<DamGateComponentSpec>();
+        prefab = Copy(prefab);
+
         DestroyIfExist<FinishableWaterObstacleSpec>(prefab);
+        prefab.AddComponent<DamGateComponentSpec>();        
 
         return prefab;
     }
@@ -34,6 +57,7 @@ public class PrefabModifier(
     GameObject ModifyLevee(GameObject prefab)
     {
         if (!unlockManager.Contains(HydroFormaModUtils.LeveeUpgrade)) { return prefab; }
+        prefab = Copy(prefab);
 
         var mechNode = prefab.AddComponent<MechanicalNodeSpec>();
         mechNode._isShaft = true;
@@ -51,11 +75,12 @@ public class PrefabModifier(
     GameObject ModifyDirtExcavator(GameObject prefab)
     {
         if (!unlockManager.Contains(HydroFormaModUtils.DirtExcavatorUpgrade)) { return prefab; }
+        prefab = Copy(prefab);
 
         var workplace = prefab.GetComponent<WorkplaceSpec>();
         var modifier = 1f / workplace._maxWorkers;
         workplace._maxWorkers = workplace._defaultWorkers = 1;
-        
+
         var multiplier = prefab.AddComponent<RecipeTimeMultiplierSpec>();
         multiplier.multiplier = modifier;
         multiplier.id = "HFDirtExcavatorUpgrade";
@@ -66,7 +91,9 @@ public class PrefabModifier(
     GameObject ModifyBarriers(GameObject prefab)
     {
         const BlockOccupations RemovePath = ~BlockOccupations.Path;
+
         if (!unlockManager.Contains(HydroFormaModUtils.BarrierUpgrade)) { return prefab; }
+        prefab = Copy(prefab);
 
         var blockSpec = prefab.GetComponent<BlockObjectSpec>();
         var blocks = blockSpec._blocksSpec._blockSpecs;
@@ -84,7 +111,12 @@ public class PrefabModifier(
         var comp = prefab.GetComponent<T>();
         if (comp)
         {
-            Object.Destroy(comp);
+            ScientificProjectsUtils.Log(() => $"Removing component {typeof(T).Name} from prefab {prefab.name}.");
+            Object.DestroyImmediate(comp);
+        }
+        else
+        {
+            Debug.LogWarning($"Component {typeof(T).Name} not found in prefab {prefab.name}. It was expected to be removed.");
         }
     }
 

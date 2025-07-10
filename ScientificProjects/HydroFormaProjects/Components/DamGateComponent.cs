@@ -55,11 +55,7 @@ public class DamGateComponent : BaseComponent, IFinishedStateListener, IPersiste
     public void Start()
     {
         initialized = true;
-
-        if (Closed)
-        {
-            ToggleClosed(true);
-        }
+        ToggleClosed(Closed);
     }
 
     public void ToggleClosed(bool closed)

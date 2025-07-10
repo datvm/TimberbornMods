@@ -1,6 +1,8 @@
 ﻿namespace ScenarioEditor.DevModules;
 
-public class ScenarioEditorDevModule(CameraShakeService cameraShakeService) : IDevModule
+public class ScenarioEditorDevModule(
+    CameraShakeService cameraShakeService
+) : IDevModule
 {
 
     public DevModuleDefinition GetDefinition()
