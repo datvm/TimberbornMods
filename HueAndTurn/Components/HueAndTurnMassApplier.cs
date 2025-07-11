@@ -3,69 +3,46 @@
 public class HueAndTurnMassApplier(EntityRegistry entities, ILoc t, DialogBoxShower diagShower)
 {
 
-    static void DoNothing() { }
-
     public void Confirm(Action onConfirm)
     {
         diagShower.Create()
             .SetMessage(t.T("LV.HNT.AllConfirm"))
             .SetConfirmButton(onConfirm)
-            .SetCancelButton(DoNothing)
+            .SetDefaultCancelButton()
             .Show();
     }
 
-    public void CopyColor(HueAndTurnComponent comp)
+    public void CopyColor(IHueAndTurnComponent comp) => ApplyToAll(comp, (c, props) =>
     {
-        var o = comp.Properties.Color;
-        var transparency = comp.Properties.Transparency;
-        ApplyToAll(comp, c =>
-        {
-            c.Properties.Color = o;
-            c.Properties.Transparency = transparency;
-            c.ApplyColor();
-            c.ApplyTransparency();
-        });
-    }
+        c.SetColor(props.Color);
+        c.SetTransparency(props.Transparency);
+    });
 
-    public void CopyAllProps(HueAndTurnComponent comp)
+    public void CopyAllProps(IHueAndTurnComponent comp) => ApplyToAll(comp, (c, props) =>
     {
-        var props = comp.Properties;
+        c.ApplyProperties(props);
+    });
 
-        ApplyToAll(comp, c =>
-        {
-            c.ApplyProperties(props);
-        });
-    }
-
-    public void RandomizeRotations(HueAndTurnComponent comp)
+    public void RandomizeRotations(IHueAndTurnComponent comp) => ApplyToAll(comp, (c, _) =>
     {
-        ApplyToAll(comp, c =>
-        {
-            c.Properties.RotationPivot = Vector2Int.zero;
-            c.Properties.Rotation = UnityEngine.Random.RandomRangeInt(-180, 180);
-            c.ApplyRepositioning();
-        });
-    }
+        var rotation = UnityEngine.Random.RandomRangeInt(-180, 180);
+        c.SetRotationWithPivot(rotation, Vector2Int.zero);
+    });
 
-    public void Reset(HueAndTurnComponent comp)
-    {
-        ApplyToAll(comp, c =>
-        {
-            c.Reset();
-        });
-    }
+    public void Reset(IHueAndTurnComponent comp) => ApplyToAll(comp, (c, _) => c.Reset());
 
-    void ApplyToAll(HueAndTurnComponent comp, Action<HueAndTurnComponent> action)
+    void ApplyToAll(IHueAndTurnComponent comp, Action<IHueAndTurnComponent, ReadOnlyHueAndTurnProperties> action)
     {
         if (!comp.PrefabSpec) { return; }
         var name = comp.PrefabName;
+        var props = comp.Properties;
 
         foreach (var e in entities.Entities)
         {
             var hat = e.GetComponentFast<HueAndTurnComponent>();
             if (!hat || hat.PrefabName != name) { continue; }
 
-            action(hat);
+            action(hat, props);
         }
     }
 

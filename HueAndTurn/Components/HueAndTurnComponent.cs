@@ -1,13 +1,15 @@
 ﻿namespace HueAndTurn.Components;
 
-public class HueAndTurnComponent : BaseComponent, IPersistentEntity
+public class HueAndTurnComponent : BaseComponent, IPersistentEntity, IHueAndTurnComponent
 {
     public const string EnvironmentURPName = "EnvironmentURP";
     public const string WaterURPName = "WaterURP";
 
     static readonly ComponentKey SaveKey = new("HueAndTurn");
 
-    public HueAndTurnProperties Properties { get; private set; } = new();
+    HueAndTurnProperties properties = new();
+    public ReadOnlyHueAndTurnProperties Properties => new(properties);
+
     public bool RotationPivotSupported => positionModifier is null;
 
     Vector3? originalPosition;
@@ -40,25 +42,25 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity
         this.transparencyShaderService = transparencyShaderService;
     }
 
-    public void ApplyColor()
+    void ApplyColor()
     {
-        if (Properties.Color is null)
+        if (properties.Color is null)
         {
             ClearColor();
             return;
         }
 
-        highlighter.SetColor(this, Properties.Color.Value);
+        highlighter.SetColor(this, properties.Color.Value);
     }
 
-    public void ApplyTransparency()
+    void ApplyTransparency()
     {
-        var transparency = Properties.Transparency ?? 100;
+        var transparency = properties.Transparency ?? 100;
         if (!hasSetTransparency && transparency >= 100) { return; }
 
         var alpha = Mathf.Clamp(transparency / 100f, 0f, 1f);
         hasSetTransparency = true;
-        
+
         var materials = transparencyShaderService.ReplaceMaterials(GameObjectFast);
         foreach (var m in materials)
         {
@@ -66,10 +68,10 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity
         }
     }
 
-    public void ApplyFluidColor()
+    void ApplyFluidColor()
     {
-        var color = Properties.FluidColor;
-        
+        var color = properties.FluidColor;
+
         foreach (var m in GatherFluidMaterial())
         {
             var target = color ?? MaterialColorer.UnhighlightedColor;
@@ -82,14 +84,14 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity
         highlighter.ResetColor(this);
     }
 
-    public void ApplyRepositioning()
+    void ApplyRepositioning()
     {
         originalPosition ??= _transform.position;
         originalRotation ??= _transform.rotation;
 
-        var rotation = Properties.Rotation ?? 0; // Degree, from -180 to 180
-        var pivot = Properties.RotationPivot ?? Vector2Int.zero; // Percentage value, from -50% to 50% of the size
-        var translation = CoordinateSystem.GridToWorld(Properties.Translation ?? Vector3.zero); // Same as above
+        var rotation = properties.Rotation ?? 0; // Degree, from -180 to 180
+        var pivot = properties.RotationPivot ?? Vector2Int.zero; // Percentage value, from -50% to 50% of the size
+        var translation = CoordinateSystem.GridToWorld(properties.Translation ?? Vector3.zero); // Same as above
 
         ResetPositioning();
 
@@ -108,10 +110,10 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity
         }
         _transform.Rotate(Vector3.up, rotation, Space.Self);
 
-        if (Properties.RotationXZ.HasValue)
+        if (properties.RotationXZ.HasValue)
         {
-            var rotX = Properties.RotationXZ.Value.x;
-            var rotZ = Properties.RotationXZ.Value.y;
+            var rotX = properties.RotationXZ.Value.x;
+            var rotZ = properties.RotationXZ.Value.y;
 
             if (rotX != 0)
             {
@@ -142,7 +144,7 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity
         // Scale
         if (scaleModifier is not null)
         {
-            var scale = Vector3.one + (Vector3)(Properties.Scale ?? Vector3Int.zero) / 100f;
+            var scale = Vector3.one + (Vector3)(properties.Scale ?? Vector3Int.zero) / 100f;
             scale = CoordinateSystem.GridToWorld(scale);
 
             scaleModifier.Set(scale);
@@ -171,15 +173,70 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity
         ApplyFluidColor();
     }
 
-    public void ApplyProperties(HueAndTurnProperties properties)
+    public void SetColor(Color? color)
     {
-        Properties = properties with { };
+        properties.Color = color;
+        ApplyColor();
+    }
+
+    public void SetFluidColor(Color? color)
+    {
+        properties.FluidColor = color;
+        ApplyFluidColor();
+    }
+
+    public void SetTransparency(int? transparency)
+    {
+        properties.Transparency = transparency;
+        ApplyTransparency();
+    }
+
+    public void SetRotation(int? rotation)
+    {
+        properties.Rotation = rotation;
+        ApplyRepositioning();
+    }
+
+    public void SetRotationWithPivot(int? rotation, Vector2Int? rotationPivot)
+    {
+        properties.Rotation = rotation;
+        properties.RotationPivot = rotationPivot;
+        ApplyRepositioning();
+    }
+
+    public void SetRotationXZ(Vector2Int? rotationXZ)
+    {
+        properties.RotationXZ = rotationXZ;
+        ApplyRepositioning();
+    }
+
+    public void SetRotationPivot(Vector2Int? rotationPivot)
+    {
+        properties.RotationPivot = rotationPivot;
+        ApplyRepositioning();
+    }
+
+    public void SetTranslation(Vector3Int? translation)
+    {
+        properties.Translation = translation;
+        ApplyRepositioning();
+    }
+
+    public void SetScale(Vector3Int? scale)
+    {
+        properties.Scale = scale;
+        ApplyRepositioning();
+    }
+
+    public void ApplyProperties(ReadOnlyHueAndTurnProperties properties)
+    {
+        this.properties = properties.ToProperties();
         ApplyEverything();
     }
 
     public void Reset()
     {
-        Properties = new HueAndTurnProperties();
+        properties = new HueAndTurnProperties();
         ApplyEverything();
     }
 
@@ -205,7 +262,7 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity
         }
         scaleModifier = transformController?.AddScaleModifier();
 
-        if (Properties.Color is not null)
+        if (properties.Color is not null)
         {
             ApplyColor();
         }
@@ -218,15 +275,15 @@ public class HueAndTurnComponent : BaseComponent, IPersistentEntity
     {
         if (!entityLoader.TryGetComponent(SaveKey, out var s)) { return; }
 
-        Properties = HueAndTurnProperties.Load(s);
+        properties = HueAndTurnProperties.Load(s);
     }
 
     public void Save(IEntitySaver entitySaver)
     {
-        if (Properties == default) { return; }
+        if (properties == default) { return; }
 
         var s = entitySaver.GetComponent(SaveKey);
-        Properties.Save(s);
+        properties.Save(s);
     }
 
     IEnumerable<Material> GatherFluidMaterial() => GatherMaterialOf(WaterURPName);

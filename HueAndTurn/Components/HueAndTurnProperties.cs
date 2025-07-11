@@ -1,5 +1,20 @@
 ﻿namespace HueAndTurn.Components;
 
+public readonly record struct ReadOnlyHueAndTurnProperties(HueAndTurnProperties prop)
+{
+    public Color? Color => prop.Color;
+    public Color? FluidColor => prop.FluidColor;
+    public int? Transparency => prop.Transparency;
+    public int? Rotation => prop.Rotation;
+    public Vector2Int? RotationXZ => prop.RotationXZ;
+    public Vector2Int? RotationPivot => prop.RotationPivot;
+    public Vector3Int? Translation => prop.Translation;
+    public Vector3Int? Scale => prop.Scale;
+
+    public HueAndTurnProperties ToProperties() => prop with { };
+
+}
+
 public record HueAndTurnProperties
 {
     static readonly PropertyKey<Color> ColorKey = new(nameof(Color));
