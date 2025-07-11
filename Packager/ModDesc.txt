@@ -1,0 +1,15 @@
+﻿This mod adds two buildings: Packager and Unpackager. Use the Packager to combine 10 goods into a single package, and the Unpackager to split them back. Ideal for bulk transport and efficient storage.
+
+- Both buildings cost 150 Science to unlock (750 Science for Bot worker), require 1 worker, take 1 hour per package, and can store items for up to 10 cycles.
+- Packager: Costs 10 Logs to build.
+- Unpackager: Costs 1 Packaged Log to build.
+
+Note:
+- Packages have a weight equal to 10 times the original item. Beavers and bots can still carry a single package, even if it exceeds their usual weight limit, but will receive the Overburden debuff (−50% speed) while doing so.
+- Packaged items can't be used for anything else until unpacked.
+- Tested with official factions only. Greedy Builders is 'supported' in the code but not tested, please tell me if it crashes, if it's simple to fix, I will fix it.
+
+Tips:
+- Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3472334132]TImprove 4 UI[/url] to add scrollbar to the item list and the recipe list since they both get longer (Please update it to the latest version for the recipe list scrollbar).
+- Have too many beavers without anything better to do? Let them pack and unpack the same thing over and over again!
+- The Haulers are your friend.

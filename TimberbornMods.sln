@@ -227,6 +227,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeaverJukebox", "BeaverJuke
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimberDump", "TimberDump\TimberDump.csproj", "{FBECF0D8-C20C-40F0-9BEB-F1D1E0F1718A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Packager", "Packager\Packager.csproj", "{8DBEE51C-4EE9-419F-95FB-50952900BF9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -605,6 +607,10 @@ Global
 		{FBECF0D8-C20C-40F0-9BEB-F1D1E0F1718A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBECF0D8-C20C-40F0-9BEB-F1D1E0F1718A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBECF0D8-C20C-40F0-9BEB-F1D1E0F1718A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DBEE51C-4EE9-419F-95FB-50952900BF9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DBEE51C-4EE9-419F-95FB-50952900BF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DBEE51C-4EE9-419F-95FB-50952900BF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DBEE51C-4EE9-419F-95FB-50952900BF9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
