@@ -1,0 +1,11 @@
+ID,Text,Comment
+LV.Pkg.PackagedName,"Packaged {0}",
+LV.Pkg.PackagedNamePlural,"Packaged {0}",
+LV.Pkg.Packager,"Packager",
+LV.Pkg.PackagerDesc,"Combines 10x of any supported good into a single package",
+LV.Pkg.PackagerFlavor,"Born from necessity, perfected by neat freaks. Where there's clutter, there's a Bundler.",
+LV.Pkg.Unpacker,"Unpackager",
+LV.Pkg.UnpackerDesc,"Unpacks a package back into 10x individual goods.",
+LV.Pkg.UnpackerFlavor,"Nothing delights a beaver more than unboxing the unexpected.",
+LV.Pkg.RecipePack,"Pack {0}",
+LV.Pkg.RecipeUnpack,"Unpack {0}",

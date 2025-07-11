@@ -15,6 +15,21 @@ public static class DescriptionPanelPatches
         ChangeToolPanelPosition(null);
     }
 
+    [HarmonyPrefix, HarmonyPatch(typeof(EntityDescriptionService), nameof(EntityDescriptionService.AddElements))]
+    public static void AddScrollbarToDescription(VisualElement root)
+    {
+        var items = root.Q("ProductionItems");
+        if (items is null) { return; }
+
+        var ve = root.Q(classes: "grow-centered");
+
+        var scrollBar = root
+            .AddScrollView(greenDecorated: false, additionalClasses: ["game-scroll-view"])
+            .SetMaxHeight(300);
+        scrollBar.InsertSelfAfter(ve);
+        scrollBar.Add(ve);
+    }
+
     public static void ChangeToolPanelPosition(string? pos)
     {
         if (toolPanel is null || !toolPanel.TryGetTarget(out var el)) { return; }

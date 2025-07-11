@@ -1,0 +1,11 @@
+{
+    "Name": "Packager",
+    "Version": "7.0.0",
+    "Id": "Packager",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Pack your stuff!",
+    "RequiredMods": [
+        { "Id": "Harmony" },
+        { "Id": "ModdableBindito" }
+    ]
+}

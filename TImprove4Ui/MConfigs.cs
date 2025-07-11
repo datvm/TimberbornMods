@@ -63,7 +63,8 @@ public class ModStarter : IModStarter
 
         harmony.Patch(
             typeof(TopBarCounterRow).GetConstructors().First(),
-            postfix: typeof(MaterialCounterPatches).Method(nameof(MaterialCounterPatches.AddCounterEvents)));
+            postfix: typeof(MaterialCounterPatches).Method(nameof(MaterialCounterPatches.AddCounterEvents))
+        );
 
         harmony.PatchAll();
     }
