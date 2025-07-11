@@ -10,9 +10,9 @@ public class HueAndTurnFragment(
     const string CopyId = "CopyHueAndTurn";
     const string PasteId = "PasteHueAndTurn";
 
-    HueAndTurnProperties? clipboard;
-    HueAndTurnComponent? comp;
-
+    ReadOnlyHueAndTurnProperties? clipboard;
+    IHueAndTurnComponent? comp;
+    
     bool internalSet;
 
 #nullable disable
@@ -161,7 +161,7 @@ public class HueAndTurnFragment(
 
         return grp;
 
-        void AddApplyAllButton(string key, Action<HueAndTurnComponent> action)
+        void AddApplyAllButton(string key, Action<IHueAndTurnComponent> action)
         {
             container.AddGameButton(t.T(key), () => ApplyAll(action), stretched: true)
                 .SetMarginBottom(5)
@@ -171,7 +171,7 @@ public class HueAndTurnFragment(
 
     public void ShowFragment(BaseComponent entity)
     {
-        comp = entity.GetComponentFast<HueAndTurnComponent>();
+        comp = TryGetComponent(entity);
         if (comp is null)
         {
             panel.Visible = false;
@@ -185,11 +185,26 @@ public class HueAndTurnFragment(
         input.AddInputProcessor(this);
     }
 
+    static IHueAndTurnComponent TryGetComponent(BaseComponent entity)
+    {
+
+        if (MStarter.HasMacroManagement)
+        {
+            var mm = MMHueAndTurnComponent.TryGetMM(entity);
+            if (mm is not null)
+            {
+                return mm;
+            }
+        }
+
+        return entity.GetComponentFast<HueAndTurnComponent>();
+    }
+
     public void UpdateFragment() { }
 
-    void ApplyAll(Action<HueAndTurnComponent> action)
+    void ApplyAll(Action<IHueAndTurnComponent> action)
     {
-        if (!comp) { return; }
+        if (comp is null) { return; }
 
         massApplier.Confirm(() => action(comp));
 
@@ -210,11 +225,9 @@ public class HueAndTurnFragment(
 
     void OnColorValueChanged(Color? color)
     {
-        if (internalSet || !comp) { return; }
+        if (internalSet || comp is null) { return; }
 
-        comp.Properties.Color = color;
-        comp.ApplyColor();
-
+        comp.SetColor(color);
         UpdateColorEnabled();
     }
 
@@ -228,70 +241,60 @@ public class HueAndTurnFragment(
 
     void OnFluidColorChanged(Color? color)
     {
-        if (internalSet || !comp) { return; }
+        if (internalSet || comp is null) { return; }
 
-        comp.Properties.FluidColor = color;
-        comp.ApplyFluidColor();
+        comp.SetFluidColor(color);
         UpdateColorEnabled();
     }
 
     void SetTransparency(int transparency)
     {
-        if (internalSet || !comp) { return; }
-        comp.Properties.Transparency = transparency;
-        comp.ApplyTransparency();
+        if (internalSet || comp is null) { return; }
+
+        comp.SetTransparency(transparency);
     }
 
     void SetRotation(int rotation)
     {
-        if (internalSet || !comp) { return; }
+        if (internalSet || comp is null) { return; }
 
-        comp.Properties.Rotation = rotation;
-        comp.ApplyRepositioning();
+        comp.SetRotation(rotation);
     }
 
     void SetAdvRotation(bool isX, int rotation)
     {
-        if (internalSet || !comp) { return; }
+        if (internalSet || comp is null) { return; }
 
         var curr = comp.Properties.RotationXZ ?? default;
-        if (isX)
-        {
-            comp.Properties.RotationXZ = curr with { x = rotation };
-        }
-        else
-        {
-            comp.Properties.RotationXZ = curr with { y = rotation };
-        }
-        comp.ApplyRepositioning();
+        var rotationXZ = isX ? (curr with { x = rotation }) : (curr with { y = rotation });
+
+        comp.SetRotationXZ(rotationXZ);
     }
 
     void SetRotationPivot(Vector3Int pivot)
     {
-        if (internalSet || !comp) { return; }
+        if (internalSet || comp is null) { return; }
 
-        comp.Properties.RotationPivot = (Vector2Int)pivot;
-        comp.ApplyRepositioning();
+        comp.SetRotationPivot((Vector2Int)pivot);
     }
 
     void SetTranslation(Vector3Int translation)
     {
-        if (internalSet || !comp) { return; }
+        if (internalSet || comp is null) { return; }
 
-        comp.Properties.Translation = translation;
-        comp.ApplyRepositioning();
+        comp.SetTranslation(translation);
     }
 
     void SetScale(Vector3Int scale)
     {
-        if (internalSet || !comp) { return; }
-        comp.Properties.Scale = scale;
-        comp.ApplyRepositioning();
+        if (internalSet || comp is null) { return; }
+        
+        comp.SetScale(scale);
     }
 
     void Reset()
     {
-        if (!comp) { return; }
+        if (comp is null) { return; }
 
         internalSet = true;
         comp.Reset();
@@ -300,7 +303,7 @@ public class HueAndTurnFragment(
 
     void UpdatePanelContent()
     {
-        if (!comp) { return; }
+        if (comp is null) { return; }
         internalSet = true;
         var props = comp.Properties;
 
@@ -354,7 +357,7 @@ public class HueAndTurnFragment(
         {
             if (clipboard is null) { return false; }
 
-            comp.ApplyProperties(clipboard);
+            comp.ApplyProperties(clipboard.Value);
             return true;
         }
 

@@ -18,7 +18,7 @@
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
 		
-		<ProjectReference Include="..\Packager\Packager.csproj" />
+		<ProjectReference Include="..\HueAndTurn\HueAndTurn.csproj" />
 	</ItemGroup>
 
 </Project>
