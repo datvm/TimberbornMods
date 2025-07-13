@@ -18,7 +18,7 @@
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
 		
-		<ProjectReference Include="..\HueAndTurn\HueAndTurn.csproj" />
+		<ProjectReference Include="..\BenchmarkAndOptimizer\BenchmarkAndOptimizer.csproj" />
 	</ItemGroup>
 
 </Project>
