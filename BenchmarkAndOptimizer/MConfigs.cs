@@ -1,12 +1,36 @@
-﻿namespace BenchmarkAndOptimizer;
+﻿
 
-public class ModStarter : IModStarter
+namespace BenchmarkAndOptimizer;
+
+public class CommonConfig : Configurator
 {
-
-    void IModStarter.StartMod(IModEnvironment modEnvironment)
+    public override void Configure()
     {
-        ModUtils.PrintLog = File.Exists(Path.Combine(modEnvironment.ModPath, "Resources/printlog"));
-        new Harmony(nameof(BenchmarkAndOptimizer)).PatchAll();
-    }
+        this
+            .BindSingleton<MSettings>()
 
+            .BindSingleton<OptimizerSettingController>()
+
+            .MultiBindSingleton<IModSettingElementFactory, OptimizerModSettingFac>()
+            .BindTransient<OptimizerPanel>()
+        ;
+    }
+}
+
+[Context("MainMenu")]
+public class ModMenuConfig : CommonConfig
+{
+    public override void Configure()
+    {
+        base.Configure();
+    }
+}
+
+[Context("Game")]
+public class ModGameConfig : CommonConfig
+{
+    public override void Configure()
+    {
+        base.Configure();
+    }
 }

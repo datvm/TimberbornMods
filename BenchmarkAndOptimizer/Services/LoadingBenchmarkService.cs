@@ -2,6 +2,8 @@
 
 public class LoadingBenchmarkService : BaseBenchmarkService
 {
+    public static readonly LoadingBenchmarkService Instance = new();
+
     SingletonLifecycleService singletonLifecycle = null!;
     WorldEntitiesLoader worldEntitiesLoader = null!;
 
@@ -18,6 +20,8 @@ public class LoadingBenchmarkService : BaseBenchmarkService
 
     public void OnLoadSingletonsPrefix()
     {
+        if (singletonLifecycle is null) { return; }
+
         LogSingletonItems();
 
         BenchmarkList(singletonLifecycle._loadableSingletons, "LoadSingletons", "LoadSingleton", s => s.Load());
@@ -25,16 +29,22 @@ public class LoadingBenchmarkService : BaseBenchmarkService
 
     public void OnLoadNonSingletonsPrefix()
     {
+        if (singletonLifecycle is null) { return; }
+
         BenchmarkList(singletonLifecycle._nonSingletonLoaders, "LoadNonSingletons", "LoadNonSingleton", s => s.LoadNonSingletons());
     }
 
     public void OnPostLoadSingletonsPrefix()
     {
+        if (singletonLifecycle is null) { return; }
+
         BenchmarkList(singletonLifecycle._postLoadableSingletons, "PostLoadSingletons", "PostLoadSingleton", s => s.PostLoad());
     }
 
     public void OnPostLoadNonSingletonsPrefix()
     {
+        if (singletonLifecycle is null) { return; }
+
         BenchmarkList(singletonLifecycle._nonSingletonPostLoaders, "PostLoadNonSingletons", "PostLoadNonSingleton", s => s.PostLoadNonSingletons());
     }
 

@@ -1,15 +1,13 @@
 ﻿namespace BenchmarkAndOptimizer.Patches;
 
-[HarmonyPatch]
+[HarmonyPatchCategory(MStarter.BenchmarkCategory), HarmonyPatch]
 public static class GameLoadPatches
 {
-
-    static LoadingBenchmarkService benchmark = new();
+    readonly static LoadingBenchmarkService benchmark = LoadingBenchmarkService.Instance;
 
     [HarmonyPrefix, HarmonyPatch(typeof(SingletonLifecycleService), nameof(SingletonLifecycleService.LoadAll))]
     public static void LoadAllPrefix(SingletonLifecycleService __instance)
     {
-        benchmark = new();
         benchmark.Start(__instance);
     }
 

@@ -1,0 +1,11 @@
+ID,Text,Comment
+LV.BO.EnableBenchmark,"Enable benchmarking",
+LV.BO.EnableBenchmarkDesc,"Show the Benchmark UI (in game: Esc -> Benchmark).
+Certain code are injected to the game and will cause the game to run slower.
+Optimizer is also not available when benchmarking is enabled.
+Please restart the game after changing this setting.",
+LV.BO.OptimizerDisabled,"The optimizer is not available because benchmarking is enabled.
+Please disable benchmarking and restart the game to use the optimizer.",
+LV.BO.WellKnownTasks,"Well-known tasks",
+LV.BO.OtherTasks,"Other tasks",
+LV.BO.WellKnown_BehaviorManager,"Control the decision making of your characters",
