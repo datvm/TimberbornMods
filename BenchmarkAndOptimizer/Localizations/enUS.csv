@@ -2,10 +2,29 @@ ID,Text,Comment
 LV.BO.EnableBenchmark,"Enable benchmarking",
 LV.BO.EnableBenchmarkDesc,"Show the Benchmark UI (in game: Esc -> Benchmark).
 Certain code are injected to the game and will cause the game to run slower.
-Optimizer is also not available when benchmarking is enabled.
 Please restart the game after changing this setting.",
-LV.BO.OptimizerDisabled,"The optimizer is not available because benchmarking is enabled.
-Please disable benchmarking and restart the game to use the optimizer.",
 LV.BO.WellKnownTasks,"Well-known tasks",
 LV.BO.OtherTasks,"Other tasks",
-LV.BO.WellKnown_BehaviorManager,"Control the decision making of your characters",
+LV.BO.WellKnown_BehaviorManager,"Control the actions of your characters. One of the top performance hogs.
+Delaying this would cause characters to not change their actions immediately.",
+LV.BO.WellKnown_NavMeshObserver,"Control the pathfinding of your characters when they move.
+Delaying this may cause characters to not react to pathfinding changes immediately.",
+LV.BO.WellKnown_ConstructionSite,"Control the finishing of the construction of your buildings.
+Delaying this would cause buildings that are supposed to be finished to not finish immediately.",
+LV.BO.WellKnown_BuilderJobReachabilityStatus,"Control the reachability of the Builder Job.
+Delaying this would cause the Builders status to not be able to reach the construction site immediately.",
+LV.BO.WellKnown_ResourceCountingService,"Control the counting of resources in the game.
+Delaying this would cause the resource counters to not be updated as frequent.",
+LV.BO.Benchmark,"Benchmark",
+LV.BO.BenchmarkRunning,"Benchmark is running ({0}s left).
+You should not have paused the game until it finishes to avoid skewing the results.
+You can stop it now and try again later.",
+LV.BO.BmTime,"Benchmark duration (real-life seconds)",
+LV.BO.StartBm,"Start Benchmark",
+LV.BO.BmInfo,"Measure how long each components takes to run.
+Choose the duration to gather data for.
+After clicking 'Start Benchmark', <b>try not to pause the game</b> until it finishes to avoid skewing the results.
+You can, however, change the game speed to any speed you want to know the performance at.
+If the game is paused, it will be automatically resumed once you click this button.
+After the benchmark is finished, this dialog will automatically open again.",
+LV.BO.EndBm,"End Benchmark now",

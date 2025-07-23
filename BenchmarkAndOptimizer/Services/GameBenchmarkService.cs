@@ -1,251 +1,136 @@
 ﻿namespace BenchmarkAndOptimizer.Services;
 
-public class GameBenchmarkService : BaseBenchmarkService
+public class GameBenchmarkService(
+    EventBus eb,
+    IExplorerOpener opener
+) : BaseBenchmarkService, ITickableSingleton
 {
+    public static readonly string OutputFolder = BenchmarkLogger.RootDirectory;
+
+    public bool IsBenchmarking { get; private set; }
     public GameBenchmarkResult? Result { get; private set; }
 
-    public void StartBenchmark(float durationSeconds)
+    float endingTime;
+    public float RemainingTime => IsBenchmarking ? endingTime - Time.unscaledTime : 0;
+
+    public void StartBenchmarking(float duration)
     {
-        Result = new(Time.time, durationSeconds);
-        StartTime = DateTime.Now;
-        LastTime = DateTime.Now;
+        if (IsBenchmarking)
+        {
+            throw new InvalidOperationException("Benchmarking is already in progress.");
+        }
+
+        IsBenchmarking = true;
+        Result = new GameBenchmarkResult(Time.unscaledTime, duration);
+        endingTime = Time.unscaledTime + duration;
     }
 
-    public void EndBenchmark()
+    public BenchmarkTracker? Track(object entity)
     {
-        if (Result == null)
-        {
-            throw new InvalidOperationException("Benchmark has not been started.");
-        }
-
-        Result.EndingTime = Time.time;
-        CalculateResults();
+        return Result?.Track(entity);
     }
 
-    public bool IsExpired()
+    public void Tick()
     {
-        if (Result == null)
+        if (!IsBenchmarking) { return; }
+
+        if (endingTime <= Time.unscaledTime)
         {
-            return false;
-        }
-
-        return Time.time >= Result.StartingTime + Result.DurationSeconds;
-    }
-
-    public void AddTickSample(Type componentType, float duration)
-    {
-        if (Result == null)
-        {
-            throw new InvalidOperationException("Benchmark has not been started.");
-        }
-
-        if (IsExpired())
-        {
-            return; // Don't collect samples after benchmark expires
-        }
-
-        Result.TickSamples.Add(new BenchmarkSample(componentType, duration));
-    }
-
-    public void AddUpdateSample(Type componentType, float duration)
-    {
-        if (Result == null)
-        {
-            throw new InvalidOperationException("Benchmark has not been started.");
-        }
-
-        if (IsExpired())
-        {
-            return; // Don't collect samples after benchmark expires
-        }
-
-        Result.UpdateSamples.Add(new BenchmarkSample(componentType, duration));
-    }
-
-    public void BenchmarkTickables<T>(T[] tickables, Action<T> tickAction) where T : notnull
-    {
-        if (Result == null)
-        {
-            throw new InvalidOperationException("Benchmark has not been started.");
-        }
-
-        if (IsExpired())
-        {
-            return; // Don't benchmark if expired
-        }
-
-        for (int i = 0; i < tickables.Length; i++)
-        {
-            if (IsExpired()) break; // Check expiration during loop
-
-            var startTime = Time.time;
-            tickAction(tickables[i]);
-            var endTime = Time.time;
-            
-            AddTickSample(typeof(T), endTime - startTime);
+            OnBenchmarkEnd();
         }
     }
 
-    public void BenchmarkUpdatables<T>(T[] updatables, Action<T> updateAction) where T : notnull
+    public void EndBenchmarking() => endingTime = 0;
+
+    void SaveResultToFile()
     {
-        if (Result == null)
-        {
-            throw new InvalidOperationException("Benchmark has not been started.");
-        }
+        Directory.CreateDirectory(OutputFolder);
+        var fileName = $"result_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
+        var filePath = Path.Combine(OutputFolder, fileName);
 
-        if (IsExpired())
-        {
-            return; // Don't benchmark if expired
-        }
+        var content = "Type,Total,Count,Average,Min,Max" + Environment.NewLine;
+        var typeLen = Result!.Summary!.Value.Max(q => q.Type.Name.Length) + 2;
+        content += string.Join(Environment.NewLine, Result.Summary.Value.Select(q =>
+            $"{q.Type.Name.PadRight(typeLen)},{q.Total},{q.SampleCount},{q.Average},{q.Min},{q.Max}"));
 
-        for (int i = 0; i < updatables.Length; i++)
-        {
-            if (IsExpired()) break; // Check expiration during loop
+        ModUtils.Log(() => $"Saving benchmark result to {filePath}");
+        ModUtils.Log(() => content);
 
-            var startTime = Time.time;
-            updateAction(updatables[i]);
-            var endTime = Time.time;
-            
-            AddUpdateSample(typeof(T), endTime - startTime);
-        }
+        File.WriteAllText(filePath, content);
+
+        opener.OpenDirectory(OutputFolder);
     }
 
-    public void BenchmarkTickables<T>(IReadOnlyList<T> tickables, Action<T> tickAction) where T : notnull
+    void OnBenchmarkEnd()
     {
-        if (Result == null)
-        {
-            throw new InvalidOperationException("Benchmark has not been started.");
-        }
+        ModUtils.Log(() => $"Benchmarking completed.");
 
-        if (IsExpired())
-        {
-            return; // Don't benchmark if expired
-        }
+        IsBenchmarking = false;
+        Result!.EndingTime = Time.unscaledTime;
+        Result.Summary = SummarizeResults(Result.Samples);
 
-        for (int i = 0; i < tickables.Count; i++)
-        {
-            if (IsExpired()) break; // Check expiration during loop
+        SaveResultToFile();
 
-            var startTime = Time.time;
-            tickAction(tickables[i]);
-            var endTime = Time.time;
-            
-            AddTickSample(typeof(T), endTime - startTime);
-        }
+        eb.Post(new OnBenchmarkEndEvent(Result));
     }
 
-    public void BenchmarkUpdatables<T>(IReadOnlyList<T> updatables, Action<T> updateAction) where T : notnull
+    ImmutableArray<BenchmarkSummaryEntry> SummarizeResults(List<BenchmarkSample> samples)
     {
-        if (Result == null)
+        var summary = new List<BenchmarkSummaryEntry>();
+
+        var grps = samples.GroupBy(q => q.Type);
+
+        foreach (var grp in grps)
         {
-            throw new InvalidOperationException("Benchmark has not been started.");
+            float min = float.MaxValue, max = float.MinValue, total = 0;
+            int count = 0;
+
+            foreach (var item in grp)
+            {
+                var time = item.Time;
+                if (time < min) { min = time; }
+                if (time > max) { max = time; }
+                total += time;
+                count++;
+            }
+
+            float average = total / count;
+            summary.Add(new BenchmarkSummaryEntry(grp.Key, min, max, count, average, total));
         }
 
-        if (IsExpired())
-        {
-            return; // Don't benchmark if expired
-        }
-
-        for (int i = 0; i < updatables.Count; i++)
-        {
-            if (IsExpired()) break; // Check expiration during loop
-
-            var startTime = Time.time;
-            updateAction(updatables[i]);
-            var endTime = Time.time;
-            
-            AddUpdateSample(typeof(T), endTime - startTime);
-        }
+        return [.. summary.OrderByDescending(q => q.Total)];
     }
 
-    public void BenchmarkTickComponent<T>(T component, Action<T> tickAction) where T : notnull
-    {
-        if (Result == null)
-        {
-            throw new InvalidOperationException("Benchmark has not been started.");
-        }
-
-        if (IsExpired())
-        {
-            return; // Don't benchmark if expired
-        }
-
-        var startTime = Time.time;
-        tickAction(component);
-        var endTime = Time.time;
-
-        AddTickSample(typeof(T), endTime - startTime);
-    }
-
-    public void BenchmarkUpdateComponent<T>(T component, Action<T> updateAction) where T : notnull
-    {
-        if (Result == null)
-        {
-            throw new InvalidOperationException("Benchmark has not been started.");
-        }
-
-        if (IsExpired())
-        {
-            return; // Don't benchmark if expired
-        }
-
-        var startTime = Time.time;
-        updateAction(component);
-        var endTime = Time.time;
-
-        AddUpdateSample(typeof(T), endTime - startTime);
-    }
-
-    private void CalculateResults()
-    {
-        if (Result == null)
-        {
-            return;
-        }
-
-        Result.TickResults = CalculateResultsForSamples(Result.TickSamples);
-        Result.UpdateResults = CalculateResultsForSamples(Result.UpdateSamples);
-    }
-
-    private Dictionary<Type, BenchmarkResult> CalculateResultsForSamples(List<BenchmarkSample> samples)
-    {
-        if (samples.Count == 0)
-        {
-            return new Dictionary<Type, BenchmarkResult>();
-        }
-
-        var groupedSamples = samples
-            .GroupBy(sample => sample.Type)
-            .ToArray();
-
-        var results = new Dictionary<Type, BenchmarkResult>();
-
-        foreach (var group in groupedSamples)
-        {
-            var times = group.Select(s => s.Time * 1000f).ToArray(); // Convert to milliseconds
-            var min = (int)times.Min();
-            var max = (int)times.Max();
-            var average = (int)times.Average();
-            var total = (int)times.Sum();
-            var sampleCount = times.Length;
-
-            results[group.Key] = new BenchmarkResult(min, max, sampleCount, average, total);
-        }
-
-        return results;
-    }
 }
 
-public record GameBenchmarkResult(float StartingTime, float DurationSeconds)
-{
-    public List<BenchmarkSample> TickSamples { get; } = [];
-    public List<BenchmarkSample> UpdateSamples { get; } = [];
+public readonly record struct OnBenchmarkEndEvent(GameBenchmarkResult Result);
 
-    public Dictionary<Type, BenchmarkResult>? TickResults { get; set; }
-    public Dictionary<Type, BenchmarkResult>? UpdateResults { get; set; }
-    
+public record GameBenchmarkResult(float StartingTime, float Duration)
+{
+    public List<BenchmarkSample> Samples { get; } = [];
+
+    public ImmutableArray<BenchmarkSummaryEntry>? Summary { get; set; }
     public float? EndingTime { get; set; }
+
+    public BenchmarkTracker Track(object entity) => new(entity.GetType(), this);
+
+}
+
+public readonly record struct BenchmarkTracker(Type Type, GameBenchmarkResult Result)
+{
+    readonly System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
+
+    public BenchmarkSample End()
+    {
+        sw.Stop();
+        if (Result is null) { return default; }
+
+        var sample = new BenchmarkSample(Type, (float)sw.Elapsed.TotalMilliseconds);
+        Result.Samples.Add(sample);
+        return sample;
+    }
+
 }
 
 public readonly record struct BenchmarkSample(Type Type, float Time);
-public readonly record struct BenchmarkResult(int Min, int Max, int SampleCount, int Average, int Total);
+public readonly record struct BenchmarkSummaryEntry(Type Type, float Min, float Max, int SampleCount, float Average, float Total);

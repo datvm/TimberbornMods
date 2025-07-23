@@ -1,4 +1,5 @@
-﻿namespace BenchmarkAndOptimizer;
+﻿
+namespace BenchmarkAndOptimizer;
 
 public class MStarter : IModStarter
 {
@@ -12,20 +13,26 @@ public class MStarter : IModStarter
     {
         harmony = new Harmony(nameof(BenchmarkAndOptimizer));
 
-        if (OptimizerSettingController.EnableBenchmark)
+        if (OptimizerSettings.EnableBenchmark)
         {
             harmony.PatchCategory(BenchmarkCategory);
             BenchmarkPatched = true;
         }
-        else
-        {
-            harmony.PatchCategory(OptimizeCategory);
-        }
+
+        harmony.PatchCategory(OptimizeCategory);
+        PatchUpdatableComponents(harmony);
     }
 
-    public static void SwitchBenchmarkOn()
+    static void PatchUpdatableComponents(Harmony harmony)
     {
-        BenchmarkPatched = true;
+        var prefix = typeof(GameplayPatches).Method(nameof(GameplayPatches.UpdateComponentPrefix));
+        var postfix = typeof(GameplayPatches).Method(nameof(GameplayPatches.UpdateComponentPostfix));
+
+        foreach (var t in OptimizableTypeService.UpdatableComponents)
+        {
+            var m = t.Method(OptimizableTypeService.UpdateMethod);
+            harmony.Patch(m, prefix: prefix, postfix: postfix);
+        }
     }
 
 }
