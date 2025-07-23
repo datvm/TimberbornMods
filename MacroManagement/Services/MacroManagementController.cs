@@ -8,7 +8,7 @@ public class MacroManagementController(
 
     InputBindingDescriber inputBindingDescriber,
     DevModeManager devModeManager
-) : ILoadableSingleton
+) : IPostLoadableSingleton
 {
     public const string CopyKeyId = "MacroManagementCopy";
     public const string SelectAllKeyId = "MacroManagementSelectAll";
@@ -16,7 +16,7 @@ public class MacroManagementController(
 
     FrozenDictionary<string, ToolButton> toolButtons = FrozenDictionary<string, ToolButton>.Empty;
     
-    public void Load()
+    public void PostLoad()
     {
         InitToolButtons();
     }

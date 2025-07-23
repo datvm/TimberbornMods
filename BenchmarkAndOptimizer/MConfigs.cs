@@ -1,6 +1,4 @@
-﻿
-
-namespace BenchmarkAndOptimizer;
+﻿namespace BenchmarkAndOptimizer;
 
 public class CommonConfig : Configurator
 {
@@ -9,7 +7,7 @@ public class CommonConfig : Configurator
         this
             .BindSingleton<MSettings>()
 
-            .BindSingleton<OptimizerSettingController>()
+            .BindSingleton<OptimizerSettings>()
 
             .MultiBindSingleton<IModSettingElementFactory, OptimizerModSettingFac>()
             .BindTransient<OptimizerPanel>()
@@ -32,5 +30,13 @@ public class ModGameConfig : CommonConfig
     public override void Configure()
     {
         base.Configure();
+
+        this
+            .BindSingleton<GameOptimizerService>()
+            .BindSingleton<GameBenchmarkService>()
+
+            .BindSingleton<BenchmarkMenu>()
+            .BindSingleton<BenchmarkDialog>()
+        ;
     }
 }

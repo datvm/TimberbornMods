@@ -1,15 +1,9 @@
 ﻿namespace BenchmarkAndOptimizer.Services;
 
-public class OptimizerSettingController : ILoadableSingleton
+public class OptimizerSettings : ILoadableSingleton
 {
     const string EnableBmKey = $"{nameof(ModSettings)}.{nameof(BenchmarkAndOptimizer)}.EnableBenchmark";
     const string OptimizerItemsKey = $"{nameof(ModSettings)}.{nameof(BenchmarkAndOptimizer)}.OptimizerItems";
-
-    static readonly ImmutableArray<Type> OptimizableSingletons = [
-        typeof(IUpdatableSingleton), typeof(ILateUpdatableSingleton),
-        typeof(ITickableSingleton),
-    ];
-
 
     public static bool EnableBenchmark
     {
@@ -17,24 +11,13 @@ public class OptimizerSettingController : ILoadableSingleton
         set
         {
             PlayerPrefs.SetInt(EnableBmKey, value ? 1 : 0);
-            if (value)
-            {
-                MStarter.SwitchBenchmarkOn();
-            }
         }
     }
 
     private FrozenDictionary<string, OptimizerItem> OptimizerItems { get; set; } = FrozenDictionary<string, OptimizerItem>.Empty;
 
-    public static ImmutableHashSet<Type> OptimizableTypesLookup { get; private set; } = [];
-    public static ImmutableArray<Type> OptimizableTypes { get; private set; } = [];
-    public static readonly ImmutableHashSet<Type> WellKnownTypes = [
-        typeof(BehaviorManager),
-    ];
-
     public void Load()
     {
-        Scan();
         OptimizerItems = LoadItems();
     }
 
@@ -84,52 +67,6 @@ public class OptimizerSettingController : ILoadableSingleton
     void Save()
     {
         PlayerPrefs.SetString(OptimizerItemsKey, JsonConvert.SerializeObject(OptimizerItems));
-    }
-
-    static void Scan()
-    {
-        if (OptimizableTypesLookup.Count > 0) { return; }
-
-        OptimizableTypesLookup = [.. ScanForTypes()];
-        OptimizableTypes = [.. OptimizableTypesLookup.OrderBy(q => q.Name)];
-    }
-
-    static IEnumerable<Type> ScanForTypes()
-    {
-        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-        foreach (var asm in assemblies)
-        {
-            foreach (var t in asm.GetTypes())
-            {
-                if (t.IsAbstract || t.IsInterface) { continue; }
-
-                if (IsOptimizableComponent(t) || IsOptimizableSingleton(t))
-                {
-                    yield return t;
-                }
-            }
-        }
-    }
-
-    static bool IsOptimizableComponent(Type t) =>
-        typeof(BaseComponent).IsAssignableFrom(t)
-        && (
-            typeof(TickableComponent).IsAssignableFrom(t)
-            || t.GetMethod("Update") != null
-            || t.GetMethod("LateUpdate") != null
-        );
-
-    static bool IsOptimizableSingleton(Type t)
-    {
-        foreach (var i in OptimizableSingletons)
-        {
-            if (i.IsAssignableFrom(t))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
 }

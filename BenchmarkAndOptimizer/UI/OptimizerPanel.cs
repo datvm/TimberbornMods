@@ -3,7 +3,7 @@
 public class OptimizerPanel : VisualElement
 {
     private readonly ILoc t;
-    private readonly OptimizerSettingController controller;
+    private readonly OptimizerSettings controller;
 
 #nullable disable
     Toggle chkBm;
@@ -12,7 +12,7 @@ public class OptimizerPanel : VisualElement
     List<OptimizerItemElement> items;
 #nullable enable
 
-    public OptimizerPanel(ILoc t, OptimizerSettingController controller)
+    public OptimizerPanel(ILoc t, OptimizerSettings controller)
     {
         this.t = t;
         this.controller = controller;
@@ -26,7 +26,7 @@ public class OptimizerPanel : VisualElement
             .SetPadding(bottom: 10)
             .SetMarginBottom(10);
         chkBm = panel.AddToggle(t.T("LV.BO.EnableBenchmark"), onValueChanged: OnEnableBenchmarkChanged);
-        chkBm.value = OptimizerSettingController.EnableBenchmark;
+        chkBm.value = OptimizerSettings.EnableBenchmark;
 
         panel.AddGameLabel(t.T("LV.BO.EnableBenchmarkDesc"));
 
@@ -38,12 +38,6 @@ public class OptimizerPanel : VisualElement
     void InitOptimizerUI()
     {
         optPanel = this.AddChild();
-        if (MStarter.BenchmarkPatched)
-        {
-            ClearOptimizerUI();
-            return;
-        }
-
         InitList(optPanel);
     }
 
@@ -55,9 +49,9 @@ public class OptimizerPanel : VisualElement
         pnlWellKnown = AddPanel("LV.BO.WellKnownTasks");
         pnlOthers = AddPanel("LV.BO.OtherTasks");
 
-        var wellknowns = OptimizerSettingController.WellKnownTypes;
-        
-        foreach (var t in OptimizerSettingController.OptimizableTypes)
+        var wellknowns = OptimizableTypeService.WellKnownTypes;
+
+        foreach (var t in OptimizableTypeService.OptimizableTypes)
         {
             var isWellKnown = wellknowns.Contains(t);
 
@@ -81,32 +75,10 @@ public class OptimizerPanel : VisualElement
         }
     }
 
-    private void OnOptValueChanged(OptimizerItem value)
-    {
-        if (value is null)
-        {
-            controller.RemoveOptimizer(value.Type);
-        }
-        else
-        {
-            controller.SetOptimizer(value);
-        }
-    }
-
-    void ClearOptimizerUI()
-    {
-        optPanel.Clear();
-
-        optPanel.AddGameLabel(t.T("LV.BO.OptimizerDisabled").Color(TimberbornTextColor.Red));
-    }
+    private void OnOptValueChanged(OptimizerItem value) => controller.SetOptimizer(value);
 
     void OnEnableBenchmarkChanged(bool value)
     {
-        OptimizerSettingController.EnableBenchmark = value;
-
-        if (value)
-        {
-            ClearOptimizerUI();
-        }
+        OptimizerSettings.EnableBenchmark = value;
     }
 }
