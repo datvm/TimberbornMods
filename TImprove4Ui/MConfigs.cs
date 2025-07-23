@@ -30,7 +30,9 @@ public class ModGameConfig : Configurator
 
             .BindSingleton<BatchControlBoxService>()
             .BindSingleton<WorkplacesBatchControlTabService>()
-
+            
+            .BindSingleton<SceneService>()
+            
             .BindSingleton<FactionNeedSpecService>()
             .BindTemplateModule(h => h
                 .AddDecorator<AreaNeedApplier, NeedApplierDescriber>()
