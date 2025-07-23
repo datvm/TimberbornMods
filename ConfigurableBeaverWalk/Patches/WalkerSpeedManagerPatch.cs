@@ -6,19 +6,19 @@ public static class WalkerSpeedManagerPatch
     [HarmonyPostfix, HarmonyPatch(typeof(WalkerSpeedManager), nameof(WalkerSpeedManager.Tick))]
     public static void TickPrefix(WalkerSpeedManager __instance, ref float ____baseSpeed, IMovementSpeedAffector ____movementSpeedAffector)
     {
-        if (!ModSettings.ChangeWalkingSpeed) { return; }
+        if (!MSettings.ChangeWalkingSpeed) { return; }
 
-        var walkingSpeed = ModSettings.BaseWalkingSpeed;
-        var slowedSpeed = ModSettings.BaseSlowedSpeed;
+        var walkingSpeed = MSettings.BaseWalkingSpeed;
+        var slowedSpeed = MSettings.BaseSlowedSpeed;
 
-        if (ModSettings.DifferentForBots)
+        if (MSettings.DifferentForBots)
         {
-            var isBot = __instance.GetComponentFast<BotSpec>() is not null;
+            var isBot = (bool)__instance.GetComponentFast<BotSpec>();
 
             if (isBot)
             {
-                walkingSpeed = ModSettings.BaseBotWalkingSpeed;
-                slowedSpeed = ModSettings.BaseBotSlowedSpeed;
+                walkingSpeed = MSettings.BaseBotWalkingSpeed;
+                slowedSpeed = MSettings.BaseBotSlowedSpeed;
             }
         }
 
