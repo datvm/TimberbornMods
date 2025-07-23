@@ -8,6 +8,6 @@ public class ModConfigurators : IConfigurator
 
     public void Configure(IContainerDefinition containerDefinition)
     {
-        containerDefinition.Bind<ModSettings>().AsSingleton();
+        containerDefinition.Bind<MSettings>().AsSingleton();
     }
 }
