@@ -1,6 +1,6 @@
 ﻿namespace BenchmarkAndOptimizer.Services;
 
-public class OptimizerSettings : ILoadableSingleton
+public class OptimizerSettings(ISystemFileDialogService diag) : ILoadableSingleton
 {
     const string EnableBmKey = $"{nameof(ModSettings)}.{nameof(BenchmarkAndOptimizer)}.EnableBenchmark";
     const string OptimizerItemsKey = $"{nameof(ModSettings)}.{nameof(BenchmarkAndOptimizer)}.OptimizerItems";
@@ -46,6 +46,31 @@ public class OptimizerSettings : ILoadableSingleton
         Save();
     }
 
+    public void Clear()
+    {
+        OptimizerItems = FrozenDictionary<string, OptimizerItem>.Empty;
+        PlayerPrefs.DeleteKey(OptimizerItemsKey);
+    }
+
+    public void Export()
+    {
+        var file = diag.ShowSaveFileDialog(".json");
+        if (file is null) { return; }
+
+        File.WriteAllText(file, SerializedSettings);
+    }
+
+    public void Import()
+    {
+        var file = diag.ShowOpenFileDialog(".json");
+        if (file is null) { return; }
+
+        var json = File.ReadAllText(file);
+        var items = LoadItems(json);
+
+        OptimizerItems = items;
+    }
+
     public OptimizerItem? GetValue(Type type)
     {
         if (OptimizerItems.TryGetValue(type.FullName, out var value))
@@ -57,16 +82,23 @@ public class OptimizerSettings : ILoadableSingleton
 
     static FrozenDictionary<string, OptimizerItem> LoadItems()
     {
-        if (!PlayerPrefs.HasKey(OptimizerItemsKey)) { return FrozenDictionary<string, OptimizerItem>.Empty; }
+        var json = PlayerPrefs.HasKey(OptimizerItemsKey) ? PlayerPrefs.GetString(OptimizerItemsKey) : null;
+        return LoadItems(json);
+    }
 
-        var json = PlayerPrefs.GetString(OptimizerItemsKey);
-        return (JsonConvert.DeserializeObject<Dictionary<string, OptimizerItem>>(json)
+    static FrozenDictionary<string, OptimizerItem> LoadItems(string? json)
+    {
+        return string.IsNullOrWhiteSpace(json)
+            ? FrozenDictionary<string, OptimizerItem>.Empty
+            : (JsonConvert.DeserializeObject<Dictionary<string, OptimizerItem>>(json)
                ?? []).ToFrozenDictionary();
     }
 
+    string SerializedSettings => JsonConvert.SerializeObject(OptimizerItems);
+
     void Save()
     {
-        PlayerPrefs.SetString(OptimizerItemsKey, JsonConvert.SerializeObject(OptimizerItems));
+        PlayerPrefs.SetString(OptimizerItemsKey, SerializedSettings);
     }
 
 }

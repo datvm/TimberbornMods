@@ -1,7 +1,12 @@
 ﻿namespace BenchmarkAndOptimizer.UI;
 
-public class OptimizerModSetting() : NonPersistentSetting(ModSettingDescriptor.Create(""))
+public class OptimizerModSetting(OptimizerSettings optimizerSettings) : NonPersistentSetting(ModSettingDescriptor.Create(""))
 {
+
+    public override void Reset()
+    {
+        optimizerSettings.Clear();
+    }
 
 }
 

@@ -8,9 +8,11 @@ public class OptimizerPanel : VisualElement
 #nullable disable
     Toggle chkBm;
 
-    VisualElement optPanel, pnlWellKnown, pnlOthers;
+    VisualElement pnlWellKnown, pnlOthers;
     List<OptimizerItemElement> items;
 #nullable enable
+
+    VisualElement? pnlOptimizers;
 
     public OptimizerPanel(ILoc t, OptimizerSettings controller)
     {
@@ -37,13 +39,20 @@ public class OptimizerPanel : VisualElement
 
     void InitOptimizerUI()
     {
-        optPanel = this.AddChild();
-        InitList(optPanel);
+        var panel = this.AddChild();
+
+        panel.AddMenuButton(t.T("LV.BO.Import"), onClick: OnImport);
+        panel.AddMenuButton(t.T("LV.BO.Export"), onClick: controller.Export)
+            .SetMarginBottom();
+
+        InitList(panel);
     }
 
     void InitList(VisualElement parent)
     {
-        var panel = parent.AddChild();
+        pnlOptimizers?.RemoveFromHierarchy();
+
+        pnlOptimizers = parent.AddChild();
         items = [];
 
         pnlWellKnown = AddPanel("LV.BO.WellKnownTasks");
@@ -69,7 +78,7 @@ public class OptimizerPanel : VisualElement
 
         VisualElement AddPanel(string titleKey)
         {
-            var el = panel.AddChild().SetMarginBottom();
+            var el = pnlOptimizers.AddChild().SetMarginBottom();
             el.AddGameLabel(t.T(titleKey).Bold()).SetMarginBottom(10);
             return el;
         }
@@ -81,4 +90,11 @@ public class OptimizerPanel : VisualElement
     {
         OptimizerSettings.EnableBenchmark = value;
     }
+
+    void OnImport()
+    {
+        controller.Import();
+        InitList(pnlOptimizers!.parent);
+    }
+
 }

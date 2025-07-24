@@ -11,6 +11,8 @@ public class CommonConfig : Configurator
 
             .MultiBindSingleton<IModSettingElementFactory, OptimizerModSettingFac>()
             .BindTransient<OptimizerPanel>()
+
+            .TryBindingSystemFileDialogService()
         ;
     }
 }
