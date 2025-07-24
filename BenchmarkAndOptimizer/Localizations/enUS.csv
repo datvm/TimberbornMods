@@ -6,7 +6,8 @@ Please restart the game after changing this setting.",
 LV.BO.WellKnownTasks,"Well-known tasks",
 LV.BO.OtherTasks,"Other tasks",
 LV.BO.WellKnown_BehaviorManager,"Control the actions of your characters. One of the top performance hogs.
-Delaying this would cause characters to not change their actions immediately.",
+Delaying this would cause characters to not change their actions immediately.
+I would <b>not recommend</b> delaying this without testing as it may reduce your worker's productivity.",
 LV.BO.WellKnown_NavMeshObserver,"Control the pathfinding of your characters when they move.
 Delaying this may cause characters to not react to pathfinding changes immediately.",
 LV.BO.WellKnown_ConstructionSite,"Control the finishing of the construction of your buildings.
@@ -28,3 +29,5 @@ You can, however, change the game speed to any speed you want to know the perfor
 If the game is paused, it will be automatically resumed once you click this button.
 After the benchmark is finished, this dialog will automatically open again.",
 LV.BO.EndBm,"End Benchmark now",
+LV.BO.Import,"Import",
+LV.BO.Export,"Export",

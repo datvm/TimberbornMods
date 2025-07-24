@@ -1,0 +1,28 @@
+﻿Find out exactly what's slowing your Timberborn game down—and do something about it!This mod adds a powerful in-game benchmarking tool that measures which systems use the most processing power, especially helpful as your colony grows into late game. Instantly see a clear breakdown of where your CPU time is spent and identify performance bottlenecks.
+
+[h1]Toggle Benchmark[/h1]
+1. Go to Mods (from the Main or Game menu) → Settings button next to the mod name.
+2. Check Enable Benchmarking to activate the tool (uncheck when finished for best performance).
+3. Restart the game after toggling this setting.
+
+When enabled, loading a save will also add loading time statistics to your Player.log file ([b]%appdata%\..\LocalLow\Mechanistry\Timberborn\Player.log[/b]), showing which processes are slowest (for information only, nothing we can do about it).
+
+[h1]Benchmarking in-game[/h1]
+1. Set the desired game speed (e.g., x1 or x3) before opening.
+2. Open the menu (Esc) and use the Benchmark button.
+3. Choose how many real-life seconds to run the test.
+
+Don't pause the game while benchmarking to avoid skewing results. When finished, a results dialog will appear (see screenshot), and a CSV file with detailed timings will be saved and its folder opened.
+
+[h1]Optimizing[/h1]
+
+Back in the settings dialog, you can choose to throttle or delay specific services—though this may have gameplay consequences.
+
+For example, you can set [b]ConstructionSite[/b] updates to run every 20 ticks instead of every tick (the game uses 0.6s per tick), so finished buildings may take up to 12 seconds to complete.
+
+You can adjust these throttles in-game, though changes may take a short while to apply. After tweaking, you can also rerun the benchmark shortly after to see the effect of your optimizations.
+
+[h1]Feedback needed![/h1]
+I rarely get to the late game where performance issues are most noticeable. Thankfully some players have sent me their files so I can try this out but my laptop isn't the best for this (I can't even load some of the saves). So your feedback is very welcome! Feel free to share which settings you used as well.
+
+If you need any support or feedback, feel free to contact me on Timberborn's official Discord ( https://discord.gg/timberborn, on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] channel), or @theapologist316
