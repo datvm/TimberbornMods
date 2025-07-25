@@ -1,0 +1,11 @@
+{
+    "Name": "Population Control",
+    "Version": "7.0.0",
+    "Id": "PopControl",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "No more overpopulation!",
+    "RequiredMods": [
+        { "Id": "Harmony" },
+        { "Id": "TimberUi" }
+    ]
+}

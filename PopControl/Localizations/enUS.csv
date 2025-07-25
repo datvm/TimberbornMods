@@ -1,0 +1,7 @@
+ID,Text,Comment
+LV.Pop.PopControl,"Population Control",
+LV.Pop.Scope,"Global or District"
+LV.Pop.Global,"Global",
+LV.Pop.LimitBeavers,"Limit Beavers",
+LV.Pop.LimitBots,"Limit Bots",
+LV.Pop.PopBlocked,"Blocked by Population Control",

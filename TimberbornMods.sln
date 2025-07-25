@@ -229,6 +229,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimberDump", "TimberDump\Ti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Packager", "Packager\Packager.csproj", "{8DBEE51C-4EE9-419F-95FB-50952900BF9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PopControl", "PopControl\PopControl.csproj", "{459CC695-16F6-4F86-9C30-EEADC60350F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -611,6 +613,10 @@ Global
 		{8DBEE51C-4EE9-419F-95FB-50952900BF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DBEE51C-4EE9-419F-95FB-50952900BF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DBEE51C-4EE9-419F-95FB-50952900BF9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{459CC695-16F6-4F86-9C30-EEADC60350F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{459CC695-16F6-4F86-9C30-EEADC60350F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{459CC695-16F6-4F86-9C30-EEADC60350F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{459CC695-16F6-4F86-9C30-EEADC60350F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
