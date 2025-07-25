@@ -18,7 +18,7 @@
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
 		
-		<ProjectReference Include="..\BenchmarkAndOptimizer\BenchmarkAndOptimizer.csproj" />
+		<ProjectReference Include="..\PopControl\PopControl.csproj" />
 	</ItemGroup>
 
 </Project>
