@@ -23,7 +23,8 @@ public class RealTimeComponent(WorkingHoursPanel workingHours) : IUpdatableSingl
         {
             lastEnabled = true;
 
-            lblRealTime.text = DateTime.Now.ToString("hh:mmtt");
+            var format = MSettings.Instance.Clock24 ? "HH:mm" : "hh:mmtt";
+            lblRealTime.text = DateTime.Now.ToString(format);
 
             lblRealTime.ToggleDisplayStyle(true);
             icon.ToggleDisplayStyle(false);
