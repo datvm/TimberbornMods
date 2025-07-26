@@ -21,21 +21,23 @@ public class MSettings(
     public override ModSettingsContext ChangeableOn => ModSettingsContext.All;
 
 #pragma warning disable IDE0044, CS0649 // Actually set by Reflection
-    ModSetting<bool>? enableFreeCamera, disableFog, prioritizeRubbles,
+    ModSetting<bool>? enableFreeCamera, freeCameraLockAngle, disableFog, prioritizeRubbles,
 
         showCoords, onlyShowHeight,
 
         allDayLight, disableShadowRotation,
 
-        showGameTime, addRealTimeClock,
+        showGameTime, addRealTimeClock, clock24,
         enableSpeedS25, enableSpeed4, enableSpeed5,
-        quickQuit;
+        quickQuit
+    ;
 #pragma warning restore IDE0044, CS0649
 
     LimitedStringModSetting? allDayLightValue;
     RangeIntModSetting? biggerBuildDragArea;
 
     public bool EnableFreeCamera => enableFreeCamera?.Value == true;
+    public bool FreeCameraLockAngle => freeCameraLockAngle?.Value == true;
     public bool DisableFog => disableFog?.Value == true;
     public bool PrioritizeRubbles => prioritizeRubbles?.Value == true;
 
@@ -48,6 +50,7 @@ public class MSettings(
 
     public bool ShowGameTime => showGameTime?.Value == true;
     public bool AddRealTimeClock => addRealTimeClock?.Value == true;
+    public bool Clock24 => clock24?.Value == true;
 
     public bool EnableSpeedS25 => enableSpeedS25?.Value == true;
     public bool EnableSpeed4 => enableSpeed4?.Value == true;
@@ -103,6 +106,7 @@ public class MSettings(
         AddCustomModSetting(biggerBuildDragArea, nameof(biggerBuildDragArea));
 
         onlyShowHeight!.Descriptor.SetEnableCondition(() => showCoords!.Value);
+        clock24!.Descriptor.SetEnableCondition(() => addRealTimeClock!.Value);
 
         ModSettingChanged += (_, _) => InternalOnSettingsChanged();
         InternalOnSettingsChanged();
