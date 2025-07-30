@@ -231,6 +231,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Packager", "Packager\Packag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PopControl", "PopControl\PopControl.csproj", "{459CC695-16F6-4F86-9C30-EEADC60350F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkyblightWeather", "SkyblightWeather\SkyblightWeather.csproj", "{84FB1CEF-398B-4766-92CD-B38CB9FEDF55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -617,6 +619,10 @@ Global
 		{459CC695-16F6-4F86-9C30-EEADC60350F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{459CC695-16F6-4F86-9C30-EEADC60350F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{459CC695-16F6-4F86-9C30-EEADC60350F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84FB1CEF-398B-4766-92CD-B38CB9FEDF55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84FB1CEF-398B-4766-92CD-B38CB9FEDF55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84FB1CEF-398B-4766-92CD-B38CB9FEDF55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84FB1CEF-398B-4766-92CD-B38CB9FEDF55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -684,6 +690,7 @@ Global
 		{7E2EE64C-12A0-541B-E8C4-26F2F8A85EBA} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
 		{AAD3EBDE-6AE2-4D21-8226-D88A191DE5BE} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
 		{FBECF0D8-C20C-40F0-9BEB-F1D1E0F1718A} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
+		{84FB1CEF-398B-4766-92CD-B38CB9FEDF55} = {5D10D08B-18D1-40D6-B0B2-83778419FC99}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}

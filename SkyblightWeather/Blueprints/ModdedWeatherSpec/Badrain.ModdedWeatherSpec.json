@@ -1,0 +1,10 @@
+{
+    "ModdedWeatherSpec": {
+        "Id": "Badrain",
+        "DisplayLoc": "LV.MWSb.Badrain",
+        "WeatherPanelProgressBackground": "Resources/UI/Images/Weathers/weather-progress-badrain",
+        "DatePanelIcon": "Resources/UI/Images/Weathers/ico-weather-badrain",
+        "WeatherNotification": "Resources/UI/Images/Weathers/weather-notification-badrain",
+        "StartSound": "UI.Weather.Rain"
+    }
+}

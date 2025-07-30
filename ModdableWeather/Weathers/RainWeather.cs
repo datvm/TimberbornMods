@@ -4,13 +4,16 @@ public class RainWeather(
     RainWeatherSettings settings,
     ModdableWeatherSpecService moddableWeatherSpecService
 ) : DefaultModdedWeather<RainWeatherSettings>(settings, moddableWeatherSpecService),
-    IModdedTemperateWeather, ILoadableSingleton, IUnloadableSingleton
+    IModdedTemperateWeather, ILoadableSingleton, IUnloadableSingleton, IRainEffectWeather
 {
+    static readonly Color StaticRainColor = new(0.5f, 0.5f, 1f, 0.4f);
+
     public static RainWeather? Instance { get; private set; }
     public static bool IsRaining => Instance?.Active == true;
 
     public const string WeatherId = "Rain";
     public override string Id { get; } = WeatherId;
+    public Color RainColor { get; } = StaticRainColor;
 
     public override void Load()
     {

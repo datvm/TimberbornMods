@@ -5,7 +5,7 @@ public class RainEffect(
     EventBus eb,
     WindService windService,
     MapSize mapSize,
-    RainWeather rainWeather
+    IEnumerable<IRainEffectWeather> rainWeathers
 ) : ILoadableSingleton
 {
     const float RainParticlePerSquare = 200f / (32 * 32);
@@ -18,6 +18,7 @@ public class RainEffect(
 
     GameObject? rainObj;
     ParticleSystem ps = null!;
+    Material material = null!;
 
     public void Load()
     {
@@ -27,24 +28,38 @@ public class RainEffect(
         AttachRain();
         eb.Register(this);
         OnWindChanged(null!);
-        rainWeather.OnWeatherActiveChanged += RainWeather_OnWeatherActiveChanged;
 
-        if (rainWeather.Active)
+        foreach (var w in rainWeathers)
         {
-            EnableRain();
+            w.OnWeatherActiveChanged += (_, active, onLoad) => OnWeatherActiveChanged(w, active, onLoad);
+            if (w.Active)
+            {
+                StartRain(w.RainColor);
+            }
         }
     }
 
-    private void RainWeather_OnWeatherActiveChanged(IModdedWeather weather, bool active, bool onLoad)
+    private void OnWeatherActiveChanged(IRainEffectWeather weather, bool active, bool onLoad)
     {
         if (active)
         {
-            EnableRain();
+            StartRain(weather.RainColor);
         }
         else
         {
-            DisableRain();
+            StopRain();
         }
+    }
+
+    public void StartRain(Color color)
+    {
+        material.SetColor("_BaseColor", color);
+        EnableRain();
+    }
+
+    public void StopRain()
+    {
+        DisableRain();
     }
 
     public void EnableRain()
@@ -81,7 +96,7 @@ public class RainEffect(
         ps = rainObj.AddComponent<ParticleSystem>();
 
         var shader = Shader.Find("Universal Render Pipeline/Unlit");
-        var material = new Material(shader);
+        material = new Material(shader);
         material.SetColor("_BaseColor", new Color(0.5f, 0.5f, 1f, 0.4f));
         material.SetFloat("_Surface", 1);
         material.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");

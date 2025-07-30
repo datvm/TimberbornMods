@@ -1,0 +1,10 @@
+{
+    "ModdedWeatherSpec": {
+        "Id": "Skyblight",
+        "DisplayLoc": "LV.MWSb.Skyblight",
+        "WeatherPanelProgressBackground": "Resources/UI/Images/Weathers/weather-progress-skyblight",
+        "DatePanelIcon": "Resources/UI/Images/Weathers/ico-weather-skyblight",
+        "WeatherNotification": "Resources/UI/Images/Weathers/weather-notification-skyblight",
+        "StartSound": "UI.Weather.Skyblight"
+    }
+}
