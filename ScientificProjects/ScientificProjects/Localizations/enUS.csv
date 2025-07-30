@@ -69,7 +69,7 @@ LV.SP.CarryUpgrade1Lore,"'These packs let me haul a forest and still have room f
 LV.SP.CarryUpgrade1Eff,"Permanently increases beavers' carrying capacity by {0:+#%}",
 LV.SP.CarryBuilderUpgrade,"Builder Sledges",
 LV.SP.CarryBuilderUpgradeLore,"Making construction as smooth as a well-chewed log.",
-LV.SP.CarryBuilderUpgradeEff,"{0:+#%} additional carrying capacity per Level for <SolidHighlight>Builders</SolidHighlight> (workers at District Centers or Builder Huts, both beavers and bots).",
+LV.SP.CarryBuilderUpgradeEff,"{0:+#%} additional carrying capacity per Level for <YellowHighlight>Builders</YellowHighlight> (workers at District Centers or Builder Huts, both beavers and bots).",
 LV.SP.CarryBuilderUpgradeCost,"[Cost] per Level for every builder (rounded up)",
 LV.SP.CarryUpgradeBuff,"Carrying Capacity Projects",
 LV.SP.CarryUpgradeBuffDesc,"Your superior carrying gears allow your characters to carry more.",

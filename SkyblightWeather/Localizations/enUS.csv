@@ -1,0 +1,8 @@
+ID,Text,Comment
+LV.MWSb.Skyblight,"Skyblight",
+LV.MWSb.SkyblightStrength,"Blight Strength",
+LV.MWSb.SkyblightStrengthDesc,"How fast the blight spreads into the water (‰/tick).
+Each game tick (0.6s), a part of water is made into badwater.
+For example, at default 5‰, your reservoir without any new fresh water in
+will become 100% contaminated after 120s (about half a game day).",
+LV.MWSb.Badrain,"Badrain",

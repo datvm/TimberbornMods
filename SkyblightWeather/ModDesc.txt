@@ -1,0 +1,10 @@
+When the skies themselves conspire, no dam can save you. This expansion mod for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3493039008]Moddable Weather[/url] introduces two new hazardous weather types:
+
+- [b]Skyblight[/b]: Think you're safe with your massive reservoir that withstands the worst droughts? Now the air itself will turn against you: toxic pollen will slowly contaminate all water, bypassing traditional defenses.
+
+  * Water in storages is safe, as beavers can cover them.
+  * Running water is generally safer, but it becomes contaminated the farther it gets from the source.
+  * Default setting: starts at cycle 7, with stats similar to Badtide but at half the chance of occurrence.
+  * You can adjust the [b]strength[/b] of the pollution (‰/game tick): Each game tick (0.6s), a portion of the water turns into badwater. For example, at the default 5‰, a reservoir with no fresh water input will become fully contaminated after 120 seconds (about half a game day).
+
+- [b]Badrain[/b]: If Skyblight isn't challenging enough, enable Badrain (disabled by default). It's the same as Skyblight but now the land is contaminated too. This means your plants will start dying quickly. For now, it does not harm your beavers, [b]yet[/b]. They also do not receive the Wet Fur bonus from this weather, unlike regular Rain.

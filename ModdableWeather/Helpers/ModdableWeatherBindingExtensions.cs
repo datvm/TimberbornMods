@@ -18,6 +18,13 @@ public static class ModdableWeatherBindingExtensions
         return configurator;
     }
 
+    public static Configurator BindRainEffectWeather<T>(this Configurator configurator)
+        where T : class, IRainEffectWeather
+    {
+        configurator.MultiBind<IRainEffectWeather>().ToExisting<T>();
+        return configurator;
+    }
+
     public static Configurator BindTemperateWeather<T>(this Configurator configurator)
         where T : class, IModdedTemperateWeather
     {

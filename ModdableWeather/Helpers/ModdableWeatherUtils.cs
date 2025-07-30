@@ -42,7 +42,7 @@ public static class ModdableWeatherUtils
 
 
             // Modded        
-            .BindTemperateWeather<RainWeather, RainWeatherSettings>(menuContext)
+            .BindTemperateWeather<RainWeather, RainWeatherSettings>(menuContext)            
             .BindTemperateWeather<ShortTemperateWeather, ShortTemperateWeatherSettings>(menuContext)
             .BindTemperateWeather<ProgressiveTemperateWeather, ProgressiveTemperateWeatherSettings>(menuContext)
             .BindHazardousWeather<MonsoonWeather, MonsoonWeatherSettings>(menuContext)
@@ -66,6 +66,9 @@ public static class ModdableWeatherUtils
                 .AddDecorator<WaterSourceContamination, SurprisinglyRefreshingController>()
                 .AddDecorator<NeedManager, RainSoakedEffectApplier>()
             );
+
+            // Rain effect
+            configurator.BindRainEffectWeather<RainWeather>();
         }
 
         return configurator;
