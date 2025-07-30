@@ -1,0 +1,13 @@
+{
+    "Name": "Weather Editor",
+    "Version": "7.0.0",
+    "Id": "WeatherEditor",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Edit the current weather.",
+    "RequiredMods": [
+        { "Id": "TimberUi" }
+    ],
+    "OptionalMods": [
+        { "Id": "ModdableWeather" }
+    ]
+}

@@ -1,0 +1,17 @@
+﻿This mod lets you edit the current weather conditions in-game, including: Temperate duration, Hazardous weather type and its duration.
+
+[b]Fully compatible with Moddable Weather (though not required)[/b]. When Moddable Weather is installed, you gain even more control:
+- Change the current Temperate weather type
+- Configure next cycle settings, including: Next Temperate Weather type, Single Weather Mode toggle (even if not enabled in Moddable Weather settings), whether the Single Weather is Temperate.
+
+⚠️ Make a backup before editing!
+
+How to use: Open the in-game menu (Esc) > click Weather Editor (just below the Resume button). When you're done, the mod saves your progress as "WeatherEdited" and prompts you to load it. You should load that save and not continue the current session, as it may become unstable.
+
+Note:
+- You can indeed change the active weather but new cycle won't begin until the end of the day.
+- With Moddable Weather, two special weather types ([No weather]) are available. They are special types used internally by the mod for special cases, you should not use them though I don't think there is any issue.
+
+Info on the Next Cycle settings: internally, Moddable Weather needs to pre-determine a few things for the next cycle, that's why you can edit them:
+- Single Weather mode and if it's Temperate or not. If it's hazardous, the type is determined next cycle, not now so you can't edit it.
+- Next Temperate Weather type: it's predetermined but not the duration yet. Also it's always Temperate Weather if it's a Hazardous Single Weather.
