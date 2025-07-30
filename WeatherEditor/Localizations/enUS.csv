@@ -1,0 +1,15 @@
+ID,Text,Comment
+LV.WEdit.WeatherEditor,"Weather Editor",
+LV.WEdit.CurrentWeather,"Current weather",
+LV.WEdit.NoModdableWeather,"No Moddable Weather",
+LV.WEdit.Duration,"Duration (days)",
+LV.WEdit.HazardousWeather,"Hazardous Weather",
+LV.WEdit.NextCycle,"Next Cycle",
+LV.WEdit.SingleModeTemperate,"Single Mode Weather is Temperate",
+LV.WEdit.SaveWarning,"Make a backup save before proceeding with this!",
+LV.WEdit.Edit,"Edit Weather",
+LV.WEdit.DurationNonNeg,"Duration must be a non-negative number",
+LV.WEdit.AskToLoad,"The edited weather was saved.
+Do you want to load that save?
+(Keep playing with this session may cause issues)",
+LV.WEdit.NoWeather,"[No Weather]",
