@@ -1,0 +1,12 @@
+{
+    "Name": "Configurable Power Lines",
+    "Version": "7.0.0",
+    "Id": "ConfigurablePowerLines",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Change various aspect of Power Lines",
+    "RequiredMods": [
+        { "Id": "eMka.ModSettings" },
+        { "Id": "Harmony" },
+        { "Id": "Opolame.PowerLines" }
+    ]
+}

@@ -1,0 +1,11 @@
+Configure various settings of the [url=https://steamcommunity.com/workshop/filedetails/?id=3537422273]Power Lines (Opolame's mod)[/url].
+
+By default this mod only double the cable distance (from 50 to 100). You can configure various settings (Menu or Game settings -> Mods -> Setting button next to the mod's name):
+
+- Maximum Connections: Maximum number of connections allowed for power line buildings. Default: 4.
+- Maximum Distance: Maximum distance allowed for power line cable. Default: 50, this mod defaults to 100.
+- Maximum Inclination: Maximum inclination allowed for power line cable. Default: 75 degrees.
+- Powerline Through Obstacles: Allow power lines to pass through obstacles such as buildings, terrain and trees.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
