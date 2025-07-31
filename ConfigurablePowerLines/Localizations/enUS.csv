@@ -1,0 +1,9 @@
+ID,Text,Comment
+LV.CPL.MaxConnections,"Maximum Connections",
+LV.CPL.MaxConnectionsDesc,"Maximum number of connections allowed for power line buildings. Default: 4.",
+LV.CPL.MaxDistance,"Maximum Distance",
+LV.CPL.MaxDistanceDesc,"Maximum distance allowed for power line cable. Default: 50, this mod defaults to 100.",
+LV.CPL.MaxInclination,"Maximum Inclination",
+LV.CPL.MaxInclinationDesc,"Maximum inclination allowed for power line cable. Default: 75 degrees.",
+LV.CPL.PowerlineThroughObstacles,"Powerline Through Obstacles",
+LV.CPL.PowerlineThroughObstaclesDesc,"Allow power lines to pass through obstacles such as buildings and trees.",
