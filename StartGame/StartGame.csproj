@@ -18,7 +18,7 @@
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
 		
-		<ProjectReference Include="..\TimberDump\TimberDump.csproj" />
+		<ProjectReference Include="..\TImprove\TImprove.csproj" />
 	</ItemGroup>
 
 </Project>

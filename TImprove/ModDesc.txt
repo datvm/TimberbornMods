@@ -3,6 +3,9 @@ TImprove enhances your Timberborn experience by providing various quality-of-lif
 You can change the settings anytime: from the main menu or in-game menu, click Mods then click the gear icon next to TImprove.
 
 ===
+v7.6.0:
+- [b]On Shift end[/b]: Change the game speed when the shift (work) time ends every day.
+
 v7.5.0:
 - [b]Lock free camera angle[/b]: When free camera is on, the vertical angle is still locked. This option is indepedent of the "Enable free camera" option, it also applies if you enable free camera through the Dev Mode.
 - [b]Use 24-hour format[/b]: Use 24-hour format for the real-time clock (17:30 instead of 05:30).
@@ -48,6 +51,7 @@ v1.0.0:
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v7.6.0: Added "On Shift end" speed option. Changed the in-game mod name to just "TImprove".
 v7.5.0: Added Lock free camera angle and Use 24-hour format options.
 v7.4.0: Refined the "Clear dead stumps" option and expanded "Pause on Bad weather" to "On new day" options.
 v7.2.2: should work with U7 April 23 update.
