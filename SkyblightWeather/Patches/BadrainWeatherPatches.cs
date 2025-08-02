@@ -3,12 +3,12 @@
 [HarmonyPatch]
 public static class BadrainWeatherPatches
 {
-    [HarmonyPrefix, HarmonyPatch(typeof(ContaminationCandidatesCountingJob), nameof(ContaminationCandidatesCountingJob.GetContaminationCandidate))]
-    public static bool SetContaminationIfRaining(ref float __result)
+    [HarmonyPostfix, HarmonyPatch(typeof(MoistureCalculationJob), nameof(MoistureCalculationJob.GetMoisture), [typeof(int)])]
+    public static void LimitIfRaining(ref int __result)
     {
-        if (!BadrainWeather.IsRaining) { return true; }
-
-        __result = 1f;
-        return false;
+        if (BadrainWeather.IsRaining && __result > BadrainWeather.MaxMoisture)
+        {
+            __result = BadrainWeather.MaxMoisture;
+        }
     }
 }

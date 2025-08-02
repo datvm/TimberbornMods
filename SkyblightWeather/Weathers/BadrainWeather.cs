@@ -8,6 +8,8 @@ public class BadrainWeather(
 {
     static readonly Color BadRainColor = new(1f, 0.5f, 0f, 0.4f);
 
+    public const int MaxMoisture = 3;
+
     public const string WeatherId = "Badrain";
     public override string Id { get; } = WeatherId;
     public Color RainColor { get; } = BadRainColor;

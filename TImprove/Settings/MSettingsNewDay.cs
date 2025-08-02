@@ -7,7 +7,7 @@ public class MSettingsNewDay(
     ILoc t
 ) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository)
 {
-    public static ImmutableArray<int> SpeedActions = [-1, 0, 1, 3, 7];
+    public static ImmutableArray<int> SpeedActions = [-1, 0, 1, 3, 7, 30];
 
     static readonly ImmutableArray<NewDayActionValue> NewDayActions = TImproveUtils.GetEnumValues<NewDayActionValue>();
     static readonly string NoneValue = NewDayActionValue.None.ToString();
