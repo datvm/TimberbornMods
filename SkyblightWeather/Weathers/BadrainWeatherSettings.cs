@@ -17,7 +17,7 @@ public class BadrainWeatherSettings(
     {
         var v = ModdableWeatherUtils.GetGameSettingsAtDifficulty(difficulty);
         return new(
-            Enabled: false,
+            Enabled: true,
             StartCycle: 10,
             Chance: Mathf.FloorToInt(v.ChanceForBadtide / 4 * 100f),
             MinDay: v.BadtideDuration.Min * 4,
