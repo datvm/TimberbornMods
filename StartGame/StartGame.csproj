@@ -18,7 +18,7 @@
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
 		
-		<ProjectReference Include="..\SkyblightWeather\SkyblightWeather.csproj" />
+		<ProjectReference Include="..\ConfigurableExplosives\ConfigurableExplosives.csproj" />
 	</ItemGroup>
 
 </Project>
