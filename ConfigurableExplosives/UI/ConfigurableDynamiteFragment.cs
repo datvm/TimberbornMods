@@ -4,6 +4,7 @@ public class ConfigurableDynamiteFragment(ILoc t, VisualElementInitializer veIni
 {
 
     ConfigurableDynamiteComponent? comp;
+    public ConfigurableDynamiteComponentData? Template { get; private set; }
 
 #nullable disable
     EntityPanelFragmentElement panel;
@@ -33,7 +34,10 @@ public class ConfigurableDynamiteFragment(ILoc t, VisualElementInitializer veIni
         lblDetonateIn = parent.AddGameLabel();
 
         parent.AddGameButton(t.T("LV.CE.Copy"), Copy, stretched: true)
-            .SetMargin(top: 20);
+            .SetPadding(0, 5)
+            .SetMargin(top: 20, bottom: 5);
+        parent.AddGameButton(t.T("LV.CE.MakeTemplate"), MakeTemplate, stretched: true)
+            .SetPadding(0, 5);
 
         return parent.Initialize(veInit);
     }
@@ -116,6 +120,12 @@ public class ConfigurableDynamiteFragment(ILoc t, VisualElementInitializer veIni
         {
             if (d != src) { d.CopyFrom(src); }
         }
+    }
+
+    void MakeTemplate()
+    {
+        if (!comp) { return; }
+        Template = comp.Data;
     }
 
     public void ClearFragment()

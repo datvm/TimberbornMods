@@ -1,6 +1,6 @@
 ﻿namespace ConfigurableExplosives.UI;
 
-public class ConfigurableDynamiteComponent : TickableComponent, IPersistentEntity
+public class ConfigurableDynamiteComponent : TickableComponent, IPersistentEntity, IInitializableEntity
 {
     static readonly ComponentKey SaveKey = new("ConfigurableDynamiteComponent");
     static readonly PropertyKey<float> DelayKey = new("Delay");
@@ -22,6 +22,15 @@ public class ConfigurableDynamiteComponent : TickableComponent, IPersistentEntit
 
     public int MaxDepth => dynamite._dynamiteSpec.Depth; // Use the spec, not the property because it will be patched
     Dynamite dynamite = null!;
+    ConfigurableDynamiteFragment fragment = null!;
+
+    public ConfigurableDynamiteComponentData Data => new(DetonationDelay, DetonationDepth, TriggerRadius);
+
+    [Inject]
+    public void Inject(ConfigurableDynamiteFragment fragment)
+    {
+        this.fragment = fragment;
+    }
 
     public void Awake()
     {
@@ -47,11 +56,13 @@ public class ConfigurableDynamiteComponent : TickableComponent, IPersistentEntit
         }
     }
 
-    public void CopyFrom(ConfigurableDynamiteComponent other)
+    public void CopyFrom(ConfigurableDynamiteComponent other) => CopyFrom(other.Data);
+
+    public void CopyFrom(ConfigurableDynamiteComponentData data)
     {
-        DetonationDelay = other.DetonationDelay;
-        DetonationDepth = other.DetonationDepth;
-        TriggerRadius = other.TriggerRadius;
+        DetonationDelay = data.DetonationDelay;
+        DetonationDepth = data.DetonationDepth;
+        TriggerRadius = data.TriggerRadius;
     }
 
     public void Save(IEntitySaver entitySaver)
@@ -83,4 +94,12 @@ public class ConfigurableDynamiteComponent : TickableComponent, IPersistentEntit
         }
     }
 
+    public void InitializeEntity()
+    {
+        if (fragment.Template is null) { return; }
+
+        CopyFrom(fragment.Template.Value);
+    }
 }
+
+public readonly record struct ConfigurableDynamiteComponentData(float DetonationDelay, int DetonationDepth, int TriggerRadius);
