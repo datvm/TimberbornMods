@@ -1,5 +1,6 @@
 ﻿global using Gate.Components;
 global using Gate.UI;
+global using Gate.Services;
 
 namespace Gate;
 
@@ -9,16 +10,14 @@ public class ModGameConfig : Configurator
 
     public override void Configure()
     {
-        this.BindTemplateModule(h => h.AddDecorator<GateComponentSpec, GateComponent>());
-        this.BindFragment<GateEntityPanelFragment>();
+        this
+            .BindSingleton<AutoGateService>()
+
+            .BindFragment<GateEntityPanelFragment>()
+
+            .BindTemplateModule(h => h
+                .AddDecorator<GateComponentSpec, GateComponent>()
+            );
     }
 
-}
-
-public class ModStarter : IModStarter
-{
-    void IModStarter.StartMod(IModEnvironment modEnvironment)
-    {
-        new Harmony(nameof(Gate)).PatchAll();
-    }
 }

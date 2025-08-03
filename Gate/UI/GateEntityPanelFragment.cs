@@ -8,6 +8,8 @@ public class GateEntityPanelFragment(
 #nullable disable
     EntityPanelFragmentElement panel;
     Toggle chkClose;
+    Toggle chkAutoCloseHaz;
+    Toggle chkAutoCloseBadtide;
 #nullable enable
 
     GateComponent? comp;
@@ -23,6 +25,8 @@ public class GateEntityPanelFragment(
         panel = new() { Visible = false, };
 
         chkClose = panel.AddToggle(t.T("LV.Gate.Closed"), onValueChanged: SetGateClosed);
+        chkAutoCloseHaz = panel.AddToggle(t.T("LV.Gate.AutoCloseHaz"), onValueChanged: SetAutoCloseHaz);
+        chkAutoCloseBadtide = panel.AddToggle(t.T("LV.Gate.AutoCloseBadtide"), onValueChanged: SetAutoCloseBadtide);
 
         return panel;
     }
@@ -33,6 +37,9 @@ public class GateEntityPanelFragment(
         if (!comp) { return; }
 
         chkClose.SetValueWithoutNotify(comp.Closed);
+        chkAutoCloseHaz.SetValueWithoutNotify(comp.AutoCloseHaz);
+        chkAutoCloseBadtide.SetValueWithoutNotify(comp.AutoCloseBadtide);
+        SetAutoCloseUi();
         panel.Visible = comp.IsFinished;
     }
 
@@ -49,6 +56,26 @@ public class GateEntityPanelFragment(
         if (!comp) { return; }
 
         comp.ToggleClosedState(closed);
+    }
+
+    void SetAutoCloseHaz(bool autoCloseHaz)
+    {
+        if (!comp) { return; }
+        
+        comp.AutoCloseHaz = autoCloseHaz;
+        SetAutoCloseUi();
+    }
+
+    void SetAutoCloseBadtide(bool autoCloseBadtide)
+    {
+        if (!comp) { return; }
+        
+        comp.AutoCloseBadtide = autoCloseBadtide;
+    }
+
+    void SetAutoCloseUi()
+    {
+        chkAutoCloseBadtide.enabledSelf = !chkAutoCloseHaz.value;
     }
 
 }
