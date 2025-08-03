@@ -237,6 +237,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherEditor", "WeatherEdi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurablePowerLines", "ConfigurablePowerLines\ConfigurablePowerLines.csproj", "{600BFFB8-A7EE-4CF8-A3C5-95AE9DA7F5BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraBookmarks", "CameraBookmarks\CameraBookmarks.csproj", "{DDA0C1AE-6DB3-4838-BD1A-DB9BE8D8710F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -635,6 +637,10 @@ Global
 		{600BFFB8-A7EE-4CF8-A3C5-95AE9DA7F5BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{600BFFB8-A7EE-4CF8-A3C5-95AE9DA7F5BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{600BFFB8-A7EE-4CF8-A3C5-95AE9DA7F5BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDA0C1AE-6DB3-4838-BD1A-DB9BE8D8710F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDA0C1AE-6DB3-4838-BD1A-DB9BE8D8710F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDA0C1AE-6DB3-4838-BD1A-DB9BE8D8710F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDA0C1AE-6DB3-4838-BD1A-DB9BE8D8710F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -704,6 +710,7 @@ Global
 		{84FB1CEF-398B-4766-92CD-B38CB9FEDF55} = {5D10D08B-18D1-40D6-B0B2-83778419FC99}
 		{9744E448-D370-41DF-9567-260289B8690C} = {5D10D08B-18D1-40D6-B0B2-83778419FC99}
 		{600BFFB8-A7EE-4CF8-A3C5-95AE9DA7F5BB} = {4C24DB61-A115-4B00-BDBF-E8CD4EA9FDF2}
+		{DDA0C1AE-6DB3-4838-BD1A-DB9BE8D8710F} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}

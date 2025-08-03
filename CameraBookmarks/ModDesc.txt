@@ -1,0 +1,11 @@
+﻿Save and quickly jump between up to 10 camera positions in your Timberborn map. Perfect for managing large settlements or keeping track of key locations.
+
+- Press Alt + Shift + [0–9] to save the current camera position to a slot
+- Press Alt + [0–9] to jump to a saved camera position
+
+You can [b]rebind these keys in Settings → Keybindings[/b], under the Camera group. Bookmarks are stored in your save, including position, zoom and even rotation.
+
+No more scrolling across the map to find that one building - you'll be there in a snap.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods

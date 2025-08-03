@@ -1,0 +1,13 @@
+{
+  "KeyBindingSpec": {
+    "AllowOtherModifiers": false,
+    "Id": "CameraBookmarkJump7",
+    "Order": 870,
+    "LocKey": "LV.CBk.Jump7",
+    "GroupId": "Camera"
+  },
+  "PrimaryInputBindingSpec": {
+    "Path": "/Keyboard/7",
+    "InputModifiers": "Alt"
+  }
+}
