@@ -1,0 +1,13 @@
+{
+  "KeyBindingSpec": {
+    "AllowOtherModifiers": false,
+    "Id": "CameraBookmarkSave8",
+    "Order": 780,
+    "LocKey": "LV.CBk.Save8",
+    "GroupId": "Camera"
+  },
+  "PrimaryInputBindingSpec": {
+    "Path": "/Keyboard/8",
+    "InputModifiers": "Alt, Shift"
+  }
+}

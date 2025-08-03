@@ -1,0 +1,13 @@
+{
+  "KeyBindingSpec": {
+    "AllowOtherModifiers": false,
+    "Id": "CameraBookmarkSave7",
+    "Order": 770,
+    "LocKey": "LV.CBk.Save7",
+    "GroupId": "Camera"
+  },
+  "PrimaryInputBindingSpec": {
+    "Path": "/Keyboard/7",
+    "InputModifiers": "Alt, Shift"
+  }
+}
