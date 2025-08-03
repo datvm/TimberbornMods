@@ -4,6 +4,8 @@ public class GateComponent : BaseComponent, IPersistentEntity, IFinishedStateLis
 {
     static readonly ComponentKey SaveKey = new("Gate");
     static readonly PropertyKey<bool> ClosedKey = new("Close");
+    static readonly PropertyKey<bool> AutoCloseHazKey = new("AutoCloseHaz");
+    static readonly PropertyKey<bool> AutoCloseBadtideKey = new("AutoCloseBadtide");
 
 #nullable disable
     BlockObjectNavMesh blockObjectNavMesh;
@@ -14,6 +16,8 @@ public class GateComponent : BaseComponent, IPersistentEntity, IFinishedStateLis
 
     public bool IsFinished { get; private set; }
     public bool Closed { get; private set; }
+    public bool AutoCloseHaz { get; set; }
+    public bool AutoCloseBadtide { get; set; }
 
     public void Awake()
     {
@@ -73,17 +77,20 @@ public class GateComponent : BaseComponent, IPersistentEntity, IFinishedStateLis
 
     public void Load(IEntityLoader entityLoader)
     {
-        Closed = entityLoader.TryGetComponent(SaveKey, out var s)
-            && s.Has(ClosedKey) && s.Get(ClosedKey);
+        if (!entityLoader.TryGetComponent(SaveKey, out var s)) { return; }
+
+        Closed = s.Has(ClosedKey) && s.Get(ClosedKey);
+        AutoCloseHaz = s.Has(AutoCloseHazKey) && s.Get(AutoCloseHazKey);
+        AutoCloseBadtide = s.Has(AutoCloseBadtideKey) && s.Get(AutoCloseBadtideKey);
     }
 
     public void Save(IEntitySaver entitySaver)
     {
-        if (Closed)
-        {
-            var s = entitySaver.GetComponent(SaveKey);
-            s.Set(ClosedKey, Closed);
-        }
+        var s = entitySaver.GetComponent(SaveKey);
+
+        s.Set(ClosedKey, Closed);
+        s.Set(AutoCloseHazKey, AutoCloseHaz);
+        s.Set(AutoCloseBadtideKey, AutoCloseBadtide);
     }
 
     public void OnEnterFinishedState()
