@@ -7,4 +7,13 @@ When the skies themselves conspire, no dam can save you. This expansion mod for 
   * Default setting: starts at cycle 7, with stats similar to Badtide but at half the chance of occurrence.
   * You can adjust the [b]strength[/b] of the pollution (‰/game tick): Each game tick (0.6s), a portion of the water turns into badwater. For example, at the default 5‰, a reservoir with no fresh water input will become fully contaminated after 120 seconds (about half a game day).
 
-- [b]Badrain[/b]: If Skyblight isn't challenging enough, enable Badrain (disabled by default). It's the same as Skyblight but now the land is contaminated too. This means your plants will start dying quickly. For now, it does not harm your beavers, [b]yet[/b]. They also do not receive the Wet Fur bonus from this weather, unlike regular Rain.
+- [b]Badrain[/b]: If Skyblight isn't challenging enough, enable Badrain. It's the same as Skyblight with additional challenges:
+  * Limit Moisture Range: your land can only carry moisture to a much smaller range. Default: On at 3 (game default 16).
+  * Contaminate Land: the land will be contaminated every now and then. Default: Off. You should tweak around the number a lot.
+  * Default: starts at cycle 10, a quarter of the chance of Badtide for happening.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v7.0.2: You can now choose effects of Badrain (Limit Moisture and/or Contaminate Land). Default settings are the same as before so you should not be affected without changing settings.
+v7.0.1: Updated Badrain effect. Badrain is now enabled by default in the settings.

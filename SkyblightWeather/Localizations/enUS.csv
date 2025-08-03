@@ -6,3 +6,13 @@ Each game tick (0.6s), a part of water is made into badwater.
 For example, at default 5‰, your reservoir without any new fresh water in
 will become 100% contaminated after 120s (about half a game day).",
 LV.MWSb.Badrain,"Badrain",
+LV.MWSb.BadrainLimitMoisture,"Limit Moisture Range",
+LV.MWSb.BadrainLimitMoistureDesc,"Limit the range your land get moisture when badrain is active.",
+LV.MWSb.BadrainMoistureRange,"Limited Moisture Range",
+LV.MWSb.BadrainMoistureRangeDesc,"The maximum moisture range when badrain is active.",
+LV.MWSb.BadrainContamination,"Frequent land contamination",
+LV.MWSb.BadrainContaminationDesc,"Contaminate the land every now and then when badrain is active.",
+LV.MWSb.BadrainContaminationDuration,"Contamination Duration",
+LV.MWSb.BadrainContaminationDurationDesc,"How long the land is contaminated (days) when badrain is active.",
+LV.MWSb.BadrainClearDuration,"Clear Duration",
+LV.MWSb.BadrainClearDurationDesc,"How long the land is clear of contamination (days) when badrain is active.",
