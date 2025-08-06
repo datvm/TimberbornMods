@@ -1,0 +1,71 @@
+ManifestFileVersion: 0
+UnityVersion: 6000.1.4f1
+CRC: 1889081732
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f4a3c23ece571811795bd64a1019ee96
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: aa9da36ac0d3890c556a5ba9d7a6f5f5
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: ee33640f0cbbd8fce44c205bbd265c6c
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 437054131, guid: 644c1295076bbdbb604b7f96aa6be9c2, type: 3}
+- Class: 114
+  Script: {fileID: 1566945626, guid: b5f268a4cb31a93ed707a95d3a502b0e, type: 3}
+- Class: 114
+  Script: {fileID: 652365310, guid: b6b9d4cc3090b6fceb2eb6438dd271f1, type: 3}
+- Class: 114
+  Script: {fileID: 59574725, guid: 4ed0189b1e1d234e361262ab78b6f74b, type: 3}
+- Class: 114
+  Script: {fileID: -1146001497, guid: 4ed0189b1e1d234e361262ab78b6f74b, type: 3}
+- Class: 114
+  Script: {fileID: 1596376676, guid: 1bd6ccb667024f9c2b77daf7f62a4eed, type: 3}
+- Class: 114
+  Script: {fileID: -579399493, guid: 1bd6ccb667024f9c2b77daf7f62a4eed, type: 3}
+- Class: 114
+  Script: {fileID: 447443988, guid: c1ff95bb5ae0e8b420075ec58add6f36, type: 3}
+- Class: 114
+  Script: {fileID: -1706396145, guid: c1ff95bb5ae0e8b420075ec58add6f36, type: 3}
+- Class: 114
+  Script: {fileID: -1925074215, guid: 79523a2b71f4fae881a60ad2e723d456, type: 3}
+- Class: 114
+  Script: {fileID: -923837550, guid: 79523a2b71f4fae881a60ad2e723d456, type: 3}
+- Class: 114
+  Script: {fileID: -1942782917, guid: 40833514e55bcf2135fbcf9411078554, type: 3}
+- Class: 114
+  Script: {fileID: 1412436833, guid: 915d565361ffc0071cb972b12ad62c80, type: 3}
+- Class: 114
+  Script: {fileID: -1668926802, guid: 915d565361ffc0071cb972b12ad62c80, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: Timberborn.BlockSystemNavigation
+  ClassName: Timberborn.BlockSystemNavigation.BlockObjectNavMeshEdgeGroupSpec
+- AssemblyName: Timberborn.BlockSystemNavigation
+  ClassName: Timberborn.BlockSystemNavigation.BlockObjectNavMeshEdgeSpec
+- AssemblyName: Timberborn.BlockSystemNavigation
+  ClassName: Timberborn.BlockSystemNavigation.BlockObjectNavMeshGroup
+- AssemblyName: Timberborn.BlockSystem
+  ClassName: Timberborn.BlockSystem.BlockSpec
+- AssemblyName: Timberborn.BlockSystem
+  ClassName: Timberborn.BlockSystem.BlocksSpec
+- AssemblyName: Timberborn.BlockSystem
+  ClassName: Timberborn.BlockSystem.CustomPivotSpec
+- AssemblyName: Timberborn.BlockSystem
+  ClassName: Timberborn.BlockSystem.EntranceBlockSpec
+- AssemblyName: Timberborn.Goods
+  ClassName: Timberborn.Goods.GoodAmountSpec
+Assets:
+- Assets/Mods/AirlockChamberAssets/AssetBundles/Resources/Buildings/Paths/AirlockChamber.prefab
+Dependencies: []

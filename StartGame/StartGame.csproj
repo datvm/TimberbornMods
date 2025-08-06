@@ -18,7 +18,7 @@
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
 		
-		<ProjectReference Include="..\MacroManagement\MacroManagement.csproj" />
+		<ProjectReference Include="..\AirlockChamber\AirlockChamber.csproj" />
 	</ItemGroup>
 
 </Project>

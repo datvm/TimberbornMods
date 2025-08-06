@@ -239,6 +239,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurablePowerLines", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraBookmarks", "CameraBookmarks\CameraBookmarks.csproj", "{DDA0C1AE-6DB3-4838-BD1A-DB9BE8D8710F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoweredTubeway", "PoweredTubeway\PoweredTubeway.csproj", "{41961784-F31C-4767-ADBB-C9108E2716B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirlockChamber", "AirlockChamber\AirlockChamber.csproj", "{191088E6-D454-435D-80DA-BD7AAE4EDBB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -641,6 +645,14 @@ Global
 		{DDA0C1AE-6DB3-4838-BD1A-DB9BE8D8710F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDA0C1AE-6DB3-4838-BD1A-DB9BE8D8710F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDA0C1AE-6DB3-4838-BD1A-DB9BE8D8710F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41961784-F31C-4767-ADBB-C9108E2716B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41961784-F31C-4767-ADBB-C9108E2716B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41961784-F31C-4767-ADBB-C9108E2716B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41961784-F31C-4767-ADBB-C9108E2716B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{191088E6-D454-435D-80DA-BD7AAE4EDBB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{191088E6-D454-435D-80DA-BD7AAE4EDBB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{191088E6-D454-435D-80DA-BD7AAE4EDBB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{191088E6-D454-435D-80DA-BD7AAE4EDBB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

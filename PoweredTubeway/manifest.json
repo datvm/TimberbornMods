@@ -1,0 +1,10 @@
+{
+    "Name": "Powered Tubeway",
+    "Version": "7.0.0",
+    "Id": "PoweredTubeway",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Tubeway now transmit power",
+    "RequiredMods": [
+        { "Id": "ModdablePrefab" }
+    ]
+}

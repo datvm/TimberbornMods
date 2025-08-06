@@ -1,0 +1,8 @@
+{
+    "PrefabModderSpec": {
+        "ComponentType": "Timberborn.MechanicalSystem.TransputProviderSpec",
+        "PrefabNames": [ "VerticalTubeway.IronTeeth", "Tubeway.IronTeeth" ],
+        "ValuePath": "_",
+        "NewValue": "{'_transputSpecs':[{'_coordinates':{x: 0, y: 0, z: 0},'_directions':63}]}"
+    }
+}
