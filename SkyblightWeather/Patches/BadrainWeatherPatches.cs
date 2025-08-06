@@ -3,8 +3,8 @@
 [HarmonyPatch]
 public static class BadrainWeatherPatches
 {
-    [HarmonyPostfix, HarmonyPatch(typeof(MoistureCalculationJob), nameof(MoistureCalculationJob.GetMoisture), [typeof(int)])]
-    public static void LimitIfRaining(ref int __result)
+    [HarmonyPostfix, HarmonyPatch(typeof(MoistureCalculationJob), nameof(MoistureCalculationJob.CalculateMoistureForCell))]
+    public static void LimitIfRaining(ref float __result)
     {
         var limit = BadrainWeather.ShouldReduceMoisture;
         if (limit is null || __result <= limit) { return; }
