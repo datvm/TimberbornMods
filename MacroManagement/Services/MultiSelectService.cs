@@ -222,6 +222,14 @@ public class MultiSelectService(
             PerformMap<DummySingleGoodAllower, SingleGoodAllower>();
         }
 
+        var goodObtainer = original.GetComponentFast<GoodObtainer>();
+        if (goodObtainer)
+        {
+            PerformMap<DummyGoodObtainer, GoodObtainer>();
+            PerformMap<DummyEmptiable, Emptiable>();
+            PerformMap<DummyGoodSupplier, GoodSupplier>();
+        }
+
         // Manufactory
         var manufactorySpec = original.GetComponentFast<ManufactorySpec>();
 
