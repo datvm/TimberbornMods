@@ -1,0 +1,7 @@
+{
+    "PrefabAddComponentSpec": {
+        "ComponentType": "Timberborn.Buildings.BuildingSpec",
+        "PrefabNames": [ "VerticalTubeway.IronTeeth", "Tubeway.IronTeeth" ],
+        "AddComponents": [ "Timberborn.MechanicalSystem.TransputProviderSpec", "Timberborn.MechanicalConnectorSystem.MechanicalConnectorReceiverSpec" ]
+    }
+}

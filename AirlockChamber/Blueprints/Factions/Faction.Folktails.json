@@ -1,0 +1,10 @@
+{
+    "FactionSpec": {
+        "MaterialGroups#append": [
+            "IronTeeth"
+        ],
+        "PrefabGroups#append": [
+            "AirlockChamber"
+        ]
+    }
+}
