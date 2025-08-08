@@ -30,6 +30,15 @@ public static class DescriptionPanelPatches
         scrollBar.Add(ve);
     }
 
+    [HarmonyPostfix, HarmonyPatch(typeof(DescriptionPanels), nameof(DescriptionPanels.CreateDescriptionPanel), [typeof(ToolDescription)])]
+    public static void SetMaxWidth(DescriptionPanel __result)
+    {
+        var desc = __result.Root.Q(className: "description-panel");
+        if (desc is null) { return; }
+        
+        desc.style.maxWidth = new Length(300, LengthUnit.Pixel);
+    }
+
     public static void ChangeToolPanelPosition(string? pos)
     {
         if (toolPanel is null || !toolPanel.TryGetTarget(out var el)) { return; }
