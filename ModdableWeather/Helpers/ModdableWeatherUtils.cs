@@ -34,14 +34,14 @@ public static class ModdableWeatherUtils
 
     internal static Configurator BindModdedWeathers(this Configurator configurator, bool menuContext)
     {
-        // Game Default
+        // Game Default weathers
         configurator
             .BindTemperateWeather<GameTemperateWeather, GameTemperateWeatherSettings>(menuContext)
             .BindHazardousWeather<GameDroughtWeather, GameDroughtWeatherSettings>(menuContext)
             .BindHazardousWeather<GameBadtideWeather, GameBadtideWeatherSettings>(menuContext)
 
 
-            // Modded        
+            // Modded weathers
             .BindTemperateWeather<RainWeather, RainWeatherSettings>(menuContext)            
             .BindTemperateWeather<ShortTemperateWeather, ShortTemperateWeatherSettings>(menuContext)
             .BindTemperateWeather<ProgressiveTemperateWeather, ProgressiveTemperateWeatherSettings>(menuContext)
@@ -51,6 +51,9 @@ public static class ModdableWeatherUtils
             // Single Weather Settings
             .BindSingleton<SingleWeatherModeSettings>()
         ;
+
+        // Settings
+        configurator.MultiBindSingleton<IModSettingElementFactory, LabelSettingFactory>();
 
         if (!menuContext)
         {

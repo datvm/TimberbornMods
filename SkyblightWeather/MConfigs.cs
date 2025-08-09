@@ -11,6 +11,8 @@ public class ModMainMenuConfig : Configurator
         this
             .BindHazardousWeather<SkyblightWeatherType, SkyblightWeatherSettings>(true)
             .BindHazardousWeather<BadrainWeather, BadrainWeatherSettings>(true)
+
+            .MultiBindSingleton<IModUpdateNotifier, UpdateNotifier>()
         ;
     }
 }

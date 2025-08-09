@@ -10,7 +10,9 @@ public class SkyblightWeatherSettings(
 ) : DefaultWeatherDifficultySettings(settings, modSettingsOwnerRegistry, modRepository, t, specs, modSettingsBox)
 {
     public override string WeatherId { get; } = SkyblightWeatherType.WeatherId;
-    public ModSetting<int> SkyblightStrength { get; } = new(5, ModSettingDescriptor
+    public override string? WeatherDescLocKey { get; } = "LV.MWSb.SkyblightDesc";
+
+    public ModSetting<float> SkyblightStrength { get; } = new(.1f, ModSettingDescriptor
         .CreateLocalized("LV.MWSb.SkyblightStrength")
         .SetLocalizedTooltip("LV.MWSb.SkyblightStrengthDesc"));
 
@@ -48,5 +50,5 @@ public class SkyblightWeatherSettings(
     }
 }
 
-public readonly record struct SkyblightExportParameters(int Strength, WeatherParameters WeatherParameters);
+public readonly record struct SkyblightExportParameters(float Strength, WeatherParameters WeatherParameters);
 

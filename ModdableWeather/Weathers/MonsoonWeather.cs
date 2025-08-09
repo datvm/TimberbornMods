@@ -61,6 +61,7 @@ public class MonsoonWeatherSettings(ISettings settings, ModSettingsOwnerRegistry
 {
     public override string WeatherId { get; } = MonsoonWeather.WeatherId;
     public override int Order { get; } = 5;
+    public override string? WeatherDescLocKey { get; } = "LV.MW.MonsoonDesc";
     public ModSetting<float> MonsoonMultiplier { get; } = new(2.5f, ModSettingDescriptor
         .CreateLocalized("LV.MW.MonsoonMultiplier")
         .SetLocalizedTooltip("LV.MW.MonsoonMultiplierDesc"));

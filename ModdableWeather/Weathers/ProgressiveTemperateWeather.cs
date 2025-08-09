@@ -14,6 +14,7 @@ public class ProgressiveTemperateWeatherSettings(ISettings settings, ModSettings
 
     public override string WeatherId { get; } = ProgressiveTemperateWeather.WeatherId;
     public override int Order { get; } = 6;
+    public override string? WeatherDescLocKey { get; } = "LV.MW.ProgressiveTemperateDesc";
 
     protected override WeatherParameters GetDifficultyParameters(WeatherDifficulty difficulty)
     {

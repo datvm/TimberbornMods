@@ -23,7 +23,7 @@ public class BlightApplier(
     {
         if (!skyblight.Active && !badrain.Active) { return; }
 
-        var str = s.SkyblightStrength.Value / 1000f;
+        var str = s.SkyblightStrength.Value / 100f;
         if (str <= 0f) { return; }
 
         var columns = waterMap.WaterColumns;

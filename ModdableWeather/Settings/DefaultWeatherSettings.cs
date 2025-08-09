@@ -17,6 +17,7 @@ public abstract class DefaultWeatherSettings(
     protected string WeatherNameLocKey { get; set; } = null!;
     public virtual string WeatherNameDisplay { get; protected set; } = null!;
     public override string HeaderLocKey => WeatherNameLocKey;
+    public virtual string? WeatherDescLocKey { get; } = null;
 
     public abstract WeatherParameters DefaultSettings { get; }
 
@@ -32,6 +33,11 @@ public abstract class DefaultWeatherSettings(
 
     public override void OnBeforeLoad()
     {
+        if (WeatherDescLocKey is not null)
+        {
+            AddNonPersistentModSetting(new LabelSetting(WeatherDescLocKey));
+        }
+
         modId = GetType().Assembly.GetName().Name;
 
         var spec = specs.Specs[WeatherId];

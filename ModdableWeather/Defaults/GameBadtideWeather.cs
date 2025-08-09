@@ -16,6 +16,7 @@ public class GameBadtideWeatherSettings(ISettings settings, ModSettingsOwnerRegi
     public override string WeatherId { get; } = GameBadtideWeather.WeatherId;
     public override string ModId { get; } = nameof(ModdableWeather);
     public override int Order { get; } = 3;
+    public override string? WeatherDescLocKey { get; } = "LV.MW.BadtideDesc";
 
     protected override WeatherParameters GetDifficultyParameters(WeatherDifficulty difficulty) => StaticGetDifficultyParameters(difficulty);
 
