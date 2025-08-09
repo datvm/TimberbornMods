@@ -11,6 +11,7 @@ public class SurprisinglyRefreshingWeatherSettings(ISettings settings, ModSettin
 {
     public override string WeatherId { get; } = SurprisinglyRefreshingWeather.WeatherId;
     public override int Order { get; } = 8;
+    public override string? WeatherDescLocKey { get; } = "LV.MW.SurprisinglyRefreshingDesc";
 
     public override WeatherParameters DefaultSettings { get; } = new(
         Chance: 10,

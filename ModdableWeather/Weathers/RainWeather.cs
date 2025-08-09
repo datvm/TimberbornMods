@@ -32,6 +32,7 @@ public class RainWeatherSettings(ISettings settings, ModSettingsOwnerRegistry mo
 {
     public override string WeatherId { get; } = RainWeather.WeatherId;
     public override int Order { get; } = 4;
+    public override string? WeatherDescLocKey { get; } = "LV.MW.RainDesc";
 
     public ModSetting<bool> EnableRainEffect { get; } = new(true, ModSettingDescriptor
         .CreateLocalized("LV.MW.RainEffect")

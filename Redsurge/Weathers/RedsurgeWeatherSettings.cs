@@ -10,6 +10,8 @@ public class RedsurgeWeatherSettings(
 ) : DefaultWeatherDifficultySettings(settings, modSettingsOwnerRegistry, modRepository, t, specs, modSettingsBox)
 {
     public override string WeatherId { get; } = RedsurgeWeather.WeatherId;
+    public override string? WeatherDescLocKey { get; } = "LV.MWRS.RedsurgeDesc";
+
     public ModSetting<float> RedsurgeMultiplier { get; } = new(3.0f, ModSettingDescriptor
         .CreateLocalized("LV.MWRS.RedsurgeMultiplier")
         .SetLocalizedTooltip("LV.MWRS.RedsurgeMultiplierDesc"));

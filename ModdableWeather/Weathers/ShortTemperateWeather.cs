@@ -11,6 +11,7 @@ public class ShortTemperateWeatherSettings(ISettings settings, ModSettingsOwnerR
 {
     public override string WeatherId { get; } = ShortTemperateWeather.WeatherId;
     public override int Order { get; } = 7;
+    public override string? WeatherDescLocKey { get; } = "LV.MW.ShortTemperateDesc";
 
     public override WeatherParameters DefaultSettings { get; } = new(
         StartCycle: 10,

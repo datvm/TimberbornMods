@@ -5,3 +5,4 @@ LV.MWRS.RedsurgeMultiplierDesc,"The maximum additional multiplier for the Redsur
 This value is affected by handicap like Duration.
 Default value: 2.5 (250%) meaning when no handicap is applied (default cycle 5),
 all water sources strength is at 350%.",
+LV.MWRS.RedsurgeDesc,"Hazardous weather: Combined effect of Monsoon and Badtide.",

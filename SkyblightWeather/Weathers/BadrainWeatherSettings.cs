@@ -10,6 +10,8 @@ public class BadrainWeatherSettings(
 ) : DefaultWeatherDifficultySettings(settings, modSettingsOwnerRegistry, modRepository, t, specs, modSettingsBox)
 {
     public override string WeatherId { get; } = BadrainWeather.WeatherId;
+    public override string? WeatherDescLocKey { get; } = "LV.MWSb.BadrainDesc";
+
 
     public ModSetting<bool> BadrainLimitMoisture { get; } = new(true, ModSettingDescriptor
         .CreateLocalized("LV.MWSb.BadrainLimitMoisture")
@@ -87,5 +89,6 @@ public readonly record struct BadrainExportParameters(
     float BadrainClearDuration,
     WeatherParameters WeatherParameters
 );
+
 
 

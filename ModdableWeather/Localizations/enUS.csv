@@ -43,3 +43,16 @@ LV.MW.SWChance,"Single Weather chance",
 LV.MW.SWChanceDesc,"The chance of single weather occurring",
 LV.MW.SWTemperateChance,"Single Weather Temperate chance",
 LV.MW.SWTemperateChanceDesc,"The chance of single weather being temperate when single weather occurs",
+LV.MW.TemperateDesc,"The game default temperate weather, no effect.",
+LV.MW.DroughtDesc,"The game default hazardous drought weather, water sources stop producing water.",
+LV.MW.BadtideDesc,"The game default hazardous bad tide weather, all water sources produce badwater.",
+LV.MW.RainDesc,"Temperate weather:
+- All tiles are watered and no land contamination occurs.
+- Applies Wet Fur when Beavers are not in the buildings.
+- 25% shorter than the usual temperate reason (default settings)",
+LV.MW.MonsoonDesc,"Hazardous weather:
+- All water sources increase their output, at 350% (or configurable) maximum.
+- Handicap applies to the extra output as well.",
+LV.MW.ShortTemperateDesc,"Temperate weather: a very short Temperate season so you will need to deal with two hazardous seasons in a row.",
+LV.MW.ProgressiveTemperateDesc,"Temperate weather that starts like the game's normal one but it gets shorter and shorter.",
+LV.MW.SurprisinglyRefreshingDesc,"'Hazardous' weather: No bad effect. All water sources produce fresh water. Very short.",
