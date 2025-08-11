@@ -197,7 +197,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4145870286760774}
-  - {fileID: 4536798673540851}
+  - {fileID: 9184579485941725398}
   m_Father: {fileID: 4347414775528117}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1846583253462335
@@ -267,95 +267,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _modelName: ConstructionBases\ConstructionBase1x1\ConstructionBase1x1.Model
---- !u!1 &1873099707921874
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4536798673540851}
-  - component: {fileID: 65989017850012235}
-  - component: {fileID: 65245692924686067}
-  - component: {fileID: 114308890445178238}
-  m_Layer: 0
-  m_Name: Variant_001000
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4536798673540851
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1873099707921874}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4609505999293618}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65989017850012235
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1873099707921874}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 0.04, z: 1}
-  m_Center: {x: 0.5, y: 0.02, z: 0.5}
---- !u!65 &65245692924686067
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1873099707921874}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.36129043, y: 0.7358919, z: 0.99799085}
-  m_Center: {x: 0.5, y: 0.36794594, z: 0.5}
---- !u!114 &114308890445178238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1873099707921874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1942782917, guid: 40833514e55bcf2135fbcf9411078554, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _modelName: Buildings\Paths\VerticalTubeway\VerticalTubeway001000.IronTeeth.Model
 --- !u!1 &1914886916114091
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,7 +290,7 @@ GameObject:
   - component: {fileID: 1018640434098314929}
   - component: {fileID: 4393196155429996104}
   m_Layer: 0
-  m_Name: AirlockChamber
+  m_Name: AirlockChamber4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -419,12 +330,12 @@ MonoBehaviour:
   _loopingSoundName: 
   _buildingCost:
   - _goodId: Plank
-    _amount: 15
+    _amount: 30
   - _goodId: MetalBlock
-    _amount: 5
+    _amount: 10
   - _goodId: PineResin
-    _amount: 15
-  _scienceCost: 1500
+    _amount: 30
+  _scienceCost: 2000
   _placeFinished: 0
   _finishableWithBeaversOnSite: 0
   _drawRangeBoundsOnIt: 0
@@ -460,7 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentCache: {fileID: 0}
-  _prefabName: AirlockChamber
+  _prefabName: AirlockChamber4
   _backwardCompatiblePrefabNames: []
   _requiredFeatureToggle: 
   _disablingFeatureToggle: 
@@ -491,6 +402,12 @@ MonoBehaviour:
       _isTwoWay: 0
     - _start: {x: 0, y: 0, z: 0}
       _end: {x: 0, y: 1, z: 0}
+      _isTwoWay: 0
+    - _start: {x: 0, y: 0, z: 0}
+      _end: {x: -1, y: 0, z: 0}
+      _isTwoWay: 0
+    - _start: {x: 0, y: 0, z: 0}
+      _end: {x: 1, y: 0, z: 0}
       _isTwoWay: 0
   _unblockedCoordinates: []
 --- !u!114 &114076411417914655
@@ -536,7 +453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _componentCache: {fileID: 0}
   _toolGroupId: Paths
-  _toolOrder: 15
+  _toolOrder: 16
   _toolShape: 0
   _layout: 2
   _customPivot:
@@ -557,10 +474,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentCache: {fileID: 0}
-  _displayNameLocKey: LV.AC.AirlockChamber
-  _descriptionLocKey: LV.AC.AirlockChamberDesc
-  _flavorDescriptionLocKey: LV.AC.AirlockChamberFlavor
-  _imagePath: Sprites/Buildings/Paths/AirlockChamber
+  _displayNameLocKey: LV.AC.AirlockChamber4
+  _descriptionLocKey: LV.AC.AirlockChamber4Desc
+  _flavorDescriptionLocKey: LV.AC.AirlockChamber4Flavor
+  _imagePath: Sprites/Buildings/Paths/AirlockChamber4
 --- !u!114 &114230826247343656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -650,3 +567,114 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _componentCache: {fileID: 0}
   _height: 1
+--- !u!1 &2261874247302169788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9184579485941725398}
+  - component: {fileID: 7445198145564227894}
+  - component: {fileID: 1300293351087892662}
+  - component: {fileID: 3244821090120760841}
+  - component: {fileID: 4187711808490521246}
+  m_Layer: 0
+  m_Name: Variant_111100
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9184579485941725398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2261874247302169788}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4609505999293618}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7445198145564227894
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2261874247302169788}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.04, z: 1}
+  m_Center: {x: 0.5, y: 0.02, z: 0.5}
+--- !u!65 &1300293351087892662
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2261874247302169788}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0030464, y: 0.7358919, z: 0.32637167}
+  m_Center: {x: 0.50274616, y: 0.36794594, z: 0.5101131}
+--- !u!65 &3244821090120760841
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2261874247302169788}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.36129045, y: 0.7358919, z: 0.9996898}
+  m_Center: {x: 0.5, y: 0.36794594, z: 0.4991505}
+--- !u!114 &4187711808490521246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2261874247302169788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1942782917, guid: 40833514e55bcf2135fbcf9411078554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _modelName: Buildings\Paths\VerticalTubeway\VerticalTubeway111100.IronTeeth.Model

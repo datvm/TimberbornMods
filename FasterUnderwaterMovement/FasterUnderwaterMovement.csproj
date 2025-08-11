@@ -3,10 +3,4 @@
         <OutputModFolderName>FasterUnderwaterMovement</OutputModFolderName>
     </PropertyGroup>
     <Import Project="../Common.target" />
-    <ItemGroup>
-        <Reference Include="Timberborn.WalkingSystem">
-            <HintPath>E:\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed\Timberborn.WalkingSystem.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-    </ItemGroup>
 </Project>

@@ -1,12 +1,27 @@
 This mod adds the Airlock Chamber, a "high-tech" structure that blocks water and allows beavers to walk through it.
 
+[h1]Airlock Chamber[/h1]
+
 [i]Reverse-engineered from a submerged vault labeled 'Do Not Open When Wet'.[/i]
 
 - Block water but allow two-way passage.
 - Solid (other buildings can be built on its top).
-- Cost 1500 Science to unlock, 15 Planks and 5 Metal Blocks to build.
+- Cost 1500 Science to unlock, 15 Planks, 15 Resin and 5 Metal Blocks to build.
 
-Can be built by both the Folktails and Iron Teeths. GreedyBuilders is provided but not tested, please tell me if it does not work.
+[h1]4-way Airlock Chamber[/h1]
+
+[i]Schröbeaver principle: path and puddle states collapse only when you peek.[/i]
+
+- Same as Airlock Chamber but allows passage in all 4 directions.
+- Cost 2000 Science to unlock, 30 Planks, 30 Resin and 10 Metal Blocks to build.
+
+Both can be built by both the Folktails and Iron Teeths. GreedyBuilders and Emberpelts are supported but not tested, please tell me if it does not work.
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v7.1.0:
+- Now need Resin to build (already built structures are not affected).
+- You can now build multiple Airlock Chambers in a line.
+- Added 4-way Airlock Chamber.
+- Added Emberpelts support.

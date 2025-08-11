@@ -2,7 +2,8 @@
     "PrefabGroupSpec": {
         "Id": "AirlockChamber",
         "Paths": [
-            "Buildings/Paths/AirlockChamber"
+            "Buildings/Paths/AirlockChamber",
+            "Buildings/Paths/AirlockChamber4"
         ]
     }
 }

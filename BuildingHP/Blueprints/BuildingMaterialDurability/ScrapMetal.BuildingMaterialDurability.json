@@ -1,0 +1,6 @@
+{
+    "BuildingMaterialDurabilitySpec": {
+        "GoodId": "ScrapMetal",
+        "Durability": 300
+    }
+}
