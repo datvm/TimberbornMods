@@ -1,0 +1,6 @@
+{
+    "BuildingMaterialDurabilitySpec": {
+        "GoodId": "Gear",
+        "Durability": -10
+    }
+}

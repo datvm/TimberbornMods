@@ -1,0 +1,12 @@
+{
+    "Name": "Building HP",
+    "Version": "7.0.0",
+    "Id": "BuildingHP",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Add HP/Durability to buildings",
+    "RequiredMods": [
+        { "Id": "Harmony" },
+        { "Id": "eMka.ModSettings" },
+        { "Id": "TimberUi" }
+    ]
+}

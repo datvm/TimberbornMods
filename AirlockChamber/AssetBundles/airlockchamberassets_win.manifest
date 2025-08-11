@@ -1,16 +1,16 @@
 ManifestFileVersion: 0
 UnityVersion: 6000.1.4f1
-CRC: 1889081732
+CRC: 2099126361
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f4a3c23ece571811795bd64a1019ee96
+    Hash: 211c5cbeedecf5860e964cfe91a05859
   TypeTreeHash:
     serializedVersion: 2
     Hash: aa9da36ac0d3890c556a5ba9d7a6f5f5
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: ee33640f0cbbd8fce44c205bbd265c6c
+    Hash: 266d86c3c788ee3dc76025da38d88751
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -67,5 +67,6 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: Timberborn.Goods
   ClassName: Timberborn.Goods.GoodAmountSpec
 Assets:
+- Assets/Mods/AirlockChamberAssets/AssetBundles/Resources/Buildings/Paths/AirlockChamber4.prefab
 - Assets/Mods/AirlockChamberAssets/AssetBundles/Resources/Buildings/Paths/AirlockChamber.prefab
 Dependencies: []

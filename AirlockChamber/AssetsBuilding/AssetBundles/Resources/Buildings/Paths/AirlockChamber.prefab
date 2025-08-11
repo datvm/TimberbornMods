@@ -422,6 +422,8 @@ MonoBehaviour:
     _amount: 15
   - _goodId: MetalBlock
     _amount: 5
+  - _goodId: PineResin
+    _amount: 15
   _scienceCost: 1500
   _placeFinished: 0
   _finishableWithBeaversOnSite: 0
@@ -459,9 +461,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _componentCache: {fileID: 0}
   _prefabName: AirlockChamber
-  _backwardCompatiblePrefabNames:
-  - SolidTube.IronTeeth
-  - SolidTubeway.IronTeeth
+  _backwardCompatiblePrefabNames: []
   _requiredFeatureToggle: 
   _disablingFeatureToggle: 
 --- !u!114 &114526941125596721
@@ -538,7 +538,7 @@ MonoBehaviour:
   _toolGroupId: Paths
   _toolOrder: 15
   _toolShape: 0
-  _layout: 0
+  _layout: 2
   _customPivot:
     _hasCustomPivot: 0
     _coordinates: {x: 0, y: 0, z: 0}
