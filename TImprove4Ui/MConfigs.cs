@@ -22,6 +22,8 @@ public class ModGameConfig : Configurator
 
             .BindSingleton<ShadowService>()
 
+            .BindSingleton<StaticSingletonsService>()
+
             .BindSingleton<ScrollableEntityPanelService>()
             .BindSingleton<ToolPanelDescriptionMover>()
             .BindSingleton<MaterialCounterService>()
