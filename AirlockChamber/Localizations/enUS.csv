@@ -2,6 +2,6 @@
 LV.AC.AirlockChamber,"Airlock Chamber",
 LV.AC.AirlockChamberDesc,"Block water but allow two-way passage.",
 LV.AC.AirlockChamberFlavor,"Reverse-engineered from a submerged vault labeled 'Do Not Open When Wet'",
-LV.AC.AirlockChamber4,"4-way Airlock Chamber",
-LV.AC.AirlockChamber4Desc,"Block water but allow four-way passage.",
+LV.AC.AirlockChamber4,"6-way Airlock Chamber",
+LV.AC.AirlockChamber4Desc,"Block water but allow six-way passage.",
 LV.AC.AirlockChamber4Flavor,"Schröbeaver principle: path and puddle states collapse only when you peek.",
