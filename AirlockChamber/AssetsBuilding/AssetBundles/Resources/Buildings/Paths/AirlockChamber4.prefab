@@ -409,6 +409,12 @@ MonoBehaviour:
     - _start: {x: 0, y: 0, z: 0}
       _end: {x: 1, y: 0, z: 0}
       _isTwoWay: 0
+    - _start: {x: 0, y: 0, z: 0}
+      _end: {x: 0, y: 0, z: 1}
+      _isTwoWay: 0
+    - _start: {x: 0, y: 0, z: 0}
+      _end: {x: 0, y: 0, z: -1}
+      _isTwoWay: 0
   _unblockedCoordinates: []
 --- !u!114 &114076411417914655
 MonoBehaviour:
