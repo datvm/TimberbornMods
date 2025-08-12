@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputModFolderName>TImprove4UX</OutputModFolderName>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Folder Include="Blueprints\KeybindingGroups\" />
+	</ItemGroup>
+
+	<Import Project="../Common.target" />
+	<Import Project="../CommonHarmony.target" />
+	<Import Project="../CommonTimberUI.target" />
+
+</Project>

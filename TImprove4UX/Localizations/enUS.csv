@@ -1,0 +1,10 @@
+﻿ID,Text,Comment
+LV.T4UX.KeybindingGroup,"TImprove 4 UX",
+LV.T4UX.UndoHotkey,"Undo building",
+LV.T4UX.ShiftToDelete,"Shift to delete",
+LV.T4UX.ShiftToDeleteDesc,"Hold the Alternate Action (default Shift) while choosing building tool
+to delete this kind of building instead",
+LV.T4UX.ShiftToDeleteAll,"Delete all kinds of buildings",
+LV.T4UX.ShiftToDeleteAllDesc,"While holding the Alternate Action, delete all kinds of buildings instead of just this kind",
+LV.T4UX.ConfirmUndo,"Some buildings were already in progress or done, are you sure you want to undo the building?",
+LV.T4UX.RecentToolHotkey,"Recent tool",

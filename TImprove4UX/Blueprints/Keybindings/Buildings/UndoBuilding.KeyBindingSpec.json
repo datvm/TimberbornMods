@@ -1,0 +1,12 @@
+{
+    "KeyBindingSpec": {
+        "Id": "UndoBuilding",
+        "GroupId": "T4UX",
+        "LocKey": "LV.T4UX.UndoHotkey",
+        "Order": 1
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/z",
+        "InputModifiers": "Ctrl"
+    }
+}

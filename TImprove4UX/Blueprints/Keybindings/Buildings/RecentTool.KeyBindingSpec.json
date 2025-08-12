@@ -1,0 +1,16 @@
+{
+    "KeyBindingSpec": {
+        "Id": "RecentTool",
+        "GroupId": "T4UX",
+        "LocKey": "LV.T4UX.RecentToolHotkey",
+        "Order": 191
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Mouse/scroll/up",
+        "InputModifiers": "Shift, Ctrl"
+    },
+    "SecondaryInputBindingSpec": {
+        "Path": "/Mouse/scroll/down",
+        "InputModifiers": "Shift, Ctrl"
+    }
+}
