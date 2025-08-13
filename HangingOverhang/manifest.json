@@ -1,0 +1,7 @@
+{
+    "Name": "Hanging Overhang",
+    "Version": "7.0.0",
+    "Id": "HangingOverhang",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Overhang that can be built hanging over terrain"
+}
