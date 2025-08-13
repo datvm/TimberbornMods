@@ -3,7 +3,7 @@
 public class TodoListManager(
     ISingletonLoader loader,
     OmnibarToolProvider omnibarToolProvider
-) : ILoadableSingleton, ISaveableSingleton
+) : IPostLoadableSingleton, ISaveableSingleton
 {
     static readonly SingletonKey SaveKey = new(nameof(Omnibar));
     static readonly ListKey<string> EntryListKey = new("ToDoListEntries");
@@ -54,7 +54,7 @@ public class TodoListManager(
         EntriesChanged?.Invoke(entries);
     }
 
-    public void Load()
+    public void PostLoad()
     {
         LoadSavedData();
     }
