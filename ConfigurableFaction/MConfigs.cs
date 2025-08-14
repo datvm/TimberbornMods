@@ -41,12 +41,20 @@ public class ModMenuConfig : BaseConfig
 
             .BindSingleton<FactionInfoService>()
             .BindSingleton<FactionOptionsService>()
+            
+            // Export feature
+            .BindSingleton<ConflictModChecker>()
 
             .MultiBindSingleton<IModUpdateNotifier, UpdateNotifier>()
         ;
 
         BindUI();
         BindSpriteOperations();
+
+        if (MStarter.HasTimberModBuilder)
+        {
+            this.BindSingleton<ExportToModService>();
+        }
     }
 
     void BindUI()
@@ -86,14 +94,4 @@ public class ModGameConfig : BaseConfig
     {
         base.Configure();
     }
-}
-
-public class ModStarter : IModStarter
-{
-
-    void IModStarter.StartMod(IModEnvironment modEnvironment)
-    {
-        new Harmony(nameof(ConfigurableFaction)).PatchAll();
-    }
-
 }

@@ -7,7 +7,8 @@ public class SettingDialog(
     FactionOptionsService options,
     DropdownItemsSetter cboSetter,
     IContainer container,
-    IExplorerOpener opener
+    IExplorerOpener opener,
+    DialogBoxShower diag
 ) : VisualElement
 {
 
@@ -25,6 +26,8 @@ public class SettingDialog(
         row.AddGameButton(t.T("LV.CFac.ShowFolder"), onClick: OpenStorageFolder)
             .SetPadding(paddingX: 5).SetMarginLeftAuto();
 
+        AddExportPanel(container);
+
         container.AddLabel(t.T("LV.CFac.Faction"));
         var cboFactionSetter = AddFactionSelector(container);
 
@@ -36,6 +39,29 @@ public class SettingDialog(
         cboFactionSetter();
 
         return this;
+    }
+
+    void AddExportPanel(VisualElement parent)
+    {
+        if (!MStarter.HasTimberModBuilder) { return; }
+
+        var panel = parent.AddChild().SetMarginBottom();
+
+        panel.AddMenuButton(t.T("LV.CFac.ExportToMod"),
+            onClick: ExportToMod,
+            size: UiBuilder.GameButtonSize.Large,
+            stretched: true);
+        panel.AddGameLabel(t.T("LV.CFac.ExportToModDesc"));
+    }
+
+    void ExportToMod()
+    {
+        var exportService = container.GetInstance<ExportToModService>();
+        exportService.ExportToMod();
+
+        diag.Create()
+            .SetMessage(t.T("LV.CFac.ModExported", ExportToModService.ModName))
+            .Show();
     }
 
     Action AddFactionSelector(VisualElement parent)
