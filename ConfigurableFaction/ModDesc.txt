@@ -1,8 +1,17 @@
 Someone requested a "configurable" mixed faction so here it is! You can choose any buildings from a faction to be shared to all other factions, including modded ones.
 
-[h2][b]This mod currently does not work with TimberApi[/b][/h2]
-
 This is the up-to-date version of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3455892854]Configurable Faction (legacy)[/url]. Please unsubscribe that one if you subscribe to this one.
+
+[h1]v7.3.0 Update[/h1]
+
+This update adds the ability to export the options into a standalone mod. In order to do that, you need to subscribe to the optional mod [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3548617753]TimberMod Builder[/url].
+
+With the optional mod active, you can see the "Export to Mod" button in the Mod Settings panel. Clicking that button will export the current configuration into a standalone mod named "Configurable Faction Exported". Restart the game, uncheck this mod and check the exported mod to use it.
+
+[b]Tip:[/b]
+- Don't activate both mods at the same time, you will have conflicting data.
+- You can deactivate the Exported mod and reactivate this mod to reconfigure the settings, remember to click the "Export to Mod" button again to update the exported mod.
+- You can even modify and upload the exported mod to Steam Workshop to make your own flavor.
 
 [h1]v7.2.0 Update[/h1]
 
@@ -23,9 +32,7 @@ There is now also a filer box to search for all items and their states. You can 
 
 [h1]Troubleshooting[/h1]
 
-[b]Note to Experimental branch:[/b] [strike]MaterialPlzNoCrashes is no longer needed. It's incorporated into the game. Please unsubscribe/turn off that mod.[/strike] MaterialPlzNoCrashes is still needed for now.
-
-[b]If you do not see the change, most likely due to TimberApi is active.[/b] This mod does NOT work with TimberApi.
+[b]If you do not see the change, most likely due to TimberApi is active. This mod does NOT work with TimberApi UNLESS using the v7.3.0 Export to Mod feature.[/b]
 
 With v7.2.0 you should be able to apply the changes right from the main menu but just in case you have an issue, please try restarting the game after changing the settings.
 
@@ -36,5 +43,6 @@ If you need any support or feedback, feel free to contact me on Timberborn's off
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v7.3.0: Added support for "Export to Mod".
 v7.2.1: Ignore a crash when other mods add faulty Prefab Groups.
 v7.2.0: Revamped the mod completely.
