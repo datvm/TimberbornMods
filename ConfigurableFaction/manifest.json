@@ -1,6 +1,6 @@
 {
     "Name": "Configurable Faction (Faction Mixer)",
-    "Version": "7.2.1",
+    "Version": "7.3.0",
     "Id": "ConfigurableFaction",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Mix up the faction to your desires!",
@@ -8,6 +8,12 @@
         { "Id": "eMka.ModSettings" },
         { "Id": "Harmony" },
         { "Id": "MaterialPlzNoCrashes" },
-        { "Id": "TimberUi", "MinimumVersion": "7.7.3" }        
+        {
+            "Id": "TimberUi",
+            "MinimumVersion": "7.7.3"
+        }
+    ],
+    "OptionalMods": [
+        { "Id": "TimberModBuilder" }
     ]
 }

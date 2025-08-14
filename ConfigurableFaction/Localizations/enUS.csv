@@ -14,6 +14,17 @@ LV.CFac.Needs,"Needs",
 LV.CFac.PlanterGroup,"Planter group: {0}",
 LV.CFac.HideSimilar,"Hide similar buildings",
 LV.CFac.ShowFolder,"Open settings folder",
-LV.CFac.UpdateNotify,"There was a major change to this mod. Please read the mod description for the new instructions. Thank you!",
 LV.CFac.NeedPlanter,"You have chosen a plant or crop in the group {0} but did not choose any building to grow it.
 Please make sure to choose such building (usually in the Food or Wood group) to add or the game will crash.",
+LV.CFac.ExportToMod,"Export to mod",
+LV.CFac.ExportToModDesc,"Click the above button to export the current configuration into a standalone mod.
+That mod would then work by itself without this mod.
+In fact, you must disable either this mod or the exported mod to avoid conflicts.",
+LV.CFac.ConflictWarning,"<b>WARNING:</b> You have both this mod and an exported mod active.
+Please use only one because you will have conflicting data no matter which purpose/mod you need",
+LV.CFac.ModExported,"The mod has been exported.
+Please <b>disable this mod</b> and use the exported '{0}' mod.
+If you want to reconfigure this mod, remember to disable that mod.",
+LV.CFac.Update730,"This mod now support exporting into a standalone mod if you have the optional mod <b>TimberMod Builder</b>.
+The intention is to support mods like TimberApi. Please read the updated mod description for more info.
+If you do not care about that, you can ignore this message, there is no change to the current functionality.",

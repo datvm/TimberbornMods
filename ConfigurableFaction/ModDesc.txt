@@ -1,0 +1,40 @@
+Someone requested a "configurable" mixed faction so here it is! You can choose any buildings from a faction to be shared to all other factions, including modded ones.
+
+[h2][b]This mod currently does not work with TimberApi[/b][/h2]
+
+This is the up-to-date version of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3455892854]Configurable Faction (legacy)[/url]. Please unsubscribe that one if you subscribe to this one.
+
+[h1]v7.2.0 Update[/h1]
+
+This update completely rewrites the mod to a better and more efficient system. The setup is completely different now. You no longer need to enter a game to pull the info anymore!
+
+Right from the main menu, you can now go to Mods -> Settings button next to the mod name to configure [b]what you want to add to a faction[/b] (unlike before where you choose a faction building and it's added to all other factions).
+
+You can now also choose which Plants, Goods and Needs to transfer to this faction.
+
+Note: sometimes an option you choose will lock in others because they are needed. For example, if you choose Coffee Brewery, the mod will lock in Coffee Beans and Coffee, which in turn lock in Coffee need. The mod also locks out certain options to prevent crashes (for example Forester). It also issues warnings if you pick Cattail or Spadderdock that you need the Aquatic Farmhouse for example.
+
+There is now also a filer box to search for all items and their states. You can also quickly open the settings folder (now moved to "Documents\Timberborn\ConfigurableFaction" so your settings won't be overwritten when updating the mod). 
+
+[b]Tip:[/b]
+- Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3468642084]TImprove 4 Mods[/url] to make the setting box taller.
+- Use the "Open setting folder" to quickly copy/paste the profiles. Please restart the game [b]AND[/b] go into the setting dialog if you make changes to the file.
+- You can also press the Reset to Default button of the mod setting box.
+
+[h1]Troubleshooting[/h1]
+
+[b]Note to Experimental branch:[/b] [strike]MaterialPlzNoCrashes is no longer needed. It's incorporated into the game. Please unsubscribe/turn off that mod.[/strike] MaterialPlzNoCrashes is still needed for now.
+
+[b]If you do not see the change, most likely due to TimberApi is active.[/b] This mod does NOT work with TimberApi.
+
+With v7.2.0 you should be able to apply the changes right from the main menu but just in case you have an issue, please try restarting the game after changing the settings.
+
+[b]Breeding[/b] is decided by the [b]Housing[/b] (basically all Folktails Housing can do that). To add/remove the breeding ability, check out [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3446296053]Configurable Housing[/url].
+
+If you need any support or feedback, feel free to contact me on Timberborn's official Discord ( https://discord.gg/6VZfcKGM2Z, on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] channel), or @theapologist316
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v7.2.1: Ignore a crash when other mods add faulty Prefab Groups.
+v7.2.0: Revamped the mod completely.
