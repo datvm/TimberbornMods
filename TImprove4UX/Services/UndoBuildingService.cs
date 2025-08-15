@@ -3,24 +3,35 @@
 public class UndoBuildingService(
     InputService inputService,
     DialogBoxShower diag,
-    EntityService entityService
+    EntityService entityService,
+    MSettings s,
+    QuickNotificationService quickNotificationService,
+    ILoc t
 ) : ILoadableSingleton, IInputProcessor, IUnloadableSingleton
 {
     public static UndoBuildingService? Instance { get; private set; }
 
     const string HotkeyId = "UndoBuilding";
 
-    List<BlockObject> lastBuilt = [];
+    FixedDeque<List<BlockObject>> lastBuilts = null!;
 
     public void Load()
     {
         Instance = this;
         inputService.AddInputProcessor(this);
+        lastBuilts = new FixedDeque<List<BlockObject>>(s.UndoCount.Value);
+
+        s.UndoCount.ValueChanged += UndoCount_ValueChanged;
+    }
+
+    private void UndoCount_ValueChanged(object sender, int e)
+    {
+        lastBuilts.Resize(e);
     }
 
     public void RegisterLastBuilt(List<BlockObject> buildings)
     {
-        lastBuilt = buildings;
+        lastBuilts.Add(buildings);
     }
 
     public bool ProcessInput()
@@ -33,7 +44,11 @@ public class UndoBuildingService(
 
     void OnUndoRequested()
     {
-        if (lastBuilt.Count == 0) { return; }
+        if (lastBuilts.Empty)
+        {
+            quickNotificationService.SendNotification(t.T("LV.T4UX.UndoEmpty"));
+            return;
+        }
 
         if (HasProgressed())
         {
@@ -51,6 +66,8 @@ public class UndoBuildingService(
 
     void Undo()
     {
+        var lastBuilt = lastBuilts.PopStack();
+
         foreach (var b in lastBuilt)
         {
             if (!b) { continue; }
@@ -60,6 +77,8 @@ public class UndoBuildingService(
 
     bool HasProgressed()
     {
+        var lastBuilt = lastBuilts.PeekStack();
+
         foreach (var b in lastBuilt)
         {
             if (!b) { continue; }

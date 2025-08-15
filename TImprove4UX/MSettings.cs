@@ -16,6 +16,10 @@ public class MSettings(
         .SetLocalizedTooltip("LV.T4UX.ShiftToDeleteDesc"));
     public ModSetting<bool> ShiftToDeleteAll { get; private set; } = null!;
 
+    public ModSetting<int> UndoCount { get; } = new(5, ModSettingDescriptor
+        .CreateLocalized("LV.T4UX.UndoCount")
+        .SetLocalizedTooltip("LV.T4UX.UndoCountDesc"));
+
     public override void OnBeforeLoad()
     {
         base.OnBeforeLoad();

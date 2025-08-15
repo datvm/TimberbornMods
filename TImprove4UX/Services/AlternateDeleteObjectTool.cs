@@ -9,7 +9,8 @@ public class AlternateDeleteObjectTool(
     RecoverableGoodElementFactory recoverableGoodElementFactory, RecoverableGoodTooltip recoverableGoodTooltip,
     TerrainDestroyer terrainDestroyer,
     TerrainHighlightingService terrainHighlightingService,
-    MSettings s
+    MSettings s,
+    ToolManager toolManager
 ) : BuildingDeconstructionTool(inputService, areaBlockObjectAndTerrainPicker, entityService, blockObjectSelectionDrawerFactory, cursorService, loc, blockObjectModelBlockadeIgnorer, specService, levelVisibilityService, dialogBoxShower, recoverableGoodElementFactory, recoverableGoodTooltip, terrainDestroyer, terrainHighlightingService),
     ILoadableSingleton, IUnloadableSingleton, IInputProcessor
 {
@@ -17,6 +18,7 @@ public class AlternateDeleteObjectTool(
 
     readonly InputService inputService = inputService;
     BlockObjectTool? tool;
+    bool exitByThisTool;
 
     public static AlternateDeleteObjectTool? Instance { get; private set; }
 
@@ -47,7 +49,7 @@ public class AlternateDeleteObjectTool(
         }
 
         tool = instance;
-        Enter();
+        toolManager.SwitchTool(this);
         return true;
     }
 
@@ -68,8 +70,16 @@ public class AlternateDeleteObjectTool(
     public override void Exit()
     {
         base.Exit();
-        tool?.Enter();
+
+        var prev = tool;
+        if (prev is null) { return; }
+
         tool = null;
+
+        if (exitByThisTool)
+        {
+            toolManager.SwitchTool(prev);
+        }
     }
 
     public bool AltToolProcessInput()
@@ -87,7 +97,9 @@ public class AlternateDeleteObjectTool(
     {
         if (!inputService.IsKeyHeld(AlternateHotkeyId))
         {
+            exitByThisTool = true;
             Exit();
+            exitByThisTool = false;
             return true;
         }
 
