@@ -10,7 +10,8 @@ public class AlternateDeleteObjectTool(
     TerrainDestroyer terrainDestroyer,
     TerrainHighlightingService terrainHighlightingService,
     MSettings s
-) : BuildingDeconstructionTool(inputService, areaBlockObjectAndTerrainPicker, entityService, blockObjectSelectionDrawerFactory, cursorService, loc, blockObjectModelBlockadeIgnorer, specService, levelVisibilityService, dialogBoxShower, recoverableGoodElementFactory, recoverableGoodTooltip, terrainDestroyer, terrainHighlightingService), ILoadableSingleton, IUnloadableSingleton
+) : BuildingDeconstructionTool(inputService, areaBlockObjectAndTerrainPicker, entityService, blockObjectSelectionDrawerFactory, cursorService, loc, blockObjectModelBlockadeIgnorer, specService, levelVisibilityService, dialogBoxShower, recoverableGoodElementFactory, recoverableGoodTooltip, terrainDestroyer, terrainHighlightingService),
+    ILoadableSingleton, IUnloadableSingleton, IInputProcessor
 {
     const string AlternateHotkeyId = "AlternateClickableAction";
 
@@ -18,6 +19,19 @@ public class AlternateDeleteObjectTool(
     BlockObjectTool? tool;
 
     public static AlternateDeleteObjectTool? Instance { get; private set; }
+
+    public string? ExpectedPrefab
+    {
+        get
+        {
+            if (tool is null || s.ShiftToDeleteAll.Value)
+            {
+                return null;
+            }
+
+            return tool.Prefab.GetComponentFast<PrefabSpec>().PrefabName;
+        }
+    }
 
     public void Load()
     {
@@ -37,20 +51,12 @@ public class AlternateDeleteObjectTool(
         return true;
     }
 
-    public void FilterObjectsToDeconstruct(ref IEnumerable<BlockObject> blockObjects)
+    public override bool IsBlockObjectValid(BlockObject blockObject)
     {
-        if (s.ShiftToDeleteAll.Value || tool is null)
-        {
-            return;
-        }
+        if (!base.IsBlockObjectValid(blockObject)) { return false; }
 
-        var expectedPrefab = tool.Prefab.GetComponentFast<PrefabSpec>().PrefabName;
-        blockObjects = blockObjects.Where(bo =>
-        {
-            if (!bo) { return false; }
-            var actualPrefab = bo.GetComponentFast<PrefabSpec>().PrefabName;
-            return expectedPrefab == actualPrefab;
-        });
+        var expectedPrefab = ExpectedPrefab;
+        return expectedPrefab is null || blockObject.GetComponentFast<PrefabSpec>().PrefabName == ExpectedPrefab;
     }
 
     public override void Enter()
@@ -62,6 +68,7 @@ public class AlternateDeleteObjectTool(
     public override void Exit()
     {
         base.Exit();
+        tool?.Enter();
         tool = null;
     }
 
@@ -74,6 +81,17 @@ public class AlternateDeleteObjectTool(
         }
 
         return false;
+    }
+
+    bool IInputProcessor.ProcessInput()
+    {
+        if (!inputService.IsKeyHeld(AlternateHotkeyId))
+        {
+            Exit();
+            return true;
+        }
+
+        return ProcessInput();
     }
 
     public void Unload()

@@ -1,1 +1,2 @@
-﻿global using TImprove4UX.Services;
+﻿global using TImprove4UX.Patches;
+global using TImprove4UX.Services;
