@@ -2,7 +2,7 @@ Another mod for your [url=https://steamcommunity.com/workshop/filedetails/?id=34
 
 [h1]Features[/h1]
 
-- [b]Undo building[/b]: Quickly remove the most recent building you placed. If the building is already in progress or completed, a confirmation dialog will appear to confirm the undo action. Default hotkey: Ctrl + Z.
+- [b]Undo building[/b]: Quickly remove the most recent building actions you placed. If any of the buildings is already in progress or completed, a confirmation dialog will appear to confirm the undo action. You can choose how many actions you can undo in the settings, default 5. Default hotkey: Ctrl + Z.
 - [b]Shift to Delete[/b]: While in any building tool, hold Shift to delete matching buildings in an area instead. You can optionally select 'Delete all kinds of buildings' to remove all types of buildings. Default hotkey: Shift ([b]note[/b] this one is in the UI group, called Alternate button action).
 - [b]Recent tool[/b]: Quickly switch to the most recently used tool. Default hotkey: Ctrl + Shift + Mouse Scroll.
 
@@ -10,11 +10,18 @@ All hotkeys can be changed in the game Settings -> Keybindings. It's in the mod'
 
 [h1]Known Issue[/h1]
 
-- [b]Shift to Delete[/b] is a bit finicky because it does not re-select the building tool after you release Shift. Unfortunately the game crashes if I try to do it automatically so you will need to manually click the building tool again after pressing Shift. You can also use the [b]Recent tool[/b] hotkey to quickly switch back to the last used building tool.
+[strike]- [b]Shift to Delete[/b] is a bit finicky because it does not re-select the building tool after you release Shift. Unfortunately the game crashes if I try to do it automatically so you will need to manually click the building tool again after pressing Shift. You can also use the [b]Recent tool[/b] hotkey to quickly switch back to the last used building tool.[/strike] Fixed in v7.0.1, if you encounter any crash please tell me.
 
 [h1]Feedback and Troubleshooting[/h1]
 
-If you need any support or feedback, feel free to contact me on Timberborn's official Discord ( https://discord.gg/timberborn, on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] or [url=https://discord.com/channels/558398674389172225/1397830958354272368]this mod's[/url] channel), or @theapologist316
+If you need any support or feedback, feel free to contact me on Timberborn's official Discord ( https://discord.gg/timberborn, on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] or [url=https://discord.com/channels/558398674389172225/1404957507268644864/1404957507268644864]this mod's[/url] channel), or @theapologist316
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v7.0.2: credit to @normanr
+- You can now use multiple "Undo building" actions (configurable, default 5).
+- Fixed a bug when changing tool while holding Shift.
+v7.0.1:
+- Fixed tools conflict.
+- Shift to Delete now revert back to the building tool when releasing Shift.
