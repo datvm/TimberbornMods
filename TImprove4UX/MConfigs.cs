@@ -1,6 +1,4 @@
-﻿using TImprove4UX.Services;
-
-namespace TImprove4UX;
+﻿namespace TImprove4UX;
 
 [Context("MainMenu")]
 public class ModMenuConfig : Configurator
