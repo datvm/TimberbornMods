@@ -1,0 +1,11 @@
+{
+    "Name": "Wireless Coil",
+    "Version": "7.0.0",
+    "Id": "WirelessCoil",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Connect power wirelessly",
+    "RequiredMods": [
+        { "Id": "Harmony" },
+        { "Id": "TimberUi" }
+    ]
+}

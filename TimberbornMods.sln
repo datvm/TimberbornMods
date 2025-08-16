@@ -253,6 +253,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JsonMods", "JsonMods", "{02
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimberModBuilder", "TimberModBuilder\TimberModBuilder.csproj", "{D18AA391-2A8A-4BEE-B22B-0E5423AF3DFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WirelessCoil", "WirelessCoil\WirelessCoil.csproj", "{1DB72A2E-1234-480D-BC5B-8EC147BABE72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -679,6 +681,10 @@ Global
 		{D18AA391-2A8A-4BEE-B22B-0E5423AF3DFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D18AA391-2A8A-4BEE-B22B-0E5423AF3DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D18AA391-2A8A-4BEE-B22B-0E5423AF3DFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DB72A2E-1234-480D-BC5B-8EC147BABE72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DB72A2E-1234-480D-BC5B-8EC147BABE72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DB72A2E-1234-480D-BC5B-8EC147BABE72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DB72A2E-1234-480D-BC5B-8EC147BABE72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
