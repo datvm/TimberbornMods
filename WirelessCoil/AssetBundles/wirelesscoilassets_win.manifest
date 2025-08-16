@@ -1,0 +1,66 @@
+ManifestFileVersion: 0
+UnityVersion: 6000.1.4f1
+CRC: 3101726394
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0782b9621aa3170c69270c97799eba87
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a5f85ab25e75e6e9c34290fd03d65e49
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 0964a7e8bcf64a36356b38fcbca61d2d
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: eabf5c5d2be62c24e9b187d927dfce50, type: 3}
+- Class: 114
+  Script: {fileID: 437054131, guid: 644c1295076bbdbb604b7f96aa6be9c2, type: 3}
+- Class: 114
+  Script: {fileID: 484218558, guid: a01d35f43886f4b46e413d3c2ea20811, type: 3}
+- Class: 114
+  Script: {fileID: 808986059, guid: a01d35f43886f4b46e413d3c2ea20811, type: 3}
+- Class: 114
+  Script: {fileID: 1566945626, guid: b5f268a4cb31a93ed707a95d3a502b0e, type: 3}
+- Class: 114
+  Script: {fileID: 652365310, guid: b6b9d4cc3090b6fceb2eb6438dd271f1, type: 3}
+- Class: 114
+  Script: {fileID: 1596376676, guid: 1bd6ccb667024f9c2b77daf7f62a4eed, type: 3}
+- Class: 114
+  Script: {fileID: -579399493, guid: 1bd6ccb667024f9c2b77daf7f62a4eed, type: 3}
+- Class: 114
+  Script: {fileID: 447443988, guid: c1ff95bb5ae0e8b420075ec58add6f36, type: 3}
+- Class: 114
+  Script: {fileID: -1706396145, guid: c1ff95bb5ae0e8b420075ec58add6f36, type: 3}
+- Class: 114
+  Script: {fileID: -1942782917, guid: 40833514e55bcf2135fbcf9411078554, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: Timberborn.BlockSystem
+  ClassName: Timberborn.BlockSystem.BlockSpec
+- AssemblyName: Timberborn.BlockSystem
+  ClassName: Timberborn.BlockSystem.BlocksSpec
+- AssemblyName: Timberborn.BlockSystem
+  ClassName: Timberborn.BlockSystem.CustomPivotSpec
+- AssemblyName: Timberborn.BlockSystem
+  ClassName: Timberborn.BlockSystem.EntranceBlockSpec
+- AssemblyName: Timberborn.Goods
+  ClassName: Timberborn.Goods.GoodAmountSpec
+- AssemblyName: Timberborn.MechanicalSystem
+  ClassName: Timberborn.MechanicalSystem.TransputSpec
+Assets:
+- Assets/Mods/WirelessCoilAssets/AssetBundles/Resources/Buildings/Powers/WirelessCoil.IronTeeth.prefab
+- Assets/Mods/WirelessCoilAssets/AssetBundles/Resources/Buildings/Powers/WirelessCoil.Folktails.prefab
+Dependencies: []

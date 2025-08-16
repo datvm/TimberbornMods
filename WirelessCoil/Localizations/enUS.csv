@@ -1,0 +1,6 @@
+ID,Text,Comment
+LV.WiC.WirelessCoil,"Wireless Coil",
+LV.WiC.WirelessCoilDesc,"Transmit power without physical connections over a short range.",
+LV.WiC.WirelessCoilFlavor,"Hoomans called it 'Wi-Fi' back then. We're still not sure how it powered their Beep Bricks, but they always stayed close to it.",
+LV.WiC.Range,"Range: {0}",
+LV.WiC.InRange,"Coils in range:"

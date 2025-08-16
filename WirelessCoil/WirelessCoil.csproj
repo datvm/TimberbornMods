@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputModFolderName>WirelessCoil</OutputModFolderName>
+	</PropertyGroup>
+
+	<Import Project="../Common.target" />
+	<Import Project="../CommonHarmony.target" />
+	<Import Project="../CommonTimberUI.target" />
+
+	<ItemGroup>
+		<Reference Include="Scripts\*.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Remove="AssetBuildings\**" />
+		<None Include="AssetBuildings\**" />
+	</ItemGroup>
+
+</Project>
