@@ -1,7 +1,10 @@
 {
     "Name": "Hanging Overhang",
-    "Version": "7.0.0",
+    "Version": "7.0.1",
     "Id": "HangingOverhang",
     "MinimumGameVersion": "0.7.0.0",
-    "Description": "Overhang that can be built hanging over terrain"
+    "Description": "Overhang that can be built hanging over terrain",
+    "RequiredMods": [
+        { "Id": "Harmony" }
+    ]
 }
