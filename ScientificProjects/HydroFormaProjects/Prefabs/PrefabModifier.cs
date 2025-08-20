@@ -31,6 +31,7 @@ public class PrefabModifier(
             "Levee.Folktails" or "Levee.IronTeeth" => ModifyLevee(prefab),
             "DirtExcavator.Folktails" or "DirtExcavator.IronTeeth" => ModifyDirtExcavator(prefab),
             "ContaminationBarrier.Folktails" or "IrrigationBarrier.IronTeeth" => ModifyBarriers(prefab),
+            "ImpermeableFloor.Folktails" or "ImpermeableFloor.IronTeeth" => ModifyImpermeableFloor(prefab),
             _ => prefab,
         };
 
@@ -49,7 +50,7 @@ public class PrefabModifier(
         prefab = Copy(prefab);
 
         DestroyIfExist<FinishableWaterObstacleSpec>(prefab);
-        prefab.AddComponent<DamGateComponentSpec>();        
+        prefab.AddComponent<DamGateComponentSpec>();
 
         return prefab;
     }
@@ -101,6 +102,45 @@ public class PrefabModifier(
         {
             var value = blocks[i];
             blocks[i] = value with { _occupations = value._occupations & RemovePath };
+        }
+
+        return prefab;
+    }
+
+    GameObject ModifyImpermeableFloor(GameObject prefab)
+    {
+        if (!unlockManager.Contains(HydroFormaModUtils.ImpermeableFloorUpgrade)) { return prefab; }
+
+        prefab = Copy(prefab);
+
+        var navMesh = prefab.GetComponent<BlockObjectNavMeshSettingsSpec>();
+        navMesh._edgeGroups = [
+            new()
+            {
+                _cost = .25f,
+                _isPath = true,
+                _addedEdges = [
+                    new() { _end = new(0,-1,0) },
+                    new() { _end = new(0,1,0) },
+                    new() { _end = new(1,0,0) },
+                    new() { _end = new(-1,0,0) },
+                ],
+                _group = new(),
+            }
+        ];
+
+        var placable = prefab.GetComponent<PlaceableBlockObjectSpec>();
+        placable._canBeAttachedToTerrainSide = true;
+
+        var blockSpec = prefab.GetComponent<BlockObjectSpec>();
+        var blocks = blockSpec._blocksSpec._blockSpecs;
+        for (int i = 0; i < blocks.Length; i++)
+        {
+            var value = blocks[i];
+            blocks[i] = value with
+            {
+                _matterBelow = MatterBelow.Any,
+            };
         }
 
         return prefab;

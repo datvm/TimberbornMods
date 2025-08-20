@@ -5,20 +5,37 @@
 - Power Conduction Core (the science cost is 9001 though the UI shows 9.0k): Enables [b]Levees[/b] to transmit [b]Power[/b] between structures. For reasons that can only be described as a universe-level meme, this project cost exactly over 9000 science effort.
 - Auto-Regulator Unit: [b]Floodgates[/b] automatically adjust height in response to weather conditions.
 - Source-Level Sensor: [b]Sluices[/b] automatically open based on upstream water level.
-- R&D Sponsorship™ Package: Unlocks early access to upcoming upgrades. Effect to be revealed in the future. T&C apply.
+- [strike]R&D Sponsorship™ Package: Unlocks early access to upcoming upgrades. Effect to be revealed in the future. T&C apply.[/strike] It is now Anti‑Grav™ Deck, see below.
 - BurrowBot™ System: Reduces the workforce required to operate [b]Dirt Excavators[/b] to a single operator.
 - Deep Anchor Framework: Increases the number of unsupported [b]Terrain Blocks[/b] that can be safely placed.
 - Substrata Stress Extender: Requires "Deep Anchor Framework". Further improves unsupported [b]Terrain Block[/b] placement - now with extra plausible deniability.
 - Surface™ Access Coating: Allows paths to be built on top of [b]Contamination and Irrigation Barriers[/b] - even if you can't see them.
 - DepthSense™ Array: [b]Stream Gauges[/b] detect water depth all the way to the soil beneath their tile and can measure reservoir volume at a small science cost.
 
-Note: you can't see the paths built under the barriers but they are there. Trust us, we tested it. (Actually, it's due to technical limitation 🤷)
+Note: you can't see the paths built under the barriers but they are there. Trust us, we tested it.
+
+[h1]Anti‑Grav™ Deck Release[/h1]
+
+HydroForma™ Corp. is proud to announce that the experimental Impermeable Floor has successfully transitioned from the Research & Development package into full commercial deployment [b]Anti‑Grav™ Deck[/b].
+
+[b]Key features:[/b]
+- Support-Free Construction: Build in midair, across gaps, or directly onto terrain.
+- Path Integration: Functions as a walkway with movement speed increased by 4×.
+- Environmental Friendly: Demolition of floating units yields no rubble, as panels simply continue their upward journey.
+
+[i]Scrubbed from the record[/i]: Originally prototyped as a lightweight solar semiconductor panel, the material refused to stay put and floated into the air. HydroForma™ quickly rebranded the mishap as a cutting-edge high-speed walkway.
+
+[b]Note:[/b] In order to build them mid-air, you still need some foundation to start with, like a platform. You can then remove the platform and the Anti‑Grav™ Deck will stay in place.
+---
+Fun fact from the author: I actually intended it to be a weak solar panel as a joke but after some attempts to make it work, the current implementation was born.
 
 [h1]Troubleshooting[/h1]
-
-- Currently Moddable Bindito does not work with both Automation or TimberApi (an attempt to make it compatible with Automation crashes TimberApi instead). To make it work with TimberApi (but not Automation), please download v7.1.1 at https://mod.io/g/timberborn/m/for-modders-moddable-bindito#description for now.
 
 If you need any support or feedback, feel free to contact me on Timberborn's official Discord ( https://discord.gg/timberborn, on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] channel), or @theapologist316
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v7.1.0: R&D Package is now Anti‑Grav™ Deck, see press release above for details.
+v7.0.1:
+We would like to formally clarify that recent reports of Dams not holding water were purely coincidental and in no way reflect the performance of HydroForma™ products. You may resume use with complete confidence, HydroForma™ stands by our unwavering commitment to aquatic integrity. — The HydroForma™ Public Relations Division

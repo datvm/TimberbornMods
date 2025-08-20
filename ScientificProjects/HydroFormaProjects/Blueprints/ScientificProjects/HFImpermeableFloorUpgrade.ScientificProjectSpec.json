@@ -6,8 +6,9 @@
         "EffectKey": "LV.HF.ImpermeableFloorUpgradeEff",
         "LoreKey": "LV.HF.ImpermeableFloorUpgradeLore",
         "Icon": "Sprites/Projects/HF/ImpermeableFloor",
-        "ScienceCost": 7500,
-        "Parameters": [ ],
-        "Order": 50
+        "ScienceCost": 20000,
+        "Parameters": [],
+        "Order": 50,
+        "NeedReload": true
     }
 }
