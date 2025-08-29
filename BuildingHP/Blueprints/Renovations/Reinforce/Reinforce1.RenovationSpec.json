@@ -1,0 +1,18 @@
+{
+    "RenovationSpec": {
+        "Id": "Reinforce1",
+        "GroupId": "Reinforce",
+        "Order": 10,
+        "TitleLoc": "LV.BHP.Reinforce1",
+        "DescLoc": "LV.BHP.Reinforce1Desc",
+        "FlavorLoc": "LV.BHP.Reinforce1Flavor",
+        "Cost": [
+            {
+                "Id": "Log",
+                "Amount": 10
+            }
+        ],
+        "Days": 1,
+        "Parameters": [ 100 ]
+    }
+}

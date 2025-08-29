@@ -1,0 +1,13 @@
+{
+    "RenovationSpec": {
+        "Id": "Repair",
+        "GroupId": "Repair",
+        "Order": 10,
+        "TitleLoc": "LV.BHP.RepairReno",
+        "DescLoc": "LV.BHP.RepairRenoDesc",
+        "FlavorLoc": "LV.BHP.RepairRenoFlavor",
+        "Cost": [],
+        "Days": 0.5,
+        "Parameters": []
+    }
+}

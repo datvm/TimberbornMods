@@ -24,6 +24,7 @@ public class EntityPanelFragmentElement : NineSliceVisualElement
     {
         classList.Add(UiCssClasses.FragmentClass);
         Background = EntityPanelFragmentBackground.Green;
+        Visible = false;
     }
 
     public static string GetBackgroundClass(EntityPanelFragmentBackground background)

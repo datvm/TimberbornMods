@@ -40,6 +40,7 @@ public static partial class UiCssClasses
     public const string ScrollViewClass = "panel-list-view";
     public const string ListViewClass = "panel-list-view";
     public const string ScrollGreenDecorated = "scroll--green-decorated";
+    public const string GameScrollView = "game-scroll-view";
 
     // Labels
     public const string LabelGamePrefix = "text--";

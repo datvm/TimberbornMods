@@ -1,0 +1,7 @@
+{
+    "RenovationGroupSpec": {
+        "Id": "Repair",
+        "TitleLoc": "LV.BHP.RepairGroup",
+        "Order": 10
+    }
+}

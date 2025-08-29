@@ -3,10 +3,25 @@
 public interface IBuildingDurabilityModifier
 {
 
+    void Initialize();
+
     event Action<IBuildingDurabilityModifier>? OnChanged;
+    string DescriptionKey { get; }
+    float? ModifierEndTime { get; }
 
-    float? Multiplier { get; }
+}
+
+public interface IBuildingDeltaDurabilityModifier : IBuildingDurabilityModifier
+{
     int? Delta { get; }
-    bool Invulnerable { get; }
+}
 
+public interface IBuildingMultiplierDurabilityModifier : IBuildingDurabilityModifier
+{
+    float? Multiplier { get; }
+}
+
+public interface IBuildingInvulnerabilityModifier : IBuildingDurabilityModifier
+{
+    bool Invulnerable { get; }
 }

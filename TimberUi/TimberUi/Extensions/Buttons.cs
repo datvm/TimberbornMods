@@ -46,12 +46,7 @@ public static partial class UiBuilderExtensions
         // Text is added as label
         var btn = AddButton(parent, text: null, name, onClick, additionalClasses, GameButtonStyle.EntityFragment);
 
-        btn.AddClass(UiCssClasses.ButtonEntityFragment + "--" + color switch
-        {
-            EntityFragmentButtonColor.Green => UiCssClasses.Green,
-            EntityFragmentButtonColor.Red => UiCssClasses.Red,
-            _ => throw new NotImplementedException($"Unknown color {color}"),
-        });
+        btn.AddClass(GetColorClass(color));
 
         var wrapper = btn.AddChild(name: "Content").SetAsRow();
 
@@ -62,6 +57,20 @@ public static partial class UiBuilderExtensions
 
         return btn;
     }
+
+    public static NineSliceButton AddStretchedEntityFragmentButton(this VisualElement parent, string? text = default, Action? onClick = default, string? name = default, IEnumerable<string>? additionalClasses = default, EntityFragmentButtonColor color = default, bool stretched = false)
+    {
+        return AddButton(parent, text, name, onClick, 
+            [UiCssClasses.LabelEntityPanelText, GetColorClass(color), .. additionalClasses ?? []],
+            GameButtonStyle.EntityFragment);
+    }
+
+    static string GetColorClass(EntityFragmentButtonColor color) => UiCssClasses.ButtonEntityFragment + "--" + color switch
+    {
+        EntityFragmentButtonColor.Green => UiCssClasses.Green,
+        EntityFragmentButtonColor.Red => UiCssClasses.Red,
+        _ => throw new NotImplementedException($"Unknown color {color}"),
+    };
 
     public static T AddAction<T>(this T btn, Action onClick) where T : Button
     {
