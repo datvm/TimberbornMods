@@ -1,0 +1,22 @@
+{
+    "RenovationSpec": {
+        "Id": "Reinforce3",
+        "GroupId": "Reinforce",
+        "Order": 30,
+        "TitleLoc": "LV.BHP.Reinforce3",
+        "DescLoc": "LV.BHP.Reinforce3Desc",
+        "FlavorLoc": "LV.BHP.Reinforce3Flavor",
+        "Cost": [
+            {
+                "Id": "TreatedPlank",
+                "Amount": 20
+            },
+            {
+                "Id": "MetalBlock",
+                "Amount": 20
+            }
+        ],
+        "Days": 5,
+        "Parameters": [ 1500 ]
+    }
+}

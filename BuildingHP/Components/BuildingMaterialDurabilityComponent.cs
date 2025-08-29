@@ -1,10 +1,11 @@
 ﻿namespace BuildingHP.Components;
 
-public class BuildingMaterialDurabilityComponent : BaseComponent, IBuildingDurabilityModifier
+public class BuildingMaterialDurabilityComponent : BaseComponent, IBuildingDeltaDurabilityModifier, IBuildingInvulnerabilityModifier
 {
-    public float? Multiplier { get; }
-    public int? Delta { get; private set; }
+    public string DescriptionKey { get; } = "LV.BHP.MaterialDurability";
     public bool Invulnerable { get; private set; }
+    public float? ModifierEndTime { get; }
+    public int? Delta { get; private set; }
 
     public event Action<IBuildingDurabilityModifier>? OnChanged;
 
@@ -16,7 +17,7 @@ public class BuildingMaterialDurabilityComponent : BaseComponent, IBuildingDurab
         this.service = service;
     }
 
-    public void Awake()
+    public void Initialize()
     {
         var buildingHPSpec = GetComponentFast<BuildingHPComponentSpec>();
         if (buildingHPSpec.NoMaterialDurability) { return; }
@@ -28,22 +29,6 @@ public class BuildingMaterialDurabilityComponent : BaseComponent, IBuildingDurab
             return;
         }
 
-        var totalAmount = 0;
-        var totalWeight = 0;
-        foreach (var c in building.BuildingCost)
-        {
-            var d = service.GetDurability(c.GoodId);
-            if (d == 0) { continue; }
-
-            totalAmount += c.Amount;
-            totalWeight += d * c.Amount;
-        }
-
-        var durability = Mathf.CeilToInt((float)totalWeight / totalAmount);
-
-        Delta = Math.Max(
-            0, // Cap at 0 in case there are too many Gears as it's negative
-            durability);
+        Delta = service.GetDurability(building.BuildingCost);
     }
-
 }

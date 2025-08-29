@@ -12,7 +12,9 @@
 - Surface™ Access Coating: Allows paths to be built on top of [b]Contamination and Irrigation Barriers[/b] - even if you can't see them.
 - DepthSense™ Array: [b]Stream Gauges[/b] detect water depth all the way to the soil beneath their tile and can measure reservoir volume at a small science cost.
 
-Note: you can't see the paths built under the barriers but they are there. Trust us, we tested it.
+Note: 
+- [b]Surface™ Access Coating (Irrigation/Contamination Barrier upgrade)[/b]: You can't see the paths built under the barriers but they are there. Trust us, we tested it.
+- [b]Source-Level Sensor (Sluice upgrade)[/b]: Basically, your Sluice can already close when there is enough water downstream. However, this comes at the cost of water overflowing if you don’t have a Floodgate on top. This feature removes the need for a Floodgate. You set a height, and when the water rises above it, the Sluice releases the excess water (without this feature, it would have closed as soon as the downstream had enough water). It only works in combination with “Closed when downstream” (otherwise it would always stay open already). If the “Closed by Contamination” auto setting is enabled, that always takes priority, meaning if it is closed by contamination, it will stay closed.
 
 [h1]Anti‑Grav™ Deck Release[/h1]
 

@@ -12,6 +12,7 @@ public class DialogBoxElement : VisualElement
     public Button? CloseButton { get; private set; } = null!;
     bool hasCustomCloseAction;
     bool closeButtonEventSet;
+    Action? pendingSizeChange;
 
     public VisualElement Container { get; private set; }
     public ScrollView Content { get; private set; }
@@ -64,10 +65,50 @@ public class DialogBoxElement : VisualElement
         return this;
     }
 
-    public DialogBox Show(VisualElementLoader loader, PanelStack panelStack, Action? confirm = default, Action? cancel = default)
+    public DialogBoxElement SetDialogPercentSize(float? width = default, float? height = default)
+        => SetDialogSize(
+            width: width is null ? null : Mathf.FloorToInt(Screen.width * width.Value),
+            height: height is null ? null : Mathf.FloorToInt(Screen.height * height.Value),
+            scaled: true
+        );
+
+    public DialogBoxElement SetDialogSize(int? width = default, int? height = default, bool scaled = true)
     {
-        return Show(loader._visualElementInitializer, panelStack, confirm, cancel);
+        void PerformChangeSize()
+        {
+            var scale = (scaled && panel is not null) ? panel.scaledPixelsPerPoint : 1;
+
+            if (width is not null)
+            {
+                var w = width.Value * scale;
+                
+                this.Q("Box").SetWidth(w);
+                this.SetMinMaxSize(w, null);
+            }
+
+            if (height is not null)
+            {
+                var h = height.Value * scale;
+                Content.style.maxHeight = new StyleLength(StyleKeyword.Auto);
+                Content.style.height = h;
+            }
+        }
+
+        if (scaled && panel is null)
+        {
+            pendingSizeChange = PerformChangeSize;
+        }
+        else
+        {
+            pendingSizeChange = null;
+            PerformChangeSize();
+        }
+
+        return this;
     }
+
+    public DialogBox Show(VisualElementLoader loader, PanelStack panelStack, Action? confirm = default, Action? cancel = default)
+        => Show(loader._visualElementInitializer, panelStack, confirm, cancel);
 
     public DialogBox Show(VisualElementInitializer? initializer, PanelStack panelStack, Action? confirm = default, Action? cancel = default)
     {
@@ -95,6 +136,12 @@ public class DialogBoxElement : VisualElement
 
         panelStack.PushDialog(diag);
 
+        if (pendingSizeChange is not null)
+        {
+            pendingSizeChange();
+            pendingSizeChange = null;
+        }
+
         return diag;
     }
 
@@ -116,6 +163,7 @@ public class DialogBoxElement : VisualElement
 
         return await tcs.Task;
     }
+
 
     public void OnUICancelled()
     {

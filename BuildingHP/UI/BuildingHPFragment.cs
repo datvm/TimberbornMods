@@ -1,51 +1,129 @@
 ﻿namespace BuildingHP.UI;
 
-public class BuildingHPFragment : IEntityPanelFragment
+public class BuildingHPFragment(
+    ITooltipRegistrar tooltipRegistrar,
+    ILoc t,
+    RenovationDialogController renovationDialogController,
+    IDayNightCycle dayNightCycle,
+    BuildingRenovationElementDependencies buildingRenovationElementDependencies,
+    RenovationSpecService renovationSpecService
+) : BaseEntityPanelFragment<BuildingHPComponent>
 {
 
 #nullable disable
-    EntityPanelFragmentElement panel;
     ProgressBar pgb;
     Label lblHp;
+    Button btnRenovate;
+    BuildingRenovationElement renoPanel;
+    RenovationListElement renovationListPanel;
 #nullable enable
 
-    BuildingHPComponent? comp;
+    public VisualElement Panel => panel;
+    BuildingRenovationComponent? renovateComp;
+    BuildingHPRepairComponent? repairComp;
 
-    public void ClearFragment()
+    protected override void InitializePanel()
     {
-        panel.Visible = false;
-        comp = null;
+        pgb = panel.AddProgressBar("HPBar").SetMarginBottom(10);
+        lblHp = pgb.AddProgressLabel("HP: 0 / 0", "HPBarLabel");
+        tooltipRegistrar.Register(pgb, GetTooltipContent);
+
+        btnRenovate = panel
+            .AddStretchedEntityFragmentButton(t.T("LV.BHP.Renovate"), onClick: OnRenovateRequested, color: EntityFragmentButtonColor.Red)
+            .SetMarginBottom();
+
+        renoPanel = panel.AddChild<BuildingRenovationElement>(() => new(buildingRenovationElementDependencies))
+            .SetMarginBottom();
+
+        renovationListPanel = panel.AddChild<RenovationListElement>(() => new(t, dayNightCycle, renovationSpecService));
     }
 
-    public VisualElement InitializeFragment()
+    public override void ShowFragment(BaseComponent entity)
     {
-        panel = new() { Visible = false };
+        base.ShowFragment(entity);
+        if (!component) { return; }
 
-        pgb = panel.AddProgressBar("HPBar");
-        lblHp = pgb.AddProgressLabel("0 / 0", "HPBarLabel");
+        renovateComp = entity.GetRenovationComponent();
+        repairComp = entity.GetComponentFast<BuildingHPRepairComponent>();
 
-        return panel;
-    }
-
-    public void ShowFragment(BaseComponent entity)
-    {
-        comp = entity.GetComponentFast<BuildingHPComponent>();
-        if (!comp)
+        if (!renovateComp || !repairComp)
         {
-            comp = null;
+            ClearFragment();
             return;
         }
 
-        panel.Visible = true;
+        renoPanel.SetComponent(renovateComp);
+        renovationListPanel.SetComponent(renovateComp);
         UpdateFragment();
     }
 
-    public void UpdateFragment()
+    public override void UpdateFragment()
     {
-        if (!comp) { return; }
+        if (!component) { return; }
 
-        pgb.SetProgress(comp.HPPercent,
-            label: lblHp, text: $"{comp.HP} / {comp.Durability}");
+        var perc = component.HPPercent;
+        var invulnerable = component.Invulnerable;
+        pgb.SetProgress(perc,
+            label: lblHp, text: t.T(
+                invulnerable ? "LV.BHP.HPInvul" : "LV.BHP.HP",
+                component.HP, component.Durability));
+
+        renoPanel.Update();
+        btnRenovate.SetDisplay(renovateComp!.CanRenovate);
+    }
+
+    public override void ClearFragment()
+    {
+        base.ClearFragment();
+        renoPanel.Unset();
+        renovationListPanel.Unset();
+        renovateComp = null;
+        repairComp = null;
+    }
+
+    string GetTooltipContent()
+    {
+        if (!component) { return "N/A"; } // Should not happen
+
+        var durabilityList = new StringBuilder();
+        foreach (var desc in component.DurabilityDescriptions)
+        {
+            if (desc.Type == BuildingDurabilityModifierType.Invulnerability)
+            {
+                durabilityList.AppendLine(AppendTime(t.T("LV.BHP.HPTooltipInvul", t.T(desc.DescriptionKey)), desc.EndTime));
+                continue;
+            }
+
+            var valueDisplay = desc.Type switch
+            {
+                BuildingDurabilityModifierType.Addition => desc.Value.ToString("+0;-0"),
+                BuildingDurabilityModifierType.Multiplier => desc.Value.ToString("+0%;-0%"),
+                _ => null,
+            };
+            if (valueDisplay is null) { continue; }
+
+            durabilityList.AppendLine(AppendTime(t.T("LV.BHP.HPTooltipDurability", valueDisplay, t.T(desc.DescriptionKey)), desc.EndTime));
+        }
+
+        return t.T("LV.BHP.HPTooltip",
+            component.HP,
+            component.Durability,
+            durabilityList.ToString());
+
+        string AppendTime(string text, float? endTime)
+        {
+            if (endTime is null) { return text; }
+
+            var remainingTime = endTime.Value - dayNightCycle.PartialDayNumber;
+            return $"{text} (⏱️ {t.T("Time.DaysShort", remainingTime.ToString("0.00"))})";
+        }
+    }
+
+    async void OnRenovateRequested()
+    {
+        if (!renovateComp) { return; }
+
+        await renovationDialogController.OpenDialogAsync(renovateComp);
     }
 
 }

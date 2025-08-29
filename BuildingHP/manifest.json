@@ -1,9 +1,9 @@
 {
-    "Name": "Building HP",
+    "Name": "Building HP & Renovation",
     "Version": "7.0.0",
     "Id": "BuildingHP",
     "MinimumGameVersion": "0.7.0.0",
-    "Description": "Add HP/Durability to buildings",
+    "Description": "Add HP/Durability to buildings and ability to renovate a building.",
     "RequiredMods": [
         { "Id": "Harmony" },
         { "Id": "eMka.ModSettings" },

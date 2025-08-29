@@ -32,5 +32,6 @@ public enum TimberbornTextColor
 {
     Green,
     Red,
-    Solid
+    Solid = 2,
+    Yellow = 2,
 }

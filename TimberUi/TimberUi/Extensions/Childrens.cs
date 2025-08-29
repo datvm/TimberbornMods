@@ -9,6 +9,14 @@ public static partial class UiBuilderExtensions
         return (T)parent.AddChild(typeof(T), name, classes);
     }
 
+    public static T AddChild<T>(this VisualElement parent, Func<T> factory)
+        where T : VisualElement
+    {
+        var el = factory();
+        parent.Add(el);
+        return el;
+    }
+
     public static VisualElement AddChild(this VisualElement parent, Type? type = default, string? name = default, IEnumerable<string>? classes = default)
     {
         type ??= typeof(VisualElement);
@@ -99,9 +107,10 @@ public static partial class UiBuilderExtensions
     }
 
     public static ScrollView AddScrollView(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, bool greenDecorated = true)
-    {
-        return InternalAddScrollView<ScrollView>(parent, name, additionalClasses, greenDecorated);
-    }
+        => InternalAddScrollView<ScrollView>(parent, name, additionalClasses, greenDecorated);
+
+    public static ScrollView AddGameScrollView(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default)
+        => InternalAddScrollView<ScrollView>(parent, name, [.. additionalClasses ?? [], UiCssClasses.GameScrollView], greenDecorated: false);
 
     public static ListView AddListView(this VisualElement parent, string? name = default, IEnumerable<string>? additionalClasses = default, bool greenDecorated = true)
     {

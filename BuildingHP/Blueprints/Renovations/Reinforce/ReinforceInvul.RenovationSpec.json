@@ -1,0 +1,27 @@
+{
+    "RenovationSpec": {
+        "Id": "ReinforceInvul",
+        "GroupId": "Reinforce",
+        "Order": 40,
+        "TitleLoc": "LV.BHP.ReinforceInvul",
+        "DescLoc": "LV.BHP.ReinforceInvulDesc",
+        "FlavorLoc": "LV.BHP.ReinforceInvulFlavor",
+        "Cost": [
+            {
+                "Id": "PineResin",
+                "Amount": 10
+            },
+            {
+                "Id": "Gear",
+                "Amount": 10
+            },
+            {
+                "Id": "MetalBlock",
+                "Amount": 5
+            }
+        ],
+        "Days": 3,
+        "Parameters": [ 3.0 ],
+        "CannotCancel": true
+    }
+}

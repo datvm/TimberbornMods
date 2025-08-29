@@ -1,0 +1,10 @@
+{
+    "Name": "Timber Dump",
+    "Version": "7.1.2",
+    "Id": "TimberDump",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Dump data for Timberborn",
+    "RequiredMods": [
+        { "Id": "Harmony" }
+    ]
+}
