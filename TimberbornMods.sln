@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Targets", "_Targets", "{F8
 	ProjectSection(SolutionItems) = preProject
 		Common.target = Common.target
 		CommonBuffDebuff.target = CommonBuffDebuff.target
+		CommonBuildingHP.target = CommonBuildingHP.target
 		CommonDebug.target = CommonDebug.target
 		CommonGlobalUsings.target = CommonGlobalUsings.target
 		CommonHarmony.target = CommonHarmony.target
@@ -256,6 +257,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WirelessCoil", "WirelessCoil\WirelessCoil.csproj", "{1DB72A2E-1234-480D-BC5B-8EC147BABE72}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimberMarket", "TimberMarket\TimberMarket.csproj", "{9777FDBB-7672-4A8A-ADFC-E3E033A13C79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarthquakeWeather", "EarthquakeWeather\EarthquakeWeather.csproj", "{CDAAA96E-C4B0-4EDB-93C1-BEFEB6BA62AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -691,6 +694,10 @@ Global
 		{9777FDBB-7672-4A8A-ADFC-E3E033A13C79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9777FDBB-7672-4A8A-ADFC-E3E033A13C79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9777FDBB-7672-4A8A-ADFC-E3E033A13C79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDAAA96E-C4B0-4EDB-93C1-BEFEB6BA62AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDAAA96E-C4B0-4EDB-93C1-BEFEB6BA62AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDAAA96E-C4B0-4EDB-93C1-BEFEB6BA62AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDAAA96E-C4B0-4EDB-93C1-BEFEB6BA62AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -765,6 +772,7 @@ Global
 		{191088E6-D454-435D-80DA-BD7AAE4EDBB6} = {026F718D-37AA-406F-8C30-E37E2613E7E5}
 		{75BE59AF-6D50-49D6-9DD1-19699C8E436F} = {D67673ED-4BAD-43CB-B284-FF830384FA41}
 		{D18AA391-2A8A-4BEE-B22B-0E5423AF3DFA} = {DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}
+		{CDAAA96E-C4B0-4EDB-93C1-BEFEB6BA62AA} = {5D10D08B-18D1-40D6-B0B2-83778419FC99}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}

@@ -1,0 +1,11 @@
+ID,Text,Comment
+LV.EQ.Earthquake,"Earthquake",
+LV.EQ.EarthquakeDesc,"Hazardous weather: Randomly damage buildings and cause water surge.",
+LV.EQ.MinStr,"Minimum strength",
+LV.EQ.MinStrDesc,"The minimum strength of the Earthquake. The amount of HP it can deal to buildings.
+Affected by Handicap.",
+LV.EQ.MaxStr,"Maximum strength",
+LV.EQ.MaxStrDesc,"The maximum strength of the Earthquake. The amount of HP it can deal to buildings.
+Affected by Handicap.",
+LV.EQ.SurgeStr,"Water surge strength",
+LV.EQ.SurgeStrDesc,"All water 'expands' by this amount (%) when Earthquake surge happens",
