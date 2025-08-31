@@ -1,0 +1,22 @@
+{
+    "RenovationSpec": {
+        "Id": "ProductionOverdrive",
+        "GroupId": "Production",
+        "Order": 10,
+        "TitleLoc": "LV.BHP.ProdOverdrive",
+        "DescLoc": "LV.BHP.ProdOverdriveDesc",
+        "FlavorLoc": "LV.BHP.ProdOverdriveFlavor",
+        "Cost": [
+            {
+                "Id": "Plank",
+                "Amount": 10
+            },
+            {
+                "Id": "Berries",
+                "Amount": 20
+            }
+        ],
+        "Days": 0.1,
+        "Parameters": [ 1, 1, 2, -0.5, 5 ]
+    }
+}

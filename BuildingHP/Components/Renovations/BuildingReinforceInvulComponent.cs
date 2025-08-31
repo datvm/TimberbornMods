@@ -1,12 +1,13 @@
 ﻿namespace BuildingHP.Components.Renovations;
 
-public class BuildingReinforceInvulComponent : BaseComponent, IBuildingInvulnerabilityModifier, IPersistentEntity
+public class BuildingReinforceInvulComponent : BaseComponent, IBuildingInvulnerabilityModifier, IPersistentEntity, IActiveRenovationDescriber
 {
     static readonly PropertyKey<float> ProgressKey = new("BuildingReinforceInvulComponentInvulnerableTime");
 
 #nullable disable
     ITimeTriggerFactory timeTriggerFactory;
     IDayNightCycle dayNightCycle;
+    RenovationSpec spec;
 #nullable enable
 
     ITimeTrigger? remainingTime;
@@ -28,11 +29,13 @@ public class BuildingReinforceInvulComponent : BaseComponent, IBuildingInvulnera
     public void Awake()
     {
         var comp = this.GetRenovationComponent();
-        comp.RenovationCompleted += OnRenovationCompleted;
+        comp.RenovationCompleted += OnRenovationCompleted;        
     }
 
     public void Initialize()
     {
+        spec = this.GetRenovationComponent().RenovationService.GetSpec(ReinforceInvulRenovationProvider.RenoId);
+
         if (pendingProgress.HasValue)
         {
             CreateTimedInvulnerable(pendingProgress.Value);
@@ -42,8 +45,7 @@ public class BuildingReinforceInvulComponent : BaseComponent, IBuildingInvulnera
     void CreateTimedInvulnerable(float? progress = null)
     {
         var comp = this.GetRenovationComponent();
-        var spec = comp.RenovationService.GetSpec(ReinforceInvulRenovationProvider.RenoId);
-
+        
         var duration = spec.Parameters[0];
         remainingTime = timeTriggerFactory.Create(OnExpired, duration);
         remainingTime.Resume();
@@ -90,5 +92,8 @@ public class BuildingReinforceInvulComponent : BaseComponent, IBuildingInvulnera
         if (obj.Id != ReinforceInvulRenovationProvider.RenoId) { return; }
         CreateTimedInvulnerable();
     }
+
+    public ActiveRenovationDescription? Describe(ILoc t, IDayNightCycle dayNightCycle) 
+        => Invulnerable ? new(spec.Title.Value, spec.Description, remainingTime!.DaysLeft) : null;
 
 }

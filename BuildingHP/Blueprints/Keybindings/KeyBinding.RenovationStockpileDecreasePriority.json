@@ -1,0 +1,10 @@
+{
+    "KeyBindingSpec": {
+        "Id": "RenovationStockpileDecreasePriority",
+        "GroupId": "Buildings",
+        "LocKey": "LV.BHP.RenovationStockpileDecreasePriorityHotKey",
+        "Order": 730,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    }
+}

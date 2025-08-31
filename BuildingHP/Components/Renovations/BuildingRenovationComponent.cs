@@ -11,12 +11,13 @@ public class BuildingRenovationComponent : BaseComponent, IPersistentEntity, IFi
     public BuildingHPComponent BuildingHPComponent { get; private set; }
     StatusToggle lackOfResourcesStatus;
     ILoc t;
+    BlockObject blockObject;
 #nullable enable
     public BuildingRenovationService RenovationService => BuildingHPComponent.BuildingHPService.BuildingRenovationService;
 
     public BuildingRenovation? CurrentRenovation { get; private set; }
     public Priority Priority { get; private set; }
-    public bool CanRenovate => CurrentRenovation is null;
+    public bool CanRenovate => CurrentRenovation is null && blockObject.IsFinished;
     public bool IsRenovating => CurrentRenovation is not null && !CurrentRenovation.IsDone;
     public bool CanChangePriority => CurrentRenovation is not null && !CurrentRenovation.IsGoodAcquired;
 
@@ -44,6 +45,7 @@ public class BuildingRenovationComponent : BaseComponent, IPersistentEntity, IFi
     public void Awake()
     {
         BuildingHPComponent = this.GetHPComponent();
+        blockObject = GetComponentFast<BlockObject>();
 
         lackOfResourcesStatus = StatusToggle.CreatePriorityStatusWithAlertAndFloatingIcon("LackOfResources", t.T("LV.BHP.NoMaterialShort"), t.T("Status.ConstructionSites.NoMaterials"), 1f);
     }

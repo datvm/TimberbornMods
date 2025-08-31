@@ -9,4 +9,35 @@ public static class BuildingHPHelpers
     public static BuildingRenovationComponent GetRenovationComponent<T>(this T comp) where T : BaseComponent
         => comp.GetComponentFast<BuildingRenovationComponent>();
 
+    public static void ActivateIfAvailable<T>(this T comp, string id)
+        where T : BaseComponent, IActivableRenovationComponent
+        => ActivateIfAvailable(comp, id, true);
+
+    static void ActivateIfAvailable<T>(this T comp, string id, bool listenIfNotActive)
+        where T : BaseComponent, IActivableRenovationComponent
+    {
+        if (comp.Active) { return; }
+
+        var reno = comp.GetRenovationComponent();
+        var active = reno.HasRenovation(id);
+
+        if (active)
+        {
+            if (comp.ActiveHandler is not null)
+            {
+                reno.RenovationCompleted -= comp.ActiveHandler;
+                comp.ActiveHandler = null;
+            }
+
+            comp.Activate();
+        }
+        else if (listenIfNotActive)
+        {
+            void ActiveHandler(BuildingRenovation reno) => comp.ActivateIfAvailable(id, false);
+
+            reno.RenovationCompleted += ActiveHandler;
+            comp.ActiveHandler = ActiveHandler;
+        }
+    }
+
 }

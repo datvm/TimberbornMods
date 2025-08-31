@@ -28,6 +28,7 @@ public class ModGameConfig : CommonConfig
             .BindSingleton<BuildingHPService>()
             .BindSingleton<BuildingRepairService>()
 
+            .BindSingleton<RenovationPriorityToggleGroupFactory>()
             .BindFragment<BuildingHPFragment>()
             .BindSingleton<BuildingHPFragmentMover>()            
             .BindFragment<RenovationStockpileFragment>()
@@ -46,9 +47,11 @@ public class ModGameConfig : CommonConfig
                     // Renovations & its effects
                     .AddDecorator<BuildingHPComponentSpec, BuildingRenovationComponent>()
 
-                    .AddDecorator<BuildingRenovationComponent, BuildingReinforcementComponent>()
-                    .AddDecorator<BuildingRenovationComponent, BuildingReinforceInvulComponent>()
-                    .AddDecorator<BuildingRenovationComponent, ReinforceGearComponent>()
+                    .AddDecorator<BuildingRenovationComponent, BuildingReinforcementComponent>() // Reinforcement 1-3
+                    .AddDecorator<BuildingRenovationComponent, BuildingReinforceInvulComponent>() // Reinforcement Invul
+                    .AddDecorator<BuildingRenovationComponent, ReinforceGearComponent>() // Metal Gear Solid
+                    .AddDecorator<Workplace, ProductOverdriveComponent>() // Production Overdrive
+                    .AddDecorator<Dwelling, DwellingDecorativeComponent>() // Dwelling Decorative
 
                     // Stockpile for Renovation
                     .AddDecorator<StockpileSpec, BuildingRenovationStockpileComponent>()
@@ -85,6 +88,8 @@ public class ModGameConfig : CommonConfig
             .MultiBindAndBindSingleton<IRenovationProvider, Reinforce3RenovationProvider>()
             .MultiBindAndBindSingleton<IRenovationProvider, ReinforceInvulRenovationProvider>()
             .MultiBindAndBindSingleton<IRenovationProvider, ReinforceGearRenovationProvider>()
+            .MultiBindAndBindSingleton<IRenovationProvider, DwellingDecorativeProvider>()
+            .MultiBindAndBindSingleton<IRenovationProvider, ProductionOverdriveRenovationProvider>()
 
             .BindSingleton<RenovationDialogController>()
             .BindTransient<RenovationDialog>()

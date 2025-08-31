@@ -1,8 +1,8 @@
 {
     "RenovationSpec": {
         "Id": "ReinforceGear",
-        "GroupId": "Reinforce",
-        "Order": 50,
+        "GroupId": "Production",
+        "Order": 20,
         "TitleLoc": "LV.BHP.ReinforceGear",
         "DescLoc": "LV.BHP.ReinforceGearDesc",
         "FlavorLoc": "LV.BHP.ReinforceGearFlavor",

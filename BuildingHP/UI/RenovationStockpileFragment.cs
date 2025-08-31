@@ -2,8 +2,7 @@
 
 public class RenovationStockpileFragment(
     ILoc t,
-    PriorityToggleGroupFactory priorityToggleGroupFactory,
-    WorkplacePrioritySpriteLoader workplacePrioritySpriteLoader
+    RenovationPriorityToggleGroupFactory priorityToggleGroupFactory
 ) : BaseEntityPanelFragment<BuildingRenovationStockpileComponent>
 {
 
@@ -15,9 +14,7 @@ public class RenovationStockpileFragment(
     protected override void InitializePanel()
     {
         var priorityPanel = panel.AddChild().SetMarginBottom(5);
-        grpPriority = priorityToggleGroupFactory
-            .Create(priorityPanel, "LV.BHP.SupplyPriority", workplacePrioritySpriteLoader,
-                WorkplacePriorityToggleGroupFactory.DecreaseWorkplacePriorityKey, WorkplacePriorityToggleGroupFactory.IncreaseWorkplacePriorityKey);
+        grpPriority = priorityToggleGroupFactory.CreateForStockpile(priorityPanel);
 
         chkSupply = panel.AddToggle(t.T("LV.BHP.SupplyRenovation"), onValueChanged: OnSupplyChanged);
     }

@@ -8,7 +8,8 @@ public class BuildingHPService(
     BuildingHPRegistry buildingRegistry,
     BuildingRenovationService renovationService,
     BuildingRepairService buildingRepairService,
-    RenovationRegistry renovationRegistry
+    RenovationRegistry renovationRegistry,
+    MSettings settings
 )
 {
 
@@ -20,6 +21,7 @@ public class BuildingHPService(
     public BuildingRenovationService BuildingRenovationService { get; } = renovationService;
     public BuildingRepairService BuildingRepairService { get; } = buildingRepairService;
     public RenovationRegistry RenovationRegistry { get; } = renovationRegistry;
+    public MSettings Settings { get; } = settings;
 
     public void DestroyBuilding(BlockObject building)
     {
