@@ -43,12 +43,11 @@ public class RealLightsFragment(
             Visible = false,
         };
 
-        var container = panel.AddChild<NineSliceVisualElement>();
+        var collapsiblePanel = panel.AddChild<CollapsiblePanel>()
+            .SetTitle(t.T("LV.RL.Title"));
+        collapsiblePanel.SetExpand(false);
 
-        container.AddGameLabel(t.T("LV.RL.Title").Bold()).SetMarginBottom(10);
-
-        var scroll = container.AddScrollView(greenDecorated: false, additionalClasses: ["game-scroll-view"])
-            .SetMaxHeight(200);
+        var scroll = collapsiblePanel.Container.AddGameScrollView().SetMaxHeight(200);
         
         chkForceOffAll = scroll.AddToggle(t.T("LV.RL.ForceOffAll"), onValueChanged: OnForceOffPrefabChanged)
             .SetMarginBottom(5);
