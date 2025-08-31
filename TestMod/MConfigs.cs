@@ -5,38 +5,38 @@ public class ModGameConfig : Configurator
 {
     public override void Configure()
     {
-        Bind<TestWeather>().AsSingleton();
+
     }
 }
 
-class TestWeather(IContainer container) : IPostLoadableSingleton
+[HarmonyPatch]
+public static class TestPatch
 {
 
-    public void PostLoad()
+    [HarmonyPostfix, HarmonyPatch(typeof(PrefabGroupService), nameof(PrefabGroupService.Load))]
+    public static void PatchPrefab(PrefabGroupService __instance)
     {
-        var moddableWeatherAsm = AppDomain.CurrentDomain.GetAssemblies()
-            .FirstOrDefault(q => q.GetName().Name == "ModdableWeather");
-        if (moddableWeatherAsm is null)
+        foreach (var p in __instance.AllPrefabs)
         {
-            Debug.Log("No ModdableWeather");
-            return;
+            var building = p.GetComponent<BuildingSpec>();
+            if (!building || building.BuildingCost.Any(q => q.GoodId == "Log")) { continue; }
+
+            building._buildingCost =
+            [
+                .. building.BuildingCost,
+                new()
+                {
+                    _amount = 1000,
+                    _goodId = "Log",
+                },
+                new()
+                {
+                    _amount = 1000,
+                    _goodId = "Gear",
+                },
+            ];
         }
-
-        var registryType = moddableWeatherAsm.GetTypes()
-            .First(q => q.FullName == "ModdableWeather.Services.ModdableWeatherRegistry");
-        var registry = container.GetInstance(registryType);
-
-        var temperates = (IEnumerable<object>)registryType.GetProperty("TemperateWeathers").GetValue(registry);
-        var moddableWeatherInterface = moddableWeatherAsm.GetType("ModdableWeather.Specs.IModdedWeather");
-        var idProp = moddableWeatherInterface.GetProperty("Id");
-
-        List<string> ids = [];
-        foreach (var w in temperates)
-        {
-            ids.Add((string)idProp.GetValue(w));
-        }
-
-        Debug.Log(string.Join(", ", ids));
     }
 
 }
+

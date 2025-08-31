@@ -35,8 +35,10 @@ public static class DescriptionPanelPatches
     {
         var desc = __result.Root.Q(className: "description-panel");
         if (desc is null) { return; }
-        
-        desc.style.maxWidth = new Length(300, LengthUnit.Pixel);
+
+        var s = desc.style;
+        s.maxWidth = new Length(300, LengthUnit.Pixel);
+        s.marginLeft = s.marginRight = new StyleLength(StyleKeyword.Auto);
     }
 
     public static void ChangeToolPanelPosition(string? pos)
