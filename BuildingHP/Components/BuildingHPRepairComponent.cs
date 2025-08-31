@@ -1,6 +1,6 @@
 ﻿namespace BuildingHP.Components;
 
-public class BuildingHPRepairComponent : TickableComponent, IPersistentEntity
+public class BuildingHPRepairComponent : TickableComponent, IPersistentEntity, IInitializableEntity
 {
     static readonly PropertyKey<bool> autoRepairKey = new("AutoRepair");
     static readonly PropertyKey<int> autoRepairThresholdKey = new("AutoRepairThreshold");
@@ -16,9 +16,10 @@ public class BuildingHPRepairComponent : TickableComponent, IPersistentEntity
     public bool AutoRepair { get; set; }
     public int AutoRepairThreshold { get; set; }
     public BuildingRepairInfo RepairInfo { get; private set; }
-    public Priority AutoRepairPriority { get; set; }
+    public Priority AutoRepairPriority { get; set; } = Priority.Normal;
 
     Action<BuildingRepairInfo>? pending;
+    bool loadedFromSave;
 
     public bool NeedRepair
     {
@@ -86,10 +87,10 @@ public class BuildingHPRepairComponent : TickableComponent, IPersistentEntity
 
     void CheckForAutoRepair()
     {
-        if (!AutoRepair) { return; }
+        if (!AutoRepair || !RenovationComponent.CanRenovate || !NeedRepair) { return; }
 
-        var hp = BuildingHPComponent.HPPercentInt;
-        if (hp >= AutoRepairThreshold) { return; }
+        var hpPerc = BuildingHPComponent.HPPercentInt;
+        if (hpPerc >= AutoRepairThreshold) { return; }
 
         RequesetMaxRepair(AutoRepairPriority);
     }
@@ -97,6 +98,7 @@ public class BuildingHPRepairComponent : TickableComponent, IPersistentEntity
     public void Load(IEntityLoader entityLoader)
     {
         if (!entityLoader.TryGetComponent(BuildingHPComponent.SaveKey, out var s)) { return; }
+        loadedFromSave = true;
 
         if (s.Has(autoRepairKey))
         {
@@ -118,6 +120,15 @@ public class BuildingHPRepairComponent : TickableComponent, IPersistentEntity
         s.Set(autoRepairKey, AutoRepair);
         s.Set(autoRepairThresholdKey, AutoRepairThreshold);
         s.Set(repairPriorityKey, (int)AutoRepairPriority);
+    }
+
+    public void InitializeEntity()
+    {
+        if (loadedFromSave) { return; }
+
+        var s = BuildingHPComponent.BuildingHPService.Settings;
+        AutoRepair = s.AutoRepairOn.Value;
+        AutoRepairThreshold = s.AutoRepairDefaultThreshold.Value;
     }
 
 }

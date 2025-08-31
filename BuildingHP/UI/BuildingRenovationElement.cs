@@ -4,15 +4,13 @@ public class BuildingRenovationElementDependencies(
     ILoc t,
     IGoodService goodService,
     DevModeManager devModeManager,
-    PriorityToggleGroupFactory priorityToggleGroupFactory,
-    WorkplacePrioritySpriteLoader workplacePrioritySpriteLoader
+    RenovationPriorityToggleGroupFactory priorityToggleGroupFactory
 )
 {
     public readonly ILoc T = t;
     public readonly IGoodService GoodService = goodService;
     public readonly DevModeManager DevModeManager = devModeManager;
-    public readonly PriorityToggleGroupFactory PriorityToggleGroupFactory = priorityToggleGroupFactory;
-    public readonly WorkplacePrioritySpriteLoader WorkplacePrioritySpriteLoader = workplacePrioritySpriteLoader;
+    public readonly RenovationPriorityToggleGroupFactory PriorityToggleGroupFactory = priorityToggleGroupFactory;
 }
 
 public class BuildingRenovationElement : VisualElement, IPrioritizable
@@ -41,9 +39,7 @@ public class BuildingRenovationElement : VisualElement, IPrioritizable
         materialPanel = this.AddChild().SetMarginBottom();
 
         var priorityContainer = materialPanel.AddChild().SetMarginBottom(5);
-        priorityToggleGroup = di.PriorityToggleGroupFactory.Create(
-            priorityContainer, "LV.BHP.RenoPriorityShort", di.WorkplacePrioritySpriteLoader,
-            BuilderPriorityToggleGroupFactory.DecreaseBuildersPriorityKey, BuilderPriorityToggleGroupFactory.IncreaseBuildersPriorityKey);
+        priorityToggleGroup = di.PriorityToggleGroupFactory.CreateForRenovation(priorityContainer, true);
 
         lblMaterials = materialPanel.AddGameLabel().SetMarginBottom();
 

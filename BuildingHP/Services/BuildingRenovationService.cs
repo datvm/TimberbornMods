@@ -4,12 +4,14 @@ public class BuildingRenovationService(
     BuildingHPRegistry registry,
     ITimeTriggerFactory timeTriggerFactory,
     IDayNightCycle dayNightCycle,
-    RenovationRegistry renovationRegistry
+    RenovationRegistry renovationRegistry,
+    MSettings settings
 ) : ITickableSingleton
 {
 
     public float PartialDayNumber => dayNightCycle.PartialDayNumber;
-    public RenovationRegistry RenovationRegistry => renovationRegistry;
+    public RenovationRegistry RenovationRegistry { get; } = renovationRegistry;
+    public MSettings Settings { get; } = settings;
 
     public RenovationSpec GetSpec(string id) => RenovationRegistry.RenovationSpecService.Renovations[id];
 

@@ -1,86 +1,53 @@
 ﻿namespace BuildingHP.Components.Renovations;
 
-public class ReinforceGearComponent : BaseComponent, IBuildingDeltaDurabilityModifier
+public class ReinforceGearComponent : BaseComponent, IBuildingDeltaDurabilityModifier, IActivableRenovationComponent, IWorkplaceProductivityComponent, IActiveRenovationDescriber
 {
-    const string WorkBonusId = "WorkingSpeed";
+
+#nullable disable
+    RenovationSpec spec;
+#nullable enable
+
+    bool hasWorkplace;
 
     public bool Active { get; private set; }
     public int? Delta { get; private set; }
     public string DescriptionKey { get; } = "LV.BHP.ReinforceGear";
     public float? ModifierEndTime { get; }
 
+    public Action<BuildingRenovation>? ActiveHandler { get; set; }
+    public HashSet<BonusManager> WorkerBonus { get; } = [];
+    public float ProductivityMultiplier { get; set; }
+    public EventHandler<WorkerChangedEventArgs>? WorkerAssigned { get; set; }
+    public EventHandler<WorkerChangedEventArgs>? WorkerUnassigned { get; set; }
+
     public event Action<IBuildingDurabilityModifier>? OnChanged;
 
-    Workplace? workplace;
-    float workplaceBonus;
+    public void Start()
+    {
+        hasWorkplace = GetComponentFast<Workplace>();
+
+        var reno = this.GetRenovationComponent();
+        spec = reno.RenovationService.GetSpec(ReinforceGearRenovationProvider.RenovationId);
+    }
 
     public void Initialize()
     {
-        ActivateIfAvailable(true);
+        this.ActivateIfAvailable(ReinforceGearRenovationProvider.RenovationId);
     }
 
-    void ActivateIfAvailable(bool listenIfNotActive)
-    {
-        if (Active) { return; }
-
-        var comp = this.GetRenovationComponent();
-        Active = comp.HasRenovation(ReinforceGearRenovationProvider.RenovationId);
-
-        if (Active)
-        {
-            comp.RenovationCompleted -= OnRenovationCompleted;
-            Activate();
-        }
-        else if (listenIfNotActive)
-        {
-            comp.RenovationCompleted += OnRenovationCompleted;
-        }
-    }
-
-    private void OnRenovationCompleted(BuildingRenovation obj)
-    {
-        ActivateIfAvailable(false);
-    }
-
-    void Activate()
+    public void Activate()
     {
         Active = true;
 
         var comp = this.GetRenovationComponent();
         var spec = comp.RenovationService.GetSpec(ReinforceGearRenovationProvider.RenovationId);
-        workplaceBonus = spec.Parameters[1];
-
+        
         ActivateDurability(spec);
-        ActivateWorkplace();
-    }
 
-    void ActivateWorkplace()
-    {
-        workplace = GetComponentFast<Workplace>();
-        if (!workplace) { return; }
-
-        workplace.WorkerAssigned += OnWorkerAssigned;
-        workplace.WorkerUnassigned += OnWorkerUnassigned;
-
-        foreach (var w in workplace.AssignedWorkers)
+        if (hasWorkplace)
         {
-            AddBonus(w);
+            this.SetWorkplaceProductivity(spec.Parameters[1]);
         }
-    }
-
-    private void OnWorkerUnassigned(object sender, WorkerChangedEventArgs e)
-    {
-        e.Worker.GetComponentFast<BonusManager>().RemoveBonus(WorkBonusId, workplaceBonus);
-    }
-
-    private void OnWorkerAssigned(object sender, WorkerChangedEventArgs e)
-    {
-        AddBonus(e.Worker);
-    }
-
-    void AddBonus(Worker worker)
-    {
-        worker.GetComponentFast<BonusManager>().AddBonus(WorkBonusId, workplaceBonus);
     }
 
     void ActivateDurability(RenovationSpec spec)
@@ -89,5 +56,8 @@ public class ReinforceGearComponent : BaseComponent, IBuildingDeltaDurabilityMod
         OnChanged?.Invoke(this);
     }
 
-    
+    public ActiveRenovationDescription? Describe(ILoc t, IDayNightCycle dayNightCycle) 
+        => Active
+            ? new(spec.Title.Value, spec.Description)
+            : null;
 }

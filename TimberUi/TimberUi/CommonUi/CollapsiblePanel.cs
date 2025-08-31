@@ -12,6 +12,7 @@ public class CollapsiblePanel : VisualElement
         var header = this.AddRow().AlignItems().SetMarginBottom(5);
 
         HeaderLabel = header.AddGameLabel().SetFlexGrow(1);
+        HeaderLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
         HeaderLabel.RegisterCallback<ClickEvent>(_ => ToggleExpand());
 
         btnCollapse = header.AddMinusButton().AddAction(() => SetExpand(false));

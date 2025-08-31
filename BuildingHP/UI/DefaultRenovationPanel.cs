@@ -3,13 +3,12 @@
 public class DefaultRenovationPanelFactory(
     GoodItemFactory goodItemFactory,
     ILoc t,
-    PriorityToggleGroupFactory priorityToggleGroupFactory,
-    BuilderPrioritySpriteLoader builderPrioritySpriteLoader
+    RenovationPriorityToggleGroupFactory priorityToggleGroupFactory
 )
 {
 
     public DefaultRenovationPanel Create(IRenovationProvider provider)
-        => new(provider, goodItemFactory, t, priorityToggleGroupFactory, builderPrioritySpriteLoader);
+        => new(provider, goodItemFactory, t, priorityToggleGroupFactory);
 
 }
 
@@ -31,8 +30,7 @@ public class DefaultRenovationPanel : VisualElement, IPrioritizable
         IRenovationProvider provider,
         GoodItemFactory goodItemFactory,
         ILoc t,
-        PriorityToggleGroupFactory priorityToggleGroupFactory,
-        BuilderPrioritySpriteLoader builderPrioritySpriteLoader
+        RenovationPriorityToggleGroupFactory priorityToggleGroupFactory
     )
     {
         Provider = provider;
@@ -56,8 +54,7 @@ public class DefaultRenovationPanel : VisualElement, IPrioritizable
 
         var priorityPanel = this.AddRow().AlignItems().SetMarginBottom();
         priorityPanel.AddGameLabel(t.T("LV.BHP.RenoPriority")).SetMarginRight(10);
-        priorityToggle = priorityToggleGroupFactory.Create(priorityPanel, "Empty", builderPrioritySpriteLoader,
-            BuilderPriorityToggleGroupFactory.DecreaseBuildersPriorityKey, BuilderPriorityToggleGroupFactory.IncreaseBuildersPriorityKey);
+        priorityToggle = priorityToggleGroupFactory.CreateForRenovationWithEmptyLabel(priorityPanel);
         priorityPanel.Q(className: "priority-toggle-group").style.flexDirection = FlexDirection.Row;
         priorityPanel.Q(className: "priority-toggle-group__toggles-wrapper").style.flexDirection = FlexDirection.Row;
 

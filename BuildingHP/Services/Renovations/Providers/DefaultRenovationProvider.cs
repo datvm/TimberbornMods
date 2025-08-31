@@ -38,6 +38,15 @@ public abstract class DefaultRenovationProvider(DefaultRenovationProviderDepende
 
     public abstract string? CanRenovate(BuildingRenovationComponent building);
     protected string? ValidateActive(BuildingRenovationComponent building) => building.HasRenovation(Id) ? t.T("LV.BHP.AlreadyActive") : null;
+    protected string? ValidateActiveAndComponent<T>(BuildingRenovationComponent building, string errLoc) where T : BaseComponent
+    {
+        var err = ValidateActive(building);
+        if (err is not null) { return err; }
+
+        if (!building.GetComponentFast<T>()) { return t.T(errLoc); }
+
+        return null;
+    }
 
     public VisualElement CreateUI(BuildingRenovationComponent building)
     {

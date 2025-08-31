@@ -1,0 +1,18 @@
+{
+    "RenovationSpec": {
+        "Id": "DwellingDecorative",
+        "GroupId": "Housing",
+        "Order": 10,
+        "TitleLoc": "LV.BHP.DwellingDecorative",
+        "DescLoc": "LV.BHP.DwellingDecorativeDesc",
+        "FlavorLoc": "LV.BHP.DwellingDecorativeFlavor",
+        "Cost": [
+            {
+                "Id": "TreatedPlank",
+                "Amount": 5
+            }
+        ],
+        "Days": 1,
+        "Parameters": []
+    }
+}

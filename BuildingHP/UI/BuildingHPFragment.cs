@@ -6,7 +6,8 @@ public class BuildingHPFragment(
     RenovationDialogController renovationDialogController,
     IDayNightCycle dayNightCycle,
     BuildingRenovationElementDependencies buildingRenovationElementDependencies,
-    RenovationSpecService renovationSpecService
+    RenovationSpecService renovationSpecService,
+    RenovationPriorityToggleGroupFactory renovationPriorityToggleGroupFactory
 ) : BaseEntityPanelFragment<BuildingHPComponent>
 {
 
@@ -16,11 +17,13 @@ public class BuildingHPFragment(
     Button btnRenovate;
     BuildingRenovationElement renoPanel;
     RenovationListElement renovationListPanel;
+    BuildingRenovationEffectPanel effectPanel;
+    AutoRepairPanel autoRepairPanel;
 #nullable enable
 
     public VisualElement Panel => panel;
-    BuildingRenovationComponent? renovateComp;
-    BuildingHPRepairComponent? repairComp;
+    BuildingRenovationComponent? reno;
+    BuildingHPRepairComponent? repair;
 
     protected override void InitializePanel()
     {
@@ -35,6 +38,12 @@ public class BuildingHPFragment(
         renoPanel = panel.AddChild<BuildingRenovationElement>(() => new(buildingRenovationElementDependencies))
             .SetMarginBottom();
 
+        effectPanel = panel.AddChild<BuildingRenovationEffectPanel>(() => new(t, dayNightCycle))
+            .SetMarginBottom();
+
+        autoRepairPanel = panel.AddChild<AutoRepairPanel>(() => new(t, renovationPriorityToggleGroupFactory))
+            .SetMarginBottom();
+
         renovationListPanel = panel.AddChild<RenovationListElement>(() => new(t, dayNightCycle, renovationSpecService));
     }
 
@@ -43,17 +52,19 @@ public class BuildingHPFragment(
         base.ShowFragment(entity);
         if (!component) { return; }
 
-        renovateComp = entity.GetRenovationComponent();
-        repairComp = entity.GetComponentFast<BuildingHPRepairComponent>();
+        reno = entity.GetRenovationComponent();
+        repair = entity.GetComponentFast<BuildingHPRepairComponent>();
 
-        if (!renovateComp || !repairComp)
+        if (!reno || !repair)
         {
             ClearFragment();
             return;
         }
 
-        renoPanel.SetComponent(renovateComp);
-        renovationListPanel.SetComponent(renovateComp);
+        renoPanel.SetComponent(reno);
+        renovationListPanel.SetComponent(reno);
+        effectPanel.SetComponent(reno);
+        autoRepairPanel.SetComponent(repair);
         UpdateFragment();
     }
 
@@ -69,7 +80,9 @@ public class BuildingHPFragment(
                 component.HP, component.Durability));
 
         renoPanel.Update();
-        btnRenovate.SetDisplay(renovateComp!.CanRenovate);
+        effectPanel.Update();
+        autoRepairPanel.Update();
+        btnRenovate.SetDisplay(reno!.CanRenovate);
     }
 
     public override void ClearFragment()
@@ -77,8 +90,10 @@ public class BuildingHPFragment(
         base.ClearFragment();
         renoPanel.Unset();
         renovationListPanel.Unset();
-        renovateComp = null;
-        repairComp = null;
+        effectPanel.Unset();
+        autoRepairPanel.Unset();
+        reno = null;
+        repair = null;
     }
 
     string GetTooltipContent()
@@ -121,9 +136,9 @@ public class BuildingHPFragment(
 
     async void OnRenovateRequested()
     {
-        if (!renovateComp) { return; }
+        if (!reno) { return; }
 
-        await renovationDialogController.OpenDialogAsync(renovateComp);
+        await renovationDialogController.OpenDialogAsync(reno);
     }
 
 }

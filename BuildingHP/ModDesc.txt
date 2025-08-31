@@ -1,0 +1,67 @@
+﻿This mod adds HP and Renovations to buildings, with an optional Maintenance system that uses the new HP mechanic.
+
+[h1]HP[/h1]
+Every building now has a base [b]Durability[/b] (10), modified by its construction materials.
+Buildings with no Material Cost (such as District Centers or Lumberjack Flags) are invulnerable, since making them destructible would only be an annoyance when you can simply delete and rebuild them.
+
+Buildings can regain Durability or even become Invulnerable through Renovations.
+
+[h2]Maintenance[/h2]
+The HP system is designed to support other mods, but also includes an optional Maintenance feature. It's [b]disabled by default[/b]. To enable it, go to Main Menu → Mods → settings button next to the mod name.
+- Enable: Buildings lose HP over time and must be repaired.
+- Maintenance days per HP: default 1 day per HP (for example, a Lodge with 50 HP lasts about 2–3 seasons).
+
+[h2]Auto-repair[/h2]
+In the mod settings and in buildings, you can enable Auto-repair. Repair is a renovation (see below) that restores HP. You can set the threshold at which it triggers as well as its priority.
+
+In the setting box, you can also set low HP warnings.
+
+[h1]Renovations[/h1]
+Buildings can undergo Renovations:
+- They continue functioning normally while being renovated.
+- Only one Renovation can be active on a building at a time.
+- Some Renovations are repeatable; others are permanent, and some cannot be canceled once started.
+- Renovation materials are non-refundable once collected.
+
+Examples included in this mod:
+- Repair: Restores a % of HP. Cost scales with the building's construction cost.
+- Basic Reinforcement: Permanently increases Durability. Has 3 levels; only the highest applies. Higher levels can be built directly without lower ones.
+- Invulnerable Reinforcement: Temporarily grants Invulnerability. Cannot be canceled.
+- Metal Gear Solid: For buildings that use Gears (in construction cost or recipes). Permanently grants Durability and increased Productivity if applicable. Cardboard box included.
+- Manufactory Overdrive: Greatly boosts Productivity for a short period, followed by a cooldown with reduced Productivity. While boosted, the building's HP decays rapidly.
+- Decorative Carvings: For housing only. Apply a new Need buff to all residents when inside.
+
+[h2]Renovation Material and Stockpile[/h2]
+To avoid micromanagement, renovation materials are drawn directly from existing Stockpiles/Storage buildings (Piles, Warehouses, Tanks).
+- Stockpiles gain a new toggle: Supply materials for Renovation.
+- Priority affects supply: higher-priority Stockpiles are used first.
+- Renovations only begin once all required materials can be gathered at once. Materials cannot be delivered gradually; instead, they are gathered automatically from all available Stockpiles. Note: this is NOT limited by District.
+- Renovations themselves also have a Material Priority setting: higher-priority Renovations receive materials first when supply is limited.
+
+[h1]Troubleshooting, Suggestion and Feedback[/h1]
+If you need any support or feedback, feel free to contact me on Timberborn's official Discord ( https://discord.gg/timberborn, on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] or [url=https://discord.com/channels/558398674389172225/1411110677170618438]this mod's[/url] channel), or @theapologist316
+
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+[h1]Detailed Formulas[/h1]
+[h2]Material Durability[/h2]
+Each building's Durability is calculated from its construction cost, based on both the strength of each material and their proportion in the total cost.
+
+- Calculation logic: see [b]BuildingMaterialDurabilityService.cs[/b].
+- Material strength values are defined in [b]BuildingMaterialDurabilitySpec[/b] and are moddable.
+- Default values: see attached table.
+
+[b]Examples:[/b]
+- A building made from 10 Metal Blocks → 500 Material Durability (plus 10 from Base Durability = 510 total).
+- A building made from 10 Logs + 1 Metal Block → 82 Material Durability.
+
+[h2]Repair Cost[/h2]
+Repairing a building uses one material type, chosen as:
+1. The most plentiful material in the construction cost.
+2. If tied, the material with higher strength is used.
+
+- Full repair (100% HP) costs 50% of the original cost of that material.
+- Repairs are broken down into 10% increments of HP.
+- If the increment is not a whole number, the recovered HP% is scaled up proportionally, but never exceeds 50%.
+
+Calculation details: see [b]BuildingRepairService.cs[/b].

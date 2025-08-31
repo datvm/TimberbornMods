@@ -2,6 +2,9 @@
 	<PropertyGroup>
 		<OutputModFolderName>BuildingHP</OutputModFolderName>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Folder Include="Blueprints\Needs\" />
+	</ItemGroup>
 	
 	<Import Project="../Common.target" />
 	<Import Project="../CommonTimberUI.target" />
