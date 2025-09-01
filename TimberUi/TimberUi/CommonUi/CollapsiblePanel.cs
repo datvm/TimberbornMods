@@ -7,6 +7,8 @@ public class CollapsiblePanel : VisualElement
     public Label HeaderLabel { get; private set; }
     public bool Expand { get; private set; }
 
+    public event Action<bool>? ExpandChanged;
+
     public CollapsiblePanel()
     {
         var header = this.AddRow().AlignItems().SetMarginBottom(5);
@@ -31,12 +33,19 @@ public class CollapsiblePanel : VisualElement
 
     public void ToggleExpand() => SetExpand(!Expand);
 
-    public void SetExpand(bool expand)
+    public void SetExpand(bool expand) => SetExpand(expand, true);
+    public void SetExpandWithoutNotify(bool expand) => SetExpand(expand, false);
+    public void SetExpand(bool expand, bool notify)
     {
         Expand = expand;
         btnCollapse.SetDisplay(expand);
         btnExpand.SetDisplay(!expand);
         Container.SetDisplay(expand);
+
+        if (notify)
+        {
+            ExpandChanged?.Invoke(expand);
+        }   
     }
 
 }
