@@ -22,6 +22,8 @@ public class ModGameConfig : Configurator
             .BindSingleton<UndoBuildingService>()
             .BindSingleton<AlternateDeleteObjectTool>()
             .BindSingleton<RecentToolService>()
+
+            .BindSingleton<CollapsibleEntityPanelService>()
         ;
     }
 }
