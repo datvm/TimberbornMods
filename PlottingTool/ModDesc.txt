@@ -1,0 +1,14 @@
+This mod adds a simple but powerful way to visualize alignment when planning builds.
+
+While using the Cursor (default) Tool, hold the [b]Show Guidelines[/b] key (default X, rebindable in Keybindings):
+- Click a tile to plot a new line. If you plot a second line and there is a middle tile, an orange center line is also plotted.
+- Click an existing plot to remove it.
+
+Holding the Show Guidelines key also displays horizontal lines from the plot lines (moving with the cursor height).
+
+The plotting lines are saved with your game though the middle lines are not. If you want a middle line again, simply delete and re-plot the two lines.
+
+This mod also works in the Map Editor. Remember to remove them before publishing or else players with this mod may see them. Your players also do not need this mod to play your map.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods

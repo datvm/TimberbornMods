@@ -116,8 +116,16 @@ public class ModdableWeatherHistoryProvider(
 
         foreach (var cycle in cycles)
         {
-            counters[cycle.TemperateWeather.Id]++;
-            counters[cycle.HazardousWeather.Id]++;
+            TryIncreasingCounters(cycle.TemperateWeather.Id);
+            TryIncreasingCounters(cycle.HazardousWeather.Id);
+        }
+    }
+
+    void TryIncreasingCounters(string id)
+    {
+        if (counters.TryGetValue(id, out var curr))
+        {
+            counters[id] = curr + 1;
         }
     }
 

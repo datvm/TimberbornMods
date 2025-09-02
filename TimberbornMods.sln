@@ -260,6 +260,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimberMarket", "TimberMarke
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarthquakeWeather", "EarthquakeWeather\EarthquakeWeather.csproj", "{CDAAA96E-C4B0-4EDB-93C1-BEFEB6BA62AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlottingTool", "PlottingTool\PlottingTool.csproj", "{CEF0D2F0-0131-4462-8219-39D8FEBBA923}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -698,6 +700,10 @@ Global
 		{CDAAA96E-C4B0-4EDB-93C1-BEFEB6BA62AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDAAA96E-C4B0-4EDB-93C1-BEFEB6BA62AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDAAA96E-C4B0-4EDB-93C1-BEFEB6BA62AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEF0D2F0-0131-4462-8219-39D8FEBBA923}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEF0D2F0-0131-4462-8219-39D8FEBBA923}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEF0D2F0-0131-4462-8219-39D8FEBBA923}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEF0D2F0-0131-4462-8219-39D8FEBBA923}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

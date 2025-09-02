@@ -18,7 +18,7 @@
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
 		
-		<ProjectReference Include="..\TImprove4UX\TImprove4UX.csproj" />
+		<ProjectReference Include="..\PlottingTool\PlottingTool.csproj" />
 	</ItemGroup>
 
 </Project>
