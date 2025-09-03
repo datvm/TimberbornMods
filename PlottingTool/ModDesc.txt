@@ -4,7 +4,7 @@ While using the Cursor (default) Tool, hold the [b]Show Guidelines[/b] key (defa
 - Click a tile to plot a new line. If you plot a second line and there is a middle tile, an orange center line is also plotted.
 - Click an existing plot to remove it.
 
-Holding the Show Guidelines key also displays horizontal lines from the plot lines (moving with the cursor height).
+Holding the Show Guidelines key also displays horizontal lines from the plot lines (moving with the cursor height). You can also press the new "Lock Plotting Horizontal height" key (default V, rebindable next to the Show Guidelines key in the UI section) to lock the horizontal lines to the current height. Pressing it again unlocks it.
 
 The plotting lines are saved with your game though the middle lines are not. If you want a middle line again, simply delete and re-plot the two lines.
 
@@ -12,3 +12,5 @@ This mod also works in the Map Editor. Remember to remove them before publishing
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v7.0.1: Added Lock Plotting Horizontal height option.

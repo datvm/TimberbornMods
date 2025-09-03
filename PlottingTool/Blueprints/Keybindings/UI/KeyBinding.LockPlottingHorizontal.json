@@ -1,0 +1,11 @@
+{
+    "KeyBindingSpec": {
+        "Id": "LockPlottingHorizontal",
+        "GroupId": "UI",
+        "LocKey": "LV.PT.LockPlottingHorizontal",
+        "Order": 81
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/v"
+    }
+}
