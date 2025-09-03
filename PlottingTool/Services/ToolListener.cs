@@ -8,7 +8,9 @@ public class ToolListener(
 ) : ILoadableSingleton, IInputProcessor
 {
     const string ShowGuidelinesHotkey = "ShowGuidelines";
+    const string LockHorizontalHotkey = "LockPlottingHorizontal";
     bool isInCursorTool;
+    int? lockingHeight;
 
     public void Load()
     {
@@ -34,10 +36,18 @@ public class ToolListener(
 
     public bool ProcessInput()
     {
+        var shouldReturnTrue = false;
+
         if (inputService.IsKeyHeld(ShowGuidelinesHotkey))
         {
             var coord = cursorCoords.PickCoordinates(false);
             if (coord is null) { return false; }
+
+            if (inputService.IsKeyDown(LockHorizontalHotkey))
+            {
+                lockingHeight = lockingHeight is null ? coord.Value.TileCoordinates.z : null;
+                shouldReturnTrue = true;
+            }
 
             if (isInCursorTool && !inputService.MouseOverUI && inputService.MainMouseButtonUp)
             {
@@ -45,14 +55,17 @@ public class ToolListener(
                 return true;
             }
 
-            plotterService.ShowHorizontalLines(coord.Value.TileCoordinates.z);
+            plotterService.ShowHorizontalLines(lockingHeight ?? coord.Value.TileCoordinates.z);
         }
-        else if (inputService.IsKeyUp(ShowGuidelinesHotkey))
+        else
         {
-            plotterService.DisableHorizontalLines();
+            if (inputService.IsKeyUp(ShowGuidelinesHotkey))
+            {
+                plotterService.DisableHorizontalLines();
+            }
         }
 
-        return false;
+        return shouldReturnTrue;
     }
 
 }
