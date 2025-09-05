@@ -1,0 +1,22 @@
+{
+    "RenovationSpec": {
+        "Id": "EqDamageReduction",
+        "GroupId": "Earthquake",
+        "Order": 10,
+        "TitleLoc": "LV.EQ.EqDamageReduction",
+        "DescLoc": "LV.EQ.EqDamageReductionDesc",
+        "FlavorLoc": "LV.EQ.EqDamageReductionFlavor",
+        "Cost": [
+            {
+                "Id": "Log",
+                "Amount": 3
+            },
+            {
+                "Id": "Plank",
+                "Amount": 3
+            }
+        ],
+        "Days": 1,
+        "Parameters": [ -0.5 ]
+    }
+}

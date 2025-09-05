@@ -1,0 +1,7 @@
+{
+    "RenovationGroupSpec": {
+        "Id": "Earthquake",
+        "TitleLoc": "LV.EQ.RenoEqGroup",
+        "Order": 21
+    }
+}

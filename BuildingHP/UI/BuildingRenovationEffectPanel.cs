@@ -7,6 +7,7 @@ public class BuildingRenovationEffectPanel : CollapsiblePanel
     readonly IDayNightCycle dayNightCycle;
 
     readonly List<IActiveRenovationDescriber> describers = [];
+    readonly List<IActiveRenovationsDescriber> multidescribers = [];
 
     readonly Label lblEffects;
 
@@ -22,10 +23,12 @@ public class BuildingRenovationEffectPanel : CollapsiblePanel
     public void SetComponent(BuildingRenovationComponent? comp)
     {
         describers.Clear();
+        multidescribers.Clear();
 
         if (comp)
         {
             comp.GetComponentsFast(describers);
+            comp.GetComponentsFast(multidescribers);
         }
 
         Update();
@@ -41,12 +44,15 @@ public class BuildingRenovationEffectPanel : CollapsiblePanel
 
         StringBuilder str = new();
 
-        foreach (var item in describers)
-        {
-            var desc = item.Describe(t, dayNightCycle);
-            if (desc is null) { continue; }
+        var allDesc = describers
+            .Select(q => q.Describe(t, dayNightCycle))
+            .Where(q => q is not null)
+            .Select(q => q!.Value)
+            .Concat(multidescribers.SelectMany(q => q.DescribeAll(t, dayNightCycle)));
 
-            var (title, details, time) = desc.Value;
+
+        foreach (var (title, details, time) in allDesc)
+        {
             str.AppendLine(t.T("LV.BHP.ActiveEffect", title, details));
 
             if (time is not null)
@@ -61,6 +67,7 @@ public class BuildingRenovationEffectPanel : CollapsiblePanel
     public void Unset()
     {
         describers.Clear();
+        multidescribers.Clear();
         Update();
     }
 

@@ -1,0 +1,22 @@
+{
+    "RenovationSpec": {
+        "Id": "EqDurability",
+        "GroupId": "Earthquake",
+        "Order": 30,
+        "TitleLoc": "LV.EQ.EqDurability",
+        "DescLoc": "LV.EQ.EqDurabilityDesc",
+        "FlavorLoc": "LV.EQ.EqDurabilityFlavor",
+        "Cost": [
+            {
+                "Id": "PineResin",
+                "Amount": 5
+            },
+            {
+                "Id": "TreatedPlank",
+                "Amount": 5
+            }
+        ],
+        "Days": 3,
+        "Parameters": [ 1 ]
+    }
+}

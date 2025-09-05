@@ -1,0 +1,22 @@
+{
+    "RenovationSpec": {
+        "Id": "EqPileReinforced",
+        "GroupId": "Earthquake",
+        "Order": 40,
+        "TitleLoc": "LV.EQ.EqPileReinforced",
+        "DescLoc": "LV.EQ.EqPileReinforcedDesc",
+        "FlavorLoc": "LV.EQ.EqPileReinforcedFlavor",
+        "Cost": [
+            {
+                "Id": "Plank",
+                "Amount": 5
+            },
+            {
+                "Id": "Gear",
+                "Amount": 15
+            }
+        ],
+        "Days": 3,
+        "Parameters": [ 1 ]
+    }
+}

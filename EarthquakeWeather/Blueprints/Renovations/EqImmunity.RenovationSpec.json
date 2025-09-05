@@ -1,0 +1,22 @@
+{
+    "RenovationSpec": {
+        "Id": "EqImmunity",
+        "GroupId": "Earthquake",
+        "Order": 20,
+        "TitleLoc": "LV.EQ.EqImmunity",
+        "DescLoc": "LV.EQ.EqImmunityDesc",
+        "FlavorLoc": "LV.EQ.EqImmunityFlavor",
+        "Cost": [
+            {
+                "Id": "Log",
+                "Amount": 5
+            },
+            {
+                "Id": "Plank",
+                "Amount": 6
+            }
+        ],
+        "Days": 0.5,
+        "Parameters": [ 3 ]
+    }
+}
