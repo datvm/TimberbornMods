@@ -112,7 +112,7 @@ public class BuildingHPFragment(
             var valueDisplay = desc.Type switch
             {
                 BuildingDurabilityModifierType.Addition => desc.Value.ToString("+0;-0"),
-                BuildingDurabilityModifierType.Multiplier => desc.Value.ToString("+0%;-0%"),
+                BuildingDurabilityModifierType.Multiplier => (desc.Value - 1).ToString("+0%;-0%"),
                 _ => null,
             };
             if (valueDisplay is null) { continue; }

@@ -1,0 +1,10 @@
+{
+    "ModdedWeatherSpec": {
+        "Id": "Earthquake",
+        "DisplayLoc": "LV.EQ.Earthquake",
+        "WeatherPanelProgressBackground": "Resources/UI/Images/Weathers/weather-progress-earthquake",
+        "DatePanelIcon": "Resources/UI/Images/Weathers/ico-weather-earthquake",
+        "WeatherNotification": "Resources/UI/Images/Weathers/weather-notification-earthquake",
+        "StartSound": "UI.Weather.Monsoon"
+    }
+}

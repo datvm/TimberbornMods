@@ -1,0 +1,42 @@
+This expansion mod for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3493039008]Moddable Weather[/url] brings you the highly requested Earthquake thanks to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3559268095]Building HP & Renovation[/url].
+
+[h1]Earthquakes[/h1]
+During Earthquake "season", quakes strike occasionally.
+
+In a random area:
+- Buildings are damaged and cluttered. Certain buildings (production, housing) will cease functioning for 0.5 days.
+- All ongoing constructions are reset to 0 progress (delivered materials remain).
+- All [b]Explosives[/b] are detonated instantly!
+- Storage buildings (Piles, Warehouses, Tanks) lose 25–50% of their content. If any [b]explosives[/b] are inside, all content is lost and the building is destroyed.
+- Beavers and Bots may be injured or damaged (Bots lose durability).
+
+Everywhere:
+- Water levels surge upward.
+
+[h1]Configurable Settings[/h1]
+In addition to the standard weather settings, you can configure:
+- [b]Min & Max Strength[/b]: Damage range inflicted to buildings. Maximum damage is applied at the quake center, spreading down to minimum at the radius edge.
+- [b]Surge Strength (%) [/b]: How much water rises when a quake hits.
+- [b]Min & Max Frequency[/b]: How often quakes strike during a "season".
+- [b]Injury Chance (%) [/b]: Chance that Beavers are injured and Bots are damaged when inside the hit area (0–100%).
+- [b]Bot Durability Loss (%) [/b]: Lifetime lost by Bots when damaged. At 100%, they are destroyed immediately.
+
+All these values can be exported and tied to the Difficulty Template.
+
+[img]https://i.imgur.com/2rKAOSz.png[/img]
+
+[h1]New Renovations[/h1]
+This mod introduces specialized Renovations to help buildings endure earthquakes:
+- [b]Reinforced Foundations[/b]: Permanently reduces earthquake damage by 50%.
+- [b]Shock-Absorbing Structure[/b]: Grants immunity to earthquake damage for the next 3 hits.
+- [b]Seismic Symbiosis[/b]: When the next quake strikes, permanently increase this building’s Durability by +100%. Can only be applied once. Also grants immunity to that hit.
+- [b]Reinforced Storage[/b] (Storage buildings only): Prevents stored goods from spilling during earthquakes. Also stops Explosives from destroying the building.
+
+[i]Note:[/i] Earthquake side effects (e.g. halting production, spilling storage) are only applied if the building actually loses HP from the hit. Certain Renovations like the [b]Amberwall[/b] from the base mod can mitigate these effects. These protections do not apply to Beavers or Bots inside buildings.
+
+[b]Beware:[/b] Even invulnerable buildings can collapse if their supporting foundations are destroyed by an earthquake. Upper structures remain dependent on the integrity of what lies beneath.
+
+[h1]Troubleshooting, Suggestion and Feedback[/h1]
+If you need any support or feedback, feel free to contact me on Timberborn's official Discord ( https://discord.gg/timberborn, on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] or [url=https://discord.com/channels/558398674389172225/1379728375396040806]this mod's[/url] channel), or @theapologist316
+
+Mod source code and donation: https://github.com/datvm/TimberbornMods
