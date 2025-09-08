@@ -16,6 +16,10 @@ LV.T4UX.CollapseEntityPanelDesc,"Make the entity panels (the info panels to the 
 Can only be changed from the Main Menu",
 LV.T4UX.CollapseEntityPanelGlobal,"Global collapse state",
 LV.T4UX.CollapseEntityPanelGlobalDesc,"Make the collapse state saved globally instead of per save",
+LV.T4UX.ShowDynamiteDestruction,"Show Dynamite destruction",
+LV.T4UX.ShowDynamiteDestructionDesc,"Show the terrain and buildings that would be destroyed when selecting a Dynamite.
+If you have Multi-directional Dynamite mod enabled, this option is not needed and that mod would enable this option always.",
+LV.T4UX.UpdateText,"'Collapsible entity panels' and 'Show Dynamite destruction' are the new options in this update and are enabled by default. Please see the mod's description for the details.",
 Name_AdjustableStrengthPowerGeneratorFragment,"Dev Power Generator",
 Name_AdulthoodFragment,"Adulthood",
 Name_AttractionFragment,"Visitors",
