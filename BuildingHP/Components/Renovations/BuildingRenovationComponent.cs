@@ -59,7 +59,14 @@ public class BuildingRenovationComponent : BaseComponent, IPersistentEntity, IFi
     {
         if (!CanRenovate)
         {
-            throw new InvalidOperationException("Already renovating");
+            if (!blockObject.IsFinished)
+            {
+                Debug.LogWarning($"Cannot renovate unfinished building {this} with {r.Id}, possible from an old save");
+                return;
+            }
+
+            var currentRenovationId = CurrentRenovation?.Id;
+            throw new InvalidOperationException($"Already renovating: Current Id {currentRenovationId}, Attempting Id: {r.Id}");
         }
 
         r.GoodAcquireFailed += lackOfResourcesStatus.Activate;

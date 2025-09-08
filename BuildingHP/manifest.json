@@ -1,6 +1,6 @@
 {
     "Name": "Building HP & Renovation",
-    "Version": "7.0.1",
+    "Version": "7.0.2",
     "Id": "BuildingHP",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Add HP/Durability to buildings and ability to renovate a building.",

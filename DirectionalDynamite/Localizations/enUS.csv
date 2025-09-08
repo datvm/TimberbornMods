@@ -1,0 +1,10 @@
+ID,Text,Comment
+LV.DDy.DirectionDown,"Forward",
+LV.DDy.DirectionLeft,"Left",
+LV.DDy.DirectionUp,"Backward",
+LV.DDy.DirectionRight,"Right",
+LV.DDy.DirectionBottom,"Below",
+LV.DDy.DirectionTop,"Above",
+LV.DDy.Direction,"Direction",
+LV.DDy.DoNotTriggerNeighbor,"Do not trigger neighbor dynamites",
+Name_DirectionalDynamiteFragment,"Directional Dynamite",

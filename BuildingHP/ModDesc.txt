@@ -1,4 +1,6 @@
-﻿This mod adds HP and Renovations to buildings, with an optional Maintenance system that uses the new HP mechanic.
+﻿[b]IMPORTANT: Renovation does NOT use Builders or Hauler! Please see the section below about how material are collected for them.[/b]
+
+This mod adds HP and Renovations to buildings, with an optional Maintenance system that uses the new HP mechanic.
 
 [h1]HP[/h1]
 Every building now has a base [b]Durability[/b] (10), modified by its construction materials.
@@ -17,6 +19,8 @@ In the mod settings and in buildings, you can enable Auto-repair. Repair is a re
 In the setting box, you can also set low HP warnings.
 
 [h1]Renovations[/h1]
+[b]IMPORTANT: Renovation does NOT use Builders or Hauler! Please see the section below about how material are collected.[/b]
+
 Buildings can undergo Renovations:
 - They continue functioning normally while being renovated.
 - Only one Renovation can be active on a building at a time.
@@ -29,14 +33,18 @@ Examples included in this mod:
 - Invulnerable Reinforcement: Temporarily grants Invulnerability. Cannot be canceled.
 - Metal Gear Solid: For buildings that use Gears (in construction cost or recipes). Permanently grants Durability and increased Productivity if applicable. Cardboard box included.
 - Manufactory Overdrive: Greatly boosts Productivity for a short period, followed by a cooldown with reduced Productivity. While boosted, the building's HP decays rapidly.
-- Decorative Carvings: For housing only. Apply a new Need buff to all residents when inside.
+- Decorative Carvings: For housing only. Apply a new Need buff (+4 Wellbeing) to all residents when inside.
 
 [h2]Renovation Material and Stockpile[/h2]
-To avoid micromanagement, renovation materials are drawn directly from existing Stockpiles/Storage buildings (Piles, Warehouses, Tanks).
-- Stockpiles gain a new toggle: Supply materials for Renovation.
+To avoid micromanagement, renovation materials are drawn directly from [b]opt-in Stockpiles/Storage buildings (Piles, Warehouses, Tanks).[/b] The material just "magically" disappear, you do not need Hauler or Builder to carry them.
+- Stockpiles gain a new toggle: Supply materials for Renovation: Materials in this stockpile can be used to provide for Renovations.
 - Priority affects supply: higher-priority Stockpiles are used first.
 - Renovations only begin once all required materials can be gathered at once. Materials cannot be delivered gradually; instead, they are gathered automatically from all available Stockpiles. Note: this is NOT limited by District.
 - Renovations themselves also have a Material Priority setting: higher-priority Renovations receive materials first when supply is limited.
+
+[h1]Tips[/h1]
+
+- Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3472334132]TImprove 4 UI[/url] to add scrollbar when the panel gets too long.
 
 [h1]Troubleshooting, Suggestion and Feedback[/h1]
 If you need any support or feedback, feel free to contact me on Timberborn's official Discord ( https://discord.gg/timberborn, on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] or [url=https://discord.com/channels/558398674389172225/1411110677170618438]this mod's[/url] channel), or @theapologist316
@@ -49,7 +57,9 @@ Each building's Durability is calculated from its construction cost, based on bo
 
 - Calculation logic: see [b]BuildingMaterialDurabilityService.cs[/b].
 - Material strength values are defined in [b]BuildingMaterialDurabilitySpec[/b] and are moddable.
-- Default values: see attached table.
+- Default values:
+
+[img]https://i.imgur.com/azt2fuV.jpeg[/img]
 
 [b]Examples:[/b]
 - A building made from 10 Metal Blocks → 500 Material Durability (plus 10 from Base Durability = 510 total).
@@ -65,3 +75,6 @@ Repairing a building uses one material type, chosen as:
 - If the increment is not a whole number, the recovered HP% is scaled up proportionally, but never exceeds 50%.
 
 Calculation details: see [b]BuildingRepairService.cs[/b].
+
+===
+v7.0.1: Added certain support for more mods.

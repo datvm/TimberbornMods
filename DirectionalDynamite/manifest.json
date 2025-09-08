@@ -1,0 +1,11 @@
+{
+    "Name": "Multi-directional Dynamite",
+    "Version": "7.0.0",
+    "Id": "DirectionalDynamite",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Have a blast, in any direction!",
+    "RequiredMods": [
+        { "Id": "Harmony" },
+        { "Id": "TimberUi" }
+    ]
+}
