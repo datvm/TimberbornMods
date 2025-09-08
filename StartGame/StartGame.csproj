@@ -18,7 +18,7 @@
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
 		
-		<ProjectReference Include="..\BuildingHP\BuildingHP.csproj" />
+		<ProjectReference Include="..\RubbleSatisfactidy\RubbleSatisfactidy.csproj" />
 	</ItemGroup>
 
 </Project>

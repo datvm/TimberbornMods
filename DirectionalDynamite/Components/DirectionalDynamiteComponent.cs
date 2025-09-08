@@ -1,6 +1,6 @@
 ﻿namespace DirectionalDynamite.Components;
 
-public class DirectionalDynamiteComponent : BaseComponent, IPersistentEntity
+public class DirectionalDynamiteComponent : BaseComponent, IPersistentEntity, IDirectionalDynamiteComponent
 {
     static readonly ComponentKey SaveKey = new(nameof(DirectionalDynamiteComponent));
     static readonly PropertyKey<int> DirectionKey = new("Direction");
@@ -14,7 +14,7 @@ public class DirectionalDynamiteComponent : BaseComponent, IPersistentEntity
 
 #nullable disable
     Dynamite dynamite;
-    DirectionalDynamiteService service;
+    internal DirectionalDynamiteService service;
 #nullable enable
 
     GameObject? indicator;

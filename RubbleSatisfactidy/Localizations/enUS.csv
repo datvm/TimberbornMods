@@ -1,0 +1,5 @@
+﻿ID,Text,Comment
+LV.RSa.CleanUpAll,"Clean up all Rubbles NOW!",
+LV.RSa.NotEnoughSpace,"There is not enough storage to put these in:
+{0}",
+LV.RSa.Item,"• {0} {1}",
