@@ -65,10 +65,18 @@ public class DirectionalDynamiteService(
     public void HighlightDestroyingEntities(DirectionalDynamiteComponent comp)
     {
         var destroyingTerrain = GetDestroyingTerrains(comp);
-        var (buildings, terrains) = TerrainDestroyService.QueryDestructingEntities(destroyingTerrain);
+        HighlightDestroyingEntities(destroyingTerrain);
+    }
 
-        Debug.Log("Highlighting buildings: " + string.Join(", ", buildings));
+    public void HighlightDestroyingEntities(IEnumerable<DirectionalDynamiteComponent> comps)
+    {
+        var destroyingTerrain = comps.SelectMany(q => GetDestroyingTerrains(q)).Distinct().ToArray();
+        HighlightDestroyingEntities(destroyingTerrain);
+    }
 
+    void HighlightDestroyingEntities(IEnumerable<Vector3Int> coords)
+    {
+        var (buildings, terrains) = TerrainDestroyService.QueryDestructingEntities(coords);
         highlighter.HighlightPrimary(buildings, BrushColors.Negative);
         terrainHighlightingService.UpdateHighlights(terrains, BrushColors.Negative);
     }

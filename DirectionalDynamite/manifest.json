@@ -7,5 +7,8 @@
     "RequiredMods": [
         { "Id": "Harmony" },
         { "Id": "TimberUi" }
+    ],
+    "OptionalMods": [
+        { "Id": "MacroManagement" }
     ]
 }

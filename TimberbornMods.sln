@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Targets", "_Targets", "{F8
 		CommonDebug.target = CommonDebug.target
 		CommonGlobalUsings.target = CommonGlobalUsings.target
 		CommonHarmony.target = CommonHarmony.target
+		CommonMM.target = CommonMM.target
 		CommonModdableBindito.target = CommonModdableBindito.target
 		CommonModdableWeather.target = CommonModdableWeather.target
 		CommonProperties.target = CommonProperties.target
@@ -269,6 +270,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModdableTimberborn", "ModdableTimberborn\ModdableTimberborn.csproj", "{34E6946E-27E3-4A26-AECF-6BD7BCB25A4F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectionalDynamite", "DirectionalDynamite\DirectionalDynamite.csproj", "{657FC626-A743-4E64-A3B3-7A14CC0B4B7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RubbleSatisfactidy", "RubbleSatisfactidy\RubbleSatisfactidy.csproj", "{3B06583F-5CB1-43F9-AA95-A846199FDD2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -724,6 +727,10 @@ Global
 		{657FC626-A743-4E64-A3B3-7A14CC0B4B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{657FC626-A743-4E64-A3B3-7A14CC0B4B7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{657FC626-A743-4E64-A3B3-7A14CC0B4B7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B06583F-5CB1-43F9-AA95-A846199FDD2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B06583F-5CB1-43F9-AA95-A846199FDD2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B06583F-5CB1-43F9-AA95-A846199FDD2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B06583F-5CB1-43F9-AA95-A846199FDD2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

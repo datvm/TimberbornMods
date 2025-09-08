@@ -15,6 +15,8 @@ public class DirectionalDynamiteFragment(
     Toggle chkDoNotTrigger;
 #nullable enable
 
+    new IDirectionalDynamiteComponent? component;
+
     public void Load()
     {
         arrowIndicator = assetLoader.Load<Sprite>("Sprites/UI/chevron");
@@ -36,26 +38,44 @@ public class DirectionalDynamiteFragment(
         cboDirection.SetItems(dropdownItemsSetter, directionalDynamiteService.DirectionNames);
     }
 
+    static IDirectionalDynamiteComponent? TryGetComponent(BaseComponent entity)
+    {
+        if (MStarter.HasMacroManagement)
+        {
+            var mm = MMDirectionalDynamiteComponent.TryGetMM(entity);
+            if (mm is not null)
+            {
+                return mm;
+            }
+        }
+
+        var result = entity.GetComponentFast<DirectionalDynamiteComponent>();
+        return result ? result : null;
+    }
+
     public override void ShowFragment(BaseComponent entity)
     {
-        base.ShowFragment(entity);
-        if (!component) { return; }
+        // Do not call base, we have custom logic
+        component = TryGetComponent(entity);
+        if (component is null) { return; }
 
         cboDirection.SetSelectedItem(DirectionalDynamiteService.AllDirections.IndexOf(component.Direction));
         ShowDirection();
 
         chkDoNotTrigger.SetValueWithoutNotify(component.DoNotTriggerNeighbor);
+        panel.Visible = true;
     }
 
     public override void ClearFragment()
     {
         HideDirection();
+        component = null;
         base.ClearFragment();
     }
 
     void OnDirectionSelected(string? value, int index)
     {
-        if (!component) { return; }
+        if (component is null) { return; }
         component.Direction = DirectionalDynamiteService.AllDirections[index];
         ShowDirection();
     }
@@ -65,7 +85,7 @@ public class DirectionalDynamiteFragment(
 
     void OnDoNotTriggerChanged(bool value)
     {
-        if (!component) { return; }
+        if (component is null) { return; }
         component.DoNotTriggerNeighbor = value;
     }
 
