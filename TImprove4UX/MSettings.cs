@@ -28,6 +28,10 @@ public class MSettings(
         .CreateLocalized("LV.T4UX.CollapseEntityPanelGlobal")
         .SetLocalizedTooltip("LV.T4UX.CollapseEntityPanelGlobalDesc"));
 
+    public ModSetting<bool> ShowDynamiteDestruction { get; } = new(true, ModSettingDescriptor
+        .CreateLocalized("LV.T4UX.ShowDynamiteDestruction")
+        .SetLocalizedTooltip("LV.T4UX.ShowDynamiteDestructionDesc"));
+
     public override void OnBeforeLoad()
     {
         base.OnBeforeLoad();
@@ -39,6 +43,8 @@ public class MSettings(
         var isMainMenu = contextProvider.Context == ModSettingsContext.MainMenu;
         CollapseEntityPanel.Descriptor.SetEnableCondition(() => isMainMenu);
         CollapseEntityPanelGlobal.Descriptor.SetEnableCondition(() => CollapseEntityPanel.Value);
+
+        ShowDynamiteDestruction.Descriptor.SetEnableCondition(() => !MStarter.HasDirectionalDynamite);
     }
 
     public override void OnAfterLoad()

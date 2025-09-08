@@ -5,6 +5,10 @@ Another mod for your [url=https://steamcommunity.com/workshop/filedetails/?id=34
 - [b]Undo building[/b]: Quickly remove the most recent building actions you placed. If any of the buildings is already in progress or completed, a confirmation dialog will appear to confirm the undo action. You can choose how many actions you can undo in the settings, default 5. Default hotkey: Ctrl + Z.
 - [b]Shift to Delete[/b]: While in any building tool, hold Shift to delete matching buildings in an area instead. You can optionally select 'Delete all kinds of buildings' to remove all types of buildings. Default hotkey: Shift ([b]note[/b] this one is in the UI group, called Alternate button action).
 - [b]Recent tool[/b]: Quickly switch to the most recently used tool. Default hotkey: Ctrl + Shift + Mouse Scroll.
+- [b]Collapsible entity panels[/b]: Make the entity panels (the info panels to the right when you select a building) collapsible. The expand/collapse state is stored with your game save or you can check "Global collapse state" to save it globally.
+[img]https://i.imgur.com/GoBpI6j.jpeg[/img]
+- [b]Show Dynamite destruction[/b]: Show the terrain and buildings that would be destroyed when selecting a Dynamite. If you have Multi-directional Dynamite mod enabled, this option is not needed and that mod would enable this option always.
+[img]https://i.imgur.com/47kmn3i.jpeg[/img]
 
 All hotkeys can be changed in the game Settings -> Keybindings. It's in the mod's own "TImprove 4 UX" hotkey group.
 
@@ -19,6 +23,7 @@ If you need any support or feedback, feel free to contact me on Timberborn's off
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v7.0.3: Added Collapsible entity panels and Show Dynamite destruction options, both enabled by default.
 v7.0.2: credit to @normanr
 - You can now use multiple "Undo building" actions (configurable, default 5).
 - Fixed a bug when changing tool while holding Shift.

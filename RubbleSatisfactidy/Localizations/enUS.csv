@@ -3,3 +3,6 @@ LV.RSa.CleanUpAll,"Clean up all Rubbles NOW!",
 LV.RSa.NotEnoughSpace,"There is not enough storage to put these in:
 {0}",
 LV.RSa.Item,"• {0} {1}",
+LV.RSa.DiscardRemaining,"Discard remaining",
+LV.RSa.DiscardConfirm,"Are you sure you want to discard the remaining items? The following items will be lost and cannot be undone:
+{0}",

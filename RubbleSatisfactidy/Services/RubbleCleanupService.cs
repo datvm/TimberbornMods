@@ -6,6 +6,7 @@ public class RubbleCleanupService(
     EntityRegistry entityRegistry,
     DialogBoxShower diag,
     IGoodService goodService,
+    EntityService entityService,
 #pragma warning disable CS9113 // Just for DI order
     IEntityPanel _
 #pragma warning restore CS9113 // Parameter is unread.
@@ -76,14 +77,40 @@ public class RubbleCleanupService(
 
     void ShowUncapacityMessage(Dictionary<string, int> uncapacity)
     {
-        var msg = t.T("LV.RSa.NotEnoughSpace", string.Join(
+        var itemList = string.Join(
             Environment.NewLine,
             uncapacity.Select(kv => t.T("LV.RSa.Item", kv.Value, goodService.GetGood(kv.Key).PluralDisplayName.Value))
-        ));
+        );
+
+        var msg = t.T("LV.RSa.NotEnoughSpace", itemList);
 
         diag.Create()
             .SetMessage(msg)
+            .SetCancelButton(TimberUiUtils.DoNothing, t.T("Core.OK"))
+            .SetConfirmButton(ShowDiscardConfirm, t.T("LV.RSa.DiscardRemaining"))
             .Show();
+
+        void ShowDiscardConfirm()
+        {
+            var msg = t.T("LV.RSa.DiscardConfirm", itemList);
+            diag.Create()
+                .SetMessage(msg)
+                .SetConfirmButton(DeleteAllRubbles)
+                .SetDefaultCancelButton()
+                .Show();
+        }
+    }
+
+    void DeleteAllRubbles()
+    {
+        foreach (var e in entityRegistry.Entities.ToArray())
+        {
+            var gs = e.GetComponentFast<RecoveredGoodStack>();
+            if (gs)
+            {
+                entityService.Delete(gs);
+            }
+        }
     }
 
     IEnumerable<RecoveredGoodStack> GatherRecoveredGoodStacks()

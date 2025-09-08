@@ -7,6 +7,8 @@ public class ModMenuConfig : Configurator
     {
         this
             .BindSingleton<MSettings>()
+
+            .MultiBindSingleton<IModUpdateNotifier, ModUpdateNotification>()
         ;
     }
 }
@@ -22,6 +24,7 @@ public class ModGameConfig : Configurator
             .BindSingleton<UndoBuildingService>()
             .BindSingleton<AlternateDeleteObjectTool>()
             .BindSingleton<RecentToolService>()
+            .BindSingleton<DynamiteDestructionService>()
 
             .BindSingleton<CollapsibleEntityPanelService>()
         ;

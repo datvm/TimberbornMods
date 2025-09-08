@@ -1,0 +1,17 @@
+Dynamites are no longer limited to blowing downward. With this mod, you can choose any one of the six terrain directions for your blast! To reduce chaos, you can also disable chain reactions so nearby dynamites won't accidentally ignite.
+
+When selecting, the mod highlights exactly which terrain blocks and buildings will be destroyed, so you always know what's at stake.
+
+Note: To prevent confusion, when choosing a direction that is not above or below, an arrow is displayed showing where the explosion will go. It does not matter if you rotated the dynamite when placing.
+
+Depth Rule:
+- Skips over the first empty spaces.
+- Destroys the first solid block(s) within its set depth.
+- Stops if a building or open air is encountered.
+
+Tips:
+- Works with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3503326209]Macro-Management[/url]: multi-select and set up blasts across in one go.
+- Works with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3464790115]Configurable Explosives[/url]: customize the depth to suit your demolition plans.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods

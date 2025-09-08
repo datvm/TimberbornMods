@@ -3,7 +3,13 @@ Tired of rubble piles cluttering your colony? Nothing's more frustrating than th
 This mod adds a single button: "Clean up all Rubbles NOW!"
 Click it, and every piece of rubble will be gathered and distributed into available storages across the map.
 
+If you do not have enough storage to keep everything, the mod also gives you an option to [b]discard[/b] (WARNING: meaning, lost forever) the remaining.
+
 Finally, a clean slate. [b]No rubble left behind![/b]
+
+Note: Materials are automatically distributed into all storage buildings, no matter the districts of the rubble or storage. Likely in the order that you built the storage buildings.
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v7.0.1: Added "Discard remaining" option when your storage is full, to delete [b]ALL[/b] remaining Rubbles on the map.
