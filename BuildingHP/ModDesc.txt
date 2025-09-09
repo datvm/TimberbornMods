@@ -77,4 +77,6 @@ Repairing a building uses one material type, chosen as:
 Calculation details: see [b]BuildingRepairService.cs[/b].
 
 ===
+v7.0.3: Material supply is now opt-out.
+v7.0.2: Fixed loading a save with a previous version where renovation could be built on unfinished buildings.
 v7.0.1: Added certain support for more mods.
