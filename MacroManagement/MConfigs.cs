@@ -8,6 +8,7 @@ public class ModGameConfig : Configurator
         this
             .BindSingleton<MultiSelectService>()
             .BindSingleton<MacroManagementController>()
+            .BindSingleton<MultiselectTool>()
 
             .BindSingleton<UIService>()
             .BindFragment<MultiSelectFragment>()

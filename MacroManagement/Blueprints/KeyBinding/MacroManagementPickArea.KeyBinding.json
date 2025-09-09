@@ -1,0 +1,12 @@
+{
+    "KeyBindingSpec": {
+        "Id": "MacroManagementPickArea",
+        "GroupId": "UI",
+        "LocKey": "LV.MacM.KeyBindingPickArea",
+        "Order": 430
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/A",
+        "InputModifiers": "Alt"
+    }
+}
