@@ -13,6 +13,7 @@ public class MacroManagementController(
     public const string CopyKeyId = "MacroManagementCopy";
     public const string SelectAllKeyId = "MacroManagementSelectAll";
     public const string SelectDistrictKeyId = "MacroManagementSelectDistrict";
+    public const string PickAreaKeyId = "MacroManagementPickArea";
 
     FrozenDictionary<string, ToolButton> toolButtons = FrozenDictionary<string, ToolButton>.Empty;
     

@@ -29,6 +29,14 @@ public class MultiSelectService(
         entitySelectionService.Select(mm);
     }
 
+    public void SelectItems(PrefabSpec original, ImmutableArray<PrefabSpec> buildings)
+    {
+        if (buildings.IsDefaultOrEmpty) { return; }
+
+        var mm = CreateCollectionFor(original, buildings);
+        entitySelectionService.Select(mm);
+    }
+
     public MMComponent CreateCollectionFor(PrefabSpec originalPrefab, ImmutableArray<PrefabSpec> buildings)
     {
         if (originalPrefab.GetComponentFast<MMComponent>())
@@ -70,7 +78,7 @@ public class MultiSelectService(
     }
 
     public SelectableObject? TryAddSelection(SelectableObject target)
-    {        
+    {
         if (!inputService.IsKeyHeld(AltKeyId) // Only when holding Shift
             || !entitySelectionService.IsAnythingSelected // Only when something is selected
             || !target.GetComponentFast<BuildingSpec>()) // Only for buildings
@@ -88,7 +96,7 @@ public class MultiSelectService(
         if (!currPrefab) { return target; }
 
         var mm = currPrefab.GetComponentFast<MMComponent>();
-        
+
         if (mm)
         {
             // Check if the building is already selected
@@ -141,18 +149,7 @@ public class MultiSelectService(
             var prefab = entity.GetComponentFast<PrefabSpec>();
             if (!prefab || prefab.Name != name) { continue; }
 
-            var pausable = entity.GetComponentFast<PausableBuilding>();
-            if (pausable)
-            {
-                if (pausable.Paused)
-                {
-                    if ((flags & MacroManagementSelectionFlags.Paused) == 0) { continue; }
-                }
-                else if ((flags & MacroManagementSelectionFlags.Running) == 0)
-                {
-                    continue;
-                }
-            }
+            if (!MatchPausable(entity, flags)) { continue; }
 
             if (hasDistrictFlag)
             {
@@ -167,6 +164,25 @@ public class MultiSelectService(
         }
 
         return [.. result];
+    }
+
+    public bool MatchPausable<T>(T comp, MacroManagementSelectionFlags flags)
+        where T : BaseComponent
+    {
+        var pausable = comp.GetComponentFast<PausableBuilding>();
+        if (pausable && pausable.IsPausable())
+        {
+            if (pausable.Paused)
+            {
+                if ((flags & MacroManagementSelectionFlags.Paused) == 0) { return false; }
+            }
+            else if ((flags & MacroManagementSelectionFlags.Running) == 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     MMComponent CreateDummyObject(PrefabSpec originalPrefab, in ImmutableArray<PrefabSpec> matching)
@@ -247,6 +263,13 @@ public class MultiSelectService(
         {
             PerformMap<DummyHaulCandidate, HaulCandidate>();
             PerformMap<DummyHaulPrioritizable, HaulPrioritizable>();
+        }
+
+        // Dynamite
+        var dynamite = original.GetComponentFast<Dynamite>();
+        if (dynamite)
+        {
+            PerformMap<DummyDynamite, Dynamite>();
         }
 
         TComponent PerformAdd<TComponent>()

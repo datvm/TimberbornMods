@@ -4,7 +4,9 @@ public class MultiSelectFragment(
     MacroManagementController controller,
     ILoc t,
     InputService inputs,
-    InputBindingDescriber hotkeyDescriber
+    InputBindingDescriber hotkeyDescriber,
+    MultiselectTool multiselectTool,
+    ToolManager toolManager
 ) : IEntityPanelFragment, IInputProcessor
 {
 
@@ -15,7 +17,7 @@ public class MultiSelectFragment(
 
     Label lblSelect;
     Button btnCopy;
-    Button btnSelectDistrict, btnSelectAll;
+    Button btnSelectDistrict, btnSelectAll, btnPickArea;
 #nullable enable
 
     MacroManagementInfo? info;
@@ -37,7 +39,7 @@ public class MultiSelectFragment(
         };
 
         btnCopy = AddButton(Panel, null, RequestCopy);
-
+        
         AddSelectPanel(Panel);
 
         return Panel;
@@ -53,6 +55,7 @@ public class MultiSelectFragment(
 
         btnSelectAll = AddButton(container, "LV.MacM.SelectAll", () => SelectBuildings(MacroManagementSelectionFlags.None));
         btnSelectDistrict = AddButton(container, null, () => SelectBuildings(MacroManagementSelectionFlags.District));
+        btnPickArea = AddButton(container, "LV.MacM.PickArea", PickArea);
 
         chkRunning.SetValueWithoutNotify(true);
         chkPaused.SetValueWithoutNotify(true);
@@ -89,6 +92,7 @@ public class MultiSelectFragment(
         lblSelect.text = t.T("LV.MacM.Select", name);
 
         btnSelectAll.text = hotkeyDescriber.GetCommandWithHotkey(t.T("LV.MacM.SelectAll", name), MacroManagementController.SelectAllKeyId);
+        btnPickArea.text = hotkeyDescriber.GetCommandWithHotkey(t.T("LV.MacM.PickArea"), MacroManagementController.PickAreaKeyId);
 
         var dc = info.DistrictCenter;
         canSelectDistrict = dc;
@@ -107,10 +111,29 @@ public class MultiSelectFragment(
         controller.RequestCopy(info.Value);
     }
 
-    void SelectBuildings(MacroManagementSelectionFlags flags)
+    void PickArea()
     {
         if (info is null) { return; }
 
+        var flags = MacroManagementSelectionFlags.None;
+        flags = AddStateFlags(flags);
+        multiselectTool.FilterFlag = flags;
+
+        multiselectTool.SelectingPrefab = info.Value.PrefabSpec;
+
+        toolManager.SwitchTool(multiselectTool);
+    }
+
+    void SelectBuildings(MacroManagementSelectionFlags flags)
+    {
+        if (info is null) { return; }
+        flags = AddStateFlags(flags);
+
+        controller.RequestSelection(info.Value, flags);
+    }
+
+    MacroManagementSelectionFlags AddStateFlags(MacroManagementSelectionFlags flags)
+    {
         if (chkRunning.value)
         {
             flags |= MacroManagementSelectionFlags.Running;
@@ -121,7 +144,7 @@ public class MultiSelectFragment(
             flags |= MacroManagementSelectionFlags.Paused;
         }
 
-        controller.RequestSelection(info.Value, flags);
+        return flags;
     }
 
     public void UpdateFragment() { }
@@ -134,6 +157,12 @@ public class MultiSelectFragment(
             return true;
         }
         
+        if (inputs.IsKeyDown(MacroManagementController.PickAreaKeyId))
+        {
+            PickArea();
+            return true;
+        }
+
         if (inputs.IsKeyDown(MacroManagementController.SelectAllKeyId))
         {
             SelectBuildings(MacroManagementSelectionFlags.None);
