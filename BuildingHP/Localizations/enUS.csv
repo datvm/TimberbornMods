@@ -114,3 +114,9 @@ LV.BHP.RenovationDecreasePriorityHotKey,"Decrease renovation priority",
 LV.BHP.RenovationIncreasePriorityHotKey,"Increase renovation priority",
 LV.BHP.RenovationStockpileDecreasePriorityHotKey,"Decrease renovation stockpile priority",
 LV.BHP.RenovationStockpileIncreasePriorityHotKey,"Increase renovation stockpile priority",
+LV.BHP.UpdateText,"<b>Stockpile/Storage supply for Renovation is now OPT-OUT</b>
+Sorry about the confusion caused by the description on Renovation description. I should have put it higher.
+Nevertheless, after the current update, all Storage will supply materials for renovation by default. You need to uncheck it if you want to opt-out instead of opt-in like before.
+Again, I want to clarify <b>how material supply for renovation works:</b>
+- You do <b>NOT</b> need Builders or Haulers.
+- All materials will be taken <b>instantly</b> from any Storage building that has "Supply materials for renovations" checked. It is not taken gradually but at once when all materials are available.",

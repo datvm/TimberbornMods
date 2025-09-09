@@ -3,16 +3,18 @@
 public class BuildingRenovationStockpileComponent : BaseComponent, IFinishedStateListener, IPrioritizable, IPersistentEntity
 {
     public static readonly ComponentKey SaveKey = new("BuildingHPStockpile");
-    static readonly PropertyKey<bool> SupplyKey = new("Supply");
+    static readonly PropertyKey<bool> SupplyKey = new("SupplyNew");
     static readonly PropertyKey<int> PriorityKey = new("Priority");
 
 #nullable disable
     public Stockpile Stockpile { get; private set; }
     BuildingHPRegistry buildingHPRegistry;
+    BlockObject blockObject;
 #nullable enable
 
-    public bool Supply { get; private set; }
+    public bool Supply { get; private set; } = true;
     public Priority Priority { get; private set; } = Priority.Normal;
+    public bool IsFinished => blockObject.IsFinished;
 
     [Inject]
     public void Inject(BuildingHPRegistry buildingHPRegistry)
@@ -23,11 +25,12 @@ public class BuildingRenovationStockpileComponent : BaseComponent, IFinishedStat
     public void Awake()
     {
         Stockpile = GetComponentFast<Stockpile>();
+        blockObject = GetComponentFast<BlockObject>();
     }
 
     void Reregister()
     {
-        if (Supply)
+        if (Supply && IsFinished)
         {
             buildingHPRegistry.RegisterStockpile(this, Priority);
         }
@@ -39,7 +42,7 @@ public class BuildingRenovationStockpileComponent : BaseComponent, IFinishedStat
 
     public void OnEnterFinishedState()
     {
-
+        Reregister();
     }
 
     public void OnExitFinishedState()

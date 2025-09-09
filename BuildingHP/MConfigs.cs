@@ -12,7 +12,15 @@ public class CommonConfig : Configurator
 }
 
 [Context("MainMenu")]
-public class ModMainMenuConfig : CommonConfig { }
+public class ModMainMenuConfig : CommonConfig
+{
+    public override void Configure()
+    {
+        base.Configure();
+
+        this.MultiBindSingleton<IModUpdateNotifier, UpdateNotification>();
+    }
+}
 
 [Context("Game")]
 public class ModGameConfig : CommonConfig
@@ -30,7 +38,7 @@ public class ModGameConfig : CommonConfig
 
             .BindSingleton<RenovationPriorityToggleGroupFactory>()
             .BindFragment<BuildingHPFragment>()
-            .BindSingleton<BuildingHPFragmentMover>()            
+            .BindSingleton<BuildingHPFragmentMover>()
             .BindFragment<RenovationStockpileFragment>()
 
             .MultiBindSingleton<IDevModule, HPDevModule>()
