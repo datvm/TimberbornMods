@@ -1,0 +1,12 @@
+{
+    "Name": "Moddable Timberborn Demo",
+    "Version": "7.0.0",
+    "Id": "ModdableTimberbornDemo",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Demo for Moddable Timberborn",
+    "RequiredMods": [
+        { "Id": "Harmony" },
+        { "Id": "TimberUi" },
+        { "Id": "ModdableTimberborn" }
+    ]
+}

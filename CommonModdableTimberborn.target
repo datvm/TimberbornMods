@@ -1,0 +1,15 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<ModdableTimberbornPath>$(GameModsFolder)ModdableTimberborn\$(TimberbornVersion)\**\*.dll</ModdableTimberbornPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Include="ModdableTimberborn" />
+		<Using Include="ModdableTimberborn.Services" />
+		<Using Include="ModdableTimberborn.Helpers" />
+		<Using Include="ModdableTimberborn.Registry" />
+
+		<Reference Include="$(ModdableTimberbornPath)" Private="False" />
+	</ItemGroup>
+</Project>

@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Targets", "_Targets", "{F8
 		CommonHarmony.target = CommonHarmony.target
 		CommonMM.target = CommonMM.target
 		CommonModdableBindito.target = CommonModdableBindito.target
+		CommonModdableTimberborn.target = CommonModdableTimberborn.target
 		CommonModdableWeather.target = CommonModdableWeather.target
 		CommonProperties.target = CommonProperties.target
 		CommonScientificProjects.target = CommonScientificProjects.target
@@ -272,6 +273,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectionalDynamite", "DirectionalDynamite\DirectionalDynamite.csproj", "{657FC626-A743-4E64-A3B3-7A14CC0B4B7D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RubbleSatisfactidy", "RubbleSatisfactidy\RubbleSatisfactidy.csproj", "{3B06583F-5CB1-43F9-AA95-A846199FDD2F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ModdableTimberborn", "ModdableTimberborn", "{548BD0EE-6EE0-49E9-BE70-17FD4D2383B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModdableTimberbornDemo", "ModdableTimberbornDemo\ModdableTimberbornDemo.csproj", "{5163B6F1-06CA-4799-939D-21F3DADEB89C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -731,6 +736,10 @@ Global
 		{3B06583F-5CB1-43F9-AA95-A846199FDD2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B06583F-5CB1-43F9-AA95-A846199FDD2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B06583F-5CB1-43F9-AA95-A846199FDD2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5163B6F1-06CA-4799-939D-21F3DADEB89C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5163B6F1-06CA-4799-939D-21F3DADEB89C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5163B6F1-06CA-4799-939D-21F3DADEB89C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5163B6F1-06CA-4799-939D-21F3DADEB89C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -808,8 +817,10 @@ Global
 		{D18AA391-2A8A-4BEE-B22B-0E5423AF3DFA} = {DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}
 		{CDAAA96E-C4B0-4EDB-93C1-BEFEB6BA62AA} = {5D10D08B-18D1-40D6-B0B2-83778419FC99}
 		{C3230609-D1CD-4DBA-ABC1-DC70CB14A1B7} = {9C86AE06-7E1D-47C7-90C1-83EA7E7CA365}
-		{34E6946E-27E3-4A26-AECF-6BD7BCB25A4F} = {DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}
+		{34E6946E-27E3-4A26-AECF-6BD7BCB25A4F} = {548BD0EE-6EE0-49E9-BE70-17FD4D2383B6}
 		{657FC626-A743-4E64-A3B3-7A14CC0B4B7D} = {4C24DB61-A115-4B00-BDBF-E8CD4EA9FDF2}
+		{548BD0EE-6EE0-49E9-BE70-17FD4D2383B6} = {DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}
+		{5163B6F1-06CA-4799-939D-21F3DADEB89C} = {548BD0EE-6EE0-49E9-BE70-17FD4D2383B6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}
