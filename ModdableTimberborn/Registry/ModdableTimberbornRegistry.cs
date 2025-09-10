@@ -4,17 +4,29 @@ public class ModdableTimberbornRegistry
 {
     public static readonly ModdableTimberbornRegistry Instance = new();
 
-    readonly HashSet<KeyValuePair<ConfigurationContext, Action<Configurator>>> configurators = [];
+    readonly HashSet<IModdableTimberbornRegistryComponent> configurators = [];
+    
+    static readonly HashSet<string> PatchedCategories = [];
+    static readonly Harmony harmony = new(nameof(ModdableTimberborn));
 
-    public void Configure(Configurator configurator, ConfigurationContext context)
+    private ModdableTimberbornRegistry()
     {
-        foreach (var (ctx, c) in configurators)
+        harmony.PatchAllUncategorized();
+    }
+
+    internal void Configure(Configurator configurator, ConfigurationContext context)
+    {
+        ModdableTimberbornUtils.CurrentContext = context;
+
+        foreach (var config in configurators)
         {
-            if ((ctx & context) != 0)
-            {
-                c(configurator);
-            }
+            config.Configure(configurator, context);
         }
+    }
+
+    internal void ConfigureStarter()
+    {
+        harmony.PatchAllUncategorized();
     }
 
     public bool MechanicalSystemUsed { get; private set; }
@@ -23,12 +35,22 @@ public class ModdableTimberbornRegistry
         if (MechanicalSystemUsed) { return this; }
 
         MechanicalSystemUsed = true;
-        configurators.Add(new(ConfigurationContext.Game, config =>
-        {
-
-        }));
+        AddConfigurator(ModdableMechanicalSystemConfigurator.Instance);
 
         return this;
     }
 
+    public void AddConfigurator(IModdableTimberbornRegistryComponent config)
+    {
+        configurators.Add(config);
+
+        if (config is IModdableTimberbornRegistryWithPatchComponent patchConfig)
+        {
+            var category = patchConfig.PatchCategory;
+            if (PatchedCategories.Add(category))
+            {
+                harmony.PatchCategory(category);
+            }
+        }
+    }
 }

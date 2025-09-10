@@ -3,25 +3,24 @@
 public static class ModdableTimberbornUtils
 {
 
-    public static void PatchAwakePostfix<TComp, TModdedComponent>(this TComp comp)
-        where TComp : BaseComponent
-        where TModdedComponent : BaseModdableComponent<TComp>
-    {
-        var modded = comp.GetComponentFast<TModdedComponent>();
-        modded.OriginalComponent = comp;
+    public static readonly FrozenSet<string> LoadedAssemblyNames;
+    public static readonly bool HasMoreModLogs;
 
-        if (modded is IModdableComponentAwake a)
-        {
-            a.AwakeAfter();
-        }
+    public static ConfigurationContext CurrentContext { get; internal set; } = ConfigurationContext.Bootstrapper;
+
+    static ModdableTimberbornUtils()
+    {
+        LoadedAssemblyNames = AppDomain.CurrentDomain.GetAssemblies()
+            .Select(asm => asm.GetName().Name)
+            .ToFrozenSet();
+
+        HasMoreModLogs = LoadedAssemblyNames.Contains("MoreModLogs");
     }
 
-    public static void PatchStartPostfix<TComp, TModdedComponent>(this TComp comp)
-        where TComp : BaseComponent
-        where TModdedComponent : BaseModdableComponent<TComp>, IModdableComponentStart
+    public static void LogDev(Func<string> msg)
     {
-        var modded = comp.GetComponentFast<TModdedComponent>();
-        modded.StartAfter();
+        if (!HasMoreModLogs) { return; }
+        Debug.Log(msg());
     }
 
 }

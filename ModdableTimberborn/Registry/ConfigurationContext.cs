@@ -1,5 +1,8 @@
 ﻿namespace ModdableTimberborn.Registry;
 
+/// <summary>
+/// The context in which the configuration is being applied.
+/// </summary>
 [Flags]
 public enum ConfigurationContext
 {

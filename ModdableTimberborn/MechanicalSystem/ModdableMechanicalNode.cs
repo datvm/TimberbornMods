@@ -8,25 +8,29 @@ public class ModdableMechanicalNode : BaseModdableComponent<MechanicalNode>, IMo
     public ModdableMechanicalNodeValues MechanicalNodeValues { get; private set; }
 #nullable enable
 
+    public event EventHandler<ModdableValueChanged<MechanicalNodeValues>>? OnMechanicalNodeValuesChanged;
+
     public void AwakeAfter()
     {
         modifiers = new(this);
 
         var original = OriginalComponent;
-        MechanicalNodeValues = new(new()
-        {
-            NominalInput = original._nominalPowerInput,
-            NominalOutput = original._nominalPowerOutput,
-        });
+        MechanicalNodeValues = new(new(original._nominalPowerInput, original._nominalPowerOutput));
     }
 
-    public void UpdateInput()
+    public void UpdateValues()
     {
-        if (modifiers.IsDirty)
-        {   
-            modifiers.Modify(MechanicalNodeValues);
-        }
+        if (!modifiers.IsDirty) { return; }
+
+        var currValue = MechanicalNodeValues.Value with { };
+        modifiers.Modify(MechanicalNodeValues);
+
+        if (currValue.Equals(MechanicalNodeValues.Value)) { return; }
+
+        var c = OriginalComponent;
+        c._nominalPowerInput = currValue.NominalInput;
+        c._nominalPowerOutput = currValue.NominalOutput;
+        OnMechanicalNodeValuesChanged?.Invoke(this, new ModdableValueChanged<MechanicalNodeValues>(currValue, MechanicalNodeValues.Value));
     }
 
-    
 }
