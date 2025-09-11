@@ -6,7 +6,8 @@ public class DirectionalDynamiteService(
     ITerrainService terrainService,
     TerrainDestroyService terrainDestroyService,
     TerrainHighlightingService terrainHighlightingService,
-    RollingHighlighter highlighter
+    RollingHighlighter highlighter,
+    MapSize mapSize
 ) : ILoadableSingleton
 {
 
@@ -45,7 +46,7 @@ public class DirectionalDynamiteService(
             currDepth++;
             coord = GoInDirection(coord, direction);
 
-            if (blockService.AnyObjectAt(coord)) { break; }
+            if (!mapSize.ContainsInTotal(coord) || blockService.AnyObjectAt(coord)) { break; }
 
             var hasTerrain = terrainService.Underground(coord);
             if (hasTerrain)
@@ -78,6 +79,8 @@ public class DirectionalDynamiteService(
     {
         var (buildings, terrains) = TerrainDestroyService.QueryDestructingEntities(coords);
         highlighter.HighlightPrimary(buildings, BrushColors.Negative);
+
+        Debug.Log("Highlighting terrains: " + string.Join(", ", terrains));
         terrainHighlightingService.UpdateHighlights(terrains, BrushColors.Negative);
     }
 

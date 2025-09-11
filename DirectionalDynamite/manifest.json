@@ -1,6 +1,6 @@
 {
     "Name": "Multi-directional Dynamite",
-    "Version": "7.0.1",
+    "Version": "7.0.2",
     "Id": "DirectionalDynamite",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Have a blast, in any direction!",
