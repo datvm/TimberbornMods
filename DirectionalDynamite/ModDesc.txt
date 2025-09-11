@@ -15,3 +15,5 @@ Tips:
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v7.0.3: Fixed a crash when building at the map bottom and top.
