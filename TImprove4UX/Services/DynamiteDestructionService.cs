@@ -6,7 +6,9 @@ public class DynamiteDestructionService(
     IBlockService blockService,
     ITerrainPhysicsService terrainPhysicsService,
     TerrainHighlightingService terrainHighlightingService,
-    RollingHighlighter highlighter
+    RollingHighlighter highlighter,
+    MapSize mapSize,
+    ITerrainService terrainService
 ) : ILoadableSingleton
 {
 
@@ -38,14 +40,17 @@ public class DynamiteDestructionService(
     {
         var coord = dynamite._blockObject.Coordinates.Below();
         var depth = dynamite.CalculateEffectiveDepth(coord);
-
+        
         var terrains = new List<Vector3Int>();
         for (int i = 0; i < depth; i++)
-        {
-            terrains.Add(coord - new Vector3Int(0, 0, i));
+        {            
+            if (!mapSize.ContainsInTotal(coord) || !terrainService.Underground(coord)) { break; }
+            terrains.Add(coord);
+            coord = coord.Below();
         }
 
         var (dBuildings, dTerrains) = QueryDestructingEntities(terrains);
+
         highlighter.HighlightPrimary(dBuildings, BrushColors.Negative);
         terrainHighlightingService.UpdateHighlights(dTerrains, BrushColors.Negative);
     }
