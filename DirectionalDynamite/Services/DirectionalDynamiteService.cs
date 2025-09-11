@@ -80,7 +80,6 @@ public class DirectionalDynamiteService(
         var (buildings, terrains) = TerrainDestroyService.QueryDestructingEntities(coords);
         highlighter.HighlightPrimary(buildings, BrushColors.Negative);
 
-        Debug.Log("Highlighting terrains: " + string.Join(", ", terrains));
         terrainHighlightingService.UpdateHighlights(terrains, BrushColors.Negative);
     }
 
