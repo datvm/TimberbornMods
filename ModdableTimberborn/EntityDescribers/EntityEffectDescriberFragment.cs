@@ -1,11 +1,11 @@
 ﻿namespace ModdableTimberborn.EntityDescribers;
 
-public class EntityDescriberFragment(
+public class EntityEffectDescriberFragment(
     ILoc t,
     IDayNightCycle dayNightCycle
 ) : IEntityPanelFragment
 {
-    readonly List<IBaseEntityDescriber> describers = [];
+    readonly List<IBaseEntityEffectDescriber> describers = [];
 
 #nullable disable
     EntityPanelFragmentElement panel;
@@ -30,7 +30,11 @@ public class EntityDescriberFragment(
 
     public void ShowFragment(BaseComponent entity)
     {
-        entity.GetComponentsFast(describers);
+        if (entity)
+        {
+            entity.GetComponentsFast(describers);
+        }
+        UpdateFragment();
     }
 
     public void UpdateFragment()
@@ -43,10 +47,10 @@ public class EntityDescriberFragment(
         {
             switch (describer)
             {
-                case IEntityDescriber d:
+                case IEntityEffectDescriber d:
                     AddDescription(d.Describe(t, dayNightCycle));
                     break;
-                case IEntityMultiDescriber md:
+                case IEntityMultiEffectsDescriber md:
                     foreach (var desc in md.DescribeAll(t, dayNightCycle))
                     {
                         AddDescription(desc);
@@ -65,7 +69,7 @@ public class EntityDescriberFragment(
             panel.Visible = false;
         }
 
-        void AddDescription(EntityDescription? desc)
+        void AddDescription(EntityEffectDescription? desc)
         {
             if (desc is null) { return; }
             var (title, details, time) = desc.Value;

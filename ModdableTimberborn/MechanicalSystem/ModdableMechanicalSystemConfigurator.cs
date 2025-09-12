@@ -1,6 +1,6 @@
 ﻿namespace ModdableTimberborn.MechanicalSystem;
 
-public class ModdableMechanicalSystemConfigurator : IModdableTimberbornRegistryWithPatchComponent
+public class ModdableMechanicalSystemConfigurator : IModdableTimberbornRegistryWithPatchConfig
 {
     public const string PatchCategoryName = $"{nameof(ModdableTimberborn)}.{nameof(MechanicalSystem)}";
     public static readonly ModdableMechanicalSystemConfigurator Instance = new();

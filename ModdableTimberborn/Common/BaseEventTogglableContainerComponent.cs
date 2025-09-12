@@ -1,4 +1,5 @@
-﻿namespace ModdableTimberborn.Common;
+﻿
+namespace ModdableTimberborn.Common;
 
 public abstract class BaseEventTogglableContainerComponent<TTogglable, TContainer, TMember> : BaseComponent, ITogglableContainer<TContainer, TMember>
     where TTogglable : BaseEventTogglableContainer<TContainer, TMember>
@@ -9,9 +10,16 @@ public abstract class BaseEventTogglableContainerComponent<TTogglable, TContaine
 
     public TContainer Container => data.Container;
     public IEnumerable<TMember> Members => data.Members;
-    public bool Active { get; }
+    public bool Active => data.Active;
 
-    public virtual void Awake() => data = CreateData(GetComponentFast<TContainer>());
+    public event Action<bool>? Toggled;
+
+    public virtual void Awake()
+    {
+        data = CreateData(GetComponentFast<TContainer>());
+        data.Toggled += e => Toggled?.Invoke(e);
+    }
+
     public void Toggle(bool active) => data.Toggle(active);
 
     protected abstract TTogglable CreateData(TContainer comp);

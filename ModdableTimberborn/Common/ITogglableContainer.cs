@@ -2,6 +2,8 @@
 
 public interface ITogglableContainer<TContainer, TMember>
 {
+    event Action<bool>? Toggled;
+
     TContainer Container { get; }
     IEnumerable<TMember> Members { get; }
     bool Active { get; }
