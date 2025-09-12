@@ -1,10 +1,13 @@
-﻿namespace ModdableTimberborn.Common;
+﻿
+namespace ModdableTimberborn.Common;
 
 public abstract class BaseTogglableContainer<TContainer, TMember> : ITogglableContainer<TContainer, TMember>
 {
     public abstract TContainer Container { get; }
     public abstract IEnumerable<TMember> Members { get; }
     public bool Active { get; private set; }
+
+    public event Action<bool>? Toggled;
 
     public void Toggle(bool active)
     {
@@ -19,6 +22,8 @@ public abstract class BaseTogglableContainer<TContainer, TMember> : ITogglableCo
         {
             PerformDeactivate();
         }
+
+        Toggled?.Invoke(active);
     }
 
     protected abstract void PerformActivate();

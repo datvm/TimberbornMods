@@ -1,12 +1,12 @@
 ﻿namespace ModdableTimberborn;
 
-public class ModdableTimberbornConfigurator : IModdableTimberbornRegistryComponent
+public class ModdableTimberbornConfigurator : IModdableTimberbornRegistryConfig
 {
     
     public void Configure(Configurator configurator, ConfigurationContext context)
     {
-        var isGame = context.HasFlag(ConfigurationContext.Game);
-        var isMapEditor = context.HasFlag(ConfigurationContext.MapEditor);
+        var isGame = context.IsGameContext();
+        var isMapEditor = context.IsMapEditorContext();
 
         if (isGame || isMapEditor)
         {

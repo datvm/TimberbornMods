@@ -1,13 +1,13 @@
 ﻿namespace ModdableTimberborn.Registry;
 
-public interface IModdableTimberbornRegistryComponent
+public interface IModdableTimberbornRegistryConfig
 {
 
     void Configure(Configurator configurator, ConfigurationContext context);
 
 }
 
-public interface IModdableTimberbornRegistryWithPatchComponent : IModdableTimberbornRegistryComponent
+public interface IModdableTimberbornRegistryWithPatchConfig : IModdableTimberbornRegistryConfig
 {
     string PatchCategory { get; }
 }

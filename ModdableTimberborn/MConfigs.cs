@@ -35,10 +35,3 @@ public class ModMapEditorConfig : Configurator
         ModdableTimberbornRegistry.Instance.Configure(this, ConfigurationContext.MapEditor);
     }
 }
-
-public class MStarter : IModStarter
-{
-
-    void IModStarter.StartMod(IModEnvironment modEnvironment) => ModdableTimberbornRegistry.Instance.ConfigureStarter();
-
-}

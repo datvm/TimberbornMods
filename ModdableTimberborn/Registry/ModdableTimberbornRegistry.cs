@@ -1,17 +1,59 @@
-﻿namespace ModdableTimberborn.Registry;
+﻿
+namespace ModdableTimberborn.Registry;
 
 public class ModdableTimberbornRegistry
 {
-    public static readonly ModdableTimberbornRegistry Instance = new();
+    public static readonly ModdableTimberbornRegistry Instance ;
 
-    readonly HashSet<IModdableTimberbornRegistryComponent> configurators = [];
+    readonly HashSet<IModdableTimberbornRegistryConfig> configurators = [];
     
     static readonly HashSet<string> PatchedCategories = [];
-    static readonly Harmony harmony = new(nameof(ModdableTimberborn));
+    static readonly Harmony harmony;
+
+
+    public bool MechanicalSystemUsed { get; private set; }
+    public ModdableTimberbornRegistry UseMechanicalSystem()
+    {
+        if (MechanicalSystemUsed) { return this; }
+
+        MechanicalSystemUsed = true;
+        AddConfigurator(ModdableMechanicalSystemConfigurator.Instance);
+
+        return this;
+    }
+
+    public ModdableTimberbornRegistry AddConfigurator(IModdableTimberbornRegistryConfig config)
+    {
+        configurators.Add(config);
+
+        if (config is IModdableTimberbornRegistryWithPatchConfig patchConfig)
+        {
+            var category = patchConfig.PatchCategory;
+            if (PatchedCategories.Add(category))
+            {
+                harmony.PatchCategory(category);
+            }
+        }
+
+        return this;
+    }
+
+    public ModdableTimberbornRegistry AddConfigurator<T>()
+        where T : IModdableTimberbornRegistryConfig, new()
+        => AddConfigurator(new T());
+
+
+    static ModdableTimberbornRegistry()
+    {
+        harmony = new(nameof(ModdableTimberborn));
+        Instance = new();
+    }
 
     private ModdableTimberbornRegistry()
     {
         harmony.PatchAllUncategorized();
+
+        AddDefaultConfigurators();
     }
 
     internal void Configure(Configurator configurator, ConfigurationContext context)
@@ -29,28 +71,9 @@ public class ModdableTimberbornRegistry
         harmony.PatchAllUncategorized();
     }
 
-    public bool MechanicalSystemUsed { get; private set; }
-    public ModdableTimberbornRegistry UseMechanicalSystem()
+    void AddDefaultConfigurators()
     {
-        if (MechanicalSystemUsed) { return this; }
-
-        MechanicalSystemUsed = true;
-        AddConfigurator(ModdableMechanicalSystemConfigurator.Instance);
-
-        return this;
+        AddConfigurator<ModdableEntityDescriberConfigurator>();
     }
 
-    public void AddConfigurator(IModdableTimberbornRegistryComponent config)
-    {
-        configurators.Add(config);
-
-        if (config is IModdableTimberbornRegistryWithPatchComponent patchConfig)
-        {
-            var category = patchConfig.PatchCategory;
-            if (PatchedCategories.Add(category))
-            {
-                harmony.PatchCategory(category);
-            }
-        }
-    }
 }

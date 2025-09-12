@@ -1,13 +1,13 @@
 ﻿namespace ModdableTimberborn.EntityDescribers;
 
-public class ModdableEntityDescriberConfigurator : IModdableTimberbornRegistryComponent
+public class ModdableEntityDescriberConfigurator : IModdableTimberbornRegistryConfig
 {
 
     public void Configure(Configurator configurator, ConfigurationContext context)
     {
-        if (!context.HasFlag(ConfigurationContext.Game)) { return; }
+        if (!context.IsGameContext()) { return; }
 
-        configurator.BindFragment<EntityDescriberFragment>();
+        configurator.BindFragment<EntityEffectDescriberFragment>();
     }
 
 }
