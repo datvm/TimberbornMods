@@ -35,25 +35,35 @@ public class EarthquakeReinforcementComponent : BaseComponent, IPersistentEntity
     {
         if (HasDormantSymbiosis)
         {
-            Debug.Log($"{this}: Has Symbiosis, damage cancelled");
             e.Cancel = true;
-            SetDurability();
-
-            var reno = this.GetRenovationComponent();
-            reno.RemoveActiveRenovation(EqDurabilityProvider.RenoId);
-            HasDormantSymbiosis = false;
+            ActivateDormantSymbiosis();
         }
         else if (ImmunityCount > 0)
         {
-            Debug.Log($"{this}: Has Immunity, immunity count before: {ImmunityCount}");
-            ImmunityCount--;
             e.Cancel = true;
+            ActivateImmunity();
         }
         else if (HasDamageReduction)
         {
-            Debug.Log($"{this}: Has Damage Reduction, damage changed by: {e.Damage * damageReductionSpec.Parameters[0]}");
             e.Damage += Mathf.RoundToInt(e.Damage * damageReductionSpec.Parameters[0]);
         }
+    }
+
+    void ActivateImmunity()
+    {
+        ImmunityCount--;
+
+        if (ImmunityCount <= 0)
+        {
+            var reno = this.GetRenovationComponent();
+            reno.RemoveActiveRenovation(EqImmunityProvider.RenoId);
+        }
+    }
+
+    void ActivateDormantSymbiosis()
+    {
+        SetDurability();
+        HasDormantSymbiosis = false;
     }
 
     public void Initialize()
@@ -65,7 +75,7 @@ public class EarthquakeReinforcementComponent : BaseComponent, IPersistentEntity
         damageImmunitySpec = serv.GetSpec(EqImmunityProvider.RenoId);
         durabilitySpec = serv.GetSpec(EqDurabilityProvider.RenoId);
 
-        HasDormantSymbiosis = reno.HasRenovation(EqDurabilityProvider.RenoId);
+        HasDormantSymbiosis = !HasActiveSymbiosis && reno.HasRenovation(EqDurabilityProvider.RenoId);
 
         if (reno.HasRenovation(EqDamageReductionProvider.RenoId))
         {
@@ -106,6 +116,7 @@ public class EarthquakeReinforcementComponent : BaseComponent, IPersistentEntity
         if (s.Has(HasSymbiosisDurabilityKey))
         {
             Multiplier = 1; // Assign later
+            HasDormantSymbiosis = false; // Just in case it's somehow set first
         }
     }
 
@@ -122,7 +133,7 @@ public class EarthquakeReinforcementComponent : BaseComponent, IPersistentEntity
 
     void SetDurability()
     {
-        if (durabilitySpec is null) { return; } 
+        if (durabilitySpec is null) { return; }
 
         Multiplier = durabilitySpec.Parameters[0] + 1f;
         OnChanged?.Invoke(this);
@@ -140,16 +151,17 @@ public class EarthquakeReinforcementComponent : BaseComponent, IPersistentEntity
             yield return new(damageImmunitySpec.Title.Value, t.T("LV.EQ.EqImmunityStatus", ImmunityCount));
         }
 
-        if (HasDormantSymbiosis)
-        {
-            yield return new(t.T("LV.EQ.EqDurabilityDormant", durabilitySpec.Title.Value), durabilitySpec.Description);
-        }
-        else if (HasActiveSymbiosis)
+        if (HasActiveSymbiosis)
         {
             yield return new(
                 t.T("LV.EQ.EqDurabilityActive", durabilitySpec.Title.Value),
                 t.T("LV.EQ.EqDurabilityActiveDesc", durabilitySpec.Parameters[0]));
         }
+        else if (HasDormantSymbiosis)
+        {
+            yield return new(t.T("LV.EQ.EqDurabilityDormant", durabilitySpec.Title.Value), durabilitySpec.Description);
+        }
+
     }
 
 

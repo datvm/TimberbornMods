@@ -1,11 +1,10 @@
-﻿
-namespace ModdableTimberbornDemo.Features.WorkplaceBuff;
+﻿namespace ModdableTimberbornDemo.Features.WorkplaceBuff;
 
 public class DemoWorkplaceBuffComponent : TogglableWorkplaceBonusComponent, IEntityEffectDescriber
 {
     static readonly IReadOnlyList<BonusSpec> DemoBonuses = [
-        new(BonusType.MovementSpeed.ToString(), 1f),
-        new(BonusType.WorkingSpeed.ToString(), 1f),
+        new(BonusType.MovementSpeed.ToString(), 1f), // Either use BonusType enum
+        new(ModdableTimberborn.BonusSystem.BonusSystemHelpers.WorkingSpeedId, 1f), // Or constant from BonusSystemHelpers
     ];
 
     public int Order { get; }

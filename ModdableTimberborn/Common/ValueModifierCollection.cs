@@ -22,7 +22,7 @@ public class ValueModifierCollection<T, TModdableValue, TValue> : ModifierCollec
         foreach (var modifier in Modifiers)
         {
             if (modifier.Disabled) { continue; }
-            if (modifier.Modify(value.Value)) { break; }
+            if (modifier.Modify(value)) { break; }
         }
 
         IsDirty = true;

@@ -1,6 +1,14 @@
 ID,Text,Comment
 LV.EQ.Earthquake,"Earthquake",
-LV.EQ.EarthquakeDesc,"Hazardous weather: Randomly damages buildings and causes water surge.",
+LV.EQ.EarthquakeDesc,"Hazardous weather: during this weather, quakes strike every now and then. Each quake strikes:
+A random area and causes:
+- Damage to buildings and may block certain functions for a while
+- Constructions are reset (materials are not lost)
+- Explosives detonate
+- Items may spill from storage buildings. If the building contains explosives, the whole content is lost and the building is destroyed.
+- Beavers and bots inside the hit area may get injured/damaged.
+Across the map:
+- All water expands by a certain percentage",
 LV.EQ.MinStr,"Minimum strength",
 LV.EQ.MinStrDesc,"The minimum strength of the Earthquake. The amount of HP it can deal to buildings.
 Affected by Handicap.",
@@ -22,7 +30,7 @@ LV.EQ.ConstructionDamageNotf,"• {0} constructions set back.",
 LV.EQ.ExplosivesNotf,"• {0} explosives detonated.",
 LV.EQ.ExplosiveStorageNotf,"• {0} explosive storage destroyed.",
 LV.EQ.ItemsLostNotf,"• Items spilled from storage:",
-LV.EQ.ItemLostNotf,"• {0} {1} spilled from storage.",
+LV.EQ.ItemLostNotf,"• {0} {1}",
 LV.EQ.BeaversInjuredNotf,"• {0} beavers injured.",
 LV.EQ.BotsDamagedNotf,"• {0} bots damaged.",
 LV.EQ.RenoEqGroup,"Earthquake"

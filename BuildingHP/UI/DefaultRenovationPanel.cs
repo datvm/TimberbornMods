@@ -65,11 +65,10 @@ public class DefaultRenovationPanel : VisualElement, IPrioritizable
             this.AddGameLabel(t.T("LV.BHP.NoCancel"), "NoCancelWarning").SetMarginBottom();
         }
         
-
-        this.AddGameLabel(t.T("LV.BHP.RenovationNote"));
         this.AddMenuButton(t.T("LV.BHP.StartRenovation"),
             onClick: () => OnStartRenovationRequested?.Invoke(),
             size: UiBuilder.GameButtonSize.Large);
+        this.AddGameLabel(t.T("LV.BHP.RenovationNote"));
     }
 
     public void SetTime(float days)
