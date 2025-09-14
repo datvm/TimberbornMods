@@ -1,6 +1,6 @@
 ﻿namespace ModdableTimberborn.MechanicalSystem;
 
-public record MechanicalNodeValues(int NominalInput, int NominalOutput);
+public readonly record struct MechanicalNodeValues(int NominalInput, int NominalOutput);
 
 public class ModdableMechanicalNodeValues(MechanicalNodeValues original) : ModdableValue<MechanicalNodeValues>(original)
 {

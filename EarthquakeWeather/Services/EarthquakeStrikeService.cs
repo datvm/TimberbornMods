@@ -31,7 +31,7 @@ public class EarthquakeStrikeService(
         var minDamage = dmg.x;
         var maxDamage = dmg.y;
 
-        var buildings = earthquakeAreaService.GetBuildingsInArea(area);
+        var buildings = earthquakeAreaService.GetBuildingsInArea(area);        
         earthquakeNotification.SetLocation(area.Center);
 
         foreach (var (b, distance) in buildings)
@@ -73,7 +73,8 @@ public class EarthquakeStrikeService(
                 for (int k = 0; k < cc; k++)
                 {
                     var column = columns[k * verticalStride + i];
-                    var adding = column.WaterDepth * surge / 2;
+                    if (column.WaterDepth < .01f) { continue; }
+                    var adding = column.WaterDepth * surge;
 
                     var addingConta = adding * column.Contamination;
                     var addingClean  = adding - addingConta;

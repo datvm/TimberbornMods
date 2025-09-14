@@ -18,7 +18,7 @@ public class ModdableMechanicalSystemConfigurator : IModdableTimberbornRegistryW
 
         configurator
             .BindTemplateModule(h => h
-                .AddDecorator<MechanicalNodeSpec, ModdableMechanicalNode>()
+                .AddDecorator<MechanicalNode, ModdableMechanicalNode>()
             )
         ;
     }

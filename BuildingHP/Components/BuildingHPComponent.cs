@@ -56,7 +56,7 @@ public class BuildingHPComponent : BaseComponent, IPersistentEntity, IEntityDesc
         var invulnerable = false;
 
         List<BuildingDurabilityDescription> desc = [
-            new("LV.BHP.BaseDurability", Spec.BaseDurability, BuildingDurabilityModifierType.Addition, null)
+            new("LV.BHP.BaseDurabilityTooltip", Spec.BaseDurability, BuildingDurabilityModifierType.Addition, null)
         ];
 
         float curr = Spec.BaseDurability;

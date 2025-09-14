@@ -20,7 +20,7 @@ LV.BHP.MaterialDurability,"Construction materials",
 LV.BHP.HP,"HP: {0} / {1}",
 LV.BHP.HPInvul,"HP: {0} / {1}, Invulnerable",
 LV.BHP.Repair,"Repair",
-LV.BHP.BaseDurability,"Base Durability",
+LV.BHP.BaseDurabilityTooltip,"Base Durability",
 LV.BHP.EnableWarnLowHp,"Low building HP warning",
 LV.BHP.EnableWarnLowHpDesc,"Show a warning when a building's HP is low.
 Note: if a building max HP is below the threshold, the warning is only shown if the building is damaged.",
@@ -68,8 +68,9 @@ LV.BHP.RenoPriority,"Renovation materials priority:",
 LV.BHP.RenoPriorityShort,"Materials",
 LV.BHP.AlreadyActive,"Renovation is already active.",
 LV.BHP.NoGearBuilding,"This renovation is only for buildings that use gears",
-LV.BHP.RenovationNote,"When started, the building will start gathering materials and the time only counts down when all materials are collected.
-Only one renovation can be active at a time. You can cancel it at any time but no materials will be refunded once gathered.",
+LV.BHP.RenovationNote,"- Once started, the building will start gathering materials and the time only counts down when all materials are collected.
+- Collecting materials and renovating does <b>NOT</b> require Builders or Haulers. They are done automatically. However, materials are only taken once all materials are available in the stockpiles, it cannot be taken gradually.
+- Only one renovation can be active at a time for each building. You can cancel it at any time (except certain renovations) but no materials will be refunded once gathered.",
 LV.BHP.StartRenovation,"Start this renovation",
 Empty,"",
 LV.BHP.RepairAmount,"Repair amount:",

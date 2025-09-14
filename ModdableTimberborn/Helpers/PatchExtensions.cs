@@ -8,6 +8,8 @@ public static class PatchExtensions
         where TModdedComponent : BaseModdableComponent<TComp>
     {
         var modded = comp.GetComponentFast<TModdedComponent>();
+        if (!modded) { return; }
+
         modded.OriginalComponent = comp;
 
         if (modded is IModdableComponentAwake a)

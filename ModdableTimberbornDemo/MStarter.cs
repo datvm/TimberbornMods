@@ -1,4 +1,5 @@
 ﻿using ModdableTimberbornDemo.Features.EnterableBuff;
+using ModdableTimberbornDemo.Features.MechanicalSystem;
 using ModdableTimberbornDemo.Features.WorkplaceBuff;
 
 namespace ModdableTimberbornDemo;
@@ -11,6 +12,9 @@ public class MStarter : IModStarter
         ModdableTimberbornRegistry.Instance
             .AddConfigurator<WorkplaceBuffConfig>()
             .AddConfigurator<EnterableBuffConfig>()
+
+            .UseMechanicalSystem()
+            .AddConfigurator<MechanicalSystemConfig>()
         ;
 
     }

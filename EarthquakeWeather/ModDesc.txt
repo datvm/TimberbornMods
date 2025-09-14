@@ -40,3 +40,9 @@ This mod introduces specialized Renovations to help buildings endure earthquakes
 If you need any support or feedback, feel free to contact me on Timberborn's official Discord ( https://discord.gg/timberborn, on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] or [url=https://discord.com/channels/558398674389172225/1379728375396040806]this mod's[/url] channel), or @theapologist316
 
 Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v7.0.1:
+- Fixed Water Surge only expands half of what it should. Thanks @Yrankra for the report. Be aware it's doubly harder now. Also minor performance improvement.
+- Fixed Shock-Absorbing Structure stay in the active list after being used so you could not apply it again. Seismic Symbiosis now stays in the active list after being active instead of being removed (visual only). Thanks @Akinare for the report.
+- A few minor text changes.
+- Removed dev log that should not be there in the release version.
