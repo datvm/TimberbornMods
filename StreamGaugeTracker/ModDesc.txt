@@ -1,0 +1,19 @@
+This mod extends the Stream Gauge with a built-in history tracker.
+
+- It now tracks the Lowest Depth as well (Reset together with Highest Depth).
+- It samples the depth at a configurable frequency. Hazardous depths are also highlighted with a different color.
+
+[img]https://i.imgur.com/dNswBeP.jpeg[/img]
+
+You can configure the settings from the Main or Game Menu -> Mods -> Setting button next to the mod name:
+- Sampling frequency (hour): How often the depth is recorded. Mod default: 6 hours.
+- Number of samples: How many samples are kept. Mod default: 120 samples (e.g. 30 days with 6h frequency).
+
+- Samples per bar: How many samples are represented by each bar in the graph. Use this if you don't like seeing too many bars. Default to 1 so you need to set it to 2 or more to see a difference.
+
+Hover over the bars to see the data for each bar:
+
+[img]https://i.imgur.com/L7TWOFa.jpeg[/img]
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
