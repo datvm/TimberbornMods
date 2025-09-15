@@ -1,0 +1,10 @@
+{
+    "Name": "Stream Gauge Tracker",
+    "Version": "7.0.0",
+    "Id": "StreamGaugeTracker",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Add more tracking info for Stream Gauge",
+    "RequiredMods": [
+        { "Id": "TimberUi" }
+    ]
+}

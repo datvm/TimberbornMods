@@ -1,0 +1,13 @@
+ID,Text,Comment
+LV.SGT.SamplingFreq,"Sampling frequency (hour)",
+LV.SGT.SamplingFreqDesc,"How often the stream gauge depth is recorded.",
+LV.SGT.SamplingCount,"Number of samples",
+LV.SGT.SamplingCountDesc,"How many samples are kept.",
+LV.SGT.SamplesPerBar,"Samples per bar",
+LV.SGT.SamplesPerBarDesc,"How many samples are represented by each bar in the graph.",
+LV.SGT.LowestDepth,"Lowest depth: {0:0.00}",
+LV.SGT.TooltipNoData,"No data",
+LV.SGT.TooltipLine,"• {1:0.00} ({0:0.00}d ago)",
+LV.SGT.TooltipAvg,"Average: {0:0.00}",
+LV.SGT.DataHighest,"Tracked highest: {0:0.00}",
+Name_StreamGaugeTrackerFragment,"Stream Gauge Tracker",
