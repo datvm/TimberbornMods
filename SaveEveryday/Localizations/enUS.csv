@@ -16,3 +16,5 @@ LV.SE.AutoSaveFilenameDesc,"Custom filename for auto-saves. If you use this,
 make sure to put .saveeveryday at the end to auto delete. If not, the game will not delete the save file automatically.
 Use {0} for cycle number and {1} for cycle day number and {2} for total day. For example: C{0}_D{1}.saveeveryday.
 Leave empty to use the default filename (SaveDay{2}.saveeveryday).",
+LV.SE.MakeFirstCycleDaySave,"Special first cycle day",
+LV.SE.MakeFirstCycleDaySaveDesc,"Make a special save at the start of each cycle (cycle day 1). This save has a special name and is not auto deleted.",

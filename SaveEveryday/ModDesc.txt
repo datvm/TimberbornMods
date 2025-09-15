@@ -1,0 +1,23 @@
+Auto-save the game at the start of every day. This mod works independenly with the game default's autosave feature so you can use this mod with or without that. Configurable: in Main menu or in-game, choose Mods -> Settings button next to the mod name.
+
+- Enabled (default: yes): enable auto-save or not (only affect this mod feature, not the game default auto-save).
+- Auto-save frequency (days) (default: 1): save every x days.
+- Auto-save count (default: 5): how many auto-saves should be kept. The oldest saves would be deleted. This counter works independently with the game's auto-save system.
+- Auto-save filename: Custom filename for auto-saves. If you use this, make sure to put .saveeveryday at the end to auto delete. If not, the game will not delete the save file automatically. Use {0} for cycle number and {1} for cycle day number and {2} for total day. For example: C{0}_D{1}.saveeveryday. [b]Leave empty to use the default filename (SaveDay{2}.saveeveryday)[/b].
+
+- Warn before autosave: show a warning 3 (game) hours before an autosave is made. Does not work for the "Extra save on weather warning" save.
+- Extra save on weather warning (default: no): When a weather warning is issued, make an extra save named 'weatherwarning.save' that is only overwritten by the next cycle's warning. This save is not counted towards the save count.
+
+- Special first cycle day (default: yes): Make a special save at the start of each cycle (cycle day 1). This save has a special name and is not auto deleted or count towards the auto-save count.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v7.4.0: Added Special first cycle day option.
+v7.3.1: Should work with Jun 25th update now.
+v7.3.0: Added Auto-save filename option.
+v7.2.0: Added Warn before autosave option.
+v7.1.2: Should work with April 10 update now.
+v7.1.1: should work with Apr 02 update now.
+v7.1.0: added Extra save on weather warning option. Also add a minor optimization. U6 is still getting updates from this mod.
+v7.0.0: compatible with U7

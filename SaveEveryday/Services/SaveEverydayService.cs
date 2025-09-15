@@ -17,6 +17,7 @@ public class SaveEverydayService(
     const string NamePostfix = ".saveeveryday";
     const string NameFormat = "SaveDay{2}" + NamePostfix;
     const string BadweatherSaveName = "weatherwarning.save";
+    const string FirstDaySaveName = "Cycle-{0}.save";
 
     static readonly SingletonKey SaveEverydayKey = new(nameof(SaveEveryday));
     static readonly PropertyKey<int> LastDayKey = new("LastAutosaveDay");
@@ -74,13 +75,28 @@ public class SaveEverydayService(
                 SaveGame(day, true);
             }
         }
+
+        if (cycles.CycleDay == 1 && settings.SaveFirstDay.Value)
+        {
+            SaveStartCycle();
+        }
+    }
+
+    void SaveStartCycle()
+    {
+        var saveName = string.Format(FirstDaySaveName, cycles.Cycle);
+        SaveGame(saveName);
     }
 
     void SaveGame(int day, bool badweather = false)
     {
-        string settlementName = settlementNameService.SettlementName;
         string saveName = GetSaveName(day, badweather);
-        Debug.Log($"Saving game as {saveName}");
+        SaveGame(saveName);
+    }
+
+    void SaveGame(string saveName)
+    {
+        string settlementName = settlementNameService.SettlementName;
 
         var saveReference = new SaveReference(settlementName, saveName);
         try

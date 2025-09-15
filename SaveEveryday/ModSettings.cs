@@ -49,13 +49,20 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
     public bool AutosaveWarning { get; private set; } = false;
     public string AutoSaveFilename { get; private set; } = "";
 
-    public override void OnAfterLoad()
+    public ModSetting<bool> SaveFirstDay { get; } = new(true, ModSettingDescriptor
+        .CreateLocalized("LV.SE.MakeFirstCycleDaySave")
+        .SetLocalizedTooltip("LV.SE.MakeFirstCycleDaySaveDesc"));
+
+    public override void OnBeforeLoad()
     {
+        base.OnBeforeLoad();
+
         saveFrequency.Descriptor.SetEnableCondition(() => enabled.Value);
         saveCount.Descriptor.SetEnableCondition(() => enabled.Value);
         saveWeatherWarning.Descriptor.SetEnableCondition(() => enabled.Value);
         autosaveWarning.Descriptor.SetEnableCondition(() => enabled.Value);
         autoSaveFilename.Descriptor.SetEnableCondition(() => enabled.Value);
+        SaveFirstDay.Descriptor.SetEnableCondition(() => enabled.Value);
 
         AddCustomModSetting(enabled, nameof(enabled));
         AddCustomModSetting(saveFrequency, nameof(saveFrequency));
@@ -63,7 +70,10 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
         AddCustomModSetting(autoSaveFilename, nameof(autoSaveFilename));
         AddCustomModSetting(autosaveWarning, nameof(autosaveWarning));
         AddCustomModSetting(saveWeatherWarning, nameof(saveWeatherWarning));
+    }
 
+    public override void OnAfterLoad()
+    {
         ModSettingChanged += (_, _) => UpdateValues();
         UpdateValues();
     }
