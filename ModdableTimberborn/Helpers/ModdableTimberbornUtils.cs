@@ -17,10 +17,16 @@ public static class ModdableTimberbornUtils
         HasMoreModLogs = LoadedAssemblyNames.Contains("MoreModLogs");
     }
 
-    public static void LogDev(Func<string> msg)
+    public static void LogVerbose(Func<string> msg)
     {
         if (!HasMoreModLogs) { return; }
         Debug.Log(msg());
+    }
+
+    [Obsolete("Remember to remove this log after debugging")]
+    public static void LogDev(object msg)
+    {
+        Debug.Log(msg);
     }
 
 }

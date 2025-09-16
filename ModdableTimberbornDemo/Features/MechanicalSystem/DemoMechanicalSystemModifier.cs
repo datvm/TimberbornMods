@@ -17,7 +17,7 @@ public abstract class BaseDemoMechanicalModifier : BaseComponent, IModdableMecha
                 OnChanged?.Invoke();
             }
         }
-    }
+    } = true;
 
     public float Amount
     {
@@ -37,7 +37,7 @@ public abstract class BaseDemoMechanicalModifier : BaseComponent, IModdableMecha
     public bool Modify(ModdableMechanicalNodeValues value)
     {
         var (curr, original) = value;
-
+        
         if (original.NominalInput != 0)
         {
             value.Value = curr with { NominalInput = ModifyValue(curr.NominalInput) };
@@ -73,4 +73,10 @@ public class DemoForceMechanicalSystemModifier : BaseDemoMechanicalModifier
     public override string Id { get; } = nameof(DemoForceMechanicalSystemModifier);
     public override int Priority { get; } = (int)ModifierPriority.Force;
     protected override int ModifyValue(int currValue) => Mathf.RoundToInt(Amount);
+
+    public DemoForceMechanicalSystemModifier()
+    {
+        ShouldShortCircuit = true;
+    }
+
 }

@@ -17,7 +17,7 @@ public class ModifierCollection<T> : IDisposable
 {
 
     public ImmutableArray<T> Modifiers { get; }
-    public bool IsDirty { get; set; }
+    public bool IsDirty { get; set; } = true;
 
     public ModifierCollection(BaseComponent comp) : this(ModifierCollection.GetModifiersFromComponents<T>(comp))
     { }

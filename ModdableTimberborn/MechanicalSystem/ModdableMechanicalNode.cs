@@ -22,15 +22,15 @@ public class ModdableMechanicalNode : BaseModdableComponent<MechanicalNode>, IMo
     {
         if (!modifiers.IsDirty) { return; }
 
-        var currValue = MechanicalNodeValues.Value with { };
-        modifiers.Modify(MechanicalNodeValues);
+        var prev = MechanicalNodeValues.Value with { };
+        if (!modifiers.Modify(MechanicalNodeValues)) { return; }
 
-        if (currValue.Equals(MechanicalNodeValues.Value)) { return; }
-
+        var curr = MechanicalNodeValues.Value;
         var c = OriginalComponent;
-        c._nominalPowerInput = currValue.NominalInput;
-        c._nominalPowerOutput = currValue.NominalOutput;
-        OnMechanicalNodeValuesChanged?.Invoke(this, new ModdableValueChanged<MechanicalNodeValues>(currValue, MechanicalNodeValues.Value));
+        c._nominalPowerInput = curr.NominalInput;
+        c._nominalPowerOutput = curr.NominalOutput;
+
+        OnMechanicalNodeValuesChanged?.Invoke(this, new ModdableValueChanged<MechanicalNodeValues>(prev, curr));
     }
 
 }

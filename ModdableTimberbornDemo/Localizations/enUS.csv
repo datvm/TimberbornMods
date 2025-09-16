@@ -2,3 +2,4 @@ ID,Text,Comment
 LV.DemoMT.WorkplaceBuffDesc,"{0:+%} Movement speed and {1:+%} Working speed",
 Name_DemoWorkplaceBuffFragment,"Demo Workplace Buff",
 Name_DemoEnterableBuffFragment,"Demo Enterable Buff",
+Name_DemoMechanicalSystemFragment,"Demo Mechanical System",
