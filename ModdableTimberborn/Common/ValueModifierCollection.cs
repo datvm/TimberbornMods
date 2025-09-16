@@ -13,10 +13,12 @@ public class ValueModifierCollection<T, TModdableValue, TValue> : ModifierCollec
     {
     }
 
-    public void Modify(TModdableValue value) => Modify(value, false);
-    public void Modify(TModdableValue value, bool forceDirty)
+    public bool Modify(TModdableValue value) => Modify(value, false);
+    public bool Modify(TModdableValue value, bool forceDirty)
     {
-        if (!forceDirty && !IsDirty) { return; }
+        if (!forceDirty && !IsDirty) { return false; }
+
+        var prevValue = value.Value;
 
         value.Value = value.OriginalValue;
         foreach (var modifier in Modifiers)
@@ -25,7 +27,8 @@ public class ValueModifierCollection<T, TModdableValue, TValue> : ModifierCollec
             if (modifier.Modify(value)) { break; }
         }
 
-        IsDirty = true;
+        IsDirty = false;
+        return !EqualityComparer<TValue>.Default.Equals(prevValue, value.Value);
     }
 
 }
