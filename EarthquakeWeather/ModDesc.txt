@@ -41,6 +41,7 @@ If you need any support or feedback, feel free to contact me on Timberborn's off
 
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v7.0.2: Should work with Sep 17th update.
 v7.0.1:
 - Fixed Water Surge only expands half of what it should. Thanks @Yrankra for the report. Be aware it's doubly harder now. Also minor performance improvement.
 - Fixed Shock-Absorbing Structure stay in the active list after being used so you could not apply it again. Seismic Symbiosis now stays in the active list after being active instead of being removed (visual only). Thanks @Akinare for the report.
