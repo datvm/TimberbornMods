@@ -4,6 +4,10 @@
 		<OutputModFolderName>ModdableTimberbornDemo</OutputModFolderName>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <Folder Include="Features\DI\" />
+	</ItemGroup>
+
 	<Import Project="../Common.target" />
 	<Import Project="../CommonTimberUi.target" />
 	<Import Project="../CommonModdableTimberborn.target" />

@@ -4,7 +4,31 @@ namespace TimberUi;
 
 public static class TimberUiUtils
 {
+    public static readonly FrozenSet<string> LoadedAssemblyNames;
+    public static readonly bool HasMoreModLogs;
+
     public const string SteamId = "1062090";
+
+    static TimberUiUtils()
+    {
+        LoadedAssemblyNames = AppDomain.CurrentDomain.GetAssemblies()
+            .Select(asm => asm.GetName().Name)
+            .ToFrozenSet();
+
+        HasMoreModLogs = LoadedAssemblyNames.Contains("MoreModLogs");
+    }
+
+    public static void LogVerbose(Func<string> msg)
+    {
+        if (!HasMoreModLogs) { return; }
+        UnityEngine.Debug.Log(msg());
+    }
+
+    [Obsolete("Remember to remove this log after debugging")]
+    public static void LogDev(object msg)
+    {
+        UnityEngine.Debug.Log(msg);
+    }
 
     public static void DoNothing() { }
 

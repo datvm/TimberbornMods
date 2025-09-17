@@ -1,0 +1,13 @@
+{
+    "Name": "Building Decals",
+    "Version": "7.0.0",
+    "Id": "BuildingDecal",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Stick it up!",
+    "RequiredMods": [
+        {
+            "Id": "TimberUi",
+            "MinimumVersion": "7.8.2"
+        }
+    ]
+}

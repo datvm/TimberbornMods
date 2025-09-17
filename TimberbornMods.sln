@@ -280,6 +280,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModdableTimberbornDemo", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamGaugeTracker", "StreamGaugeTracker\StreamGaugeTracker.csproj", "{6807D4CE-38F5-4E50-B61F-DDBC7067EF09}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingDecal", "BuildingDecal\BuildingDecal.csproj", "{347A634F-D51C-4011-9AA5-71390DED02A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -746,6 +748,10 @@ Global
 		{6807D4CE-38F5-4E50-B61F-DDBC7067EF09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6807D4CE-38F5-4E50-B61F-DDBC7067EF09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6807D4CE-38F5-4E50-B61F-DDBC7067EF09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{347A634F-D51C-4011-9AA5-71390DED02A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{347A634F-D51C-4011-9AA5-71390DED02A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{347A634F-D51C-4011-9AA5-71390DED02A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{347A634F-D51C-4011-9AA5-71390DED02A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -827,6 +833,7 @@ Global
 		{657FC626-A743-4E64-A3B3-7A14CC0B4B7D} = {4C24DB61-A115-4B00-BDBF-E8CD4EA9FDF2}
 		{548BD0EE-6EE0-49E9-BE70-17FD4D2383B6} = {DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}
 		{5163B6F1-06CA-4799-939D-21F3DADEB89C} = {548BD0EE-6EE0-49E9-BE70-17FD4D2383B6}
+		{347A634F-D51C-4011-9AA5-71390DED02A8} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}

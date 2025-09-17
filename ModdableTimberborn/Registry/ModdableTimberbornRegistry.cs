@@ -22,21 +22,6 @@ public class ModdableTimberbornRegistry
         return this;
     }
 
-    public bool DependencyInjectionUsed { get; private set; }
-    public ModdableTimberbornRegistry UseDependencyInjection(Action<DependencyInjectionRegistry> configure)
-    {
-        if (!DependencyInjectionUsed)
-        {
-            // This one does not wait until configuration because it will be too late
-            harmony.PatchCategory(DependencyInjectionRegistry.PatchCategoryName);
-        }
-
-        DependencyInjectionUsed = true;
-        configure(DependencyInjectionRegistry.Instance);
-
-        return this;
-    }
-
     public ModdableTimberbornRegistry AddConfigurator(IModdableTimberbornRegistryConfig config)
     {
         configurators.Add(config);

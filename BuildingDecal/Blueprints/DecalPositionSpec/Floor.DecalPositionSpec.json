@@ -1,0 +1,19 @@
+{
+    "DecalPositionSpec": {
+        "Id": "Floor",
+        "NameLoc": "LV.BDl.PosFloor",
+        "Order": 10,
+        "Position": {
+            "X": 0,
+            "Y": 0.01,
+            "Z": 0
+        },
+        "Rotation": {
+            "X": 90,
+            "Y": 0,
+            "Z": 0
+        },
+        "ScaleXTo": "X",
+        "ScaleYTo": "Y"
+    }
+}

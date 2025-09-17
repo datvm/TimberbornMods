@@ -2,6 +2,14 @@
 
 public readonly record struct SliderValues<TValue>(TValue Low, TValue High, TValue Default) where TValue : IComparable<TValue>;
 
+public class GameSliderAlternativeManualValueDI(InputService inputService, ILoc t, VisualElementInitializer veInit, PanelStack panelStack)
+{
+    public readonly InputService InputService = inputService;
+    public readonly ILoc t = t;
+    public readonly VisualElementInitializer VeInit = veInit;
+    public readonly PanelStack PanelStack = panelStack;
+}
+
 public class GameSlider : GameSlider<GameSlider, Slider, float>
 {
 
@@ -13,6 +21,9 @@ public class GameSlider : GameSlider<GameSlider, Slider, float>
 
         return this;
     }
+
+    public GameSlider RegisterAlternativeManualValue(GameSliderAlternativeManualValueDI di, string? prompt = default)
+        => RegisterAlternativeManualValue(di.InputService, di.t, di.VeInit, di.PanelStack, prompt);
 
 }
 
@@ -28,6 +39,8 @@ public class GameSliderInt : GameSlider<GameSliderInt, SliderInt, int>
         return this;
     }
 
+    public GameSliderInt RegisterAlternativeManualValue(GameSliderAlternativeManualValueDI di, string? prompt = default)
+        => RegisterAlternativeManualValue(di.InputService, di.t, di.VeInit, di.PanelStack, prompt);
 }
 
 public class GameSlider<TSelf, TSlider, TValue> : GameSlider<TSlider, TValue>

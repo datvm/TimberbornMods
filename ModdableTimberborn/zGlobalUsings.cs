@@ -5,7 +5,6 @@ global using ModdableTimberborn.Registry;
 global using ModdableTimberborn.Services;
 global using ModdableTimberborn.Patches;
 global using ModdableTimberborn.EntityDescribers;
-global using ModdableTimberborn.DependencyInjection;
 
 
 global using System.Reflection.Emit;
