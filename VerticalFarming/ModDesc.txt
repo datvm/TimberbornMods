@@ -1,0 +1,19 @@
+You liked Update 7 vertical farming? Enjoy even more now with this mod! You can now build more things around plants (trees and crops), and even plant them on platforms or roofs directly without Soil!
+
+You can configure the settings in the Main Menu -> Mods -> setting button next to the mod's name. [b]NOTE:[/b] For this mod, you should restart the game after changing the settings to take effect.
+
+- Remove corner occupation (mod default: on): Allow you to build structures like Platforms over plants.
+- Remove path occupation (mod default: on): Allow you to build Paths through plants
+- Plant without ground (mod default: on): Allow placement on roofs and platforms directly without soil. Those plants get [b]irrigation (moisture) and contamination from the land under it[/b].
+-   No contamination up (cheater :P, mod default: off): Do not bring land contamination up, which means you can plant trees or crops on platforms while you can not on the land below
+
+Known issues:
+- The Tree cutting tool may be a bit finicky when you select different terrain level. Please just be patient and select terrains with the same level only for the best result.
+- Dev mode planting trees seem to stop working. I didn't know that was a thing but I will fix it later.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v7.0.4: should work with Sep 17th update.
+v7.0.3: should work with June 2nd update.
+v7.0.1: should work with U7 Apr 02 Update now.
