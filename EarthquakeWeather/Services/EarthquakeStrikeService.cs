@@ -10,15 +10,13 @@ public class EarthquakeStrikeService(
     EarthquakeNotificationService earthquakeNotification
 ) : ILoadableSingleton
 {
-    int mx, my, verticalStride;
+    int verticalStride;
 
     public event Action<EarthquakeArea> OnEarthquakeAreaStrike = null!;
 
     public void Load()
     {
         var size = mapIndex.TerrainSize;
-        mx = size.x;
-        my = size.y;
         verticalStride = mapIndex.VerticalStride;
 
         earthquake.OnEarthquakeHit += Strike;
@@ -31,7 +29,7 @@ public class EarthquakeStrikeService(
         var minDamage = dmg.x;
         var maxDamage = dmg.y;
 
-        var buildings = earthquakeAreaService.GetBuildingsInArea(area);        
+        var buildings = earthquakeAreaService.GetBuildingsInArea(area);
         earthquakeNotification.SetLocation(area.Center);
 
         foreach (var (b, distance) in buildings)
@@ -63,29 +61,23 @@ public class EarthquakeStrikeService(
         List<KeyValuePair<Vector3Int, Vector2>> addingWater = [];
         var columns = waterMap.WaterColumns;
         var columnCounts = waterMap.ColumnCounts;
-        var i = mapIndex.StartingIndex;
-        for (int y = 0; y < my; y++)
+
+        foreach (var i in mapIndex.Indices2D)
         {
-            for (int x = 0; x < mx; x++)
+            var cc = columnCounts[i];
+
+            for (int k = 0; k < cc; k++)
             {
-                var cc = columnCounts[i];
+                var column = columns[k * verticalStride + i];
+                if (column.WaterDepth < .01f) { continue; }
+                var adding = column.WaterDepth * surge;
 
-                for (int k = 0; k < cc; k++)
-                {
-                    var column = columns[k * verticalStride + i];
-                    if (column.WaterDepth < .01f) { continue; }
-                    var adding = column.WaterDepth * surge;
+                var addingConta = adding * column.Contamination;
+                var addingClean = adding - addingConta;
 
-                    var addingConta = adding * column.Contamination;
-                    var addingClean  = adding - addingConta;
-
-                    var coord = new Vector3Int(x, y, column.Floor);
-                    addingWater.Add(new(coord, new(addingClean, addingConta)));
-                }
-                i++;
+                var coord = mapIndex.IndexToCoordinates(i, column.Floor);
+                addingWater.Add(new(coord, new(addingClean, addingConta)));
             }
-
-            i += 2;
         }
 
         foreach (var (coord, adding) in addingWater)

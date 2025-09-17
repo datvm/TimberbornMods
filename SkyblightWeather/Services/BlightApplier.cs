@@ -9,13 +9,11 @@ public class BlightApplier(
     MapIndexService mapIndex
 ) : ITickableSingleton, ILoadableSingleton
 {
-    int mx, my, verticalStride;
+    int verticalStride;
 
     public void Load()
     {
         var size = mapIndex.TerrainSize;
-        mx = size.x;
-        my = size.y;
         verticalStride = mapIndex.VerticalStride;
     }
 
@@ -28,27 +26,21 @@ public class BlightApplier(
 
         var columns = waterMap.WaterColumns;
         var columnCounts = waterMap.ColumnCounts;
-        var i = mapIndex.StartingIndex;
-        for (int y = 0; y < my; y++)
+
+        foreach (var i in mapIndex.Indices2D)
         {
-            for (int x = 0; x < mx; x++)
+            var cc = columnCounts[i];
+
+            for (int k = 0; k < cc; k++)
             {
-                var cc = columnCounts[i];
+                var column = columns[k * verticalStride + i];
+                if (column.Contamination >= 1f || column.WaterDepth == 0) { continue; }
 
-                for (int k = 0; k < cc; k++)
-                {
-                    var column = columns[k * verticalStride + i];
-                    if (column.Contamination >= 1f || column.WaterDepth == 0) { continue; }
-
-                    var removing = Mathf.Min(column.WaterDepth, column.WaterDepth * str);
-                    var coord = new Vector3Int(x,y, column.Floor);
-                    waterService.RemoveCleanWater(coord, removing);
-                    waterService.AddContaminatedWater(coord, removing);
-                }
-                i++;
+                var removing = Mathf.Min(column.WaterDepth, column.WaterDepth * str);
+                var coord = mapIndex.IndexToCoordinates(i, column.Floor);
+                waterService.RemoveCleanWater(coord, removing);
+                waterService.AddContaminatedWater(coord, removing);
             }
-
-            i += 2;
         }
     }
 
