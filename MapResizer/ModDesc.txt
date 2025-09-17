@@ -1,0 +1,40 @@
+Your favorite mod Beaver's Ascent is back with a brand new feature: Map Resize! You can now resize your map, in [b]both the Game and the Map editor[/b] and break the map height limit!
+
+Tip: you can also use this to make a map smaller or make the height limit lower as a challenge!
+
+[h1]How to use[/h1]
+
+[b]You should pause and save your game before the next step[/b]. After resizing, the mod will make a save (game or map) called "MapResized". It will automatically overwrite any with the same name, so be careful!
+
+With this mod installed, in your Menu (Esc), you will find a new button called "Map Resize". When clicking it, a dialog will show up to let you choose a new size for your map. You can enlarge or shrink your map.
+
+If you are enlarging your map, you can choose the strategy to fill the new space: either Mirroring the existing map or simply copying the edge.
+If you are shrinking your map, please note the mod will offer an option to delete all the objects first so the resized map won't crash the game. Please delete them and then go back to the resize dialog.
+
+You can also choose to change the height. The game has two height levels: terrain and "all". The terrain height is how high you can build Terrain blocks to, while the "all" height is how much higher you can build any object. The game default is 23 + 10.
+
+Once you are done, click "Resize" and the mod will resize and make a save. It will also offer to load the new save as your current game will likely crash if you continue anyway.
+
+[i]In my experience, you don't need to keep this mod on if you don't mess with the map's Terrain Height.[/i] You can actually change the Above-terrain height and then turn the mod off.
+
+[h1]Map Editor[/h1]
+
+You can use this to quickly make symmetrical maps, or to make a map larger for more players.
+
+Note:
+- If you do increase the terrain height, your brush won't still increase yet, after resizing. You will need to restart the game (i.e exit the app) for it to change. Due to technical limitations, the max brush height can only be applied once per game session.
+- Your users will need this mod to play your map properly if you change the Terrain Height. Nevertheless, better test your map [b]without[/b] this mod before publishing just to be sure.
+
+Right now only terrain is copied. I [strike]am making[/strike] made a Copy object feature as well for the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3422772243]The Architect's Toolkit[/url] mod so you can quickly mirror objects as well.
+
+If you need any support or feedback, feel free to contact me on Timberborn's official Discord ( https://discord.gg/timberborn, on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] channel), or @theapologist316
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v7.1.3: Should work with Sep 17th update.
+v7.1.2: Fixed objects on top being considered "out of the map". You also have an option to see which object that prevents the resizing so it's easier to spot an issue.
+v7.1.1: Finally fixed a crash when resizing maps with "underground" Water Source at the edge. Big thanks to @sank and many others who gave me a save that helped me pinpointing the issue.
+v7.1.0: Added Free Camera.
+v7.0.2: Should work with June 2nd update.
+v7.0.1: Fixed a crash when creating a new map.

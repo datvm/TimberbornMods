@@ -1,6 +1,6 @@
 {
-    "Name": "Map Resizer (Beaver Ascent)",
-    "Version": "7.1.2",
+    "Name": "Map Resizer",
+    "Version": "7.1.3",
     "Id": "MapResizer",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Resize the map",

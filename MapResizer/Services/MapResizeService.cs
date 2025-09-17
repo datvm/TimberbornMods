@@ -11,7 +11,8 @@ public class MapResizeService(
     ColumnTerrainMapResizeService columnTerrainMapResizeService,
     SoilMapResizeService soilMapResizeService,
     WaterMapResizeService waterMapResizeService,
-    PlantingMapResizer plantingMapResizer
+    PlantingMapResizer plantingMapResizer,
+    TickOnlyArrayService tickOnlyArrayService
 )
 {
     public static bool PerformingResize { get; private set; }
@@ -22,6 +23,7 @@ public class MapResizeService(
         PerformingResize = true;
 
         var oldData = RetainOldMapSize();
+        tickOnlyArrayService._isLoadPhase = true;
 
         ResizeMapSize(resizeValues);
         ResizeMapIndexService();
@@ -29,11 +31,12 @@ public class MapResizeService(
         terrainMapResizeService.Resize(oldData, resizeValues.EnlargeStrategy);
         columnTerrainMapResizeService.Resize();
         soilMapResizeService.Resize();
-        waterMapResizeService.Resize(oldData);
+        waterMapResizeService.Resize();
         plantingMapResizer.Resize();
 
         var saveRef = await SaveGameAsync();
 
+        tickOnlyArrayService._isLoadPhase = false;
         PerformingResize = false;
 
         return saveRef;

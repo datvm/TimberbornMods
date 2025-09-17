@@ -13,10 +13,10 @@ public class SoilMapResizeService(
         var verticalStride = mapIndexService.VerticalStride;
         var size = maxColumnCount * verticalStride;
 
-        soilContaminationSimulator._contaminationLevels = new float[size];
-        soilContaminationSimulator._contaminationCandidates = new float[size];
+        soilContaminationSimulator._contaminationLevels = soilContaminationSimulator._tickOnlyArrayService.Create<float>(size);
+        soilContaminationSimulator._contaminationCandidates = soilContaminationSimulator._tickOnlyArrayService.Create<float>(size);
 
-        soilMoistureSimulator._moistureLevels = new float[size];
+        soilMoistureSimulator._moistureLevels = soilMoistureSimulator._tickOnlyArrayService.Create<float>(size);
     }
 
 }

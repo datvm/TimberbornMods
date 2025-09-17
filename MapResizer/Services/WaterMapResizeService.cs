@@ -1,85 +1,38 @@
 ﻿namespace MapResizer.Services;
 
 public class WaterMapResizeService(
-    WaterMap waterMap,
-    WaterEvaporationMap waterEvaporationMap,
     IThreadSafeWaterMap iThreadSafeWaterMap,
-    MapIndexService mapIndexService
+    WaterSimulator waterSimulator
 )
 {
 
     readonly ThreadSafeWaterMap threadSafeWaterMap = (ThreadSafeWaterMap)iThreadSafeWaterMap;
 
-    public void Resize(in ResizeData oldData)
+    public void Resize()
     {
-        ResizeWaterMap(oldData);
+        ResizeWaterMap();
         ResizeThreadSafeWaterMap();
         ResizeWaterEvaporationMap();
     }
 
-    void ResizeWaterMap(in ResizeData oldData)
+    void ResizeWaterMap()
     {
-        var (oldMapSize, oldMapIndexService) = oldData;
-
-        var oldColumnCounts = waterMap.ColumnCount;
-        var oldWaterColumns = waterMap._waterColumns;
-        var oldOutflows = waterMap._outflows;
-
-        var oldVerticalStride = oldMapIndexService.VerticalStride;
-        var verticalStride = mapIndexService.VerticalStride;
-
-        waterMap.MaxColumnCount = 1;
-        waterMap._isInitialized = false;
-        waterMap.Load();
-
-        var oldSize = oldMapSize.TerrainSize;
-        var newSize = mapIndexService.TerrainSize;
-
-        var sx = Math.Min(oldSize.x, newSize.x);
-        var sy = Math.Min(oldSize.y, newSize.y);
-
-        var newColumnCounts = waterMap.ColumnCount;
-        var newWaterColumns = waterMap._waterColumns;
-        var newOutflows = waterMap._outflows;
-
-        for (int x = 0; x < sx; x++)
-        {
-            for (int y = 0; y < sy; y++)
-            {
-                var oldIndex = oldMapIndexService.CellToIndex(new(x, y));
-                var newIndex = mapIndexService.CellToIndex(new(x, y));
-
-                var columnCount = Math.Min(
-                    oldColumnCounts[oldIndex],
-                    newColumnCounts[newIndex]
-                );
-
-                for (int z = 0; z < columnCount; z++)
-                {
-                    var oldIndex3D = oldIndex + z * oldVerticalStride;
-                    var newIndex3D = newIndex + z * verticalStride;
-
-                    newWaterColumns[newIndex3D] = oldWaterColumns[oldIndex3D];
-                    newOutflows[newIndex3D] = oldOutflows[oldIndex3D];
-                }
-            }
-        }
+        waterSimulator.MaxColumnCount = 1;
+        waterSimulator.Load();
+        waterSimulator.Update();
+        waterSimulator.Reset();
     }
 
     void ResizeWaterEvaporationMap()
     {
-        //waterEvaporationMap.OnMaxWaterColumnCountChanged(waterMap, waterMap.MaxColumnCount);
+        // Do nothing
     }
 
     void ResizeThreadSafeWaterMap()
     {
+        threadSafeWaterMap.MaxColumnCount = 0;
         threadSafeWaterMap.Load();
-
-        threadSafeWaterMap._waterColumns = [.. waterMap._waterColumns
-            .Select(q => new ReadOnlyWaterColumn(
-                q.Floor, q.Ceiling, q.WaterDepth, q.Contamination, q.Overflow
-            ))];
-        threadSafeWaterMap._columnCounts = [.. waterMap.ColumnCount];
+        threadSafeWaterMap.PostLoad();
     }
 
 }
