@@ -27,7 +27,7 @@ public class DemoEnterableBuffComponent : TogglableEnterableTickEffectComponent<
 
     private void Container_EntererAdded(object sender, EntererAddedEventArgs e)
     {
-        ModdableTimberbornUtils.LogVerbose(() => $"{e.Enterer} entered {Container}, total: {Enterers.Count}");
+        TimberUiUtils.LogVerbose(() => $"{e.Enterer} entered {Container}, total: {Enterers.Count}");
     }
 
     public override void StartTickable()

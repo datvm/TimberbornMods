@@ -356,7 +356,6 @@
 		<Using Include="Timberborn.SoilBarrierSystem"/>
 		<Using Include="Timberborn.SoilContaminationSystem"/>
 		<Using Include="Timberborn.SoilMoistureSystem"/>
-		<Using Include="Timberborn.SoilMoistureSystemUI"/>
 		<Using Include="Timberborn.SoundSettingsSystem"/>
 		<Using Include="Timberborn.SoundSystem"/>
 		<Using Include="Timberborn.SpriteOperations"/>
