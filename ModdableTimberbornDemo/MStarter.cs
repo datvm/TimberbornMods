@@ -1,5 +1,4 @@
-﻿using ModdableTimberbornDemo.Features.DI;
-using ModdableTimberbornDemo.Features.EnterableBuff;
+﻿using ModdableTimberbornDemo.Features.EnterableBuff;
 using ModdableTimberbornDemo.Features.MechanicalSystem;
 using ModdableTimberbornDemo.Features.WorkplaceBuff;
 
@@ -19,14 +18,6 @@ public class MStarter : IModStarter
             .UseMechanicalSystem()
             .AddConfigurator<MechanicalSystemConfig>()
 
-            // DI: FactionServiceRunner should run after FactionSpecService is loaded but before FactionService is loaded
-            .AddConfigurator<DIConfig>()
-            .UseDependencyInjection(di => di
-                .RegisterLoadTailRunner<FactionSpecService, DemoFactionServiceRunner>()
-
-                .RegisterLoadFrontRunner<FactionService, DemoFactionServiceRunner>()                
-                .RegisterLoadTailRunner<FactionService, DemoFactionServiceRunner>()
-            )
         ;
 
     }

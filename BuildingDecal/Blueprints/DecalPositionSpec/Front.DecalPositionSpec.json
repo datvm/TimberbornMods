@@ -1,0 +1,20 @@
+{
+    "DecalPositionSpec": {
+        "Id": "Front",
+        "NameLoc": "LV.BDl.PosFront",
+        "Order": 50,
+        "Position": {
+            "X": 0,
+            "Y": 0,
+            "Z": -0.01
+        },
+        "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+        },
+        "ScaleXTo": "X",
+        "ScaleYTo": "Y",
+        "IsDefault": true
+    }
+}

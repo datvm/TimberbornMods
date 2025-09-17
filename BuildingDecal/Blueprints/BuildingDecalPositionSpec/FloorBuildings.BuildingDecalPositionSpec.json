@@ -1,0 +1,17 @@
+{
+    "BuildingDecalPositionSpec": {
+        "Id": "Path",
+        "PrefabNames": [
+            "Path.Folktails",
+            "Path.IronTeeth",
+            "Path.Emberpelts",
+            "Path.Leafcoat",
+            "ImpermeableFloor.Folktails",
+            "ImpermeableFloor.IronTeeth",
+            "ContaminationBarrier.Folktails",
+            "IrrigationBarrier.IronTeeth"
+        ],
+        "Positions": [ "Floor" ],
+        "ClearDefaults": true
+    }
+}
