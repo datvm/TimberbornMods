@@ -49,12 +49,12 @@ public static class AreaPickerPatches
             __instance.SoilIsMoist);
     }
 
-    [HarmonyPrefix, HarmonyPatch(typeof(SoilMoistureMap), nameof(SoilMoistureMap.SetMoistureLevel))]
-    public static void PatchSetMoistureLevel(SoilMoistureMap __instance, Vector3Int coordinates, int index3D, float newLevel)
+    [HarmonyPrefix, HarmonyPatch(typeof(SoilMoistureService), nameof(SoilMoistureService.SetMoistureLevel))]
+    public static void PatchSetMoistureLevel(SoilMoistureService __instance, Vector3Int coordinates, int index3D, float newLevel)
     {
         PatchSetSoilLevel(__instance, coordinates, newLevel,
-            i => i._moistureLevels[index3D],
-            i => i._terrainService,
+            i => i._threadSafeMoistureLevels[index3D],
+            i => i._soilMoistureSimulator._terrainService,
             (i, c) => i.GetDryObjectAt(c)?.ExitDryState(), // Swap Enter and Exit because it's moisture vs DryState
             (i, c) => i.GetDryObjectAt(c)?.EnterDryState()
         );
@@ -64,7 +64,7 @@ public static class AreaPickerPatches
     public static void PatchSoilIsContaminated(Vector3Int coordinates, SoilContaminationService __instance, ref bool __result)
     {
         if (MSettings.NoConUp) { return; }
-
+        
         PatchSoilIs(
             ref __result,
             coordinates,
@@ -73,13 +73,13 @@ public static class AreaPickerPatches
             __instance.SoilIsContaminated);
     }
 
-    [HarmonyPrefix, HarmonyPatch(typeof(SoilContaminationMap), nameof(SoilContaminationMap.SetContaminationLevel))]
-    public static void PatchSetContaminationLevel(SoilContaminationMap __instance, Vector3Int coordinates, int index3D, float newLevel)
+    [HarmonyPrefix, HarmonyPatch(typeof(SoilContaminationService), nameof(SoilContaminationService.SetContaminationLevel))]
+    public static void PatchSetContaminationLevel(SoilContaminationService __instance, Vector3Int coordinates, int index3D, float newLevel)
     {
         if (MSettings.NoConUp) { return; }
 
         PatchSetSoilLevel(__instance, coordinates, newLevel,
-            i => i._contaminationLevels[index3D],
+            i => i._threadSafeContaminationLevels[index3D],
             i => i._terrainService,
             (i, c) => i.GetContaminatedObjectAt(c)?.EnterContaminatedState(),
             (i, c) => i.GetContaminatedObjectAt(c)?.ExitContaminatedState()
