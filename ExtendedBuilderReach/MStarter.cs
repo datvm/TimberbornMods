@@ -1,9 +1,9 @@
 ﻿namespace ExtendedBuilderReach;
 
-public class ModStarter : IModStarter
+public class MStarter : IModStarter
 {
 
-    public void StartMod(IModEnvironment modEnvironment)
+    void IModStarter.StartMod(IModEnvironment modEnvironment)
     {
         new Harmony(nameof(ExtendedBuilderReach)).PatchAll();
     }

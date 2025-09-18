@@ -1,17 +1,11 @@
 {
     "Name": "Extended Builder Reach",
-    "Version": "7.0.0",
+    "Version": "7.1.0",
     "Id": "ExtendedBuilderReach",
-    "MinimumGameVersion": "0.6.0.0",
+    "MinimumGameVersion": "0.7.0.0",
     "Description": "Builders can reacher higher or challenge yourself by not letting them build inifinitely lower. Configurable.",
     "RequiredMods": [
-        {
-            "Id": "eMka.ModSettings",
-            "MinimumVersion": "0.6.0.0"
-        },
-        {
-            "Id": "Harmony",
-            "MinimumVersion": "0.6.0.0"
-        }
+        { "Id": "eMka.ModSettings" },
+        { "Id": "Harmony" }
     ]
 }
