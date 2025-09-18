@@ -1,4 +1,5 @@
-﻿namespace BuildingDecal.Components;
+﻿
+namespace BuildingDecal.Components;
 
 public class BuildingDecalComponent : BaseComponent, IPersistentEntity
 {
@@ -57,6 +58,21 @@ public class BuildingDecalComponent : BaseComponent, IPersistentEntity
         return decal;
     }
 
+    public BuildingDecalItem AddDecal(BuildingDecalItem copiedItem)
+    {
+        var sprite = decalPictureService.GetSprite(copiedItem.DecalName);
+        var decal = AddDecal(sprite);
+
+        decal.Position = copiedItem.Position;
+        decal.Rotation = copiedItem.Rotation;
+        decal.Scale = copiedItem.Scale;
+        decal.Color = copiedItem.Color;
+        decal.FlipX = copiedItem.FlipX;
+        decal.FlipY = copiedItem.FlipY;
+
+        return decal;
+    }
+
     public bool RemoveDecal(BuildingDecalItem item)
     {
         if (!decalItems.Remove(item)) { return false; }
@@ -79,4 +95,6 @@ public class BuildingDecalComponent : BaseComponent, IPersistentEntity
         var s = entitySaver.GetComponent(SaveKey);
         s.Set(DecalItemsKey, decalItems, BuildingDecalItemSerializer.Instance);
     }
+
+
 }

@@ -13,6 +13,7 @@ public class ModGameConfig : Configurator
         this
             .BindSingleton<DecalPictureService>()
             .BindSingleton<BuildingDecalPositionService>()
+            .BindSingleton<BuildingDecalClipboard>()
 
             .BindFragment<BuildingDecalFragment>()
             .BindSingleton<BuildingDecalSelectDialog>()
