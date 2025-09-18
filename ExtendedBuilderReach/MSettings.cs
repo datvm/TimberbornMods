@@ -1,8 +1,8 @@
 ﻿namespace ExtendedBuilderReach;
-public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository)
+public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository)
 {
 
-    public override string ModId => nameof(ExtendedBuilderReach);
+    public override string ModId { get; } = nameof(ExtendedBuilderReach);
 
     static ModSetting<bool>? unlimitedAbove, unlimitedBelow;
     static RangeIntModSetting? rangeAbove, rangeBelow;
@@ -11,8 +11,13 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
     public static bool UnlimitedBelow => unlimitedBelow?.Value ?? true;
     public static int RangeAbove => rangeAbove?.Value ?? 1;
     public static int RangeBelow => rangeBelow?.Value ?? 1;
+    public static bool ExtendDemolishValue { get; private set; }
 
-    public override void OnAfterLoad()
+    public ModSetting<bool> ExtendDemolish { get; } = new(false, ModSettingDescriptor
+        .CreateLocalized("LV.EBR.ExtendDemolish")
+        .SetLocalizedTooltip("LV.EBR.ExtendDemolishDesc"));
+
+    public override void OnBeforeLoad()
     {
         unlimitedAbove = new(false, ModSettingDescriptor
             .CreateLocalized("EBR.UnlimitedAbove")
@@ -38,6 +43,14 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
         AddCustomModSetting(unlimitedBelow, nameof(unlimitedBelow));
         AddCustomModSetting(rangeAbove, nameof(rangeAbove));
         AddCustomModSetting(rangeBelow, nameof(rangeBelow));
+    }
+
+    public override void OnAfterLoad()
+    {
+        base.OnAfterLoad();
+
+        ExtendDemolish.ValueChanged += (_, v) => ExtendDemolishValue = v;
+        ExtendDemolishValue = ExtendDemolish.Value;
     }
 
 }
