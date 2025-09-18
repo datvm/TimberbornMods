@@ -1,0 +1,18 @@
+﻿Give your buildings some style! With Building Decals, you can decorate any building in Timberborn with custom images. Flags, emblems, clan symbols, warning signs, memes - whatever you want!
+
+- Add unlimited decals to any building: Works with any PNG file (supports transparency). You can even add holes or cutouts. Uses 128 PPU (Pixels Per Unit): a 128×128 image matches a 1×1 building, but you can freely scale decals.
+- Rotate, scale, and position decals anywhere. You can also Flip and Tint decals.
+- Copy & paste decal setups between buildings. Hotkeys: Ctrl+D to copy, Ctrl+Shift+D to paste (configurable in Settings → Keybindings).
+
+Tips:
+- Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3472334132]TImprove 4 UI[/url] for a better scrollbar.
+- Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3547764728]TImprove 4 UX[/url] for collapsible panels.
+- When sliders are tricky, hold Shift and click the number to enter values manually.
+- Layer multiple decals for unique effects.
+
+The decals are purely visual and do not affect gameplay.
+
+Be sure to share your feedback and awesome screenshot to me on official Discord https://discord.gg/timberborn, in the [url=https://discord.com/channels/558398674389172225/1417907482973442140]Building Decals[/url] channel!
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods

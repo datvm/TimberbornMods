@@ -1,0 +1,12 @@
+{
+    "KeyBindingSpec": {
+        "Id": "PasteBuildingDecal",
+        "GroupId": "Objects",
+        "LocKey": "LV.BDl.KeyBindingPaste",
+        "Order": 101
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/d",
+        "InputModifiers": "Ctrl,Shift"
+    }
+}

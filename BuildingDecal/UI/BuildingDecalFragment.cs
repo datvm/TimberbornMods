@@ -6,14 +6,17 @@ public class BuildingDecalFragment(
     GameSliderAlternativeManualValueDI sliderDI,
     DialogBoxShower diagShower,
     BuildingDecalPositionService buildingDecalPositionService,
-    DropdownItemsSetter dropdownItemsSetter
-) : BaseEntityPanelFragment<BuildingDecalComponent>
+    DropdownItemsSetter dropdownItemsSetter,
+    BuildingDecalClipboard buildingDecalClipboard
+) : BaseEntityPanelFragment<BuildingDecalComponent>, IInputProcessor
 {
     readonly ILoc t = sliderDI.t;
     readonly VisualElementInitializer veInit = sliderDI.VeInit;
+    readonly InputService inputService = sliderDI.InputService;
 
 #nullable disable
     VisualElement decalPanelsContainer;
+    Button btnPaste;
 #nullable enable
 
     PrefabSpec? prefabSpec;
@@ -22,10 +25,23 @@ public class BuildingDecalFragment(
 
     protected override void InitializePanel()
     {
-        panel.AddGameButton(t.T("LV.BDl.Add"), onClick: AddDecal, stretched: true)
+        var buttons = panel.AddRow().AlignItems().SetMarginBottom(10);
+
+        buttons.AddGameButton(t.T("LV.BDl.Add"), onClick: AddDecal)
             .SetPadding(5)
-            .SetMarginBottom(10);
+            .SetFlexGrow(1);
+        btnPaste = buttons.AddGameButton(t.T("LV.BDl.PasteButton"), onClick: PasteDecal)
+            .SetPadding(5)
+            .SetFlexGrow(1);
+        btnPaste.enabledSelf = false;
+
         decalPanelsContainer = panel.AddChild();
+        buildingDecalClipboard.OnClipboardChanged += OnClipboardChanged;
+    }
+
+    private void OnClipboardChanged()
+    {
+        btnPaste.enabledSelf = buildingDecalClipboard.CanPaste;
     }
 
     public override void ShowFragment(BaseComponent entity)
@@ -47,10 +63,13 @@ public class BuildingDecalFragment(
         {
             AppendDecalPanel(item);
         }
+
+        inputService.AddInputProcessor(this);
     }
 
     public override void ClearFragment()
     {
+        inputService.RemoveInputProcessor(this);
         decalPanelsContainer.Clear();
         base.ClearFragment();
         prefabSpec = null;
@@ -74,6 +93,7 @@ public class BuildingDecalFragment(
         var panel = new BuildingDecalItemPanel(item, decalPanelsContainer.childCount + 1, sliderDI);
         panel.OnDecalRequested += OnItemDecalRequested;
         panel.OnDecalDeletionRequested += OnItemDeleteRequested;
+        panel.OnDecalCopyRequested += OnDecalCopyRequested;
 
         panel.Initialize(veInit);
 
@@ -83,7 +103,23 @@ public class BuildingDecalFragment(
         return panel;
     }
 
-    private void OnItemDeleteRequested(object sender, EventArgs e)
+    void OnDecalCopyRequested(object sender, EventArgs e)
+    {
+        buildingDecalClipboard.Copy(((BuildingDecalItemPanel)sender).Item);
+    }
+
+    void PasteDecal()
+    {
+        if (!component) { return; }
+
+        var item = buildingDecalClipboard.Paste(component);
+        if (item is not null)
+        {
+            AppendDecalPanel(item);
+        }
+    }
+
+    void OnItemDeleteRequested(object sender, EventArgs e)
     {
         diagShower.Create()
             .SetLocalizedMessage("LV.BDl.RemoveConfirm")
@@ -106,5 +142,23 @@ public class BuildingDecalFragment(
         if (decal is null) { return; }
 
         ((BuildingDecalItemPanel)sender).SetDecal(decal.Value);
+    }
+
+    public bool ProcessInput()
+    {
+        if (!component) { return false; }
+
+        if (inputService.IsKeyDown(BuildingDecalClipboard.CopyDecalKey))
+        {
+            buildingDecalClipboard.Copy(component);
+            return true;
+        }
+        else if (inputService.IsKeyDown(BuildingDecalClipboard.PasteDecalKey))
+        {
+            PasteDecal();
+            return true;
+        }
+
+        return false;
     }
 }

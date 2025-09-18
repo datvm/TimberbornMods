@@ -4,6 +4,7 @@ public class BuildingDecalItemPanel : CollapsiblePanel
 {
     public event EventHandler? OnDecalRequested;
     public event EventHandler? OnDecalDeletionRequested;
+    public event EventHandler? OnDecalCopyRequested;
 
     readonly ILoc t;
     readonly Dropdown cboTemplate;
@@ -23,9 +24,13 @@ public class BuildingDecalItemPanel : CollapsiblePanel
 
         var parent = Container;
 
-        parent.AddGameButton(t.T("LV.BDl.Change"), onClick: () => OnDecalRequested?.Invoke(this, EventArgs.Empty), stretched: true)
+        var buttons = parent.AddRow().AlignItems().SetMarginBottom(10);
+        buttons.AddGameButton(t.T("LV.BDl.Change"), onClick: () => OnDecalRequested?.Invoke(this, EventArgs.Empty))
             .SetPadding(5)
-            .SetMarginBottom(5);
+            .SetFlexGrow();
+        buttons.AddGameButton(t.T("LV.BDl.CopyButton"), onClick: () => OnDecalCopyRequested?.Invoke(this, EventArgs.Empty))
+            .SetPadding(5)
+            .SetFlexGrow();
 
         cboTemplate = parent.AddDropdown()
             .SetMarginBottom(5)

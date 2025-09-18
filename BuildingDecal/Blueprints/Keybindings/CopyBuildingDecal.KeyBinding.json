@@ -1,0 +1,12 @@
+{
+    "KeyBindingSpec": {
+        "Id": "CopyBuildingDecal",
+        "GroupId": "Objects",
+        "LocKey": "LV.BDl.KeyBindingCopy",
+        "Order": 100
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/d",
+        "InputModifiers": "Ctrl"
+    }
+}
