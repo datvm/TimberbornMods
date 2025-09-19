@@ -1,6 +1,6 @@
 ID,Text,Comment
 LV.SE.Enabled,"Enabled",
-LV.SE.EnabledDesc,"Whether this mod is enabled.",
+LV.SE.EnabledDesc,"Whether to save every x days or not. Does not affect 'special first cycle day' and 'extra save on weather warning' options.",
 LV.SE.SaveFrequency,"Auto-save frequency (days)",
 LV.SE.SaveFrequencyDesc,"How often this mod should auto-save.",
 LV.SE.SaveCount,"Auto-save count",

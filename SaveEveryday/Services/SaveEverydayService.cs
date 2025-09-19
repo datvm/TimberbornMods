@@ -55,13 +55,14 @@ public class SaveEverydayService(
     [OnEvent]
     public void OnNextDay(CycleDayStartedEvent _)
     {
-        if (!settings.Enabled) { return; }
-
         var day = time.DayNumber;
-        if (day - LastAutoSaveDay >= settings.SaveFrequency)
+        if (settings.Enabled)
         {
-            LastAutoSaveDay = day;
-            SaveGame(day);
+            if (day - LastAutoSaveDay >= settings.SaveFrequency)
+            {
+                LastAutoSaveDay = day;
+                SaveGame(day);
+            }
         }
 
         if (settings.SaveWeatherWarning)
@@ -76,7 +77,7 @@ public class SaveEverydayService(
             }
         }
 
-        if (cycles.CycleDay == 1 && settings.SaveFirstDay.Value)
+        if (settings.SaveFirstDay.Value && cycles.CycleDay == 1)
         {
             SaveStartCycle();
         }
