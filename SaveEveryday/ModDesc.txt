@@ -13,6 +13,7 @@ Auto-save the game at the start of every day. This mod works independenly with t
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v7.4.1: Special first day and weather warning saves now is not affected by Enabled option.
 v7.4.0: Added Special first cycle day option.
 v7.3.1: Should work with Jun 25th update now.
 v7.3.0: Added Auto-save filename option.

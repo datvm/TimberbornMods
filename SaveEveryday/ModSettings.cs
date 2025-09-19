@@ -59,10 +59,8 @@ public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSetting
 
         saveFrequency.Descriptor.SetEnableCondition(() => enabled.Value);
         saveCount.Descriptor.SetEnableCondition(() => enabled.Value);
-        saveWeatherWarning.Descriptor.SetEnableCondition(() => enabled.Value);
         autosaveWarning.Descriptor.SetEnableCondition(() => enabled.Value);
         autoSaveFilename.Descriptor.SetEnableCondition(() => enabled.Value);
-        SaveFirstDay.Descriptor.SetEnableCondition(() => enabled.Value);
 
         AddCustomModSetting(enabled, nameof(enabled));
         AddCustomModSetting(saveFrequency, nameof(saveFrequency));
