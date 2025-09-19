@@ -25,7 +25,9 @@ public class BuildingDecalSelectDialog : DialogBoxElement, ILoadableSingleton
         CreateFilterPanel(Content, t);
         CreateCommandPanel(Content, t);
 
-        imageContainer = Content.AddRow().SetWrap();
+        var containerScroll = Content.AddScrollView().SetHeight(400);
+        imageContainer = containerScroll.AddRow().SetWrap();
+
         this.Initialize(veInit);
     }
 
@@ -68,7 +70,7 @@ public class BuildingDecalSelectDialog : DialogBoxElement, ILoadableSingleton
         txtFilter.text = "";
 
         Add(decalPictureService.ErrorIcon);
-        foreach (var s in decalPictureService.Decals.Values.OrderBy(q => q.Name))
+        foreach (var s in decalPictureService.DecalsList)
         {
             Add(s);
         }
