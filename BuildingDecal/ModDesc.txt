@@ -8,7 +8,9 @@ Tips:
 - Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3472334132]TImprove 4 UI[/url] for a better scrollbar.
 - Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3547764728]TImprove 4 UX[/url] for collapsible panels.
 - When sliders are tricky, hold Shift and click the number to enter values manually.
-- Layer multiple decals for unique effects.
+- Layer multiple decals for unique effects. You can also use transparency channel for glass effect. This is a good decal for making window glass thanks to Anythin: https://i.imgur.com/dRoPdwi.png
+
+[img]https://i.imgur.com/3tmPtZt.jpeg[/img]
 
 The decals are purely visual and do not affect gameplay.
 
@@ -16,3 +18,9 @@ Be sure to share your feedback and awesome screenshot to me on official Discord 
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+Credit: @Anythin for the wonderful screenshots!
+
+v7.0.2:
+- Added scrollbar to the decal list.
+- Added a few built-in decals. The glass panel decal is credited to @Anythin.
