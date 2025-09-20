@@ -1,7 +1,10 @@
-﻿namespace TImprove4UX.Services;
+﻿
+namespace TImprove4UX.Services;
 
 public class CollapsibleEntityPanelService : ISaveableSingleton, ILoadableSingleton, IUnloadableSingleton
 {
+    public const string DoNotCollapseTag = "DoNotCollapse";
+
     #region Ignored list
     public static readonly FrozenSet<Type> IgnoredPanels = [
         typeof(StatusListFragment),
@@ -63,7 +66,13 @@ public class CollapsibleEntityPanelService : ISaveableSingleton, ILoadableSingle
 
     public void RegisterPanelFragment(VisualElement panel, IEntityPanelFragment fragment)
     {
-        if (IgnoredPanels.Contains(fragment.GetType())) { return; }
+        var type = fragment.GetType();
+        if (IgnoredPanels.Contains(type)
+            || type.GetCustomAttributes<DescriptionAttribute>().Any(a => a.Description == DoNotCollapseTag))
+        {
+            return;
+        }
+
 
         if (panelNames.ContainsKey(panel))
         {

@@ -9,6 +9,8 @@ Another mod for your [url=https://steamcommunity.com/workshop/filedetails/?id=34
 [img]https://i.imgur.com/GoBpI6j.jpeg[/img]
 - [b]Show Dynamite destruction[/b]: Show the terrain and buildings that would be destroyed when selecting a Dynamite. If you have Multi-directional Dynamite mod enabled, this option is not needed and that mod would enable this option always.
 [img]https://i.imgur.com/47kmn3i.jpeg[/img]
+- [b]Warning about idle workers[/b]: Add a warning when a worker has no work to do at a workplace. You can disable it for each workplace type separately or disable the entire option in the Mod Settings.
+[img]https://i.imgur.com/F86jvk5.jpeg[/img]
 
 All hotkeys can be changed in the game Settings -> Keybindings. It's in the mod's own "TImprove 4 UX" hotkey group.
 
@@ -23,6 +25,7 @@ If you need any support or feedback, feel free to contact me on Timberborn's off
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v7.3.0: Added 'Warning about idle workers' option.
 v7.2.1: Fixed a crash when highlighting dynamite at the bottom of the map.
 v7.2.0: Added Collapsible entity panels and Show Dynamite destruction options, both enabled by default.
 v7.0.2: credit to @normanr

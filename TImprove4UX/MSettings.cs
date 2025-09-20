@@ -32,6 +32,10 @@ public class MSettings(
         .CreateLocalized("LV.T4UX.ShowDynamiteDestruction")
         .SetLocalizedTooltip("LV.T4UX.ShowDynamiteDestructionDesc"));
 
+    public ModSetting<bool> WorkerIdleWarning { get; } = new (true, ModSettingDescriptor
+        .CreateLocalized("LV.T4UX.WorkerIdleWarning")
+        .SetLocalizedTooltip("LV.T4UX.WorkerIdleWarningDesc"));
+
     public override void OnBeforeLoad()
     {
         base.OnBeforeLoad();

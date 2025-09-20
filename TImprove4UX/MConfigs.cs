@@ -27,6 +27,13 @@ public class ModGameConfig : Configurator
             .BindSingleton<DynamiteDestructionService>()
 
             .BindSingleton<CollapsibleEntityPanelService>()
+
+            .BindSingleton<WorkerIdleWarningService>()
+            .BindFragment<IdleWarningFragment>()
+
+            .BindTemplateModule(h => h
+                .AddDecorator<Workplace, WorkerIdleWarningComponent>()
+            )
         ;
     }
 }
