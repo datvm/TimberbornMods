@@ -19,7 +19,12 @@ LV.T4UX.CollapseEntityPanelGlobalDesc,"Make the collapse state saved globally in
 LV.T4UX.ShowDynamiteDestruction,"Show Dynamite destruction",
 LV.T4UX.ShowDynamiteDestructionDesc,"Show the terrain and buildings that would be destroyed when selecting a Dynamite.
 If you have Multi-directional Dynamite mod enabled, this option is not needed and that mod would enable this option always.",
-LV.T4UX.UpdateText,"'Collapsible entity panels' and 'Show Dynamite destruction' are the new options in this update and are enabled by default. Please see the mod's description for the details.",
+LV.T4UX.UpdateText730,"Added 'Warning about idle workers' option. You can disable it for each workplace type separately or disable the entire option in the Mod Settings.",
+LV.T4UX.WorkerIdleWarning,"Warning about idle workers",
+LV.T4UX.WorkerIdleWarningDesc,"Add a warning when a worker has no work to do at a workplace",
+LV.T4UX.WorkerIdleWarningDisable,"Disable idle warning for all {0}",
+LV.T4UX.WorkerIdleStatus,"There are workers with nothing to do",
+LV.T4UX.WorkerIdleStatusShort,"Idle worker",
 Name_AdjustableStrengthPowerGeneratorFragment,"Dev Power Generator",
 Name_AdulthoodFragment,"Adulthood",
 Name_AttractionFragment,"Visitors",
