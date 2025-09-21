@@ -10,18 +10,22 @@ public abstract class TogglableEnterableEffectComponent : BaseEventTogglableCont
 
 }
 
+/// <summary>
+/// A togglable component that applies/removes bonuses to/from enterers when they enter/exit the enterable.
+/// Must have <see cref="ModdableTimberbornRegistry.UseBonusTracker(bool)"/> registered.
+/// </summary>
 public abstract class TogglableEnterableBonusComponent : TogglableEnterableEffectComponent
 {
-    protected abstract IReadOnlyList<BonusSpec> Bonuses { get; }
+    protected abstract BonusTrackerItem Bonuses { get; }
 
     protected override void OnEnter(Enterer enterer)
     {
-        enterer.GetBonusManager().AddBonuses(Bonuses);
+        enterer.GetBonusTracker().AddOrUpdate(Bonuses);
     }
 
     protected override void OnExit(Enterer enterer)
     {
-        enterer.GetBonusManager().RemoveBonuses(Bonuses);
+        enterer.GetBonusTracker().Remove(Bonuses.Id);
     }
 }
 

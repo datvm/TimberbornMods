@@ -11,13 +11,17 @@ public abstract class TogglableWorkplaceEffectComponent : BaseEventTogglableCont
 
 }
 
+/// <summary>
+/// A togglable component that applies/removes bonuses to/from workers when they are assigned/unassigned to/from the workplace.
+/// Must have <see cref="ModdableTimberbornRegistry.UseBonusTracker(bool)"/> registered.
+/// </summary>
 public abstract class TogglableWorkplaceBonusComponent : TogglableWorkplaceEffectComponent
 {
 
-    protected abstract IReadOnlyList<BonusSpec> Bonuses { get; }
+    protected abstract BonusTrackerItem Bonuses { get; }
 
-    protected override void OnWorkerAssigned(Worker worker) => worker.GetBonusManager().AddBonuses(Bonuses);
-    protected override void OnWorkerUnassigned(Worker worker) => worker.GetBonusManager().RemoveBonuses(Bonuses);
+    protected override void OnWorkerAssigned(Worker worker) => worker.GetBonusTracker().AddOrUpdate(Bonuses);
+    protected override void OnWorkerUnassigned(Worker worker) => worker.GetBonusTracker().Remove(Bonuses.Id);
 
 }
 

@@ -1,6 +1,6 @@
 ﻿namespace ModdableTimberborn.MechanicalSystem.Patches;
 
-[HarmonyPatchCategory(ModdableMechanicalSystemConfigurator.PatchCategoryName), HarmonyPatch(typeof(NoPowerStatus))]
+[HarmonyPatchCategory(ModdableMechanicalSystemConfig.PatchCategoryName), HarmonyPatch(typeof(NoPowerStatus))]
 public static class NoPowerStatusPatches
 {
 

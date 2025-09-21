@@ -5,7 +5,8 @@ public class MStarter : IModStarter
 
     void IModStarter.StartMod(IModEnvironment modEnvironment)
     {
-        new Harmony(nameof(ExtendedBuilderReach)).PatchAll();
+        var h = new Harmony(nameof(ExtendedBuilderReach));
+        h.PatchAll();
     }
 
 }

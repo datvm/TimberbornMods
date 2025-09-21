@@ -1,6 +1,6 @@
 ﻿namespace ModdableTimberborn.MechanicalSystem.Patches;
 
-[HarmonyPatchCategory(ModdableMechanicalSystemConfigurator.PatchCategoryName), HarmonyPatch(typeof(MechanicalGraph))]
+[HarmonyPatchCategory(ModdableMechanicalSystemConfig.PatchCategoryName), HarmonyPatch(typeof(MechanicalGraph))]
 public class MechanicalGraphPatches
 {
 

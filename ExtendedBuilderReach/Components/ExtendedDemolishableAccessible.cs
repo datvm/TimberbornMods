@@ -32,6 +32,7 @@ public class ExtendedDemolishableAccessible : BaseComponent, INavMeshListener, I
 
         Accessible = baseInstantiator.AddComponent<Accessible>(GameObjectFast);
         Accessible.Initialize(AccessibleComponentName);
+        Accessible.enabled = false;
     }
 
     public void OnNavMeshUpdated(NavMeshUpdate navMeshUpdate)
@@ -51,6 +52,7 @@ public class ExtendedDemolishableAccessible : BaseComponent, INavMeshListener, I
 
         bounds = blockObjectAccessGenerator.GenerateAccessBounds(minZ, maxZ);
         Accessible.SetAccesses(blockObjectAccessGenerator.GenerateAccesses(minZ, maxZ));
+        Accessible.enabled = false;
     }
 
     public void DeleteEntity()

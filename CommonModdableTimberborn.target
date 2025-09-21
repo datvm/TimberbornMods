@@ -9,6 +9,8 @@
 		<Using Include="ModdableTimberborn.Services" />
 		<Using Include="ModdableTimberborn.Helpers" />
 		<Using Include="ModdableTimberborn.Registry" />
+		<Using Include="ModdableTimberborn.EntityDescribers" />
+		
 
 		<Reference Include="$(ModdableTimberbornPath)" Private="False" />
 	</ItemGroup>

@@ -1,15 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<OutputModFolderName>ModdableTimberborn</OutputModFolderName>
+		<OutputModFolderName>BeavVsMachine</OutputModFolderName>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Folder Include="DependencyInjection\" />
+	  <Folder Include="Blueprints\Needs\" />
 	</ItemGroup>
+
 
 	<Import Project="../Common.target" />
 	<Import Project="../CommonTimberUi.target" />
-	<Import Project="../CommonHarmony.target" />
+	<Import Project="../CommonModdableTimberborn.target" />
 
 </Project>
