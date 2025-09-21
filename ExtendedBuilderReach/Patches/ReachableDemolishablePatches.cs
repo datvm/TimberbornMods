@@ -72,4 +72,31 @@ public static class ReachableDemolishablePatches
         return false;
     }
 
+    [HarmonyPostfix, HarmonyPatch(typeof(Accessible), nameof(Accessible.ValidAccessible), MethodType.Getter)]
+    public static void PatchDisabledSpecialAccessible(Accessible __instance, ref bool __result)
+    {
+        if (__result || __instance.ComponentName != ExtendedDemolishableAccessible.AccessibleComponentName) { return; }
+        __result = __instance.IsValid();
+    }
+
+    [HarmonyPostfix, HarmonyPatch(typeof(Accessible), nameof(Accessible.UnblockedSingleAccess), MethodType.Getter)]
+    public static void PatchDisabledUnblockedSingleAccess(Accessible __instance, ref Vector3? __result)
+    {
+        if (__result != null
+            || __instance.ComponentName != ExtendedDemolishableAccessible.AccessibleComponentName
+            || __instance.IsBlocked) { return; }
+
+        __result = __instance.Accesses.Single();
+    }
+
+    [HarmonyPostfix, HarmonyPatch(typeof(Accessible), nameof(Accessible.UnblockedSingleAccessInstant), MethodType.Getter)]
+    public static void PatchDisabledUnblockedSingleAccessInstant(Accessible __instance, ref Vector3? __result)
+    {
+        if (__result != null
+            || __instance.ComponentName != ExtendedDemolishableAccessible.AccessibleComponentName
+            || __instance.IsBlockedInstant) { return; }
+        __result = __instance.Accesses.Single();
+    }
+
+
 }

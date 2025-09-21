@@ -18,7 +18,7 @@
 		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
-		<ProjectReference Include="..\BuildingDecal\BuildingDecal.csproj" />
+		<ProjectReference Include="..\ExtendedBuilderReach\ExtendedBuilderReach.csproj" />
 
 	</ItemGroup>
 

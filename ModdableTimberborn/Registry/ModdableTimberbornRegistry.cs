@@ -1,7 +1,6 @@
-﻿
-namespace ModdableTimberborn.Registry;
+﻿namespace ModdableTimberborn.Registry;
 
-public class ModdableTimberbornRegistry
+public partial class ModdableTimberbornRegistry
 {
     public static readonly ModdableTimberbornRegistry Instance ;
 
@@ -9,18 +8,6 @@ public class ModdableTimberbornRegistry
     
     static readonly HashSet<string> PatchedCategories = [];
     static readonly Harmony harmony;
-
-
-    public bool MechanicalSystemUsed { get; private set; }
-    public ModdableTimberbornRegistry UseMechanicalSystem()
-    {
-        if (MechanicalSystemUsed) { return this; }
-
-        MechanicalSystemUsed = true;
-        AddConfigurator(ModdableMechanicalSystemConfigurator.Instance);
-
-        return this;
-    }
 
     public ModdableTimberbornRegistry AddConfigurator(IModdableTimberbornRegistryConfig config)
     {

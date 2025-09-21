@@ -1,0 +1,36 @@
+{
+    "NeedSpec": {
+        "Id": "Fitness",
+        "BackwardCompatibleIds": [],
+        "Order": 35,
+        "NeedGroupId": "BasicNeeds",
+        "CharacterType": "Beaver",
+        "DisplayNameLocKey": "LV.BVM.Fitness",
+        "StartingValue": 2,
+        "MinimumValue": -5,
+        "MaximumValue": 10,
+        "DailyDelta": -4,
+        "ImportanceMultiplier": 3.0,
+        "Effectiveness": 1.0,
+        "Wastable": false,
+        "FavorableWellbeing": 1,
+        "UnfavorableWellbeing": -1,
+        "HoursWarningThreshold": 0.0
+    },
+    "PunitiveNeedSpec": {
+        "Penalties": [
+            {
+                "Id": "MovementSpeed",
+                "MultiplierDelta": -0.5
+            },
+            {
+                "Id": "CarryingCapacity",
+                "MultiplierDelta": -0.5
+            },
+            {
+                "Id": "GrowthSpeed",
+                "MultiplierDelta": -0.5
+            }
+        ]
+    }
+}

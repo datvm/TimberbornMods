@@ -1,0 +1,5 @@
+ID,Text,Comment
+LV.BVM.ExpTitle,"Experience",
+LV.BVM.ExpDesc,"Experience: {0:0} hours. {1:+0}% Working Speed.",
+LV.BVM.Fitness,"Fitness",
+LV.BVM.AgiDesc,"Agility: {0:0}. {1:+0}% Movement Speed and Carry Capacity.",

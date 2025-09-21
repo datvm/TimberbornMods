@@ -1,6 +1,6 @@
 ﻿namespace ModdableTimberborn.MechanicalSystem.Patches;
 
-[HarmonyPatchCategory(ModdableMechanicalSystemConfigurator.PatchCategoryName), HarmonyPatch(typeof(MechanicalNode))]
+[HarmonyPatchCategory(ModdableMechanicalSystemConfig.PatchCategoryName), HarmonyPatch(typeof(MechanicalNode))]
 public static class MechanicalNodePatches
 {
 
