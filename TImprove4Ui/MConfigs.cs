@@ -1,5 +1,7 @@
 ﻿global using TImprove4Ui.Patches;
 global using TImprove4Ui.Services;
+global using TImprove4Ui.UI;
+global using TImprove4Ui.Components;
 
 namespace TImprove4Ui;
 
@@ -8,7 +10,12 @@ public class ModMenuConfig : Configurator
 {
     public override void Configure()
     {
-        this.BindSingleton<MSettings>();
+        this
+            .BindSingleton<MSettings>()
+            .BindSingleton<MenuLoaderService>()
+
+            .MultiBindSingleton<IModUpdateNotifier, ModUpdateNotifier>()
+        ;
     }
 }
 
@@ -19,6 +26,7 @@ public class ModGameConfig : Configurator
     {
         this
             .BindSingleton<MSettings>()
+            .BindSingleton<MenuLoaderService>()
 
             .BindSingleton<ShadowService>()
 
@@ -32,13 +40,19 @@ public class ModGameConfig : Configurator
 
             .BindSingleton<BatchControlBoxService>()
             .BindSingleton<WorkplacesBatchControlTabService>()
-            
+
             .BindSingleton<SceneService>()
-            
+
+            // Pause status icon
+            .BindSingleton<PauseStatusIconRegistry>()
+            .BindFragment<PauseStatusIconFragment>()
+
             .BindSingleton<FactionNeedSpecService>()
             .BindTemplateModule(h => h
                 .AddDecorator<AreaNeedApplier, NeedApplierDescriber>()
                 .AddDecorator<WorkshopRandomNeedApplier, NeedApplierDescriber>()
+                
+                .AddDecorator<StatusSubject, StatusTracker>()
             )
         ;
     }
@@ -56,20 +70,5 @@ public class ModMapEditorConfig : Configurator
             .BindSingleton<ScrollableEntityPanelService>()
             .BindSingleton<ToolPanelDescriptionMover>()
         ;
-    }
-}
-
-public class ModStarter : IModStarter
-{
-    void IModStarter.StartMod(IModEnvironment modEnvironment)
-    {
-        var harmony = new Harmony(nameof(TImprove4Ui));
-
-        harmony.Patch(
-            typeof(TopBarCounterRow).GetConstructors().First(),
-            postfix: typeof(MaterialCounterPatches).Method(nameof(MaterialCounterPatches.AddCounterEvents))
-        );
-
-        harmony.PatchAll();
     }
 }

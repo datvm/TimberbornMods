@@ -30,3 +30,8 @@ LV.T4UI.DisableShadowsDesc,"Disable shadows from the sun.",
 LV.T4UI.AddNegativeNeeds,"Add buildings' debuff info",
 LV.T4UI.AddNegativeNeedsDesc,"For example, Injury or Bee Sting chance.",
 LV.T4UI.ExitToMenu,"Exit to menu",
+LV.T4UI.ShowDisablePauseIcon,"Show disable pause icon option",
+LV.T4UI.ShowDisablePauseIconDesc,"Show an option to disable the floating icon on paused buildings",
+LV.T4UI.DisablePauseIcon,"Disable pause icons on all {0}",
+LV.T4UI.Update7_10_1,"This update adds an option to disable the pause icon on top of buildings.
+If you don't like the option clustering the UI, you can disable it in the mod settings.",
