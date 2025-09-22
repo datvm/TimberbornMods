@@ -34,6 +34,7 @@ public class MSettings(
     public ModSetting<bool> HighlightStorage { get; } = CreateBoolModSettings("LV.T4UI.HighlightStorage");
     public ModSetting<bool> DisableShadows { get; } = CreateBoolModSettings("LV.T4UI.DisableShadows");
     public ModSetting<bool> AddNegativeNeeds { get; } = CreateBoolModSettings("LV.T4UI.AddNegativeNeeds", true);
+    public ModSetting<bool> ShowDisablePauseIcon { get; } = CreateBoolModSettings("LV.T4UI.ShowDisablePauseIcon", true);
 
     public readonly LimitedStringModSetting toolDescPos = new(
         1,
