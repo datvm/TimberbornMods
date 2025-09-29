@@ -11,6 +11,7 @@ Another mod for your [url=https://steamcommunity.com/workshop/filedetails/?id=34
 [img]https://i.imgur.com/47kmn3i.jpeg[/img]
 - [b]Warning about idle workers[/b]: Add a warning when a worker has no work to do at a workplace. You can disable it for each workplace type separately or disable the entire option in the Mod Settings.
 [img]https://i.imgur.com/F86jvk5.jpeg[/img]
+- [b]Copy building[/b]: While in the default (Cursor) tool, middle click (mouse 3, rebindable) on a building to quickly switch to that building tool. You can also then hold Shift to delete matching buildings with "Shift to Delete" function.
 
 All hotkeys can be changed in the game Settings -> Keybindings. It's in the mod's own "TImprove 4 UX" hotkey group.
 
@@ -25,6 +26,11 @@ If you need any support or feedback, feel free to contact me on Timberborn's off
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v7.4.0:
+- Added 'Copy building' feature. Credit to @Muzzy
+- The following features now work in the Map Editor: Recent tool, Collapsible entity panels and the recently added Copy building.
+- Fixed disabling idle worker warning from the Mod Settings not working.
+- Fixed recent tool hotkey not working.
 v7.3.0: Added 'Warning about idle workers' option.
 v7.2.1: Fixed a crash when highlighting dynamite at the bottom of the map.
 v7.2.0: Added Collapsible entity panels and Show Dynamite destruction options, both enabled by default.

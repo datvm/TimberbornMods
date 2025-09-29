@@ -2,7 +2,8 @@
 
 [Description(CollapsibleEntityPanelService.DoNotCollapseTag)]
 public class IdleWarningFragment(
-    ILoc t
+    ILoc t,
+    MSettings s
 ) : BaseEntityPanelFragment<WorkerIdleWarningComponent>
 {
 
@@ -17,6 +18,8 @@ public class IdleWarningFragment(
 
     public override void ShowFragment(BaseComponent entity)
     {
+        if (!s.WorkerIdleWarning.Value) { return; } 
+
         base.ShowFragment(entity);
         if (!component) { return; }
 

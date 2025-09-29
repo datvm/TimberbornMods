@@ -7,8 +7,9 @@ public class RecentToolService(
 ) : ILoadableSingleton, IInputProcessor
 {
     public const string RecentToolHotkeyId = "RecentTool";
-    
-    Tool? recentTool;
+
+    Tool? prevTool;
+    Tool? currTool;
 
     public void Load()
     {
@@ -20,9 +21,9 @@ public class RecentToolService(
     {
         if (!inputService.IsKeyDown(RecentToolHotkeyId)) { return false; }
 
-        if (recentTool is not null)
+        if (prevTool is not null)
         {
-            toolManager.SwitchTool(recentTool);
+            toolManager.SwitchTool(prevTool);
         }
         return true;
     }
@@ -30,7 +31,8 @@ public class RecentToolService(
     [OnEvent]
     public void OnToolEntered(ToolEnteredEvent e)
     {
-        recentTool = e.Tool;
+        prevTool = currTool;
+        currTool = e.Tool;
     }
 
 }

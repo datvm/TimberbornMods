@@ -27,6 +27,7 @@ public class CollapsibleEntityPanelService : ISaveableSingleton, ILoadableSingle
         typeof(ScienceNeedingBuildingFragment),
         typeof(WaterMoverFragment),
         typeof(WaterSourceRegulatorFragment),
+        typeof(RuinModelShufflingFragment),
     ];
 
     public static readonly FrozenSet<string> IgnoredKeys = [

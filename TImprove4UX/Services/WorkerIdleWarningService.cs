@@ -2,15 +2,18 @@
 
 public class WorkerIdleWarningService(
     ISingletonLoader loader,
-    EntityRegistry entities
+    EntityRegistry entities,
+    MSettings s
 ) : ILoadableSingleton, ISaveableSingleton
 {
     static readonly SingletonKey SaveKey = new(nameof(WorkerIdleWarningService));
     static readonly ListKey<string> DisabledPrefabsKey = new("DisabledPrefabs");
 
+    public readonly MSettings Settings = s;
+
     HashSet<string> disabledPrefabs = [];
 
-    public bool IsWarningDisabled(string prefab) => disabledPrefabs.Contains(prefab);
+    public bool IsWarningDisabled(string prefab) => !Settings.WorkerIdleWarning.Value || disabledPrefabs.Contains(prefab);
     public void ToggleWarningDisabled(string prefab, bool disabled)
     {
         if (disabled)
@@ -37,6 +40,24 @@ public class WorkerIdleWarningService(
     public void Load()
     {
         LoadSavedData();
+
+        Settings.WorkerIdleWarning.ValueChanged += OnWorkerIdleWarningChanged;
+        OnWorkerIdleWarningChanged(null!, Settings.WorkerIdleWarning.Value);
+    }
+
+    private void OnWorkerIdleWarningChanged(object sender, bool enabled)
+    {
+        foreach (var e in entities.Entities)
+        {
+            var prefabSpec = e.GetComponentFast<PrefabSpec>();
+            if (!prefabSpec) { continue; }
+
+            var warningComp = e.GetComponentFast<WorkerIdleWarningComponent>();
+            if (!warningComp) { continue; }            
+
+            var disabled = IsWarningDisabled(prefabSpec.Name);
+            warningComp.UpdateStatus(disabled);
+        }
     }
 
     void LoadSavedData()

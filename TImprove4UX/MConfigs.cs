@@ -25,6 +25,7 @@ public class ModGameConfig : Configurator
             .BindSingleton<AlternateDeleteObjectTool>()
             .BindSingleton<RecentToolService>()
             .BindSingleton<DynamiteDestructionService>()
+            .BindSingleton<BuildingCopyService>()
 
             .BindSingleton<CollapsibleEntityPanelService>()
 
@@ -34,6 +35,20 @@ public class ModGameConfig : Configurator
             .BindTemplateModule(h => h
                 .AddDecorator<Workplace, WorkerIdleWarningComponent>()
             )
+        ;
+    }
+}
+
+[Context("MapEditor")]
+public class ModMapEditorConfig : Configurator
+{
+    public override void Configure()
+    {
+        this
+            .BindSingleton<MSettings>()
+            .BindSingleton<RecentToolService>()
+            .BindSingleton<BuildingCopyService>()
+            .BindSingleton<CollapsibleEntityPanelService>()
         ;
     }
 }
