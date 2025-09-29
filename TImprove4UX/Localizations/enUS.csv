@@ -19,12 +19,16 @@ LV.T4UX.CollapseEntityPanelGlobalDesc,"Make the collapse state saved globally in
 LV.T4UX.ShowDynamiteDestruction,"Show Dynamite destruction",
 LV.T4UX.ShowDynamiteDestructionDesc,"Show the terrain and buildings that would be destroyed when selecting a Dynamite.
 If you have Multi-directional Dynamite mod enabled, this option is not needed and that mod would enable this option always.",
-LV.T4UX.UpdateText730,"Added 'Warning about idle workers' option. You can disable it for each workplace type separately or disable the entire option in the Mod Settings.",
+LV.T4UX.UpdateText740,"- Added 'Copy building' feature. While in the default (Cursor) tool, middle click (mouse 3, rebindable) on a building to quickly switch to that building tool. You can also then hold Shift to delete matching buildings with 'Shift to Delete' function.
+- The following features now work in the Map Editor: Recent tool, Collapsible entity panels and the recently added Copy building.
+- Fixed disabling idle worker warning from the Mod Settings not working.
+- Fixed recent tool hotkey not working.",
 LV.T4UX.WorkerIdleWarning,"Warning about idle workers",
 LV.T4UX.WorkerIdleWarningDesc,"Add a warning when a worker has no work to do at a workplace",
 LV.T4UX.WorkerIdleWarningDisable,"Disable idle warning for all {0}",
 LV.T4UX.WorkerIdleStatus,"There are workers with nothing to do",
 LV.T4UX.WorkerIdleStatusShort,"Idle worker",
+LV.T4UX.CopyHotkey,"Copy building",
 Name_AdjustableStrengthPowerGeneratorFragment,"Dev Power Generator",
 Name_AdulthoodFragment,"Adulthood",
 Name_AttractionFragment,"Visitors",

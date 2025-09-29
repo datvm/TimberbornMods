@@ -1,0 +1,11 @@
+{
+    "KeyBindingSpec": {
+        "Id": "CopyBuilding",
+        "GroupId": "T4UX",
+        "LocKey": "LV.T4UX.CopyHotkey",
+        "Order": 30
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Mouse/middleButton"
+    }
+}

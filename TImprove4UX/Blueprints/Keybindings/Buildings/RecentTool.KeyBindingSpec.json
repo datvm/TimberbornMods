@@ -3,7 +3,7 @@
         "Id": "RecentTool",
         "GroupId": "T4UX",
         "LocKey": "LV.T4UX.RecentToolHotkey",
-        "Order": 191
+        "Order": 20
     },
     "PrimaryInputBindingSpec": {
         "Path": "/Mouse/scroll/up",
