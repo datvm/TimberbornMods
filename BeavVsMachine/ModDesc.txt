@@ -1,0 +1,43 @@
+Make Beavers scale better so that Beavers vs Bots becomes a real choice. This mod adds an EXP system for Beavers with no cap, inheritable across generations, plus a new Fitness stat. Bots lose efficiency as they age and take damage when working in water, especially contaminated water.
+
+[h1]EXP[/h1]
+- Beavers gain XP equal to the hours they spend working in a building. Every 80 XP (about 80 work hours or 5 days at 16 hours per day) gives a 1% work speed bonus.
+- Children gain XP based on the colony's highest-XP Beaver. Over their 7-day childhood they reach about 50% of the top XP.
+- With access to books, each Beavers gain an additional 1% of the top XP each day (both children and adults).
+
+[h1]Fitness[/h1]
+To balance jobs that keep Beavers outdoors (Builders, Haulers, Farmers), each Beaver has a new need: Fitness.
+- Fitness ranges from -5 to 20.
+- Below 0: -1 Wellbeing, -50% Movement speed, Carry Capacity, and Child Growth speed.
+- At 0 or higher: +1 Wellbeing, plus +1% Movement speed and Carry Capacity per point.
+
+[b]How Fitness changes[/b]
+Each day, Beavers accumulate the hours they spend outdoors.
+- Less than 4 hours: lose 1 Fitness.
+- At negative Fitness: spending 4+ hours gains 1 Fitness.
+- The higher the Fitness, the harder it is to maintain or increase. Each point above 0 requires +1 extra hour. Example: at +2 Fitness, a Beaver needs 6 hours outside to avoid losing Fitness, and 7 hours to reach +3.
+
+A Beaver can only gain or lose 1 Fitness per day, regardless of extra hours.
+
+[h1]Bots Debuff[/h1]
+A Bot's durability now reduces its performance.
+- Work speed decreases linearly up to -80% as durability drops.
+- Movement speed decreases linearly up to -50% as durability drops.
+
+Bots also take damage from water:
+- Durability decays 2× faster in fresh water.
+- At 100% contamination, decay is 10× faster.
+
+[h1]Tips and Notes[/h1]
+- To manually assign Beavers to jobs for specific XP and Fitness gains, use the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3460831859]Micro management[/url] mod.
+- Because of the XP formula, Books are very important. They effectively remove the cap and make XP and bonuses scale rapidly.
+- Because of the key role of Books, Iron Teeth can now build the Paper Mill and Printing Press. Punch Cards are included as well to prevent crashes.
+- To prevent performance issues, most stats are tracked separately during the day. At the start of a new day they are summed and bonuses are applied for the whole day.
+
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+If you have any feedback, especially regarding the balance of XP formula, please let me know in the comment or on the [url=https://discord.com/channels/558398674389172225/1418828330463137823]mod channel[/url] (official Discord https://discord.gg/timberborn ).
+
+[h1]Roadmap[/h1]
+1. "They are taking our jobs" scenario: If Bots make up more than 50% of the workforce, unemployed Beavers become unhappy. As the situation worsens, destruction may occur.
+2. Beav vs. Machine: Potential integration with Renovation or Scientific Project. Players choose one path: Purity or Digitalization. One side is heavily buffed while the other becomes nearly useless.

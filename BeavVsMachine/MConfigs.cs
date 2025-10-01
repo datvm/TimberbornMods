@@ -1,22 +1,4 @@
-﻿global using BeavVsMachine.Components;
-global using ModdableTimberborn.BonusSystem;
-
-namespace BeavVsMachine;
-
-public class MConfig : IModdableTimberbornRegistryConfig
-{
-    public void Configure(Configurator configurator, ConfigurationContext context)
-    {
-        if (!context.IsGameContext()) { return; }
-
-        configurator
-            .BindTemplateModule(h => h
-                .AddDecorator<BeaverSpec, BeaverExpComponent>()
-                .AddDecorator<BeaverSpec, BeaverFitnessComponent>()
-            )
-        ;
-    }
-}
+﻿namespace BeavVsMachine;
 
 public class MStarter : IModStarter
 {
@@ -25,7 +7,31 @@ public class MStarter : IModStarter
     {
         ModdableTimberbornRegistry.Instance
             .UseBonusTracker()
+            .UseSoakEffect()
             .AddConfigurator<MConfig>();
     }
 
 }
+
+public class MConfig : IModdableTimberbornRegistryConfig
+{
+    public void Configure(Configurator configurator, ConfigurationContext context)
+    {
+        if (!context.IsGameContext()) { return; }
+
+        configurator
+            .BindSingleton<BeaverExpStatTracker>()
+            .BindSingleton<BotPerformanceUpdater>()
+
+            .MultiBindSingleton<IDevModule, BvmDevModule>()
+
+            .BindTemplateModule(h => h
+                .AddDecorator<BeaverSpec, BeaverExpComponent>()
+                .AddDecorator<BeaverSpec, BeaverFitnessComponent>()
+                .AddDecorator<BotSpec, BotAgingPerformanceComponent>()
+                .AddDecorator<BotSpec, BotWaterDamageComponent>()
+            )
+        ;
+    }
+}
+

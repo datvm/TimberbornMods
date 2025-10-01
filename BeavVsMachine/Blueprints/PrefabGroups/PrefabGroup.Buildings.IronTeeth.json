@@ -1,0 +1,8 @@
+{
+    "PrefabGroupSpec": {
+        "Paths#append": [
+            "Buildings/Wood/PaperMill/PaperMill.Folktails",
+            "Buildings/Wood/PrintingPress/PrintingPress.Folktails"
+        ]
+    }
+}

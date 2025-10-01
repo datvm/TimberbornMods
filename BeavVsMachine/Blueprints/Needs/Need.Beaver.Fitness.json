@@ -6,10 +6,10 @@
         "NeedGroupId": "BasicNeeds",
         "CharacterType": "Beaver",
         "DisplayNameLocKey": "LV.BVM.Fitness",
-        "StartingValue": 2,
+        "StartingValue": 1.1,
         "MinimumValue": -5,
-        "MaximumValue": 10,
-        "DailyDelta": -4,
+        "MaximumValue": 20,
+        "DailyDelta": 0,
         "ImportanceMultiplier": 3.0,
         "Effectiveness": 1.0,
         "Wastable": false,
@@ -32,5 +32,11 @@
                 "MultiplierDelta": -0.5
             }
         ]
+    },
+    "CriticalNeedSpec": {
+        "CriticalNeedType": "StateWithAlert",
+        "SpriteName": "Unfit",
+        "DescriptionLocKey": "LV.BVM.LowFitnessStatusDesc",
+        "DescriptionShortLocKey": "LV.BVM.LowFitnessStatusDescShort"
     }
 }

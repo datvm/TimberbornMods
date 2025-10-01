@@ -8,3 +8,4 @@ global using UnityEditor.StyleSheets;
 global using UnityEditor.UIElements.Debugger;
 global using NineSliceFloatField = TimberUi.CommonUi.NineSliceFloatField;
 global using TProgressBar = Timberborn.CoreUI.ProgressBar;
+global using TimberUi.Services.Dialogs;

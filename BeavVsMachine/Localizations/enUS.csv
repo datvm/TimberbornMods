@@ -1,5 +1,12 @@
 ID,Text,Comment
-LV.BVM.ExpTitle,"Experience",
-LV.BVM.ExpDesc,"Experience: {0:0} hours. {1:+0}% Working Speed.",
+LV.BVM.ExpTitle,"Experience: {0:0}",
+LV.BVM.ExpDesc,"{0:+0}% Working Speed.",
+LV.BVM.ExpDescWithPending,"{0:+0}% Working Speed. {1:0.0}EXP from work pending.",
 LV.BVM.Fitness,"Fitness",
-LV.BVM.AgiDesc,"Agility: {0:0}. {1:+0}% Movement Speed and Carry Capacity.",
+LV.BVM.FitnessTitle,"Fitness: {0}",
+LV.BVM.FitnessDesc,"{0:+0}% Movement Speed and Carry Capacity.
+Today outside time: {1:0.0} hours",
+LV.BVM.DeteriorationTitle,"Durability: {0:0%}",
+LV.BVM.DeteriorationDesc,"{0:0.0%} Working speed and {1:0.0%} Movement speed.",
+LV.BVM.LowFitnessStatusDesc,"This beaver needs to spend more time outside to regain fitness.",
+LV.BVM.LowFitnessStatusDescShort,"Unfit",

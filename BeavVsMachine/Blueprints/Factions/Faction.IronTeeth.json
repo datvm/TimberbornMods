@@ -1,7 +1,17 @@
 {
     "FactionSpec": {
         "Needs#append": [
-            "Fitness"
+            "Fitness",
+            "Books",
+            "PunchCard"
+        ],
+        "Goods#append": [
+            "Book",
+            "Paper",
+            "PunchCard"
+        ],
+        "MaterialGroups#append": [
+            "Folktails"
         ]
     }
 }

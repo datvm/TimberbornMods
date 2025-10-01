@@ -6,6 +6,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Blueprints\Needs\" />
+	  <Folder Include="Blueprints\PrefabGroups\" />
 	</ItemGroup>
 
 
