@@ -5,6 +5,7 @@ global using ModdableTimberborn.Helpers;
 global using ModdableTimberborn.MechanicalSystem;
 global using ModdableTimberborn.Registry;
 global using ModdableTimberborn.Services;
+global using ModdableTimberborn.SoakEffect;
 
 global using System.Reflection.Emit;
 global using Label = UnityEngine.UIElements.Label;

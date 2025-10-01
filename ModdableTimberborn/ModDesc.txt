@@ -1,0 +1,14 @@
+[b]For end-user, you won't see any in-game changes from this mod. This mod is a shared library for other mods to use.[/b]
+
+ModdableTimberborn provides a shared API layer for Timberborn modding. It offers quick access to reusable features that can support multiple mods, expanding on TimberUI with gameplay-level functionality.
+
+This mod replaces earlier projects (Buff & Debuff and Moddable Bindito). Existing mods that depended on those will transition to this unified system.
+
+Includes full source code and a demo project showing how to use the various APIs, such as:
+- Bonus System: easily track and update bonus stats.
+- Enterable and WorkSystem: Event based systems for buildings and workers.
+- MechanicalSystem: sharable modifiers for powers.
+- Entity Describers: unified UI to show certain statuses.
+
+Mod source code and donation: https://github.com/datvm/TimberbornMods.
+Feedback and question on Discord: https://discord.com/channels/558398674389172225/1422778917366005770

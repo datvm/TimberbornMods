@@ -16,6 +16,9 @@ public class ModAllConfig : Configurator
 {
     public override void Configure()
     {
-        this.BindSingleton<GameSliderAlternativeManualValueDI>();
+        this
+            .BindSingleton<GameSliderAlternativeManualValueDI>()
+            .BindSingleton<DialogService>()
+        ;
     }
 }
