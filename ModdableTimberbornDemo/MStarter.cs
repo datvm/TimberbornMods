@@ -1,4 +1,5 @@
-﻿using ModdableTimberbornDemo.Features.EnterableBuff;
+﻿using ModdableTimberbornDemo.Features.DI;
+using ModdableTimberbornDemo.Features.EnterableBuff;
 using ModdableTimberbornDemo.Features.MechanicalSystem;
 using ModdableTimberbornDemo.Features.WorkplaceBuff;
 
@@ -18,6 +19,9 @@ public class MStarter : IModStarter
             .UseMechanicalSystem()
             .AddConfigurator<MechanicalSystemConfig>()
 
+            // DI
+            .UseDependencyInjection()
+            .AddConfigurator<DemoDIConfig>()
         ;
 
     }
