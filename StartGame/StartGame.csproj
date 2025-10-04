@@ -15,10 +15,10 @@
 
 	<ItemGroup>
 		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
-		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
+		<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
-		<ProjectReference Include="..\BeavVsMachine\BeavVsMachine.csproj" />
+		<ProjectReference Include="..\ModdableTimberbornDemo\ModdableTimberbornDemo.csproj" />
 
 	</ItemGroup>
 

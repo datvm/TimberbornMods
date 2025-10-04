@@ -1,11 +1,8 @@
 ﻿namespace ModdableTimberborn.SoakEffect
 {
-    public class ModdableSoakEffectConfig : IModdableTimberbornRegistryWithPatchConfig
+    public class ModdableSoakEffectConfig : IModdableTimberbornRegistryConfig
     {
-        public const string PatchCategoryName = $"{nameof(ModdableTimberborn)}.{nameof(SoakEffect)}";
         public static readonly ModdableSoakEffectConfig Instance = new();
-
-        public string PatchCategory { get; } = PatchCategoryName;
 
         private ModdableSoakEffectConfig() { }
 
