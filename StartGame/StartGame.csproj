@@ -18,7 +18,7 @@
 		<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
-		<ProjectReference Include="..\ModdableTimberbornDemo\ModdableTimberbornDemo.csproj" />
+		<ProjectReference Include="..\PackagerBuilder\PackagerBuilder.csproj" />
 
 	</ItemGroup>
 

@@ -36,6 +36,14 @@ public class TimberModBuilderService()
         return new ModBuilderArtifact(folder, manifestPath, locFolder, bpFolder);
     }
 
+    public string PrepareFolderAndDontClearOnBuild()
+    {
+        var folder = PrepareFolder();
+        ClearIfExists = false;
+
+        return folder;
+    }
+
     string PrepareFolder()
     {
         var folder = ModFolder;
@@ -58,11 +66,31 @@ public class TimberModBuilderService()
         values[nameof(manifest.Version)] = manifest.Version.ToString();
         values[nameof(manifest.MinimumGameVersion)] = manifest.MinimumGameVersion.ToString();
 
+        if (!manifest.RequiredMods.IsDefaultOrEmpty)
+        {
+            values[nameof(manifest.RequiredMods)] = manifest.RequiredMods
+                .Select(SerializeVersionedMod)
+                .ToList();
+        }
+
+        if (!manifest.OptionalMods.IsDefaultOrEmpty)
+        {
+            values[nameof(manifest.OptionalMods)] = manifest.OptionalMods
+                .Select(SerializeVersionedMod)
+                .ToList();
+        }
+
         var json = JsonConvert.SerializeObject(values, Formatting.Indented);
         File.WriteAllText(path, json);
 
         return path;
     }
+
+    Dictionary<string, object> SerializeVersionedMod(VersionedMod m) => new()
+    {
+        { nameof(m.Id), m.Id },
+        { nameof(m.MinimumVersion), m.MinimumVersion.ToString() }
+    };
 
     public ModBuilderLocalization AddLocalization(string loc = "enUS")
     {

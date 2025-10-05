@@ -6,6 +6,9 @@
     "Description": "Provide various APIs to mod Timberborn",
     "RequiredMods": [
         { "Id": "Harmony" },
-        { "Id": "TimberUi" }
+        {
+            "Id": "TimberUi",
+            "MinimumVersion": "7.8.4"
+        }
     ]
 }

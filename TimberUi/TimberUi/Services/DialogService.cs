@@ -57,6 +57,8 @@ public partial class DialogService(
             builder.SetCancelButton(() => tcs.SetResult(false), cancelText);
         }
 
+        builder.Show();
+
         return await tcs.Task;
     }
 

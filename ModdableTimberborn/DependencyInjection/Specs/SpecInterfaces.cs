@@ -51,7 +51,7 @@ public abstract class BaseSpecModifier<T> : BaseBlueprintModifier<T> where T : C
 
         foreach (var spec in modifiedSpecs)
         {
-            yield return new([spec], []);
+            yield return spec.ToBlueprint();
         }
     }
 

@@ -1,0 +1,43 @@
+﻿This mod adds two buildings: Packager and Unpackager. Use the Packager to combine ×10 goods into a single package, and the Unpackager to split them back. Ideal for bulk transport and efficient storage.
+
+[b]Important note to existing users using the old [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3522631725]Packager[/url] mod:[/b] This new version is a complete rewrite and is not compatible with the old mod. Please continue your old save with the old mod and use this one for new games only. Do not use both this mod and the old mod together.
+
+[h1]What's News[/h1]
+
+This mod now use [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3548617753]TimberMod Builder[/url][/b] to build the item list which means:
+- Faster load time.
+- Compatible with TimberAPI.
+- You can also inspect the exported mod yourself and even modify it easily.
+- [i]However[/i] you have to keep it up to date yourself.
+
+Also a few improvements:
+- Packaged items are now named like Log ×10 so the item and the ×10 version are right next to each other.
+- The packaged icon is now green to easily distinguish it from the original item.
+
+[h1]Setup[/h1]
+
+The first time you run this mod, you need to build the "Packager" mod with it: click the "Build Packager Mod" button from the Main Menu:
+
+[img]https://i.imgur.com/farju90.jpeg[/img]
+
+This will create a new mod called "Packager" in your mods list. Restart the game and enable it. [b]Note: keep this mod (Packager Builder) ON[/b] as well.
+
+[i]In the future if you need to refresh the item list, simply disable the "Packager" mod and the button will appear again.[/i]
+
+[h1]The new buildings[/h1]
+
+- Both buildings cost 150 Science to unlock (750 Science for Bot worker), require 1 worker, take 1 hour per package, and can store items for up to 10 production cycles.
+- Packager: Costs 10 Logs to build.
+- Unpackager: Costs 1 Packaged Log to build.
+
+[h1]Tips and Notes[/h1]
+- Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3472334132]TImprove 4 UI[/url] to add scrollbar to the item list and the recipe list since they both get longer (Please update it to the latest version for the recipe list scrollbar).
+- Packages have a weight equal to 10 times the original item. Beavers and bots can still carry a single package, even if it exceeds their usual weight limit, but will receive the Overburden debuff (−50% speed) while doing so.
+- Packaged items can't be used for anything else until unpacked.
+- Have too many beavers without anything better to do? Let them pack and unpack the same thing over and over again!
+- The Haulers are your friend.
+
+If you need any support or feedback, feel free to contact me on Timberborn's official Discord ( https://discord.gg/timberborn, on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] channel), or @theapologist316
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
