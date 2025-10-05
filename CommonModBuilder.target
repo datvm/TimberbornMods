@@ -1,0 +1,10 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<ItemGroup>
+		<Using Include="TimberModBuilder" />
+		<Using Include="TimberModBuilder.Services" />
+
+		<Reference Include="$(GameModsFolder)TimberModBuilder\$(TimberbornVersion)\**\*.dll" Private="false" />	
+	</ItemGroup>
+
+</Project>

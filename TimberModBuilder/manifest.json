@@ -1,6 +1,6 @@
 {
     "Name": "TimberMod Builder",
-    "Version": "7.0.0",
+    "Version": "7.0.1",
     "Id": "TimberModBuilder",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Use for other mods to build mods",

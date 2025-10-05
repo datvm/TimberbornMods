@@ -20,9 +20,9 @@ public class SpecModifierService(
             {
                 if (t != m.Type) { continue; }
 
-                var bps = curr.Select(q => q.Value).ToList();
+                var bps = ConvertFromLazies(curr);
                 var modified = m.Modify(bps);
-                curr = [.. modified.Select(q => new Lazy<Blueprint>(() => q))];
+                curr = ConvertToLazies(modified);
             }
 
             if (curr != lazies)
@@ -36,4 +36,8 @@ public class SpecModifierService(
             specService._cachedBlueprints[t] = lazies;
         }
     }
+
+    public static List<Blueprint> ConvertFromLazies(IEnumerable<Lazy<Blueprint>> lazies) => [.. lazies.Select(q => q.Value)];
+    public static List<Lazy<Blueprint>> ConvertToLazies(IEnumerable<Blueprint> bps) => [.. bps.Select(q => new Lazy<Blueprint>(() => q))];
+
 }

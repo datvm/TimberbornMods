@@ -1,0 +1,16 @@
+ID,Text,Comment
+LV.Pkg.BuildPackager,"Build Packager Mod",
+LV.Pkg.BuiltDone,"'Packager' mod built. Please restart the game and enable the built mod.
+<RedHighlight>Do not disable this mod.</RedHighlight>
+If you want to build the mod again (for example, after changing mods that give/remove items), simply disable the built mod and the button will appear again.",
+LV.Pkg.Restart,"Restart",
+LV.Pkg.PackagedName,"{0} ×10",
+LV.Pkg.PackagedNamePlural,"{0} ×10",
+LV.Pkg.Packager,"Packager",
+LV.Pkg.PackagerDesc,"Combines 10× of any supported good into a single package",
+LV.Pkg.PackagerFlavor,"Born from necessity, perfected by neat freaks. Where there's clutter, there's a Bundler.",
+LV.Pkg.Unpacker,"Unpackager",
+LV.Pkg.UnpackerDesc,"Unpacks a package back into 10× individual goods.",
+LV.Pkg.UnpackerFlavor,"Nothing delights a beaver more than unboxing the unexpected.",
+LV.Pkg.RecipePack,"Pack {0}",
+LV.Pkg.RecipeUnpack,"Unpack {0}",

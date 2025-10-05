@@ -16,9 +16,17 @@ public partial class ModdableTimberbornRegistry
         if (config is IModdableTimberbornRegistryWithPatchConfig patchConfig)
         {
             var category = patchConfig.PatchCategory;
-            if (PatchedCategories.Add(category))
+
+            if (category is not null)
             {
-                harmony.PatchCategory(category);
+                if (PatchedCategories.Add(category))
+                {
+                    harmony.PatchCategory(category);
+                }
+            }
+            else
+            {
+                harmony.PatchAll(patchConfig.GetType().Assembly);
             }
         }
 

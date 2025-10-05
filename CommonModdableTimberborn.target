@@ -1,5 +1,9 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+	<Import Project="./CommonTimberUI.target" />
+	<Import Project="./CommonHarmony.target" />
+
+
 	<PropertyGroup>
 		<ModdableTimberbornPath>$(GameModsFolder)ModdableTimberborn\$(TimberbornVersion)\**\*.dll</ModdableTimberbornPath>
 	</PropertyGroup>

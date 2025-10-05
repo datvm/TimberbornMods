@@ -22,6 +22,11 @@ public static class CommonExtensions
         where T : BaseComponent
         => component.GetComponentFast<PersistentBonusTrackerComponent>();
 
+    public static Lazy<Blueprint> ToLazyBlueprint<T>(this T spec) where T : ComponentSpec => new(() => spec.ToBlueprint());
+    public static Blueprint ToBlueprint<T>(this T spec) where T : ComponentSpec => new([spec], []);
+    public static T[] GetLazySpecs<T>(this SpecService specService) where T : ComponentSpec 
+        => [.. specService._cachedBlueprints[typeof(T)].Select(q => q.Value.GetSpec<T>())];
+
     public static bool IsGameContext(this ConfigurationContext context) => context.HasFlag(ConfigurationContext.Game);
     public static bool IsMenuContext(this ConfigurationContext context) => context.HasFlag(ConfigurationContext.MainMenu);
     public static bool IsBootstrapperContext(this ConfigurationContext context) => context.HasFlag(ConfigurationContext.Bootstrapper);
