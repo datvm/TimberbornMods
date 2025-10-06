@@ -22,7 +22,10 @@ public class MConfig : IModStarter, IModdableTimberbornRegistryWithPatchConfig
                 .BindSingleton<GoodBuilder>()
             ;
 
-            new SpriteOperationsConfigurator().Configure(configurator._containerDefinition);
+            configurator.TryBind<SpriteResizer>()?.AsSingleton();
+            configurator.TryBind<SpriteFlipper>()?.AsSingleton();
+            configurator.TryMultiBind<IDeserializer, UISpriteDeserializer>()?.AsSingleton();
+            configurator.TryMultiBind<IDeserializer, FlippedSpriteDeserializer>()?.AsSingleton();
         }
         else if (context.IsBootstrapperContext())
         {
