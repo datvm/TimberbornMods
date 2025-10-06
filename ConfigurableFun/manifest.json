@@ -1,0 +1,11 @@
+﻿{
+    "Name": "Configurable Fun!",
+    "Version": "7.0.1",
+    "Id": "ConfigurableFun",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Have a blast!",
+    "RequiredMods": [
+        { "Id": "ModdableTimberborn" },
+        { "Id": "eMka.ModSettings" }
+    ]
+}
