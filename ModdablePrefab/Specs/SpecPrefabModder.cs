@@ -1,11 +1,14 @@
 ﻿global using Newtonsoft.Json;
 global using System.Collections;
-global using Timberborn.PrefabSystem;
 global using System.Collections.Frozen;
+global using Timberborn.PrefabSystem;
 
 namespace ModdablePrefab;
 
-public class SpecPrefabModder(ISpecService? specServ) : ILoadableSingleton
+public class SpecPrefabModder(
+    ISpecService specServ,
+    FactionService factionService
+) : ILoadableSingleton, IPrefabGroupProvider // IPrefabGroupProvider so its Load method run before PrefabGroupService.Load
 {
     public static SpecPrefabModder? Instance { get; private set; }
 
@@ -23,12 +26,11 @@ public class SpecPrefabModder(ISpecService? specServ) : ILoadableSingleton
         PopulateAddComponentSpecTypes(typeCache);
 
         Instance = this;
-        specServ = null; // No longer needed, release to let the GC collect it
     }
 
     FrozenDictionary<Type, ImmutableArray<T>> GroupSpecs<T>(Dictionary<string, Type> typeCache) where T : BasePrefabModSpec
     {
-        var specs = specServ!.GetSpecs<T>();
+        var specs = specServ.GetSpecs<T>();
         try
         {
             if (specs is null || !specs.Any()) { return FrozenDictionary<Type, ImmutableArray<T>>.Empty; }
@@ -38,9 +40,14 @@ public class SpecPrefabModder(ISpecService? specServ) : ILoadableSingleton
             return FrozenDictionary<Type, ImmutableArray<T>>.Empty;
         }
 
+        var factionId = factionService.Current.Id;
+
         Dictionary<Type, List<T>> byTypes = [];
         foreach (var spec in specs)
         {
+            Debug.Log($"{spec} has faction: " + string.Join(", ", spec.Factions));
+            if (spec.Factions.Length > 0 && !spec.Factions.Contains(factionId)) { continue; }
+
             var type = FindComponentType(spec.ComponentType, typeCache);
 
             if (!byTypes.TryGetValue(type, out var list))
@@ -282,6 +289,7 @@ public class SpecPrefabModder(ISpecService? specServ) : ILoadableSingleton
         return input;
     }
 
+    public IEnumerable<string> GetPrefabGroups() => [];
 }
 
 public readonly record struct PrefabSpecReflectedMember(Action<object?> SetValue, Type ExpectedType, object OriginalValue);
