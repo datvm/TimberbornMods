@@ -1,0 +1,13 @@
+﻿Another Configurable mod, this time you can configure all the 'fun' buildings! You can configure the Effect points, number of Visitors and Ranges of Wellbeing, Decoration and Monuments buildings.
+
+By default, this mod does nothing. To configure it, go to Main Menu → Mods → Settings (next to the mod name):
+- Effect multiplier: Controls how quickly Need points increase for relevant buildings. 1 is the game default. Higher = faster (easier), lower = slower (harder).
+- Capacity multiplier and addition: Adjusts how many visitors a building can host simultaneously. Rounded down, minimum 1. Example: ×1.5 and +1 make a Campfire (default 5 spots) have 8 spots.
+- Range multiplier and addition: Adjusts the area of effect for relevant buildings. Rounded down, minimum 1. Example: ×1.5 and +1 make a Farmer Monument (default 7 tiles) have an 11-tile range.
+
+Note: affect Wonders too but not the capacity (i.e the workforce required).
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v7.0.1: Added a possible missing buildings like Medical Beds.

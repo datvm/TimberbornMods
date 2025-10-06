@@ -1,0 +1,16 @@
+﻿ID,Text,Comment
+LV.CFun.PointMul,"Effect multiplier",
+LV.CFun.PointMulDesc,"How fast the Need point increases for Attraction buildings.
+1 is the game default, higher is faster (easier), lower is slower (harder).",
+LV.CFun.CapacityMul,"Capacity multiplier",
+LV.CFun.CapacityMulDesc,"Multiply the capacity of Attraction buildings. Rounded down with minimum 1.
+1 is the game default, higher is more capacity (easier), lower is less capacity (harder).
+For example, 1.5 means Campfire (default 5 spots) would have 7 spots.",
+LV.CFun.CapacityAdd,"Capacity addition",
+LV.CFun.CapacityAddDesc,"Add to the capacity of Attraction buildings. After multiplication.",
+LV.CFun.RangeMul,"Range multiplier",
+LV.CFun.RangeMulDesc,"Multiply the range of Attraction buildings. Rounded down with minimum 1.
+1 is the game default, higher is more range (easier), lower is less range (harder).
+For example, 1.5 means Farmer Monument (default 7 tiles range) would have 10 tiles range.",
+LV.CFun.RangeAdd,"Range addition",
+LV.CFun.RangeAddDesc,"Add to the range of Attraction buildings. After multiplication.",
