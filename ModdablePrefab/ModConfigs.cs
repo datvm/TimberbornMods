@@ -1,12 +1,14 @@
 ﻿namespace ModdablePrefab;
 
-[Context("MainMenu")]
+[Context("Game")]
+[Context("MapEditor")]
 public class MainMenuModConfig : Configurator
 {
 
     public override void Configure()
     {
         Bind<SpecPrefabModder>().AsSingleton();
+        MultiBind<IPrefabGroupProvider>().ToExisting<SpecPrefabModder>();
     }
 
 }

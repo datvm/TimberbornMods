@@ -1,0 +1,145 @@
+﻿With this mod, modders can make a lot more with 100% code-less mods (using JSONs). Previously they cannot modify values put inside a Prefab (including buildings' Science cost, Material , Power etc.) without using code. Now they can do it with JSONs.
+
+[b]Note to players: This mod does nothing by itself. It is for modders to create mods and you probably subscribe to this mod as a dependency for other mods to work.[/b]
+
+Simply create blueprints files and that's it. It can be [b]Blueprints\PrefabModder\AddLumbermill.json[/b], the name and path does not matter as long as it is in the Blueprints folder. Below are some examples of what you can do with this mod.
+
+If you need any help, please ping me on the Timberborn's Official Discord server. You can also check out my [url=https://datvm.github.io/TimberbornMods/ModdingGuide/]Modding Guide[/url] for more information on where to find out about the names and values (right now it's still a WIP but the first 2 parts are already there). You can also check out [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3421980408]Berry Bie[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3485607158]Timbits & Timbots[/url], they are JSON-only mods (no C# code or assets).
+
+For more info, contact me on official Discord ( https://discord.gg/timberborn ), on #mod-creator channel or [url=https://discord.com/channels/558398674389172225/1351976116713291948]Moddable Prefab[/url] channel.
+
+===
+
+[h1]Change logs[/h1]
+
+v7.2.0: You can now specify Factions that the modifiers apply to.
+
+v7.1.2: Should work with April 02 update now, dependent mods don't need to do anything.
+
+v7.1.1:
+- Fixed Prefab being modified twice again when the game is loaded the 2nd time onwards. This mostly affected "AppendArray" specs.
+- Added a Distinct() call for all "AppendArray" specs so string[] or array of structs should only contain unique values when multiple mods append the same values.
+
+v7.1.0:
+- Added [b]PrefabAddComponentSpec[/b] support for adding components to a prefab (GameObject).
+- Allow single quote [b]'[/b] in the [b]NewValue[/b] property instead of double quote only. They are converted into double quote under the hood. Use [b]\'[/b] if you want to keep it as [b]'[/b].
+- Allow underscore [b]_[/b] as [b]ValuePath[/b] to set the current Component value.
+
+[h1]Remove all sciences[/h1]
+
+Set all [b]BuildingSpec[/b] _scienceCost to 0, which means all buildings are unlocked from start:
+
+[code]
+{
+    "PrefabModderSpec": {
+        "ComponentType": "Timberborn.Buildings.BuildingSpec", // BuildingSpec is valid but a full name is better
+        "ValuePath": "_scienceCost",
+        "NewValue": "0"
+    }
+}
+[/code]
+
+[h1]Change a specific building:[/h1]
+
+Now it's not very good to apply a change to all buildings. Let's change only the [b]Dam[/b] by... adding 1 Science cost:
+
+[code]
+{
+    "PrefabModderSpec": {
+        "ComponentType": "Timberborn.Buildings.BuildingSpec", // BuildingSpec is valid but a full name is better
+        "PrefabNames": [ "Dam.Folktails", "Dam.IronTeeth" ], // Optional in case multiple things may match the ComponentType
+        "ValuePath": "_scienceCost",
+        "NewValue": "1", // It must be a string that is a JSON
+        "AppendArray": true, // We will use this later but here it is ignored because the value is not an array
+        "Factions": [ "Folktails", "IronTeeth" ] // Optional, if not specified, it applies to all factions
+    }
+}
+[/code]
+
+[h1]Change building material cost:[/h1]
+
+Say we want to make Dam cheaper by adding 1 Plank to it:
+
+[code]
+{
+    "PrefabModderSpec": {
+        "ComponentType": "Timberborn.Buildings.BuildingSpec",
+        "PrefabNames": [ "Dam.Folktails", "Dam.IronTeeth" ],
+        "ValuePath": "_buildingCost",
+        "NewValue": "[{\"_goodId\": \"Plank\", \"_amount\": 1}]",
+        "AppendArray": true // Add to the array instead of replacing it
+    }
+}
+[/code]
+
+Now that's a little too much, now it costs 20 Logs and 1 Plank. Let's change the cost completely to 10 Logs and 1 Plank:
+
+[code]
+{
+    "PrefabModderSpec": {
+        "ComponentType": "Timberborn.Buildings.BuildingSpec",
+        "PrefabNames": [ "Dam.Folktails", "Dam.IronTeeth" ],
+        "ValuePath": "_buildingCost",
+        "NewValue": "[{\"_goodId\": \"Log\", \"_amount\": 10}, {\"_goodId\": \"Plank\", \"_amount\": 1}]"
+    }
+}
+[/code]
+
+[b]Note:[/b] Removing a certain value is not supported. Accessing a specific index in an array is not supported. You can only change the whole array.
+
+[h1]Add a recipe to a building:[/h1]
+
+Well you could have done that with [url=https://steamcommunity.com/workshop/filedetails/?id=3446669921]Moddable and Unlockable Recipe[/url] but with this mod, you can also add/remove recipes to buildings and change other stuff as well, so it's up to your choice.
+
+The below code add Treated Plank recipe to Lumber Mill. You can also create your own recipe and add it to the building.
+
+[code]
+{
+    "PrefabModderSpec": {
+        "ComponentType": "Timberborn.Workshops.ManufactorySpec",
+        "PrefabNames": [ "LumberMill.Folktails", "LumberMill.IronTeeth" ],
+        "ValuePath": "_productionRecipeIds",
+        "NewValue": "[\"TreatedPlank\"]",
+        "AppendArray": true // Add a new recipe
+    }
+}
+[/code]
+
+[h1]Add range to a building[/h1]
+
+From v7.1.0 you can now add new components into an existing prefab like a building using [b]PrefabAddComponentSpec[/b]. The below code add [b]ContinuousEffectBuildingSpec[/b] and [b]RangedEffectBuildingSpec[/b] into the Hedge building:
+
+[code]
+{
+    "PrefabAddComponentSpec": {
+        "ComponentType": "Timberborn.Buildings.BuildingSpec",
+        "PrefabNames": [ "Hedge.Folktails", "Hedge.IronTeeth" ],
+        "AddComponents": [ "Timberborn.RangedEffectSystem.ContinuousEffectBuildingSpec", "Timberborn.RangedEffectSystem.RangedEffectBuildingSpec" ]
+    }
+}
+[/code]
+
+You can then also add values to those components:
+
+[code]
+{
+    "PrefabModderSpec": {
+        "ComponentType": "Timberborn.RangedEffectSystem.ContinuousEffectBuildingSpec",
+        "PrefabNames": [ "Hedge.Folktails", "Hedge.IronTeeth" ],
+        "ValuePath": "_",
+        "NewValue": "{'_effectSpecs':[{'_needId':'Hedge','_pointsPerHour':1,'_satisfyToMaxValue':true}]}"
+    }
+}
+
+{
+    "PrefabModderSpec": {
+        "ComponentType": "Timberborn.RangedEffectSystem.RangedEffectBuildingSpec",
+        "PrefabNames": [ "Hedge.Folktails", "Hedge.IronTeeth" ],
+        "ValuePath": "_",
+        "NewValue": "{'_effectRadius':3}"
+    }
+}
+[/code]
+
+===
+Source code is available at: https://github.com/datvm/TimberbornMods

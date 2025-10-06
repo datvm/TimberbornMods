@@ -9,4 +9,7 @@ public abstract record BasePrefabModSpec : ComponentSpec
     [Serialize]
     public ImmutableArray<string> PrefabNames { get; init; } = [];
 
+    [Serialize]
+    public ImmutableArray<string> Factions { get; init; } = [];
+
 }
