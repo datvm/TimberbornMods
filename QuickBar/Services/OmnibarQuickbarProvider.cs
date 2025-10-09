@@ -50,7 +50,7 @@ public class OmnibarQuickbarAction(
         {
             var kb = provider.AllKeybindings[i];
             
-            if (kb.IsPressed(modifiers, out _))
+            if (kb.IsPressed(modifiers))
             {
                 provider.AddToQuickBar(i, item);
                 return true;

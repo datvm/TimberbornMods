@@ -44,9 +44,9 @@ public class TodoListHotkeyAction(
 
     public bool ProcessInput(InputModifiers modifiers)
     {
-        var append = provider.AppendBinding.IsPressed(modifiers, out _);
+        var append = provider.AppendBinding.IsPressed(modifiers);
 
-        if (append || provider.CreateBinding.IsPressed(modifiers, out _))
+        if (append || provider.CreateBinding.IsPressed(modifiers))
         {
             item.AddToTodoList(append);
             return true;
