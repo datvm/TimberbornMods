@@ -21,11 +21,19 @@ Note:
 
 You can open the Todo List with a rebindable hotkey (default O).
 
+[h1]Expansion mods[/h1]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3502325701]Quick Bar[/url]: Add a useful Quick Bar.
+
 If you have suggestions or bug reports, feel free to leave a comment or message me on Discord.
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v7.1.5: Should work with Oct 8th update now.
+v7.1.4: Fixed a crash with Todo List with buildings.
+v7.1.3: Should now show tools from TimberApi.
+v7.1.2: Fixed crash on IT. Thanks @tharbad08 for reporting.
+v7.1.1: Minor change to add support for another expansion mod.
 v7.1.0:
 - Also added a Hotkey for opening the Todo List management box (default O).
 - A Todo List entry can now have multiple buildings. Use the new hotkey (default Shift F5) to append to an existing entry.

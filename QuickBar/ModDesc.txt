@@ -1,15 +1,23 @@
-Add a useful Quick Bar to your game with this expansion mod for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3481116192]Omni Bar & Todo List[/url]!
+﻿Add a useful Quick Bar to your game with this expansion mod for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3481116192]Omni Bar & Todo List[/url]!
 
 20 slots are available with customizable hotkeys. The default hotkeys are Numpad 0 to 9, you can edit or add more in Settings -> Keybindings. Please note not to use Shift in the hotkey because the mod uses Shift + Hotkey for assigning items to the hotbar.
 
 You can assign these items to the Quick Bar using [b]Shift + Hotkey[/b]:
-- Tools from the Omnibar search.
+- [b]Tools[/b] from the Omnibar search: so you can assign building tool to a hotkey.
 - Any named entity (buildings, beavers, plants etc) that can be searched with "/find" command.
 - Select any entity in the world and use [b]Shift + Hotkey[/b] to assign it to the Quick Bar without Omnibar.
 
 You can also collapse the Quick Bar to save space. You can still use the hotkeys. The mod also let you change between two locations (horizontal or vertical).
 
+Note:
+- The tools are stored in your save so it's not carried over to a new game.
+
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
-If you need any support or feedback, feel free to contact me on Timberborn's official Discord ( https://discord.gg/6VZfcKGM2Z, on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] channel), or @theapologist316
+If you need any support or feedback, feel free to contact me on Timberborn's official Discord ( https://discord.gg/timberborn, on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] channel), or @theapologist316
+
+v7.0.5: Should work with Oct 8th update now.
+v7.0.4: Should work with custom tools and buildings by TimberApi now.
+v7.0.2: Fixed the bar when it's on the top would obstruct all other UI there (i.e. you can now click the Management button when the bar is on the top).
+v7.0.1: Fixed crash on invalid items when loading.

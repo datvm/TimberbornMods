@@ -1,6 +1,6 @@
-{
+﻿{
     "Name": "Quick Bar",
-    "Version": "7.0.4",
+    "Version": "7.0.5",
     "Id": "QuickBar",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Add a Quick Bar to Timberborn",
