@@ -1,11 +1,14 @@
-{
+﻿{
     "Name": "Earthquake Weather",
-    "Version": "7.0.2",
+    "Version": "7.1.0",
     "Id": "EarthquakeWeather",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Add Earthquake Hazardous Weather",
     "RequiredMods": [
         { "Id": "ModdableWeather" },
-        { "Id": "BuildingHP" }
+        {
+            "Id": "BuildingHP",
+            "MinimumVersion": "7.1.0"
+        }
     ]
 }

@@ -48,6 +48,12 @@ public class Earthquake(
 
         CalculateSurgeStrength();
         LoadSavedData();
+
+        if (DamageStrength == default)
+        {
+            // Only happen while testing/editting in editor
+            DamageStrength = new(Settings.MinStrength.Value, Settings.MaxStrength.Value);
+        }
     }
 
     void LoadSavedData()

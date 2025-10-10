@@ -1,6 +1,6 @@
 ﻿namespace EarthquakeWeather.Components;
 
-public class EarthquakeBuildingBlocker : TickableComponent, IPersistentEntity, IActiveRenovationDescriber
+public class EarthquakeBuildingBlocker : TickableComponent, IPersistentEntity, IEntityEffectDescriber
 {
     public const float BlockingTime = .5f;
 
@@ -86,7 +86,7 @@ public class EarthquakeBuildingBlocker : TickableComponent, IPersistentEntity, I
         s.Set(BlockingKey, BlockingUntil.Value);
     }
 
-    public ActiveRenovationDescription? Describe(ILoc t, IDayNightCycle dayNightCycle) 
+    public EntityEffectDescription? Describe(ILoc t, IDayNightCycle dayNightCycle) 
         => BlockingUntil is null
             ? null
             : new(t.T("LV.EQ.EqBlocked"), t.T("LV.EQ.EqBlockedDesc"), BlockingUntil.Value - dayNightCycle.PartialDayNumber);

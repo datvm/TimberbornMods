@@ -44,15 +44,27 @@ public class EarthquakeAreaService(
 
     public EarthquakeArea PopNextArea()
     {
+        EarthquakeArea area;
         if (scheduledAreas.Count > 0)
         {
-            var area = scheduledAreas.First.Value;
+            area = scheduledAreas.First.Value;
             scheduledAreas.RemoveFirst();
-            return area;
         }
         else
         {
-            return GenerateAnArea();
+            area = GenerateAnArea();
+        }
+
+        EnsureScheduledAreas();
+        return area;
+    }
+
+    void EnsureScheduledAreas() => EnsureScheduledAreas(3);
+    public void EnsureScheduledAreas(int count)
+    {
+        while (scheduledAreas.Count < count)
+        {
+            ScheduleAnArea();
         }
     }
 
