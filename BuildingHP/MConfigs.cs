@@ -1,44 +1,43 @@
 ﻿namespace BuildingHP;
 
-public class CommonConfig : Configurator
+public class MConfigs : BaseModdableTimberbornConfiguration
 {
-    public override void Configure()
+    public override void StartMod(IModEnvironment modEnvironment)
     {
-        this
+        base.StartMod(modEnvironment);
+
+        ModdableTimberbornRegistry.Instance
+            .UseBonusTracker()
+        ;
+    }
+
+    public override void Configure(Configurator configurator, ConfigurationContext context)
+    {
+        var isMenu = context.IsMenuContext();
+        var isGame = context.IsGameContext();
+
+        if (!isMenu && !isGame) { return; }
+
+        configurator
             .BindSingleton<BuildingMaterialDurabilityService>()
             .BindSingleton<MSettings>()
         ;
+
+        if (!context.IsGameContext()) { return; }
+
+        BindGameServices(configurator);
+        BindRenovations(configurator);
     }
-}
 
-[Context("MainMenu")]
-public class ModMainMenuConfig : CommonConfig
-{
-    public override void Configure()
+    static void BindGameServices(Configurator configurator)
     {
-        base.Configure();
-
-        this.MultiBindSingleton<IModUpdateNotifier, UpdateNotification>();
-    }
-}
-
-[Context("Game")]
-public class ModGameConfig : CommonConfig
-{
-    public override void Configure()
-    {
-        base.Configure();
-
-        BindRenovations();
-
-        this
+        configurator
             .BindSingleton<BuildingHPRegistry>()
             .BindSingleton<BuildingHPService>()
             .BindSingleton<BuildingRepairService>()
 
             .BindSingleton<RenovationPriorityToggleGroupFactory>()
-            .BindFragment<BuildingHPFragment>()
-            .BindSingleton<BuildingHPFragmentMover>()
+            .BindOrderedFragment<BuildingHPFragment>()
             .BindFragment<RenovationStockpileFragment>()
 
             .MultiBindSingleton<IDevModule, HPDevModule>()
@@ -59,6 +58,7 @@ public class ModGameConfig : CommonConfig
                     .AddDecorator<BuildingRenovationComponent, BuildingReinforceInvulComponent>() // Reinforcement Invul
                     .AddDecorator<BuildingRenovationComponent, ReinforceGearComponent>() // Metal Gear Solid
                     .AddDecorator<Workplace, ProductOverdriveComponent>() // Production Overdrive
+                    .AddDecorator<ProductOverdriveComponent, ProductOverdriveBonusComponent>()
                     .AddDecorator<Dwelling, DwellingDecorativeComponent>() // Dwelling Decorative
 
                     // Stockpile for Renovation
@@ -81,9 +81,9 @@ public class ModGameConfig : CommonConfig
         ;
     }
 
-    void BindRenovations()
+    static void BindRenovations(Configurator configurator)
     {
-        this
+        configurator
             .BindSingleton<BuildingRenovationService>()
 
             .BindSingleton<RenovationSpecService>()

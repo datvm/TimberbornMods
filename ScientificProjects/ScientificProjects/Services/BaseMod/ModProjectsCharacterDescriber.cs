@@ -4,7 +4,7 @@ public class ModProjectsCharacterDescriber : ICharacterUpgradeDescriber
 {
 
     public IEnumerable<EntityEffectDescription> DescribeEffects(
-        CharacterProjectUpgradeComponent comp,
+        CharacterTrackerComponent comp,
         DescribeEffectsParameters parameters
     )
     {
@@ -33,8 +33,8 @@ public class ModProjectsCharacterDescriber : ICharacterUpgradeDescriber
         }
 
         // Carrying
-        var t = parameters.T;
-        if (comp.BonusTracker.TryGetBonus(ModUpgradeListener.CarryBonusId, out var carryingBonus))
+        var t = parameters.CharacterUpgradeDescriber.T;
+        if (comp.BonusTracker!.TryGetBonus(ModUpgradeListener.CarryBonusId, out var carryingBonus))
         {
             parameters.ActiveProjects.TryGetValue(ScientificProjectsUtils.CarryUpgradeId, out var beaverUpgrade);
             parameters.ActiveProjects.TryGetValue(ScientificProjectsUtils.CarryBuilderUpgradeId, out var builderUpgrade);

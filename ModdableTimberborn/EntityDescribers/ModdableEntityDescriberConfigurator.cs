@@ -7,7 +7,7 @@ public class ModdableEntityDescriberConfigurator : IModdableTimberbornRegistryCo
     {
         if (!context.IsGameContext()) { return; }
 
-        configurator.BindFragment<EntityEffectDescriberFragment>();
+        configurator.BindOrderedFragment<EntityEffectDescriberFragment>();
     }
 
 }

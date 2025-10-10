@@ -1,7 +1,7 @@
 ﻿
 namespace BuildingHP.Components.Renovations;
 
-public class DwellingDecorativeComponent : TickableComponent, IActivableRenovationComponent, IActiveRenovationDescriber
+public class DwellingDecorativeComponent : TickableComponent, IActivableRenovationComponent, IEntityEffectDescriber
 {
     readonly InstantEffect effect = new("DecorativeCarvings", .1f, 1);
 
@@ -10,7 +10,7 @@ public class DwellingDecorativeComponent : TickableComponent, IActivableRenovati
     RenovationSpec spec;
 #nullable enable
 
-    public bool Active => enabled;
+    public bool RenovationActive => enabled;
     public Action<BuildingRenovation>? ActiveHandler { get; set; }
     readonly HashSet<NeedManager> needManagers = [];
 
@@ -73,6 +73,6 @@ public class DwellingDecorativeComponent : TickableComponent, IActivableRenovati
         }
     }
 
-    public ActiveRenovationDescription? Describe(ILoc t, IDayNightCycle dayNightCycle) 
-        => Active ? new(spec.Title.Value, spec.Description) : null;
+    public EntityEffectDescription? Describe(ILoc t, IDayNightCycle dayNightCycle) 
+        => RenovationActive ? new(spec.Title.Value, spec.Description) : null;
 }

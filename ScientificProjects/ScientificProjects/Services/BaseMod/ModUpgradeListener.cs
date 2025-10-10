@@ -4,6 +4,7 @@ public class ModUpgradeListener(
     ScientificProjectUnlockService unlocks,
     ScientificProjectDailyService daily,
     CharacterTracker tracker,
+    WorkplaceTracker wpTracker,
     ScientificProjectService sp
 ) : ILoadableSingleton
 {
@@ -11,16 +12,32 @@ public class ModUpgradeListener(
     public const string MoveSpeedBonusId = "SPMoveSpeedUpgrade";
     public const string CarryBonusId = "SPCarryUpgrade";
 
+    public static bool WheelbarrowUnlocked { get; private set; }
+
+    bool builderBonusActive;
+
     public void Load()
     {
+        WheelbarrowUnlocked = unlocks.IsUnlocked(ScientificProjectsUtils.WheelbarrowsUpgradeId);
+
         unlocks.OnProjectUnlocked += OnProjectUnlocked;
         daily.OnDailyPaymentResolved += OnDailyPaymentResolved;
-        tracker.OnRegistered += OnNewCharacterRegistered;
+        tracker.OnEntityRegistered += OnNewCharacterRegistered;
+        wpTracker.OnWorkerAssigned += OnWorkerChanged;
+        wpTracker.OnWorkerUnassigned += OnWorkerChanged;
 
         UpdateAllCharacters();
     }
 
-    void OnNewCharacterRegistered(CharacterProjectUpgradeComponent e)
+    private void OnWorkerChanged(WorkplaceTrackerComponent wp, Worker wk)
+    {
+        if (builderBonusActive && wp.IsBuilderWorkplace)
+        {
+            UpdateCharacters([wk.GetComponentFast<CharacterTrackerComponent>()]);
+        }
+    }
+
+    void OnNewCharacterRegistered(CharacterTrackerComponent e)
     {
         UpdateCharacters([e]);
     }
@@ -32,53 +49,64 @@ public class ModUpgradeListener(
 
     private void OnProjectUnlocked(ScientificProjectSpec e)
     {
-        if (e.Id == ScientificProjectsUtils.WorkEffUpgrade1Id)
+        switch (e.Id)
         {
-            UpdateWorkEffUpgrades(tracker.Adults);
-        }
-        else if (ScientificProjectsUtils.MoveSpeedUpgradeIds.Contains(e.Id))
-        {
-            UpdateMoveSpeedUpgrades(tracker.AllCharacters);
+            case ScientificProjectsUtils.WorkEffUpgrade1Id:
+                UpdateWorkEffUpgrades(tracker.Adults);
+                break;
+            case ScientificProjectsUtils.CarryUpgradeId:
+                UpdateCarryUpgrades(tracker.Beavers);
+                break;
+            case ScientificProjectsUtils.WheelbarrowsUpgradeId:
+                WheelbarrowUnlocked = true;
+                break;
+            default:
+                if (ScientificProjectsUtils.MoveSpeedUpgradeIds.Contains(e.Id))
+                {
+                    UpdateMoveSpeedUpgrades(tracker.Entities);
+                }
+
+                break;
         }
     }
 
-    void UpdateAllCharacters() => UpdateCharacters(tracker.AllCharacters);
-    void UpdateCharacters(IEnumerable<CharacterProjectUpgradeComponent> characters)
+    void UpdateAllCharacters() => UpdateCharacters(tracker.Entities);
+    void UpdateCharacters(IEnumerable<CharacterTrackerComponent> characters)
     {
         UpdateWorkEffUpgrades(characters);
         UpdateMoveSpeedUpgrades(characters);
         UpdateCarryUpgrades(characters);
     }
 
-    void UpdateWorkEffUpgrades(IEnumerable<CharacterProjectUpgradeComponent> characters)
+    void UpdateWorkEffUpgrades(IEnumerable<CharacterTrackerComponent> characters)
     {
         var workEff = WorkEffBonus;
         if (workEff == 0) { return; }
 
         foreach (var c in characters)
         {
-            if (c.CharacterType == CharacterType.AdultBeaver)
+            if (c.IsAdult)
             {
-                c.BonusTracker.AddOrUpdate(new(WorkEffBonusId, BonusType.WorkingSpeed, workEff));
+                c.BonusTracker!.AddOrUpdate(new(WorkEffBonusId, BonusType.WorkingSpeed, workEff));
             }
         }
     }
 
-    void UpdateMoveSpeedUpgrades(IEnumerable<CharacterProjectUpgradeComponent> characters)
+    void UpdateMoveSpeedUpgrades(IEnumerable<CharacterTrackerComponent> characters)
     {
         var speed = SpeedBonus;
         if (speed == 0) { return; }
 
         foreach (var c in characters)
         {
-            if (c.CharacterType.IsBeaver())
+            if (c.IsBeaver)
             {
-                c.BonusTracker.AddOrUpdate(new(MoveSpeedBonusId, BonusType.MovementSpeed, speed));
+                c.BonusTracker!.AddOrUpdate(new(MoveSpeedBonusId, BonusType.MovementSpeed, speed));
             }
         }
     }
 
-    void UpdateCarryUpgrades(IEnumerable<CharacterProjectUpgradeComponent> characters)
+    void UpdateCarryUpgrades(IEnumerable<CharacterTrackerComponent> characters)
     {
         var beaverCarry = BeaverCarryBonus;
         if (beaverCarry == 0) { return; } // Without this upgrade, no one is getting anything
@@ -90,16 +118,23 @@ public class ModUpgradeListener(
             var trackBuilder = builderCarry > 0 && c.Worker.IsBuilder();
 
             var total =
-                +(c.CharacterType.IsBeaver() ? beaverCarry : 0)
+                +(c.IsBeaver ? beaverCarry : 0)
                 + (trackBuilder ? builderCarry : 0);
 
-            c.BonusTracker.AddOrUpdateOrRemove(new(CarryBonusId, BonusType.CarryingCapacity, total));
+            c.BonusTracker!.AddOrUpdateOrRemove(new(CarryBonusId, BonusType.CarryingCapacity, total));
         }
     }
 
     float WorkEffBonus => sp.GetActiveEffects(ScientificProjectsUtils.WorkEffUpgradeIds, 0);
     float SpeedBonus => sp.GetActiveEffects(ScientificProjectsUtils.MoveSpeedUpgradeIds, 0);
     float BeaverCarryBonus => sp.GetActiveEffects([ScientificProjectsUtils.CarryUpgradeId], 0);
-    float BuilderCarryBonus => sp.GetActiveEffects([ScientificProjectsUtils.CarryBuilderUpgradeId], 0);
-
+    float BuilderCarryBonus
+    {
+        get
+        {
+            var eff = sp.GetActiveEffects([ScientificProjectsUtils.CarryBuilderUpgradeId], 0);
+            builderBonusActive = eff > 0;
+            return eff;
+        }
+    }
 }

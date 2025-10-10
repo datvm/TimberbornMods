@@ -2,7 +2,7 @@
 
 public interface IActivableRenovationComponent
 {
-    bool Active { get; }
+    bool RenovationActive { get; }
     Action<BuildingRenovation>? ActiveHandler { get; set; }
     void Activate();
 }

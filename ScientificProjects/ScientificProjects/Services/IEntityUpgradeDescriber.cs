@@ -7,9 +7,5 @@ public interface IEntityUpgradeDescriber<TComponent> where TComponent : BaseComp
 
 public readonly record struct DescribeEffectsParameters(
     IReadOnlyDictionary<string, ScientificProjectInfo> ActiveProjects,
-    EntityUpgradeDescriber CharacterUpgradeService,
-    ILoc T,
-    IDayNightCycle DayNightCycle
+    EntityUpgradeDescriber CharacterUpgradeDescriber
 );
-
-public interface IWorkplaceUpgradeDescriber : IEntityUpgradeDescriber<WorkplaceProjectUpgradeComponent> { }

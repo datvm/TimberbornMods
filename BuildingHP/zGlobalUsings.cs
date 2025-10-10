@@ -8,3 +8,7 @@ global using BuildingHP.Specs;
 global using BuildingHP.UI;
 global using BuildingHP.Helpers;
 global using ProgressBar = Timberborn.CoreUI.ProgressBar;
+global using Priority = Timberborn.PrioritySystem.Priority;
+
+global using ModdableTimberborn.WorkSystem;
+global using ModdableTimberborn.BonusSystem;

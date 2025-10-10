@@ -16,7 +16,7 @@ public static class BuildingHPHelpers
     static void ActivateIfAvailable<T>(this T comp, string id, bool listenIfNotActive)
         where T : BaseComponent, IActivableRenovationComponent
     {
-        if (comp.Active) { return; }
+        if (comp.RenovationActive) { return; }
 
         var reno = comp.GetRenovationComponent();
         var active = reno.HasRenovation(id);

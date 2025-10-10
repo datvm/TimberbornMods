@@ -17,12 +17,10 @@ public enum ModifierPriority : int
     Multiplicative = 1000,
 }
 
-[Flags]
 public enum CharacterType
 {
     Unknown = 0,
     Bot = 1,
     AdultBeaver = 2,
     ChildBeaver = 4,
-    Beaver = AdultBeaver | ChildBeaver,
 }

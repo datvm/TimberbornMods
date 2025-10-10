@@ -3,18 +3,25 @@
 public class EntityEffectDescriberFragment(
     ILoc t,
     IDayNightCycle dayNightCycle
-) : IEntityPanelFragment
+) : IEntityPanelFragment, IEntityFragmentOrder
 {
     readonly List<IBaseEntityEffectDescriber> describers = [];
+    readonly List<IBaseEntityEffectDescriber> workplaceDescribers = [];
 
 #nullable disable
     EntityPanelFragmentElement panel;
     Label lblEffects;
 #nullable enable
+    Worker? worker;
+
+    public int Order { get; } = -100;
+    public VisualElement Fragment => panel;
 
     public void ClearFragment()
     {
         describers.Clear();
+        workplaceDescribers.Clear();
+        worker = null;
         panel.Visible = false;
     }
 
@@ -33,13 +40,25 @@ public class EntityEffectDescriberFragment(
         if (entity)
         {
             entity.GetComponentsFast(describers);
+            describers.Sort((a, b) => a.Order.CompareTo(b.Order));
+
+            worker = entity.GetComponentFast<Worker>();
+            if (worker && worker.Workplace)
+            {
+                worker.Workplace.GetComponentsFast(workplaceDescribers);
+                workplaceDescribers.Sort((a, b) => a.Order.CompareTo(b.Order));
+            }
+            else
+            {
+                workplaceDescribers.Clear();
+            }
         }
         UpdateFragment();
     }
 
     public void UpdateFragment()
     {
-        if (describers.Count == 0) { return; }
+        if (describers.Count == 0 && workplaceDescribers.Count == 0) { return; }
 
         StringBuilder str = new();
 
@@ -56,6 +75,25 @@ public class EntityEffectDescriberFragment(
                         AddDescription(desc);
                     }
                     break;
+            }
+        }
+
+        if (workplaceDescribers.Count > 0 && worker)
+        {
+            foreach (var describer in workplaceDescribers)
+            {
+                switch (describer)
+                {
+                    case IWorkplaceWorkerEffectDescriber d:
+                        AddDescription(d.DescribeWorkerEffect(worker, t, dayNightCycle));
+                        break;
+                    case IWorkplaceEntityMultiEffectsDescriber md:
+                        foreach (var desc in md.DescribeAllWorkerEffects(worker, t, dayNightCycle))
+                        {
+                            AddDescription(desc);
+                        }
+                        break;
+                }
             }
         }
 

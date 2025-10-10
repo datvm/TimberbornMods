@@ -1,6 +1,6 @@
 ﻿namespace BuildingHP.Components.Renovations;
 
-public class BuildingReinforceInvulComponent : BaseComponent, IBuildingInvulnerabilityModifier, IPersistentEntity, IActiveRenovationDescriber
+public class BuildingReinforceInvulComponent : BaseComponent, IBuildingInvulnerabilityModifier, IPersistentEntity, IEntityEffectDescriber
 {
     static readonly PropertyKey<float> ProgressKey = new("BuildingReinforceInvulComponentInvulnerableTime");
 
@@ -93,7 +93,7 @@ public class BuildingReinforceInvulComponent : BaseComponent, IBuildingInvulnera
         CreateTimedInvulnerable();
     }
 
-    public ActiveRenovationDescription? Describe(ILoc t, IDayNightCycle dayNightCycle) 
+    public EntityEffectDescription? Describe(ILoc t, IDayNightCycle dayNightCycle) 
         => Invulnerable ? new(spec.Title.Value, spec.Description, remainingTime!.DaysLeft) : null;
 
 }

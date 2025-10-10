@@ -7,11 +7,15 @@ public interface IBaseEntityEffectDescriber
 
 public interface IEntityEffectDescriber : IBaseEntityEffectDescriber
 {
+    int IBaseEntityEffectDescriber.Order => 0;
+
     EntityEffectDescription? Describe(ILoc t, IDayNightCycle dayNightCycle);
 }
 
 public interface IEntityMultiEffectsDescriber : IBaseEntityEffectDescriber
 {
+    int IBaseEntityEffectDescriber.Order => 0;
+
     IEnumerable<EntityEffectDescription> DescribeAll(ILoc t, IDayNightCycle dayNightCycle);
 }
 

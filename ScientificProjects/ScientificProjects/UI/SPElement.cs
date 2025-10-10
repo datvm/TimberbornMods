@@ -32,11 +32,15 @@ public class SPElement(
         AddIcon(panel, spec);
 
         var middlePanel = panel.AddChild()
-            .SetFlexGrow();
+            .SetFlexGrow().SetFlexShrink()
+            .SetMarginRight();
 
-        AddInfoPanel(middlePanel, p, spec);
-        AddUnlockSection(middlePanel, p, spec);
+        AddInfoPanel(middlePanel, p, spec);        
         AddCostPanel(middlePanel, p, spec);
+
+        var tailPanel = panel.AddChild()
+            .SetFlexShrink(0);
+        AddUnlockSection(tailPanel, p, spec);
 
         return this;
     }
@@ -145,7 +149,7 @@ public class SPElement(
     {
         if (!spec.NeedUnlock || info.Unlocked) { return; }
 
-        var unlockPanel = parent.AddChild().SetFlexShrink(0);
+        var unlockPanel = parent.AddChild();
 
         var btn = unlockPanel.AddChild<ScienceButton>(name: "UnlockSection")
             .SetMarginBottom(10);

@@ -2,6 +2,24 @@
 
 public static class CommonExtensions
 {
+    public static void RemoveComponent<T>(this GameObject obj, bool immediately = true) where T : Object
+    {
+        var comp = obj.GetComponent<T>();
+        if (!comp)
+        {
+            Debug.LogWarning($"Trying to remove component {typeof(T).Name} but it does not exist on {obj.name}");
+            return;
+        }
+
+        if (immediately)
+        {
+            Object.DestroyImmediate(comp);
+        }
+        else
+        {
+            Object.Destroy(comp);
+        }
+    }
 
     public static TComp? GetComponentOrNullFast<TComp>(this BaseComponent component)
         where TComp : BaseComponent
@@ -24,7 +42,7 @@ public static class CommonExtensions
 
     public static Lazy<Blueprint> ToLazyBlueprint<T>(this T spec) where T : ComponentSpec => new(() => spec.ToBlueprint());
     public static Blueprint ToBlueprint<T>(this T spec) where T : ComponentSpec => new([spec], []);
-    public static T[] GetLazySpecs<T>(this SpecService specService) where T : ComponentSpec 
+    public static T[] GetLazySpecs<T>(this SpecService specService) where T : ComponentSpec
         => [.. specService._cachedBlueprints[typeof(T)].Select(q => q.Value.GetSpec<T>())];
 
     public static bool IsGameContext(this ConfigurationContext context) => context.HasFlag(ConfigurationContext.Game);
@@ -32,11 +50,12 @@ public static class CommonExtensions
     public static bool IsBootstrapperContext(this ConfigurationContext context) => context.HasFlag(ConfigurationContext.Bootstrapper);
     public static bool IsMapEditorContext(this ConfigurationContext context) => context.HasFlag(ConfigurationContext.MapEditor);
     public static bool IsGameplayContext(this ConfigurationContext context) => context.IsGameContext() || context.IsMapEditorContext();
-
+    
     public static BonusSpec ToBonusSpec(this BonusType t, float multiplierDelta) => new(t.ToString(), multiplierDelta);
 
-    public static bool IsBot(this CharacterType c) => c.HasFlag(CharacterType.Bot);
-    public static bool IsBeaver(this CharacterType c) => (c & CharacterType.Beaver) != 0;
+    public static bool IsBot(this CharacterType c) => c == CharacterType.Bot;
+    public static bool IsBeaver(this CharacterType c) => c == CharacterType.AdultBeaver || c == CharacterType.ChildBeaver;
+    public static bool IsWorker(this CharacterType c) => c == CharacterType.AdultBeaver || c == CharacterType.Bot;
     public static CharacterType GetCharacterType<T>(this T comp) where T : BaseComponent
     {
         if (comp.GetComponentFast<BotSpec>())
@@ -56,4 +75,9 @@ public static class CommonExtensions
 
         return CharacterType.Unknown;
     }
+
+    public static bool IsBuilder([NotNullWhen(true)] this Worker? worker)
+        => worker && worker.Workplace.IsBuilderWorkplace();
+    public static bool IsBuilderWorkplace([NotNullWhen(true)] this Workplace? workplace)
+        => workplace && (workplace.GetComponentFast<DistrictCenterSpec>() || workplace.GetComponentFast<BuilderHubSpec>());
 }

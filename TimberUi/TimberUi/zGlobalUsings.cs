@@ -2,10 +2,11 @@
 global using System.Xml;
 global using System.Xml.Linq;
 global using TimberUi.Helpers;
+global using TimberUi.Services.Dialogs;
+global using TimberUi.Services.EntityPanelOrder;
 global using TimberUi.Services.SystemFileDialog;
 global using UiBuilder;
 global using UnityEditor.StyleSheets;
 global using UnityEditor.UIElements.Debugger;
 global using NineSliceFloatField = TimberUi.CommonUi.NineSliceFloatField;
 global using TProgressBar = Timberborn.CoreUI.ProgressBar;
-global using TimberUi.Services.Dialogs;
