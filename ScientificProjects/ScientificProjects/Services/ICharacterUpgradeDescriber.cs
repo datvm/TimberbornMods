@@ -1,10 +1,10 @@
 ﻿namespace ScientificProjects.Services;
 
-public interface ICharacterUpgradeDescriber : IEntityUpgradeDescriber<CharacterProjectUpgradeComponent>
+public interface ICharacterUpgradeDescriber : IEntityUpgradeDescriber<CharacterTrackerComponent>
 {
 
     public static EntityEffectDescription? DescribeProjects(
-        CharacterProjectUpgradeComponent comp, DescribeEffectsParameters parameters,
+        CharacterTrackerComponent comp, DescribeEffectsParameters parameters,
         IEnumerable<string> ids, int parameterIndex,
         string titleKey, string descKey,
         string? bonusId = null,
@@ -12,7 +12,7 @@ public interface ICharacterUpgradeDescriber : IEntityUpgradeDescriber<CharacterP
     )
     {
         if (bonusId is not null && !comp.HasBonus(bonusId)) { return null; }
-        var t = parameters.T;
+        var t = parameters.CharacterUpgradeDescriber.T;
 
         var total = 0f;
         var sub = new List<string>();

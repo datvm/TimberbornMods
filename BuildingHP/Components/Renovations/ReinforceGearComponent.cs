@@ -1,7 +1,8 @@
 ﻿namespace BuildingHP.Components.Renovations;
 
-public class ReinforceGearComponent : BaseComponent, IBuildingDeltaDurabilityModifier, IActivableRenovationComponent, IWorkplaceProductivityComponent, IActiveRenovationDescriber
+public class ReinforceGearComponent : TogglableWorkplaceBonusComponent, IBuildingDeltaDurabilityModifier, IActivableRenovationComponent, IWorkplaceWorkerEffectDescriber
 {
+    public const string BonusId = "Renovation.ReinforceGearWork";
 
 #nullable disable
     RenovationSpec spec;
@@ -9,7 +10,7 @@ public class ReinforceGearComponent : BaseComponent, IBuildingDeltaDurabilityMod
 
     bool hasWorkplace;
 
-    public bool Active { get; private set; }
+    public bool RenovationActive { get; private set; }
     public int? Delta { get; private set; }
     public string DescriptionKey { get; } = "LV.BHP.ReinforceGear";
     public float? ModifierEndTime { get; }
@@ -20,44 +21,57 @@ public class ReinforceGearComponent : BaseComponent, IBuildingDeltaDurabilityMod
     public EventHandler<WorkerChangedEventArgs>? WorkerAssigned { get; set; }
     public EventHandler<WorkerChangedEventArgs>? WorkerUnassigned { get; set; }
 
+    protected override BonusTrackerItem Bonuses => new(BonusId, BonusType.WorkingSpeed, spec.Parameters[1]);
+
     public event Action<IBuildingDurabilityModifier>? OnChanged;
 
-    public void Start()
+    public void Initialize()
     {
         hasWorkplace = GetComponentFast<Workplace>();
 
         var reno = this.GetRenovationComponent();
         spec = reno.RenovationService.GetSpec(ReinforceGearRenovationProvider.RenovationId);
-    }
 
-    public void Initialize()
-    {
         this.ActivateIfAvailable(ReinforceGearRenovationProvider.RenovationId);
     }
 
     public void Activate()
     {
-        Active = true;
+        RenovationActive = true;
 
-        var comp = this.GetRenovationComponent();
-        var spec = comp.RenovationService.GetSpec(ReinforceGearRenovationProvider.RenovationId);
-        
-        ActivateDurability(spec);
+        ActivateDurability();
 
         if (hasWorkplace)
         {
-            this.SetWorkplaceProductivity(spec.Parameters[1]);
+            Toggle(true);
         }
     }
 
-    void ActivateDurability(RenovationSpec spec)
+    void ActivateDurability()
     {
         Delta = (int)spec.Parameters[0];
         OnChanged?.Invoke(this);
     }
 
-    public ActiveRenovationDescription? Describe(ILoc t, IDayNightCycle dayNightCycle) 
-        => Active
-            ? new(spec.Title.Value, spec.Description)
+    public EntityEffectDescription? Describe(ILoc t, IDayNightCycle dayNightCycle)
+    {
+        if (!RenovationActive) { return null; }
+
+        var desc = t.T("LV.BHP.ReinforceGearEffDurability", spec.Parameters[0]);
+        if (hasWorkplace)
+        {
+            desc += Environment.NewLine + t.T("LV.BHP.ReinforceGearEffProductivity", spec.Parameters[1]);
+        }
+
+        return RenovationActive
+            ? new(spec.Title.Value, desc)
             : null;
+    }
+
+    public EntityEffectDescription? DescribeWorkerEffect(Worker worker, ILoc t, IDayNightCycle dayNightCycle)
+    {
+        if (!RenovationActive || !hasWorkplace) { return null; }
+
+        return new(spec.Title.Value, t.T("LV.BHP.ReinforceGearWorkerEff", spec.Parameters[1]));
+    }
 }

@@ -1,6 +1,6 @@
 ﻿namespace BuildingHP.Components.Renovations;
 
-public class ProductOverdriveComponent : TickableComponent, IPersistentEntity, IWorkplaceProductivityComponent, IActiveRenovationDescriber
+public class ProductOverdriveComponent : TickableComponent, IPersistentEntity, IWorkplaceWorkerEffectDescriber
 {
     static readonly ComponentKey SaveKey = new("ProductOverdrive");
     static readonly PropertyKey<bool> CoolingDownKey = new("CoolingDown");
@@ -31,6 +31,7 @@ public class ProductOverdriveComponent : TickableComponent, IPersistentEntity, I
     IDayNightCycle dayNightCycle;
     RenovationSpec spec;
     BuildingHPComponent hp;
+    ProductOverdriveBonusComponent bonusComponent;
 #nullable enable
 
     [Inject]
@@ -42,6 +43,8 @@ public class ProductOverdriveComponent : TickableComponent, IPersistentEntity, I
 
     public override void StartTickable()
     {
+        bonusComponent = GetComponentFast<ProductOverdriveBonusComponent>();
+
         base.StartTickable();
 
         var reno = this.GetRenovationComponent();
@@ -91,7 +94,7 @@ public class ProductOverdriveComponent : TickableComponent, IPersistentEntity, I
         timeTrigger = timeTriggerFactory.Create(CreateCooldownEffect, SpecOverdriveDuration);
         timeTrigger.Resume();
 
-        this.SetWorkplaceProductivity(SpecOverdriveProductivity);
+        bonusComponent.Toggle(SpecOverdriveProductivity);
         ScheduleNextHpDrain();
         enabled = true;
     }
@@ -103,7 +106,7 @@ public class ProductOverdriveComponent : TickableComponent, IPersistentEntity, I
         timeTrigger = timeTriggerFactory.Create(OnEffectCompleted, SpecCooldownDuration);
         timeTrigger.Resume();
 
-        this.SetWorkplaceProductivity(SpecCooldownProductivity);
+        bonusComponent.Toggle(SpecCooldownProductivity);
     }
 
     void OnEffectCompleted()
@@ -114,7 +117,7 @@ public class ProductOverdriveComponent : TickableComponent, IPersistentEntity, I
         var reno = this.GetRenovationComponent();
         reno.RemoveActiveRenovation(ProductionOverdriveRenovationProvider.RenoId);
 
-        this.ResetWorkplaceProductivity();
+        bonusComponent.Toggle(null);
     }
 
     public void Save(IEntitySaver entitySaver)
@@ -153,7 +156,7 @@ public class ProductOverdriveComponent : TickableComponent, IPersistentEntity, I
         nextHpDrain = dayNightCycle.PartialDayNumber + 1 / 24f;
     }
 
-    public ActiveRenovationDescription? Describe(ILoc t, IDayNightCycle dayNightCycle)
+    public EntityEffectDescription? Describe(ILoc t, IDayNightCycle dayNightCycle)
     {
         if (!Active) { return null; }
 
@@ -161,5 +164,15 @@ public class ProductOverdriveComponent : TickableComponent, IPersistentEntity, I
         return !isCoolingDown
             ? new(t.T("LV.BHP.ProdOverdriveFirstPhase"), t.T("LV.BHP.ProdOverdriveFirstPhaseDesc", SpecOverdriveProductivity, SpecHpDrainPerHour), remainingTime)
             : new(t.T("LV.BHP.ProdOverdriveSecondPhase"), t.T("LV.BHP.ProdOverdriveSecondPhaseDesc", SpecCooldownProductivity), remainingTime);
+    }
+
+    public EntityEffectDescription? DescribeWorkerEffect(Worker worker, ILoc t, IDayNightCycle dayNightCycle)
+    {
+        if (!Active) { return null; }
+
+        var remainingTime = timeTrigger!.DaysLeft;
+        return !isCoolingDown
+            ? new(t.T("LV.BHP.ProdOverdriveFirstPhase"), t.T("LV.BHP.ProdOverdriveWorkerDesc", SpecOverdriveProductivity), remainingTime)
+            : new(t.T("LV.BHP.ProdOverdriveSecondPhase"), t.T("LV.BHP.ProdOverdriveWorkerDesc", SpecCooldownProductivity), remainingTime);
     }
 }

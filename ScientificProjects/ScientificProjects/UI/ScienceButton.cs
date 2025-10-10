@@ -12,7 +12,9 @@ public class ScienceButton : NineSliceVisualElement
 
     public ScienceButton()
     {
-        var btn = this.AddGameButton().SetPadding(paddingX: 5, paddingY: 5).SetFlexShrink(0).SetFlexGrow(0);
+        var btn = this.AddGameButton().SetPadding(paddingX: 5, paddingY: 5)
+            .SetFlexShrink(0).SetFlexGrow(0)
+            .SetMinSize(200, 0);
 
         var container1 = btn.AddChild(name: "ScienceCostSection", classes: ["science-cost-section"]);
         var container2 = container1.AddChild<NineSliceVisualElement>(

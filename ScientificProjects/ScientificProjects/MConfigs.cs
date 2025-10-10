@@ -1,12 +1,13 @@
 ﻿namespace ScientificProjects;
 
-public class MConfigs : BaseModdableTimberbornConfiguration
+public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony
 {
 
     public override void StartMod(IModEnvironment modEnvironment)
     {
         ModdableTimberbornRegistry.Instance
-            .UseBonusTracker();
+            .UseBonusTracker()
+            .UseEntityTracker();
 
         base.StartMod(modEnvironment);
     }
@@ -24,8 +25,6 @@ public class MConfigs : BaseModdableTimberbornConfiguration
             .BindSingleton<ScientificProjectService>()            
 
             // Project upgrades
-            .BindSingleton<CharacterTracker>()
-            .BindSingleton<WorkplaceTracker>()
             .BindSingleton<EntityUpgradeDescriber>()
 
             // Dialog
@@ -40,12 +39,19 @@ public class MConfigs : BaseModdableTimberbornConfiguration
             // Base mod processings
             .MultiBindSingleton<IProjectCostProvider, ModProjectsCostProvider>()
             .MultiBindSingleton<ICharacterUpgradeDescriber, ModProjectsCharacterDescriber>()
+            .MultiBindSingleton<IWorkplaceUpgradeDescriber, ModProjectsWorkplaceDescriber>()
             .MultiBindSingleton<ISPDevModule, DefaultSpDevModule>()
+
+            .MultiBindSingleton<ISpecModifier, FactionUpgradeRecipeModifier>()
+            .MultiBindSingleton<IPrefabModifier, FactionUpgradePrefabModifier>()
+
             .BindSingleton<ModUpgradeListener>()
 
             .BindTemplateModule(h => h
-                .AddDecorator<Character, CharacterProjectUpgradeComponent>()
-                .AddDecorator<Workplace, WorkplaceProjectUpgradeComponent>()
+                .AddDecorator<Character, CharacterProjectUpgradeDescriber>()
+                .AddDecorator<WorkplaceSpec, WorkplaceProjectUpgradeDescriber>()
+
+                .AddDecorator<SPFactionUpgradeDescriberSpec, SPFactionUpgradeDescriber>()
             )
         ;
     }

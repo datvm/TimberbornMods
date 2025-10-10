@@ -22,3 +22,15 @@ public class ModAllConfig : Configurator
         ;
     }
 }
+
+[Context("Game")]
+[Context("MapEditor")]
+public class ModGameplayConfig : Configurator
+{
+    public override void Configure()
+    {
+        this
+            .BindSingleton<EntityFragmentOrderService>()
+        ;
+    }
+}

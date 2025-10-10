@@ -84,6 +84,17 @@ public static partial class UiBuilderExtensions
         return configurator;
     }
 
+    public static Configurator BindFragmentOrder<T>(this Configurator configurator) where T : IEntityFragmentOrder
+    {
+        configurator.MultiBind<IEntityFragmentOrder>().ToExisting<T>();
+        return configurator;
+    }
+
+    public static Configurator BindOrderedFragment<T>(this Configurator configurator) where T : IEntityPanelFragment, IEntityFragmentOrder 
+        => configurator
+            .BindFragment<T>()
+            .BindFragmentOrder<T>();
+
     #endregion
 
     #region Bindings
@@ -113,7 +124,7 @@ public static partial class UiBuilderExtensions
             .Invoke(configurator._containerDefinition, []);
 
         var toMethod = multiBindingBuilder.GetType().GetMethod(
-            toExisting 
+            toExisting
                 ? nameof(BindingBuilder<>.ToExisting)
                 : nameof(BindingBuilder<>.To),
             InstanceBindingFlags)
@@ -203,7 +214,7 @@ public static partial class UiBuilderExtensions
     {
         configurator.Bind<TImpl>().AsSingleton();
         configurator.MultiBind<T>().ToExisting<TImpl>();
-        
+
         return configurator;
     }
 
@@ -375,7 +386,7 @@ public static partial class UiBuilderExtensions
     /// <inheritdoc cref="IsMultiBound(Configurator, Type, Type)"/>
     public static bool IsMultiBound<TSrc, TImpl>(this Configurator configurator)
         where TSrc : class
-        where TImpl : class, TSrc 
+        where TImpl : class, TSrc
         => configurator.IsMultiBound(typeof(TSrc), typeof(TImpl));
 
     /// <summary>

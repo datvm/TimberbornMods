@@ -1,14 +1,15 @@
-{
+﻿{
     "ScientificProjectSpec": {
         "Id": "FtPlankUpgrade",
         "GroupId": "Factions",
         "NameKey": "LV.SP.FtPlankUpgrade",
-        "EffectKey": "LV.SP.FtPlankUpgradeEff",
+        "EffectKey": "LV.SP.FtPlankUpgradeEffNew",
         "LoreKey": "LV.SP.FtPlankUpgradeLore",
         "Icon": "Sprites/Projects/ftplank",
         "ScienceCost": 2500,
         "Parameters": [ 1, -0.9999 ],
         "Order": 10,
-        "Factions": [ "Folktails", "GreedyBuilders" ]
+        "Factions": [ "Folktails", "GreedyBuilders" ],
+        "NeedReload": true
     }
 }

@@ -1,4 +1,4 @@
-ID,Text,Comment
+﻿ID,Text,Comment
 LV.BHP.EnableMaintenance,"Enable maintenance",
 LV.BHP.EnableMaintenanceDesc,"Buildings will deteriorate over time and require maintenance to keep them functional.
 Does not affect unfinished buildings.
@@ -14,8 +14,8 @@ LV.BHP.AutoRepairHP,"HP% threshold",
 LV.BHP.HPTooltip,"HP: {0}
 Durability: {1}
 {2}",
-LV.BHP.HPTooltipDurability,"• {0} from {1}",
-LV.BHP.HPTooltipInvul,"• Invulnerability from {0}",
+LV.BHP.HPTooltipDurability,"▶ {0} from {1}",
+LV.BHP.HPTooltipInvul,"▶ Invulnerability from {0}",
 LV.BHP.MaterialDurability,"Construction materials",
 LV.BHP.HP,"HP: {0} / {1}",
 LV.BHP.HPInvul,"HP: {0} / {1}, Invulnerable",
@@ -60,6 +60,9 @@ LV.BHP.ReinforceInvulFlavor,"A golden coat of resin, sealing every crack until n
 LV.BHP.ReinforceGear,"Metal Gear Solid",
 LV.BHP.ReinforceGearDesc,"Increases building Durability by {0:+0} and Productivity by {1:+0%} if it's a manufactory.",
 LV.BHP.ReinforceGearFlavor,"Heavy-duty gears, reinforced with solid metal. Cardboard box included.",A reference to the Metal Gear Solid game
+LV.BHP.ReinforceGearEffDurability,"▶ Durability increased by {0:+0}.",
+LV.BHP.ReinforceGearEffProductivity,"▶ Productivity increased by {0:+0%}.",
+LV.BHP.ReinforceGearWorkerEff,"{0:+0%} Working Speed",
 LV.BHP.NoNeedRepair,"Building does not need repairs.",
 LV.BHP.NoReinforcement,"No reinforcement yet",
 LV.BHP.HigherReinforce,"Higher reinforcement is already applied.",
@@ -88,7 +91,7 @@ LV.BHP.NoCancel,"<RedHighlight>This renovation CANNOT BE CANCELLED once started.
 LV.BHP.CompletedReno,"Completed renovations",
 LV.BHP.ActiveReno,"<YellowHighlight>Active</YellowHighlight>",
 LV.BHP.RenoLog,"<YellowHighlight>Completion log</YellowHighlight>",
-LV.BHP.RenoLogEntry,"• {0}: {1}d ago",
+LV.BHP.RenoLogEntry,"▶ {0}: {1}d ago",
 LV.BHP.None,"None",
 LV.BHP.BaseDurability,"Base HP: {0}",
 LV.BHP.BaseDurabilityWithInvul,"Base HP: {0} (Invulnerable)",
@@ -104,7 +107,7 @@ LV.BHP.DwellingDecorativeDesc,"Beavers living in this dwelling gain 'Decorative 
 LV.BHP.DwellingDecorativeFlavor,"'Every log tells a story now, though some look more like teeth marks than art.'"
 LV.BHP.NotDwelling,"This renovation is only for Housing buildings",
 LV.BHP.ActiveEffects,"Active effects",
-LV.BHP.ActiveEffect,"• <i>{0}</i>
+LV.BHP.ActiveEffect,"▶ <i>{0}</i>
 {1}",
 LV.BHP.ActiveEffectTime,"{0:0.00}d remaining",
 LV.BHP.ProdOverdriveFirstPhase,"Production Overdrive (Overdrive phase)",
@@ -115,6 +118,7 @@ LV.BHP.RenovationDecreasePriorityHotKey,"Decrease renovation priority",
 LV.BHP.RenovationIncreasePriorityHotKey,"Increase renovation priority",
 LV.BHP.RenovationStockpileDecreasePriorityHotKey,"Decrease renovation stockpile priority",
 LV.BHP.RenovationStockpileIncreasePriorityHotKey,"Increase renovation stockpile priority",
+LV.BHP.ProdOverdriveWorkerDesc,"{0:+0%;-0%} due to workplace's Overdrive",
 LV.BHP.UpdateText,"<b>Stockpile/Storage supply for Renovation is now OPT-OUT</b>
 Sorry about the confusion caused by the description on Renovation description. I should have put it higher.
 Nevertheless, after the current update, all Storage will supply materials for renovation by default. You need to uncheck it if you want to opt-out instead of opt-in like before.

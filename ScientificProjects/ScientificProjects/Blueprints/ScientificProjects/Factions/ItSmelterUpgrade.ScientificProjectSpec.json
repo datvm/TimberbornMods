@@ -1,14 +1,15 @@
-{
+﻿{
     "ScientificProjectSpec": {
         "Id": "ItSmelterUpgrade",
         "GroupId": "Factions",
         "NameKey": "LV.SP.ItSmelterUpgrade",
-        "EffectKey": "LV.SP.ItSmelterUpgradeEff",
+        "EffectKey": "LV.SP.ItSmelterUpgradeEffNew",
         "LoreKey": "LV.SP.ItSmelterUpgradeLore",
         "Icon": "Sprites/Projects/itsmelter",
         "ScienceCost": 2500,
         "Parameters": [ 1, -0.9999 ],
         "Order": 10,
-        "Factions": [ "IronTeeth", "GreedyBuilders" ]
+        "Factions": [ "IronTeeth", "GreedyBuilders" ],
+        "NeedReload": true
     }
 }

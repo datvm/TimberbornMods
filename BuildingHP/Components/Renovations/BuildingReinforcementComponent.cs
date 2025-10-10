@@ -1,7 +1,6 @@
-﻿
-namespace BuildingHP.Components.Renovations;
+﻿namespace BuildingHP.Components.Renovations;
 
-public class BuildingReinforcementComponent : BaseComponent, IBuildingDeltaDurabilityModifier, IActiveRenovationDescriber
+public class BuildingReinforcementComponent : BaseComponent, IBuildingDeltaDurabilityModifier, IEntityEffectDescriber
 {
     const string NoReinforcementKey = "LV.BHP.NoReinforcement";
     static readonly FrozenSet<string> BasicReinforcementId = ["Reinforce1", "Reinforce2", "Reinforce3"];
@@ -74,6 +73,6 @@ public class BuildingReinforcementComponent : BaseComponent, IBuildingDeltaDurab
         LookForReinforcement();
     }
 
-    public ActiveRenovationDescription? Describe(ILoc t, IDayNightCycle dayNightCycle)
+    public EntityEffectDescription? Describe(ILoc t, IDayNightCycle dayNightCycle)
         => Delta is null or 0 ? null : new(t.T(DescriptionKey), t.T("LV.BHP.ReinforceEff", Delta));
 }

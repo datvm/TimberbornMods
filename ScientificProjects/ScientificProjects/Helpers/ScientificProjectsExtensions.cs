@@ -52,10 +52,4 @@ public static class ScientificProjectsExtensions
     public static string DescribePercentEffect(this ScientificProjectSpec spec, ILoc t, int parameterIndex) 
         => spec.DescribeEffect(t, spec.Parameters[parameterIndex], true);
 
-    public static bool IsBuilder([NotNullWhen(true)] this Worker? worker)
-        => worker && worker.Workplace.IsBuilderWorkplace();
-
-    public static bool IsBuilderWorkplace([NotNullWhen(true)] this Workplace? workplace) 
-        => workplace && (workplace.GetComponentFast<DistrictCenterSpec>() || workplace.GetComponentFast<BuilderHubSpec>());
-
 }

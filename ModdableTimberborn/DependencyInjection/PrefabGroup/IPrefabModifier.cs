@@ -5,7 +5,7 @@
 /// </summary>
 public interface IPrefabModifier
 {
-    int Order { get; }
+    public int Order => 0;
 
     /// <summary>
     /// Determines whether this modifier should modify the given prefab based on its name and <see cref="PrefabSpec"/>.

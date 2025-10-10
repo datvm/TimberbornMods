@@ -7,6 +7,7 @@ global using ModdableTimberborn.Registry;
 global using ModdableTimberborn.Services;
 global using ModdableTimberborn.SoakEffect;
 global using ModdableTimberborn.DependencyInjection;
+global using ModdableTimberborn.EntityTracker;
 
 global using System.Reflection.Emit;
 global using Label = UnityEngine.UIElements.Label;

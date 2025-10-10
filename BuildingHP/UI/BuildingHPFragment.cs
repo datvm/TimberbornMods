@@ -8,7 +8,7 @@ public class BuildingHPFragment(
     BuildingRenovationElementDependencies buildingRenovationElementDependencies,
     RenovationSpecService renovationSpecService,
     RenovationPriorityToggleGroupFactory renovationPriorityToggleGroupFactory
-) : BaseEntityPanelFragment<BuildingHPComponent>
+) : BaseEntityPanelFragment<BuildingHPComponent>, IEntityFragmentOrder
 {
 
 #nullable disable
@@ -17,11 +17,14 @@ public class BuildingHPFragment(
     Button btnRenovate;
     BuildingRenovationElement renoPanel;
     RenovationListElement renovationListPanel;
-    BuildingRenovationEffectPanel effectPanel;
     AutoRepairPanel autoRepairPanel;
 #nullable enable
 
     public VisualElement Panel => panel;
+
+    public int Order { get; } = -110;
+    public VisualElement Fragment => panel;
+
     BuildingRenovationComponent? reno;
     BuildingHPRepairComponent? repair;
 
@@ -36,9 +39,6 @@ public class BuildingHPFragment(
             .SetMarginBottom();
 
         renoPanel = panel.AddChild<BuildingRenovationElement>(() => new(buildingRenovationElementDependencies))
-            .SetMarginBottom();
-
-        effectPanel = panel.AddChild<BuildingRenovationEffectPanel>(() => new(t, dayNightCycle))
             .SetMarginBottom();
 
         autoRepairPanel = panel.AddChild<AutoRepairPanel>(() => new(t, renovationPriorityToggleGroupFactory))
@@ -63,7 +63,6 @@ public class BuildingHPFragment(
 
         renoPanel.SetComponent(reno);
         renovationListPanel.SetComponent(reno);
-        effectPanel.SetComponent(reno);
         autoRepairPanel.SetComponent(repair);
         UpdateFragment();
     }
@@ -80,7 +79,6 @@ public class BuildingHPFragment(
                 component.HP, component.Durability));
 
         renoPanel.Update();
-        effectPanel.Update();
         autoRepairPanel.Update();
         btnRenovate.SetDisplay(reno!.CanRenovate);
     }
@@ -90,7 +88,6 @@ public class BuildingHPFragment(
         base.ClearFragment();
         renoPanel.Unset();
         renovationListPanel.Unset();
-        effectPanel.Unset();
         autoRepairPanel.Unset();
         reno = null;
         repair = null;

@@ -8,7 +8,7 @@
         { "Id": "Harmony" },
         {
             "Id": "TimberUi",
-            "MinimumVersion": "7.8.4"
+            "MinimumVersion": "7.8.5"
         }
     ]
 }
