@@ -1,7 +1,7 @@
-﻿namespace ScientificProjects.Management;
+﻿namespace ScientificProjects.Specs;
 
 public interface IProjectCostProvider
 {
     IEnumerable<string> CanCalculateCostForIds { get; }
-    int CalculateCost(ScientificProjectInfo project);
+    int CalculateCost(ScientificProjectSpec project, int level);
 }

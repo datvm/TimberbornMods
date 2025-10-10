@@ -1,8 +1,7 @@
 ﻿namespace ConfigurableFun.Services;
 
 public class PrefabModifier(
-    MSettings s,
-    FactionNeedService factionNeedService
+    MSettings s
 ) : IPrefabModifier
 {
     public int Order { get; } = 1000;
@@ -27,8 +26,6 @@ public class PrefabModifier(
             }).ToList();
             eff.Clear();
             eff.AddRange(newEff);
-
-            TimberUiUtils.LogDev($"Updated {prefab} {eff[0].NeedId} to {eff[0].PointsPerHour}");
         }
 
         if (c.CapacityChanged)

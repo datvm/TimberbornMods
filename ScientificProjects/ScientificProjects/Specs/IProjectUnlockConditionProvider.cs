@@ -1,7 +1,7 @@
-﻿namespace ScientificProjects.Management;
+﻿namespace ScientificProjects.Specs;
 
 public interface IProjectUnlockConditionProvider
 {
     IEnumerable<string> CanCheckUnlockConditionForIds { get; }
-    string? CheckForUnlockCondition(ScientificProjectInfo project);
+    string? CheckForUnlockCondition(ScientificProjectSpec project);
 }

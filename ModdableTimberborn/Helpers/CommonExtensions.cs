@@ -35,4 +35,25 @@ public static class CommonExtensions
 
     public static BonusSpec ToBonusSpec(this BonusType t, float multiplierDelta) => new(t.ToString(), multiplierDelta);
 
+    public static bool IsBot(this CharacterType c) => c.HasFlag(CharacterType.Bot);
+    public static bool IsBeaver(this CharacterType c) => (c & CharacterType.Beaver) != 0;
+    public static CharacterType GetCharacterType<T>(this T comp) where T : BaseComponent
+    {
+        if (comp.GetComponentFast<BotSpec>())
+        {
+            return CharacterType.Bot;
+        }
+
+        if (comp.GetComponentFast<AdultSpec>())
+        {
+            return CharacterType.AdultBeaver;
+        }
+
+        if (comp.GetComponentFast<ChildSpec>())
+        {
+            return CharacterType.ChildBeaver;
+        }
+
+        return CharacterType.Unknown;
+    }
 }

@@ -1,81 +1,48 @@
 ﻿namespace ScientificProjects.UI;
 
-public class FilterBox : VisualElement
+public class FilterBox : CollapsiblePanel
 {
 
-#nullable disable
-    Button btnExpand;
-    Button btnCollapse;
+    readonly ImmutableArray<Toggle> chkFlags;
+    readonly TextField txtFilter;
 
-    VisualElement filterPanel;
-
-    TextField txtFilter;
-    ImmutableArray<Toggle> chkFlags;
-#nullable enable
-
-    bool expanding;
     public event Action<ScientificProjectFilter> OnFilterChanged = delegate { };
 
-    public FilterBox Init(ILoc t)
+    public FilterBox(ILoc t)
     {
-        var title = this.AddChild().SetAsRow().SetMarginBottom();
+        SetTitle(t.T("LV.SP.Filter"));
 
-        title.AddGameLabel(text: "LV.SP.Filter".T(t).Bold());
-        title.AddChild().SetFlexGrow();
+        var p = Container;
 
-        btnExpand = title.AddPlusButton().AddAction(() => ToggleBox(true));
-        btnCollapse = title.AddMinusButton().AddAction(() => ToggleBox(false));
-
-        filterPanel = CreateFilterPanel(t);
-
-        ToggleBox(false);
-
-        return this;
-    }
-
-    VisualElement CreateFilterPanel(ILoc t)
-    {
-        var p = this.AddChild().SetMarginBottom();
-
-        txtFilter = p.AddChild<NineSliceTextField>(name: "Keyword", ["text-field"])
+        txtFilter = p.AddTextField(name: "ScientificProjectKeyword", changeCallback: _ => TriggerFilterChange())
             .SetFlexGrow()
             .SetMarginBottom();
-        txtFilter.RegisterCallback<ChangeEvent<string>>(_ => TriggerFilterChange());
 
         var checks = p.AddChild().SetAsRow();
         chkFlags = [
-            CreateFilterToggle(checks, "LV.SP.FilterUnlocked", t),
-            CreateFilterToggle(checks, "LV.SP.FilterLocked", t),
-            CreateFilterToggle(checks, "LV.SP.FilterOneTime", t),
-            CreateFilterToggle(checks, "LV.SP.FilterDaily", t)
+            CreateFilterToggle("LV.SP.FilterUnlocked"),
+            CreateFilterToggle("LV.SP.FilterLocked"),
+            CreateFilterToggle("LV.SP.FilterOneTime"),
+            CreateFilterToggle("LV.SP.FilterDaily"),
         ];
-        
-        return p;
-    }
 
-    Toggle CreateFilterToggle(VisualElement ve, string key, ILoc t)
-    {
-        var toggle = ve.AddToggle(key.T(t), onValueChanged: _ => TriggerFilterChange());
-        toggle.SetValueWithoutNotify(true);
+        SetExpand(false);
+        ExpandChanged += _ => TriggerFilterChange();
 
-        return toggle;
-    }
+        Toggle CreateFilterToggle(string key)
+        {
+            var toggle = checks.AddToggle(key.T(t), onValueChanged: _ => TriggerFilterChange());
+            toggle.SetValueWithoutNotify(true);
 
-    void ToggleBox(bool expand)
-    {
-        expanding = expand;
-        filterPanel.ToggleDisplayStyle(expand);
-        btnExpand.ToggleDisplayStyle(!expand);
-        btnCollapse.ToggleDisplayStyle(expand);
-
-        TriggerFilterChange();
+            return toggle;
+        }
     }
 
     void TriggerFilterChange()
     {
         var filter = ScientificProjectFilter.Default;
 
-        if (expanding)
+        if (Expand)
         {
             var flags = ScientificProjectFilterFlags.None;
 
@@ -97,7 +64,7 @@ public class FilterBox : VisualElement
 
 public readonly record struct ScientificProjectFilter(string? Keyword, ScientificProjectFilterFlags Flags)
 {
-    public static readonly ScientificProjectFilter Default = new(null, (ScientificProjectFilterFlags) (-1));
+    public static readonly ScientificProjectFilter Default = new(null, (ScientificProjectFilterFlags)(-1));
 }
 
 [Flags]
