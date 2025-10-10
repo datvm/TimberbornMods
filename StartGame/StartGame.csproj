@@ -18,7 +18,7 @@
 		<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />
 		
 		<ProjectReference Include="..\ScientificProjects\ScientificProjects\ScientificProjects.csproj" />
-		<ProjectReference Include="..\BuildingHP\BuildingHP.csproj" />
+		<ProjectReference Include="..\EarthquakeWeather\EarthquakeWeather.csproj" />
 
 	</ItemGroup>
 

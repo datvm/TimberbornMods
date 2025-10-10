@@ -1,6 +1,6 @@
 ﻿namespace EarthquakeWeather.Components;
 
-public class EarthquakeReinforcementComponent : BaseComponent, IPersistentEntity, IActiveRenovationsDescriber, IBuildingMultiplierDurabilityModifier
+public class EarthquakeReinforcementComponent : BaseComponent, IPersistentEntity, IBuildingMultiplierDurabilityModifier, IEntityMultiEffectsDescriber
 {
     static readonly ComponentKey SaveKey = new(nameof(EarthquakeReinforcementComponent));
     static readonly PropertyKey<int> ImmunityCountKey = new("ImmunityCount");
@@ -139,7 +139,7 @@ public class EarthquakeReinforcementComponent : BaseComponent, IPersistentEntity
         OnChanged?.Invoke(this);
     }
 
-    public IEnumerable<ActiveRenovationDescription> DescribeAll(ILoc t, IDayNightCycle dayNightCycle)
+    public IEnumerable<EntityEffectDescription> DescribeAll(ILoc t, IDayNightCycle dayNightCycle)
     {
         if (HasDamageReduction)
         {

@@ -77,6 +77,7 @@ Repairing a building uses one material type, chosen as:
 Calculation details: see [b]BuildingRepairService.cs[/b].
 
 ===
+v7.1.0: Migrated to Moddable Timberborn.
 v7.0.4: Fixed duplicate text entry causing faulty tooltip text (visual only). Updated the note text about Renovation, also moved it below the button to Start Renovation.
 v7.0.3: Material supply is now opt-out.
 v7.0.2: Fixed loading a save with a previous version where renovation could be built on unfinished buildings.

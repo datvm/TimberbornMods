@@ -14,6 +14,13 @@ public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony
 
     public override void Configure(Configurator configurator, ConfigurationContext context)
     {
+        if (context.IsMenuContext())
+        {
+            configurator
+                .MultiBindSingleton<IModUpdateNotifier, ModUpdateNotifier>()
+            ;
+        }
+
         if (!context.IsGameContext()) { return; }
 
         configurator

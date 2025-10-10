@@ -1,6 +1,6 @@
 ﻿namespace EarthquakeWeather.Components;
 
-public class EarthquakeStockpileComponent : BaseComponent, IFinishedStateListener, IActiveRenovationDescriber
+public class EarthquakeStockpileComponent : BaseComponent, IFinishedStateListener, IEntityEffectDescriber
 {
     public const string ExplosivesId = "Explosives";
 
@@ -89,7 +89,7 @@ public class EarthquakeStockpileComponent : BaseComponent, IFinishedStateListene
         earthquakeRegistry.Unregister(this);
     }
 
-    public ActiveRenovationDescription? Describe(ILoc t, IDayNightCycle dayNightCycle)
+    public EntityEffectDescription? Describe(ILoc t, IDayNightCycle dayNightCycle)
         => HasStockpileReinforcement
             ? new(t.T("LV.EQ.EqPileReinforced"), t.T("LV.EQ.EqPileReinforcedDesc"))
             : null;

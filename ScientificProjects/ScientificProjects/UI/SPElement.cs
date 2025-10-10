@@ -1,6 +1,4 @@
-﻿using Timberborn.TimeSystemUI;
-
-namespace ScientificProjects.UI;
+﻿namespace ScientificProjects.UI;
 
 public class SPElement(
     ScientificProjectDialogController controller,
