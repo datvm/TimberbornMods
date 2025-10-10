@@ -1,127 +1,118 @@
 ﻿namespace ScientificProjects.UI;
 
-public partial class ScientificProjectDialog : DialogBoxElement
+public partial class ScientificProjectDialog(
+    ILoc t,
+    PanelStack panelStack,
+    VisualElementInitializer veInit,
+    IContainer container,
+    DialogService dialogService
+) : DialogBoxElement
 {
+#nullable disable
+    SPSciencePanel pnlScience;
+    FilterBox filterBox;
 
-    readonly ILoc t;
-    readonly ScientificProjectService projects;
-    readonly DialogBoxShower diagShower;
-    readonly InputService input;
-    readonly ScienceService sciences;
-    readonly Texture2D defaultIcon;
+    SPListElement list;
+#nullable enable
 
-    FilterBox filterBox = null!;
     ScientificProjectFilter filter = ScientificProjectFilter.Default;
 
-    ScrollView list = null!;
-    readonly List<ProjectGroupRow> projectGroupRows = [];
+    public bool MustPay { get; private set; }
 
-    DialogBox? diag;
-
-    public ScientificProjectDialog(ILoc t, ScientificProjectService projects, IAssetLoader assets, DialogBoxShower diagShower, InputService input, ScienceService sciences)
+    public void Init()
     {
-        this.t = t;
-        this.projects = projects;
-        this.diagShower = diagShower;
-        this.input = input;
-        this.sciences = sciences;
+        SetDialogPercentSize(.6f, .75f);
 
-        defaultIcon = assets.Load<Texture2D>("Sprites/TopBar/Science");
-
-        Init();
-    }
-
-    void Init()
-    {
-        SetTitle("LV.SP.Title".T(t));
+        SetTitle(t.T("LV.SP.Title"));
         AddCloseButton(OnCloseButtonClicked);
 
-        CreateScienceStatus(Content);
+        var panel = Content;
 
-        filterBox = Content.AddChild<FilterBox>().Init(t);
+        var devPanel = panel.AddChild(container.GetInstance<SPDevPanel>)
+            .SetMarginBottom();
+        devPanel.OnActionExecuted += OnDevCommandExecuted;
+
+        pnlScience = panel.AddChild(container.GetInstance<SPSciencePanel>)
+            .SetMarginBottom();
+
+        filterBox = panel.AddChild(() => new FilterBox(t)).SetMarginBottom();
         filterBox.OnFilterChanged += OnFilterChanged;
 
-        list = Content.AddScrollView(name: "ProjectList")
-            .SetFlexGrow(1).SetFlexShrink(1);
-        list.style.minHeight = 0;
+        list = panel.AddChild(container.GetInstance<SPListElement>);
+        
+        this.Initialize(veInit);
 
+        RefreshContent();
+    }
+
+    public void AddNotEnoughPanel()
+    {
+        MustPay = true;
+        pnlScience.AddNotEnoughPanel();
+
+        pnlScience.OnDailyPaymentRequested += OnUIConfirmed;
+        pnlScience.OnSkipRequested += OnCloseButtonClicked;
+    }
+
+    private void OnDevCommandExecuted()
+    {
         RefreshContent();
     }
 
     void OnFilterChanged(ScientificProjectFilter filter)
     {
         this.filter = filter;
-        foreach (var row in projectGroupRows)
-        {
-            row.SetFilter(filter);
-        }
-    }
-
-    void SetDialogSize()
-    {
-        if (panel is null) { return; }
-
-        var scale = panel.scaledPixelsPerPoint;
-        Content.style.height = Screen.height * .75f / scale;
-        style.maxWidth = Screen.width * .75f / scale;
+        list.ApplyFilter(filter);
     }
 
     public void RefreshContent()
     {
         list.Clear();
-        projectGroupRows.Clear();
-        dailyCost = 0;
+        pnlScience.ReloadContent();
+        
+        list.ReloadList();
+        list.ApplyFilter(filter);
 
-        ReloadList();
-        OnDailyCostChanged();
-    }
-
-    void ReloadList()
-    {
-        var groups = projects.GetAllProjectGroups(true);
-
-        ref var filter = ref this.filter;
-
-        foreach (var g in groups)
+        foreach (var grp in list.Groups)
         {
-            var projectGroupRow = list.AddChild<ProjectGroupRow>()
-                .SetInfo(g, defaultIcon, t);
-            projectGroupRows.Add(projectGroupRow);
-            projectGroupRow.OnGroupCollapsedToggled += ToggleGroupCollapse;
-
-            foreach (var p in g.Projects)
+            foreach (var proj in grp.ProjectElements)
             {
-                var row = projectGroupRow.AddProject(p);
-
-                if ((p.Spec.HasSteps || p.Spec.HasScalingCost) && p.Unlocked)
-                {
-                    var cost = projects.GetCost(p);
-                    dailyCost += cost;
-                    row.ProjectRowInfo.SetCurrentCost(cost);
-                }
-
-                row.OnUnlockRequested += (info, _) => RequestUnlock(info);
-                row.ProjectRowInfo.OnLevelSelected += OnLevelSelected;
+                proj.OnDailyCostChanged += OnDailyCostChanged;
+                proj.OnProjectUnlocked += OnProjectUnlocked;
             }
-
-            projectGroupRow.SetFilter(in filter);
         }
     }
 
-    public void ToggleGroupCollapse(ScientificProjectGroupInfo info)
+    private void OnProjectUnlocked()
     {
-        info.Collapsed = !info.Collapsed;
-        projects.SetGroupCollapsed(info.Spec.Id, info.Collapsed);
+        RefreshContent();
     }
 
-    public new DialogBox Show(VisualElementInitializer? initializer, PanelStack panelStack, Action? confirm = default, Action? cancel = default)
+    private void OnDailyCostChanged()
     {
-        diag = base.Show(initializer, panelStack, confirm, cancel);
-        SetDialogSize();
-
-        return diag;
+        pnlScience.ReloadContent();
     }
 
-    static void DoNothing() { }
+    async void OnCloseButtonClicked()
+    {
+        if (MustPay)
+        {
+            var confirm = await dialogService.ConfirmAsync("LV.SP.SkipConfirm", true);
+
+            if (confirm)
+            {
+                OnUICancelled();
+            }
+        }
+        else
+        {
+            OnUICancelled();
+        }
+    }
+
+    public async Task<bool> ShowAsync()
+    {
+        return await ShowAsync(null, panelStack);
+    }
 
 }

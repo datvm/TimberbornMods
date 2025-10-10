@@ -10,6 +10,13 @@ public class BonusTracker(BonusManager bonusManager)
     readonly Dictionary<string, BonusTrackerItem> bonuses = [];
     public IReadOnlyDictionary<string, BonusTrackerItem> CurrentBonuses => bonuses;
 
+    public bool TryGetBonus(string bonusId, [NotNullWhen(true)] out BonusTrackerItem? item)
+    {
+        var result = bonuses.TryGetValue(bonusId, out var tmp);
+        item = result ? tmp : null;
+        return result;
+    }
+
     public BonusTrackerChangeEventArgs AddOrUpdate(BonusTrackerItem item)
     {
         var bonusId = item.Id;
@@ -22,6 +29,11 @@ public class BonusTracker(BonusManager bonusManager)
         OnBonusChanged?.Invoke(this, args);
         return args;
     }
+
+    public BonusTrackerChangeEventArgs? AddOrUpdateOrRemove(BonusTrackerItem item) 
+        => item.Bonuses.FastAll(q => q.MultiplierDelta == 0)
+            ? Remove(item.Id)
+            : AddOrUpdate(item);
 
     public BonusTrackerChangeEventArgs? Remove(string bonusId)
     {

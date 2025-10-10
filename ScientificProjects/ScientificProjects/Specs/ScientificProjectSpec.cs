@@ -12,11 +12,11 @@ public record ScientificProjectSpec : ComponentSpec
 
     [Serialize]
     public string NameKey { get; init; } = null!;
-    public string DisplayName { get; internal set; } = null!;
+    public string DisplayName { get; set; } = null!;
 
     [Serialize]
     public string? LoreKey { get; init; }
-    public string? Lore { get; internal set; }
+    public string? Lore { get; set; }
 
     [Serialize]
     public ImmutableArray<string> Factions
@@ -30,7 +30,7 @@ public record ScientificProjectSpec : ComponentSpec
 
     [Serialize]
     public string EffectKey { get; init; } = null!;
-    public string Effect { get; internal set; } = null!;
+    public string Effect { get; set; } = null!;
 
     [Serialize]
     public ImmutableArray<float> Parameters { get; init; }
@@ -50,7 +50,7 @@ public record ScientificProjectSpec : ComponentSpec
 
     [Serialize]
     public string? ScalingCostKey { get; init; }
-    public string? ScalingCostDisplay { get; internal set; }
+    public string? ScalingCostDisplay { get; set; }
 
     [Serialize]
     public string? RequiredId { get; init; }
@@ -64,6 +64,10 @@ public record ScientificProjectSpec : ComponentSpec
     [Serialize]
     public bool NeedReload { get; init; }
 
+    public bool NeedUnlock => MaxSteps == 0;
     public override string ToString() => $"Project {Id}: {DisplayName}";
+
+    public float GetEffect(int parameterIndex, int level)
+        => Parameters[parameterIndex] * level;
 
 }

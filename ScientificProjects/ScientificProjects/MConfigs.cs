@@ -1,43 +1,52 @@
 ﻿namespace ScientificProjects;
 
-[Context("Game")]
-public class ModGameConfig : Configurator
+public class MConfigs : BaseModdableTimberbornConfiguration
 {
-    public override void Configure()
+
+    public override void StartMod(IModEnvironment modEnvironment)
     {
-        this
-            .BindSingleton<ScientificProjectUnlockManager>()
-            .BindSingleton<ScientificProjectRegistry>()
-            .BindSingleton<ScientificProjectService>()
+        ModdableTimberbornRegistry.Instance
+            .UseBonusTracker();
 
-            .BindSingleton<ScientificProjectScreen>()
-
-            .MultiBindSingleton<IProjectCostProvider, ModProjectCostProvider>()
-
-            .BindSingleton<OneTimeUnlockProcessor>()
-        ;
-
-        BindBuffStuff();
+        base.StartMod(modEnvironment);
     }
 
-    void BindBuffStuff()
+    public override void Configure(Configurator configurator, ConfigurationContext context)
     {
-        this
-            // Buffs
-            .BindSingleton<ResearchProjectsBuff>()
+        if (!context.IsGameContext()) { return; }
 
-            // Components
+        configurator
+            .BindSingleton<ScientificProjectUnlockRegistry>()
+            .BindSingleton<ScientificProjectRegistry>()
+            .BindSingleton<ScientificProjectUnlockService>()
+            .BindSingleton<ScientificProjectDailyService>()
+            .BindSingleton<ScientificProjectGroupService>()
+            .BindSingleton<ScientificProjectService>()            
+
+            // Project upgrades
+            .BindSingleton<CharacterTracker>()
+            .BindSingleton<WorkplaceTracker>()
+            .BindSingleton<EntityUpgradeDescriber>()
+
+            // Dialog
+            .BindSingleton<ScientificProjectDialogController>()
+            .BindTransient<ScientificProjectDialog>()
+            .BindTransient<SPDevPanel>()
+            .BindTransient<SPSciencePanel>()
+            .BindTransient<SPListElement>()
+            .BindTransient<SPGroupElement>()
+            .BindTransient<SPElement>()
+            
+            // Base mod processings
+            .MultiBindSingleton<IProjectCostProvider, ModProjectsCostProvider>()
+            .MultiBindSingleton<ICharacterUpgradeDescriber, ModProjectsCharacterDescriber>()
+            .MultiBindSingleton<ISPDevModule, DefaultSpDevModule>()
+            .BindSingleton<ModUpgradeListener>()
+
             .BindTemplateModule(h => h
-                .AddDecorator<BeaverSpec, BeaverBuffComponent>()
-                .AddDecorator<Character, CharacterBuffComponent>()
-                .AddDecorator<Manufactory, ManufactoryBuffComponent>()
+                .AddDecorator<Character, CharacterProjectUpgradeComponent>()
+                .AddDecorator<Workplace, WorkplaceProjectUpgradeComponent>()
             )
-
-            // Tracking entities
-            .BindTrackingEntities()
-                .TrackBuilderBuildings()
-                .TrackManufactory()
-                .TrackWorkplace()
         ;
     }
 

@@ -1,5 +1,4 @@
-﻿
-namespace ScientificProjects.UI;
+﻿namespace ScientificProjects.UI;
 
 public class ScienceButton : NineSliceVisualElement
 {
@@ -8,12 +7,12 @@ public class ScienceButton : NineSliceVisualElement
 
     public int Cost
     {
-        set => lblCost.text = NumberFormatter.Format(value);
+        set => lblCost.text = value.ToString("0,0");
     }
 
     public ScienceButton()
     {
-        var btn = this.AddGameButton().SetPadding(paddingX: 20);
+        var btn = this.AddGameButton().SetPadding(paddingX: 5, paddingY: 5).SetFlexShrink(0).SetFlexGrow(0);
 
         var container1 = btn.AddChild(name: "ScienceCostSection", classes: ["science-cost-section"]);
         var container2 = container1.AddChild<NineSliceVisualElement>(
