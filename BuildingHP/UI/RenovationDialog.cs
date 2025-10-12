@@ -26,10 +26,12 @@ public class RenovationDialog : DialogBoxElement
 
         var el = Content;
 
-        var row = el.AddRow();
-        lstItems = row.AddChild<RenovationListView>()
-            .SetWidth(300)
+        var row = el.AddRow().SetMinSize(null, 0);
+        var scroll = row.AddScrollView()
+            .SetSize(300, 700)
             .SetMarginRight();
+        scroll.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
+        lstItems = scroll.AddChild<RenovationListView>();
         lstItems.RenovationSelected += OnRenovationSelected;
 
         contentPanel = row.AddChild().SetFlexGrow(1);

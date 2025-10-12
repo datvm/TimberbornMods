@@ -1,0 +1,13 @@
+﻿{
+    "Name": "Beavline Logistics",
+    "Version": "7.0.0",
+    "Id": "BeavlineLogistics",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Renovations for Logistics",
+    "RequiredMods": [
+        {
+            "Id": "BuildingHP",
+            "MinimumVersion": "7.1.0"
+        }
+    ]
+}
