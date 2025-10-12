@@ -1,0 +1,21 @@
+﻿{
+    "RenovationSpec": {
+        "Id": "BeavlineBalancer",
+        "GroupId": "Beavline",
+        "Order": 30,
+        "TitleLoc": "LV.BL.BeavlineBalancer",
+        "DescLoc": "LV.BL.BeavlineBalancerDesc",
+        "FlavorLoc": "LV.BL.BeavlineBalancerFlavor",
+        "Cost": [
+            {
+                "Id": "Plank",
+                "Amount": 5
+            },
+            {
+                "Id": "Gear",
+                "Amount": 5
+            }
+        ],
+        "Days": 1
+    }
+}
