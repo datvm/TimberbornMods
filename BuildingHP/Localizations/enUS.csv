@@ -119,5 +119,6 @@ LV.BHP.RenovationIncreasePriorityHotKey,"Increase renovation priority",
 LV.BHP.RenovationStockpileDecreasePriorityHotKey,"Decrease renovation stockpile priority",
 LV.BHP.RenovationStockpileIncreasePriorityHotKey,"Increase renovation stockpile priority",
 LV.BHP.ProdOverdriveWorkerDesc,"{0:+0%;-0%} due to workplace's Overdrive",
+LV.BHP.ShowUnavailables,"Show unavailable renovations",
 LV.BHP.UpdateText710,"This is a big update that migrates this mod to Moddable Timberborn.
 There is no new feature except minor UI change but performance is greatly improved and all effects are now gathered together in one place thanks to Moddable Timberborn.",

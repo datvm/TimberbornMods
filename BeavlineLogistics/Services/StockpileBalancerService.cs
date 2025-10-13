@@ -31,19 +31,19 @@ public class StockpileBalancerService(
         Balance();
     }
 
-    // This one list all connected balancers of the same good, regardless of imbalance
-    public IReadOnlyList<BeavlineBalancerComponent> FindCluster(BeavlineBalancerComponent start)
+    // This one list all connected balancers of the same good, regardless of imbalance, and include disabled ones
+    public IReadOnlyList<BeavlineBalancerComponent> FindConnectedCluster(BeavlineBalancerComponent start)
     {
         if (!balancers.Contains(start)) { return []; }
 
-        List<BeavlineBalancerComponent> result = [start];
-
         var g = start.GoodId;
-        if (g is null) { return result; }
+        if (g is null) { return []; }
 
         var targets = balancers.ToHashSet();
         targets.Remove(start);
-        Stack<BeavlineBalancerComponent> stack = new(result);
+
+        List<BeavlineBalancerComponent> result = []; // Result should not include start
+        Stack<BeavlineBalancerComponent> stack = new([start]);
 
         while (stack.Count > 0)
         {
@@ -192,7 +192,11 @@ public class StockpileBalancerService(
 
                 targets.Remove(balancer);
                 stack.Push(balancer);
-                result.Add(balancer);
+
+                if (!balancer.Disabled)
+                {
+                    result.Add(balancer); // Only add enabled ones to the result
+                }
 
                 var adjAmount = balancer.MovableAmount;
                 if (adjAmount < min) { min = adjAmount; }

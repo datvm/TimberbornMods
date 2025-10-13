@@ -4,17 +4,28 @@ public class BeavlineBalancerComponent : BaseComponent, IActivableRenovationComp
 {
     static readonly ComponentKey SaveKey = new(nameof(BeavlineBalancerComponent));
     static readonly PropertyKey<bool> DisabledKey = new("Disabled");
+    static readonly PropertyKey<bool> DisableEntranceWarningKey = new("DisableEntranceWarning");
 
     public bool RenovationActive { get; private set; }
     public Action<BuildingRenovation>? ActiveHandler { get; set; }
 
     public bool Disabled { get; set; }
+    public bool DisableEntranceWarning
+    {
+        get;
+        set
+        {
+            field = value;
+            unreachableBuildingStatus?.UpdateStatus();
+        }
+    }
 
 #nullable disable
     StockpileBalancerService balancerService;
     public Inventory Inventory { get; private set; }
     public SingleGoodAllower SingleGoodAllower { get; private set; }
     public BlockObject BlockObject { get; private set; }
+    UnreachableBuildingStatus unreachableBuildingStatus;
 #nullable enable
 
     public string? GoodId => SingleGoodAllower.HasAllowedGood ? SingleGoodAllower.AllowedGood : null;
@@ -29,9 +40,15 @@ public class BeavlineBalancerComponent : BaseComponent, IActivableRenovationComp
 
     public void Start()
     {
+        unreachableBuildingStatus = GetComponentFast<UnreachableBuildingStatus>();
         Inventory = GetComponentFast<Stockpile>().Inventory;
         SingleGoodAllower = GetComponentFast<SingleGoodAllower>();
         BlockObject = GetComponentFast<BlockObject>();
+
+        if (DisableEntranceWarning)
+        {
+            unreachableBuildingStatus.UpdateStatus();
+        }
 
         this.ActivateIfAvailable(BeavlineBalancerRenovationProvider.RenoId);
     }
@@ -49,10 +66,18 @@ public class BeavlineBalancerComponent : BaseComponent, IActivableRenovationComp
 
     public void Save(IEntitySaver entitySaver)
     {
-        if (!Disabled) { return; }
+        if (!Disabled && !DisableEntranceWarning) { return; }
 
         var s = entitySaver.GetComponent(SaveKey);
-        s.Set(DisabledKey, Disabled);
+        if (Disabled)
+        {
+            s.Set(DisabledKey, true);
+        }
+
+        if (DisableEntranceWarning)
+        {
+            s.Set(DisableEntranceWarningKey, true);
+        }
     }
 
     public void Load(IEntityLoader entityLoader)
@@ -62,6 +87,11 @@ public class BeavlineBalancerComponent : BaseComponent, IActivableRenovationComp
         if (s.Has(DisabledKey))
         {
             Disabled = s.Get(DisabledKey);
+        }
+
+        if (s.Has(DisableEntranceWarningKey))
+        {
+            DisableEntranceWarning = s.Get(DisableEntranceWarningKey);
         }
     }
 }

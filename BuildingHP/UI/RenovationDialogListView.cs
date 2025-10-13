@@ -8,11 +8,13 @@ public class RenovationListView : VisualElement
     RenovationListViewItem? selectingItem;
     public IRenovationProvider? SelectingItem => selectingItem?.Model.Provider;
 
+    readonly List<RenovationListViewGroup> groups = [];
+
     public RenovationListView Init(BuildingRenovationComponent comp, RenovationRegistry renovationRegistry, ILoc t)
     {
         var parent = this.AddScrollView();
-        RenovationListViewItem? firstItem = null;
 
+        groups.Clear();
         foreach (var grp in renovationRegistry.OrderedGroups)
         {
             if (!renovationRegistry.ProviderGroups.TryGetValue(grp.Id, out var grpItems))
@@ -24,14 +26,15 @@ public class RenovationListView : VisualElement
             var grpEl = new RenovationListViewGroup(grp);
             var items = grpItems
                 .Select(q => new RenovationProviderItemModel(q, q.CanRenovate(comp)))
-                .ToImmutableArray();
+                .ToArray();
 
-            var firstItemInGroup = grpEl.SetItems(items, OnRenovationUISelected);
-            firstItem ??= firstItemInGroup;
-
+            grpEl.SetItems(items, OnRenovationUISelected);
+            
             parent.Add(grpEl);
+            groups.Add(grpEl);
         }
 
+        var firstItem = groups.FirstOrDefault()?.FirstItem;
         if (firstItem is null)
         {
             parent.AddGameLabel(t.T("LV.BHP.NoRenovation"));
@@ -54,37 +57,61 @@ public class RenovationListView : VisualElement
         RenovationSelected?.Invoke(item.Model);
     }
 
+    public void Filter(RenovationDialogFilter filter)
+    {
+        foreach (var group in groups)
+        {
+            group.Filter(filter);
+        }
+    }
+
 }
 
 public class RenovationListViewGroup : CollapsiblePanel
 {
+
+    readonly List<RenovationListViewItem> items = [];
+    public RenovationListViewItem? FirstItem => items.FirstOrDefault();
 
     public RenovationListViewGroup(RenovationGroupSpec spec)
     {
         SetTitle(spec.Title.Value);
     }
 
-    public RenovationListViewItem? SetItems(ImmutableArray<RenovationProviderItemModel> renovations, Action<RenovationListViewItem> onRenovationUISelected)
+    public void SetItems(IReadOnlyCollection<RenovationProviderItemModel> renovations, Action<RenovationListViewItem> onRenovationUISelected)
     {
         Container.Clear();
+        items.Clear();
 
-        if (renovations.Length == 0)
+        if (renovations.Count == 0)
         {
             this.SetDisplay(false);
-            return null;
         }
 
-        RenovationListViewItem firstItem = null!;
         foreach (var r in renovations)
         {
             var item = new RenovationListViewItem(r, onRenovationUISelected);
             Container.Add(item);
 
-            firstItem ??= item;
+            items.Add(item);
         }
 
         this.SetDisplay(true);
-        return firstItem;
+    }
+
+    public void Filter(RenovationDialogFilter filter)
+    {
+        var hasMatch = false;
+
+        foreach (var item in items)
+        {
+            if (item.Filter(filter))
+            {
+                hasMatch = true;
+            }
+        }
+
+        this.SetDisplay(hasMatch);
     }
 
 }
@@ -118,6 +145,15 @@ public class RenovationListViewItem : NineSliceVisualElement
     public void Unselect()
     {
         lbl.style.unityFontStyleAndWeight = FontStyle.Normal;
+    }
+
+    public bool Filter(RenovationDialogFilter filter)
+    {
+        var match = filter.Keyword is null || Model.Provider.RenovationSpec.Title.Value.Contains(filter.Keyword, StringComparison.OrdinalIgnoreCase);
+        match = match && (Model.IsAvailable || filter.ShowUnavailables);
+
+        this.SetDisplay(match);
+        return match;
     }
 
 }
