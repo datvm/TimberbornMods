@@ -8,6 +8,8 @@ public class RenovationDialog : DialogBoxElement
     IRenovationProvider? currentProvider;
     VisualElement? currentUI;
 
+    readonly RenovationDialogFilter filter = new();
+
     readonly PanelStack panelStack;
     readonly RenovationListView lstItems;
     readonly RenovationRegistry renovationRegistry;
@@ -26,10 +28,17 @@ public class RenovationDialog : DialogBoxElement
 
         var el = Content;
 
-        var row = el.AddRow().SetMinSize(null, 0);
-        var scroll = row.AddScrollView()
-            .SetSize(300, 700)
+        var row = el.AddRow().SetMinSize(null, 0).SetFlexGrow().SetFlexShrink(1).AlignItems(Align.Stretch);
+
+        var leftPanel = row.AddChild()
+            .SetWidth(300)
             .SetMarginRight();
+        AddFilterPanel(leftPanel);
+        var scroll = leftPanel.AddScrollView()
+            .SetFlexGrow()
+            .SetFlexShrink()
+            .SetMinSize(null, 0);
+
         scroll.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
         lstItems = scroll.AddChild<RenovationListView>();
         lstItems.RenovationSelected += OnRenovationSelected;
@@ -40,6 +49,35 @@ public class RenovationDialog : DialogBoxElement
         lblError.RemoveFromHierarchy();
 
         this.Initialize(veLoader);
+    }
+
+    void AddFilterPanel(VisualElement parent)
+    {
+        var panel = parent.AddChild()
+            .SetFlexShrink(0)
+            .SetMarginBottom();
+
+        panel.AddTextField(changeCallback: OnFilterKeywordChanged)
+            .SetMarginBottom(5);
+
+        panel.AddToggle(t.T("LV.BHP.ShowUnavailables"), onValueChanged: OnFilterUnavailablesChanged);
+    }
+
+    void OnFilterUnavailablesChanged(bool value)
+    {
+        filter.ShowUnavailables = value;
+        ApplyFilter();
+    }
+
+    void OnFilterKeywordChanged(string text)
+    {
+        filter.Keyword = text;
+        ApplyFilter();
+    }
+
+    void ApplyFilter()
+    {
+        lstItems.Filter(filter);
     }
 
     void OnRenovationSelected(RenovationProviderItemModel model)
@@ -66,6 +104,7 @@ public class RenovationDialog : DialogBoxElement
     {
         this.comp = comp;
         lstItems.Init(comp, renovationRegistry, t);
+        ApplyFilter();
 
         var result = await ShowAsync(null, panelStack);
 
@@ -76,4 +115,10 @@ public class RenovationDialog : DialogBoxElement
         return result;
     }
 
+}
+
+public class RenovationDialogFilter
+{
+    public string Keyword { get; set; } = "";
+    public bool ShowUnavailables { get; set; } = false;
 }

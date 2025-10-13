@@ -72,7 +72,8 @@ public class BeavlineComponent : BaseComponent, IPersistentEntity, IDeletableEnt
         var filtered = FilteredInput;
         foreach (var g in goods)
         {
-            if ((filtered is not null && !filtered.Contains(g))
+            if (!InputGoodIds.Contains(g) 
+                || (filtered is not null && !filtered.Contains(g))
                 || InputInventory.UnreservedCapacity(g) <= 0)
             {
                 continue;
@@ -173,7 +174,6 @@ public class BeavlineComponent : BaseComponent, IPersistentEntity, IDeletableEnt
         if (!input)
         {
             BeavlineOutput = GetComponentFast<BeavlineOutputComponent>();
-            BeavlineOutput.enabled = true;
             SetOutputDisabled(DisableOutput);
         }
 

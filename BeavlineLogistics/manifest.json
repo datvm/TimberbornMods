@@ -7,7 +7,7 @@
     "RequiredMods": [
         {
             "Id": "BuildingHP",
-            "MinimumVersion": "7.1.0"
+            "MinimumVersion": "7.1.2"
         }
     ]
 }

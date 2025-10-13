@@ -1,0 +1,45 @@
+﻿Beavline Logistics adds new Renovations that auto-transfer goods between adjacent buildings. Link inputs and outputs to create direct flows, reduce hauling, and prevent bottlenecks.
+
+[h1]Beavline Input/Output[/h1]
+Beavline Inputs and Outputs let buildings automatically exchange goods.
+
+Each building with relevant goods handling can add a Beavline Input and/or Output renovation:
+- Cost: 10 Planks, 10 Gears
+- Build time: 3 days
+Inputs and Outputs can be manually disabled or filtered by good type.
+
+Transfer speed depends on the Output. It sends 1 item per cycle to 1 eligible connected building (adjacent blocks in any direction, including vertical). Buildings show their connected list when selected.
+
+If multiple item types can be sent to a target (e.g. modded recipes), one of each type is sent in the same cycle and still counts as one transfer.
+
+[b]Default speed:[/b] 1 item per hour (24/day).
+[b]Beavline Output Express:[/b] upgrade that boosts speed by 900% (240/day or 24/hour). Costs 20 Gears, 15 Pine Resin, and 15 Metal Blocks.
+Inputs have no rate limit; they can accept any number of items or simultaneous Outputs.
+
+This design allows flexible merging and splitting of connected flows:
+[img]https://i.imgur.com/13Kek9x.jpeg[/img]
+
+[h1]Beavline Storage Balancer[/h1]
+The Beavline Balancer applies only to storage buildings (Piles, Warehouses, and Tanks).
+- Cost: 5 Planks, 5 Gears
+- Build time: 1 day
+It works independently from Beavline Inputs and Outputs, so no I/O renovations are required.
+
+All adjacent storages with the Balancer renovation and the same good type form a cluster. Goods within a cluster are automatically equalized across all connected storages. Connections can pass through intermediate storages, so direct adjacency between every member is not required.
+
+Balancers can be manually disabled on individual storages to exclude them from transfers while keeping them as connection bridges within the cluster:
+[img]https://i.imgur.com/Ggdi4y1.jpeg[/img]
+
+There is no limit on the amount of goods moved. Balancing occurs once per hour to maintain stable game performance.
+
+[h1]Tips and Notes[/h1]
+- Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3472334132]TImprove 4 UI[/url] to add a scroll-bar to the panel when it gets too long, and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3547764728]TImprove 4 UX[/url] to make contents collapsible.
+- Storage buildings used only for Beavline transfer or balancing may no longer need accessible entrances. The game still shows a warning but this mod adds an option to disable it.
+- Avoid placing Inputs and Outputs of the same good type next to each other (e.g., two identical piles side by side). They will keep transferring goods back and forth, wasting time and performance.
+- Beavline renovations can be added to: Storage buildings (Piles, Warehouses, Tanks), Manufactories (including Water Pumps and Water Dumps), Flags, Goods-consuming buildings (e.g., Agoras, Engines), Breeding Pods and Wonders. [b]District Crossings are not supported[/b]. However, goods can still be transferred between buildings in different districts if they are connected.
+
+===
+If you need any support or feedback, feel free to contact me on Timberborn's official Discord ( https://discord.gg/timberborn, on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] or [url=https://discord.com/channels/558398674389172225/1064825134348763209/threads/1427155566647840808]Beavline Logistic[/url] channel), or @theapologist316
+
+Idea by @Simonates.
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

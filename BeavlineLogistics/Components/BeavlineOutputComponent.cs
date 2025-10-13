@@ -1,32 +1,60 @@
-﻿namespace BeavlineLogistics.Components;
+﻿
+namespace BeavlineLogistics.Components;
 
-public class BeavlineOutputComponent : BaseComponent, IPersistentEntity
+// IActivableRenovationComponent is for the OutputSpeed renovation, NOT the output (which is handled by BeavlineComponent)
+public class BeavlineOutputComponent : BaseComponent, IPersistentEntity, IActivableRenovationComponent
 {
     static readonly ComponentKey SaveKey = new(nameof(BeavlineOutputComponent));
     static readonly PropertyKey<int> NextOutputIndexKey = new("NextOutputIndex");
     static readonly PropertyKey<float> ProgressKey = new("Progress");
 
 #nullable disable
-    BeavlineComponent beavline;
+    internal BeavlineComponent beavline;
 #nullable enable
+
+    internal bool debugging;
 
     int nextOutputIndex;
     ITimeTrigger? timeTrigger;
 
     float pendingProgress;
 
-    public float DaysPerItem { get; private set; } = 1f / 24f;
+    public const float DefaultDaysPerItem = 1f / 24f; // 1 item per hour
+    float speedBonus;
+    public float DaysPerItem { get; private set; } = DefaultDaysPerItem;
+
+    public bool RenovationActive { get; private set; }
+    public Action<BuildingRenovation>? ActiveHandler { get; set; }
 
     public void Awake()
     {
         beavline = GetComponentFast<BeavlineComponent>();
     }
 
+    public void Start()
+    {
+        this.ActivateIfAvailable(BeavlineOutSpeedRenovationProvider.RenoId);
+    }
+
+    public void AddSpeedBonus(float multiplierAddition)
+    {
+        speedBonus += multiplierAddition;
+        DaysPerItem = DefaultDaysPerItem / (1f + speedBonus);
+
+        if (timeTrigger?.InProgress == true)
+        {
+            // Reset
+            ScheduleNextStep();
+        }
+    }
+
     public void Toggle(bool enabled)
     {
         if (enabled)
         {
-            if (timeTrigger is not null && !timeTrigger.Finished) { return; }
+            if (timeTrigger is not null && timeTrigger.InProgress) { return; }
+
+            TimberUiUtils.LogDev($"{this} is scheduling next output");
             ScheduleNextStep();
         }
         else
@@ -58,10 +86,8 @@ public class BeavlineOutputComponent : BaseComponent, IPersistentEntity
         ScheduleNextStep();
     }
 
-    void FindAndMoveStuffOut()
+    internal void FindAndMoveStuffOut()
     {
-        var startingPoint = nextOutputIndex;
-
         var connected = beavline.ConnectedBuildings;
         if (connected.Count == 0)
         {
@@ -71,6 +97,18 @@ public class BeavlineOutputComponent : BaseComponent, IPersistentEntity
 
         var outputGoods = beavline.GetOutputGoods();
         if (outputGoods.Count == 0) { return; }
+
+        if (debugging)
+        {
+            Debug.Log($"{this} is trying to send out goods {string.Join(", ", outputGoods)}");
+        }
+
+        if (nextOutputIndex >= beavline.ConnectedBuildings.Count) // Happens when a connected building is removed
+        {
+            nextOutputIndex = 0;
+        }
+
+        var startingPoint = nextOutputIndex;
 
         bool done;
         do
@@ -89,8 +127,11 @@ public class BeavlineOutputComponent : BaseComponent, IPersistentEntity
     bool TryGivingTo(BeavlineComponent target, HashSet<string> outputGoods)
     {
         var inputGoods = target.GetPossibleInputGoods(outputGoods);
-        TimberUiUtils.LogDev($"{target} can receive {string.Join(", ", inputGoods)}");
 
+        if (debugging)
+        {
+            Debug.Log($"- {target} can accept {string.Join(", ", inputGoods)}");
+        }
         if (inputGoods.Count == 0) { return false; }
 
         var inv = target.InputInventory!;
@@ -127,5 +168,13 @@ public class BeavlineOutputComponent : BaseComponent, IPersistentEntity
         s.Set(ProgressKey, timeTrigger.Progress);
     }
 
+    public void Activate()
+    {
+        if (RenovationActive) { return; }
+        RenovationActive = true;
 
+        var reno = this.GetRenovationComponent();
+        var spec = reno.RenovationService.GetSpec(BeavlineOutSpeedRenovationProvider.RenoId);
+        AddSpeedBonus(spec.Parameters[0]);
+    }
 }
