@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Block Object Debugger",
+    "Version": "7.0.0",
+    "Id": "BlockObjectDebugger",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Debug Block Objects",
+    "RequiredMods": [
+        { "Id": "ModdableTimberborn" }
+    ]
+}

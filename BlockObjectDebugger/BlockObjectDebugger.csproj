@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputModFolderName>BlockObjectDebugger</OutputModFolderName>
+	</PropertyGroup>
+	<Import Project="../Common.target" />
+	<Import Project="../CommonModdableTimberborn.target" />
+</Project>
