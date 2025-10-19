@@ -18,7 +18,7 @@
 		<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />
 		
 		<!--<ProjectReference Include="..\ScientificProjects\ScientificProjects\ScientificProjects.csproj" />-->
-		<ProjectReference Include="..\BlockObjectDebugger\BlockObjectDebugger.csproj" />
+		<ProjectReference Include="..\ColorfulZipline\ColorfulZipline.csproj" />
 
 	</ItemGroup>
 

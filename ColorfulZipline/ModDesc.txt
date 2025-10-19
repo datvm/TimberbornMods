@@ -1,0 +1,5 @@
+﻿Colorful Zipline lets you customize every zipline with any colors you like. Set different colors for the left and right lines to make your network stand out.
+
+Tips:
+- Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3472334132]TImprove 4 UI[/url] to add a scroll-bar to the panel when it gets too long, and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3547764728]TImprove 4 UX[/url] to make contents collapsible.
+- Use the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3480668755]More Naming[/url] mod to rename buildings; the color list will display those custom names.

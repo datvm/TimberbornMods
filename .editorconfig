@@ -1,0 +1,3 @@
+﻿[*.cs]
+dotnet_style_require_accessibility_modifiers = omit_if_default:warning
+dotnet_diagnostic.IDE0040.severity = warning

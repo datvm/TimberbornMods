@@ -1,0 +1,8 @@
+﻿ID,Text,Comment
+LV.CZ.Reset,"Reset",
+LV.CZ.ConnectionLabel,"• To {0}",
+LV.CZ.ApplyAll,"Apply to all ziplines:",
+LV.CZ.InBuilding,"Connected to this building",
+LV.CZ.All,"All ziplines",
+LV.CZ.ConfirmAll,"Are you sure you want to apply this setting to all ziplines?",
+Name_ColorfulZiplineFragment,"Colorful Zipline",
