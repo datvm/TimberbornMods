@@ -1,0 +1,11 @@
+﻿{
+    "Name": "Colorful Ziplines",
+    "Version": "7.0.0",
+    "Id": "ColorfulZipline",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Color your ziplines",
+    "RequiredMods": [
+        { "Id": "TimberUi" },
+        { "Id": "eMka.ModSettings" }
+    ]
+}

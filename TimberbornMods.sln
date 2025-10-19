@@ -66,6 +66,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheArchitectsToolkit", "TheArchitectsToolkit\TheArchitectsToolkit.csproj", "{49FD8EF9-74FF-486C-A07A-ED9896B232D9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Utils", "_Utils", "{36EBDCB0-09D8-4A7D-AF62-89D5C49B6B44}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartGame", "StartGame\StartGame.csproj", "{E41BC21D-ED7F-4B4C-9E29-FC8385B0F887}"
 EndProject
@@ -292,6 +295,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeavlineLogistics", "BeavlineLogistics\BeavlineLogistics.csproj", "{2B18D460-283E-4990-B9C3-2C21CB338A29}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockObjectDebugger", "BlockObjectDebugger\BlockObjectDebugger.csproj", "{AF52141F-6B87-47BB-8C4C-6FF7D15901D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorfulZipline", "ColorfulZipline\ColorfulZipline.csproj", "{034815B4-D1E9-4C39-8932-A138FAA76A4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -783,6 +788,10 @@ Global
 		{AF52141F-6B87-47BB-8C4C-6FF7D15901D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF52141F-6B87-47BB-8C4C-6FF7D15901D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF52141F-6B87-47BB-8C4C-6FF7D15901D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{034815B4-D1E9-4C39-8932-A138FAA76A4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{034815B4-D1E9-4C39-8932-A138FAA76A4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{034815B4-D1E9-4C39-8932-A138FAA76A4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{034815B4-D1E9-4C39-8932-A138FAA76A4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -872,6 +881,7 @@ Global
 		{347A634F-D51C-4011-9AA5-71390DED02A8} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
 		{0A96A00D-6FDF-469F-80E0-565AF0BF9897} = {4C24DB61-A115-4B00-BDBF-E8CD4EA9FDF2}
 		{2B18D460-283E-4990-B9C3-2C21CB338A29} = {9C86AE06-7E1D-47C7-90C1-83EA7E7CA365}
+		{034815B4-D1E9-4C39-8932-A138FAA76A4F} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}
