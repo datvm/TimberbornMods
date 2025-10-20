@@ -20,20 +20,17 @@ partial class ZiporterStabilizer
         var cells = EnumerateExplosionBoundary(center, ExplosionRadius).ToImmutableArray();
 
         var objs = cells
-        .SelectMany(cell => blockService.GetObjectsAt(cell))
+            .SelectMany(cell => blockService.GetObjectsAt(cell))
             .ToHashSet();
-        foreach (var destroyingObj in objs)
-        {
-            if (destroyingObj)
-            {
-                entityService.Delete(destroyingObj);
-            }
-        }
 
-        foreach (var cell in cells)
-        {
-            terrainDestroyer.DestroyTerrain(cell);
-        }
+        var entities1 = destructionService.QueryDestructingEntities(cells);
+        var entities2 = destructionService.QueryDestructingEntities(objs.Union(entities1.BlockObjects));
+
+        var destructing = new DestroyingEntities(
+            [.. entities1.BlockObjects.Union(entities2.BlockObjects)],
+            [.. entities1.Terrains.Union(entities2.Terrains)]
+        );
+        destructionService.DestroyEntities(destructing);
     }
 
     void ShakeCamera()

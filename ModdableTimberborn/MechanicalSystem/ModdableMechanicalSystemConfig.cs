@@ -9,7 +9,7 @@
         public string PatchCategory { get; } = PatchCategoryName;
 
 
-        private ModdableMechanicalSystemConfig() { }
+        ModdableMechanicalSystemConfig() { }
 
 
         public void Configure(Configurator configurator, ConfigurationContext context)

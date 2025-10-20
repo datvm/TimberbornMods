@@ -13,6 +13,7 @@ public class ZiporterConnection : TickableComponent, IFinishedStateListener
     public ZiporterConnection? ConnectedZiporter { get; private set; }
     public bool IsConnected => ConnectedZiporter is not null;
     public bool IsActive => IsConnected && active && finished;
+    public bool IsFinished => finished;
 
     static readonly Vector3 CableAnchorPoint = new(1.5f, 3.85f, 1.5f); // From Zipline Tower anchor point
     public Vector3 AnchorPoint => blockObject.Transform(CoordinateSystem.WorldToGrid(CableAnchorPoint));

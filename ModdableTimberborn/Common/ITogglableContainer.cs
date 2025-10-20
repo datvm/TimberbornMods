@@ -8,7 +8,7 @@ public interface ITogglableContainer<TContainer, TMember>
     IEnumerable<TMember> Members { get; }
     bool Active { get; }
     
-    public void Toggle(bool active);
-    public void Activate() => Toggle(true);
-    public void Deactivate() => Toggle(false);
+    void Toggle(bool active);
+    void Activate() => Toggle(true);
+    void Deactivate() => Toggle(false);
 }

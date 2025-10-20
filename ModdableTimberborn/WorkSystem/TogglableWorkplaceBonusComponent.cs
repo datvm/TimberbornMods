@@ -43,8 +43,8 @@ public class WorkplaceTogglableContainer(Workplace workplace, Action<Worker> onW
         Container.WorkerUnassigned -= Container_WorkerUnassigned;
     }
 
-    private void Container_WorkerAssigned(object sender, WorkerChangedEventArgs e) => OnMemberAdded(e.Worker);
-    private void Container_WorkerUnassigned(object sender, WorkerChangedEventArgs e) => OnMemberRemoved(e.Worker);
+    void Container_WorkerAssigned(object sender, WorkerChangedEventArgs e) => OnMemberAdded(e.Worker);
+    void Container_WorkerUnassigned(object sender, WorkerChangedEventArgs e) => OnMemberRemoved(e.Worker);
 
     protected override void OnMemberAdded(Worker member) => onWorkerAssigned(member);
     protected override void OnMemberRemoved(Worker member) => onWorkerUnassigned(member);

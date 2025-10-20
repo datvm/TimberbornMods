@@ -77,7 +77,8 @@ public class ZiporterConnectionService(
 
     public bool CanBeConnected(ZiporterConnection? left, ZiporterConnection? right) =>
         left && right && left != right 
-        && !left.IsConnected && !right.IsConnected;
+        && !left.IsConnected && !right.IsConnected
+        && left.IsFinished && right.IsFinished;
 
     void AddPath(ZiporterConnection left, ZiporterConnection right)
     {
@@ -168,7 +169,7 @@ public class ZiporterConnectionService(
         return new EdgePair(edgeFrom, edgeTo);
     }
 
-    private void Connection_OnActiveChanged(object sender, EventArgs e)
+    void Connection_OnActiveChanged(object sender, EventArgs e)
     {
         var conn = (ZiporterConnection)sender;
         var other = conn.ConnectedZiporter;

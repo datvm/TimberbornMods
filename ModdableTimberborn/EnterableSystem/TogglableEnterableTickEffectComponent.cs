@@ -47,7 +47,7 @@ public abstract class TogglableEnterableTickEffectComponent<TData> : TogglableEn
         }
     }
 
-    private void Container_EntererRemoved(object sender, EntererRemovedEventArgs e)
+    void Container_EntererRemoved(object sender, EntererRemovedEventArgs e)
     {
         enterers.Remove(e.Enterer);
     }

@@ -1,11 +1,10 @@
-{
+﻿{
     "Name": "Ziporter",
-    "Version": "7.1.0",
+    "Version": "7.2.0",
     "Id": "Ziporter",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Zip!",
     "RequiredMods": [
-        { "Id": "Harmony" },
-        { "Id": "TimberUi", "MinimumVersion": "7.4.0" }
+        { "Id": "ModdableTimberborn" }
     ]
 }

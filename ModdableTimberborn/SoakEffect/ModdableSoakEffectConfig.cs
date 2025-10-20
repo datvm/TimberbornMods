@@ -4,7 +4,7 @@
     {
         public static readonly ModdableSoakEffectConfig Instance = new();
 
-        private ModdableSoakEffectConfig() { }
+        ModdableSoakEffectConfig() { }
 
         public void Configure(Configurator configurator, ConfigurationContext context)
         {

@@ -46,8 +46,8 @@ public class TogglableEventEnterableContainer(Enterable enterable, Action<Entere
         Container.EntererRemoved -= Container_EntererRemoved;
     }
 
-    private void Container_EntererRemoved(object sender, EntererRemovedEventArgs e) => OnMemberRemoved(e.Enterer);
-    private void Container_EntererAdded(object sender, EntererAddedEventArgs e) => OnMemberAdded(e.Enterer);
+    void Container_EntererRemoved(object sender, EntererRemovedEventArgs e) => OnMemberRemoved(e.Enterer);
+    void Container_EntererAdded(object sender, EntererAddedEventArgs e) => OnMemberAdded(e.Enterer);
 
     protected override void OnMemberAdded(Enterer member) => onEnter(member);
     protected override void OnMemberRemoved(Enterer member) => onExit(member);

@@ -1,57 +1,38 @@
-﻿global using Ziporter.Components;
-global using Ziporter.Services;
-global using Ziporter.UI;
-
+﻿
 namespace Ziporter;
 
-[Context("MainMenu")]
-public class ModMenuConfig : Configurator
+public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony
 {
-    public override void Configure()
-    {
-        this.TryBindingCameraShake(true);
-    }
 
-}
-
-[Context("Game")]
-public class GameConfig : Configurator
-{
-    public override void Configure()
-    {
-        this.TryBindingCameraShake(false);
-
-        Bind<SunLightOverrider>().AsSingleton();
-
-        Bind<ZiporterConnectionService>().AsSingleton();
-        Bind<ZiporterNavGroupService>().AsSingleton();
-        Bind<ZiporterConnectionTool>().AsSingleton();
-
-        this.BindFragment<ZiporterFragment>();
-        Bind<ZiporterConnectionButtonFactory>().AsSingleton();
-
-        MultiBind<TemplateModule>().ToProvider(() =>
+    public override void Configure(Configurator configurator, ConfigurationContext context)
+    {        
+        if (context.IsMenuContext())
         {
-            TemplateModule.Builder b = new();
-            b.AddDecorator<ZiporterSpec, ZiporterController>();
-            b.AddDecorator<ZiporterSpec, ZiporterLighting>();
-            b.AddDecorator<ZiporterSpec, ZiporterBattery>();
-            b.AddDecorator<ZiporterSpec, ZiporterStabilizer>();
-            b.AddDecorator<ZiporterSpec, ZiporterConnection>();
-            b.AddDecorator<ZiporterSpec, ZiporterWarning>();
-            b.AddDecorator<ZiporterSpec, BatteryController>();
+            configurator.TryBindingCameraShake(true);
+        }
 
-            return b.Build();
-        }).AsSingleton();
+        if (!context.IsGameContext()) { return; }
+        configurator.TryBindingCameraShake(false);
+
+        configurator
+            .BindSingleton<SunLightOverrider>()
+
+            .BindSingleton<ZiporterConnectionService>()
+            .BindSingleton<ZiporterNavGroupService>()
+            .BindSingleton<ZiporterConnectionTool>()
+
+            .BindFragment<ZiporterFragment>()
+            .BindSingleton<ZiporterConnectionButtonFactory>()
+
+            .BindTemplateModule(h => h
+                .AddDecorator<ZiporterSpec, ZiporterController>()
+                .AddDecorator<ZiporterSpec, ZiporterLighting>()
+                .AddDecorator<ZiporterSpec, ZiporterBattery>()
+                .AddDecorator<ZiporterSpec, ZiporterStabilizer>()
+                .AddDecorator<ZiporterSpec, ZiporterConnection>()
+                .AddDecorator<ZiporterSpec, ZiporterWarning>()
+                .AddDecorator<ZiporterSpec, BatteryController>()
+            )
+        ;
     }
-}
-
-public class ModStarter : IModStarter
-{
-
-    void IModStarter.StartMod(IModEnvironment modEnvironment)
-    {
-        new Harmony(nameof(Ziporter)).PatchAll();
-    }
-
 }

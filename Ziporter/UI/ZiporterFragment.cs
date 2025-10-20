@@ -67,6 +67,12 @@ public class ZiporterFragment(
         comp = entity.GetComponentFast<ZiporterController>();
         if (!comp) { return; }
 
+        if (!comp.IsFinished)
+        {
+            ClearFragment();
+            return;
+        }
+
         UpdatePanelContent();
         panel.Visible = true;
     }
