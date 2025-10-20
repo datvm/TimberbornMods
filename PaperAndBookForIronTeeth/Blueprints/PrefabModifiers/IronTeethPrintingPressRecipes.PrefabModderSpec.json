@@ -1,0 +1,9 @@
+{
+    "PrefabModderSpec": {
+        "ComponentType": "Timberborn.Workshops.ManufactorySpec",
+        "PrefabNames": [ "PrintingPress.Folktails" ],
+        "ValuePath": "_productionRecipeIds",
+        "NewValue": "['Book']",
+        "Factions": [ "IronTeeth" ]
+    }
+}

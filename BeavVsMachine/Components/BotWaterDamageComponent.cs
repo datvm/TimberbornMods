@@ -18,7 +18,7 @@ public class BotWaterDamageComponent : BaseComponent
         soakEffect.OnSoakedTick += OnSoakedTick;
     }
 
-    private void OnSoakedTick(object sender, SoakEffectEventArgs e)
+    void OnSoakedTick(object sender, SoakEffectEventArgs e)
     {
         if (e.Resistant) { return; }
 

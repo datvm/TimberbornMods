@@ -1,4 +1,4 @@
-Make Beavers scale better so that Beavers vs Bots becomes a real choice. This mod adds an EXP system for Beavers with no cap, inheritable across generations, plus a new Fitness stat. Bots lose efficiency as they age and take damage when working in water, especially contaminated water.
+﻿Make Beavers scale better so that Beavers vs Bots becomes a real choice. This mod adds an EXP system for Beavers with no cap, inheritable across generations, plus a new Fitness stat. Bots lose efficiency as they age and take damage when working in water, especially contaminated water.
 
 [h1]EXP[/h1]
 - Beavers gain XP equal to the hours they spend working in a building. Every 80 XP (about 80 work hours or 5 days at 16 hours per day) gives a 1% work speed bonus.
@@ -10,6 +10,10 @@ To balance jobs that keep Beavers outdoors (Builders, Haulers, Farmers), each Be
 - Fitness ranges from -5 to 20.
 - Below 0: -1 Wellbeing, -50% Movement speed, Carry Capacity, and Child Growth speed.
 - At 0 or higher: +1 Wellbeing, plus +1% Movement speed and Carry Capacity per point.
+
+Since v7.1.0, beavers [i]inside[/i] the following buildings also gain Fitness time at ×1.5 rate instead of none:
+- Folktails: Power Wheel, Lido and Dance Hall.
+- Iron Teeth: Large Power Wheel, Swimming Pool and Excercise Plaza.
 
 [b]How Fitness changes[/b]
 Each day, Beavers accumulate the hours they spend outdoors.
@@ -31,13 +35,19 @@ Bots also take damage from water:
 [h1]Tips and Notes[/h1]
 - To manually assign Beavers to jobs for specific XP and Fitness gains, use the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3460831859]Micro management[/url] mod.
 - Because of the XP formula, Books are very important. They effectively remove the cap and make XP and bonuses scale rapidly.
-- Because of the key role of Books, Iron Teeth can now build the Paper Mill and Printing Press. Punch Cards are included as well to prevent crashes.
+- Because of the key role of Books, [strike]Iron Teeth can now build the Paper Mill and Printing Press. Punch Cards are included as well to prevent crashes.[/strike] it's recommended to use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3590376839]Papers And Books For IT[/url] mod alongside this one.
 - To prevent performance issues, most stats are tracked separately during the day. At the start of a new day they are summed and bonuses are applied for the whole day.
-
-Mod source code and donation: https://github.com/datvm/TimberbornMods
 
 If you have any feedback, especially regarding the balance of XP formula, please let me know in the comment or on the [url=https://discord.com/channels/558398674389172225/1418828330463137823]mod channel[/url] (official Discord https://discord.gg/timberborn ).
 
 [h1]Roadmap[/h1]
+
 1. "They are taking our jobs" scenario: If Bots make up more than 50% of the workforce, unemployed Beavers become unhappy. As the situation worsens, destruction may occur.
 2. Beav vs. Machine: Potential integration with Renovation or Scientific Project. Players choose one path: Purity or Digitalization. One side is heavily buffed while the other becomes nearly useless.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v7.1.0:
+- Beavers now gain ×1.5 Fitness time when inside certain buildings.
+- This update also remove the feature that adds Papers and Books to Iron Teeth. There is instead an optional mod called 'Papers And Books For IT'. If you have any buildings or goods that were previously made by this mod, please subscribe to that mod before continuing.

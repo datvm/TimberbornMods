@@ -298,6 +298,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockObjectDebugger", "Bloc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorfulZipline", "ColorfulZipline\ColorfulZipline.csproj", "{034815B4-D1E9-4C39-8932-A138FAA76A4F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaperAndBookForIronTeeth", "PaperAndBookForIronTeeth\PaperAndBookForIronTeeth.csproj", "{E40B6CB2-0BF0-4C00-ABAF-C95C7754A73B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -792,6 +794,10 @@ Global
 		{034815B4-D1E9-4C39-8932-A138FAA76A4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{034815B4-D1E9-4C39-8932-A138FAA76A4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{034815B4-D1E9-4C39-8932-A138FAA76A4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E40B6CB2-0BF0-4C00-ABAF-C95C7754A73B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E40B6CB2-0BF0-4C00-ABAF-C95C7754A73B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E40B6CB2-0BF0-4C00-ABAF-C95C7754A73B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E40B6CB2-0BF0-4C00-ABAF-C95C7754A73B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -882,6 +888,7 @@ Global
 		{0A96A00D-6FDF-469F-80E0-565AF0BF9897} = {4C24DB61-A115-4B00-BDBF-E8CD4EA9FDF2}
 		{2B18D460-283E-4990-B9C3-2C21CB338A29} = {9C86AE06-7E1D-47C7-90C1-83EA7E7CA365}
 		{034815B4-D1E9-4C39-8932-A138FAA76A4F} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
+		{E40B6CB2-0BF0-4C00-ABAF-C95C7754A73B} = {026F718D-37AA-406F-8C30-E37E2613E7E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}
