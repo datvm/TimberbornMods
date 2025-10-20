@@ -80,7 +80,7 @@ public class DialogBoxElement : VisualElement
 
             if (width is not null)
             {
-                var w = width.Value * scale;
+                var w = width.Value / scale;
                 
                 this.Q("Box").SetWidth(w);
                 this.SetMinMaxSize(w, null);
@@ -88,7 +88,7 @@ public class DialogBoxElement : VisualElement
 
             if (height is not null)
             {
-                var h = height.Value * scale;
+                var h = height.Value / scale;
                 Content.style.maxHeight = new StyleLength(StyleKeyword.Auto);
                 Content.style.height = h;
             }

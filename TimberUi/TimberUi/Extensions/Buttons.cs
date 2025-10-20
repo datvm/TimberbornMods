@@ -41,6 +41,12 @@ public static partial class UiBuilderExtensions
         return AddButton(parent, text, name, onClick, additionalClasses, GameButtonStyle.Game, stretched: stretched);
     }
 
+    public static NineSliceButton AddGameButtonPadded(this VisualElement parent, string? text = default, Action? onClick = default, string? name = default, IEnumerable<string>? additionalClasses = default, bool stretched = false, int paddingX = 5, int paddingY = 5)
+    {
+        return AddGameButton(parent, text, onClick, name, additionalClasses, stretched)
+            .SetPadding(paddingX, paddingY);
+    }
+
     public static NineSliceButton AddEntityFragmentButton(this VisualElement parent, string? text = default, Action? onClick = default, string? name = default, IEnumerable<string>? additionalClasses = default, EntityFragmentButtonColor color = default)
     {
         // Text is added as label
