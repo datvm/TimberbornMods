@@ -100,9 +100,15 @@ public class BeaverExpComponent : BaseComponent, IPersistentEntity, IEntityEffec
     }
 
     public EntityEffectDescription? Describe(ILoc t, IDayNightCycle dayNightCycle)
-        => new(
-            t.T("LV.BVM.ExpTitle", Experience),
-            t.T(pendingWorkExp > 0 ? "LV.BVM.ExpDescWithPending" : "LV.BVM.ExpDesc", currBonus, pendingWorkExp));
+    {
+        var description = t.T(pendingWorkExp > 0 ? "LV.BVM.ExpDescWithPending" : "LV.BVM.ExpDesc", currBonus, pendingWorkExp);
+        if (expStatTracker.HasBook(this))
+        {
+            description += " " + t.T("LV.BVM.ExpDescBook");
+        }
+
+        return new(t.T("LV.BVM.ExpTitle", Experience), description);
+    }
 
     public void DeleteEntity()
     {

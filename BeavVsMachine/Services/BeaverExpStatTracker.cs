@@ -9,6 +9,8 @@ public partial class BeaverExpStatTracker(
     public const float ChildXPWithBookPercent = .9f / 7; // 90% of adult XP over 7 days with book
     public const float BookKnowledgeBoost = .01f;
 
+    public const float FitnessBuildingMultiplier = 1.5f;
+
     static readonly SingletonKey SaveKey = new(nameof(BeaverExpStatTracker));
     static readonly PropertyKey<int> CurrentDayKey = new("CurrentDay");
 
@@ -76,6 +78,9 @@ public partial class BeaverExpStatTracker(
         }
     }
 
+    public bool HasBook(BeaverExpComponent exp) 
+        => (adults.TryGetValue(exp, out var comp) || children.TryGetValue(exp, out comp)) && comp.HasBook;
+
     void UpdateNewDay()
     {
         var topXP = 0f;
@@ -127,6 +132,10 @@ public partial class BeaverExpStatTracker(
         if (!exp.IsInside)
         {
             exp.Fitness.AddTodayFitness(timePassed);
+        }
+        else if (exp.IsInsideFitnessBuilding)
+        {
+            exp.Fitness.AddTodayFitness(timePassed * FitnessBuildingMultiplier);
         }
     }
 

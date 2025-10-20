@@ -1,0 +1,14 @@
+{
+    "FactionSpec": {
+        "Needs#append": [
+            "Books"
+        ],
+        "Goods#append": [
+            "Paper",
+            "Book"
+        ],
+        "MaterialGroups#append": [
+            "Folktails"
+        ]
+    }
+}

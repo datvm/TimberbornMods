@@ -1,11 +1,10 @@
-{
+﻿{
     "Name": "Beav vs. Machine",
-    "Version": "7.0.0",
+    "Version": "7.1.0",
     "Id": "BeavVsMachine",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Stop the bots uprising!",
     "RequiredMods": [
-        { "Id": "TimberUi" },
         { "Id": "ModdableTimberborn" }
     ]
 }

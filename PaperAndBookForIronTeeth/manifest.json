@@ -1,0 +1,12 @@
+{
+    "Name": "Papers And Books For IT",
+    "Version": "7.0.0",
+    "Id": "PapersAndBooksForIronTeeth",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Add Paper Mill and Printing Press to Iron Teeth, allowing them to make papers and books.",
+    "RequiredMods": [
+        {
+            "Id": "ModdablePrefab"
+        }
+    ]
+}
