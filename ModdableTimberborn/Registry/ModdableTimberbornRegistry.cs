@@ -43,7 +43,7 @@ public partial class ModdableTimberbornRegistry
         Instance = new();
     }
 
-    private ModdableTimberbornRegistry()
+    ModdableTimberbornRegistry()
     {
         harmony.PatchAllUncategorized();
 
@@ -62,12 +62,13 @@ public partial class ModdableTimberbornRegistry
 
     internal void ConfigureStarter()
     {
-        harmony.PatchAllUncategorized();
+        harmony.PatchAllUncategorized();        
     }
 
     void AddDefaultConfigurators()
     {
         AddConfigurator<ModdableEntityDescriberConfigurator>();
+        AddConfigurator<ModdableTimberbornConfigurator>();
     }
 
 }

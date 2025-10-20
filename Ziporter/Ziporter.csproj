@@ -3,6 +3,8 @@
 		<OutputModFolderName>Ziporter</OutputModFolderName>
 	</PropertyGroup>
 	<Import Project="../Common.target" />
-	<Import Project="../CommonHarmony.target" />
-	<Import Project="../CommonTimberUI.target" />
+	<Import Project="../CommonModdableTimberborn.target" />
+	<ItemGroup>
+	  <Content Include="workshop_data.json" />
+	</ItemGroup>
 </Project>

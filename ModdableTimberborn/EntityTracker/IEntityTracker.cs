@@ -9,8 +9,8 @@ public interface IEntityTracker
 public interface IEntityTracker<T> : IEntityTracker 
     where T : BaseComponent
 {
-    public IReadOnlyCollection<T> Entities { get; }
+    IReadOnlyCollection<T> Entities { get; }
 
-    public event Action<T>? OnEntityRegistered;
-    public event Action<T>? OnEntityUnregistered;
+    event Action<T>? OnEntityRegistered;
+    event Action<T>? OnEntityUnregistered;
 }

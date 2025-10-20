@@ -15,9 +15,9 @@ public partial class ZiporterStabilizer : TickableComponent, IDeletableEntity, I
     CameraShakeService cameraShakeService;
     EntityService entityService;
     IBlockService blockService;
-    TerrainDestroyer terrainDestroyer;
     MapIndexService mapIndexService;
     SunLightOverrider sunLightOverrider;
+    DestructionService destructionService;
 #nullable enable
 
     [Inject]
@@ -25,7 +25,7 @@ public partial class ZiporterStabilizer : TickableComponent, IDeletableEntity, I
         CameraShakeService cameraShakeService,
         EntityService entityService,
         IBlockService blockService,
-        TerrainDestroyer terrainDestroyer,
+        DestructionService destructionService,
         MapIndexService mapIndexService,
         SunLightOverrider sunLightOverrider
     )
@@ -33,7 +33,7 @@ public partial class ZiporterStabilizer : TickableComponent, IDeletableEntity, I
         this.cameraShakeService = cameraShakeService;
         this.entityService = entityService;
         this.blockService = blockService;
-        this.terrainDestroyer = terrainDestroyer;
+        this.destructionService = destructionService;
         this.mapIndexService = mapIndexService;
         this.sunLightOverrider = sunLightOverrider;
     }

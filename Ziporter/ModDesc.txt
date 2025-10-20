@@ -1,0 +1,51 @@
+﻿Adds the "Ziporter": Instantly link distant locations with no concern for distance or obstacles. The beavers salvaged this ridiculously high-tech blueprint from a hooman lab built just before they disappeared.
+
+[h1]How to Use:[/h1]
+
+[b]Warning![/b] This building needs power and is semi-permanent—or bad things will happen! Please read the entire description before using.
+
+Unlock the building for 3500 Science. Build two Ziporter Hubs (25 Treated Planks + 25 Metal Blocks each) and connect them to enable instant travel between hubs.
+
+[b]Tip:[/b] Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3480668755]More Naming[/url] to rename the Ziporter Hubs to show up in the UI.
+
+Note: since I can't make models, I reuse the Zipline Station model and add a light on top of it. It does NOT replace the Zipline Station or remove your original ZIpline.
+
+[h1]Power Usage:[/h1]
+
+Requires 700 Power to maintain, plus additional power to charge up (like a Gravity Battery). Each hub stores up to 5000HP.
+The portal activates at 2000HP charge and deactivates at 1000HP.
+
+If 700HP is not provided and there's no charge left, the Stabilizer system will kick in and can last for up to 60 seconds. Supplying 700HP or more recharges the Stabilizer (5 seconds of power restores 1 second of Stabilizer).
+
+Power is needed immediately after finishing the building, so prepare a power source before construction. After building, you have 60 seconds of the Stabilizer to connect power. If you don't, the building will explode.
+
+[b]Warning:[/b] Pausing the building will activate the Stabilizer (as no power is provided). The building is intended to be permanent. If you want to pause the connection, simply remove the link from one of the hubs.
+
+[b]Tip:[/b] This building has a light on top to differentiate to a normal Zipline Station. The light also lets you know the % of charge.
+
+[h1]Maintenance and Explosion[/h1]
+
+When the stabilizer is drained (after 60 seconds), the Ziporter explodes, destroying all nearby buildings and terrain. This also happens if you destroy the building in any other way. Once this building is constructed, there is no way to safely remove it.
+
+The explosion effect is quite dramatic (see the video). Camera shake can be disabled in the game's Settings menu (provided by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3430626620]TimberUI[/url]).
+
+[h1]Known Issues:[/h1]
+
+The building is only available to Folktails. To use it with Iron Teeth, please use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3426080224]Configurable Tubeway & Zipline[/url] (v7.4.1+) and choose "Zipline for Iron Teeth".
+
+[strike]On the rare occasion that the building explodes, it may leave behind some floating buildings. Please save and reload your game to fix this. If you do not, the next time you load the game, those buildings will be lost.[/strike] Fixed in v7.2.0.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v7.2.0:
+- This mod now needs Moddable Timberborn.
+- Fixed the bug where explosions leave behind floating buildings and terrains.
+- Fixed a crash when Ziporter is destroyed when using Moddable Weather.
+- Unfinished Ziporter can no longer be connected to prevent crash when finishing it.
+- Minor UI changes.
+v7.1.0: added a warning when charge is being drained after connection is disconnected (Credit: Akinare). Should work with June 2nd update.
+
+Credit:
+- Akinare: for the charge draining warning suggestion.
+- Todor Alin for copying and packing the prefab!

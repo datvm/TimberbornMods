@@ -1,4 +1,4 @@
-ID,Text,Comment
+﻿ID,Text,Comment
 LV.Ziporter.ZiporterHubName,"Ziporter Hub",
 LV.Ziporter.ZiporterHubDesc,"The future of transportation is NOW! Two hubs are needed to establish a connection.
 <RedHighlight><b>WARNING:</b> Prepare power ahead of time!</RedHighlight>",
@@ -19,3 +19,4 @@ LV.Ziporter.WarningChargeDraining,"Ziporter charge is going low. Connection will
 LV.Ziporter.WarningChargeDrainingShort,"Ziporter charge low",
 LV.Ziporter.WarningChargeDrainingLow,"Ziporter charge is critically low. Stabilizer is going to be drained.",
 LV.Ziporter.WarningChargeDrainingLowShort,"Ziporter charge critical",
+Name_ZiporterFragment,"Ziporter",

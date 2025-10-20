@@ -10,7 +10,7 @@ namespace ModdableTimberborn.DependencyInjection
 
         public string PatchCategory { get; } = PatchCategoryName;
 
-        private ModdableDependencyInjectionConfig() { }
+        ModdableDependencyInjectionConfig() { }
 
         public void Configure(Configurator configurator, ConfigurationContext context)
         {

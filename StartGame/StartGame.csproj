@@ -18,7 +18,7 @@
 		<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />
 		
 		<!--<ProjectReference Include="..\ScientificProjects\ScientificProjects\ScientificProjects.csproj" />-->
-		<ProjectReference Include="..\BeavVsMachine\BeavVsMachine.csproj" />
+		<ProjectReference Include="..\Ziporter\Ziporter.csproj" />
 
 	</ItemGroup>
 

@@ -17,6 +17,7 @@ public class ZiporterController : BaseComponent, IPersistentEntity
     public bool IsStabilizerCharging => stablizer.IsStabilizerCharging;
 
     public ZiporterConnection Connection => connection;
+    public bool IsFinished => connection.IsFinished;
 
     #region References
 
