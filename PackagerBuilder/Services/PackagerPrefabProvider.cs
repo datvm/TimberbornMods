@@ -85,19 +85,10 @@ public class PackagerPrefabProvider : IAssetProvider
         var building = obj.GetComponent<BuildingSpec>();
         building._selectionSoundName = "LumberMill";
         building._scienceCost = 150;
-        if (isPackager)
-        {
-            building._buildingCost = [
-                new() { _goodId = "Log", _amount = 10, }
-            ];
-        }
-        else
-        {
-            building._buildingCost = [
-                new() { _goodId = GoodBuilder.GetPackagedGoodId("Log"), _amount = 1, }
-            ];
-        }
-
+        building._buildingCost = [
+            new() { _goodId = "Log", _amount = 10, }
+        ];
+        
         var workplace = obj.GetComponent<WorkplaceSpec>();
         workplace._workerTypeUnlockCosts = [
             new(){ _scienceCost = 750, _workerType = "Bot", }

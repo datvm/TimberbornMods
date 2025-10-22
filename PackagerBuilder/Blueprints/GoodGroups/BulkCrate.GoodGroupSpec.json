@@ -1,0 +1,9 @@
+﻿{
+    "GoodGroupSpec": {
+        "Id": "TransformedGood",
+        "Order": 60,
+        "DisplayNameLocKey": "LV.Pkg.TransformedGoodGroup",
+        "Icon": "Sprites/Goods/TransformedGood",
+        "SingleResourceGroup": false
+    }
+}

@@ -10,14 +10,14 @@ public class PackagerModBuilder(
     public const string ModId = "Packager";
     public const string ModName = "Packager";
 
-    public void Build()
+    public void Build(PackagerBuildOptions options)
     {
         var builder = new TimberModBuilderService(GenerateManifest());
         builder.PrepareFolderAndDontClearOnBuild();
 
         var loc = builder.AddLocalization();
 
-        goodBuilder.Build(builder.ModFolder, loc.Values);
+        goodBuilder.Build(options, builder.ModFolder, loc.Values);
 
         builder.Build();
     }

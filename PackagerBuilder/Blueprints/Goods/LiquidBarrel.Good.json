@@ -1,0 +1,18 @@
+﻿{
+    "GoodSpec": {
+        "Id": "LiquidBarrel",
+        "BackwardCompatibleIds": [],
+        "ConsumptionEffects": [],
+        "DisplayNameLocKey": "LV.Pkg.LiquidBarrel",
+        "PluralDisplayNameLocKey": "LV.Pkg.LiquidBarrelPlural",
+        "GoodType": "Box",
+        "StockpileVisualization": "Box",
+        "VisibleContainer": "Box",
+        "ContainerColor": "#AB8D73",
+        "CarryingAnimation": "CarryInHands",
+        "Weight": 15,
+        "GoodGroupId": "Materials",
+        "Icon": "Sprites/Goods/LiquidBarrel",
+        "ContainerMaterial": ""
+    }
+}

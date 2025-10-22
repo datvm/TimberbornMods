@@ -1,6 +1,6 @@
 ﻿{
     "Name": "Packager Builder",
-    "Version": "7.0.1",
+    "Version": "7.1.0",
     "Id": "PackagerBuilder",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Pack and unpack items",

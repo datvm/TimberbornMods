@@ -1,9 +1,4 @@
-﻿global using Newtonsoft.Json;
-global using System.Collections;
-global using System.Collections.Frozen;
-global using Timberborn.PrefabSystem;
-
-namespace ModdablePrefab;
+﻿namespace ModdablePrefab;
 
 public class SpecPrefabModder(
     ISpecService specServ,
@@ -45,7 +40,6 @@ public class SpecPrefabModder(
         Dictionary<Type, List<T>> byTypes = [];
         foreach (var spec in specs)
         {
-            Debug.Log($"{spec} has faction: " + string.Join(", ", spec.Factions));
             if (spec.Factions.Length > 0 && !spec.Factions.Contains(factionId)) { continue; }
 
             var type = FindComponentType(spec.ComponentType, typeCache);
