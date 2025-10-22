@@ -1,4 +1,4 @@
-ID,Text,Comment
+﻿ID,Text,Comment
 LV.Pkg.BuildPackager,"Build Packager Mod",
 LV.Pkg.BuiltDone,"'Packager' mod built. Please restart the game and enable the built mod.
 <RedHighlight>Do not disable this mod.</RedHighlight>
@@ -14,3 +14,23 @@ LV.Pkg.UnpackerDesc,"Unpacks a package back into 10× individual goods.",
 LV.Pkg.UnpackerFlavor,"Nothing delights a beaver more than unboxing the unexpected.",
 LV.Pkg.RecipePack,"Pack {0}",
 LV.Pkg.RecipeUnpack,"Unpack {0}",
+LV.Pkg.BulkCrate,"Bulk Crate",
+LV.Pkg.BulkCratePlural,"Bulk Crates",
+LV.Pkg.LiquidBarrel,"Liquid Barrel",
+LV.Pkg.LiquidBarrelPlural,"Liquid Barrels",
+LV.Pkg.Option10,"Enable 10× Packaging",
+LV.Pkg.Option10Desc,"Allows packing 10× of goods into a single item",
+LV.Pkg.OptionCrate,"Enable Bulk Crates (Pile → Warehouse)",
+LV.Pkg.OptionCrateDesc,"Allows packaging Pile goods into Bulk Crates for storage in Warehouses",
+LV.Pkg.OptionBarrel,"Enable Liquid Barrels (Tank → Warehouse)",
+LV.Pkg.OptionBarrelDesc,"Allows packaging Tank liquids into Liquid Barrels for storage in Warehouses",
+LV.Pkg.PackagedCrateName,"{0} ×10 Crated",
+LV.Pkg.PackagedCrateNamePlural,"{0} ×10 Crated",
+LV.Pkg.PackagedBarrelName,"{0} ×10 Barreled",
+LV.Pkg.PackagedBarrelNamePlural,"{0} ×10 Barreled"
+LV.Pkg.RecipePackCrate,"Pack & Crate {0}",
+LV.Pkg.RecipeUnpackCrate,"Uncrate {0}",
+LV.Pkg.RecipePackBarrel,"Pack & Barrel {0}",
+LV.Pkg.RecipeUnpackBarrel,"Unbarrel {0}",
+LV.Pkg.TransformedGoodGroup,"Crated & Barreled Goods",
+LV.Pkg.Update710,"This update gives you two new additional options: Bulk Crates and Liquid Barrels so you can store Pile and Tank goods in Warehouses. Check the mod's description on Steam or Mod.io for more details.",

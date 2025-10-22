@@ -1,0 +1,26 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "BulkCrate",
+        "DisplayLocKey": "LV.Pkg.BulkCratePlural",
+        "CycleDurationInHours": 1,
+        "CyclesCapacity": 10,
+        "Ingredients": [
+            {
+                "Id": "Plank",
+                "Amount": 6
+            }
+        ],
+        "Products": [
+            {
+                "Id": "BulkCrate",
+                "Amount": 1
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "",
+        "CyclesFuelLasts": 0,
+        "FuelCapacity": 0,
+        "Icon": "Sprites/Goods/BulkCrate",
+        "BackwardCompatibleIds": []
+    }
+}

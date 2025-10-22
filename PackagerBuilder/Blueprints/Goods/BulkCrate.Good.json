@@ -1,0 +1,18 @@
+﻿{
+    "GoodSpec": {
+        "Id": "BulkCrate",
+        "BackwardCompatibleIds": [],
+        "ConsumptionEffects": [],
+        "DisplayNameLocKey": "LV.Pkg.BulkCrate",
+        "PluralDisplayNameLocKey": "LV.Pkg.BulkCratePlural",
+        "GoodType": "Box",
+        "StockpileVisualization": "Box",
+        "VisibleContainer": "Box",
+        "ContainerColor": "#AB8D73",
+        "CarryingAnimation": "CarryInHands",
+        "Weight": 15,
+        "GoodGroupId": "Materials",
+        "Icon": "Sprites/Goods/BulkCrate",
+        "ContainerMaterial": ""
+    }
+}

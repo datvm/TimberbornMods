@@ -11,15 +11,14 @@ public static class GoodContainerPatches
 
         foreach (var (k, g) in __instance._goodSpecsById)
         {
-            if (GoodBuilder.IsPackagedGood(k)
+            if (Package10Provider.IsPackagedGood(k)
                 || !g.ContainerMaterial) { continue; }
 
-            var packagedGoodId = GoodBuilder.GetPackagedGoodId(k);
+            var packagedGoodId = Package10Provider.GetPackagedGoodId(k);
             if (!__instance._goodSpecsById.TryGetValue(packagedGoodId, out var pgk)) { continue; }
 
             replacing.Add(pgk with
             {
-                ContainerColor = g.ContainerColor,
                 ContainerMaterial = g.ContainerMaterial,
             });
         }

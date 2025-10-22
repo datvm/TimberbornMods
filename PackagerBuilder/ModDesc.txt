@@ -2,6 +2,26 @@
 
 [b]Important note to existing users using the old [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3522631725]Packager[/url] mod:[/b] This new version is a complete rewrite and is not compatible with the old mod. Please continue your old save with the old mod and use this one for new games only. Do not use both this mod and the old mod together.
 
+[h1]v7.1.0 Update[/h1]
+You can now enable or disable packaging options in the mod settings:
+- [b]10× Packaging:[/b] Pack 10× of goods into one item.
+- [b]Bulk Crates:[/b] Allows packaging Pile goods into Bulk Crates, so they can be stored in Warehouses instead.
+- [b]Liquid Barrels:[/b] Allows packaging Tank liquids into Liquid Barrels, also storable in Warehouses.
+Since 10× Packaging option is now optional, Unpackager is built with 10× Logs instead of 1× Packaged Log.
+
+[img]https://images.steamusercontent.com/ugc/16557242406497248373/4C83C329DEC913A2F5EC863AEA2B15F2D970EBD1/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+[b]New crafting items:[/b]
+[b]Bulk Crate:[/b] Built in Wood Workshop (6 Planks, 1 hour). Used to crate Pile goods such as Logs.  
+- Packager: 10 Logs + 10 Bulk Crates → 1 Log - Crated  
+- Unpackager: 1 Log - Crated → 10 Logs + 10 Bulk Crates
+
+[b]Liquid Barrel:[/b] Built in Wood Workshop (6 Planks + 1 Pine Resin, 1 hour). Used to barrel Tank liquids such as Water.  
+- Packager: 10 Water + 10 Liquid Barrels → 1 Water - Barreled  
+- Unpackager: 1 Water - Barreled → 10 Water + 10 Liquid Barrels
+
+Note: The crates and barrels have 15 weight and the Crated/Barreled version weighs 10× the original item + 15 (not 150).
+
 [h1]What's News[/h1]
 
 This mod now use [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3548617753]TimberMod Builder[/url][/b] to build the item list which means:
@@ -20,15 +40,13 @@ The first time you run this mod, you need to build the "Packager" mod with it: c
 
 [img]https://i.imgur.com/farju90.jpeg[/img]
 
-This will create a new mod called "Packager" in your mods list. Restart the game and enable it. [b]Note: keep this mod (Packager Builder) ON[/b] as well.
+Choose the options you want then click "Build Packager Mod". This will create a new mod called "Packager" in your mods list. Restart the game and enable it. [b]Note: keep this mod (Packager Builder) ON[/b] as well.
 
 [i]In the future if you need to refresh the item list, simply disable the "Packager" mod and the button will appear again.[/i]
 
 [h1]The new buildings[/h1]
 
-- Both buildings cost 150 Science to unlock (750 Science for Bot worker), require 1 worker, take 1 hour per package, and can store items for up to 10 production cycles.
-- Packager: Costs 10 Logs to build.
-- Unpackager: Costs 1 Packaged Log to build.
+Both buildings cost 150 Science to unlock (750 Science for Bot worker), 10× Logs to build, require 1 worker, take 1 hour per package, and can store items for up to 10 production cycles.
 
 [h1]Tips and Notes[/h1]
 - Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3472334132]TImprove 4 UI[/url] to add scrollbar to the item list and the recipe list since they both get longer (Please update it to the latest version for the recipe list scrollbar).
@@ -41,3 +59,8 @@ If you need any support or feedback, feel free to contact me on Timberborn's off
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v7.1.0: See "v7.1.0 Update" section above for details:
+- Existing Unpackagers are unaffected.
+- You can disable the Packager mod to build it again with different options.
+v7.0.1: Fixed conflict with mods that add FlippedSprite.

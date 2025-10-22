@@ -4,8 +4,8 @@ public class MenuButtonService(
     MainMenuPanel panel,
     PackagerModBuilder builder,
     DialogService diag,
-    ModRepository modRepository,
-    ILoc t
+    ILoc t,
+    IContainer container
 ) : ILoadableSingleton
 {
 
@@ -17,7 +17,7 @@ public class MenuButtonService(
     void AddBuildButton()
     {
         // Don't add the button if the Packager mod is already enabled
-        if (modRepository.EnabledMods.Any(q => q.Manifest.Id == PackagerModBuilder.ModId)) { return; }
+        if (MConfig.HasPackagerMod == true) { return; }
 
         var resumeBtn = panel._root.Q("ContinueButton");
 
@@ -28,7 +28,11 @@ public class MenuButtonService(
 
     async void Build()
     {
-        builder.Build();
+        var diagOpts = container.GetInstance<PackagerOptionDialog>();
+        var options = await diagOpts.ShowAsync();
+        if (options is null) { return; }
+
+        builder.Build(options.Value);
 
         var result = await diag.ConfirmAsync("LV.Pkg.BuiltDone", true, localizedOkText: "LV.Pkg.Restart");
         if (result)

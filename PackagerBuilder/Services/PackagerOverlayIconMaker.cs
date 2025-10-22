@@ -1,12 +1,61 @@
 ﻿namespace PackagerBuilder.Services;
-public sealed class PackagerOverlayIconMaker(IAssetLoader assets) : IDisposable
+public sealed class PackagerOverlayIconMaker(IAssetLoader assets) : ILoadableSingleton
 {
 
-    readonly Texture2D overlay = assets.Load<Texture2D>("Resources/UI/Buildings/Storage/PackagerOverlay");
-    readonly Texture2D unpackingOverlay = assets.Load<Texture2D>("Resources/UI/Buildings/Storage/UnpackagerOverlay");
+#nullable disable 
+    Texture2D overlay, unpackingOverlay, crateOverlay, crateUnpackOverlay, liquidBarrelOverlay, liquidBarrelUnpackOverlay;
+#nullable enable
+    string? basePath;
 
-    public byte[] OverlayPackaged(Sprite sprite) => Overlay(sprite, overlay);
-    public byte[] OverlayUnpacking(Sprite sprite) => Overlay(sprite, unpackingOverlay);
+    public void Load()
+    {
+        overlay = assets.Load<Texture2D>("Resources/UI/Buildings/Storage/PackagerOverlay");
+        unpackingOverlay = assets.Load<Texture2D>("Resources/UI/Buildings/Storage/UnpackagerOverlay");
+
+        crateOverlay = assets.Load<Texture2D>("Resources/UI/Buildings/Storage/BulkCrateOverlay");
+        crateUnpackOverlay = assets.Load<Texture2D>("Resources/UI/Buildings/Storage/BulkCrateUnpackOverlay");
+
+        liquidBarrelOverlay = assets.Load<Texture2D>("Resources/UI/Buildings/Storage/LiquidBarrelOverlay");
+        liquidBarrelUnpackOverlay = assets.Load<Texture2D>("Resources/UI/Buildings/Storage/LiquidBarrelUnpackOverlay");
+    }
+
+    public void SetExportPath(string? path) => basePath = path;
+
+    public void MakeExportFolder(string path)
+    {
+        ThrowIfNoBasePath();
+
+        var fullPath = Path.Combine(basePath, path);
+        Directory.CreateDirectory(fullPath);
+    }
+
+    public void OverlayTo(Sprite sprite, OverlayType type, string path)
+    {
+        ThrowIfNoBasePath();
+
+        var overlayedBytes = Overlay(sprite, type);
+        var fullPath = Path.Combine(basePath, path);
+        File.WriteAllBytes(fullPath, overlayedBytes);
+    }
+
+    public byte[] Overlay(Sprite sprite, OverlayType type) => Overlay(sprite, type switch
+    {
+        OverlayType.Packaged => overlay,
+        OverlayType.Unpacking => unpackingOverlay,
+        OverlayType.CratePackaged => crateOverlay,
+        OverlayType.CrateUnpacking => crateUnpackOverlay,
+        OverlayType.LiquidBarrelPackaged => liquidBarrelOverlay,
+        OverlayType.LiquidBarrelUnpacking => liquidBarrelUnpackOverlay,
+        _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+    });
+
+    void ThrowIfNoBasePath()
+    {
+        if (basePath is null)
+        {
+            throw new InvalidOperationException("Base path is not set. Call SetExportPath first.");
+        }
+    }
 
     byte[] Overlay(Sprite sprite, Texture2D overlay)
     {
@@ -48,9 +97,14 @@ public sealed class PackagerOverlayIconMaker(IAssetLoader assets) : IDisposable
         return result;
     }
 
-    public void Dispose()
+    public enum OverlayType
     {
-        UnityEngine.Object.Destroy(overlay);
-        UnityEngine.Object.Destroy(unpackingOverlay);
+        Packaged,
+        Unpacking,
+        CratePackaged,
+        CrateUnpacking,
+        LiquidBarrelPackaged,
+        LiquidBarrelUnpacking
     }
+
 }
