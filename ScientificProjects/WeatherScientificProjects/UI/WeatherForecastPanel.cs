@@ -1,6 +1,9 @@
 ﻿namespace WeatherScientificProjects.UI;
 
-public class WeatherForecastPanel(UILayout layout) : ILoadableSingleton
+public class WeatherForecastPanel(
+    UILayout layout,
+    ILoc t
+) : ILoadableSingleton
 {
     VisualElement container = null!;
     Label label = null!;
@@ -26,6 +29,23 @@ public class WeatherForecastPanel(UILayout layout) : ILoadableSingleton
         }
 
         container.SetDisplay(text is not null);
+    }
+
+    public void SetForecast(TodayForecast? forecast)
+    {
+        if (forecast is null)
+        {
+            SetForecastText(null);
+        }
+        else
+        {
+            var d = forecast.Value.Duration;
+            SetForecastText(string.Format(t.T(d.x == d.y ? "LV.WSP.Forecast1DayText" : "LV.WSP.ForecastText"),
+                forecast.Value.Chance,
+                forecast.Value.Weather.Spec.Display,
+                forecast.Value.Duration.x,
+                forecast.Value.Duration.y));
+        }
     }
 
 }

@@ -6,7 +6,7 @@ public class ModUpgradeListener(
     CharacterTracker tracker,
     WorkplaceTracker wpTracker,
     ScientificProjectService sp
-) : ILoadableSingleton
+) : BaseProjectUpgradeWithDailyListener(unlocks, daily)
 {
     public const string WorkEffBonusId = "SPWorkEffUpgrade";
     public const string MoveSpeedBonusId = "SPMoveSpeedUpgrade";
@@ -16,12 +16,11 @@ public class ModUpgradeListener(
 
     bool builderBonusActive;
 
-    public void Load()
+    public override void Load()
     {
+        base.Load();
         WheelbarrowUnlocked = unlocks.IsUnlocked(ScientificProjectsUtils.WheelbarrowsUpgradeId);
 
-        unlocks.OnProjectUnlocked += OnProjectUnlocked;
-        daily.OnDailyPaymentResolved += OnDailyPaymentResolved;
         tracker.OnEntityRegistered += OnNewCharacterRegistered;
         wpTracker.OnWorkerAssigned += OnWorkerChanged;
         wpTracker.OnWorkerUnassigned += OnWorkerChanged;
@@ -29,7 +28,7 @@ public class ModUpgradeListener(
         UpdateAllCharacters();
     }
 
-    private void OnWorkerChanged(WorkplaceTrackerComponent wp, Worker wk)
+    void OnWorkerChanged(WorkplaceTrackerComponent wp, Worker wk)
     {
         if (builderBonusActive && wp.IsBuilderWorkplace)
         {
@@ -42,12 +41,12 @@ public class ModUpgradeListener(
         UpdateCharacters([e]);
     }
 
-    private void OnDailyPaymentResolved()
+    protected override void OnDailyPaymentResolved()
     {
         UpdateAllCharacters();
     }
 
-    private void OnProjectUnlocked(ScientificProjectSpec e)
+    protected override void OnProjectUnlocked(ScientificProjectSpec e)
     {
         switch (e.Id)
         {

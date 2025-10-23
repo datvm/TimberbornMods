@@ -1,6 +1,6 @@
-﻿namespace WeatherScientificProjects.Management;
+﻿namespace WeatherScientificProjects.Services;
 
-public class ModProjectUnlockConditionProvider(
+public class WeatherSPUnlockConditionProvider(
     ModdableWeatherService weatherService,
     HazardousWeatherApproachingTimer hazardTimer,
     ILoc t
@@ -9,9 +9,9 @@ public class ModProjectUnlockConditionProvider(
 
     public IEnumerable<string> CanCheckUnlockConditionForIds { get; } = WeatherProjectsUtils.EmergencyDrillIds;
 
-    public string? CheckForUnlockCondition(ScientificProjectInfo project)
+    public string? CheckForUnlockCondition(ScientificProjectSpec p)
     {
-        if (WeatherProjectsUtils.EmergencyDrillIds.Contains(project.Spec.Id))
+        if (WeatherProjectsUtils.EmergencyDrillIds.Contains(p.Id))
         {
             return 
                 weatherService.HazardousWeatherDuration > 0 
@@ -21,7 +21,7 @@ public class ModProjectUnlockConditionProvider(
         }
         else
         {
-            throw new NotSupportedException($"Project {project.Spec.Id} is not supported by this unlock condition provider");
+            throw p.ThrowNotSupportedEx();
         }
     }
 }

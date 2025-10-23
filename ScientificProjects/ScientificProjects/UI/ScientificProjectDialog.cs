@@ -54,7 +54,7 @@ public partial class ScientificProjectDialog(
         pnlScience.OnSkipRequested += OnCloseButtonClicked;
     }
 
-    private void OnDevCommandExecuted()
+    void OnDevCommandExecuted()
     {
         RefreshContent();
     }
@@ -83,12 +83,12 @@ public partial class ScientificProjectDialog(
         }
     }
 
-    private void OnProjectUnlocked()
+    void OnProjectUnlocked()
     {
         RefreshContent();
     }
 
-    private void OnDailyCostChanged()
+    void OnDailyCostChanged()
     {
         pnlScience.ReloadContent();
     }

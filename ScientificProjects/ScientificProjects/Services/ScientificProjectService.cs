@@ -18,19 +18,19 @@ public class ScientificProjectService(
         OnDailyPaymentResolved();
     }
 
-    private void OnProjectUnlocked(ScientificProjectSpec project) => activeProjects[project.Id] = GetProject(project);
+    void OnProjectUnlocked(ScientificProjectSpec project) => activeProjects[project.Id] = GetProject(project);
 
-    private void OnDailyPaymentResolved()
+    void OnDailyPaymentResolved()
     {
         activeProjects.Clear();
 
-        foreach (var spec in unlocks.UnlockedProjectIds)
+        foreach (var id in unlocks.UnlockedProjectIds)
         {
-            var p = GetProject(spec);
+            var p = GetProject(id);
             
             if (p.Active)
             {
-                activeProjects[spec] = p;
+                activeProjects[id] = p;
             }
         }
     }

@@ -4,8 +4,8 @@ public class SPListElement : ScrollView
 {    
     public ImmutableArray<SPGroupElement> Groups { get; private set; } = [];
 
-    private readonly ScientificProjectRegistry registry;
-    private readonly IContainer container;
+    readonly ScientificProjectRegistry registry;
+    readonly IContainer container;
 
     public SPListElement(
         ScientificProjectRegistry registry,

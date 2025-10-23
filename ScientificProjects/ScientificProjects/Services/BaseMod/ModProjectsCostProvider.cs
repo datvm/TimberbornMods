@@ -4,8 +4,8 @@ public class ModProjectsCostProvider(
     CharacterTracker characters
 ) : IProjectCostProvider
 {
-    private const string WorkEffUpgrade2 = "WorkEffUpgrade2";
-    private const string BuilderCarryUpgrade = "CarryBuilderUpgrade";
+    const string WorkEffUpgrade2 = "WorkEffUpgrade2";
+    const string BuilderCarryUpgrade = "CarryBuilderUpgrade";
     static readonly ImmutableArray<string> Ids = [
         WorkEffUpgrade2,
         BuilderCarryUpgrade,
@@ -17,8 +17,8 @@ public class ModProjectsCostProvider(
         return spec.Id switch
         {
             // 3 per level + 1 per 20 adult beavers (rounded up)
-            WorkEffUpgrade2 => this.LevelOr0F(spec, level, l => spec.ScienceCost * l + spec.Parameters[1] * CountAdultBeavers() / spec.Parameters[2]),
-            BuilderCarryUpgrade => this.LevelOr0F(spec, level, l => spec.ScienceCost * l * CountBuilders()),
+            WorkEffUpgrade2 => this.LevelOr0F(level, l => spec.ScienceCost * l + spec.Parameters[1] * CountAdultBeavers() / spec.Parameters[2]),
+            BuilderCarryUpgrade => this.LevelOr0F(level, l => spec.ScienceCost * l * CountBuilders()),
 
             _ => throw spec.ThrowNotSupportedEx(),
         };

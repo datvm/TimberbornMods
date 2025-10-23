@@ -23,4 +23,7 @@ public record class ScientificProjectInfo(
     public string TodayName => Spec.HasSteps ? $"{Spec.DisplayName} ({Levels.Today})" : Spec.DisplayName;
 
     public float GetEffect(int parameterIndex) => Spec.GetEffect(parameterIndex, Levels.Today);
+
+    public override string ToString()
+        => Spec.ToString() + (Spec.HasSteps ? $". Active Level: {Levels.Today}" : "");
 }

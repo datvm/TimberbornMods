@@ -8,7 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Targets", "_Targets", "{F8D652F8-309B-4D55-B138-86DF92959C02}"
 	ProjectSection(SolutionItems) = preProject
 		Common.target = Common.target
-		CommonBuffDebuff.target = CommonBuffDebuff.target
 		CommonBuildingHP.target = CommonBuildingHP.target
 		CommonDebug.target = CommonDebug.target
 		CommonGlobalUsings.target = CommonGlobalUsings.target
