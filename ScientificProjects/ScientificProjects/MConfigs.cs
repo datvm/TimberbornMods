@@ -29,7 +29,8 @@ public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony
             .BindSingleton<ScientificProjectUnlockService>()
             .BindSingleton<ScientificProjectDailyService>()
             .BindSingleton<ScientificProjectGroupService>()
-            .BindSingleton<ScientificProjectService>()            
+            .BindSingleton<ScientificProjectService>()
+            .BindSingleton<ScientificProjectStateListener>()
 
             // Project upgrades
             .BindSingleton<EntityUpgradeDescriber>()
@@ -42,7 +43,7 @@ public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony
             .BindTransient<SPListElement>()
             .BindTransient<SPGroupElement>()
             .BindTransient<SPElement>()
-            
+
             // Base mod processings
             .MultiBindSingleton<IProjectCostProvider, ModProjectsCostProvider>()
             .MultiBindSingleton<ICharacterUpgradeDescriber, ModProjectsCharacterDescriber>()

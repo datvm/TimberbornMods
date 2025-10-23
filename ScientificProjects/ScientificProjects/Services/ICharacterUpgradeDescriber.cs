@@ -3,7 +3,7 @@
 public interface ICharacterUpgradeDescriber : IEntityUpgradeDescriber<CharacterTrackerComponent>
 {
 
-    public static EntityEffectDescription? DescribeProjects(
+    static EntityEffectDescription? DescribeProjects(
         CharacterTrackerComponent comp, DescribeEffectsParameters parameters,
         IEnumerable<string> ids, int parameterIndex,
         string titleKey, string descKey,
@@ -21,6 +21,8 @@ public interface ICharacterUpgradeDescriber : IEntityUpgradeDescriber<CharacterT
             if (parameters.ActiveProjects.TryGetValue(id, out var info))
             {
                 var eff = info.GetEffect(parameterIndex);
+                if (eff == 0) { continue; }
+
                 total += eff;
                 sub.Add(info.Spec.DescribeEffect(t, eff, percent));
             }

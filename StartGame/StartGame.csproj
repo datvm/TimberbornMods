@@ -17,8 +17,8 @@
 		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
 		<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />
 		
-		<!--<ProjectReference Include="..\ScientificProjects\ScientificProjects\ScientificProjects.csproj" />-->
-		<ProjectReference Include="..\PackagerBuilder\PackagerBuilder.csproj" />
+		<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />
+		<!--<ProjectReference Include="..\PackagerBuilder\PackagerBuilder.csproj" />-->
 
 	</ItemGroup>
 
