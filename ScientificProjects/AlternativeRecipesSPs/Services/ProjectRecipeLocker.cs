@@ -1,6 +1,4 @@
-﻿global using ScientificProjects.Specs;
-
-namespace AlternativeRecipesSPs.Management;
+﻿namespace AlternativeRecipesSPs.Services;
 
 public class ProjectRecipeLocker(ILoc t, ScientificProjectRegistry registry) : IDefaultRecipeLocker, ILoadableSingleton
 {
@@ -22,7 +20,7 @@ public class ProjectRecipeLocker(ILoc t, ScientificProjectRegistry registry) : I
 
         var result = recipeProjects
             .Select(q => q.Id)
-            .Concat(ModUtils.TimberbotRecipes)
+            .Concat(ARSPUtils.TimberbotRecipes)
             .ToImmutableHashSet();
 
         return result;

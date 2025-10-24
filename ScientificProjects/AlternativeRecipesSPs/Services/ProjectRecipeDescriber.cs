@@ -1,6 +1,4 @@
-﻿global using Timberborn.Workshops;
-
-namespace AlternativeRecipesSPs.Management;
+﻿namespace AlternativeRecipesSPs.Services;
 
 public class ProjectRecipeDescriber(ScientificProjectRegistry projects, RecipeSpecService recipes, ILoc t) : ILoadableSingleton
 {
@@ -16,8 +14,6 @@ public class ProjectRecipeDescriber(ScientificProjectRegistry projects, RecipeSp
 
             var recipe = recipes.GetRecipe(id);
             proj.Effect = proj.Effect.Replace("[Recipe]", t.T(recipe.DisplayLocKey));
-
-            ScientificProjectsUtils.Log(() => proj.ScienceCost + " Science to " + proj.Effect);
         }
     }
 

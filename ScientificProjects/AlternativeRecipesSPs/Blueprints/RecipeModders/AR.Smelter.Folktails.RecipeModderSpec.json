@@ -1,6 +1,6 @@
-{
+﻿{
     "RecipeModderSpec": {
-        "PrefabNames": [ "Smelter.Folktails" ],
+        "PrefabNames": [ "Smelter.Folktails", "Smelter.IronTeeth" ],
         "RecipeIds": [ "AR.ResinFiredSmelter", "AR.WoodReinforcedAlloy" ]
     }
 }
