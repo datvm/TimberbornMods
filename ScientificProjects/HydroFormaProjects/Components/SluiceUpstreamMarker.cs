@@ -44,7 +44,7 @@ public class SluiceUpstreamMarker : BaseComponent, ISelectionListener
     public void OnSelect()
     {
         if (blockObject.IsPreview 
-            || !sluiceUpstreamService.CanUseProject) { return; }
+            || !sluiceUpstreamService.IsUnlocked) { return; }
 
         enabled = true;
     }

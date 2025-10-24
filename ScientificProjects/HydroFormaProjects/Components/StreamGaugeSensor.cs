@@ -34,7 +34,7 @@ public class StreamGaugeSensor : TickableComponent, ISelectionListener
     public void OnSelect()
     {
         if (BlockObject.IsFinished
-            && service.CanUseProject)
+            && service.IsUnlocked)
         {
             enabled = true;
             Tick();

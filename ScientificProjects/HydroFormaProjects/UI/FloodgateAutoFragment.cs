@@ -53,7 +53,7 @@ public class FloodgateAutoFragment(
     public void ShowFragment(BaseComponent entity)
     {
         comp = entity.GetComponentFast<FloodgateAutoComponent>();
-        if (comp == null || !floodgateAutoService.CanUseProject)
+        if (comp == null || !floodgateAutoService.IsUnlocked)
         {
             comp = null;
             return;

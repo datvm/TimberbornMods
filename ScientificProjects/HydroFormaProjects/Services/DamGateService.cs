@@ -2,12 +2,11 @@
 namespace HydroFormaProjects.Services;
 
 public class DamGateService(
-    IBlockService blocks,
-    ScientificProjectService projects
-) : BaseProjectService(projects)
+    IBlockService blocks
+) : SimpleProjectListener
 {
 
-    protected override string ProjectId { get; } = HydroFormaModUtils.DamUpgrade;
+    public override string ProjectId { get; } = HydroFormaModUtils.DamUpgrade;
 
     public void ToggleDamGate(DamGateComponent comp, bool closed)
     {

@@ -39,7 +39,7 @@ public class DamGateFragment(
         comp = entity.GetComponentFast<DamGateComponent>();
         if (!comp) { return; }
 
-        if (!comp.Finished || !damGateService.CanUseProject)
+        if (!comp.Finished || !damGateService.IsUnlocked)
         {
             comp = null;
             return;
