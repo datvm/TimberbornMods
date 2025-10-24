@@ -8,6 +8,8 @@ public class ModdableMechanicalNode : BaseModdableComponent<MechanicalNode>, IMo
     public ModdableMechanicalNodeValues MechanicalNodeValues { get; private set; }
 #nullable enable
 
+    public bool IsDirty => modifiers.IsDirty;
+
     public event EventHandler<ModdableValueChanged<MechanicalNodeValues>>? OnMechanicalNodeValuesChanged;
 
     public void AwakeAfter()

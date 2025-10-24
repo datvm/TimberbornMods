@@ -52,17 +52,14 @@ public static class ScientificProjectsExtensions
 
     public static Configurator BindScientificProjectListener<T>(this Configurator configurator, bool alsoBindSelf = false)
         where T : class, IBaseScientificProjectListener
-    {
-        if (alsoBindSelf)
-        {
-            return configurator.MultiBindAndBindSingleton<IBaseScientificProjectListener, T>();
-        }
-        else
-        {
-            return configurator.MultiBindSingleton<IBaseScientificProjectListener, T>();
-        }
+        => configurator.MultiBindSingleton<IBaseScientificProjectListener, T>(alsoBindSelf);
 
-        
-    }
+    public static Configurator BindScientificProjectCostProvider<T>(this Configurator configurator, bool alsoBindSelf = false)
+        where T : class, IProjectCostProvider
+        => configurator.MultiBindSingleton<IProjectCostProvider, T>(alsoBindSelf);
+
+    public static Configurator BindScientificProjectUnlockConditionProvider<T>(this Configurator configurator, bool alsoBindSelf = false)
+        where T : class, IProjectUnlockConditionProvider
+        => configurator.MultiBindSingleton<IProjectUnlockConditionProvider, T>(alsoBindSelf);
 
 }

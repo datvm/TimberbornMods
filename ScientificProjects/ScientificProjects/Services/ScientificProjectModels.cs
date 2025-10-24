@@ -18,6 +18,8 @@ public record class ScientificProjectInfo(
     bool RequiredProjectUnlocked
 )
 {
+    public string Id => Spec.Id;
+
     public bool Active => !Spec.HasSteps || Levels.Today > 0;
 
     public string TodayName => Spec.HasSteps ? $"{Spec.DisplayName} ({Levels.Today})" : Spec.DisplayName;

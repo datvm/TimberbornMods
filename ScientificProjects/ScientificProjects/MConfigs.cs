@@ -45,7 +45,7 @@ public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony
             .BindTransient<SPElement>()
 
             // Base mod processings
-            .MultiBindSingleton<IProjectCostProvider, ModProjectsCostProvider>()
+            .BindScientificProjectCostProvider<ModProjectsCostProvider>()
             .MultiBindSingleton<ICharacterUpgradeDescriber, ModProjectsCharacterDescriber>()
             .MultiBindSingleton<IWorkplaceUpgradeDescriber, ModProjectsWorkplaceDescriber>()
             .MultiBindSingleton<ISPDevModule, DefaultSpDevModule>()

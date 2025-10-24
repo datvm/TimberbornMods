@@ -5,9 +5,6 @@
 	</PropertyGroup>
 	
 	<Import Project="../../Common.target" />
-	<Import Project="../../CommonHarmony.target" />
-	<Import Project="../../CommonTimberUI.target" />
-	<Import Project="../../CommonBuffDebuff.target" />
+	<Import Project="../../CommonModdableTimberborn.target" />
 	<Import Project="../../CommonScientificProjects.target" />
-	<Import Project="../../CommonModdableBindito.target" />
 </Project>

@@ -1,4 +1,4 @@
-ID,Text,Comment
+﻿ID,Text,Comment
 LV.BPSP.PowersGroup,"Power",
 LV.BPSP.PowersGroupDesc,"Projects that improve your power generation",
 LV.BPSP.WaterWheelUp1,"Gentle Mist Flow",
@@ -9,7 +9,8 @@ LV.BPSP.WaterWheelUp2Lore,"'Look at that mist kick in—wheels practically sing 
 LV.BPSP.WaterWheelUp3,"Concentrated Mist Dynamo",
 LV.BPSP.WaterWheelUp3Eff,"Water Wheel power is permanently increased by {0:+#%} all day.",
 LV.BPSP.WaterWheelUp3Lore,"We've distilled the mist into a constant force, driving wheels at peak power always.",
-LV.BPSP.WaterWheelUpBuffDesc,"Mist technology gives a boost to our Water Wheels.",
+LV.BPSP.WaterWheelUpBuffDesc,"{0:+#%} power output.
+Mist technology gives a boost to our Water Wheels.",
 LV.BPSP.WaterWheelFlowUp1,"Thermal Flow Stabilizer",
 LV.BPSP.WaterWheelFlowUp1Eff,"Water Wheel power never drops below {0:+#%} as long as there is water, even with no current. It does nothing if your current power is already higher.",
 LV.BPSP.WaterWheelFlowUp1Lore,"Hot springs bubble beneath, nudging wheels to defy the river’s lazy moods.",
@@ -17,7 +18,8 @@ LV.BPSP.WaterWheelFlowUp2,"Steam-Charged Boost",
 LV.BPSP.WaterWheelFlowUp2Eff,"Thermal Flow Stabilizer gives an additional {0:+#%} minimum per Level.",
 LV.BPSP.WaterWheelFlowUp2Cost,"[Cost] per Level per Water Wheel",
 LV.BPSP.WaterWheelFlowUp2Lore,"'More heat, more steam—wheels won't dip below a solid push!' — Boilertail Steamwright",
-LV.BPSP.WaterWheelFlowUpBuffDesc,"Thermal technologies help our Water Wheels produce power even when there is no current.",
+LV.BPSP.WaterWheelFlowUpBuffDesc,"{0:+#%} minimum power output when there is water.
+Thermal technologies help our Water Wheels produce power even when there is no current.",
 LV.BPSP.PowerOutputMulEff,"{0:+#%} power output",
 LV.BPSP.PowerOutputMulDayEff,"{0:+#%} power output (from {1:+#%} to {2:+#%})",
 LV.BPSP.PowerOutputFlatEff,"{0:+#}HP power output from {1}",
@@ -38,3 +40,5 @@ LV.BPSP.WindmillSizeUpLore,"Folktails wove tighter sails from willow threads—l
 LV.BPSP.SparePowerScience,"Power Flux Thinkatron",
 LV.BPSP.SparePowerScienceEff,"Any unused power throughout your colony is converted into science. Conversion rate: {0}HP-hour to 1 Science, rounded down. Batteries are not affected and do not affect any calculation of this project.",
 LV.BPSP.SparePowerScienceLore,"'Extra watts buzzing around? Now they zap straight into our cleverest ideas!' — Sparkchew Thinkatron",
+LV.BPSP.SparePowerDesc,"{0} science pending from unused power. {1:0.00}h remaining.",
+LV.BPSP.WindmillHeightUpDesc,"{0:+#%} power from {1} height.",

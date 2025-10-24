@@ -1,35 +1,36 @@
 ﻿namespace BrainPowerSPs;
 
-[Context("Game")]
-public class ModGameConfig : Configurator
+public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony
 {
-    public override void Configure()
+    public override void StartMod(IModEnvironment modEnvironment)
     {
-        Bind<PowerBuffs>().AsSingleton();
-        Bind<SparePowerConverter>().AsSingleton();
+        base.StartMod(modEnvironment);
 
-        MultiBind<IProjectCostProvider>().To<ProjectsCostProvider>().AsSingleton();
-
-        Bindito.Core.UiBuilderExtensions.MultiBindAndBindSingleton<IPrefabGroupServiceFrontRunner, PrefabModifier>(this);
-
-        this.BindTrackingEntities()
-            .TrackWorkplace()
-            .Track<WaterPoweredGenerator>()
-            .Track<WindPoweredGeneratorSpec>();
-
-        Bindito.Core.UiBuilderExtensions.BindTemplateModule(this)
-            .AddDecorator<WaterPoweredGenerator, WaterWheelBuffComponent>()
-            .AddDecorator<WindPoweredGeneratorSpec, WindmillBuffComponent>()
-            .Bind();
-    }
-}
-
-public class ModStarter : IModStarter
-{
-
-    void IModStarter.StartMod(IModEnvironment modEnvironment)
-    {
-        new Harmony(nameof(BrainPowerSPs)).PatchAll();
+        ModdableTimberbornRegistry.Instance
+            .UseDependencyInjection()
+            .UseMechanicalSystem()
+            .TryTrack<WaterWheelPowerSPComponent>()
+            .TryTrack<WindPowerSPComponent>();
     }
 
+    public override void Configure(Configurator configurator, ConfigurationContext context)
+    {
+        if (!context.IsGameContext()) { return; }
+
+        configurator
+            .BindScientificProjectCostProvider<PowerSPCostProvider>()
+
+            .BindScientificProjectListener<WaterWheelPowerSPService>(true)
+            .BindScientificProjectListener<SparePowerToScienceConverter>(true)
+            .BindScientificProjectListener<WindPowerSPService>(true)
+
+            .MultiBindSingleton<IPrefabModifier, PowerSPPrefabModifier>()
+
+            .BindTemplateModule(h => h
+                .AddDecorator<WaterPoweredGeneratorSpec, WaterWheelPowerSPComponent>()
+                .AddDecorator<WindPoweredGeneratorSpec, WindPowerSPComponent>()
+                .AddDecorator<ManufactorySpec, SparePowerDescriber>()
+            )
+        ;
+    }
 }

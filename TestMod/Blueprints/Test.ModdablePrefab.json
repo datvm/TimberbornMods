@@ -1,9 +1,0 @@
-﻿{
-    "PrefabModderSpec": {
-        "PrefabNames": [ "GearWorkshop.Folktails", "GearWorkshop.IronTeeth" ],
-        "ComponentType": "Timberborn.Workshops.ManufactorySpec",
-        "ValuePath": "_productionRecipeIds",
-        "NewValue": "['Plank']",
-        "Factions": [ "IronTeeth" ]
-    }
-}

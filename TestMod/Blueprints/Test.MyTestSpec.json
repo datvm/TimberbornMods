@@ -1,0 +1,14 @@
+﻿{
+    "MyTestSpec": {
+        "String": "Abc",
+        "Json": {
+            "Number": 1,
+            "Array": [
+                {
+                    "String": "Abc"
+                }
+            ]
+        }
+
+    }
+}
