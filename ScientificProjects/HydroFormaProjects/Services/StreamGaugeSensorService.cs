@@ -1,27 +1,28 @@
 ﻿namespace HydroFormaProjects.Services;
 
 public class StreamGaugeSensorService(
-    ScientificProjectService projects,
     IThreadSafeWaterMap waterMap,
     ScienceService sciences,
     IDayNightCycle dayNightCycle,
     MapSize mapSize,
     MapIndexService mapIndexService,
     IThreadSafeColumnTerrainMap columnTerrainMap
-) : BaseProjectService(projects), ILoadableSingleton
+) : SimpleProjectListener, ILoadableSingleton
 {
-    readonly ScientificProjectService projects = projects;
     int verticalStride;
 
-    protected override string ProjectId { get; } = HydroFormaModUtils.StreamGaugeUpgrade;
+    public override string ProjectId { get; } = HydroFormaModUtils.StreamGaugeUpgrade;
     public int MeasureVolumeScienceCost { get; private set; } = 10;
 
-    public void Load()
+    public override void Load()
     {
+        base.Load();
         verticalStride = mapIndexService.VerticalStride;
+    }
 
-        var projectSpec = projects.GetProjectSpec(ProjectId);
-        MeasureVolumeScienceCost = (int)projectSpec.Parameters[0];
+    public override void OnProjectUnlocked()
+    {
+        MeasureVolumeScienceCost = (int)ProjectInfo!.Spec.Parameters[0];
     }
 
     public StreamGaugeSensorMeasurement MeasureSensorLevel(StreamGaugeSensor sensor)
@@ -63,7 +64,6 @@ public class StreamGaugeSensorService(
         Stack<Vector3Int> stack = new(visited);
 
         var neighbors = Deltas.Neighbors6Vector3Int;
-        var size = mapSize.TotalSize;
 
         while (stack.Count > 0)
         {

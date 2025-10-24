@@ -55,7 +55,7 @@ public class StreamGaugeUpgradeFragment(
         comp = entity.GetComponentFast<StreamGaugeSensor>();
         if (!comp) { return; }
 
-        if (!service.CanUseProject)
+        if (!service.IsUnlocked)
         {
             comp = null;
             return;

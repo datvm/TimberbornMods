@@ -1,16 +1,16 @@
 ﻿namespace HydroFormaProjects.Services;
 
 public class FloodgateAutoService(
-    ScientificProjectService projects,
-    EventBus eb,
-    EntityManager entities
-) : BaseProjectService(projects), ILoadableSingleton
+    DefaultEntityTracker<FloodgateAutoComponent> tracker,
+    EventBus eb
+) : SimpleProjectListener
 {
 
-    protected override string ProjectId { get; } = HydroFormaModUtils.FloodgateUpgrade;
+    public override string ProjectId { get; } = HydroFormaModUtils.FloodgateUpgrade;
 
-    public void Load()
+    public override void Load()
     {
+        base.Load();
         eb.Register(this);
     }
 
@@ -30,12 +30,10 @@ public class FloodgateAutoService(
 
     void PerformFloodgateAction(Action<FloodgateAutoComponent> action)
     {
-        if (!CanUseProject) { return; }
+        if (!IsUnlocked) { return; }
 
-        foreach (var f in entities.Get<FloodgateAutoComponent>())
+        foreach (var f in tracker.Entities)
         {
-            if (!f) { continue; }
-
             action(f);
         }
     }

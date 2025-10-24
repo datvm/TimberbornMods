@@ -1,10 +1,10 @@
 ﻿namespace HydroFormaProjects.Services;
 
 public class TerrainBlockUpgradeService(
-    ScientificProjectUnlockManager unlockManager,
+    ScientificProjectUnlockRegistry unlocks,
     ScientificProjectRegistry registry
 )
-    : IPrefabGroupServiceFrontRunner, // This is just to make sure it's load early enough
+    : IPrefabGroupServiceTailRunner, // This is just to make sure it's load early enough
     IUnloadableSingleton
 {
 
@@ -14,18 +14,13 @@ public class TerrainBlockUpgradeService(
     public static int MaxHangingTerrain = GameDefaultValue; 
     public static int MaxHangingTerrainDoubled = GameDefaultValue * 2;
 
-    public void AfterPrefabLoad(PrefabGroupService prefabGroupService)
-    {
-        ReloadValues();
-    }
-
     public void ReloadValues()
     {
         var value = GameDefaultValue;
 
         foreach (var id in HydroFormaModUtils.TerrainBlockUpgrades)
         {
-            if (unlockManager.Contains(id))
+            if (unlocks.Contains(id))
             {
                 var project = registry.GetProject(id);
                 value += (int)project.Parameters[0];
@@ -34,6 +29,11 @@ public class TerrainBlockUpgradeService(
 
         MaxHangingTerrain = value;
         MaxHangingTerrainDoubled = value * 2;
+    }
+
+    public void Run(PrefabGroupService prefabGroupService)
+    {
+        ReloadValues();
     }
 
     public void Unload()

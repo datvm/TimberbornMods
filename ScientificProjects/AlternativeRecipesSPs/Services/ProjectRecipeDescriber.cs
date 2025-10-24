@@ -1,11 +1,15 @@
 ﻿namespace AlternativeRecipesSPs.Services;
 
-public class ProjectRecipeDescriber(ScientificProjectRegistry projects, RecipeSpecService recipes, ILoc t) : ILoadableSingleton
+public class ProjectRecipeDescriber(
+    ScientificProjectRegistry registry,
+    RecipeSpecService recipes,
+    ILoc t
+) : ILoadableSingleton
 {
 
     public void Load()
     {
-        foreach (var proj in projects.AllProjects)
+        foreach (var proj in registry.AllProjects)
         {
             if (!proj.IsAlternativeRecipe()) { continue; }
 

@@ -1,18 +1,32 @@
 ﻿namespace HydroFormaProjects;
 
-[Context("Game")]
-public class ModGameConfig : Configurator
+public class MGameConfigs : BaseModdableTimberbornConfigurationWithHarmony
 {
-    public override void Configure()
-    {
-        this
-            .BindSingleton<DamGateService>()
-            .BindSingleton<FloodgateAutoService>()
-            .BindSingleton<SluiceUpstreamService>()
-            .BindSingleton<StreamGaugeSensorService>()
 
-            .MultiBindSingleton<IPrefabModifier, PrefabModifier>()
-            .MultiBindSingleton<IPrefabGroupServiceFrontRunner, TerrainBlockUpgradeService>()
+    public override void StartMod(IModEnvironment modEnvironment)
+    {
+        base.StartMod(modEnvironment);
+
+        new Harmony(nameof(HydroFormaProjects)).PatchHangingTerrains();
+
+        ModdableTimberbornRegistry.Instance            
+            .UseDependencyInjection()
+            .UseEntityTracker()
+            .TryTrack<FloodgateAutoComponent>();
+    }
+
+    public override void Configure(Configurator configurator, ConfigurationContext context)
+    {
+        if (!context.IsGameContext()) { return; }
+
+        configurator
+            .BindScientificProjectListener<DamGateService>(true)
+            .BindScientificProjectListener<FloodgateAutoService>(true)
+            .BindScientificProjectListener<SluiceUpstreamService>(true)
+            .BindScientificProjectListener<StreamGaugeSensorService>(true)
+
+            .BindPrefabModifier<HFSPPrefabModifier>()
+            .MultiBindSingleton<IPrefabGroupServiceTailRunner, TerrainBlockUpgradeService>()
 
             .BindFragment<DamGateFragment>()
             .BindFragment<FloodgateAutoFragment>()
@@ -31,20 +45,6 @@ public class ModGameConfig : Configurator
                 .AddDecorator<StreamGaugeSpec, StreamGaugeSensor>()
             )
         ;
-
-        this.BindTrackingEntities()
-            .Track<FloodgateAutoComponent>();
-    }
-}
-
-public class ModStarter : IModStarter
-{
-
-    void IModStarter.StartMod(IModEnvironment modEnvironment)
-    {
-        new Harmony(nameof(HydroFormaProjects))
-            .PatchHangingTerrains()
-            .PatchAll();
     }
 
 }

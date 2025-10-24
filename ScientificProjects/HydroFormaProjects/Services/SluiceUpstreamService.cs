@@ -1,9 +1,8 @@
 ﻿namespace HydroFormaProjects.Services;
 
-public class SluiceUpstreamService(ScientificProjectService projects)
-    : BaseProjectService(projects)
+public class SluiceUpstreamService : SimpleProjectListener
 {
-    protected override string ProjectId { get; } = HydroFormaModUtils.SluiceUpgrade;
+    public override string ProjectId { get; } = HydroFormaModUtils.SluiceUpgrade;
 
     public void SyncSluice(SluiceState sluiceState)
     {

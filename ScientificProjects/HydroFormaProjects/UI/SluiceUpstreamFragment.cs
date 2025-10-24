@@ -72,7 +72,7 @@ public class SluiceUpstreamFragment(
 
     public void ShowFragment()
     {
-        if (!sluiceFragment._sluice || !sluiceUpstreamService.CanUseProject) { return; }
+        if (!sluiceFragment._sluice || !sluiceUpstreamService.IsUnlocked) { return; }
 
         comp = sluiceFragment._sluice.GetComponentFast<SluiceUpstreamComponent>();
         if (!comp)
