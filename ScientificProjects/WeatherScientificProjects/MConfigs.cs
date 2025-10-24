@@ -21,8 +21,8 @@ public class MConfig : BaseModdableTimberbornConfiguration
             .BindScientificProjectListener<WeatherSPWarningExtender>()
             .BindScientificProjectListener<WeatherSPWaterStrengthService>(true)
 
-            .MultiBindSingleton<IProjectCostProvider, WeatherSPCostProvider>()
-            .MultiBindSingleton<IProjectUnlockConditionProvider, WeatherSPUnlockConditionProvider>()
+            .BindScientificProjectCostProvider<WeatherSPCostProvider>()
+            .BindScientificProjectUnlockConditionProvider<WeatherSPUnlockConditionProvider>()
 
             .BindSingleton<WeatherForecastPanel>()
 

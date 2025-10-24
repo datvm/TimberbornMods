@@ -1,18 +1,13 @@
-{
+﻿{
     "Name": "Brain-Power Scientific Projects",
-    "Version": "7.2.2",
+    "Version": "7.4.0",
     "Id": "BrainPowerSPs",
     "MinimumGameVersion": "0.7.0.0",
     "Description": "Power-related scientific projects.",
     "RequiredMods": [
         {
             "Id": "ScientificProjects",
-            "MinimumVersion": "7.2.1"
-        },
-        { "Id": "Harmony" },
-        {
-            "Id": "ModdableBindito",
-            "MinimumVersion": "7.1.1"
+            "MinimumVersion": "7.4.0"
         }
     ]
 }

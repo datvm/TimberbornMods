@@ -90,7 +90,7 @@ public static partial class UiBuilderExtensions
         return configurator;
     }
 
-    public static Configurator BindOrderedFragment<T>(this Configurator configurator) where T : IEntityPanelFragment, IEntityFragmentOrder 
+    public static Configurator BindOrderedFragment<T>(this Configurator configurator) where T : IEntityPanelFragment, IEntityFragmentOrder
         => configurator
             .BindFragment<T>()
             .BindFragmentOrder<T>();
@@ -224,6 +224,15 @@ public static partial class UiBuilderExtensions
     {
         configurator.MultiBind<T>().To<TImpl>().AsSingleton();
         return configurator;
+    }
+
+    public static Configurator MultiBindSingleton<T, TImpl>(this Configurator configurator, bool alsoBindSelf)
+        where T : class
+        where TImpl : class, T
+    {
+        return alsoBindSelf
+            ? MultiBindAndBindSingleton<T, TImpl>(configurator)
+            : MultiBindSingleton<T, TImpl>(configurator);
     }
 
     public static Configurator BindTransient<T>(this Configurator configurator)

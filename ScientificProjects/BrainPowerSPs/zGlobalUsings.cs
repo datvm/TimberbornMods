@@ -1,6 +1,6 @@
-﻿global using BrainPowerSPs.Buffs;
-global using BrainPowerSPs.Buffs.Components;
-global using BrainPowerSPs.Mangement;
-global using BrainPowerSPs.Patches;
-global using ScientificProjects.Buffs;
-global using ScientificProjects.Management;
+﻿global using BrainPowerSPs.Components;
+global using BrainPowerSPs.Helpers;
+global using BrainPowerSPs.Services;
+global using ModdableTimberborn.DependencyInjection;
+global using ModdableTimberborn.EntityTracker;
+global using ModdableTimberborn.MechanicalSystem;
