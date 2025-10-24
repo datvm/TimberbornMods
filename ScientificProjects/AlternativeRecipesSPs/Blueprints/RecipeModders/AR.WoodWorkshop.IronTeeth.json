@@ -1,6 +1,6 @@
-{
+﻿{
     "RecipeModderSpec": {
-        "PrefabNames": [ "WoodWorkshop.IronTeeth" ],
+        "PrefabNames": [ "WoodWorkshop.IronTeeth", "WoodWorkshop.Folktails" ],
         "RecipeIds": [ "AR.SteelBoundPlanks" ]
     }
 }

@@ -1,6 +1,6 @@
-{
+﻿{
     "RecipeModderSpec": {
-        "PrefabNames": [ "BotPartFactory.Folktails" ],
+        "PrefabNames": [ "BotPartFactory.Folktails", "BotPartFactory.IronTeeth" ],
         "RecipeIds": [ "AR.TimberbotChassis", "AR.TimberbotHeads" ]
     }
 }

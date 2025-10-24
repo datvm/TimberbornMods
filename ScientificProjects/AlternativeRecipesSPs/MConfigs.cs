@@ -1,14 +1,19 @@
-﻿global using AlternativeRecipesSPs.Management;
+﻿global using AlternativeRecipesSPs.Services;
 
 namespace AlternativeRecipesSPs;
 
-[Context("Game")]
-public class ModGameConfig : Configurator
+public class MConfigs : BaseModdableTimberbornConfiguration
 {
-    public override void Configure()
+
+    public override void Configure(Configurator configurator, ConfigurationContext context)
     {
-        Bind<ProjectRecipeDescriber>().AsSingleton();
-        Bind<ProjectRecipeUnlocker>().AsSingleton();
-        MultiBind<IDefaultRecipeLocker>().To<ProjectRecipeLocker>().AsSingleton();
+        if (!context.IsGameContext()) { return; }
+
+        configurator
+            .BindSingleton<ProjectRecipeDescriber>()
+            .BindSingleton<ProjectRecipeUnlocker>()
+            .MultiBindSingleton<IDefaultRecipeLocker, ProjectRecipeLocker>()
+        ;
     }
+
 }

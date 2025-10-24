@@ -1,4 +1,4 @@
-ID,Text,Comment
+﻿ID,Text,Comment
 LV.ARSP.AlternativeRecipesGroup,"Alternative Recipes",
 LV.ARSP.AlternativeRecipesGroupDesc,"Unlock alternative recipes for your manufactories",
 LV.ARSP.LockReason,"You need to unlock this recipe in the Scientific Projects first",
@@ -49,7 +49,7 @@ LV.ARSP.DilutedExtractLore,"By blending pure water with badwater, beavers tease 
 LV.ARSP.DilutedExtractEff,"Unlock [Recipe]: {0} Badwater + {1} Water + {2} Log ⇒ {3} Extract in {4} hours in the Centrifuge",
 LV.ARSP.WaterFilter,"Water Filter",
 LV.ARSP.WaterFilterRecipe,"Extract (Filtered)",
-LV.ARSP.WaterFilterLore,"Beavers devised a clever centrifuge tweak, using treated planks to strain badwater—yielding extract and a trickle of fresh water from the sludge.",
+LV.ARSP.WaterFilterLore,"Abandoning their fragile centrifuge, beavers turned to the Dirt Excavator's brute force to strain badwater through treated planks and grit.",
 LV.ARSP.WaterFilterEff,"Unlock [Recipe]: {0} Badwater + {1} Treated Plank + {2} Log ⇒ {3} Extract + {4} Water in {5} hours in the Dirt Excavator",
 LV.ARSP.ExtractChargedExplosive,"Extract-Charged Explosive",
 LV.ARSP.ExtractChargedExplosiveRecipe,"Explosives (Extract-Charged)",
