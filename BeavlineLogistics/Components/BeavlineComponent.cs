@@ -146,7 +146,7 @@ public class BeavlineComponent : BaseComponent, IPersistentEntity, IDeletableEnt
         connectedBuildings.Remove(comp);
     }
 
-    private void OnRenoCompleted(BuildingRenovation proj)
+    void OnRenoCompleted(BuildingRenovation proj)
     {
         switch (proj.Id)
         {

@@ -2,7 +2,7 @@
 namespace BeavlineLogistics.Components;
 
 // IActivableRenovationComponent is for the OutputSpeed renovation, NOT the output (which is handled by BeavlineComponent)
-public class BeavlineOutputComponent : BaseComponent, IPersistentEntity, IActivableRenovationComponent
+public class BeavlineOutputComponent : BaseComponent, IPersistentEntity, IActivableRenovationComponent, IDeletableEntity
 {
     static readonly ComponentKey SaveKey = new(nameof(BeavlineOutputComponent));
     static readonly PropertyKey<int> NextOutputIndexKey = new("NextOutputIndex");
@@ -53,8 +53,6 @@ public class BeavlineOutputComponent : BaseComponent, IPersistentEntity, IActiva
         if (enabled)
         {
             if (timeTrigger is not null && timeTrigger.InProgress) { return; }
-
-            TimberUiUtils.LogDev($"{this} is scheduling next output");
             ScheduleNextStep();
         }
         else
@@ -88,6 +86,8 @@ public class BeavlineOutputComponent : BaseComponent, IPersistentEntity, IActiva
 
     internal void FindAndMoveStuffOut()
     {
+        if (!this) { return; }
+
         var connected = beavline.ConnectedBuildings;
         if (connected.Count == 0)
         {
@@ -110,11 +110,15 @@ public class BeavlineOutputComponent : BaseComponent, IPersistentEntity, IActiva
 
         var startingPoint = nextOutputIndex;
 
-        bool done;
+        bool done = false;
         do
         {
             var building = connected[nextOutputIndex];
-            done = TryGivingTo(building, outputGoods);
+
+            if (building) // Should not be needed but there is a strange crash right now
+            {
+                done = TryGivingTo(building, outputGoods);
+            }
 
             nextOutputIndex++;
             if (nextOutputIndex >= connected.Count)
@@ -176,5 +180,10 @@ public class BeavlineOutputComponent : BaseComponent, IPersistentEntity, IActiva
         var reno = this.GetRenovationComponent();
         var spec = reno.RenovationService.GetSpec(BeavlineOutSpeedRenovationProvider.RenoId);
         AddSpeedBonus(spec.Parameters[0]);
+    }
+
+    public void DeleteEntity()
+    {
+        Toggle(false);
     }
 }
