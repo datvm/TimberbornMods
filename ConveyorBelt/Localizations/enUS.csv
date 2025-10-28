@@ -1,0 +1,7 @@
+﻿ID,Text,Comment
+LV.CBlt.ConveyorBeltName,"Conveyor Belt",
+LV.CBlt.ConveyorBeltDescription,"Transport items horizontally between two buildings",
+LV.CBlt.ConveyorBeltFlavor,"Folktail engineers say it was inspired by watching logs roll downhill.",
+LV.CBlt.ConveyorLiftName,"Conveyor Lift",
+LV.CBlt.ConveyorLiftDescription,"Lift items vertically between two buildings",
+LV.CBlt.ConveyorLiftFlavor,"For an Iron Teeth invention, it's surprisingly <i>uplifting</i>.",

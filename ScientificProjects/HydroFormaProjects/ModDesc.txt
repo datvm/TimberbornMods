@@ -38,6 +38,7 @@ If you need any support or feedback, feel free to contact me on Timberborn's off
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v7.4.0: See Scientific Projects 7.4.0 update.
 v7.1.0: R&D Package is now Anti‑Grav™ Deck, see press release above for details.
 v7.0.1:
 We would like to formally clarify that recent reports of Dams not holding water were purely coincidental and in no way reflect the performance of HydroForma™ products. You may resume use with complete confidence, HydroForma™ stands by our unwavering commitment to aquatic integrity. — The HydroForma™ Public Relations Division

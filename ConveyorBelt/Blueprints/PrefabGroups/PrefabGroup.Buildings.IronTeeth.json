@@ -1,0 +1,8 @@
+﻿{
+    "PrefabGroupSpec": {
+        "Paths#append": [
+            "Buildings/Storages/ConveyorBelt/ConveyorBelt.IronTeeth",
+            "Buildings/Storages/ConveyorBelt/ConveyorLift.IronTeeth"
+        ]
+    }
+}

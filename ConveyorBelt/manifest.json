@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Conveyor Belts",
+    "Version": "7.0.0",
+    "Id": "ConveyorBelt",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Add conveyor belts",
+    "RequiredMods": [
+        { "Id": "ModdableTimberborn" }
+    ]
+}

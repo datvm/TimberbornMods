@@ -1,0 +1,8 @@
+﻿{
+    "PrefabGroupSpec": {
+        "Paths#append": [
+            "Buildings/Storages/ConveyorBelt/ConveyorBelt.Folktails",
+            "Buildings/Storages/ConveyorBelt/ConveyorLift.Folktails"
+        ]
+    }
+}
