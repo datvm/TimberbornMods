@@ -33,5 +33,6 @@ LV.T4UI.ExitToMenu,"Exit to menu",
 LV.T4UI.ShowDisablePauseIcon,"Show disable pause icon option",
 LV.T4UI.ShowDisablePauseIconDesc,"Show an option to disable the floating icon on paused buildings",
 LV.T4UI.DisablePauseIcon,"Disable pause icons on all {0}",
-LV.T4UI.Update7_10_1,"This update adds an option to disable the pause icon on top of buildings.
-If you don't like the option clustering the UI, you can disable it in the mod settings.",
+LV.T4UI.AutoCollapseManagementGroups,"Auto-collapse management groups",
+LV.T4UI.AutoCollapseManagementGroupsDesc,"When opening the management panel, automatically collapse all groups (like Population, Workplaces, etc.)",
+LV.T4UI.Update7_10_2,"This update adds collapsible groups to the management panel (F1 -> F5, like Population, Workplaces, etc.). You can also enable auto-collapse in the mod settings.",

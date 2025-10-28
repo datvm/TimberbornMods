@@ -14,9 +14,9 @@ public class WorkplacesBatchControlTabService(
     {
         var row = new VisualElement().SetAsRow();
 
-        CreateFilter(row, 
-            "Beaver.PluralDisplayName", 
-            showBeavers, 
+        CreateFilter(row,
+            "Beaver.PluralDisplayName",
+            showBeavers,
             (v) => showBeavers = v);
         CreateFilter(row,
             "Bot.PluralDisplayName",
@@ -38,22 +38,22 @@ public class WorkplacesBatchControlTabService(
         return toggle;
     }
 
+    static readonly FieldInfo VisibilityGetterBackingField = typeof(BatchControlRow).GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+        .First(q => q.Name.Contains(nameof(BatchControlRow.VisibilityGetter)) && q.Name.Contains("BackingField"));
+    public void OnBatchControlRowCreated(BatchControlRow row)
+    {
+        var workerType = row.Entity.GetComponentFast<WorkplaceWorkerType>();
+
+        VisibilityGetterBackingField.SetValue(row, () =>
+        {
+            return (workerType.WorkerType == WorkerTypeHelper.BeaverWorkerType && showBeavers)
+                || (workerType.WorkerType == WorkerTypeHelper.BotWorkerType && showBots);
+        });
+    }
+
     public void ApplyFilter()
     {
-        var beavers = showBeavers;
-        var bots = showBots;
-
-        foreach (var grp in tab._rowGroups)
-        {
-            foreach (var row in grp._rows)
-            {
-                var workerType = row.Entity.GetComponentFast<WorkplaceWorkerType>();
-
-                var visible = (workerType.WorkerType == WorkerTypeHelper.BeaverWorkerType && beavers)
-                    || (workerType.WorkerType == WorkerTypeHelper.BotWorkerType && bots);
-                row.Root.SetDisplay(visible);
-            }
-        }
+        tab.UpdateRowsVisibility();
     }
 
     public void Load()
