@@ -149,6 +149,7 @@ public class ProductOverdriveComponent : TickableComponent, IPersistentEntity, I
 
         if (dayNightCycle.PartialDayNumber < nextHpDrain) { return; }
         hp.Damage(SpecHpDrainPerHour);
+        ScheduleNextHpDrain();
     }
 
     void ScheduleNextHpDrain()
