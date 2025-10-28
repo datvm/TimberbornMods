@@ -27,4 +27,5 @@ These projects let you increase or decrease the water source strength. You need 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods/tree/master/ScientificProjects
 
-v7.3.0: Works with (and required) Moddable Weather now.
+v7.4.0: See Scientific Projects 7.4.0 update.
+v7.3.0: Works with (and requires) Moddable Weather now.

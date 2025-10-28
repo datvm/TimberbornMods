@@ -1,0 +1,33 @@
+﻿This is an expansion mod for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3442389397]Scientific Projects[/url] that add Power-related projects to the game.
+
+[h1]Water Wheel[/h1]
+These upgrades apply to all Water Wheels in the game (Small, Regular, and Large).
+
+- Gentle Mist Flow / Steady Mist Surge: Gradually increases power output throughout the day.  
+- Concentrated Mist Dynamo: Permanently boosts power output all day.
+- Thermal Flow Stabilizer: Ensures minimum power output even with no current as long as there is water.
+- Steam-Charged Boost: Further increases the minimum power output.
+
+[h1]Power Wheels[/h1]
+These upgrades apply to all Power Wheels in the game (Folktails and Iron Teeth).
+- Gearshift Labor Sync (Iron Teeth only): Reduces the number of workers for Large Power Wheels.
+- Bot-Integrated Axles: Enables Bots to operate Power Wheels.
+
+[h1]Windmill[/h1]
+These upgrades are for Folktails and apply to all Windmills in the game (Regular and Large).
+- High-Altitude Gust Harness: Boosts Windmill power based on height (count at the top of the Windmill).
+- Compact Wind Sails: Windmills now only occupy 1x1 instead of a 3x3 area (meaning you can build them right next to each other).
+
+[h1]Surplus Power[/h1]
+- Power Flux Thinkatron: Converts unused power into science points. Batteries are not affected (it can still accumulate storage as usual) and do not affect any calculation of this project.
+
+Note: a few of the upgrades have "[Reload needed]" tags which means after purchasing, you need to make a save, then just load that save again to take effect. There will be a message box showing when purchasing to remind you.
+
+===
+v7.4.0: See Scientific Projects 7.4.0 update.
+v7.2.2: Fixed a crash caused by Gearshift Labor Sync.
+v7.2.1: Should work with April 10 update now.
+v7.1.0: Greedy Builders can now use the faction-specific projects.
+v7.0.1: minor spelling correction.
+
+Mod source code: https://github.com/datvm/TimberbornMods/tree/master/ScientificProjects

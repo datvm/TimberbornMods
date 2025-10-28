@@ -62,7 +62,7 @@ foreach (var path in filePaths)
         }
     }
 
-    var outputName = Path.GetFileNameWithoutExtension(path);
+    var outputName = Path.GetFileNameWithoutExtension(path).Replace("VerticalTubeway", "ConveyorBelt");
     var outputFilePath = Path.Combine(OutputFolder, $"{outputName}.timbermesh");
 
     await using var stream = File.Create(outputFilePath);

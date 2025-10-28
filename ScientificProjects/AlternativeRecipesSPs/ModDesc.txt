@@ -1,0 +1,40 @@
+﻿16 [b]Alternative Recipes[/b] for you to diversify your production chains in this latest expansion mod for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3442389397]Scientific Projects[/url] mod!
+
+Note: If you pick a recipe that is locked, the select box may bug out a bit. Just unselect the building and select it again. It's only a visual bug.
+
+Check the screenshots or the list below:
+
+150 Science to Unlock Planks (Bulk): 7 Logs ⇒ 10 Planks in 10 hours in the Lumbermill
+75 Science to Unlock Gears (Direct): 1 Logs ⇒ 1 Gears in 6 hours in the Gear Workshop
+75 Science to Unlock Gears (Rapid): 3 Planks ⇒ 2 Gears in 2 hours in the Gear Workshop
+1400 Science to Unlock Gears (High-Yield): 3 Logs ⇒ 4 Gears in 6 hours in the Gear Workshop
+1200 Science to Unlock Treated Planks (Steel-Bound): 3 Planks + 1 Metal Blocks ⇒ 3 Treated Planks in 8 hours in the Wood Workshop (Iron Teeth only)
+150 Science to Unlock Paper (Sun-Dried): 1 Logs + 1 Sunflowers ⇒ 5 Paper in 3 hours in the Paper Mill (Folktails only)
+50 Science to Unlock Canola Oil (Rapid): 2 Canola Seeds ⇒ 1 Canola Oil in 0.5 hours in the Oil Press (Iron Teeth only)
+150 Science to Unlock Canola Oil (Precision): 2 Canola Seeds + 1 Water ⇒ 3 Canola Oil in 2.5 hours in the Oil Press (Iron Teeth only)
+75 Science to Unlock Extract (Crude Press): 50 Logs + 5 Gears + 5 Scrap Metal ⇒ 1 Extract in 5 hours in the Industrial Lumbermill (Iron Teeth only)
+500 Science to Unlock Extract (Diluted): 4 Badwater + 2 Water + 0.1 Log ⇒ 2 Extract in 0.75 hours in the Centrifuge
+1500 Science to Unlock Extract (Filtered): 4 Badwater + 1 Treated Plank + 0.1 Log ⇒ 2 Extract + 2 Water in 0.75 hours in the Dirt Excavator
+150 Science to Unlock Explosives (Extract-Charged): 1 Extract ⇒ 2 Explosives in 3 hours in the Explosives Factory
+500 Science to Unlock Metal Blocks (Resin-Fired): 2 Scrap Metal + 0.1 Pine Resin ⇒ 1 Metal Blocks in 1.5 hours in the Smelter (Folktails only)
+1400 Science to Unlock Metal Blocks (Wood-Reinforced): 2 Scrap Metal + 1 Treated Planks ⇒ 2 Metal Blocks in 2.5 hours in the Smelter (Folktails only)
+150 Science to Unlock Biofuel (Sunflower): 1 Potatoes + 1 Sunflower Seeds ⇒ 20 Biofuel in 2 hours in the Refinery (Folktails only)
+1500 Science to Unlock Timberbot Framework: Folktails can use Treated Planks instead of Metal Blocks for their Bot parts. Biofuel is also no longer needed for the Chassis.
+
+Feel free to leave feedback or suggestions in the comments or on Discord!
+
+===
+v7.4.0: See Scientific Projects 7.4.0 update. This update also apply recipe changes to both Folktails and Iron Teeth so Greedy Builders can get those recipes in their buildings as well. The catch is that some recipes now show up in both factions and some cannot be unlocked.
+v7.2.2: Recipe names are now separate and more generic. This update is just a text change and no function is changed.
+v7.2.1: Should work with April 10 update now.
+v7.1.1:
+I was made aware of an issue where a building cannot have a Good (like Water) as both an Ingredient and a Product, which causes Hauler to keep putting the goods in and out indefinitely. I have to move a few recipes around to fix this.
+
+- Crude Log Press Extract (Iron Teeth only) is now in the Lumbermill instead of Gear Workshop (because it was using Gear as an ingredient).
+- Water Filter is now in the Dirt Extractor instead of the Centrifuge (because it was using Water as an ingredient/product).
+
+Please also update the Moddable & Unlockable Recipes to v7.1.3
+
+v7.1.0: Greedy Builders can now use the faction-specific projects.
+
+Mod source code: https://github.com/datvm/TimberbornMods/tree/master/ScientificProjects

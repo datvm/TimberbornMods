@@ -9,7 +9,6 @@
             "Id": "ScientificProjects",
             "MinimumVersion": "7.4.0"
         },
-        { "Id": "Harmony" },
         {
             "Id": "UnlockableRecipe",
             "MinimumVersion": "7.1.4"

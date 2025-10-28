@@ -299,6 +299,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorfulZipline", "Colorful
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaperAndBookForIronTeeth", "PaperAndBookForIronTeeth\PaperAndBookForIronTeeth.csproj", "{E40B6CB2-0BF0-4C00-ABAF-C95C7754A73B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConveyorBelt", "ConveyorBelt\ConveyorBelt.csproj", "{98FF3333-B665-4F26-960F-DAEBBEF71B8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimbermeshMaterialPatcher", "TimbermeshMaterialPatcher\TimbermeshMaterialPatcher.csproj", "{C424C74D-E525-44A2-BFC1-471481E4087E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -797,6 +801,14 @@ Global
 		{E40B6CB2-0BF0-4C00-ABAF-C95C7754A73B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E40B6CB2-0BF0-4C00-ABAF-C95C7754A73B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E40B6CB2-0BF0-4C00-ABAF-C95C7754A73B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98FF3333-B665-4F26-960F-DAEBBEF71B8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98FF3333-B665-4F26-960F-DAEBBEF71B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98FF3333-B665-4F26-960F-DAEBBEF71B8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98FF3333-B665-4F26-960F-DAEBBEF71B8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C424C74D-E525-44A2-BFC1-471481E4087E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C424C74D-E525-44A2-BFC1-471481E4087E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C424C74D-E525-44A2-BFC1-471481E4087E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C424C74D-E525-44A2-BFC1-471481E4087E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -888,6 +900,7 @@ Global
 		{2B18D460-283E-4990-B9C3-2C21CB338A29} = {9C86AE06-7E1D-47C7-90C1-83EA7E7CA365}
 		{034815B4-D1E9-4C39-8932-A138FAA76A4F} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
 		{E40B6CB2-0BF0-4C00-ABAF-C95C7754A73B} = {026F718D-37AA-406F-8C30-E37E2613E7E5}
+		{C424C74D-E525-44A2-BFC1-471481E4087E} = {36EBDCB0-09D8-4A7D-AF62-89D5C49B6B44}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}
