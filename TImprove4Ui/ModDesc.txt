@@ -18,6 +18,8 @@ Note: you can see the features in the screenshots.
 [img]https://i.imgur.com/00xkVcw.jpeg[/img]
 - Disable the pause icon on top of buildings: show an option on each pausable building so you can disable them. You can uncheck this option if you don't like the option clustering the UI.
 [img]https://i.imgur.com/oEeDwV2.jpeg[/img]
+- Collapsible management groups: The management panel (top-left button or pressing F1 to F5) now has collapsible groups (like Population, Workplaces, etc.). You can also enable auto-collapse in the mod settings.
+[img]https://images.steamusercontent.com/ugc/17147611627673040168/C668D6F9E37514509A6B3AAC842610421A36CC45/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
 
 [h1]Other features[/h1]
 - If you use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3480668755]More Naming[/url] to rename Zipline Station or Pylons, the UI now shows the custom name.
@@ -42,7 +44,9 @@ Credits:
 - OldGamer: "Exit to menu" button for New settlement dialog box
 - Acalc79: [spoiler]Dev mode's[/spoiler] hotkeys rebinding.
 - Bones: Disable pause icons on buildings.
+- Shimanim: Collapsible management groups.
 
+v7.10.2: Added auto-collapse management groups. Also fixed missing localization keys warnings in the log file.
 v7.10.1: Added an option to disable the pause icon on top of buildings. If you don't like the option clustering the UI, you can disable it in the mod settings.
 v7.10.0: [spoiler]Dev mode's[/spoiler] hotkeys are now visible in the Keybindings panel.
 v7.9.3: The description box is now centered if the material list is too long. [url=https://discord.com/channels/558398674389172225/1366490328785489960/1411567847280214089]Screenshot[/url].

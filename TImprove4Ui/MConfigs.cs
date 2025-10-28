@@ -2,6 +2,7 @@
 global using TImprove4Ui.Services;
 global using TImprove4Ui.UI;
 global using TImprove4Ui.Components;
+global using System.Reflection.Emit;
 
 namespace TImprove4Ui;
 

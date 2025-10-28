@@ -17,6 +17,7 @@ public class MSettings(
     public static bool AutoExpandCounter { get; private set; }
     public static string ToolDescPos { get; private set; } = ToolDescPositions[1].Value;
     public static bool NeverHideCounter { get; private set; }
+    public static bool AutoCollapseManagementGroupsValue { get; private set; }
 
     public override string ModId { get; } = nameof(TImprove4Ui);
     public override ModSettingsContext ChangeableOn { get; } = ModSettingsContext.All;
@@ -35,6 +36,7 @@ public class MSettings(
     public ModSetting<bool> DisableShadows { get; } = CreateBoolModSettings("LV.T4UI.DisableShadows");
     public ModSetting<bool> AddNegativeNeeds { get; } = CreateBoolModSettings("LV.T4UI.AddNegativeNeeds", true);
     public ModSetting<bool> ShowDisablePauseIcon { get; } = CreateBoolModSettings("LV.T4UI.ShowDisablePauseIcon", true);
+    public ModSetting<bool> AutoCollapseManagementGroups { get; } = CreateBoolModSettings("LV.T4UI.AutoCollapseManagementGroups");
 
     public readonly LimitedStringModSetting toolDescPos = new(
         1,
@@ -73,6 +75,7 @@ public class MSettings(
         ToolDescPos = toolDescPos.Value;
         AutoExpandCounter = autoExpandCounter.Value;
         NeverHideCounter = neverHideCounter.Value;
+        AutoCollapseManagementGroupsValue = AutoCollapseManagementGroups.Value;
     }
 
     static ModSetting<bool> CreateBoolModSettings(string loc, bool defaultValue = false) =>
