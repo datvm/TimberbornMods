@@ -1,6 +1,6 @@
 ﻿namespace ModdableTimberborn.BonusSystem;
 
-public class PersistentBonusTrackerComponent : BaseComponent, IPersistentEntity, IBonusTrackerComponent
+public class PersistentBonusTrackerComponent : BaseComponent, IPersistentEntity, IBonusTrackerComponent, IAwakableComponent, IStartableComponent
 {
     static readonly ComponentKey SaveKey = new(nameof(PersistentBonusTrackerComponent));
     static readonly ListKey<BonusTrackerItem> CurrentBonusesKey = new("CurrentBonuses");

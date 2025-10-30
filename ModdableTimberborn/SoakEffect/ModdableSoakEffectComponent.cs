@@ -3,7 +3,7 @@
 /// <summary>
 /// Component that tracks if a character is in water and raises events accordingly.
 /// </summary>
-public class ModdableSoakEffectComponent : TickableComponent
+public class ModdableSoakEffectComponent : TickableComponent, IAwakableComponent
 {
 
     /// <summary>
