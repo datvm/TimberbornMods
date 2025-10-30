@@ -15,7 +15,7 @@ public class WorkplaceTracker : IEntityTracker<WorkplaceTrackerComponent>
 
     public void Track(EntityComponent entity)
     {
-        var comp = entity.GetComponentFast<WorkplaceTrackerComponent>();
+        var comp = entity.GetComponent<WorkplaceTrackerComponent>();
         if (!comp) { return; }
 
         entities.Add(comp);
@@ -29,7 +29,7 @@ public class WorkplaceTracker : IEntityTracker<WorkplaceTrackerComponent>
 
     public void Untrack(EntityComponent entity)
     {
-        var comp = entity.GetComponentFast<WorkplaceTrackerComponent>();
+        var comp = entity.GetComponent<WorkplaceTrackerComponent>();
         if (!comp) { return; }
 
         entities.Remove(comp);

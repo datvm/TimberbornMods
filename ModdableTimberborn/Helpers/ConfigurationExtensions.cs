@@ -9,16 +9,20 @@ partial class CommonExtensions
     public static bool IsMapEditorContext(this ConfigurationContext context) => context.HasFlag(ConfigurationContext.MapEditor);
     public static bool IsGameplayContext(this ConfigurationContext context) => context.IsGameContext() || context.IsMapEditorContext();
 
-    public static Configurator BindPrefabModifier<T>(this Configurator configurator, bool alsoBindSelf = false)
-        where T : class, IPrefabModifier
-    {
-        return configurator.MultiBindSingleton<IPrefabModifier, T>(alsoBindSelf);
-    }
+    public static Configurator BindTemplateTailRunner<T>(this Configurator configurator, bool alsoBindSelf = false)
+        where T : class, ITemplateCollectionServiceTailRunner 
+        => configurator.MultiBindSingleton<ITemplateCollectionServiceTailRunner, T>(alsoBindSelf);
+
+    public static Configurator BindTemplateModifier<T>(this Configurator configurator, bool alsoBindSelf = false)
+        where T : class, ITemplateModifier 
+        => configurator.MultiBindSingleton<ITemplateModifier, T>(alsoBindSelf);
+
+    public static Configurator BindSpecTailRunner<T>(this Configurator configurator, bool alsoBindSelf = false)
+        where T : class, ISpecServiceTailRunner 
+        => configurator.MultiBindSingleton<ISpecServiceTailRunner, T>(alsoBindSelf);
 
     public static Configurator BindSpecModifier<T>(this Configurator configurator, bool alsoBindSelf = false)
-        where T : class, ISpecModifier
-    {
-        return configurator.MultiBindSingleton<ISpecModifier, T>(alsoBindSelf);
-    }
+        where T : class, ISpecModifier 
+        => configurator.MultiBindSingleton<ISpecModifier, T>(alsoBindSelf);
 
 }

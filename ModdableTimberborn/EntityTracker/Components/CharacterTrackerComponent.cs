@@ -18,7 +18,7 @@ public class CharacterTrackerComponent : BaseComponent
     {
         CharacterType = this.GetCharacterType();
         BonusTrackerComponent = this.GetBonusTracker();
-        Worker = GetComponentFast<Worker>();
+        Worker = GetComponent<Worker>();
     }
 
     public bool HasBonus(string id) => BonusTracker?.CurrentBonuses.ContainsKey(id) == true;

@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="Validate">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="Validate">
 
 	<Import Project=".\CommonProperties.target" />
 	<Import Project=".\CommonGlobalUsings.target" />
@@ -70,6 +70,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<!--<ProjectReference Include="$(GameSolutionFolder)ModAnalyzers\ModAnalyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />-->
+		<Analyzer Include="$(GameSolutionFolder)ModAnalyzers\out\netstandard2.0\ModAnalyzers.dll"/>
+
 		<Compile Include="$(GameSolutionFolder)GameAssemblyPublicizer\IgnoresAccessChecks.cs" Link="IgnoresAccessChecks.cs" />
 
 		<Reference Include="$(GameSolutionFolder)GameAssemblyPublicizer\out\common\**\*.dll">
@@ -77,9 +80,7 @@
 		</Reference>
 
 		<!-- These are not publicized -->
-		<Reference Include="$(AssemblyPath)\System.Collections.Immutable.dll">
-			<Private>false</Private>
-		</Reference>
+		<Reference Include="$(AssemblyPath)\System.Collections.Immutable.dll" Private="False" />
 		<Reference Include="$(AssemblyPath)\Newtonsoft.Json.dll">
 			<Private>false</Private>
 		</Reference>

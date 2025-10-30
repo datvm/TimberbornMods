@@ -13,7 +13,7 @@ public abstract class TogglableEnterableTickEffectComponent : TickableComponent,
 
     public virtual void Awake()
     {
-        data = new(GetComponentFast<Enterable>());
+        data = new(GetComponent<Enterable>());
         data.Toggled += e => Toggled?.Invoke(e);
     }
 

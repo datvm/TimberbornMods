@@ -1,4 +1,4 @@
-﻿namespace ModdableTimberborn.DependencyInjection.Specs;
+﻿namespace ModdableTimberborn.DependencyInjection;
 
 sealed class SpecServiceRunner(
 #pragma warning disable CS9113 // Just for DI
@@ -13,6 +13,9 @@ sealed class SpecServiceRunner(
 
     public void OnSpecLoaded(SpecService instance)
     {
+        if (tailRunners.Length == 0) { return; }
+
+        ModdableTimberbornUtils.LogVerbose(() => $"Running {tailRunners.Length} {nameof(ISpecServiceTailRunner)}s.");
         foreach (var r in tailRunners)
         {
             r.Run(instance);

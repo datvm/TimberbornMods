@@ -35,7 +35,7 @@ public class ModdableSoakEffectComponent : TickableComponent
 
     public void Awake()
     {
-        GetComponentsFast(waterResistors);
+        GetComponents(waterResistors);
     }
 
     public override void StartTickable()
@@ -64,7 +64,7 @@ public class ModdableSoakEffectComponent : TickableComponent
         IsInWater = false;
 
         var resistant = waterResistors.FastAny(q => q.IsWaterResistant);
-        var coord = NavigationCoordinateSystem.WorldToGridInt(TransformFast.position);
+        var coord = NavigationCoordinateSystem.WorldToGridInt(Transform.position);
 
         var column = waterMap.GetColumn(coord);
         if (column.WaterDepth <= 0) { return null; }

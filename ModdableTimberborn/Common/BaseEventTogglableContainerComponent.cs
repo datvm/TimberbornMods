@@ -16,7 +16,7 @@ public abstract class BaseEventTogglableContainerComponent<TTogglable, TContaine
 
     public virtual void Awake()
     {
-        data = CreateData(GetComponentFast<TContainer>());
+        data = CreateData(GetComponent<TContainer>());
         data.Toggled += e => Toggled?.Invoke(e);
     }
 

@@ -1,7 +1,4 @@
-﻿using Bindito.Core.Internal;
-using UnityEngine.InputSystem.Utilities;
-
-namespace ConfigurableTubeZipLine;
+﻿namespace ConfigurableTubeZipLine;
 
 [Context("Game")]
 [Context("MainMenu")]

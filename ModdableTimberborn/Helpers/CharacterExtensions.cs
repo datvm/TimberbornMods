@@ -7,17 +7,17 @@ partial class CommonExtensions
     public static bool IsWorker(this CharacterType c) => c == CharacterType.AdultBeaver || c == CharacterType.Bot;
     public static CharacterType GetCharacterType<T>(this T comp) where T : BaseComponent
     {
-        if (comp.GetComponentFast<BotSpec>())
+        if (comp.GetComponent<BotSpec>() is not null)
         {
             return CharacterType.Bot;
         }
 
-        if (comp.GetComponentFast<AdultSpec>())
+        if (comp.GetComponent<AdultSpec>() is not null)
         {
             return CharacterType.AdultBeaver;
         }
 
-        if (comp.GetComponentFast<ChildSpec>())
+        if (comp.GetComponent<ChildSpec>() is not null)
         {
             return CharacterType.ChildBeaver;
         }
@@ -26,20 +26,20 @@ partial class CommonExtensions
     }
 
     public static bool IsBuilder([NotNullWhen(true)] this Worker? worker)
-        => worker && worker.Workplace.IsBuilderWorkplace();
+        => worker && worker!.Workplace.IsBuilderWorkplace();
     public static bool IsBuilderWorkplace([NotNullWhen(true)] this Workplace? workplace)
-        => workplace && (workplace.GetComponentFast<DistrictCenterSpec>() || workplace.GetComponentFast<BuilderHubSpec>());
+        => workplace && (workplace!.HasComponent<DistrictCenterSpec>() || workplace.HasComponent<BuilderHubSpec>());
 
     public static BonusManager GetBonusManager<T>(this T component)
         where T : BaseComponent
-        => component.GetComponentFast<BonusManager>();
+        => component.GetComponent<BonusManager>();
 
     public static BonusTrackerComponent GetBonusTracker<T>(this T component)
         where T : BaseComponent
-        => component.GetComponentFast<BonusTrackerComponent>();
+        => component.GetComponent<BonusTrackerComponent>();
 
     public static PersistentBonusTrackerComponent GetPersistentBonusTracker<T>(this T component)
         where T : BaseComponent
-        => component.GetComponentFast<PersistentBonusTrackerComponent>();
+        => component.GetComponent<PersistentBonusTrackerComponent>();
 
 }

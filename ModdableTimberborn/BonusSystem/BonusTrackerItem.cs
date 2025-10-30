@@ -7,8 +7,8 @@ public readonly record struct BonusTrackerItem(string Id, IReadOnlyList<BonusSpe
         : this(id, [bonus]) { }
 
     public BonusTrackerItem(string id, string bonusId, float value)
-        : this(id, [new BonusSpec(bonusId, value)]) { }
+        : this(id, [CommonExtensions.CreateBonusSpec(bonusId, value)]) { }
     public BonusTrackerItem(string id, BonusType bonusType, float value)
-        : this(id, [new BonusSpec(bonusType.ToString(), value)]) { }
+        : this(id, [CommonExtensions.CreateBonusSpec(bonusType.ToString(), value)]) { }
 
 }

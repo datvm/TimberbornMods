@@ -1,7 +1,4 @@
-﻿using ModdableTimberborn.DependencyInjection.PrefabGroup;
-using ModdableTimberborn.DependencyInjection.Specs;
-
-namespace ModdableTimberborn.DependencyInjection
+﻿namespace ModdableTimberborn.DependencyInjection
 {
     public class ModdableDependencyInjectionConfig : IModdableTimberbornRegistryWithPatchConfig
     {
@@ -17,11 +14,11 @@ namespace ModdableTimberborn.DependencyInjection
             configurator
                 // Spec
                 .MultiBindAndBindSingleton<IBlueprintModifierProvider, SpecServiceRunner>()
-                .MultiBindSingleton<ISpecServiceTailRunner, SpecModifierService>()
+                .BindSpecTailRunner<SpecModifierService>()
 
                 // Prefab
-                .MultiBindAndBindSingleton<IPrefabGroupProvider, PrefabGroupServiceTailRunnerService>()
-                .MultiBindSingleton<IPrefabGroupServiceTailRunner, PrefabModifierTailRunner>()
+                .MultiBindAndBindSingleton<ITemplateCollectionIdProvider, TemplateCollectionTailRunnerService>()
+                .BindTemplateTailRunner<TemplateModifierTailRunner>()
             ;
         }
     }
