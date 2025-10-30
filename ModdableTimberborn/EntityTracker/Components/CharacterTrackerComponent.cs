@@ -1,6 +1,6 @@
 ﻿namespace ModdableTimberborn.EntityTracker;
 
-public class CharacterTrackerComponent : BaseComponent
+public class CharacterTrackerComponent : BaseComponent, IAwakableComponent
 {
     public Worker? Worker { get; private set; }
     public CharacterType CharacterType { get; private set; }

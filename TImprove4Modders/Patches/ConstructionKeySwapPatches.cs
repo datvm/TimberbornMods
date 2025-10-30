@@ -57,9 +57,6 @@ public static class ConstructionKeySwapPatches
                 skip = 2;
 
                 yield return CodeInstruction.Call(typeof(ConstructionKeySwapPatches), nameof(UnlockInstantlyModifierEnabled));
-                // Revert it
-                yield return new CodeInstruction(OpCodes.Ldc_I4_0);
-                yield return new CodeInstruction(OpCodes.Ceq);
             }
 
         }
