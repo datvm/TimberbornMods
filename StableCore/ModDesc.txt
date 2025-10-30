@@ -1,0 +1,12 @@
+﻿A re-engineered version of the Unstable Core, designed for controlled demolition or desperate measures. Once armed, it charges for 10 days before detonating, annihilating everything within a 5-tile radius.
+
+[i]'Still blows my mind how hoomans thought ‘unstable’ was a feature.' — Beaverton[/i]
+
+Unlock: 3000 Science
+Cost: 30 Metal Blocks, 45 Extracts
+Placement: Ground only
+
+[b]Warning: May destroy water sources. Handle with caution.[/b]
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
