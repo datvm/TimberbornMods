@@ -1,31 +1,84 @@
-﻿namespace TImprove4Modders.Patches;
+﻿using System.Reflection.Emit;
+
+namespace TImprove4Modders.Patches;
 
 [HarmonyPatch]
 public static class ConstructionKeySwapPatches
 {
 
-    [HarmonyPrefix, HarmonyPatch(typeof(BuildingPlacer), nameof(BuildingPlacer.ShouldBePlacedFinished))]
-    public static bool PatchSwapBuildingFinished(BuildingSpec buildingSpec, BuildingPlacer __instance, ref bool __result)
+    [HarmonyTranspiler, HarmonyPatch(typeof(BuildingPlacer), nameof(BuildingPlacer.ShouldBePlacedFinished))]
+    public static IEnumerable<CodeInstruction> PatchSwapBuildingFinished(IEnumerable<CodeInstruction> instructions)
     {
-        if (!DevModeService.IsDevModeOn
-            || !MSettings.SwapBuildFinishedModifier) { return true; }
+        var targetField = typeof(BuildingPlacer).Field(nameof(BuildingPlacer._inputService));
 
-        __result = !__instance._inputService.IsKeyHeld(BuildingPlacer.PlaceFinishedKey) || buildingSpec.PlaceFinished;
-        return false;
+        var found = false;
+        var skip = 0;
+        foreach (var ins in instructions)
+        {
+            if (skip > 0)
+            {
+                skip--;
+                continue;
+            }
+            yield return ins;
+
+            if (ins.opcode == OpCodes.Ldfld && ins.operand is FieldInfo f && f == targetField)
+            {
+                found = true;
+                skip = 2;
+
+                yield return CodeInstruction.Call(typeof(ConstructionKeySwapPatches), nameof(PlaceFinishedModifierEnabled));
+            }
+        }
+
+        if (!found)
+        {
+            throw new Exception($"Transpiler failed in {nameof(PatchSwapBuildingFinished)}: target field not found.");
+        }
     }
 
-    [HarmonyPrefix, HarmonyPatch(typeof(BlockObjectTool), nameof(BlockObjectTool.ActionCallback))]
-    public static void PatchSwapBuildingUnlock(BlockObjectTool __instance)
+    [HarmonyTranspiler, HarmonyPatch(typeof(BuildingToolLocker), nameof(BuildingToolLocker.TryToUnlock))]
+    public static IEnumerable<CodeInstruction> PatchSwapInstantUnlock(IEnumerable<CodeInstruction> instructions)
     {
-        if (!DevModeService.IsDevModeOn
-            || !MSettings.SwapBuildFinishedModifier
-            || __instance.Locker is not BuildingToolLocker locker
-            || __instance._inputService.IsKeyHeld(BuildingPlacer.PlaceFinishedKey)) { return; }
+        var targetField = typeof(BuildingToolLocker).Field(nameof(BuildingToolLocker._inputService));
+        var found = false;
+        var skip = 0;
+        foreach (var ins in instructions)
+        {
+            if (skip > 0)
+            {
+                skip--;
+                continue;
+            }
+            yield return ins;
+            if (ins.opcode == OpCodes.Ldfld && ins.operand is FieldInfo f && f == targetField)
+            {
+                found = true;
+                skip = 2;
 
-        locker.UnlockIgnoringScienceCost(
-            BuildingToolLocker.GetBuildingFromToolUnsafe(__instance),
-            TimberUiUtils.DoNothing);
-        __instance._toolUnlockingService.OnSuccessfulUnlock(__instance, TimberUiUtils.DoNothing);
+                yield return CodeInstruction.Call(typeof(ConstructionKeySwapPatches), nameof(UnlockInstantlyModifierEnabled));
+                // Revert it
+                yield return new CodeInstruction(OpCodes.Ldc_I4_0);
+                yield return new CodeInstruction(OpCodes.Ceq);
+            }
+
+        }
+
+        if (!found)
+        {
+            throw new Exception($"Transpiler failed in {nameof(PatchSwapInstantUnlock)}: target field not found.");
+        }
     }
+
+    static bool IsDevModifierEnabled(string key, InputService inputService)
+    {
+        if (!DevModeService.IsDevModeOn) { return false; }
+
+        var keyPress = inputService.IsKeyHeld(key);
+        return MSettings.SwapBuildFinishedModifier ? !keyPress : keyPress;
+    }
+
+    public static bool PlaceFinishedModifierEnabled(InputService inputService) => IsDevModifierEnabled(BuildingPlacer.PlaceFinishedKey, inputService);
+    public static bool UnlockInstantlyModifierEnabled(InputService inputService) => IsDevModifierEnabled(BuildingToolLocker.InstantUnlockKey, inputService);
 
 }

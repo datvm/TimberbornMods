@@ -1,9 +1,15 @@
 ﻿namespace TImprove4Modders.Services;
 
-public class DevModeService(DevModeManager dev, EventBus eb) : ILoadableSingleton, IUnloadableSingleton
+public class DevModeService(
+    DevModeManager dev,
+    EventBus eb,
+    InputService inputService
+) : ILoadableSingleton
 {
     public static bool IsDevModeOn = false;
     public static bool HasDevModeArgument = CommandLineArguments.CreateWithCommandLineArgs().Has("devMode");
+
+    readonly InputService inputService = inputService;
 
     public void Load()
     {
@@ -17,15 +23,12 @@ public class DevModeService(DevModeManager dev, EventBus eb) : ILoadableSingleto
         IsDevModeOn = dev.Enabled;
     }
 
-    public void Unload()
-    {
-        eb.Unregister(this);
-    }
-
     [OnEvent]
     public void OnDevModeChanged(DevModeToggledEvent e)
     {
         IsDevModeOn = e.Enabled;
     }
-    
+
+
+
 }

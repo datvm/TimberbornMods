@@ -1,0 +1,54 @@
+﻿Similar to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3420372304]TImprove[/url], this mod contains various QoL improvements for modders of Timberborn. This mod aims to improve your modding experience and [b]players do NOT need to install this mod[/b] to use your mod. By default, all the below options are enabled but you can disable them in the mod settings. See screenshots for better explanation for some features.
+
+[h1]Additional Dev modules:[/h1]
+
+This mod adds a few Development Controls I think would be useful. Feel free to suggest more!
+
+[h2]UI[/h2]
+- UI: Print current UI Uxml (to Log): Print the current game UI UXML (PanelStack._root) to the log. Useful for debugging or creating your own UI.
+- UI: Print current UI Uss (to Log): Print the current game UI USS (PanelStack._root) to the log. Useful for debugging or creating your own UI.
+- UI: Export All UI/Views: Export all UI/Views assets to the mod's folder (the folder will be opened after the export). Both UXML and USS files will be exported.
+
+[h2]Plants[/h2]
+- Plants: Set growth to 0%/25%/50%/75%/100%: Set the growth of all plants to 0%/25%/50%/75%/100%. Useful for testing plant growth stages.
+- Plants: Add 10% growth: Add 10% growth to all plants. Useful for testing plant growth stages.
+
+[h2]Science[/h2]
+- Science: Set to 0/100: Set the science to 0/100. Useful for testing researches.
+- Science: Add 100: Add 100 science. Useful for testing researches.
+
+[h2]Components:[/h2]
+- Components: Print all types: Print all components that the selecting object have (for e.g. "Timberborn.Navigation.Accessible")
+- Components: Print all with values: Print like above but for each component, also print out all its fields and properties values.
+
+[h1]General options:[/h1]
+- Swap Build Finished Modifier: When Dev Mode is enabled, auto finish building when placing a building, while holding Ctrl would place the building normally for construction (opposite of the default behavior).
+- Do not clear Dev Mode filter: Do not clear Dev Mode filter (the box at the bottom above the Development Controls button) when invoking one or adding/removing them from favourites.
+- Enable DevMode on load: Enable DevMode by default when loading the game (save you one Alt + Shift + Z). From v7.2.0, you can also launch with [b]-devMode[/b] switch.
+- No Exit Save ([b]not enabled by default[/b]): do not make an autosave when exiting the game (to Main Menu or desktop)
+- Enable Quick/Force Quit [Ctrl Shift Q][!]: Enable quick quit when pressing [Ctrl Shift Q]. This option use Process.Kill() so no save will be made.
+- Enable Quick Restart [Ctrl Shift R][!]: Enable quick restart when pressing [Ctrl Shift R]. This option use Process.Kill() so no save will be made.
+
+[h1]Better Mod Organizing:[/h1]
+When checking this option (enabled by default), you have the following improvements:
+
+- Mods are less likely to "fly" around with file-system changes.
+- Better Sorting (when clicking Reset Sort Order): This mod attemps to sort by name (ABC), then pull up all dependencies above them. This way most of your mods will stay ABC except the top ones are the most important depedencies. From v7.2.0, multiple mods with the same ID will also be moved up to be next to each other.
+- Better Move to Top button (Shift + clicking the arrow): the item will move to [b]below[/b] any dependency it needs.
+- When uploading mods, enabled mods appear first on the top and disabled mods are marked "[DISABLED]" (see screenshot).
+
+[h1]Steam Workshop:[/h1]
+- Pick upload thumbnail: Instead of using `thumbnail.png` or `thumbnail.jpg` in the mod folder (which sometimes makes the mod much bigger than it should be), the game will ask for a file when uploading. You can select a file from anywhere. [i]Note[/i]: Due to the game logic, it will ask the file for a few times (you can Shift + Right click on a file and pick Copy as Path and paste it into the box). Note that you don't need a thumbnail when updating one if you don't need to change it, just click Cancel in that case.
+- Always open external browser: Always open URLs (Mods, Terms etc) with external browser instead of Steam overlay browser.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v10.0.0: Should work with game v1.0.
+v7.6.0: 
+- Added a new Dev command: Complete all constructions.
+- "Swap Build Finished Modifier" now works for locked buildings as well so you don't need to hold Ctrl. Note: this feature only works for placing buildings, not when clicking "Unlock" button.
+v7.5.1: Added File picker support for all platforms. Restart feature should work better now with a 5s delay. Should work with June 1st update.
+v7.3.0: Added Component printing.
+v7.2.1: "Export All Views/UI" should not crash if it fails with an item anymore.
+v7.2.0: Added -devMode switch. Reordering improvement for multiple mods with the same IDs.

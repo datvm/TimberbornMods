@@ -36,7 +36,7 @@ public class PlantModule(EntityRegistry entities) : IDevModule
         {
             count++;
 
-            var growable = item.GetComponentFast<Growable>();
+            var growable = item.GetComponent<Growable>();
             if (growable is null) { continue; }
             growables++;
 
