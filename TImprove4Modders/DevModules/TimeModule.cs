@@ -3,14 +3,10 @@
 public class TimeModule(
     IDayNightCycle dayNightCycle,
     GameCycleService gameCycleService,
-    HazardousWeatherApproachingTimer hazardousWeatherApproachingTimer,
-    WeatherService weatherService
+    WeatherService weatherService,
+    ISpecService specService
 ) : IDevModule
 {
-    // See if ModdableWeather is available
-    readonly PropertyInfo? daysUntilWarningProp = hazardousWeatherApproachingTimer.GetType()
-        .GetProperty("DaysUntilWarning");
-
     public DevModuleDefinition GetDefinition()
     {
         return new DevModuleDefinition.Builder()
@@ -50,14 +46,10 @@ public class TimeModule(
 
     int GetDaysUntilBeforeWarning()
     {
-        if (daysUntilWarningProp is null)
-        {
-            return (int)hazardousWeatherApproachingTimer.DaysToHazardousWeather - HazardousWeatherApproachingTimer.ApproachingNotificationDays - 1;
-        }
-        else
-        {
-            return (int)daysUntilWarningProp.GetValue(hazardousWeatherApproachingTimer) - 1;
-        }
+        var hazardStart = weatherService.HazardousWeatherStartCycleDay;
+        var days = specService.GetSingleSpec<HazardousWeatherUISpec>();
+
+        return hazardStart - days.ApproachingNotificationDays - 1;
     }
 
 }

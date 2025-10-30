@@ -15,7 +15,7 @@ public class BuildingsModule(
     {
         foreach (var entity in entities.Entities)
         {
-            var construction = entity.GetComponentFast<ConstructionSite>();
+            var construction = entity.GetComponent<ConstructionSite>();
             if (construction)
             {
                 construction.FinishNow();
