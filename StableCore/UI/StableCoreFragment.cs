@@ -20,7 +20,7 @@ public class StableCoreFragment(
         base.ShowFragment(entity);
         if (component is null) { return; }
 
-        if (component.Armed)
+        if (component.Armed || !component.Finished)
         {
             ClearFragment();
             return;
