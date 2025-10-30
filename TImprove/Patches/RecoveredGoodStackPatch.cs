@@ -8,7 +8,7 @@ public static class RecoveredGoodStackPatch
     {
         if (MSettings.Instance?.PrioritizeRubbles != true) { return; }
 
-        var prior = __instance.GetComponentFast<BuilderPrioritizable>();
+        var prior = __instance.GetComponent<BuilderPrioritizable>();
         prior?.SetPriority(Timberborn.PrioritySystem.Priority.High);
     }
 

@@ -10,7 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Condition="$(IsU7)" Include="System.Collections.Immutable" Version="9.0.0" />
+		<PackageReference Include="System.Collections.Immutable" Version="9.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -18,7 +18,7 @@
 		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
-		<ProjectReference Include="..\ConveyorBelt\ConveyorBelt.csproj" />
+		<!--<ProjectReference Include="..\ConveyorBelt\ConveyorBelt.csproj" />-->
 
 	</ItemGroup>
 

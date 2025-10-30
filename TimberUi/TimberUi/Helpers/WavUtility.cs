@@ -68,7 +68,7 @@ public static class WavUtility
 
     #region wav file bytes to Unity AudioClip conversion methods
 
-    private static float[] Convert8BitByteArrayToAudioClipData(byte[] source, int headerOffset, int dataSize)
+    static float[] Convert8BitByteArrayToAudioClipData(byte[] source, int headerOffset, int dataSize)
     {
         int wavSize = BitConverter.ToInt32(source, headerOffset);
         headerOffset += sizeof(int);
@@ -88,7 +88,7 @@ public static class WavUtility
         return data;
     }
 
-    private static float[] Convert16BitByteArrayToAudioClipData(byte[] source, int headerOffset, int dataSize)
+    static float[] Convert16BitByteArrayToAudioClipData(byte[] source, int headerOffset, int dataSize)
     {
         int wavSize = BitConverter.ToInt32(source, headerOffset);
         headerOffset += sizeof(int);
@@ -115,7 +115,7 @@ public static class WavUtility
         return data;
     }
 
-    private static float[] Convert24BitByteArrayToAudioClipData(byte[] source, int headerOffset, int dataSize)
+    static float[] Convert24BitByteArrayToAudioClipData(byte[] source, int headerOffset, int dataSize)
     {
         int wavSize = BitConverter.ToInt32(source, headerOffset);
         headerOffset += sizeof(int);
@@ -145,7 +145,7 @@ public static class WavUtility
         return data;
     }
 
-    private static float[] Convert32BitByteArrayToAudioClipData(byte[] source, int headerOffset, int dataSize)
+    static float[] Convert32BitByteArrayToAudioClipData(byte[] source, int headerOffset, int dataSize)
     {
         int wavSize = BitConverter.ToInt32(source, headerOffset);
         headerOffset += sizeof(int);
@@ -227,7 +227,7 @@ public static class WavUtility
 
     #region write .wav file functions
 
-    private static int WriteFileHeader(ref MemoryStream stream, int fileSize)
+    static int WriteFileHeader(ref MemoryStream stream, int fileSize)
     {
         int count = 0;
         int total = 12;
@@ -249,7 +249,7 @@ public static class WavUtility
         return count;
     }
 
-    private static int WriteFileFormat(ref MemoryStream stream, int channels, int sampleRate, UInt16 bitDepth)
+    static int WriteFileFormat(ref MemoryStream stream, int channels, int sampleRate, UInt16 bitDepth)
     {
         int count = 0;
         int total = 24;
@@ -282,7 +282,7 @@ public static class WavUtility
         return count;
     }
 
-    private static int WriteFileData(ref MemoryStream stream, AudioClip audioClip, UInt16 bitDepth)
+    static int WriteFileData(ref MemoryStream stream, AudioClip audioClip, UInt16 bitDepth)
     {
         int count = 0;
         int total = 8;
@@ -311,7 +311,7 @@ public static class WavUtility
         return count;
     }
 
-    private static byte[] ConvertAudioClipDataToInt16ByteArray(float[] data)
+    static byte[] ConvertAudioClipDataToInt16ByteArray(float[] data)
     {
         MemoryStream dataStream = new MemoryStream();
 
@@ -335,7 +335,7 @@ public static class WavUtility
         return bytes;
     }
 
-    private static int WriteBytesToMemoryStream(ref MemoryStream stream, byte[] bytes, string tag = "")
+    static int WriteBytesToMemoryStream(ref MemoryStream stream, byte[] bytes, string tag = "")
     {
         int count = bytes.Length;
         stream.Write(bytes, 0, count);
@@ -357,12 +357,12 @@ public static class WavUtility
         return bitDepth;
     }
 
-    private static int BytesPerSample(UInt16 bitDepth)
+    static int BytesPerSample(UInt16 bitDepth)
     {
         return bitDepth / 8;
     }
 
-    private static int BlockSize(UInt16 bitDepth)
+    static int BlockSize(UInt16 bitDepth)
     {
         switch (bitDepth)
         {
@@ -377,7 +377,7 @@ public static class WavUtility
         }
     }
 
-    private static string FormatCode(UInt16 code)
+    static string FormatCode(UInt16 code)
     {
         switch (code)
         {

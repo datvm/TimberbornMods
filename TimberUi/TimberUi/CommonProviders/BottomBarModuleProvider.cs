@@ -1,6 +1,6 @@
 ﻿namespace TimberUi.CommonProviders;
 
-public class BottomBarModuleProvider<T>(T btn) : IProvider<BottomBarModule> where T : IBottomBarElementProvider
+public class BottomBarModuleProvider<T>(T btn) : IProvider<BottomBarModule> where T : IBottomBarElementsProvider
 {
     public BottomBarModule Get()
     {

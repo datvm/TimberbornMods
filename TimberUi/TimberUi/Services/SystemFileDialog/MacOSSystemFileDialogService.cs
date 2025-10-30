@@ -20,7 +20,7 @@ public class MacOSSystemFileDialogService : ISystemFileDialogService
 
     // --- Internal helpers ---
 
-    private static string BuildOpenScript(string? filter)
+    static string BuildOpenScript(string? filter)
     {
         string filterPart = BuildFilterScriptPart(filter);
         return
@@ -33,7 +33,7 @@ public class MacOSSystemFileDialogService : ISystemFileDialogService
             "end try";
     }
 
-    private static string BuildSaveScript(string? filter)
+    static string BuildSaveScript(string? filter)
     {
         string filterPart = BuildFilterScriptPart(filter);
         // Note: Save dialog can use suggest file type for new file, but can't *enforce* it for new files
@@ -48,7 +48,7 @@ public class MacOSSystemFileDialogService : ISystemFileDialogService
     }
 
     // Builds AppleScript file type list from ".jpg;.png" => {"jpg","png"}; null => {}
-    private static string BuildFilterScriptPart(string? filter)
+    static string BuildFilterScriptPart(string? filter)
     {
         if (string.IsNullOrWhiteSpace(filter))
             return "{}";
@@ -59,7 +59,7 @@ public class MacOSSystemFileDialogService : ISystemFileDialogService
         return "{" + string.Join(",", types) + "}";
     }
 
-    private static string? RunAppleScript(string script)
+    static string? RunAppleScript(string script)
     {
         var psi = new ProcessStartInfo
         {
@@ -91,7 +91,7 @@ public class MacOSSystemFileDialogService : ISystemFileDialogService
     }
 
     // Safely wrap the AppleScript in quotes and escape
-    private static string EscapeArg(string arg)
+    static string EscapeArg(string arg)
     {
         // For osascript, best to wrap in single quotes and escape single quotes inside
         return "'" + arg.Replace("'", "'\\''") + "'";

@@ -1,20 +1,19 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
 		<ModPath>D:\Software\SteamLibrary\steamapps\workshop\content\1062090\</ModPath>
 
-		<TimberbornVersion>version-0.7</TimberbornVersion>
-		<IsU6>false</IsU6>
+		<TimberbornVersion>version-1.0</TimberbornVersion>
 		<IsU7>false</IsU7>
+		<IsV1>false</IsV1>
 
-		<IsU6 Condition="$(TimberbornVersion)=='version-0.6'">true</IsU6>
 		<IsU7 Condition="$(TimberbornVersion)=='version-0.7'">true</IsU7>
+		<IsV1 Condition="$(TimberbornVersion)=='version-1.0'">true</IsV1>
 
-		<AssemblyPath Condition="$(IsU6)">D:\Personal\Mods\Timberborn\U6Data\AuxiliaryFiles\GameAssemblies\</AssemblyPath>
-		<AssemblyPath Condition="$(IsU7)">D:\Software\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed</AssemblyPath>
+		<AssemblyPath>D:\Software\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed</AssemblyPath>
 
-		<DefineConstants Condition="$(IsU6)">$(DefineConstants);TIMBER6</DefineConstants>
 		<DefineConstants Condition="$(IsU7)">$(DefineConstants);TIMBER7</DefineConstants>
+		<DefineConstants Condition="$(IsV1)">$(DefineConstants);TIMBERV1</DefineConstants>
 
 		<GameSolutionFolder Condition="'$(GameSolutionFolder)'==''">..\</GameSolutionFolder>
 		<GameModsFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\</GameModsFolder>

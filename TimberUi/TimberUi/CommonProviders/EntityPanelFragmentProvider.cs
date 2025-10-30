@@ -36,13 +36,13 @@ public class EntityPanelFragmentProvider(IEnumerable<EntityPanelRegistration> fr
                     builder.AddFooterFragment(f.Fragment);
                     break;
                 case EntityPanelFragmentPosition.LeftHeader:
-                    builder.AddLeftHeaderFragment(f.Fragment);
+                    builder.AddLeftHeaderFragment(f.Fragment, f.Order);
                     break;
                 case EntityPanelFragmentPosition.Middle:
                     builder.AddMiddleFragment(f.Fragment);
                     break;
-                case EntityPanelFragmentPosition.RightHeader:
-                    builder.AddRightHeaderFragment(f.Fragment);
+                case EntityPanelFragmentPosition.MiddleHeader:
+                    builder.AddMiddleHeaderFragment(f.Fragment);
                     break;
                 case EntityPanelFragmentPosition.Side:
                     builder.AddSideFragment(f.Fragment);
@@ -56,7 +56,7 @@ public class EntityPanelFragmentProvider(IEnumerable<EntityPanelRegistration> fr
     }
 }
 
-public readonly record struct EntityPanelRegistration(IEntityPanelFragment Fragment, EntityPanelFragmentPosition Position);
+public readonly record struct EntityPanelRegistration(IEntityPanelFragment Fragment, EntityPanelFragmentPosition Position, int Order = 0);
 
 public enum EntityPanelFragmentPosition
 {
@@ -66,6 +66,8 @@ public enum EntityPanelFragmentPosition
     Footer,
     LeftHeader,
     Middle,
+    [Obsolete]
     RightHeader,
     Side,
+    MiddleHeader,
 }

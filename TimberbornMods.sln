@@ -14,12 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Targets", "_Targets", "{F8
 		CommonHarmony.target = CommonHarmony.target
 		CommonMM.target = CommonMM.target
 		CommonModBuilder.target = CommonModBuilder.target
-		CommonModdableBindito.target = CommonModdableBindito.target
 		CommonModdableTimberborn.target = CommonModdableTimberborn.target
 		CommonModdableWeather.target = CommonModdableWeather.target
 		CommonProperties.target = CommonProperties.target
 		CommonScientificProjects.target = CommonScientificProjects.target
-		CommonTimberApi.target = CommonTimberApi.target
 		CommonTimberUI.target = CommonTimberUI.target
 		CommonUnlockableRecipe.target = CommonUnlockableRecipe.target
 	EndProjectSection

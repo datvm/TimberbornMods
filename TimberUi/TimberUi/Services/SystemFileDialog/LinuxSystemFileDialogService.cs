@@ -20,7 +20,7 @@ public class LinuxSystemFileDialogService : ISystemFileDialogService
 
     // --- Internal methods ---
 
-    private string? TryZenityOpenDialog(string? filter)
+    string? TryZenityOpenDialog(string? filter)
     {
         string zenityPath = "/usr/bin/zenity";
         if (!File.Exists(zenityPath)) return null;
@@ -32,7 +32,7 @@ public class LinuxSystemFileDialogService : ISystemFileDialogService
         return RunProcess(zenityPath, args);
     }
 
-    private string? TryZenitySaveDialog(string? filter)
+    string? TryZenitySaveDialog(string? filter)
     {
         string zenityPath = "/usr/bin/zenity";
         if (!File.Exists(zenityPath)) return null;
@@ -44,7 +44,7 @@ public class LinuxSystemFileDialogService : ISystemFileDialogService
         return RunProcess(zenityPath, args);
     }
 
-    private string? TryKDialogOpenDialog(string? filter)
+    string? TryKDialogOpenDialog(string? filter)
     {
         string kdialogPath = "/usr/bin/kdialog";
         if (!File.Exists(kdialogPath)) return null;
@@ -56,7 +56,7 @@ public class LinuxSystemFileDialogService : ISystemFileDialogService
         return RunProcess(kdialogPath, args);
     }
 
-    private string? TryKDialogSaveDialog(string? filter)
+    string? TryKDialogSaveDialog(string? filter)
     {
         string kdialogPath = "/usr/bin/kdialog";
         if (!File.Exists(kdialogPath)) return null;
@@ -70,7 +70,7 @@ public class LinuxSystemFileDialogService : ISystemFileDialogService
 
     // --- Helpers ---
 
-    private static string? RunProcess(string fileName, string args)
+    static string? RunProcess(string fileName, string args)
     {
         var psi = new ProcessStartInfo
         {
@@ -97,7 +97,7 @@ public class LinuxSystemFileDialogService : ISystemFileDialogService
         return null;
     }
 
-    private static string BuildZenityFileFilter(string filter)
+    static string BuildZenityFileFilter(string filter)
     {
         // zenity uses: --file-filter="Name | *.ext *.ext2"
         // We'll use "Supported files" as the label.
@@ -108,7 +108,7 @@ public class LinuxSystemFileDialogService : ISystemFileDialogService
         return $"--file-filter=\"Supported files | {string.Join(" ", exts)}\"";
     }
 
-    private static string BuildKDialogFileFilter(string filter)
+    static string BuildKDialogFileFilter(string filter)
     {
         // kdialog uses: '*.ext *.ext2|Description'
         var exts = filter.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)

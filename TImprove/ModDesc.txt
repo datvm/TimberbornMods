@@ -1,4 +1,4 @@
-TImprove enhances your Timberborn experience by providing various quality-of-life improvements. These tweaks aim to provide a more seamless and customizable gameplay experience. Below are the features, you can see the screenshots for demonstration (apparently Steam Workshop is limiting my screenshots, you can check the full version at https://imgur.com/a/aE3f2d9 ). [b]By default, only "Show game time" and "Enable 30x speed" are enabled, you need to check the options in the Mod Settings to enable them[/b], including those with shortcut (for example, the Quick Quit [Ctrl + Shift + Q] shortcut won't work until you check the option).
+﻿TImprove enhances your Timberborn experience by providing various quality-of-life improvements. These tweaks aim to provide a more seamless and customizable gameplay experience. Below are the features, you can see the screenshots for demonstration (apparently Steam Workshop is limiting my screenshots, you can check the full version at https://imgur.com/a/aE3f2d9 ). [b]By default, only "Show game time" and "Enable 30x speed" are enabled, you need to check the options in the Mod Settings to enable them[/b], including those with shortcut (for example, the Quick Quit [Ctrl + Shift + Q] shortcut won't work until you check the option).
 
 You can change the settings anytime: from the main menu or in-game menu, click Mods then click the gear icon next to TImprove.
 
@@ -51,6 +51,7 @@ v1.0.0:
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.0.0: Works with game v1.0.
 v7.6.0: Added "On Shift end" speed option. Changed the in-game mod name to just "TImprove".
 v7.5.0: Added Lock free camera angle and Use 24-hour format options.
 v7.4.0: Refined the "Clear dead stumps" option and expanded "Pause on Bad weather" to "On new day" options.

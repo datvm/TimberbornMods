@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
 		<TimberUiPath>$(GameModsFolder)TimberUi\$(TimberbornVersion)\**\*.dll</TimberUiPath>
@@ -10,9 +10,7 @@
 		<Using Include="TimberUi.CommonProviders" />
 		<Using Include="TimberUi.Services" />
 
-		<Reference Condition="$(IsU7)" Include="$(TimberUiPath)">
-			<Private>False</Private>
-		</Reference>		
+		<Reference Include="$(TimberUiPath)" Private="False" />
 	</ItemGroup>
 
 </Project>

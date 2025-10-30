@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
 		<ModdableWeatherPath>$(GameModsFolder)ModdableWeather\$(TimberbornVersion)\**\*.dll</ModdableWeatherPath>
@@ -14,9 +14,7 @@
 		<Using Include="ModdableWeather.Helpers" />
 		<Using Include="ModdableWeather.Defaults" />
 
-		<Reference Condition="$(IsU7)" Include="$(ModdableWeatherPath)">
-			<Private>False</Private>
-		</Reference>
+		<Reference Include="$(ModdableWeatherPath)" Private="False" />
 	</ItemGroup>
 
 </Project>

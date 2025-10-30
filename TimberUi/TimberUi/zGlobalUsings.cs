@@ -1,7 +1,11 @@
 ﻿global using System.Globalization;
 global using System.Xml;
 global using System.Xml.Linq;
+global using TimberUi;
+global using TimberUi.CommonProviders;
+global using TimberUi.CommonUi;
 global using TimberUi.Helpers;
+global using TimberUi.Services;
 global using TimberUi.Services.Dialogs;
 global using TimberUi.Services.EntityPanelOrder;
 global using TimberUi.Services.SystemFileDialog;
