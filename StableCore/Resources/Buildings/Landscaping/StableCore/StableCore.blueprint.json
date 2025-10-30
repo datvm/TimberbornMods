@@ -1,0 +1,230 @@
+﻿{
+    "TemplateSpec": {
+        "TemplateName": "StableCore",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BuildingSpec": {
+        "SelectionSoundName": "Dynamite",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            {
+                "Id": "MetalBlock",
+                "Amount": 30
+            },
+            {
+                "Id": "Extract",
+                "Amount": 45
+            }
+        ],
+        "ScienceCost": 3000,
+        "PlaceFinished": false,
+        "FinishableWithBeaversOnSite": true,
+        "DrawRangeBoundsOnIt": true
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "#Underground",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 1
+    },
+    "BlockObjectSpec": {
+        "BlocksSpec": {
+            "Size": {
+                "X": 2,
+                "Y": 2,
+                "Z": 1
+            },
+            "BlockSpecs": [
+                {
+                    "MatterBelow": "Ground",
+                    "Occupations": "-1",
+                    "Stackable": "None",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                },
+                {
+                    "MatterBelow": "Ground",
+                    "Occupations": "-1",
+                    "Stackable": "None",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                },
+                {
+                    "MatterBelow": "Ground",
+                    "Occupations": "-1",
+                    "Stackable": "None",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                },
+                {
+                    "MatterBelow": "Ground",
+                    "Occupations": "-1",
+                    "Stackable": "None",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                }
+            ]
+        },
+        "Entrance": {
+            "HasEntrance": false,
+            "Coordinates": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": true
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "Landscaping",
+        "ToolOrder": 85,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": false
+    },
+    "StartableMarkerPositionUpdaterSpec": {},
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.StC.StableCoreName",
+        "DescriptionLocKey": "LV.StC.StableCoreDesc",
+        "FlavorDescriptionLocKey": "LV.StC.StableCoreFlavor",
+        "Icon": "Resources/Buildings/Landscaping/StableCore/StableCoreIcon"
+    },
+    "TimedComponentActivatorSpec": {
+        "IsOptionallyActivable": true,
+        "CyclesUntilCountdownActivation": 0,
+        "DaysUntilActivation": 10,
+        "ProgressBarActiveLabelLocKey": "TimedComponentActivator.DaysUntilExplosionProgress",
+        "ProgressBarNotActiveLabelLocKey": "TimedComponentActivator.CountdownNotActive",
+        "IsHazardousActivator": true
+    },
+    "ActivationWarningStatusSpec": {
+        "StatusSpriteName": "UnstableCoreCountdown",
+        "StatusLocKey": "LV.StC.Armed"
+    },
+    "BasicSelectionSoundSpec": {
+        "SoundName": "Default",
+        "AlternativeSoundName": ""
+    },
+    "UnstableCoreSpec": {
+        "MinExplosionRadius": 0,
+        "MaxExplosionRadius": 5,
+        "DefaultExplosionRadius": 5,
+        "InnerRadius": 1.0
+    },
+    "StablizedCoreSpec": {},
+    "UnstableCoreEffectsSpawnerSpec": {
+        "ExplosionPrefabPath": "MapEditor/Objects/UnstableCore/UnstableCoreExplosion"
+    },
+    "UnstableCoreLightingSpec": {
+        "MinInterval": 0.5,
+        "MaxInterval": 1.5,
+        "LightStrength": 5.0,
+        "AttachmentId": "Light"
+    },
+    "TemplateAttachmentsSpec": {
+        "Attachments": [
+            {
+                "AttachmentId": "Light",
+                "Prefab": "MapEditor/Objects/UnstableCore/UnstableCoreLight",
+                "Parent": "#Finished",
+                "Position": {
+                    "X": 0.7,
+                    "Y": 0.7,
+                    "Z": 1.3
+                },
+                "Rotation": {
+                    "X": -30.0,
+                    "Y": -45.0,
+                    "Z": 0.0
+                },
+                "Scale": {
+                    "X": 1.0,
+                    "Y": 1.0,
+                    "Z": 1.0
+                },
+                "CreateInstantly": true
+            }
+        ]
+    },
+    "BlockObjectNavMeshAdderSpec": {},
+    "Children": {
+        "#Finished": {
+            "TimbermeshSpec": {
+                "Model": "MapEditor/Objects/UnstableCore/UnstableCore.Model"
+            },
+            "CollidersSpec": {
+                "BoxColliders": [],
+                "SphereColliders": [
+                    {
+                        "Center": {
+                            "X": 1.00291932,
+                            "Y": 0.291050851,
+                            "Z": 0.982491136
+                        },
+                        "Radius": 0.65
+                    }
+                ],
+                "CapsuleColliders": []
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase2x2#nested": {
+                    "BlueprintPath": "ConstructionBases/ConstructionBase2x2/ConstructionBase2x2.blueprint"
+                },
+                "ConstructionStage0": {
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 1.0,
+                                    "Y": 0.05,
+                                    "Z": 1.0
+                                },
+                                "Size": {
+                                    "X": 2.0,
+                                    "Y": 0.1,
+                                    "Z": 2.0
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": -0.034205988,
+                                    "Z": 2.45643187
+                                },
+                                "Size": {
+                                    "X": 0.854454756,
+                                    "Y": 0.129036516,
+                                    "Z": 0.895467758
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        },
+        "#Underground": {
+            "TimbermeshSpec": {
+                "Model": "MapEditor/Objects/UnstableCore/UnstableCore.Underground"
+            }
+        }
+    }
+}

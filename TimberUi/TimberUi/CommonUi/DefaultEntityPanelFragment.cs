@@ -24,11 +24,8 @@ public abstract class BaseEntityPanelFragment<T> : IEntityPanelFragment
     public virtual void ShowFragment(BaseComponent entity)
     {
         component = entity.GetComponent<T>();
-        if (!component)
-        {
-            component = null;
-            return;
-        }
+        if (component is null) { return; }
+
         panel.Visible = true;
     }
 
