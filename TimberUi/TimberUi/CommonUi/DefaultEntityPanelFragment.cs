@@ -23,7 +23,7 @@ public abstract class BaseEntityPanelFragment<T> : IEntityPanelFragment
 
     public virtual void ShowFragment(BaseComponent entity)
     {
-        component = entity.GetComponentFast<T>();
+        component = entity.GetComponent<T>();
         if (!component)
         {
             component = null;

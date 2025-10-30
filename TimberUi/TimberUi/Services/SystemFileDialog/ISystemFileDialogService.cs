@@ -6,7 +6,7 @@ public interface ISystemFileDialogService
     string? ShowOpenFileDialog(string? filter = default);
     string? ShowSaveFileDialog(string? filter = default);
 
-    public static Configurator TryBinding(Configurator configurator)
+    static Configurator TryBinding(Configurator configurator)
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {

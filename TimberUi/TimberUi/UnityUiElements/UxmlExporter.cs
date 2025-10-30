@@ -6,7 +6,7 @@
 
 public class UxmlExporter
 {
-    private const string UIElementsNamespace = "UnityEngine.UIElements";
+    const string UIElementsNamespace = "UnityEngine.UIElements";
 
     [Flags]
     public enum ExportOptions
@@ -60,7 +60,7 @@ public class UxmlExporter
         return sb.ToString();
     }
 
-    private static void Recurse(XElement parent, Dictionary<XNamespace, string> nsToPrefix, HashSet<string> usings, VisualElement ve, ExportOptions options)
+    static void Recurse(XElement parent, Dictionary<XNamespace, string> nsToPrefix, HashSet<string> usings, VisualElement ve, ExportOptions options)
     {
         //todo: handle namespace
         XElement elt;

@@ -33,10 +33,10 @@ public class WindowsFileDialogs
     public const string DefaultFilter = "All Files\0*.*\0\0";
 
     [DllImport("comdlg32.dll", CharSet = CharSet.Auto)]
-    private static extern bool GetOpenFileName([In, Out] OpenFileName ofn);
+static extern bool GetOpenFileName([In, Out] OpenFileName ofn);
 
     [DllImport("comdlg32.dll", CharSet = CharSet.Auto)]
-    private static extern bool GetSaveFileName([In, Out] OpenFileName ofn);
+static extern bool GetSaveFileName([In, Out] OpenFileName ofn);
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
     public class OpenFileName

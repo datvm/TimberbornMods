@@ -14,7 +14,7 @@ public class NineSliceFloatField : FloatField
         }
     }
 
-    private readonly NineSliceBackground _nineSliceBackground = new NineSliceBackground();
+    readonly NineSliceBackground _nineSliceBackground = new NineSliceBackground();
 
 
     public NineSliceFloatField()
@@ -25,13 +25,13 @@ public class NineSliceFloatField : FloatField
         RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
     }
 
-    private new void OnCustomStyleResolved(CustomStyleResolvedEvent e)
+    new void OnCustomStyleResolved(CustomStyleResolvedEvent e)
     {
         _nineSliceBackground.GetDataFromStyle(base.customStyle);
         MarkDirtyRepaint();
     }
 
-    private void OnGenerateVisualContent(MeshGenerationContext mgc)
+    void OnGenerateVisualContent(MeshGenerationContext mgc)
     {
         _nineSliceBackground.GenerateVisualContent(mgc, base.paddingRect);
     }
