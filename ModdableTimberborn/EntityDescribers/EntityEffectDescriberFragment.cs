@@ -39,13 +39,13 @@ public class EntityEffectDescriberFragment(
     {
         if (entity)
         {
-            entity.GetComponentsFast(describers);
+            entity.GetComponents(describers);
             describers.Sort((a, b) => a.Order.CompareTo(b.Order));
 
-            worker = entity.GetComponentFast<Worker>();
+            worker = entity.GetComponent<Worker>();
             if (worker && worker.Workplace)
             {
-                worker.Workplace.GetComponentsFast(workplaceDescribers);
+                worker.Workplace.GetComponents(workplaceDescribers);
                 workplaceDescribers.Sort((a, b) => a.Order.CompareTo(b.Order));
             }
             else
@@ -85,10 +85,10 @@ public class EntityEffectDescriberFragment(
                 switch (describer)
                 {
                     case IWorkplaceWorkerEffectDescriber d:
-                        AddDescription(d.DescribeWorkerEffect(worker, t, dayNightCycle));
+                        AddDescription(d.DescribeWorkerEffect(worker!, t, dayNightCycle));
                         break;
                     case IWorkplaceEntityMultiEffectsDescriber md:
-                        foreach (var desc in md.DescribeAllWorkerEffects(worker, t, dayNightCycle))
+                        foreach (var desc in md.DescribeAllWorkerEffects(worker!, t, dayNightCycle))
                         {
                             AddDescription(desc);
                         }

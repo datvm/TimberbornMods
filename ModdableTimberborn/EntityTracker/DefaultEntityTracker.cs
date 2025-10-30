@@ -11,7 +11,7 @@ public sealed class DefaultEntityTracker<T> : IEntityTracker<T>
 
     public void Track(EntityComponent entity)
     {
-        var comp = entity.GetComponentFast<T>();
+        var comp = entity.GetComponent<T>();
         if (!comp) { return; }
 
         entities.Add(comp);
@@ -20,7 +20,7 @@ public sealed class DefaultEntityTracker<T> : IEntityTracker<T>
 
     public void Untrack(EntityComponent entity)
     {
-        var comp = entity.GetComponentFast<T>();
+        var comp = entity.GetComponent<T>();
         if (!comp) { return; }
 
         entities.Remove(comp);

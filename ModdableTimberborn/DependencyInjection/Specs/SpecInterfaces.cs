@@ -22,10 +22,10 @@ public interface ISpecServiceTailRunner
 /// </summary>
 public interface ISpecModifier
 {
-    int Order { get; }
+    int Order => 0;
 
     Type Type { get; }
-    IEnumerable<Blueprint> Modify(IEnumerable<Blueprint> blueprints);
+    IEnumerable<EditableBlueprint> Modify(IEnumerable<EditableBlueprint> blueprints);
 }
 
 /// <summary>
@@ -33,28 +33,26 @@ public interface ISpecModifier
 /// </summary>
 public abstract class BaseBlueprintModifier<T> : ISpecModifier where T : ComponentSpec
 {
-    public virtual int Order => 0;
     public Type Type { get; } = typeof(T);
-    public abstract IEnumerable<Blueprint> Modify(IEnumerable<Blueprint> blueprints);
+    public abstract IEnumerable<EditableBlueprint> Modify(IEnumerable<EditableBlueprint> blueprints);
 }
 
 /// <summary>
-/// <inheritdoc />
+/// Modify the blueprints of a type, working with named specs
 /// </summary>
 public abstract class BaseSpecModifier<T> : BaseBlueprintModifier<T> where T : ComponentSpec
 {
 
-    public override IEnumerable<Blueprint> Modify(IEnumerable<Blueprint> blueprints)
+    public override IEnumerable<EditableBlueprint> Modify(IEnumerable<EditableBlueprint> blueprints)
     {
-        var specs = blueprints.Select(q => q.GetSpec<T>());
-        var modifiedSpecs = Modify(specs);
-
-        foreach (var spec in modifiedSpecs)
+        var modified = Modify(blueprints.Select(q => new NamedSpec<T>(q.Name, q.GetSpec<T>())));
+        foreach (var blueprint in modified)
         {
-            yield return spec.ToBlueprint();
+            yield return new(blueprint.Name, blueprint.Spec);
         }
     }
 
-    protected abstract IEnumerable<T> Modify(IEnumerable<T> specs);
+    protected abstract IEnumerable<NamedSpec<T>> Modify(IEnumerable<NamedSpec<T>> specs);
 
 }
+public readonly record struct NamedSpec<T>(string Name, T Spec) where T : ComponentSpec;

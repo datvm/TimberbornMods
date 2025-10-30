@@ -6,7 +6,7 @@ public static class ModifierCollection
     public static IEnumerable<TModifier> GetModifiersFromComponents<TModifier>(BaseComponent comp)
     {
         List<TModifier> modifiers = [];
-        comp.GetComponentsFast(modifiers);
+        comp.GetComponents(modifiers);
         return modifiers;
     }
 

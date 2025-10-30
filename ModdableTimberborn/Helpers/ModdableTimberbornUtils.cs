@@ -10,29 +10,45 @@ public static class ModdableTimberbornUtils
         TimberUiUtils.LogVerbose(() => $"[{nameof(ModdableTimberborn)}] {msg()}");
     }
 
-    public static void AddSlotsToPrefab(BaseComponent component, int minimumSlots)
+    public static void AddSlotsToPrefab(Blueprint blueprint, int minimumSlots)
     {
-        var patrolling = component.GetComponentFast<PatrollingSlotInitializerSpec>();
-        if (patrolling)
+        ImmutableArray<PatrollingSlotSpec>? patrollingSlots = null;
+        ImmutableArray<TransformSlotSpec>? transformSlots = null;
+
+        var patrolling = blueprint.GetSpec<PatrollingSlotInitializerSpec>();
+        if (patrolling is not null)
         {
-            patrolling._patrollingSlots.KeepAddingUntil(minimumSlots);
+            patrollingSlots = [.. KeepAddingUntil(patrolling.PatrollingSlots, minimumSlots)];
         }
 
-        var transformSlot = component.GetComponentFast<TransformSlotInitializerSpec>();
-        if (transformSlot)
+        var transformSlot = blueprint.GetSpec<TransformSlotInitializerSpec>();
+        if (transformSlot is not null)
         {
-            transformSlot._slots.KeepAddingUntil(minimumSlots);
+            transformSlots = [.. KeepAddingUntil(transformSlot.Slots, minimumSlots)];
         }
+
+        if (patrollingSlots is null && transformSlots is null) { return; }
+
+
     }
 
-    public static void KeepAddingUntil<T>(this List<T> list, int toMimnimum)
+    public static IEnumerable<T> KeepAddingUntil<T>(this IEnumerable<T> list, int toMimnimum)
     {
-        var currCount = list.Count;
-        var addingAmount = toMimnimum - currCount;
+        if (toMimnimum == 0) { yield break; }
 
-        for (int i = 0; i < addingAmount; i++)
+        var count = 0;
+        while (true)
         {
-            list.Add(list[i % currCount]);
+            foreach (var item in list)
+            {
+                yield return item;
+                count++;
+
+                if (count >= toMimnimum)
+                {
+                    yield break;
+                }
+            }
         }
     }
 

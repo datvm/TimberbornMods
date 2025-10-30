@@ -2,20 +2,20 @@
 
 namespace ConfigurableTubeZipLine;
 
-public class ConfigurableTubeService : BaseComponent
+public class ConfigurableTubeService : BaseComponent, IAwakableComponent
 {
 
     public void Awake()
     {
-        var comp = GetComponentFast<BlockObjectNavMeshSettingsSpec>();
-        if (comp?._edgeGroups is null) { return; }
+        var comp = GetComponent<BlockObjectNavMeshSettingsSpec>();
+        if (comp?.EdgeGroups is null) { return; }
 
-        foreach (var e in comp._edgeGroups)
+        foreach (var e in comp.EdgeGroups)
         {
             if (e is null) { continue; }
             var newCost = MSettings.CalculateCost(MSettings.TubewaySpeed);
 
-            e._cost = newCost;
+            e.Cost = newCost;
         }
     }
 

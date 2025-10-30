@@ -1,0 +1,29 @@
+﻿Configure various settings of Ziplines and Tubeways. You can change their bonus speed, ziplines' max connections, distance and inclinations. You can also remove the speed penalty (50%) and this even increases game performance as the game does not need to check for beavers if they are underwater or not.
+
+You can also enable "Zipline through obstacles" option, orignally intended only to remove the annoyance of trees blocking the zipline cables, unfortunately to make it possible, zipline cables can be created (and beavers do travel them) through anywhere. It's your game, play it with your own rule like don't create crazy cables or just do it.
+
+By default this mod doubles the speed bonus (+150% to +300% for ziplines, +300% to +600% for Tubeways) and ziplines' max connection (2 to 4). To configure: from Main Menu -> Mods -> Settings button next to the mod name.
+
+Note: if you disable "Tubeway for Folktails" or "Zipline for Iron Teeth" then open a save that you have built those, they will disappear and your Beaver may get stuck. Better delete them manually before disabling those options.
+
+===
+
+[h1]Troubleshooting[/h1]
+
+If anyone see a crash when using other mods that add materials into the game like ([url=https://steamcommunity.com/sharedfiles/filedetails/?id=3302215152]Append Vanilla Resources[/url]), please subscribe to this mod to fix the crash: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3428770317]MaterialPlzNoCrashes[/url]. It should fix crashes like these:
+
+[code]
+InvalidOperationException: Material BaseMetal.Folktails is already loaded.
+  at Timberborn.TimbermeshMaterials.MaterialRepository.LoadMaterials
+[/code]
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v10.0.0: Should work with game v1.0.
+v7.4.2: Should work with June 2nd update.
+v7.4.1: Added support for Ziporter.
+v7.3.1: Fixed crashes with the U7 Feb 25 update.
+v7.3.0: Added "Zipline through obstacles" option.
+v7.2.0: Added "No water speed penalty". Fixed a compatibility issue with Bob Storage. v7.2.1 fixed a bug where Folktails doesn't have Tubeway when the option is picked.
+v7.1.0: you can now add Tubeway for Folktails and Zipline for Iron Teeth.

@@ -22,7 +22,7 @@ public class CharacterTracker : IEntityTracker<CharacterTrackerComponent>
 
     public void Track(EntityComponent entity)
     {
-        var character = entity.GetComponentFast<CharacterTrackerComponent>();
+        var character = entity.GetComponent<CharacterTrackerComponent>();
         if (!character) { return; }
 
         GetSet(character.CharacterType).Add(character);
@@ -33,7 +33,7 @@ public class CharacterTracker : IEntityTracker<CharacterTrackerComponent>
 
     public void Untrack(EntityComponent entity)
     {
-        var character = entity.GetComponentFast<CharacterTrackerComponent>();
+        var character = entity.GetComponent<CharacterTrackerComponent>();
         if (!character) { return; }
 
         GetSet(character.CharacterType).Remove(character);

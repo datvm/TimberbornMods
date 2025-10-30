@@ -9,12 +9,20 @@ public class DestructionService(
     TerrainDestroyer terrainDestroyer,
     IBlockService blockService,
     TerrainHighlightingService terrainHighlightingService,
-    RollingHighlighter highlighter
-)
+    RollingHighlighter highlighter,
+    ISpecService specService
+) : ILoadableSingleton
 {
 
     readonly HashSet<BlockObject> destroyingBos = [];
     readonly HashSet<Vector3Int> destroyingTerrains = [];
+
+    BrushColorSpec brushColorSpec = null!;
+
+    public void Load()
+    {
+        brushColorSpec = specService.GetSingleSpec<BrushColorSpec>();
+    }
 
     /// <summary>
     /// Queries all block objects and terrains that would be affected by destruction starting from the given terrains.
@@ -81,7 +89,7 @@ public class DestructionService(
     /// Highlights the given block objects and terrains in a negative color (red by default).
     /// </summary>
     public void HighlightDestructionEntities(DestroyingEntities entities)
-        => HighlightDestructionEntities(entities, BrushColors.Negative);
+        => HighlightDestructionEntities(entities, brushColorSpec.Negative);
 
     /// <summary>
     /// Highlights the given block objects and terrains in the specified color.

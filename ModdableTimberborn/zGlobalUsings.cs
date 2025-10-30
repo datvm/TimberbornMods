@@ -13,3 +13,4 @@ global using System.Reflection.Emit;
 global using Label = UnityEngine.UIElements.Label;
 global using MechanicalNodeModifierCollection = ModdableTimberborn.Common.ValueModifierCollection<ModdableTimberborn.MechanicalSystem.IModdableMechanicalNodeModifier, ModdableTimberborn.MechanicalSystem.ModdableMechanicalNodeValues, ModdableTimberborn.MechanicalSystem.MechanicalNodeValues>;
 global using Object = UnityEngine.Object;
+global using System.Linq.Expressions;

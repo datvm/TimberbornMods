@@ -1,43 +1,30 @@
-﻿namespace ModdableTimberborn.DependencyInjection.Specs;
+﻿namespace ModdableTimberborn.DependencyInjection;
 
 public class SpecModifierService(
     IEnumerable<ISpecModifier> modifiers
 ) : ISpecServiceTailRunner
 {
-    readonly ImmutableArray<ISpecModifier> modifiers = [.. modifiers.OrderBy(q => q.Order)];
+    readonly FrozenDictionary<Type, ImmutableArray<ISpecModifier>> modifiersByTypes = modifiers.GroupToDictionary(
+        q => q.Type,
+        q => q.OrderBy(q => q.Order));
 
     public void Run(SpecService specService)
     {
-        if (modifiers.Length == 0) { return; }
+        if (modifiersByTypes.Count == 0) { return; }
 
-        Dictionary<Type, List<Lazy<Blueprint>>> replacing = [];
-
-        foreach (var (t, lazies) in specService._cachedBlueprints)
+        var cachedBp = specService._cachedBlueprints;
+        foreach (var (type, modifiers) in modifiersByTypes)
         {
-            var curr = lazies;
+            if (!cachedBp.TryGetValue(type, out var lazies)) { continue; }
 
+            var bps = lazies.Select(q => new EditableBlueprint(q.Value)).ToArray();
             foreach (var m in modifiers)
             {
-                if (t != m.Type) { continue; }
-
-                var bps = ConvertFromLazies(curr);
-                var modified = m.Modify(bps);
-                curr = ConvertToLazies(modified);
+                bps = [.. m.Modify(bps)];
             }
 
-            if (curr != lazies)
-            {
-                replacing[t] = curr;
-            }
-        }
-
-        foreach (var (t, lazies) in replacing)
-        {
-            specService._cachedBlueprints[t] = lazies;
+            cachedBp[type] = [.. bps.Select(q => new Lazy<Blueprint>(() => q.ToBlueprint()))];
         }
     }
-
-    public static List<Blueprint> ConvertFromLazies(IEnumerable<Lazy<Blueprint>> lazies) => [.. lazies.Select(q => q.Value)];
-    public static List<Lazy<Blueprint>> ConvertToLazies(IEnumerable<Blueprint> bps) => [.. bps.Select(q => new Lazy<Blueprint>(() => q))];
 
 }

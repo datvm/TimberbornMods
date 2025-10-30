@@ -7,7 +7,7 @@ public static class PatchExtensions
         where TComp : BaseComponent
         where TModdedComponent : BaseModdableComponent<TComp>
     {
-        var modded = comp.GetComponentFast<TModdedComponent>();
+        var modded = comp.GetComponent<TModdedComponent>();
         if (!modded) { return; }
 
         modded.OriginalComponent = comp;
@@ -22,7 +22,7 @@ public static class PatchExtensions
         where TComp : BaseComponent
         where TModdedComponent : BaseModdableComponent<TComp>, IModdableComponentStart
     {
-        var modded = comp.GetComponentFast<TModdedComponent>();
+        var modded = comp.GetComponent<TModdedComponent>();
         modded.StartAfter();
     }
 

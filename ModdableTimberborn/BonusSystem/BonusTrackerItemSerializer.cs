@@ -16,7 +16,7 @@ public class BonusTrackerItemSerializer : IValueSerializer<BonusTrackerItem>
         var names = s.Get(BonusIdsKey);
         var values = s.Get(ValueKey);
 
-        return new BonusTrackerItem(id, [..names.Zip(values, (n, v) => new BonusSpec(n, v))]);
+        return new BonusTrackerItem(id, [..names.Zip(values, CommonExtensions.CreateBonusSpec)]);
     }
 
     public void Serialize(BonusTrackerItem value, IValueSaver valueSaver)
@@ -24,7 +24,7 @@ public class BonusTrackerItemSerializer : IValueSerializer<BonusTrackerItem>
         var s = valueSaver.AsObject();
 
         s.Set(ItemIdKey, value.Id);
-        s.Set(BonusIdsKey, [..value.Bonuses.Select(q => q.BonusId)]);
+        s.Set(BonusIdsKey, [..value.Bonuses.Select(q => q.Id)]);
         s.Set(ValueKey, [..value.Bonuses.Select(q => q.MultiplierDelta)]);
     }
 

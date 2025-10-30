@@ -1,8 +1,8 @@
-{
+﻿{
     "Name": "Configurable Tubeway & Zipline",
-    "Version": "7.4.2",
+    "Version": "10.0.0",
     "Id": "ConfigurableTubeZipLine",
-    "MinimumGameVersion": "0.7.0.0",
+    "MinimumGameVersion": "1.0.0",
     "Description": "Change various aspect of Tubeways and Ziplines",
     "RequiredMods": [
         { "Id": "eMka.ModSettings" },

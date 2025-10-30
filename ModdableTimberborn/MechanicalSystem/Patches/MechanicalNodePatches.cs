@@ -42,8 +42,20 @@ public static class MechanicalNodePatches
 
     static void CallUpdate(MechanicalNode node)
     {
-        var moddable = node.GetComponentFast<ModdableMechanicalNode>();
+        var moddable = node.GetComponent<ModdableMechanicalNode>();
         moddable.UpdateValues();
+    }
+
+    [HarmonyPrefix, HarmonyPatch(nameof(MechanicalNode.CanPotentiallyBePowered))]
+    public static bool PatchWhenZeroUsage(NoPowerStatus __instance, ref bool __result)
+    {
+        if (__instance._mechanicalNode._nominalPowerInput <= 0)
+        {
+            __result = true;
+            return false;
+        }
+
+        return true;
     }
 
 }
