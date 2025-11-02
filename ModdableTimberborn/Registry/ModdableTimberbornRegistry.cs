@@ -2,16 +2,28 @@
 
 public partial class ModdableTimberbornRegistry
 {
-    public static readonly ModdableTimberbornRegistry Instance ;
+    public static readonly ImmutableArray<ConfigurationContext> SingleContexts = [ConfigurationContext.Bootstrapper, ConfigurationContext.MainMenu, ConfigurationContext.Game, ConfigurationContext.MainMenu];
+
+    public static readonly ModdableTimberbornRegistry Instance;
 
     readonly HashSet<IModdableTimberbornRegistryConfig> configurators = [];
-    
+    readonly Dictionary<ConfigurationContext, List<IModdableTimberbornRegistryConfig>> configuratorsByContext = [];
+
     static readonly HashSet<string> PatchedCategories = [];
     static readonly Harmony harmony;
 
     public ModdableTimberbornRegistry AddConfigurator(IModdableTimberbornRegistryConfig config)
     {
         configurators.Add(config);
+
+        var availableCtx = config.AvailableContexts;
+        foreach (var ctx in configuratorsByContext.Keys)
+        {
+            if (availableCtx.HasFlag(ctx))
+            {
+                configuratorsByContext[ctx].Add(config);
+            }
+        }
 
         if (config is IModdableTimberbornRegistryWithPatchConfig patchConfig)
         {
@@ -48,13 +60,18 @@ public partial class ModdableTimberbornRegistry
         harmony.PatchAllUncategorized();
 
         AddDefaultConfigurators();
+
+        foreach (var ctx in SingleContexts)
+        {
+            configuratorsByContext[ctx] = [];
+        }
     }
 
     internal void Configure(Configurator configurator, ConfigurationContext context)
     {
         ModdableTimberbornUtils.CurrentContext = context;
 
-        foreach (var config in configurators)
+        foreach (var config in configuratorsByContext[context])
         {
             config.Configure(configurator, context);
         }
@@ -62,7 +79,7 @@ public partial class ModdableTimberbornRegistry
 
     internal void ConfigureStarter()
     {
-        harmony.PatchAllUncategorized();        
+        harmony.PatchAllUncategorized();
     }
 
     void AddDefaultConfigurators()

@@ -5,9 +5,16 @@ public class TemplateModuleHelper(Configurator configurator)
 
     readonly TemplateModule.Builder builder = new();
 
-    public TemplateModuleHelper AddDecorator<TSubject, TDecorator>()
+    public TemplateModuleHelper AddDecorator<TSubject, TDecorator>(bool addTransient = true)
+        where TDecorator : class
     {
         builder.AddDecorator<TSubject, TDecorator>();
+
+        if (addTransient)
+        {
+            configurator.BindTransient<TDecorator>();
+        }
+
         return this;
     }
 

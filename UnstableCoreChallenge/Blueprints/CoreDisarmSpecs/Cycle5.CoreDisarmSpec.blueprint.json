@@ -1,0 +1,89 @@
+﻿{
+    "CoreDisarmSpec": {
+        "Order": 5,
+        "EntryCount": 3,
+        "MaxCoreCount": 2,
+        "MinDays": 15,
+        "MaxDays": 20,
+        "MinScience": 750,
+        "MaxScience": 1000,
+        "Goods": [
+            {
+                "Id": "Log",
+                "Amount": 300
+            },
+            {
+                "Id": "Plank",
+                "Amount": 300
+            },
+            {
+                "Id": "Gear",
+                "Amount": 200
+            },
+            {
+                "Id": "Water",
+                "Amount": 300
+            },
+            {
+                "Id": "ScrapMetal",
+                "Amount": 150
+            },
+            {
+                "Id": "MetalBlock",
+                "Amount": 150
+            },
+            {
+                "Id": "Badwater",
+                "Amount": 300
+            },
+            {
+                "Id": "Extract",
+                "Amount": 250
+            },
+            {
+                "Id": "Explosives",
+                "Amount": 150
+            },
+            {
+                "Id": "PineResin",
+                "Amount": 200
+            },
+            {
+                "Id": "TreatedPlank",
+                "Amount": 150
+            },
+            {
+                "Id": "Dirt",
+                "Amount": 150
+            },
+            {
+                "Id": "Biofuel",
+                "Amount": 150
+            },
+            {
+                "Id": "Catalyst",
+                "Amount": 100
+            },
+            {
+                "Id": "Paper",
+                "Amount": 200
+            },
+            {
+                "Id": "PunchCard",
+                "Amount": 100
+            },
+            {
+                "Id": "Algae",
+                "Amount": 200
+            },
+            {
+                "Id": "CanolaOil",
+                "Amount": 200
+            },
+            {
+                "Id": "Grease",
+                "Amount": 100
+            }
+        ]
+    }
+}

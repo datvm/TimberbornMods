@@ -1,0 +1,53 @@
+﻿{
+    "CoreDisarmSpec": {
+        "Order": 3,
+        "EntryCount": 2,
+        "MaxCoreCount": 2,
+        "MinDays": 15,
+        "MaxDays": 30,
+        "MinScience": 200,
+        "MaxScience": 400,
+        "Goods": [
+            {
+                "Id": "Log",
+                "Amount": 200
+            },
+            {
+                "Id": "Plank",
+                "Amount": 200
+            },
+            {
+                "Id": "Gear",
+                "Amount": 100
+            },
+            {
+                "Id": "Water",
+                "Amount": 200
+            },
+            {
+                "Id": "ScrapMetal",
+                "Amount": 50
+            },
+            {
+                "Id": "Badwater",
+                "Amount": 150
+            },
+            {
+                "Id": "Extract",
+                "Amount": 75
+            },
+            {
+                "Id": "PineResin",
+                "Amount": 50
+            },
+            {
+                "Id": "Paper",
+                "Amount": 50
+            },
+            {
+                "Id": "Algae",
+                "Amount": 50
+            }
+        ]
+    }
+}

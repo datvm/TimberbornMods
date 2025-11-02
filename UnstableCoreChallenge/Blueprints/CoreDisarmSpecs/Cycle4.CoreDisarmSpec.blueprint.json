@@ -1,0 +1,77 @@
+﻿{
+    "CoreDisarmSpec": {
+        "Order": 4,
+        "EntryCount": 2,
+        "MaxCoreCount": 2,
+        "MinDays": 15,
+        "MaxDays": 25,
+        "MinScience": 600,
+        "MaxScience": 800,
+        "Goods": [
+            {
+                "Id": "Log",
+                "Amount": 250
+            },
+            {
+                "Id": "Plank",
+                "Amount": 250
+            },
+            {
+                "Id": "Gear",
+                "Amount": 150
+            },
+            {
+                "Id": "Water",
+                "Amount": 250
+            },
+            {
+                "Id": "ScrapMetal",
+                "Amount": 100
+            },
+            {
+                "Id": "MetalBlock",
+                "Amount": 100
+            },
+            {
+                "Id": "Badwater",
+                "Amount": 250
+            },
+            {
+                "Id": "Extract",
+                "Amount": 200
+            },
+            {
+                "Id": "Explosives",
+                "Amount": 100
+            },
+            {
+                "Id": "PineResin",
+                "Amount": 100
+            },
+            {
+                "Id": "TreatedPlank",
+                "Amount": 75
+            },
+            {
+                "Id": "Dirt",
+                "Amount": 75
+            },
+            {
+                "Id": "Biofuel",
+                "Amount": 50
+            },
+            {
+                "Id": "Paper",
+                "Amount": 100
+            },
+            {
+                "Id": "Algae",
+                "Amount": 100
+            },
+            {
+                "Id": "CanolaOil",
+                "Amount": 100
+            }
+        ]
+    }
+}
