@@ -1,4 +1,4 @@
-Another mod for your [url=https://steamcommunity.com/workshop/filedetails/?id=3472577005]TImprove[/url] collection to enhance the user experience with additional features and improvements.
+﻿Another mod for your [url=https://steamcommunity.com/workshop/filedetails/?id=3472577005]TImprove[/url] collection to enhance the user experience with additional features and improvements.
 
 [h1]Features[/h1]
 
@@ -25,6 +25,10 @@ If you need any support or feedback, feel free to contact me on Timberborn's off
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v10.0.0:
+- Works with Timberborn v1.0
+- Copy building is removed now that the game has this feature built-in.
 
 v7.4.0:
 - Added 'Copy building' feature. Credit to @Muzzy

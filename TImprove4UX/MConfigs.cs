@@ -25,7 +25,9 @@ public class ModGameConfig : Configurator
             .BindSingleton<AlternateDeleteObjectTool>()
             .BindSingleton<RecentToolService>()
             .BindSingleton<DynamiteDestructionService>()
+#if TIMBERU7
             .BindSingleton<BuildingCopyService>()
+#endif
 
             .BindSingleton<CollapsibleEntityPanelService>()
 
@@ -47,7 +49,9 @@ public class ModMapEditorConfig : Configurator
         this
             .BindSingleton<MSettings>()
             .BindSingleton<RecentToolService>()
+#if TIMBERU7
             .BindSingleton<BuildingCopyService>()
+#endif
             .BindSingleton<CollapsibleEntityPanelService>()
         ;
     }
