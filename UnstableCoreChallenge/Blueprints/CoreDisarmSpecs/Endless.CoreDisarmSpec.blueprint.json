@@ -1,0 +1,89 @@
+﻿{
+    "CoreDisarmSpec": {
+        "Order": -1,
+        "EntryCount": 3,
+        "MaxCoreCount": 0.1,
+        "MinDays": -1,
+        "MaxDays": -1,
+        "MinScience": 100,
+        "MaxScience": 200,
+        "Goods": [
+            {
+                "Id": "Log",
+                "Amount": 25
+            },
+            {
+                "Id": "Plank",
+                "Amount": 300
+            },
+            {
+                "Id": "Gear",
+                "Amount": 200
+            },
+            {
+                "Id": "Water",
+                "Amount": 300
+            },
+            {
+                "Id": "ScrapMetal",
+                "Amount": 150
+            },
+            {
+                "Id": "MetalBlock",
+                "Amount": 150
+            },
+            {
+                "Id": "Badwater",
+                "Amount": 300
+            },
+            {
+                "Id": "Extract",
+                "Amount": 250
+            },
+            {
+                "Id": "Explosives",
+                "Amount": 150
+            },
+            {
+                "Id": "PineResin",
+                "Amount": 200
+            },
+            {
+                "Id": "TreatedPlank",
+                "Amount": 150
+            },
+            {
+                "Id": "Dirt",
+                "Amount": 150
+            },
+            {
+                "Id": "Biofuel",
+                "Amount": 150
+            },
+            {
+                "Id": "Catalyst",
+                "Amount": 100
+            },
+            {
+                "Id": "Paper",
+                "Amount": 200
+            },
+            {
+                "Id": "PunchCard",
+                "Amount": 100
+            },
+            {
+                "Id": "Algae",
+                "Amount": 200
+            },
+            {
+                "Id": "CanolaOil",
+                "Amount": 200
+            },
+            {
+                "Id": "Grease",
+                "Amount": 100
+            }
+        ]
+    }
+}

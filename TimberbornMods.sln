@@ -305,6 +305,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModAnalyzers", "ModAnalyzer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StableCore", "StableCore\StableCore.csproj", "{A4370020-85D3-4806-AF08-436C2DDE6685}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnstableCoreChallenge", "UnstableCoreChallenge\UnstableCoreChallenge.csproj", "{EC41BB67-0CDA-4C9B-B0E3-A04413A708D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -819,6 +821,10 @@ Global
 		{A4370020-85D3-4806-AF08-436C2DDE6685}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4370020-85D3-4806-AF08-436C2DDE6685}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4370020-85D3-4806-AF08-436C2DDE6685}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC41BB67-0CDA-4C9B-B0E3-A04413A708D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC41BB67-0CDA-4C9B-B0E3-A04413A708D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC41BB67-0CDA-4C9B-B0E3-A04413A708D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC41BB67-0CDA-4C9B-B0E3-A04413A708D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

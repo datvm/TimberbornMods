@@ -6,6 +6,8 @@
 public interface IModdableTimberbornRegistryConfig
 {
 
+    ConfigurationContext AvailableContexts => ConfigurationContext.All;
+
     void Configure(Configurator configurator, ConfigurationContext context);
 
 }

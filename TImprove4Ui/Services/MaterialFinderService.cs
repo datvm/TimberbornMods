@@ -3,7 +3,6 @@
 public class MaterialFinderService(
     Highlighter highlighter,
     MSettings s,
-    InventoryService inventoryService,
     DistrictContextService districtContextService,
     EntitySelectionService entitySelectionService,
     InputService inputService
@@ -91,7 +90,7 @@ public class MaterialFinderService(
     void SelectBuilding(BaseComponent comp) => entitySelectionService.Select(comp);
 
     static bool InventoryInDistrict(Inventory inventory, DistrictCenter? district) 
-        => district is null || inventory.GetComponentFast<DistrictBuilding>().InstantDistrict == district;
+        => district is null || inventory.GetComponent<DistrictBuilding>().InstantDistrict == district;
 
     public void Load()
     {

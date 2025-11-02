@@ -1,0 +1,29 @@
+﻿{
+    "CoreDisarmSpec": {
+        "Order": 1,
+        "EntryCount": 1,
+        "MaxCoreCount": 1,
+        "MinDays": 20,
+        "MaxDays": 40,
+        "MinScience": 50,
+        "MaxScience": 100,
+        "Goods": [
+            {
+                "Id": "Log",
+                "Amount": 150
+            },
+            {
+                "Id": "Plank",
+                "Amount": 100
+            },
+            {
+                "Id": "Gear",
+                "Amount": 75
+            },
+            {
+                "Id": "Water",
+                "Amount": 100
+            }
+        ]
+    }
+}

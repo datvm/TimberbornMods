@@ -2,6 +2,8 @@
 
 public abstract class BaseModdableTimberbornConfiguration : IModdableTimberbornRegistryConfig, IModStarter
 {
+    public abstract ConfigurationContext AvailableContexts { get; }
+
     public virtual void StartMod(IModEnvironment modEnvironment)
     {
         ModdableTimberbornRegistry.Instance.AddConfigurator(this);

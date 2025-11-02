@@ -1,0 +1,16 @@
+﻿ID,Text,Comment
+LV.USC.Difficulty,"Difficulty",
+LV.USC.DifficultyDesc,"The challenge difficulty. Currently it determines how fast the disarming process get harder:
+- Easy: every 3 cycles (increases at 4, 7, 10...)
+- Normal: every 2 cycles (increases at 3, 5, 7...)
+- Hard: every 1.5 cycles (rounded up, increases at cycle 3, 4, 6, 7...)",
+LV.USC.DiffEasy,"Easy",
+LV.USC.DiffNormal,"Normal",
+LV.USC.DiffHard,"Hard",
+LV.USC.EndlessMode,"Endless mode",
+LV.USC.EndlessModeDesc,"In this mode, the difficulty keeps increasing indefinitely without any cap.
+Difficulty applied (for example, at Hard, the difficulty increases every 1.5 cycles).
+See how long you can last!",
+LV.USC.Pay,"Pay to Core Stablizer",
+LV.USC.FindGoods,"Find the goods",
+Name_StablizerFragment,"Core Stabilizer",
