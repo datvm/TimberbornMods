@@ -45,7 +45,7 @@ public class WorkerIdleWarningService(
         OnWorkerIdleWarningChanged(null!, Settings.WorkerIdleWarning.Value);
     }
 
-    private void OnWorkerIdleWarningChanged(object sender, bool enabled)
+    void OnWorkerIdleWarningChanged(object sender, bool enabled)
     {
         foreach (var e in entities.Entities)
         {

@@ -8,10 +8,11 @@ public class DynamiteDestructionService(
     TerrainHighlightingService terrainHighlightingService,
     RollingHighlighter highlighter,
     MapSize mapSize,
-    ITerrainService terrainService
+    ITerrainService terrainService,
+    ISpecService specs
 ) : ILoadableSingleton
 {
-
+    BrushColorSpec brushColorSpec = null!;
     readonly HashSet<BlockObject> destroyingBos = [];
     readonly HashSet<Vector3Int> destroyingTerrains = [];
 
@@ -19,11 +20,12 @@ public class DynamiteDestructionService(
 
     public void Load()
     {
+        brushColorSpec = specs.GetSingleSpec<BrushColorSpec>();
         s.ShowDynamiteDestruction.ValueChanged += (_, _) => OnSettingChanged();
         OnSettingChanged();
     }
 
-    private void OnSettingChanged()
+    void OnSettingChanged()
     {
         if (IsEnabled)
         {
@@ -51,14 +53,14 @@ public class DynamiteDestructionService(
 
         var (dBuildings, dTerrains) = QueryDestructingEntities(terrains);
 
-        highlighter.HighlightPrimary(dBuildings, BrushColors.Negative);
-        terrainHighlightingService.UpdateHighlights(dTerrains, BrushColors.Negative);
+        highlighter.HighlightPrimary(dBuildings, brushColorSpec.Negative);
+        terrainHighlightingService.UpdateHighlights(dTerrains, brushColorSpec.Negative);
     }
 
     [OnEvent]
     public void OnEntitySelected(SelectableObjectSelectedEvent e)
     {
-        var dynamite = e.SelectableObject.GetComponentFast<Dynamite>();
+        var dynamite = e.SelectableObject.GetComponent<Dynamite>();
         if (dynamite) { HighlightDestruction(dynamite); }
     }
 

@@ -1,5 +1,4 @@
-﻿
-namespace TImprove4UX.Services;
+﻿namespace TImprove4UX.Services;
 
 public class AlternateDeleteObjectTool(
     InputService inputService, AreaBlockObjectAndTerrainPicker areaBlockObjectAndTerrainPicker,

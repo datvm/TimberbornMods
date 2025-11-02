@@ -1,15 +1,15 @@
 ﻿namespace TImprove4UX.Services;
 
 public class RecentToolService(
-    ToolManager toolManager,
+    ToolService toolService,
     EventBus eb,
     InputService inputService
 ) : ILoadableSingleton, IInputProcessor
 {
     public const string RecentToolHotkeyId = "RecentTool";
 
-    Tool? prevTool;
-    Tool? currTool;
+    ITool? prevTool;
+    ITool? currTool;
 
     public void Load()
     {
@@ -23,7 +23,7 @@ public class RecentToolService(
 
         if (prevTool is not null)
         {
-            toolManager.SwitchTool(prevTool);
+            toolService.SwitchTool(prevTool);
         }
         return true;
     }

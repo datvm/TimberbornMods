@@ -11,7 +11,9 @@ public class CollapsibleEntityPanelService : ISaveableSingleton, ILoadableSingle
         typeof(GoodCarrierFragment),
         typeof(FloodgateFragment),
         typeof(DynamiteFragment),
+#if TIMBERU7
         typeof(DemolishablePriorityFragment),
+#endif
         typeof(GrowableFragment),
         typeof(GatherableFragment),
         typeof(GatherablePrioritizerFragment),
@@ -28,13 +30,21 @@ public class CollapsibleEntityPanelService : ISaveableSingleton, ILoadableSingle
         typeof(WaterMoverFragment),
         typeof(WaterSourceRegulatorFragment),
         typeof(RuinModelShufflingFragment),
+#if TIMBERV1
+        typeof(UnstableCoreFragment),
+        typeof(TimedComponentActivatorFragment),
+        typeof(BlueprintDebugFragment),
+        typeof(UnstableCoreExplodeDebugFragment),
+        typeof(RemoveUnstableCoreDebugFragment),
+#endif
     ];
 
     public static readonly FrozenSet<string> IgnoredKeys = [
         "Name_SluiceFragment_SynchronizeWrapper",
         "Name_TailDecalSupplierFragment_",
+        "Name_DecalSupplierFragment_",
     ];
-    #endregion
+#endregion
 
     const string SaveKey = "TImprove4UX.CollapsibleEntityPanelService.CollapsedList";
 
@@ -42,9 +52,9 @@ public class CollapsibleEntityPanelService : ISaveableSingleton, ILoadableSingle
 
     readonly Dictionary<VisualElement, string> panelNames = [];
 
-    private readonly MSettings s;
-    private readonly ILoc t;
-    private readonly EntityPanel entityPanel;
+    readonly MSettings s;
+    readonly ILoc t;
+    readonly EntityPanel entityPanel;
 
     readonly IListSettingStorage perSave;
     readonly IListSettingStorage globalSave = new GlobalListSettingStorage(SaveKey);

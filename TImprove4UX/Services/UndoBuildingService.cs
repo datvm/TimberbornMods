@@ -24,7 +24,7 @@ public class UndoBuildingService(
         s.UndoCount.ValueChanged += UndoCount_ValueChanged;
     }
 
-    private void UndoCount_ValueChanged(object sender, int e)
+    void UndoCount_ValueChanged(object sender, int e)
     {
         lastBuilts.Resize(e);
     }
@@ -85,7 +85,7 @@ public class UndoBuildingService(
 
             if (b.IsFinished) { return true; }
 
-            var construction = b.GetComponentFast<ConstructionSite>();
+            var construction = b.GetComponent<ConstructionSite>();
             if (!construction) { continue; }
 
             if (construction.MaterialProgress > 0)
