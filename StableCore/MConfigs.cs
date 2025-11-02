@@ -9,8 +9,6 @@ public class GameConfig : Configurator
     public override void Configure()
     {
         this
-            .BindTransient<StablizedCoreComponent>()
-
             .BindFragment<StableCoreFragment>()
 
             .BindTemplateModule(h => h
