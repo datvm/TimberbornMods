@@ -1,6 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <OutputModFolderName>SuperCursor</OutputModFolderName>
-    </PropertyGroup>
-    <Import Project="../Common.target" />
-    </Project>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputModFolderName>SuperCursor</OutputModFolderName>
+	</PropertyGroup>
+
+	<Import Project="../Common.target" />
+
+</Project>

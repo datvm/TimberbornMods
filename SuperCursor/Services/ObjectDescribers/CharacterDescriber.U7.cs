@@ -1,5 +1,4 @@
-﻿
-namespace SuperCursor.Services.ObjectDescribers;
+﻿namespace SuperCursor.Services.ObjectDescribers;
 
 [ServicePriority(1)]
 public class CharacterDescriber(ILoc t, LifeService lifeService) : BaseObjectDescriber<Character>

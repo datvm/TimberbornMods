@@ -1,0 +1,36 @@
+﻿Press Shift to empower your often-forgotten Cursor tool! Extra useful info shows up when holding Shift (or a customizable hotkey) with your Cursor tool.
+
+Current options:
+
+- Coordinates: Height and (X, Y).
+- Soil (if available): Moisture and contamination.
+- Water (if available): Depth (and depth to the current object if you are pointing to a Platform for example), current and contamination.
+
+The following info shows up if your cursor is pointing to a certain object:
+- Name
+- Character (Beavers and bots): Age and their growth/durability.
+- Construction Site: priority, the building and material progress.
+- "Cuttable" (Plants and Trees): their growth, yields and water status.
+- Houses: how many are in there.
+- Power: The input/output and the network total.
+- Stockpile (piles, storehouses and tanks): what is stored and how many.
+- Water Source (both fresh and badwater): strength and contamination.
+- Workplace: priority, workers.
+
+Priority (for builders and workplaces) are represented by these symbols: -- / - / ~ / + / ++
+
+You can also use Keybinding options (Settings -> Keybindings -> Super Cursor) to change from the Shift key if you like. It should be in the User Interface group.
+
+Please feel free to suggest any info it should show and I will see if I can add anything more.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v10.0.0: Works with Timberborn v1.0.
+v7.1.5: Tooltip no longer show when moving on top of UI.
+v7.1.4: moved the tooltip a little downwards so you can click stuff at the right-side screen.
+v7.1.3: it should work for U7 Apr 02 update.
+v7.1.2: fixed resolution scaling for UI causing tooltip position issue.
+v7.1.1: fixed crash for U7 Feb 25 update.
+v7.1.0: add Keybinding options (Settings -> Keybindings -> Super Cursor) to change the Shift key if you like.
+v7.0.1: fix a crash when using on an unfinished building with Power. Thanks @todoralin for the report.

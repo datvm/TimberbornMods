@@ -1,9 +1,4 @@
-﻿using Timberborn.MapIndexSystem;
-using Timberborn.SoilContaminationSystem;
-using Timberborn.SoilMoistureSystem;
-using Timberborn.TerrainSystem;
-
-namespace SuperCursor.Services.CoordDescribers;
+﻿namespace SuperCursor.Services.CoordDescribers;
 
 [ServicePriority(0)]
 public class LandCoordDescriber(
