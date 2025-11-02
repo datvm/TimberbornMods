@@ -1,10 +1,13 @@
 ﻿{
     "Name": "Stable Core",
-    "Version": "10.0.0",
+    "Version": "10.0.1",
     "Id": "StableCore",
     "MinimumGameVersion": "1.0.0",
     "Description": "Build a stable core for a blast!",
     "RequiredMods": [
-        { "Id": "TimberUi" }
+        {
+            "Id": "TimberUi",
+            "MinimumVersion": "10.0.1"
+        }
     ]
 }

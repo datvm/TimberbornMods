@@ -1,6 +1,6 @@
 ﻿namespace StableCore.Components;
 
-public class StablizedCoreComponent : BaseComponent, IAwakableComponent, IBlockObjectDeletionBlocker
+public class StablizedCoreComponent : BaseComponent, IAwakableComponent, IBlockObjectDeletionBlocker, IFinishedStateListener, IUnfinishedStateListener
 {
 #nullable disable
     TimedComponentActivator timedComponentActivator;
@@ -12,8 +12,8 @@ public class StablizedCoreComponent : BaseComponent, IAwakableComponent, IBlockO
     public bool Armed => timedComponentActivator.IsEnabled;
 
     public bool NoForcedDelete { get; } = false;
-    public bool IsStackedDeletionBlocked { get; } = true;
-    public bool IsDeletionBlocked { get; } = true;
+    public bool IsStackedDeletionBlocked => Finished;
+    public bool IsDeletionBlocked => Finished;
     public string ReasonLocKey { get; } = "LV.StC.NoDelete";
 
     public void Awake()
@@ -30,4 +30,17 @@ public class StablizedCoreComponent : BaseComponent, IAwakableComponent, IBlockO
         timedComponentActivator.OnCycleDayStarted(new());
     }
 
+    public void OnEnterFinishedState()
+    {
+        GetComponent<UnstableCoreExplosionBlocker>()._explosionBlocked = false;
+    }
+
+    public void OnEnterUnfinishedState()
+    {
+        GetComponent<UnstableCoreExplosionBlocker>().BlockExplosion();
+    }
+
+    public void OnExitFinishedState() { }
+
+    public void OnExitUnfinishedState() { }
 }
