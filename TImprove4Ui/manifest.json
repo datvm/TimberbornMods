@@ -1,12 +1,15 @@
 ﻿{
     "Name": "TImprove 4 UI",
-    "Version": "7.10.2",
+    "Version": "10.0.0",
     "Id": "TImprove4Ui",
-    "MinimumGameVersion": "0.7.0.0",
+    "MinimumGameVersion": "1.0.0",
     "Description": "Improve your Timberborn UI!",
     "RequiredMods": [
         { "Id": "eMka.ModSettings" },
         { "Id": "Harmony" },
-        { "Id": "TimberUi" }
+        {
+            "Id": "TimberUi",
+            "MinimumVersion": "10.0.1"
+        }
     ]
 }

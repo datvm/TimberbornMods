@@ -51,7 +51,7 @@ public class ModGameConfig : Configurator
             .BindSingleton<FactionNeedSpecService>()
             .BindTemplateModule(h => h
                 .AddDecorator<AreaNeedApplier, NeedApplierDescriber>()
-                .AddDecorator<WorkshopRandomNeedApplier, NeedApplierDescriber>()
+                .AddDecorator<WorkshopRandomNeedApplier, NeedApplierDescriber>(false)
                 
                 .AddDecorator<StatusSubject, StatusTracker>()
             )
