@@ -1,14 +1,12 @@
-﻿using Timberborn.BuilderPrioritySystem;
-
-namespace SuperCursor.Services.ObjectDescribers;
+﻿namespace SuperCursor.Services.ObjectDescribers;
 
 public class ConstructionSiteDescriber(ILoc t, IGoodService goods) : BaseObjectDescriber<ConstructionSite>
 {
     protected override void DescribeComponent(StringBuilder builder, ConstructionSite component)
     {
-        if (!component.enabled) { return; }
+        if (!component.Enabled) { return; }
 
-        var priority = component.GetComponentFast<BuilderPrioritizable>();
+        var priority = component.GetComponent<BuilderPrioritizable>();
         var priorityText = priority is null ? "" : (" " + priority.Priority.ToTooltipString());
 
         builder.AppendLine($"{t.T("ConstructionSites.DisplayName").Bold()}: {component.BuildTimeProgress * 100:F2}%{priorityText}");
