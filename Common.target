@@ -3,6 +3,20 @@
 	<Import Project=".\CommonProperties.target" />
 	<Import Project=".\CommonGlobalUsings.target" />
 
+	<ItemGroup Condition="$(IsV1)">
+		<Compile Remove="**\U7\**" />
+		<Compile Remove="**\*.U7.cs" />
+		<None Include="**\U7\**" />
+		<None Include="**\*.U7.cs" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(IsU7)">
+		<Compile Remove="**\V1\**" />
+		<Compile Remove="**\*.V1.cs" />
+		<None Include="**\V1\**" />
+		<None Include="**\*.V1.cs" />
+	</ItemGroup>
+	
 	<Target Name="Validate">
 		<Error Condition="'$(OutputModFolderName)'==''" Text="OutputModFolderName was not specified" />
 	</Target>

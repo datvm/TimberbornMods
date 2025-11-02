@@ -1,4 +1,5 @@
-﻿namespace TImprove4Ui.Services;
+﻿#if TIMBERV1
+namespace TImprove4Ui.Services;
 
 public class WorkplacesBatchControlTabService(
     WorkplacesBatchControlTab tab,
@@ -42,7 +43,7 @@ public class WorkplacesBatchControlTabService(
         .First(q => q.Name.Contains(nameof(BatchControlRow.VisibilityGetter)) && q.Name.Contains("BackingField"));
     public void OnBatchControlRowCreated(BatchControlRow row)
     {
-        var workerType = row.Entity.GetComponentFast<WorkplaceWorkerType>();
+        var workerType = row.Entity.GetComponent<WorkplaceWorkerType>();
 
         VisibilityGetterBackingField.SetValue(row, () =>
         {
@@ -66,3 +67,4 @@ public class WorkplacesBatchControlTabService(
         Instance = null;
     }
 }
+#endif

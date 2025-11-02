@@ -49,7 +49,7 @@ public class PauseStatusIconRegistry(
     [OnEvent]
     public void OnEntityAdded(EntityInitializedEvent e)
     {
-        var tracker = e.Entity.GetComponentFast<StatusTracker>();
+        var tracker = e.Entity.GetComponent<StatusTracker>();
         if (!tracker) { return; }
 
         tracker.StatusAdded += OnStatusAdded;
@@ -62,7 +62,7 @@ public class PauseStatusIconRegistry(
     [OnEvent]
     public void OnEntityRemoved(EntityDeletedEvent e)
     {
-        var tracker = e.Entity.GetComponentFast<StatusTracker>();
+        var tracker = e.Entity.GetComponent<StatusTracker>();
         if (!tracker) { return; }
 
         tracker.StatusAdded -= OnStatusAdded;
@@ -77,7 +77,7 @@ public class PauseStatusIconRegistry(
         }
     }
 
-    private void OnStatusAdded(object sender, StatusInstance e)
+    void OnStatusAdded(object sender, StatusInstance e)
     {
         if (sender is not StatusTracker tracker) { return; }
         CheckForStatus(tracker, e);

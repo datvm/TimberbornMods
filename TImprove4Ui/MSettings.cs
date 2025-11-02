@@ -18,6 +18,7 @@ public class MSettings(
     public static string ToolDescPos { get; private set; } = ToolDescPositions[1].Value;
     public static bool NeverHideCounter { get; private set; }
     public static bool AutoCollapseManagementGroupsValue { get; private set; }
+    public static bool AddNegativeNeedsValue { get; private set; }
 
     public override string ModId { get; } = nameof(TImprove4Ui);
     public override ModSettingsContext ChangeableOn { get; } = ModSettingsContext.All;
@@ -48,7 +49,7 @@ public class MSettings(
 
     public override void OnBeforeLoad()
     {
-        ModSetting[] menuOnly = [scrollableEntityPanel];
+        ModSetting[] menuOnly = [scrollableEntityPanel, AddNegativeNeeds];
 
         foreach (var s in menuOnly)
         {
@@ -76,6 +77,7 @@ public class MSettings(
         AutoExpandCounter = autoExpandCounter.Value;
         NeverHideCounter = neverHideCounter.Value;
         AutoCollapseManagementGroupsValue = AutoCollapseManagementGroups.Value;
+        AddNegativeNeedsValue = AddNegativeNeeds.Value;
     }
 
     static ModSetting<bool> CreateBoolModSettings(string loc, bool defaultValue = false) =>

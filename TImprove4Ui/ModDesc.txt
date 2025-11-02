@@ -46,6 +46,10 @@ Credits:
 - Bones: Disable pause icons on buildings.
 - Shimanim: Collapsible management groups.
 
+v10.0.0:
+- Work for Timberborn v1.0.
+- "Add buildings' debuff info" becomes "Clarify debuff chance" and now shows the actual percentage instead of just low/medium/high.
+
 v7.10.2: Added auto-collapse management groups. Also fixed missing localization keys warnings in the log file.
 v7.10.1: Added an option to disable the pause icon on top of buildings. If you don't like the option clustering the UI, you can disable it in the mod settings.
 v7.10.0: [spoiler]Dev mode's[/spoiler] hotkeys are now visible in the Keybindings panel.

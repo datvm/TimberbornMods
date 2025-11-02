@@ -9,7 +9,7 @@ public class ToolPanelDescriptionMover(MSettings s) : ILoadableSingleton
         s.toolDescPos.ValueChanged += ToolDescPos_ValueChanged;
     }
 
-    private void ToolDescPos_ValueChanged(object sender, string e)
+    void ToolDescPos_ValueChanged(object sender, string e)
     {
         DescriptionPanelPatches.ChangeToolPanelPosition(e);
     }

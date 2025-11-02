@@ -4,6 +4,7 @@ public class MaterialFinderService(
     Highlighter highlighter,
     MSettings s,
     DistrictContextService districtContextService,
+    DistrictCenterRegistry districtCenterRegistry,
     EntitySelectionService entitySelectionService,
     InputService inputService
 ) : ILoadableSingleton, IUnloadableSingleton
@@ -35,7 +36,7 @@ public class MaterialFinderService(
 
     public void HighlightBuildingsWithMaterial(string goodId)
     {
-        foreach (var inventory in inventoryService.PublicOutputInventories)
+        foreach (var inventory in AllInventories)
         {
             if (inventory.OutputGoods.Contains(goodId)
                 && inventory.AmountInStock(goodId) > 0)
@@ -55,12 +56,12 @@ public class MaterialFinderService(
         var alternate = inputService.IsKeyDown(AlternateKey);
 
         var selectingDistrict = alternate ? districtContextService.SelectedDistrict : null;
-        var selectingBuilding = entitySelectionService.SelectedObject?.GameObjectFast;
+        var selectingBuilding = entitySelectionService.SelectedObject?.GameObject;
 
         Inventory? firstInventory = null;
         bool shouldSelectNext = selectingBuilding is null;
 
-        foreach (var inventory in inventoryService.PublicOutputInventories)
+        foreach (var inventory in AllInventories)
         {
             if (!inventory.OutputGoods.Contains(goodId)
                 || !InventoryInDistrict(inventory, selectingDistrict)
@@ -74,7 +75,7 @@ public class MaterialFinderService(
                 return;
             }
 
-            if (inventory.GameObjectFast == selectingBuilding)
+            if (inventory.GameObject == selectingBuilding)
             {
                 shouldSelectNext = true;
                 continue;
@@ -87,9 +88,13 @@ public class MaterialFinderService(
         }
     }
 
+    public IEnumerable<Inventory> AllInventories => districtCenterRegistry
+        .FinishedDistrictCenters
+        .SelectMany(q => q.GetComponent<DistrictInventoryRegistry>()._publicInventoryRegistry._inventories);
+
     void SelectBuilding(BaseComponent comp) => entitySelectionService.Select(comp);
 
-    static bool InventoryInDistrict(Inventory inventory, DistrictCenter? district) 
+    static bool InventoryInDistrict(Inventory inventory, DistrictCenter? district)
         => district is null || inventory.GetComponent<DistrictBuilding>().InstantDistrict == district;
 
     public void Load()
