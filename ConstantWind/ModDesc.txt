@@ -1,0 +1,12 @@
+﻿Wind strength is now constant. The strength is configurable in the Mods menu and the default is at 50%. Wind direction is not affected but I think it's for your eyes only and no mechanic in the game uses it.
+
+[strike]Note: when loading your save for the first time with this mod, you have to wait until the wind changes, randomly between 5-12 in-game hours.[/strike] With v10.0.0, the setting is applied immediately when you change it in the setting.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.0: (for V1 games only)
+- Should work for Timberborn v1.0
+- Settings is now a text box so you can enter any number including number higher than 100.
+- Settings are now applied immediately including when changing in-game.
+v7.0.0: added support to Update 7 (Update 6 players still benefit from this update). You can also change the settings while in-game now too instead of just at the Main Menu. As with the below note, when changing the settings in-game, you need to wait until the game actually changes the wind.
