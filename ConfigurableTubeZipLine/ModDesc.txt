@@ -20,7 +20,7 @@ InvalidOperationException: Material BaseMetal.Folktails is already loaded.
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
-v10.0.0: Should work with game v1.0.
+v10.0.0: Should work with game v1.0. For v1.0 version, it needs Moddable Timberborn (U7 continues to use the previous version with no change) and [b]NOT[/b] MaterialPlzNoCrashes (you can unsubscribe it or keep it to play with U7).
 v7.4.2: Should work with June 2nd update.
 v7.4.1: Added support for Ziporter.
 v7.3.1: Fixed crashes with the U7 Feb 25 update.

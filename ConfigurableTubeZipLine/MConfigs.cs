@@ -1,31 +1,36 @@
 ﻿namespace ConfigurableTubeZipLine;
 
-[Context("Game")]
-[Context("MainMenu")]
-public class SettingConfigurator : Configurator
+public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony
 {
+    public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.MainMenu | ConfigurationContext.Game;
 
-    public override void Configure()
+    public override void StartMod(IModEnvironment modEnvironment)
     {
-        Bind<MSettings>().AsSingleton();
-    }
-}
+        base.StartMod(modEnvironment);
 
-[Context("Game")]
-public class GameConfigurator : Configurator
-{
-
-    public override void Configure()
-    {
-        MultiBind<TemplateModule>().ToProvider(() =>
-        {
-            var b = new TemplateModule.Builder();
-
-            b.AddDecorator<Tube, ConfigurableTubeService>();
-
-            return b.Build();
-        }).AsSingleton();
-
+        ModdableTimberbornRegistry.Instance
+            .UseDependencyInjection()
+        ;
     }
 
+    public override void Configure(Configurator configurator, ConfigurationContext context)
+    {
+        configurator.BindSingleton<MSettings>();
+
+        if (!context.IsGameContext()) { return; }
+
+        configurator
+            // Zipline
+            .BindTemplateModifier<ZiplineTemplateModifier>()
+            .BindSpecModifier<ZiplineCableInclinationModifier>()
+            .BindSpecModifier<ZiplineSpeedModifier>()
+
+            // Tubeway
+            .BindTemplateModifier<TubewayTemplateModifier>()
+            
+            // Buildings for others
+            .BindSpecModifier<FactionSpecModifier>()
+            .BindSpecModifier<TemplateCollectionSpecModifier>()
+        ;
+    }
 }

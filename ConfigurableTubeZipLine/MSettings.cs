@@ -6,8 +6,6 @@ public class MSettings(
     ModRepository modRepository
 ) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
-    public const string ZiporterModId = "Ziporter";
-
     public static int TubewaySpeed { get; private set; }
     public static int ZiplineSpeed { get; private set; }
     public static int ZiplineMaxConnection { get; private set; }
@@ -81,11 +79,6 @@ public class MSettings(
         ZiplineMaxDistance = ziplineMaxDistance.Value;
         ZiplineMaxInclination = ziplineMaxInclination.Value;
         ZiplineThroughObstacles = ziplineThroughObstacles.Value;
-    }
-
-    public static float CalculateCost(int bonusSpeed)
-    {
-        return 1f / ((100 + bonusSpeed) / 100f);
     }
 
     public void Unload()

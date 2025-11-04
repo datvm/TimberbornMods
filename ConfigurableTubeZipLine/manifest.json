@@ -6,6 +6,6 @@
     "Description": "Change various aspect of Tubeways and Ziplines",
     "RequiredMods": [
         { "Id": "eMka.ModSettings" },
-        { "Id": "Harmony" }
+        { "Id": "ModdableTimberborn" }
     ]
 }
