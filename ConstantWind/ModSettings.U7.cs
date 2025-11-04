@@ -1,6 +1,4 @@
-﻿using Timberborn.WindSystem;
-
-namespace ConstantWind;
+﻿namespace ConstantWind;
 
 public class ModSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
