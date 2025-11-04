@@ -1,0 +1,10 @@
+{
+    "FactionSpec": {
+        "MaterialCollectionIds#append": [
+            "IronTeeth"
+        ],
+        "TemplateCollectionIds#append": [
+            "AirlockChamber"
+        ]
+    }
+}
