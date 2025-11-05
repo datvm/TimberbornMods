@@ -1,8 +1,8 @@
-{
+﻿{
     "Name": "Satisfactidy (Rubble Edition)",
-    "Version": "7.0.1",
+    "Version": "10.0.0",
     "Id": "RubbleSatisfactidy",
-    "MinimumGameVersion": "0.7.0.0",
+    "MinimumGameVersion": "1.0.0",
     "Description": "Rubble be gone!",
     "RequiredMods": [
         { "Id": "TimberUi" }

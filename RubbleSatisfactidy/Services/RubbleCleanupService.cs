@@ -105,7 +105,7 @@ public class RubbleCleanupService(
     {
         foreach (var e in entityRegistry.Entities.ToArray())
         {
-            var gs = e.GetComponentFast<RecoveredGoodStack>();
+            var gs = e.GetComponent<RecoveredGoodStack>();
             if (gs)
             {
                 entityService.Delete(gs);
@@ -117,7 +117,7 @@ public class RubbleCleanupService(
     {
         foreach (var e in entityRegistry.Entities)
         {
-            var gs = e.GetComponentFast<RecoveredGoodStack>();
+            var gs = e.GetComponent<RecoveredGoodStack>();
             if (gs && gs.Inventory.HasAnyUnreservedStock)
             {
                 yield return gs;
@@ -148,10 +148,10 @@ public class RubbleCleanupService(
 
         foreach (var e in entityRegistry.Entities)
         {
-            var bo = e.GetComponentFast<BlockObject>();
+            var bo = e.GetComponent<BlockObject>();
             if (!bo || !bo.IsFinished) { continue; }
 
-            var stockpile = e.GetComponentFast<Stockpile>();
+            var stockpile = e.GetComponent<Stockpile>();
             if (!stockpile) { continue; }
 
             var inv = stockpile.Inventory;
