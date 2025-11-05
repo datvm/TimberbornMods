@@ -1,8 +1,4 @@
-﻿global using System.Collections.Frozen;
-global using System.Diagnostics.CodeAnalysis;
-global using Timberborn.BlueprintSystem;
-
-namespace RealLights.Managements;
+﻿namespace RealLights.Specs;
 
 public class RealLightsManager(
     ISpecService specs,
@@ -47,9 +43,9 @@ public class RealLightsManager(
         eb.Register(this);
     }
 
-    public RealLightsSpec? GetRealLightFor(PrefabSpec prefab) => TryGetRealLightFor(prefab, out var spec) ? spec : null;
+    public RealLightsSpec? GetRealLightFor(TemplateSpec prefab) => TryGetRealLightFor(prefab, out var spec) ? spec : null;
 
-    public bool TryGetRealLightFor(PrefabSpec prefab, [MaybeNullWhen(false)] out RealLightsSpec spec) => realLightSpecs.TryGetValue(prefab.PrefabName, out spec);
+    public bool TryGetRealLightFor(TemplateSpec prefab, [MaybeNullWhen(false)] out RealLightsSpec spec) => realLightSpecs.TryGetValue(prefab.TemplateName, out spec);
 
     public void Register(RealLightsComponent comp)
     {

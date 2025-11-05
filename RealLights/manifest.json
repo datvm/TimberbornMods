@@ -1,10 +1,11 @@
-{
+﻿{
     "Name": "Configurable & Moddable Lights",
-    "Version": "7.3.0",
+    "Version": "10.0.0",
     "Id": "RealLights",
-    "MinimumGameVersion": "0.7.0.0",
+    "MinimumGameVersion": "1.0.0",
     "Description": "Use real lights instead of fake material colors.",
     "RequiredMods": [
-        { "Id": "TimberUi" }
+        { "Id": "TimberUi" },
+        { "Id": "eMka.ModSettings" }
     ]
 }

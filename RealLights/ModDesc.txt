@@ -1,0 +1,71 @@
+﻿Certain buildings in the game does not have a real "light" (for example Lantern or Brazier) but is just a texture due to Unity's Light constraint. This mod adds an actual light source to these buildings that are configurable as well.
+
+[b]For players:[/b] This mod adds actual light sources (and configurable) to [b]Lantern[/b] (Folktails and Iron Teeth) and [b]Brazier[/b] (Iron Teeth) buildings.
+[b]For modders:[/b] You can use this mod to add light sources to your mod's or the game's buildings using JSON specs.
+
+You should check out [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3457351947]Even More Lights[/url] for more building lights!
+
+[img]https://images.steamusercontent.com/ugc/12216840219429693745/C4735B8BE4BE0F8760A221852AE0D54A63972C0D/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+[h1]Configurable Lights[/h1]
+
+For each supported buildings (either through this mod or for additional mods), you can configure the light source's color, intensity and range (see screenshot above). You can also force any night-time light to be always on or force turning it it off for that building or all buildings of the same kind.
+
+[b]Tip:[/b] You can Shift + Click the slider to enter a specific number. The Shift button may be changed in Keybindings (User interface -> Alternate button action)
+
+You can also use configurable hotkeys to copy and paste the setting. The default is Ctrl Shift I for copying and Ctrl Shift O for pasting. To change it, go to Settings -> Keybindings, they are under the User Interface section.
+
+[b]Known issues:[/b] I heard the dev removed the light source from the game due to Unity's constraint. From my testing, as long as you don't put them too close together (or set the range and intensity too high), it should be fine.
+
+[h1]For modders: adding user-configurable lights to your buildings[/h1]
+
+Note: see the above issue, while my mod supports multiple lights in a building, it is not recommended because it may cause certain lights not working.
+
+1. Create a JSON Spec file like `Blueprints\RealLights\MyBuilding.RealLightsSpec.blueprint.json`. In the example, I use Brazier:
+
+[code]
+{
+    "RealLightsSpec": {
+        "PrefabNames": [ "Brazier.IronTeeth" ],
+        "Lights": [
+            {
+                "Range": 4,
+                "Intensity": 3,
+                "IsNightLight": true,
+                "Position": {
+                    "X": 0.5,
+                    "Y": 0.5,
+                    "Z": 0.6
+                },
+                "Color": {
+                    "r": 1,
+                    "g": 0.89,
+                    "b": 0.03,
+                    "a": 1
+                }
+            }
+        ]
+    }
+}
+[/code]
+
+Note: while [b]a[/b] property is probably not used, it's still required for the JSON parser.
+
+2. Check in game, with Dev mode on (Alt + Shift + Z), you can see an option to toggle the light source sphere to see where the light is coming from (see screenshot). You can also adjust the slider to preview where it should be and modify your spec file accordingly.
+
+And that's it! If you need any help, please ping me on the Timberborn's Official Discord server. 
+
+===
+v10.0.0:
+- Works with Timberborn v1.0 now.
+- Color selection is now a single button instead of a set of sliders.
+- Collapsible panel is now provided by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3547764728]TImprove 4 UX[/url] instead.
+
+v7.3.0: The panel is now collapsible (and it's also collapsed by default).
+v7.2.0: You can Shift + Click the slider to manually enter a specific number now.
+v7.1.4: Should work with April 10 update now.
+v7.1.3: added a scrollbar. Also fixed some bug with Turning off light logic.
+v7.1.1: you can now also turn the light off for a whole set of buildings, in preparation for my next extension mod.
+v7.1.0: should work for April 02 update. Added ability to turn a light off and hotkeys for copying and pasting Light setting between buildings as well.
+
+Mod source code (feel free to use it however you want): https://github.com/datvm/TimberbornMods
