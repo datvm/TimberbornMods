@@ -34,8 +34,6 @@ public class CollapsibleEntityPanelService : ISaveableSingleton, ILoadableSingle
         typeof(UnstableCoreFragment),
         typeof(TimedComponentActivatorFragment),
         typeof(BlueprintDebugFragment),
-        typeof(UnstableCoreExplodeDebugFragment),
-        typeof(RemoveUnstableCoreDebugFragment),
 #endif
     ];
 
