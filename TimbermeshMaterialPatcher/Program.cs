@@ -1,38 +1,11 @@
 ﻿using System.Text.Json;
 
 string[] filePaths = [
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway001010.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway001011.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway001100.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway001101.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway001110.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway001111.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway011100.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway011101.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway011110.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway011111.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway101000.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway101001.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway101010.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway101011.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway111100.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway111101.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway111110.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway111111.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubewayCover.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway.IronTeeth.ConstructionStage0.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway000000.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway000001.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway000010.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway000011.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway001000.IronTeeth.Model.prefab",
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\verticaltubeway\VerticalTubeway001001.IronTeeth.Model.prefab",
+    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\path\DirtPath0000.Folktails.Model.prefab"
 ];
 
 var materialMaps = new KeyValuePair<string, string>[]
 {
-    new("BaseWood_Indigo.IronTeeth", "BaseWood_Grey.IronTeeth"),
-    new("BaseWood_DarkBrown.IronTeeth", "BaseWood_Grey.IronTeeth"),
 }.ToFrozenDictionary();
 
 const string OutputFolder = @"D:\Temp\Models";

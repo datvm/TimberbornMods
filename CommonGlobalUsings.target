@@ -445,7 +445,6 @@
 		<Using Include="Timberborn.TubeSystem"/>
 		<Using Include="Timberborn.TutorialSettingsSystem"/>
 		<Using Include="Timberborn.TutorialSystem"/>
-		<Using Include="Timberborn.TutorialSystemInitialization"/>
 		<Using Include="Timberborn.TutorialSystemUI"/>
 		<Using Include="Timberborn.UIFormatters"/>
 		<Using Include="Timberborn.UILayoutSystem"/>
@@ -463,7 +462,6 @@
 		<Using Include="Timberborn.WaterBuildingsUI"/>
 		<Using Include="Timberborn.WaterContaminationBuildings"/>
 		<Using Include="Timberborn.WaterContaminationBuildingsUI"/>
-		<Using Include="Timberborn.WaterContaminationRendering"/>
 		<Using Include="Timberborn.WaterObjects"/>
 		<Using Include="Timberborn.WaterSourceSystem"/>
 		<Using Include="Timberborn.WaterSourceSystemUI"/>

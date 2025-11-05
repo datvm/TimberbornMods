@@ -1,0 +1,11 @@
+﻿{
+    "Name": "Pin",
+    "Version": "10.0.0",
+    "Id": "Pin",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Mark your map with pins",
+    "RequiredMods": [
+        { "Id": "TimberUi" },
+        { "Id": "eMka.ModSettings" }
+    ]
+}
