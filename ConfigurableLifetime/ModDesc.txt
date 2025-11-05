@@ -1,0 +1,12 @@
+﻿Configure the lifetime of beavers and bots as well as the growth of beavers children. Requested by someone.
+
+By default this mod does not change anything. You need to confgure it: Menu (Main Menu or Game Menu) -> Mods -> Settings button next to the mod's name.
+
+- Beaver Aging Multiplier: Adult Beavers' aging is multiplied by this value, similar to a "Life expectancy" bonus. Note: higher is harder as beavers will age faster. Setting to 0 means beavers will never age.
+- Childhood Growth Multiplier: Children Beavers' childhood growth is multiplied by this value, similar to a "Growth speed" bonus. Note: higher is easier as young beavers will grow faster. Setting to 0 means children will never grow.
+- Bot Deterioration Multiplier: Bots' deterioration is multiplied by this value, similar to a "Life expectancy" bonus. Note: higher is harder as bots will deteriorate faster. Setting to 0 means bots will never deteriorate.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.0: Should work with Timberborn v1.0.1.
