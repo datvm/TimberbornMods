@@ -48,7 +48,7 @@ public static class LifetimePatches
     {
         if (!characterCache.TryGetValue(lifeProgressor, out var value))
         {
-            var child = lifeProgressor.GetComponentFast<Child>();
+            var child = lifeProgressor.GetComponent<Child>();
             characterCache.Add(lifeProgressor, (bool?)child);
         }
 
