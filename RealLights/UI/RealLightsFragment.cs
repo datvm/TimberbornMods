@@ -1,14 +1,12 @@
-﻿global using Timberborn.Debugging;
-global using Timberborn.InputSystem;
-
-namespace RealLights.Graphical;
+﻿namespace RealLights.UI;
 
 public class RealLightsFragment(
     VisualElementInitializer initializer,
     ILoc t,
     DevModeManager devs,
     InputService input,
-    PanelStack panelStack
+    PanelStack panelStack,
+    ColorPickerShower colorPickerShower
 ) : IEntityPanelFragment, IInputProcessor
 {
     const string CopyKeyId = "CopyLightColor";
@@ -39,15 +37,10 @@ public class RealLightsFragment(
     {
         panel = new()
         {
-            Background = EntityPanelFragmentBackground.PurpleStriped,
             Visible = false,
         };
 
-        var collapsiblePanel = panel.AddChild<CollapsiblePanel>()
-            .SetTitle(t.T("LV.RL.Title"));
-        collapsiblePanel.SetExpand(false);
-
-        var scroll = collapsiblePanel.Container.AddGameScrollView().SetMaxHeight(200);
+        var scroll = panel.AddGameScrollView().SetMaxHeight(200);
         
         chkForceOffAll = scroll.AddToggle(t.T("LV.RL.ForceOffAll"), onValueChanged: OnForceOffPrefabChanged)
             .SetMarginBottom(5);
@@ -63,7 +56,7 @@ public class RealLightsFragment(
 
         AddDevPanel(scroll);
 
-        return panel.Initialize(initializer);
+        return this.panel.Initialize(initializer);
     }
 
     void AddDevPanel(VisualElement parent)
@@ -98,7 +91,7 @@ public class RealLightsFragment(
 
     public void ShowFragment(BaseComponent entity)
     {
-        realLight = entity.GetComponentFast<RealLightsComponent>();
+        realLight = entity.GetComponent<RealLightsComponent>();
         if (realLight is null || !realLight.HasRealLight) { return; }
 
         UpdatePanelValues();
@@ -171,13 +164,7 @@ public class RealLightsFragment(
                 .RegisterAlternativeManualValue(input, t, initializer, panelStack)
                 .RegisterChangeCallback(ev => OnLightCustomSet(z, new() { Intensity = ev.newValue }));
 
-            var colorPanel = config.AddChild();
-            colorPanel.AddGameLabel(t.T("LV.RL.Color"));
-            {
-                AddColorSlider(colorPanel, "R", props.Color.r, z, (v, c) => c with { r = v });
-                AddColorSlider(colorPanel, "G", props.Color.g, z, (v, c) => c with { g = v });
-                AddColorSlider(colorPanel, "B", props.Color.b, z, (v, c) => c with { b = v });
-            }
+            config.AddGameButtonPadded(t.T("LV.RL.ChangeColor"), onClick: () => OnColorRequested(z));
         }
         lightConfigs.Initialize(initializer);
 
@@ -190,17 +177,19 @@ public class RealLightsFragment(
         devPanel.ToggleDisplayStyle(devs.Enabled);
 
         panel.Visible = true;
+    }
 
-        void AddColorSlider(VisualElement parent, string name, float initValue, int index, Func<float, Color, Color> getColorValue)
-        {
-            parent.AddSliderInt(label: name, values: new(0, 255, (int)(initValue * 255)))
-                .AddEndLabel(v => v.ToString())
-                .RegisterChangeCallback(ev => realLight.SetCustomColor(
-                    index,
-                    curr => getColorValue(ev.newValue / 255f, curr)
-                ))
-                .RegisterAlternativeManualValue(input, t, initializer, panelStack);
-        }
+    void OnColorRequested(int index)
+    {
+        if (!realLight) { return; }
+
+        var props = realLight!.GetLightProperties(index);
+        var currColor = props.Color;
+
+        colorPickerShower.ShowColorPicker(
+            currColor,
+            false, 
+            color => realLight.SetCustomColor(index, color));
     }
 
     public void UpdateFragment() { }

@@ -1,12 +1,8 @@
 ﻿global using Newtonsoft.Json;
-global using Timberborn.Coordinates;
-global using Timberborn.PrefabSystem;
-global using Timberborn.TimeSystem;
-global using Timberborn.EntitySystem;
 
 namespace RealLights.Components;
 
-public class RealLightsComponent : BaseComponent, IPersistentEntity
+public class RealLightsComponent : BaseComponent, IPersistentEntity, IStartableComponent
 {
     static readonly ComponentKey SaveKey = new("BuildingRealLights");
     static readonly PropertyKey<bool> ForceOffKey = new("ForceOff");
@@ -43,17 +39,17 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity
 
     public void Start()
     {
-        var prefabSpec = GetComponentFast<PrefabSpec>();
+        var prefabSpec = GetComponent<TemplateSpec>();
 
         if (prefabSpec is null
             || !registry.TryGetRealLightFor(prefabSpec, out var spec)) { return; }
         Spec = spec;
 
-        var label = GetComponentFast<LabeledEntity>();
-        PrefabName = prefabSpec.PrefabName;
+        var label = GetComponent<LabeledEntity>();
+        PrefabName = prefabSpec.TemplateName;
         BuildingName = label ? label.DisplayName : PrefabName;
 
-        AttachLights(spec.Lights, TransformFast);
+        AttachLights(spec.Lights, Transform);
         HasNightLight = spec.Lights.FastAny(q => q.IsNightLight);
 
         registry.Register(this);
@@ -69,7 +65,7 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity
         {
             foreach (var l in lights)
             {
-                Destroy(l.gameObject);
+                UnityEngine.Object.Destroy(l.gameObject);
             }
         }
     }
@@ -119,14 +115,9 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity
         UpdateLight(index);
     }
 
-    public void SetCustomColor(int index, Func<Color, Color> modifier)
+    public void SetCustomColor(int index, Color color)
     {
-        if (Spec is null) { throw new InvalidOperationException("This object has no Real Light"); }
-
-        var currColor = GetLightProperties(index).Color;
-        var modified = modifier(currColor);
-
-        SetCustomProperties(index, new() { Color = modified });
+        SetCustomProperties(index, new() { Color = color });
     }
 
     public void SetForceOffPrefab(bool enabled)

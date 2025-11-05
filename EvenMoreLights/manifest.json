@@ -1,11 +1,11 @@
-{
+﻿{
     "Name": "Even More Lights",
-    "Version": "7.0.0",
+    "Version": "10.0.0",
     "Id": "EvenMoreLights",
-    "MinimumGameVersion": "0.7.0.0",
+    "MinimumGameVersion": "1.0.0",
     "Description": "Add even more lights to your buildings",
     "RequiredMods": [
         { "Id": "TimberUi" },
-        { "Id": "RealLights", "MinimumVersion": "7.1.1" }
+        { "Id": "RealLights" }
     ]
 }

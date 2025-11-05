@@ -1,0 +1,5 @@
+﻿Make your game even more vibrant with this expansion mod for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3452443425]Configurable & Moddable Lights[/url]. This mod adds real lights (most of them are night lights) to the game buildings. With the latest version of Configurable & Moddable Lights, if it's too much, you can also turn off the lights of a building or even all buildings of the same kind.
+
+Surely you have better aesthetic taste than me, so you can also change the color of the lights to your liking. You can also send me your suggestions (new buildings, change light colors, etc.) and I will happy to add them to the mod. Please contact me on Discord or in the comments section.
+
+Tips: this mod is a JSON-only mod (code-less) so you can also make your own changes or even create your own mod based on this one. Check [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3452443425]Configurable & Moddable Lights[/url] for instruction on how to do it as well.

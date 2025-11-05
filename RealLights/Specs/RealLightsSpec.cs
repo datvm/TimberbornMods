@@ -1,4 +1,4 @@
-﻿namespace RealLights.Managements;
+﻿namespace RealLights.Specs;
 
 public record RealLightsSpec : ComponentSpec
 {
