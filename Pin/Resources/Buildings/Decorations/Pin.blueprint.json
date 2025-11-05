@@ -1,0 +1,112 @@
+﻿{
+    "BuildingSpec": {
+        "SelectionSoundName": "Default",
+        "LoopingSoundName": "",
+        "BuildingCost": [],
+        "ScienceCost": 0,
+        "PlaceFinished": true,
+        "FinishableWithBeaversOnSite": true,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "Pin",
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BlockObjectSpec": {
+        "BlocksSpec": {
+            "Size": {
+                "X": 1,
+                "Y": 1,
+                "Z": 1
+            },
+            "BlockSpecs": [
+                {
+                    "MatterBelow": "GroundOrStackable",
+                    "Occupations": "Path",
+                    "Stackable": "None",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                }
+            ]
+        },
+        "Entrance": {
+            "HasEntrance": false,
+            "Coordinates": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": false
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "Decoration",
+        "ToolOrder": -10,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": false
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.Pin.PinName",
+        "DescriptionLocKey": "LV.Pin.PinDesc",
+        "FlavorDescriptionLocKey": "LV.Pin.PinFlavor",
+        "Icon": "Resources/Buildings/Decorations/PinIcon"
+    },
+    "PinSpec": {},
+    "Children": {
+        "#Finished": {
+            "Children": {
+                "DirtPath0000": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Paths/Path/DirtPath0000.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.02,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.04,
+                                    "Z": 1.0
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase1x1#nested": {
+                    "BlueprintPath": "ConstructionBases/ConstructionBase1x1/ConstructionBase1x1.blueprint"
+                }
+            }
+        }
+    }
+}

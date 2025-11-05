@@ -1,0 +1,15 @@
+﻿{
+    "KeyBindingSpec": {
+        "Id": "TogglePin",
+        "GroupId": "UI",
+        "LocKey": "LV.Pin.TogglePins",
+        "Order": 400,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/x",
+        "InputModifiers": "None",
+        "Unchangeable": false
+    }
+}

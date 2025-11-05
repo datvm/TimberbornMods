@@ -1,0 +1,13 @@
+﻿ID,Text,Comment
+LV.Pin.PinName,"Pin",
+LV.Pin.PinDesc,"Mark a location on the map with a customizable pin.",
+LV.Pin.PinFlavor,"'I don't remember why I put a pin here, I just know it's important.' — Anonymous",
+LV.Pin.NewPinText,"New Pin",
+LV.Pin.ChangeLabel,"Change Label",
+LV.Pin.ChangeColor,"Change Color",
+LV.Pin.Height,"Pin height",
+LV.Pin.LabelPrompt,"Enter new label text:",
+LV.Pin.Pins,"Pins",
+LV.Pin.PinsTab,"Open Pins tab",
+LV.Pin.TogglePins,"Toggle Pins",
+Name_PinFragment,"Pin",

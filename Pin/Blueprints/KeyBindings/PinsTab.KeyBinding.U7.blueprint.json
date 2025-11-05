@@ -1,0 +1,15 @@
+﻿{
+    "KeyBindingSpec": {
+        "Id": "PinsTab",
+        "GroupId": "SettlementPanel",
+        "LocKey": "LV.Pin.PinsTab",
+        "Order": 400,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/f1",
+        "InputModifiers": "Shift",
+        "Unchangeable": false
+    }
+}

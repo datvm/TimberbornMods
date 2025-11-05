@@ -1,7 +1,8 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="Validate">
 
 	<Import Project=".\CommonProperties.target" />
-	<Import Project=".\CommonGlobalUsings.target" />
+	<Import Condition="$(IsU7)" Project=".\CommonGlobalUsings.U7.target" />
+	<Import Condition="$(IsV1)" Project=".\CommonGlobalUsings.target" />
 
 	<ItemGroup Condition="$(IsV1)">
 		<Compile Remove="**\U7\**" />
@@ -85,7 +86,7 @@
 
 	<ItemGroup>
 		<!--<ProjectReference Include="$(GameSolutionFolder)ModAnalyzers\ModAnalyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />-->
-		<Analyzer Include="$(GameSolutionFolder)ModAnalyzers\out\netstandard2.0\ModAnalyzers.dll"/>
+		<Analyzer Condition="$(IsV1)" Include="$(GameSolutionFolder)ModAnalyzers\out\netstandard2.0\ModAnalyzers.dll"/>
 
 		<Compile Include="$(GameSolutionFolder)GameAssemblyPublicizer\IgnoresAccessChecks.cs" Link="IgnoresAccessChecks.cs" />
 

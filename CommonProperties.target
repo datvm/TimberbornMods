@@ -30,12 +30,15 @@
 			<Assets Include="$(OutputPath)\Assets\**\*"/>
 			<AssetBundles Include="$(OutputPath)\AssetBundles\**\*"/>
 			<Sprites Include="$(OutputPath)\Sprites\**\*"/>
-			<Blueprints Include="$(OutputPath)\Blueprints\**\*"/>
 			<Specifications Include="$(OutputPath)\Specifications\**\*"/>
 			<ModResources Include="$(OutputPath)\Resources\**\*"/>
 			<ModSounds Include="$(OutputPath)\Sounds\**\*"/>
 			<ModManifestFile Include="$(OutputPath)\**\manifest.json" />
 			<ModWorkshopDataFile Include="$(OutputPath)\**\workshop_data.json" />
+
+			<Blueprints Condition="$(IsV1)" Include="$(OutputPath)\Blueprints\**\*.blueprint.json"/>
+			<Blueprints Condition="$(IsU7)" Include="$(OutputPath)\Blueprints\**\*" Exclude="$(OutputPath)\Blueprints\**\*.blueprint.json"/>
+			<Blueprints Condition="$(IsU7)" Include="$(OutputPath)\Blueprints\**\*.U7.blueprint.json"/>
 		</ItemGroup>
 	</Target>
 

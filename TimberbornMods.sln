@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Targets", "_Targets", "{F8
 		CommonBuildingHP.target = CommonBuildingHP.target
 		CommonDebug.target = CommonDebug.target
 		CommonGlobalUsings.target = CommonGlobalUsings.target
+		CommonGlobalUsings.U7.target = CommonGlobalUsings.U7.target
 		CommonHarmony.target = CommonHarmony.target
 		CommonMM.target = CommonMM.target
 		CommonModBuilder.target = CommonModBuilder.target
@@ -153,7 +154,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlternativeRecipesSPs", "Sc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroManagement", "MicroManagement\MicroManagement.csproj", "{3A6B1E54-B610-4CE0-B75C-BE7DAC7EE999}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Decors", "Decors", "{1DAF0583-C6BF-4111-AA4D-7CAD297F299F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NonGameplay", "NonGameplay", "{1DAF0583-C6BF-4111-AA4D-7CAD297F299F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MechanicalFilterPump", "MechanicalFilterPump\MechanicalFilterPump.csproj", "{AAC1627B-F316-4570-BAAE-8DBDBF2D4AE0}"
 EndProject
@@ -306,6 +307,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StableCore", "StableCore\StableCore.csproj", "{A4370020-85D3-4806-AF08-436C2DDE6685}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnstableCoreChallenge", "UnstableCoreChallenge\UnstableCoreChallenge.csproj", "{EC41BB67-0CDA-4C9B-B0E3-A04413A708D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pin", "Pin\Pin.csproj", "{08D745BB-BAE0-4928-874A-C932A91E4D17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -825,6 +828,10 @@ Global
 		{EC41BB67-0CDA-4C9B-B0E3-A04413A708D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC41BB67-0CDA-4C9B-B0E3-A04413A708D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC41BB67-0CDA-4C9B-B0E3-A04413A708D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08D745BB-BAE0-4928-874A-C932A91E4D17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08D745BB-BAE0-4928-874A-C932A91E4D17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08D745BB-BAE0-4928-874A-C932A91E4D17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08D745BB-BAE0-4928-874A-C932A91E4D17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -910,6 +917,7 @@ Global
 		{75BE59AF-6D50-49D6-9DD1-19699C8E436F} = {D67673ED-4BAD-43CB-B284-FF830384FA41}
 		{D18AA391-2A8A-4BEE-B22B-0E5423AF3DFA} = {DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}
 		{CDAAA96E-C4B0-4EDB-93C1-BEFEB6BA62AA} = {5D10D08B-18D1-40D6-B0B2-83778419FC99}
+		{CEF0D2F0-0131-4462-8219-39D8FEBBA923} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
 		{C3230609-D1CD-4DBA-ABC1-DC70CB14A1B7} = {9C86AE06-7E1D-47C7-90C1-83EA7E7CA365}
 		{34E6946E-27E3-4A26-AECF-6BD7BCB25A4F} = {548BD0EE-6EE0-49E9-BE70-17FD4D2383B6}
 		{657FC626-A743-4E64-A3B3-7A14CC0B4B7D} = {4C24DB61-A115-4B00-BDBF-E8CD4EA9FDF2}
@@ -921,6 +929,7 @@ Global
 		{E40B6CB2-0BF0-4C00-ABAF-C95C7754A73B} = {026F718D-37AA-406F-8C30-E37E2613E7E5}
 		{C424C74D-E525-44A2-BFC1-471481E4087E} = {36EBDCB0-09D8-4A7D-AF62-89D5C49B6B44}
 		{1E0B4DEB-6AD6-48A2-9E62-144E23C45CEE} = {36EBDCB0-09D8-4A7D-AF62-89D5C49B6B44}
+		{08D745BB-BAE0-4928-874A-C932A91E4D17} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}

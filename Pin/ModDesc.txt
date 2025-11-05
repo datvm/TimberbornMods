@@ -1,0 +1,19 @@
+﻿Mark anything, anywhere.
+
+Place colorful, customizable pins on the map to mark key locations. Adjust each pin's color, text, and height to your liking.
+
+Found under the Decorations tab.
+[i]'I don't remember why I put a pin here, I just know it's important.' — Anonymous[/i]
+
+Open the [b]Pins Management Tab[/b] (default Shift + F1) to view and organize all your pins. You can click on any to select and go to its location.
+[img]https://images.steamusercontent.com/ugc/11854738852058522721/4F7DFD13E5130EFEC8F74127264CA5FE4E57C55E/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+Notes: Uses a Path model but doesn't function as a path.
+
+Tip: Supports [url=https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/StyledText.html]Unity Rich Text[/url] for styling — for example:
+[code]
+<color="red">Hello</color> <size=30>World</size>!
+[/code]
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
