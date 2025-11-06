@@ -7,7 +7,7 @@ public record RealLightsSpec : ComponentSpec
     public ImmutableArray<string> PrefabNames { get; init; }
 
     [Serialize]
-    public ImmutableArray<RealLightLightSpec> Lights { get; init; }
+    public ImmutableArray<RealLightLightSpec> Lights { get; init; } = [];
 
 }
 

@@ -1,6 +1,4 @@
-﻿global using Newtonsoft.Json;
-
-namespace RealLights.Components;
+﻿namespace RealLights.Components;
 
 public class RealLightsComponent : BaseComponent, IPersistentEntity, IStartableComponent
 {

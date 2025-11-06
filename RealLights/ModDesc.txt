@@ -56,6 +56,11 @@ Note: while [b]a[/b] property is probably not used, it's still required for the 
 And that's it! If you need any help, please ping me on the Timberborn's Official Discord server. 
 
 ===
+v10.0.1:
+- You can use decimal values for Intensity. Remember to use Shift + Click if you want to enter a specific number.
+- Further improved the UI by removing the scrollbar and move the less-used options into a collapsible panel.
+- Fixed a potential crash.
+
 v10.0.0:
 - Works with Timberborn v1.0 now.
 - Color selection is now a single button instead of a set of sliders.

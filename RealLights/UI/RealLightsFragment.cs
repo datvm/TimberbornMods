@@ -40,30 +40,32 @@ public class RealLightsFragment(
             Visible = false,
         };
 
-        var scroll = panel.AddGameScrollView().SetMaxHeight(200);
-        
-        chkForceOffAll = scroll.AddToggle(t.T("LV.RL.ForceOffAll"), onValueChanged: OnForceOffPrefabChanged)
+        chkForceOffAll = panel.AddToggle(t.T("LV.RL.ForceOffAll"), onValueChanged: OnForceOffPrefabChanged)
             .SetMarginBottom(5);
-        chkForceOff = scroll.AddToggle(t.T("LV.RL.ForceOff"), onValueChanged: OnForceOffChanged)
+        chkForceOff = panel.AddToggle(t.T("LV.RL.ForceOff"), onValueChanged: OnForceOffChanged)
             .SetMarginBottom(5);
-        chkForceNightLight = scroll.AddToggle(t.T("LV.RL.ForceNightLight"), onValueChanged: OnForceNightLightChanged)
+        chkForceNightLight = panel.AddToggle(t.T("LV.RL.ForceNightLight"), onValueChanged: OnForceNightLightChanged)
             .SetMarginBottom(10);
 
-        lightConfigs = scroll.AddChild().SetMarginBottom();
+        lightConfigs = panel.AddChild().SetMarginBottom();
 
-        scroll.AddGameButton(t.T("LV.RL.Reset"), OnReset, "ResetColor", stretched: true)
-            .SetFlexGrow();
+        var moreOptions = panel.AddChild<CollapsiblePanel>();
+        moreOptions.SetTitle(t.T("LV.RL.MoreOptions"));
+        moreOptions.SetExpand(false);
 
-        AddDevPanel(scroll);
+        var advContainer = moreOptions.Container;
+        advContainer.AddGameButtonPadded(t.T("LV.RL.Reset"), OnReset, "ResetColor", stretched: true);
 
-        return this.panel.Initialize(initializer);
+        AddDevPanel(advContainer);
+
+        return panel.Initialize(initializer);
     }
 
     void AddDevPanel(VisualElement parent)
     {
         devPanel = parent.AddChild().SetMargin(top: 20);
 
-        devPanel.AddGameButton(
+        devPanel.AddGameButtonPadded(
             "Toggle Light positions indicators",
             () => realLight?.ToggleDebugLight(!realLight.IsDrawingDebugLight), stretched: true);
 
@@ -154,15 +156,19 @@ public class RealLightsFragment(
                 config.AddGameLabel(t.T("LV.RL.LightConfig", i + 1));
             }
 
-            config.AddSliderInt(label: t.T("LV.RL.Range"), values: new(0, 20, (int)props.Range))
+            config.AddGameLabel(t.T("LV.RL.Range"));
+            config.AddSliderInt(values: new(0, 20, (int)props.Range))
                 .AddEndLabel(v => v.ToString())
                 .RegisterAlternativeManualValue(input, t, initializer, panelStack)
-                .RegisterChangeCallback(ev => OnLightCustomSet(z, new() { Range = ev.newValue }));
+                .RegisterChangeCallback(ev => OnLightCustomSet(z, new() { Range = ev.newValue }))
+                .SetMarginBottom(5);
 
-            config.AddSliderInt(label: t.T("LV.RL.Intensity"), values: new(0, 20, (int)props.Intensity))
-                .AddEndLabel(v => v.ToString())
+            config.AddGameLabel(t.T("LV.RL.Intensity"));
+            config.AddSlider(values: new(0, 20, props.Intensity))
+                .AddEndLabel(v => v.ToString("0.0"))
                 .RegisterAlternativeManualValue(input, t, initializer, panelStack)
-                .RegisterChangeCallback(ev => OnLightCustomSet(z, new() { Intensity = ev.newValue }));
+                .RegisterChangeCallback(ev => OnLightCustomSet(z, new() { Intensity = ev.newValue }))
+                .SetMarginBottom(5);
 
             config.AddGameButtonPadded(t.T("LV.RL.ChangeColor"), onClick: () => OnColorRequested(z));
         }
