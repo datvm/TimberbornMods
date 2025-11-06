@@ -1,0 +1,25 @@
+{
+  "TransputProviderSpec": {
+    "TransputSpecs": [
+      {
+        "Coordinates": {
+          "X": 0,
+          "Y": 0,
+          "Z": 0
+        },
+        "Directions": "Down, Left, Up, Right",
+        "ReverseRotation": false
+      },
+      {
+        "Coordinates": {
+          "X": 0,
+          "Y": 0,
+          "Z": 0
+        },
+        "Directions": "Bottom",
+        "ReverseRotation": false
+      }
+    ],
+    "IgnoreRotation": false
+  }
+}
