@@ -16,18 +16,17 @@ public class ModMenuConfig : Configurator
 [Context("Game")]
 public class ModGameConfig : Configurator
 {
+
     public override void Configure()
     {
         Bind<MSettings>().AsSingleton();
-        
-        if (MSettings.ExtendDemolishValue)
+
+        Bind<ExtendedGoodStackAccessible>().AsTransient();
+        MultiBind<TemplateModule>().ToProvider(() =>
         {
-            MultiBind<TemplateModule>().ToProvider(() =>
-            {
-                TemplateModule.Builder b = new();
-                b.AddDecorator<Demolishable, ExtendedDemolishableAccessible>();
-                return b.Build();
-            }).AsSingleton();
-        }
+            TemplateModule.Builder b = new();
+            b.AddDecorator<GoodStackAccessible, ExtendedGoodStackAccessible>();
+            return b.Build();
+        }).AsSingleton();
     }
 }
