@@ -1,6 +1,6 @@
 ﻿namespace SaveEveryday.Services;
 public class AutosaveWarningService(
-    ModSettings s,
+    MSettings s,
     QuickNotificationService notf,
     SaveEverydayService saveEveryday,
     IDayNightCycle cycle,

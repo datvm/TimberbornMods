@@ -1,13 +1,4 @@
-﻿#if TIMBER7
-global using Timberborn.Autosaving;
-global using Timberborn.HazardousWeatherSystemUI;
-global using Timberborn.InputSystem;
-global using Timberborn.GameSaveRepositorySystem;
-global using Timberborn.GameSaveRuntimeSystem;
-global using Timberborn.SettlementNameSystem;
-global using Timberborn.TimeSystem;
-
-namespace ConfigurableAutoSave.Services;
+﻿namespace ConfigurableAutoSave.Services;
 
 public class ConfigurableAutoSaveService(
     Autosaver autosaver,
@@ -128,4 +119,3 @@ public class ConfigurableAutoSaveService(
     }
 
 }
-#endif

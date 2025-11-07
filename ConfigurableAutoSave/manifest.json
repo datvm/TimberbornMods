@@ -1,13 +1,10 @@
-{
+﻿{
     "Name": "Configurable Autosave",
-    "Version": "7.1.1",
+    "Version": "10.0.0",
     "Id": "ConfigurableAutoSave",
-    "MinimumGameVersion": "0.6.0.0",
+    "MinimumGameVersion": "1.0.0",
     "Description": "Configure how the game's autosave feature works.",
     "RequiredMods": [
-        {
-            "Id": "eMka.ModSettings",
-            "MinimumVersion": "0.6.0.0"
-        }
+        { "Id": "eMka.ModSettings" }
     ]
 }
