@@ -34,7 +34,7 @@ public class TemplateCollectionSpecModifier(IAssetLoader assets) : BaseSpecModif
 
     NamedSpec<TemplateCollectionSpec> AppendTemplate(in NamedSpec<TemplateCollectionSpec> original, IEnumerable<string> buildings)
     {
-        HashSet<string> existingBuildings = [.. original.Spec.Blueprints.Select(q => q.Path)];
+        HashSet<string> existingBuildings = original.Spec.Blueprints.Select(q => q.Path).ToHashSet(StringComparer.OrdinalIgnoreCase);
         var addingBuildings = buildings
             .Where(p => !existingBuildings.Contains(p))
             .Select(p => new AssetRef<BlueprintAsset>(p, new(() => assets.Load<BlueprintAsset>(p))));
@@ -43,7 +43,7 @@ public class TemplateCollectionSpecModifier(IAssetLoader assets) : BaseSpecModif
         {
             Spec = original.Spec with
             {
-                Blueprints = [.. original.Spec.Blueprints, .. addingBuildings],
+                Blueprints = [..new HashSet<AssetRef<BlueprintAsset>>([.. original.Spec.Blueprints, .. addingBuildings])],
             }
         };
     }

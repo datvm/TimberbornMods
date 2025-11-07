@@ -1,34 +1,38 @@
 ﻿namespace ConfigurableTubeZipLine.Services;
 
-public class FactionSpecModifier : BaseSpecModifier<FactionSpec>
+public class FactionSpecModifier : BaseBlueprintModifier<FactionSpec>
 {
 
-    protected override IEnumerable<NamedSpec<FactionSpec>> Modify(IEnumerable<NamedSpec<FactionSpec>> specs)
-    {
-        foreach (var namedSpec in specs)
-        {
-            switch (namedSpec.Spec.Id)
-            {
-                case "Folktails" when MSettings.TubewayForFolktails:
-                    yield return AppendMaterial(namedSpec, "IronTeeth");
-                    break;
-                case "IronTeeth" when MSettings.ZiplineForIronTeeth:
-                    yield return AppendMaterial(namedSpec, "Folktails");
-                    break;
-                default:
-                    yield return namedSpec;
-                    break;
-            }
-        }
-    }
-
-    static NamedSpec<FactionSpec> AppendMaterial(in NamedSpec<FactionSpec> original, string material) =>
+    static FactionSpec AppendMaterial(FactionSpec original, string material) =>
         original with
         {
-            Spec = original.Spec with
-            {
-                MaterialCollectionIds = [.. original.Spec.MaterialCollectionIds.Union([material])]
-            }
+            MaterialCollectionIds = [.. original.MaterialCollectionIds.Union([material])]
         };
 
+    public override IEnumerable<EditableBlueprint> Modify(IEnumerable<EditableBlueprint> blueprints)
+    {
+        foreach (var bp in blueprints)
+        {
+            for (int i = 0; i < bp.Specs.Count; i++)
+            {
+                var spec = bp.Specs[i];
+                if (spec is FactionSpec fs)
+                {
+                    switch (fs.Id)
+                    {
+                        case "Folktails" when MSettings.TubewayForFolktails:
+                            bp.Specs[i] = AppendMaterial(fs, "IronTeeth");
+                            break;
+                        case "IronTeeth" when MSettings.ZiplineForIronTeeth:
+                            bp.Specs[i] = AppendMaterial(fs, "Folktails");
+                            break;
+                    }
+
+                    break;
+                }
+            }
+
+            yield return bp;
+        }
+    }
 }
