@@ -1,0 +1,14 @@
+{
+    "GatherableSpec": {
+        "YieldGrowthTimeInDays": 4,
+        "YielderSpec": {
+            "YielderComponentName": "Gatherable",
+            "Yield": {
+                "Id": "Log",
+                "Amount": 1
+            },
+            "RemovalTimeInHours": 1,
+            "ResourceGroup": "Gatherable"
+        }
+    }
+}

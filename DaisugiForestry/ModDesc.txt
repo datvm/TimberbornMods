@@ -1,0 +1,22 @@
+﻿Beavers have mastered the ancient Japanese Daisugi technique of sustainable forestry. Birch and Oak now yield renewable Logs if left standing. Instead of chopping them down, Gatherers collect their harvest at steady intervals.
+
+After their usual growth time:
+- Birch (7 days to grow): 1 Log every 4 days
+- Oak (30 days to grow): 4 Logs every 10 days
+
+Daisugi surpasses traditional cutting after 19 days for Birch and 80 days for Oak.
+
+[img]https://images.steamusercontent.com/ugc/10427540674879588609/6039AC8586D08240096F4928A9427DF00D3B622C/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+Birch Log output
+
+[img]https://images.steamusercontent.com/ugc/17549036084678245444/9BCDAF75F463EDCE6BDEE42792DE4D07D5E64D31/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+Oak Log output
+
+Pros:
+- Slower to start but provides more Logs over time
+- No need for a Forester once trees are planted and maintained
+
+Note: due to "technical limitation", the trees become white when the Daisugi Logs are ready.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
