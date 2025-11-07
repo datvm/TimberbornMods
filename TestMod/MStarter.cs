@@ -16,4 +16,16 @@ public class MStarter : IModStarter
 public static class TestPatch
 {
 
+    [HarmonyPrefix, HarmonyPatch(typeof(SpecService), nameof(SpecService.Load))]
+    public static void Prefix(SpecService __instance)
+    {
+        var bundles = __instance._blueprintFileBundleLoader.GetBundles(SpecService.BlueprintsPath);
+
+        foreach (var bundle in bundles)
+        {
+            Debug.Log($"Bundle {bundle.Name} with path {bundle.Path} is from:\r\n"
+                + string.Join("\r\n", bundle.Sources.Select(q => "- " + q)));
+        }
+    }
+
 }

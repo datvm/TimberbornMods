@@ -18,9 +18,24 @@ public class EditableBlueprint(string name)
         Specs.Add(spec);
     }
 
+    public void TransformSpecs(Func<ComponentSpec, ComponentSpec?> transformer)
+    {
+        for (int i = 0; i < Specs.Count; i++)
+        {
+            var modified = transformer(Specs[i]);
+            if (modified is not null)
+            {
+                Specs[i] = modified;
+            }
+        }
+    }
+
+    public void TransformSpec<T>(Func<T, T?> transform) where T : ComponentSpec
+        => TransformSpecs(s => (s is T t) ? transform(t) : null);
+
     public T GetSpec<T>() where T : ComponentSpec => Specs.OfType<T>().First();
 
-    public Blueprint ToBlueprint() => new(Name, Specs, [..Children.Select(static q => q.ToBlueprint())]);
+    public Blueprint ToBlueprint() => new(Name, Specs, [.. Children.Select(static q => q.ToBlueprint())]);
     public static implicit operator Blueprint(EditableBlueprint editableBlueprint) => editableBlueprint.ToBlueprint();
 
 }

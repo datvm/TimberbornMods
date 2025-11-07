@@ -20,6 +20,11 @@
                 .MultiBindAndBindSingleton<ITemplateCollectionIdProvider, TemplateCollectionTailRunnerService>()
                 .BindTemplateTailRunner<TemplateModifierTailRunner>()
             ;
+
+            if (context.IsBootstrapperContext())
+            {
+                configurator.Bind<AssetRefService>().AsSingleton().AsExported();
+            }
         }
     }
 }
