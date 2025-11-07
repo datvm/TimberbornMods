@@ -16,16 +16,27 @@ public class MStarter : IModStarter
 public static class TestPatch
 {
 
-    [HarmonyPrefix, HarmonyPatch(typeof(SpecService), nameof(SpecService.Load))]
-    public static void Prefix(SpecService __instance)
+    [HarmonyPrefix, HarmonyPatch(typeof(YieldRemovingBuilding), nameof(YieldRemovingBuilding.GetAllowedYielders))]
+    public static void Prefix(YieldRemovingBuilding __instance)
     {
-        var bundles = __instance._blueprintFileBundleLoader.GetBundles(SpecService.BlueprintsPath);
+        __instance._yieldRemovingBuildingSpec = __instance.GetComponent<YieldRemovingBuildingSpec>();
 
-        foreach (var bundle in bundles)
+        var gathererFlag = __instance.GetComponent<GathererFlag>();
+        if (!gathererFlag) { return; }
+
+        Debug.Log("Getting allowed yielders for " + __instance.Name);
+
+        var yielders = __instance._templateService.GetAll<IYielderDecorable>();
+        foreach (var yielder in yielders)
         {
-            Debug.Log($"Bundle {bundle.Name} with path {bundle.Path} is from:\r\n"
-                + string.Join("\r\n", bundle.Sources.Select(q => "- " + q)));
+            var spec = yielder.YielderSpec;
+
+            if (__instance.IsAllowed(yielder.YielderSpec))
+            {
+                Debug.Log($"- {spec.Yield.Id} x{spec.Yield.Amount} from {spec.YielderComponentName}");
+            }
         }
+
     }
 
 }

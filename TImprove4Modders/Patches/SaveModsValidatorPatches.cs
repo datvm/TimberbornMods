@@ -12,8 +12,8 @@ public static class SaveModsValidatorPatches
             return;
         }
 
-        var diag = __instance._dialogBoxShower._panelStack.TopPanel.VisualElement;
-        SaveModsDialogService.Instance.ActivateFor(diag);
+        var panel = __instance._dialogBoxShower._panelStack.TopPanel;
+        SaveModsDialogService.Instance.ActivateFor(panel);
     }
 
 }

@@ -1,0 +1,10 @@
+﻿{
+    "Name": "MultiYieldersPlzNoCrashes",
+    "Version": "10.0.0",
+    "Id": "MultiYieldersPlzNoCrashes",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "",
+    "RequiredMods": [
+        { "Id": "Harmony" }
+    ]
+}

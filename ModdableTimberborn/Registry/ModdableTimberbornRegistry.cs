@@ -2,7 +2,7 @@
 
 public partial class ModdableTimberbornRegistry
 {
-    public static readonly ImmutableArray<ConfigurationContext> SingleContexts = [ConfigurationContext.Bootstrapper, ConfigurationContext.MainMenu, ConfigurationContext.Game, ConfigurationContext.MainMenu];
+    public static readonly ImmutableArray<ConfigurationContext> SingleContexts = [ConfigurationContext.Bootstrapper, ConfigurationContext.MainMenu, ConfigurationContext.Game, ConfigurationContext.MapEditor];
 
     public static readonly ModdableTimberbornRegistry Instance;
 

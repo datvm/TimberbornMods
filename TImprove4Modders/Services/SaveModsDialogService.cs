@@ -8,14 +8,19 @@ public class SaveModsDialogService : IUpdatableSingleton, IUnloadableSingleton
 
     string confirmText = "";
     Button? confirmButton;
+    Func<bool>? onUIConfirmed;
 
     public SaveModsDialogService()
     {
         Instance = this;
     }
 
-    public void ActivateFor(VisualElement ve)
+    public void ActivateFor(in StackedPanel panel)
     {
+        onUIConfirmed = panel.PanelController.OnUIConfirmed;
+
+        var ve = panel.VisualElement;
+
         confirmButton = ve.Q<Button>("ConfirmButton");
         confirmText = confirmButton.text;
         confirmButton.clicked += Dismiss;
@@ -35,6 +40,7 @@ public class SaveModsDialogService : IUpdatableSingleton, IUnloadableSingleton
     void Dismiss()
     {
         confirmButton = null;
+        onUIConfirmed = null;
     }
 
     public void UpdateSingleton()
@@ -43,8 +49,8 @@ public class SaveModsDialogService : IUpdatableSingleton, IUnloadableSingleton
 
         if (DateTime.Now >= endTime)
         {
-            using var clickEvent = ClickEvent.GetPooled(new Event());
-            confirmButton.panel.visualTree.SendEvent(clickEvent);
+            onUIConfirmed?.Invoke();
+            Dismiss();
         }
         else
         {
