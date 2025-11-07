@@ -1,51 +1,40 @@
 ﻿namespace ConfigurableTubeZipLine.Services;
 
-public class TemplateCollectionSpecModifier(IAssetLoader assets) : BaseSpecModifier<TemplateCollectionSpec>
+public class TemplateCollectionSpecModifier(AssetRefService assetRefService) : BaseSpecModifier<TemplateCollectionSpec>
 {
-
     protected override IEnumerable<NamedSpec<TemplateCollectionSpec>> Modify(IEnumerable<NamedSpec<TemplateCollectionSpec>> specs)
     {
-        foreach (var namedSpec in specs)
+        foreach (var spec in specs)
         {
-            switch (namedSpec.Spec.CollectionId)
+            yield return spec;
+        }
+
+        if (MSettings.TubewayForFolktails)
+        {
+            yield return new("TemplateCollection.Buildings.Folktails", new()
             {
-                case "Buildings.Folktails" when MSettings.TubewayForFolktails:
-                    yield return AppendTemplate(namedSpec,
-                    [
-                        "Buildings/Paths/Tubeway/Tubeway.IronTeeth.blueprint",
-                        "Buildings/Paths/TubewayStation/TubewayStation.IronTeeth.blueprint",
-                        "Buildings/Paths/VerticalTubeway/VerticalTubeway.IronTeeth.blueprint",
-                    ]);
-                    break;
-                case "Buildings.IronTeeth" when MSettings.ZiplineForIronTeeth:
-                    yield return AppendTemplate(namedSpec,
-                    [
-                        "Buildings/Paths/ZiplineBeam/ZiplineBeam.Folktails.blueprint",
-                        "Buildings/Paths/ZiplinePylon/ZiplinePylon.Folktails.blueprint",
-                        "Buildings/Paths/ZiplineStation/ZiplineStation.Folktails.blueprint",
-                    ]);
-                    break;
-                default:
-                    yield return namedSpec;
-                    break;
-            }
+                CollectionId = "Buildings.Folktails",
+                Blueprints = [..assetRefService.CreateBlueprintAssetRefs([
+                    "Buildings/Paths/Tubeway/Tubeway.IronTeeth.blueprint",
+                    "Buildings/Paths/TubewayStation/TubewayStation.IronTeeth.blueprint",
+                    "Buildings/Paths/VerticalTubeway/VerticalTubeway.IronTeeth.blueprint",
+                ])],
+            });
+        }
+
+        if (MSettings.ZiplineForIronTeeth)
+        {
+            yield return new("TemplateCollection.Buildings.IronTeeth", new()
+            {
+                CollectionId = "Buildings.IronTeeth",
+                Blueprints = [..assetRefService.CreateBlueprintAssetRefs([
+                    "Buildings/Paths/ZiplineBeam/ZiplineBeam.Folktails.blueprint",
+                    "Buildings/Paths/ZiplinePylon/ZiplinePylon.Folktails.blueprint",
+                    "Buildings/Paths/ZiplineStation/ZiplineStation.Folktails.blueprint",
+                ])],
+            });
         }
     }
 
-    NamedSpec<TemplateCollectionSpec> AppendTemplate(in NamedSpec<TemplateCollectionSpec> original, IEnumerable<string> buildings)
-    {
-        HashSet<string> existingBuildings = original.Spec.Blueprints.Select(q => q.Path).ToHashSet(StringComparer.OrdinalIgnoreCase);
-        var addingBuildings = buildings
-            .Where(p => !existingBuildings.Contains(p))
-            .Select(p => new AssetRef<BlueprintAsset>(p, new(() => assets.Load<BlueprintAsset>(p))));
-
-        return original with
-        {
-            Spec = original.Spec with
-            {
-                Blueprints = [..new HashSet<AssetRef<BlueprintAsset>>([.. original.Spec.Blueprints, .. addingBuildings])],
-            }
-        };
-    }
 
 }
