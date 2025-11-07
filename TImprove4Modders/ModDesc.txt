@@ -28,6 +28,8 @@ This mod adds a few Development Controls I think would be useful. Feel free to s
 - No Exit Save ([b]not enabled by default[/b]): do not make an autosave when exiting the game (to Main Menu or desktop)
 - Enable Quick/Force Quit [Ctrl Shift Q][!]: Enable quick quit when pressing [Ctrl Shift Q]. This option use Process.Kill() so no save will be made.
 - Enable Quick Restart [Ctrl Shift R][!]: Enable quick restart when pressing [Ctrl Shift R]. This option use Process.Kill() so no save will be made.
+- Auto skip Mod Incompatibility box: Automatically skip the Mod Incompatibility box after 3s when loading a save:
+[img]https://images.steamusercontent.com/ugc/12741190646522438256/B9DD77C88A2B1A6B541335EC7BDB44B4737226AB/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
 
 [h1]Better Mod Organizing:[/h1]
 When checking this option (enabled by default), you have the following improvements:
@@ -44,6 +46,8 @@ When checking this option (enabled by default), you have the following improveme
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.0.2: Added "Auto skip Mod Incompatibility box" option.
+v10.0.1: Fixed Swap Modifier not working for unlocking buildings.
 v10.0.0: Should work with game v1.0.
 v7.6.0: 
 - Added a new Dev command: Complete all constructions.

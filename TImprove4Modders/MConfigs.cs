@@ -42,6 +42,7 @@ public class ModMenuConfig : CommonConfig
 
         this
             .BindSingleton<ModManagementService>()
+            .BindSingleton<SaveModsDialogService>()
         ;
     }
 }

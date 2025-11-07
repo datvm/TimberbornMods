@@ -69,6 +69,12 @@ public class MSettings(
             .CreateLocalized("LV.TIMod.NoExitSave")
             .SetLocalizedTooltip("LV.TIMod.NoExitSaveDesc"));
 
+    readonly ModSetting<bool> autoSkipLoadModCompat = new(
+        true,
+        ModSettingDescriptor
+            .CreateLocalized("LV.TIMod.AutoSkipLoadModCompat")
+            .SetLocalizedTooltip("LV.TIMod.AutoSkipLoadModCompatDesc"));
+
     #endregion
 
     public static bool SwapBuildFinishedModifier { get; private set; }
@@ -80,6 +86,7 @@ public class MSettings(
     public static bool NoClearDevFilter { get; private set; }
     public static bool BetterModOrder { get; private set; }
     public static bool NoExitSave { get; private set; }
+    public static bool AutoSkipLoadModCompat { get; private set; }
 
     public override void OnAfterLoad()
     {
@@ -94,6 +101,7 @@ public class MSettings(
         AddCustomModSetting(noExitSave, nameof(noExitSave));
         AddCustomModSetting(quickQuit, nameof(quickQuit));
         AddCustomModSetting(quickRestart, nameof(quickRestart));
+        AddCustomModSetting(autoSkipLoadModCompat, nameof(autoSkipLoadModCompat));
 
         ModSettingChanged += (_, _) => InternalOnSettingsChanged();
         InternalOnSettingsChanged();
@@ -110,7 +118,7 @@ public class MSettings(
         NoClearDevFilter = noClearDevFilter.Value;
         BetterModOrder = betterModOrder.Value;
         NoExitSave = noExitSave.Value;
-
+        AutoSkipLoadModCompat = autoSkipLoadModCompat.Value;
     }
 
     public void Unload()
