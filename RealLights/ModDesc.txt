@@ -56,6 +56,10 @@ Note: while [b]a[/b] property is probably not used, it's still required for the 
 And that's it! If you need any help, please ping me on the Timberborn's Official Discord server. 
 
 ===
+v10.0.2:
+- Really fixed the crash this time.
+- You can now use V1 Duplicate and Copy Setting. The built-in copy is still there but I think the new one is better.
+
 v10.0.1:
 - You can use decimal values for Intensity. Remember to use Shift + Click if you want to enter a specific number.
 - Further improved the UI by removing the scrollbar and move the less-used options into a collapsible panel.

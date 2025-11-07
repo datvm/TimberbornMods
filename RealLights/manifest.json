@@ -1,6 +1,6 @@
 ﻿{
     "Name": "Configurable & Moddable Lights",
-    "Version": "10.0.1",
+    "Version": "10.0.2",
     "Id": "RealLights",
     "MinimumGameVersion": "1.0.0",
     "Description": "Use real lights instead of fake material colors.",

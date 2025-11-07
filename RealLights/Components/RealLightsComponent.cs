@@ -1,11 +1,13 @@
 ﻿namespace RealLights.Components;
 
-public class RealLightsComponent : BaseComponent, IPersistentEntity, IStartableComponent
+public class RealLightsComponent : BaseComponent, IPersistentEntity, IStartableComponent, IDuplicable<RealLightsComponent>
 {
     static readonly ComponentKey SaveKey = new("BuildingRealLights");
     static readonly PropertyKey<bool> ForceOffKey = new("ForceOff");
     static readonly PropertyKey<bool> ForceNightLightOnKey = new("ForceNightLightOn");
     static readonly PropertyKey<string> CustomProperties = new("CustomProperties");
+
+    bool IDuplicable.IsDuplicable => HasNightLight;
 
     ImmutableArray<Light> lights = default;
     RealLightsManager registry = null!;
@@ -21,6 +23,7 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity, IStartableC
     public bool HasRealLight => Spec is not null;
 
     CustomRealLightProperties[]? customs;
+    RealLightClipboard? pendingClipboard;
 
     public bool ForcedOffPrefab => registry.IsTurnedOff(PrefabName ?? throw new InvalidOperationException());
 
@@ -53,6 +56,12 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity, IStartableC
         registry.Register(this);
         UpdateAllLights();
         ToggleLightsState();
+
+        if (pendingClipboard.HasValue)
+        {
+            ImportClipboard(pendingClipboard.Value);
+            pendingClipboard = null;
+        }
     }
 
     public void OnDestroy()
@@ -199,6 +208,8 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity, IStartableC
         for (int i = 0; i < lights.Length; i++)
         {
             var l = lights[i];
+            if (!l) { continue; }
+
             l.enabled = lightSpecs[i].IsNightLight ? shouldNightLightOn : shouldAllDayLightBeOn;
         }
     }
@@ -240,10 +251,14 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity, IStartableC
         }
     }
 
-    public RealLightClipboard ToClipboard() => new(ForceOff, ForceNightLightOn, [.. lights.Select((_, i) => GetLightProperties(i))]);
+    public RealLightClipboard ToClipboard() => HasRealLight
+        ? new(ForceOff, ForceNightLightOn, [.. lights.Select((_, i) => GetLightProperties(i))])
+        : RealLightClipboard.Empty;
 
     public void ImportClipboard(RealLightClipboard clipboard)
     {
+        if (clipboard == RealLightClipboard.Empty) { return; }
+
         ForceOff = clipboard.ForceOff;
         ForceNightLightOn = clipboard.ForceNightLight;
 
@@ -252,6 +267,27 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity, IStartableC
         for (int i = 0; i < minSize; i++)
         {
             customs[i] = clipboard.CustomProperties[i];
+        }
+
+        UpdateAllLights();
+    }
+
+    public void DuplicateFrom(RealLightsComponent source)
+    {
+        if (lights.IsDefault)
+        {
+            pendingClipboard = source.ToClipboard();
+            return;
+        }
+
+        ForceOff = source.ForceOff;
+        ForceNightLightOn = source.ForceNightLightOn;
+
+        customs ??= new CustomRealLightProperties[lights.Length];
+        var minSize = Math.Min(lights.Length, source.lights.Length);
+        for (int i = 0; i < minSize; i++)
+        {
+            customs[i] = source.customs?[i] ?? new CustomRealLightProperties();
         }
 
         UpdateAllLights();
