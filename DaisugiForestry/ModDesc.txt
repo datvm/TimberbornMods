@@ -16,7 +16,9 @@ Pros:
 - Slower to start but provides more Logs over time
 - No need for a Forester once trees are planted and maintained
 
-Note: due to "technical limitation", the trees become white when the Daisugi Logs are ready.
+[strike]Note: due to "technical limitation", the trees become white when the Daisugi Logs are ready.[/strike] Since v10.0.1, the trees now have proper indication of readiness though the stock icon is a bit silly.
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.1: Fixed tree color indication when Logs are ready.
