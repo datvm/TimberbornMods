@@ -1,0 +1,26 @@
+﻿Configure how the game's autosave feature works. Someone complained the autosave feature keeps too few saves so I made this one. Also someone requested to keep a save before bad weather warning.
+
+This mod also add [b]a Keybinding/hotkey to trigger autosave immediately[/b], default is Ctrl + S. Note that this trigger an autosave so your save may get overwritten if it gets too old. You can change the keybinding in Settings -> Keybindings -> Trigger auto-save in UI group.
+
+By default, this mod changes the autosave frequency to 5 minutes (from 10 minutes) of real-life time, and keep 5 auto saves (from game default 3). You can configure it in Main menu or in-game menu -> Mods -> Setting button next to the mod's name.
+
+- Enabled: whether [b]this mod's changes[/b] are applied. Autosave feature itself can be toggled in Settings menu.
+- Auto-save frequency (real-life minute): How often should auto-save saves. Game default: 10, mod default: 5.
+- Auto-save count: How many auto-saves should be kept. Game default: 3, mod default: 5.
+- Warn before autosave: show a warning 5s before an autosave is made. Does not work for the "Extra save on weather warning" save.
+- Extra save on weather warning: When a weather warning is issued, make an extra save named 'weatherwarning.save' that is only overwritten by the next cycle's warning. This save is not counted towards the save count. Mod default: no.
+
+[b]WARNING:[/b] You can set auto-save frequency to below 1 but be careful your previous autosave may get overwritten because the game autosave uses minute as the file name. This also happen when you use Ctrl + S to trigger an autosave. Basically, within one (real-life) minute, there can only be one autosave at a time.
+
+This mod works independently and can work together with my other mod [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3418216697]Save Everyday[/url].
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v10.0.0: Should work with Timberborn v10.0.1.
+
+v7.1.1: Should work with June 25 update now.
+v7.1.0: Added Warn before autosave option.
+v7.0.3: Should work with April 10 update now.
+v7.0.2: should work with April 02 update.
+v7.0.1: fixed the localization keys being duplicate with my other mod Save Everyday

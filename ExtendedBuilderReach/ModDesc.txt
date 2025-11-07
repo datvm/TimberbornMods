@@ -10,7 +10,7 @@ To configure, go to the Mod Settings (Main Menu -> Mods -> Settings button next 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
-v10.0.0: Should work with Timberborn v1.0.1.
+v10.0.0: Should work with Timberborn v1.0.1. v10.0.1: Removed debug log printing.
 
 v7.1.1: Fixed a crash due to the new "Extend Demolision Range" option.
 v7.1.0: Added "Extend Demolision Range" option.

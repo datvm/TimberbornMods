@@ -1,4 +1,4 @@
-Auto-save the game at the start of every day. This mod works independenly with the game default's autosave feature so you can use this mod with or without that. Configurable: in Main menu or in-game, choose Mods -> Settings button next to the mod name.
+﻿Auto-save the game at the start of every day. This mod works independenly with the game default's autosave feature so you can use this mod with or without that. Configurable: in Main menu or in-game, choose Mods -> Settings button next to the mod name.
 
 - Enabled (default: yes): enable auto-save or not (only affect this mod feature, not the game default auto-save).
 - Auto-save frequency (days) (default: 1): save every x days.
@@ -12,6 +12,8 @@ Auto-save the game at the start of every day. This mod works independenly with t
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v10.0.0: Should work with Timberborn v1.0.1.
 
 v7.4.1: Special first day and weather warning saves now is not affected by Enabled option.
 v7.4.0: Added Special first cycle day option.

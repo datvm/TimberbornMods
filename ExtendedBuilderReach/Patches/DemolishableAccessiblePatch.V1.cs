@@ -67,13 +67,9 @@ public static class DemolishableAccessiblePatch
 
     static Decision WalkToDemolishable(Demolishable demolishable, BehaviorAgent agent, Demolisher demolisher)
     {
-        Debug.Log($"{demolisher} should walk to {demolishable}");
-
         if (MSettings.ExtendDemolishValue)
         {            
             var goodStackAccessible = demolishable.GetComponent<GoodStackAccessible>();
-            Debug.Log($"{demolishable} has Good Stack: {goodStackAccessible}");
-
             if (!goodStackAccessible)
             {
                 goto ON_FAILURE;

@@ -1,11 +1,11 @@
 ﻿namespace SaveEveryday.Services;
 
 public class SaveEverydayService(
-    ModSettings settings,
+    MSettings settings,
     ISingletonLoader singletonLoader,
     IDayNightCycle time,
     GameCycleService cycles,
-    SettlementNameService settlementNameService,
+    SettlementReferenceService settlementReferenceService,
     GameSaver gameSaver,
     GameSaveRepository gameSaveRepository,
     EventBus eb,
@@ -70,7 +70,7 @@ public class SaveEverydayService(
             var cycle = hazardTimer._gameCycleService.Cycle;
 
             if (LastAutoSaveWarningCycle != cycle &&
-                hazardTimer.DaysToHazardousWeather <= HazardousWeatherApproachingTimer.ApproachingNotificationDays)
+                hazardTimer.GetProgress() >= 0)
             {
                 LastAutoSaveWarningCycle = hazardTimer._gameCycleService.Cycle;
                 SaveGame(day, true);
@@ -97,9 +97,7 @@ public class SaveEverydayService(
 
     void SaveGame(string saveName)
     {
-        string settlementName = settlementNameService.SettlementName;
-
-        var saveReference = new SaveReference(settlementName, saveName);
+        var saveReference = new SaveReference(saveName, settlementReferenceService.SettlementReference);
         try
         {
             gameSaver.QueueSaveSkippingNameValidation(saveReference, OnSaveDone);
@@ -139,7 +137,7 @@ public class SaveEverydayService(
     {
         try
         {
-            var saves = gameSaveRepository.GetSaves(settlementNameService.SettlementName)
+            var saves = gameSaveRepository.GetSaves(settlementReferenceService.SettlementReference)
                 .Where(save => IsAutosaveName(save.SaveName));
 
             var exceedingSaves = saves
