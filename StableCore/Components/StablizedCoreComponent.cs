@@ -8,7 +8,7 @@ public class StablizedCoreComponent : BaseComponent, IAwakableComponent, IBlockO
 #nullable enable
 
     public bool Finished => blockObject.IsFinished;
-    public int ArmingDays => timedComponentActivator._spec.DaysUntilActivation;
+    public float ArmingDays => timedComponentActivator._spec.DaysUntilActivation;
     public bool Armed => timedComponentActivator.IsEnabled;
 
     public bool NoForcedDelete { get; } = false;
