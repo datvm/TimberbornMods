@@ -35,6 +35,7 @@
 			<ModSounds Include="$(OutputPath)\Sounds\**\*"/>
 			<ModManifestFile Include="$(OutputPath)\**\manifest.json" />
 			<ModWorkshopDataFile Include="$(OutputPath)\**\workshop_data.json" />
+			<RootCopyFile Include="$(OutputPath)Root\**\*" />
 
 			<Blueprints Condition="$(IsV1)" Include="$(OutputPath)\Blueprints\**\*.blueprint.json"/>
 			<Blueprints Condition="$(IsU7)" Include="$(OutputPath)\Blueprints\**\*" Exclude="$(OutputPath)\Blueprints\**\*.blueprint.json"/>

@@ -1,4 +1,4 @@
-{
+﻿{
     "GatherableSpec": {
         "YieldGrowthTimeInDays": 4,
         "YielderSpec": {
@@ -10,5 +10,6 @@
             "RemovalTimeInHours": 1,
             "ResourceGroup": "Gatherable"
         }
-    }
+    },
+    "CustomTreeYieldSpec": {}
 }

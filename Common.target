@@ -48,6 +48,7 @@
 		<Copy SourceFiles="@(Specifications)" DestinationFolder="$(ModFolder)Specifications\%(RecursiveDir)" />
 		<Copy SourceFiles="@(ModResources)" DestinationFolder="$(ModFolder)Resources\%(RecursiveDir)" />
 		<Copy SourceFiles="@(ModSounds)" DestinationFolder="$(ModFolder)Sounds\%(RecursiveDir)" />
+		<Copy SourceFiles="@(RootCopyFile)" DestinationFolder="$(ModFolder)%(RecursiveDir)" />
 	</Target>
 
 	<ItemGroup>
@@ -74,6 +75,9 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Localizations\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Root\**">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="manifest.json">
