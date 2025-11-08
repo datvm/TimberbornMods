@@ -1,0 +1,353 @@
+﻿{
+    "BuildingSpec": {
+        "SelectionSoundName": "Default",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            {
+                "Id": "TreatedPlank",
+                "Amount": 10
+            },
+            {
+                "Id": "Plank",
+                "Amount": 10
+            },
+            {
+                "Id": "MetalBlock",
+                "Amount": 4
+            }
+        ],
+        "ScienceCost": 700,
+        "PlaceFinished": false,
+        "FinishableWithBeaversOnSite": true,
+        "DrawRangeBoundsOnIt": true
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "#FinishedUncovered",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "HangingOverhang.Folktails",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BlockObjectSpec": {
+        "BlocksSpec": {
+            "Size": {
+                "X": 1,
+                "Y": 2,
+                "Z": 1
+            },
+            "BlockSpecs": [
+                {
+                    "MatterBelow": "Any",
+                    "Occupations": "Top, Corners",
+                    "Stackable": "BlockObject",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                },
+                {
+                    "MatterBelow": "Any",
+                    "Occupations": "Top",
+                    "Stackable": "BlockObject",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                }
+            ]
+        },
+        "Entrance": {
+            "HasEntrance": false,
+            "Coordinates": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": false
+    },
+    "BlockObjectNavMeshSettingsSpec": {
+        "NoAutoWalls": false,
+        "GenerateFloorsOnStackable": true,
+        "EdgeGroups": [],
+        "UnblockedCoordinates": []
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "Paths",
+        "ToolOrder": 75,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": true,
+            "Coordinates": {
+                "X": 0.5,
+                "Y": 0.5,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": true,
+        "DevModeTool": false
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.HOh.HangingOverhang",
+        "DescriptionLocKey": "LV.HOh.HangingOverhangDesc",
+        "FlavorDescriptionLocKey": "LV.HOh.HangingOverhangFlavor",
+        "Icon": "Sprites/Buildings/Paths/HangingOverhang"
+    },
+    "ConstructionSiteProgressVisualizerSpec": {
+        "ProgressThresholds": [
+            0.0
+        ]
+    },
+    "Children": {
+        "#FinishedUncovered": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Paths/Overhang2x1/Overhang.Uncovered.Folktails.Model"
+            },
+            "CollidersSpec": {
+                "BoxColliders": [
+                    {
+                        "Center": {
+                            "X": 0.0787892342,
+                            "Y": 0.425703049,
+                            "Z": 0.07878923
+                        },
+                        "Size": {
+                            "X": 0.137578487,
+                            "Y": 0.84859395,
+                            "Z": 0.137578472
+                        }
+                    },
+                    {
+                        "Center": {
+                            "X": 0.921210766,
+                            "Y": 0.425703049,
+                            "Z": 0.07878924
+                        },
+                        "Size": {
+                            "X": 0.137578487,
+                            "Y": 0.84859395,
+                            "Z": 0.1375785
+                        }
+                    },
+                    {
+                        "Center": {
+                            "X": 0.921210766,
+                            "Y": 0.425703049,
+                            "Z": 0.921210766
+                        },
+                        "Size": {
+                            "X": 0.137578487,
+                            "Y": 0.84859395,
+                            "Z": 0.137578487
+                        }
+                    },
+                    {
+                        "Center": {
+                            "X": 0.07881951,
+                            "Y": 0.425703049,
+                            "Z": 0.921210766
+                        },
+                        "Size": {
+                            "X": 0.137639046,
+                            "Y": 0.84859395,
+                            "Z": 0.137578487
+                        }
+                    }
+                ],
+                "SphereColliders": [],
+                "CapsuleColliders": []
+            }
+        },
+        "#Finished": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Paths/Overhang2x1/Overhang2x1.Folktails.Model"
+            },
+            "CollidersSpec": {
+                "BoxColliders": [
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.9243968,
+                            "Z": 1.0
+                        },
+                        "Size": {
+                            "X": 1.0,
+                            "Y": 0.142779708,
+                            "Z": 2.0
+                        }
+                    },
+                    {
+                        "Center": {
+                            "X": 0.0787892342,
+                            "Y": 0.425703049,
+                            "Z": 0.07878923
+                        },
+                        "Size": {
+                            "X": 0.137578487,
+                            "Y": 0.84859395,
+                            "Z": 0.137578472
+                        }
+                    },
+                    {
+                        "Center": {
+                            "X": 0.921210766,
+                            "Y": 0.425703049,
+                            "Z": 0.07878924
+                        },
+                        "Size": {
+                            "X": 0.137578487,
+                            "Y": 0.84859395,
+                            "Z": 0.1375785
+                        }
+                    },
+                    {
+                        "Center": {
+                            "X": 0.921210766,
+                            "Y": 0.425703049,
+                            "Z": 0.921210766
+                        },
+                        "Size": {
+                            "X": 0.137578487,
+                            "Y": 0.84859395,
+                            "Z": 0.137578487
+                        }
+                    },
+                    {
+                        "Center": {
+                            "X": 0.07881951,
+                            "Y": 0.425703049,
+                            "Z": 0.921210766
+                        },
+                        "Size": {
+                            "X": 0.137639046,
+                            "Y": 0.84859395,
+                            "Z": 0.137578487
+                        }
+                    }
+                ],
+                "SphereColliders": [],
+                "CapsuleColliders": []
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase1x1#nested": {
+                    "BlueprintPath": "ConstructionBases/ConstructionBase1x1/ConstructionBase1x1.blueprint"
+                },
+                "ConstructionStage0": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Paths/Overhang2x1/Overhang2x1.Folktails.ConstructionStage0.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 0.0787892342,
+                                    "Y": 0.425703049,
+                                    "Z": 0.07878923
+                                },
+                                "Size": {
+                                    "X": 0.137578487,
+                                    "Y": 0.84859395,
+                                    "Z": 0.137578472
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.921210766,
+                                    "Y": 0.425703049,
+                                    "Z": 0.07878924
+                                },
+                                "Size": {
+                                    "X": 0.137578487,
+                                    "Y": 0.84859395,
+                                    "Z": 0.1375785
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.921210766,
+                                    "Y": 0.425703049,
+                                    "Z": 0.921210766
+                                },
+                                "Size": {
+                                    "X": 0.137578487,
+                                    "Y": 0.84859395,
+                                    "Z": 0.137578487
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.07881951,
+                                    "Y": 0.425703049,
+                                    "Z": 0.921210766
+                                },
+                                "Size": {
+                                    "X": 0.137639046,
+                                    "Y": 0.84859395,
+                                    "Z": 0.137578487
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.08265112,
+                                    "Y": 0.8703563,
+                                    "Z": 1.00447869
+                                },
+                                "Size": {
+                                    "X": 0.136736721,
+                                    "Y": 0.05066204,
+                                    "Z": 1.99668789
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.925416946,
+                                    "Y": 0.8703563,
+                                    "Z": 0.729741633
+                                },
+                                "Size": {
+                                    "X": 0.143760443,
+                                    "Y": 0.05066204,
+                                    "Z": 1.44721377
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.8703563,
+                                    "Z": 0.07660872
+                                },
+                                "Size": {
+                                    "X": 0.9725547,
+                                    "Y": 0.05066204,
+                                    "Z": 0.140947938
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.05,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.1,
+                                    "Z": 1.0
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        }
+    }
+}

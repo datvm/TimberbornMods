@@ -1,0 +1,8 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.Emberpelts",
+        "Blueprints": [
+            "Resources/Buildings/Paths/HangingOverhang.Folktails.blueprint"
+        ]
+    }
+}

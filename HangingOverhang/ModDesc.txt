@@ -1,0 +1,18 @@
+﻿This mod adds Hanging Overhang.
+
+[i]"Living on the edge? I prefer building on it." — Brin[/i]
+
+- Functions like a normal Overhang but can be attached directly to terrain.
+- Solid (other buildings can be built on its top).
+- Cost 700 Science to unlock, 10 Planks, 10 Treated Planks, and 4 Metal Blocks to build.
+
+Physics law decrees that only the 2x1 Overhang is available.
+
+Can be built by both the Folktails and Iron Teeths. GreedyBuilders and Emberpelts are supported but not tested, please tell me if it does not work.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v10.0.0: Should work with Timberborn v1.0.1.
+
+v7.0.1: Fixed the building disappears when building at the terrain limit. Harmony is now required by this mod.

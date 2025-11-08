@@ -1,0 +1,8 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.IronTeeth",
+        "Blueprints": [
+            "Resources/Buildings/Paths/HangingOverhang.IronTeeth.blueprint"
+        ]
+    }
+}
