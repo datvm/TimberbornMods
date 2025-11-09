@@ -1,6 +1,6 @@
 ﻿{
     "Name": "Extended Builder Reach",
-    "Version": "10.0.1",
+    "Version": "10.0.2",
     "Id": "ExtendedBuilderReach",
     "MinimumGameVersion": "1.0.0",
     "Description": "Builders can reacher higher or challenge yourself by not letting them build inifinitely lower. Configurable.",

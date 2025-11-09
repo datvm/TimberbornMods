@@ -16,27 +16,41 @@ public class MStarter : IModStarter
 public static class TestPatch
 {
 
-    [HarmonyPrefix, HarmonyPatch(typeof(YieldRemovingBuilding), nameof(YieldRemovingBuilding.GetAllowedYielders))]
-    public static void Prefix(YieldRemovingBuilding __instance)
+    [HarmonyPostfix, HarmonyPatch(typeof(ModAssetBundleProvider), nameof(ModAssetBundleProvider.CachePaths))]
+    public static void AfterLoad(ModAssetBundleProvider __instance)
     {
-        __instance._yieldRemovingBuildingSpec = __instance.GetComponent<YieldRemovingBuildingSpec>();
-
-        var gathererFlag = __instance.GetComponent<GathererFlag>();
-        if (!gathererFlag) { return; }
-
-        Debug.Log("Getting allowed yielders for " + __instance.Name);
-
-        var yielders = __instance._templateService.GetAll<IYielderDecorable>();
-        foreach (var yielder in yielders)
+        foreach (var item in __instance._assetPaths.Keys)
         {
-            var spec = yielder.YielderSpec;
+            Debug.Log(item);
+        }
+    }
 
-            if (__instance.IsAllowed(yielder.YielderSpec))
-            {
-                Debug.Log($"- {spec.Yield.Id} x{spec.Yield.Amount} from {spec.YielderComponentName}");
-            }
+    [HarmonyPrefix, HarmonyPatch(typeof(SurfaceBlockCollectionFactory), nameof(SurfaceBlockCollectionFactory.AddAllVariations))]
+    public static void Prefix2(GameObject model)
+    {
+        var shader = ShaderService.Instance.Shader;
+        if (shader is null)
+        {
+            Debug.LogError("TerrainShader is null!");
+            return;
         }
 
+        var renderer = model.GetComponent<MeshRenderer>();
+        if (!renderer) { return; }
+
+        var materials = renderer.sharedMaterials.ToArray();
+        foreach (var m in materials)
+        {
+            if (m.shader.name.Contains("TerrainURP"))
+            {
+                Debug.Log($"Replacing shader on material {m.name} from {m.shader.name} to {shader.name}");
+                m.shader = shader;
+                m.renderQueue = 3005;
+            }
+        }
+        renderer.sharedMaterials = materials;
+
+        Shader.SetGlobalFloat("_TerrainAlpha", .5f);
     }
 
 }

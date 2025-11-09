@@ -21,11 +21,11 @@ public class ModGameConfig : Configurator
     {
         Bind<MSettings>().AsSingleton();
 
-        Bind<ExtendedGoodStackAccessible>().AsTransient();
+        Bind<ExtendedDemolishableAccessible>().AsTransient();
         MultiBind<TemplateModule>().ToProvider(() =>
         {
             TemplateModule.Builder b = new();
-            b.AddDecorator<GoodStackAccessible, ExtendedGoodStackAccessible>();
+            b.AddDecorator<Demolishable, ExtendedDemolishableAccessible>();
             return b.Build();
         }).AsSingleton();
     }

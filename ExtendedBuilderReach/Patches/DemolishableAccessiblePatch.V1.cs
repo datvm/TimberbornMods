@@ -1,5 +1,4 @@
 ﻿using System.Reflection.Emit;
-using Timberborn.GoodStackSystem;
 
 namespace ExtendedBuilderReach.Patches;
 
@@ -21,19 +20,11 @@ public static class DemolishableAccessiblePatch
     [HarmonyPrefix, HarmonyPatch(typeof(GoodStackAccessible), nameof(GoodStackAccessible.Enable))]
     public static bool PatchGoodStackAccessible(GoodStackAccessible __instance)
     {
-        if (!MSettings.ExtendDemolishValue || !__instance.HasComponent<Demolishable>()) { return true; }
+        if (!MSettings.ExtendDemolishValue || !__instance.HasComponent<ExtendedDemolishableAccessible>()) { return true; }
 
-        var generator = __instance.GetComponent<BlockObjectAccessGenerator>();
+        var accessible = __instance.GetComponent<ExtendedDemolishableAccessible>();
 
-        var bo = __instance._blockObjectCenter._blockObject;
-        var maxHeight = bo._blockService._mapSize.TotalSize.z;
-        var z = bo.CoordinatesAtBaseZ.z;
-
-        var minZ = ModUtils.GetMinZ(z);
-        var maxZ = ModUtils.GetMaxZ(z, maxHeight);
-
-        __instance._accessible.SetAccesses(generator.GenerateAccesses(minZ, maxZ));
-
+        accessible.UpdateAccesses();
         return false;
     }
 
@@ -67,29 +58,24 @@ public static class DemolishableAccessiblePatch
 
     static Decision WalkToDemolishable(Demolishable demolishable, BehaviorAgent agent, Demolisher demolisher)
     {
-        if (MSettings.ExtendDemolishValue)
-        {            
-            var goodStackAccessible = demolishable.GetComponent<GoodStackAccessible>();
-            if (!goodStackAccessible)
-            {
-                goto ON_FAILURE;
-            }
-            else
-            {
-                var walker = agent.GetComponent<WalkToAccessibleExecutor>();
-                var status = walker.Launch(goodStackAccessible._accessible);
+        if (MSettings.ExtendDemolishValue && demolishable.HasComponent<ExtendedDemolishableAccessible>())
+        {
+            var accessible = demolishable.GetComponent<ExtendedDemolishableAccessible>();
 
-                switch (status)
-                {
-                    case ExecutorStatus.Success:
-                        goto ON_SUCCESS;
-                    case ExecutorStatus.Failure:
-                        goto ON_FAILURE;
-                    case ExecutorStatus.Running:
-                        return Decision.ReturnWhenFinished(walker);
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+
+            var walker = agent.GetComponent<WalkToAccessibleExecutor>();
+            var status = walker.Launch(accessible.accessible);
+
+            switch (status)
+            {
+                case ExecutorStatus.Success:
+                    goto ON_SUCCESS;
+                case ExecutorStatus.Failure:
+                    goto ON_FAILURE;
+                case ExecutorStatus.Running:
+                    return Decision.ReturnWhenFinished(walker);
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
         else

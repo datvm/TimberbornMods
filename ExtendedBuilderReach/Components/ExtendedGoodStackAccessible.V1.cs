@@ -1,35 +1,44 @@
 ﻿namespace ExtendedBuilderReach.Components;
 
-public class ExtendedGoodStackAccessible : BaseComponent, INavMeshListener, IAwakableComponent, IStartableComponent
+public class ExtendedDemolishableAccessible : BaseComponent, INavMeshListener, IAwakableComponent, IStartableComponent
 {
     BoundingBox bounds;
 
 #nullable disable
-    GoodStackAccessible goodStackAccessible;
+    internal Accessible accessible;
+    BlockObject blockObject;
+    BlockObjectAccessGenerator blockObjectAccessGenerator;
 #nullable enable
 
     public void Awake()
     {
-        goodStackAccessible = GetComponent<GoodStackAccessible>();
+        accessible = GetComponent<Accessible>();
+        blockObject = GetComponent<BlockObject>();
+        blockObjectAccessGenerator = GetComponent<BlockObjectAccessGenerator>();
     }
 
     public void OnNavMeshUpdated(NavMeshUpdate navMeshUpdate)
     {
         if (bounds.Intersects(navMeshUpdate.Bounds))
         {
-            goodStackAccessible.Enable();
+            UpdateAccesses();
         }
     }
 
     public void Start()
     {
-        var bo = GetComponent<BlockObject>();
-        var z = bo.CoordinatesAtBaseZ.z;
+        UpdateAccesses();
+    }
+
+    public void UpdateAccesses()
+    {
+        var z = blockObject.CoordinatesAtBaseZ.z;
 
         var minZ = ModUtils.GetMinZ(z);
-        var maxZ = ModUtils.GetMaxZ(z, bo._blockService._mapSize.TotalSize.z);
+        var maxZ = ModUtils.GetMaxZ(z, blockObject._blockService._mapSize.TotalSize.z);
 
-        bounds = GetComponent<BlockObjectAccessGenerator>().GenerateAccessBounds(minZ, maxZ);
-        goodStackAccessible.Enable();
+        bounds = blockObjectAccessGenerator.GenerateAccessBounds(minZ, maxZ);
+        accessible.SetAccesses(blockObjectAccessGenerator.GenerateAccesses(minZ, maxZ));
     }
+
 }
