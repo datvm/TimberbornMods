@@ -1,0 +1,18 @@
+﻿To configure the settings: Mod Settings (Game or Main Menu -> Mods -> Settings button next to the mod name)
+
+Increase the walking speed of beavers and bots. By default, this mod increases them 2x. You can change the Base Walking Speed and Base Slowed Speed of Beavers in the Mod Settings from 1 to 100 (game default 2.7 and 1.35). Note that the mod only increases the speed so setting an entry to 0 is a way to disable the mod for that entry.
+
+From v1.2.0 you can also change the carrying capacity as well. A value of 1.5 for example will let Beavers carry 21kg (from game default 14kg) and Bots carry 30kg (from game default 20kg). All the bonuses from Hauling Post etc are still applied normally. A value of 0.5 will make the game harder. The mod defaults the value at 1 so no change is made to the game unless you configure it.
+
+From v7.1.0 you can also change the working speed.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v10.0.0: Should work with Timberborn v1.0.1.
+
+v7.2.0: You can now set different Carry Capacity for Beaver and Bots. Idea by @VictorianMaid.
+v7.1.0: You can now change the working speed for beavers and bots.
+v7.0.0: Should be compatible to U7. You can now also change the settings while in-game (Carry Capacity needs a reload to take effect), applied for both U6 and U7.
+v1.2.0: Change the name to "Configurable Beaver Stats". You can now optionally change the Carry Capacity with a multiplier as well. No change for existing users as the default value is x1.
+v1.1.0: You can now change the speed of bots separately as well. It's optional and by default, bot speed follows beavers' speed.

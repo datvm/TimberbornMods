@@ -13,7 +13,7 @@ public static class WalkerSpeedManagerPatch
 
         if (MSettings.DifferentForBots)
         {
-            var isBot = (bool)__instance.GetComponentFast<BotSpec>();
+            var isBot = __instance.HasComponent<BotSpec>();
 
             if (isBot)
             {

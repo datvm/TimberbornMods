@@ -5,7 +5,7 @@ This mod provides [b]Transparent Shaders[/b] for other mods to use:
 - [b]TerrainTransparentURP[/b] - for the game's terrain (used by my Transparent Terrain mod).
 - [b]PlainColorTransparentURP[/b] and [b]UnlitPlainColorTransparentURP[/b] - for simple, untextured, plain-color objects for various purposes.
 
-Example usage can be seen in my [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3603735817]Transparent Terrain[/url] mod ([url=])
+Example usage can be seen in my [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3603736251]Transparent Terrain[/url] mod ([url=https://github.com/datvm/TimberbornMods/tree/master/TransparentTerrain]source code[/url]).
 
 It also includes a built-in helper service, [b]TransparentShaderService[/b], injected in the Bootstrapper context.
 
