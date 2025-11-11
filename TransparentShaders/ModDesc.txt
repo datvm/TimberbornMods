@@ -1,0 +1,31 @@
+﻿[b]Note to players: This mod is a dependency for other mods. It does nothing on its own.[/b]
+
+This mod provides [b]Transparent Shaders[/b] for other mods to use:
+- [b]EnvironmentTransparentURP[/b] - for game objects and buildings.
+- [b]TerrainTransparentURP[/b] - for the game's terrain (used by my Transparent Terrain mod).
+- [b]PlainColorTransparentURP[/b] and [b]UnlitPlainColorTransparentURP[/b] - for simple, untextured, plain-color objects for various purposes.
+
+Example usage can be seen in my [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3603735817]Transparent Terrain[/url] mod ([url=])
+
+It also includes a built-in helper service, [b]TransparentShaderService[/b], injected in the Bootstrapper context.
+
+- Use properties such as [b]TransparentShaderService.TransparentEnvironmentShader[/b] or [b]TransparentShaderService.TerrainTransparentShader[/b] to access the desired shaders.
+- Helper methods like [b]ReplaceShaders, ReplaceRenderersMaterials, RestoreShaders, and RestoreRenderersMaterials[/b] are provided to quickly switch between shader variants (for example, EnvironmentURP ↔ EnvironmentTransparentURP). Note: Restore* methods only work after at least one replacement has been performed.
+
+All alpha channels are independent of the color channel. The shader properties are: [b]_EnvironmentAlpha, _TerrainAlpha, and _ColorAlpha[/b].
+
+These are defined in TransparentShaderService as follows:
+[code]
+public static int ShaderEnvironmentAlphaId = Shader.PropertyToID("_EnvironmentAlpha");
+public static int ShaderTerrainAlphaId = Shader.PropertyToID("_TerrainAlpha");
+public static int ShaderColorAlphaId = Shader.PropertyToID("_ColorAlpha");
+public static int ShaderColorId = Shader.PropertyToID("_Color");
+[/code]
+
+You can also use the provided extension methods for [b]Material[/b]:
+[code]
+myMaterial.SetEnvironmentAlpha(0.5f);
+[/code]
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

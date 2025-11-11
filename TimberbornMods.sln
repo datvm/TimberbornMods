@@ -21,6 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Targets", "_Targets", "{F8
 		CommonScientificProjects.target = CommonScientificProjects.target
 		CommonTimberUI.target = CommonTimberUI.target
 		CommonUnlockableRecipe.target = CommonUnlockableRecipe.target
+		CommonTransparentShaders.target = CommonTransparentShaders.target
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableStorages", "ConfigurableStorages\ConfigurableStorages.csproj", "{A58730DB-2E1E-4B19-A793-FB710DF27F99}"
@@ -313,6 +314,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiYieldersPlzNoCrashes", "MultiYieldersPlzNoCrashes\MultiYieldersPlzNoCrashes.csproj", "{B2B32458-055E-4C9D-BC64-2E76EFD978B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaisugiForestry", "DaisugiForestry\DaisugiForestry.csproj", "{FE5D7AC6-4A3B-4103-AF9C-18492252E042}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransparentShaders", "TransparentShaders\TransparentShaders.csproj", "{AF8B4A75-57ED-4484-90AE-B12893ED28EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransparentTerrain", "TransparentTerrain\TransparentTerrain.csproj", "{C727F1F0-495C-481A-90AB-690A0E0372C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -844,6 +849,14 @@ Global
 		{FE5D7AC6-4A3B-4103-AF9C-18492252E042}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE5D7AC6-4A3B-4103-AF9C-18492252E042}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE5D7AC6-4A3B-4103-AF9C-18492252E042}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF8B4A75-57ED-4484-90AE-B12893ED28EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF8B4A75-57ED-4484-90AE-B12893ED28EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF8B4A75-57ED-4484-90AE-B12893ED28EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF8B4A75-57ED-4484-90AE-B12893ED28EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C727F1F0-495C-481A-90AB-690A0E0372C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C727F1F0-495C-481A-90AB-690A0E0372C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C727F1F0-495C-481A-90AB-690A0E0372C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C727F1F0-495C-481A-90AB-690A0E0372C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -943,6 +956,8 @@ Global
 		{C424C74D-E525-44A2-BFC1-471481E4087E} = {36EBDCB0-09D8-4A7D-AF62-89D5C49B6B44}
 		{1E0B4DEB-6AD6-48A2-9E62-144E23C45CEE} = {36EBDCB0-09D8-4A7D-AF62-89D5C49B6B44}
 		{08D745BB-BAE0-4928-874A-C932A91E4D17} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
+		{AF8B4A75-57ED-4484-90AE-B12893ED28EC} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
+		{C727F1F0-495C-481A-90AB-690A0E0372C1} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}

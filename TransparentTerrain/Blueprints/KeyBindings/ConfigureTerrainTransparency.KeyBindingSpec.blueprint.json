@@ -1,0 +1,15 @@
+﻿{
+    "KeyBindingSpec": {
+        "Id": "ConfigureTerrainTransparency",
+        "GroupId": "UI",
+        "LocKey": "LV.TrT.KeyBindingConfigure",
+        "Order": 720,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/n",
+        "InputModifiers": "Ctrl",
+        "Unchangeable": false
+    }
+}
