@@ -1,8 +1,4 @@
-﻿#if TIMBER7
-using ConfigurablePumps.Patches;
-using Timberborn.MechanicalSystem;
-
-namespace ConfigurablePumps;
+﻿namespace ConfigurablePumps;
 
 public class MechPumpPowerModifier : BaseComponent
 {
@@ -24,4 +20,3 @@ public class MechPumpPowerModifier : BaseComponent
     }
 
 }
-#endif

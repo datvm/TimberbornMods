@@ -1,7 +1,4 @@
-﻿#if TIMBER7
-using Timberborn.WaterBuildings;
-
-namespace ConfigurablePumps;
+﻿namespace ConfigurablePumps;
 
 [HarmonyPatch]
 public static class PumpPatches
@@ -21,4 +18,3 @@ public static class PumpPatches
     }
 
 }
-#endif

@@ -1,0 +1,30 @@
+﻿Your one-stop pump shop is here, time to turn the tide!
+
+By default this mod double the maximum depth of all pumps (e.g: Folktails' Water Pumps can pump up to 4 from 2). You can configure various pump buildings in the game: Main Menu -> Mods -> Settings button next to the mod's name.
+
+[h3]Water & Depth[/h3]
+Including Water Pumps (all kinds), Badwater Pumps, Fluid Dump and Mechanical Fluid Pumps:
+- Use fixed depth: All pumps will have a fixed maximum depth.
+- Use multiplier: All pumps will use a multiplier for maximum depth
+- Water product conversion rate: The conversion rate for water product vs. volume. Game default: 0.2, meaning Water Pumps take 0.2cm³ to produce 1 Water product and Water Dumps produce 0.2cm³ per Water product, or 5 Water to fill up 1 block.
+
+[h3]Water Pumps[/h3]
+Including Water Pumps (all kinds), Badwater Pumps and Fluid Dumps:
+- Water production time multiplier: The multiplier for water production time. For example: Game default 0.33 hour for 1 Water for Water Pumps, setting this to 0.5 will make it 0.16.5 hour for 1 Water while setting this to 2 will make it 0.66 hour for 1 Water.
+
+[h3]Mechanical Fluid Pumps[/h3]
+- [b]For V1:[/b] Mechanical pump amount multiplier: The multiplier for the amount of water per second that the mechanical pump pumps (Game default: 1x = 0.25cm³/s). ⚡ Note: changing this also increase or decrease power usage accordingly. [b]Note: don't increase this too much (> x2) as the pump can only take water from 1 cube anyway.[/b]
+- [b]For U7:[/b] Mechanical pump amount: The amount of water per second that the mechanical pump pumps (Game default: 0.25cm³/s). ⚡ Note: changing this also increase or decrease power usage accordingly, see below.
+- Mechanical pump power multiplier: By default, this mod keeps the power usage at 700HP per 0.25cm³. Use this modifier to increase or decrease (cheater :P) that ratio. Game default: 1x.
+
+For example, if you set the mechanical pump amount to 0.5cm³/s and keep the power multiplier at 1x, the power usage will be 1400HP/s for pumping 0.5cm³/s.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.0 (only apply to Timberborn v1.0):
+- This mod now depends on Moddable Timberborn (with a lot of performance improvement!).
+- The "Mechanical pump amount" is now a multiplier instead to simplify the power calculation. See the above description and note on its actual efficiency.
+- Water Conversion setting can now be changed (in the menu) without restarting the game.
+
+v7.1.0: removed Water production multiplier and add Water production [b]time[/b] multiplier instead due to the other option being too unstable and causes crashes.
