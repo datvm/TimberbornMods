@@ -1,6 +1,4 @@
-﻿#if TIMBER7
-
-using Timberborn.BlueprintSystem;
+﻿using Timberborn.BlueprintSystem;
 using Timberborn.WaterBuildings;
 using Timberborn.Workshops;
 
@@ -35,5 +33,3 @@ public static class SpecPatches
     }
 
 }
-
-#endif

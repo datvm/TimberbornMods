@@ -1,12 +1,11 @@
-﻿using Timberborn.WaterWorkshops;
-
-namespace ConfigurablePumps;
+﻿namespace ConfigurablePumps;
 
 public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository)
    : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
+    public const float DefaultMechPumpAmount = .25f;
 
-    public override string ModId => nameof(ConfigurablePumps);
+    public override string ModId { get; } = nameof(ConfigurablePumps);
 
     readonly ModSetting<bool> allFixedDepth = new(false, ModSettingDescriptor
         .CreateLocalized("LV.SPE.AllFixedDepth")
@@ -20,7 +19,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     readonly ModSetting<float> multiplier = new(2f, ModSettingDescriptor
         .CreateLocalized("LV.SPE.Multiplier")
         .SetLocalizedTooltip("LV.SPE.MultiplierDesc"));
-    readonly ModSetting<float> mechPumpWater = new(0.25f, ModSettingDescriptor
+    readonly ModSetting<float> mechPumpWater = new(DefaultMechPumpAmount, ModSettingDescriptor
         .CreateLocalized("LV.SPE.MechPumpWater")
         .SetLocalizedTooltip("LV.SPE.MechPumpWaterDesc"));
     readonly ModSetting<float> waterProdTimeMultiplier = new(1f, ModSettingDescriptor
@@ -37,7 +36,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     public static int FixedDepth { get; private set; } = 0;
     public static bool AllMultiplier { get; private set; } = false;
     public static float Multiplier { get; private set; } = 1f;
-    public static float MechPumpWater { get; private set; } = 0.25f;
+    public static float MechPumpWater { get; private set; } = DefaultMechPumpAmount;
     public static float WaterProdTimeMultiplier { get; private set; } = 1f;
     public static float MechPumpPowerMultiplier { get; private set; } = 1f;
     public static float WaterConversation { get; private set; } = 0.2f;
@@ -113,6 +112,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         UpdateValues();
     }
 
+    // While this is kept in V1 for reference purpose, the value will not be used and will be patched instead
     static readonly FieldInfo WaterAmountConversionField = typeof(WaterGoodToWaterAmountConverter).Field("WaterAmountConversion");
     static readonly FieldInfo BadWaterAmountConversionField = typeof(WaterContaminationGoodToWaterContaminationAmountConverter).Field("WaterContaminationAmountConversion");
     static void OnWaterConversionChanged()
