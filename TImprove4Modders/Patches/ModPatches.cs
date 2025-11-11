@@ -3,8 +3,8 @@
 [HarmonyPatch]
 public static class ModPatches
 {
-    private const int BaseValue = 100_000_000;
-    private const float MulValue = 10_000;
+    const int BaseValue = 100_000_000;
+    const float MulValue = 10_000;
 
     readonly record struct ModWithPriority(Mod Mod, int CurrPriority);
 
@@ -103,9 +103,9 @@ public static class ModPatches
 
         int BringDependenciesUp(Mod mod, int index)
         {
-            foreach (var dep in mod.Manifest.RequiredMods)
+            foreach (var dep in mod.Manifest.RequiredMods.Concat(mod.Manifest.OptionalMods))
             {
-                if (availableMods.Contains(dep.Id)) { continue; }
+                if (availableMods.Contains(dep.Id)) { continue; } // Already above
 
                 ModWithPriority modEntry = default;
                 Mod? foundMod = null;

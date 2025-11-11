@@ -46,6 +46,7 @@ When checking this option (enabled by default), you have the following improveme
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.0.4: Better Sort order now also considers Optional Mods.
 v10.0.2: Added "Auto skip Mod Incompatibility box" option. v10.0.3 fixed a bug with the new version.
 v10.0.1: Fixed Swap Modifier not working for unlocking buildings.
 v10.0.0: Should work with game v1.0.
