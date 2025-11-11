@@ -1,4 +1,6 @@
-﻿With this mod, modders can make a lot more with 100% code-less mods (using JSONs). Previously they cannot modify values put inside a Prefab (including buildings' Science cost, Material , Power etc.) without using code. Now they can do it with JSONs.
+﻿[h1]This mod is no longer needed for v1.0 as all prefabs are now templates/JSON.[/h1] It will not receive any update.
+
+With this mod, modders can make a lot more with 100% code-less mods (using JSONs). Previously they cannot modify values put inside a Prefab (including buildings' Science cost, Material , Power etc.) without using code. Now they can do it with JSONs.
 
 [b]Note to players: This mod does nothing by itself. It is for modders to create mods and you probably subscribe to this mod as a dependency for other mods to work.[/b]
 
@@ -11,6 +13,8 @@ For more info, contact me on official Discord ( https://discord.gg/timberborn ),
 ===
 
 [h1]Change logs[/h1]
+
+v10.0.0: Simply throw an error for Timberborn v1.0 so players can disable it.
 
 v7.2.0: You can now specify Factions that the modifiers apply to.
 

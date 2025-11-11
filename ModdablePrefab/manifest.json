@@ -1,10 +1,8 @@
 ﻿{
     "Name": "Moddable Prefab",
-    "Version": "7.2.0",
+    "Version": "10.0.0",
     "Id": "ModdablePrefab",
-    "MinimumGameVersion": "0.7.0.0",
-    "Description": "Allow other modders to make changes to prefabs",
-    "RequiredMods": [
-        { "Id": "Harmony" }
-    ]
+    "MinimumGameVersion": "1.0.0",
+    "Description": "This mod is no longer needed in V1. It simply throw an exception so user can disable it.",
+    "RequiredMods": []
 }
