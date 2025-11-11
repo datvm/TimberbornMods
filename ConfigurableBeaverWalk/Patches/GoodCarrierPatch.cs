@@ -8,7 +8,7 @@ public static class GoodCarrierPatch
     public static void ChangeLiftingCapacity(GoodCarrier __instance, ref int __result)
     {
         var usingValue = MSettings.DifferentForBots ?
-            (__instance.GetComponentFast<BotSpec>() ? MSettings.BotCarryingWeightMultiplier : MSettings.CarryingWeightMultiplier)
+            (__instance.HasComponent<BotSpec>() ? MSettings.BotCarryingWeightMultiplier : MSettings.CarryingWeightMultiplier)
             : MSettings.CarryingWeightMultiplier;
         if (usingValue == 1) { return; }
 

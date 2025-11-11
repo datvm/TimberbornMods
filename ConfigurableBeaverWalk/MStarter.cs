@@ -1,6 +1,6 @@
 ﻿namespace ConfigurableBeaverWalk;
 
-public class ModStarter : IModStarter
+public class MStarter : IModStarter
 {
 
     public void StartMod(IModEnvironment modEnvironment)
