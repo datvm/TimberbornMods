@@ -1,0 +1,7 @@
+﻿ID,Text,Comment
+LV.TrT.KeyBindingToggle,"Toggle Terrain Transparency",
+LV.TrT.KeyBindingShow,"Show Terrain Transparency",
+LV.TrT.KeyBindingConfigure,"Configure Terrain Transparency",
+LV.TrT.ButtonTooltip,"Show Terrain Transparency. Right-click (or use hotkey) to configure.",
+LV.TrT.Enable,"Enable Terrain Transparency",
+LV.TrT.Percent,"Transparency Percentage",

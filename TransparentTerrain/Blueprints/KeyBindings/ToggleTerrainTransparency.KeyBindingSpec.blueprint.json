@@ -1,0 +1,15 @@
+﻿{
+    "KeyBindingSpec": {
+        "Id": "ToggleTerrainTransparency",
+        "GroupId": "UI",
+        "LocKey": "LV.TrT.KeyBindingToggle",
+        "Order": 710,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/n",
+        "InputModifiers": "Shift",
+        "Unchangeable": false
+    }
+}

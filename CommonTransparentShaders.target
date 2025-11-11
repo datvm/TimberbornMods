@@ -1,0 +1,13 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<TransparentShadersPath>$(GameModsFolder)TransparentShaders\$(TimberbornVersion)\**\*.dll</TransparentShadersPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Include="TransparentShaders.Services" />		
+
+		<Reference Include="$(TransparentShadersPath)" Private="false" />	
+	</ItemGroup>
+
+</Project>

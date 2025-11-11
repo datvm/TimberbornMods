@@ -1,0 +1,12 @@
+﻿Make the game's terrain semi-transparent for better visibility underground or beneath structures.
+You can toggle and adjust transparency at any time using the in-game configuration menu or hotkeys.
+
+- Hold N to enable transparency.
+- Press Shift + N or use the top-right button to toggle transparency.
+- Press Ctrl + N or right-click the button to open a configuration box where you can set the transparency level.
+All keybindings can be rebound in the Settings (UI section).
+
+Powered by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3603735817]Transparent Shaders[/url].
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
