@@ -1,0 +1,8 @@
+{
+    "Name": "Timbits & Timbots",
+    "Version": "10.0.0",
+    "Id": "TimbitsTimbots",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Your favorite Canadian treat, now works with Bots too!",
+    "RequiredMods": []
+}

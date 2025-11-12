@@ -1,0 +1,34 @@
+{
+  "RecipeSpec": {
+    "Id": "Timbit.IronTeeth",
+    "DisplayLocKey": "LV.Tbit.TimbitPlural",
+    "CycleDurationInHours": 1.5,
+    "CyclesCapacity": 20,
+    "Ingredients": [
+      {
+        "Id": "CanolaOil",
+        "Amount": 1
+      },
+      {
+        "Id": "Corn",
+        "Amount": 1
+      },
+      {
+        "Id": "Berries",
+        "Amount": 1
+      }
+    ],
+    "Products": [
+      {
+        "Id": "Timbit",
+        "Amount": 2
+      }
+    ],
+    "ProducedSciencePoints": 0,
+    "Fuel": "Log",
+    "CyclesFuelLasts": 20,
+    "FuelCapacity": 5,
+    "Icon": "Sprites/Goods/timbit",
+    "BackwardCompatibleIds": []
+  }
+}

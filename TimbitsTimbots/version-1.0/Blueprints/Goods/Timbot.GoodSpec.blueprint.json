@@ -1,0 +1,29 @@
+{
+  "GoodSpec": {
+    "Id": "Timbot",
+    "BackwardCompatibleIds": [],
+    "DisplayNameLocKey": "LV.Tbit.TimbotName",
+    "PluralDisplayNameLocKey": "LV.Tbit.TimbotPlural",
+    "ConsumptionEffects": [
+      {
+        "NeedId": "Timbot",
+        "Points": 0.3
+      }
+    ],
+    "GoodType": "Box",
+    "StockpileVisualization": "Box",
+    "VisibleContainer": "Box",
+    "ContainerColor": {
+      "r": 0.898,
+      "g": 0.086,
+      "b": 0.125,
+      "a": 1.0
+    },
+    "CarryingAnimation": "CarryInHands",
+    "Weight": 1,
+    "GoodGroupId": "Materials",
+    "ForceImport": false,
+    "Icon": "Sprites/Goods/timbot",
+    "ContainerMaterial": ""
+  }
+}

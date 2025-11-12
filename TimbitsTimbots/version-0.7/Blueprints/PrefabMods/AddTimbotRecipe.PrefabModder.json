@@ -1,0 +1,9 @@
+{
+    "PrefabModderSpec": {
+        "ComponentType": "Timberborn.Workshops.ManufactorySpec",
+        "PrefabNames": [ "Refinery.Folktails", "GreaseFactory.IronTeeth" ],
+        "ValuePath": "_productionRecipeIds",
+        "NewValue": "['Timbot']",
+        "AppendArray": true
+    }
+}

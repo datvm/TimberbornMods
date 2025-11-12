@@ -1,0 +1,33 @@
+{
+  "GoodSpec": {
+    "Id": "Timbit",
+    "BackwardCompatibleIds": [],
+    "DisplayNameLocKey": "LV.Tbit.TimbitName",
+    "PluralDisplayNameLocKey": "LV.Tbit.TimbitPlural",
+    "ConsumptionEffects": [
+      {
+        "NeedId": "Hunger",
+        "Points": 0.3
+      },
+      {
+        "NeedId": "Timbit",
+        "Points": 0.2
+      }
+    ],
+    "GoodType": "Box",
+    "StockpileVisualization": "Box",
+    "VisibleContainer": "Box",
+    "ContainerColor": {
+      "r": 0.898,
+      "g": 0.086,
+      "b": 0.125,
+      "a": 1.0
+    },
+    "CarryingAnimation": "CarryInHands",
+    "Weight": 1,
+    "GoodGroupId": "Food",
+    "ForceImport": false,
+    "Icon": "Sprites/Goods/timbit",
+    "ContainerMaterial": ""
+  }
+}
