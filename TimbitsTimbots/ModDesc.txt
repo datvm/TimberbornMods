@@ -1,0 +1,25 @@
+﻿Bring 🇨🇦 Canada's beloved Timbits to Timberborn! Treat your beavers (and bots!) to these bite-sized delights, now with a mechanical twist for your bots.
+
+Add [b]Timbits[/b] and [b]Timbots[/b] to the game for both Folktails and Iron Teeth.
+
+[h1]Timbits[/h1]
+
+This sweet treat gives your beavers gives [b]+4 Wellbeing[/b].
+
+- Folktails: Make in the [b]Bakery[/b]: 1 Wheat Flour + 1 Maple Syrup + 1 Berries -> 2 Timbits.
+- Iron Teeth: Make in the [b]Food Factory[/b]: 1 Canola Oil + 1 Corn + 1 Berries -> 2 Timbits.
+
+Both recipes take [b]1.5 hours[/b] and use Log as fuel, 1 Log lasts 20 cycles.
+
+[h1]Timbots[/h1]
+
+This mechanical version gives your bots [b]+1 Boost[/b]. Both factions use the same recipe:
+
+[b]1 Gear + 1 Pine Resin + 1 Extract -> 1 Timbot in 1.5 hours[/b]
+
+The Folktails produce the Timbots in the [b]Refinery[/b] and the Iron Teeth in the [b]Grease Factory[/b].
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.0: Should work for Timberborn v1.0. No longer require Moddable Prefab (only for V1).

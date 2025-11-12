@@ -1,0 +1,9 @@
+{
+    "PrefabModderSpec": {
+        "ComponentType": "Timberborn.Workshops.ManufactorySpec",
+        "PrefabNames": [ "FoodFactory.IronTeeth" ],
+        "ValuePath": "_productionRecipeIds",
+        "NewValue": "['Timbit.IronTeeth']",
+        "AppendArray": true
+    }
+}

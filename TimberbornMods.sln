@@ -319,6 +319,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransparentShaders", "Trans
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransparentTerrain", "TransparentTerrain\TransparentTerrain.csproj", "{C727F1F0-495C-481A-90AB-690A0E0372C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimbitsTimbots", "TimbitsTimbots\TimbitsTimbots.csproj", "{6A368306-46AB-4A87-B20E-FBB3A8AF45D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -857,6 +859,10 @@ Global
 		{C727F1F0-495C-481A-90AB-690A0E0372C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C727F1F0-495C-481A-90AB-690A0E0372C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C727F1F0-495C-481A-90AB-690A0E0372C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A368306-46AB-4A87-B20E-FBB3A8AF45D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A368306-46AB-4A87-B20E-FBB3A8AF45D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A368306-46AB-4A87-B20E-FBB3A8AF45D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A368306-46AB-4A87-B20E-FBB3A8AF45D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -957,6 +963,7 @@ Global
 		{08D745BB-BAE0-4928-874A-C932A91E4D17} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
 		{AF8B4A75-57ED-4484-90AE-B12893ED28EC} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
 		{C727F1F0-495C-481A-90AB-690A0E0372C1} = {1DAF0583-C6BF-4111-AA4D-7CAD297F299F}
+		{6A368306-46AB-4A87-B20E-FBB3A8AF45D1} = {026F718D-37AA-406F-8C30-E37E2613E7E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}

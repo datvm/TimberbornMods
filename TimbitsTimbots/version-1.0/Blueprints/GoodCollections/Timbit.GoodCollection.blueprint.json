@@ -1,0 +1,9 @@
+{
+    "GoodCollectionSpec": {
+        "CollectionId": "Common",
+        "Goods": [
+            "Timbit",
+            "Timbot"
+        ]
+    }
+}
