@@ -1,32 +1,25 @@
-﻿global using Timberborn.MechanicalSystem;
+﻿
+namespace MechanicalFilterPump.Components;
 
-namespace MechanicalFilterPump.UI;
-
-public class MechanicalFilterPumpComponent : BaseComponent, IPersistentEntity
+public class MechanicalFilterPumpComponent : BaseComponent, IPersistentEntity, IStartableComponent
 {
-    const float PowerMultiplier = 2f;
 
     static readonly ComponentKey SaveKey = new("MechanicalFilterPumpComponent");
     static readonly PropertyKey<bool> ActiveKey = new("IsActive");
     static readonly PropertyKey<bool> NoPowerIncreaseKey = new("NoPowerIncrease");
 
     public bool IsActive { get; private set; }
+
+#nullable disable
+    MechanicalFilterPumpPower power;
+#nullable enable
+
     public bool NoPowerIncrease { get; private set; }
-
-    MechanicalNode mechanicalNode = null!;
-    public int OriginalPowerInput { get; private set; }
-
-    public int PowerIncrease => Mathf.CeilToInt(OriginalPowerInput * PowerMultiplier) - OriginalPowerInput;
-
-    public void Awake()
-    {
-        mechanicalNode = GetComponentFast<MechanicalNode>();
-    }
 
     public void Start()
     {
-        OriginalPowerInput = mechanicalNode._nominalPowerInput;
-        SetPowerMultiplier();
+        power = GetComponent<MechanicalFilterPumpPower>();
+        SetPowerState();
     }
 
     public void SetActive(bool isActive)
@@ -34,22 +27,21 @@ public class MechanicalFilterPumpComponent : BaseComponent, IPersistentEntity
         if (IsActive == isActive) { return; }
 
         IsActive = isActive;
-        SetPowerMultiplier();
+        SetPowerState();
     }
 
     public void SetPowerCheat(bool enabled)
     {
         if (NoPowerIncrease == enabled) { return; }
 
-        NoPowerIncrease = enabled;        
-        SetPowerMultiplier();
+        NoPowerIncrease = enabled;
+        SetPowerState();
     }
 
-    void SetPowerMultiplier(float? multiplier = null)
+    void SetPowerState()
     {
-        multiplier ??= IsActive && !NoPowerIncrease ? PowerMultiplier : 1f;
-
-        mechanicalNode._nominalPowerInput = Mathf.CeilToInt(OriginalPowerInput * multiplier.Value);
+        var shouldModifyPower = IsActive && !NoPowerIncrease;
+        power.Toggle(shouldModifyPower);
     }
 
     public void Load(IEntityLoader entityLoader)

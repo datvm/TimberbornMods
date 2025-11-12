@@ -7,7 +7,7 @@ public static class WaterFilterPatches
     [HarmonyPrefix, HarmonyPatch(typeof(WaterOutput), nameof(WaterOutput.AddWater))]
     public static void PurifyWaterPatch(ref float cleanWater, ref float contaminatedWater, WaterOutput __instance)
     {
-        var comp = __instance.GetComponentFast<MechanicalFilterPumpComponent>();
+        var comp = __instance.GetComponent<MechanicalFilterPumpComponent>();
         if (!comp || !comp.IsActive || contaminatedWater <= 0) { return; }
 
         cleanWater += contaminatedWater;

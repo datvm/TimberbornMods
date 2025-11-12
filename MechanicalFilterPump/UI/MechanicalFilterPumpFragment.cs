@@ -1,6 +1,4 @@
-﻿global using Timberborn.Debugging;
-
-namespace MechanicalFilterPump.UI;
+﻿namespace MechanicalFilterPump.UI;
 
 public class MechanicalFilterPumpFragment(ILoc t, DevModeManager devs) : IEntityPanelFragment
 {
@@ -37,12 +35,12 @@ public class MechanicalFilterPumpFragment(ILoc t, DevModeManager devs) : IEntity
 
     public void ShowFragment(BaseComponent entity)
     {
-        comp = entity.GetComponentFast<MechanicalFilterPumpComponent>();
+        comp = entity.GetComponent<MechanicalFilterPumpComponent>();
         if (!comp) { return; }
 
         chkActive.value = comp.IsActive;
         chkNoPower.value = comp.NoPowerIncrease;
-        lblInfo.text = t.T("LV.MFP.FilterPower", comp.PowerIncrease);
+        lblInfo.text = t.T("LV.MFP.FilterPowerMul", MechanicalFilterPumpPower.PowerMultiplier);
 
         chkNoPower.ToggleDisplayStyle(chkNoPower.value || devs.Enabled);
 
@@ -55,13 +53,13 @@ public class MechanicalFilterPumpFragment(ILoc t, DevModeManager devs) : IEntity
     {
         if (!comp) { return; }
 
-        comp.SetActive(active);
+        comp!.SetActive(active);
     }
 
     void OnNoPowerChanged(bool noPower)
     {
         if (!comp) { return; }
-        comp.SetPowerCheat(noPower);
+        comp!.SetPowerCheat(noPower);
     }
 
 }

@@ -1,11 +1,10 @@
-{
+﻿{
     "Name": "Mechanical Filter Pump",
-    "Version": "7.0.2",
+    "Version": "10.0.0",
     "Id": "MechanicalFilterPump",
-    "MinimumGameVersion": "0.7.0.0",
+    "MinimumGameVersion": "1.0.0",
     "Description": "Purify badwater with mechanical pump",
     "RequiredMods": [
-        { "Id": "Harmony" },
-        { "Id": "TimberUi" }
+        { "Id": "ModdableTimberborn" }
     ]
 }
