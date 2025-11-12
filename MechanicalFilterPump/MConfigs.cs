@@ -1,29 +1,30 @@
-﻿global using MechanicalFilterPump.UI;
-global using Timberborn.WaterBuildings;
+﻿global using MechanicalFilterPump.Components;
+global using MechanicalFilterPump.UI;
+global using ModdableTimberborn.MechanicalSystem;
 
 namespace MechanicalFilterPump;
 
-[Context("Game")]
-public class ModGameConfigurator : Configurator
+public class MechanicalFilterPumpConfig : BaseModdableTimberbornConfigurationWithHarmony
 {
-    public override void Configure()
-    {
-        this.BindFragments<EntityPanelFragmentProvider<MechanicalFilterPumpFragment>>();
-        MultiBind<TemplateModule>().ToProvider(() =>
-        {
-            TemplateModule.Builder b = new();
-            b.AddDecorator<WaterMoverSpec, MechanicalFilterPumpComponent>();
-            return b.Build();
-        }).AsSingleton();
-    }
-}
+    public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.Game;
 
-public class ModStarter : IModStarter
-{
-
-    void IModStarter.StartMod(IModEnvironment modEnvironment)
+    public override void StartMod(IModEnvironment modEnvironment)
     {
-        new Harmony(nameof(MechanicalFilterPump)).PatchAll();
+        base.StartMod(modEnvironment);
+
+        ModdableTimberbornRegistry.Instance
+            .UseMechanicalSystem();
     }
 
+    public override void Configure(Configurator configurator, ConfigurationContext context)
+    {
+        configurator
+            .BindFragment<MechanicalFilterPumpFragment>()
+
+            .BindTemplateModule(h => h
+                .AddDecorator<WaterMoverSpec, MechanicalFilterPumpComponent>()
+                .AddDecorator<WaterMoverSpec, MechanicalFilterPumpPower>()
+            )
+        ;
+    }
 }

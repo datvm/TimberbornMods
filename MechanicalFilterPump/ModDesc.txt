@@ -1,0 +1,10 @@
+﻿Your Mechanical Fluid Pump can now purify Badwater into fresh water at the cost of double the power usage. You can enable this filter on each pump individually.
+
+Don't like the power cost? [spoiler]You can enable Dev Mode (Alt + Shift + Z) and a checkbox would appear to let you disable the power increment. But you are a cheater![/spoiler]
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.0: Works with Timberborn v1.0.1 and it require Moddable Timberborn now.
+
+v7.0.2: added missing TimberUi requirement.
