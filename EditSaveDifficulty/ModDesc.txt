@@ -1,0 +1,12 @@
+﻿You can now edit the difficulty settings of your save anytime! This mod adds a "Change Difficulty" option to your menu (while in game). Simply click it and you can configure the settings you normally can only set at the start of a new game.
+
+[b]Note 1:[/b] remember to make a save before using this mod. Then after using it, make a new save and then reload the game with that new save to apply the changes.
+
+[b]Note 2:[/b] weather change is only applied in the next season because the game already decides the weather for current season when it started.
+
+You don't need to keep this mod on after you have changed and saved the new setting.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.0: Should work for Timberborn v1.0.
