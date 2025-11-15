@@ -1,6 +1,4 @@
-﻿global using Timberborn.TerrainPhysics;
-
-namespace NoBuildRestriction.Patches;
+﻿namespace NoBuildRestriction.Patches;
 
 public static class HangingTerrainPatches
 {

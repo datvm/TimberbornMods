@@ -20,8 +20,7 @@ public class GameModConfig : Configurator
     }
 }
 
-
-public class ModStarter : IModStarter
+public class MStarter : IModStarter
 {
 
     void IModStarter.StartMod(IModEnvironment modEnvironment)
