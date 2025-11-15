@@ -9,6 +9,7 @@ From v7.1.0 you can also change the working speed.
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.0.1: Temporarily patch a few methods so the Demolition (Builders) can perform with increased Working Speed. This may be fixed by the game dev. See [url=https://discord.com/channels/558398674389172225/888491376143134760/1439273996884381766]discussion here[/url]. Thanks @souvy for reporting the issue.
 v10.0.0: Should work with Timberborn v1.0.1.
 
 v7.2.0: You can now set different Carry Capacity for Beaver and Bots. Idea by @VictorianMaid.
