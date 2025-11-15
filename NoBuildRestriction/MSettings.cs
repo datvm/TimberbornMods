@@ -1,5 +1,4 @@
-﻿using NoBuildRestriction.Patches;
-
+﻿
 namespace NoBuildRestriction;
 
 public class MSettings(
@@ -18,6 +17,15 @@ public class MSettings(
     public static bool HangingStructure { get; private set; } = false;
     public static bool SuperHangingTerrain { get; private set; } = false;
     public static bool NoBottomOfMap { get; private set; } = false;
+
+    public static bool ModifyObjects
+        => RemoveGroundOnly
+        || RemoveRoofOnly
+        || AllowFlooded
+        || AlwaysSolid
+        || SuperStructure
+        || PlatformOver1x1
+        || NoBottomOfMap;
 
     public override string ModId { get; } = nameof(NoBuildRestriction);
 

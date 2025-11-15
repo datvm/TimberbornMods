@@ -1,14 +1,11 @@
-{
+﻿{
     "Name": "No Build Restriction",
-    "Version": "7.4.1",
+    "Version": "10.0.0",
     "Id": "NoBuildRestriction",
-    "MinimumGameVersion": "0.7.0.0",
+    "MinimumGameVersion": "1.0.0",
     "Description": "Buildings can be placed anywhere and everywhere",
     "RequiredMods": [
-        {
-            "Id": "eMka.ModSettings",
-            "MinimumVersion": "0.7.0.0"
-        },
-        { "Id": "Harmony" }
+        { "Id": "eMka.ModSettings" },
+        { "Id": "ModdableTimberborn" }
     ]
 }

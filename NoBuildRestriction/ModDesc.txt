@@ -1,0 +1,38 @@
+﻿Want more freedom to build stuff without limits by the game? This mod is for you!
+
+[b]IMPORTANT: for this mod you must restart the game after changing the settings.[/b]
+
+By default, this mod only removes "Ground-only" and "Rooftop-only" restrictions and add "Platforms over 1x1". You can configure it by going to the Main Menu -> Mods -> Settings button next to the mod's name.
+
+- Remove Ground-only restriction: You can build any building on top of other buildings. In order for some buildings with underground parts to work properly like the Underground Pile, I also removed their occupation so you can build under it but there maybe graphical glitches.
+- Remove Rooftop-only restriction: You can build any building on the ground.
+- Platforms over 1x1: You can always build platforms over 1x1 buildings (for example you can now build a Double Platform over a Lumberjack Flag). Terrain Block and Dynamites are excluded to not cause you to lose buildings when reloading a save.
+- All solid: All buildings can now be built on top. Obviously things may float in the air because the top is not fully occupied.
+- No more flooded buildings: Buildings won't get flooded anymore. They keep working as usual.
+- Super foundation: All buildings can be built with only one support (see screenshots). For buildings with entrance, that is the block you need to support. For those without, it's the central block.
+- Magical foundation: Your building does not need any support at all. It can just float on the air. You may still need to build the scaffolding to be able to put the buildings, then remove them.
+- Hanging Structure (require Magical Foundation): you can build your buildings sideway to terrains (see screenshot).
+- Super hanging terrain: You can exceed the 3 hanging terrain limit to 50 (not higher due to performance impact).
+- Remove terrain-to-bottom restriction: Remove the restriction of 'continuous terrain down to the bottom of the map' (Underground Ruins and Water sources). Also works for Map Editor but your users will need this mod with this option on to play your map without those objects getting removed.
+
+Note: for super foundation to work, I also moved the "pivot" or building point of those buildings so when you build, you choose the entrance with your cursor instead of the center of the building. Honestly that feel very nice to me and should have been the game's default.
+
+[h2]Known issues:[/h2]
+- Attempt to build Tubeway under the Tubeway Station will crash the game. Better not build the Tubeway Station without all the supports, if you do, be careful when building the Tubeway.
+- Magical foundation: be careful that while you can build stuff with entrances, it's likely that Beaver won't be able to reach them physically and so can't use them without an actual support.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v10.0.0:
+- Should work with Timberborn v1.0.
+- This mod now needs Moddable Timberborn.
+- "Remove Ground-only restriction" does not work with buildings with underground parts yet (like Underground Pile) due to changes in Timberborn v1.0.
+
+v7.4.1: Removed Mechanical Pump (both FT and IT) from Hanging Structure so they can be built.
+v7.4.0: Added "Remove terrain-to-bottom restriction".
+v7.3.0: Added Hanging Structure.
+v7.2.0: Added Super Hanging terrain. Fixed "magical" buildings disappear on loading a save due to April 02 update.
+v7.1.2: Fixed Platform over 1x1 not working without other options.
+v7.1.1: Fixed No-ground restriction break Underground Piles and causes beavers to stuck while trying to access it.
+v7.1.0: Added "Platforms over 1x1" and "Magical foundation" options.
