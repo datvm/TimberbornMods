@@ -1,0 +1,12 @@
+﻿{
+    "Name": "Configurable Daisugi Forestry",
+    "Version": "10.1.0",
+    "Id": "ConfigurableDaisugiForestry",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Configure Daisugi",
+    "RequiredMods": [
+        { "Id": "DaisugiForestry", "MinimumVersion": "10.1.0" },
+        { "Id": "eMka.ModSettings" },
+        { "Id": "ModdableTimberborn" }
+    ]
+}
