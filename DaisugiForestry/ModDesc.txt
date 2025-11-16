@@ -21,4 +21,5 @@ Pros:
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.1.0: Fixed visual bug in Map Editor.
 v10.0.1: Fixed tree color indication when Logs are ready.

@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 ImmutableArray<string> Prefixes = ["Bindito.", "Timberborn.", "Unity"];
 const string GameAssembliesPath = @"D:\Software\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed";
 ImmutableArray<string> SpecialFolders = [
-    @"D:\Software\SteamLibrary\steamapps\workshop\content\1062090\3283831040\version-0.7\Scripts", // Mod Settings
+    @"D:\Software\SteamLibrary\steamapps\workshop\content\1062090\3283831040\version-1.0\Scripts", // Mod Settings
 ];
 ImmutableArray<KeyValuePair<string, string>> OtherMods = [
     //new(@"D:\Software\SteamLibrary\steamapps\workshop\content\1062090\3275060459\version-0.7\Scripts", "ShantySpeaker"),

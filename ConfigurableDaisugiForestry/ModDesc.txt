@@ -1,0 +1,19 @@
+﻿This extension adds full in-game configuration support for the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3601143522]Daisugi Forestry mod[/url].
+
+All Daisugi values can now be adjusted directly from the Mod Settings (Main or Game menu -> Mods -> Settings button next to the mod name):
+- Growth times: How many days after mature that trees will give Daisugi Logs
+- Log yields: How many logs a tree will give when harvested for Daisugi Logs
+- Harvest time: How long (in hours) does it take to harvest a tree for Daisugi Logs. Note that if you put it too long, the beaver may starve as it waits for the job to complete.
+- Produces Planks: If enabled, that type of tree will produce planks instead of logs when harvested for Daisugi Logs.
+
+There are three quick difficulty templates to choose from:
+- Easy: The original Daisugi values.
+- Normal (default when enabling this mod), Oak provides Planks.
+- Hard: Much longer growth and harvest times and lower yields but produce Planks.
+
+Note: Daisugi providing Planks is inspired by real-life practices where Daisugi logs are often used for high-quality lumber. Also in-game, it's probably useful [i]most[/i] of the time BUT you lose the flexibility of using Logs for other purposes.
+
+Settings can be changed at any time, but you must reload the save for changes to take effect if adjusted mid-game.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
