@@ -1,8 +1,8 @@
 ﻿{
     "Name": "Transparent Shaders",
-    "Version": "10.0.0",
+    "Version": "10.0.1",
     "Id": "TransparentShaders",
-    "MinimumGameVersion": "1.0.0",
+    "MinimumGameVersion": "0.7.0",
     "Description": "Transparent Shaders for Timberborn Materials",
     "RequiredMods": []
 }

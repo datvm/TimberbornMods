@@ -4,6 +4,8 @@ After their usual growth time:
 - Birch (7 days to grow): 1 Log every 4 days
 - Oak (30 days to grow): 4 Logs every 10 days
 
+Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3606677023]Configurable Daisugi Forestry[/url] to customize various aspect of the yield.
+
 Daisugi surpasses traditional cutting after 19 days for Birch and 80 days for Oak.
 
 [img]https://images.steamusercontent.com/ugc/10427540674879588609/6039AC8586D08240096F4928A9427DF00D3B622C/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
