@@ -10,3 +10,5 @@ Powered by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=360373581
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.1: Now support U7.
