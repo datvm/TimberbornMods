@@ -8,28 +8,26 @@ LV.CPl.WithoutGround,"Plant without ground",
 LV.CPl.WithoutGroundDesc,"Allows planting directly on roofs and platforms without soil. These plants receive irrigation and contamination from the land below.",
 LV.CPl.NoConUp,"> No contamination up (cheater :P)",
 LV.CPl.NoConUpDesc,"Prevents land contamination from being brought up. Enables planting trees or crops on platforms even if the land below is unsuitable.",
-LV.CPl.GrowthSect,"Growth options:
-- Trees: Log providing plants that are planted by Foresters (e.g. Pine, Oak).
-- Crops: Food providing plants that are planted by Farmers <b>and Bushes</b> (e.g. Carrots, Blueberry and Dandelion Bushes).
-- Products: Resources growing on trees after they mature (e.g. Pine Resin, Blueberries).",
-LV.CPl.TreeGrowthRate,"Tree growth rate",
-LV.CPl.TreeGrowthRateDesc,"Multiplier for tree growth time.
-Default: ×1. Set below ×1 to decrease difficulty. Example: ×0.5 makes a Chestnut that normally takes 23 days to grow take 11.5 days.",
-LV.CPl.CropGrowthRate,"Crop growth rate",
-LV.CPl.CropGrowthRateDesc,"Multiplier for crop growth time.
-Default: ×1. Set below ×1 to decrease difficulty. Example: ×0.5 makes a Potato that normally takes 5 days to grow take 2.5 days.",
-LV.CPl.GatherableGrowthRate,"Product growth rate",
-LV.CPl.GatherableGrowthRateDesc,"Multiplier for product growth time.
-Default: ×1. Set below ×1 to decrease difficulty. Example: ×0.5 makes Pine Resin that normally takes 7 days to grow take 3.5 days.",
-LV.CPl.TreeOutputMul,"Tree output multiplier",
-LV.CPl.TreeOutputMulDesc,"Multiplier for log output when cutting down trees (rounded down).
-Default: ×1. Set above ×1 to increase output. Example: ×1.5 makes a Pine that normally yields 2 Logs yield 3 Logs.",
-LV.CPl.CropOutputMul,"Crop output multiplier",
-LV.CPl.CropOutputMulDesc,"Multiplier for crop output when harvesting crops (rounded down).
-Default: ×1. Set above ×1 to increase output. Example: ×1.5 makes a Carrot harvest that normally yields 3 Carrots yield 4 Carrots.",
-LV.CPl.GatherableOutputMul,"Product output multiplier",
-LV.CPl.GatherableOutputMulDesc,"Multiplier for product output when gathering products (rounded down).
-Default: ×1. Set above ×1 to increase output. Example: ×1.5 makes Pine Resin that normally yields 2 Resin yield 3 Resin.",
+LV.CPl.GrowthSect,"<b>Growth options:</b> Set below default ×1 to decrease difficulty except for Output Multiplier. Examples:
+- Planting Time Multiplier ×0.5: Planting Oak 1 hours → 0.5 hours.
+- Growth Rate ×0.5: Potato grows in 5 days → 2.5 days.
+- Output Multiplier ×1.5: Carrot yields 3 → 4.
+- Harvest Time Multiplier ×0.5: Oak cutting 2 hours → 1 hour.
+- Demolishing Time Multiplier ×0.5: demolishing Pine 1.2 hours → 0.6 hours.",
+LV.CPl.PlantingTime,"Planting time multiplier",
+LV.CPl.PlantingTimeDesc,"Multiplier for time taken to plant.",
+LV.CPl.GrowthRate,"Growth rate multiplier",
+LV.CPl.GrowthRateDesc,"Multiplier for growth time.",
+LV.CPl.OutputMul,"Output multiplier",
+LV.CPl.OutputMulDesc,"Multiplier for output (rounded down).",
+LV.CPl.HarvestTime,"Harvest time multiplier",
+LV.CPl.HarvestTimeDesc,"Multiplier for time taken to harvest/cut down.",
+LV.CPl.DemolishTime,"Demolishing time multiplier",
+LV.CPl.DemolishTimeDesc,"Multiplier for time taken to demolish.",
+LV.CPl.TreeSect,"Tree options: <b>Log providing plants</b> that are planted by Foresters (e.g. Pine, Oak).",
+LV.CPl.CropSect,"Crop options: All other plants that are planted by Farmers or Foresters (e.g. Carrot, Blueberry and Dandelion <b>Bushes</b>).",
+LV.CPl.ProductSect,"Product options: <b>Products</b> that grow on mature plants (e.g. Pine Resin, Blueberries).",
+LV.CPl.AllSect,"For all plants:",
 LV.CPl.ReproducibleChanceMultiplier,"Reproducible chance multiplier",
 LV.CPl.ReproducibleChanceMultiplierDesc,"Adjusts the chance for trees to reproduce each hour (default: 1–3% depending on type).
 Default: ×1. ×0 disables reproduction. Example: ×2 makes a Pine with a base 3% chance reproduce at 6% chance.",

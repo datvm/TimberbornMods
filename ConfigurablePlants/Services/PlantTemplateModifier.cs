@@ -4,9 +4,16 @@ public class PlantTemplateModifier(MSettings s) : ITemplateModifier, ILoadableSi
 {
     bool modifyBos;
     BlockOccupations removingOccupation = BlockOccupations.None;
+    float[][] plantModifiers = [];
+    float[] productModifiers = [];
+
+    int ITemplateModifier.Order => 100;
 
     public void Load()
     {
+        plantModifiers = s.PlantGroupsValues;
+        productModifiers = s.PlantGroupsValues[(int)MSettingPlantGroupType.Product];
+
         if (s.RemoveCorner.Value) { removingOccupation |= BlockOccupations.Corners; }
         if (s.RemovePath.Value) { removingOccupation |= BlockOccupations.Path; }
 
@@ -17,41 +24,59 @@ public class PlantTemplateModifier(MSettings s) : ITemplateModifier, ILoadableSi
     public EditableBlueprint? Modify(EditableBlueprint template, TemplateSpec originalTemplateSpec, Blueprint original)
     {
         var isTree = template.Specs.FastAny(q => q is TreeComponentSpec);
-        float modifier;
+        var modifiers = isTree ? plantModifiers[(int)MSettingPlantGroupType.Tree] : plantModifiers[(int)MSettingPlantGroupType.Crop];
+
+        float growthMod, outputMod, harvestMod;
 
         template.TransformSpecs(spec =>
         {
             switch (spec)
             {
-                case GrowableSpec g:
-                    modifier = isTree ? s.TreeGrowthRate.Value : s.CropGrowthRate.Value;
+                case PlantableSpec p:
+                    growthMod = modifiers[(int)MSettingPlantGroupProperty.PlantingTime];
                     
-                    return modifier == 1f ? null : g with
+                    return growthMod == 1f ? null : p with
                     {
-                        GrowthTimeInDays = g.GrowthTimeInDays * modifier,
+                        PlantTimeInHours = p.PlantTimeInHours * growthMod,
+                    };
+                case GrowableSpec g:
+                    growthMod = modifiers[(int)MSettingPlantGroupProperty.GrowthRate];
+                    
+                    return growthMod == 1f ? null : g with
+                    {
+                        GrowthTimeInDays = g.GrowthTimeInDays * growthMod,
                     };
                 case CuttableSpec c:
-                    modifier = isTree ? s.TreeOutputMul.Value : s.CropOutputMul.Value;
-                    
-                    return modifier == 1f ? null : c with
+                    harvestMod = modifiers[(int)MSettingPlantGroupProperty.HarvestTime];
+                    outputMod = modifiers[(int)MSettingPlantGroupProperty.OutputMul];
+
+                    return (harvestMod == 1f && outputMod == 1f) ? null : c with
                     {
-                        YielderSpec = ModifyAmount(c.YielderSpec, modifier),
+                        YielderSpec = ModifyYielderSpec(c.YielderSpec, harvestMod, outputMod),
                     };
                 case GatherableSpec g:
-                    modifier = s.GatherableOutputMul.Value;
-                    var growthMul = s.GatherableGrowthRate.Value;
+                    growthMod = productModifiers[(int)MSettingPlantGroupProperty.GrowthRate];
+                    outputMod = productModifiers[(int)MSettingPlantGroupProperty.OutputMul];
+                    harvestMod = productModifiers[(int)MSettingPlantGroupProperty.HarvestTime];
 
-                    return (modifier == 1f && growthMul == 1f) ? null : g with
+                    return (growthMod == 1f && outputMod == 1f && harvestMod == 1f) ? null : g with
                     {
-                        YieldGrowthTimeInDays = g.YieldGrowthTimeInDays * growthMul,
-                        YielderSpec = ModifyAmount(g.YielderSpec, modifier),
+                        YieldGrowthTimeInDays = g.YieldGrowthTimeInDays * growthMod,
+                        YielderSpec = ModifyYielderSpec(g.YielderSpec, harvestMod, outputMod),
+                    };
+                case DemolishableSpec d:
+                    harvestMod = modifiers[(int)MSettingPlantGroupProperty.DemolishTime];
+                    
+                    return harvestMod == 1f ? null : d with
+                    {
+                        DemolishTimeInHours = d.DemolishTimeInHours * harvestMod,
                     };
                 case ReproducibleSpec r:
-                    modifier = s.ReproducibleChanceMultiplier.Value;
+                    growthMod = s.ReproducibleChanceMultiplier.Value;
                     
-                    return modifier == 1f ? null : r with
+                    return growthMod == 1f ? null : r with
                     {
-                        ReproductionChance = r.ReproductionChance * modifier,
+                        ReproductionChance = r.ReproductionChance * growthMod,
                     };
                 case BlockObjectSpec bos when modifyBos:
                     return ModifyPlantBlockObjectSpec(bos);
@@ -81,14 +106,15 @@ public class PlantTemplateModifier(MSettings s) : ITemplateModifier, ILoadableSi
         };
     }
 
-    static YielderSpec ModifyAmount(YielderSpec original, float mul)
+    static YielderSpec ModifyYielderSpec(YielderSpec original, float harvestTimeMul, float amountMul)
     {
         return original with
         {
             Yield = original.Yield with
             {
-                Amount = Mathf.FloorToInt(original.Yield.Amount * mul),
-            }
+                Amount = Mathf.FloorToInt(original.Yield.Amount * amountMul),
+            },
+            RemovalTimeInHours = original.RemovalTimeInHours * harvestTimeMul,
         };
     }
 
