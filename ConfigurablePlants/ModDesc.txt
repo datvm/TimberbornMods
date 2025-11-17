@@ -1,4 +1,4 @@
-﻿Configurable Plants gives you full control over how plants behave in Timberborn. It combines the features of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3396202044]Configurable Growth[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3450786281]Vertical Farming[/url] into a single V1 mod, letting you customize placement rules, growth speeds, yields, and natural reproduction.
+﻿Configurable Plants gives you full control over how plants behave in Timberborn. It combines the features of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3396202044]Configurable Growth[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3450786281]Vertical Farming[/url] into a single V1 mod, letting you customize placement rules, planting speed, growth speed, output, harvest time, demolishing time, and natural reproduction.
 
 To configure the mod: from the game menu (before loading a save) -> Mods -> click the Settings button next to the mod name.
 
@@ -6,18 +6,29 @@ To configure the mod: from the game menu (before loading a save) -> Mods -> clic
 - Remove corner occupation: Build structures like Platforms over plants.
 - Remove path occupation: Let Paths run through planted tiles.
 - Plant without ground: Plant directly on roofs and platforms; irrigation and contamination come from the land below.
---- No contamination up (cheater :P): Stops land contamination from propagating upward, allowing trees and crops to grow on platforms even if the ground beneath is unsuitable.
+|---- No contamination up (cheater :P): Stops land contamination from propagating upward, allowing trees and crops to grow on platforms even if the ground beneath is unsuitable.
 
 [h2]Growth and output options[/h2]
-- Tree growth rate: Multiplier for how fast trees mature.
-- Crop growth rate: Multiplier for crops planted by Farmers and Bushes (Carrots, Blueberries, Dandelions).
-- Product growth rate: Multiplier for products that grow on mature trees (Pine Resin, Blueberries).
-
-- Tree output multiplier: Adjust log yield when cutting trees.
-- Crop output multiplier: Adjust harvested crop quantities.
-- Product output multiplier: Adjust gathered product amounts.
 
 - Reproducible chance multiplier: Adjusts the chance for trees to reproduce each hour (default: 1–3% depending on type). Default: ×1. ×0 disables reproduction. Example: ×2 makes a Pine with a base 3% chance reproduce at 6% chance.
 
+The following multipliers adjust planting time, growth speed, output, harvest time, and demolishing time. Set values below 1 to make plants easier; increase above 1 to make them harder except for Output Multiplier.
+Examples:
+- Planting Time ×0.5: Planting Oak 1 hour -> 0.5 hours
+- Growth Rate ×0.5: Potato 5 days -> 2.5 days
+- Output ×1.5: Carrot 3 -> 4
+- Harvest Time ×0.5: Oak cutting 2 hours -> 1 hour
+- Demolishing Time ×0.5: Demolish Pine 1.2 hours -> 0.6 hours
+
+They are separated into three sections:
+- Tree options: Log-providing plants planted by Foresters (e.g. Pine, Oak).
+- Crop options: All other plants that are planted by Farmers or Foresters (e.g. Carrot, Blueberry and Dandelion Bushes).
+- Product options: Products that grow on mature plants (e.g. Pine Resin, Blueberries). This section does not have Planting time and Demolishing time as they do not apply.
+
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.1.0:
+- Added Planting time, Harvest time, and Demolishing time multipliers.
+- Reorganize settings into sections for better clarity.
+- Internal: added an order of 100 for the modifier so it likely will run after other mods that use Moddable Timberborn like Daisugi.
