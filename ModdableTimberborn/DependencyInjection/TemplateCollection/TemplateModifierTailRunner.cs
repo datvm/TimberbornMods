@@ -1,7 +1,11 @@
 ﻿namespace ModdableTimberborn.DependencyInjection;
 
-sealed class TemplateModifierTailRunner(IEnumerable<ITemplateModifier> modifiers) : ITemplateCollectionServiceTailRunner
+sealed class TemplateModifierTailRunner(
+    IEnumerable<ITemplateModifier> modifiers,
+    BlueprintSourceService blueprintSourceService
+) : ITemplateCollectionServiceTailRunner
 {
+    static readonly string TypeName = typeof(TemplateModifierTailRunner).FullName;
     readonly ImmutableArray<ITemplateModifier> modifiers = [.. modifiers.OrderBy(q => q.Order)];
 
     public void Run(TemplateCollectionService templateCollectionService)
@@ -35,7 +39,11 @@ sealed class TemplateModifierTailRunner(IEnumerable<ITemplateModifier> modifiers
 
             if (changed)
             {
-                list[i] = curr!;
+                var bp = list[i] = curr!;
+
+                var src = blueprintSourceService.Get(original).AddJson("{}", TypeName);
+                blueprintSourceService.Add(bp, src);
+
                 hasAnyChange = true;
             }
         }
