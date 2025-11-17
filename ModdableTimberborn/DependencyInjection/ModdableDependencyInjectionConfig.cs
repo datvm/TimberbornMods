@@ -3,14 +3,17 @@
     public class ModdableDependencyInjectionConfig : IModdableTimberbornRegistryWithPatchConfig
     {
         public const string PatchCategoryName = $"{nameof(ModdableTimberborn)}.{nameof(DependencyInjection)}";
-        public static readonly ModdableDependencyInjectionConfig Instance = new();
 
         public string PatchCategory { get; } = PatchCategoryName;
 
-        ModdableDependencyInjectionConfig() { }
-
         public void Configure(Configurator configurator, ConfigurationContext context)
         {
+            if (context.IsBootstrapperContext())
+            {
+                configurator.Bind<AssetRefService>().AsSingleton().AsExported();
+                return;
+            }
+
             configurator
                 // Spec
                 .MultiBindAndBindSingleton<IBlueprintModifierProvider, SpecServiceRunner>()
@@ -20,11 +23,6 @@
                 .MultiBindAndBindSingleton<ITemplateCollectionIdProvider, TemplateCollectionTailRunnerService>()
                 .BindTemplateTailRunner<TemplateModifierTailRunner>()
             ;
-
-            if (context.IsBootstrapperContext())
-            {
-                configurator.Bind<AssetRefService>().AsSingleton().AsExported();
-            }
         }
     }
 }
@@ -40,7 +38,7 @@ namespace ModdableTimberborn.Registry
             if (DependencyInjectionUsed) { return this; }
 
             DependencyInjectionUsed = true;
-            AddConfigurator(ModdableDependencyInjectionConfig.Instance);
+            AddConfigurator<ModdableDependencyInjectionConfig>();
 
             return this;
         }

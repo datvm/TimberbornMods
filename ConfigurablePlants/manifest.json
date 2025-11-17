@@ -1,0 +1,11 @@
+﻿{
+    "Name": "Configurable Plants",
+    "Version": "10.0.0",
+    "Id": "ConfigurablePlants",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Configure plants settings",
+    "RequiredMods": [
+        { "Id": "eMka.ModSettings" },
+        { "Id": "ModdableTimberborn", "MinimumVersion": "10.0.3" }
+    ]
+}
