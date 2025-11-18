@@ -327,6 +327,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurableDaisugiForestry
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurablePlants", "ConfigurablePlants\ConfigurablePlants.csproj", "{BBE5C663-C37F-4734-9237-9A83B2D890A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoofMap", "RoofMap\RoofMap.csproj", "{B2371BB1-60C8-45A5-9FDF-40D67860C82E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -877,6 +879,10 @@ Global
 		{BBE5C663-C37F-4734-9237-9A83B2D890A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBE5C663-C37F-4734-9237-9A83B2D890A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBE5C663-C37F-4734-9237-9A83B2D890A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2371BB1-60C8-45A5-9FDF-40D67860C82E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2371BB1-60C8-45A5-9FDF-40D67860C82E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2371BB1-60C8-45A5-9FDF-40D67860C82E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2371BB1-60C8-45A5-9FDF-40D67860C82E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -982,6 +988,7 @@ Global
 		{6A368306-46AB-4A87-B20E-FBB3A8AF45D1} = {026F718D-37AA-406F-8C30-E37E2613E7E5}
 		{4FD67299-D63B-4ADE-866C-FA1F4DEE0F76} = {0FE4ABA4-2FE8-4967-B51E-9F8DEDDEB082}
 		{BBE5C663-C37F-4734-9237-9A83B2D890A6} = {4C24DB61-A115-4B00-BDBF-E8CD4EA9FDF2}
+		{B2371BB1-60C8-45A5-9FDF-40D67860C82E} = {DE1F2808-540F-4A25-B6F0-76AD9A1A6D82}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B11E6184-2110-4B5F-9D86-9F40824A7065}

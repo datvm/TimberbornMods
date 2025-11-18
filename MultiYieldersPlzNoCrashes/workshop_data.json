@@ -4,5 +4,10 @@
   "Visibility": "Public",
   "UpdateDescription": false,
   "UpdateVisibility": false,
-  "UpdatePreview": false
+  "UpdatePreview": false,
+  "Tags": [
+    "Update 1.0",
+    "Modding tools",
+    "Plants"
+  ]
 }

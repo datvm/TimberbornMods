@@ -1,8 +1,15 @@
 {
-    "ItemId": "3472334132",
-    "Name": "TImprove 4 UI",
-    "Visibility": "Public",
-    "UpdateDescription": false,
-    "UpdateVisibility": false,
-    "UpdatePreview": false
+  "ItemId": "3472334132",
+  "Name": "TImprove 4 UI",
+  "Visibility": "Public",
+  "UpdateDescription": false,
+  "UpdateVisibility": false,
+  "UpdatePreview": false,
+  "Tags": [
+    "Update 1.0",
+    "Update 0.7",
+    "Quality of life",
+    "Visuals",
+    "Miscellaneous"
+  ]
 }
