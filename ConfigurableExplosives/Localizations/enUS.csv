@@ -1,4 +1,4 @@
-ID,Text,Comment
+﻿ID,Text,Comment
 LV.CE.MaxDepth,"Max Depth of {0}",
 LV.CE.NoCostIncrease,"No cost increase (cheater :P)",
 LV.CE.NoCostIncreaseDesc,"Do not increase the science and construction cost when you increase the Max depth",
@@ -11,3 +11,4 @@ LV.CE.TriggerRadiusDisplay,"{0} blocks",
 LV.CE.DetonateIn,"Detonate in {0}/{1}s",
 LV.CE.Copy,"Copy to others",
 LV.CE.MakeTemplate,"Make template",
+Name_ConfigurableDynamiteFragment,"Configurable Dynamite",

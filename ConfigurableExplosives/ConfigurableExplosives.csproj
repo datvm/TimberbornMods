@@ -3,8 +3,8 @@
 	<PropertyGroup>
 		<OutputModFolderName>ConfigurableExplosives</OutputModFolderName>
 	</PropertyGroup>
+
 	<Import Project="../Common.target" />
-	<Import Project="../CommonHarmony.target" />
-	<Import Project="../CommonTimberUI.target" />
+	<Import Project="../CommonModdableTimberborn.target" />
 	
 </Project>

@@ -18,7 +18,7 @@
 		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
-		<ProjectReference Include="..\EditSaveDifficulty\EditSaveDifficulty.csproj" />
+		<ProjectReference Include="..\ConfigurableExplosives\ConfigurableExplosives.csproj" />
 
 	</ItemGroup>
 
