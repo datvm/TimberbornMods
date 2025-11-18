@@ -9,4 +9,5 @@ You don't need to keep this mod on after you have changed and saved the new sett
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
-v10.0.0: Should work for Timberborn v1.0.
+v10.0.1: Should work with Timberborn v1.0.2 (Nov 18th update).
+v10.0.0: Should work with Timberborn v1.0.

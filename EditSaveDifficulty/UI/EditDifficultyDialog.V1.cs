@@ -5,7 +5,7 @@ public class EditDifficultyDialog(
     PanelStack panelStack,
     ILoc t,
     CustomNewGameModeController customNewGameModeController,
-    ISpecService specService
+    GameModeSpecService gameModeSpecService
 ) : DialogBoxElement
 {
     static readonly ImmutableArray<string> InvisibleNames = [
@@ -14,17 +14,18 @@ public class EditDifficultyDialog(
         "StartingFoodWrapper", "StartingWaterWrapper"
     ];
 
-    public NewGameModeSpec NewGameMode { get; private set; } = null!;
+    public GameModeSpec NewGameMode { get; private set; } = null!;
 
-    public void SetContent(FactionSpec factionSpec, string mapName, NewGameModeSpec current)
+    public void SetContent(FactionSpec factionSpec, string mapName, GameModeSpec current)
     {
         SetTitle("LV.ESD.ChangeDifficulty".T(t));
         AddCloseButton();
+        SetDialogPercentSize(.95f);
 
         var warningContent = "LV.ESD.SaveWarning".T(t).Bold().Color(TimberbornTextColor.Red);
         Content.AddGameLabel(warningContent, centered: true);
 
-        var newGamePanel = new NewGameModePanel(veLoader, null, panelStack, t, customNewGameModeController, specService);
+        var newGamePanel = new NewGameModePanel(veLoader, null, panelStack, t, customNewGameModeController, gameModeSpecService);
         newGamePanel.Load();
 
         newGamePanel.SelectFactionAndMap(
@@ -32,7 +33,7 @@ public class EditDifficultyDialog(
             // only map name is accessed:
             new(default, mapName, null, null, false, false, false, false, null));
 
-        newGamePanel._predefinedNewGameMode = NewGameMode = current;
+        newGamePanel._predefinedGameMode = NewGameMode = current;
         newGamePanel.OnCustomizeButtonClicked();
 
         var root = newGamePanel.GetPanel();
@@ -55,7 +56,7 @@ public class EditDifficultyDialog(
 
     void OnConfirm()
     {
-        if (!customNewGameModeController.TryGetValidatedNewGameMode(out var newGameMode))
+        if (!customNewGameModeController.TryGetValidatedGameMode(out var newGameMode))
         {
             return;
         }
