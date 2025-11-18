@@ -1,0 +1,8 @@
+﻿All Goods In Warehouses lets every resource previously restricted to Piles and Tanks be stored directly in Warehouses.
+
+After enabling the mod and loading your save, you can freely move existing goods out of Piles and Tanks into Warehouses. Once transferred, you can safely remove the old storage buildings.
+
+[b]Important: do not open the Good selection panel on any existing Pile or Tank. The game will crash.[/b] Only use them to evacuate their contents, then demolish them.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
