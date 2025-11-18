@@ -10,7 +10,7 @@ public class NewGameParameterService(
 )
 {
 
-    public NewGameModeSpec GatherCurrentParameters() => new()
+    public GameModeSpec GatherCurrentParameters() => new()
     {
         StartingAdults = 0,
         AdultAgeProgress = new(),
@@ -45,7 +45,7 @@ public class NewGameParameterService(
         DemolishableRecoveryRate = goodRec.DemolishableRecoveryRate
     };
 
-    public void SetNewParameters(NewGameModeSpec parameters)
+    public void SetNewParameters(GameModeSpec parameters)
     {
         needMods._foodConsumption = parameters.FoodConsumption;
         needMods._waterConsumption = parameters.WaterConsumption;

@@ -26,6 +26,7 @@
 		<Using Include="UnityEngine.UIElements" />
 		<Using Include="UnityEngine.InputSystem" />
 
+		<Using Include="Timberborn.NewGameConfigurationSystem"/>
 		<Using Include="Timberborn.Yielding"/>
 		<Using Include="Timberborn.YieldingUI"/>
 		<Using Include="Timberborn.ZiplineMovementSystem"/>
