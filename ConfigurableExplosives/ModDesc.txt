@@ -1,0 +1,30 @@
+﻿Prepare to have a blast with the Configurable Explosives mod for Timberborn! This dynamite addition lets you crank up the kaboom factor by customizing the max blast depth (just remember, bigger booms come with bigger costs). Tweak your explosions to perfection by setting a trigger-happy radius for chain reactions or adding a dramatic delay for that explosive finale.
+
+To change the max depth, from the Main Menu -> Mods -> Setting button next to the mod's name. Note that for each max depth, the cost increase per the game's setting:
+- Depth 1 (base): 600 Science to unlock, 0 additional Extract needed to build.
+- Depth 2+: 600 Science + 300 per depth to unlock, 1 additional Extract per depth needed to build.
+
+For each Dynamite, you can now configure:
+- Detonation Delay: 0-10 seconds (default 0). How much time after trigger before the explosion occurs. Also apply when triggered by a chain reaction.
+- Detonation Depth: Default to the dynamite's max depth. You can limit the depth of the explosion to a certain level (only to the max depth of that dynamite).
+- Trigger Radius: 0-10 tiles (default 1). How far this dynamite can trigger other dynamites. Setting to 0 won't trigger any other dyanmites. [b]Behavior change:[/b] with this mod enabled, the trigger radius also applies to the corners and upper/lower tiles as well.
+
+[h3]Copy feature[/h3]
+
+[b]For V1:[/b] You can use the game's duplicate feature to copy the settings from one Dynamite to another (including from different tiers).
+
+[b]For U7:[/b]
+You can also Copy the setting from one Dynamite to the others as well! Just the click the Copy button then draw an area to copy to.
+
+From v7.1.0, you can also click "Make template" button. It will store the current settings of that dynamite and all dynamites you build (including different tiers) will try to use that settings. Note: the settings only persist for the game session, it's not saved.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v10.0.0: (only apply to V1 version)
+- Works with Timberborn 1.0.
+- Now depends on Moddable Timberborn.
+- Copy features now use the game's built-in duplicate feature.
+
+v7.1.0: Added "Make template" button
+v7.0.1: Should work with June 2nd update.
