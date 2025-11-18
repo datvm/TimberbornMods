@@ -4,5 +4,11 @@
   "Visibility": "Public",
   "UpdateDescription": false,
   "UpdateVisibility": false,
-  "UpdatePreview": false
+  "UpdatePreview": false,
+  "Tags": [
+    "Update 1.0",
+    "Update 0.7",
+    "New content",
+    "Buildings"
+  ]
 }

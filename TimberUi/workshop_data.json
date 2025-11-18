@@ -1,6 +1,6 @@
 {
-  "ItemId": "3547764728",
-  "Name": "TImprove 4 UX",
+  "ItemId": "3430626620",
+  "Name": "TimberUi",
   "Visibility": "Public",
   "UpdateDescription": false,
   "UpdateVisibility": false,
@@ -8,8 +8,8 @@
   "Tags": [
     "Update 1.0",
     "Update 0.7",
-    "Quality of life",
     "Visuals",
+    "Modding tools",
     "Miscellaneous"
   ]
 }

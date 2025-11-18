@@ -1,0 +1,8 @@
+﻿{
+    "Name": "Roof Map",
+    "Version": "7.0.0",
+    "Id": "RoofMap",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Provide a map of Roof terrains and objects for other mods",
+    "RequiredMods": []
+}

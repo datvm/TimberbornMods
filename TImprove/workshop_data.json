@@ -1,8 +1,15 @@
-﻿{
-    "ItemId": "3420372304",
-    "Name": "TImprove - Various QoL Timberborn-Improvements [U7 ✅]",
-    "Visibility": "Public",
-    "UpdateDescription": false,
-    "UpdateVisibility": false,
-    "UpdatePreview": false
+{
+  "ItemId": "3420372304",
+  "Name": "TImprove",
+  "Visibility": "Public",
+  "UpdateDescription": false,
+  "UpdateVisibility": false,
+  "UpdatePreview": false,
+  "Tags": [
+    "Update 1.0",
+    "Update 0.7",
+    "Quality of life",
+    "Visuals",
+    "Miscellaneous"
+  ]
 }
