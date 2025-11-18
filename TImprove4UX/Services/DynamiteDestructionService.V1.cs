@@ -54,7 +54,7 @@ public class DynamiteDestructionService(
         var (dBuildings, dTerrains) = QueryDestructingEntities(terrains);
 
         highlighter.HighlightPrimary(dBuildings, brushColorSpec.Negative);
-        terrainHighlightingService.UpdateHighlights(dTerrains, brushColorSpec.Negative);
+        terrainHighlightingService.UpdateHighlight(dTerrains);
     }
 
     [OnEvent]
