@@ -1,11 +1,11 @@
 ﻿{
     "Name": "Transparent Terrain",
-    "Version": "10.0.1",
+    "Version": "10.1.0",
     "Id": "TransparentTerrain",
     "MinimumGameVersion": "0.7.0",
     "Description": "Transparent Terrains for Timberborn",
     "RequiredMods": [
-        { "Id": "TransparentShaders" },
+        { "Id": "TransparentShaders", "MinimumVersion": "10.1.0" },
         { "Id": "TimberUi" }
     ]
 }

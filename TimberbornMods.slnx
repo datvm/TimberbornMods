@@ -1,0 +1,188 @@
+<Solution>
+  <Folder Name="/Archived/">
+    <Project Path="BeaverAscent/BeaverAscent.csproj" />
+    <Project Path="ColorfulBuildings/ColorfulBuildings.csproj" />
+    <Project Path="ConfigurableGrowth/ConfigurableGrowth.csproj" />
+    <Project Path="ConfigurableStorages/ConfigurableStorages.csproj" />
+    <Project Path="HealthyBeavers/HealthyBeavers.csproj" />
+    <Project Path="LateGamePower/LateGamePower.csproj" />
+    <Project Path="MaterialPlzNoCrashes/MaterialPlzNoCrashes.csproj" />
+    <Project Path="ModdableBindito/ModdableBindito.csproj" />
+    <Project Path="ModdablePrefab/ModdablePrefab.csproj" />
+    <Project Path="NarrativeEvents/NarrativeEvents.csproj" />
+    <Project Path="Packager/Packager.csproj" />
+    <Project Path="ScrollableEntityPanel/ScrollableEntityPanel.csproj" />
+    <Project Path="StreamGaugeVolume/StreamGaugeVolume.csproj" />
+    <Project Path="TailsManager/TailsManager.csproj" />
+    <Project Path="ToggleAllMods/ToggleAllMods.csproj" />
+    <Project Path="ToolHotkey/ToolHotkey.csproj" />
+    <Project Path="UnlimitedMapSize/UnlimitedMapSize.csproj" />
+    <Project Path="UselessMachine/UselessMachine.csproj" />
+    <Project Path="VerticalFarming/VerticalFarming.csproj" />
+    <Project Path="WaterSourcesDontCrash/WaterSourcesDontCrash.csproj" />
+  </Folder>
+  <Folder Name="/Archived/Buffs/">
+    <Project Path="BuffDebuff/BuffDebuff.csproj" />
+    <Project Path="BuffDebuffDemo/BuffDebuffDemo.csproj" />
+  </Folder>
+  <Folder Name="/Configurables/">
+    <Project Path="ConfigurableAutoSave/ConfigurableAutoSave.csproj" />
+    <Project Path="ConfigurableBeaverWalk/ConfigurableBeaverWalk.csproj" />
+    <Project Path="ConfigurableBuildingRange/ConfigurableBuildingRange.csproj" />
+    <Project Path="ConfigurableExplosives/ConfigurableExplosives.csproj" />
+    <Project Path="ConfigurableFaction/ConfigurableFaction.csproj" />
+    <Project Path="ConfigurableFun/ConfigurableFun.csproj" />
+    <Project Path="ConfigurableGameSpeed/ConfigurableGameSpeed.csproj" />
+    <Project Path="ConfigurableHousing/ConfigurableHousing.csproj" />
+    <Project Path="ConfigurableIrrigation/ConfigurableIrrigation.csproj" />
+    <Project Path="ConfigurableLifetime/ConfigurableLifetime.csproj" />
+    <Project Path="ConfigurablePlants/ConfigurablePlants.csproj" />
+    <Project Path="ConfigurablePowerLines/ConfigurablePowerLines.csproj" />
+    <Project Path="ConfigurablePumps/ConfigurablePumps.csproj" />
+    <Project Path="ConfigurableShantySpeaker/ConfigurableShantySpeaker.csproj" />
+    <Project Path="ConfigurableTubeZipLine/ConfigurableTubeZipLine.csproj" />
+    <Project Path="ConfigurableWorkplace/ConfigurableWorkplace.csproj" />
+    <Project Path="ConstantWind/ConstantWind.csproj" />
+    <Project Path="DirectionalDynamite/DirectionalDynamite.csproj" />
+    <Project Path="FasterConfigurableStorages/FasterConfigurableStorages.csproj" />
+    <Project Path="FasterUnderwaterMovement/FasterUnderwaterMovement.csproj" />
+  </Folder>
+  <Folder Name="/Daisugi/">
+    <Project Path="ConfigurableDaisugiForestry/ConfigurableDaisugiForestry.csproj" />
+    <Project Path="DaisugiForestry/DaisugiForestry.csproj" />
+  </Folder>
+  <Folder Name="/JsonMods/">
+    <Project Path="AirlockChamber/AirlockChamber.csproj" />
+    <Project Path="PaperAndBookForIronTeeth/PaperAndBookForIronTeeth.csproj" />
+    <Project Path="PoweredTubeway/PoweredTubeway.csproj" />
+    <Project Path="TimbitsTimbots/TimbitsTimbots.csproj" />
+  </Folder>
+  <Folder Name="/Moddable/">
+    <Project Path="RealLights/RealLights.csproj" />
+    <Project Path="RoofMap/RoofMap.csproj" />
+    <Project Path="TimberModBuilder/TimberModBuilder.csproj" />
+    <Project Path="UnlockableRecipe/UnlockableRecipe.csproj" />
+  </Folder>
+  <Folder Name="/ModdableTimberborn/">
+    <Project Path="ModdableTimberborn/ModdableTimberborn.csproj" />
+    <Project Path="ModdableTimberbornDemo/ModdableTimberbornDemo.csproj" />
+  </Folder>
+  <Folder Name="/ModdableWeathers/">
+    <Project Path="EarthquakeWeather/EarthquakeWeather.csproj" />
+    <Project Path="ModdableWeather/ModdableWeather.csproj" />
+    <Project Path="Redsurge/Redsurge.csproj" />
+    <Project Path="SkyblightWeather/SkyblightWeather.csproj" />
+    <Project Path="WeatherEditor/WeatherEditor.csproj" />
+  </Folder>
+  <Folder Name="/NonGameplay/">
+    <Project Path="BeaverJukebox/BeaverJukebox.csproj" />
+    <Project Path="BuildingDecal/BuildingDecal.csproj" />
+    <Project Path="CameraBookmarks/CameraBookmarks.csproj" />
+    <Project Path="ColorfulBeavers/ColorfulBeavers.csproj" />
+    <Project Path="ColorfulZipline/ColorfulZipline.csproj" />
+    <Project Path="DevModeButton/DevModeButton.csproj" />
+    <Project Path="EvenMoreLights/EvenMoreLights.csproj" />
+    <Project Path="HueAndTurn/HueAndTurn.csproj" />
+    <Project Path="MacroManagement/MacroManagement.csproj" />
+    <Project Path="MoreNaming/MoreNaming.csproj" />
+    <Project Path="Omnibar/Omnibar.csproj" />
+    <Project Path="Pin/Pin.csproj" />
+    <Project Path="PlottingTool/PlottingTool.csproj" />
+    <Project Path="QuickBar/QuickBar.csproj" />
+    <Project Path="QuickStart/QuickStart.csproj" />
+    <Project Path="SyncableSettings/SyncableSettings.csproj" />
+    <Project Path="TransparentShaders/TransparentShaders.csproj" />
+    <Project Path="TransparentTerrain/TransparentTerrain.csproj" />
+  </Folder>
+  <Folder Name="/Renovations/">
+    <Project Path="BeavlineLogistics/BeavlineLogistics.csproj" />
+    <Project Path="BuildingHP/BuildingHP.csproj" />
+    <Project Path="MoreRenovations/MoreRenovations.csproj" />
+  </Folder>
+  <Folder Name="/ScientificProjects/">
+    <Project Path="ScientificProjects/AlternativeRecipesSPs/AlternativeRecipesSPs.csproj" />
+    <Project Path="ScientificProjects/BrainPowerSPs/BrainPowerSPs.csproj" />
+    <Project Path="ScientificProjects/HydroFormaProjects/HydroFormaProjects.csproj" />
+    <Project Path="ScientificProjects/ScientificProjects/ScientificProjects.csproj" />
+    <Project Path="ScientificProjects/WeatherScientificProjects/WeatherScientificProjects.csproj" />
+  </Folder>
+  <Folder Name="/TimberQuests/">
+    <Project Path="ScenarioEditor/ScenarioEditor.csproj" />
+    <Project Path="TimberQuests/TimberQuests/TimberQuests.csproj" />
+  </Folder>
+  <Folder Name="/TimberUi/">
+    <Project Path="TimberUi/TimberUi/TimberUi.csproj" />
+    <Project Path="TimberUi/TimberUiDemo/TimberUiDemo.csproj" />
+  </Folder>
+  <Folder Name="/TImprove/">
+    <Project Path="SuperCursor/SuperCursor.csproj" />
+    <Project Path="TImprove/TImprove.csproj" />
+    <Project Path="TImprove4Modders/TImprove4Modders.csproj" />
+    <Project Path="TImprove4Mods/TImprove4Mods.csproj" />
+    <Project Path="TImprove4Ui/TImprove4Ui.csproj" />
+    <Project Path="TImprove4UX/TImprove4UX.csproj" />
+  </Folder>
+  <Folder Name="/_Targets/">
+    <File Path="Common.target" />
+    <File Path="CommonBuildingHP.target" />
+    <File Path="CommonDebug.target" />
+    <File Path="CommonGlobalUsings.target" />
+    <File Path="CommonGlobalUsings.U7.target" />
+    <File Path="CommonHarmony.target" />
+    <File Path="CommonMM.target" />
+    <File Path="CommonModBuilder.target" />
+    <File Path="CommonModdableTimberborn.target" />
+    <File Path="CommonModdableWeather.target" />
+    <File Path="CommonProperties.target" />
+    <File Path="CommonScientificProjects.target" />
+    <File Path="CommonTimberUI.target" />
+    <File Path="CommonTransparentShaders.target" />
+    <File Path="CommonUnlockableRecipe.target" />
+  </Folder>
+  <Folder Name="/_Utils/">
+    <File Path=".editorconfig" />
+    <Project Path="FileFinder/FileFinder.csproj" />
+    <Project Path="GameAssemblyPublicizer/GameAssemblyPublicizer.csproj" />
+    <Project Path="ModAnalyzers/ModAnalyzers.csproj" />
+    <Project Path="StartGame/StartGame.csproj" />
+    <Project Path="TimbermeshMaterialPatcher/TimbermeshMaterialPatcher.csproj" />
+  </Folder>
+  <Project Path="AllGoodsInWarehouses/AllGoodsInWarehouses.csproj" />
+  <Project Path="AlwaysConnected/AlwaysConnected.csproj" />
+  <Project Path="AlwaysFlexibleStart/AlwaysFlexibleStart.csproj" />
+  <Project Path="BeavVsMachine/BeavVsMachine.csproj" />
+  <Project Path="BenchmarkAndOptimizer/BenchmarkAndOptimizer.csproj" />
+  <Project Path="BlockObjectDebugger/BlockObjectDebugger.csproj" />
+  <Project Path="ConveyorBelt/ConveyorBelt.csproj" />
+  <Project Path="CutAllTrees/CutAllTrees.csproj" />
+  <Project Path="EditSaveDifficulty/EditSaveDifficulty.csproj" />
+  <Project Path="ExtendedBuilderReach/ExtendedBuilderReach.csproj" />
+  <Project Path="FiveMoreMins/FiveMoreMins.csproj" />
+  <Project Path="Gate/Gate.csproj" />
+  <Project Path="GlobalWellbeing/GlobalWellbeing.csproj" />
+  <Project Path="HangingOverhang/HangingOverhang.csproj" />
+  <Project Path="Hospital/Hospital.csproj" />
+  <Project Path="InstantBuild/InstantBuild.csproj" />
+  <Project Path="LunchBreak/LunchBreak.csproj" />
+  <Project Path="MapResizer/MapResizer.csproj" />
+  <Project Path="MechanicalFilterPump/MechanicalFilterPump.csproj" />
+  <Project Path="MicroManagement/MicroManagement.csproj" />
+  <Project Path="MultiYieldersPlzNoCrashes/MultiYieldersPlzNoCrashes.csproj" />
+  <Project Path="NoBuildRestriction/NoBuildRestriction.csproj" />
+  <Project Path="PackagerBuilder/PackagerBuilder.csproj" />
+  <Project Path="PopControl/PopControl.csproj" />
+  <Project Path="PowerShaftSwitch/PowerShaftSwitch.csproj" />
+  <Project Path="RubbleSatisfactidy/RubbleSatisfactidy.csproj" />
+  <Project Path="SaveEveryday/SaveEveryday.csproj" />
+  <Project Path="StableCore/StableCore.csproj" />
+  <Project Path="StreamGaugeTracker/StreamGaugeTracker.csproj" />
+  <Project Path="TestMod/TestMod.csproj" />
+  <Project Path="TheArchitectsToolkit/TheArchitectsToolkit.csproj" />
+  <Project Path="TimberDump/TimberDump.csproj" />
+  <Project Path="TimberMarket/TimberMarket.csproj" />
+  <Project Path="UnlimitedDistrictRange/UnlimitedDistrictRange.csproj" />
+  <Project Path="UnstableCoreChallenge/UnstableCoreChallenge.csproj" />
+  <Project Path="WaterSwap/WaterSwap.csproj" />
+  <Project Path="WirelessCoil/WirelessCoil.csproj" />
+  <Project Path="Ziporter/Ziporter.csproj" />
+</Solution>

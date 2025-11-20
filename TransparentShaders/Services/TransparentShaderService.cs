@@ -4,24 +4,29 @@ public class TransparentShaderService(IAssetLoader assets) : ILoadableSingleton,
 {
     public const string EnvironmentShaderName = "Shader Graphs/EnvironmentURP";
     public const string TerrainShaderName = "Shader Graphs/TerrainURP";
+    public const string TerrainLayerToolTopShaderName = "Shader Graphs/TerrainLayerToolTopShader";
 
     public static int ShaderEnvironmentAlphaId = Shader.PropertyToID("_EnvironmentAlpha");
     public static int ShaderTerrainAlphaId = Shader.PropertyToID("_TerrainAlpha");
     public static int ShaderColorAlphaId = Shader.PropertyToID("_ColorAlpha");
+    public static int ShaderTerrainLayerToolTopId = Shader.PropertyToID("_TerrainLayerTopAlpha");
     public static int ShaderColorId = Shader.PropertyToID("_Color");
 
     public static TransparentShaderService? Instance { get; private set; }
 
     Shader? transparentEnvironment;
     Shader? terrainTransparent;
+    Shader? terrainLayerToolTop;
     Shader? plainColorTransparent;
     Shader? unlitPlainColorTransparent;
 
     Shader? originalEnvironment;
     Shader? originalTerrain;
+    Shader? originalTerrainLayerToolTop;
 
     public Shader TransparentEnvironmentShader => GetOrLoad(ref transparentEnvironment, "Shaders/EnvironmentTransparentURP");
     public Shader TerrainTransparentShader => GetOrLoad(ref terrainTransparent, "Shaders/TerrainTransparentURP");
+    public Shader TerrainLayerToolTopShader => GetOrLoad(ref terrainLayerToolTop, "Shaders/TerrainLayerToolTopTransparentURP");
     public Shader PlainColorTransparentShader => GetOrLoad(ref plainColorTransparent, "Shaders/PlainColorTransparentURP");
     public Shader UnlitPlainColorTransparentShader => GetOrLoad(ref unlitPlainColorTransparent, "Shaders/UnlitPlainColorTransparentURP");
 
@@ -190,6 +195,30 @@ public class TransparentShaderService(IAssetLoader assets) : ILoadableSingleton,
                 }
             }
         }
+    }
+
+    public bool ReplaceTerrainLayerToolTopShader(Material material)
+    {
+        if (!material || !material.shader || material.shader.name != TerrainLayerToolTopShaderName) { return false; }
+
+        originalTerrainLayerToolTop ??= material.shader;
+        material.shader = TerrainLayerToolTopShader;
+        return true;
+    }
+
+    public bool RestoreTerrainLayerToolTopShader(Material material, bool ignoreIfMissing = false)
+    {
+        if (!material || !material.shader) { return false; }
+        if (!originalTerrainLayerToolTop)
+        {
+            if (ignoreIfMissing) { return false; }
+            throw new InvalidOperationException("Original terrain layer tool top shader not stored (it was never replaced).");
+        }
+
+        if (material.shader != TerrainLayerToolTopShader) { return false; }
+
+        material.shader = originalTerrainLayerToolTop;
+        return true;
     }
 
     IEnumerable<Material> TryUpdatingMaterials(Func<IEnumerable<Material>> action, Action set)
