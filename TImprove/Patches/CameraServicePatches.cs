@@ -25,6 +25,6 @@ public static class CameraServicePatches
     }
 
     public static bool ShouldUnlockCameraAngle(CameraService cameraService) 
-        => cameraService.FreeMode && MSettings.Instance?.FreeCameraLockAngle != true;
+        => cameraService.FreeMode && MSettings.Instance?.FreeCameraLockAngle.Value != true;
 
 }

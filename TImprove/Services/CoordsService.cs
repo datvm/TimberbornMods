@@ -20,8 +20,8 @@ public class CoordsService(
 
     void UpdateValues()
     {
-        show = s.ShowCoords;
-        heightOnly = s.OnlyShowHeight;
+        show = s.ShowCoords.Value;
+        heightOnly = s.OnlyShowHeight.Value;
 
         panel.SetVisibility(show);
     }

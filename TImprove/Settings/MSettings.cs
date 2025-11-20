@@ -1,122 +1,60 @@
 ﻿namespace TImprove.Settings;
-public class MSettings(
-    ISettings settings,
-    ModSettingsOwnerRegistry modSettingsOwnerRegistry,
-    ModRepository modRepository,
-    IModSettingsContextProvider context
-) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository),
-    IUnloadableSingleton
+
+public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
     public static MSettings? Instance { get; private set; }
 
-    static readonly ImmutableList<FieldInfo> AllBoolSettings = [..
-        typeof(MSettings).GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
-            .Where(q => q.FieldType == typeof(ModSetting<bool>))];
-
-    public static readonly ImmutableArray<string> Lights = ["Sunrise", "Day", "Sunset", "Night"];
-    static readonly ImmutableHashSet<string> DefaultTrues = [nameof(showGameTime), nameof(enableSpeed4)];
-    static readonly ImmutableArray<ClearDeadStumpModeValue> ClearDeadStumpModes = TImproveUtils.GetEnumValues<ClearDeadStumpModeValue>();
+    public static readonly ImmutableArray<DayStage> Lights = [.. Enum.GetValues(typeof(DayStage)).Cast<DayStage>().OrderBy(q => q)];
 
     public override string ModId { get; } = nameof(TImprove);
     public override ModSettingsContext ChangeableOn => ModSettingsContext.All;
 
-#pragma warning disable IDE0044, CS0649 // Actually set by Reflection
-    ModSetting<bool>? enableFreeCamera, freeCameraLockAngle, disableFog, prioritizeRubbles,
+    public ModSetting<bool> EnableFreeCamera { get; } = Create(nameof(EnableFreeCamera));
+    public ModSetting<bool> FreeCameraLockAngle { get; } = Create(nameof(FreeCameraLockAngle));
+    public ModSetting<bool> DisableFog { get; } = Create(nameof(DisableFog));
+    public LimitedStringModSetting StaticLight { get; } = new(0,
+        [
+            new("", "LV.TI.LightNone"),
+            .. Lights.Select(q => new LimitedStringModSettingValue(q.ToString(), $"LV.TI.Light{q}"))
+        ],
+        CreateDescriptor(nameof(StaticLight)));
+    public ModSetting<bool> PrioritizeRubbles { get; } = Create(nameof(PrioritizeRubbles));
+    public ModSetting<bool> ShowCoords { get; } = Create(nameof(ShowCoords));
+    public ModSetting<bool> OnlyShowHeight { get; } = Create(nameof(OnlyShowHeight));
+    public ModSetting<bool> ShowGameTime { get; } = Create(nameof(ShowGameTime), true);
+    public ModSetting<bool> AddRealTimeClock { get; } = Create(nameof(AddRealTimeClock));
+    public ModSetting<bool> Clock24 { get; } = Create(nameof(Clock24));
+    public ModSetting<bool> EnableSpeedS25 { get; } = Create(nameof(EnableSpeedS25));
+    public ModSetting<bool> EnableSpeed4 { get; } = Create(nameof(EnableSpeed4), true);
+    public ModSetting<bool> EnableSpeed5 { get; } = Create(nameof(EnableSpeed5));
+    public ModSetting<bool> QuickQuit { get; } = Create(nameof(QuickQuit));
 
-        showCoords, onlyShowHeight,
+    public RangeIntModSetting BiggerBuildDragArea { get; } = new(0, 0, 20, CreateDescriptor(nameof(BiggerBuildDragArea)));
+    public static int BiggerBuildDragAreaValue { get; private set; }
 
-        allDayLight, disableShadowRotation,
-
-        showGameTime, addRealTimeClock, clock24,
-        enableSpeedS25, enableSpeed4, enableSpeed5,
-        quickQuit
-    ;
-#pragma warning restore IDE0044, CS0649
-
-    LimitedStringModSetting? allDayLightValue;
-    RangeIntModSetting? biggerBuildDragArea;
-
-    public bool EnableFreeCamera => enableFreeCamera?.Value == true;
-    public bool FreeCameraLockAngle => freeCameraLockAngle?.Value == true;
-    public bool DisableFog => disableFog?.Value == true;
-    public bool PrioritizeRubbles => prioritizeRubbles?.Value == true;
-
-    public bool ShowCoords => showCoords?.Value == true;
-    public bool OnlyShowHeight => onlyShowHeight?.Value == true;
-
-    public bool AllDayLight => allDayLight?.Value == true;
-    public string StaticDayLight => allDayLightValue?.Value ?? Lights[1];
-    public bool DisableShadowRotation => disableShadowRotation?.Value == true;
-
-    public bool ShowGameTime => showGameTime?.Value == true;
-    public bool AddRealTimeClock => addRealTimeClock?.Value == true;
-    public bool Clock24 => clock24?.Value == true;
-
-    public bool EnableSpeedS25 => enableSpeedS25?.Value == true;
-    public bool EnableSpeed4 => enableSpeed4?.Value == true;
-    public bool EnableSpeed5 => enableSpeed5?.Value == true;
-
-    public bool QuickQuit => quickQuit?.Value == true;
-    public static int BiggerBuildDragArea { get; private set; }
-
-    public ClearDeadStumpModeValue ClearDeadStumpValue { get; private set; }
-    public LimitedStringModSetting ClearDeadStumpMode { get; } = TImproveUtils.CreateLimitedStringModSetting(ClearDeadStumpModes, "LV.TI.AutoClearDeadTrees");
+    public DayStage? AllDayStage { get; private set; }
 
     public override void OnBeforeLoad()
     {
         Instance = this;
+
+        OnlyShowHeight.Descriptor.SetEnableCondition(() => ShowCoords.Value);
+        Clock24.Descriptor.SetEnableCondition(() => AddRealTimeClock.Value);
     }
 
     public override void OnAfterLoad()
     {
-        allDayLightValue = new(1,
-            Lights
-                .Select(q => new LimitedStringModSettingValue(q, $"LV.TI.Light{q}"))
-                .ToArray(),
-            ModSettingDescriptor
-                .CreateLocalized("LV.TI.StaticLight")
-                .SetLocalizedTooltip("LV.TI.StaticLightDesc")
-                .SetEnableCondition(() => allDayLight!.Value));
+        StaticLight.ValueChanged += (_, _) => OnStaticLightChanged();
+        OnStaticLightChanged();
 
-        biggerBuildDragArea = new(0, 0, 20, ModSettingDescriptor
-            .CreateLocalized("LV.TI.BiggerBuildDragArea")
-            .SetLocalizedTooltip("LV.TI.BiggerBuildDragAreaDesc")
-            .SetEnableCondition(() => context.Context == ModSettingsContext.MainMenu));
-
-        foreach (var item in AllBoolSettings)
-        {
-            var locName = "LV.TI." + item.Name[0..1].ToUpper() + item.Name[1..];
-            var locDescName = locName + "Desc";
-
-            var f = new ModSetting<bool>(
-                DefaultTrues.Contains(item.Name),
-                ModSettingDescriptor
-                    .CreateLocalized(locName)
-                    .SetLocalizedTooltip(locDescName));
-
-            item.SetValue(this, f);
-
-            AddCustomModSetting(f, item.Name);
-
-            if (item.Name == nameof(allDayLight))
-            {
-                AddCustomModSetting(allDayLightValue, nameof(allDayLightValue));
-            }
-        }
-        AddCustomModSetting(biggerBuildDragArea, nameof(biggerBuildDragArea));
-
-        onlyShowHeight!.Descriptor.SetEnableCondition(() => showCoords!.Value);
-        clock24!.Descriptor.SetEnableCondition(() => addRealTimeClock!.Value);
-
-        ModSettingChanged += (_, _) => InternalOnSettingsChanged();
-        InternalOnSettingsChanged();
+        BiggerBuildDragArea.ValueChanged += (_, e) => BiggerBuildDragAreaValue = e;
+        BiggerBuildDragAreaValue = BiggerBuildDragArea.Value;
     }
 
-    void InternalOnSettingsChanged()
+    void OnStaticLightChanged()
     {
-        
-        BiggerBuildDragArea = biggerBuildDragArea!.Value;
-        ClearDeadStumpValue = Enum.Parse<ClearDeadStumpModeValue>(ClearDeadStumpMode.Value);
+        var e = StaticLight.Value;
+        AllDayStage = e == "" ? null : Enum.Parse<DayStage>(e);
     }
 
     public void Unload()
@@ -124,13 +62,14 @@ public class MSettings(
         Instance = null;
     }
 
-}
+    static ModSettingDescriptor CreateDescriptor(string name) =>
+        ModSettingDescriptor
+            .CreateLocalized("LV.TI." + name)
+            .SetLocalizedTooltip("LV.TI." + name + "Desc");
 
-public enum ClearDeadStumpModeValue
-{
-    No,
-    Tool,
-    Auto,
+    static ModSetting<bool> Create(string name, bool defaultValue = false) =>
+        new(defaultValue, CreateDescriptor(name));
+
 }
 
 public enum NewDayActionValue

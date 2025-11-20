@@ -40,7 +40,7 @@ public class GameConfig : NonMenuConfigurator
     {
         base.Configure();
 
-        Bind<TimeService>().AsSingleton();
+        Bind<MiscService>().AsSingleton();
         Bind<GameDepServices>().AsSingleton();
         Bind<RealTimeComponent>().AsSingleton();
         Bind<NewDayService>().AsSingleton();
@@ -55,15 +55,4 @@ public class MapEditorConfig : NonMenuConfigurator
     {
         base.Configure();
     }
-}
-
-
-public class ModStarter : IModStarter
-{
-
-    public void StartMod(IModEnvironment modEnvironment)
-    {
-        new Harmony(nameof(TImprove)).PatchAll();
-    }
-
 }

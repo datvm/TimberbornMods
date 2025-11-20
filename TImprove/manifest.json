@@ -1,8 +1,8 @@
 ﻿{
     "Name": "TImprove",
-    "Version": "10.0.0",
+    "Version": "10.1.0",
     "Id": "TImprove",
-    "MinimumGameVersion": "0.7.0.0",
+    "MinimumGameVersion": "1.0.0",
     "Description": "Various small improvements for Timberborn.",
     "RequiredMods": [
         { "Id": "eMka.ModSettings" },

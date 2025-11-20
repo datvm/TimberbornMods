@@ -1,7 +1,7 @@
 ﻿namespace TImprove.Patches;
 
 [HarmonyPatch]
-public static class BlockSystemPatch
+public static class BlockObjectLayoutPatches
 {
 
     [HarmonyPostfix, HarmonyPatch(typeof(BlockObjectLayoutExtensions), nameof(BlockObjectLayoutExtensions.GetPreviewCount))]
@@ -9,7 +9,7 @@ public static class BlockSystemPatch
     {
         if (__result <= 2) { return; }
 
-        var add = MSettings.BiggerBuildDragArea;
+        var add = MSettings.BiggerBuildDragAreaValue;
 
         if (blockObjectLayout == BlockObjectLayout.Rectangle)
         {
