@@ -1,16 +1,16 @@
 ManifestFileVersion: 0
 UnityVersion: 6000.2.7f2
-CRC: 3482406319
+CRC: 1522373542
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 871d1515c611bdd666465194c9eb9362
+    Hash: 7eb89689d7f7293c55e1d7fdc0c2bdbc
   TypeTreeHash:
     serializedVersion: 2
     Hash: 4afb0d898c1c22a5e88248733bd69457
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: c143dbe7ded804f618e4990f6f923183
+    Hash: b16c9a43f7f6aa0082a213cb11abf8c8
 HashAppended: 0
 ClassTypes:
 - Class: 21
@@ -23,4 +23,5 @@ Assets:
 - Assets/Mods/AssetBuilding/AssetBundles/Resources/Shaders/EnvironmentTransparentURP.shadergraph
 - Assets/Mods/AssetBuilding/AssetBundles/Resources/Shaders/UnlitPlainColorTransparentURP.shadergraph
 - Assets/Mods/AssetBuilding/AssetBundles/Resources/Shaders/TerrainTransparentURP.shadergraph
+- Assets/Mods/AssetBuilding/AssetBundles/Resources/Shaders/TerrainLayerToolTopTransparentURP.shadergraph
 Dependencies: []

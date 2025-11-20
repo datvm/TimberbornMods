@@ -27,4 +27,12 @@ public static class TransparentShaderHelper
         }
     }
 
+    public static void SetTerrainLayerToolTopAlpha(this Material material, float alpha)
+    {
+        if (material.HasProperty(TransparentShaderService.ShaderTerrainLayerToolTopId))
+        {
+            material.SetFloat(TransparentShaderService.ShaderTerrainLayerToolTopId, alpha);
+        }
+    }
+
 }

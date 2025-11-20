@@ -3,6 +3,7 @@
 This mod provides [b]Transparent Shaders[/b] for other mods to use:
 - [b]EnvironmentTransparentURP[/b] - for game objects and buildings.
 - [b]TerrainTransparentURP[/b] - for the game's terrain (used by my Transparent Terrain mod).
+- [b]TerrainLayerToolTopShader[/b] - for the terrain layer tool's top layer.
 - [b]PlainColorTransparentURP[/b] and [b]UnlitPlainColorTransparentURP[/b] - for simple, untextured, plain-color objects for various purposes.
 
 Example usage can be seen in my [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3603736251]Transparent Terrain[/url] mod ([url=https://github.com/datvm/TimberbornMods/tree/master/TransparentTerrain]source code[/url]).
@@ -12,13 +13,14 @@ It also includes a built-in helper service, [b]TransparentShaderService[/b], inj
 - Use properties such as [b]TransparentShaderService.TransparentEnvironmentShader[/b] or [b]TransparentShaderService.TerrainTransparentShader[/b] to access the desired shaders.
 - Helper methods like [b]ReplaceShaders, ReplaceRenderersMaterials, RestoreShaders, and RestoreRenderersMaterials[/b] are provided to quickly switch between shader variants (for example, EnvironmentURP ↔ EnvironmentTransparentURP). Note: Restore* methods only work after at least one replacement has been performed.
 
-All alpha channels are independent of the color channel. The shader properties are: [b]_EnvironmentAlpha, _TerrainAlpha, and _ColorAlpha[/b].
+All alpha channels are independent of the color channel. The shader properties are: [b]_EnvironmentAlpha, _TerrainAlpha, _TerrainLayerTopAlpha, and _ColorAlpha[/b].
 
 These are defined in TransparentShaderService as follows:
 [code]
 public static int ShaderEnvironmentAlphaId = Shader.PropertyToID("_EnvironmentAlpha");
 public static int ShaderTerrainAlphaId = Shader.PropertyToID("_TerrainAlpha");
 public static int ShaderColorAlphaId = Shader.PropertyToID("_ColorAlpha");
+public static int ShaderTerrainLayerToolTopId = Shader.PropertyToID("_TerrainLayerTopAlpha");
 public static int ShaderColorId = Shader.PropertyToID("_Color");
 [/code]
 
@@ -30,4 +32,5 @@ myMaterial.SetEnvironmentAlpha(0.5f);
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.1.0: Added TerrainLayerToolTopShader.
 v10.0.1: Now support U7.

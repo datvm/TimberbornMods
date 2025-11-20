@@ -15,12 +15,13 @@ public class TransparentTerrainService : ILoadableSingleton, IUnloadableSingleto
     Shader terrainShader = null!;
 
     public event EventHandler<bool> OnToggled = null!;
+    public event Action OnChanged = null!;
 
     public TransparentTerrainService(
         TransparentShaderService transparentShaderService,
         InputService inputService,
         IContainer container
-)
+    )
     {
         this.transparentShaderService = transparentShaderService;
         this.inputService = inputService;
@@ -62,7 +63,8 @@ public class TransparentTerrainService : ILoadableSingleton, IUnloadableSingleto
             }
         }
 
-        OnToggled?.Invoke(this, Enabled);
+        OnToggled(this, Enabled);
+        OnChanged();
     }
 
     public void SetAlpha(float alpha)
@@ -74,6 +76,8 @@ public class TransparentTerrainService : ILoadableSingleton, IUnloadableSingleto
         {
             m.SetTerrainAlpha(Alpha);
         }
+
+        OnChanged();
     }
 
     internal void RegisterMaterial(Material material) => materials.Add(material);
