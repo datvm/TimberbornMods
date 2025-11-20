@@ -7,11 +7,13 @@ public class DirectionalDynamiteService(
     TerrainDestroyService terrainDestroyService,
     TerrainHighlightingService terrainHighlightingService,
     RollingHighlighter highlighter,
-    MapSize mapSize
+    MapSize mapSize,
+    ISpecService specService
 ) : ILoadableSingleton
 {
 
     public readonly TerrainDestroyService TerrainDestroyService = terrainDestroyService;
+    BrushColorSpec brushColorSpec = null!;
 
     public static readonly Vector3Int[] DirectionOffsets = [
         new(1, 0, 0), // Down (x++)
@@ -30,6 +32,7 @@ public class DirectionalDynamiteService(
 
     public void Load()
     {
+        brushColorSpec = specService.GetSingleSpec<BrushColorSpec>();
         DirectionNames = [.. AllDirections.Select(d => t.T("LV.DDy.Direction" + d))];
     }
 
@@ -78,9 +81,9 @@ public class DirectionalDynamiteService(
     void HighlightDestroyingEntities(IEnumerable<Vector3Int> coords)
     {
         var (buildings, terrains) = TerrainDestroyService.QueryDestructingEntities(coords);
-        highlighter.HighlightPrimary(buildings, BrushColors.Negative);
+        highlighter.HighlightPrimary(buildings, brushColorSpec.Negative);
 
-        terrainHighlightingService.UpdateHighlights(terrains, BrushColors.Negative);
+        terrainHighlightingService.UpdateHighlight(terrains);
     }
 
     public void UnhighlightDestroyingEntities()

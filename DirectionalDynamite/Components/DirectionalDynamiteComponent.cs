@@ -1,6 +1,6 @@
 ﻿namespace DirectionalDynamite.Components;
 
-public class DirectionalDynamiteComponent : BaseComponent, IPersistentEntity, IDirectionalDynamiteComponent
+public class DirectionalDynamiteComponent : BaseComponent, IPersistentEntity, IAwakableComponent, IDuplicable<DirectionalDynamiteComponent>
 {
     static readonly ComponentKey SaveKey = new(nameof(DirectionalDynamiteComponent));
     static readonly PropertyKey<int> DirectionKey = new("Direction");
@@ -27,7 +27,7 @@ public class DirectionalDynamiteComponent : BaseComponent, IPersistentEntity, ID
 
     public void Awake()
     {
-        dynamite = GetComponentFast<Dynamite>();
+        dynamite = GetComponent<Dynamite>();
     }
 
     public bool DestroyTerrain()
@@ -78,7 +78,7 @@ public class DirectionalDynamiteComponent : BaseComponent, IPersistentEntity, ID
     {
         indicator = new GameObject();
         var t = indicator.transform;
-        t.parent = GameObjectFast.transform;
+        t.parent = GameObject.transform;
         t.localPosition = new(.5f, .1f, .5f);
 
         var sr = indicator.AddComponent<SpriteRenderer>();
@@ -117,4 +117,9 @@ public class DirectionalDynamiteComponent : BaseComponent, IPersistentEntity, ID
         direction = Direction;
     }
 
+    public void DuplicateFrom(DirectionalDynamiteComponent source)
+    {
+        Direction = source.Direction;
+        DoNotTriggerNeighbor = source.DoNotTriggerNeighbor;
+    }
 }
