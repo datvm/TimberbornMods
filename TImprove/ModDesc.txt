@@ -51,7 +51,13 @@ v1.0.0:
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.1.0:
+- [b]There was a change in Mod Settings so your settings are reset to default. Please reconfigure them.[/b]
+- Various UI and performance improvements: Game time, real-time clock and No daylight change now use less resources.
+- Removed Dead Tree option as it's now included in the base game.
+- "No daylight change" and "Static Light" options are now merged and it apply to both the Sky and Sun light. "Disable shadow rotation" is removed as well and included in this new option.
 v10.0.0: Works with game v1.0.
+
 v7.6.0: Added "On Shift end" speed option. Changed the in-game mod name to just "TImprove".
 v7.5.0: Added Lock free camera angle and Use 24-hour format options.
 v7.4.0: Refined the "Clear dead stumps" option and expanded "Pause on Bad weather" to "On new day" options.
