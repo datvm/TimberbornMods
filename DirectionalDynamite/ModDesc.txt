@@ -10,10 +10,14 @@ Depth Rule:
 - Stops if a building or open air is encountered.
 
 Tips:
-- Works with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3503326209]Macro-Management[/url]: multi-select and set up blasts across in one go.
-- Works with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3464790115]Configurable Explosives[/url]: customize the depth to suit your demolition plans.
+- Works with Macro-Management (U7): multi-select and set up blasts across in one go.
+- Works with Configurable Explosives: customize the depth to suit your demolition plans.
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v10.0.0:
+- Works with Timberborn v1.0.
+- No longer works with Macro Management but use the game's built-in copy feature now.
 
 v7.0.3: Fixed a crash when building at the map bottom and top.

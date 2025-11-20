@@ -15,8 +15,6 @@ public class DirectionalDynamiteFragment(
     Toggle chkDoNotTrigger;
 #nullable enable
 
-    new IDirectionalDynamiteComponent? component;
-
     public void Load()
     {
         arrowIndicator = assetLoader.Load<Sprite>("Sprites/UI/chevron");
@@ -38,28 +36,12 @@ public class DirectionalDynamiteFragment(
         cboDirection.SetItems(dropdownItemsSetter, directionalDynamiteService.DirectionNames);
     }
 
-    static IDirectionalDynamiteComponent? TryGetComponent(BaseComponent entity)
-    {
-        if (MStarter.HasMacroManagement)
-        {
-            var mm = MMDirectionalDynamiteComponent.TryGetMM(entity);
-            if (mm is not null)
-            {
-                return mm;
-            }
-        }
-
-        var result = entity.GetComponentFast<DirectionalDynamiteComponent>();
-        return result ? result : null;
-    }
-
     public override void ShowFragment(BaseComponent entity)
     {
-        // Do not call base, we have custom logic
-        component = TryGetComponent(entity);
-        if (component is null) { return; }
+        base.ShowFragment(entity);
+        if (!component) { return; } 
 
-        cboDirection.SetSelectedItem(DirectionalDynamiteService.AllDirections.IndexOf(component.Direction));
+        cboDirection.SetSelectedItem(DirectionalDynamiteService.AllDirections.IndexOf(component!.Direction));
         ShowDirection();
 
         chkDoNotTrigger.SetValueWithoutNotify(component.DoNotTriggerNeighbor);
@@ -80,7 +62,7 @@ public class DirectionalDynamiteFragment(
         ShowDirection();
     }
 
-    void ShowDirection() => component!.ShowIndicator(arrowIndicator);
+    void ShowDirection() => component?.ShowIndicator(arrowIndicator);
     void HideDirection() => component?.HideIndicator();
 
     void OnDoNotTriggerChanged(bool value)
