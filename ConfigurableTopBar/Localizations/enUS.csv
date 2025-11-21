@@ -1,0 +1,18 @@
+﻿ID,Text,Comment
+LV.CTB.Ungrouped,"Ungrouped",
+LV.CTB.Id,"Id:",
+LV.CTB.Name,"Name:",
+LV.CTB.Icon,"Icon:",
+LV.CTB.GoodList,"Goods:",
+LV.CTB.SelectIcon,"Select icon",
+LV.CTB.GroupHeader,"Group: {0} ({1})",
+LV.CTB.GoodGroups,"Good Groups",
+LV.CTB.Goods,"Goods",
+LV.CTB.Filter,"Filter",
+LV.CTB.AddGroup,"Add Group",
+LV.CTB.DeleteGroup,"Delete Group",
+LV.CTB.MoveHere,"Move selected goods here",
+LV.CTB.NewGroup,"Unnamed group",
+LV.CTB.DeleteConfirm,"Are you sure you want to delete the group '{0}'?
+All goods in this group will be moved to 'Ungrouped'.",
+LV.CTB.ResetNotice,"Settings was reset. Please restart the game so the mod can reinitialize properly.",

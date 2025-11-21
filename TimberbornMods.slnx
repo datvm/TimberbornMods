@@ -80,6 +80,7 @@
     <Project Path="CameraBookmarks/CameraBookmarks.csproj" />
     <Project Path="ColorfulBeavers/ColorfulBeavers.csproj" />
     <Project Path="ColorfulZipline/ColorfulZipline.csproj" />
+    <Project Path="ConfigurableTopBar/ConfigurableTopBar.csproj" Id="9eb023f5-6743-484b-ac4c-723fb933a1a3" />
     <Project Path="DevModeButton/DevModeButton.csproj" />
     <Project Path="EvenMoreLights/EvenMoreLights.csproj" />
     <Project Path="HueAndTurn/HueAndTurn.csproj" />
