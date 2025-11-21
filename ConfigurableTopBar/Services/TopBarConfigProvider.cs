@@ -186,7 +186,7 @@ public class TopBarConfigProvider(
             {
                 grp = new EditableGoodGroupSpec(
                     spec.Id,
-                    "Sprites/TopBar/" + spec.Id, // Works for now
+                    spec.Icon?.Path ?? GoodSpriteProvider.QuestionMarkPath,
                     spec.DisplayName.Value,
                     true);
                 existingGroups.Add(spec.Id, grp);
