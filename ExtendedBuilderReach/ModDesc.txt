@@ -10,6 +10,7 @@ To configure, go to the Mod Settings (Main Menu -> Mods -> Settings button next 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.0.3: Fixed an issue where unreachable demolition targets that become reachable still cannot be demolished until the game is reloaded. Thanks 唐伯虎 for the report.
 v10.0.2: Fixed non-plant objects not demolishable and make builders stuck. Thanks souvy for the report.
 v10.0.0: Should work with Timberborn v1.0.1. v10.0.1: Removed debug log printing.
 

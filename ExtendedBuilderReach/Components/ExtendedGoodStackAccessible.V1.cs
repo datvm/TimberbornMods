@@ -1,6 +1,6 @@
 ﻿namespace ExtendedBuilderReach.Components;
 
-public class ExtendedDemolishableAccessible : BaseComponent, INavMeshListener, IAwakableComponent, IStartableComponent
+public class ExtendedDemolishableAccessible(INavMeshListenerEntityRegistry navRegistry) : BaseComponent, INavMeshListener, IAwakableComponent, IStartableComponent, IFinishedStateListener
 {
     BoundingBox bounds;
 
@@ -8,7 +8,6 @@ public class ExtendedDemolishableAccessible : BaseComponent, INavMeshListener, I
     internal Accessible accessible;
     BlockObject blockObject;
     BlockObjectAccessGenerator blockObjectAccessGenerator;
-#nullable enable
 
     public void Awake()
     {
@@ -27,18 +26,35 @@ public class ExtendedDemolishableAccessible : BaseComponent, INavMeshListener, I
 
     public void Start()
     {
+        var (minZ, maxZ) = GetMinMaxZ();
+        bounds = blockObjectAccessGenerator.GenerateAccessBounds(minZ, maxZ);
+
         UpdateAccesses();
     }
 
     public void UpdateAccesses()
+    {
+        var (minZ, maxZ) = GetMinMaxZ();
+        accessible.SetAccesses(blockObjectAccessGenerator.GenerateAccesses(minZ, maxZ));
+    }
+
+    KeyValuePair<int, int> GetMinMaxZ()
     {
         var z = blockObject.CoordinatesAtBaseZ.z;
 
         var minZ = ModUtils.GetMinZ(z);
         var maxZ = ModUtils.GetMaxZ(z, blockObject._blockService._mapSize.TotalSize.z);
 
-        bounds = blockObjectAccessGenerator.GenerateAccessBounds(minZ, maxZ);
-        accessible.SetAccesses(blockObjectAccessGenerator.GenerateAccesses(minZ, maxZ));
+        return new(minZ, maxZ);
     }
 
+    public void OnEnterFinishedState()
+    {
+        navRegistry.RegisterNavMeshListener(this);
+    }
+
+    public void OnExitFinishedState()
+    {
+        navRegistry.UnregisterNavMeshListener(this);
+    }
 }
