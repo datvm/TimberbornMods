@@ -51,6 +51,7 @@ v1.0.0:
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.1.1: Fixed real-time clock not showing when loading.
 v10.1.0:
 - [b]There was a change in Mod Settings so your settings are reset to default. Please reconfigure them.[/b]
 - Various UI and performance improvements: Game time, real-time clock and No daylight change now use less resources.

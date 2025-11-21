@@ -1,6 +1,6 @@
 ﻿namespace TImprove.UI;
 
-public class RealTimeComponent(
+public class RealTimePanel(
     WorkingHoursPanel workingHours,
     MSettings s
 ) : IUpdatableSingleton, ILoadableSingleton
@@ -22,6 +22,7 @@ public class RealTimeComponent(
 
         s.AddRealTimeClock.ValueChanged += (_, _ ) => OnSettingsChanged();
         s.Clock24.ValueChanged += (_, _ ) => OnSettingsChanged();
+        OnSettingsChanged();
     }
 
     void OnSettingsChanged()
