@@ -41,8 +41,7 @@ public class GameConfig : NonMenuConfigurator
         base.Configure();
 
         Bind<MiscService>().AsSingleton();
-        Bind<GameDepServices>().AsSingleton();
-        Bind<RealTimeComponent>().AsSingleton();
+        Bind<RealTimePanel>().AsSingleton();
         Bind<NewDayService>().AsSingleton();
         Bind<WorkingHoursHandler>().AsSingleton();
     }

@@ -51,7 +51,6 @@ LV.TI.AddRealTimeClock,"Add real-time clock",
 LV.TI.AddRealTimeClockDesc,"Add a real-time clock in the top right corner. This is useful for players who want to keep track of the time while playing.",
 LV.TI.Clock24,"- Use 24-hour format",
 LV.TI.Clock24Desc,"Use 24-hour format for the real-time clock (17:30 instead of 05:30).",
-
 LV.TI.AutoSpped,"Auto-speed",
 LV.TI.NewDayAction,"On new day",
 LV.TI.NewDayActionDesc,"Choose what to do on a new day:
