@@ -39,14 +39,8 @@ LV.TI.BiggerBuildDragAreaDesc,"Increase the build drag area for buildings like D
 This significantly increases the load time and memory usage so use it with caution.
 Example: setting this to 5 will make the drag area 15x15 Dams or 30 Roads.
 Can only be changed at anytime <b>but need to reload a save to take effect.</b>",
-LV.TI.AutoClearDeadTrees,"Clear dead stumps",
-LV.TI.AutoClearDeadTreesDesc,"Automatically clear dead stumps or bushes (those that you could have destroyed immediately by building over):
-- No: do not clear anything
-- Tool: when using Demolishing Tool
-- Auto: just clear them right when they appear",
-LV.TI.AutoClearDeadTreesNo,"No",
-LV.TI.AutoClearDeadTreesTool,"Tool",
-LV.TI.AutoClearDeadTreesAuto,"Auto",
+LV.TI.AutoClearDeadTrees,"Auto clear dead stumps",
+LV.TI.AutoClearDeadTreesDesc,"Automatically clear dead stumps or bushes (those that you could have destroyed immediately by building over).",
 LV.TI.AddRealTimeClock,"Add real-time clock",
 LV.TI.AddRealTimeClockDesc,"Add a real-time clock in the top right corner. This is useful for players who want to keep track of the time while playing.",
 LV.TI.Clock24,"- Use 24-hour format",

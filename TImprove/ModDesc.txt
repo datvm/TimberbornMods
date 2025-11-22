@@ -51,6 +51,7 @@ v1.0.0:
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.1.2: Fixed an underestimation of the hatred of players against dead stumps. "Auto clear dead stumps" option is now back with just one option to automatically clear dead stumps or bushes (those that you could have destroyed immediately by building over) right when they appear.
 v10.1.1: Fixed real-time clock not showing when loading.
 v10.1.0:
 - [b]There was a change in Mod Settings so your settings are reset to default. Please reconfigure them.[/b]
