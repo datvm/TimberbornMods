@@ -5,12 +5,16 @@ public class ObjectSelectionService(
     EventBus eb,
     Highlighter highlighter,
     EntityRegistry entities,
-    IBlockService blockService
+    IBlockService blockService,
+    ISpecService specService
 ) : ILoadableSingleton
 {
+    BrushColorSpec brushColorSpec = null!;
 
     public void Load()
     {
+        brushColorSpec = specService.GetSingleSpec<BrushColorSpec>();
+
         eb.Register(this);
     }
 
@@ -40,7 +44,40 @@ public class ObjectSelectionService(
         }
     }
 
+    bool IsSingleTube(BaseComponent obj)
+    {
+        if (!obj.HasComponent<TubeSpec>()) { return false; }
+
+        var bo = obj.GetComponent<BlockObject>();
+        return bo && bo.BlocksSpec.Size == Vector3Int.one;
+    }
+
     bool IsTubeway(BaseComponent obj) => obj.HasComponent<TubeSpec>() || obj.HasComponent<TubeStationSpec>();
+
+    Color GetHighlightingTubewayColor(BaseComponent obj, Vector3Int coords)
+    {
+        if (!IsSingleTube(obj)) { return s.HighlightSimilarColor.Color; }
+
+        var counter = 0;
+        foreach (var n in Deltas.Neighbors6Vector3Int)
+        {
+            var curr = coords + n;
+
+            var blockObjs = blockService.GetObjectsAt(curr);
+            foreach (var block in blockObjs)
+            {
+                if (IsTubeway(block))
+                {
+                    counter++;
+                    if (counter > 1) { break; }
+                }
+            }
+
+            if (counter > 1) { break; }
+        }
+        
+        return counter > 1 ? s.HighlightSimilarColor.Color : brushColorSpec.Negative;
+    }
 
     bool HighlightTubeways(BaseComponent obj)
     {
@@ -68,7 +105,7 @@ public class ObjectSelectionService(
 
                 if (block != startingObj)
                 {
-                    highlighter.HighlightSecondary(block, color);
+                    highlighter.HighlightSecondary(block, GetHighlightingTubewayColor(block, current));
                 }
 
                 foreach (var neighbor in neighbors)
