@@ -5,12 +5,17 @@ public class MiscService(
     CameraService cam,
     IDayNightCycle time,
     MSettings s,
-    DatePanel datePanel
-) : ILoadableSingleton, ITickableSingleton
+    DatePanel datePanel,
+    EntityService entityService
+) : ILoadableSingleton, ITickableSingleton, IUnloadableSingleton
 {
 
     Label lblTime = null!;
     bool gameTimeEnabled;
+
+    public static MiscService? Instance { get; private set; }
+
+    public void Delete(BaseComponent comp) => entityService.Delete(comp);
 
     public string GetGameTimeFormatted()
     {
@@ -22,6 +27,8 @@ public class MiscService(
 
     public void Load()
     {
+        Instance = this;
+
         var panel = datePanel._text.parent;
 
         lblTime = new Label();
@@ -57,4 +64,8 @@ public class MiscService(
         lblTime.text = GetGameTimeFormatted();
     }
 
+    public void Unload()
+    {
+        Instance = null;
+    }
 }

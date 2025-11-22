@@ -24,6 +24,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     public ModSetting<bool> ShowGameTime { get; } = Create(nameof(ShowGameTime), true);
     public ModSetting<bool> AddRealTimeClock { get; } = Create(nameof(AddRealTimeClock));
     public ModSetting<bool> Clock24 { get; } = Create(nameof(Clock24));
+    public ModSetting<bool> AutoClearDeadTrees { get; } = Create(nameof(AutoClearDeadTrees));
     public ModSetting<bool> EnableSpeedS25 { get; } = Create(nameof(EnableSpeedS25));
     public ModSetting<bool> EnableSpeed4 { get; } = Create(nameof(EnableSpeed4), true);
     public ModSetting<bool> EnableSpeed5 { get; } = Create(nameof(EnableSpeed5));
