@@ -1,0 +1,21 @@
+Add a [b]Gate[/b]: A road that can be closed.
+
+[i]"They called me mad when I blocked the road with a floodgate. Now they call me 'Sir.'" — Beavrick[/i]
+
+Cost 150 Science to unlock, 10 Logs and 5 Planks to build (literally a repurposed Floodgate).
+
+It also blocks water when closed.
+
+From v7.2.0, you can also close the gate automatically when Hazardous weather or Badtide comes.
+
+Note: be careful when you close a Gate and make a 2nd District that connect with the other through that gate. When you open that gate and cause 2 districts to connect, the game will crash. Sorry there is no easy way for me to prevent that from happening so you just have to be careful when placing new district with Closed gate.
+
+===
+Idea by @Iceph03nix on Discord.
+
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.0: Should work with Timberborn v1.0.
+
+v7.2.0: Added "Auto close on Hazardous weather" and "Auto close on Badtide" options.
+v7.1.0: Gate now also blocks water when closed (like a Levee/full height Floodgate). It's canon that it's a repurposed Floodgate. Fixed a crash because you could close the Gate before finish building.

@@ -1,0 +1,8 @@
+{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.IronTeeth",
+        "Blueprints": [
+            "Blueprints/Buildings/Paths/Gate/Gate.IronTeeth.blueprint"
+        ]
+    }
+}

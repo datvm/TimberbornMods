@@ -18,7 +18,7 @@
 		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
-		<ProjectReference Include="..\ConfigurableTopBar\ConfigurableTopBar.csproj" />
+		<ProjectReference Include="..\GateV1\GateV1.csproj" />
 
 	</ItemGroup>
 

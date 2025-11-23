@@ -1,0 +1,38 @@
+ManifestFileVersion: 0
+UnityVersion: 6000.2.7f2
+CRC: 1307345788
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e21259126ab34468fa21e639fea4f0bb
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4946d9aa1a4c0871d75943c6e3d5e7c6
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: fa6adfd6ad927c10df1819a3c4167966
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Mods/AssetBuilding/AssetBundles/Resources/StarSkybox04Named/StarSkybox04Named2.png
+- Assets/Mods/AssetBuilding/AssetBundles/Resources/StarSkybox04/StarSkybox042.png
+- Assets/Mods/AssetBuilding/AssetBundles/Resources/StarSkybox04Named/StarSkybox04Named1.png
+- Assets/Mods/AssetBuilding/AssetBundles/Resources/StarSkybox04/StarSkybox044.png
+- Assets/Mods/AssetBuilding/AssetBundles/Resources/StarSkybox04Named/StarSkybox04Named6.png
+- Assets/Mods/AssetBuilding/AssetBundles/Resources/StarSkybox04Named/StarSkybox04Named4.png
+- Assets/Mods/AssetBuilding/AssetBundles/Resources/StarSkybox04/StarSkybox043.png
+- Assets/Mods/AssetBuilding/AssetBundles/Resources/StarSkybox04/StarSkybox041.png
+- Assets/Mods/AssetBuilding/AssetBundles/Resources/StarSkybox04Named/StarSkybox04Named.mat
+- Assets/Mods/AssetBuilding/AssetBundles/Resources/StarSkybox04Named/StarSkybox04Named5.png
+- Assets/Mods/AssetBuilding/AssetBundles/Resources/StarSkybox04Named/StarSkybox04Named3.png
+- Assets/Mods/AssetBuilding/AssetBundles/Resources/StarSkybox04/StarSkybox045.png
+- Assets/Mods/AssetBuilding/AssetBundles/Resources/StarSkybox04/StarSkybox04.mat
+- Assets/Mods/AssetBuilding/AssetBundles/Resources/StarSkybox04/StarSkybox046.png
+Dependencies: []
