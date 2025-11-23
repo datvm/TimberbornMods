@@ -91,6 +91,7 @@
     <Project Path="PlottingTool/PlottingTool.csproj" />
     <Project Path="QuickBar/QuickBar.csproj" />
     <Project Path="QuickStart/QuickStart.csproj" />
+    <Project Path="RealStars/RealStars.csproj" Id="dc3d3f53-81b2-4efd-ab07-3c0d84dcd684" />
     <Project Path="SyncableSettings/SyncableSettings.csproj" />
     <Project Path="TransparentShaders/TransparentShaders.csproj" />
     <Project Path="TransparentTerrain/TransparentTerrain.csproj" />
@@ -160,6 +161,7 @@
   <Project Path="ExtendedBuilderReach/ExtendedBuilderReach.csproj" />
   <Project Path="FiveMoreMins/FiveMoreMins.csproj" />
   <Project Path="Gate/Gate.csproj" />
+  <Project Path="GateV1/GateV1.csproj" Id="1b1c9c90-0300-43d2-aa6c-b92dcdb4ecce" />
   <Project Path="GlobalWellbeing/GlobalWellbeing.csproj" />
   <Project Path="HangingOverhang/HangingOverhang.csproj" />
   <Project Path="Hospital/Hospital.csproj" />

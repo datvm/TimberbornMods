@@ -1,0 +1,8 @@
+{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.GreedyBuilders",
+        "Blueprints": [
+            "Blueprints/Buildings/Paths/Gate/Gate.Folktails.blueprint"
+        ]
+    }
+}

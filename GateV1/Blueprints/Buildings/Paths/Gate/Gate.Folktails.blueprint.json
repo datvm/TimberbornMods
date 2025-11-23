@@ -1,0 +1,290 @@
+{
+    "BuildingSpec": {
+        "SelectionSoundName": "Floodgate",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            {
+                "Id": "Log",
+                "Amount": 10
+            },
+            {
+                "Id": "Plank",
+                "Amount": 5
+            }
+        ],
+        "ScienceCost": 150,
+        "PlaceFinished": false,
+        "FinishableWithBeaversOnSite": false,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "Gate.Folktails",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BlockObjectSpec": {
+        "BlocksSpec": {
+            "Size": {
+                "X": 1,
+                "Y": 1,
+                "Z": 3
+            },
+            "BlockSpecs": [
+                {
+                    "MatterBelow": "GroundOrStackable",
+                    "Occupations": "Bottom, Top, Corners, Path, Middle",
+                    "Stackable": "None",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                },
+                {
+                    "MatterBelow": "Any",
+                    "Occupations": "-1",
+                    "Stackable": "None",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                },
+                {
+                    "MatterBelow": "Any",
+                    "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                    "Stackable": "None",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                }
+            ]
+        },
+        "Entrance": {
+            "HasEntrance": false,
+            "Coordinates": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": false
+    },
+    "BlockObjectNavMeshSettingsSpec": {
+        "NoAutoWalls": false,
+        "GenerateFloorsOnStackable": false,
+        "EdgeGroups": [
+            {
+                "Cost": 1.0,
+                "Group": {
+                    "UseGroup": false,
+                    "GroupName": ""
+                },
+                "IsPath": true,
+                "AddedEdges": [
+                    {
+                        "Start": {
+                            "X": 0,
+                            "Y": 0,
+                            "Z": 0
+                        },
+                        "End": {
+                            "X": 0,
+                            "Y": -1,
+                            "Z": 0
+                        },
+                        "IsTwoWay": false
+                    },
+                    {
+                        "Start": {
+                            "X": 0,
+                            "Y": 0,
+                            "Z": 0
+                        },
+                        "End": {
+                            "X": 0,
+                            "Y": 1,
+                            "Z": 0
+                        },
+                        "IsTwoWay": false
+                    }
+                ]
+            }
+        ],
+        "UnblockedCoordinates": []
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "Paths",
+        "ToolOrder": 15,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": false
+    },
+    "WaterObstacleSpec": {
+        "Coordinates": [
+            {
+                "X": 0,
+                "Y": 0
+            }
+        ]
+    },
+    "FloodgateAnimationControllerSpec": {
+        "GateName": "#Floodgate1x1FolktailsMisc"
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.Gate.Gate",
+        "DescriptionLocKey": "LV.Gate.GateDesc",
+        "FlavorDescriptionLocKey": "LV.Gate.GateFlavor",
+        "Icon": "Sprites/Buildings/Path/Gate"
+    },
+    "FinishableHorizontalWaterObstacleSpec": {
+        "Obstacles": [
+            {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        ]
+    },
+    "ConstructionSiteProgressVisualizerSpec": {
+        "ProgressThresholds": [
+            0.0
+        ]
+    },
+    "GateComponentSpec": {},
+    "PathSpec": {
+        "MainPathCoordinates": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+        }
+    },
+    "BlockObjectWithPathRangeSpec": {},
+    "Children": {
+        "#Finished": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Landscaping/Floodgate/Floodgate.Folktails.Model"
+            },
+            "CollidersSpec": {
+                "BoxColliders": [
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.510495067,
+                            "Z": 0.5
+                        },
+                        "Size": {
+                            "X": 0.9,
+                            "Y": 1.02099013,
+                            "Z": 0.9
+                        }
+                    }
+                ],
+                "SphereColliders": [],
+                "CapsuleColliders": [
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 2.1,
+                            "Z": 0.5
+                        },
+                        "Radius": 0.2,
+                        "Height": 1.0,
+                        "Axis": "Z"
+                    }
+                ]
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase1x1#nested": {
+                    "BlueprintPath": "ConstructionBases/ConstructionBase1x1/ConstructionBase1x1.blueprint"
+                },
+                "ConstructionStage0": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Landscaping/Floodgate/Floodgate.Folktails.ConstructionStage0.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.05,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.1,
+                                    "Z": 1.0
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.94,
+                                    "Y": 0.6757244,
+                                    "Z": 0.05400767
+                                },
+                                "Size": {
+                                    "X": 0.136779755,
+                                    "Y": 1.3408854,
+                                    "Z": 0.128220215
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.05326183,
+                                    "Y": 0.6757244,
+                                    "Z": 0.94
+                                },
+                                "Size": {
+                                    "X": 0.136779755,
+                                    "Y": 1.3408854,
+                                    "Z": 0.128220215
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.05326183,
+                                    "Y": 0.6757244,
+                                    "Z": 0.05400767
+                                },
+                                "Size": {
+                                    "X": 0.136779755,
+                                    "Y": 1.3408854,
+                                    "Z": 0.128220215
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.94,
+                                    "Y": 0.6757244,
+                                    "Z": 0.94
+                                },
+                                "Size": {
+                                    "X": 0.136779755,
+                                    "Y": 1.3408854,
+                                    "Z": 0.128220215
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        }
+    }
+}

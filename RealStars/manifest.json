@@ -1,0 +1,11 @@
+{
+    "Name": "Real Stars",
+    "Version": "10.0.0",
+    "Id": "RealStars",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Show real star constellations in the night sky.",
+    "RequiredMods": [
+        { "Id": "eMka.ModSettings" },
+        { "Id": "Harmony" }
+    ]
+}
