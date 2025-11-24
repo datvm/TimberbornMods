@@ -1,8 +1,8 @@
 {
     "Name": "Camera Bookmarks",
-    "Version": "7.0.0",
+    "Version": "10.0.0",
     "Id": "CameraBookmarks",
-    "MinimumGameVersion": "0.7.0.0",
+    "MinimumGameVersion": "1.0.0",
     "Description": "Save and jump to camera locations.",
     "RequiredMods": []
 }
