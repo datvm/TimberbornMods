@@ -1,0 +1,9 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Production",
+        "Order": 50,
+        "NameLocKey": "LV.CTG.ProductionGroup",
+        "Icon": "sprites/bonuses/WorkingSpeed",
+        "FallbackGroup": false
+    }
+}
