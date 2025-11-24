@@ -8,4 +8,6 @@ You can [b]rebind these keys in Settings → Keybindings[/b], under the Camera g
 No more scrolling across the map to find that one building - you'll be there in a snap.
 
 ===
-Mod source code and donation: https://github.com/datvm/TimberbornMods
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.0: Should work with Timberborn v1.0.
