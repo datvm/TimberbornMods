@@ -1,0 +1,12 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "PathSurface",
+        "Order": 10,
+        "NameLocKey": "LV.CTG.PathSurfaceGroup",
+        "Icon": "Buildings/Paths/Platform/PlatformIcon",
+        "FallbackGroup": false
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Paths" ]
+    }
+}
