@@ -5,7 +5,6 @@
     "MinimumGameVersion": "1.0.0",
     "Description": "Configure Tool groups to your liking.",
     "RequiredMods": [
-        { "Id": "ModdableTimberborn" },
-        { "Id": "eMka.ModSettings" }
+        { "Id": "Harmony" }
     ]
 }
