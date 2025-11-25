@@ -119,6 +119,7 @@ public static class ButtonsPatches
         }
 
         btnFac._toolGroupService.RegisterGroup(spec);
+
         return btn;
     }
 
