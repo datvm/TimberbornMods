@@ -1,6 +1,6 @@
 ﻿{
     "Name": "Moddable Tool Groups",
-    "Version": "10.0.0",
+    "Version": "10.0.1",
     "Id": "ModdableToolGroups",
     "MinimumGameVersion": "1.0.0",
     "Description": "Configure Tool groups to your liking.",
