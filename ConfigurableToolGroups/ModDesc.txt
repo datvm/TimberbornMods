@@ -136,4 +136,5 @@ If you need any help, feel free to ask on Discord ([url=https://discord.com/chan
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.0.2: Fixed the tooltip sometimes saying "Tooltip" instead of the group name.
 v10.0.1: Fixed a crash when a group is present at multiple places. Unfortunately I have to patch out Tutorial to fix it so just play it without Tutorial 😂.

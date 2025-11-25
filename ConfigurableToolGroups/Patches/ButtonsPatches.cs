@@ -87,8 +87,9 @@ public static class ButtonsPatches
         var btn = btnFac.CreateGreen(spec);
         var info = ModdableToolGroupButtonService.Instance.AddButton(btn, parent);
 
-        var tooltipWrapper = btn._toolGroupButtonWrapper.style;
-        tooltipWrapper.left = 0;
+        var tooltipWrapperS = btn._toolGroupButtonWrapper.style;
+        tooltipWrapperS.left = 0;
+        
 
         var subEl = btn.ToolButtonsElement;
         var subElS = subEl.style;
