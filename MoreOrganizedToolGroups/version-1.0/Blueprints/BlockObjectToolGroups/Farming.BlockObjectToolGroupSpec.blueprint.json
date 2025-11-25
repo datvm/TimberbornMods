@@ -1,0 +1,23 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Farming",
+        "Order": 10,
+        "NameLocKey": "LV.OG.GroupFarming",
+        "Icon": "Buildings/Food/GathererFlag/GathererFlagIcon",
+        "FallbackGroup": false
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Food" ]
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenToolsTemplateNames": [
+            "EfficientFarmHouse.Folktails",
+            "AquaticFarmhouse.Folktails",
+            "GathererFlag.Folktails",
+            "FarmHouse.IronTeeth",            
+            "GathererFlag.IronTeeth",
+            "HydroponicGarden.IronTeeth"
+        ],
+        "DoNotIncludePlaceableToolGroup": true
+    }
+}

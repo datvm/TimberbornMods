@@ -1,0 +1,23 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Warehouses",
+        "Order": 50,
+        "NameLocKey": "LV.OG.GroupWarehouses",
+        "Icon": "Buildings/Storage/LargeWarehouse/LargeWarehouseIcon",
+        "FallbackGroup": false
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Storage", "Food" ]
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenToolsTemplateNames": [
+            "SmallWarehouse.Folktails",
+            "MediumWarehouse.Folktails",
+            "LargeWarehouse.Folktails",
+            "SmallWarehouse.IronTeeth",
+            "MediumWarehouse.IronTeeth",
+            "LargeWarehouse.IronTeeth"
+        ],
+        "DoNotIncludePlaceableToolGroup": true
+    }
+}

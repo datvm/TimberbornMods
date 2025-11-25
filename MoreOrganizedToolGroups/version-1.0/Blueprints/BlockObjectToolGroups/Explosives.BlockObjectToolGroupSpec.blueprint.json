@@ -1,0 +1,27 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Explosives",
+        "Order": 20,
+        "NameLocKey": "LV.OG.GroupExplosives",
+        "Icon": "Sprites/OrganizedGroups/Explosives",
+        "FallbackGroup": false
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Landscaping" ]
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenToolsTemplateNames": [
+            "ExplosivesFactory.Folktails",
+            "ExplosivesFactory.IronTeeth",
+            "Dynamite.Folktails",
+            "DoubleDynamite.Folktails",
+            "TripleDynamite.Folktails",
+            "Dynamite.IronTeeth",
+            "DoubleDynamite.IronTeeth",
+            "TripleDynamite.IronTeeth",
+            "Tunnel.Folktails",
+            "Tunnel.IronTeeth"
+        ],
+        "DoNotIncludePlaceableToolGroup": true
+    }
+}

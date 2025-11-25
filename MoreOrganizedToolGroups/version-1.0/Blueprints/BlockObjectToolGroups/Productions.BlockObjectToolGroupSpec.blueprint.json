@@ -1,0 +1,9 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Productions",
+        "Order": 60,
+        "NameLocKey": "LV.OG.GroupProductions",
+        "Icon": "Sprites/OrganizedGroups/Productions",
+        "FallbackGroup": false
+    }
+}

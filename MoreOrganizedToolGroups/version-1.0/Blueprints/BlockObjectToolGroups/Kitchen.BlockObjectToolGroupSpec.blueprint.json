@@ -1,0 +1,24 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Kitchen",
+        "Order": 20,
+        "NameLocKey": "LV.OG.GroupKitchen",
+        "Icon": "Buildings/Food/Grill/GrillIcon",
+        "FallbackGroup": false
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Food" ]
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenToolsTemplateNames": [
+            "Bakery.Folktails",
+            "Grill.Folktails",
+            "Gristmill.Folktails",            
+            "Fermenter.IronTeeth",
+            "FoodFactory.IronTeeth",            
+            "OilPress.IronTeeth",
+            "CoffeeBrewery.IronTeeth"
+        ],
+        "DoNotIncludePlaceableToolGroup": true
+    }
+}

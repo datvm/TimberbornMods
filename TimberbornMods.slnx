@@ -53,6 +53,7 @@
   </Folder>
   <Folder Name="/JsonMods/">
     <Project Path="AirlockChamber/AirlockChamber.csproj" />
+    <Project Path="MoreOrganizedToolGroups/MoreOrganizedToolGroups.csproj" Id="0bc40b6f-0a04-44c4-9d3d-0937b4def1b5" />
     <Project Path="PaperAndBookForIronTeeth/PaperAndBookForIronTeeth.csproj" />
     <Project Path="PoweredTubeway/PoweredTubeway.csproj" />
     <Project Path="TimbitsTimbots/TimbitsTimbots.csproj" />

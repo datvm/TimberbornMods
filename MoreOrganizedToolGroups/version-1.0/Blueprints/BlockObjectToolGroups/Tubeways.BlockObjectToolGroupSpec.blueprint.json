@@ -1,0 +1,20 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Tubeways",
+        "Order": 30,
+        "NameLocKey": "LV.OG.GroupTubeways",
+        "Icon": "Buildings/Paths/TubewayStation/TubewayStationIcon",
+        "FallbackGroup": false
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Paths" ]
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenToolsTemplateNames": [
+            "TubewayStation.IronTeeth",
+            "Tubeway.IronTeeth",
+            "VerticalTubeway.IronTeeth"
+        ],
+        "DoNotIncludePlaceableToolGroup": true
+    }
+}

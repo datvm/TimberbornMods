@@ -1,0 +1,12 @@
+{
+    "Name": "More Organized Tool Groups",
+    "Version": "10.0.0",
+    "Id": "MoreOrganizedToolGroups",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Reorganizes tool groups for better accessibility and usability.",
+    "RequiredMods": [
+        {
+            "Id": "ModdableToolGroups"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Piles",
+        "Order": 10,
+        "NameLocKey": "LV.OG.GroupPiles",
+        "Icon": "Buildings/Storage/LargePile/LargePileIcon",
+        "FallbackGroup": false
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Storage", "Wood", "Metal" ]
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenToolsTemplateNames": [
+            "SmallPile.Folktails",
+            "SmallIndustrialPile.IronTeeth",
+            "LargePile.Folktails",
+            "LargeIndustrialPile.IronTeeth",            
+            "UndergroundPile.Folktails"
+        ],
+        "DoNotIncludePlaceableToolGroup": true
+    }
+}

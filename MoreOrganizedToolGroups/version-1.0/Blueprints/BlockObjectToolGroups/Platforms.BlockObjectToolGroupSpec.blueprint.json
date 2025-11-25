@@ -1,0 +1,20 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Platforms",
+        "Order": 10,
+        "NameLocKey": "LV.OG.GroupPlatforms",
+        "Icon": "Sprites/OrganizedGroups/Platforms",
+        "FallbackGroup": false
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenToolsTemplateNames": [
+            "Platform.Folktails",
+            "Platform.IronTeeth",
+            "DoublePlatform.Folktails",
+            "DoublePlatform.IronTeeth",
+            "TriplePlatform.Folktails",
+            "TriplePlatform.IronTeeth"
+        ],
+        "DoNotIncludePlaceableToolGroup": true
+    }
+}

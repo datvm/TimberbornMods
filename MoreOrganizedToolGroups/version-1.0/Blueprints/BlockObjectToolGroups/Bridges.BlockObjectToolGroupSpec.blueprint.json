@@ -1,0 +1,26 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Bridges",
+        "Order": 20,
+        "NameLocKey": "LV.OG.GroupBridges",
+        "Icon": "Sprites/OrganizedGroups/Bridges",
+        "FallbackGroup": false
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenToolsTemplateNames": [
+            "SuspensionBridge1x1.Folktails",
+            "SuspensionBridge2x1.Folktails",
+            "SuspensionBridge3x1.Folktails",
+            "SuspensionBridge4x1.Folktails",
+            "SuspensionBridge5x1.Folktails",
+            "SuspensionBridge6x1.Folktails",
+            "SuspensionBridge1x1.IronTeeth",
+            "SuspensionBridge2x1.IronTeeth",
+            "SuspensionBridge3x1.IronTeeth",
+            "SuspensionBridge4x1.IronTeeth",
+            "SuspensionBridge5x1.IronTeeth",
+            "SuspensionBridge6x1.IronTeeth"
+        ],
+        "DoNotIncludePlaceableToolGroup": true
+    }
+}
