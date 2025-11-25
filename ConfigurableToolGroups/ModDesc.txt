@@ -1,0 +1,135 @@
+Moddable Tool Groups gives full control over how tool groups are structured. It lets mods create multi-level tool groups, put the same tool/group in multiple places, and freely reorganize the tool hierarchy.
+
+[b]Note to players: this mod does nothing on its own. It only provides a framework that other mods can use to add multi-level tool groups. You can pick any flavor from those mods.[/b]
+
+For modders: see the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3612111311]Demo Moddable Tool Groups mod[/url] for examples.
+
+This mod provides two specs: [b]ParentToolGroupSpec[/b] and [b]ToolGroupChildrenSpec[/b]:
+
+[code]
+public record ParentToolGroupSpec : ComponentSpec
+{
+	[Serialize]
+	public ImmutableArray<string> ParentIds { get; init; } = [];
+}
+
+public record ToolGroupChildrenSpec : ComponentSpec
+{
+	[Serialize]
+	public ImmutableArray<string> ChildrenGroupsIds { get; init; } = [];
+
+	[Serialize]
+	public ImmutableArray<string> ChildrenToolsTemplateNames { get; init; } = [];
+
+	[Serialize]
+	public bool DoNotIncludePlaceableToolGroup { get; init; }
+}
+[/code]
+
+[b]ParentToolGroupSpec[/b] can be applied to [b]BlockObjectToolGroupSpec[/b] or any block object blueprints. [b]ToolGroupChildrenSpec[/b] quickly populates a tool group with child groups and tools. Both can be combined. Duplicates are removed automatically, and cyclic groups are detected with clear error info.
+
+[h1]Examples:[/h1]
+
+Combine the Food and Water tool groups into a new group called Essentials in [b]Essentials.BlockObjectToolGroupSpec.blueprint.json[/b]:
+
+[code]
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Essentials",
+        "Order": 45,
+        "NameLocKey": "LV.OG.GroupEssentials",
+        "Icon": "Sprites/OrganizedGroups/Essentials",
+        "FallbackGroup": false
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenGroupsIds": [
+            "Food",
+            "Water"
+        ]
+    }
+}
+[/code]
+
+Alternatively, you can just declare the group and move items in with [b]ParentToolGroupSpec[/b]. In [b]Productions.BlockObjectToolGroupSpec.blueprint[/b], only the group is declared, and [b]BlockObjectToolGroup.Metal.blueprint.json[/b] and [b]BlockObjectToolGroup.Wood.blueprint.json[/b] move the groups into Productions:
+
+[code]
+{
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Productions" ]
+    }
+}
+[/code]
+
+[b]ParentToolGroupSpec[/b] can be applied to block object blueprints too. In [b]Platform.Folktails.blueprint.json[/b] and [b]Platform.IronTeeth.blueprint.json[/b], I add the platforms to "Path" because I think it's often used:
+
+[code]
+{
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Paths" ]
+    }
+}
+[/code]
+
+But aren't they already in "Paths" group? Well, because I also make a "Platforms" group and in its [b]ToolGroupChildrenSpec[/b], I declare the [b]Platform[/b] and with [b]DoNotIncludePlaceableToolGroup: true[/b] (so Double and Triple platforms do not appear in Paths again):
+
+Platforms.BlockObjectToolGroupSpec.blueprint.json:
+[code]
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Platforms",
+        "Order": 10,
+        "NameLocKey": "LV.OG.GroupPlatforms",
+        "Icon": "Sprites/OrganizedGroups/Platforms",
+        "FallbackGroup": false
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenToolsTemplateNames": [
+            "Platform.Folktails",
+            "Platform.IronTeeth",
+            "DoublePlatform.Folktails",
+            "DoublePlatform.IronTeeth",
+            "TriplePlatform.Folktails",
+            "TriplePlatform.IronTeeth"
+        ],
+        "DoNotIncludePlaceableToolGroup": true
+    }
+}
+[/code]
+
+So with the above files, Platform appears twice: once in Platforms group and once in Paths group.
+
+The most complete example is the Surfaces group: it is inside the Paths group and it contains both many tool groups (Platforms, Bridges and Overhangs) and many tools (Metal Platform 3x3 and 5x5):
+
+[code]
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Surfaces",
+        "Order": 10,
+        "NameLocKey": "LV.OG.GroupSurfaces",
+        "Icon": "Sprites/OrganizedGroups/Surfaces",
+        "FallbackGroup": false
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Paths" ]
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenGroupsIds": [
+            "Platforms",
+            "Bridges",
+            "Overhangs"
+        ],
+        "ChildrenToolsTemplateNames": [
+            "MetalPlatform3x3.Folktails",
+            "MetalPlatform3x3.IronTeeth",
+            "MetalPlatform5x5.Folktails",
+            "MetalPlatform5x5.IronTeeth"
+        ],
+        "DoNotIncludePlaceableToolGroup": true
+    }
+}
+[/code]
+
+If you need any help, feel free to ask on Discord ([url=https://discord.com/channels/558398674389172225/888491376143134760]#mod-creators[/url] or [url=https://discord.com/channels/558398674389172225/1064825134348763209/threads/1442833036646420580]Moddable Tool Groups channel[/url])
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

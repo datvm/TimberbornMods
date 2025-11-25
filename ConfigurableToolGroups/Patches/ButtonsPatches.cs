@@ -1,15 +1,15 @@
-﻿
-namespace ConfigurableToolGroups.Patches;
+﻿namespace ConfigurableToolGroups.Patches;
 
 [HarmonyPatch(typeof(ToolGroupButton))]
 public static class ButtonsPatches
 {
-    public static readonly ConditionalWeakTable<ToolGroupButton, ToolGroupButtonInfo> buttonsInfo = [];
+    public static int CurrentLevel = 0;
 
     [HarmonyPrefix, HarmonyPatch(nameof(ToolGroupButton.IsVisible), MethodType.Getter)]
     public static bool UpdateVisibility(ToolGroupButton __instance, ref bool __result)
     {
-        if (!buttonsInfo.TryGetValue(__instance, out var info)) { return true; }
+        var info = ModdableToolGroupButtonService.Instance[__instance];
+        if (info is null) { return true; }
 
         foreach (var grp in info.Children)
         {
@@ -26,12 +26,16 @@ public static class ButtonsPatches
     [HarmonyPrefix, HarmonyPatch(nameof(ToolGroupButton.OnToolGroupEntered))]
     public static void ActivateParents(ToolGroupButton __instance, ToolGroupEnteredEvent toolGroupOpenedEvent)
     {
-        if (toolGroupOpenedEvent.ToolGroup != __instance._toolGroup 
-            || !buttonsInfo.TryGetValue(__instance, out var info)) { return; }
+        if (toolGroupOpenedEvent.ToolGroup != __instance._toolGroup) { return; }
 
-        var parent = info.Parent;
+        CurrentLevel = 0;
+
+        var parent = ModdableToolGroupButtonService.Instance[__instance]?.Parent;
+        if (parent is null) { return; }
+
         while (parent is not null)
         {
+            CurrentLevel++;
             var btn = parent.Button;
 
             btn.ToolButtonsElement.ToggleDisplayStyle(true);
@@ -44,10 +48,11 @@ public static class ButtonsPatches
     [HarmonyPrefix, HarmonyPatch(nameof(ToolGroupButton.OnToolGroupExited))]
     public static void DeactivateParents(ToolGroupButton __instance, ToolGroupExitedEvent toolGroupExitedEvent)
     {
-        if (toolGroupExitedEvent.ToolGroup != __instance._toolGroup
-            || !buttonsInfo.TryGetValue(__instance, out var info)) { return; }
+        if (toolGroupExitedEvent.ToolGroup != __instance._toolGroup) { return; }
 
-        var parent = info.Parent;
+        var parent = ModdableToolGroupButtonService.Instance[__instance]?.Parent;
+        if (parent is null) { return; }
+
         while (parent is not null)
         {
             var btn = parent.Button;
@@ -59,44 +64,46 @@ public static class ButtonsPatches
         }
     }
 
-
-
     [HarmonyPrefix, HarmonyPatch(typeof(GameBlockObjectButtons), nameof(GameBlockObjectButtons.CreateRegularBlockObjectToolGroups))]
     public static bool CreateRegularBlockObjectToolGroups(GameBlockObjectButtons __instance, ref IEnumerable<BottomBarElement> __result)
     {
-        var service = ContainerRetriever.GetInstance<ModdableToolGroupSpecService>();
-
-        __result = service.RootToolGroup.ChildrenGroups
-            .Select(grp =>
-            {
-                return CreateGroup(grp, __instance, null);
-            })
+        __result = ModdableToolGroupSpecService.Instance.RootToolGroup.ChildrenGroups
+            .Select(grp => CreateGroupButton(grp, __instance, null))
             .Where(q => q is not null)
             .Select(q => BottomBarElement.CreateMultiLevel(q!.Root, q.ToolButtonsElement));
+
         return false;
     }
 
-    static ToolGroupButton? CreateGroup(ToolGroupDetails grp, GameBlockObjectButtons buttons, ToolGroupButtonInfo? parent)
+    static ToolGroupButton? CreateGroupButton(ToolGroupDetails grp, GameBlockObjectButtons buttons, ToolGroupButtonInfo? parent)
     {
         if (grp.Empty) { return null; }
 
         var grpFac = buttons._blockObjectToolGroupButtonFactory;
         var btnFac = grpFac._toolGroupButtonFactory;
+        var boBtnFac = grpFac._blockObjectToolButtonFactory;
 
         var spec = BlockObjectToolGroupButtonFactory.CreateBlueprint(grp.Spec).GetSpec<ToolGroupSpec>();
         var btn = btnFac.CreateGreen(spec);
+        var info = ModdableToolGroupButtonService.Instance.AddButton(btn, parent);
 
-        var info = new ToolGroupButtonInfo(btn, parent);
-        buttonsInfo.Add(btn, info);
+        var tooltipWrapper = btn._toolGroupButtonWrapper.style;
+        tooltipWrapper.left = 0;
+
+        var subEl = btn.ToolButtonsElement;
+        var subElS = subEl.style;
+        subElS.alignItems = Align.FlexEnd;
+        subElS.position = Position.Absolute;
+        subElS.bottom = new Length(100, LengthUnit.Percent);
 
         if (grp.childrenGroups.Count > 0)
         {
             foreach (var subGrp in grp.childrenGroups)
             {
-                var subGrpBtn = CreateGroup(subGrp, buttons, info);
+                var subGrpBtn = CreateGroupButton(subGrp, buttons, info);
                 if (subGrpBtn is not null)
                 {
-                    btn.ToolButtonsElement.Add(subGrpBtn.Root);
+                    subEl.Add(subGrpBtn.Root);
                     info.Children.Add(subGrpBtn);
                 }
             }
@@ -106,7 +113,7 @@ public static class ButtonsPatches
         {
             if (!bo.UsableWithCurrentFeatureToggles) { continue; }
 
-            var toolBtn = grpFac._blockObjectToolButtonFactory.Create(bo, btn.ToolButtonsElement);
+            var toolBtn = boBtnFac.Create(bo, subEl);
             grpFac._toolGroupService.AssignToGroup(spec, toolBtn.Tool);
             btn.AddTool(toolBtn);
         }

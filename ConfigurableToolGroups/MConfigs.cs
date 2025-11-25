@@ -1,14 +1,14 @@
-﻿namespace ConfigurableToolGroups;
+﻿
+namespace ConfigurableToolGroups;
 
-public class ConfigurableToolGroupsConfig : BaseModdableTimberbornConfigurationWithHarmony, IWithDIConfig
+[Context("Game")]
+[Context("MapEditor")]
+public class ConfigurableToolGroupsConfig : Configurator
 {
-    public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.Game | ConfigurationContext.MapEditor;
 
-    public override void Configure(Configurator configurator, ConfigurationContext context)
+    public override void Configure()
     {
-        configurator
-            .BindTemplateTailRunner<ModdableToolGroupSpecService>(true)
-        ;
+        Bind<ModdableToolGroupSpecService>().AsSingleton();
+        Bind<ModdableToolGroupButtonService>().AsSingleton();
     }
-
 }

@@ -1,11 +1,20 @@
-﻿namespace ConfigurableToolGroups.Specs;
+﻿namespace ConfigurableToolGroups.Services;
 
-public class ModdableToolGroupSpecService(ISpecService specs) : ITemplateCollectionServiceTailRunner
+public class ModdableToolGroupSpecService : IUnloadableSingleton
 {
+    static ModdableToolGroupSpecService? instance;
+    public static ModdableToolGroupSpecService Instance => instance ?? throw new InvalidOperationException($"Service {nameof(ModdableToolGroupSpecService)} has not been initialized yet.");
+
+    readonly ISpecService specs;
+
+    public ModdableToolGroupSpecService(ISpecService specs)
+    {
+        this.specs = specs;
+        instance = this;
+    }
 
     public ToolGroupDetails RootToolGroup { get; private set; }
     public FrozenDictionary<string, ToolGroupDetails> ToolGroupsByIds { get; private set; } = FrozenDictionary<string, ToolGroupDetails>.Empty;
-
 
     public void Run(TemplateCollectionService templateCollectionService)
     {
@@ -47,6 +56,30 @@ public class ModdableToolGroupSpecService(ISpecService specs) : ITemplateCollect
                 toolGroup.parents.Add(parentGroup);
             }
         }
+
+        foreach (var toolGroup in allToolGroups.Values)
+        {
+            var childrenSpec = toolGroup.childrenSpec;
+            if (childrenSpec is null) { continue; }
+
+            foreach (var childGroupId in childrenSpec.ChildrenGroupsIds)
+            {
+                if (!allToolGroups.TryGetValue(childGroupId, out var childGroup))
+                {
+                    Debug.LogWarning($"[{nameof(ConfigurableToolGroups)}] Tool group '{toolGroup.spec.Id}' specifies a child group '{childGroupId}' that does not exist.");
+                    continue;
+                }
+
+                if (!toolGroup.childrenGroups.Contains(childGroup))
+                {
+                    toolGroup.childrenGroups.Add(childGroup);
+                }
+                if (!childGroup.parents.Contains(toolGroup))
+                {
+                    childGroup.parents.Add(toolGroup);
+                }
+            }
+        }
     }
 
     void DetectCircularParentage(Dictionary<string, ToolGroupDetailsBuilder> allToolGroups)
@@ -78,6 +111,8 @@ public class ModdableToolGroupSpecService(ISpecService specs) : ITemplateCollect
 
     void AssignToolParents(Dictionary<string, ToolGroupDetailsBuilder> allToolGroups, TemplateCollectionService templateService)
     {
+        var parentInfo = GatherToolParentsInfo(allToolGroups, templateService);
+
         foreach (var template in templateService.AllTemplates)
         {
             var tool = template.GetSpec<PlaceableBlockObjectSpec>();
@@ -85,9 +120,19 @@ public class ModdableToolGroupSpecService(ISpecService specs) : ITemplateCollect
 
             var templateName = tool.GetSpec<TemplateSpec>().TemplateName;
 
-            var parentSpec = tool.GetSpec<ParentToolGroupSpec>();
+            IEnumerable<string> parentIds = parentInfo.TryGetValue(templateName, out var info) ? info.ParentGroups : [];
 
-            string[] parentIds = [tool.ToolGroupId, .. parentSpec?.ParentIds ?? []];
+            var parentSpec = tool.GetSpec<ParentToolGroupSpec>();
+            if (parentSpec is not null)
+            {
+                parentIds = parentIds.Concat(parentSpec.ParentIds);
+            }
+
+            if (info?.DoNotIncludePlaceableParent != true)
+            {
+                parentIds = parentIds.Append(tool.ToolGroupId);
+            }
+
             foreach (var id in parentIds)
             {
                 if (!allToolGroups.TryGetValue(id, out var parentGroup))
@@ -99,6 +144,33 @@ public class ModdableToolGroupSpecService(ISpecService specs) : ITemplateCollect
                 parentGroup.childrenTools.Add(new(tool, templateName));
             }
         }
+    }
+
+    Dictionary<string, ToolParentInfo> GatherToolParentsInfo(Dictionary<string, ToolGroupDetailsBuilder> allToolGroups, TemplateCollectionService templateService)
+    {
+        Dictionary<string, ToolParentInfo> result = [];
+
+        foreach (var grp in allToolGroups.Values)
+        {
+            var childSpec = grp.childrenSpec;
+            if (childSpec is null) { continue; }
+
+            foreach (var toolTemplateName in childSpec.ChildrenToolsTemplateNames)
+            {
+                if (!result.TryGetValue(toolTemplateName, out var info))
+                {
+                    info = result[toolTemplateName] = new();
+                }
+
+                info.ParentGroups.Add(grp.spec.Id);
+                if (childSpec.DoNotIncludePlaceableToolGroup)
+                {
+                    info.DoNotIncludePlaceableParent = true;
+                }
+            }
+        }
+
+        return result;
     }
 
     void Build(Dictionary<string, ToolGroupDetailsBuilder> allToolGroups)
@@ -142,6 +214,8 @@ public class ModdableToolGroupSpecService(ISpecService specs) : ITemplateCollect
         ToolGroupsByIds = builtGroups.Values.ToFrozenDictionary(g => g.Spec.Id);
     }
 
+    public void Unload() => instance = null;
+
     class ToolGroupDetailsBuilder(BlockObjectToolGroupSpec spec)
     {
         public readonly BlockObjectToolGroupSpec spec = spec;
@@ -149,7 +223,14 @@ public class ModdableToolGroupSpecService(ISpecService specs) : ITemplateCollect
         public readonly List<ToolGroupDetailsBuilder> childrenGroups = [];
         public readonly List<PlaceableToolInfo> childrenTools = [];
         public readonly ParentToolGroupSpec? parentSpec = spec.GetSpec<ParentToolGroupSpec>();
+        public readonly ToolGroupChildrenSpec? childrenSpec = spec.GetSpec<ToolGroupChildrenSpec>();
     };
+
+    class ToolParentInfo
+    {
+        public readonly HashSet<string> ParentGroups = [];
+        public bool DoNotIncludePlaceableParent { get; set; }
+    }
 
 }
 
