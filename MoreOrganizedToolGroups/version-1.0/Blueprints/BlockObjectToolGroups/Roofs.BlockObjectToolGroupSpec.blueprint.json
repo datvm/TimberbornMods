@@ -1,0 +1,27 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Roofs",
+        "Order": 10,
+        "NameLocKey": "LV.OG.GroupRoofs",
+        "Icon": "Sprites/OrganizedGroups/Roofs",
+        "FallbackGroup": false
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Decoration" ]
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenToolsTemplateNames": [
+            "Roof1x1.Folktails",
+            "Roof1x2.Folktails",
+            "Roof2x2.Folktails",
+            "Roof2x3.Folktails",
+            "Roof3x2.Folktails",
+            "Roof1x1.IronTeeth",
+            "Roof1x2.IronTeeth",
+            "Roof2x2.IronTeeth",
+            "Roof2x3.IronTeeth",
+            "Roof3x2.IronTeeth"
+        ],
+        "DoNotIncludePlaceableToolGroup": true
+    }
+}

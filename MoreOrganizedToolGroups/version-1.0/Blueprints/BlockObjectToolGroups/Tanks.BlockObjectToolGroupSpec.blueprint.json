@@ -1,0 +1,23 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Tanks",
+        "Order": 60,
+        "NameLocKey": "LV.OG.GroupTanks",
+        "Icon": "Buildings/Storage/LargeTank/LargeTankIcon",
+        "FallbackGroup": false
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Storage", "Water" ]
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenToolsTemplateNames": [
+            "SmallTank.Folktails",
+            "MediumTank.Folktails",
+            "LargeTank.Folktails",
+            "SmallTank.IronTeeth",
+            "MediumTank.IronTeeth",
+            "LargeTank.IronTeeth"
+        ],
+        "DoNotIncludePlaceableToolGroup": true
+    }
+}

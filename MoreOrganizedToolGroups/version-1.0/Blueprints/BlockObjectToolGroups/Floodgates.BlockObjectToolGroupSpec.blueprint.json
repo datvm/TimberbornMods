@@ -1,0 +1,25 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Floodgates",
+        "Order": 10,
+        "NameLocKey": "LV.OG.GroupFloodgates",
+        "Icon": "Sprites/OrganizedGroups/Floodgates",
+        "FallbackGroup": false
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Landscaping" ]
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenToolsTemplateNames": [
+            "Floodgate.Folktails",
+            "DoubleFloodgate.Folktails",
+            "TripleFloodgate.Folktails",
+            "Sluice.Folktails",
+            "Floodgate.IronTeeth",
+            "DoubleFloodgate.IronTeeth",
+            "TripleFloodgate.IronTeeth",
+            "Sluice.IronTeeth"
+        ],
+        "DoNotIncludePlaceableToolGroup": true
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Overhangs",
+        "Order": 30,
+        "NameLocKey": "LV.OG.GroupOverhangs",
+        "Icon": "Sprites/OrganizedGroups/Overhangs",
+        "FallbackGroup": false
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenToolsTemplateNames": [
+            "Overhang2x1.Folktails",
+            "Overhang3x1.Folktails",
+            "Overhang4x1.Folktails",
+            "Overhang5x1.Folktails",
+            "Overhang6x1.Folktails",
+            "Overhang2x1.IronTeeth",
+            "Overhang3x1.IronTeeth",
+            "Overhang4x1.IronTeeth",
+            "Overhang5x1.IronTeeth",
+            "Overhang6x1.IronTeeth"
+        ],
+        "DoNotIncludePlaceableToolGroup": true
+    }
+}

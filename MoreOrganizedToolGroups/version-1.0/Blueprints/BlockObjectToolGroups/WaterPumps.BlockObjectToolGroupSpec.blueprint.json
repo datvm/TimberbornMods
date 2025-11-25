@@ -1,0 +1,26 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "WaterPumps",
+        "Order": 10,
+        "NameLocKey": "LV.OG.GroupWaterPumps",
+        "Icon": "Sprites/OrganizedGroups/WaterPumps",
+        "FallbackGroup": false
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Water" ]
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenToolsTemplateNames": [
+            "WaterPump.Folktails",
+            "DeepBadwaterPump.IronTeeth",
+            "LargeWaterPump.Folktails",
+            "BadwaterPump.Folktails",
+            "DeepBadwaterPump.IronTeeth",
+            "FluidDump.Folktails",
+            "FluidDump.IronTeeth",
+            "MechanicalFluidPump.Folktails",
+            "DeepMechanicalFluidPump.IronTeeth"
+        ],
+        "DoNotIncludePlaceableToolGroup": true
+    }
+}

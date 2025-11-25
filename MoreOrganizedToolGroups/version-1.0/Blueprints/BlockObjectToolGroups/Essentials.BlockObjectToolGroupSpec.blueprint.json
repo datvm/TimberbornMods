@@ -1,0 +1,15 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Essentials",
+        "Order": 45,
+        "NameLocKey": "LV.OG.GroupEssentials",
+        "Icon": "Sprites/OrganizedGroups/Essentials",
+        "FallbackGroup": false
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenGroupsIds": [
+            "Food",
+            "Water"
+        ]
+    }
+}

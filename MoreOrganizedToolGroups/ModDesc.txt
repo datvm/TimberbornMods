@@ -1,0 +1,63 @@
+﻿Powered by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3612110827]Moddable Tool Groups[/url], this mod reorganizes the tool groups in [i]my[/i] preferred way.
+
+[h2]Design philosophy[/h2]
+- Modded buildings (except mine!) are not supported. More Groups will be more suitable for that.
+- Groups as many groups and tools as possible together to make the toolbar more compact. You may lose more time opening more levels though.
+- Common tools are placed in multiple places that make sense, especially the Storage buildings: Platform is present in both Paths and its own group, storage groups (Piles, Warehouses and Tanks) are present in both Storage and relevant material production (I myself keep looking for Tanks in Water for example).
+
+[h2]Details[/h2]
+
+Anything not mentioned here stays at their original place.
+
+[list]
+	[*][b]Paths and Structures[/b]:
+		[list]
+			[*][b]Surfaces[/b]: New group containing 3 sub-groups: Platforms, Suspension Bridges and Overhangs. It also contains the two Metal Platforms
+			[*][b]Ziplines[/b]: Contains Folktails' Zipline Station, Beams and Pylons.
+			[*][b]Tubeways[/b]: Contains Iron Teeths' Tubeway Station, Tubeway and Vertical Tubeway.
+			[*]A copy of Platform (the level 1) is kept in Paths for easy access.
+		[/list]
+	[*][b]Landscaping[/b]:
+		[list]
+			[*][b]Floodgates & Sluices[/b]: New group containing Floodgates and Sluices.
+			[*][b]Explosives[/b]: New group containing Explosives Factory, Dynamites and Tunnels.
+		[/list]
+	
+	[*][b]Storage[/b]:
+		[list]
+			[*][b]Piles[/b]: New group containing all Pile buildings.
+			[*][b]Warehouses[/b]: New group containing all Warehouse buildings.
+			[*][b]Tanks[/b]: New group containing all Tank buildings.
+		[/list]
+	
+	[*][b]Essentials[/b]: New group that contains the original Water and Food groups.
+		[list]
+			[*][b]Water[/b]:
+				[list]
+					[*][b]Water Pumps:[/b] Contains all Water Pumps (including Badwater Pump), Water Dump and Mechanical Water Pump.
+					[*][b]Badwaters:[/b] Contains all Badwater buildings: Badwater Pumps, Barriers and Dome/Rig/Discharge.
+					[*]A copy of Tanks group is kept here for easy access.
+				[/list]			
+			[*][b]Food[/b]:
+				[list]
+					[*][b]Farming:[/b] Contains all Farming buildings: Gatherer Flags, Farms and Hydroponic Garden.
+					[*][b]Kitchen:[/b] Contains all buildings that further process food.
+					[*]A copy of Warehouses group is kept here for easy access.
+				[/list]						
+		[/list]	
+	[*][b]Production[/b]: New group that contains the original Wood and Metal groups.
+		[list]
+			[*][b]Wood[/b]: A copy of Piles group is kept here for easy access.			
+			[*][b]Metal[/b]: A copy of Piles group is kept here for easy access.						
+		[/list]	
+	[*][b]Recreation[/b]: New group that contains the original Wellbeing, Decorations and Monuments groups. Roofs are grouped in Decorations.
+	
+[/list]
+
+Note:
+- You should not use this mod together with other Tool Groups mods, pick one that you like the most.
+- As stated by Moddable Tool Groups, tutorial is disabled.
+- This mod is a pure JSON mod and you can further customize it by yourself if you want to and even make your own flavor and upload it to the Workshop.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

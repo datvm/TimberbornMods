@@ -1,0 +1,16 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Recreation",
+        "Order": 80,
+        "NameLocKey": "LV.OG.GroupRecreation",
+        "Icon": "Sprites/OrganizedGroups/Recreation",
+        "FallbackGroup": false
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenGroupsIds": [
+            "Wellbeing",
+            "Decoration",
+            "Monuments"
+        ]
+    }
+}

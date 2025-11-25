@@ -1,0 +1,26 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Surfaces",
+        "Order": 10,
+        "NameLocKey": "LV.OG.GroupSurfaces",
+        "Icon": "Sprites/OrganizedGroups/Surfaces",
+        "FallbackGroup": false
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Paths" ]
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenGroupsIds": [
+            "Platforms",
+            "Bridges",
+            "Overhangs"
+        ],
+        "ChildrenToolsTemplateNames": [
+            "MetalPlatform3x3.Folktails",
+            "MetalPlatform3x3.IronTeeth",
+            "MetalPlatform5x5.Folktails",
+            "MetalPlatform5x5.IronTeeth"
+        ],
+        "DoNotIncludePlaceableToolGroup": true
+    }
+}

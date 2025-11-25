@@ -1,0 +1,20 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Ziplines",
+        "Order": 20,
+        "NameLocKey": "LV.OG.GroupZiplines",
+        "Icon": "Buildings/Paths/ZiplineStation/ZiplineStationIcon",
+        "FallbackGroup": false
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Paths" ]
+    },
+    "ToolGroupChildrenSpec": {
+        "ChildrenToolsTemplateNames": [
+            "ZiplineStation.Folktails",
+            "ZiplinePylon.Folktails",
+            "ZiplineBeam.Folktails"
+        ],
+        "DoNotIncludePlaceableToolGroup": true
+    }
+}

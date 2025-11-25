@@ -4,7 +4,7 @@
 - For some funny reason, Tutorial will not work with this mod enabled. Just enable this mod once you have finished the Tutorial.
 - This mod does nothing on its own. It only provides a framework that other mods can use to add multi-level tool groups. You can pick any flavor from those mods.
 
-For modders: see the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3612111311]Demo Moddable Tool Groups mod[/url] for examples.
+For modders: see the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3612247861]More Organized Tool Groups mod[/url] for examples.
 
 This mod provides two specs: [b]ParentToolGroupSpec[/b] and [b]ToolGroupChildrenSpec[/b]:
 
