@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_INJURED_JUST_BORN_BEAVER",
+    "NameLoc": "LV.MTA.AchName_INJURED_JUST_BORN_BEAVER",
+    "IsSecret": true,
+    "Order": 7,
+    "Id": "INJURED_JUST_BORN_BEAVER",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/INJURED_JUST_BORN_BEAVER_ICON"
+  }
+}

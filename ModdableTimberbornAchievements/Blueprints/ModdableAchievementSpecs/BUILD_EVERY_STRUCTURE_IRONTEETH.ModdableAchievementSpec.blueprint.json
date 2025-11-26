@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_BUILD_EVERY_STRUCTURE_IRONTEETH",
+    "NameLoc": "LV.MTA.AchName_BUILD_EVERY_STRUCTURE_IRONTEETH",
+    "IsSecret": false,
+    "Order": 16,
+    "Id": "BUILD_EVERY_STRUCTURE_IRONTEETH",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/BUILD_EVERY_STRUCTURE_IRONTEETH_ICON"
+  }
+}

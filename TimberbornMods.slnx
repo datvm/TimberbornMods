@@ -87,6 +87,7 @@
     <Project Path="EvenMoreLights/EvenMoreLights.csproj" />
     <Project Path="HueAndTurn/HueAndTurn.csproj" />
     <Project Path="MacroManagement/MacroManagement.csproj" />
+    <Project Path="ModdableTimberbornAchievements/ModdableTimberbornAchievements.csproj" Id="3b3c126f-cf40-4fe0-ac31-e51b7683a150" />
     <Project Path="MoreNaming/MoreNaming.csproj" />
     <Project Path="Omnibar/Omnibar.csproj" />
     <Project Path="Pin/Pin.csproj" />

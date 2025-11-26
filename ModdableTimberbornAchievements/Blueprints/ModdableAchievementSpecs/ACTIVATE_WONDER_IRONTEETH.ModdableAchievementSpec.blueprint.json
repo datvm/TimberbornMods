@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_ACTIVATE_WONDER_IRONTEETH",
+    "NameLoc": "LV.MTA.AchName_ACTIVATE_WONDER_IRONTEETH",
+    "IsSecret": false,
+    "Order": 41,
+    "Id": "ACTIVATE_WONDER_IRONTEETH",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/ACTIVATE_WONDER_IRONTEETH_ICON"
+  }
+}

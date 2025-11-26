@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_BUILD_WONDER_BEFORE_CYCLE",
+    "NameLoc": "LV.MTA.AchName_BUILD_WONDER_BEFORE_CYCLE",
+    "IsSecret": false,
+    "Order": 36,
+    "Id": "BUILD_WONDER_BEFORE_CYCLE",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/BUILD_WONDER_BEFORE_CYCLE_ICON"
+  }
+}

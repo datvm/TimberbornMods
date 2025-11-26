@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_ACTIVATE_WONDER_FOLKTAILS",
+    "NameLoc": "LV.MTA.AchName_ACTIVATE_WONDER_FOLKTAILS",
+    "IsSecret": false,
+    "Order": 21,
+    "Id": "ACTIVATE_WONDER_FOLKTAILS",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/ACTIVATE_WONDER_FOLKTAILS_ICON"
+  }
+}

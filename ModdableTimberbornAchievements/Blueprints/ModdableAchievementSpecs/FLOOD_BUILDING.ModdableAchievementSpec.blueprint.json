@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_FLOOD_BUILDING",
+    "NameLoc": "LV.MTA.AchName_FLOOD_BUILDING",
+    "IsSecret": true,
+    "Order": 59,
+    "Id": "FLOOD_BUILDING",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/FLOOD_BUILDING_ICON"
+  }
+}

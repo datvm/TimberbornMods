@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_LARGE_TUBEWAY_NETWORK",
+    "NameLoc": "LV.MTA.AchName_LARGE_TUBEWAY_NETWORK",
+    "IsSecret": false,
+    "Order": 55,
+    "Id": "LARGE_TUBEWAY_NETWORK",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/LARGE_TUBEWAY_NETWORK_ICON"
+  }
+}

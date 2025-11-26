@@ -13,6 +13,13 @@ public static partial class UiBuilderExtensions
         return parent.AddImage(name: name, additionalClasses: [className, .. additionalClasses ?? []]);
     }
 
+    public static Image AddImage(this VisualElement parent, Sprite sprite, string? name = default, IEnumerable<string>? additionalClasses = default)
+    {
+        var i = parent.AddImage(name: name, additionalClasses: additionalClasses);
+        i.sprite = sprite;
+        return i;
+    }
+
     public static Image AddImage<T>(this VisualElement parent, T texture, string? name = default, IEnumerable<string>? additionalClasses = default) where T : Texture
     {
         var i = parent.AddImage(name: name, additionalClasses: additionalClasses);

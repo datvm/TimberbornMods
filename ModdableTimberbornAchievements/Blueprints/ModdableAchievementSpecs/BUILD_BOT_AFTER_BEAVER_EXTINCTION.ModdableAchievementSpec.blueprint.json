@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_BUILD_BOT_AFTER_BEAVER_EXTINCTION",
+    "NameLoc": "LV.MTA.AchName_BUILD_BOT_AFTER_BEAVER_EXTINCTION",
+    "IsSecret": true,
+    "Order": 54,
+    "Id": "BUILD_BOT_AFTER_BEAVER_EXTINCTION",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/BUILD_BOT_AFTER_BEAVER_EXTINCTION_ICON"
+  }
+}

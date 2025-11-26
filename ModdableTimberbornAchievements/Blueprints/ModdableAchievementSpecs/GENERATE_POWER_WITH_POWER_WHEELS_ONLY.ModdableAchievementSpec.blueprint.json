@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_GENERATE_POWER_WITH_POWER_WHEELS_ONLY",
+    "NameLoc": "LV.MTA.AchName_GENERATE_POWER_WITH_POWER_WHEELS_ONLY",
+    "IsSecret": false,
+    "Order": 9,
+    "Id": "GENERATE_POWER_WITH_POWER_WHEELS_ONLY",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/GENERATE_POWER_WITH_POWER_WHEELS_ONLY_ICON"
+  }
+}

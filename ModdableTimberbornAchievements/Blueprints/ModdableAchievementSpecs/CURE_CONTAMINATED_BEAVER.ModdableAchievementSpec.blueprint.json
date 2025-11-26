@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_CURE_CONTAMINATED_BEAVER",
+    "NameLoc": "LV.MTA.AchName_CURE_CONTAMINATED_BEAVER",
+    "IsSecret": false,
+    "Order": 58,
+    "Id": "CURE_CONTAMINATED_BEAVER",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/CURE_CONTAMINATED_BEAVER_ICON"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_UNLOCK_IRON_TEETH",
+    "NameLoc": "LV.MTA.AchName_UNLOCK_IRON_TEETH",
+    "IsSecret": false,
+    "Order": 15,
+    "Id": "UNLOCK_IRON_TEETH",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/UNLOCK_IRON_TEETH_ICON"
+  }
+}

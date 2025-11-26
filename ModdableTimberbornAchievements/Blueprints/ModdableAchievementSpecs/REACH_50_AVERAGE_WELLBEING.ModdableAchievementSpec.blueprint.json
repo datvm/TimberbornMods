@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_REACH_50_AVERAGE_WELLBEING",
+    "NameLoc": "LV.MTA.AchName_REACH_50_AVERAGE_WELLBEING",
+    "IsSecret": false,
+    "Order": 46,
+    "Id": "REACH_50_AVERAGE_WELLBEING",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/REACH_50_AVERAGE_WELLBEING_ICON"
+  }
+}

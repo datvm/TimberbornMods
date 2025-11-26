@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_PLANT_10000_TREES",
+    "NameLoc": "LV.MTA.AchName_PLANT_10000_TREES",
+    "IsSecret": false,
+    "Order": 3,
+    "Id": "PLANT_10000_TREES",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/PLANT_10000_TREES_ICON"
+  }
+}

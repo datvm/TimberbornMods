@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_PRODUCE_PLANKS_IN_DAY",
+    "NameLoc": "LV.MTA.AchName_PRODUCE_PLANKS_IN_DAY",
+    "IsSecret": false,
+    "Order": 31,
+    "Id": "PRODUCE_PLANKS_IN_DAY",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/PRODUCE_PLANKS_IN_DAY_ICON"
+  }
+}

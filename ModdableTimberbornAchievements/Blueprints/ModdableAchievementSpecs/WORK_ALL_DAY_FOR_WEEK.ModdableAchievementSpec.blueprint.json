@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_WORK_ALL_DAY_FOR_WEEK",
+    "NameLoc": "LV.MTA.AchName_WORK_ALL_DAY_FOR_WEEK",
+    "IsSecret": false,
+    "Order": 8,
+    "Id": "WORK_ALL_DAY_FOR_WEEK",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/WORK_ALL_DAY_FOR_WEEK_ICON"
+  }
+}

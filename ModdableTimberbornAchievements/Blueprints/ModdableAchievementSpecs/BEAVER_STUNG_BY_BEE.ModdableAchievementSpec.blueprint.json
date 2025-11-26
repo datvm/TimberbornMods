@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_BEAVER_STUNG_BY_BEE",
+    "NameLoc": "LV.MTA.AchName_BEAVER_STUNG_BY_BEE",
+    "IsSecret": true,
+    "Order": 25,
+    "Id": "BEAVER_STUNG_BY_BEE",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/BEAVER_STUNG_BY_BEE_ICON"
+  }
+}

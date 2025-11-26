@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_BADTIDE_STREAK",
+    "NameLoc": "LV.MTA.AchName_BADTIDE_STREAK",
+    "IsSecret": true,
+    "Order": 23,
+    "Id": "BADTIDE_STREAK",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/BADTIDE_STREAK_ICON"
+  }
+}

@@ -228,4 +228,21 @@ public static partial class UiBuilderExtensions
         return element;
     }
 
+    public static T SetBorder<T>(this T element, Color? color = null, float ? width = null) where T : VisualElement
+    {
+        var s = element.style;
+
+        if (width is not null)
+        {
+            s.borderTopWidth = s.borderRightWidth = s.borderBottomWidth = s.borderLeftWidth = width.Value;
+        }
+
+        if (color is not null)
+        {
+            s.borderTopColor = s.borderRightColor = s.borderBottomColor = s.borderLeftColor = color.Value;
+        }
+
+        return element;
+    }
+
 }

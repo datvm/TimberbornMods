@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_SURVIVE_BADTIDE",
+    "NameLoc": "LV.MTA.AchName_SURVIVE_BADTIDE",
+    "IsSecret": false,
+    "Order": 24,
+    "Id": "SURVIVE_BADTIDE",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/SURVIVE_BADTIDE_ICON"
+  }
+}

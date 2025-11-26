@@ -1,0 +1,11 @@
+﻿{
+    "Name": "Moddable Timberborn Achievements",
+    "Version": "1.0.0",
+    "Id": "ModdableTimberbornAchievements",
+    "MinimumGameVersion": "1.0.4",
+    "Description": "Manage achievements",
+    "RequiredMods": [
+        { "Id": "Harmony" },
+        { "Id": "TimberUi", "MinimumVersion": "10.0.2" }
+    ]
+}

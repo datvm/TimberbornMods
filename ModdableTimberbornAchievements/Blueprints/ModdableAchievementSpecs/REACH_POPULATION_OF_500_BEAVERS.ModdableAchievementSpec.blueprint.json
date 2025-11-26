@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_REACH_POPULATION_OF_500_BEAVERS",
+    "NameLoc": "LV.MTA.AchName_REACH_POPULATION_OF_500_BEAVERS",
+    "IsSecret": false,
+    "Order": 28,
+    "Id": "REACH_POPULATION_OF_500_BEAVERS",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/REACH_POPULATION_OF_500_BEAVERS_ICON"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_BUILD_STACKED_HYDROPONIC_GARDENS",
+    "NameLoc": "LV.MTA.AchName_BUILD_STACKED_HYDROPONIC_GARDENS",
+    "IsSecret": false,
+    "Order": 12,
+    "Id": "BUILD_STACKED_HYDROPONIC_GARDENS",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/BUILD_STACKED_HYDROPONIC_GARDENS_ICON"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_SURVIVE_20_CYCLES",
+    "NameLoc": "LV.MTA.AchName_SURVIVE_20_CYCLES",
+    "IsSecret": false,
+    "Order": 57,
+    "Id": "SURVIVE_20_CYCLES",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/SURVIVE_20_CYCLES_ICON"
+  }
+}

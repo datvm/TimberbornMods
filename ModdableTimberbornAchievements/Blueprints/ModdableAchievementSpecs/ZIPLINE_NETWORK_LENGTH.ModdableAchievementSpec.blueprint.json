@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_ZIPLINE_NETWORK_LENGTH",
+    "NameLoc": "LV.MTA.AchName_ZIPLINE_NETWORK_LENGTH",
+    "IsSecret": false,
+    "Order": 37,
+    "Id": "ZIPLINE_NETWORK_LENGTH",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/ZIPLINE_NETWORK_LENGTH_ICON"
+  }
+}

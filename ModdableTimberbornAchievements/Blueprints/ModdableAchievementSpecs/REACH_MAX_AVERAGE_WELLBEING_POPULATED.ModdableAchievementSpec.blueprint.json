@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_REACH_MAX_AVERAGE_WELLBEING_POPULATED",
+    "NameLoc": "LV.MTA.AchName_REACH_MAX_AVERAGE_WELLBEING_POPULATED",
+    "IsSecret": false,
+    "Order": 40,
+    "Id": "REACH_MAX_AVERAGE_WELLBEING_POPULATED",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/REACH_MAX_AVERAGE_WELLBEING_POPULATED_ICON"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_DEMOLISH_AND_REBUILD",
+    "NameLoc": "LV.MTA.AchName_DEMOLISH_AND_REBUILD",
+    "IsSecret": true,
+    "Order": 17,
+    "Id": "DEMOLISH_AND_REBUILD",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/DEMOLISH_AND_REBUILD_ICON"
+  }
+}

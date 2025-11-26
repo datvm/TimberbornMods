@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_BATTERY_CHARGE_STORAGE",
+    "NameLoc": "LV.MTA.AchName_BATTERY_CHARGE_STORAGE",
+    "IsSecret": false,
+    "Order": 32,
+    "Id": "BATTERY_CHARGE_STORAGE",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/BATTERY_CHARGE_STORAGE_ICON"
+  }
+}
