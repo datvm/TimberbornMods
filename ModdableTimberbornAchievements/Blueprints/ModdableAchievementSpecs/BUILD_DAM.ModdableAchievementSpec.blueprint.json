@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_BUILD_DAM",
+    "NameLoc": "LV.MTA.AchName_BUILD_DAM",
+    "IsSecret": false,
+    "Order": 18,
+    "Id": "BUILD_DAM",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/BUILD_DAM_ICON"
+  }
+}

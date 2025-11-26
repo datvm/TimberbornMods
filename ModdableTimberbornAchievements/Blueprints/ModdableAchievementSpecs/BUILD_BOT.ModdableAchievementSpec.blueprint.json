@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_BUILD_BOT",
+    "NameLoc": "LV.MTA.AchName_BUILD_BOT",
+    "IsSecret": false,
+    "Order": 6,
+    "Id": "BUILD_BOT",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/BUILD_BOT_ICON"
+  }
+}

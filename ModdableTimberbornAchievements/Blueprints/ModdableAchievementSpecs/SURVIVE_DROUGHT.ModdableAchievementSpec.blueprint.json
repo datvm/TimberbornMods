@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_SURVIVE_DROUGHT",
+    "NameLoc": "LV.MTA.AchName_SURVIVE_DROUGHT",
+    "IsSecret": false,
+    "Order": 39,
+    "Id": "SURVIVE_DROUGHT",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/SURVIVE_DROUGHT_ICON"
+  }
+}

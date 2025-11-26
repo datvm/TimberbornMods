@@ -1,0 +1,8 @@
+﻿{
+    "ModdableAchievementGroupSpec": {
+        "Id": "Steam",
+        "NameLoc": "LV.MTA.GroupSteam",
+        "Order": 10,
+        "Icon": "Sprites/AchievementGroups/SteamIcon"
+    }
+}

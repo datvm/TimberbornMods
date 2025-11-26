@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_BUILD_CAMPFIRE",
+    "NameLoc": "LV.MTA.AchName_BUILD_CAMPFIRE",
+    "IsSecret": false,
+    "Order": 5,
+    "Id": "BUILD_CAMPFIRE",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/BUILD_CAMPFIRE_ICON"
+  }
+}

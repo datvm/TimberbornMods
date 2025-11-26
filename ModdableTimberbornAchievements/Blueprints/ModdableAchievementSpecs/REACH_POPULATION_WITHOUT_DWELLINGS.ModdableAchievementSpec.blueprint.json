@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_REACH_POPULATION_WITHOUT_DWELLINGS",
+    "NameLoc": "LV.MTA.AchName_REACH_POPULATION_WITHOUT_DWELLINGS",
+    "IsSecret": false,
+    "Order": 56,
+    "Id": "REACH_POPULATION_WITHOUT_DWELLINGS",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/REACH_POPULATION_WITHOUT_DWELLINGS_ICON"
+  }
+}

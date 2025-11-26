@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_REACH_BUILD_HEIGHT_LIMIT",
+    "NameLoc": "LV.MTA.AchName_REACH_BUILD_HEIGHT_LIMIT",
+    "IsSecret": false,
+    "Order": 38,
+    "Id": "REACH_BUILD_HEIGHT_LIMIT",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/REACH_BUILD_HEIGHT_LIMIT_ICON"
+  }
+}

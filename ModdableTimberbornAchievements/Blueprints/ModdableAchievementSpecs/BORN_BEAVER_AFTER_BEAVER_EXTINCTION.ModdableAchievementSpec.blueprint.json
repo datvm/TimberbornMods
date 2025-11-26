@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_BORN_BEAVER_AFTER_BEAVER_EXTINCTION",
+    "NameLoc": "LV.MTA.AchName_BORN_BEAVER_AFTER_BEAVER_EXTINCTION",
+    "IsSecret": true,
+    "Order": 4,
+    "Id": "BORN_BEAVER_AFTER_BEAVER_EXTINCTION",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/BORN_BEAVER_AFTER_BEAVER_EXTINCTION_ICON"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_PLACE_DYNAMITE_AT_BOTTOM",
+    "NameLoc": "LV.MTA.AchName_PLACE_DYNAMITE_AT_BOTTOM",
+    "IsSecret": true,
+    "Order": 35,
+    "Id": "PLACE_DYNAMITE_AT_BOTTOM",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/PLACE_DYNAMITE_AT_BOTTOM_ICON"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_EXPLODE_DYNAMITE_IN_SINGLE_DAY",
+    "NameLoc": "LV.MTA.AchName_EXPLODE_DYNAMITE_IN_SINGLE_DAY",
+    "IsSecret": false,
+    "Order": 14,
+    "Id": "EXPLODE_DYNAMITE_IN_SINGLE_DAY",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/EXPLODE_DYNAMITE_IN_SINGLE_DAY_ICON"
+  }
+}

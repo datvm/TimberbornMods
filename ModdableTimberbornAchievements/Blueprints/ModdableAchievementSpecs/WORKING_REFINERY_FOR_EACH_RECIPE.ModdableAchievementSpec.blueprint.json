@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_WORKING_REFINERY_FOR_EACH_RECIPE",
+    "NameLoc": "LV.MTA.AchName_WORKING_REFINERY_FOR_EACH_RECIPE",
+    "IsSecret": false,
+    "Order": 34,
+    "Id": "WORKING_REFINERY_FOR_EACH_RECIPE",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/WORKING_REFINERY_FOR_EACH_RECIPE_ICON"
+  }
+}

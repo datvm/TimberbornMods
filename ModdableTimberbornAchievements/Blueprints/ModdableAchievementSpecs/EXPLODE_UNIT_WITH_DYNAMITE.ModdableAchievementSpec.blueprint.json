@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_EXPLODE_UNIT_WITH_DYNAMITE",
+    "NameLoc": "LV.MTA.AchName_EXPLODE_UNIT_WITH_DYNAMITE",
+    "IsSecret": true,
+    "Order": 29,
+    "Id": "EXPLODE_UNIT_WITH_DYNAMITE",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/EXPLODE_UNIT_WITH_DYNAMITE_ICON"
+  }
+}

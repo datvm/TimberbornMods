@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_PLUG_ALL_BADWATER_SOURCES",
+    "NameLoc": "LV.MTA.AchName_PLUG_ALL_BADWATER_SOURCES",
+    "IsSecret": false,
+    "Order": 22,
+    "Id": "PLUG_ALL_BADWATER_SOURCES",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/PLUG_ALL_BADWATER_SOURCES_ICON"
+  }
+}

@@ -372,6 +372,32 @@ public static partial class UiBuilderExtensions
         => configurator.IsBound(typeof(T));
 
     /// <summary>
+    /// Tries to get the bound type for a given type in the configurator's registry and outputs it.
+    /// </summary>
+    /// <param name="configurator">The configurator to check for the bound type.</param>
+    /// <param name="type">The type to check for a bound type.</param>
+    /// <param name="boundType">The output parameter that will hold the bound type if found; otherwise, <see langword="null"/>.</param>
+    /// <returns><see langword="true"/> if the bound type was found; otherwise, <see langword="false"/>.</returns>
+    public static bool TryGetBound(this Configurator configurator, Type type, [NotNullWhen(true)] out Type? boundType)
+    {
+        var registry = GetRegistry(configurator);
+
+        if (!registry._boundBindingBuilders.TryGetValue(type, out var bindingBuilder))
+        {
+            boundType = null;
+            return false;
+        }
+
+        var provisionBinding = GetProvisionBinding(bindingBuilder);
+        boundType = provisionBinding.Type;
+        return true;
+    }
+
+    /// <inheritdoc cref="TryGetBound(Configurator, Type, out Type?)"/>
+    public static bool TryGetBound<T>(this Configurator configurator, [NotNullWhen(true)] out Type? boundType) where T : class
+        => configurator.TryGetBound(typeof(T), out boundType);
+
+    /// <summary>
     /// Checks if a type is multi-bound in the configurator's registry.
     /// </summary>
     /// <param name="src">
@@ -388,10 +414,7 @@ public static partial class UiBuilderExtensions
         var registry = GetRegistry(configurator);
         if (!registry._boundMultiBindingBuilders.TryGetValue(src, out var bindings)) { return false; }
 
-        return bindings.Any(q =>
-            q.GetType().GetField("_provisionBinding", InstanceBindingFlags)
-                .GetValue(q) is ProvisionBinding pb
-                && pb.Type == impl);
+        return bindings.Any(q => GetProvisionBinding(q).Type == impl);
     }
 
     /// <inheritdoc cref="IsMultiBound(Configurator, Type, Type)"/>
@@ -439,6 +462,13 @@ public static partial class UiBuilderExtensions
         where TImpl : class, TSrc
     {
         return configurator.TryMultiBind(typeof(TSrc), typeof(TImpl), toExisting);
+    }
+
+    static ProvisionBinding GetProvisionBinding(object bindingBuilder)
+    {
+        var provisionBindingField = bindingBuilder.GetType()
+            .GetField(nameof(BindingBuilder<>._provisionBinding), InstanceBindingFlags);
+        return (ProvisionBinding)provisionBindingField.GetValue(bindingBuilder);
     }
 
     #endregion

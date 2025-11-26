@@ -59,4 +59,15 @@ public static partial class UiBuilderExtensions
     public static Configurator TryBindingSystemFileDialogService(this Configurator configurator)
         => ISystemFileDialogService.TryBinding(configurator);
 
+    /// <summary>
+    /// Try to bind the SpriteOperationsConfigurator so you can deserialize Specs with Sprite. Only call this in MainMenu context.
+    /// </summary>
+    public static Configurator TryBindingSpriteOperations(this Configurator configurator)
+    {
+        if (configurator.IsBound<SpriteResizer>()) { return configurator; }
+
+        new SpriteOperationsConfigurator().Configure(configurator._containerDefinition);
+        return configurator;
+    }
+
 }

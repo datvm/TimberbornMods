@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_BEAVER_DIES_HUNGRY_THIRSTY_INJURED_SICK",
+    "NameLoc": "LV.MTA.AchName_BEAVER_DIES_HUNGRY_THIRSTY_INJURED_SICK",
+    "IsSecret": true,
+    "Order": 33,
+    "Id": "BEAVER_DIES_HUNGRY_THIRSTY_INJURED_SICK",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/BEAVER_DIES_HUNGRY_THIRSTY_INJURED_SICK_ICON"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_ACTIVATE_MULTIPLE_WONDERS",
+    "NameLoc": "LV.MTA.AchName_ACTIVATE_MULTIPLE_WONDERS",
+    "IsSecret": false,
+    "Order": 30,
+    "Id": "ACTIVATE_MULTIPLE_WONDERS",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/ACTIVATE_MULTIPLE_WONDERS_ICON"
+  }
+}

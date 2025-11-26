@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_MAPLE_PASTRY_ONLY",
+    "NameLoc": "LV.MTA.AchName_MAPLE_PASTRY_ONLY",
+    "IsSecret": false,
+    "Order": 44,
+    "Id": "MAPLE_PASTRY_ONLY",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/MAPLE_PASTRY_ONLY_ICON"
+  }
+}

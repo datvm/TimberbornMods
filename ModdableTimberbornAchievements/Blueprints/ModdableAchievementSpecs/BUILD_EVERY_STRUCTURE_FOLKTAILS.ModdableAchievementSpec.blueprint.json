@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_BUILD_EVERY_STRUCTURE_FOLKTAILS",
+    "NameLoc": "LV.MTA.AchName_BUILD_EVERY_STRUCTURE_FOLKTAILS",
+    "IsSecret": false,
+    "Order": 11,
+    "Id": "BUILD_EVERY_STRUCTURE_FOLKTAILS",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/BUILD_EVERY_STRUCTURE_FOLKTAILS_ICON"
+  }
+}

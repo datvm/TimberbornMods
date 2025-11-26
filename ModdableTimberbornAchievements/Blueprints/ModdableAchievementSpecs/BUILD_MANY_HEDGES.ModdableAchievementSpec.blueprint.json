@@ -1,0 +1,11 @@
+{
+  "ModdableAchievementSpec": {
+    "DescLoc": "LV.MTA.AchDesc_BUILD_MANY_HEDGES",
+    "NameLoc": "LV.MTA.AchName_BUILD_MANY_HEDGES",
+    "IsSecret": false,
+    "Order": 13,
+    "Id": "BUILD_MANY_HEDGES",
+    "GroupId": "Steam",
+    "Icon": "Sprites/Achievements/BUILD_MANY_HEDGES_ICON"
+  }
+}

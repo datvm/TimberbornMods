@@ -64,6 +64,7 @@ public static partial class UiBuilderExtensions
     public static VisualElement InsertSelfBefore(this VisualElement element, VisualElement target) => element.InsertSelfAsSibling(target, 0);
     public static VisualElement InsertSelfAfter(this VisualElement element, VisualElement target) => element.InsertSelfAsSibling(target, 1);
 
+    [Obsolete($"Use the built-in {nameof(VisualElement.RemoveFromHierarchy)} instead.")]
     public static T RemoveSelf<T>(this T element) where T : VisualElement
     {
         var parent = element.parent;
