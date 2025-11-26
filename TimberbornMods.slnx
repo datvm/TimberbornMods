@@ -147,6 +147,7 @@
     <File Path=".editorconfig" />
     <Project Path="FileFinder/FileFinder.csproj" />
     <Project Path="GameAssemblyPublicizer/GameAssemblyPublicizer.csproj" />
+    <Project Path="GameAssemblyUsingGenerator/GameAssemblyUsingGenerator.csproj" Id="0a90bfcf-d0de-4970-a0f0-9ef778e41a70" />
     <Project Path="ModAnalyzers/ModAnalyzers.csproj" />
     <Project Path="StartGame/StartGame.csproj" />
     <Project Path="TimbermeshMaterialPatcher/TimbermeshMaterialPatcher.csproj" />

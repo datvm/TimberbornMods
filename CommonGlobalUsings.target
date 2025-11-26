@@ -26,12 +26,7 @@
 		<Using Include="UnityEngine.UIElements" />
 		<Using Include="UnityEngine.InputSystem" />
 
-		<Using Include="Timberborn.NewGameConfigurationSystem"/>
-		<Using Include="Timberborn.Yielding"/>
-		<Using Include="Timberborn.YieldingUI"/>
-		<Using Include="Timberborn.ZiplineMovementSystem"/>
-		<Using Include="Timberborn.ZiplineSystem"/>
-		<Using Include="Timberborn.ZiplineSystemUI"/>
+		<Using Include="Timberborn.AccessibilitySettingsSystem"/>
 		<Using Include="Timberborn.AccessibleNavigation"/>
 		<Using Include="Timberborn.Achievements"/>
 		<Using Include="Timberborn.AchievementSystem"/>
@@ -202,6 +197,7 @@
 		<Using Include="Timberborn.GoodStackSystem"/>
 		<Using Include="Timberborn.GoodStackSystemUI"/>
 		<Using Include="Timberborn.GoodsUI"/>
+		<Using Include="Timberborn.GraphicsQualitySystem"/>
 		<Using Include="Timberborn.GridTraversing"/>
 		<Using Include="Timberborn.Growing"/>
 		<Using Include="Timberborn.GrowingUI"/>
@@ -304,6 +300,7 @@
 		<Using Include="Timberborn.NeedSpecs"/>
 		<Using Include="Timberborn.NeedSuspending"/>
 		<Using Include="Timberborn.NeedSystem"/>
+		<Using Include="Timberborn.NewGameConfigurationSystem"/>
 		<Using Include="Timberborn.NotificationSystem"/>
 		<Using Include="Timberborn.NotificationSystemUI"/>
 		<Using Include="Timberborn.Options"/>
@@ -445,6 +442,7 @@
 		<Using Include="Timberborn.TransformControl"/>
 		<Using Include="Timberborn.TubeSystem"/>
 		<Using Include="Timberborn.TutorialSettingsSystem"/>
+		<Using Include="Timberborn.TutorialSteps"/>
 		<Using Include="Timberborn.TutorialSystem"/>
 		<Using Include="Timberborn.TutorialSystemUI"/>
 		<Using Include="Timberborn.UIFormatters"/>
@@ -464,6 +462,7 @@
 		<Using Include="Timberborn.WaterContaminationBuildings"/>
 		<Using Include="Timberborn.WaterContaminationBuildingsUI"/>
 		<Using Include="Timberborn.WaterObjects"/>
+		<Using Include="Timberborn.WaterSourceRendering"/>
 		<Using Include="Timberborn.WaterSourceSystem"/>
 		<Using Include="Timberborn.WaterSourceSystemUI"/>
 		<Using Include="Timberborn.WaterSystem"/>
@@ -494,5 +493,12 @@
 		<Using Include="Timberborn.WorldPersistence"/>
 		<Using Include="Timberborn.WorldSerialization"/>
 		<Using Include="Timberborn.YielderFinding"/>
+		<Using Include="Timberborn.Yielding"/>
+		<Using Include="Timberborn.YieldingUI"/>
+		<Using Include="Timberborn.ZiplineMovementSystem"/>
+		<Using Include="Timberborn.ZiplineSystem"/>
+		<Using Include="Timberborn.ZiplineSystemUI"/>
+
+
 	</ItemGroup>
 </Project>
