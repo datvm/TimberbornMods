@@ -1,5 +1,4 @@
-﻿
-namespace UnityEngine.UIElements;
+﻿namespace UnityEngine.UIElements;
 
 public static partial class UiBuilderExtensions
 {
@@ -67,7 +66,7 @@ public static partial class UiBuilderExtensions
 
     public static NineSliceButton AddStretchedEntityFragmentButton(this VisualElement parent, string? text = default, Action? onClick = default, string? name = default, IEnumerable<string>? additionalClasses = default, EntityFragmentButtonColor color = default, bool stretched = false)
     {
-        return AddButton(parent, text, name, onClick, 
+        return AddButton(parent, text, name, onClick,
             [UiCssClasses.LabelEntityPanelText, GetColorClass(color), .. additionalClasses ?? []],
             GameButtonStyle.EntityFragment);
     }
@@ -169,6 +168,34 @@ public static partial class UiBuilderExtensions
         }
 
         return result;
+    }
+
+    public static ClosableAlertElement AddClosableAlert(this VisualElement parent, AlertPanelRowFactory factory, string iconName, string? text, Action? buttonAction, Action? closeButtonAction, string? name = default)
+    {
+        var el = new ClosableAlertElement(factory, iconName);
+
+        if (text is not null)
+        {
+            el.SetText(text);
+        }
+
+        if (buttonAction is not null)
+        {
+            el.SetButtonCallback(buttonAction);
+        }
+
+        if (closeButtonAction is not null)
+        {
+            el.AddCloseCallback(closeButtonAction);
+        }
+
+        if (name is not null)
+        {
+            el.Root.name = name;
+        }
+
+        parent.Add(el.Root);
+        return el;
     }
 
 }

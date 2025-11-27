@@ -7,7 +7,8 @@ public class ModdableStoreAchievement(
     ModdableAchievementSpecService specs
 ) : IStoreAchievements
 {
-    public static readonly string FilePath = Path.Combine(PlayerDataFileService.PlayerDataDirectory, "ModdableAchievements.json");
+    internal static bool DisableSyncing = false;
+
     internal static Type? OriginalStoreAchievementType;
 
     IStoreAchievements? original;
@@ -43,7 +44,7 @@ public class ModdableStoreAchievement(
 
     void SyncStoreUnlocked()
     {
-        if (original is null) { return; }
+        if (DisableSyncing || original is null) { return; }
 
         List<string> ids = [];
         foreach (var achievement in Achievements)

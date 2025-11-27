@@ -1,0 +1,8 @@
+﻿{
+    "ModdableAchievementGroupSpec": {
+        "Id": "Demo",
+        "NameLoc": "LV.DMTA.GroupName",
+        "Order": -100,
+        "Icon": "Sprites/AchievementGroups/DemoIcon"
+    }
+}

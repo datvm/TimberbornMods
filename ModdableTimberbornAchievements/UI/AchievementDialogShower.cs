@@ -16,7 +16,7 @@ public abstract class BaseAchievementDialogShower(
         btn.InsertSelfBefore(settingsBtn);
     }
 
-    void ShowDialog()
+    public void ShowDialog()
     {
         var diag = container.GetInstance<AchievementDialog>();
         diag.Show(initializer: null, panelStack);

@@ -1,0 +1,11 @@
+﻿{
+    "ModdableAchievementSpec": {
+        "DescLoc": "LV.DMTA.Ach1Desc",
+        "NameLoc": "LV.DMTA.Ach1Name",
+        "IsSecret": false,
+        "Order": 10,
+        "Id": "DemoAchievement",
+        "GroupId": "Demo",
+        "Icon": "Sprites/Achievements/DemoAchievement"
+    }
+}
