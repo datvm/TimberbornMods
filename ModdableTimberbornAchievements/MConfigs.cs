@@ -35,6 +35,8 @@ public class MGameConfig : Configurator
     {
         this
             .BindSingleton<GameAchievementDialogShower>()
+            
+            .BindAlertFragment<AchievementAlert>()
         ;
     }
 }

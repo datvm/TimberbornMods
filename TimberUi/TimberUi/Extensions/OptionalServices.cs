@@ -70,4 +70,9 @@ public static partial class UiBuilderExtensions
         return configurator;
     }
 
+    public static Configurator BindAchievement<T>(this Configurator configurator, bool bindSelf = false) where T : Achievement =>
+        bindSelf
+            ? configurator.MultiBindAndBindSingleton<Achievement, T>()
+            : configurator.MultiBindSingleton<Achievement, T>();
+
 }

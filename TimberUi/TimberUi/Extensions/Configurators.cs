@@ -1,6 +1,4 @@
-﻿
-
-namespace Bindito.Core;
+﻿namespace Bindito.Core;
 
 public static partial class UiBuilderExtensions
 {
@@ -96,6 +94,17 @@ public static partial class UiBuilderExtensions
         => configurator
             .BindFragment<T>()
             .BindFragmentOrder<T>();
+
+    /// <summary>
+    /// Binds an alert fragment of type <typeparamref name="T"/> to the configurator.
+    /// </summary>
+    public static Configurator BindAlertFragment<T>(this Configurator configurator) where T : class, IAlertFragmentWithOrder
+    {
+        configurator.BindSingleton<T>();
+        configurator.MultiBind<AlertPanelModule>().ToProvider<AlertFragmentProvider<T>>().AsSingleton();
+
+        return configurator;
+    }
 
     #endregion
 

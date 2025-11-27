@@ -21,10 +21,16 @@ public class ModdableAchievementSpecService(ISpecService specs) : ILoadableSingl
         Achievements = [.. specs.GetSpecs<ModdableAchievementSpec>().OrderBy(q => q.Order)];
         foreach (var ach in Achievements)
         {
+            var grpId = ach.GroupId;
+            if (!AchievementGroupsByIds.ContainsKey(grpId))
+            {
+                throw new Exception($"Achievement '{ach.Id}' references unknown group id '{grpId}'");
+            }
+
             var id = ach.Id;
 
             achievementSpecs[id] = ach;
-            achievementsByGroupIds.GetOrAdd(ach.GroupId).Add(ach);
+            achievementsByGroupIds.GetOrAdd(grpId).Add(ach);
         }
 
         AchievementsByIds = achievementSpecs.ToFrozenDictionary();

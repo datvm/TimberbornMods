@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Demo Moddable Timberborn Achievements",
+    "Version": "10.0.0",
+    "Id": "DemoModdableAchievements",
+    "MinimumGameVersion": "1.0.4",
+    "Description": "Manage achievements",
+    "RequiredMods": [
+        { "Id": "ModdableTimberbornAchievements" }
+    ]
+}

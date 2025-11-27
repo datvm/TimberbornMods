@@ -87,7 +87,6 @@
     <Project Path="EvenMoreLights/EvenMoreLights.csproj" />
     <Project Path="HueAndTurn/HueAndTurn.csproj" />
     <Project Path="MacroManagement/MacroManagement.csproj" />
-    <Project Path="ModdableTimberbornAchievements/ModdableTimberbornAchievements.csproj" Id="3b3c126f-cf40-4fe0-ac31-e51b7683a150" />
     <Project Path="MoreNaming/MoreNaming.csproj" />
     <Project Path="Omnibar/Omnibar.csproj" />
     <Project Path="Pin/Pin.csproj" />
@@ -98,6 +97,10 @@
     <Project Path="SyncableSettings/SyncableSettings.csproj" />
     <Project Path="TransparentShaders/TransparentShaders.csproj" />
     <Project Path="TransparentTerrain/TransparentTerrain.csproj" />
+  </Folder>
+  <Folder Name="/NonGameplay/ModdableAchievements/">
+    <Project Path="DemoModdableAchievements/DemoModdableAchievements.csproj" Id="dbc75ca6-0dda-4656-85bb-f95b97280542" />
+    <Project Path="ModdableTimberbornAchievements/ModdableTimberbornAchievements.csproj" Id="3b3c126f-cf40-4fe0-ac31-e51b7683a150" />
   </Folder>
   <Folder Name="/Renovations/">
     <Project Path="BeavlineLogistics/BeavlineLogistics.csproj" />

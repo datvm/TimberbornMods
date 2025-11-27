@@ -2,7 +2,7 @@
 
 public class ModdableAchievementUnlocker(EventBus eb) : ILoadableSingleton
 {
-    public static readonly string FilePath = Path.Combine(PlayerDataFileService.PlayerDataDirectory, "ModdableAchievements.json");
+    public static readonly string FilePath = Path.Combine(PlayerDataFileService.PlayerDataDirectory, "ModdableAchievements.txt");
     readonly HashSet<string> unlocked = [];
 
     public void Load()
@@ -33,6 +33,12 @@ public class ModdableAchievementUnlocker(EventBus eb) : ILoadableSingleton
         if (unlockedIds.Count == 0) { return; }
 
         eb.Post(new ModdableAchievementUnlockedEvent([.. unlockedIds]));
+        Save();
+    }
+
+    public void Clear()
+    {
+        unlocked.Clear();
         Save();
     }
 

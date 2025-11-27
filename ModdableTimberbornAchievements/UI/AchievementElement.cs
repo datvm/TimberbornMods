@@ -13,26 +13,21 @@ public class AchievementElement : VisualElement
         parent.AddImage(spec.Icon.Asset).SetSize(30).SetMarginRight(10);
 
         var content = parent.AddChild().SetFlexGrow().SetFlexShrink();
-        var shouldShowContent = isUnlocked || !spec.IsSecret || showSecret;
-        if (shouldShowContent)
-        {
-            var name = spec.Name.Value;
-            if (isUnlocked)
-            {
-                name = (name + " - " + t.T("LV.MTA.Unlocked")).Color(TimberbornTextColor.Green).Italic();
-            }
-            else if (!isUnlocked && spec.IsSecret)
-            {
-                name = (name + " - " + "[SECRET]").Color(TimberbornTextColor.Red);
-            }
-            
-            content.AddLabel(name.Bold());
-            content.AddLabel(spec.Description.Value);
-        }
-        else
-        {
-            content.AddLabel(t.T("LV.MTA.Secret"));
-        }
-    }
+        var shouldShowDescription = isUnlocked || !spec.IsSecret || showSecret;
 
+        var name = spec.Name.Value;
+        if (isUnlocked)
+        {
+            name = t.T("LV.MTA.UnlockedAchTitle", name);
+        }
+        else if (spec.IsSecret)
+        {
+            name = t.T("LV.MTA.SecretAchTitle", name);
+        }
+
+        content.AddLabel(name.Bold());
+
+        var desc = shouldShowDescription ? spec.Description.Value : t.T("LV.MTA.Secret");
+        content.AddLabel(desc);
+    }
 }

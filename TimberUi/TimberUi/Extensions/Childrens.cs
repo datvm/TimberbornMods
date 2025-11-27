@@ -151,6 +151,23 @@ public static partial class UiBuilderExtensions
         return toggle;
     }
 
+    public static CollapsiblePanel AddCollapsiblePanel(this VisualElement parent, string? title = null, bool expand = true, string? name = default)
+    {
+        var panel = parent.AddChild<CollapsiblePanel>(name);
+
+        if (title is not null)
+        {
+            panel.SetTitle(title);
+        }
+
+        if (!expand)
+        {
+            panel.SetExpand(false);
+        }
+
+        return panel;
+    }
+
     public static IEnumerable<string> GetClasses(GameLabelStyle style, GameLabelSize size = default, GameLabelColor? color = default, bool bold = default) => style switch
     {
         GameLabelStyle.Default => ["text--default"],
