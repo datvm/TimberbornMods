@@ -22,7 +22,9 @@ public class MechanicalNodeDescriber(ILoc t) : BaseObjectDescriber<MechanicalNod
             builder.AppendLine(MechanicalNodeTextFormatter.FormatConsumerText(t, component).Indent());
         }
 
-        builder.AppendLine(t.T("Mechanical.NetworkPower", power.Value.PowerSupply, power.Value.PowerDemand).Indent());
+        builder.AppendLine(t.T(NetworkFragmentService.NetworkPowerLocKey, 
+            power.Value.PowerSupply,
+            $"{power.Value.PowerDemand} {t.T(NetworkFragmentService.PowerSymbolLocKey)}").Indent());
     }
 
 }
