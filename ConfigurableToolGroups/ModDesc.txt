@@ -1,10 +1,15 @@
-﻿Moddable Tool Groups gives full control over how tool groups are structured. It lets mods create multi-level tool groups, put the same tool/group in multiple places, and freely reorganize the tool hierarchy.
+﻿[b]TLDR: Subscribe to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3293437485]More Groups[/url] and this mod. Tutorial is disabled.[/b]
+
+Moddable Tool Groups gives full control over how tool groups are structured. It lets mods create multi-level tool groups, put the same tool/group in multiple places, and freely reorganize the tool hierarchy.
 
 [b]Note to players:[/b]
 - For some funny reason, Tutorial will not work with this mod enabled. Just enable this mod once you have finished the Tutorial.
-- This mod does nothing on its own. It only provides a framework that other mods can use to add multi-level tool groups. You can pick any flavor from those mods.
+- This mod does nothing on its own. It only provides a framework that other mods can use to add multi-level tool groups. [b]You can pick any flavor from those mods like [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3293437485]More Groups[/url][/b] or my own [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3612247861]More Organized Tool Groups mod[/url].
 
 For modders: see the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3612247861]More Organized Tool Groups mod[/url] for examples.
+
+[b]Notes:[/b]
+- Subgroups always appear before Tools, each kind is still sorted by their own Order (BlockObjectToolGroupSpec.Order between themselves and PlaceableBlockObject.Order between themselves).
 
 This mod provides two specs: [b]ParentToolGroupSpec[/b] and [b]ToolGroupChildrenSpec[/b]:
 
@@ -136,5 +141,6 @@ If you need any help, feel free to ask on Discord ([url=https://discord.com/chan
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.0.3: Fixed a crash when there are multiple copies of a tool.
 v10.0.2: Fixed the tooltip sometimes saying "Tooltip" instead of the group name.
 v10.0.1: Fixed a crash when a group is present at multiple places. Unfortunately I have to patch out Tutorial to fix it so just play it without Tutorial 😂.

@@ -18,7 +18,7 @@
 		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
-		<ProjectReference Include="..\DemoModdableAchievements\DemoModdableAchievements.csproj" />
+		<ProjectReference Include="..\ConfigurableToolGroups\ConfigurableToolGroups.csproj" />
 
 	</ItemGroup>
 

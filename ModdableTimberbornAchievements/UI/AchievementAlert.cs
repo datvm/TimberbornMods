@@ -6,7 +6,8 @@ public class AchievementAlert(
     EventBus eb,
     ModdableAchievementSpecService specs,
     ILoc t,
-    GameAchievementDialogShower diagShower
+    GameAchievementDialogShower diagShower,
+    GameUISoundController soundController
 ) : IAlertFragmentWithOrder
 {
     public int Order { get; } = 10;
@@ -48,6 +49,7 @@ public class AchievementAlert(
         }
 
         SetVisible(true);
+        soundController.PlayWellbeingHighscoreSound();
     }
 
     void OnCloseButtonClicked() => SetVisible(false);

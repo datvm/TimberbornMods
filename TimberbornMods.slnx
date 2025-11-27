@@ -59,10 +59,15 @@
     <Project Path="TimbitsTimbots/TimbitsTimbots.csproj" />
   </Folder>
   <Folder Name="/Moddable/">
+    <Project Path="ConfigurableToolGroups/ConfigurableToolGroups.csproj" Id="000c57eb-c8be-4b9f-90ff-c928aeb3e94e" />
     <Project Path="RealLights/RealLights.csproj" />
     <Project Path="RoofMap/RoofMap.csproj" />
     <Project Path="TimberModBuilder/TimberModBuilder.csproj" />
     <Project Path="UnlockableRecipe/UnlockableRecipe.csproj" />
+  </Folder>
+  <Folder Name="/Moddable/ModdableAchievements/">
+    <Project Path="DemoModdableAchievements/DemoModdableAchievements.csproj" Id="dbc75ca6-0dda-4656-85bb-f95b97280542" />
+    <Project Path="ModdableTimberbornAchievements/ModdableTimberbornAchievements.csproj" Id="3b3c126f-cf40-4fe0-ac31-e51b7683a150" />
   </Folder>
   <Folder Name="/ModdableTimberborn/">
     <Project Path="ModdableTimberborn/ModdableTimberborn.csproj" />
@@ -81,7 +86,6 @@
     <Project Path="CameraBookmarks/CameraBookmarks.csproj" />
     <Project Path="ColorfulBeavers/ColorfulBeavers.csproj" />
     <Project Path="ColorfulZipline/ColorfulZipline.csproj" />
-    <Project Path="ConfigurableToolGroups/ConfigurableToolGroups.csproj" Id="000c57eb-c8be-4b9f-90ff-c928aeb3e94e" />
     <Project Path="ConfigurableTopBar/ConfigurableTopBar.csproj" Id="9eb023f5-6743-484b-ac4c-723fb933a1a3" />
     <Project Path="DevModeButton/DevModeButton.csproj" />
     <Project Path="EvenMoreLights/EvenMoreLights.csproj" />
@@ -97,10 +101,6 @@
     <Project Path="SyncableSettings/SyncableSettings.csproj" />
     <Project Path="TransparentShaders/TransparentShaders.csproj" />
     <Project Path="TransparentTerrain/TransparentTerrain.csproj" />
-  </Folder>
-  <Folder Name="/NonGameplay/ModdableAchievements/">
-    <Project Path="DemoModdableAchievements/DemoModdableAchievements.csproj" Id="dbc75ca6-0dda-4656-85bb-f95b97280542" />
-    <Project Path="ModdableTimberbornAchievements/ModdableTimberbornAchievements.csproj" Id="3b3c126f-cf40-4fe0-ac31-e51b7683a150" />
   </Folder>
   <Folder Name="/Renovations/">
     <Project Path="BeavlineLogistics/BeavlineLogistics.csproj" />
