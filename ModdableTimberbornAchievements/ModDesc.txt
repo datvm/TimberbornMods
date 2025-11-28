@@ -1,0 +1,23 @@
+﻿Moddable Timberborn Achievements gives Timberborn a full, moddable achievement system that works on every platform, even without Steam.
+
+[h1]Features[/h1]
+
+[img]https://files.catbox.moe/d63po6.jpg[/img]
+
+- Brings the full set of Steam achievements to non-Steam players (and still unlocks Steam achievements in parallel if you are on Steam).
+- Adds new pop-up notifications for achievement unlocks (for both Steam and non-Steam players).
+- Automatically unlocks any Steam achievements you earned before installing the mod when you first load a save.
+- Provides a dedicated Achievements dialog, accessible from both the Main Menu and the in-game menu.
+
+Note:
+- Your achievement unlocks is stored in [i]Documents/Timberborn/PlayerData[/i], which is also synced by Steam Cloud.
+
+[h1]For Modders[/h1]
+
+This mod lets you create and register your own achievements with custom names, icons, descriptions, and secret flags.
+See the Demo project ([url=https://steamcommunity.com/sharedfiles/filedetails/?id=3613175358]Steam Page[/url]) for example and a step-by-step guide on how to create achievements in your own mods.
+
+Obviously, custom achievements do not sync with Steam achievements since those are defined by the developers.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

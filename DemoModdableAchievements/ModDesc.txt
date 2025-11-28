@@ -1,0 +1,108 @@
+﻿This mod uses Moddable Timberborn Achievements to create two demo achievements when installed:
+
+- Sad builder noise: Destroy a building.
+- A secret achievement, Thou shall not talk about it: [spoiler]Activate the Dev Tools.[/spoiler].
+
+Both are in a new group called "Demo".
+
+Below is the guide on how to create these achievements in your own mod. The full source code is [url=https://github.com/datvm/TimberbornMods/tree/master/DemoModdableAchievements]here[/url]
+
+Note: you don't even need to refer to the Moddable Timberborn Achievements' DLL file in your mod as all the types are from the base game.
+
+[h1]Blueprints Assets[/h1]
+
+Define a new group: [b]Demo.ModdableAchievementGroupSpec.blueprint.json[/b] (I put -100 for Order so that it shows up at the top of the list):
+
+[code]
+{
+    "ModdableAchievementGroupSpec": {
+        "Id": "Demo",
+        "NameLoc": "LV.DMTA.GroupName",
+        "Order": -100,
+        "Icon": "Sprites/AchievementGroups/DemoIcon"
+    }
+}
+[/code]
+
+Define the two achievements like in [b]DemoAchievement.ModdableAchievementSpec.blueprint.json[/b] and [b]SecretAchievement.ModdableAchievementSpec.blueprint.json[/b]:
+
+[code]
+{
+    "ModdableAchievementSpec": {
+        "DescLoc": "LV.DMTA.Ach1Desc",
+        "NameLoc": "LV.DMTA.Ach1Name",
+        "IsSecret": false,
+        "Order": 10,
+        "Id": "DemoAchievement",
+        "GroupId": "Demo",
+        "Icon": "Sprites/Achievements/DemoAchievement"
+    }
+}
+[/code]
+
+You need the image files if needed too (in my case I put them in the [b]Sprites[/b] folder).
+
+Now if you run the game, it will throw because we don't have an [b]Achievement[/b] instance that handle those new IDs yet.
+
+[h1]Achievement classes[/h1]
+
+For each achievement, you need to create a class that inherits from [b]Achievement[/b] and implement the logic to unlock it. For example, [b]DemoAchievement.cs[/b]:
+
+[code]
+namespace DemoModdableAchievements.Achievements;
+
+public class DemoAchievement(EventBus eb) : Achievement
+{
+
+    public override string Id { get; } = nameof(DemoAchievement);
+
+    public override void EnableInternal()
+    {
+        eb.Register(this);
+    }
+
+    public override void DisableInternal()
+    {
+        eb.Unregister(this);
+    }
+
+    [OnEvent]
+    public void OnEntityDeleted(EntityDeletedEvent e)
+    {
+        if (e.Entity.HasComponent<BuildingSpec>())
+        {
+            Unlock();
+        }
+    }
+
+}
+[/code]
+
+Then you need to bind it in the Game's context:
+
+[code]
+[Context("Game")]
+public class MGameConfig : Configurator
+{
+    public override void Configure()
+    {
+        this
+            .BindAchievement<DemoAchievement>()
+            .BindAchievement<SecretAchievement>()
+        ;
+    }
+}
+[/code]
+
+Note: [b]BindAchievement[/b] is provided by TimberUi. If you do not refer to TimberUi in your mod, simply write the full binding code:
+
+[code]
+MultiBind<Achievement>().To<DemoAchievement>().AsSingleton();
+MultiBind<Achievement>().To<SecretAchievement>().AsSingleton();
+[/code]
+
+And that's it, you now have your own achievements!
+
+Tips: to debug it, [spoiler]turn on Dev Modes (Alt Shift Z)[/spoiler] and you should see certain buttons in the Achievements dialog to help with debugging.
+
+If you need any help, ask on [url=https://discord.com/channels/558398674389172225/1443532763931213879]this mod's channel[/url] or [url=https://discord.com/channels/558398674389172225/888491376143134760]mod-creators channel[/url].
