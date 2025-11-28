@@ -46,6 +46,14 @@ public class ModdableStoreAchievement(
     {
         if (DisableSyncing || original is null) { return; }
 
+        // For now, only sync for Steam because everything else return true for non-Steam client
+        var isSteam = original.GetType().Name == nameof(SteamAchievements);
+        TimberUiUtils.LogVerbose(() => $"[{nameof(ModdableTimberbornAchievements)}] Is Steam client: {isSteam}");
+        if (!isSteam)
+        {            
+            return;
+        }
+
         List<string> ids = [];
         foreach (var achievement in Achievements)
         {

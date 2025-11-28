@@ -1,14 +1,13 @@
 {
-  "ItemId": "3430626620",
-  "Name": "TimberUi",
-  "Visibility": "Public",
+  "ItemId": "3613175358",
+  "Name": "Demo Moddable Timberborn Achievements",
+  "Visibility": "Unlisted",
   "UpdateDescription": false,
   "UpdateVisibility": false,
   "UpdatePreview": false,
   "Tags": [
     "Update 1.0",
-    "Update 0.7",
-    "Visuals",
+    "New content",
     "Modding tools",
     "Miscellaneous"
   ]
