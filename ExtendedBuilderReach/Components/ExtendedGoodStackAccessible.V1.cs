@@ -8,6 +8,9 @@ public class ExtendedDemolishableAccessible(INavMeshListenerEntityRegistry navRe
     internal Accessible accessible;
     BlockObject blockObject;
     BlockObjectAccessGenerator blockObjectAccessGenerator;
+#nullable enable
+
+    public Accessible Accessible => accessible;
 
     public void Awake()
     {

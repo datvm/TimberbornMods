@@ -6,6 +6,17 @@ namespace ExtendedBuilderReach.Patches;
 public static class DemolishableAccessiblePatch
 {
 
+    [HarmonyPostfix, HarmonyPatch(nameof(AccessibleDemolishableReacher), nameof(AccessibleDemolishableReacher.PostInitializeEntity))]
+    public static void ReplaceEmptyAccessible(AccessibleDemolishableReacher __instance) // For compatibility with Demolishable Ruins
+    {
+        if (__instance._destination is AccessibleDestination ad && ad.Accessible) { return; }
+
+        var extended = __instance.GetComponent<ExtendedDemolishableAccessible>();
+        if (!extended) { return; }
+
+        __instance._destination = new AccessibleDestination(extended.Accessible);
+    }
+
     [HarmonyPostfix, HarmonyPatch(typeof(ReachableDemolishable), nameof(ReachableDemolishable.Start))]
     public static void PatchReachableDemolishableAccessible(ReachableDemolishable __instance)
     {
