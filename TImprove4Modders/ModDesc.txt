@@ -12,6 +12,7 @@ This mod adds a few Development Controls I think would be useful. Feel free to s
 [h2]Plants[/h2]
 - Plants: Set growth to 0%/25%/50%/75%/100%: Set the growth of all plants to 0%/25%/50%/75%/100%. Useful for testing plant growth stages.
 - Plants: Add 10% growth: Add 10% growth to all plants. Useful for testing plant growth stages.
+- Plants Gatherables: Add 10%/100% to growth: Add 10%/100% growth to all plant yields.
 
 [h2]Science[/h2]
 - Science: Set to 0/100: Set the science to 0/100. Useful for testing researches.
@@ -46,6 +47,7 @@ When checking this option (enabled by default), you have the following improveme
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.0.5: Added "Plants Gatherables: Add 10%/100% to growth" Dev command.
 v10.0.4: Better Sort order now also considers Optional Mods.
 v10.0.2: Added "Auto skip Mod Incompatibility box" option. v10.0.3 fixed a bug with the new version.
 v10.0.1: Fixed Swap Modifier not working for unlocking buildings.

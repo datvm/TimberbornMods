@@ -1,6 +1,7 @@
 ﻿namespace ModdableTimberborn.DependencyInjection.Patches;
 
 [HarmonyPatch(typeof(TemplateCollectionService)), HarmonyPatchCategory(ModdableDependencyInjectionConfig.PatchCategoryName)]
+[HarmonyPriority(HarmonyLib.Priority.First)]
 public static class TemplateCollectionServicePatches
 {
 

@@ -97,7 +97,7 @@ public class DestructionService(
     public void HighlightDestructionEntities(DestroyingEntities entities, Color color)
     {
         highlighter.HighlightPrimary(entities.BlockObjects, color);
-        terrainHighlightingService.UpdateHighlights(entities.Terrains, color);
+        terrainHighlightingService.UpdateHighlight(entities.Terrains);
     }
 
     /// <summary>

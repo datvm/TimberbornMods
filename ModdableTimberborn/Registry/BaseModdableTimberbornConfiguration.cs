@@ -12,7 +12,7 @@ public abstract class BaseModdableTimberbornConfiguration : IModdableTimberbornR
 
         if (this is IWithDIConfig)
         {
-            Registry.UseDependencyInjection();
+            Registry.InternalUseDependencyInjection();
         }
     }
 

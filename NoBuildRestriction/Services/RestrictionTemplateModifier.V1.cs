@@ -44,7 +44,7 @@ public class RestrictionTemplateModifier : ITemplateModifier
             }
         }
 
-        if (bos is null) { return null; } // Should not happen
+        if (bos is null || pbos is null) { return null; } // Should not happen
 
         BlockSpec[] bss = [.. bos.BlocksSpec.BlockSpecs];
 
@@ -68,7 +68,8 @@ public class RestrictionTemplateModifier : ITemplateModifier
         // Super foundations
         if (MSettings.SuperStructure)
         {
-            AddSuperFoundation(bss, bos, originalTemplateSpec.TemplateName, pbos, replacement => template.Specs[pbosIndex] = replacement);
+            AddSuperFoundation(bss, bos, originalTemplateSpec.TemplateName, pbos,
+                replacement => template.Specs[pbosIndex] = pbos = replacement);
         }
 
     RETURN:
@@ -79,6 +80,7 @@ public class RestrictionTemplateModifier : ITemplateModifier
                 BlockSpecs = [.. bss]
             }
         };
+
         return template;
     }
 
@@ -133,7 +135,7 @@ public class RestrictionTemplateModifier : ITemplateModifier
         for (int z = bss.Length - 1; z >= 0; z--)
         {
             var curr = bss[z];
-            if (z == 0 && curr.Occupations == BlockOccupations.Corners)            
+            if (z == 0 && curr.Occupations == BlockOccupations.Corners)
             {
                 // Don't remove the bottom corner-only block
                 // Or else it's floating and cause building site to crash
@@ -152,6 +154,9 @@ public class RestrictionTemplateModifier : ITemplateModifier
 
     static void AddSolidTop(BlockSpec[] bss, in Vector3Int size)
     {
+        // Must have something different more than bottom parts
+        const BlockOccupations RequiredDifferenceFrom = BlockOccupations.Bottom | BlockOccupations.Path | BlockOccupations.Floor;
+
         var (sx, sy, sz) = size;
 
         var index = 0;
@@ -163,8 +168,7 @@ public class RestrictionTemplateModifier : ITemplateModifier
                 {
                     var curr = bss[index];
 
-                    // Don't mark Path as Solid
-                    if (!curr.Occupations.HasFlag(BlockOccupations.Path))
+                    if (curr.Stackable != BlockStackable.BlockObject && (curr.Occupations | RequiredDifferenceFrom) != RequiredDifferenceFrom)
                     {
                         bss[index] = curr with
                         {
@@ -178,35 +182,38 @@ public class RestrictionTemplateModifier : ITemplateModifier
         }
     }
 
-    static void AddSuperFoundation(BlockSpec[] bss, BlockObjectSpec bos, string templateName, PlaceableBlockObjectSpec? pbos, Action<PlaceableBlockObjectSpec> replacePbos)
+    static void AddSuperFoundation(BlockSpec[] bss, BlockObjectSpec bos, string templateName, PlaceableBlockObjectSpec pbos, Action<PlaceableBlockObjectSpec> replacePbos)
     {
         var (sx, sy, sz) = bos.BlocksSpec.Size;
         var mainX = sx / 2;
         var mainY = sy / 2;
 
-        if (pbos is not null && bos.Entrance.HasEntrance)
+        if (bos.Entrance.HasEntrance)
         {
             var entrance = bos.Entrance.Coordinates;
             mainX = entrance.x;
-            mainY = entrance.y;
-
-            var setAttachToTerrain = MSettings.MagicStructure
-                && MSettings.HangingStructure
-                && !HangingStructureExclusions.Contains(templateName);
-
-            if (!pbos.CustomPivot.HasCustomPivot)
-            {
-                replacePbos(pbos = pbos with
-                {
-                    CustomPivot = pbos.CustomPivot with
-                    {
-                        HasCustomPivot = true,
-                        Coordinates = new Vector3(mainX + .5f, mainY + .5f, 0),
-                    },
-                    CanBeAttachedToTerrainSide = setAttachToTerrain || pbos.CanBeAttachedToTerrainSide,
-                });
-            }
+            mainY = entrance.y + 1;
         }
+
+        var attachToTerrain = pbos.CanBeAttachedToTerrainSide ||
+            (MSettings.MagicStructure && MSettings.HangingStructure
+            && (sx == 1 || sy == 1) // Only for 1xn or nx1 structures
+            && !HangingStructureExclusions.Contains(templateName));
+
+        var pivot = pbos.CustomPivot.HasCustomPivot
+            ? pbos.CustomPivot.Coordinates
+            : new Vector3(mainX + .5f, mainY + .5f, 0);
+
+        replacePbos(pbos with
+        {
+            CustomPivot = pbos.CustomPivot with
+            {
+                HasCustomPivot = true,
+                Coordinates = pivot,
+            },
+
+            CanBeAttachedToTerrainSide = attachToTerrain,
+        });
 
         if (MSettings.MagicStructure)
         {
@@ -214,18 +221,18 @@ public class RestrictionTemplateModifier : ITemplateModifier
         }
 
         var index = 0;
-        for (int x = 0; x < sx; x++)
+        for (int z = 0; z < sz; z++) // For some sadistic reason, blocks are stored in ZYX order
         {
             for (int y = 0; y < sy; y++)
             {
-                if (x == mainX && y == mainY)
+                for (int x = 0; x < sx; x++)
                 {
-                    index += sz;
-                    continue;
-                }
+                    if (x == mainX && y == mainY)
+                    {
+                        index++;
+                        continue;
+                    }
 
-                for (int z = 0; z < sz; z++)
-                {
                     var curr = bss[index];
                     if (curr.MatterBelow != MatterBelow.Any)
                     {
