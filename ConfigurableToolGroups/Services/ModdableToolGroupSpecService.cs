@@ -13,8 +13,8 @@ public class ModdableToolGroupSpecService : IUnloadableSingleton
         instance = this;
     }
 
-    public ToolGroupDetails RootToolGroup { get; private set; }
-    public FrozenDictionary<string, ToolGroupDetails> ToolGroupsByIds { get; private set; } = FrozenDictionary<string, ToolGroupDetails>.Empty;
+    public ToolGroupInfo RootToolGroup { get; private set; }
+    public FrozenDictionary<string, ToolGroupInfo> ToolGroupsByIds { get; private set; } = FrozenDictionary<string, ToolGroupInfo>.Empty;
 
     public void Run(TemplateCollectionService templateCollectionService)
     {
@@ -23,6 +23,7 @@ public class ModdableToolGroupSpecService : IUnloadableSingleton
         DetectCircularParentage(allToolGroups);
         AssignToolParents(allToolGroups, templateCollectionService);
         Build(allToolGroups);
+        Reorder();
     }
 
     Dictionary<string, ToolGroupDetailsBuilder> Populate()
@@ -175,8 +176,8 @@ public class ModdableToolGroupSpecService : IUnloadableSingleton
 
     void Build(Dictionary<string, ToolGroupDetailsBuilder> allToolGroups)
     {
-        Dictionary<ToolGroupDetailsBuilder, ToolGroupDetails> builtGroups = [];
-        List<ToolGroupDetails> rootChildren = [];
+        Dictionary<ToolGroupDetailsBuilder, ToolGroupInfo> builtGroups = [];
+        List<ToolGroupInfo> rootChildren = [];
 
         // Build children
         foreach (var grp in allToolGroups.Values)
@@ -208,10 +209,36 @@ public class ModdableToolGroupSpecService : IUnloadableSingleton
                 .OrderBy(t => t.Placeable.ToolOrder));
         }
 
-        RootToolGroup = ToolGroupDetails.CreateRoot();
+        RootToolGroup = ToolGroupInfo.CreateRoot();
         RootToolGroup.childrenGroups.AddRange(rootChildren.OrderBy(g => g.Spec.Order));
 
         ToolGroupsByIds = builtGroups.Values.ToFrozenDictionary(g => g.Spec.Id);
+    }
+
+    void Reorder()
+    {
+        foreach (var group in ToolGroupsByIds.Values)
+        {
+            var childrenSpec = group.Spec.GetSpec<ToolGroupChildrenSpec>();
+            if (childrenSpec is null || childrenSpec.ChildrenOrderedIds.Length == 0)
+            {
+                group.orderedChildren.AddRange([..group.childrenGroups, ..group.childrenTools]);
+                continue;
+            }
+
+            var curr = 0;
+            Dictionary<string, int> orders = [];
+
+            foreach (var id in childrenSpec.ChildrenOrderedIds)
+            {
+                orders[id] = curr++;
+            }
+
+            group.orderedChildren.AddRange(group.childrenGroups
+                .Cast<IToolButtonInfo>()
+                .Concat(group.childrenTools)
+                .OrderBy(q => orders.TryGetValue(q.Id, out var order) ? order : curr));
+        }
     }
 
     public void Unload() => instance = null;
@@ -233,26 +260,3 @@ public class ModdableToolGroupSpecService : IUnloadableSingleton
     }
 
 }
-
-public readonly record struct ToolGroupDetails(BlockObjectToolGroupSpec Spec)
-{
-    internal readonly List<ToolGroupDetails> parents = [];
-    internal readonly List<ToolGroupDetails> childrenGroups = [];
-    internal readonly List<PlaceableToolInfo> childrenTools = [];
-
-    public IReadOnlyList<ToolGroupDetails> Parents => parents;
-    public IReadOnlyList<ToolGroupDetails> ChildrenGroups => childrenGroups;
-    public IReadOnlyList<PlaceableToolInfo> ChildrenTools => childrenTools;
-
-    public bool Empty => ChildrenGroups.Count == 0 && ChildrenTools.Count == 0;
-
-    public static ToolGroupDetails CreateRoot() => new(new()
-    {
-        Id = "$SpecialRoot",
-    });
-}
-
-public record PlaceableToolInfo(
-    PlaceableBlockObjectSpec Placeable,
-    string TemplateName
-);

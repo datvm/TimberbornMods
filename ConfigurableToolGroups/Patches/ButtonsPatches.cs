@@ -75,7 +75,7 @@ public static class ButtonsPatches
         return false;
     }
 
-    static ToolGroupButton? CreateGroupButton(ToolGroupDetails grp, GameBlockObjectButtons buttons, ToolGroupButtonInfo? parent)
+    static ToolGroupButton? CreateGroupButton(ToolGroupInfo grp, GameBlockObjectButtons buttons, ToolGroupButtonInfo? parent)
     {
         if (grp.Empty) { return null; }
 
@@ -89,7 +89,6 @@ public static class ButtonsPatches
 
         var tooltipWrapperS = btn._toolGroupButtonWrapper.style;
         tooltipWrapperS.left = 0;
-        
 
         var subEl = btn.ToolButtonsElement;
         var subElS = subEl.style;
@@ -97,26 +96,32 @@ public static class ButtonsPatches
         subElS.position = Position.Absolute;
         subElS.bottom = new Length(100, LengthUnit.Percent);
 
-        if (grp.childrenGroups.Count > 0)
+        foreach (var child in grp.orderedChildren)
         {
-            foreach (var subGrp in grp.childrenGroups)
+#warning Delete
+            Debug.Log("Adding: " + child.Id);
+
+            switch (child)
             {
-                var subGrpBtn = CreateGroupButton(subGrp, buttons, info);
-                if (subGrpBtn is not null)
-                {
-                    subEl.Add(subGrpBtn.Root);
-                    info.Children.Add(subGrpBtn);
-                }
+                case ToolGroupInfo subGrp:
+                    var subGrpBtn = CreateGroupButton(subGrp, buttons, info);
+                    if (subGrpBtn is not null)
+                    {
+                        subEl.Add(subGrpBtn.Root);
+                        info.Children.Add(subGrpBtn);
+                    }
+                    break;
+                case PlaceableToolInfo pti:
+                    var bo = pti.Placeable;
+                    if (!bo.UsableWithCurrentFeatureToggles) { continue; }
+
+                    var toolBtn = boBtnFac.Create(bo, subEl);
+                    grpFac._toolGroupService.AssignToGroup(spec, toolBtn.Tool);
+                    btn.AddTool(toolBtn);
+                    break;
+                default:
+                    throw new InvalidOperationException($"Unknown child type {child.GetType().FullName} in tool group {grp.Spec.Id}.");
             }
-        }
-
-        foreach (var (bo, _) in grp.ChildrenTools)
-        {
-            if (!bo.UsableWithCurrentFeatureToggles) { continue; }
-
-            var toolBtn = boBtnFac.Create(bo, subEl);
-            grpFac._toolGroupService.AssignToGroup(spec, toolBtn.Tool);
-            btn.AddTool(toolBtn);
         }
 
         btnFac._toolGroupService.RegisterGroup(spec);
