@@ -125,6 +125,7 @@
   <Folder Name="/TImprove/">
     <Project Path="SuperCursor/SuperCursor.csproj" />
     <Project Path="TImprove/TImprove.csproj" />
+    <Project Path="TImprove4Achievements/TImprove4Achievements.csproj" Id="8dd23b49-330e-4d89-b8ed-55984f92c9e3" />
     <Project Path="TImprove4Modders/TImprove4Modders.csproj" />
     <Project Path="TImprove4Mods/TImprove4Mods.csproj" />
     <Project Path="TImprove4Ui/TImprove4Ui.csproj" />

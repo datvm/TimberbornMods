@@ -15,6 +15,8 @@ public class PlantModule(EntityRegistry entities) : IDevModule
             .AddMethod(DevMethod.Create("Plants: Set growth to 75%", GrowthTo75))
             .AddMethod(DevMethod.Create("Plants: Set growth to 100%", GrowthTo100))
             .AddMethod(DevMethod.Create("Plants: Add 10% growth", AddGrowth10))
+            .AddMethod(DevMethod.Create("Plants Gatherables: Add 10% progress", () => AddGatherableProgress(.1f)))
+            .AddMethod(DevMethod.Create("Plants Gatherables: Add 100% progress", () => AddGatherableProgress(1f)))
             .Build();
     }
 
@@ -37,7 +39,7 @@ public class PlantModule(EntityRegistry entities) : IDevModule
             count++;
 
             var growable = item.GetComponent<Growable>();
-            if (growable is null) { continue; }
+            if (!growable) { continue; }
             growables++;
 
             if (!add)
@@ -54,6 +56,30 @@ public class PlantModule(EntityRegistry entities) : IDevModule
 
         sw.Stop();
         Debug.Log($"Processed {growables} growable entities out of {count} entities in {sw.ElapsedMilliseconds}ms.");
+    }
+
+    void AddGatherableProgress(float progress)
+    {
+        var count = 0;
+        var gatherables = 0;
+        var sw = System.Diagnostics.Stopwatch.StartNew();
+
+        foreach (var item in entities.Entities)
+        {
+            count++;
+            var yieldComponent = item.GetComponent<GatherableYieldGrower>();
+            if (!yieldComponent) { continue; }
+            gatherables++;
+
+
+            if (yieldComponent._growable.IsGrown)
+            {
+                yieldComponent._timeTrigger.FastForwardProgress(progress);
+            }
+        }
+
+        sw.Stop();
+        Debug.Log($"Processed {gatherables} plant gatherables entities out of {count} entities in {sw.ElapsedMilliseconds}ms.");
     }
 
 }

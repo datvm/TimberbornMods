@@ -1,6 +1,6 @@
 ﻿{
     "Name": "Moddable Timberborn",
-    "Version": "10.0.3",
+    "Version": "10.0.4",
     "Id": "ModdableTimberborn",
     "MinimumGameVersion": "1.0.0",
     "Description": "Provide various APIs to mod Timberborn",

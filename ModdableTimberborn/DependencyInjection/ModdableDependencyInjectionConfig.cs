@@ -33,14 +33,20 @@ namespace ModdableTimberborn.Registry
     {
         public bool DependencyInjectionUsed { get; private set; }
 
+        [Obsolete("You likely just need to add IWithDIConfig interface to your Config class instead.")]
         public ModdableTimberbornRegistry UseDependencyInjection()
         {
-            if (DependencyInjectionUsed) { return this; }
+            InternalUseDependencyInjection();
+            return this;
+        }
+
+        internal void InternalUseDependencyInjection()
+        {
+            if (DependencyInjectionUsed) { return; }
 
             DependencyInjectionUsed = true;
             AddConfigurator<ModdableDependencyInjectionConfig>();
-
-            return this;
         }
+
     }
 }
