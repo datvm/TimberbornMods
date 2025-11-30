@@ -39,6 +39,8 @@ public class RestrictionTemplateModifier : ITemplateModifier
                     pbos = spec;
                     pbosIndex = i;
                     break;
+                case BottomMatchingTemplateSpec:
+                    return null; // Do not modify templates with BottomMatchingTemplateSpec
             }
         }
 
@@ -110,51 +112,18 @@ public class RestrictionTemplateModifier : ITemplateModifier
     {
         var shouldRemoveGround = MSettings.RemoveGroundOnly && bss.FastAll(q => !q.Underground);
 
-        var removedGround = false;
         for (int i = 0; i < bss.Length; i++)
         {
             switch (bss[i].MatterBelow)
             {
                 case MatterBelow.Ground when shouldRemoveGround:
                     bss[i] = bss[i] with { MatterBelow = MatterBelow.GroundOrStackable };
-                    removedGround = true;
-
                     break;
                 case MatterBelow.Stackable when MSettings.RemoveRoofOnly:
                     bss[i] = bss[i] with { MatterBelow = MatterBelow.GroundOrStackable };
                     break;
             }
         }
-
-        // TODO: check again later
-
-        //var baseZ = bos.BaseZ;
-        //if (removedGround && baseZ > 0)
-        //{
-        //    var size = bos.BlocksSpec.Size;
-        //    var index = 0;
-        //    for (int x = 0; x < size.x; x++)
-        //    {
-        //        for (int y = 0; y < size.y; y++)
-        //        {
-        //            for (int z = 0; z < size.z; z++)
-        //            {
-        //                var curr = bss[index];
-
-        //                if (curr.Underground)
-        //                {
-        //                    bss[index] = curr with
-        //                    {
-        //                        Underground = false,
-        //                        Occupations = BlockOccupations.None,
-        //                    };
-        //                }
-
-        //                index++;
-        //            }
-        //        }
-        //    }
-        //}
     }
 
     static void Remove1x1Corners(BlockSpec[] bss)
@@ -164,6 +133,13 @@ public class RestrictionTemplateModifier : ITemplateModifier
         for (int z = bss.Length - 1; z >= 0; z--)
         {
             var curr = bss[z];
+            if (z == 0 && curr.Occupations == BlockOccupations.Corners)            
+            {
+                // Don't remove the bottom corner-only block
+                // Or else it's floating and cause building site to crash
+                continue;
+            }
+
             if (curr.Occupations.HasFlag(BlockOccupations.Corners))
             {
                 bss[z] = curr with
@@ -212,21 +188,24 @@ public class RestrictionTemplateModifier : ITemplateModifier
         {
             var entrance = bos.Entrance.Coordinates;
             mainX = entrance.x;
-            mainY = entrance.y + 1;
+            mainY = entrance.y;
 
             var setAttachToTerrain = MSettings.MagicStructure
                 && MSettings.HangingStructure
                 && !HangingStructureExclusions.Contains(templateName);
 
-            replacePbos(pbos = pbos with
+            if (!pbos.CustomPivot.HasCustomPivot)
             {
-                CustomPivot = pbos.CustomPivot with
+                replacePbos(pbos = pbos with
                 {
-                    HasCustomPivot = true,
-                    Coordinates = new Vector3(mainX + .5f, mainY + .5f, 0),
-                },
-                CanBeAttachedToTerrainSide = setAttachToTerrain || pbos.CanBeAttachedToTerrainSide,
-            });
+                    CustomPivot = pbos.CustomPivot with
+                    {
+                        HasCustomPivot = true,
+                        Coordinates = new Vector3(mainX + .5f, mainY + .5f, 0),
+                    },
+                    CanBeAttachedToTerrainSide = setAttachToTerrain || pbos.CanBeAttachedToTerrainSide,
+                });
+            }
         }
 
         if (MSettings.MagicStructure)

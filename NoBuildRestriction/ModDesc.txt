@@ -4,6 +4,8 @@
 
 By default, this mod only removes "Ground-only" and "Rooftop-only" restrictions and add "Platforms over 1x1". You can configure it by going to the Main Menu -> Mods -> Settings button next to the mod's name.
 
+[i]Note: Does not apply to buildings that require something at the bottom: Badwater Rig/Discharge/Dome, Mine, Geothermal Engine and Aquafier Drills.[/i]
+
 - Remove Ground-only restriction: You can build any building on top of other buildings. In order for some buildings with underground parts to work properly like the Underground Pile, I also removed their occupation so you can build under it but there maybe graphical glitches.
 - Remove Rooftop-only restriction: You can build any building on the ground.
 - Platforms over 1x1: You can always build platforms over 1x1 buildings (for example you can now build a Double Platform over a Lumberjack Flag). Terrain Block and Dynamites are excluded to not cause you to lose buildings when reloading a save.
@@ -24,6 +26,10 @@ Note: for super foundation to work, I also moved the "pivot" or building point o
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.0.1 + v10.0.2:
+- Fixed Super Foundation weird coordinate issue (there was a typo causing it to move by 1).
+- No longer apply to buildings that require something at the bottom: Badwater Rig/Discharge/Dome, Mine, Geothermal Engine and Aquafier Drills.
+- Fixed 1x1 platform crashing when placed.
 v10.0.0:
 - Should work with Timberborn v1.0.
 - This mod now needs Moddable Timberborn.
