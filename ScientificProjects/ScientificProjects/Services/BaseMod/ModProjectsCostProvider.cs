@@ -27,8 +27,8 @@ public class ModProjectsCostProvider(
     int CountAdultBeavers() => characters.Adults.Count;
     int CountBuilders() => characters.Workers.Count(q =>
     {
-        var workplace = q.Worker ? q.Worker.Workplace : null;
-        return workplace && (workplace.GetComponentFast<DistrictCenter>() || workplace.GetComponentFast<BuilderHubSpec>());
+        var workplace = q.Worker ? q.Worker!.Workplace : null;
+        return workplace && (workplace!.GetComponent<DistrictCenter>() || workplace.GetComponent<BuilderHubSpec>() is not null);
     });
 
 

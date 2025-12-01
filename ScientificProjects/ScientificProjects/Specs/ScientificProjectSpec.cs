@@ -56,7 +56,7 @@ public record ScientificProjectSpec : ComponentSpec
     public string? RequiredId { get; init; }
 
     [Serialize]
-    public Texture2D? Icon { get; init; }
+    public AssetRef<Texture2D>? Icon { get; init; }
 
     [Serialize]
     public int Order { get; init; }

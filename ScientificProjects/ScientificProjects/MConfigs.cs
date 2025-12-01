@@ -1,7 +1,8 @@
 ﻿namespace ScientificProjects;
 
-public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony
+public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony, IWithDIConfig
 {
+    public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.Game | ConfigurationContext.MainMenu;
 
     public override void StartMod(IModEnvironment modEnvironment)
     {
@@ -19,9 +20,9 @@ public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony
             configurator
                 .MultiBindSingleton<IModUpdateNotifier, ModUpdateNotifier>()
             ;
-        }
 
-        if (!context.IsGameContext()) { return; }
+            return;
+        }
 
         configurator
             .BindSingleton<ScientificProjectUnlockRegistry>()
@@ -50,8 +51,8 @@ public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony
             .MultiBindSingleton<IWorkplaceUpgradeDescriber, ModProjectsWorkplaceDescriber>()
             .MultiBindSingleton<ISPDevModule, DefaultSpDevModule>()
 
-            .MultiBindSingleton<ISpecModifier, FactionUpgradeRecipeModifier>()
-            .MultiBindSingleton<IPrefabModifier, FactionUpgradePrefabModifier>()
+            .BindSpecModifier<FactionUpgradeRecipeModifier>()
+            .BindTemplateModifier<FactionUpgradeTemplateModifier>()
 
             .BindSingleton<ModUpgradeListener>()
 

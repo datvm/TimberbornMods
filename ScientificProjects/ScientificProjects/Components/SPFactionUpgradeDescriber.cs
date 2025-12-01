@@ -1,16 +1,14 @@
 ﻿namespace ScientificProjects.Components;
 
-public class SPFactionUpgradeDescriberSpec : BaseComponent
-{
-}
+public record SPFactionUpgradeDescriberSpec : ComponentSpec;
 
-public class SPFactionUpgradeDescriber : BaseComponent, IEntityEffectDescriber
+public class SPFactionUpgradeDescriber : BaseComponent, IEntityEffectDescriber, IAwakableComponent
 {
     bool isFt;
 
     public void Awake()
     {
-        isFt = ScientificProjectsUtils.WoodWorkshopPrefabNames.Contains(GetComponentFast<PrefabSpec>().PrefabName);
+        isFt = ScientificProjectsUtils.WoodWorkshopTemplateNames.Contains(GetComponent<TemplateSpec>().TemplateName);
     }
 
     public EntityEffectDescription? Describe(ILoc t, IDayNightCycle dayNightCycle) 

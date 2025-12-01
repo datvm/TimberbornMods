@@ -18,8 +18,8 @@ public static class ScientificProjectsUtils
     public const string FtPlankUpgradeId = "FtPlankUpgrade";
     public const string ItSmelterUpgradeId = "ItSmelterUpgrade";
 
-    public static readonly FrozenSet<string> WoodWorkshopPrefabNames = ["WoodWorkshop.Folktails", "WoodWorkshop.IronTeeth"];
-    public static readonly FrozenSet<string> SmelterPrefabNames = ["Smelter.Folktails", "Smelter.IronTeeth"];
+    public static readonly FrozenSet<string> WoodWorkshopTemplateNames = ["WoodWorkshop.Folktails", "WoodWorkshop.IronTeeth"];
+    public static readonly FrozenSet<string> SmelterTemplateNames = ["Smelter.Folktails", "Smelter.IronTeeth"];
 
     internal static bool HasFtUpgrade;
     internal static bool HasItUpgrade;
@@ -27,7 +27,7 @@ public static class ScientificProjectsUtils
     public static void LogVerbose(Func<string> messageFunc)
         => TimberUiUtils.LogVerbose(() => $"[{nameof(ScientificProjects)}] {messageFunc()}");
 
-    internal static bool HasFtUpgradeEffect(string prefabName) => HasFtUpgrade && WoodWorkshopPrefabNames.Contains(prefabName);
-    internal static bool HasItUpgradeEffect(string prefabName) => HasItUpgrade && SmelterPrefabNames.Contains(prefabName);
+    internal static bool HasFtUpgradeEffect(string prefabName) => HasFtUpgrade && WoodWorkshopTemplateNames.Contains(prefabName);
+    internal static bool HasItUpgradeEffect(string prefabName) => HasItUpgrade && SmelterTemplateNames.Contains(prefabName);
 
 }

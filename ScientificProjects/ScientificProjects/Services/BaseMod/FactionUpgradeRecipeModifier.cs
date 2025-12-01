@@ -2,30 +2,33 @@
 
 public class FactionUpgradeRecipeModifier(
     ScientificProjectUnlockRegistry unlocks
-) : BaseSpecModifier<RecipeSpec>
+) : BaseSpecTransformer<RecipeSpec>, ILoadableSingleton, ISpecModifier
 {
 
-    protected override IEnumerable<RecipeSpec> Modify(IEnumerable<RecipeSpec> specs)
-    {
-        var hasFt = ScientificProjectsUtils.HasFtUpgrade = unlocks.Contains(ScientificProjectsUtils.FtPlankUpgradeId);
-        var hasIt = ScientificProjectsUtils.HasItUpgrade = unlocks.Contains(ScientificProjectsUtils.ItSmelterUpgradeId);
+    bool ISpecModifier.ShouldRun => ScientificProjectsUtils.HasFtUpgrade || ScientificProjectsUtils.HasItUpgrade;
+    bool hasFt, hasIt;
 
-        foreach (var s in specs)
+    public void Load()
+    {
+        hasFt = ScientificProjectsUtils.HasFtUpgrade = unlocks.Contains(ScientificProjectsUtils.FtPlankUpgradeId);
+        hasIt = ScientificProjectsUtils.HasItUpgrade = unlocks.Contains(ScientificProjectsUtils.ItSmelterUpgradeId);
+    }
+
+    public override RecipeSpec? Transform(RecipeSpec s)
+    {
+        if ((hasFt && s.Id == "TreatedPlank")
+            || (hasIt && s.Id == "MetalBlock"))
         {
-            if ((hasFt && s.Id == "TreatedPlank")
-                || (hasIt && s.Id == "MetalBlock"))
+            return s with
             {
-                yield return s with
-                {
-                    Products = [.. s.Products.Select(
-                        p => p with { Amount = p.Amount * 2, }
-                    )],
-                };
-            }
-            else
-            {
-                yield return s;
-            }
+                Products = [.. s.Products.Select(
+                    p => p with { Amount = p.Amount * 2, }
+                )],
+            };
+        }
+        else
+        {
+            return null;
         }
     }
 }

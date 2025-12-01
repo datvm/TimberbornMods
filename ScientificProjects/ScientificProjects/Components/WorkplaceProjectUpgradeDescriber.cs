@@ -1,6 +1,6 @@
 ﻿namespace ScientificProjects.Components;
 
-public class WorkplaceProjectUpgradeDescriber : BaseComponent, IWorkplaceEntityMultiEffectsDescriber
+public class WorkplaceProjectUpgradeDescriber : BaseComponent, IWorkplaceEntityMultiEffectsDescriber, IAwakableComponent
 {
     
 #nullable disable
@@ -16,7 +16,7 @@ public class WorkplaceProjectUpgradeDescriber : BaseComponent, IWorkplaceEntityM
 
     public void Awake()
     {
-        workplaceTrackerComponent = GetComponentFast<WorkplaceTrackerComponent>();
+        workplaceTrackerComponent = GetComponent<WorkplaceTrackerComponent>();
     }
 
     public IEnumerable<EntityEffectDescription> DescribeAll(ILoc t, IDayNightCycle dayNightCycle)

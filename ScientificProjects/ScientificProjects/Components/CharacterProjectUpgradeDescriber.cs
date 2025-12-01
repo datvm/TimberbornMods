@@ -1,6 +1,6 @@
 ﻿namespace ScientificProjects.Components;
 
-public class CharacterProjectUpgradeDescriber : BaseComponent, IEntityMultiEffectsDescriber
+public class CharacterProjectUpgradeDescriber : BaseComponent, IEntityMultiEffectsDescriber, IAwakableComponent
 {
 #nullable disable
     EntityUpgradeDescriber characterUpgradeService;
@@ -18,7 +18,7 @@ public class CharacterProjectUpgradeDescriber : BaseComponent, IEntityMultiEffec
 
     public void Awake()
     {
-        characterTrackerComponent = GetComponentFast<CharacterTrackerComponent>();
+        characterTrackerComponent = GetComponent<CharacterTrackerComponent>();
     }
 
     public IEnumerable<EntityEffectDescription> DescribeAll(ILoc t, IDayNightCycle dayNightCycle)
