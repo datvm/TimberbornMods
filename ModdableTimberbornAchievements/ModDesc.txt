@@ -11,6 +11,7 @@
 
 Note:
 - Your achievement unlocks is stored in [i]Documents/Timberborn/PlayerData[/i], which is also synced by Steam Cloud.
+- You can also open the Achievements dialog using the default hotkey [b]P[/b] (configurable in the Key Bindings menu in the UI section).
 
 [h1]For Modders[/h1]
 
@@ -21,3 +22,7 @@ Obviously, custom achievements do not sync with Steam achievements since those a
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.2:
+- Added opening hotkey.
+- Various internal changes to support TImprove 4 Achievements.

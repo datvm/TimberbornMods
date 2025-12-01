@@ -8,6 +8,9 @@ public class AchievementGroupPanel : CollapsiblePanel
     readonly ILoc t;
     readonly ModdableAchievementUnlocker unlocker;
 
+    public ImmutableArray<AchievementElement> AchievementElements { get; private set; } = [];
+    public ModdableAchievementGroupSpec GroupSpec { get; private set; } = null!;
+
     public AchievementGroupPanel(
         ModdableAchievementSpecService specs,
         ILoc t,
@@ -25,10 +28,13 @@ public class AchievementGroupPanel : CollapsiblePanel
 
     public AchievementGroupPanel Init(ModdableAchievementGroupSpec grp, bool showSecret)
     {
+        GroupSpec = grp;
         icon.sprite = grp.Icon.Asset;
 
         var achs = specs.AchievementsByGroupIds[grp.Id];
         var unlockedCount = 0;
+        List<AchievementElement> els = [];
+
         foreach (var ach in achs)
         {
             var isUnlocked = unlocker.IsUnlocked(ach.Id);
@@ -37,9 +43,10 @@ public class AchievementGroupPanel : CollapsiblePanel
                 unlockedCount++;
             }
 
-            Container.AddChild(() => new AchievementElement(ach, t, isUnlocked, showSecret));
+            els.Add(Container.AddChild(() => new AchievementElement(ach, t, isUnlocked, showSecret)));
         }
 
+        AchievementElements = [.. els];
         SetTitle(t.T("LV.MTA.GroupTitle", grp.Name.Value, unlockedCount, achs.Length));
 
         return this;
