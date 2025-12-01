@@ -2,6 +2,8 @@
 
 Don't like the default projects or even the numbers? This mod is developed with modding in mind, so you can easily add your own projects or tweak the existing ones. In fact, I am releasing this mod with a few extra projects that I hope you will enjoy. I will even write a step-by-step guide on how to make your own mod that uses this mod!
 
+[b]After Update 7.4, please make sure to subscribe to the dependency [b]Moddable Timberborn[/b], and you can remove Buff & Debuff System and Moddable Bindito as they are no longer used. Also please make sure all mods are updated to the latest version (Steam sometimes just refuses to update, you can use Verify Game Files option to update all the mods)[/b]
+
 [h1]Update 7.1: Faction-specific projects and UI Update[/h1]
 
 This mod now has faction-specific projects! This update comes with one new late-game powerful project for each faction.
@@ -31,6 +33,8 @@ If you need to contact me about this mod, please use the comment section below o
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods/tree/master/ScientificProjects
+
+v10.0.0: Should work with Timberborn v1.0.
 
 v7.4.0: This is a big update! While you will not see many new features but the UI was revamped, the code was completely rewritten using Moddable Timberborn [b]instead of Buff & Debuff System[/b] with great performance improvements. Expansion mods that used Moddable Bindito no longer needs it as well! Please make sure all other mods are updated to the latest versions as well! You can now safely remove Buff & Debuff System and Moddable Bindito. All expansion mods of this mod is updated to v7.4.0 to accompany the changes as well.
 v7.3.1: Removed excessive log printing when Wheelbarrows upgrade (rarely) fails.

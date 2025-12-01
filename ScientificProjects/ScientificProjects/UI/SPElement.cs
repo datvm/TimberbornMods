@@ -45,7 +45,7 @@ public class SPElement(
 
     void AddIcon(VisualElement parent, ScientificProjectSpec spec)
     {
-        var img = parent.AddImage(spec.Icon ?? controller.DefaultIcon)
+        var img = parent.AddImage(spec.Icon?.Asset ?? controller.DefaultIcon)
             .SetSize(IconSize, IconSize)
             .SetMarginRight()
             .SetFlexShrink(0);

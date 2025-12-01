@@ -32,7 +32,7 @@ public class ModUpgradeListener(
     {
         if (builderBonusActive && wp.IsBuilderWorkplace)
         {
-            UpdateCharacters([wk.GetComponentFast<CharacterTrackerComponent>()]);
+            UpdateCharacters([wk.GetComponent<CharacterTrackerComponent>()]);
         }
     }
 
