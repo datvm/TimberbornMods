@@ -1,0 +1,15 @@
+﻿{
+    "KeyBindingSpec": {
+        "Id": "ShowAchievementDialog",
+        "GroupId": "UI",
+        "LocKey": "LV.MTA.ShowAchievementDialogHotkey",
+        "Order": 105,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/p",
+        "InputModifiers": "None",
+        "Unchangeable": false
+    }
+}

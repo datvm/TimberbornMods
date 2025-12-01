@@ -5,6 +5,9 @@
     "MinimumGameVersion": "1.0.4",
     "Description": "Improves the achievements experience with Timberborn",
     "RequiredMods": [
-
+        {
+            "Id": "ModdableTimberbornAchievements",
+            "MinimumVersion": "10.0.2"
+        }
     ]
 }

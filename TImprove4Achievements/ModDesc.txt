@@ -1,0 +1,22 @@
+﻿TImprove 4 Achievements adds optional hints to several Timberborn achievements, helping you track progress directly from the Achievements dialog. [spoiler]You can also reveal secret achievements if you choose to.[/spoiler]
+
+[h1]Supported achievements[/h1]
+
+[list]
+[*]Show planted tree count
+[*]Show remaining count of building types to build and List missing building types
+[*]Show current 24h work day streak
+[*]Show current power generated with only specified source
+[*]Show current built hedges count
+[*]Show current exploded dynamite count today
+[*]Show plugged badwater sources count and total
+[*]Show current produced planks count today
+[*]Show current battery charge stored
+[*]Show current longest zipline network length
+[*]Show current built Station and Tubeway segments count
+[/list]
+
+If you have any suggestion to add, feel free to contact me through Steam or Discord ( https://discord.com/channels/558398674389172225/1443532763931213879 )
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

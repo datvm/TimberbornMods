@@ -5,6 +5,7 @@ LV.MTA.UnlockNotifHeader,"New Achievement unlocked!",
 LV.MTA.GroupTitle,"{0} ({1}/{2} unlocked)",
 LV.MTA.UnlockedAchTitle,"<i><GreenHighlight>{0} - Unlocked!</GreenHighlight></i>"
 LV.MTA.SecretAchTitle,"{0} [SECRET]"
+LV.MTA.ShowAchievementDialogHotkey,"Show Achievements Dialog",
 LV.MTA.GroupSteam,"Steam",
 "LV.MTA.AchName_PLANT_5000_TREES","Beaver-made Forest",
 "LV.MTA.AchDesc_PLANT_5000_TREES","Plant 5,000 trees during a single playthrough.",

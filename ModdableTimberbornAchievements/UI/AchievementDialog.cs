@@ -3,11 +3,14 @@
 public class AchievementDialog : DialogBoxElement
 {
 
-    readonly VisualElement list;
+    public readonly VisualElement AchievementsList;
     readonly IContainer container;
     readonly ModdableAchievementSpecService specs;
     readonly ModdableAchievementUnlocker unlocker;
     readonly DialogService dialogService;
+
+    public ImmutableArray<AchievementGroupPanel> AchievementGroupPanels { get; private set; } = [];
+    ImmutableArray<IAchievementDialogListModifier> modifiers;
 
     public AchievementDialog(
         IContainer container,
@@ -16,13 +19,15 @@ public class AchievementDialog : DialogBoxElement
         VisualElementInitializer veInit,
         DevModeManager devModeManager,
         ModdableAchievementUnlocker unlocker,
-        DialogService dialogService
+        DialogService dialogService,
+        IEnumerable<IAchievementDialogListModifier> modifiers
     )
     {
         this.container = container;
         this.specs = specs;
         this.unlocker = unlocker;
         this.dialogService = dialogService;
+        this.modifiers = [.. modifiers];
 
         SetDialogPercentSize(height: .8f);
 
@@ -34,7 +39,7 @@ public class AchievementDialog : DialogBoxElement
             AddDevButtons();
         }
 
-        list = Content.AddChild();
+        AchievementsList = Content.AddChild();
         ShowAchievements(false);
 
         this.Initialize(veInit);
@@ -56,14 +61,24 @@ public class AchievementDialog : DialogBoxElement
         unlocker.Clear();
     }
 
-    void ShowAchievements(bool showSecrets)
+    public void ShowAchievements(bool showSecrets)
     {
-        list.Clear();
+        AchievementsList.Clear();
+        List<AchievementGroupPanel> els = [];
         foreach (var grp in specs.AchievementGroups)
         {
-            list.AddChild(() => container.GetInstance<AchievementGroupPanel>().Init(grp, showSecrets));
+            els.Add(AchievementsList.AddChild(() => container.GetInstance<AchievementGroupPanel>().Init(grp, showSecrets)));
         }
 
+        AchievementGroupPanels = [.. els];
+
+        if (modifiers.Length > 0)
+        {
+            foreach (var m in modifiers)
+            {
+                m.Modify(this, showSecrets);
+            }
+        }
     }
 
 }

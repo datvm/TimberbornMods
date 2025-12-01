@@ -1,7 +1,4 @@
-﻿global using TImprove4Achievements.Services;
-global using TImprove4Achievements.UI;
-
-namespace TImprove4Achievements;
+﻿namespace TImprove4Achievements;
 
 [Context("Game")]
 public class MGameConfigs : Configurator
@@ -16,8 +13,7 @@ public class MGameConfigs : Configurator
         this
             .BindSingleton<AchievementHelperService>()
 
-            .BindSingleton<AchievementHelperDialogShower>()
-            .BindTransient<AchievementHelperDialog>();
+            .MultiBindSingleton<IAchievementDialogListModifier, AchievementDialogHelperModifier>()
         ;
 
         foreach (var helper in HelperTypes)
