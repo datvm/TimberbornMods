@@ -3,8 +3,6 @@
 [HarmonyPatch(typeof(ToolGroupButton))]
 public static class ButtonsPatches
 {
-    public static int CurrentLevel = 0;
-
     [HarmonyPrefix, HarmonyPatch(nameof(ToolGroupButton.IsVisible), MethodType.Getter)]
     public static bool UpdateVisibility(ToolGroupButton __instance, ref bool __result)
     {
@@ -28,14 +26,14 @@ public static class ButtonsPatches
     {
         if (toolGroupOpenedEvent.ToolGroup != __instance._toolGroup) { return; }
 
-        CurrentLevel = 0;
+        var level = 0;
 
         var parent = ModdableToolGroupButtonService.Instance[__instance]?.Parent;
-        if (parent is null) { return; }
+        if (parent is null) { goto SET_TOP_BEFORE_RETURN; }
 
         while (parent is not null)
         {
-            CurrentLevel++;
+            level++;
             var btn = parent.Button;
 
             btn.ToolButtonsElement.ToggleDisplayStyle(true);
@@ -43,6 +41,9 @@ public static class ButtonsPatches
 
             parent = parent.Parent;
         }
+
+    SET_TOP_BEFORE_RETURN:
+        ToolPanelPositioningService.Instance?.SetTop(level);
     }
 
     [HarmonyPrefix, HarmonyPatch(nameof(ToolGroupButton.OnToolGroupExited))]
@@ -98,9 +99,6 @@ public static class ButtonsPatches
 
         foreach (var child in grp.orderedChildren)
         {
-#warning Delete
-            Debug.Log("Adding: " + child.Id);
-
             switch (child)
             {
                 case ToolGroupInfo subGrp:

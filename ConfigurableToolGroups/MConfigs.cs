@@ -10,5 +10,6 @@ public class ConfigurableToolGroupsConfig : Configurator
     {
         Bind<ModdableToolGroupSpecService>().AsSingleton();
         Bind<ModdableToolGroupButtonService>().AsSingleton();
+        Bind<ToolPanelPositioningService>().AsSingleton();
     }
 }
