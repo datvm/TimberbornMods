@@ -59,12 +59,12 @@ public partial class ModdableTimberbornRegistry
     {
         harmony.PatchAllUncategorized();
 
-        AddDefaultConfigurators();
 
         foreach (var ctx in SingleContexts)
         {
             configuratorsByContext[ctx] = [];
         }
+        AddDefaultConfigurators();
     }
 
     internal void Configure(Configurator configurator, ConfigurationContext context)

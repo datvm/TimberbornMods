@@ -3,10 +3,10 @@
 public class ModdableEntityDescriberConfigurator : IModdableTimberbornRegistryConfig
 {
 
+    ConfigurationContext IModdableTimberbornRegistryConfig.AvailableContexts { get; } = ConfigurationContext.Game;
+
     public void Configure(Configurator configurator, ConfigurationContext context)
     {
-        if (!context.IsGameContext()) { return; }
-
         configurator.BindOrderedFragment<EntityEffectDescriberFragment>();
     }
 

@@ -2,18 +2,13 @@
 
 public class ModdableTimberbornConfigurator : IModdableTimberbornRegistryConfig
 {
-    
+    ConfigurationContext IModdableTimberbornRegistryConfig.AvailableContexts { get; } = ConfigurationContext.Game | ConfigurationContext.MapEditor;
+
     public void Configure(Configurator configurator, ConfigurationContext context)
     {
-        var isGame = context.IsGameContext();
-        var isMapEditor = context.IsMapEditorContext();
-
-        if (isGame || isMapEditor)
-        {
-            configurator
-                .BindSingleton<DestructionService>()
-            ;
-        }
+        configurator
+            .BindSingleton<DestructionService>()
+        ;
     }
 
 }
