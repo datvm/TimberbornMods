@@ -28,12 +28,17 @@ public record ToolGroupChildrenSpec : ComponentSpec
 	[Serialize]
 	public ImmutableArray<string> ChildrenToolsTemplateNames { get; init; } = [];
 
+    [Serialize] // Added in v10.0.4
+    public ImmutableArray<string> ChildrenOrderedIds { get; init; } = [];
+
 	[Serialize]
 	public bool DoNotIncludePlaceableToolGroup { get; init; }
 }
 [/code]
 
 [b]ParentToolGroupSpec[/b] can be applied to [b]BlockObjectToolGroupSpec[/b] or any block object blueprints. [b]ToolGroupChildrenSpec[/b] quickly populates a tool group with child groups and tools. Both can be combined. Duplicates are removed automatically, and cyclic groups are detected with clear error info.
+
+[b]ChildrenOrderedIds[/b] can be used to specify the exact order of children (both groups and tools) in a mixed group. If specified, it overrides the default ordering by bringing any declared ids to the front in the given order, followed by any remaining children sorted the previous values.
 
 [h1]Examples:[/h1]
 
@@ -136,11 +141,38 @@ The most complete example is the Surfaces group: it is inside the Paths group an
 }
 [/code]
 
+[h2]Using ChildrenOrderedIds to order both groups and tools[/h2]
+
+The following file (not in the demo) shows how to use [b]ChildrenOrderedIds[/b] to order both groups and tools in a mixed group:
+
+[b]Blueprints\blockobjecttoolgroups\BlockObjectToolGroup.Paths.blueprint.json[/b]
+
+[code]
+{
+    "ToolGroupChildrenSpec": {
+        "ChildrenToolsTemplateNames": [
+            "Platform.Folktails",
+            "Platform.IronTeeth"
+        ],
+        "ChildrenOrderedIds": [
+            "Subgroup_MGZiplines",
+            "Path",
+            "Subgroup_MGMetalPlatform"
+        ]
+    }
+}
+[/code]
+
+The above code snippet will add the Platform tool into the Paths group, and the order of children in Paths group will be: Zipline subgroup, Path tool, Metal Platform subgroup, and then any other existing children sorted by their Order values (with Subgroups first).
+
 If you need any help, feel free to ask on Discord ([url=https://discord.com/channels/558398674389172225/888491376143134760]#mod-creators[/url] or [url=https://discord.com/channels/558398674389172225/1064825134348763209/threads/1442833036646420580]Moddable Tool Groups channel[/url])
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.0.4:
+- Added support for [b]ChildrenOrderedIds[/b] for ordering children in mixed groups (both subgroups and tools).
+- Fixed description panels showing way too low behind the tool buttons.
 v10.0.3: Fixed a crash when there are multiple copies of a tool.
 v10.0.2: Fixed the tooltip sometimes saying "Tooltip" instead of the group name.
 v10.0.1: Fixed a crash when a group is present at multiple places. Unfortunately I have to patch out Tutorial to fix it so just play it without Tutorial 😂.
