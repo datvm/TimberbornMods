@@ -1,10 +1,11 @@
-﻿namespace HydroFormaProjects.Services;
+﻿
+namespace HydroFormaProjects.Services;
 
 public class TerrainBlockUpgradeService(
     ScientificProjectUnlockRegistry unlocks,
     ScientificProjectRegistry registry
 )
-    : IPrefabGroupServiceTailRunner, // This is just to make sure it's load early enough
+    : ITemplateCollectionServiceTailRunner, // This is just to make sure it's load early enough
     IUnloadableSingleton
 {
 
@@ -31,7 +32,7 @@ public class TerrainBlockUpgradeService(
         MaxHangingTerrainDoubled = value * 2;
     }
 
-    public void Run(PrefabGroupService prefabGroupService)
+    public void Run(TemplateCollectionService templateCollectionService)
     {
         ReloadValues();
     }

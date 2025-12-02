@@ -1,6 +1,6 @@
 ﻿namespace HydroFormaProjects.Components;
 
-public class FloodgateAutoComponent : BaseComponent, IPersistentEntity
+public class FloodgateAutoComponent : BaseComponent, IPersistentEntity, IAwakableComponent, IStartableComponent
 {
     static readonly ComponentKey SaveKey = new("FloodgateAuto");
     static readonly PropertyKey<bool> SetOnHazardKey = new("SetOnHazard");
@@ -29,7 +29,7 @@ public class FloodgateAutoComponent : BaseComponent, IPersistentEntity
 
     public void Awake()
     {
-        floodgate = GetComponentFast<Floodgate>();
+        floodgate = GetComponent<Floodgate>();
     }
 
     public void Start()

@@ -1,29 +1,24 @@
 ﻿namespace HydroFormaProjects.Components;
 
-public class RecipeTimeMultiplierSpec : BaseComponent
+public record RecipeTimeMultiplierSpec : ComponentSpec
 {
-    [SerializeField]
-    public string id = "";
-    [SerializeField]
-    public float multiplier = 1f;
-
-    public string Id => id;
-    public float Multiplier => multiplier;
+    public string Id { get; init; } = null!;
+    public float Multiplier { get; init; }
 }
 
-public class RecipeTimeMultiplier : BaseComponent
+public class RecipeTimeMultiplier : BaseComponent, IStartableComponent
 {
     static readonly ConditionalWeakTable<RecipeSpec, RecipeTimeMultiplierApplier> appliers = [];
 
     public void Start()
     {
-        var manufactory = GetComponentFast<Manufactory>();
+        var manufactory = GetComponent<Manufactory>();
         if (!manufactory)
         {
             throw new InvalidOperationException($"{nameof(RecipeTimeMultiplier)} is supposed to be added to objects with {nameof(Manufactory)} components only");
         }
 
-        var spec = GetComponentFast<RecipeTimeMultiplierSpec>();
+        var spec = GetComponent<RecipeTimeMultiplierSpec>();
 
         foreach (var recipe in manufactory.ProductionRecipes)
         {

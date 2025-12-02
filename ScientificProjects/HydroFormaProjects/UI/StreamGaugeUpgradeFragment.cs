@@ -52,7 +52,7 @@ public class StreamGaugeUpgradeFragment(
 
     public void ShowFragment(BaseComponent entity)
     {
-        comp = entity.GetComponentFast<StreamGaugeSensor>();
+        comp = entity.GetComponent<StreamGaugeSensor>();
         if (!comp) { return; }
 
         if (!service.IsUnlocked)
@@ -69,7 +69,7 @@ public class StreamGaugeUpgradeFragment(
     {
         if (!comp) { return; }
 
-        if (comp.WaterLevel is null)
+        if (comp!.WaterLevel is null)
         {
             lblDepth.text = "⌛";
         }
@@ -99,6 +99,6 @@ public class StreamGaugeUpgradeFragment(
     {
         if (!comp) { return; }
 
-        service.MeasureVolumeRequested(comp, chkMeasureFullCube.value);
+        service.MeasureVolumeRequested(comp!, chkMeasureFullCube.value);
     }
 }

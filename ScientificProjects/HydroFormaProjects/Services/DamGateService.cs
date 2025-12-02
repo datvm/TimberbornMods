@@ -10,7 +10,7 @@ public class DamGateService(
 
     public void ToggleDamGate(DamGateComponent comp, bool closed)
     {
-        var blockObj = comp.GetComponentFast<BlockObject>();
+        var blockObj = comp.GetComponent<BlockObject>();
         HashSet<Vector3Int> visited = [blockObj.Coordinates];
         Stack<DamGateComponent> stack = new([comp]);
 
@@ -29,7 +29,7 @@ public class DamGateService(
 
             if (!current.Synchronize) { continue; }
 
-            var block = current.GetComponentFast<BlockObject>();
+            var block = current.GetComponent<BlockObject>();
             var coord = block.Coordinates;
             foreach (var n in neighbors)
             {

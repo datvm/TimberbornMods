@@ -52,7 +52,7 @@ public class FloodgateAutoFragment(
 
     public void ShowFragment(BaseComponent entity)
     {
-        comp = entity.GetComponentFast<FloodgateAutoComponent>();
+        comp = entity.GetComponent<FloodgateAutoComponent>();
         if (comp == null || !floodgateAutoService.IsUnlocked)
         {
             comp = null;
@@ -70,11 +70,11 @@ public class FloodgateAutoFragment(
         if (!comp) { return; }
         if (hazard)
         {
-            comp.SetOnHazard = enabled;
+            comp!.SetOnHazard = enabled;
         }
         else
         {
-            comp.SetOnNewCycle = enabled;
+            comp!.SetOnNewCycle = enabled;
         }
         UpdateContentEnabled();
     }
@@ -85,11 +85,11 @@ public class FloodgateAutoFragment(
 
         if (hazard)
         {
-            comp.HeightOnHazard = height;
+            comp!.HeightOnHazard = height;
         }
         else
         {
-            comp.HeightOnNewCycle = height;
+            comp!.HeightOnNewCycle = height;
         }
     }
 

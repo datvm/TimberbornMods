@@ -1,8 +1,14 @@
 {
-    "ItemId": "3458034774",
-    "Name": "Brain-Power Scientific Projects",
-    "Visibility": "Public",
-    "UpdateDescription": false,
-    "UpdateVisibility": false,
-    "UpdatePreview": false
+  "ItemId": "3458034774",
+  "Name": "Brain-Power Scientific Projects",
+  "Visibility": "Public",
+  "UpdateDescription": false,
+  "UpdateVisibility": false,
+  "UpdatePreview": false,
+  "Tags": [
+    "Update 1.0",
+    "Update 0.7",
+    "New content",
+    "Buildings"
+  ]
 }

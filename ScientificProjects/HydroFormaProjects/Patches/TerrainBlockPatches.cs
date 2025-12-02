@@ -15,7 +15,7 @@ public static class TerrainBlockPatches
     {
         Dictionary<Type, HashSet<string>> methodsByTypes = new()
         {
-            { 
+            {
                 typeof(TerrainPhysicsPostLoader),
                 [
                     nameof(TerrainPhysicsPostLoader.ValidateTerrain),
@@ -31,11 +31,10 @@ public static class TerrainBlockPatches
             {
                 typeof(TerrainPhysicsValidator),
                 [
+                    nameof(TerrainPhysicsValidator.PrepareValidationOffsetData),
                     nameof(TerrainPhysicsValidator.AreCoordinatesInvalid),
                     nameof(TerrainPhysicsValidator.IsTerrainValid),
                     nameof(TerrainPhysicsValidator.ValidateCheckedArea),
-                    nameof(TerrainPhysicsValidator.AddCoordinatesToSets),
-                    nameof(TerrainPhysicsValidator.AddDataToSets)
                 ]
             }
         };
