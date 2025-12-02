@@ -24,10 +24,12 @@ These upgrades are for Folktails and apply to all Windmills in the game (Regular
 Note: a few of the upgrades have "[Reload needed]" tags which means after purchasing, you need to make a save, then just load that save again to take effect. There will be a message box showing when purchasing to remind you.
 
 ===
+Mod source code: https://github.com/datvm/TimberbornMods/tree/master/ScientificProjects
+
+v10.0.0: Should work with Timberborn v1.0 now.
+
 v7.4.0: See Scientific Projects 7.4.0 update.
 v7.2.2: Fixed a crash caused by Gearshift Labor Sync.
 v7.2.1: Should work with April 10 update now.
 v7.1.0: Greedy Builders can now use the faction-specific projects.
 v7.0.1: minor spelling correction.
-
-Mod source code: https://github.com/datvm/TimberbornMods/tree/master/ScientificProjects
