@@ -1,0 +1,4 @@
+﻿Water is now simulated more realistically: it can no longer be compressed. Opening a sealed water source will release water at its true volume, preventing the explosive pressure buildup that used to splash badwater everywhere.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

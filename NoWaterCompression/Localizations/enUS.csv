@@ -1,7 +1,0 @@
-﻿ID,Text,Comment
-LV.NWC.NoCompression,"No Water Compression",
-LV.NWC.NoCompressionDesc,"Water does not compress. Water source stops flowing when it is blocked.",
-LV.NWC.FreeFlow,"Free flow (for Waterfall)",
-LV.NWC.FreeFlowDesc,"Water can flow down freely without any limit. Can only be changed at Main Menu.",
-LV.NWC.MaxCurrentMultiplier,"Max Current Multiplier [!]",
-LV.NWC.MaxCurrentMultiplierDesc,"EXPERIMENTAL and may act strangely! Should be used with Free Flow enabled. The multiplier for the maximum water current speed. 2 does not mean the maximum current speed is doubled. Try with different values to see the effect. Set to 1 to reset to game default.",
