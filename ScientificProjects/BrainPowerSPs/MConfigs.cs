@@ -1,13 +1,14 @@
 ﻿namespace BrainPowerSPs;
 
-public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony
+public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony, IWithDIConfig
 {
+    public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.Game;
+
     public override void StartMod(IModEnvironment modEnvironment)
     {
         base.StartMod(modEnvironment);
 
         ModdableTimberbornRegistry.Instance
-            .UseDependencyInjection()
             .UseMechanicalSystem()
             .TryTrack<WaterWheelPowerSPComponent>()
             .TryTrack<WindPowerSPComponent>();
@@ -15,8 +16,6 @@ public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony
 
     public override void Configure(Configurator configurator, ConfigurationContext context)
     {
-        if (!context.IsGameContext()) { return; }
-
         configurator
             .BindScientificProjectCostProvider<PowerSPCostProvider>()
 
@@ -24,7 +23,7 @@ public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony
             .BindScientificProjectListener<SparePowerToScienceConverter>(true)
             .BindScientificProjectListener<WindPowerSPService>(true)
 
-            .MultiBindSingleton<IPrefabModifier, PowerSPPrefabModifier>()
+            .BindTemplateModifier<PowerSPTemplateModifier>()
 
             .BindTemplateModule(h => h
                 .AddDecorator<WaterPoweredGeneratorSpec, WaterWheelPowerSPComponent>()

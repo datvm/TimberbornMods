@@ -13,7 +13,7 @@ public class WindPowerSPService(EntityRegistry entities) : IScientificProjectUnl
 
         foreach (var e in entities.Entities)
         {
-            var comp = e.GetComponentFast<WindPowerSPComponent>();
+            var comp = e.GetComponent<WindPowerSPComponent>();
             if (comp)
             {
                 comp.CalculateBoost();

@@ -1,7 +1,7 @@
 ﻿
 namespace BrainPowerSPs.Components;
 
-public class WindPowerSPComponent : BaseComponent, IEntityEffectDescriber
+public class WindPowerSPComponent : BaseComponent, IEntityEffectDescriber, IStartableComponent
 {
 
     WindPowerSPService service = null!;
@@ -17,7 +17,7 @@ public class WindPowerSPComponent : BaseComponent, IEntityEffectDescriber
 
     public void Start()
     {
-        var blockObj = GetComponentFast<BlockObject>();
+        var blockObj = GetComponent<BlockObject>();
         HighestZ = blockObj.Coordinates.z + blockObj.BlocksSpec.Size.z;
 
         CalculateBoost();

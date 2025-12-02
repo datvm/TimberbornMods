@@ -1,6 +1,6 @@
 ﻿namespace BrainPowerSPs.Components;
 
-public class WaterWheelPowerSPComponent : BaseComponent, IModdableMechanicalNodeModifier, IEntityMultiEffectsDescriber
+public class WaterWheelPowerSPComponent : BaseComponent, IModdableMechanicalNodeModifier, IEntityMultiEffectsDescriber, IAwakableComponent
 {
     public string Id { get; } = nameof(WaterWheelPowerSPComponent);
     public int Priority { get; } = (int)ModifierPriority.Multiplicative;
@@ -24,7 +24,7 @@ public class WaterWheelPowerSPComponent : BaseComponent, IModdableMechanicalNode
 
     public void Awake()
     {
-        waterPoweredGenerator = GetComponentFast<WaterPoweredGenerator>();
+        waterPoweredGenerator = GetComponent<WaterPoweredGenerator>();
     }
 
     public bool Modify(ModdableMechanicalNodeValues value)

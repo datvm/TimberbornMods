@@ -5,9 +5,9 @@ public static class WindPoweredGeneratorPatches
 {
 
     [HarmonyPostfix, HarmonyPatch(nameof(WindPoweredGenerator.GeneratorStrength), MethodType.Getter)]
-    public static void MultiplyPowerFromheight(WindPoweredGenerator __instance, ref float __result)
+    public static void MultiplyPowerFromHeight(WindPoweredGenerator __instance, ref float __result)
     {
-        var comp = __instance.GetComponentFast<WindPowerSPComponent>();
+        var comp = __instance.GetComponent<WindPowerSPComponent>();
         if (!comp) { return; }
 
         __result *= comp.HeightMultiplier;

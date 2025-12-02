@@ -1,6 +1,6 @@
 ﻿namespace BrainPowerSPs.Components;
 
-public class SparePowerDescriber : BaseComponent, IEntityEffectDescriber
+public class SparePowerDescriber : BaseComponent, IEntityEffectDescriber, IStartableComponent
 {
 
 #nullable disable
@@ -18,8 +18,8 @@ public class SparePowerDescriber : BaseComponent, IEntityEffectDescriber
 
     public void Start()
     {
-        manufactory = GetComponentFast<Manufactory>();
-        manufactory.ProductionRecipeChanged += OnRecipeChanged;
+        manufactory = GetComponent<Manufactory>();
+        manufactory.RecipeChanged += OnRecipeChanged;
         OnRecipeChanged(this, EventArgs.Empty);
     }
 
