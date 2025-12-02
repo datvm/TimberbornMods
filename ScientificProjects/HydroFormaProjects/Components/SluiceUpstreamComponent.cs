@@ -1,6 +1,6 @@
 ﻿namespace HydroFormaProjects.Components;
 
-public class SluiceUpstreamComponent : BaseComponent, IPersistentEntity
+public class SluiceUpstreamComponent(MapSize mapSize) : BaseComponent, IPersistentEntity, IStartableComponent
 {
     static readonly ComponentKey SaveKey = new("SluiceUpstream");
     static readonly PropertyKey<bool> AutoOpenKey = new("AutoOpen");
@@ -11,20 +11,10 @@ public class SluiceUpstreamComponent : BaseComponent, IPersistentEntity
     public float MaxThreshold { get; private set; }
     public Vector3Int ThresholdCoordinates { get; private set; }
 
-#nullable disable
-    MapSize mapSize;
-#nullable enable
-
-    [Inject]
-    public void Inject(MapSize mapSize)
-    {
-        this.mapSize = mapSize;
-    }
-
     public void Start()
     {
-        var bo = GetComponentFast<BlockObject>();
-        ThresholdCoordinates = bo.Transform(new Vector3Int(0, -1, 0));
+        var bo = GetComponent<BlockObject>();
+        ThresholdCoordinates = bo.TransformCoordinates(new Vector3Int(0, -1, 0));
         MaxThreshold = mapSize.TotalSize.z - ThresholdCoordinates.z;
     }
 

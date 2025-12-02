@@ -36,7 +36,9 @@ Fun fact from the author: I actually intended it to be a weak solar panel as a j
 If you need any support or feedback, feel free to contact me on Timberborn's official Discord ( https://discord.gg/timberborn, on [url=https://discord.com/channels/558398674389172225/1064824959697944666]#mod-users[/url] channel), or @theapologist316
 
 ===
-Mod source code and donation: https://github.com/datvm/TimberbornMods
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.0: Should work with Timberborn v1.0.
 
 v7.4.0: See Scientific Projects 7.4.0 update.
 v7.1.0: R&D Package is now Anti‑Grav™ Deck, see press release above for details.

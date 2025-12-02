@@ -1,8 +1,8 @@
 ﻿namespace HydroFormaProjects.Components;
 
-public class DamGateComponentSpec : BaseComponent { }
+public record DamGateComponentSpec : ComponentSpec;
 
-public class DamGateComponent : BaseComponent, IFinishedStateListener, IPersistentEntity
+public class DamGateComponent : BaseComponent, IFinishedStateListener, IPersistentEntity, IAwakableComponent, IStartableComponent
 {
     static readonly Shader LockShader = Shader.Find("Shader Graphs/EnvironmentURP");
     static readonly Color LockColor = new(118 / 255f, 107 / 255f, 99 / 255f);
@@ -49,7 +49,7 @@ public class DamGateComponent : BaseComponent, IFinishedStateListener, IPersiste
 
     public void Awake()
     {
-        waterObstacle = GetComponentFast<WaterObstacle>();
+        waterObstacle = GetComponent<WaterObstacle>();
     }
 
     public void Start()
@@ -70,14 +70,14 @@ public class DamGateComponent : BaseComponent, IFinishedStateListener, IPersiste
     void AttachLock()
     {
         var obj = lockObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Destroy(obj.GetComponent<Collider>());
+        Object.Destroy(obj.GetComponent<Collider>());
 
         var renderer = obj.GetComponent<Renderer>();
         renderer.material.shader = LockShader;
         renderer.material.SetColor("_Color", LockColor);
 
         var t = obj.transform;
-        t.parent = GameObjectFast.transform;
+        t.parent = GameObject.transform;
 
         t.localScale = new(.8f, .8f, .8f);
         t.localPosition = new(.5f, .5f, .5f);
@@ -89,7 +89,7 @@ public class DamGateComponent : BaseComponent, IFinishedStateListener, IPersiste
     {
         if (lockObj)
         {
-            Destroy(lockObj);
+            Object.Destroy(lockObj);
             lockObj = null;
         }
     }

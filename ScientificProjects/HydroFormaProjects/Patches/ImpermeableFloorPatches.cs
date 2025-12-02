@@ -9,10 +9,10 @@ public static class ImpermeableFloorPatches
     {
         foreach (var e in __instance._entityRegistry.Entities)
         {
-            var prefab = e.GetComponentFast<PrefabSpec>();
-            if (!prefab || !prefab.PrefabName.StartsWith("ImpermeableFloor.")) { continue; }
+            var template = e.GetComponent<TemplateSpec>();
+            if (template?.TemplateName.StartsWith(" =ImpermeableFloor.") != true) { continue; }
 
-            var block = e.GetComponentFast<BlockObject>();
+            var block = e.GetComponent<BlockObject>();
             __instance._candidates.Enqueue(new(block.Coordinates, 0));
         }
     }

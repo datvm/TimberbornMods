@@ -74,7 +74,7 @@ public class SluiceUpstreamFragment(
     {
         if (!sluiceFragment._sluice || !sluiceUpstreamService.IsUnlocked) { return; }
 
-        comp = sluiceFragment._sluice.GetComponentFast<SluiceUpstreamComponent>();
+        comp = sluiceFragment._sluice.GetComponent<SluiceUpstreamComponent>();
         if (!comp)
         {
             comp = null;
@@ -91,7 +91,7 @@ public class SluiceUpstreamFragment(
     {
         if (!comp || !sluiceFragment._sluice) { return; }
 
-        lblUpstream.text = sluiceFragment._sluice._threadSafeWaterMap.WaterDepth(comp.ThresholdCoordinates).ToString("0.00");
+        lblUpstream.text = sluiceFragment._sluice._threadSafeWaterMap.WaterDepth(comp!.ThresholdCoordinates).ToString("0.00");
     }
 
     public void ClearFragment()
@@ -119,14 +119,14 @@ public class SluiceUpstreamFragment(
     {
         if (!comp) { return; }
 
-        SetThresholdValue(comp.Threshold + delta);
+        SetThresholdValue(comp!.Threshold + delta);
     }
 
     void SetThresholdValue(float value)
     {
         if (!comp) { return; }
 
-        var h = comp.Threshold = RoundToNearest05(Mathf.Clamp(value, 0f, comp.MaxThreshold));
+        var h = comp!.Threshold = RoundToNearest05(Mathf.Clamp(value, 0f, comp.MaxThreshold));
         SyncSluice();
 
         txtUpstream.SetValueWithoutNotify(h);
@@ -137,7 +137,7 @@ public class SluiceUpstreamFragment(
     {
         if (!comp) { return; }
 
-        comp.AutoOpen = enabled;
+        comp!.AutoOpen = enabled;
         SyncSluice();
     }
 

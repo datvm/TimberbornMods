@@ -1,7 +1,8 @@
 ﻿namespace HydroFormaProjects;
 
-public class MGameConfigs : BaseModdableTimberbornConfigurationWithHarmony
+public class MGameConfigs : BaseModdableTimberbornConfigurationWithHarmony, IWithDIConfig
 {
+    public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.Game;
 
     public override void StartMod(IModEnvironment modEnvironment)
     {
@@ -9,24 +10,21 @@ public class MGameConfigs : BaseModdableTimberbornConfigurationWithHarmony
 
         new Harmony(nameof(HydroFormaProjects)).PatchHangingTerrains();
 
-        ModdableTimberbornRegistry.Instance            
-            .UseDependencyInjection()
+        ModdableTimberbornRegistry.Instance
             .UseEntityTracker()
             .TryTrack<FloodgateAutoComponent>();
     }
 
     public override void Configure(Configurator configurator, ConfigurationContext context)
     {
-        if (!context.IsGameContext()) { return; }
-
         configurator
             .BindScientificProjectListener<DamGateService>(true)
             .BindScientificProjectListener<FloodgateAutoService>(true)
             .BindScientificProjectListener<SluiceUpstreamService>(true)
             .BindScientificProjectListener<StreamGaugeSensorService>(true)
 
-            .BindPrefabModifier<HFSPPrefabModifier>()
-            .MultiBindSingleton<IPrefabGroupServiceTailRunner, TerrainBlockUpgradeService>()
+            .BindTemplateModifier<HFSPTemplateModifier>()
+            .BindTemplateTailRunner<TerrainBlockUpgradeService>()
 
             .BindFragment<DamGateFragment>()
             .BindFragment<FloodgateAutoFragment>()

@@ -1,11 +1,9 @@
 ﻿namespace HydroFormaProjects.Components;
 
-public class StreamGaugeSensor : TickableComponent, ISelectionListener
+public class StreamGaugeSensor(StreamGaugeSensorService service) : TickableComponent, ISelectionListener, IAwakableComponent
 {
 
-#nullable disable
-    StreamGaugeSensorService service;
-    
+#nullable disable    
     public StreamGaugeSpec StreamGaugeSpec { get; private set; }
     public BlockObject BlockObject { get; private set; }
 #nullable enable
@@ -13,17 +11,11 @@ public class StreamGaugeSensor : TickableComponent, ISelectionListener
     public StreamGaugeSensorMeasurement? WaterLevel { get; private set; }
     public StreamGaugeSensorVolumeMeasurement? VolumeMeasurement { get; set; }
 
-    [Inject]
-    public void Inject(StreamGaugeSensorService service)
-    {
-        this.service = service;
-    }
-
     public void Awake()
     {
-        BlockObject = GetComponentFast<BlockObject>();
-        StreamGaugeSpec = GetComponentFast<StreamGaugeSpec>();
-        enabled = false;
+        BlockObject = GetComponent<BlockObject>();
+        StreamGaugeSpec = GetComponent<StreamGaugeSpec>();
+        DisableComponent();
     }
 
     public override void Tick()
@@ -36,7 +28,7 @@ public class StreamGaugeSensor : TickableComponent, ISelectionListener
         if (BlockObject.IsFinished
             && service.IsUnlocked)
         {
-            enabled = true;
+            EnableComponent();
             Tick();
         }
     }
@@ -44,7 +36,7 @@ public class StreamGaugeSensor : TickableComponent, ISelectionListener
     public void OnUnselect()
     {
         WaterLevel = null;
-        enabled = false;
+        DisableComponent();
     }
 
 }

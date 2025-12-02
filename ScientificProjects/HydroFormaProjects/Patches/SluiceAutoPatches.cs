@@ -10,7 +10,7 @@ public static class SluiceAutoPatches
     {
         if (!upstreamComps.TryGetValue(__instance, out var upstream))
         {
-            upstream = __instance.GetComponentFast<SluiceUpstreamComponent>();
+            upstream = __instance.GetComponent<SluiceUpstreamComponent>();
             if (!upstream) { return true; }
 
             upstreamComps.Add(__instance, upstream);

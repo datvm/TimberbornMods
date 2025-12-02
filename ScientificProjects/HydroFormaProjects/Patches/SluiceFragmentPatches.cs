@@ -29,8 +29,8 @@ public static class SluiceFragmentPatches
     [HarmonyPostfix, HarmonyPatch(typeof(SluiceState), nameof(SluiceState.SetState))]
     public static void OnSetState(SluiceState neighbor, SluiceState __instance)
     {
-        var neighborUpstream = neighbor.GetComponentFast<SluiceUpstreamComponent>();
-        var upstream = __instance.GetComponentFast<SluiceUpstreamComponent>();
+        var neighborUpstream = neighbor.GetComponent<SluiceUpstreamComponent>();
+        var upstream = __instance.GetComponent<SluiceUpstreamComponent>();
 
         upstream.AutoOpen = neighborUpstream.AutoOpen;
         upstream.Threshold = neighborUpstream.Threshold;

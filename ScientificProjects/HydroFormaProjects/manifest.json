@@ -1,13 +1,13 @@
 ﻿{
     "Name": "HydroForma Projects",
-    "Version": "7.4.0",
+    "Version": "10.0.0",
     "Id": "HydroFormaProjects",
-    "MinimumGameVersion": "0.7.0.0",
+    "MinimumGameVersion": "1.0.0",
     "Description": "Landscape building scientific projects.",
     "RequiredMods": [
         {
             "Id": "ScientificProjects",
-            "MinimumVersion": "7.4.0"
+            "MinimumVersion": "10.0.0"
         }
     ]
 }

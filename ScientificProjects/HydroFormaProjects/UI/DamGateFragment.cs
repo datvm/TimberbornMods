@@ -36,7 +36,7 @@ public class DamGateFragment(
 
     public void ShowFragment(BaseComponent entity)
     {
-        comp = entity.GetComponentFast<DamGateComponent>();
+        comp = entity.GetComponent<DamGateComponent>();
         if (!comp) { return; }
 
         if (!comp.Finished || !damGateService.IsUnlocked)
@@ -54,7 +54,7 @@ public class DamGateFragment(
     {
         if (!comp) { return; }
 
-        chkClosed.SetValueWithoutNotify(comp.Closed);
+        chkClosed.SetValueWithoutNotify(comp!.Closed);
     }
 
     void ToggleDamGate(bool closed)
