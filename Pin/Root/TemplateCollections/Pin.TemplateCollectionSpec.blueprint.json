@@ -1,6 +1,6 @@
 ﻿{
     "TemplateCollectionSpec": {
-        "CollectionId": "Pin",
+        "CollectionId": "Common",
         "Blueprints": [
             "Resources/Buildings/Decorations/Pin.blueprint"
         ]
