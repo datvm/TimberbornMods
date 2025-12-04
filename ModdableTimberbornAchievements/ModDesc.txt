@@ -23,6 +23,7 @@ Obviously, custom achievements do not sync with Steam achievements since those a
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.0.3: Should work with Update 1.0.5 (Dec 03)
 v10.0.2:
 - Added opening hotkey.
 - Various internal changes to support TImprove 4 Achievements.

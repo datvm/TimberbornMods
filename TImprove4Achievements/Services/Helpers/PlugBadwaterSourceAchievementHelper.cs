@@ -14,9 +14,9 @@ public abstract class PlugBadwaterSourceAchievementHelper<T>(DialogService diag,
 }
 
 public class PlugAnyBadwaterSourceAchievementAchievementHelper(DialogService diag, ILoc t)
-    : PlugBadwaterSourceAchievementHelper<PlugAnyBadwaterSourceAchievementAchievement>(diag, t)
+    : PlugBadwaterSourceAchievementHelper<PlugAnyBadwaterSourceAchievement>(diag, t)
 { }
 
 public class PlugAllBadwaterSourcesAchievementAchievementHelper(DialogService diag, ILoc t)
-    : PlugBadwaterSourceAchievementHelper<PlugAllBadwaterSourcesAchievementAchievement>(diag, t)
+    : PlugBadwaterSourceAchievementHelper<PlugAllBadwaterSourcesAchievement>(diag, t)
 { }
