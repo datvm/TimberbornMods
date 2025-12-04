@@ -1,4 +1,4 @@
-This mod adds the Airlock Chamber, a "high-tech" structure that blocks water and allows beavers to walk through it.
+﻿This mod adds the Airlock Chamber, a "high-tech" structure that blocks water and allows beavers to walk through it.
 
 [h1]Airlock Chamber[/h1]
 
@@ -10,7 +10,7 @@ This mod adds the Airlock Chamber, a "high-tech" structure that blocks water and
 
 [h1]6-way Airlock Chamber[/h1]
 
-[i]Schr�beaver principle: path and puddle states collapse only when you peek.[/i]
+[i]Schröbeaver principle: path and puddle states collapse only when you peek.[/i]
 
 - Same as Airlock Chamber but allows passage in all 6 directions. You need to build one extra to exit on the same level if you want to go up.
 - Cost 2000 Science to unlock, 30 Planks, 30 Resin and 10 Metal Blocks to build.
@@ -19,6 +19,9 @@ Both can be built by both the Folktails and Iron Teeths. GreedyBuilders and Embe
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v10.0.1: Should work with Update 1.0.5 (Dec 03)
+v10.0.0: should work with game v1.0
 
 v7.1.1:
 - 4-way Airlock Chamber is now 6-way Airlock Chamber. Internally it keeps [i]AirlockChamber4[/i] name to prevent problems.
