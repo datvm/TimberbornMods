@@ -1,0 +1,9 @@
+{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Common",
+        "Blueprints": [
+            "Resources/Buildings/Paths/AirlockChamber/AirlockChamber.blueprint",
+            "Resources/Buildings/Paths/AirlockChamber/AirlockChamber4.blueprint"
+        ]
+    }
+}
