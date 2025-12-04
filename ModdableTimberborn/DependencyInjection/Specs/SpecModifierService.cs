@@ -12,7 +12,7 @@ public class SpecModifierService(
     {
         if (modifiersByTypes.Count == 0) { return; }
 
-        var cachedBp = specService._cachedBlueprints;
+        var cachedBp = specService._cachedBlueprintsBySpecs;
         foreach (var (type, modifiers) in modifiersByTypes)
         {
             if (!cachedBp.TryGetValue(type, out var lazies)) { continue; }
@@ -23,7 +23,6 @@ public class SpecModifierService(
                 if (!v.HasSpec<TemplateCollectionSpec>()) { continue; }
 
                 var s = v.GetSpec<TemplateCollectionSpec>();
-                TimberUiUtils.LogDev($"{v.Name}: {s.CollectionId}: {string.Join("\r\n", s.Blueprints.Select(q => q.Path))}");
             }
 
             var bps = lazies.Select(q => new EditableBlueprint(q.Value)).ToArray();
