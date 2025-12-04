@@ -28,6 +28,7 @@ They are separated into three sections:
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.1.1: Should work with Update 1.0.5 (Dec 03)
 v10.1.0:
 - Added Planting time, Harvest time, and Demolishing time multipliers.
 - Reorganize settings into sections for better clarity.

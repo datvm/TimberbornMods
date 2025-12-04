@@ -67,24 +67,15 @@ public class NoGroundPlantTerrainService(
         return false;
     }
 
-    bool TryHitSelectableObject(SelectableObjectRaycaster raycaster, Ray ray, out BaseComponent? hitObject)
+    bool TryHitSelectableObject(SelectableObjectRaycaster raycaster, Ray ray, out SelectableObject? hitObject)
     {
         // Copy source code of SelectableObjectRaycaster, unfortunately because it doesn't have any parameter for an input ray
 
         ray = CoordinateSystem.GridToWorld(ray);
-
-        if (Physics.Raycast(ray, out var hitInfo) && raycaster.HitIsCloserThanTerrain(ray, true, hitInfo))
-        {
-            GameObject gameObject = hitInfo.collider.gameObject;
-            if ((bool)gameObject)
-            {
-                hitObject = raycaster._selectableObjectRetriever.GetSelectableObject(gameObject);
-                return true;
-            }
-        }
-        hitObject = null;
-        return false;
+        return raycaster.TryHitSelectableObject(ray, false, out hitObject, out _);
     }
+
+
 
     public void Unload()
     {
