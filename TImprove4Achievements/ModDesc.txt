@@ -20,3 +20,5 @@ If you have any suggestion to add, feel free to contact me through Steam or Disc
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.1: Should work with Update 1.0.5 (Dec 03)

@@ -17,8 +17,8 @@
 		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
 		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
 		
-		<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />
-		<!--<ProjectReference Include="..\TImprove4Achievements\TImprove4Achievements.csproj" />-->
+		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
+		<ProjectReference Include="..\TImprove4Achievements\TImprove4Achievements.csproj" />
 
 	</ItemGroup>
 

@@ -26,6 +26,7 @@ Please feel free to suggest any info it should show and I will see if I can add 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.0.2: Should work with Update 1.0.5 (Dec 03)
 v10.0.1: Minor localization fix.
 v10.0.0: Works with Timberborn v1.0.
 
