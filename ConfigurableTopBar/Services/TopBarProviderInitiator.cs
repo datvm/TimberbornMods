@@ -17,12 +17,12 @@ public class TopBarProviderInitiator(
 
     void Replace<T>(SpecService specService, ISpecModifier modifier) where T : ComponentSpec
     {
-        var bps = specService._cachedBlueprints[typeof(T)]
+        var bps = specService._cachedBlueprintsBySpecs[typeof(T)]
             .Select(q => new EditableBlueprint(q.Value));
 
         var modified = modifier.Modify(bps);
 
-        specService._cachedBlueprints[typeof(T)] = [.. modified
+        specService._cachedBlueprintsBySpecs[typeof(T)] = [.. modified
             .Select(q => {
                 var bp = q.ToBlueprint();
                 return new Lazy<Blueprint>(bp);
