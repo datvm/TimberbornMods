@@ -108,3 +108,8 @@ Name_DecalSupplierFragment,"Decal Supplier",
 Name_TimedComponentActivatorSettingsFragment,"Timed Component Activator Settings",
 Name_BlueprintDebugFragment,"Blueprint Debug",
 Name_UnstableCoreDebugFragment,"Unstable Core Debug",
+Name_FlippableDecalFragment,"[DO_NOT_COLLAPSE]"
+Name_RecoveredGoodStackDisintegrationFragment,"[DO_NOT_COLLAPSE]",
+Name_SluiceFragment_SynchronizeWrapper,"[DO_NOT_COLLAPSE]",
+Name_TailDecalSupplierFragment_,"[DO_NOT_COLLAPSE]",
+Name_DecalSupplierFragment_,"[DO_NOT_COLLAPSE]",
