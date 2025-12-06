@@ -86,7 +86,7 @@ LV.SP.FtPlankUpgradeLore,"Infusing planks with natural resins doubles Treated Pl
 LV.SP.FtPlankUpgradeEffNew,"Woodworkshop no longer uses power and double Treated Planks output.",
 LV.SP.ItSmelterUpgrade,"Heat-Recycling Smelter",
 LV.SP.ItSmelterUpgradeLore,"A breakthrough in furnace design doubles metal output without extra power, embodying Iron Teeth ingenuity.",
-LV.SP.ItSmelterUpgradeEffNew,"Smelter no longe ruses power and double the Metal Blocks output.",
+LV.SP.ItSmelterUpgradeEffNew,"Smelter no longer uses power and double the Metal Blocks output.",
 LV.SP.BuffLessPowerEff,"{0:#.###%} Power Usage",
 LV.SP.BuffIncreasedOutput,"{0:+#%} increased Output",
 LV.SP.Filter,"Filter",

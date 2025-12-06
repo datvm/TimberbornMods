@@ -69,11 +69,11 @@
     <Project Path="DemoModdableAchievements/DemoModdableAchievements.csproj" Id="dbc75ca6-0dda-4656-85bb-f95b97280542" />
     <Project Path="ModdableTimberbornAchievements/ModdableTimberbornAchievements.csproj" Id="3b3c126f-cf40-4fe0-ac31-e51b7683a150" />
   </Folder>
-  <Folder Name="/ModdableTimberborn/">
+  <Folder Name="/Moddable/ModdableTimberborn/">
     <Project Path="ModdableTimberborn/ModdableTimberborn.csproj" />
     <Project Path="ModdableTimberbornDemo/ModdableTimberbornDemo.csproj" />
   </Folder>
-  <Folder Name="/ModdableWeathers/">
+  <Folder Name="/Moddable/ModdableWeathers/">
     <Project Path="EarthquakeWeather/EarthquakeWeather.csproj" />
     <Project Path="ModdableWeather/ModdableWeather.csproj" />
     <Project Path="Redsurge/Redsurge.csproj" />
