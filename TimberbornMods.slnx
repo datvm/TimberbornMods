@@ -56,6 +56,7 @@
     <Project Path="MoreOrganizedToolGroups/MoreOrganizedToolGroups.csproj" Id="0bc40b6f-0a04-44c4-9d3d-0937b4def1b5" />
     <Project Path="PaperAndBookForIronTeeth/PaperAndBookForIronTeeth.csproj" />
     <Project Path="PoweredTubeway/PoweredTubeway.csproj" />
+    <Project Path="RubblesPlzNoExpire/RubblesPlzNoExpire.csproj" Id="7ae1b9d7-27f9-4e97-9b54-6ab088ecaf03" />
     <Project Path="TimbitsTimbots/TimbitsTimbots.csproj" />
   </Folder>
   <Folder Name="/Moddable/">
