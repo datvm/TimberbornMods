@@ -7,7 +7,8 @@ public class AchievementAlert(
     ModdableAchievementSpecService specs,
     ILoc t,
     GameAchievementDialogShower diagShower,
-    GameUISoundController soundController
+    GameUISoundController soundController,
+    VisualElementInitializer veInit
 ) : IAlertFragmentWithOrder
 {
     public int Order { get; } = 10;
@@ -20,7 +21,7 @@ public class AchievementAlert(
 
     public void InitializeAlertFragment(VisualElement root)
     {
-        container = root;
+        container = root.AddChild();
 
         header = container.AddClosableAlert(
             alertPanelRowFactory,
@@ -30,7 +31,9 @@ public class AchievementAlert(
             closeButtonAction: OnCloseButtonClicked,
             name: "AchievementUnlockHeader");
 
-        list = container.AddChild<NineSliceVisualElement>(classes: [UiCssClasses.FragmentBgPrefix + UiCssClasses.Green]);
+        
+        var listWrapper = container.AddChild<NineSliceVisualElement>(classes: [UiCssClasses.FragmentBgPrefix + UiCssClasses.Green]);
+        list = listWrapper.AddScrollView().SetMaxHeight(400).Initialize(veInit);
         SetVisible(false);
 
         eb.Register(this);        
