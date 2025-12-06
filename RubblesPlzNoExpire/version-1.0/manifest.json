@@ -1,0 +1,7 @@
+{
+    "Name": "RubblesPlzNoExpire",
+    "Version": "10.0.0",
+    "Id": "RubblesPlzNoExpire",
+    "MinimumGameVersion": "1.0.5",
+    "Description": "Rubbles no longer expire"
+}
