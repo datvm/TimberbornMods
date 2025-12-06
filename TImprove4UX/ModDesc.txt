@@ -26,6 +26,7 @@ If you need any support or feedback, feel free to contact me on Timberborn's off
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.0.3: Added a few missing localization entries for new collapsible panels.
 v10.0.2: Should work with Timberborn v1.0.2 (Nov 18th). Also terrain highlighting for Dynamite destruction just got a fancy update from the dev (and broke this mod)!
 v10.0.1: Should work with Timberborn v1.0.1 (Nov 5th).
 v10.0.0:

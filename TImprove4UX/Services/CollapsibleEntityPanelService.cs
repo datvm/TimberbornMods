@@ -4,6 +4,7 @@ namespace TImprove4UX.Services;
 public class CollapsibleEntityPanelService : ISaveableSingleton, ILoadableSingleton, IUnloadableSingleton
 {
     public const string DoNotCollapseTag = "DoNotCollapse";
+    public const string DoNotCollapseLocValue = "[DO_NOT_COLLAPSE]";
 
     #region Ignored list
     public static readonly FrozenSet<Type> IgnoredPanels = [
@@ -36,13 +37,7 @@ public class CollapsibleEntityPanelService : ISaveableSingleton, ILoadableSingle
         typeof(BlueprintDebugFragment),
 #endif
     ];
-
-    public static readonly FrozenSet<string> IgnoredKeys = [
-        "Name_SluiceFragment_SynchronizeWrapper",
-        "Name_TailDecalSupplierFragment_",
-        "Name_DecalSupplierFragment_",
-    ];
-#endregion
+    #endregion
 
     const string SaveKey = "TImprove4UX.CollapsibleEntityPanelService.CollapsedList";
 
@@ -137,9 +132,9 @@ public class CollapsibleEntityPanelService : ISaveableSingleton, ILoadableSingle
         if (!panelNames.TryGetValue(fragment, out var panelName)) { return; }
 
         var key = "Name_" + panelName + (subPanelName is null ? "" : ("_" + subPanelName));
-        if (IgnoredKeys.Contains(key)) { return; }
-
+        
         var title = t.T(key);
+        if (title == DoNotCollapseLocValue) { return; }
 
         if (key == title)
         {
