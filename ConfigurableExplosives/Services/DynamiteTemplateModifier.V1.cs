@@ -9,12 +9,11 @@ public class DynamiteTemplateModifier : ITemplateModifier
 
     const int StepExtractCost = 1;
 
-    static readonly ImmutableArray<ImmutableHashSet<string>> DynamitePrefabNames = [
-        ["Dynamite.Folktails", "Dynamite.IronTeeth"],
-        ["DoubleDynamite.Folktails", "DoubleDynamite.IronTeeth"],
-        ["TripleDynamite.Folktails", "TripleDynamite.IronTeeth"]
+    static readonly ImmutableArray<string> DynamiteTemplatePrefix = [
+        "Dynamite.",
+        "DoubleDynamite.",
+        "TripleDynamite."
     ];
-    static readonly FrozenSet<string> AllNames = [..DynamitePrefabNames.SelectMany(x => x)];
 
     public EditableBlueprint? Modify(EditableBlueprint template, TemplateSpec originalTemplateSpec, Blueprint original)
     {
@@ -23,38 +22,32 @@ public class DynamiteTemplateModifier : ITemplateModifier
 
         var maxDepth = MSettings.MaxDepths[depth];
 
-        template.TransformSpecs(spec =>
+        template.TransformSpecs(spec => spec switch
         {
-            switch (spec)
+            DynamiteSpec d => d with
             {
-                case DynamiteSpec d:
-                    return d with
-                    {
-                        Depth = maxDepth,
-                    };
-                case BuildingSpec b:
-                    return b with
-                    {
-                        BuildingCost = SetExtractCost(b.BuildingCost, maxDepth),
-                        ScienceCost = CalculateScienceCost(maxDepth),
-                    };
-            }
-
-            return null;
+                Depth = maxDepth,
+            },
+            BuildingSpec b => b with
+            {
+                BuildingCost = SetExtractCost(b.BuildingCost, maxDepth),
+                ScienceCost = CalculateScienceCost(maxDepth),
+            },
+            _ => null,
         });
 
         return template;
     }
 
     public bool ShouldModify(string blueprintName, string templateName, TemplateSpec originalTemplateSpec)
-        => AllNames.Contains(templateName);
+        => DynamiteTemplatePrefix.FastAny(templateName.StartsWith);
 
     static int GetPrefabDepth(string name)
     {
         int depth = -1;
-        for (int i = 0; i < DynamitePrefabNames.Length; i++)
+        for (int i = 0; i < DynamiteTemplatePrefix.Length; i++)
         {
-            if (!DynamitePrefabNames[i].Contains(name)) { continue; }
+            if (!name.StartsWith(DynamiteTemplatePrefix[i])) { continue; }
 
             depth = i;
             break;

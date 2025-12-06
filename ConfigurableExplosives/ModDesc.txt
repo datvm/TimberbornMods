@@ -21,6 +21,7 @@ From v7.1.0, you can also click "Make template" button. It will store the curren
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.0.1: Added support for modded factions, no warranty.
 v10.0.0: (only apply to V1 version)
 - Works with Timberborn 1.0.
 - Now depends on Moddable Timberborn.
