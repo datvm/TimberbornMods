@@ -81,8 +81,6 @@ public class ModdableCustomToolButtonService(
 
         foreach (var provider in GetRootProvidersFor(panel, location))
         {
-            Debug.Log(provider.GetType().FullName);
-
             foreach (var el in provider.GetElements())
             {
                 panel.AddElement(el, container);

@@ -32,10 +32,11 @@ public class MGameConfig : Configurator
             .MultiBindCustomTool<DemolishingButtonCustomRootElement>()
             .MultiBindCustomTool<FieldsButtonCustomRootElement>()
             .MultiBindCustomTool<ForestryButtonCustomRootElement>()
-            .MultiBindCustomTool<TreeCuttingAreaButtonCustomRootElement>()
-            .MultiBindCustomTool<GameBlockObjectButtonsCustomRootElement>()
+            .MultiBindCustomTool<TreeCuttingAreaButtonCustomRootElement>()            
             .MultiBindCustomTool<ShowOptionsButtonCustomRootElement>()
             .MultiBindCustomTool<WaterHeightBrushButtonCustomRootElement>()
+
+            .MultiBindCustomTool<GameBlockObjectButtonsCustomRootElement>()
         ;
     }
 

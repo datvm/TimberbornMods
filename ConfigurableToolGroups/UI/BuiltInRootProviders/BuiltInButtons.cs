@@ -8,8 +8,6 @@ public class DemolishingButtonCustomRootElement(DemolishingButton button) : Buil
 public class FieldsButtonCustomRootElement(FieldsButton button) : BuiltInButtonCustomRootElement<FieldsButton>(button) { }
 public class ForestryButtonCustomRootElement(ForestryButton button) : BuiltInButtonCustomRootElement<ForestryButton>(button) { }
 public class TreeCuttingAreaButtonCustomRootElement(TreeCuttingAreaButton button) : BuiltInButtonCustomRootElement<TreeCuttingAreaButton>(button) { }
-public class GameBlockObjectButtonsCustomRootElement(GameBlockObjectButtons button) : BuiltInButtonCustomRootElement<GameBlockObjectButtons>(button) { }
-public class MapEditorBlockObjectButtonsCustomRootElement(MapEditorBlockObjectButtons button) : BuiltInButtonCustomRootElement<MapEditorBlockObjectButtons>(button) { }
 public class MapEditorToolButtonsCustomRootElement(MapEditorToolButtons button) : BuiltInButtonCustomRootElement<MapEditorToolButtons>(button) { }
 public class ShowOptionsButtonCustomRootElement(ShowOptionsButton button) : BuiltInButtonCustomRootElement<ShowOptionsButton>(button) { }
 public class WaterHeightBrushButtonCustomRootElement(WaterHeightBrushButton button) : BuiltInButtonCustomRootElement<WaterHeightBrushButton>(button) { }
