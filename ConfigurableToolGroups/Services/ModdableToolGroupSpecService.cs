@@ -227,13 +227,13 @@ public class ModdableToolGroupSpecService : IUnloadableSingleton
                     orders[id] = order;
                 }
 
-                // Then implicit order
+                // Then array/fluent order
                 var curr = 0;
                 foreach (var id in childrenSpec.ChildrenOrderedIds)
                 {
                     if (!orders.ContainsKey(id))
                     {
-                        orders[id] = curr++;
+                        orders[id] = ++curr * 10;
                     }
                 }
             }
