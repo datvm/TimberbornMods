@@ -15,6 +15,7 @@ public readonly record struct ToolGroupInfo(BlockObjectToolGroupSpec Spec) : ITo
     public bool Empty => ChildrenGroups.Count == 0 && ChildrenTools.Count == 0;
 
     public string Id => Spec.Id;
+    public int DefaultOrder => Spec.Order;
 
     public static ToolGroupInfo CreateRoot() => new(new()
     {

@@ -197,47 +197,52 @@ public class ModdableToolGroupSpecService : IUnloadableSingleton
             else
             {
                 built.parents.AddRange(grp.parents
-                    .Select(p => builtGroups[p])
-                    .OrderBy(q => q.Spec.Order));
+                    .Select(p => builtGroups[p]));
             }
 
             built.childrenGroups.AddRange(grp.childrenGroups
-                .Select(cg => builtGroups[cg])
-                .OrderBy(cg => cg.Spec.Order));
+                .Select(cg => builtGroups[cg]));
 
-            built.childrenTools.AddRange(grp.childrenTools
-                .OrderBy(t => t.Placeable.ToolOrder));
+            built.childrenTools.AddRange(grp.childrenTools);
         }
 
         RootToolGroup = ToolGroupInfo.CreateRoot();
-        RootToolGroup.childrenGroups.AddRange(rootChildren.OrderBy(g => g.Spec.Order));
+        RootToolGroup.childrenGroups.AddRange(rootChildren);
 
         ToolGroupsByIds = builtGroups.Values.ToFrozenDictionary(g => g.Spec.Id);
     }
 
     void Reorder()
     {
-        foreach (var group in ToolGroupsByIds.Values)
+        foreach (var group in ToolGroupsByIds.Values.Prepend(RootToolGroup))
         {
-            var childrenSpec = group.Spec.GetSpec<ToolGroupChildrenSpec>();
-            if (childrenSpec is null || childrenSpec.ChildrenOrderedIds.Length == 0)
-            {
-                group.orderedChildren.AddRange([..group.childrenGroups, ..group.childrenTools]);
-                continue;
-            }
-
-            var curr = 0;
             Dictionary<string, int> orders = [];
 
-            foreach (var id in childrenSpec.ChildrenOrderedIds)
+            var childrenSpec = group.Spec.GetSpec<ToolGroupChildrenSpec>();
+            if (childrenSpec is not null)
             {
-                orders[id] = curr++;
+                // Explicit order take precedent
+                foreach (var (id, order) in childrenSpec.ChildrenExplicitOrderedIds)
+                {
+                    orders[id] = order;
+                }
+
+                // Then implicit order
+                var curr = 0;
+                foreach (var id in childrenSpec.ChildrenOrderedIds)
+                {
+                    if (!orders.ContainsKey(id))
+                    {
+                        orders[id] = curr++;
+                    }
+                }
             }
 
+            // Finally if not found, order by their game assigned order
             group.orderedChildren.AddRange(group.childrenGroups
                 .Cast<IToolButtonInfo>()
                 .Concat(group.childrenTools)
-                .OrderBy(q => orders.TryGetValue(q.Id, out var order) ? order : curr));
+                .OrderBy(q => orders.TryGetValue(q.Id, out var order) ? order : q.DefaultOrder));
         }
     }
 

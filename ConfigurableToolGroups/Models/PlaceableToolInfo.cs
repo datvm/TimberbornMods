@@ -6,4 +6,5 @@ public record PlaceableToolInfo(
 ) : IToolButtonInfo
 {
     public string Id => TemplateName;
+    public int DefaultOrder => Placeable.ToolOrder;
 }

@@ -1,0 +1,10 @@
+﻿{
+    "ToolGroupChildrenSpec": {
+        "ChildrenExplicitOrderedIds": [
+            {
+                "Id": "Subgroup_MGPlatforms",
+                "Order": 5
+            }
+        ]
+    }
+}

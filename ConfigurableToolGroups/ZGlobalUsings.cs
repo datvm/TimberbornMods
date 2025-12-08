@@ -3,3 +3,4 @@ global using ConfigurableToolGroups.Services;
 global using ConfigurableToolGroups.Specs;
 global using ConfigurableToolGroups.UI;
 global using ConfigurableToolGroups.UI.BuiltInRootProviders;
+global using ConfigurableToolGroups.UI.CustomBlockObjectProviders;
