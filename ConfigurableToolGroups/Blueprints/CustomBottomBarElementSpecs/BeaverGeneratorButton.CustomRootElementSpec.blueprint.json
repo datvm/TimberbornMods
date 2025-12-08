@@ -1,0 +1,7 @@
+﻿{
+    "CustomBottomBarElementSpec": {
+        "Id": "BeaverGeneratorButton",
+        "Order": 70
+    },
+    "CustomRootElementSpec": {}
+}

@@ -1,0 +1,10 @@
+﻿{
+    "CustomBottomBarElementSpec": {
+        "Id": "MapEditorBlockObjectButtons",
+        "Order": 10
+    },
+    "CustomRootElementSpec": {
+        "Location": "Middle"
+    }
+
+}

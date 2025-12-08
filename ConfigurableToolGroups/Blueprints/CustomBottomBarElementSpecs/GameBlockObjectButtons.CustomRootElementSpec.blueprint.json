@@ -1,0 +1,9 @@
+﻿{
+    "CustomBottomBarElementSpec": {
+        "Id": "GameBlockObjectButtons",
+        "Order": 10
+    },
+    "CustomRootElementSpec": {
+        "Location": "Middle"
+    }
+}

@@ -1,0 +1,7 @@
+﻿{
+    "CustomBottomBarElementSpec": {
+        "Id": "TreeCuttingAreaButton",
+        "Order": 20
+    },
+    "CustomRootElementSpec": {}
+}

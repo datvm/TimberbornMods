@@ -1,0 +1,8 @@
+﻿{
+    "CustomBottomBarElementSpec": {
+        "Id": "FieldsButton",
+        "Order": 30
+    },
+    "CustomRootElementSpec": {}
+
+}

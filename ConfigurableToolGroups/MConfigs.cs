@@ -1,5 +1,4 @@
-﻿
-namespace ConfigurableToolGroups;
+﻿namespace ConfigurableToolGroups;
 
 [Context("Game")]
 [Context("MapEditor")]
@@ -11,5 +10,46 @@ public class ConfigurableToolGroupsConfig : Configurator
         Bind<ModdableToolGroupSpecService>().AsSingleton();
         Bind<ModdableToolGroupButtonService>().AsSingleton();
         Bind<ToolPanelPositioningService>().AsSingleton();
+
+        MultiBind<BottomBarModule>().To<DummyBottomBarModule>().AsSingleton();
+        Bind<ModdableCustomToolButtonService>().AsSingleton();
+
+        this.MultiBindElementsRemover<RemoveOriginalBuiltInElements>();
+    }
+}
+
+[Context("Game")]
+public class MGameConfig : Configurator
+{
+
+    public override void Configure()
+    {
+        this
+            .MultiBindCustomTool<BeaverGeneratorButtonCustomRootElement>()
+            .MultiBindCustomTool<BotGeneratorButtonCustomRootElement>()
+            .MultiBindCustomTool<BuilderPrioritiesButtonCustomRootElement>()
+            .MultiBindCustomTool<CursorButtonCustomRootElement>()
+            .MultiBindCustomTool<DemolishingButtonCustomRootElement>()
+            .MultiBindCustomTool<FieldsButtonCustomRootElement>()
+            .MultiBindCustomTool<ForestryButtonCustomRootElement>()
+            .MultiBindCustomTool<TreeCuttingAreaButtonCustomRootElement>()
+            .MultiBindCustomTool<GameBlockObjectButtonsCustomRootElement>()
+            .MultiBindCustomTool<ShowOptionsButtonCustomRootElement>()
+            .MultiBindCustomTool<WaterHeightBrushButtonCustomRootElement>()
+        ;
+    }
+
+}
+
+[Context("MapEditor")]
+public class MMapEditorConfig : Configurator
+{
+    public override void Configure()
+    {
+        this
+            .MultiBindCustomTool<MapEditorBlockObjectButtonsCustomRootElement>()
+            .MultiBindCustomTool<MapEditorToolButtonsCustomRootElement>()
+            .MultiBindCustomTool<ShowOptionsButtonCustomRootElement>()
+        ;
     }
 }

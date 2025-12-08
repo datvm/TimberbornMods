@@ -3,8 +3,8 @@ LV.MTA.Achievements,"Achievements",
 LV.MTA.Secret,"<color=#D3D3D3><i>This achievement is a mystery.</i></color>",
 LV.MTA.UnlockNotifHeader,"New Achievement unlocked!",
 LV.MTA.GroupTitle,"{0} ({1}/{2} unlocked)",
-LV.MTA.UnlockedAchTitle,"<i><GreenHighlight>{0} - Unlocked!</GreenHighlight></i>"
-LV.MTA.SecretAchTitle,"{0} [SECRET]"
+LV.MTA.UnlockedAchTitle,"<i><GreenHighlight>{0} - Unlocked!</GreenHighlight></i>",
+LV.MTA.SecretAchTitle,"{0} [SECRET]",
 LV.MTA.ShowAchievementDialogHotkey,"Show Achievements Dialog",
 LV.MTA.GroupSteam,"Steam",
 "LV.MTA.AchName_PLANT_5000_TREES","Beaver-made Forest",

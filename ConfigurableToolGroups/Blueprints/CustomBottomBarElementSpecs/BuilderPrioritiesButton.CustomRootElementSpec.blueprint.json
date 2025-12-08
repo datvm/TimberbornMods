@@ -1,0 +1,7 @@
+﻿{
+    "CustomBottomBarElementSpec": {
+        "Id": "BuilderPrioritiesButton",
+        "Order": 60
+    },
+    "CustomRootElementSpec": {}
+}

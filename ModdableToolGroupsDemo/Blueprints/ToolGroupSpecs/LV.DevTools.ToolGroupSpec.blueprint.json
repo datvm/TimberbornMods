@@ -1,0 +1,12 @@
+﻿{
+    "ToolGroupSpec": {
+        "Id": "LV.DevTools",
+        "DisplayNameLocKey": "LV.MTGD.DevToolsGroup",
+        "Icon": "Sprites/BottomBar/DevToolIcon"
+    },
+    "CustomBottomBarElementSpec": {
+        "Id": "LV.DevTools",
+        "Order": 9001
+    },
+    "CustomRootElementSpec": {}
+}

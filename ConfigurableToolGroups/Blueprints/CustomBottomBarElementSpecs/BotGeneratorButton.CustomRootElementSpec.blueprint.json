@@ -1,0 +1,7 @@
+﻿{
+    "CustomBottomBarElementSpec": {
+        "Id": "BotGeneratorButton",
+        "Order": 80
+    },
+    "CustomRootElementSpec": {}
+}

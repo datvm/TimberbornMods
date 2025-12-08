@@ -1,0 +1,10 @@
+﻿{
+    "Name": "ModdableToolGroupsDemo",
+    "Version": "10.0.0",
+    "Id": "ModdableToolGroupsDemo",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Demo",
+    "RequiredMods": [
+        { "Id": "ModdableToolGroups" }
+    ]
+}

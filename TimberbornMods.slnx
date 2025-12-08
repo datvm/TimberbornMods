@@ -53,14 +53,12 @@
   </Folder>
   <Folder Name="/JsonMods/">
     <Project Path="AirlockChamber/AirlockChamber.csproj" />
-    <Project Path="MoreOrganizedToolGroups/MoreOrganizedToolGroups.csproj" Id="0bc40b6f-0a04-44c4-9d3d-0937b4def1b5" />
     <Project Path="PaperAndBookForIronTeeth/PaperAndBookForIronTeeth.csproj" />
     <Project Path="PoweredTubeway/PoweredTubeway.csproj" />
     <Project Path="RubblesPlzNoExpire/RubblesPlzNoExpire.csproj" Id="7ae1b9d7-27f9-4e97-9b54-6ab088ecaf03" />
     <Project Path="TimbitsTimbots/TimbitsTimbots.csproj" />
   </Folder>
   <Folder Name="/Moddable/">
-    <Project Path="ConfigurableToolGroups/ConfigurableToolGroups.csproj" Id="000c57eb-c8be-4b9f-90ff-c928aeb3e94e" />
     <Project Path="RealLights/RealLights.csproj" />
     <Project Path="RoofMap/RoofMap.csproj" />
     <Project Path="TimberModBuilder/TimberModBuilder.csproj" />
@@ -73,6 +71,11 @@
   <Folder Name="/Moddable/ModdableTimberborn/">
     <Project Path="ModdableTimberborn/ModdableTimberborn.csproj" />
     <Project Path="ModdableTimberbornDemo/ModdableTimberbornDemo.csproj" />
+  </Folder>
+  <Folder Name="/Moddable/ModdableToolGroups/">
+    <Project Path="ConfigurableToolGroups/ConfigurableToolGroups.csproj" Id="000c57eb-c8be-4b9f-90ff-c928aeb3e94e" />
+    <Project Path="ModdableToolGroupsDemo/ModdableToolGroupsDemo.csproj" Id="86d937ab-5644-43a2-8e4f-296ce24bd416" />
+    <Project Path="MoreOrganizedToolGroups/MoreOrganizedToolGroups.csproj" Id="0bc40b6f-0a04-44c4-9d3d-0937b4def1b5" />
   </Folder>
   <Folder Name="/Moddable/ModdableWeathers/">
     <Project Path="EarthquakeWeather/EarthquakeWeather.csproj" />
@@ -142,6 +145,7 @@
     <File Path="CommonMM.target" />
     <File Path="CommonModBuilder.target" />
     <File Path="CommonModdableTimberborn.target" />
+    <File Path="CommonModdableToolGroups.target" />
     <File Path="CommonModdableWeather.target" />
     <File Path="CommonProperties.target" />
     <File Path="CommonScientificProjects.target" />
