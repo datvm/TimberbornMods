@@ -1,0 +1,7 @@
+﻿{
+    "CustomBottomBarElementSpec": {
+        "Id": "CursorButton",
+        "Order": 10
+    },
+    "CustomRootElementSpec": {}
+}

@@ -1,0 +1,7 @@
+﻿{
+    "CustomBottomBarElementSpec": {
+        "Id": "WaterHeightBrushButton",
+        "Order": 90
+    },
+    "CustomRootElementSpec": {}
+}

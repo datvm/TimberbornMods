@@ -1,0 +1,13 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<ItemGroup>
+		<Using Include="ConfigurableToolGroups" />
+		<Using Include="ConfigurableToolGroups.Services" />
+		<Using Include="ConfigurableToolGroups.Specs" />
+		<Using Include="ConfigurableToolGroups.Models" />
+		<Using Include="ConfigurableToolGroups.UI" />
+
+		<Reference Include="$(GameModsFolder)ModdableToolGroups\$(TimberbornVersion)\**\*.dll" Private="false" />	
+	</ItemGroup>
+
+</Project>

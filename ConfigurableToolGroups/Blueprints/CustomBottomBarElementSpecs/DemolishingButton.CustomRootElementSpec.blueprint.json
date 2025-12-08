@@ -1,0 +1,7 @@
+﻿{
+    "CustomBottomBarElementSpec": {
+        "Id": "DemolishingButton",
+        "Order": 50
+    },
+    "CustomRootElementSpec": {}
+}
