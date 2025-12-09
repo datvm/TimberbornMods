@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="./CommonTimberUI.target" />
-	<Import Project="./CommonHarmony.target" />
+	<Import Project="./Targets/CommonTimberUI.targets" />
+	<Import Project="./Targets/CommonHarmony.targets" />
 
 
 	<PropertyGroup>

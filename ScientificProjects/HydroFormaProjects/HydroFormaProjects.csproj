@@ -5,7 +5,7 @@
 		<GameSolutionFolder>..\..\</GameSolutionFolder>
 	</PropertyGroup>
 
-	<Import Project="../../Common.target" />
-	<Import Project="../../CommonModdableTimberborn.target" />	
-	<Import Project="../../CommonScientificProjects.target" />
+	<Import Project="../../Targets/Common.targets" />
+	<Import Project="../../Targets/CommonModdableTimberborn.targets" />	
+	<Import Project="../../Targets/CommonScientificProjects.targets" />
 </Project>

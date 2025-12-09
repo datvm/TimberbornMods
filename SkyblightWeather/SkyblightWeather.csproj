@@ -4,9 +4,9 @@
 		<OutputModFolderName>SkyblightWeather</OutputModFolderName>
 	</PropertyGroup>
 
-	<Import Project="../Common.target" />
-	<Import Project="../CommonHarmony.target" />
-	<Import Project="../CommonTimberUI.target" />
-	<Import Project="../CommonModdableWeather.target" />
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonHarmony.targets" />
+	<Import Project="../Targets/CommonTimberUI.targets" />
+	<Import Project="../Targets/CommonModdableWeather.targets" />
 
 </Project>

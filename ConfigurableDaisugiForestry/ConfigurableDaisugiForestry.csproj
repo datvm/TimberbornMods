@@ -3,8 +3,8 @@
 		<OutputModFolderName>ConfigurableDaisugiForestry</OutputModFolderName>
 	</PropertyGroup>
 
-	<Import Project="../Common.target" />
-	<Import Project="../CommonModdableTimberborn.target" />
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonModdableTimberborn.targets" />
 
 	<ItemGroup>
 		<Reference Include="$(GameModsFolder)DaisugiForestry\$(TimberbornVersion)\**\*.dll" Private="false" />

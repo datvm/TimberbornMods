@@ -107,24 +107,6 @@
     <Project Path="TImprove4Ui/TImprove4Ui.csproj" />
     <Project Path="TImprove4UX/TImprove4UX.csproj" />
   </Folder>
-  <Folder Name="/_Targets/">
-    <File Path="Common.target" />
-    <File Path="CommonBuildingHP.target" />
-    <File Path="CommonDebug.target" />
-    <File Path="CommonGlobalUsings.target" />
-    <File Path="CommonGlobalUsings.U7.target" />
-    <File Path="CommonHarmony.target" />
-    <File Path="CommonMM.target" />
-    <File Path="CommonModBuilder.target" />
-    <File Path="CommonModdableTimberborn.target" />
-    <File Path="CommonModdableToolGroups.target" />
-    <File Path="CommonModdableWeather.target" />
-    <File Path="CommonProperties.target" />
-    <File Path="CommonScientificProjects.target" />
-    <File Path="CommonTimberUI.target" />
-    <File Path="CommonTransparentShaders.target" />
-    <File Path="CommonUnlockableRecipe.target" />
-  </Folder>
   <Folder Name="/_Utils/">
     <File Path=".editorconfig" />
     <Project Path="FileFinder/FileFinder.csproj" />
