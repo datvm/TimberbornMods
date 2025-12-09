@@ -1,0 +1,12 @@
+﻿{
+    "ToolGroupSpec": {
+        "Id": "LV.PlantingGroup",
+        "DisplayNameLocKey": "LV.MTGD.PlantingGroup",
+        "Icon": "Sprites/BottomBar/PlantingGroupIcon"
+    },
+    "CustomBottomBarElementSpec": {
+        "Id": "LV.PlantingGroup",
+        "Order": 30
+    },
+    "CustomRootElementSpec": {}
+}

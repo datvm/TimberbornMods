@@ -1,6 +1,4 @@
-﻿using ConfigurableToolGroups.UI.BuiltInRootProviders;
-
-namespace ModdableToolGroupsDemo.UI;
+﻿namespace ModdableToolGroupsDemo.UI;
 
 public class OriginalDevButtonsRemover : IBottomBarElementsRemover
 {

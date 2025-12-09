@@ -1,15 +1,14 @@
-﻿
-
-namespace ConfigurableToolGroups.UI.CustomBlockObjectProviders;
+﻿namespace ConfigurableToolGroups.UI.CustomBlockObjectProviders;
 
 public class MapEditorBlockObjectButtonsCustomRootElement(
     ModdableToolGroupSpecService specs,
-    BlockObjectToolButtonFactory boBtnFac, ToolGroupButtonFactory grpFac, ILoc t, ModdableToolGroupButtonService moddableToolGroupButtonService, ToolGroupService toolGroupService
-) : CustomBlockObjectButtons(boBtnFac, grpFac, t, moddableToolGroupButtonService, toolGroupService)
+    ModdableToolGroupButtonFactory grpButtonFac,
+    BlockObjectToolButtonFactory boBtnFac
+) : CustomBlockObjectButtons(grpButtonFac, boBtnFac)
 {
     public override string Id { get; } = nameof(MapEditorBlockObjectButtons);
 
-    protected override IEnumerable<ToolGroupInfo> GetRootGroups() => specs.RootToolGroup
+    protected override IEnumerable<BlockObjectToolGroupInfo> GetRootGroups() => specs.RootToolGroup
         .OrderedChildren
-        .OfType<ToolGroupInfo>();
+        .OfType<BlockObjectToolGroupInfo>();
 }
