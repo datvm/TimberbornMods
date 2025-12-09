@@ -1,30 +1,4 @@
 <Solution>
-  <Folder Name="/Archived/">
-    <Project Path="BeaverAscent/BeaverAscent.csproj" />
-    <Project Path="ColorfulBuildings/ColorfulBuildings.csproj" />
-    <Project Path="ConfigurableGrowth/ConfigurableGrowth.csproj" />
-    <Project Path="ConfigurableStorages/ConfigurableStorages.csproj" />
-    <Project Path="HealthyBeavers/HealthyBeavers.csproj" />
-    <Project Path="LateGamePower/LateGamePower.csproj" />
-    <Project Path="MaterialPlzNoCrashes/MaterialPlzNoCrashes.csproj" />
-    <Project Path="ModdableBindito/ModdableBindito.csproj" />
-    <Project Path="ModdablePrefab/ModdablePrefab.csproj" />
-    <Project Path="NarrativeEvents/NarrativeEvents.csproj" />
-    <Project Path="Packager/Packager.csproj" />
-    <Project Path="ScrollableEntityPanel/ScrollableEntityPanel.csproj" />
-    <Project Path="StreamGaugeVolume/StreamGaugeVolume.csproj" />
-    <Project Path="TailsManager/TailsManager.csproj" />
-    <Project Path="ToggleAllMods/ToggleAllMods.csproj" />
-    <Project Path="ToolHotkey/ToolHotkey.csproj" />
-    <Project Path="UnlimitedMapSize/UnlimitedMapSize.csproj" />
-    <Project Path="UselessMachine/UselessMachine.csproj" />
-    <Project Path="VerticalFarming/VerticalFarming.csproj" />
-    <Project Path="WaterSourcesDontCrash/WaterSourcesDontCrash.csproj" />
-  </Folder>
-  <Folder Name="/Archived/Buffs/">
-    <Project Path="BuffDebuff/BuffDebuff.csproj" />
-    <Project Path="BuffDebuffDemo/BuffDebuffDemo.csproj" />
-  </Folder>
   <Folder Name="/Configurables/">
     <Project Path="ConfigurableAutoSave/ConfigurableAutoSave.csproj" />
     <Project Path="ConfigurableBeaverWalk/ConfigurableBeaverWalk.csproj" />
@@ -62,7 +36,6 @@
     <Project Path="RealLights/RealLights.csproj" />
     <Project Path="RoofMap/RoofMap.csproj" />
     <Project Path="TimberModBuilder/TimberModBuilder.csproj" />
-    <Project Path="UnlockableRecipe/UnlockableRecipe.csproj" />
   </Folder>
   <Folder Name="/Moddable/ModdableAchievements/">
     <Project Path="DemoModdableAchievements/DemoModdableAchievements.csproj" Id="dbc75ca6-0dda-4656-85bb-f95b97280542" />
@@ -79,7 +52,6 @@
   </Folder>
   <Folder Name="/Moddable/ModdableWeathers/">
     <Project Path="EarthquakeWeather/EarthquakeWeather.csproj" />
-    <Project Path="ModdableWeather/ModdableWeather.csproj" />
     <Project Path="Redsurge/Redsurge.csproj" />
     <Project Path="SkyblightWeather/SkyblightWeather.csproj" />
     <Project Path="WeatherEditor/WeatherEditor.csproj" />

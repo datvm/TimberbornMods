@@ -63,7 +63,7 @@ For example, the following JSON moves the "Essentials" tool group to be a child 
                 "Id": "Subgroup_MGZiplines",
                 "Order": 15
             }
-        ]
+        ],
         "DoNotIncludePlaceableToolGroup": true
     }
 }
