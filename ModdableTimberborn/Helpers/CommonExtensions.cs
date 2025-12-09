@@ -75,4 +75,17 @@ public static partial class CommonExtensions
         MultiplierDelta = multiplierDelta,
     };
 
+    extension(GameModeSpec spec)
+    {
+        public GameDifficultyEnum GetDifficultyEnum() => spec.DisplayNameLocKey switch
+        {
+            "NewGameConfigurationPanel.Easy" => GameDifficultyEnum.Easy,
+            "NewGameConfigurationPanel.Normal" => GameDifficultyEnum.Medium,
+            "NewGameConfigurationPanel.Hard" => GameDifficultyEnum.Hard,
+            _ => GameDifficultyEnum.Custom,
+        };
+    }
+
+    
+
 }
