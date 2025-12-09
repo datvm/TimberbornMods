@@ -1,4 +1,5 @@
-﻿namespace ModdableTimberborn;
+﻿
+namespace ModdableTimberborn;
 
 public class ModdableTimberbornConfigurator : IModdableTimberbornRegistryConfig
 {
@@ -8,6 +9,7 @@ public class ModdableTimberbornConfigurator : IModdableTimberbornRegistryConfig
     {
         configurator
             .BindSingleton<DestructionService>()
+            .BindSingleton<PersistentGameModeService>()
         ;
     }
 
