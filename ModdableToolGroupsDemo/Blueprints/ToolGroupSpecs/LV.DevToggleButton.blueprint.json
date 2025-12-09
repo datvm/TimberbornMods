@@ -1,0 +1,14 @@
+﻿{
+    "ToolGroupSpec": {
+        "Id": "LV.DevToggleButton",
+        "DisplayNameLocKey": "LV.MTGD.DevToolToggle",
+        "Icon": "Sprites/BottomBar/DevToolIcon"
+    },
+    "CustomBottomBarElementSpec": {
+        "Id": "LV.DevToggleButton",
+        "Order": 5
+    },
+    "CustomRootElementSpec": {
+        "Location": "Right"
+    }
+}

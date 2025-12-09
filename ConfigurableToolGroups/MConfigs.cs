@@ -7,6 +7,8 @@ public class ConfigurableToolGroupsConfig : Configurator
 
     public override void Configure()
     {
+        Bind<ModdableToolGroupButtonFactory>().AsSingleton();
+
         Bind<ModdableToolGroupSpecService>().AsSingleton();
         Bind<ModdableToolGroupButtonService>().AsSingleton();
         Bind<ToolPanelPositioningService>().AsSingleton();

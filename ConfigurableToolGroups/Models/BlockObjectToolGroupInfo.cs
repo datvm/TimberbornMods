@@ -1,14 +1,14 @@
 ﻿namespace ConfigurableToolGroups.Models;
 
-public readonly record struct ToolGroupInfo(BlockObjectToolGroupSpec Spec) : IToolButtonInfo
+public readonly record struct BlockObjectToolGroupInfo(BlockObjectToolGroupSpec Spec) : IToolButtonInfo
 {
-    internal readonly List<ToolGroupInfo> parents = [];
-    internal readonly List<ToolGroupInfo> childrenGroups = [];
+    internal readonly List<BlockObjectToolGroupInfo> parents = [];
+    internal readonly List<BlockObjectToolGroupInfo> childrenGroups = [];
     internal readonly List<PlaceableToolInfo> childrenTools = [];
     internal readonly List<IToolButtonInfo> orderedChildren = [];
 
-    public IReadOnlyList<ToolGroupInfo> Parents => parents;
-    public IReadOnlyList<ToolGroupInfo> ChildrenGroups => childrenGroups;
+    public IReadOnlyList<BlockObjectToolGroupInfo> Parents => parents;
+    public IReadOnlyList<BlockObjectToolGroupInfo> ChildrenGroups => childrenGroups;
     public IReadOnlyList<PlaceableToolInfo> ChildrenTools => childrenTools;
     public IReadOnlyList<IToolButtonInfo> OrderedChildren => orderedChildren;
 
@@ -17,7 +17,7 @@ public readonly record struct ToolGroupInfo(BlockObjectToolGroupSpec Spec) : ITo
     public string Id => Spec.Id;
     public int DefaultOrder => Spec.Order;
 
-    public static ToolGroupInfo CreateRoot() => new(new()
+    public static BlockObjectToolGroupInfo CreateRoot() => new(new()
     {
         Id = "$SpecialRoot",
     });

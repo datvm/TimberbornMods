@@ -1,2 +1,4 @@
 ﻿ID,Text,Comment
 LV.MTGD.DevToolsGroup,"Developer Tools",
+LV.MTGD.DevToolToggle,"Toggle Developer Tools",
+LV.MTGD.PlantingGroup,"Planting",

@@ -1,22 +1,14 @@
 ﻿namespace ConfigurableToolGroups.Services;
 
-public class ModdableToolGroupSpecService : IUnloadableSingleton
+public class ModdableToolGroupSpecService(
+    ISpecService specs,
+    TemplateCollectionService templateCollectionService
+) : ILoadableSingleton
 {
-    static ModdableToolGroupSpecService? instance;
-    public static ModdableToolGroupSpecService Instance => instance ?? throw new InvalidOperationException($"Service {nameof(ModdableToolGroupSpecService)} has not been initialized yet.");
+    public BlockObjectToolGroupInfo RootToolGroup { get; private set; }
+    public FrozenDictionary<string, BlockObjectToolGroupInfo> ToolGroupsByIds { get; private set; } = FrozenDictionary<string, BlockObjectToolGroupInfo>.Empty;
 
-    readonly ISpecService specs;
-
-    public ModdableToolGroupSpecService(ISpecService specs)
-    {
-        this.specs = specs;
-        instance = this;
-    }
-
-    public ToolGroupInfo RootToolGroup { get; private set; }
-    public FrozenDictionary<string, ToolGroupInfo> ToolGroupsByIds { get; private set; } = FrozenDictionary<string, ToolGroupInfo>.Empty;
-
-    public void Run(TemplateCollectionService templateCollectionService)
+    public void Load()
     {
         var allToolGroups = Populate();
         AssignGroupParents(allToolGroups);
@@ -176,8 +168,8 @@ public class ModdableToolGroupSpecService : IUnloadableSingleton
 
     void Build(Dictionary<string, ToolGroupDetailsBuilder> allToolGroups)
     {
-        Dictionary<ToolGroupDetailsBuilder, ToolGroupInfo> builtGroups = [];
-        List<ToolGroupInfo> rootChildren = [];
+        Dictionary<ToolGroupDetailsBuilder, BlockObjectToolGroupInfo> builtGroups = [];
+        List<BlockObjectToolGroupInfo> rootChildren = [];
 
         // Build children
         foreach (var grp in allToolGroups.Values)
@@ -206,7 +198,7 @@ public class ModdableToolGroupSpecService : IUnloadableSingleton
             built.childrenTools.AddRange(grp.childrenTools);
         }
 
-        RootToolGroup = ToolGroupInfo.CreateRoot();
+        RootToolGroup = BlockObjectToolGroupInfo.CreateRoot();
         RootToolGroup.childrenGroups.AddRange(rootChildren);
 
         ToolGroupsByIds = builtGroups.Values.ToFrozenDictionary(g => g.Spec.Id);
@@ -245,8 +237,6 @@ public class ModdableToolGroupSpecService : IUnloadableSingleton
                 .OrderBy(q => orders.TryGetValue(q.Id, out var order) ? order : q.DefaultOrder));
         }
     }
-
-    public void Unload() => instance = null;
 
     class ToolGroupDetailsBuilder(BlockObjectToolGroupSpec spec)
     {
