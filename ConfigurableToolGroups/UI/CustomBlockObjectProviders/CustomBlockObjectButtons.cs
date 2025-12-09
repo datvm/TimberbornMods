@@ -17,7 +17,7 @@ public abstract class CustomBlockObjectButtons(
             var btn = CreateToolGroup(grp, null);
             if (btn is not null)
             {
-                yield return BottomBarElement.CreateMultiLevel(btn.Root, btn.ToolButtonsElement);
+                yield return btn.ToBottomBarElement();
             }
         }
     }
