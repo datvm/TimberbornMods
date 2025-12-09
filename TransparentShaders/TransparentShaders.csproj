@@ -4,6 +4,6 @@
 		<OutputModFolderName>TransparentShaders</OutputModFolderName>
 	</PropertyGroup>
 
-	<Import Project="../Common.target" />
+	<Import Project="../Targets/Common.targets" />
 
 </Project>

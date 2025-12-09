@@ -4,7 +4,7 @@
 		<OutputModFolderName>ColorfulBuildings</OutputModFolderName>
 	</PropertyGroup>
 
-	<Import Project="../Common.target" />
-	<Import Project="../CommonTimberUi.target" />
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonTimberUi.targets" />
 
 </Project>

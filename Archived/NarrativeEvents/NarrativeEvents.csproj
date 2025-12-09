@@ -2,9 +2,9 @@
     <PropertyGroup>
         <OutputModFolderName>NarrativeEvents</OutputModFolderName>
     </PropertyGroup>
-    <Import Project="../Common.target" />
-    <Import Project="../CommonHarmony.target" />
-    <Import Project="../CommonDebug.target" />
+    <Import Project="../Targets/Common.targets" />
+    <Import Project="../Targets/CommonHarmony.targets" />
+    <Import Project="../Targets/CommonDebug.targets" />
     <ItemGroup>
         <ProjectReference Include="..\UiBuilder\UiBuilder.csproj" />
     </ItemGroup>

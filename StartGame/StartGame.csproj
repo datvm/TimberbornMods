@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<Import Project="../CommonProperties.target" />
+	<Import Project="../Targets/CommonProperties.targets" />
 	
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
@@ -19,7 +19,6 @@
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->
 		<ProjectReference Include="..\ConfigurableToolGroups\ConfigurableToolGroups.csproj" />
-		<ProjectReference Include="..\ModdableToolGroupsDemo\ModdableToolGroupsDemo.csproj" />
 		
 
 	</ItemGroup>

@@ -3,6 +3,6 @@
         <OutputModFolderName>ScientificProjects</OutputModFolderName>
         <GameSolutionFolder>..\..\</GameSolutionFolder>
     </PropertyGroup>
-    <Import Project="../../Common.target" />
-    <Import Project="../../CommonModdableTimberborn.target" />
+    <Import Project="../../Targets/Common.targets" />
+    <Import Project="../../Targets/CommonModdableTimberborn.targets" />
 </Project>
