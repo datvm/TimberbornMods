@@ -1,4 +1,6 @@
-﻿namespace ModdableWeather.Services;
+﻿using ModdableWeather.Services.Registries;
+
+namespace ModdableWeather.Services;
 
 public class ModdableWeatherGenerator(
     ModdableWeatherRegistry registry,
@@ -44,8 +46,8 @@ public class ModdableWeatherGenerator(
         return new(isSingleWeather, isSingleWeatherTemperate, nextTemperateWeather);
     }
 
-    public IModdedTemperateWeather DecideTemperateWeatherForCycle(int cycle, ModdableWeatherHistoryProvider history)
-        => DecideForCycle(cycle, history, registry.TemperateWeathers, registry.GameTemperateWeather);
+    public IModdableBenignWeather DecideTemperateWeatherForCycle(int cycle, ModdableWeatherHistoryProvider history)
+        => DecideForCycle(cycle, history, registry.BenignWeathers, registry.GameTemperateWeather);
 
     bool DecideSingleWeatherMode(int cycle)
     {
@@ -53,7 +55,7 @@ public class ModdableWeatherGenerator(
             || cycle < singleWeatherMode.StartCycle.Value) { return false; }
 
         var chance = singleWeatherMode.Chance.Value;
-        ModdableWeatherUtils.Log(() => $"""
+        ModdableWeatherUtils.LogVerbose(() => $"""
             Deciding Single Weather Mode for cycle {cycle}:
             - Chance: {chance}%,
             """);
@@ -61,7 +63,7 @@ public class ModdableWeatherGenerator(
         if (chance >= 100) { return true; }
 
         var hit = Random.RandomRangeInt(0, 100);
-        ModdableWeatherUtils.Log(() => $"- Hit: {hit} ({hit < chance})");
+        ModdableWeatherUtils.LogVerbose(() => $"- Hit: {hit} ({hit < chance})");
 
         return hit < chance;
     }
@@ -72,13 +74,13 @@ public class ModdableWeatherGenerator(
         if (chance <= 0) { return false; }
         if (chance >= 100) { return true; }
 
-        ModdableWeatherUtils.Log(() => $"""
+        ModdableWeatherUtils.LogVerbose(() => $"""
             Deciding Single Weather Temperate:
             - Chance: {chance}%,
             """);
 
         var hit = Random.RandomRangeInt(0, 100);
-        ModdableWeatherUtils.Log(() => $"- Hit: {hit} ({hit < chance})");
+        ModdableWeatherUtils.LogVerbose(() => $"- Hit: {hit} ({hit < chance})");
 
         return hit < chance;
     }
@@ -101,12 +103,12 @@ public class ModdableWeatherGenerator(
     }
 
     T DecideForCycle<T>(int cycle, ModdableWeatherHistoryProvider history, IEnumerable<T> weathers, T fallback)
-        where T : IModdedWeather
+        where T : IModdableWeather
     {
         var max = 0;
         List<(T, int)> values = [];
 
-        ModdableWeatherUtils.Log(() => $"Deciding {typeof(T).Name} weather for cycle {cycle}");
+        ModdableWeatherUtils.LogVerbose(() => $"Deciding {typeof(T).Name} weather for cycle {cycle}");
 
         foreach (var w in weathers)
         {
@@ -130,7 +132,7 @@ public class ModdableWeatherGenerator(
         }
 
         var hit = Random.RandomRangeInt(0, max);
-        ModdableWeatherUtils.Log(() => $"  * Hit: {hit}");
+        ModdableWeatherUtils.LogVerbose(() => $"  * Hit: {hit}");
         foreach (var weather in values)
         {
             hit -= weather.Item2;

@@ -52,6 +52,7 @@
   </Folder>
   <Folder Name="/Moddable/ModdableWeathers/">
     <Project Path="EarthquakeWeather/EarthquakeWeather.csproj" />
+    <Project Path="ModdableWeather/ModdableWeather.csproj" />
     <Project Path="Redsurge/Redsurge.csproj" />
     <Project Path="SkyblightWeather/SkyblightWeather.csproj" />
     <Project Path="WeatherEditor/WeatherEditor.csproj" />
@@ -124,6 +125,7 @@
   <Project Path="BlockObjectDebugger/BlockObjectDebugger.csproj" />
   <Project Path="ConveyorBelt/ConveyorBelt.csproj" />
   <Project Path="CutAllTrees/CutAllTrees.csproj" />
+  <Project Path="DevButton/DevButton.csproj" Id="00e9d4ec-0de4-48b4-b9c6-c8f034db4d06" />
   <Project Path="EditSaveDifficulty/EditSaveDifficulty.csproj" />
   <Project Path="ExtendedBuilderReach/ExtendedBuilderReach.csproj" />
   <Project Path="FiveMoreMins/FiveMoreMins.csproj" />

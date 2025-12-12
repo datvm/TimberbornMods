@@ -21,7 +21,7 @@ public class ModdableWeatherService(
 
     public ModdableWeatherCycle WeatherCycle => history.CurrentCycle;
     public ModdableWeatherCycleDetails WeatherCycleDetails => history.CurrentCycleDetails;
-    public IModdedWeather CurrentWeather
+    public IModdableWeather CurrentWeather
     {
         get
         {
@@ -30,7 +30,7 @@ public class ModdableWeatherService(
         }
     }
 
-    public IModdedWeather NextDayWeather
+    public IModdableWeather NextDayWeather
     {
         get
         {
@@ -98,13 +98,13 @@ public class ModdableWeatherService(
         var cycleNo = ev.WeatherCycle.Cycle.Cycle;
         if (ev.WeatherCycle.Cycle.TemperateWeatherDuration > 0)
         {
-            ModdableWeatherUtils.Log(() =>
+            ModdableWeatherUtils.LogVerbose(() =>
                 $"Starting temperate weather {ev.WeatherCycle.TemperateWeather} for cycle {cycleNo}");
             ev.WeatherCycle.TemperateWeather.Start(false);
         }
         else
         {
-            ModdableWeatherUtils.Log(() => $"Cycle {cycleNo} does not have a temperate weather.");
+            ModdableWeatherUtils.LogVerbose(() => $"Cycle {cycleNo} does not have a temperate weather.");
         }
     }
 
@@ -115,11 +115,11 @@ public class ModdableWeatherService(
 
         if (CycleDay > 1)
         {
-            ModdableWeatherUtils.Log(() => $"Ending temperate weather {history.CurrentTemperateWeather} for cycle {Cycle} on day {CycleDay}.");
+            ModdableWeatherUtils.LogVerbose(() => $"Ending temperate weather {history.CurrentTemperateWeather} for cycle {Cycle} on day {CycleDay}.");
             history.CurrentTemperateWeather.End();
         }
 
-        ModdableWeatherUtils.Log(() => $"Starting hazardous weather {history.CurrentHazardousWeather} for cycle {Cycle} on day {CycleDay}.");
+        ModdableWeatherUtils.LogVerbose(() => $"Starting hazardous weather {history.CurrentHazardousWeather} for cycle {Cycle} on day {CycleDay}.");
         history.CurrentHazardousWeather.Start(false);
         hazardousWeatherService.StartHazardousWeather();
     }
@@ -128,19 +128,19 @@ public class ModdableWeatherService(
     {
         if (HazardousWeatherDuration <= 0)
         {
-            ModdableWeatherUtils.Log(() => $"Cycle {Cycle} ended without hazardous weather.");
+            ModdableWeatherUtils.LogVerbose(() => $"Cycle {Cycle} ended without hazardous weather.");
 
             var temperateWeather = history.CurrentCycleDetails.TemperateWeather;
             if (temperateWeather.Active)
             {
-                ModdableWeatherUtils.Log(() => $"Ending temperate weather {temperateWeather}.");
+                ModdableWeatherUtils.LogVerbose(() => $"Ending temperate weather {temperateWeather}.");
                 temperateWeather.End();
             }
 
             return;
         }
 
-        ModdableWeatherUtils.Log(() => $"Ending hazardous weather {history.CurrentHazardousWeather} for cycle {Cycle} on day {CycleDay}.");
+        ModdableWeatherUtils.LogVerbose(() => $"Ending hazardous weather {history.CurrentHazardousWeather} for cycle {Cycle} on day {CycleDay}.");
         history.CurrentHazardousWeather.End();
         hazardousWeatherService.EndHazardousWeather();
     }

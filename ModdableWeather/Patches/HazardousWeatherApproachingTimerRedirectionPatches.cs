@@ -1,3 +1,5 @@
+﻿using ModdableWeather.HazardousTimer;
+
 namespace ModdableWeather.Patches;
 
 [HarmonyPatch(typeof(HazardousWeatherApproachingTimer))]
@@ -6,7 +8,7 @@ public static class HazardousWeatherApproachingTimerRedirectionPatches
     [HarmonyGetterPatch(nameof(HazardousWeatherApproachingTimer.TooCloseToNotify))]
     public static bool GetTooCloseToNotify(ref bool __result)
     {
-        __result = ModdableHazardousWeatherApproachingTimer.Instance.TooCloseToNotify;
+        __result = ApproachingTimerModifierService.Instance.TooCloseToNotify;
         return false;
     }
 
@@ -14,7 +16,7 @@ public static class HazardousWeatherApproachingTimerRedirectionPatches
     [HarmonyPrefix]
     public static bool GetProgress(ref float __result)
     {
-        __result = ModdableHazardousWeatherApproachingTimer.Instance.GetProgress();
+        __result = ApproachingTimerModifierService.Instance.GetProgress();
         return false;
     }
 
@@ -22,7 +24,7 @@ public static class HazardousWeatherApproachingTimerRedirectionPatches
     [HarmonyPrefix]
     public static bool OnCycleDayStarted(CycleDayStartedEvent cycleDayStartedEvent)
     {
-        ModdableHazardousWeatherApproachingTimer.Instance.OnCycleDayStarted(cycleDayStartedEvent);
+        ApproachingTimerModifierService.Instance.OnCycleDayStarted(cycleDayStartedEvent);
         return false;
     }
 }

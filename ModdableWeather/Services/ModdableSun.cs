@@ -1,4 +1,6 @@
 ﻿
+using ModdableWeather.Services.Registries;
+
 namespace ModdableWeather.Services;
 
 public class ModdableSun(
@@ -6,7 +8,7 @@ public class ModdableSun(
     DayStageCycle dayStageCycle,
     ISpecService specService,
     RootObjectProvider rootObjectProvider,
-    ModdableWeatherSpecService specs
+    ModdableWeatherSpecRegistry specs
 ) : Sun(cameraService, dayStageCycle, specService, rootObjectProvider),
     ILoadableSingleton, IUnloadableSingleton
 {

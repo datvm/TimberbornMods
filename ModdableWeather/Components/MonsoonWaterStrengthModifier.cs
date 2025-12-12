@@ -30,7 +30,7 @@ public class MonsoonWaterStrengthModifier : BaseComponent, IWaterStrengthModifie
         }
     }
 
-    private void Monsoon_OnWeatherActiveChanged(IModdedWeather weather, bool active, bool onLoad)
+    void Monsoon_OnWeatherActiveChanged(IModdableWeather weather, bool active, bool onLoad)
     {
         if (this.active == active) { return; }
         this.active = active;

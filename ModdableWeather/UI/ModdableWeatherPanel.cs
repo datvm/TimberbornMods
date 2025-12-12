@@ -1,18 +1,9 @@
 ﻿namespace ModdableWeather.UI;
 
 public class ModdableWeatherPanel(
-    UILayout uiLayout,
-    EventBus eventBus,
-    VisualElementLoader visualElementLoader,
-    WeatherService weatherService,
-    ILoc loc,
-    GameUISoundController gameUISoundController,
-    ITooltipRegistrar tooltipRegistrar,
-    HazardousWeatherUIHelper hazardousWeatherUIHelper,
-    HazardousWeatherApproachingTimer hazardousWeatherApproachingTimer,
-    GameCycleService gameCycleService,
-    ModdableWeatherHistoryProvider history
-) : WeatherPanel(uiLayout, eventBus, visualElementLoader, weatherService, loc, gameUISoundController, tooltipRegistrar, hazardousWeatherUIHelper, hazardousWeatherApproachingTimer, gameCycleService),
+    
+    UILayout uiLayout, EventBus eventBus, VisualElementLoader visualElementLoader, WeatherService weatherService, ILoc loc, GameUISoundController gameUISoundController, ITooltipRegistrar tooltipRegistrar, HazardousWeatherUIHelper hazardousWeatherUIHelper, HazardousWeatherApproachingTimer hazardousWeatherApproachingTimer, GameCycleService gameCycleService, ISpecService specService
+) : WeatherPanel(uiLayout, eventBus, visualElementLoader, weatherService, loc, gameUISoundController, tooltipRegistrar, hazardousWeatherUIHelper, hazardousWeatherApproachingTimer, gameCycleService, specService),
     ILoadableSingleton, IUnloadableSingleton
 {
     static ModdableWeatherPanel? instance;
@@ -21,14 +12,14 @@ public class ModdableWeatherPanel(
     VisualElement backgroundEl = null!;
     VisualElement progressEl = null!;
 
-    IModdedWeather? bgWeather, progressBg;
+    IModdableWeather? bgWeather, progressBg;
     readonly ModdableWeatherService weatherService = (ModdableWeatherService)weatherService;
 
     bool isHazardousWeather;
     float hazardApproachingProgress, partialCycleDay;
     int hazardousWeatherStartCycleDay;
     bool progressReverse;
-    IModdedHazardousWeather currHazardousWeather = null!;
+    IModdableHazardousWeather currHazardousWeather = null!;
 
     public new void Load()
     {

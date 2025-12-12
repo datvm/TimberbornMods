@@ -1,0 +1,50 @@
+﻿{
+    "ModdableWeatherSpec": {
+        "Id": "BadtideWeather",
+        "Order": 30,
+        "DisplayLoc": "Weather.Badtide",
+        "WeatherPanelProgressBackground": "UI/Images/Game/weather-progress-badtide",
+        "WeatherPanelBlinkBackground": "UI/Images/Backgrounds/bg-striped-4",
+        "DatePanelIcon": "UI/Images/Core/ico-weather-badtide",
+        "WeatherNotification": "UI/Images/Game/weather-notification-badtide",
+        "StartSound": "UI.Weather.BadtideStarted"
+    },
+    "ModdedWeatherSkySpec": {
+        "Sunrise": {
+            "FogColor": {
+                "r": 0.8,
+                "g": 0.5607843,
+                "b": 0.4823529,
+                "a": 1
+            },
+            "FogDensity": 0.003
+        },
+        "Day": {
+            "FogColor": {
+                "r": 0.6980392,
+                "g": 0.4392157,
+                "b": 0.3490196,
+                "a": 1
+            },
+            "FogDensity": 0.003
+        },
+        "Sunset": {
+            "FogColor": {
+                "r": 0.8,
+                "g": 0.6196079,
+                "b": 0.5607843,
+                "a": 1
+            },
+            "FogDensity": 0.003
+        },
+        "Night": {
+            "FogColor": {
+                "r": 0.5019608,
+                "g": 0.4509804,
+                "b": 0.4509804,
+                "a": 1
+            },
+            "FogDensity": 0.003
+        }
+    }
+}

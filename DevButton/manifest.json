@@ -1,0 +1,13 @@
+﻿{
+    "Name": "Dev Button",
+    "Version": "10.0.0",
+    "Id": "DevButton",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Add a button to quickly toggle Dev Mode",
+    "RequiredMods": [
+        {
+            "Id": "ModdableToolGroups",
+            "MinimumVersion": "10.3.1"
+        }
+    ]
+}

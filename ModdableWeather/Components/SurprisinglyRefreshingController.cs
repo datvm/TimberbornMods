@@ -28,7 +28,7 @@ public class SurprisinglyRefreshingController : BaseComponent, IDeletableEntity
         }
     }
 
-    private void OnWeatherChanged(IModdedWeather weather, bool active, bool onLoad)
+    void OnWeatherChanged(IModdableWeather weather, bool active, bool onLoad)
     {
         if (active)
         {

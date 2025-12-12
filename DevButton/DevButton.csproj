@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputModFolderName>DevButton</OutputModFolderName>
+    </PropertyGroup>
+	
+    <Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonModdableToolGroups.targets" />
+</Project>
