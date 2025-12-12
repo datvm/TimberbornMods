@@ -126,6 +126,32 @@ public class DevToggleButtonElement : CustomRootToolElement<DevToolToggleTool>
 
 Remember to multibind it.
 
+### Simple Root button
+
+If you just need a simple button without an associated tool (like the game's `ShowOptionsButton`), you can use the built-in `SimpleRootButton`:
+
+```cs
+public class DevToggleButtonElement(
+    VisualElementLoader loader,
+    ToolButtonFactory toolButtonFactory
+) : SimpleRootButton(loader, toolButtonFactory), ILoadableSingleton
+{
+
+    public override string Id { get; } = "LV.DevToggleButton";
+    protected override string ImageName { get; } = "ToggleDevTool";
+
+    public void Load()
+    {
+        Text = "Dev"; // Leave empty or null for no text
+    }
+
+    protected override void OnClicked()
+    {
+        // Handle the event
+    }
+}
+```
+
 ## Custom tool group button
 
 ![Multi-layer](https://files.catbox.moe/lh37x2.jpg)
