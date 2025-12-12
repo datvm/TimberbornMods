@@ -43,7 +43,7 @@ public class RainSoakedEffectApplier : TickableComponent, IDeletableEntity
         OnRainChanged(rainWeather, rainWeather.Active, true);
     }
 
-    private void OnRainChanged(IModdedWeather weather, bool active, bool onLoad)
+    void OnRainChanged(IModdableWeather weather, bool active, bool onLoad)
     {
         if (this)
         {

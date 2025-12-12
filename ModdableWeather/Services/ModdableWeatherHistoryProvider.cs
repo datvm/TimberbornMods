@@ -1,4 +1,6 @@
-﻿namespace ModdableWeather.Services;
+﻿using ModdableWeather.Services.Registries;
+
+namespace ModdableWeather.Services;
 
 /// <summary>
 /// Provides historical weather cycle data and manages persistence for moddable weather cycles.
@@ -39,16 +41,16 @@ public class ModdableWeatherHistoryProvider(
     /// <summary>
     /// Gets the current temperate weather.
     /// </summary>
-    public IModdedTemperateWeather CurrentTemperateWeather => CurrentCycleDetails.TemperateWeather;
+    public IModdableBenignWeather CurrentTemperateWeather => CurrentCycleDetails.TemperateWeather;
 
     /// <summary>
     /// Gets the current hazardous weather.
     /// </summary>
-    public IModdedHazardousWeather CurrentHazardousWeather => CurrentCycleDetails.HazardousWeather;
+    public IModdableHazardousWeather CurrentHazardousWeather => CurrentCycleDetails.HazardousWeather;
 
     public bool HasNextCycleWeather => nextCycleWeather is not null;
     public ModdableWeatherNextCycleWeather NextCycleWeather => nextCycleWeather.InstanceOrThrow();
-    public IModdedTemperateWeather NextCycleTemperateWeather => NextCycleWeather.TemperateWeather ?? registry.GameTemperateWeather;
+    public IModdableBenignWeather NextCycleTemperateWeather => NextCycleWeather.TemperateWeather ?? registry.GameTemperateWeather;
 
     public bool PreviousCycleHadDrought
     {
@@ -222,10 +224,10 @@ public class ModdableWeatherHistoryProvider(
 
     void PrintExtractLog()
     {
-        ModdableWeatherUtils.Log(() => $"Extracted {cycles.Count} cycles from current data.");
+        ModdableWeatherUtils.LogVerbose(() => $"Extracted {cycles.Count} cycles from current data.");
         foreach (var cycle in cycles)
         {
-            ModdableWeatherUtils.Log(cycle.ToString);
+            ModdableWeatherUtils.LogVerbose(cycle.ToString);
         }
     }
 

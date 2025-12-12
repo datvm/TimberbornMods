@@ -1,0 +1,9 @@
+﻿{
+    "CustomBottomBarElementSpec": {
+        "Id": "LV.DevToggleButton",
+        "Order": 5
+    },
+    "CustomRootElementSpec": {
+        "Location": "Right"
+    }
+}

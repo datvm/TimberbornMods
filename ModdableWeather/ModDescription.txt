@@ -66,7 +66,7 @@ Note:
 
 [h1]For modders:[/h1]
 
-You can check the documentation (placeholder, docs incoming) or the mod's source code to see how to create your own weather types. The project source is [url=https://github.com/datvm/TimberbornMods/tree/master/ModdableWeather]on GitHub[/url]. Check out the [b]Weathers[/b] folder and [b]Blueprints\ModdedWeatherSpec[/b] for the details.
+You can check the documentation (placeholder, docs incoming) or the mod's source code to see how to create your own weather types. The project source is [url=https://github.com/datvm/TimberbornMods/tree/master/ModdableWeather]on GitHub[/url]. Check out the [b]Weathers[/b] folder and [b]Blueprints\ModdableWeatherSpec[/b] for the details.
 
 [h1]Troubleshooting[/h1]
 

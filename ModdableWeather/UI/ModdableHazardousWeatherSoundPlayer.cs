@@ -1,8 +1,10 @@
-﻿namespace ModdableWeather.UI;
+﻿using ModdableWeather.Services.Registries;
+
+namespace ModdableWeather.UI;
 
 public class ModdableHazardousWeatherSoundPlayer(
     EventBus eb,
-    ModdableWeatherSpecService specs,
+    ModdableWeatherSpecRegistry specs,
     GameUISoundController sounds
 ) : ILoadableSingleton
 {
@@ -24,14 +26,14 @@ public class ModdableHazardousWeatherSoundPlayer(
         PlayWeatherSound(ev.GetWeather());
     }
 
-    void PlayWeatherSound(IModdedWeather weather)
+    void PlayWeatherSound(IModdableWeather weather)
     {        
         var sound = GetSoundName(weather);
         sounds.PlaySound2D(sound);
     }
 
-    string GetSoundName(IModdedWeather weather) =>
-        weather.Spec.StartSound ?? (weather.IsTemperate() is not null ?
+    string GetSoundName(IModdableWeather weather) =>
+        weather.Spec.StartSound ?? (weather.AsCalm() is not null ?
         specs.DefaultTemperateSound : specs.DefaultDroughtSound);
 
 }

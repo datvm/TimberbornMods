@@ -9,6 +9,11 @@ public class ModdableTimberbornConfigurator : IModdableTimberbornRegistryConfig
     {
         configurator
             .BindSingleton<DestructionService>()
+        ;
+
+        if (!context.IsGameContext()) { return; }
+
+        configurator
             .BindSingleton<PersistentGameModeService>()
         ;
     }

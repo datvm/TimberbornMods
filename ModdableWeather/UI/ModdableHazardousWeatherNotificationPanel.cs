@@ -44,7 +44,7 @@ public class ModdableHazardousWeatherNotificationPanel(
             false);
     }
 
-    void ShowWeatherNotification(IModdedWeather weather, bool approaching, bool newCycle)
+    void ShowWeatherNotification(IModdableWeather weather, bool approaching, bool newCycle)
     {
         var spec = weather.Spec;
 

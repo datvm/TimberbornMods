@@ -13,7 +13,7 @@ public class ModdableWeatherCycleService(
         var weather = generator.DecideForCycle(cycle, history);
         var nextCycle = generator.DecideNextCycleWeather(cycle, history);
 
-        ModdableWeatherUtils.Log(() => 
+        ModdableWeatherUtils.LogVerbose(() => 
             $"Next cycle weather: {nextCycle}");
 
         history.AddCycle(weather, nextCycle);

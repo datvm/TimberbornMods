@@ -42,12 +42,12 @@ public class ModdableDatePanel(
         NewUpdateText(spec);
     }
 
-    void NewUpdateIcon(ModdedWeatherSpec spec)
+    void NewUpdateIcon(ModdableWeatherSpec spec)
     {
         icon.style.backgroundImage = new(spec.DatePanelIcon);
     }
 
-    internal void NewUpdateText(ModdedWeatherSpec spec)
+    internal void NewUpdateText(ModdableWeatherSpec spec)
     {
         _text.text = _timestampFormatter.FormatLongLocalized(_gameCycleService.Cycle, _gameCycleService.CycleDay);
         _tooltipText = spec.Display;

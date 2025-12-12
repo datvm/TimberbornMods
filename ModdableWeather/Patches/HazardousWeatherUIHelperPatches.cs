@@ -7,7 +7,7 @@ public static class HazardousWeatherUIHelperPatches
     [HarmonyPrefix, HarmonyPatch(nameof(HazardousWeatherUIHelper.UpdateCurrentUISpecification))]
     public static bool UpdateCurrentUISpecificationPrefix(HazardousWeatherUIHelper __instance)
     {
-        var weather = (IModdedHazardousWeather) __instance._hazardousWeatherService.CurrentCycleHazardousWeather;
+        var weather = (IModdableHazardousWeather) __instance._hazardousWeatherService.CurrentCycleHazardousWeather;
         __instance._currentUISpecification = weather.Spec;
 
         return false;

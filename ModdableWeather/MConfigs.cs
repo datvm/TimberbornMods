@@ -1,49 +1,42 @@
-﻿namespace ModdableWeather;
+﻿using ModdableWeather.HazardousTimer;
+using ModdableWeather.Services.Registries;
 
-[Context("Bootstrapper")]
-public class ModBootstrapperConfig : Configurator
+namespace ModdableWeather;
+
+public class ModdableWeatherConfigs : BaseModdableTimberbornConfigurationWithHarmony
 {
-    public override void Configure()
+    public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.Bootstrapper | ConfigurationContext.Game;
+
+    public override void StartMod(IModEnvironment modEnvironment)
     {
-        this.TryBindingModdableAudioClip();
-    }
-}
+        base.StartMod(modEnvironment);
 
-[Context("MainMenu")]
-public class ModMenuConfig : Configurator
-{
-
-    public override void Configure()
-    {
-        this
-            .BindSingleton<ModdableWeatherSpecService>()
-            .BindSingleton<ModdableWeatherProfileSettings>()
-            .TryBindingSystemFileDialogService()
-
-            .BindDifficultyButtons()
-            .BindModdedWeathers(true)
-        ;
-
-        Bind<ModdableWeatherProfileElement>().AsTransient();
-        MultiBind<IModSettingElementFactory>().To<ModdableWeatherSettingsProfileFactory>().AsSingleton();
+        ScanForAttributes(new Harmony(nameof(ModdableWeather)));
     }
 
-}
-
-[Context("Game")]
-public class ModGameConfig : Configurator
-{
-
-    public override void Configure()
+    public override void Configure(Configurator configurator, ConfigurationContext context)
     {
-        // Weathers
-        this.BindModdedWeathers(false);
+        switch (context)
+        {
+            case ConfigurationContext.Bootstrapper:
+                configurator.TryBindingModdableAudioClip();
+                break;
+            case ConfigurationContext.Game:
+                BindGame(configurator);
+                break;
+            case ConfigurationContext.MapEditor:
+                throw new InvalidOperationException("Please disable Moddable Weather mod to use Map Editor.");
+        }
+    }
+
+    void BindGame(Configurator config)
+    {
+        BindWeathers(config);
 
         // Replace/remove Services
-        this.MassRebind(h => h
+        config.MassRebind(h => h
             .Replace<WeatherService, ModdableWeatherService>()
             .Replace<HazardousWeatherService, ModdableHazardousWeatherService>()
-            .Replace<HazardousWeatherApproachingTimer, ModdableHazardousWeatherApproachingTimer>()
             .Replace<HazardousWeatherNotificationPanel, ModdableHazardousWeatherNotificationPanel>()
             .Replace<DatePanel, ModdableDatePanel>()
             .Replace<WeatherPanel, ModdableWeatherPanel>()
@@ -52,22 +45,70 @@ public class ModGameConfig : Configurator
 
             .Remove<HazardousWeatherSoundPlayer>()
         );
-            
-        this.RemoveMultibinding<ICycleDuration>();
-        this.MultiBindAndBindSingleton<ICycleDuration, ModdableWeatherCycleService>();
 
-        this.BindSingleton<ModdableHazardousWeatherSoundPlayer>();
+        config.RemoveMultibinding<ICycleDuration>();
+        config.MultiBindAndBindSingleton<ICycleDuration, ModdableWeatherCycleService>();
+
+        config.BindSingleton<ModdableHazardousWeatherSoundPlayer>();
 
         // New Services
-        this
-            .BindDifficultyButtons()
-            .BindSingleton<ModdableWeatherSpecService>()
+        config
+            .BindSingleton<ModdableWeatherSpecRegistry>()
             .BindSingleton<ModdableWeatherRegistry>()
             .BindSingleton<ModdableWeatherHistoryProvider>()
             .BindSingleton<ModdableWeatherGenerator>()
+            .BindSingleton<ApproachingTimerModifierService>()
         ;
 
-        MultiBind<IDevModule>().To<ModdableWeatherDevModule>().AsSingleton();
+        config.MultiBindSingleton<IDevModule, ModdableWeatherDevModule>();
     }
 
+    void BindWeathers(Configurator config)
+    {
+        config
+            // Don't multibind these
+            .BindSingleton<EmptyBenignWeather>()
+            .BindSingleton<EmptyHazardousWeather>()
+
+            .BindWeather<GameTemperateWeather, GameTemperateWeatherSettings>()
+            .BindWeather<GameDroughtWeather, GameDroughtWeatherSettings>()
+            .BindWeather<GameBadtideWeather, GameBadtideWeatherSettings>()            
+        ;
+    }
+
+    public static void ScanForAttributes(Harmony harmony)
+    {
+        var types = Assembly.GetExecutingAssembly()
+            .DefinedTypes
+            .Select(q => (q, q.GetCustomAttribute<HarmonyPatch>()))
+            .Where(q => q.Item2?.info.declaringType is not null);
+
+        foreach (var (type, attr) in types)
+        {
+            if (!(type.IsAbstract && type.IsSealed))
+            {
+                throw new InvalidOperationException(
+                    $"Type {type} is not static. Harmony patching requires static classes.");
+            }
+
+            var originalType = attr.info.declaringType;
+            var methods = type.GetMethods(BindingFlags.Static | BindingFlags.Public);
+            foreach (var method in methods)
+            {
+                PatchGetter(harmony, method, originalType);
+            }
+        }
+    }
+
+    static void PatchGetter(Harmony harmony, MethodInfo method, Type original)
+    {
+        var getterAttr = method.GetCustomAttribute<HarmonyGetterPatchAttribute>();
+        if (getterAttr is null) { return; }
+
+        var propGetter = original.PropertyGetter(getterAttr.Name)
+            ?? throw new InvalidOperationException(
+                $"Property {getterAttr.Name} not found on {original}");
+
+        harmony.Patch(propGetter, prefix: method);
+    }
 }
