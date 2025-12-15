@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Moddable Weathers",
+    "Version": "10.0.0",
+    "Id": "ModdableWeathers",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Add more weathers to the game",
+    "RequiredMods": [
+        { "Id": "ModdableTimberborn" }
+    ]
+}
