@@ -1,6 +1,6 @@
-{
+﻿{
     "Name": "Gate",
-    "Version": "10.0.0",
+    "Version": "10.0.1",
     "Id": "Gate",
     "MinimumGameVersion": "1.0.0",
     "Description": "A gate!",

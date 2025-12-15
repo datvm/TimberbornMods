@@ -107,6 +107,11 @@ public class GateComponent : BaseComponent, IPersistentEntity, IFinishedStateLis
 
     public void OnExitFinishedState()
     {
+        if (Closed)
+        {
+            ToggleWaterObstacle(false);
+        }
+
         IsFinished = false;
     }
 }

@@ -13,6 +13,7 @@ If you need any help, feel free to ask on Discord ([url=https://discord.com/chan
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.3.1: Added [url=https://github.com/datvm/TimberbornMods/blob/master/Docs/ModdableToolGroups/CustomBottomBarElement.MD#simple-root-button]Simple Root Button[/url] support.
 v10.3.0:
 - Added support for ChildrenExplicitOrderedIds.
 - Added full custom Tool support.
