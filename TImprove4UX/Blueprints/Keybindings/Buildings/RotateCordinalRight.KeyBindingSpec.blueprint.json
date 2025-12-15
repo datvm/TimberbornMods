@@ -1,0 +1,12 @@
+﻿{
+    "KeyBindingSpec": {
+        "Id": "RotateCordinalRight",
+        "GroupId": "T4UX",
+        "LocKey": "LV.T4UX.RotateCordinalRight",
+        "Order": 40
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/c",
+        "InputModifiers": "Ctrl, Shift"
+    }
+}

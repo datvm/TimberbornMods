@@ -12,6 +12,8 @@
 - [b]Warning about idle workers[/b]: Add a warning when a worker has no work to do at a workplace. You can disable it for each workplace type separately or disable the entire option in the Mod Settings.
 [img]https://i.imgur.com/F86jvk5.jpeg[/img]
 - [b]Copy building[/b]: While in the default (Cursor) tool, middle click (mouse 3, rebindable) on a building to quickly switch to that building tool. You can also then hold Shift to delete matching buildings with "Shift to Delete" function.
+- [b]Cardinal Rotate[/b]: Rotate camera to the nearest cardinal left or right (N, E, S, W). Default hotkeys: Ctrl + Shift + Z and C.
+[img]https://files.catbox.moe/4uwy8j.jpg[/img]
 
 All hotkeys can be changed in the game Settings -> Keybindings. It's in the mod's own "TImprove 4 UX" hotkey group.
 
@@ -26,6 +28,7 @@ If you need any support or feedback, feel free to contact me on Timberborn's off
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.1.0: Added Cardinal Rotate feature. Suggested by Toto Capoto.
 v10.0.3: Added a few missing localization entries for new collapsible panels.
 v10.0.2: Should work with Timberborn v1.0.2 (Nov 18th). Also terrain highlighting for Dynamite destruction just got a fancy update from the dev (and broke this mod)!
 v10.0.1: Should work with Timberborn v1.0.1 (Nov 5th).
