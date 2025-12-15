@@ -1,0 +1,4 @@
+﻿Add a button to quickly toggle Dev Mode. Useful for modders like me who need to switch often.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

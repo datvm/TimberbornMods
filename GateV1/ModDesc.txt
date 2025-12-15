@@ -1,6 +1,6 @@
-Add a [b]Gate[/b]: A road that can be closed.
+﻿Add a [b]Gate[/b]: A road that can be closed.
 
-[i]"They called me mad when I blocked the road with a floodgate. Now they call me 'Sir.'" � Beavrick[/i]
+[i]"They called me mad when I blocked the road with a floodgate. Now they call me 'Sir.'" — Beavrick[/i]
 
 Cost 150 Science to unlock, 10 Logs and 5 Planks to build (literally a repurposed Floodgate).
 
@@ -15,6 +15,7 @@ Idea by @Iceph03nix on Discord.
 
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.0.1: Fixed a crash when deleting closed Gate. Thanks steampenguin6714 and @normanr for helping to identify the issue.
 v10.0.0: Should work with Timberborn v1.0.
 
 v7.2.0: Added "Auto close on Hazardous weather" and "Auto close on Badtide" options.
