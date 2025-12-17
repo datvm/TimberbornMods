@@ -1,0 +1,7 @@
+﻿{
+    "KeyBindingGroupSpec": {
+        "Id": "Tools",
+        "Order": 1,
+        "LocKey": "LV.MTGH.ToolsGroup"
+    }
+}

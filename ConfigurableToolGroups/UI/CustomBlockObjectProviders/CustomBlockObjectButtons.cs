@@ -6,10 +6,19 @@ public abstract class CustomBlockObjectButtons(
 ) : CustomBottomBarElement
 {
 
+    readonly Dictionary<string, ModdableToolGroupButton> toolGroupButtonsById = [];
+    readonly Dictionary<string, ToolButton> toolButtonsById = [];
+
+    public IReadOnlyDictionary<string, ModdableToolGroupButton> ToolGroupButtonsById => toolGroupButtonsById;
+    public IReadOnlyDictionary<string, ToolButton> ToolButtonsById => toolButtonsById;
+
     protected abstract IEnumerable<BlockObjectToolGroupInfo> GetRootGroups();
 
     public override IEnumerable<BottomBarElement> GetElements()
     {
+        toolGroupButtonsById.Clear();
+        toolButtonsById.Clear();
+
         var root = GetRootGroups();
 
         foreach (var grp in root)
@@ -28,6 +37,8 @@ public abstract class CustomBlockObjectButtons(
 
         var btn = grpButtonFac.Create(grp.Spec.ToToolGroupSpec(), parent, ToolButtonColor.Green);
         parent?.AddChildGroup(btn);
+        toolGroupButtonsById.TryAdd(grp.Spec.Id, btn);
+
         var btns = btn.ToolButtonsElement;
 
         foreach (var child in grp.OrderedChildren)
@@ -42,6 +53,7 @@ public abstract class CustomBlockObjectButtons(
                     if (!bo.UsableWithCurrentFeatureToggles) { continue; }
 
                     var toolBtn = boBtnFac.Create(bo, btns);
+                    toolButtonsById.TryAdd(pti.Id, toolBtn);
                     btn.AddChildTool(toolBtn);
                     break;
                 default:

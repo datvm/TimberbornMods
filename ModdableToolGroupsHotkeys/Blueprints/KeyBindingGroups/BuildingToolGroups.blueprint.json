@@ -1,0 +1,7 @@
+﻿{
+    "KeyBindingGroupSpec": {
+        "Id": "BuildingToolGroups",
+        "Order": 3,
+        "LocKey": "LV.MTGH.BuildingToolGroupsGroup"
+    }
+}

@@ -38,7 +38,8 @@ public class MGameConfig : Configurator
             .MultiBindCustomTool<ShowOptionsButtonCustomRootElement>()
             .MultiBindCustomTool<WaterHeightBrushButtonCustomRootElement>()
 
-            .MultiBindCustomTool<GameBlockObjectButtonsCustomRootElement>()
+            .MultiBindCustomTool<GameBlockObjectButtonsCustomRootElement>(true)
+            .Bind<CustomBlockObjectButtons>().ToExisting<GameBlockObjectButtonsCustomRootElement>()
         ;
     }
 
@@ -50,9 +51,11 @@ public class MMapEditorConfig : Configurator
     public override void Configure()
     {
         this
-            .MultiBindCustomTool<MapEditorBlockObjectButtonsCustomRootElement>()
             .MultiBindCustomTool<MapEditorToolButtonsCustomRootElement>()
             .MultiBindCustomTool<ShowOptionsButtonCustomRootElement>()
+
+            .MultiBindCustomTool<MapEditorBlockObjectButtonsCustomRootElement>(true)
+            .Bind<CustomBlockObjectButtons>().ToExisting<MapEditorBlockObjectButtonsCustomRootElement>()
         ;
     }
 }
