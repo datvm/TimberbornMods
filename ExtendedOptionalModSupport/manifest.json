@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Extended Optional Mod Support",
+    "Version": "10.0.0",
+    "Id": "ExtendedOptionalModSupport",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Additional support for mods with optional dependencies",
+    "RequiredMods": [
+        { "Id": "Harmony" }
+    ]
+}

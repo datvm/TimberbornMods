@@ -5,6 +5,7 @@
     "MinimumGameVersion": "1.0.0",
     "Description": "Demo",
     "RequiredMods": [
-        { "Id": "ModdableToolGroups" }
+        { "Id": "ModdableToolGroups" },
+        { "Id": "ModdableToolGroupsHotkeys" }
     ]
 }

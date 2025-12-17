@@ -1,0 +1,8 @@
+﻿ID,Text,Comment
+LV.MTGH.ToolsGroup,"Tools",
+LV.MTGH.BuildingToolsGroup,"Building Tools",
+LV.MTGH.BuildingToolGroupsGroup,"Building Tool Groups",
+LV.MTGH.PlantingGroup,"Planting",
+Tool.BeaverGeneratorTool.Name,"[DEV] Beaver Generator",
+Tool.BotGeneratorTool.Name,"[DEV] Bot Generator",
+Tool.WaterHeightBrushTool.Name,"[DEV] Water Height Brush",

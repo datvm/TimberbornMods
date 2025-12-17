@@ -33,6 +33,7 @@
     <Project Path="TimbitsTimbots/TimbitsTimbots.csproj" />
   </Folder>
   <Folder Name="/Moddable/">
+    <Project Path="ExtendedOptionalModSupport/ExtendedOptionalModSupport.csproj" Id="b2b9ec26-90c8-4059-bd4d-af07b21fae7d" />
     <Project Path="RealLights/RealLights.csproj" />
     <Project Path="RoofMap/RoofMap.csproj" />
     <Project Path="TimberModBuilder/TimberModBuilder.csproj" />
@@ -48,6 +49,7 @@
   <Folder Name="/Moddable/ModdableToolGroups/">
     <Project Path="ConfigurableToolGroups/ConfigurableToolGroups.csproj" Id="000c57eb-c8be-4b9f-90ff-c928aeb3e94e" />
     <Project Path="ModdableToolGroupsDemo/ModdableToolGroupsDemo.csproj" Id="86d937ab-5644-43a2-8e4f-296ce24bd416" />
+    <Project Path="ModdableToolGroupsHotkeys/ModdableToolGroupsHotkeys.csproj" Id="e8f9093b-605e-4ef4-8c3d-be0a4a532388" />
     <Project Path="MoreOrganizedToolGroups/MoreOrganizedToolGroups.csproj" Id="0bc40b6f-0a04-44c4-9d3d-0937b4def1b5" />
   </Folder>
   <Folder Name="/Moddable/ModdableWeathers/">

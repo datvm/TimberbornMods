@@ -1,0 +1,7 @@
+﻿{
+    "KeyBindingGroupSpec": {
+        "Id": "Plantings",
+        "Order": 2,
+        "LocKey": "LV.MTGH.PlantingGroup"
+    }
+}
