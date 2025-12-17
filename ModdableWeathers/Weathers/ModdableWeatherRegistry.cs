@@ -36,4 +36,6 @@ public class ModdableWeatherRegistry(
             ? weather
             : (isBenign ? EmptyBenignWeather : EmptyHazardousWeather);
 
+    public IModdableWeather? GetOrDefault(string id) => WeathersById.GetOrDefault(id);
+
 }

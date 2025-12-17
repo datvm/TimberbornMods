@@ -1,0 +1,28 @@
+﻿{
+    "ModdableWeatherModifierSpec": {
+        "Id": "Rain",
+        "Order": 30,
+        "NameLoc": "LV.MW.RainModifier",
+        "DescLoc": "LV.MW.RainModifierDesc",
+        "CompatibleWeathers": [
+            {
+                "WeatherId": "Rain",
+                "Chance": 100,
+                "DefaultEnabled": true,
+                "Lock": true
+            },
+            {
+                "WeatherId": "Monsoon",
+                "Chance": 100
+            },
+            {
+                "WeatherId": "SurprisinglyRefreshing",
+                "Chance": 100
+            },
+            {
+                "WeatherId": "Earthquake",
+                "Chance": 50
+            }
+        ]
+    }
+}

@@ -1,4 +1,5 @@
-﻿namespace ModdableWeathers.Weathers;
+﻿
+namespace ModdableWeathers.Weathers;
 
 public interface IModdableWeather
 {
@@ -13,8 +14,11 @@ public interface IModdableWeather
 
     event WeatherChangedEventHandler? WeatherChanged;
 
+    void Start(DetailedWeatherCycle cycle, DetailedWeatherCycleStage stage, bool onLoad);
     void End();
-    void Start(bool onLoad);
+
+    int GetChance(WeatherCycleStageDecision stageDecision, WeatherCycleDecision cycleDecision, WeatherHistoryService history);
+    int GetDuration(WeatherCycleStageDecision stageDecision, WeatherCycleDecision cycleDecision, WeatherHistoryService history);    
 }
 
 public interface IModdableBenignWeather : IModdableWeather { }

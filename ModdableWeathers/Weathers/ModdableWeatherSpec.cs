@@ -17,6 +17,11 @@ public record ModdableWeatherSpec : ComponentSpec, IHazardousWeatherUISpecificat
     public LocalizedText Display { get; set; }
 
     [Serialize]
+    public string DescLoc { get; init; }
+    [Serialize(nameof(DescLoc))]
+    public LocalizedText Description { get; set; }
+
+    [Serialize]
     public AssetRef<Sprite> WeatherPanelProgressBackground { get; init; }
     [Serialize]
     public AssetRef<Sprite> DatePanelIcon { get; init; }

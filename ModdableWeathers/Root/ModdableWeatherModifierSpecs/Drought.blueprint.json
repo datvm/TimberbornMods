@@ -1,0 +1,16 @@
+﻿{
+    "ModdableWeatherModifierSpec": {
+        "Id": "Drought",
+        "Order": 10,
+        "NameLoc": "LV.MW.DroughtModifier",
+        "DescLoc": "LV.MW.DroughtModifierDesc",
+        "CompatibleWeathers": [
+            {
+                "WeatherId": "DroughtWeather",
+                "Chance": 100,
+                "DefaultEnabled": true,
+                "Lock": true
+            }
+        ]
+    }
+}

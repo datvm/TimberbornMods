@@ -1,0 +1,12 @@
+﻿{
+    "ModdableWeatherSpec": {
+        "Id": "SurprisinglyRefreshing",
+        "Order": 60,
+        "DisplayLoc": "LV.MW.SurprisinglyRefreshing",
+        "DescLoc": "LV.MW.SurprisinglyRefreshingDesc",
+        "WeatherPanelProgressBackground": "Resources/UI/Images/Weathers/weather-progress-surprisingly-fresh",
+        "DatePanelIcon": "Resources/UI/Images/Weathers/ico-weather-surprisingly-fresh",
+        "WeatherNotification": "Resources/UI/Images/Weathers/weather-notification-surprisingly-fresh",
+        "StartSound": "UI.Weather.Fresh"
+    }
+}

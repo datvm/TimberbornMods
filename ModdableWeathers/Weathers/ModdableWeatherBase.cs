@@ -20,7 +20,7 @@ public abstract class ModdableWeatherBase(ModdableWeatherSpecService specs) : IM
         Spec = specs.SpecsById[Id];
     }
 
-    public virtual void Start(bool onLoad)
+    public virtual void Start(DetailedWeatherCycle cycle, DetailedWeatherCycleStage stage, bool onLoad)
     {
         Active = true;
         RaiseWeatherChanged(true, onLoad);
@@ -32,6 +32,6 @@ public abstract class ModdableWeatherBase(ModdableWeatherSpecService specs) : IM
         RaiseWeatherChanged(false, false);
     }
 
-    public abstract int GetChance(int cycle, WeatherHistoryService history);
-    public abstract int GetDurationAtCycle(int cycle, WeatherHistoryService history);
+    public abstract int GetChance(WeatherCycleStageDecision stageDecision, WeatherCycleDecision cycleDecision, WeatherHistoryService history);
+    public abstract int GetDuration(WeatherCycleStageDecision stageDecision, WeatherCycleDecision cycleDecision, WeatherHistoryService history);
 }

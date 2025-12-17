@@ -1,0 +1,12 @@
+﻿{
+    "ModdableWeatherSpec": {
+        "Id": "Monsoon",
+        "Order": 50,
+        "DisplayLoc": "LV.MW.Monsoon",
+        "DescLoc": "LV.MW.MonsoonDesc",
+        "WeatherPanelProgressBackground": "Resources/UI/Images/Weathers/weather-progress-monsoon",
+        "DatePanelIcon": "Resources/UI/Images/Weathers/ico-weather-monsoon",
+        "WeatherNotification": "Resources/UI/Images/Weathers/weather-notification-monsoon",
+        "StartSound": "UI.Weather.Monsoon"
+    }
+}

@@ -1,0 +1,28 @@
+﻿{
+    "ModdableWeatherModifierSpec": {
+        "Id": "Refreshing",
+        "Order": 50,
+        "NameLoc": "LV.MW.RefreshingModifier",
+        "DescLoc": "LV.MW.RefreshingModifierDesc",
+        "CompatibleWeathers": [
+            {
+                "WeatherId": "SurprisinglyRefreshing",
+                "Chance": 100,
+                "DefaultEnabled": true,
+                "Lock": true
+            },
+            {
+                "WeatherId": "TemperateWeather",
+                "Chance": 10
+            },
+            {
+                "WeatherId": "Rain",
+                "Chance": 25
+            },
+            {
+                "WeatherId": "Monsoon",
+                "Chance": 50
+            }
+        ]
+    }
+}

@@ -2,13 +2,11 @@
 
 public class RainModdableWeather(ModdableWeatherSpecService specs, ModdableWeatherSettingsService settingsService)
     : DefaultModdableWeatherWithSettings<RainModdableWeatherSettings>(specs, settingsService),
-    IRainEffectWeather
+    IModdableBenignWeather
 {
-    public const string WeatherId = "RainWeather";
-    static readonly Color StaticRainColor = new(0.5f, 0.5f, 1f, 0.4f);
+    public const string WeatherId = "Rain";
     
     public override string Id { get; } = WeatherId;
-    public Color RainColor { get; } = StaticRainColor;
 }
 
 public class RainModdableWeatherSettings : DefaultModdableWeatherSettings

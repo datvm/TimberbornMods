@@ -1,0 +1,11 @@
+﻿{
+    "ModdableWeatherSpec": {
+        "Id": "EmptyBenignWeather",
+        "Order": -1,
+        "DisplayLoc": "LV.MW.EmptyBenignWeather",
+        "WeatherPanelProgressBackground": "UI/Images/Game/weather-progress-wet",
+        "DatePanelIcon": "UI/Images/Core/ico-weather-temperate",
+        "WeatherNotification": "UI/Images/Game/weather-notification-wet",
+        "StartSound": "UI.Weather.TemperateWeatherStarted"
+    }
+}

@@ -1,14 +1,7 @@
-﻿
-namespace ModdableWeathers.Weathers.Settings;
+﻿namespace ModdableWeathers.Weathers.Settings;
 
-public interface IModdableWeatherSettings
+public interface IModdableWeatherSettings : IBaseWeatherSettings
 {
-
-    ImmutableArray<PropertyInfo> Properties { get; }
-
-    void Deserialize(string serialized);
-    string Serialize();
-
     bool CanSupport(GameModeSpec gameMode);
     void SetTo(GameModeSpec gameMode);
 }
