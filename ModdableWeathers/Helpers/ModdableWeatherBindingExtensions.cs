@@ -22,7 +22,7 @@ public static class ModdableWeatherBindingExtensions
 
     public static Configurator BindWeather<T, TSettings>(this Configurator configurator)
         where T : class, IModdableWeatherWithSettings<TSettings>
-        where TSettings : class, IModdableWeatherSettings, new()
+        where TSettings : class, IModdableWeatherSettings
     {
         configurator.BindWeather<T>();
 
@@ -32,10 +32,22 @@ public static class ModdableWeatherBindingExtensions
         return configurator;
     }
 
-    public static Configurator BindRainEffectWeather<T>(this Configurator configurator)
-        where T : class, IModdableWeather, IRainEffectWeather
+    public static Configurator BindWeatherModifier<T, TSettings>(this Configurator configurator)
+        where T : class, IModdableWeatherModifier
+        where TSettings : ModdableWeatherModifierSettings
     {
-        configurator.MultiBind<IRainEffectWeather>().ToExisting<T>();
+        configurator.BindSingleton<T>();
+        configurator.MultiBind<IModdableWeatherModifier>().ToExisting<T>();
+
+        configurator.BindSingleton<TSettings>();
+        configurator.MultiBind<ModdableWeatherModifierSettings>().ToExisting<TSettings>();
+        return configurator;
+    }
+
+    public static Configurator BindRainEffect<T>(this Configurator configurator)
+        where T : class, IRainEffect
+    {
+        configurator.MultiBind<IRainEffect>().ToExisting<T>();
         return configurator;
     }
 

@@ -12,9 +12,12 @@ public static class ModdableWeathersUtils
     public static void LogVerbose(Func<string> message)
         => TimberUiUtils.LogVerbose(() => $"{nameof(ModdableWeathers)}: " + message());
 
-    public static float CalculateHandicap(int counter, int handicapCycles, Func<int> getInitHandicapPercent)
+    public static float CalculateHandicap(Func<int> getOccurrence, int handicapCycles, Func<int> getInitHandicapPercent)
     {
-        if (handicapCycles == 0 || counter >= handicapCycles) { return 1f; }
+        if (handicapCycles == 0) { return 1f; }
+
+        var counter = getOccurrence();
+        if (counter >= handicapCycles) { return 1f; }
 
         var initHandicap = getInitHandicapPercent();
         var deltaPerCycle = (100 - initHandicap) / handicapCycles;
@@ -23,7 +26,18 @@ public static class ModdableWeathersUtils
         return handicap / 100f;
     }
 
-    public static bool IsDrought(this IHazardousWeather weather) => weather is GameDroughtWeather;
-    public static bool IsBadtide(this IHazardousWeather weather) => weather is GameBadtideWeather;
+    extension(IModdableWeather weather)
+    {
+        public bool IsDrought() => weather is GameDroughtWeather;
+        public bool IsBadtide() => weather is GameBadtideWeather;
+        public bool IsEmpty() => weather is EmptyWeather;
+
+        public bool Match(WeatherSettingsDialogFilter filter) =>
+            ((weather.IsHazardous && filter.Hazardous) || (weather.IsBenign && filter.Benign))
+            && (filter.Query.Length == 0
+                || weather.Spec.Display.Value.Contains(filter.Query, StringComparison.OrdinalIgnoreCase));
+    }
+
+    
 
 }

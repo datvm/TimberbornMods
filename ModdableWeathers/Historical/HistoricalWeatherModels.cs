@@ -1,6 +1,14 @@
-﻿namespace ModdableWeathers.Historical;
+﻿using ModdableWeathers.WeatherModifiers;
 
-public record WeatherCycleStage(int Index, bool IsBenign, string WeatherId, int Days);
+namespace ModdableWeathers.Historical;
+
+public record WeatherCycleStage(
+    int Index,
+    bool IsBenign, 
+    string WeatherId,
+    ImmutableArray<string> WeatherModifierIds,
+    int Days
+);
 
 public record WeatherCycle(int Cycle, ImmutableArray<WeatherCycleStage> Stages)
 {
@@ -10,8 +18,15 @@ public record WeatherCycle(int Cycle, ImmutableArray<WeatherCycleStage> Stages)
 
 }
 
-public record DetailedWeatherCycleStage(int Index, bool IsBenign, IModdableWeather Weather, int Days);
+public record DetailedWeatherCycleStage(
+    int Index,
+    bool IsBenign,
+    IModdableWeather Weather,
+    ImmutableArray<IModdableWeatherModifier> WeatherModifiers,
+    int Days
+);
 public record DetailedWeatherCycle(WeatherCycle WeatherCycle, ImmutableArray<DetailedWeatherCycleStage> Stages)
 {
     public int Cycle { get; } = WeatherCycle.Cycle;
 }
+

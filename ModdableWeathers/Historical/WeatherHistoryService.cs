@@ -3,7 +3,8 @@
 public class WeatherHistoryService(
     WeatherHistoryRegistry history,
     ModdableWeatherRegistry weathers,
-    GameCycleService gameCycleService
+    GameCycleService gameCycleService,
+    ModdableWeatherModifierRegistry weatherModifiers
 ) : ILoadableSingleton
 {
 
@@ -12,33 +13,35 @@ public class WeatherHistoryService(
     public DetailedWeatherCycle NextCycle { get; private set; } = null!;
 
     readonly Dictionary<string, int> weatherCounters = [];
-    int cycleCounted = -1;
+    int cycleCounted = 0;
+
+    public event Action<DetailedWeatherCycle>? WeatherCycleAdded;
 
     public void Load()
     {
         history.WeatherCycleAdded += OnWeatherCycleAdded;
-        UpdateReferences();
     }
 
-    public DetailedWeatherCycle GetWeatherCycle(int index)
+    public DetailedWeatherCycle GetWeatherCycle(int cycleIndex)
     {
-        var cycle = history[index];
+        var cycle = history[cycleIndex];
 
         return new(cycle, [..cycle.Stages.Select(s => new DetailedWeatherCycleStage(
             s.Index,
             s.IsBenign,
             weathers.GetOrFallback(s.WeatherId, s.IsBenign),
+            [..s.WeatherModifierIds.Select(id => weatherModifiers.GetOrFallback(id)).Where(static q => q is not null)!],
             s.Days
         ))]);
     }
 
-    public int GetOccurenceCount(string weatherId) => weatherCounters.GetValueOrDefault(weatherId);
+    public int GetOccurrenceCount(string weatherId) => weatherCounters.GetValueOrDefault(weatherId);
 
-    void UpdateReferences()
+    public void UpdateReferences()
     {
         var currCycle = gameCycleService.Cycle;
 
-        PreviousCycle = currCycle > 0 ? GetWeatherCycle(currCycle - 1) : null;
+        PreviousCycle = currCycle > 1 ? GetWeatherCycle(currCycle - 1) : null;
         CurrentCycle = GetWeatherCycle(currCycle);
         NextCycle = GetWeatherCycle(currCycle + 1);
 
@@ -63,6 +66,9 @@ public class WeatherHistoryService(
         cycleCounted = target;
     }
 
-    void OnWeatherCycleAdded(WeatherCycle _) => UpdateReferences();
-
+    void OnWeatherCycleAdded(WeatherCycle _)
+    {
+        UpdateReferences();
+        WeatherCycleAdded?.Invoke(CurrentCycle);
+    }
 }

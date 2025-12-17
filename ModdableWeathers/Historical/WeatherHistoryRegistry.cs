@@ -10,7 +10,8 @@ public class WeatherHistoryRegistry(
 
     readonly List<WeatherCycle> weatherCycles = [];
     public IReadOnlyList<WeatherCycle> WeatherCycles => weatherCycles;
-    public WeatherCycle this[int index] => weatherCycles[index];
+    public WeatherCycle this[int index] => weatherCycles[index - 1];
+    public int CycleCount => weatherCycles.Count;
 
     public event Action<WeatherCycle> WeatherCycleAdded = null!;
 
@@ -46,8 +47,8 @@ public class WeatherHistoryRegistry(
             weatherCycles.Add(new(
                 counter++,
                 [
-                    new(0, true, GameTemperateWeather.WeatherId, 0),
-                    new(1, false, c.HazardousWeatherId, c.Duration),
+                    new(0, true, GameTemperateWeather.WeatherId, [], 0),
+                    new(1, false, c.HazardousWeatherId, [], c.Duration),
                 ]
             ));
         }
@@ -87,6 +88,25 @@ public class WeatherHistoryRegistry(
     {
         weatherCycles.Add(cycle);
         WeatherCycleAdded(cycle);
+    }
+
+    public void ReplaceNextCycle(WeatherCycle cycle, int cycleIndex)
+    {
+        cycleIndex--; // Convert to 0-based index
+
+        if (cycleIndex >= weatherCycles.Count)
+        {
+            AddWeatherCycle(cycle);
+        }
+        else if (cycleIndex == weatherCycles.Count - 1)
+        {
+            weatherCycles[cycleIndex] = cycle;
+            WeatherCycleAdded(cycle);
+        }
+        else
+        {
+            throw new InvalidOperationException($"Can only replace the next upcoming weather cycle: requested {cycleIndex + 1} vs {weatherCycles.Count}");
+        }
     }
 
     public void Save(ISingletonSaver singletonSaver)

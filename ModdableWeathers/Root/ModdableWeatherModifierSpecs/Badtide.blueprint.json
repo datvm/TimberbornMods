@@ -1,0 +1,21 @@
+﻿{
+    "ModdableWeatherModifierSpec": {
+        "Id": "Badtide",
+        "Order": 20,
+        "NameLoc": "LV.MW.BadtideModifier",
+        "DescLoc": "LV.MW.BadtideModifierDesc",
+        "CompatibleWeathers": [
+            {
+                "WeatherId": "BadtideWeather",
+                "Chance": 100,
+                "DefaultEnabled": true,
+                "Lock": true
+            },
+            {
+                "WeatherId": "Monsoon",
+                "Chance": 50,
+                "StartCycle": 5
+            }
+        ]
+    }
+}

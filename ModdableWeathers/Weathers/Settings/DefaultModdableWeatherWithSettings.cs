@@ -14,18 +14,17 @@ public abstract class DefaultModdableWeatherWithSettings<TSetting>(
         Settings = settingsService.GetSettings<TSetting>();
     }
 
-    public override int GetChance(int cycle, WeatherHistoryService history) => Settings.Chance;
+    public override int GetChance(WeatherCycleStageDecision stageDecision, WeatherCycleDecision cycleDecision, WeatherHistoryService history)
+        => cycleDecision.Cycle < Settings.StartCycle ? 0 : Settings.Chance;
 
-    public override int GetDurationAtCycle(int cycle, WeatherHistoryService history)
+    public override int GetDuration(WeatherCycleStageDecision stageDecision, WeatherCycleDecision cycleDecision, WeatherHistoryService history)
     {
         var s = Settings;
-        var occured = history.GetOccurenceCount(Id);
         var handicap = ModdableWeathersUtils.CalculateHandicap(
-            occured,
+            () => history.GetOccurrenceCount(Id),
             s.HandicapCycles,
             () => s.HandicapPercent
         );
-
 
         var min = Mathf.RoundToInt(s.MinDay * handicap);
         var max = Mathf.RoundToInt(s.MaxDay * handicap);
