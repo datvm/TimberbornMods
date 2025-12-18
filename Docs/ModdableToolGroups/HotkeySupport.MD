@@ -4,6 +4,8 @@ Players can subscribe to an optional mod "Moddable Tool Groups Hotkeys" to have 
 
 For full examples, see the mod's [`BuilderPrioritiesButtonCustomRootElement`](../../ConfigurableToolGroups/UI/BuiltInRootProviders/BuilderPrioritiesButtonCustomRootElement.cs) or [`PlantingBuiltInButtonCustomRootElement`](../../ConfigurableToolGroups/UI/BuiltInRootProviders/PlantingButtonCustomRootElements.cs) or the Demo project's [`PlantingGroupElement`](../../ModdableToolGroupsDemo/UI/PlantingGroupElement.cs) for multi-level hotkeys.
 
+**Block Object Tools are automatically supported**.
+
 ## The `IHotkeySupportedTool` interface
 
 To add hotkey support, simply implement the `IHotkeySupportedTool` interface in your custom tool class:
