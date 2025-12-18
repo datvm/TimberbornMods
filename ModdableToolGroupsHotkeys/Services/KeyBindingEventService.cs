@@ -1,35 +1,35 @@
 ﻿namespace ModdableToolGroupsHotkeys.Services;
 
-public class KeyBindingEventService : IUnloadableSingleton
+public class KeyBindingEventService(InputService inputService) : IInputProcessor, ILoadableSingleton
 {
-    public static KeyBindingEventService? Instance { get; private set; }
+    readonly Dictionary<string, KeyBindingEvent> mapper = [];
 
-    readonly Dictionary<KeyBinding, KeyBindingEvent> mapper = [];
+    public KeyBindingEvent Get(string id) => mapper.GetOrAdd(id, () => new(id));
 
-    public KeyBindingEvent Get(KeyBinding keyBinding) => mapper.GetOrAdd(keyBinding);
-
-    public KeyBindingEventService()
+    public void Load()
     {
-        Instance = this;
+        inputService.AddInputProcessor(this);
     }
 
-    public void Unload()
+    public bool ProcessInput()
     {
-        Instance = null;
-    }
-
-    internal void RaiseOnDown(KeyBinding keyBinding)
-    {
-        if (mapper.TryGetValue(keyBinding, out var ev))
+        foreach (var ev in mapper.Values)
         {
-            ev.RaiseOnDown();
+            if (inputService.IsKeyDown(ev.KeyBindingId))
+            {
+                ev.RaiseOnDown();
+                return true;
+            }
         }
-    }
 
+        return false;
+    }
 }
 
-public class KeyBindingEvent
+public class KeyBindingEvent(string id)
 {
+
+    public readonly string KeyBindingId = id;
 
     public event Action? OnDown;
     internal void RaiseOnDown() => OnDown?.Invoke();

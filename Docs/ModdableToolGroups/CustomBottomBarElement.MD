@@ -200,3 +200,7 @@ Multi-layer with sub groups and custom tool buttons:
         }
     }
 ```
+
+## Add optional hotkey support
+
+See [Hotkeys Support](./HotkeySupport.MD) for instructions on how to add hotkey support to your custom bottom bar elements.
