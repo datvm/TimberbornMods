@@ -5,7 +5,6 @@
 	</PropertyGroup>
 
 	<Import Project="../Targets/Common.targets" />
-	<Import Project="../Targets/CommonHarmony.targets" />
 	<Import Project="../Targets/CommonModdableToolGroups.targets" />
 
 </Project>

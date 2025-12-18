@@ -4,3 +4,4 @@ Moddable Tool Groups gives full control over how tool groups are structured. It 
 
 - [Block Objects](./BlockObjects.MD): Simple JSON mods that can rearrange tool groups and tools for Block Objects.
 - [Custom Bottom Bar Element](./CustomBottomBarElement.MD): Create your own button or tool groups with custom tools (`ITool`) or any generic `BottomBarElement`.
+  - [Hotkeys Support](./HotkeySupport.MD): How to add hotkey support to your custom bottom bar elements.

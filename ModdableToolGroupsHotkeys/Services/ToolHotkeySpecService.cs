@@ -38,6 +38,7 @@ public class ToolHotkeySpecService(
     {
         var definitions = customButtonService.ElementsByIds.Values
             .OfType<IHotkeySupportedTool>()
+            .Where(q => !customButtonService.RemovingElementTypes.Contains(q.GetType()))
             .SelectMany(t => t.GetHotkeys())
             .Distinct(ToolHotkeyDefinitionComparer.Instance)
             .Select(h => new KeyValuePair<IToolHotkeyDefinition, string>(h, t.T(h.LocKey)))

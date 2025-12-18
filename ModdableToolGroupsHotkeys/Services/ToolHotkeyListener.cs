@@ -2,7 +2,6 @@
 
 public class ToolHotkeyListener(
     ToolHotkeySpecService toolHotkeySpecService,
-    KeyBindingRegistry keyBindingRegistry,
     KeyBindingEventService keyBindingEventService
 ) : ILoadableSingleton
 {
@@ -27,9 +26,7 @@ public class ToolHotkeyListener(
 
     void RegisterAction(string id, Action onDown)
     {
-        var kb = keyBindingRegistry.Get(id);
-        var ev = keyBindingEventService.Get(kb);
-
+        var ev = keyBindingEventService.Get(id);
         ev.OnDown += onDown;
     }
 
