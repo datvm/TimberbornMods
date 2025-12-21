@@ -1,0 +1,15 @@
+﻿Moddable Tool Groups Hotkeys adds configurable hotkey support for Moddable Tool Groups, allowing quick access to tools, tool groups, plantings, and buildings. In addition to the built-in hotkeys, other mods can register their own hotkeys for custom tools.
+
+- Hotkeys for all tools, including grouped tools such as Plant Crops and Demolish.
+- Separate hotkey groups for plantings (crops and trees).
+- Hotkeys for all buildings, including opening building groups.
+
+Notes
+- Keybindings can only be configured in-game or in the Map Editor (Esc -> Keybindings).
+- The keybindings list shows only tools and buildings available in the current game, but bindings are saved and persist across faction changes.
+- Some buildings differ between factions internally (for example, Folktails vs Iron Teeth Campfire) and require separate bindings, while others are shared (such as Paths or Oak).
+
+For modder: [url=https://github.com/datvm/TimberbornMods/blob/master/Docs/ModdableToolGroups/HotkeySupport.MD]Developer documentation[/url] or see the Moddable Tool Group mod page for more info.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
