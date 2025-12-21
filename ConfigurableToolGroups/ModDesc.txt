@@ -2,6 +2,8 @@
 
 Moddable Tool Groups gives full control over how tool groups are structured. It lets mods create multi-level tool groups, put the same tool/group in multiple places, and freely reorganize the tool hierarchy.
 
+You can also add hotkey support by subscribing to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3625954202]Moddable Tool Groups Hotkeys[/url].
+
 [b]Note to players:[/b]
 - For some funny reason, Tutorial will not work with this mod enabled. Just enable this mod once you have finished the Tutorial.
 - This mod does nothing on its own. It only provides a framework that other mods can use to add multi-level tool groups. [b]You can pick any flavor from those mods like [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3293437485]More Groups[/url][/b] or my own [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3612247861]More Organized Tool Groups mod[/url].
@@ -13,6 +15,7 @@ If you need any help, feel free to ask on Discord ([url=https://discord.com/chan
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.4.0: Added support for hotkeys.
 v10.3.1: Added [url=https://github.com/datvm/TimberbornMods/blob/master/Docs/ModdableToolGroups/CustomBottomBarElement.MD#simple-root-button]Simple Root Button[/url] support.
 v10.3.0:
 - Added support for ChildrenExplicitOrderedIds.

@@ -6,23 +6,20 @@ This mod provides [the following Specs](../../ConfigurableToolGroups/Specs/):
 
 [`ParentToolGroupSpec`](../../ConfigurableToolGroups/Specs/ParentToolGroupSpec.cs) can be applied to `BlockObjectToolGroupSpec` or any block object blueprints (templates).
 
-For example, the following JSON moves the "Essentials" tool group to be a child of the "Food" and "Water" tool groups (as you can see, groups and tools can appear multiple times):
+For example, the following JSON moves the "Badwaters" tool group under the "Water" tool group:
 
 ```jsonc
 {
     "BlockObjectToolGroupSpec": {
-        "Id": "Essentials",
-        "Order": 45,
-        "NameLocKey": "LV.OG.GroupEssentials",
-        "Icon": "Sprites/OrganizedGroups/Essentials",
+        "Id": "Badwaters",
+        "Order": 20,
+        "NameLocKey": "LV.OG.GroupBadwaters",
+        "Icon": "Sprites/OrganizedGroups/Badwaters",
         "FallbackGroup": false
     },
-    "ToolGroupChildrenSpec": {
-        "ChildrenGroupsIds": [
-            "Food",
-            "Water"
-        ]
-    }
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Water" ]
+    },
 }
 ```
 
@@ -81,6 +78,6 @@ The above properties do not affect the Order in which they appear.
 From v10.3.0, this is how the order of children is determined:
 1. `ChildrenExplicitOrderedIds` - If you specify explicit orders for certain children, they have that Order number.
 2. `ChildrenOrderedIds` - A fast way to implicitly assign Order numbers: any that appear here that did not appear in `ChildrenExplicitOrderedIds` are assigned Order numbers based on their position in this list: 10, 20, 30, etc.
-3. Any remaining children (not mentioned in either of the above) use their existing Order numbers (from `BlockObjectToolGroupSpecService.Order` or `PlaceableBlockObjectSpec.Order`).
+3. Any remaining children (not mentioned in either of the above) use their existing Order numbers (from `BlockObjectToolGroupSpec.Order` or `PlaceableBlockObjectSpec.Order`).
 
 After that, all children are sorted by their Order numbers (ascending).
