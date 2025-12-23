@@ -3,6 +3,8 @@
 public interface IModdableWeatherWithSettings : IModdableWeather
 {
     IModdableWeatherSettings Settings { get; }
+
+    void ReloadSettings();
 }
 
 public interface IModdableWeatherWithSettings<TSetting> : IModdableWeatherWithSettings

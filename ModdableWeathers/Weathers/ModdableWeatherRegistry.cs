@@ -31,6 +31,17 @@ public class ModdableWeatherRegistry(
         WeathersById = Weathers.ToFrozenDictionary(q => q.Id);
     }
 
+    public void ReloadSettings()
+    {
+        foreach (var weather in Weathers)
+        {
+            if (weather is IModdableWeatherWithSettings w)
+            {
+                w.ReloadSettings();
+            }
+        }
+    }
+
     public IModdableWeather GetOrFallback(string id, bool isBenign) 
         => WeathersById.TryGetValue(id, out var weather)
             ? weather

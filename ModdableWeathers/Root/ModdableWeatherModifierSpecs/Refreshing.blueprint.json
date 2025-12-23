@@ -4,6 +4,7 @@
         "Order": 50,
         "NameLoc": "LV.MW.RefreshingModifier",
         "DescLoc": "LV.MW.RefreshingModifierDesc",
+        "IncompatibleModifierIds": [ "Badtide", "Drought" ],
         "CompatibleWeathers": [
             {
                 "WeatherId": "SurprisinglyRefreshing",

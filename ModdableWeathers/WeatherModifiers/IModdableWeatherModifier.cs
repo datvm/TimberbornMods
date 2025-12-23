@@ -14,6 +14,7 @@ public interface IModdableWeatherModifier
     void End();
 
     int GetChance(WeatherCycleStageDecision stageDecision, WeatherCycleDecision cycleDecision, WeatherHistoryService history);
+    void ReloadSettings();
 }
 
 public interface IModdableWeatherModifier<TSettings> : IModdableWeatherModifier

@@ -2,6 +2,10 @@
 
 public class WatherSettingsExportService(
     ISystemFileDialogService fileDialogService,
+
+    ModdableWeatherRegistry weatherRegistry,
+    ModdableWeatherModifierRegistry modifierRegistry,
+    
     ModdableWeatherSettingsService weatherSettings,
     ModdableWeatherModifierSettingsService modifierSettings
 )
@@ -35,6 +39,9 @@ public class WatherSettingsExportService(
 
         weatherSettings.LoadSerializedSettings(json[WeathersKey]!.Value<JObject>()!);
         modifierSettings.LoadSerializedSettings(json[WeatherModifiersKey]!.Value<JObject>()!);
+
+        weatherRegistry.ReloadSettings();
+        modifierRegistry.ReloadSettings();
 
         return true;
     }

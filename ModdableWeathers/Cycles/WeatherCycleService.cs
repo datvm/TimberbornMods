@@ -81,7 +81,7 @@ public class WeatherCycleService : ILoadableSingleton
         for (int i = stage.StageIndex + 1; i < cycle.Stages.Length; i++)
         {
             var s = cycle.Stages[i];
-            if ((benign && s.Weather.IsBenign) || (!benign && s.Weather.IsHazardous))
+            if (stage.Stage.Days > 0 && ((benign && s.Weather.IsBenign) || (!benign && s.Weather.IsHazardous)))
             {
                 return new(cycle, s);
             }

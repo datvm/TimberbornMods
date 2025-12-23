@@ -45,6 +45,12 @@ public class ModdableWeatherPanel(
         _startBlinkingIfUnpaused = true;
     }
 
+    [OnEvent]
+    public void OnWeatherTransitioned(WeatherTransitionedEvent _)
+    {
+        _startBlinkingIfUnpaused = false;
+    }
+
     [ReplaceMethod]
     public void MUpdatePanel()
     {

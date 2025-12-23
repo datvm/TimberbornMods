@@ -1,4 +1,6 @@
-﻿namespace ModdableWeathers;
+﻿using ModdableWeathers.UI;
+
+namespace ModdableWeathers;
 
 public class ModdableWeatherConfig : BaseModdableTimberbornConfigurationWithHarmony
 {
@@ -23,9 +25,6 @@ public class ModdableWeatherConfig : BaseModdableTimberbornConfigurationWithHarm
         ReplaceServices(configurator);
 
         configurator
-            // Audio
-            .TryBindingAudioClipManagement()
-
             // History
             .BindSingleton<WeatherCycleStageDefinitionService>()
             .BindSingleton<WeatherHistoryRegistry>()
@@ -89,6 +88,9 @@ public class ModdableWeatherConfig : BaseModdableTimberbornConfigurationWithHarm
             // Wetfur applier
             .BindSingleton<SoakEffectApplierService>()
 
+            // Sounds
+            .BindSingleton<ModdableWeatherSoundPlayer>()
+
             // Components
             .BindTemplateModule(h => h
                 .AddDecorator<WaterSource, ModdableWaterStrengthModifier>()
@@ -102,6 +104,7 @@ public class ModdableWeatherConfig : BaseModdableTimberbornConfigurationWithHarm
     void BindBootstrapperServices(Configurator configurator)
     {
         configurator
+            .TryBindingModdableAudioClip()
             .TryBindingSystemFileDialogService()
         ;
     }
@@ -110,7 +113,10 @@ public class ModdableWeatherConfig : BaseModdableTimberbornConfigurationWithHarm
     {
         configurator.RemoveMultibinding<ICycleDuration>();
 
-        List<Type> removingTypes = [];
+        List<Type> removingTypes = [
+            typeof(HazardousWeatherSoundPlayer),
+        ];
+
         List<KeyValuePair<Type, Type>> replacingTypes = [];
 
         foreach (var t in AssemblyTypes)
