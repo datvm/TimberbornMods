@@ -55,7 +55,6 @@
   <Folder Name="/Moddable/ModdableWeathers/">
     <Project Path="EarthquakeWeather/EarthquakeWeather.csproj" />
     <Project Path="ModdableWeathers/ModdableWeathers.csproj" Id="08708854-4a09-465f-9005-87b4d008edb8" />
-    <Project Path="Redsurge/Redsurge.csproj" />
     <Project Path="SkyblightWeather/SkyblightWeather.csproj" />
     <Project Path="WeatherEditor/WeatherEditor.csproj" />
   </Folder>
@@ -140,6 +139,7 @@
   <Project Path="LunchBreak/LunchBreak.csproj" />
   <Project Path="MapResizer/MapResizer.csproj" />
   <Project Path="MechanicalFilterPump/MechanicalFilterPump.csproj" />
+  <Project Path="MerryChristmas2025/MerryChristmas2025.csproj" Id="88ea19d7-98a9-4248-8bfc-9a49a8b50a1f" />
   <Project Path="MicroManagement/MicroManagement.csproj" />
   <Project Path="MultiYieldersPlzNoCrashes/MultiYieldersPlzNoCrashes.csproj" />
   <Project Path="NoBuildRestriction/NoBuildRestriction.csproj" />

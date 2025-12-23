@@ -10,7 +10,12 @@ public static class ModdableWeathersUtils
         => instance ?? throw new InvalidOperationException($"{typeof(T).Name} is not loaded yet!");
 
     public static void LogVerbose(Func<string> message)
-        => TimberUiUtils.LogVerbose(() => $"{nameof(ModdableWeathers)}: " + message());
+        => TimberUiUtils.LogVerbose(() => $"[{nameof(ModdableWeathers)}]: " + message());
+
+    public static void LogVerbose(Func<string> message, string padding)
+        => TimberUiUtils.LogVerbose(() => $"[{nameof(ModdableWeathers)}]: " + PadMessage(message(), padding));
+
+    static string PadMessage(string message, string padding) => Environment.NewLine + message.Replace("\n", "\n" + padding);
 
     public static float CalculateHandicap(Func<int> getOccurrence, int handicapCycles, Func<int> getInitHandicapPercent)
     {
@@ -38,6 +43,12 @@ public static class ModdableWeathersUtils
                 || weather.Spec.Display.Value.Contains(filter.Query, StringComparison.OrdinalIgnoreCase));
     }
 
+    extension(PropertyInfo propertyInfo)
+    {
+        public bool IsEnabledProperty()
+            => propertyInfo.Name == nameof(DefaultModdableWeatherSettings.Enabled)
+            && propertyInfo.PropertyType == typeof(bool);
+    }
     
 
 }

@@ -1,6 +1,7 @@
 ﻿namespace ModdableWeathers.UI.Settings;
 
-public class WeatherSettingsPanel(IModdableWeather w, ILoc t) : BaseWeatherSettingsPanel<IModdableWeather, IModdableWeatherSettings>(w, t)
+public class WeatherSettingsPanel(ILoc t, IContainer container)
+    : BaseWeatherSettingsPanel<IModdableWeather, IModdableWeatherSettings>(t, container)
 {
     protected override string GetTitle() => Entity.Spec.Display.Value;
     protected override string GetDescription() => Entity.Spec.Description.Value;

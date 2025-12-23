@@ -1,10 +1,9 @@
-﻿namespace ModdableWeathers.UI.Settings;
+﻿
+namespace ModdableWeathers.UI.Settings;
 
 public class WeatherModifierSettingsPanel(
-    IModdableWeatherModifier entity,
-    ILoc t,
-    ModdableWeatherRegistry moddableWeatherRegistry
-) : BaseWeatherSettingsPanel<IModdableWeatherModifier, ModdableWeatherModifierSettings>(entity, t)
+    ModdableWeatherRegistry weatherRegistry,
+    ILoc t, IContainer container) : BaseWeatherSettingsPanel<IModdableWeatherModifier, ModdableWeatherModifierSettings>(t, container)
 {
     protected override string GetTitle() => Entity.Spec.Name.Value;
     protected override string GetDescription() => Entity.Spec.Description.Value;
@@ -20,7 +19,7 @@ public class WeatherModifierSettingsPanel(
 
         foreach (var id in Settings.Weathers.Keys)
         {
-            var weather = moddableWeatherRegistry.GetOrDefault(id);
+            var weather = weatherRegistry.GetOrDefault(id);
             if (weather is not null && weather.Match(filter))
             {
                 return true;

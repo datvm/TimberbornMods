@@ -1,4 +1,5 @@
-﻿namespace ModdableWeathers.WeatherModifiers.Settings;
+﻿
+namespace ModdableWeathers.WeatherModifiers.Settings;
 
 public class ModdableWeatherModifierSettings : IBaseWeatherSettings
 {
@@ -8,17 +9,19 @@ public class ModdableWeatherModifierSettings : IBaseWeatherSettings
 
 }
 
-public class ModdableWeatherModifierWeatherSettings
+public class ModdableWeatherModifierWeatherSettings : IBaseWeatherSettings
 {
     [Description("LV.MW.ModifierWeatherEnabled")]
-    public bool Enabled { get; set; } = true;
+    public bool Enabled { get; set; }
 
     [Description("LV.MW.ModifierWeatherChance")]
-    public int Chance { get; set; } = 100;
+    public int Chance { get; set; }
 
     [Description("LV.MW.ModifierStartCycle")]
     public int StartCycle { get; set; }
 
     public bool Lock { get; set; }
+
+    JObject IBaseWeatherSettings.Serialize() => Lock ? [] : ((IBaseWeatherSettings)this).Serialize();
 
 }

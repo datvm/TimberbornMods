@@ -5,11 +5,13 @@ public interface IModdableWeatherModifier
 {
     string Id { get; }
     ModdableWeatherModifierSpec Spec { get; }
-    bool Enabled { get; }
     bool Active { get; }
     ModdableWeatherModifierSettings Settings { get; }
 
     event WeatherModifierChangedEventHandler? WeatherModifierChanged;
+
+    void Start(DetailedWeatherStageReference stage, WeatherHistoryService history, bool onLoad);
+    void End();
 
     int GetChance(WeatherCycleStageDecision stageDecision, WeatherCycleDecision cycleDecision, WeatherHistoryService history);
 }

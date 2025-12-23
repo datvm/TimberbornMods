@@ -22,6 +22,9 @@ public record ModdableWeatherModifierSpec : ComponentSpec
     [Serialize]
     public ImmutableArray<ModdableWeatherModifierCompatibilitySpec> CompatibleWeathers { get; set; } = [];
 
+    [Serialize]
+    public ImmutableArray<string> IncompatibleModifierIds { get; init; } = [];
+
 }
 
 public record ModdableWeatherModifierCompatibilitySpec

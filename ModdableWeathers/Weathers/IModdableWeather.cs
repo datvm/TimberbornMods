@@ -14,7 +14,7 @@ public interface IModdableWeather
 
     event WeatherChangedEventHandler? WeatherChanged;
 
-    void Start(DetailedWeatherCycle cycle, DetailedWeatherCycleStage stage, bool onLoad);
+    void Start(DetailedWeatherStageReference stage, bool onLoad);
     void End();
 
     int GetChance(WeatherCycleStageDecision stageDecision, WeatherCycleDecision cycleDecision, WeatherHistoryService history);

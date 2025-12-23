@@ -8,12 +8,12 @@ public class WeatherHistoryRegistry(
     static readonly SingletonKey SaveKey = new(nameof(WeatherHistoryRegistry));
     static readonly ListKey<string> WeatherCyclesKey = new("WeatherCycles");
 
-    readonly List<WeatherCycle> weatherCycles = [];
+    readonly List<WeatherCycle> weatherCycles = [WeatherCycle.Empty];
     public IReadOnlyList<WeatherCycle> WeatherCycles => weatherCycles;
-    public WeatherCycle this[int index] => weatherCycles[index - 1];
-    public int CycleCount => weatherCycles.Count;
+    public WeatherCycle this[int index] => weatherCycles[index];
+    public int CycleCount => weatherCycles.Count - 1;
 
-    public event Action<WeatherCycle> WeatherCycleAdded = null!;
+    public event WeatherCycleHandler WeatherCycleAdded = null!;
 
     public void Load()
     {
@@ -39,16 +39,19 @@ public class WeatherHistoryRegistry(
         var history = baseGameHistory._history;
         if (history.Count == 0) { return; } // New game
 
-        weatherCycles.Clear();
         var counter = 0;
 
         foreach (var c in history)
         {
+            var modifier = c.HazardousWeatherId == GameDroughtWeather.WeatherId
+                ? DroughtModifier.ModifierId
+                : BadtideModifier.ModifierId;
+
             weatherCycles.Add(new(
-                counter++,
+                ++counter,
                 [
                     new(0, true, GameTemperateWeather.WeatherId, [], 0),
-                    new(1, false, c.HazardousWeatherId, [], c.Duration),
+                    new(1, false, c.HazardousWeatherId, [DroughtModifier.ModifierId], c.Duration),
                 ]
             ));
         }
@@ -84,28 +87,30 @@ public class WeatherHistoryRegistry(
         }
     }
 
-    public void AddWeatherCycle(WeatherCycle cycle)
+    public void AddWeatherCycles(WeatherCycle cycle, int currCycle)
     {
+        var index = cycle.Cycle;
+
+        if (index != weatherCycles.Count)
+        {
+            throw new InvalidOperationException($"Expecting cycle index {weatherCycles.Count} but got {index}");
+        }
+
         weatherCycles.Add(cycle);
-        WeatherCycleAdded(cycle);
+
+        // Don't call this if it's the first entry because another entry will be added soon
+        // And this mod expects at least 2 cycles to be present before notifying
+        if (cycle.Cycle > 1)
+        {
+            WeatherCycleAdded(cycle, currCycle);
+        }
     }
 
-    public void ReplaceNextCycle(WeatherCycle cycle, int cycleIndex)
+    public void ClearFutureEntries(int currCycle)
     {
-        cycleIndex--; // Convert to 0-based index
-
-        if (cycleIndex >= weatherCycles.Count)
+        for (int i = weatherCycles.Count - 1; i > currCycle; i--)
         {
-            AddWeatherCycle(cycle);
-        }
-        else if (cycleIndex == weatherCycles.Count - 1)
-        {
-            weatherCycles[cycleIndex] = cycle;
-            WeatherCycleAdded(cycle);
-        }
-        else
-        {
-            throw new InvalidOperationException($"Can only replace the next upcoming weather cycle: requested {cycleIndex + 1} vs {weatherCycles.Count}");
+            weatherCycles.RemoveAt(i);
         }
     }
 
@@ -116,3 +121,5 @@ public class WeatherHistoryRegistry(
     }
 
 }
+
+public delegate void WeatherCycleHandler(WeatherCycle cycles, int currentCycle);

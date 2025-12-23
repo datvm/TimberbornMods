@@ -44,11 +44,4 @@ public static class ModdableWeatherBindingExtensions
         return configurator;
     }
 
-    public static Configurator BindRainEffect<T>(this Configurator configurator)
-        where T : class, IRainEffect
-    {
-        configurator.MultiBind<IRainEffect>().ToExisting<T>();
-        return configurator;
-    }
-
 }
