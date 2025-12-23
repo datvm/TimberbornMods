@@ -6,6 +6,8 @@ public abstract class DefaultModdableWeatherWithSettings<TSetting>(
 ) : ModdableWeatherBase(specs), IModdableWeatherWithSettings<TSetting> where TSetting : IDefaultModdableWeatherSettings, new()
 {
 
+    public override bool Enabled => Settings.Enabled;
+
     public TSetting Settings { get; protected set; } = default!;
 
     public override void Load()
@@ -21,7 +23,7 @@ public abstract class DefaultModdableWeatherWithSettings<TSetting>(
     {
         var s = Settings;
         var handicap = ModdableWeathersUtils.CalculateHandicap(
-            () => history.GetOccurrenceCount(Id),
+            () => history.GetWeatherOccurrenceCount(Id),
             s.HandicapCycles,
             () => s.HandicapPercent
         );

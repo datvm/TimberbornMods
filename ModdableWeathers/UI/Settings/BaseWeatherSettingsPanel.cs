@@ -1,18 +1,28 @@
 ﻿namespace ModdableWeathers.UI.Settings;
 
-public abstract class BaseWeatherSettingsPanel<T, TSettings> : CollapsiblePanel, IFilterablePanel
+public abstract class BaseWeatherSettingsPanel<T, TSettings>(ILoc t, IContainer container) : CollapsiblePanel, IFilterablePanel
     where TSettings : IBaseWeatherSettings
 {
-    public readonly T Entity;
-    public readonly TSettings Settings = default!;
+#nullable disable
+    public T Entity { get; private set; }
+    public TSettings Settings { get; private set; }
+    Label lblDisabled;
+#nullable enable
 
-    public BaseWeatherSettingsPanel(T entity, ILoc t)
+    public virtual void Init(T entity)
     {
         Entity = entity;
 
         SetTitle(GetTitle());
         SetExpand(false);
-        this.SetMarginBottom(10);
+        this
+            .SetMarginBottom(10)
+            .SetPadding(5)
+            .SetBorder(color: TextColors.YellowHighlight, width: 1);
+
+        lblDisabled = this.AddLabel(t.T("LV.MW.SettingsDisabled"));
+        lblDisabled.InsertSelfAfter(HeaderLabel);
+        lblDisabled.SetDisplay(false);
 
         var parent = Container;
         parent.AddLabel(GetDescription()).SetMarginBottom();
@@ -25,10 +35,10 @@ public abstract class BaseWeatherSettingsPanel<T, TSettings> : CollapsiblePanel,
         }
         Settings = s;
 
-        PopulateProperties(parent, t);
+        PopulateProperties(parent);
     }
 
-    void PopulateProperties(VisualElement parent, ILoc t)
+    void PopulateProperties(VisualElement parent)
     {
         var list = parent.AddChild();
 
@@ -36,7 +46,15 @@ public abstract class BaseWeatherSettingsPanel<T, TSettings> : CollapsiblePanel,
 
         foreach (var prop in props)
         {
-            var el = new SettingElement(prop, Settings, t);
+            var el = container.GetInstance<SettingElement>();
+            el.Init(prop, Settings);
+
+            if (el.IsEnabledProperty)
+            {
+                el.OnEnabledChanged += enabled => lblDisabled.SetDisplay(!enabled);
+                lblDisabled.SetDisplay(!(bool)prop.Property.GetValue(Settings));
+            }
+
             list.Add(el);
         }
     }

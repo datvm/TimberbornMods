@@ -1,33 +1,27 @@
-﻿namespace ModdableWeathers.Historical;
+﻿namespace ModdableWeathers.Cycles;
 
 public class WeatherGenerator(
     WeatherHistoryRegistry historyRegistry,
     WeatherHistoryService historyService,
     ModdableWeatherRegistry weatherRegistry,
     WeatherCycleStageDefinitionService stateDefinition,
-    GameCycleService gameCycleService,
     ModdableWeatherModifierRegistry modifierRegistry
-) : ILoadableSingleton
+)
 {
 
-    public void Load()
+    public void EnsureWeatherGenerated(int cycle)
     {
-        EnsureWeatherGenerated();
-        historyService.UpdateReferences();
-    }
-
-    public void EnsureWeatherGenerated()
-    {
-        var cycle = gameCycleService.Cycle;
         var target = cycle + 1;
-
+        
         if (target <= historyRegistry.CycleCount) { return; }
 
         for (var cycleIndex = historyRegistry.CycleCount + 1; cycleIndex <= target; cycleIndex++)
         {
             var generatedCycle = GenerateWeatherCycle(cycleIndex);
-            historyRegistry.AddWeatherCycle(generatedCycle);
+            historyRegistry.AddWeatherCycles(generatedCycle, cycle);
         }
+
+        historyService.UpdateReferences(cycle);
     }
 
     public WeatherCycle GenerateWeatherCycle(int cycleIndex)
@@ -48,12 +42,13 @@ public class WeatherGenerator(
 
             // Then the length
             stage.Days = w.GetDuration(stage, decision, historyService);
+            log.AppendLine($"; Duration: {stage.Days} days, stage effective {stage.GetDaysEffective()} days.");
 
             // Then, the modifiers
             stage.Modifiers.AddRange(DecideModifiers(stage, decision, log));
         }
 
-        ModdableWeathersUtils.LogVerbose(log.ToString);
+        ModdableWeathersUtils.LogVerbose(log.ToString, "| ");
 
         return new(decision.Cycle, [..decision.Stages
             .Select(s => new WeatherCycleStage(
@@ -86,12 +81,12 @@ public class WeatherGenerator(
 
             totalWeight += chance;
             weightedWeathers.Add((weather, chance));
-            log.AppendLine($"- {weather.Id} Chance: {chance}, select if roll from {totalWeight - chance} to {totalWeight}");
+            log.AppendLine($"- {weather.Id} Chance: {chance}, select if roll from {totalWeight - chance} to {totalWeight - 1}");
         }
 
         if (totalWeight == 0 || weightedWeathers.Count == 0)
         {
-            log.AppendLine($"=> No valid weathers found. Using empty weather.");
+            log.Append($"=> No valid weathers found. Using empty weather.");
             return stage.IsBenign ? weatherRegistry.EmptyBenignWeather : weatherRegistry.EmptyHazardousWeather;
         }
 
@@ -102,7 +97,7 @@ public class WeatherGenerator(
             cumulative += weight;
             if (roll < cumulative)
             {
-                log.AppendLine($"=> Selected weather: {weather.Id} (Roll: {roll} < Cumulative: {cumulative})");
+                log.Append($"=> Selected weather: {weather.Id} (Roll: {roll} < Cumulative: {cumulative})");
                 return weather;
             }
         }
@@ -122,8 +117,6 @@ public class WeatherGenerator(
 
         foreach (var modifier in modifierRegistry.Modifiers)
         {
-            if (!modifier.Enabled) { continue; }
-
             log.Append($"- Modifier {modifier.Id}: ");
             var chance = modifier.GetChance(stage, decision, historyService);
             if (chance <= 0)
@@ -206,6 +199,7 @@ public class WeatherGenerator(
                 Cycle = cycleIndex,
                 StageIndex = actualStageIndex++,
                 IsBenign = isBenign,
+                DaysMultiplier = def.LengthMultiplier,
             };
         }
     }

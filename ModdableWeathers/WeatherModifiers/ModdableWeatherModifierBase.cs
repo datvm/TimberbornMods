@@ -7,11 +7,13 @@ public abstract class ModdableWeatherModifierBase<TSettings>(
     where TSettings : ModdableWeatherModifierSettings
 {
 
+    FrozenSet<string> lockedWeathers = [];
+    FrozenSet<string> incompatibleModifierIds = [];
+
     public abstract string Id { get; }
     public ModdableWeatherModifierSpec Spec { get; protected set; } = null!;
     public TSettings Settings { get; protected set; } = null!;
 
-    public bool Enabled { get; protected set; }
     public bool Active { get; protected set; }
 
     public event WeatherModifierChangedEventHandler? WeatherModifierChanged;
@@ -20,6 +22,11 @@ public abstract class ModdableWeatherModifierBase<TSettings>(
     public void Load()
     {
         Spec = specs.SpecsById[Id];
+        lockedWeathers = [..Spec.CompatibleWeathers
+            .Where(q => q.Lock)
+            .Select(q => q.WeatherId)];
+        incompatibleModifierIds = [..Spec.IncompatibleModifierIds];
+
         Settings = settingsService.GetSettings<TSettings>();
         InitializeSettings();
     }
@@ -39,10 +46,10 @@ public abstract class ModdableWeatherModifierBase<TSettings>(
             }
         }
 
-        // Then, add any missing entries with default values
+        // Then, add any locked or missing entries with default values
         foreach (var (k, v) in defaultValues)
         {
-            if (weathers.ContainsKey(k)) { continue; }
+            if (weathers.ContainsKey(k) && !v.Lock) { continue; }
 
             weathers[k] = new()
             {
@@ -56,20 +63,31 @@ public abstract class ModdableWeatherModifierBase<TSettings>(
 
     public virtual int GetChance(WeatherCycleStageDecision stageDecision, WeatherCycleDecision cycleDecision, WeatherHistoryService history)
     {
-        if (!Enabled) { return 0; } // Should not happen but just in case
-
-        var weatherId = stageDecision.Weather?.Id;
-        if (weatherId is null
-            || !Settings.Weathers.TryGetValue(weatherId, out var weatherSettings)
-            || weatherSettings.StartCycle < cycleDecision.Cycle)
+        if (stageDecision.Modifiers.Any(m => incompatibleModifierIds.Contains(m.Id)))
         {
             return 0;
         }
 
-        return weatherSettings.Chance;
+        var weatherId = stageDecision.Weather?.Id;
+
+        return (weatherId is null || !ShouldEnable(weatherId, stageDecision.Cycle))
+            ? 0
+            : Settings.Weathers[weatherId].Chance;
     }
 
-    public virtual void Start(DetailedWeatherCycle cycle, DetailedWeatherCycleStage stage, bool onLoad)
+    bool ShouldEnable(string id, int cycle)
+    {
+        if (lockedWeathers.Contains(id)) { return true; }
+
+        if (!Settings.Weathers.TryGetValue(id, out var weatherSettings))
+        {
+            return false;
+        }
+
+        return weatherSettings.Enabled && weatherSettings.StartCycle <= cycle;
+    }
+
+    public virtual void Start(DetailedWeatherStageReference stage, WeatherHistoryService history, bool onLoad)
     {
         Active = true;
         RaiseWeatherModifierChanged(true, onLoad);
@@ -80,5 +98,7 @@ public abstract class ModdableWeatherModifierBase<TSettings>(
         Active = false;
         RaiseWeatherModifierChanged(false, false);
     }
+
+    public override string ToString() => $"{Id} ({Spec.Name.Value})";
 
 }

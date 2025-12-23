@@ -1,4 +1,5 @@
-﻿namespace ModdableWeathers.Common.Settings;
+﻿
+namespace ModdableWeathers.Common.Settings;
 
 public interface IBaseWeatherSettings
 {
@@ -6,30 +7,27 @@ public interface IBaseWeatherSettings
 
     ImmutableArray<NamedPropertyInfo> Properties => GetPropertiesFor(GetType());
 
-    void Deserialize(string serialized)
+    void Deserialize(JObject json)
     {
-        var values = JsonConvert.DeserializeObject<Dictionary<string, object?>>(serialized);
-        if (values is null) { return; }
-
         foreach (var (_, prop) in Properties)
         {
-            if (values.TryGetValue(prop.Name, out var value))
+            if (json.TryGetValue(prop.Name, out var value))
             {
-                prop.SetValue(this, Convert.ChangeType(value, prop.PropertyType));
+                prop.SetValue(this, value.ToObject(prop.PropertyType));
             }
         }
     }
 
-    string Serialize()
+    JObject Serialize()
     {
-        Dictionary<string, object?> values = [];
+        JObject values = [];
 
         foreach (var (_, prop) in Properties)
         {
-            values[prop.Name] = prop.GetValue(this);
+            values[prop.Name] = JToken.FromObject(prop.GetValue(this));
         }
 
-        return JsonConvert.SerializeObject(this, Formatting.Indented);
+        return values;
     }
 
     static ImmutableArray<NamedPropertyInfo> GetPropertiesFor(Type type)

@@ -1,12 +1,9 @@
 ﻿
 namespace ModdableWeathers.Weathers.GameBuiltIns;
 
-public abstract class EmptyWeather : ModdableWeatherBase
+public abstract class EmptyWeather(ModdableWeatherSpecService specs) : ModdableWeatherBase(specs)
 {
-    protected EmptyWeather(ModdableWeatherSpecService specs) : base(specs)
-    {
-        Enabled = false;
-    }
+    public override bool Enabled => false;
 
     public override int GetChance(WeatherCycleStageDecision stageDecision, WeatherCycleDecision cycleDecision, WeatherHistoryService history)
         => 0;

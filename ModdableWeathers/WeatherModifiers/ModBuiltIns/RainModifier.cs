@@ -1,29 +1,36 @@
 ﻿
 namespace ModdableWeathers.WeatherModifiers.ModBuiltIns;
 
-public class RainModifier(ModdableWeatherModifierSpecService specs, ModdableWeatherModifierSettingsService settingsService)
+public class RainModifier(
+    RainEffectPlayer rainEffect,
+    SoakEffectApplierService soakEffectApplier,
+    ModdableWeatherModifierSpecService specs, ModdableWeatherModifierSettingsService settingsService)
     : ModdableWeatherModifierBase<RainModifierSettings>(specs, settingsService)
-    , IRainEffect
 {
-    static readonly Color StaticRainColor = new(0.5f, 0.5f, 1f, 0.4f);
+    static readonly Color RainColor = new(0.5f, 0.5f, 1f, 0.4f);
 
     public const string ModifierId = "Rain";
 
     public override string Id { get; } = ModifierId;
 
-    public Color RainColor { get; } = StaticRainColor;
-    public event RainEffectChangedEventHandler OnRainEffectChanged = null!;
-
-    public override void Start(DetailedWeatherCycle cycle, DetailedWeatherCycleStage stage, bool onLoad)
+    public override void Start(DetailedWeatherStageReference stage, WeatherHistoryService history, bool onLoad)
     {
-        base.Start(cycle, stage, onLoad);
-        OnRainEffectChanged(true);
+        base.Start(stage, history, onLoad);
+
+        rainEffect.AddModifier(new(nameof(RainModifier), 10, RainColor));
+        LandMoistureService.ShouldMoisturize = true;
+        LandContaminationBlockerService.ShouldBlock = true;
+        soakEffectApplier.StartApplying();
     }
 
     public override void End()
     {
         base.End();
-        OnRainEffectChanged(false);
+
+        rainEffect.RemoveModifier(nameof(RainModifier));
+        LandMoistureService.ShouldMoisturize = false;
+        LandContaminationBlockerService.ShouldBlock = false;
+        soakEffectApplier.StopApplying();
     }
 
 }

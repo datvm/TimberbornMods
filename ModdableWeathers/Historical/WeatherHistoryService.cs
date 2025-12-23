@@ -3,7 +3,6 @@
 public class WeatherHistoryService(
     WeatherHistoryRegistry history,
     ModdableWeatherRegistry weathers,
-    GameCycleService gameCycleService,
     ModdableWeatherModifierRegistry weatherModifiers
 ) : ILoadableSingleton
 {
@@ -13,13 +12,21 @@ public class WeatherHistoryService(
     public DetailedWeatherCycle NextCycle { get; private set; } = null!;
 
     readonly Dictionary<string, int> weatherCounters = [];
+    readonly Dictionary<string, int> weatherModifierCounters = [];
     int cycleCounted = 0;
 
-    public event Action<DetailedWeatherCycle>? WeatherCycleAdded;
+    public event DetailedWeatherCycleHandler? WeatherCycleAdded;
+    public event DetailedWeatherCycleHandler WeatherCycleReferenceUpdated = null!;
 
     public void Load()
     {
-        history.WeatherCycleAdded += OnWeatherCycleAdded;
+        history.WeatherCycleAdded += RegistryWeatherCycleAdded;
+    }
+
+    void RegistryWeatherCycleAdded(WeatherCycle cycle, int currentCycle)
+    {
+        UpdateReferences(currentCycle);
+        WeatherCycleAdded?.Invoke(GetWeatherCycle(cycle.Cycle), currentCycle);
     }
 
     public DetailedWeatherCycle GetWeatherCycle(int cycleIndex)
@@ -35,22 +42,24 @@ public class WeatherHistoryService(
         ))]);
     }
 
-    public int GetOccurrenceCount(string weatherId) => weatherCounters.GetValueOrDefault(weatherId);
+    public int GetWeatherOccurrenceCount(string weatherId) => weatherCounters.GetValueOrDefault(weatherId);
+    public int GetWeatherModifierOccurrenceCount(string weatherModifierId) => weatherModifierCounters.GetValueOrDefault(weatherModifierId);
 
-    public void UpdateReferences()
+    public void UpdateReferences(int currCycle, bool force = false)
     {
-        var currCycle = gameCycleService.Cycle;
+        if (!force && CurrentCycle?.Cycle == currCycle) { return; }
 
         PreviousCycle = currCycle > 1 ? GetWeatherCycle(currCycle - 1) : null;
         CurrentCycle = GetWeatherCycle(currCycle);
         NextCycle = GetWeatherCycle(currCycle + 1);
 
-        UpdateCounters();
+        UpdateCounters(currCycle);
+
+        WeatherCycleReferenceUpdated(CurrentCycle, currCycle);
     }
 
-    void UpdateCounters()
+    void UpdateCounters(int target)
     {
-        var target = gameCycleService.Cycle;
         if (cycleCounted >= target) { return; }
 
         for (var c = cycleCounted + 1; c <= target; c++)
@@ -60,15 +69,17 @@ public class WeatherHistoryService(
             foreach (var stage in weatherCycle.Stages)
             {
                 weatherCounters[stage.WeatherId] = weatherCounters.GetValueOrDefault(stage.WeatherId) + 1;
+
+                foreach (var m in stage.WeatherModifierIds)
+                {
+                    weatherModifierCounters[m] = weatherModifierCounters.GetValueOrDefault(m) + 1;
+                }
             }
         }
 
         cycleCounted = target;
     }
 
-    void OnWeatherCycleAdded(WeatherCycle _)
-    {
-        UpdateReferences();
-        WeatherCycleAdded?.Invoke(CurrentCycle);
-    }
 }
+
+public delegate void DetailedWeatherCycleHandler(DetailedWeatherCycle cycle, int currentCycle);

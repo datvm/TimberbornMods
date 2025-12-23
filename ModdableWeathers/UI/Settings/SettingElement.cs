@@ -1,16 +1,22 @@
 ﻿namespace ModdableWeathers.UI.Settings;
 
-public class SettingElement : VisualElement
+public class SettingElement(
+    ILoc t,
+    IContainer container
+) : VisualElement
 {
 
-    public readonly PropertyInfo Property;
-    public readonly string Name;
-    public readonly object Settings;
-    readonly ILoc t;
+#nullable disable
+    public PropertyInfo Property { get; private set; }
+    public string Name { get; private set; }
+    public object Settings { get; private set; }
+#nullable enable
 
-    public SettingElement(NamedPropertyInfo property, object settings, ILoc t)
+    public bool IsEnabledProperty { get; private set; }
+    public event Action<bool>? OnEnabledChanged;
+
+    public void Init(NamedPropertyInfo property, object settings)
     {
-        this.t = t;
         Settings = settings;
         var prop = Property = property.Property;
         Name = property.Name;
@@ -69,10 +75,17 @@ public class SettingElement : VisualElement
 
     void AddBoolField()
     {
+        IsEnabledProperty = Property.IsEnabledProperty();
+
         var row = AddTwoColumns();
         row.AddToggle(onValueChanged: v =>
         {
             Property.SetValue(Settings, v);
+
+            if (IsEnabledProperty)
+            {
+                OnEnabledChanged?.Invoke(v);
+            }
         })
             .SetFlexGrow().SetFlexShrink()
             .SetValueWithoutNotify((bool)Property.GetValue(Settings));
@@ -80,7 +93,17 @@ public class SettingElement : VisualElement
 
     void AddWeatherList(ModdableWeatherModifierSettings s)
     {
-        this.AddLabel(t.T("LV.MW.AssociatedWeathers"));
+        var panel = this.AddChild();
+
+        panel.AddLabel(t.T("LV.MW.AssociatedWeathers"));
+
+        foreach (var w in s.Weathers)
+        {
+            var el = container.GetInstance<WeatherModifierAssociationPanel>();
+            el.Init(w.Key, w.Value);
+
+            panel.Add(el);
+        }
     }
 
     VisualElement AddTwoColumns()

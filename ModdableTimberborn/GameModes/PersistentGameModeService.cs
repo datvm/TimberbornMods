@@ -119,7 +119,7 @@ public class PersistentGameModeService(
     void TryMatchMode()
     {
         var specs = gameModeSpecService.GetSpecsOrdered();
-        
+
         int highScore = -1, highScoreIndex = -1;
         for (int i = 0; i < specs.Length; i++)
         {
@@ -149,10 +149,10 @@ public class PersistentGameModeService(
 
     void CheckForModifiedStart()
     {
-        if (StartedMode is null) 
-        { 
-            StartedModeModified = false; 
-            return; 
+        if (StartedMode is null)
+        {
+            StartedModeModified = false;
+            return;
         }
 
         // Compare with reconstructed mode
@@ -168,11 +168,23 @@ public class PersistentGameModeService(
         }
     }
 
+    static readonly ImmutableArray<PropertyInfo> MinMaxProperties = [..typeof(GameModeSpec)
+        .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+        .Where(q => q.PropertyType.Name.Contains(nameof(MinMaxSpec<>)))];
+    static readonly PropertyInfo BlueprintProp = typeof(ComponentSpec).Property(nameof(ComponentSpec.Blueprint));
     public void Save(ISingletonSaver singletonSaver)
     {
         if (StartedMode is null) { return; }
 
         var s = singletonSaver.GetSingleton(SaveKey);
+
+        BlueprintProp.SetValue(StartedMode, null);
+        foreach (var prop in MinMaxProperties)
+        {
+            var v = prop.GetValue(StartedMode);
+            BlueprintProp.SetValue(v, null);
+        }
+
         s.Set(StartedModeKey, JsonConvert.SerializeObject(StartedMode));
     }
 

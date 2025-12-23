@@ -6,7 +6,7 @@ public abstract class ModdableWeatherBase(ModdableWeatherSpecService specs) : IM
     public abstract string Id { get; }
     public ModdableWeatherSpec Spec { get; protected set; } = null!;
 
-    public bool Enabled { get; protected set; } = true;
+    public virtual bool Enabled { get; } = true;
     public bool Active { get; protected set; }
 
     public event WeatherChangedEventHandler? WeatherChanged;
@@ -20,7 +20,7 @@ public abstract class ModdableWeatherBase(ModdableWeatherSpecService specs) : IM
         Spec = specs.SpecsById[Id];
     }
 
-    public virtual void Start(DetailedWeatherCycle cycle, DetailedWeatherCycleStage stage, bool onLoad)
+    public virtual void Start(DetailedWeatherStageReference stage, bool onLoad)
     {
         Active = true;
         RaiseWeatherChanged(true, onLoad);
@@ -34,4 +34,7 @@ public abstract class ModdableWeatherBase(ModdableWeatherSpecService specs) : IM
 
     public abstract int GetChance(WeatherCycleStageDecision stageDecision, WeatherCycleDecision cycleDecision, WeatherHistoryService history);
     public abstract int GetDuration(WeatherCycleStageDecision stageDecision, WeatherCycleDecision cycleDecision, WeatherHistoryService history);
+
+    public override string ToString() => $"{Id} ({Spec.Display.Value})";
+
 }

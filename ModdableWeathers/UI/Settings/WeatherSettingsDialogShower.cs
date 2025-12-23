@@ -3,7 +3,10 @@
 public class WeatherSettingsDialogShower(
     IOptionsBox optionsBox,
     IContainer container,
-    ILoc t
+    ILoc t,
+    WeatherHistoryRegistry history,
+    WeatherGenerator generator,
+    GameCycleService gameCycleService
 ) : ILoadableSingleton
 {
 
@@ -29,6 +32,10 @@ public class WeatherSettingsDialogShower(
     {
         var diag = container.GetInstance<WeatherSettingsDialog>();
         await diag.ShowAsync();
+
+        var cycle = gameCycleService.Cycle;
+        history.ClearFutureEntries(cycle);
+        generator.EnsureWeatherGenerated(cycle);
     }
 
 }

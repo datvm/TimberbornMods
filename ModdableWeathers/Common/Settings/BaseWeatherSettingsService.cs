@@ -32,15 +32,8 @@ public abstract class BaseWeatherSettingsService<T>(
     {
         if (!loader.TryGetSingleton(SaveKey, out var s)) { return false; }
 
-        var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(s.Get(SettingsKey)) ?? [];
-
-        foreach (var (t, settings) in settingsByType)
-        {
-            if (values.TryGetValue(t.FullName, out var serialized))
-            {
-                settings.Deserialize(serialized);
-            }
-        }
+        var json = s.Get(SettingsKey);
+        LoadSerializedSettings(json);
         return true;
     }
 
@@ -50,12 +43,35 @@ public abstract class BaseWeatherSettingsService<T>(
     {
         var s = singletonSaver.GetSingleton(SaveKey);
 
-        Dictionary<string, string> values = [];
+        s.Set(SettingsKey, SerializeSettings().ToString());
+    }
+
+    public JObject SerializeSettings()
+    {
+        JObject values = [];
         foreach (var (t, settings) in settingsByType)
         {
             values[t.FullName] = settings.Serialize();
         }
-        s.Set(SettingsKey, JsonConvert.SerializeObject(values));
+
+        return values;
+    }
+
+    public void LoadSerializedSettings(string json)
+    {
+        var obj = JObject.Parse(json);
+        LoadSerializedSettings(obj);
+    }
+
+    public void LoadSerializedSettings(JObject obj)
+    {
+        foreach (var (t, settings) in settingsByType)
+        {
+            if (obj.TryGetValue(t.FullName, out var serialized))
+            {
+                settings.Deserialize(serialized.Value<JObject>()!);
+            }
+        }
     }
 
 }

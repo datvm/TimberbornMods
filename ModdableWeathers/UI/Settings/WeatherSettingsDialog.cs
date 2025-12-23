@@ -3,7 +3,7 @@
 public class WeatherSettingsDialog : DialogBoxElement
 {
     readonly PanelStack panelStack;
-
+    readonly IContainer container;
     readonly ImmutableArray<IFilterablePanel> panels = [];
     readonly WeatherSettingsDialogFilter filter = new();
 
@@ -13,10 +13,12 @@ public class WeatherSettingsDialog : DialogBoxElement
         ILoc t,
         ModdableWeatherRegistry weatherRegistry,
         ModdableWeatherModifierRegistry weatherModifierRegistry,
-        WeatherHistoryRegistry weatherHistoryRegistry
-    )
+        WeatherHistoryRegistry weatherHistoryRegistry,
+        RainSettings rainSettings,
+        IContainer container)
     {
         this.panelStack = panelStack;
+        this.container = container;
         List<IFilterablePanel> panels = [];
 
         SetTitle(t.T("LV.MW.ShowSettings"));
@@ -26,6 +28,12 @@ public class WeatherSettingsDialog : DialogBoxElement
         var parent = Content;
         parent.AddLabel(t.T("LV.MW.SettingsNote", weatherHistoryRegistry.CycleCount)).SetMarginBottom();
 
+        var exportPanel = container.GetInstance<WeatherSettingsExportPanel>().SetMarginBottom();
+        parent.Add(exportPanel);
+        exportPanel.ReloadRequested += Reload;
+
+        parent.AddChild(() => new RainSettingsPanel(t, rainSettings));
+
         AddFilterPanel(parent, t);
 
         var weathersPanel = parent.AddChild().SetMarginBottom();
@@ -33,7 +41,8 @@ public class WeatherSettingsDialog : DialogBoxElement
 
         foreach (var w in weatherRegistry.Weathers)
         {
-            var el = new WeatherSettingsPanel(w, t);
+            var el = container.GetInstance<WeatherSettingsPanel>();
+            el.Init(w);
             weathersPanel.Add(el);
             panels.Add(el);
         }
@@ -43,7 +52,8 @@ public class WeatherSettingsDialog : DialogBoxElement
 
         foreach (var m in weatherModifierRegistry.Modifiers)
         {
-            var el = new WeatherModifierSettingsPanel(m, t, weatherRegistry);
+            var el = container.GetInstance<WeatherModifierSettingsPanel>();
+            el.Init(m);
             modifiersPanel.Add(el);
             panels.Add(el);
         }
@@ -53,6 +63,14 @@ public class WeatherSettingsDialog : DialogBoxElement
 
         this.panels = [.. panels];
 
+    }
+
+    void Reload()
+    {
+        Close();
+
+        var shower = container.GetInstance<WeatherSettingsDialogShower>();
+        shower.ShowDialog();
     }
 
     void AddFilterPanel(VisualElement parent, ILoc t)

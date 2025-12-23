@@ -4,7 +4,8 @@ public class TimeModule(
     IDayNightCycle dayNightCycle,
     GameCycleService gameCycleService,
     WeatherService weatherService,
-    ISpecService specService
+    ISpecService specService,
+    DialogService diag
 ) : IDevModule
 {
     public DevModuleDefinition GetDefinition()
@@ -13,7 +14,24 @@ public class TimeModule(
             .AddMethod(DevMethod.Create("Jump to the next day", JumpToNextDay))
             .AddMethod(DevMethod.Create("Jump to before weather warning day", JumpToBeforeWarningDay))
             .AddMethod(DevMethod.Create("Jump to before hazardous weather", JumpToBeforeHazardousWeather))
+            .AddMethod(DevMethod.Create("Jump to day", JumpToDay))
             .Build();
+    }
+
+    async void JumpToDay()
+    {
+        var dayInput = await diag.PromptAsync("Enter day:", "1");
+        if (string.IsNullOrEmpty(dayInput) || !int.TryParse(dayInput, out var targetDay) || targetDay < 1)
+        {
+            return;
+        }
+
+        var startCycle = gameCycleService.Cycle;
+        while (gameCycleService.CycleDay < targetDay)
+        {
+            JumpToNextDay();
+            if (gameCycleService.Cycle != startCycle) { break; }
+        }
     }
 
     void JumpToNextDay()
