@@ -1,0 +1,8 @@
+﻿Merry Christmas and Happy New Year 2025! It's time for gifts!
+
+Merry Christmas 2025 is a small, fun holiday mod that brings festive cheer to your colony. It replaces the Dynamite explosion sound with a fun sound effect and leaves behind random gifts after each blast, so every detonation is a present in disguise.
+
+[img]https://files.catbox.moe/1oay9p.webm[/img]
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
