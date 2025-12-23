@@ -12,7 +12,7 @@ public class WeatherGenerator(
     public void EnsureWeatherGenerated(int cycle)
     {
         var target = cycle + 1;
-        
+
         if (target <= historyRegistry.CycleCount) { return; }
 
         for (var cycleIndex = historyRegistry.CycleCount + 1; cycleIndex <= target; cycleIndex++)
@@ -50,7 +50,23 @@ public class WeatherGenerator(
 
         ModdableWeathersUtils.LogVerbose(log.ToString, "| ");
 
-        return new(decision.Cycle, [..decision.Stages
+        // Finally, construct the WeatherCycle from the decision
+        // Remove any stages with 0 days, but ensure at least one stage exists
+        var stages = decision.Stages.Where(q => q.Days > 0).ToList();
+        if (stages.Count() == 0)
+        {
+            stages.Add(new()
+            {
+                Cycle = cycleIndex,
+                StageIndex = 0,
+                IsBenign = true,
+                Weather = weatherRegistry.EmptyBenignWeather,
+                Days = 1,
+                DaysMultiplier = 100,
+            });
+        }
+
+        return new(decision.Cycle, [..stages
             .Select(s => new WeatherCycleStage(
                 s.StageIndex,
                 s.IsBenign,

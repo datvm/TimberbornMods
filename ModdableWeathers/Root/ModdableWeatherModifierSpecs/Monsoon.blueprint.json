@@ -4,6 +4,7 @@
         "Order": 40,
         "NameLoc": "LV.MW.MonsoonModifier",
         "DescLoc": "LV.MW.MonsoonModifierDesc",
+        "IncompatibleModifierIds": [ "Drought" ],
         "CompatibleWeathers": [
             {
                 "WeatherId": "Monsoon",

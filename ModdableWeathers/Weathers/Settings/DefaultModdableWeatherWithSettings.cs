@@ -13,6 +13,11 @@ public abstract class DefaultModdableWeatherWithSettings<TSetting>(
     public override void Load()
     {
         base.Load();
+        ReloadSettings();
+    }
+
+    public void ReloadSettings()
+    {
         Settings = settingsService.GetSettings<TSetting>();
     }
 

@@ -15,4 +15,13 @@ public class ModdableWeatherModifierRegistry(
 
     public IModdableWeatherModifier? GetOrFallback(string id)
         => ModifiersById.GetValueOrDefault(id);
+
+    public void ReloadSettings()
+    {
+        foreach (var modifier in Modifiers)
+        {
+            modifier.ReloadSettings();
+        }
+    }
+
 }

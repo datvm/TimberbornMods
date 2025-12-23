@@ -27,6 +27,11 @@ public abstract class ModdableWeatherModifierBase<TSettings>(
             .Select(q => q.WeatherId)];
         incompatibleModifierIds = [..Spec.IncompatibleModifierIds];
 
+        ReloadSettings();
+    }
+
+    public void ReloadSettings()
+    {
         Settings = settingsService.GetSettings<TSettings>();
         InitializeSettings();
     }

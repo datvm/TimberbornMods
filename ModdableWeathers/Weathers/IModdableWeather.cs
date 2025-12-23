@@ -18,7 +18,7 @@ public interface IModdableWeather
     void End();
 
     int GetChance(WeatherCycleStageDecision stageDecision, WeatherCycleDecision cycleDecision, WeatherHistoryService history);
-    int GetDuration(WeatherCycleStageDecision stageDecision, WeatherCycleDecision cycleDecision, WeatherHistoryService history);    
+    int GetDuration(WeatherCycleStageDecision stageDecision, WeatherCycleDecision cycleDecision, WeatherHistoryService history);
 }
 
 public interface IModdableBenignWeather : IModdableWeather { }
