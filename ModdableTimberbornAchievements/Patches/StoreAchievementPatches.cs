@@ -14,7 +14,7 @@ public static class StoreAchievementPatches
     {
         public override void Configure()
         {
-            if (!this.TryGetBound<IStoreAchievements>(out var storeType)) { return; }
+            if (!this.TryGetBound<IStoreAchievements>(out var storeType) || storeType is null) { return; }
 
             ModdableStoreAchievement.OriginalStoreAchievementType = storeType;
             this
