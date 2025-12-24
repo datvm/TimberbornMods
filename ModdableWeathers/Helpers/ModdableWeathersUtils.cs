@@ -50,5 +50,14 @@ public static class ModdableWeathersUtils
             && propertyInfo.PropertyType == typeof(bool);
     }
     
+    extension<T>(T ve) where T : VisualElement
+    {
+
+        public T BorderAndSpace() => ve
+            .SetMarginBottom(10)
+            .SetPadding(5)
+            .SetBorder(color: TextColors.YellowHighlight, width: 1);
+
+    }
 
 }

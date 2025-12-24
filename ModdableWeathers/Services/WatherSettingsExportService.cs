@@ -7,11 +7,13 @@ public class WatherSettingsExportService(
     ModdableWeatherModifierRegistry modifierRegistry,
     
     ModdableWeatherSettingsService weatherSettings,
-    ModdableWeatherModifierSettingsService modifierSettings
+    ModdableWeatherModifierSettingsService modifierSettings,
+    WeatherCycleStageDefinitionService weatherCycleStageDefinitionService
 )
 {
     const string WeathersKey = "Weathers";
     const string WeatherModifiersKey = "WeatherModifiers";
+    const string WeatherCycleStagesKey = "WeatherCycleStages";
 
     public bool RequestExport()
     {
@@ -37,6 +39,9 @@ public class WatherSettingsExportService(
         var fileContent = File.ReadAllText(filePath);
         var json = JObject.Parse(fileContent);
 
+        weatherCycleStageDefinitionService.StagesDefinitions = json[WeatherCycleStagesKey]!
+            .ToObject<ImmutableArray<WeatherCycleStageDefinition>>();
+
         weatherSettings.LoadSerializedSettings(json[WeathersKey]!.Value<JObject>()!);
         modifierSettings.LoadSerializedSettings(json[WeatherModifiersKey]!.Value<JObject>()!);
 
@@ -50,6 +55,7 @@ public class WatherSettingsExportService(
     {
         { WeathersKey, weatherSettings.SerializeSettings() },
         { WeatherModifiersKey, modifierSettings.SerializeSettings() },
+        { WeatherCycleStagesKey, JArray.FromObject(weatherCycleStageDefinitionService.StagesDefinitions) },
     };
 
 }

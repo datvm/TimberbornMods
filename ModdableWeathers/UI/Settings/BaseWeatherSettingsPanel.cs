@@ -15,10 +15,7 @@ public abstract class BaseWeatherSettingsPanel<T, TSettings>(ILoc t, IContainer 
 
         SetTitle(GetTitle());
         SetExpand(false);
-        this
-            .SetMarginBottom(10)
-            .SetPadding(5)
-            .SetBorder(color: TextColors.YellowHighlight, width: 1);
+        this.BorderAndSpace();
 
         lblDisabled = this.AddLabel(t.T("LV.MW.SettingsDisabled"));
         lblDisabled.InsertSelfAfter(HeaderLabel);

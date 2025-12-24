@@ -4,7 +4,7 @@ partial class DefaultModdableWeatherSettings
 {
 
     [Description("LV.MW.EnableWeather")]
-    public bool Enabled { get; set; } = true;
+    public bool Enabled { get; set; }
 
     [Description("LV.MW.StartCycle")]
     public int StartCycle { get; set; }

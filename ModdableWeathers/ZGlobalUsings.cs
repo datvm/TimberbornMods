@@ -16,6 +16,7 @@ global using ModdableWeathers.Components;
 global using ModdableWeathers.UI.Settings;
 global using ModdableWeathers.UI.Rain;
 global using ModdableWeathers.Common.PrioritizedModifiers;
+global using ModdableWeathers.UI;
 
 global using ModdableTimberborn.GameModes;
 global using ModdableTimberborn.Common;
