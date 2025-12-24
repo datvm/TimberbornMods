@@ -12,10 +12,7 @@ public class WeatherModifierAssociationPanel(
 
     public void Init(string weatherId, ModdableWeatherModifierWeatherSettings settings)
     {
-        this
-            .SetMarginBottom(10)
-            .SetPadding(5)
-            .SetBorder(color: TextColors.YellowHighlight, width: 1);
+        this.BorderAndSpace();
 
         Weather = weatherRegistry.WeathersById.GetOrDefault(weatherId);
         if (Weather is null)

@@ -5,6 +5,8 @@ public class RainSettingsPanel : CollapsiblePanel
 
     public RainSettingsPanel(ILoc t, RainSettings settings)
     {
+        this.BorderAndSpace();
+
         SetTitle(t.T("LV.MW.RainEff"));
         SetExpand(false);
 

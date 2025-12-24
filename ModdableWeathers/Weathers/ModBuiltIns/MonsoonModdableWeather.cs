@@ -13,7 +13,6 @@ public class MoonsoonWeatherSettings : DefaultModdableWeatherSettings
 
     public override void SetTo(GameModeSpec gameMode)
     {
-        Enabled = true;
         StartCycle = Mathf.CeilToInt(gameMode.CyclesBeforeRandomizingBadtide / 2f);
         Chance = Mathf.FloorToInt(gameMode.ChanceForBadtide * 100f);
         MinDay = gameMode.DroughtDuration.Min;

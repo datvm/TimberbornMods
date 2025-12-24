@@ -1,5 +1,4 @@
-﻿using ModdableWeathers.UI;
-
+﻿
 namespace ModdableWeathers;
 
 public class ModdableWeatherConfig : BaseModdableTimberbornConfigurationWithHarmony
@@ -75,6 +74,8 @@ public class ModdableWeatherConfig : BaseModdableTimberbornConfigurationWithHarm
             .BindTransient<WeatherModifierSettingsPanel>()
             .BindTransient<WeatherModifierAssociationPanel>()
             .BindTransient<WeatherSettingsExportPanel>()
+            .BindTransient<WeatherCycleStagesPanel>()
+            .BindTransient<WeatherCycleStagePanel>()
 
             // Rain effect
             .BindSingleton<RainSettings>()

@@ -1,0 +1,80 @@
+﻿Merry Christmas 🎄!
+
+Moddable Weather[b]s[/b] is a complete overhaul of Timberborn's weather system, fully rewritten for Timberborn v1.0.
+
+[img]https://files.catbox.moe/61s7rk.jpg[/img]
+
+This is not an update of the old mod. [i]Unfortunately, previous saves from Update 7 are not compatible[/i] and existing users should expect significant changes in behavior and configuration. This version is designed to be feature-focused rather than compatibility-focused. Saves that were played with this mod may not work correctly if the mod is later removed (behavior is undefined).
+
+[h1]Save-based Settings[/h1]
+Weather settings are now per-save, not global: each save maintains its own independent weather configuration. Settings can be changed mid-game, taking effect starting from the next weather cycle. [b]Saving and reloading is recommended after editing settings to ensure everything is applied correctly.[/b]
+
+Initial values are derived from the selected game difficulty. To change the weather settings, there is now a dedicated Weather Settings button in the game's menu (Esc).
+[img]https://files.catbox.moe/asvsbo.jpg[/img]
+
+The profile feature where you can export and import settings is retained for easy sharing of configurations between saves.
+
+[h1]New Weathers[/h1]
+To avoid confusion, weather is now classified into two clear categories: [b]Benign[/b] (formerly called Temperate) and [b]Hazardous[/b]. This separates the weather category from the vanilla [i]Temperate[/i] weather name and makes configuration clearer.
+
+In addition to all built-in game weathers, this mod adds:
+- Rain: A Benign weather that waters all tiles, prevents land contamination, and applies Wet Fur to Beavers when they are not inside buildings. Designed as a shorter, highly beneficial recovery period.
+- Monsoon: A Hazardous weather where all water sources surge, greatly increasing their output and often causing severe flooding.
+- Surprisingly Refreshing: A rare and short "Hazardous" weather where all water sources temporarily produce fresh water, even from normally contaminated sources.
+
+Each weather is fully configurable, typically including:
+[img]https://files.catbox.moe/xopokc.jpg[/img]
+
+- [b]Enabled[/b]: Whether this weather is allowed to occur.
+- [b]Start cycle[/b]: The minimum cycle in which this weather can start appearing.
+- [b]Chance[/b]: A weighted chance used when rolling for weather during a stage. This is not a pure percentage, but a weight compared to other enabled weathers.
+- [b]Minimum / maximum duration[/b]: The possible length range (in days) for this weather.
+- [b]Handicap percentage and handicap cycles[/b]: Controls how the duration scales over multiple cycles, gradually moving toward the full duration over time.
+
+Weather types from the old mod (such as Short Temperate or Redsurge) are no longer separate weathers. Their behavior is now handled through the Weather Modifiers system, which is far more flexible.
+
+[h1]Weather Modifiers[/h1]
+Weather modifiers define the actual effects applied during a weather stage. Modifiers are independent building blocks, separate from weather types. Each modifier may support multiple weather types and you can configure for each weather type:
+[img]https://files.catbox.moe/0vji6g.jpg[/img]
+
+- Whether it is enabled
+- [b]Start cycle[/b]: The minimum cycle in which the modifier may appear alongside that weather.
+- [b]Chance[/b]: The probability of the modifier being applied when the weather occurs.
+Multiple modifiers can apply at the same time.
+
+This allows flexible compositions such as Redsurge (Badtide + Monsoon) or any other custom combination of weather effects.
+
+[h1]Cycle Stages[/h1]
+The old Single Weather mode is gone. It is replaced by a much more powerful stage-based system.
+
+Each [b]cycle[/b] is composed of one or more [b]stages[/b]. A stage represents a period where:
+- A weather is selected (Benign or Hazardous)
+- Modifiers may apply
+Cycles are no longer limited to a fixed Benign stage followed by a Hazardous stage.
+
+You can add, remove or reorder stages freely. Each stage has its own configuration:
+[img]https://files.catbox.moe/7npfjq.jpg[/img]
+- [b]Skip chance[/b]: The chance of this stage being skipped when deciding a cycle.
+- [b]Chance for Benign vs Hazardous weather[/b]: Controls whether this stage rolls a Benign or Hazardous weather, allowing mixed or unpredictable stages.
+- [b]Length multiplier[/b]: Multiplies the final duration of the selected weather for this stage.
+
+Examples:
+- A short stage after the vanilla Benign → Hazardous pattern
+- A single stage with 50/50 chance to roll either Benign or Hazardous weather, which is similar to the old Single Weather mode.
+
+[h1]Rain Effect[/h1]
+Some weathers and modifiers share a common Rain visual effect. The rain effect is purely visual and does not affect gameplay. You can configure the rain effect [b]globally[/b] (and is not exported with Profile):
+[img]https://files.catbox.moe/nrch4n.jpg[/img]
+To re-enable the rain effect after disabling it, reload the save.
+
+[h1]For Modders[/h1]
+This mod provides an extensible framework for custom weather content. Modders can add:
+- Entirely new weather types (Benign or Hazardous)
+- Standalone weather modifiers that apply to existing or custom weathers
+
+Documentation and examples coming later but you can look at the mod's source code for reference from the existing weathers.
+
+If you need any help, feel free to leave a comment on Steam or Discord ([url=https://discord.com/channels/558398674389172225/1379728375396040806]mod's channel[/url]).
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

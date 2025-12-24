@@ -14,7 +14,6 @@ public class RainModdableWeatherSettings : DefaultModdableWeatherSettings
 
     public override void SetTo(GameModeSpec gameMode)
     {
-        Enabled = true;
         StartCycle = 0;
         Chance = 100;
         MinDay = Mathf.FloorToInt(gameMode.TemperateWeatherDuration.Min * .75f);

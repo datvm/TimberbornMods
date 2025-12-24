@@ -32,6 +32,7 @@ public class WeatherSettingsDialog : DialogBoxElement
         parent.Add(exportPanel);
         exportPanel.ReloadRequested += Reload;
 
+        parent.AddChild(container.GetInstance<WeatherCycleStagesPanel>);
         parent.AddChild(() => new RainSettingsPanel(t, rainSettings));
 
         AddFilterPanel(parent, t);
