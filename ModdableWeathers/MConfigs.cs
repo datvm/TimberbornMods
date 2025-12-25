@@ -24,6 +24,8 @@ public class ModdableWeatherConfig : BaseModdableTimberbornConfigurationWithHarm
         ReplaceServices(configurator);
 
         configurator
+            .TryBindingSystemFileDialogService()
+
             // History
             .BindSingleton<WeatherCycleStageDefinitionService>()
             .BindSingleton<WeatherHistoryRegistry>()
@@ -106,7 +108,6 @@ public class ModdableWeatherConfig : BaseModdableTimberbornConfigurationWithHarm
     {
         configurator
             .TryBindingModdableAudioClip()
-            .TryBindingSystemFileDialogService()
         ;
     }
 
