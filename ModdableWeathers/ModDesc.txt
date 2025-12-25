@@ -78,3 +78,5 @@ If you need any help, feel free to leave a comment on Steam or Discord ([url=htt
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.1: Fixed a crash with ISystemFileDialogService missing.
