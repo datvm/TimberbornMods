@@ -7,24 +7,27 @@ public interface IBaseWeatherSettings
 
     ImmutableArray<NamedPropertyInfo> Properties => GetPropertiesFor(GetType());
 
-    void Deserialize(JObject json)
+    void Deserialize(JObject json) => DefaultDeserialize(this, json);
+    JObject Serialize() => DefaultSerialize(this);
+
+    static void DefaultDeserialize(IBaseWeatherSettings settings, JObject json)
     {
-        foreach (var (_, prop) in Properties)
+        foreach (var (_, prop) in settings.Properties)
         {
             if (json.TryGetValue(prop.Name, out var value))
             {
-                prop.SetValue(this, value.ToObject(prop.PropertyType));
+                prop.SetValue(settings, value.ToObject(prop.PropertyType));
             }
         }
     }
 
-    JObject Serialize()
+    static JObject DefaultSerialize(IBaseWeatherSettings settings)
     {
         JObject values = [];
 
-        foreach (var (_, prop) in Properties)
+        foreach (var (_, prop) in settings.Properties)
         {
-            values[prop.Name] = JToken.FromObject(prop.GetValue(this));
+            values[prop.Name] = JToken.FromObject(prop.GetValue(settings));
         }
 
         return values;

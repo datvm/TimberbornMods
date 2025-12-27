@@ -11,7 +11,7 @@ public class DroughtModifier(
     public override void Start(DetailedWeatherStageReference stage, WeatherHistoryService history, bool onLoad)
     {
         base.Start(stage, history, onLoad);
-        waterStrengthService.AddModifier(new(nameof(DroughtModifier), 0f, 3f, 1000));
+        waterStrengthService.AddModifier(new(nameof(DroughtModifier), 0f, 3f, 1000, true));
     }
 
     public override void End()

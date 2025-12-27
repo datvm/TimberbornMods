@@ -5,15 +5,19 @@ public class WatherSettingsExportService(
 
     ModdableWeatherRegistry weatherRegistry,
     ModdableWeatherModifierRegistry modifierRegistry,
-    
+
     ModdableWeatherSettingsService weatherSettings,
     ModdableWeatherModifierSettingsService modifierSettings,
-    WeatherCycleStageDefinitionService weatherCycleStageDefinitionService
+    WeatherCycleStageDefinitionService weatherCycleStageDefinitionService,
+    GeneralWeatherSettings generalWeatherSettings
 )
 {
+    IBaseWeatherSettings generalWeatherSettings = generalWeatherSettings;
+
     const string WeathersKey = "Weathers";
     const string WeatherModifiersKey = "WeatherModifiers";
     const string WeatherCycleStagesKey = "WeatherCycleStages";
+    const string GeneralWeatherSettingsKey = "GeneralWeatherSettings";
 
     public bool RequestExport()
     {
@@ -39,23 +43,36 @@ public class WatherSettingsExportService(
         var fileContent = File.ReadAllText(filePath);
         var json = JObject.Parse(fileContent);
 
-        weatherCycleStageDefinitionService.StagesDefinitions = json[WeatherCycleStagesKey]!
-            .ToObject<ImmutableArray<WeatherCycleStageDefinition>>();
 
-        weatherSettings.LoadSerializedSettings(json[WeathersKey]!.Value<JObject>()!);
-        modifierSettings.LoadSerializedSettings(json[WeatherModifiersKey]!.Value<JObject>()!);
+        var cycleDef = json[WeatherCycleStagesKey]?.ToObject<ImmutableArray<WeatherCycleStageDefinition>>();
+        if (cycleDef is not null && cycleDef.Value != default)
+        {
+            weatherCycleStageDefinitionService.StagesDefinitions = cycleDef.Value;
+        }
+
+        LoadIfHasValue(GeneralWeatherSettingsKey, generalWeatherSettings.Deserialize);
+
+        LoadIfHasValue(WeathersKey, weatherSettings.LoadSerializedSettings);
+        LoadIfHasValue(WeatherModifiersKey, modifierSettings.LoadSerializedSettings);
 
         weatherRegistry.ReloadSettings();
         modifierRegistry.ReloadSettings();
 
         return true;
+
+        void LoadIfHasValue(string name, Action<JObject> action)
+        {
+            var value = json[name]?.Value<JObject>();
+            if (value is not null) { action(value); }
+        }
     }
 
     JObject SerializeSettings() => new()
     {
+        { GeneralWeatherSettingsKey, generalWeatherSettings.Serialize() },
+        { WeatherCycleStagesKey, JArray.FromObject(weatherCycleStageDefinitionService.StagesDefinitions) },
         { WeathersKey, weatherSettings.SerializeSettings() },
         { WeatherModifiersKey, modifierSettings.SerializeSettings() },
-        { WeatherCycleStagesKey, JArray.FromObject(weatherCycleStageDefinitionService.StagesDefinitions) },
     };
 
 }

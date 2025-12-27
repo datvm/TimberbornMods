@@ -98,3 +98,6 @@ LV.MW.StageBenignChanceDesc,"The chance of benign weather occurring during this 
 LV.MW.LengthMul,"Length Multiplier (%)",
 LV.MW.LengthMulDesc,"Once the weather duration is decided, this stage multiplies that duration by this value",
 LV.MW.StageIndex,"Stage {0}",
+LV.MW.GenericSettings,"General Settings",
+LV.MW.AlwaysShowHazDur,"Always show hazardous weather duration",
+LV.MW.AlwaysShowHazDurDesc,"If enabled, the hazardous weather duration will always be shown in the weather panel (the game's default behavior). If disabled, you only know 3 days in advance before the next weather starts.",

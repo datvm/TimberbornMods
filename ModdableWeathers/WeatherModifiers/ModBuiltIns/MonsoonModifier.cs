@@ -27,7 +27,7 @@ public class MonsoonModifier(
             () => Settings.HandicapPercent);
         var multiplier = Mathf.Max(1, Settings.MonsoonMultiplier / 100f * handicap);
 
-        waterStrengthService.AddModifier(new(ModifierId, multiplier, 1, 10));
+        waterStrengthService.AddModifier(new(ModifierId, multiplier, 1, 10, false));
     }
 
     public override void End()

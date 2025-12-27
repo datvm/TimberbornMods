@@ -1,10 +1,18 @@
 ﻿namespace ModdableWeathers.Common.PrioritizedModifiers;
 
-public abstract class ModdableWeatherPriorityTickModifierServiceBase<T> : ModdableWeatherPriorityModifierServiceBase<T>, ITickableSingleton
+public abstract class ModdableWeatherPriorityTickModifierServiceBase<T>
+    : ModdableWeatherPriorityModifierServiceBase<T>
+    , ITickableSingleton, ISaveableSingleton, ILoadableSingleton
     where T : IWeatherEntityTickModifierEntry
 {
+    static readonly PropertyKey<float> CurrentModifierKey = new("CurrentModifier");
+
     protected readonly IDayNightCycle dayNightCycle;
+    protected readonly ISingletonLoader loader;
     float changePerTick;
+
+    protected abstract SingletonKey SaveKey { get; }
+
 
     public float CurrentModifier { get; protected set; }
     public float TargetModifier { get; protected set; }
@@ -13,9 +21,10 @@ public abstract class ModdableWeatherPriorityTickModifierServiceBase<T> : Moddab
     public event Action<bool>? OnTickingChanged;
     protected void RaiseOnTickingChanged() => OnTickingChanged?.Invoke(Ticking);
 
-    public ModdableWeatherPriorityTickModifierServiceBase(IDayNightCycle dayNightCycle)
+    public ModdableWeatherPriorityTickModifierServiceBase(IDayNightCycle dayNightCycle, ISingletonLoader loader)
     {
         this.dayNightCycle = dayNightCycle;
+        this.loader = loader;
 
         CurrentModifier = Default.Target;
     }
@@ -59,5 +68,27 @@ public abstract class ModdableWeatherPriorityTickModifierServiceBase<T> : Moddab
             Ticking = true;
             RaiseOnTickingChanged();
         }
+    }
+
+    public virtual void Load()
+    {
+        if (loader.TryGetSingleton(SaveKey, out var s))
+        {
+            LoadSavedData(s);
+        }
+    }
+
+    protected virtual void LoadSavedData(IObjectLoader s)
+    {
+        if (s.Has(CurrentModifierKey))
+        {
+            CurrentModifier = s.Get(CurrentModifierKey);
+        }
+    }
+
+    public void Save(ISingletonSaver singletonSaver)
+    {
+        var s = singletonSaver.GetSingleton(SaveKey);
+        s.Set(CurrentModifierKey, CurrentModifier);
     }
 }

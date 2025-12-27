@@ -11,6 +11,7 @@
 public class ModdableWeatherPanel(
     WeatherCycleService weatherCycleService,
     ModdableWeatherApproachingTimer timer,
+    GeneralWeatherSettings settings,
 
     UILayout uiLayout, EventBus eventBus, VisualElementLoader visualElementLoader, WeatherService weatherService, ILoc loc, GameUISoundController gameUISoundController, ITooltipRegistrar tooltipRegistrar, HazardousWeatherUIHelper hazardousWeatherUIHelper, GameCycleService gameCycleService, ISpecService specService)
     : WeatherPanel(uiLayout, eventBus, visualElementLoader, weatherService, loc, gameUISoundController, tooltipRegistrar, hazardousWeatherUIHelper, timer, gameCycleService, specService)
@@ -90,7 +91,7 @@ public class ModdableWeatherPanel(
         }
         var msgText = msg.ToStringWithoutNewLineEndAndClean();
 
-        if (progress < 0f)
+        if (progress < 0f && !ShouldShowAnyway())
         {
             SetPanelContent(msgText, 0f, 0f);
             SetProgressBar(0);
@@ -99,16 +100,17 @@ public class ModdableWeatherPanel(
         {
             var blink = _remainingBlinks > 0 && NextBlinkingBarState();
 
+            var actualProgress = progress < 0f ? 0f : progress;
             SetPanelContent(
                 msgText,
-                progress,
+                actualProgress,
                 weatherCycleService.PartialDaysUntilNextStage,
                 blink
             );
-            SetProgressBar(progress);
+            SetProgressBar(actualProgress);
         }
 
-        
+        bool ShouldShowAnyway() => settings.AlwaysShowHazardousDuration && curr.Weather.IsHazardous;
     }
 
     void SetProgressBar(float progress)

@@ -4,6 +4,7 @@ public class ModdableWaterStrengthModifier(ModdableWaterStrengthModifierService 
 {
 
     WaterSource waterSource = null!;
+    public bool IgnoreDrought { get; set; }
 
     public void Awake()
     {
@@ -11,5 +12,6 @@ public class ModdableWaterStrengthModifier(ModdableWaterStrengthModifierService 
         waterSource.AddWaterStrengthModifier(this);
     }
 
-    public float GetStrengthModifier() => m.CurrentModifier;
+    public float GetStrengthModifier() =>  IgnoreDrought ? m.CurrentModifierIgnoreDrought : m.CurrentModifier;
 }
+
