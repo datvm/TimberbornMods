@@ -62,7 +62,7 @@ public class MSettingsNewDay(
         SpeedOnShiftEnd_ValueChanged(this, SpeedOnShiftEnd.Value);
     }
 
-    private void SpeedOnShiftEnd_ValueChanged(object sender, string e)
+    void SpeedOnShiftEnd_ValueChanged(object sender, string e)
     {
         var values = SpeedOnShiftEnd.Values;
         for (int i = 0; i < values.Count; i++)
@@ -75,7 +75,7 @@ public class MSettingsNewDay(
         }
     }
 
-    private void NewDayAction_ValueChanged(object sender, string e)
+    void NewDayAction_ValueChanged(object sender, string e)
     {
         NewDayActionValue = Enum.Parse<NewDayActionValue>(e);
     }
