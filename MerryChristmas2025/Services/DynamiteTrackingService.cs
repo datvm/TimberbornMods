@@ -9,6 +9,9 @@ public class DynamiteTrackingService(
     readonly Dictionary<string, int> availableGoods = [];
     float goodScannedFrame = -1;
 
+    static readonly bool IsDecember = DateTime.Now.Month == 12;
+    const int NonDecemberChance = 5;
+
     public void Load()
     {
         eb.Register(this);
@@ -20,12 +23,14 @@ public class DynamiteTrackingService(
         var spec = e.Entity.GetComponent<DynamiteSpec>();
         if (spec is null) { return; }
 
+        if (!IsDecember && UnityEngine.Random.RandomRangeInt(0, 100) > NonDecemberChance) { return; }
+
         ScanForGoods();
         if (availableGoods.Count == 0) { return; }
 
         var blockObj = e.Entity.GetComponent<BlockObject>();
         var coord = blockObj.Coordinates;
-        
+
         var itemCount = spec.Depth;
         var goods = new GoodAmount[itemCount];
         for (int i = 0; i < itemCount; i++)
