@@ -22,6 +22,6 @@ public class ModdableWeatherModifierWeatherSettings : IBaseWeatherSettings
 
     public bool Lock { get; set; }
 
-    JObject IBaseWeatherSettings.Serialize() => Lock ? [] : ((IBaseWeatherSettings)this).Serialize();
+    JObject IBaseWeatherSettings.Serialize() => Lock ? [] : IBaseWeatherSettings.DefaultSerialize(this);
 
 }

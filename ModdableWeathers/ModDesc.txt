@@ -1,6 +1,4 @@
-﻿Merry Christmas 🎄!
-
-Moddable Weather[b]s[/b] is a complete overhaul of Timberborn's weather system, fully rewritten for Timberborn v1.0.
+﻿Moddable Weather[b]s[/b] is a complete overhaul of Timberborn's weather system, fully rewritten for Timberborn v1.0.
 
 [img]https://files.catbox.moe/61s7rk.jpg[/img]
 
@@ -67,6 +65,12 @@ Some weathers and modifiers share a common Rain visual effect. The rain effect i
 [img]https://files.catbox.moe/nrch4n.jpg[/img]
 To re-enable the rain effect after disabling it, reload the save.
 
+[h1]Different behaviors[/h1]
+Because this mod fundamentally changes how weather cycles work, some behaviors differ from the vanilla game. These changes are intentional and designed to be more consistent and predictable across complex cycles:
+
+- [b]Water transition behavior (Drought and Badtide)[/b]: When a Drought or Badtide starts, water sources now gradually transition to their target state [b]after[/b] the weather begins, instead of before. Likewise, water only returns to normal [b]after[/b] the weather ends. This transition always takes a [b]fixed 3 in-game hours[/b], independent of water strength or source output.
+- [b]Hazardous weather duration visibility[/b]: Because a cycle may contain multiple stages and mixed weather types, hazardous weather duration is only revealed [b]3 days before it ends[/b]. To match vanilla behavior, a new setting is available: [b]Always show hazardous weather duration[/b]: When enabled, the full duration of hazardous weather is always visible.
+
 [h1]For Modders[/h1]
 This mod provides an extensible framework for custom weather content. Modders can add:
 - Entirely new weather types (Benign or Hazardous)
@@ -79,4 +83,8 @@ If you need any help, feel free to leave a comment on Steam or Discord ([url=htt
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.0.2
+- Fixed Iron Teeth Badwater Discharges not producing badwater during Drought.
+- Fixed water briefly reverting to normal when loading a save during Drought or Monsoon.
+- Added the [i]Always show hazardous weather duration[/i] setting.
 v10.0.1: Fixed a crash with ISystemFileDialogService missing.
