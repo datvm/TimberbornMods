@@ -25,7 +25,7 @@ public class NewDayService(
     [OnEvent]
     public void OnHazardousWeatherApproachingEvent(HazardousWeatherApproachingEvent _)
     {
-        if (!s.HasAction || s.ActionOnAllDays || !s.NewDayHazard.Value) { return; }
+        if (!s.HasAction || s.ActionOnAllDays || !s.NewDayWarning.Value) { return; }
 
         DoAction();
     }
