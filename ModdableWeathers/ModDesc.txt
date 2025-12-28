@@ -83,6 +83,7 @@ If you need any help, feel free to leave a comment on Steam or Discord ([url=htt
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.0.3: Fixed hazardous weather music keeps playing.
 v10.0.2
 - Fixed Iron Teeth Badwater Discharges not producing badwater during Drought.
 - Fixed water briefly reverting to normal when loading a save during Drought or Monsoon.
