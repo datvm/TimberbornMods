@@ -1,0 +1,18 @@
+﻿Someone requested a mod to configure housing to your liking. By default this mod increases max beavers in a house by 1.5 times. You can change this value by going to Main Menu -> Mods -> Settings button next to the mod name:
+
+- Max Beavers Multiplier: Multiply the max beavers a house can have by this value, rounded down but minimum is 1. Game default: 1.
+- Max Beavers Addition: Add this value to the max beavers a house can have AFTER multiplying. Can be negative. The final minimum value is still 1.
+- Sleep Satisfaction Multiplier: Multiply the Sleep need satisfaction by this value. Game default: 1 so at +0.2 per hour (Beaver can have -0.2 to 0.8 Sleep, -0.6 per day).
+- Shelter Satisfaction Multiplier: Multiply the Shelter need satisfaction by this value. Game default: 1 so at +0.3 per hour (Beaver can have -0.2 to 0.8 Shelter, -0.3 per day)
+- Move Entrances to Floor: Move all the entrances to the first floor (like Double Lodges). Also work for houses added by mods. No graphical change. Game default: no.
+- Add other faction's Housings: Folktails can build the houses of Iron Teeth and vice versa. Do not work for houses added by mods. Game default: no. Enable the below two options.
+- Add/Remove Procreation from all Housings: procreation is tied to housings (so only Folktails' houses can breed when there are two of them and there is empty space). You can use this option to add or remove it. If you add it: Folktails and Iron Teeth can breed no matter which house they are in. If you remove it: no one can breed in any house, use it in case you want to use Folktails' housing for Iron Teeth but don't want them to breed.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v10.0.0: Work with Timberborn v1.0.
+
+v7.2.0: Added "Max Beavers Addition" option.
+v7.1.1: Fixed Move Entrances to Floor preventing Beavers from entering.
+v7.1.0: Added Add/Remove Procreation options.

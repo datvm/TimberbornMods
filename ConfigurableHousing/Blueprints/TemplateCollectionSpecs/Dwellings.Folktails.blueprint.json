@@ -1,0 +1,11 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Dwellings.Folktails",
+        "Blueprints": [
+            "Buildings/Housing/DoubleLodge/DoubleLodge.Folktails.blueprint",
+            "Buildings/Housing/Lodge/Lodge.Folktails.blueprint",
+            "Buildings/Housing/MiniLodge/MiniLodge.Folktails.blueprint",
+            "Buildings/Housing/TripleLodge/TripleLodge.Folktails.blueprint"
+        ]
+    }
+}

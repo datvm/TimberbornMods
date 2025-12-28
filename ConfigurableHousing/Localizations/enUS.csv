@@ -1,4 +1,4 @@
-ID,Text,Comment
+﻿ID,Text,Comment
 LV.CH.MaxBeaverMul,"Max Beavers Multiplier",
 LV.CH.MaxBeaverMulDesc,"Multiply the max beavers a house can have by this value, rounded down but minimum is 1. Game default: 1.",
 LV.CH.SleepMult,"Sleep Satisfaction Multiplier",
@@ -9,9 +9,9 @@ LV.CH.MoveEntranceFloor,"Move Entrances to Floor",
 LV.CH.MoveEntranceFloorDesc,"Move all the entrances to the first floor (like Double Lodges). Also work for houses added by mods. No graphical change. Game default: no",
 LV.CH.AddOtherFaction,"Add other faction's Housings",
 LV.CH.AddOtherFactionDesc,"Folktails can build the houses of Iron Teeth and vice versa. Do not work for houses added by mods. Game default: no",
-LV.CH.AddProcreation,"  Add Procreation to all Housings",
+LV.CH.AddProcreation,"- Add Procreation to all Housings",
 LV.CH.AddProcreationDesc,"Add Procreation to all Housings, so Folktails can procreate in Iron Teeth's Housings",
-LV.CH.RemoveProcreation,"  Remove Procreation from all Housings",
+LV.CH.RemoveProcreation,"- Remove Procreation from all Housings",
 LV.CH.RemoveProcreationDesc,"Remove Procreation from all Housings, so Iron Teeth can not procreate in Folktails' Housings",
 LV.CH.MaxBeaverAdd,"Max Beavers Addition",
 LV.CH.MaxBeaverAddDesc,"Add this value to the max beavers a house can have AFTER multiplying.
