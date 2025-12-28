@@ -70,6 +70,7 @@ Because this mod fundamentally changes how weather cycles work, some behaviors d
 
 - [b]Water transition behavior (Drought and Badtide)[/b]: When a Drought or Badtide starts, water sources now gradually transition to their target state [b]after[/b] the weather begins, instead of before. Likewise, water only returns to normal [b]after[/b] the weather ends. This transition always takes a [b]fixed 3 in-game hours[/b], independent of water strength or source output.
 - [b]Hazardous weather duration visibility[/b]: Because a cycle may contain multiple stages and mixed weather types, hazardous weather duration is only revealed [b]3 days before it ends[/b]. To match vanilla behavior, a new setting is available: [b]Always show hazardous weather duration[/b]: When enabled, the full duration of hazardous weather is always visible.
+- [b]Aquafier[/b]: In the base game, the Aquifer Drill is completely disabled during [i]any[/i] hazardous weather. This mod preserves that behavior, so the drill remains inactive during hazardous weathers such as Monsoon or Surprisingly Refreshing. Since Badwater is now implemented as a modifier rather than a standalone weather, this mod adds an additional restriction: if the water source has any contamination, the Aquifer Drill will stop producing water. However, it will still consume power while inactive.
 
 [h1]For Modders[/h1]
 This mod provides an extensible framework for custom weather content. Modders can add:
@@ -83,6 +84,9 @@ If you need any help, feel free to leave a comment on Steam or Discord ([url=htt
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.0.4:
+- Badtide-related achievements should now trigger correctly (not tested).
+- Fixed Aquafier spilling Badwater during Badtide. It also should correctly be blocked during Hazardous weathers now. See the behavior changes section for details.
 v10.0.3: Fixed hazardous weather music keeps playing.
 v10.0.2
 - Fixed Iron Teeth Badwater Discharges not producing badwater during Drought.
