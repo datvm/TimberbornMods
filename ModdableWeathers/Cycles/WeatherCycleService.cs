@@ -172,6 +172,11 @@ public class WeatherCycleService : ILoadableSingleton
                 m.End();
             }
             prevStage.Weather.End();
+
+            if (prevStage.Weather.IsHazardous)
+            {
+                eb.Post(new HazardousWeatherEndedEvent((IHazardousWeather)prevStage.Weather));
+            }
         }
 
         var currStage = curr.Stage;
@@ -186,6 +191,11 @@ public class WeatherCycleService : ILoadableSingleton
             m.Start(curr, history, onLoad);
         }
         activeStage = curr;
+
+        if (curr.Weather.IsHazardous)
+        {
+            eb.Post(new HazardousWeatherStartedEvent((IHazardousWeather)currStage.Weather));
+        }
 
         eb.Post(new WeatherTransitionedEvent(
             prev,
