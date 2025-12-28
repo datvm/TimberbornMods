@@ -4,5 +4,13 @@
   "Visibility": "Public",
   "UpdateDescription": false,
   "UpdateVisibility": false,
-  "UpdatePreview": false
+  "UpdatePreview": false,
+  "UpdateTags": false,
+  "Tags": [
+    "Update 1.0",
+    "Update 0.7",
+    "Balance",
+    "Cheats",
+    "Buildings"
+  ]
 }

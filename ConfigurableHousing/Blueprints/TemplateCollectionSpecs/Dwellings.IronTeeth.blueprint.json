@@ -1,0 +1,11 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Dwellings.IronTeeth",
+        "Blueprints": [
+            "Buildings/Housing/Barrack/Barrack.IronTeeth.blueprint",
+            "Buildings/Housing/LargeBarrack/LargeBarrack.IronTeeth.blueprint",
+            "Buildings/Housing/LargeRowhouse/LargeRowhouse.IronTeeth.blueprint",
+            "Buildings/Housing/Rowhouse/Rowhouse.IronTeeth.blueprint"
+        ]
+    }
+}

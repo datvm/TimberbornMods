@@ -1,59 +1,51 @@
 ﻿namespace ConfigurableHousing;
 
-public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
+public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository)
 {
-    public static float MaxBeaverMultiplier { get; private set; } = 1;
-    public static int MaxBeaverAdd { get; private set; } = 0;    
-    public static float SleepSatisfactionMultiplier { get; private set; } = 1;
-    public static float ShelterSatisfactionMultiplier { get; private set; } = 1;
-    public static bool MoveEntranceFloor { get; private set; } = false;
-    public static bool AddOtherFaction { get; private set; } = false;
-    public static bool AddProcreation { get; private set; } = false;
-    public static bool RemoveProcreation { get; private set; } = false;
 
-    readonly ModSetting<float> maxBeaverMultiplier = new(
+    public ModSetting<float> MaxBeaverMultiplier { get; } = new(
         1.5f,
         ModSettingDescriptor
             .CreateLocalized("LV.CH.MaxBeaverMul")
             .SetLocalizedTooltip("LV.CH.MaxBeaverMulDesc"));
 
-    readonly ModSetting<int> maxBeaverAdd = new(
+    public ModSetting<int> MaxBeaverAdd { get; } = new(
         0,
         ModSettingDescriptor
             .CreateLocalized("LV.CH.MaxBeaverAdd")
             .SetLocalizedTooltip("LV.CH.MaxBeaverAddDesc"));
 
-    readonly ModSetting<float> sleepSatisfactionMultiplier = new(
+    public ModSetting<float> SleepSatisfactionMultiplier { get; } = new(
         1,
         ModSettingDescriptor
             .CreateLocalized("LV.CH.SleepMult")
             .SetLocalizedTooltip("LV.CH.SleepMultDesc"));
 
-    readonly ModSetting<float> shelterSatisfactionMultiplier = new(
+    public ModSetting<float> ShelterSatisfactionMultiplier { get; } = new(
         1,
         ModSettingDescriptor
             .CreateLocalized("LV.CH.ShelterMult")
             .SetLocalizedTooltip("LV.CH.ShelterMultDesc"));
 
-    readonly ModSetting<bool> moveEntranceFloor = new(
+    public ModSetting<bool> MoveEntranceFloor { get; } = new(
         false,
         ModSettingDescriptor
             .CreateLocalized("LV.CH.MoveEntranceFloor")
             .SetLocalizedTooltip("LV.CH.MoveEntranceFloorDesc"));
 
-    readonly ModSetting<bool> addOtherFaction = new(
+    public ModSetting<bool> AddOtherFaction { get; } = new(
         false,
         ModSettingDescriptor
             .CreateLocalized("LV.CH.AddOtherFaction")
             .SetLocalizedTooltip("LV.CH.AddOtherFactionDesc"));
 
-    readonly ModSetting<bool> addProcreation = new(
+    public ModSetting<bool> AddProcreation { get; } = new(
         false,
         ModSettingDescriptor
             .CreateLocalized("LV.CH.AddProcreation")
             .SetLocalizedTooltip("LV.CH.AddProcreationDesc"));
 
-    readonly ModSetting<bool> removeProcreation = new(
+    public ModSetting<bool> RemoveProcreation { get; } = new(
         false,
         ModSettingDescriptor
             .CreateLocalized("LV.CH.RemoveProcreation")
@@ -61,37 +53,12 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
 
     public override string ModId { get; } = nameof(ConfigurableHousing);
 
-    public override void OnAfterLoad()
+    public override void OnBeforeLoad()
     {
-        AddCustomModSetting(maxBeaverMultiplier, nameof(MaxBeaverMultiplier));
-        AddCustomModSetting(maxBeaverAdd, nameof(MaxBeaverAdd));
-        AddCustomModSetting(sleepSatisfactionMultiplier, nameof(SleepSatisfactionMultiplier));
-        AddCustomModSetting(shelterSatisfactionMultiplier, nameof(ShelterSatisfactionMultiplier));
-        AddCustomModSetting(moveEntranceFloor, nameof(MoveEntranceFloor));
-        AddCustomModSetting(addOtherFaction, nameof(AddOtherFaction));
-        AddCustomModSetting(addProcreation, nameof(AddProcreation));
-        AddCustomModSetting(removeProcreation, nameof(RemoveProcreation));
+        base.OnBeforeLoad();
 
-        addProcreation.Descriptor.SetEnableCondition(() => addOtherFaction.Value && !removeProcreation.Value);
-        removeProcreation.Descriptor.SetEnableCondition(() => addOtherFaction.Value && !addProcreation.Value);
-
-        UpdateValues();
+        AddProcreation.Descriptor.SetEnableCondition(() => AddOtherFaction.Value && !RemoveProcreation.Value);
+        RemoveProcreation.Descriptor.SetEnableCondition(() => AddOtherFaction.Value && !AddProcreation.Value);
     }
 
-    void UpdateValues()
-    {
-        MaxBeaverMultiplier = maxBeaverMultiplier.Value;
-        MaxBeaverAdd = maxBeaverAdd.Value;
-        SleepSatisfactionMultiplier = sleepSatisfactionMultiplier.Value;
-        ShelterSatisfactionMultiplier = shelterSatisfactionMultiplier.Value;
-        MoveEntranceFloor = moveEntranceFloor.Value;
-        AddOtherFaction = addOtherFaction.Value;
-        AddProcreation = addProcreation.Value;
-        RemoveProcreation = removeProcreation.Value;
-    }
-
-    public void Unload()
-    {
-        UpdateValues();
-    }
 }
