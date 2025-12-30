@@ -14,7 +14,7 @@ public class GeneralWeatherSettingsPanel : CollapsiblePanel
         {
             var el = container.GetInstance<SettingElement>();
             el.Init(prop, s);
-            Add(el);
+            Container.Add(el);
         }
     }
 
