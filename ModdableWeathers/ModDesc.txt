@@ -84,6 +84,7 @@ If you need any help, feel free to leave a comment on Steam or Discord ([url=htt
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.0.5: Fixed two music tracks playing at the same time.
 v10.0.4:
 - Badtide-related achievements should now trigger correctly (not tested).
 - Fixed Aquafier spilling Badwater during Badtide. It also should correctly be blocked during Hazardous weathers now. See the behavior changes section for details.
