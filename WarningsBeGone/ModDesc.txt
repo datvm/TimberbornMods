@@ -1,0 +1,8 @@
+﻿This mod lets you silence specific building warnings for a building, its entire building type, or globally. Those pesky warning signs will no longer bug you when you intentionally build something questionable, like a cheap bridge somehow.
+
+It can also be applied to Beavers and Bots, which is useful when a particular beaver is assigned to an 'interesting' district.
+
+All selections are stored in your save file.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

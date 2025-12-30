@@ -1,0 +1,5 @@
+﻿ID,Text,Comment
+LV.WBG.HideThis,"Hide on this one",
+LV.WBG.HideType,"Hide on all {0}",
+LV.WBG.HideAll,"Hide everywhere",
+Name_StatusHidingFragment,"Hide warnings",
