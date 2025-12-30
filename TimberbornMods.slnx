@@ -79,6 +79,7 @@
     <Project Path="SyncableSettings/SyncableSettings.csproj" />
     <Project Path="TransparentShaders/TransparentShaders.csproj" />
     <Project Path="TransparentTerrain/TransparentTerrain.csproj" />
+    <Project Path="WarningsBeGone/WarningsBeGone.csproj" Id="cb3dc4d5-35d0-4c22-a5e5-eb804d097467" />
   </Folder>
   <Folder Name="/Renovations/">
     <Project Path="BeavlineLogistics/BeavlineLogistics.csproj" />
