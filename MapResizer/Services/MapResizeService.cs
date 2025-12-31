@@ -46,7 +46,7 @@ public class MapResizeService(
 
     ResizeData RetainOldMapSize()
     {
-        var oldMapSize = new MapSize(null!)
+        var oldMapSize = new MapSize(null!, null!)
         {
             TerrainSize = mapSize.TerrainSize,
             TotalSize = mapSize.TotalSize
@@ -60,6 +60,7 @@ public class MapResizeService(
 
     void ResizeMapSize(in ResizeValues size)
     {
+        mapSize.TerrainSize2D = (Vector2Int)size.TerrainSize;
         mapSize.TerrainSize = size.TerrainSize;
         mapSize.TotalSize = size.TotalSize;
     }

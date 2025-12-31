@@ -74,7 +74,7 @@ public class MapResizerController(
             .SetMessage("LV.MRe.ResizeInvalidObj".T(t))
             .SetConfirmButton(() => blockObjectResizeValidationService.DeleteInvalidBlockObjects(totalSize, terrainSize), "LV.MRe.AutoRemove".T(t))
             .SetDefaultCancelButton()
-            .SetInfoButton(() => SelectInvalidObject(firstInvalidBlockObject), t.T("LV.MRe.SeeInvalidObj"))
+            .SetInfoButton(() => SelectInvalidObject(firstInvalidBlockObject!), t.T("LV.MRe.SeeInvalidObj"))
             .Show();
 
         return false;

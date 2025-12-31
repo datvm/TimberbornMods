@@ -17,7 +17,7 @@ public class PlantingMapResizer(
         var size = mapSize.TerrainSize;
 
         var old = plantingService._plantingMap;
-        var oldSize = old.Size;
+        var oldSize = old._size;
         var oldResourceIds = old._resourceIds;
 
         var resourceIds = new string[size.x, size.y, size.z];

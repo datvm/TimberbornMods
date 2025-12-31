@@ -3,7 +3,7 @@
 public class GameSaverService(
     GameSaver gameSaver,
     ValidatingGameLoader validatingGameLoader,
-    SettlementNameService settlementNameService
+    SettlementReferenceService settlementRefService
 ) : ISaverService
 {
     public void Load(ISaveReference saveReference)
@@ -20,7 +20,7 @@ public class GameSaverService(
     {
         TaskCompletionSource<bool> tcs = new();
 
-        var saveRef = new SaveReference(settlementNameService.SettlementName, "MapResized");
+        var saveRef = new SaveReference("MapResized", settlementRefService.SettlementReference);
 
         gameSaver.QueueSave(
             saveRef,

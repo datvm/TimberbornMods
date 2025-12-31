@@ -25,7 +25,7 @@ public class BlockObjectResizeValidationService(
     {
         foreach (var en in entities.Entities.ToArray())
         {
-            var blockObj = en.GetComponentFast<BlockObject>();
+            var blockObj = en.GetComponent<BlockObject>();
             if (!blockObj) { continue; }
 
             if (
