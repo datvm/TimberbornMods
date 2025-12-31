@@ -1,17 +1,16 @@
 {
-  "ItemId": "3470646045",
-  "Name": "Map Resizer",
+  "ItemId": "3635342825",
+  "Name": "Warnings Be Gone",
   "Visibility": "Public",
   "UpdateDescription": false,
   "UpdateVisibility": false,
   "UpdatePreview": false,
-  "UpdateTags": true,
+  "UpdateTags": false,
   "Tags": [
     "Update 1.0",
-    "Update 0.7",
-    "New content",
-    "Modding tools",
-    "Other",
+    "Quality of life",
+    "Visuals",
+    "Buildings",
     "Miscellaneous"
   ]
 }

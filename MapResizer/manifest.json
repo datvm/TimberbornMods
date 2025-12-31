@@ -1,8 +1,8 @@
-{
+﻿{
     "Name": "Map Resizer",
-    "Version": "7.1.3",
+    "Version": "10.0.0",
     "Id": "MapResizer",
-    "MinimumGameVersion": "0.7.0.0",
+    "MinimumGameVersion": "1.0.0",
     "Description": "Resize the map",
     "RequiredMods": [
         { "Id": "Harmony" },
