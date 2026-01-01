@@ -1,0 +1,8 @@
+﻿Tubeways (both normal and vertical variants) now transmit power.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v10.1.0: Should work with the modded Tubeway Levee.
+v10.0.1: Fixed power transmission missing the Top direction.
+v10.0.0: Works with Timberborn v1.0.1. Moddable Prefab is NOT needed for v1.

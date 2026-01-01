@@ -5,10 +5,6 @@
   "UpdateDescription": false,
   "UpdateVisibility": false,
   "UpdatePreview": false,
-  "Tags": [
-    "Update 1.0",
-    "Update 0.7",
-    "Cheats",
-    "Buildings"
-  ]
+  "UpdateTags": false,
+  "Tags": []
 }

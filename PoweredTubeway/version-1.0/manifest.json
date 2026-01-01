@@ -1,6 +1,6 @@
 {
     "Name": "Powered Tubeway",
-    "Version": "10.0.1",
+    "Version": "10.1.0",
     "Id": "PoweredTubeway",
     "MinimumGameVersion": "1.0.0",
     "Description": "Tubeway now transmit power",
