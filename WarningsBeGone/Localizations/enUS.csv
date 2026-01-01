@@ -2,4 +2,5 @@
 LV.WBG.HideThis,"Hide on this one",
 LV.WBG.HideType,"Hide on all {0}",
 LV.WBG.HideAll,"Hide everywhere",
+LV.WBG.HideCorner,"Hide warnings in corner",
 Name_StatusHidingFragment,"Hide warnings",

@@ -19,7 +19,7 @@
 		
 		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->		
 		<!--<ProjectReference Include="..\ModdableWeathers\ModdableWeathers.csproj" />-->
-		<ProjectReference Include="..\MapResizer\MapResizer.csproj" />
+		<ProjectReference Include="..\WarningsBeGone\WarningsBeGone.csproj" />
 		
 
 	</ItemGroup>
