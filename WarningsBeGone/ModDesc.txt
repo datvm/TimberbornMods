@@ -2,7 +2,11 @@
 
 It can also be applied to Beavers and Bots, which is useful when a particular beaver is assigned to an 'interesting' district.
 
+You can also check "Hide warnings in corner" to exclude any hidden warnings from the warning counter in the bottom-left corner of the screen. The option is shared across all entities.
+
 All selections are stored in your save file. Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3472334132]TImprove 4 UI[/url] for the scrollbar and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3547764728]TImprove 4 UX[/url] for the collapsible panel if the list gets too long.
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.1: Added "Hide warnings in corner" option.

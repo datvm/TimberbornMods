@@ -8,6 +8,7 @@ public class StatusHidingService(
     static readonly SingletonKey SaveKey = new(nameof(StatusHidingService));
     static readonly PropertyKey<string> GlobalHidingStatusesKey = new("GlobalHidingStatuses");
     static readonly PropertyKey<string> TemplateHidingStatusesKey = new("TemplateHidingStatuses");
+    static readonly PropertyKey<bool> HideCornerWarningsKey = new("HideCornerWarnings");
 
     readonly HashSet<string> globalHidingStatuses = [];
     readonly Dictionary<string, HashSet<string>> templateHidingStatuses = [];
@@ -17,8 +18,11 @@ public class StatusHidingService(
     public IReadOnlyCollection<string> GetHidingStatusesForTemplate(string template) =>
         templateHidingStatuses.TryGetValue(template, out var statuses) ? statuses : [];
 
+    public static bool HideCornerWarnings { get; private set; }
+
     public void Load()
     {
+        HideCornerWarnings = false;
         LoadSavedData();
     }
 
@@ -39,6 +43,11 @@ public class StatusHidingService(
                 templateHidingStatuses[k] = v;
             }
         }
+
+        if (s.Has(HideCornerWarningsKey))
+        {
+            HideCornerWarnings = s.Get(HideCornerWarningsKey);
+        }
     }
 
     public void Save(ISingletonSaver singletonSaver)
@@ -56,6 +65,11 @@ public class StatusHidingService(
         var s = singletonSaver.GetSingleton(SaveKey);
         s.Set(GlobalHidingStatusesKey, JsonConvert.SerializeObject(globalHidingStatuses));
         s.Set(TemplateHidingStatusesKey, JsonConvert.SerializeObject(templateHidingStatuses));
+
+        if (HideCornerWarnings)
+        {
+            s.Set(HideCornerWarningsKey, true);
+        }
     }
 
     public bool IsStatusHiddenGlobally(string status) => globalHidingStatuses.Contains(status);
@@ -92,6 +106,12 @@ public class StatusHidingService(
         }
 
         RefreshStatusSubject(template);
+    }
+
+    public void ToggleHideCornerWarnings(bool hide)
+    {
+        HideCornerWarnings = hide;
+        RefreshStatusSubject(null);
     }
 
     public void RefreshStatusSubject(string? filterTemplate)

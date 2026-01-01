@@ -2,15 +2,21 @@
 
 public class StatusHidingFragment(
     ILoc t,
-    StatusHidingService repo
+    StatusHidingService service
 ) : BaseEntityPanelFragment<StatusHidingComponent>
 {
 
-    VisualElement list = null!;
+#nullable disable
+    VisualElement list;
+    Toggle chkHideCorner;
+#nullable enable
 
     protected override void InitializePanel()
     {
-        list = panel.AddChild().SetPadding(top: 20);
+        chkHideCorner = panel.AddToggle(t.T("LV.WBG.HideCorner"), onValueChanged: OnHideCornerChanged)
+            .SetMarginBottom();
+
+        list = panel.AddChild();
     }
 
     public override void ShowFragment(BaseComponent entity)
@@ -18,6 +24,7 @@ public class StatusHidingFragment(
         base.ShowFragment(entity);
         if (component is null) { return; }
 
+        chkHideCorner.SetValueWithoutNotify(StatusHidingService.HideCornerWarnings);
         ShowStatuses();
     }
 
@@ -38,7 +45,7 @@ public class StatusHidingFragment(
         }
 
         var name = component.DisplayName;
-        var templateList = repo.GetHidingStatusesForTemplate(component.TemplateName);
+        var templateList = service.GetHidingStatusesForTemplate(component.TemplateName);
 
         foreach (var status in statuses)
         {
@@ -47,7 +54,7 @@ public class StatusHidingFragment(
             panel.SetValuesWithoutNotifying(
                 component.IsStatusSelfHiding(status),
                 templateList.Contains(status),
-                repo.IsStatusHiddenGlobally(status));
+                service.IsStatusHiddenGlobally(status));
 
             panel.OnHidingRequested += (v, type) => ChangeHidingStatus(status, v, type);
         }
@@ -61,11 +68,14 @@ public class StatusHidingFragment(
                 component!.ToggleHiding(status, hide);
                 break;
             case StatusHidingChangeType.Template:
-                repo.ToggleTemplateStatusHiding(component!.TemplateName, status, hide);
+                service.ToggleTemplateStatusHiding(component!.TemplateName, status, hide);
                 break;
             case StatusHidingChangeType.Global:
-                repo.ToggleGlobalStatusHiding(status, hide);
+                service.ToggleGlobalStatusHiding(status, hide);
                 break;
         }
     }
+
+    void OnHideCornerChanged(bool value) => service.ToggleHideCornerWarnings(value);
+
 }
