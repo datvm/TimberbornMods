@@ -17,9 +17,9 @@
 		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
 		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
 		
-		<!--<ProjectReference Include="..\ScientificProjects\HydroFormaProjects\HydroFormaProjects.csproj" />-->		
+		<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />		
 		<!--<ProjectReference Include="..\ModdableWeathers\ModdableWeathers.csproj" />-->
-		<ProjectReference Include="..\WarningsBeGone\WarningsBeGone.csproj" />
+		<!--<ProjectReference Include="..\WarningsBeGone\WarningsBeGone.csproj" />-->
 		
 
 	</ItemGroup>

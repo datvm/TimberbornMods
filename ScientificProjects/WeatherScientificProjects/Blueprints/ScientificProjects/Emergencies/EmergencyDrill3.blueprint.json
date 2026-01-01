@@ -1,4 +1,4 @@
-{
+﻿{
     "ScientificProjectSpec": {
         "Id": "EmergencyDrill3",
         "GroupId": "Emergencies",
@@ -9,6 +9,7 @@
         "ScienceCost": 7000,
         "HasCustomUnlockCondition": true,
         "Parameters": [ 3 ],
-        "Order": 30
+        "Order": 30,
+        "NeedReload": true
     }
 }

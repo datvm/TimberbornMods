@@ -1,24 +1,14 @@
-﻿
-
-namespace WeatherScientificProjects.Services;
+﻿namespace WeatherScientificProjects.Services;
 
 public class WeatherSPWarningExtender(
-    ModdableHazardousWeatherApproachingTimer timer
-) : DefaultProjectUpgradeListener, IHazardousWeatherApproachingTimerModifier, ILoadableSingleton
+    ModdableWeatherApproachingTimer timer
+) : DefaultProjectUpgradeListener, ILoadableSingleton
 {
-    public int Order { get; }
-    public int Delta { get; private set; } = 0;
+    const string ModifierId = "WeatherSPWarningExtender";
+
     public override FrozenSet<string> UnlockListenerIds { get; } = WeatherProjectsUtils.WeatherWarningExtUnlockIds;
     public override FrozenSet<string> DailyListenerIds { get; } = [WeatherProjectsUtils.WeatherWarningExt3Id];
-
-    public override void Load()
-    {
-        base.Load();
-        timer.RegisterModifier(this);
-    }
-
-    public int Modify(int current, int original) => current + Delta;
-
+    
     protected override void ProcessActiveProjects(IReadOnlyList<ScientificProjectInfo> activeProjects, ScientificProjectSpec? newUnlock, ActiveProjectsSource source)
     {
         var delta = 0;
@@ -35,7 +25,6 @@ public class WeatherSPWarningExtender(
             }
         }
 
-        Delta = delta;
-        timer.CheckForNotification();
+        timer.AddModifier(new(ModifierId, 10, curr => curr + delta));
     }
 }

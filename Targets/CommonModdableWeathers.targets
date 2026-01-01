@@ -1,0 +1,32 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<ModdableWeatherPath>$(GameModsFolder)ModdableWeathers\$(TimberbornVersion)\**\*.dll</ModdableWeatherPath>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<Using Include="ModdableWeathers" />
+		<Using Include="ModdableWeathers.Helpers" />
+		<Using Include="ModdableWeathers.Weathers" />
+		<Using Include="ModdableWeathers.Weathers.Settings" />
+		<Using Include="ModdableWeathers.Weathers.GameBuiltIns" />
+		<Using Include="ModdableWeathers.Weathers.ModBuiltIns" />
+		<Using Include="ModdableWeathers.Historical" />
+		<Using Include="ModdableWeathers.Cycles" />
+		<Using Include="ModdableWeathers.WeatherModifiers" />
+		<Using Include="ModdableWeathers.Common.Settings" />
+		<Using Include="ModdableWeathers.WeatherModifiers.Settings" />
+		<Using Include="ModdableWeathers.WeatherModifiers.ModBuiltIns" />
+		<Using Include="ModdableWeathers.Patches" />
+		<Using Include="ModdableWeathers.Common" />
+		<Using Include="ModdableWeathers.Services" />
+		<Using Include="ModdableWeathers.Components" />
+		<Using Include="ModdableWeathers.UI.Settings" />
+		<Using Include="ModdableWeathers.UI.Rain" />
+		<Using Include="ModdableWeathers.Common.PrioritizedModifiers" />
+		<Using Include="ModdableWeathers.UI" />
+
+		<Reference Include="$(ModdableWeatherPath)" Private="False" />
+	</ItemGroup>
+
+</Project>

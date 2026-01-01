@@ -22,22 +22,6 @@ public static class WeatherProjectsUtils
     public static readonly FrozenSet<string> WeatherWarningExtUnlockIds = ["WeatherExt1", "WeatherExt2", ];
     public static readonly FrozenSet<string> WeatherForecastUnlockIds = ["WeatherPred1", "WeatherPred2", ];
 
-    public static GameWeatherStage GetModdableWeatherStage(this HazardousWeatherApproachingTimer timer)
-    {
-        if (timer._weatherService.HazardousWeatherDuration <= 0)
-        {
-            return GameWeatherStage.Temperate;
-        }
-        else if (timer._weatherService.IsHazardousWeather)
-        {
-            return GameWeatherStage.Hazardous;
-        }
-        else
-        {
-            return timer.GetProgress() > 0 ? GameWeatherStage.Warning : GameWeatherStage.Temperate;
-        }
-    }
-
 }
 
 public enum GameWeatherStage

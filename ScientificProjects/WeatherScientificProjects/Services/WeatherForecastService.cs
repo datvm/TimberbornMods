@@ -4,15 +4,12 @@ public class WeatherForecastService(
     ISingletonLoader loader,
     WeatherForecastPanel weatherForecastPanel,
     ModdableWeatherRegistry registry,
-    ModdableWeatherHistoryProvider history,
-    HazardousWeatherApproachingTimer hazardTimer
+    WeatherCycleService weatherCycle,
+    ModdableWeatherApproachingTimer weatherTimer
 ) : DefaultProjectUpgradeListener, ILoadableSingleton, ISaveableSingleton
 {
     static readonly SingletonKey SaveKey = new("WeatherUpgradeProcessor");
     static readonly PropertyKey<string> TodayForecastKey = new("TodayForecast2");
-
-    static readonly int DefaultWarningDays = HazardousWeatherApproachingTimer.ApproachingNotificationDays;
-    public static int WarningDays = DefaultWarningDays;
 
     TodayForecast? TodayForecast
     {
@@ -30,8 +27,6 @@ public class WeatherForecastService(
     public override void Load()
     {
         base.Load();
-
-        WarningDays = DefaultWarningDays;
         LoadSavedData();
     }
 
@@ -44,12 +39,11 @@ public class WeatherForecastService(
             var data = s.Get(TodayForecastKey).Split(';');
 
             var weatherId = data[0];
-            if (registry.WeatherByIds.TryGetValue(weatherId, out var weather)
-                && weather is IModdedHazardousWeather haz
-                && data.Length == 5)
+            var weather = registry.GetOrFallback(weatherId, true);
+            if (data.Length == 5)
             {
                 var duration = new Vector2Int(int.Parse(data[3]), int.Parse(data[4]));
-                TodayForecast = new TodayForecast(haz, float.Parse(data[1]), int.Parse(data[2]), duration, true);
+                TodayForecast = new TodayForecast(weather, float.Parse(data[1]), int.Parse(data[2]), duration, true);
             }
         }
     }
@@ -63,27 +57,30 @@ public class WeatherForecastService(
             var (weather, chance, day, duration, _) = TodayForecast.Value;
 
             // Unlikely user will be able to save inbetween the frame so don't bother saving the standard chance increased
-            s.Set(TodayForecastKey, string.Format("{0};{1};{2};{3};{4}", weather.WeatherId, chance, day, duration.x, duration.y));
+            s.Set(TodayForecastKey, string.Format("{0};{1};{2};{3};{4}", weather.Id, chance, day, duration.x, duration.y));
         }
     }
 
-    IModdedHazardousWeather GetForecastHazard(float correctChance)
+    IModdableWeather GetForecastHazard(float correctChance)
     {
-        var isCorrect = registry.HazardousWeathers.Count <= 1 || correctChance >= .95f || UnityEngine.Random.value < correctChance;
+        var isCorrect = correctChance >= .95f || UnityEngine.Random.value < correctChance;
 
-        var correctHazard = history.CurrentHazardousWeather;
-        if (isCorrect) { return correctHazard; }
+        var nextWeather = weatherCycle.NextStage.Weather;
+        if (isCorrect) { return nextWeather; }
 
-        var skip = UnityEngine.Random.Range(0, registry.HazardousWeathers.Count - 1);
-        return registry.HazardousWeathers
-            .Where(q => q != correctHazard)
+        IReadOnlyList<IModdableWeather> list = nextWeather.IsBenign ? registry.BenignWeathers : registry.HazardousWeathers;
+        if (list.Count <= 1) { return nextWeather; }
+
+        var skip = UnityEngine.Random.Range(0, list.Count - 1);
+        return list
+            .Where(q => q != nextWeather)
             .Skip(skip)
             .First();
     }
 
     Vector2Int GetDurationRange(float accuracy)
     {
-        var correct = history.CurrentCycle.HazardousWeatherDuration;
+        var correct = weatherCycle.NextStage.Stage.Days;
         if (accuracy >= .95f) { return new(correct, correct); }
 
         var shiftWindow = (int)((7 + correct) * (1 - accuracy) * 2);
@@ -96,7 +93,7 @@ public class WeatherForecastService(
 
     protected override void ProcessActiveProjects(IReadOnlyList<ScientificProjectInfo> activeProjects, ScientificProjectSpec? newUnlock, ActiveProjectsSource source)
     {
-        if (hazardTimer.GetModdableWeatherStage() != GameWeatherStage.Temperate)
+        if (weatherTimer.GetNextWeatherWarningProgress() >= 0f)
         {
             TodayForecast = null;
             return;
@@ -104,7 +101,7 @@ public class WeatherForecastService(
 
         if (activeProjects.Count == 0) { return; }
 
-        var cycleDay = hazardTimer._gameCycleService.CycleDay;
+        var cycleDay = weatherTimer._gameCycleService.CycleDay;
         var todayStandardChanceIncreased = TodayForecast?.Day == cycleDay && TodayForecast.Value.StandardChanceIncreased;
 
         var chance = activeProjects.Sum(q => q.Spec.Parameters[0] * (q.Spec.HasSteps ? q.Levels.Today : 1)); // the minimum
@@ -135,4 +132,4 @@ public class WeatherForecastService(
         TodayForecast = new(forecastHazard, chance, cycleDay, duration, true);
     }
 }
-public readonly record struct TodayForecast(IModdedHazardousWeather Weather, float Chance, int Day, Vector2Int Duration, bool StandardChanceIncreased);
+public readonly record struct TodayForecast(IModdableWeather Weather, float Chance, int Day, Vector2Int Duration, bool StandardChanceIncreased);

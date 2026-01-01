@@ -2,6 +2,7 @@
 
 public class MConfig : BaseModdableTimberbornConfiguration
 {
+    public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.Game;
 
     public override void StartMod(IModEnvironment modEnvironment)
     {
@@ -13,8 +14,6 @@ public class MConfig : BaseModdableTimberbornConfiguration
 
     public override void Configure(Configurator configurator, ConfigurationContext context)
     {
-        if (!context.IsGameContext()) { return; }
-
         configurator
             .BindScientificProjectListener<EmergencyDrillService>()
             .BindScientificProjectListener<WeatherForecastService>()
