@@ -1,7 +1,7 @@
 ﻿namespace WeatherScientificProjects.Services;
 
 public class WeatherSPCostProvider(
-    HazardousWeatherApproachingTimer hazardTimer,
+    ModdableWeatherApproachingTimer weatherTimer,
     DefaultEntityTracker<WeatherSPWaterStrengthModifier> waterSourceTracker
 ) : IProjectCostProvider
 {
@@ -33,7 +33,7 @@ public class WeatherSPCostProvider(
     }
 
     int CalculatePrewarningCost(ScientificProjectSpec spec, int level) 
-        => hazardTimer.GetModdableWeatherStage() == GameWeatherStage.Temperate ? spec.ScienceCost * level : 0;
+        => weatherTimer.GetNextWeatherWarningProgress() < 0f ? spec.ScienceCost * level : 0;
 
     int CountWaterSources(bool fresh)
     {

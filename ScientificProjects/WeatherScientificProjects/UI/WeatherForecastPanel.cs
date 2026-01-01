@@ -42,7 +42,7 @@ public class WeatherForecastPanel(
             var d = forecast.Value.Duration;
             SetForecastText(string.Format(t.T(d.x == d.y ? "LV.WSP.Forecast1DayText" : "LV.WSP.ForecastText"),
                 forecast.Value.Chance,
-                forecast.Value.Weather.Spec.Display,
+                forecast.Value.Weather.Spec.Display.Value,
                 forecast.Value.Duration.x,
                 forecast.Value.Duration.y));
         }
