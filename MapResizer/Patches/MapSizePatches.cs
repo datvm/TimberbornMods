@@ -55,6 +55,12 @@ public static class MapSizePatches
     [HarmonyPostfix, HarmonyPatch(typeof(MapSize), nameof(MapSize.Save))]
     public static void SaveHeight(MapSize __instance, ISingletonSaver singletonSaver)
     {
+        if (__instance.TerrainSize.z == 0)
+        {
+            // When creating a new map
+            return;
+        }
+
         singletonSaver.GetSingleton(MapSize.MapSizeKey)
             .Set(MapSizeHeightKey, new(__instance.TerrainSize.z, __instance.TotalSize.z));
     }
