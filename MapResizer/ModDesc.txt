@@ -1,4 +1,4 @@
-Your favorite mod Beaver's Ascent is back with a brand new feature: Map Resize! You can now resize your map, in [b]both the Game and the Map editor[/b] and break the map height limit!
+﻿Your favorite mod Beaver's Ascent is back with a brand new feature: Map Resize! You can now resize your map, in [b]both the Game and the Map editor[/b] and break the map height limit!
 
 Tip: you can also use this to make a map smaller or make the height limit lower as a challenge!
 
@@ -22,7 +22,7 @@ Once you are done, click "Resize" and the mod will resize and make a save. It wi
 You can use this to quickly make symmetrical maps, or to make a map larger for more players.
 
 Note:
-- If you do increase the terrain height, your brush won't still increase yet, after resizing. You will need to restart the game (i.e exit the app) for it to change. Due to technical limitations, the max brush height can only be applied once per game session.
+- [strike]If you do increase the terrain height, your brush won't still increase yet, after resizing. You will need to restart the game (i.e exit the app) for it to change. Due to technical limitations, the max brush height can only be applied once per game session.[/strike] No longer true for V1.
 - Your users will need this mod to play your map properly if you change the Terrain Height. Nevertheless, better test your map [b]without[/b] this mod before publishing just to be sure.
 
 Right now only terrain is copied. I [strike]am making[/strike] made a Copy object feature as well for the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3422772243]The Architect's Toolkit[/url] mod so you can quickly mirror objects as well.
@@ -31,6 +31,9 @@ If you need any support or feedback, feel free to contact me on Timberborn's off
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v10.0.1: Fixed a crash when creating a new map in the Map Editor.
+v10.0.0: Should work with Timberborn v1.0.
 
 v7.1.3: Should work with Sep 17th update.
 v7.1.2: Fixed objects on top being considered "out of the map". You also have an option to see which object that prevents the resizing so it's easier to spot an issue.
