@@ -16,12 +16,13 @@
 	<ItemGroup>
 		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
 		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
+
+		<!--<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />-->
+
+		<ProjectReference Include="..\ModdableRecipes\ModdableRecipes.csproj" />
+		<ProjectReference Include="..\ModdableRecipesDemo\ModdableRecipesDemo.csproj" />
 		
-		<ProjectReference Include="..\ScientificProjects\WeatherScientificProjects\WeatherScientificProjects.csproj" />		
-		<!--<ProjectReference Include="..\ModdableWeathers\ModdableWeathers.csproj" />-->
-		<!--<ProjectReference Include="..\WarningsBeGone\WarningsBeGone.csproj" />-->
-		
+
 
 	</ItemGroup>
-
 </Project>

@@ -42,6 +42,10 @@
     <Project Path="DemoModdableAchievements/DemoModdableAchievements.csproj" Id="dbc75ca6-0dda-4656-85bb-f95b97280542" />
     <Project Path="ModdableTimberbornAchievements/ModdableTimberbornAchievements.csproj" Id="3b3c126f-cf40-4fe0-ac31-e51b7683a150" />
   </Folder>
+  <Folder Name="/Moddable/ModdableRecipes/">
+    <Project Path="ModdableRecipes/ModdableRecipes.csproj" Id="03236c61-697a-47fd-8020-71f4dd42b1d9" />
+    <Project Path="ModdableRecipesDemo/ModdableRecipesDemo.csproj" Id="d415c597-a188-4a36-bb28-79e7f249fe26" />
+  </Folder>
   <Folder Name="/Moddable/ModdableTimberborn/">
     <Project Path="ModdableTimberborn/ModdableTimberborn.csproj" />
     <Project Path="ModdableTimberbornDemo/ModdableTimberbornDemo.csproj" />

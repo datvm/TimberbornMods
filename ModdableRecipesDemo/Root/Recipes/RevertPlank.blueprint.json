@@ -1,0 +1,26 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "RevertPlank",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.MRecDemo.RevertPlank",
+        "CycleDurationInHours": 1.25,
+        "Ingredients": [
+            {
+                "Id": "Plank",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Log",
+                "Amount": 1
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "",
+        "CyclesFuelLasts": 0,
+        "FuelCapacity": 0,
+        "CyclesCapacity": 13,
+        "Icon": "Sprites/Goods/LogIcon"
+    }
+}

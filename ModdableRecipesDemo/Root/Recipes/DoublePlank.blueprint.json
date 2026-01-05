@@ -1,0 +1,31 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "DoublePlank",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.MRecDemo.DoublePlank",
+        "CycleDurationInHours": 1.25,
+        "Ingredients": [
+            {
+                "Id": "Log",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Plank",
+                "Amount": 2
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "",
+        "CyclesFuelLasts": 0,
+        "FuelCapacity": 0,
+        "CyclesCapacity": 13,
+        "Icon": "Sprites/Goods/PlankIcon"
+    },
+    "ModdableRecipeLockSpec": {
+        "DescriptionLoc": "LV.MRecDemo.LockDesc",
+        "UnlockByDefault": true,
+        "LockTitle": "Censored"
+    }
+}

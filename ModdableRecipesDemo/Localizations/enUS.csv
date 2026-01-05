@@ -1,0 +1,7 @@
+﻿ID,Text,Comment
+LV.MRecDemo.DoublePlank,"Double Plank",
+LV.MRecDemo.TriplePlank,"Triple Plank",
+LV.MRecDemo.CustomPlank,"Custom Plank",
+LV.MRecDemo.RevertPlank,"Revert Plank to Log",
+LV.MRecDemo.LockDesc,"Locked by demo project. Unlock using the Test panel",
+Name_TestModdableRecipeFragment,"Test Moddable Recipes",
