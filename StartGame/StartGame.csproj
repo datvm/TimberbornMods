@@ -20,7 +20,7 @@
 		<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />
 
 		<ProjectReference Include="..\ModdableRecipes\ModdableRecipes.csproj" />
-		
+		<ProjectReference Include="..\PlottingTool\PlottingTool.csproj" />
 
 
 	</ItemGroup>
