@@ -6,6 +6,6 @@
 
 	<Import Project="../../Targets/Common.targets" />
 	<Import Project="../../Targets/CommonModdableTimberborn.targets" />
-	<Import Project="../../Targets/CommonUnlockableRecipe.targets" />
 	<Import Project="../../Targets/CommonScientificProjects.targets" />
+	<Import Project="../../Targets/CommonModdableRecipes.targets" />
 </Project>

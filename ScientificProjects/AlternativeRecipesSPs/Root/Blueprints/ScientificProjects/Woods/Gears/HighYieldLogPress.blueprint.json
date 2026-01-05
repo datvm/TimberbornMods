@@ -1,0 +1,13 @@
+﻿{
+    "ScientificProjectSpec": {
+        "Id": "AR.HighYieldLogPress",
+        "GroupId": "AlternativeRecipes",
+        "NameKey": "LV.ARSP.HighYieldLogPress",
+        "EffectKey": "LV.ARSP.HighYieldLogPressEff",
+        "LoreKey": "LV.ARSP.HighYieldLogPressLore",
+        "Icon": "Sprites/Goods/GearIcon",
+        "ScienceCost": 2000,
+        "Parameters": [ 3, 4, 6 ],
+        "Order": 400
+    }
+}

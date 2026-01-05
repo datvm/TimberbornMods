@@ -1,0 +1,8 @@
+﻿{
+    "ManufactorySpec": {
+        "ProductionRecipeIds#append": [
+            "AR.ResinFiredSmelter",
+            "AR.WoodReinforcedAlloy"
+        ]
+    }
+}

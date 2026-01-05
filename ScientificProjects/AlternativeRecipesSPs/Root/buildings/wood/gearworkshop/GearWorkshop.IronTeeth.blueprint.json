@@ -1,0 +1,10 @@
+﻿{
+    "ManufactorySpec": {
+        "ProductionRecipeIds#append": [
+            "AR.DirectLogForging",
+            "AR.RapidGearPress",
+            "AR.HighYieldLogPress",
+            "AR.CrudeLogPressExtract"
+        ]
+    }
+}

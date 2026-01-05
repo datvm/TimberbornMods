@@ -1,0 +1,14 @@
+﻿{
+    "ScientificProjectSpec": {
+        "Id": "TimberbotFramework",
+        "GroupId": "AlternativeRecipes",
+        "NameKey": "LV.ARSP.TimberbotFramework",
+        "EffectKey": "LV.ARSP.TimberbotFrameworkEff",
+        "LoreKey": "LV.ARSP.TimberbotFrameworkLore",
+        "Icon": "Sprites/Goods/BotHeadIcon",
+        "ScienceCost": 3000,
+        "Order": 1600,
+        "Parameters": [],
+        "Factions": [ "Folktails", "GreedyBuilders" ]
+    }
+}

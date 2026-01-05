@@ -2,9 +2,9 @@
 namespace AlternativeRecipesSPs.Services;
 
 public class ProjectRecipeUnlocker(
-    DefaultRecipeLockerController recipeUnlocker, 
     ScientificProjectService projects,
-    ScientificProjectUnlockService projectUnlocker
+    ScientificProjectUnlockService projectUnlocker,
+    ModdableRecipeLockService recipeLocker
 ) : BaseProjectUpgradeListener(projectUnlocker)
 {
 
@@ -43,7 +43,7 @@ public class ProjectRecipeUnlocker(
 
         foreach (var id in GetUnlockingRecipes(proj))
         {
-            recipeUnlocker.Unlock(id);
+            recipeLocker.Unlock(id);
         }
     }
 
