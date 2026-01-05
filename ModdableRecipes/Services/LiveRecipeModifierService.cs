@@ -9,7 +9,7 @@ public class LiveRecipeModifierService(
 {
     static readonly ImmutableArray<PropertyInfo> Properties = [..typeof(RecipeSpec)
         .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-        .Where(p => p.CanWrite)
+        .Where(p => p.CanWrite && p.Name != nameof(RecipeSpec.Id))
     ];
 
     public void Modify(string id, Func<RecipeSpec, RecipeSpec> modifier)
