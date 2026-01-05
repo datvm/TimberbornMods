@@ -5,15 +5,29 @@ public class ModdableRecipeLockService(
     ModdableRecipeLockSpecService specs,
     EntityRegistry entityRegistry,
     EntitySelectionService selectionService,
-    ILoc t
-)
+    ILoc t,
+    ModdableRecipePersistentUnlocker persistentUnlocker,
+    IEnumerable<IRecipeLockProvider> providers
+) : ILoadableSingleton
 {
 
     readonly Dictionary<string, string> lockedRecipes = [];
 
-    public void Lock(string id, string? reason) => Lock(id, reason ?? t.T("LV.MRec.DefaultReason"), false);
+    public void Load()
+    {
+        foreach (var provider in providers)
+        {
+            foreach (var (id, loc) in provider.GetLockedRecipes())
+            {
+                if (persistentUnlocker.IsUnlocked(id)) { continue; }
+                Lock(id, loc, true);
+            }
+        }
+    }
 
-    internal void Lock(string id, string reason, bool doNotNotify)
+    public void Lock(string id, string? reason) => Lock(id, reason, false);
+
+    internal void Lock(string id, string? reason, bool doNotNotify)
     {
         if (!specs.ModdableRecipeById.ContainsKey(id))
         {
@@ -25,7 +39,7 @@ public class ModdableRecipeLockService(
             throw new ArgumentException($"Recipe {id} is already locked with reason: {reason}");
         }
 
-        lockedRecipes[id] = reason;
+        lockedRecipes[id] = reason ?? t.T("LV.MRec.DefaultReason");
 
         UnselectRecipes(id);
 

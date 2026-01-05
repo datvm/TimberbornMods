@@ -1,17 +1,14 @@
 ﻿{
     "Name": "Alternative Recipes Scientific Projects",
-    "Version": "7.4.0",
+    "Version": "10.0.0",
     "Id": "AlternativeRecipesSPs",
-    "MinimumGameVersion": "0.7.0.0",
+    "MinimumGameVersion": "1.0.0",
     "Description": "Scientific projects that give you alternative recipes.",
     "RequiredMods": [
         {
             "Id": "ScientificProjects",
-            "MinimumVersion": "7.4.0"
+            "MinimumVersion": "10.0.0"
         },
-        {
-            "Id": "UnlockableRecipe",
-            "MinimumVersion": "7.1.4"
-        }
+        { "Id": "ModdableRecipes" }
     ]
 }

@@ -1,6 +1,0 @@
-{
-    "RecipeModderSpec": {
-        "PrefabNames": [ "GearWorkshop.Folktails", "GearWorkshop.IronTeeth" ],
-        "RecipeIds": [ "AR.DirectLogForging", "AR.RapidGearPress", "AR.HighYieldLogPress" ]
-    }
-}

@@ -14,7 +14,6 @@ public class MGameConfig : Configurator
             .BindSingleton<ModdableRecipeLockSpecService>()
             .BindSingleton<ModdableRecipePersistentUnlocker>()
             .BindSingleton<ModdableRecipeLockService>()
-            .BindSingleton<ModdableRecipeLockInitializer>()
             .BindSingleton<LiveRecipeModifierService>()
             .BindSingleton<RecipeGoodsProcessorReference>()
 

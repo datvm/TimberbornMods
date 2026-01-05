@@ -1,0 +1,14 @@
+﻿{
+    "ScientificProjectSpec": {
+        "Id": "AR.SunDriedPulpSheets",
+        "GroupId": "AlternativeRecipes",
+        "NameKey": "LV.ARSP.SunDriedPulpSheets",
+        "EffectKey": "LV.ARSP.SunDriedPulpSheetsEff",
+        "LoreKey": "LV.ARSP.SunDriedPulpSheetsLore",
+        "Icon": "Sprites/Goods/PaperIcon",
+        "ScienceCost": 300,
+        "Parameters": [ 1, 1, 5, 3 ],
+        "Order": 600,
+        "Factions": [ "Folktails", "GreedyBuilders" ]
+    }
+}

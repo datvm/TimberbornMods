@@ -1,0 +1,8 @@
+﻿{
+    "ManufactorySpec": {
+        "ProductionRecipeIds#append": [
+            "AR.RapidCanolaCrush",
+            "AR.PrecisionOilYield"
+        ]
+    }
+}

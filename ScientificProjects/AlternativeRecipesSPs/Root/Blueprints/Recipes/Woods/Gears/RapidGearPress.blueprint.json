@@ -1,0 +1,25 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "AR.RapidGearPress",
+        "DisplayLocKey": "LV.ARSP.RapidGearPressRecipe",
+        "CycleDurationInHours": 2,
+        "CyclesCapacity": 5,
+        "Ingredients": [
+            {
+                "Id": "Plank",
+                "Amount": 3
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Gear",
+                "Amount": 2
+            }
+        ],
+        "Icon": "Sprites/Goods/GearIcon"
+    },
+    "ModdableRecipeLockSpec": {
+        "DescriptionLoc": "LV.ARSP.LockReason",
+        "LockTitle": "Visible"
+    }
+}

@@ -1,0 +1,33 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "AR.TimberbotHeads",
+        "DisplayLocKey": "LV.ARSP.TimberbotHeads",
+        "CycleDurationInHours": 18,
+        "CyclesCapacity": 3,
+        "Ingredients": [
+            {
+                "Id": "Plank",
+                "Amount": 1
+            },
+            {
+                "Id": "Gear",
+                "Amount": 3
+            },
+            {
+                "Id": "TreatedPlank",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "BotHead",
+                "Amount": 1
+            }
+        ],
+        "Icon": "Sprites/Goods/BotHeadIcon"
+    },
+    "ModdableRecipeLockSpec": {
+        "DescriptionLoc": "LV.ARSP.LockReason",
+        "LockTitle": "Visible"
+    }
+}
