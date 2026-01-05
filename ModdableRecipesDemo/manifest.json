@@ -1,0 +1,12 @@
+﻿{
+    "Name": "Moddable Recipes Demo",
+    "Version": "10.0.0",
+    "Id": "ModdableRecipesDemo",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Demo for ModdableRecipes",
+    "RequiredMods": [
+        { "Id": "Harmony" },
+        { "Id": "TimberUi" },
+        { "Id": "ModdableRecipes" }
+    ]
+}

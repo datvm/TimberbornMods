@@ -1,0 +1,30 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "TriplePlank",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.MRecDemo.TriplePlank",
+        "CycleDurationInHours": 1.25,
+        "Ingredients": [
+            {
+                "Id": "Log",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Plank",
+                "Amount": 3
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "",
+        "CyclesFuelLasts": 0,
+        "FuelCapacity": 0,
+        "CyclesCapacity": 13,
+        "Icon": "Sprites/Goods/PlankIcon"
+    },
+    "ModdableRecipeLockSpec": {
+        "DescriptionLoc": "LV.MRecDemo.LockDesc",
+        "LockTitle": "Visible"
+    }
+}

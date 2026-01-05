@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputModFolderName>ModdableRecipesDemo</OutputModFolderName>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Folder Include="Root\buildings\wood\industriallumbermill\" />
+	</ItemGroup>
+
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonTimberUI.targets" />
+	<Import Project="../Targets/CommonHarmony.targets" />
+	<Import Project="../Targets/CommonModdableRecipes.targets" />
+
+</Project>

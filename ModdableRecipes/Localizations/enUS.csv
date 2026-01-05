@@ -1,0 +1,4 @@
+﻿ID,Text,Comment
+LV.MRec.Locked,"[Locked] {0}",
+LV.MRec.LockedCensor,"[Locked] [Secret Recipe]",
+LV.MRec.DefaultReason,"The recipe is not unlocked.",
