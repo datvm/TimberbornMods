@@ -19,6 +19,8 @@ public class ModAllConfig : Configurator
         this
             .BindSingleton<GameSliderAlternativeManualValueDI>()
             .BindSingleton<DialogService>()
+
+            .MultiBindSingleton<IVisualElementInitializer, MinMaxSliderInitializer>()
         ;
     }
 }

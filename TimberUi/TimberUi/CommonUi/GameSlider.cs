@@ -65,9 +65,7 @@ public class GameSlider<TSlider, TValue> : VisualElement
     where TSlider : BaseSlider<TValue>, new()
     where TValue : IComparable<TValue>
 {
-    public static readonly ImmutableArray<string> ContainerClasses = ["settings-slider", "settings-text"];
-    public static readonly ImmutableArray<string> SliderClasses = ["settings-slider__slider"];
-    public static readonly ImmutableArray<string> EndLabelClasses = ["settings-slider__end-label"];
+
 
     const string AlternateClickableActionKey = "AlternateClickableAction";
     EventCallback<ChangeEvent<TValue>>? endLabelCallback;
@@ -83,10 +81,10 @@ public class GameSlider<TSlider, TValue> : VisualElement
 
     public GameSlider()
     {
-        this.AddClasses(ContainerClasses);
+        this.AddClasses(UiCssClasses.SliderContainerClasses);
         this.SetAsRow();
 
-        Slider = this.AddChild<TSlider>(classes: SliderClasses);
+        Slider = this.AddChild<TSlider>(classes: UiCssClasses.SliderClasses);
     }
 
     public GameSlider<TSlider, TValue> SetLabel(string label)
@@ -109,7 +107,7 @@ public class GameSlider<TSlider, TValue> : VisualElement
 
     void AddEndLabel()
     {
-        EndLabel ??= this.AddChild<Label>(classes: EndLabelClasses);
+        EndLabel ??= this.AddChild<Label>(classes: UiCssClasses.SliderEndLabelClasses);
     }
 
     public GameSlider<TSlider, TValue> AddEndLabel(string text)

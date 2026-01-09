@@ -34,7 +34,7 @@ public static partial class UiCssClasses
     public const string DropDownMenuClass = "settings-dropdown";
 
     // Toggle
-    public static readonly ImmutableArray<string> ToggleSettings = ["settings-element", "settings-text", "settings-toggle"];
+    public static readonly ImmutableArray<string> ToggleSettings = ["settings-element", SettingsText, "settings-toggle"];
 
     // List/Scroll View
     public const string ScrollViewClass = "panel-list-view";
@@ -49,6 +49,7 @@ public static partial class UiCssClasses
     public const string LabelGameTextBold = "text--bold";
     public const string LabelGameTextCentered = "text--centered";
     public const string LabelEntityPanelText = "entity-panel__text";
+    public const string SettingsText = "settings-text";
 
     // Panel Fragment
     public const string FragmentClass = "entity-sub-panel";
@@ -75,5 +76,10 @@ public static partial class UiCssClasses
     public const string Yellow = "yellow";
     public const string Red = "red";
     public const string Teal = "teal";
+
+    // Sliders
+    public static readonly ImmutableArray<string> SliderContainerClasses = ["settings-slider", SettingsText];
+    public static readonly ImmutableArray<string> SliderClasses = ["settings-slider__slider"];
+    public static readonly ImmutableArray<string> SliderEndLabelClasses = ["settings-slider__end-label"];
 
 }
