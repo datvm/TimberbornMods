@@ -33,7 +33,10 @@ public class PromptDialogElement : DialogBoxElement
 
     public async Task<string?> ShowAsync(VisualElementInitializer veInit, PanelStack panelStack)
     {
-        var confirmed = await base.ShowAsync(veInit, panelStack);
+        var task = base.ShowAsync(veInit, panelStack);
+        txt.Focus();
+
+        var confirmed = await task;
         return confirmed ? txt.value : null;
     }
 

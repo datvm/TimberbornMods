@@ -12,6 +12,18 @@ public static partial class UiBuilderExtensions
         return result;
     }
 
+    public static ProgressBarWithLabel AddProgressBarWithLabel(this VisualElement parent, ProgressBarColor? color = default, string? text = default, string? name = default, IEnumerable<string>? additionalClasses = default)
+    {
+        var pgb = parent.AddProgressBar(name: name, additionalClasses: additionalClasses);
+        if (color.HasValue)
+        {
+            pgb.SetColor(color.Value);
+        }
+        var label = pgb.AddProgressLabel(text: text);
+
+        return new(pgb, label);
+    }
+
     public static Label AddProgressLabel<T>(this T parent, string? text = default, string? name = default, IEnumerable<string>? additionalClasses = default) where T : TProgressBar
     {
         var label = parent.AddGameLabel(text: text, name: name, additionalClasses: additionalClasses);
@@ -60,10 +72,7 @@ public static partial class UiBuilderExtensions
         if (text is not null)
         {
             label ??= bar.Q<Label>();
-            if (label is not null)
-            {
-                label.text = text;
-            }
+            label?.text = text;
         }
 
         if (oldColor != newColor)
