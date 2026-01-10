@@ -40,6 +40,8 @@ public class ModdableToolGroupButton
         s.alignItems = Align.FlexEnd;
         s.position = Position.Absolute;
         s.bottom = Length.Percent(100);
+        s.left = Length.Percent(50);
+        s.translate = new Translate(Length.Percent(-50), 0);
 
         // Register
         Info = serv.GetOrAddButton(btn, parent?.Info);
