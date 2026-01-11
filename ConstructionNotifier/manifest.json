@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Construction Notifier",
+    "Version": "10.0.0",
+    "Id": "ConstructionNotifier",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Notify when construction is complete.",
+    "RequiredMods": [
+        { "Id": "TimberUi" }
+    ]
+}
