@@ -1,6 +1,6 @@
 ﻿{
     "Name": "Stable Core",
-    "Version": "10.0.2",
+    "Version": "10.0.3",
     "Id": "StableCore",
     "MinimumGameVersion": "1.0.0",
     "Description": "Build a stable core for a blast!",
