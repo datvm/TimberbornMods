@@ -17,3 +17,5 @@ Settings can be changed at any time, but you must reload the save for changes to
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.1.1: Should work with Update 1.0.7 (Jan 12)
