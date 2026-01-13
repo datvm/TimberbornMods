@@ -8,6 +8,7 @@ sealed class SpecServiceRunner(
 ) : IBlueprintModifierProvider, ILoadableSingleton
 {
     readonly ImmutableArray<ISpecServiceTailRunner> tailRunners = [.. tailRunners];
+    public string ModifierName { get; } = "DummyModdableTimberbornModifier";
 
     public void Load() { }
 
