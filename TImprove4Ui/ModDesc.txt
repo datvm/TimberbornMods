@@ -38,7 +38,7 @@ Mod source code and donation: https://github.com/datvm/TimberbornMods
 
 Credits:
 - YosemiteSam for many suggestions.
-- Queen Isabralda of Irondam for Highlight Tubeway path feature idea.
+- ToxicLizard for Highlight Tubeway path feature idea.
 - Akinare: bug report and I18n.
 - RogueVector (Reddit): Highlight & Select Material Buildings.
 - OldGamer: "Exit to menu" button for New settlement dialog box
@@ -46,7 +46,8 @@ Credits:
 - Bones: Disable pause icons on buildings.
 - Shimanim: Collapsible management groups.
 
-v10.0.1: Highlight Tubeway Path now highlight unconnected ends in red ([url=https://media.discordapp.net/attachments/1064824959697944666/1441606244002435113/image.png?ex=692267f0&is=69211670&hm=4fd8bccb11a72ef4457eafdbba805973bf62881b4c31f6c37a411eb48bec22fc&=&format=webp&quality=lossless]screenshot[/url])
+v10.0.2: Should work with Update 1.0.7 (Jan 12)
+v10.0.1: Highlight Tubeway Path now highlight unconnected ends in red ([url=https://discord.com/channels/558398674389172225/1064824959697944666/1441606244287774720]screenshot[/url])
 v10.0.0:
 - Work for Timberborn v1.0.
 - "Add buildings' debuff info" becomes "Clarify debuff chance" and now shows the actual percentage instead of just low/medium/high.

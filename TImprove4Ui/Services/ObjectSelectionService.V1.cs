@@ -49,7 +49,7 @@ public class ObjectSelectionService(
         if (!obj.HasComponent<TubeSpec>()) { return false; }
 
         var bo = obj.GetComponent<BlockObject>();
-        return bo && bo.BlocksSpec.Size == Vector3Int.one;
+        return bo && bo._blockObjectSpec.Size == Vector3Int.one;
     }
 
     bool IsTubeway(BaseComponent obj) => obj.HasComponent<TubeSpec>() || obj.HasComponent<TubeStationSpec>();
