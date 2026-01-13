@@ -27,20 +27,14 @@ public static class ZiplineObstaclePatches
         }
     }
 
-    static BlockObjectSpec ModifySpec(BlockObjectSpec spec)
-    {
-        if (!MSettings.ZiplineThroughObstacles) { return spec; }
-
-        return spec with
+    static BlockObjectSpec ModifySpec(BlockObjectSpec spec) => MSettings.ZiplineThroughObstacles
+        ? (spec with
         {
-            BlocksSpec = spec.BlocksSpec with
+            Blocks = [..spec.Blocks.Select(bs => bs with
             {
-                BlockSpecs = [.. spec.BlocksSpec.BlockSpecs.Select(bs => bs with
-                {
-                    Occupations = BlockOccupations.None,
-                })],
-            },
-        };
-    }
+                Occupations = BlockOccupations.None,
+            })],
+        })
+        : spec;
 
 }

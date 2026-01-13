@@ -20,6 +20,7 @@ InvalidOperationException: Material BaseMetal.Folktails is already loaded.
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.0.3: Should work with Update 1.0.7 (Jan 12)
 v10.0.2: Fixed issues with other mods conflict. Please update Moddable Timberborn to the latest version 10.0.1 too.
 v10.0.1:
 - Fixed a crash when launching Wonder. Thanks VANKRIEGS for the report.
