@@ -33,6 +33,6 @@ public class GeneratePowerWithPowerWheelsOnlyAchievementHelper(DialogService dia
     : GeneratePowerWithAchievementHelper<GeneratePowerWithPowerWheelsOnlyAchievement, WalkerPoweredGenerator>(diag, t)
 { }
 
-public class GeneratePowerWithWindmillsOnlyAchievementHelper(DialogService diag, ILoc t)
-    : GeneratePowerWithAchievementHelper<GeneratePowerWithWindmillsOnlyAchievement, WindPoweredGenerator>(diag, t)
+public class GeneratePowerWithWindTurbinesOnlyAchievementHelper(DialogService diag, ILoc t)
+    : GeneratePowerWithAchievementHelper<GeneratePowerWithWindTurbinesOnlyAchievement, WindPoweredGenerator>(diag, t)
 { }

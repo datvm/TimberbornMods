@@ -81,8 +81,10 @@
 		<Using Include="Timberborn.Brushes"/>
 		<Using Include="Timberborn.BrushesUI"/>
 		<Using Include="Timberborn.BuilderHubSystem"/>
+		<Using Include="Timberborn.BuilderHubSystemUI"/>
 		<Using Include="Timberborn.BuilderPrioritySystem"/>
 		<Using Include="Timberborn.BuilderPrioritySystemUI"/>
+		<Using Include="Timberborn.BuildingAvailability"/>
 		<Using Include="Timberborn.BuildingDoorsteps"/>
 		<Using Include="Timberborn.BuildingRange"/>
 		<Using Include="Timberborn.Buildings"/>
@@ -91,6 +93,7 @@
 		<Using Include="Timberborn.BuildingStatuses"/>
 		<Using Include="Timberborn.BuildingsUI"/>
 		<Using Include="Timberborn.BuildingTools"/>
+		<Using Include="Timberborn.CameraSettingsSystem"/>
 		<Using Include="Timberborn.CameraSystem"/>
 		<Using Include="Timberborn.CameraWorldState"/>
 		<Using Include="Timberborn.Carrying"/>
@@ -153,6 +156,7 @@
 		<Using Include="Timberborn.ExplosionsUI"/>
 		<Using Include="Timberborn.FactionGoalsSystem"/>
 		<Using Include="Timberborn.FactionSystem"/>
+		<Using Include="Timberborn.FactionValidators"/>
 		<Using Include="Timberborn.FeatureToggleSystem"/>
 		<Using Include="Timberborn.Fields"/>
 		<Using Include="Timberborn.FieldsUI"/>
@@ -161,7 +165,6 @@
 		<Using Include="Timberborn.Forestry"/>
 		<Using Include="Timberborn.ForestryEffects"/>
 		<Using Include="Timberborn.ForestryUI"/>
-		<Using Include="Timberborn.GameAnalytics"/>
 		<Using Include="Timberborn.GameBlockObjectButtonsSystem"/>
 		<Using Include="Timberborn.GameCycleSystem"/>
 		<Using Include="Timberborn.GameDistricts"/>
@@ -209,6 +212,8 @@
 		<Using Include="Timberborn.HousingBatchControl"/>
 		<Using Include="Timberborn.InputSystem"/>
 		<Using Include="Timberborn.InputSystemUI"/>
+		<Using Include="Timberborn.Intro"/>
+		<Using Include="Timberborn.IntroSettingsSystem"/>
 		<Using Include="Timberborn.InventoryNeedSystem"/>
 		<Using Include="Timberborn.InventorySystem"/>
 		<Using Include="Timberborn.InventorySystemBatchControl"/>
@@ -498,6 +503,7 @@
 		<Using Include="Timberborn.ZiplineMovementSystem"/>
 		<Using Include="Timberborn.ZiplineSystem"/>
 		<Using Include="Timberborn.ZiplineSystemUI"/>
+
 
 
 	</ItemGroup>
