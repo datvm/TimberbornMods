@@ -46,7 +46,7 @@ public class RestrictionTemplateModifier : ITemplateModifier
 
         if (bos is null || pbos is null) { return null; } // Should not happen
 
-        BlockSpec[] bss = [.. bos.BlocksSpec.BlockSpecs];
+        BlockSpec[] bss = [.. bos.Blocks];
 
         // Bottom of map
         if (MSettings.NoBottomOfMap && hasContinuousTerrainConstraintSpec)
@@ -75,10 +75,7 @@ public class RestrictionTemplateModifier : ITemplateModifier
     RETURN:
         template.Specs[bosIndex] = bos with
         {
-            BlocksSpec = bos.BlocksSpec with
-            {
-                BlockSpecs = [.. bss]
-            }
+            Blocks =  [.. bss],
         };
 
         return template;
@@ -94,8 +91,8 @@ public class RestrictionTemplateModifier : ITemplateModifier
 
     static void RemoveBuildingRestrictions(BlockSpec[] bss, BlockObjectSpec bos, string templateName)
     {
-        var size = bos.BlocksSpec.Size;
-        var (sx, sy, _) = bos.BlocksSpec.Size;
+        var size = bos.Size;
+        var (sx, sy, _) = size;
 
         RemovePlacementRestrictions(bss, bos);
 
@@ -184,7 +181,7 @@ public class RestrictionTemplateModifier : ITemplateModifier
 
     static void AddSuperFoundation(BlockSpec[] bss, BlockObjectSpec bos, string templateName, PlaceableBlockObjectSpec pbos, Action<PlaceableBlockObjectSpec> replacePbos)
     {
-        var (sx, sy, sz) = bos.BlocksSpec.Size;
+        var (sx, sy, sz) = bos.Size;
         var mainX = sx / 2;
         var mainY = sy / 2;
 
