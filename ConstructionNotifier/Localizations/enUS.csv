@@ -2,3 +2,4 @@
 LV.CSN.NotifyToggle,"Notify on completion",
 LV.CSN.NotifyMsg,"Construction of {0} has completed.",
 LV.CSN.SelectFocus,"Select and focus",
+LV.CSN.NonBlocking,"Non-blocking notification",

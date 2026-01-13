@@ -1,6 +1,6 @@
 ﻿{
     "Name": "Construction Notifier",
-    "Version": "10.0.0",
+    "Version": "10.0.1",
     "Id": "ConstructionNotifier",
     "MinimumGameVersion": "1.0.0",
     "Description": "Notify when construction is complete.",
