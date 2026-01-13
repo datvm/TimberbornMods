@@ -22,7 +22,7 @@ public class HFSPTemplateModifier(ScientificProjectUnlockRegistry unlocks) : ITe
 
         template.Specs.Add(new TransputProviderSpec()
         {
-            TransputSpecs = [
+            Transputs = [
                 new()
                 {
                     Coordinates = Vector3Int.zero,
@@ -63,13 +63,10 @@ public class HFSPTemplateModifier(ScientificProjectUnlockRegistry unlocks) : ITe
 
         template.TransformSpec<BlockObjectSpec>(blockSpec => blockSpec with
         {
-            BlocksSpec = blockSpec.BlocksSpec with
-            {
-                BlockSpecs = [..blockSpec.BlocksSpec.BlockSpecs.Select(value => value with
+            Blocks = [..blockSpec.Blocks.Select(value => value with
                 {
                     Occupations = value.Occupations & RemovePath,
-                })],
-            },
+                })]
         });
 
         return template;
@@ -103,13 +100,10 @@ public class HFSPTemplateModifier(ScientificProjectUnlockRegistry unlocks) : ITe
                 },
                 BlockObjectSpec bos => bos with
                 {
-                    BlocksSpec = bos.BlocksSpec with
+                    Blocks = [..bos.Blocks.Select(value => value with
                     {
-                        BlockSpecs = [..bos.BlocksSpec.BlockSpecs.Select(value => value with
-                            {
-                                MatterBelow = MatterBelow.Any,
-                            })],
-                    },
+                        MatterBelow = MatterBelow.Any,
+                    })]
                 },
                 _ => null,
             });

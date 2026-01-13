@@ -38,6 +38,7 @@ If you need any support or feedback, feel free to contact me on Timberborn's off
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.0.1: Should work with Update 1.0.7 (Jan 12)
 v10.0.0: Should work with Timberborn v1.0.
 
 v7.4.0: See Scientific Projects 7.4.0 update.
