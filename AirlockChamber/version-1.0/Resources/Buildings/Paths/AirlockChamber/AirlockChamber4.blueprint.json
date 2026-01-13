@@ -131,22 +131,20 @@
     "UnblockedCoordinates": []
   },
   "BlockObjectSpec": {
-    "BlocksSpec": {
-      "Size": {
-        "X": 1,
-        "Y": 1,
-        "Z": 1
-      },
-      "BlockSpecs": [
-        {
-          "MatterBelow": "GroundOrStackable",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "BlockObject",
-          "OccupyAllBelow": false,
-          "Underground": false
-        }
-      ]
+    "Size": {
+      "X": 1,
+      "Y": 1,
+      "Z": 1
     },
+    "Blocks": [
+      {
+        "MatterBelow": "GroundOrStackable",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "BlockObject",
+        "OccupyAllBelow": false,
+        "Underground": false
+      }
+    ],
     "Entrance": {
       "HasEntrance": false,
       "Coordinates": {
@@ -230,7 +228,7 @@
             "SphereColliders": [],
             "CapsuleColliders": []
           }
-        },        
+        },
         "Variant_111111": {
           "TimbermeshSpec": {
             "Model": "Buildings/Paths/VerticalTubeway/VerticalTubeway111111.IronTeeth.Model"

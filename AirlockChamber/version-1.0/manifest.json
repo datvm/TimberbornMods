@@ -1,6 +1,6 @@
 {
     "Name": "Airlock Chamber",
-    "Version": "10.0.1",
+    "Version": "10.0.2",
     "Id": "AirlockChamber",
     "MinimumGameVersion": "1.0.0",
     "Description": "An airlock chamber that block water but your beavers can walk through"

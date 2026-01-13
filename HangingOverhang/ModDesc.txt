@@ -13,6 +13,7 @@ Can be built by both the Folktails and Iron Teeths. GreedyBuilders and Emberpelt
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.0.1: Should work with Update 1.0.7 (Jan 12)
 v10.0.0: Should work with Timberborn v1.0.1.
 
 v7.0.1: Fixed the building disappears when building at the terrain limit. Harmony is now required by this mod.

@@ -36,29 +36,27 @@
         "DisablingFeatureToggle": ""
     },
     "BlockObjectSpec": {
-        "BlocksSpec": {
-            "Size": {
-                "X": 1,
-                "Y": 2,
-                "Z": 1
-            },
-            "BlockSpecs": [
-                {
-                    "MatterBelow": "Any",
-                    "Occupations": "Top, Corners",
-                    "Stackable": "BlockObject",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Any",
-                    "Occupations": "Top",
-                    "Stackable": "BlockObject",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                }
-            ]
+        "Size": {
+            "X": 1,
+            "Y": 2,
+            "Z": 1
         },
+        "Blocks": [
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Top, Corners",
+                "Stackable": "BlockObject",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Top",
+                "Stackable": "BlockObject",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
         "Entrance": {
             "HasEntrance": false,
             "Coordinates": {
