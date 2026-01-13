@@ -1,7 +1,7 @@
 ﻿{
     "GatherableSpec": {
         "YieldGrowthTimeInDays": 4,
-        "YielderSpec": {
+        "Yielder": {
             "YielderComponentName": "Gatherable",
             "Yield": {
                 "Id": "Log",

@@ -4,17 +4,9 @@ global using ModdableTimberborn.DependencyInjection;
 
 namespace ConfigurableDaisugiForestry;
 
-public class ConfigurableDaisugiForestryConfigs : BaseModdableTimberbornConfiguration
+public class ConfigurableDaisugiForestryConfigs : BaseModdableTimberbornConfiguration, IWithDIConfig
 {
     public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.All & ~ConfigurationContext.Bootstrapper;
-
-    public override void StartMod(IModEnvironment modEnvironment)
-    {
-        base.StartMod(modEnvironment);
-
-        ModdableTimberbornRegistry.Instance
-            .UseDependencyInjection();
-    }
 
     public override void Configure(Configurator configurator, ConfigurationContext context)
     {

@@ -17,7 +17,7 @@ public class DaisugiModifier(MSettings s) : ITemplateModifier
         template.TransformSpec<GatherableSpec>(spec => spec with
         {
             YieldGrowthTimeInDays = days,
-            YielderSpec = spec.YielderSpec with
+            Yielder = spec.Yielder with
             {
                 Yield = new()
                 {
