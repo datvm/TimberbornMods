@@ -28,6 +28,8 @@ public class WeatherSettingsDialog : DialogBoxElement
         var parent = Content;
         parent.AddLabel(t.T("LV.MW.SettingsNote", weatherHistoryRegistry.CycleCount)).SetMarginBottom();
 
+        parent.AddChild(container.GetInstance<GlobalSettingsPanel>);
+
         var exportPanel = container.GetInstance<WeatherSettingsExportPanel>().SetMarginBottom();
         parent.Add(exportPanel);
         exportPanel.ReloadRequested += Reload;

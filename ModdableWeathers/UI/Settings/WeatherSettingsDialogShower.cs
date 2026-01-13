@@ -6,9 +6,16 @@ public class WeatherSettingsDialogShower(
     ILoc t,
     WeatherHistoryRegistry history,
     WeatherGenerator generator,
-    GameCycleService gameCycleService
-) : ILoadableSingleton
+    GameCycleService gameCycleService,
+    GeneralGlobalSettings generalGlobalSettings,
+    EventBus eb,
+    ISingletonLoader loader
+) : ILoadableSingleton, ISaveableSingleton
 {
+    static readonly SingletonKey SaveKey = new(nameof(WeatherSettingsDialogShower));
+    static readonly PropertyKey<bool> DialogShowedKey = new("DialogShowed");
+
+    bool dialogShowed;
 
     readonly GameOptionsBox optionsBox = (GameOptionsBox)optionsBox;
 
@@ -21,6 +28,24 @@ public class WeatherSettingsDialogShower(
             name: "WeatherSettings",
             stretched: true);
         weatherSettingsButton.InsertSelfBefore(settingsButton);
+
+        dialogShowed = loader.TryGetSingleton(SaveKey, out var s) && s.Has(DialogShowedKey) && s.Get(DialogShowedKey);
+
+        eb.Register(this);
+    }
+
+    [OnEvent]
+    public void OnShowPrimaryUI(ShowPrimaryUIEvent _)
+    {
+        if (generalGlobalSettings.DoNotShowOnNewGame || dialogShowed) { return; }
+
+        ShowDialog();
+    }
+
+    public void Save(ISingletonSaver singletonSaver)
+    {
+        var s = singletonSaver.GetSingleton(SaveKey);
+        s.Set(DialogShowedKey, true);
     }
 
     public async void ShowDialog()

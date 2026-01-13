@@ -70,6 +70,7 @@ public class ModdableWeatherConfig : BaseModdableTimberbornConfigurationWithHarm
             // Settings
             .BindSingleton<GeneralWeatherSettings>()
             .BindSingleton<WatherSettingsExportService>()
+            .BindSingleton<GeneralGlobalSettings>()
 
             // Settings Dialog            
             .BindSingleton<WeatherSettingsDialogShower>()
@@ -82,6 +83,7 @@ public class ModdableWeatherConfig : BaseModdableTimberbornConfigurationWithHarm
             .BindTransient<WeatherCycleStagesPanel>()
             .BindTransient<WeatherCycleStagePanel>()
             .BindTransient<GeneralWeatherSettingsPanel>()
+            .BindTransient<GlobalSettingsPanel>()
 
             // Rain effect
             .BindSingleton<RainSettings>()
