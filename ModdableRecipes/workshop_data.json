@@ -1,6 +1,6 @@
 {
-  "ItemId": "3459544570",
-  "Name": "Alternative Recipes Scientific Projects",
+  "ItemId": "3639961044",
+  "Name": "Moddable Recipes",
   "Visibility": "Public",
   "UpdateDescription": false,
   "UpdateVisibility": false,
@@ -8,9 +8,8 @@
   "UpdateTags": false,
   "Tags": [
     "Update 1.0",
-    "Update 0.7",
     "New content",
-    "Other",
+    "Modding tools",
     "Buildings",
     "Goods"
   ]

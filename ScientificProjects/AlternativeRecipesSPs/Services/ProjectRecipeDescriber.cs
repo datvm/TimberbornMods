@@ -9,9 +9,6 @@ public class ProjectRecipeDescriber(
 
     public void Load()
     {
-#warning Delete after debug
-        StringBuilder str = new();
-
         foreach (var proj in registry.AllProjects)
         {
             if (!proj.IsAlternativeRecipe()) { continue; }
@@ -21,11 +18,7 @@ public class ProjectRecipeDescriber(
 
             var recipe = recipes.GetRecipe(id);
             proj.Effect = proj.Effect.Replace("[Recipe]", t.T(recipe.DisplayLocKey));
-
-            str.AppendLine($"- {proj.DisplayName} [{proj.ScienceCost} Science]: {proj.Effect}");
         }
-
-        Debug.Log(str.ToString());
     }
 
 }

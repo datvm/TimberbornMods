@@ -17,10 +17,10 @@
 		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
 		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
 
-		<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />
+		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
 		<ProjectReference Include="..\ModdableRecipes\ModdableRecipes.csproj" />
-		<ProjectReference Include="..\PlottingTool\PlottingTool.csproj" />
+		<ProjectReference Include="..\BlueprintRelics\BlueprintRelics.csproj" />
 
 
 	</ItemGroup>

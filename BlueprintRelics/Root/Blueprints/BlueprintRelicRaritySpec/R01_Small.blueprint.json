@@ -1,0 +1,6 @@
+﻿{
+    "BlueprintRelicRaritySpec": {
+        "SizeId": "Small",
+        "RarityChance": [ 90, 9, 1 ]
+    }
+}

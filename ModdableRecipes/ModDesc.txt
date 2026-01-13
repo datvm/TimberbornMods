@@ -1,0 +1,18 @@
+﻿[b]Note to players: This mod does nothing on its own. It only provides a framework that other mods can use.[/b]
+
+This mod is a complete rewrite of Moddable and Unlockable Recipes. This is for Timberborn V1 only.
+[img]https://files.catbox.moe/zk0gps.jpg[/img]
+
+[h1]Features:[/h1]
+- Lock or unlock recipes at any time. You can also customize how the locked recipes are displayed.
+- Modify recipe, including ingredients or products or any of the RecipeSpec properties at any time.
+- With this mod active, you can also have multiple recipes in the same building with the same good in both ingredients and products.
+- With v10.0, the UI is no longer clunky like v7.
+
+[img]https://files.catbox.moe/ifzxxx.jpg[/img]
+
+Documentation: https://github.com/datvm/TimberbornMods/blob/master/Docs/ModdableRecipes/README.MD
+Discord: https://discord.com/channels/558398674389172225/1457759227207749632
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
