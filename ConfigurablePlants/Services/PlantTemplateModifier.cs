@@ -52,7 +52,7 @@ public class PlantTemplateModifier(MSettings s) : ITemplateModifier, ILoadableSi
 
                     return (harvestMod == 1f && outputMod == 1f) ? null : c with
                     {
-                        YielderSpec = ModifyYielderSpec(c.YielderSpec, harvestMod, outputMod),
+                        Yielder = ModifyYielderSpec(c.Yielder, harvestMod, outputMod),
                     };
                 case GatherableSpec g:
                     growthMod = productModifiers[(int)MSettingPlantGroupProperty.GrowthRate];
@@ -62,7 +62,7 @@ public class PlantTemplateModifier(MSettings s) : ITemplateModifier, ILoadableSi
                     return (growthMod == 1f && outputMod == 1f && harvestMod == 1f) ? null : g with
                     {
                         YieldGrowthTimeInDays = g.YieldGrowthTimeInDays * growthMod,
-                        YielderSpec = ModifyYielderSpec(g.YielderSpec, harvestMod, outputMod),
+                        Yielder = ModifyYielderSpec(g.Yielder, harvestMod, outputMod),
                     };
                 case DemolishableSpec d:
                     harvestMod = modifiers[(int)MSettingPlantGroupProperty.DemolishTime];
@@ -92,17 +92,14 @@ public class PlantTemplateModifier(MSettings s) : ITemplateModifier, ILoadableSi
     {
         return bos with
         {
-            BlocksSpec = bos.BlocksSpec with
-            {
-                BlockSpecs = [..bos.BlocksSpec.BlockSpecs.Select(bs =>
+            Blocks = [..bos.Blocks.Select(bs =>
                 {
                     return bs with
                     {
                         MatterBelow = bs.MatterBelow == MatterBelow.Ground ? MatterBelow.GroundOrStackable : bs.MatterBelow,
                         Occupations = bs.Occupations & removingOccupation,
                     };
-                })],
-            },
+            })]
         };
     }
 
