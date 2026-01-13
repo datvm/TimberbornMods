@@ -4,7 +4,7 @@
 public static class LandMoisturePatches
 {
 
-    [HarmonyPrefix, HarmonyPatch(typeof(MoistureCalculationJob), nameof(MoistureCalculationJob.CalculateMoistureForCell))]
+    [HarmonyPrefix, HarmonyPatch(typeof(MoistureCalculationTask), nameof(MoistureCalculationTask.CalculateMoistureForCell))]
     public static bool SetMoistureIfRaining(ref float __result)
     {
         if (!LandMoistureService.ShouldMoisturize) { return true; }

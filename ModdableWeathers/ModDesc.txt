@@ -84,6 +84,10 @@ If you need any help, feel free to leave a comment on Steam or Discord ([url=htt
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.0.6:
+- Should work with Update 1.0.7 (Jan 12)
+- The setting dialog now show up for new games (once per save). You can disable it with a new setting as well.
+[img]https://files.catbox.moe/cwfh4f.jpg[/img]
 v10.0.5: Fixed two music tracks playing at the same time.
 v10.0.4:
 - Badtide-related achievements should now trigger correctly (not tested).

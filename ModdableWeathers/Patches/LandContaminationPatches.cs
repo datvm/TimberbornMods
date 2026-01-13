@@ -4,7 +4,7 @@
 public static class LandContaminationPatches
 {
 
-    [HarmonyPrefix, HarmonyPatch(typeof(ContaminationCandidatesCountingJob), nameof(ContaminationCandidatesCountingJob.GetContaminationCandidate))]
+    [HarmonyPrefix, HarmonyPatch(typeof(ContaminationCandidatesCountingTask), nameof(ContaminationCandidatesCountingTask.GetContaminationCandidate))]
     public static bool DisableLandContamination(ref float __result)
     {
         if (!LandContaminationBlockerService.ShouldBlock) { return true; }
