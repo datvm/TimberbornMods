@@ -26,6 +26,7 @@ Note: for super foundation to work, I also moved the "pivot" or building point o
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.0.4: Should work with Update 1.0.7 (Jan 12)
 v10.0.3:
 - Fixed various issues due to conflict with Moddable Tool Groups, please update Moddable Timberborn to the latest version.
 - Hanging Structure now only apply to 1xN buildings due to issues with placement of other sizes.
