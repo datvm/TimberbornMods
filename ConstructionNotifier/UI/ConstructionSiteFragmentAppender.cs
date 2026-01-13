@@ -12,14 +12,19 @@ public class ConstructionSiteFragmentAppender(
 
 #nullable disable
     Toggle chkNotify;
+    Toggle chkNonblocking;
 #nullable enable
     ConstructionSiteNotifier? component;
 
     public void Load()
     {
         var root = fragment._root;
-        chkNotify = root.AddToggle(t.T("LV.CSN.NotifyToggle"), onValueChanged: OnNotifyChanged)
-            .SetMargin(top: 10);
+        var panel = root.AddChild().SetMargin(top: 10);
+
+        chkNotify = panel.AddToggle(t.T("LV.CSN.NotifyToggle"), onValueChanged: OnNotifyChanged)
+            .SetMarginBottom(10);
+        chkNonblocking = panel.AddToggle(t.T("LV.CSN.NonBlocking"), onValueChanged: OnNonBlockingChanged)
+            .SetMargin(left: 20);
 
         eb.Register(this);
     }
@@ -29,6 +34,18 @@ public class ConstructionSiteFragmentAppender(
         if (!component) { return; }
 
         component!.NotifyOnCompletion = v;
+        SetCheckboxUI();
+    }
+    
+    void OnNonBlockingChanged(bool v)
+    {
+        if (!component) { return; }
+        component!.NonBlocking = v;
+    }
+
+    void SetCheckboxUI()
+    {
+        chkNonblocking.enabledSelf = component!.NotifyOnCompletion;
     }
 
     [OnEvent]
@@ -42,6 +59,8 @@ public class ConstructionSiteFragmentAppender(
         }
 
         chkNotify.SetValueWithoutNotify(component.NotifyOnCompletion);
+        chkNonblocking.SetValueWithoutNotify(component.NonBlocking);
+        SetCheckboxUI();
     }
 
     [OnEvent]
