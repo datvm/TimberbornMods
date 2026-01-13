@@ -1,0 +1,8 @@
+﻿{
+    "BlueprintRelicSpawnerSpec": {
+        "MaxRelics": 3,
+        "BaseChance": 0.5,
+        "ChanceMultiplierPerRelic": 0.2,
+        "SizeChanceWeight": [70, 20, 10]
+    }
+}

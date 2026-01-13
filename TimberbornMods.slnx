@@ -69,6 +69,7 @@
     <Project Path="ColorfulBeavers/ColorfulBeavers.csproj" />
     <Project Path="ColorfulZipline/ColorfulZipline.csproj" />
     <Project Path="ConfigurableTopBar/ConfigurableTopBar.csproj" Id="9eb023f5-6743-484b-ac4c-723fb933a1a3" />
+    <Project Path="ConstructionNotifier/ConstructionNotifier.csproj" Id="b3cf9873-e156-4ca5-a1cd-2a1883dd1e6f" />
     <Project Path="DevModeButton/DevModeButton.csproj" />
     <Project Path="EvenMoreLights/EvenMoreLights.csproj" />
     <Project Path="HueAndTurn/HueAndTurn.csproj" />
@@ -129,6 +130,7 @@
   <Project Path="BeavVsMachine/BeavVsMachine.csproj" />
   <Project Path="BenchmarkAndOptimizer/BenchmarkAndOptimizer.csproj" />
   <Project Path="BlockObjectDebugger/BlockObjectDebugger.csproj" />
+  <Project Path="BlueprintRelics/BlueprintRelics.csproj" Id="6fb1bd59-00b6-4e80-a0ae-1d3b1d4b4823" />
   <Project Path="ConveyorBelt/ConveyorBelt.csproj" />
   <Project Path="CutAllTrees/CutAllTrees.csproj" />
   <Project Path="DevButton/DevButton.csproj" Id="00e9d4ec-0de4-48b4-b9c6-c8f034db4d06" />

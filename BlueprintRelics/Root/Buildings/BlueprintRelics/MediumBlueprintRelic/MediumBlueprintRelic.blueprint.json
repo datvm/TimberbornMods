@@ -1,0 +1,158 @@
+﻿{
+    "BlueprintRelicSpec": {
+        "Size": "Medium",
+        "ExpireInDays": {
+            "Min": 20,
+            "Max": 30
+        }
+    },
+    "BuildingSpec": {
+        "SelectionSoundName": "ControlTower",
+        "LoopingSoundName": "",
+        "BuildingCost": [],
+        "ScienceCost": 0,
+        "PlaceFinished": true,
+        "FinishableWithBeaversOnSite": false,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Model",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "#Underground",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "MediumBlueprintRelic",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "FloodableObjectBlockerSpec": {},
+    "BlockObjectSpec": {
+        "BlocksSpec": {
+            "Size": {
+                "X": 3,
+                "Y": 2,
+                "Z": 1
+            },
+            "BlockSpecs": [
+                {
+                    "MatterBelow": "Ground",
+                    "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                    "Stackable": "None",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                },
+                {
+                    "MatterBelow": "Ground",
+                    "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                    "Stackable": "None",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                },
+                {
+                    "MatterBelow": "Ground",
+                    "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                    "Stackable": "None",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                },
+                {
+                    "MatterBelow": "Ground",
+                    "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                    "Stackable": "None",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                },
+                {
+                    "MatterBelow": "Ground",
+                    "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                    "Stackable": "None",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                },
+                {
+                    "MatterBelow": "Ground",
+                    "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                    "Stackable": "None",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                }
+            ]
+        },
+        "Entrance": {
+            "HasEntrance": true,
+            "Coordinates": {
+                "X": 0,
+                "Y": -1,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": true
+    },
+    "BuildingAccessibleSpec": {
+        "LocalAccess": {
+            "X": 0.5,
+            "Y": 0.0,
+            "Z": 0.2
+        },
+        "ForceOneFinalAccess": false
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "MapEditorResources",
+        "ToolOrder": 4100,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": true
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.BRe.MediumBuildingName",
+        "DescriptionLocKey": "LV.BRe.BuildingDesc",
+        "FlavorDescriptionLocKey": "LV.BRe.BuildingFlavor",
+        "Icon": "Sprites/Buildings/BlueprintRelics/MediumBlueprintRelicIcon"
+    },
+    "Children": {
+        "#Unfinished": {},
+        "#Model": {
+            "TimbermeshSpec": {
+                "Model": "MediumRelic/MediumRelic.Model"
+            },
+            "CollidersSpec": {
+                "BoxColliders": [
+                    {
+                        "Center": {
+                            "X": 1.5,
+                            "Y": 0.0487027019,
+                            "Z": 1.0
+                        },
+                        "Size": {
+                            "X": 2.55,
+                            "Y": 0.0974054039,
+                            "Z": 1.5
+                        }
+                    }
+                ],
+                "SphereColliders": [],
+                "CapsuleColliders": []
+            }
+        },
+        "#Underground": {
+            "TimbermeshSpec": {
+                "Model": "MediumRelic/MediumRelic.Underground.Model"
+            }
+        }
+    }
+}

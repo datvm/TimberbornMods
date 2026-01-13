@@ -1,0 +1,164 @@
+﻿{
+    "BlueprintRelicSpec": {
+        "Size": "Small",
+        "ExpireInDays": {
+            "Min": 10,
+            "Max": 15
+        },
+        "ExcavationSteps": 10,
+        "ExcavationStepDays": 0.5,
+        "RequiredGoodsCount": 2,
+        "PossibleRequiredGoods": [
+            {
+                "Id": "Log",
+                "Amount": 10
+            },
+            {
+                "Id": "Plank",
+                "Amount": 10
+            },
+            {
+                "Id": "Gear",
+                "Amount": 3
+            },
+            {
+                "Id": "Berries",
+                "Amount": 20
+            },
+            {
+                "Id": "SunflowerSeeds",
+                "Amount": 10
+            },
+            {
+                "Id": "Potato",
+                "Amount": 3
+            },
+            {
+                "Id": "Cassava",
+                "Amount": 3
+            }
+        ],
+        "MaxScienceRequirement": 50
+    },
+    "BuildingSpec": {
+        "SelectionSoundName": "ControlTower",
+        "LoopingSoundName": "",
+        "BuildingCost": [],
+        "ScienceCost": 0,
+        "PlaceFinished": true,
+        "FinishableWithBeaversOnSite": false,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Model",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "#Underground",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "SmallBlueprintRelic",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "FloodableObjectBlockerSpec": {},
+    "BlockObjectSpec": {
+        "BlocksSpec": {
+            "Size": {
+                "X": 2,
+                "Y": 1,
+                "Z": 1
+            },
+            "BlockSpecs": [
+                {
+                    "MatterBelow": "Ground",
+                    "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                    "Stackable": "None",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                },
+                {
+                    "MatterBelow": "Ground",
+                    "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                    "Stackable": "None",
+                    "OccupyAllBelow": false,
+                    "Underground": false
+                }
+            ]
+        },
+        "Entrance": {
+            "HasEntrance": true,
+            "Coordinates": {
+                "X": 0,
+                "Y": -1,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": true
+    },
+    "BuildingAccessibleSpec": {
+        "LocalAccess": {
+            "X": 0.5,
+            "Y": 0.0,
+            "Z": 0.2
+        },
+        "ForceOneFinalAccess": false
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "MapEditorResources",
+        "ToolOrder": 4000,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": true
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.BRe.SmallBuildingName",
+        "DescriptionLocKey": "LV.BRe.BuildingDesc",
+        "FlavorDescriptionLocKey": "LV.BRe.BuildingFlavor",
+        "Icon": "Sprites/Buildings/BlueprintRelics/SmallBlueprintRelicIcon"
+    },
+    "Children": {
+        "#Unfinished": {},
+        "#Model": {
+            "TimbermeshSpec": {
+                "Model": "SmallRelic/SmallRelic.Model"
+            },
+            "CollidersSpec": {
+                "BoxColliders": [
+                    {
+                        "Center": {
+                            "X": 1.0,
+                            "Y": 0.0487027019,
+                            "Z": 0.5
+                        },
+                        "Size": {
+                            "X": 1.8,
+                            "Y": 0.0974054039,
+                            "Z": 0.75
+                        }
+                    }
+                ],
+                "SphereColliders": [],
+                "CapsuleColliders": []
+            }
+        },
+        "#Underground": {
+            "TimbermeshSpec": {
+                "Model": "SmallRelic/SmallRelic.Underground.Model"
+            }
+        }
+    }
+}

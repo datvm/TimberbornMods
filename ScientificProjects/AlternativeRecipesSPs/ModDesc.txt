@@ -1,8 +1,6 @@
 ﻿16 [b]Alternative Recipes[/b] for you to diversify your production chains in this latest expansion mod for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3442389397]Scientific Projects[/url] mod!
 
-Note: If you pick a recipe that is locked, the select box may bug out a bit. Just unselect the building and select it again. It's only a visual bug.
-
-Check the screenshots or the list below:
+Check the list below (screenshots are outdated and I am too lazy to update):
 - Plank Bulk Processing [150 Science]: Unlock Planks (Bulk): 7 Logs ⇒ 10 Planks in 10 hours in the Lumbermill, [b]NOTE:[/b] Storage is only enough for one cycle of production.
 - Direct Log Forging [75 Science]: Unlock Gears (Direct): 1 Logs ⇒ 1 Gears in 6 hours in the Gear Workshop
 - Rapid Gear Press [75 Science]: Unlock Gears (Rapid): 3 Planks ⇒ 2 Gears in 2 hours in the Gear Workshop
@@ -22,7 +20,6 @@ Check the screenshots or the list below:
 
 Feel free to leave feedback or suggestions in the comments or on Discord!
 
-===
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 

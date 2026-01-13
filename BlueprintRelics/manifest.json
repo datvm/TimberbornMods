@@ -1,0 +1,11 @@
+﻿{
+    "Name": "Blueprint Relics",
+    "Version": "10.0.0",
+    "Id": "BlueprintRelics",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Random relics that unlock alternate recipes",
+    "RequiredMods": [
+        { "Id": "TimberUi" },
+        { "Id": "ModdableRecipes" }
+    ]
+}

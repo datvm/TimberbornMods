@@ -1,0 +1,12 @@
+﻿{
+    "BlueprintRelicRecipeUpgradeSpec": {
+        "TimeReduction": 0.25,
+        "CapacityIncrease": 0.25,
+        "AdditionalOutput": 1,
+        "MaximumChoices": 3,
+        "ScienceRewardChance": 0.5,
+        "CapacityRewardChance": 0.5,
+        "TimeReductionRewardChance": 0.5,
+        "AdditionalOutputRewardChance": 1
+    }
+}

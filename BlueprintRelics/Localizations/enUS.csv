@@ -1,0 +1,34 @@
+﻿ID,Text,Comment
+LV.BRe.SmallBuildingName,"Small Blueprint Relic",
+LV.BRe.MediumBuildingName,"Medium Blueprint Relic",
+LV.BRe.LargeBuildingName,"Large Blueprint Relic",
+LV.BRe.BuildingDesc,"Ancient technology that can be excavated to unlock alternate recipes.",
+LV.BRe.BuildingFlavor,"Apparently, hoomans labeled everything."
+LV.BRe.SpawnNotif,"A {0} has been discovered!",
+LV.BRe.ExpiresIn,"Relic expires in {0}d",
+LV.BRe.ConnectPrompt,"Connect this relic to a district path to excavate it.",
+LV.BRe.PauseExcavation,"Pause: do not collect resources for this excavation.",
+LV.BRe.Connected,"This relic is being excavated with resources from {0}",
+LV.BRe.ExcSteps,"{0}/{1} steps completed.",
+LV.BRe.CurrStep,"Excavating: {0}d remaining",
+LV.BRe.ExcInfo,"Each step requires:
+• {1} Science
+{0}
+• 🕘 {2}d
+While a relic is being excavated, the expiry timer is paused.",
+LV.BRe.ExcGood,"• {0} ×{1}",
+LV.BRe.RelicExpired,"The {0} has expired.",
+LV.BRe.StatusNoMaterial,"Can't get all required materials.",
+LV.BRe.StatusNoMaterialShort,"Excavation lacks materials",
+LV.BRe.StatusExcavationFinished,"Excavation finished, you can collect your reward!",
+LV.BRe.StatusExcavationFinishedShort,"Blueprint ready!",
+LV.BRe.ChooseReward,"Choose your reward",
+LV.BRe.DigMore,"Dig deeper",
+LV.BRe.DigMoreDesc,"Continue excavating this relic for another reward. You have to complete all excavation steps again.",
+LV.BRe.DigConfirm,"Are you sure you want to excavate this relic again for another reward?",
+LV.BRe.RewardUnlock,"New recipe",
+LV.BRe.RewardCapacity,"Capacity upgrade",
+LV.BRe.RewardTimeReduction,"Time reduction",
+LV.BRe.RewardOutput,"Output increase",
+LV.BRe.RewardScience,"Bonus Science",
+Name_BlueprintRelicFragment,"Blueprint Relic",

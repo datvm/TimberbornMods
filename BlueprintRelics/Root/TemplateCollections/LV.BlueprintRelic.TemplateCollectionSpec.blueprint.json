@@ -1,0 +1,10 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Common",
+        "Blueprints": [
+            "Buildings/BlueprintRelics/SmallBlueprintRelic/SmallBlueprintRelic.blueprint",
+            "Buildings/BlueprintRelics/MediumBlueprintRelic/MediumBlueprintRelic.blueprint",
+            "Buildings/BlueprintRelics/LargeBlueprintRelic/LargeBlueprintRelic.blueprint"
+        ]
+    }
+}
