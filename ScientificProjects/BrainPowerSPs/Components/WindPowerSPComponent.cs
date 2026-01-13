@@ -18,7 +18,7 @@ public class WindPowerSPComponent : BaseComponent, IEntityEffectDescriber, IStar
     public void Start()
     {
         var blockObj = GetComponent<BlockObject>();
-        HighestZ = blockObj.Coordinates.z + blockObj.BlocksSpec.Size.z;
+        HighestZ = blockObj.Coordinates.z + blockObj.Blocks.Size.z;
 
         CalculateBoost();
     }

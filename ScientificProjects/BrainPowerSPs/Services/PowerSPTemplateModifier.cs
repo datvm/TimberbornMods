@@ -9,7 +9,7 @@ public class PowerSPTemplateModifier(
     bool hasWorkerUpgrade;
     bool hasWindmillUpgrade;
 
-    static readonly FrozenSet<string> WindmillTemplates = ["Windmill.Folktails", "LargeWindmill.Folktails"];
+    static readonly FrozenSet<string> WindTurbineTemplates = ["WindTurbine.Folktails", "LargeWindTurbine.Folktails"];
 
     public void Load()
     {
@@ -21,27 +21,24 @@ public class PowerSPTemplateModifier(
     public bool ShouldModify(string blueprintName, string templateName, TemplateSpec originalTemplateSpec)
         => (templateName == "PowerWheel.Folktails" && hasBotUpgrade)
         || (templateName == "LargePowerWheel.IronTeeth" && (hasWorkerUpgrade || hasBotUpgrade))
-        || (hasWindmillUpgrade && WindmillTemplates.Contains(templateName));
+        || (hasWindmillUpgrade && WindTurbineTemplates.Contains(templateName));
 
     public EditableBlueprint? Modify(EditableBlueprint template, TemplateSpec originalTemplateSpec, Blueprint original)
-        => WindmillTemplates.Contains(originalTemplateSpec.TemplateName) ? ModifyWindmills(template) : ModifyPowerWheel(template);
+        => WindTurbineTemplates.Contains(originalTemplateSpec.TemplateName) ? ModifyWindmills(template) : ModifyPowerWheel(template);
 
     EditableBlueprint? ModifyWindmills(EditableBlueprint template)
     {
         template.TransformSpec<BlockObjectSpec>(blockObj => blockObj with
         {
-            BlocksSpec = blockObj.BlocksSpec with
-            {
-                BlockSpecs = [.. TransformWindmill(blockObj)],
-            }
+            Blocks = [.. TransformWindmill(blockObj)],
         });
 
         return template;
 
         static IEnumerable<BlockSpec> TransformWindmill(BlockObjectSpec blockObj)
         {
-            var spec = blockObj.BlocksSpec.BlockSpecs;
-            var (sx, sy, sz) = blockObj.BlocksSpec.Size;
+            var spec = blockObj.Blocks;
+            var (sx, sy, sz) = blockObj.Size;
 
             var index = -1;
             for (int z = 0; z < sz; z++)
