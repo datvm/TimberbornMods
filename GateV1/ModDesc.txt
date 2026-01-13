@@ -15,6 +15,7 @@ Idea by @Iceph03nix on Discord.
 
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.0.2: Should work with Update 1.0.7 (Jan 12)
 v10.0.1: Fixed a crash when deleting closed Gate. Thanks steampenguin6714 and @normanr for helping to identify the issue.
 v10.0.0: Should work with Timberborn v1.0.
 
