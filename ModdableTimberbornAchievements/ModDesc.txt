@@ -23,6 +23,7 @@ Obviously, custom achievements do not sync with Steam achievements since those a
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.0.6: Should work with Update 1.0.7 (Jan 12)
 v10.0.5: Fixed a crash for non-Steam clients.
 v10.0.4:
 - Fixed alerts not showing when this mod is on. Thanks TomToTheBomb for reporting.
