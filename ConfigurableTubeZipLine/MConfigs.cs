@@ -1,17 +1,8 @@
 ﻿namespace ConfigurableTubeZipLine;
 
-public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony
+public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony, IWithDIConfig
 {
     public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.MainMenu | ConfigurationContext.Game;
-
-    public override void StartMod(IModEnvironment modEnvironment)
-    {
-        base.StartMod(modEnvironment);
-
-        ModdableTimberbornRegistry.Instance
-            .UseDependencyInjection()
-        ;
-    }
 
     public override void Configure(Configurator configurator, ConfigurationContext context)
     {
