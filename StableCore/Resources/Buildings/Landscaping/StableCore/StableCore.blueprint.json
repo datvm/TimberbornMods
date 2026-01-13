@@ -32,43 +32,41 @@
         "UndergroundModelDepth": 1
     },
     "BlockObjectSpec": {
-        "BlocksSpec": {
-            "Size": {
-                "X": 2,
-                "Y": 2,
-                "Z": 1
-            },
-            "BlockSpecs": [
-                {
-                    "MatterBelow": "Ground",
-                    "Occupations": "-1",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Ground",
-                    "Occupations": "-1",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Ground",
-                    "Occupations": "-1",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Ground",
-                    "Occupations": "-1",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                }
-            ]
+        "Size": {
+            "X": 2,
+            "Y": 2,
+            "Z": 1
         },
+        "Blocks": [
+            {
+                "MatterBelow": "Ground",
+                "Occupations": "-1",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Ground",
+                "Occupations": "-1",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Ground",
+                "Occupations": "-1",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Ground",
+                "Occupations": "-1",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
         "Entrance": {
             "HasEntrance": false,
             "Coordinates": {
