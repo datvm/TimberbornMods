@@ -105,7 +105,7 @@
     "Children": {
         "#FinishedUncovered": {
             "TimbermeshSpec": {
-                "Model": "Buildings/Paths/Overhang2x1/Overhang.Uncovered.Folktails.Model"
+                "Model": "Resources/Buildings/Paths/HangingOverhang.ConstructionBase.Folktails.Model"
             },
             "CollidersSpec": {
                 "BoxColliders": [
@@ -164,7 +164,7 @@
         },
         "#Finished": {
             "TimbermeshSpec": {
-                "Model": "Buildings/Paths/Overhang2x1/Overhang2x1.Folktails.Model"
+                "Model": "Resources/Buildings/Paths/HangingOverhang.Folktails.Model"
             },
             "CollidersSpec": {
                 "BoxColliders": [
@@ -240,7 +240,7 @@
                 },
                 "ConstructionStage0": {
                     "TimbermeshSpec": {
-                        "Model": "Buildings/Paths/Overhang2x1/Overhang2x1.Folktails.ConstructionStage0.Model"
+                        "Model": "Resources/Buildings/Paths/HangingOverhang.ConstructionBase.Folktails.Model"
                     },
                     "CollidersSpec": {
                         "BoxColliders": [

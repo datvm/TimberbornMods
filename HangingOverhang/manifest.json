@@ -1,6 +1,6 @@
 ﻿{
     "Name": "Hanging Overhang",
-    "Version": "10.0.1",
+    "Version": "10.1.0",
     "Id": "HangingOverhang",
     "MinimumGameVersion": "1.0.0",
     "Description": "Overhang that can be built hanging over terrain",
