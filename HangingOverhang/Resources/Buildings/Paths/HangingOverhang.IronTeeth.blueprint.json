@@ -105,7 +105,7 @@
     "Children": {
         "#FinishedUncovered": {
             "TimbermeshSpec": {
-                "Model": "Buildings/Paths/Overhang2x1/Overhang.Uncovered.IronTeeth.Model"
+                "Model": "Resources/Buildings/Paths/HangingOverhang.ConstructionBase.IronTeeth.Model"
             },
             "CollidersSpec": {
                 "BoxColliders": [
@@ -164,7 +164,8 @@
         },
         "#Finished": {
             "TimbermeshSpec": {
-                "Model": "Buildings/Paths/Overhang2x1/Overhang2x1.IronTeeth.Model"
+                "Model": "Resources/Buildings/Paths/HangingOverhang.IronTeeth.Model"
+
             },
             "CollidersSpec": {
                 "BoxColliders": [
@@ -240,7 +241,7 @@
                 },
                 "ConstructionStage0": {
                     "TimbermeshSpec": {
-                        "Model": "Buildings/Paths/Overhang2x1/Overhang2x1.IronTeeth.ConstructionStage0.Model"
+                        "Model": "Resources/Buildings/Paths/HangingOverhang.ConstructionBase.IronTeeth.Model"
                     },
                     "CollidersSpec": {
                         "BoxColliders": [

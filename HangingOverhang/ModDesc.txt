@@ -10,8 +10,12 @@ Physics law decrees that only the 2x1 Overhang is available.
 
 Can be built by both the Folktails and Iron Teeths. GreedyBuilders and Emberpelts are supported but not tested, please tell me if it does not work.
 
+Special thanks to @Knatte_Anka for the model.
+
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v10.1.0: Now use its own model instead of reusing the Overhang model thanks to @Knatte_Anka.
 
 v10.0.1: Should work with Update 1.0.7 (Jan 12)
 v10.0.0: Should work with Timberborn v1.0.1.
