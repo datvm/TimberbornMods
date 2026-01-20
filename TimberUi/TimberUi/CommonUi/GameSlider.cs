@@ -2,6 +2,7 @@
 
 public readonly record struct SliderValues<TValue>(TValue Low, TValue High, TValue Default) where TValue : IComparable<TValue>;
 
+[BindSingleton(Contexts = BindAttributeContext.All)]
 public class GameSliderAlternativeManualValueDI(InputService inputService, ILoc t, VisualElementInitializer veInit, PanelStack panelStack)
 {
     public readonly InputService InputService = inputService;

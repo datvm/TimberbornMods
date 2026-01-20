@@ -1,38 +1,11 @@
 ﻿namespace TimberUi;
 
-[Context("MainMenu")]
-public class ModMenuConfig : Configurator
-{
-    public override void Configure()
-    {
-        this.BindSingleton<ModUpdateService>();
-    }
-}
 
 [Context("MainMenu")]
-[Context("Game")]
-[Context("MapEditor")]
-public class ModAllConfig : Configurator
-{
-    public override void Configure()
-    {
-        this
-            .BindSingleton<GameSliderAlternativeManualValueDI>()
-            .BindSingleton<DialogService>()
-
-            .MultiBindSingleton<IVisualElementInitializer, MinMaxSliderInitializer>()
-        ;
-    }
-}
+public class MMenuConfig : MainMenuAttributeConfigurator { }
 
 [Context("Game")]
+public class MGameConfig : GameAttributeConfigurator { }
+
 [Context("MapEditor")]
-public class ModGameplayConfig : Configurator
-{
-    public override void Configure()
-    {
-        this
-            .BindSingleton<EntityFragmentOrderService>()
-        ;
-    }
-}
+public class MMapConfig : MapEditorAttributeConfigurator { }

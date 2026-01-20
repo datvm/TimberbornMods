@@ -2,6 +2,7 @@
 
 public class TemplateModuleHelper(Configurator configurator)
 {
+    static readonly MethodInfo AddDecoratorMethod = typeof(TemplateModule.Builder).GetMethod(nameof(TemplateModule.Builder.AddDecorator))!;
 
     readonly TemplateModule.Builder builder = new();
 
@@ -13,6 +14,18 @@ public class TemplateModuleHelper(Configurator configurator)
         if (addTransient)
         {
             configurator.BindTransient<TDecorator>();
+        }
+
+        return this;
+    }
+
+    public TemplateModuleHelper AddDecorator(Type subject, Type decorator, bool addTransient = true)
+    {
+        AddDecoratorMethod.MakeGenericMethod(subject, decorator).Invoke(builder, []);
+
+        if (addTransient)
+        {
+            configurator.Bind(decorator).AsTransient();
         }
 
         return this;

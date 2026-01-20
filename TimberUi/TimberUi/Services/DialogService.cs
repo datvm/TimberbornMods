@@ -1,5 +1,6 @@
 ﻿namespace TimberUi.Services;
 
+[BindSingleton(Contexts = BindAttributeContext.All)]
 public partial class DialogService(
     VisualElementInitializer veInit,
     PanelStack panelStack,

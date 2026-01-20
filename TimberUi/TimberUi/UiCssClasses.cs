@@ -81,5 +81,6 @@ public static partial class UiCssClasses
     public static readonly ImmutableArray<string> SliderContainerClasses = ["settings-slider", SettingsText];
     public static readonly ImmutableArray<string> SliderClasses = ["settings-slider__slider"];
     public static readonly ImmutableArray<string> SliderEndLabelClasses = ["settings-slider__end-label"];
+    public const string TimberUiMinMaxSlider = "timberui-minmaxslider";
 
 }

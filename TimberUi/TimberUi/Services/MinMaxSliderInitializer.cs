@@ -1,5 +1,6 @@
 ﻿namespace TimberUi.Services;
 
+[MultiBind(typeof(IVisualElementInitializer), Contexts = BindAttributeContext.All)]
 public class MinMaxSliderInitializer(IAssetLoader assets) : IVisualElementInitializer, ILoadableSingleton
 {
 
@@ -16,7 +17,7 @@ public class MinMaxSliderInitializer(IAssetLoader assets) : IVisualElementInitia
 
     public void InitializeVisualElement(VisualElement el)
     {
-        if (el is not MinMaxSlider slider) { return; }
+        if (el is not MinMaxSlider slider || !el.ClassListContains(UiCssClasses.TimberUiMinMaxSlider)) { return; }
 
         var thumbs = slider.Q(name: "unity-dragger").Children().Where(q => q.name.StartsWith("unity-thumb"));
         foreach (var t in thumbs)

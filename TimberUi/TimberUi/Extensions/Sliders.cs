@@ -36,7 +36,7 @@ public static partial class UiBuilderExtensions
 
         public MinMaxSlider AddMinMaxSlider(MinMaxSliderValues? values = default, Action<Vector2>? changeCallback = default, string? label = default, string? name = default, IEnumerable<string>? additionalClasses = default)
         {
-            var slider = parent.AddChild<MinMaxSlider>(name, additionalClasses);
+            var slider = parent.AddChild<MinMaxSlider>(name, [UiCssClasses.TimberUiMinMaxSlider,.. additionalClasses ?? []]);
 
             if (label is not null)
             {
