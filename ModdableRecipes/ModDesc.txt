@@ -1,4 +1,4 @@
-﻿[b]Note to players: This mod does nothing on its own. It only provides a framework that other mods can use.[/b]
+﻿[b]Note to players: This mod does nothing on its own. It only provides a framework that other mods can use.[/b] Mods that use this: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3459544570]Alternative Recipes Scientific Projects[/url].
 
 This mod is a complete rewrite of Moddable and Unlockable Recipes. This is for Timberborn V1 only.
 [img]https://files.catbox.moe/zk0gps.jpg[/img]
@@ -16,3 +16,7 @@ Discord: https://discord.com/channels/558398674389172225/1457759227207749632
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.1:
+- Fixed Recipe editing not updating Capacity.
+- Locked recipe should not show up in the building info panel.

@@ -1,0 +1,9 @@
+﻿{
+    "ManufactorySpec": {
+        "ProductionRecipeIds#append": [
+            "LV.BR.ChemflameSmelting",
+            "LV.BR.FermentedCasting",
+            "LV.BR.LaminatedCasting"
+        ]
+    }
+}

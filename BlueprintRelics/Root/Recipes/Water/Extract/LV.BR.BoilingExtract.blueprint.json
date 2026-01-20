@@ -1,0 +1,31 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.BoilingExtract",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.BoilingExtract",
+        "CycleDurationInHours": 1.0,
+        "Ingredients": [
+            {
+                "Id": "Badwater",
+                "Amount": 4
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Extract",
+                "Amount": 1
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "Log",
+        "CyclesFuelLasts": 5,
+        "FuelCapacity": 5,
+        "CyclesCapacity": 20,
+        "Icon": "Sprites/Goods/ExtractIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Common",
+        "BuildingNameLoc": "Building.Centrifuge.DisplayName"
+    }
+}

@@ -1,0 +1,31 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.ReclaimedLog",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.ReclaimedLog",
+        "CycleDurationInHours": 0.5,
+        "Ingredients": [
+            {
+                "Id": "Plank",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Log",
+                "Amount": 1
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "",
+        "CyclesFuelLasts": 0,
+        "FuelCapacity": 0,
+        "CyclesCapacity": 10,
+        "Icon": "Sprites/Goods/LogIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Common",
+        "BuildingNameLoc": "Building.LumberMill.DisplayName"
+    }
+}

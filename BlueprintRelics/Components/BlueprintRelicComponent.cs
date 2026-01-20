@@ -1,5 +1,6 @@
 ﻿namespace BlueprintRelics.Components;
 
+[AddTemplateModule(typeof(BlueprintRelicSpec))]
 public class BlueprintRelicComponent(
     BlueprintRelicsRegistry registry
 ) : BaseComponent, IAwakableComponent, IFinishedStateListener, IBlockObjectDeletionBlocker
@@ -12,15 +13,11 @@ public class BlueprintRelicComponent(
 
 #nullable disable
     public BlueprintRelicSpec Spec { get; private set; }
-    DistrictBuilding districtBuilding;
 #nullable enable
-
-    public DistrictCenter ConnectedDistrict => districtBuilding.District;
 
     public void Awake()
     {
         Spec = GetComponent<BlueprintRelicSpec>();
-        districtBuilding = GetComponent<DistrictBuilding>();
     }
 
     public void OnEnterFinishedState() => registry.Register(this);

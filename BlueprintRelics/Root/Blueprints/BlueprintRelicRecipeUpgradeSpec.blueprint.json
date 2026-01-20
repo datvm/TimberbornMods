@@ -4,9 +4,8 @@
         "CapacityIncrease": 0.25,
         "AdditionalOutput": 1,
         "MaximumChoices": 3,
-        "ScienceRewardChance": 0.5,
-        "CapacityRewardChance": 0.5,
-        "TimeReductionRewardChance": 0.5,
-        "AdditionalOutputRewardChance": 1
+        "CapacityRewardChance": 30,
+        "TimeReductionRewardChance": 50,
+        "AdditionalOutputRewardChance": 100
     }
 }

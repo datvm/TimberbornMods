@@ -7,11 +7,14 @@ public class ModdableRecipeLockService(
     EntitySelectionService selectionService,
     ILoc t,
     ModdableRecipePersistentUnlocker persistentUnlocker,
-    IEnumerable<IRecipeLockProvider> providers
-) : ILoadableSingleton
+    IEnumerable<IRecipeLockProvider> providers,
+    DescriptionPanels descriptionPanels
+) : ILoadableSingleton, IUnloadableSingleton
 {
 
     readonly Dictionary<string, string> lockedRecipes = [];
+
+    public static ModdableRecipeLockService? Instance { get; private set; }
 
     public void Load()
     {
@@ -23,6 +26,8 @@ public class ModdableRecipeLockService(
                 Lock(id, loc, true);
             }
         }
+
+        Instance = this;
     }
 
     public void Lock(string id, string? reason) => Lock(id, reason, false);
@@ -39,7 +44,8 @@ public class ModdableRecipeLockService(
             throw new ArgumentException($"Recipe {id} is already locked with reason: {reason}");
         }
 
-        lockedRecipes[id] = reason ?? t.T("LV.MRec.DefaultReason");
+        reason ??= t.T("LV.MRec.DefaultReason");
+        lockedRecipes[id] = reason;
 
         UnselectRecipes(id);
 
@@ -47,6 +53,8 @@ public class ModdableRecipeLockService(
         {
             eb.Post(new ModdableRecipeLockedEvent(id, reason));
         }
+
+        OnRecipeStatusChanged();
     }
 
     void UnselectRecipes(string id)
@@ -65,6 +73,21 @@ public class ModdableRecipeLockService(
         ReselectManufactory();
     }
 
+    void OnRecipeStatusChanged()
+    {
+        RefreshDescriptionPanels();
+    }
+
+    void RefreshDescriptionPanels()
+    {
+        foreach (var p in descriptionPanels._descriptionPanels.Values)
+        {
+            p.Root.RemoveFromHierarchy();
+        }
+
+        descriptionPanels._descriptionPanels.Clear();
+    }
+
     public void ReselectManufactory()
     {
         var selecting = selectionService.SelectedObject;
@@ -81,6 +104,7 @@ public class ModdableRecipeLockService(
         lockedRecipes.Remove(id);
         eb.Post(new ModdableRecipeUnlockedEvent(id));
         ReselectManufactory();
+        OnRecipeStatusChanged();
     }
 
     public bool IsLocked(string id, [NotNullWhen(true)] out string? reason) => lockedRecipes.TryGetValue(id, out reason);
@@ -89,6 +113,10 @@ public class ModdableRecipeLockService(
         ? (ModdableRecipeLockStatus)(int)(specs.GetTitleVisibility(id) + 1)
         : ModdableRecipeLockStatus.Unlocked;
 
+    public void Unload()
+    {
+        Instance = null;
+    }
 }
 
 public enum ModdableRecipeLockStatus

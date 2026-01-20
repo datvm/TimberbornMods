@@ -1,0 +1,38 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.CaffeinatedCornRation",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.CaffeinatedCornRation",
+        "CycleDurationInHours": 0.5,
+        "Ingredients": [
+            {
+                "Id": "Corn",
+                "Amount": 1
+            },
+            {
+                "Id": "Coffee",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "CornRation",
+                "Amount": 10
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "Log",
+        "CyclesFuelLasts": 10,
+        "FuelCapacity": 5,
+        "CyclesCapacity": 10,
+        "Icon": "Sprites/Goods/CornRationIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Common",
+        "BuildingNameLoc": "Building.FoodFactory.DisplayName",
+        "Factions": [
+            "IronTeeth"
+        ]
+    }
+}

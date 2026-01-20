@@ -1,14 +1,15 @@
 ﻿namespace BlueprintRelics.UI;
 
+[BindFragment]
 public class BlueprintRelicFragment(
     ILoc t,
     BlueprintRelicCollectorService collectorService,
     IGoodService goodService,
-    BlueprintRewardUIController rewardUIController
-) : BaseEntityPanelFragment<BlueprintRelicComponent>
+    BlueprintRelicRewardUIController rewardUIController,
+    NamedIconProvider namedIconProvider,
+    DialogService diag
+) : BaseEntityPanelFragment<BlueprintRelicCollector>
 {
-
-    BlueprintRelicCollector? collector;
 
 #nullable disable
     ProgressBar pgbExpiry; Label lblExpiry;
@@ -16,28 +17,36 @@ public class BlueprintRelicFragment(
     Label lblConnection;
     ProgressBar pgbSteps; Label lblSteps;
     ProgressBar pgbCurrent; Label lblCurrent;
-    Label lblStepInfo;
     Button btnReward;
+    VisualElement lstStepRequirements;
+    Button btnNegotiate;
 #nullable enable
+
+    bool isShowingNegotiationCooldown;
 
     protected override void InitializePanel()
     {
         pgbExpiry = panel.AddProgressBar().SetColor(ProgressBarColor.Blue).SetMarginBottom();
         lblExpiry = pgbExpiry.AddProgressLabel();
 
-        chkPause = panel.AddToggle(t.T("LV.BRe.PauseExcavation"), onValueChanged: TogglePause).SetMarginBottom();
+        lblConnection = panel.AddGameLabel();
+        chkPause = panel.AddToggle(t.T("LV.BRe.PauseExcavation"), onValueChanged: TogglePause)
+            .SetWrap().SetMarginBottom().SetMaxSizePercent(100, null);
 
-        lblConnection = panel.AddGameLabel().SetMarginBottom();
+        var stepPanel = panel.AddChild().SetMarginBottom();
 
-        pgbSteps = panel.AddProgressBar().SetColor(ProgressBarColor.Green).SetMarginBottom(10);
+        pgbSteps = stepPanel.AddProgressBar().SetColor(ProgressBarColor.Green).SetMarginBottom(10);
         lblSteps = pgbSteps.AddProgressLabel();
 
-        pgbCurrent = panel.AddProgressBar().SetColor(ProgressBarColor.Green).SetMarginBottom(10);
+        pgbCurrent = stepPanel.AddProgressBar().SetColor(ProgressBarColor.Green).SetMarginBottom(10);
         lblCurrent = pgbCurrent.AddProgressLabel();
 
-        lblStepInfo = panel.AddGameLabel().SetMarginBottom();
+        stepPanel.AddGameLabel(t.T("LV.BRe.ExcInfo")).SetMarginBottom(10);
+        lstStepRequirements = stepPanel.AddChild().SetMarginBottom(10);
+        btnNegotiate = stepPanel.AddGameButtonPadded(t.T("LV.BRe.Negotiate"), onClick: RequestNegotiation, stretched: true);
 
-        btnReward = panel.AddEntityFragmentButton(t.T("LV.BRe.ChooseReward"), onClick: PickReward);
+        btnReward = panel.AddStretchedEntityFragmentButton(t.T("LV.BRe.ChooseReward"), onClick: PickReward, color: EntityFragmentButtonColor.Red);
+        btnReward.style.unityTextAlign = TextAnchor.MiddleCenter;
     }
 
     public override void ShowFragment(BaseComponent entity)
@@ -45,47 +54,74 @@ public class BlueprintRelicFragment(
         base.ShowFragment(entity);
         if (component is null) { return; }
 
-        collector = component.GetComponent<BlueprintRelicCollector>();
-
-        chkPause.SetValueWithoutNotify(collector.PauseCollecting);
-        lblStepInfo.text = DescribeStepInfo(collector);
+        UpdateRequirements();
+        chkPause.SetValueWithoutNotify(component.PauseCollecting);
     }
 
-    string DescribeStepInfo(BlueprintRelicCollector collector)
+    void UpdateRequirements()
     {
-        return t.T("LV.BRe.ExcInfo",
-            DescribeGoodList(),
-            collector.ScienceRequirement,
-            collector.StepDays.ToString("0.0"));
+        if (!component) { return; }
 
-        string DescribeGoodList()
-            => string.Join(Environment.NewLine, collector.RequiredGoods
-                .Select(g => t.T("LV.BRe.ExcGood", goodService.GetGood(g.GoodId).DisplayName.Value, g.Amount)));
+        lstStepRequirements.Clear();
+        var row = lstStepRequirements.AddRow().AlignItems().JustifyContent(Justify.SpaceEvenly);
+        row.AddIconSpan()
+            .SetVertical()
+            .SetContent(namedIconProvider.Clock, prefixText: t.T("Time.DaysShort", component!.StepDays.ToString("0.0")), size: 24);
+        row.AddIconSpan().SetScience(namedIconProvider, component.ScienceRequirement.ToString());
+
+        foreach (var g in component.RequiredGoods)
+        {
+            row.AddIconSpan().SetGood(goodService, g.GoodId, g.Amount.ToString()).SetVertical();
+        }
+    }
+
+    async void RequestNegotiation()
+    {
+        if (!component ||
+            !component!.CanNegotiate ||
+            !await diag.ConfirmAsync(t.T("LV.BRe.NegotiateConfirm", component.NegotiateCooldownDays)))
+        {
+            return;
+        }
+
+        component.Negotiate();
+        UpdateRequirements();
     }
 
     public override void UpdateFragment()
     {
-        if (!collector) { return; }
+        if (!component) { return; }
 
-        btnReward.enabledSelf = collector!.Finished;
+        btnReward.enabledSelf = component!.Finished;
+        btnNegotiate.enabledSelf = component.CanNegotiate;
+        if (component.NegotiateCooldownTicks > 0)
+        {
+            btnNegotiate.text = t.T("LV.BRe.NegotiateCooldown", (GetDaysFromTicks(component.NegotiateCooldownTicks) * 24f).ToString("0.0"));
+            isShowingNegotiationCooldown = true;
+        }
+        else if (isShowingNegotiationCooldown)
+        {
+            btnNegotiate.text = t.T("LV.BRe.Negotiate");
+            isShowingNegotiationCooldown = false;
+        }
 
-        var remainingDays = GetDaysFromTicks(collector.ExpiryTicks);
-        pgbExpiry.SetProgress(remainingDays / collector.TotalDays, lblExpiry, t.T("LV.BRe.ExpiresIn", remainingDays.ToString("0.0")));
+        var remainingDays = GetDaysFromTicks(component.ExpiryTicks);
+        pgbExpiry.SetProgress(remainingDays / component.TotalDays, lblExpiry, t.T("LV.BRe.ExpiresIn", remainingDays.ToString("0.0")));
 
-        var district = component?.ConnectedDistrict;
+        var district = component.ConnectedDistrict;
         lblConnection.text = district
             ? t.T("LV.BRe.Connected", district!.DistrictName)
             : t.T("LV.BRe.ConnectPrompt");
 
-        var completedSteps = collector.TotalSteps - collector.StepsLeft;
-        pgbSteps.SetProgress((float)completedSteps / collector.TotalSteps,
-            lblSteps, t.T("LV.BRe.ExcSteps", completedSteps, collector.TotalSteps));
+        var completedSteps = component.TotalSteps - component.StepsLeft;
+        pgbSteps.SetProgress((float)completedSteps / component.TotalSteps,
+            lblSteps, t.T("LV.BRe.ExcSteps", completedSteps, component.TotalSteps));
 
-        if (collector.IsExcavating)
+        if (component.IsExcavating)
         {
-            var remainingStepDays = GetDaysFromTicks(collector.StepTickLeft);
-            var currStepCompletedInDays = collector.StepDays - remainingStepDays;
-            var currStepProgress = currStepCompletedInDays / collector.StepDays;
+            var remainingStepDays = GetDaysFromTicks(component.StepTickLeft);
+            var currStepCompletedInDays = component.StepDays - remainingStepDays;
+            var currStepProgress = currStepCompletedInDays / component.StepDays;
 
             pgbCurrent.SetProgress(currStepProgress,
                 lblCurrent, t.T("LV.BRe.CurrStep", remainingStepDays.ToString("0.0")));
@@ -101,15 +137,16 @@ public class BlueprintRelicFragment(
     public override void ClearFragment()
     {
         base.ClearFragment();
-        collector = null;
+        component = null;
+        lstStepRequirements.Clear();
     }
 
     void PickReward()
     {
-        rewardUIController.PickReward(collector!);
+        rewardUIController.PickReward(component!);
     }
 
-    void TogglePause(bool v) => collector!.PauseCollecting = v;
+    void TogglePause(bool v) => component!.PauseCollecting = v;
 
     float GetDaysFromTicks(int ticks) => ticks / collectorService.TicksInDay;
 

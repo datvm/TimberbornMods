@@ -1,0 +1,39 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.VacuumConcentration",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.VacuumConcentration",
+        "CycleDurationInHours": 10.0,
+        "Ingredients": [
+            {
+                "Id": "Badwater",
+                "Amount": 20
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Extract",
+                "Amount": 5
+            },
+            {
+                "Id": "Water",
+                "Amount": 2
+            },
+            {
+                "Id": "Dirt",
+                "Amount": 1
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "",
+        "CyclesFuelLasts": 0,
+        "FuelCapacity": 0,
+        "CyclesCapacity": 3,
+        "Icon": "Sprites/Goods/ExtractIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Rare",
+        "BuildingNameLoc": "Building.Centrifuge.DisplayName"
+    }
+}

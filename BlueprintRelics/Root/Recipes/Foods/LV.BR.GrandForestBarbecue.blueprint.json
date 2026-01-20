@@ -1,0 +1,50 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.GrandForestBarbecue",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.GrandForestBarbecue",
+        "CycleDurationInHours": 0.52,
+        "Ingredients": [
+            {
+                "Id": "Chestnut",
+                "Amount": 1
+            },
+            {
+                "Id": "Potato",
+                "Amount": 1
+            },
+            {
+                "Id": "Spadderdock",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "GrilledChestnut",
+                "Amount": 2
+            },
+            {
+                "Id": "GrilledPotato",
+                "Amount": 4
+            },
+            {
+                "Id": "GrilledSpadderdock",
+                "Amount": 3
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "PineResin",
+        "CyclesFuelLasts": 20,
+        "FuelCapacity": 5,
+        "CyclesCapacity": 30,
+        "Icon": "Sprites/Recipes/GrandForestBarbecueIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Rare",
+        "BuildingNameLoc": "Building.Grill.DisplayName",
+        "Factions": [
+            "Folktails"
+        ]
+    }
+}

@@ -15,14 +15,11 @@ public record BlueprintRelicRecipeUpgradeSpec : ComponentSpec
     public int MaximumChoices { get; init; }
 
     [Serialize]
-    public float ScienceRewardChance { get; init; }
+    public int CapacityRewardChance { get; init; }
 
     [Serialize]
-    public float CapacityRewardChance { get; init; }
+    public int TimeReductionRewardChance { get; init; }
 
     [Serialize]
-    public float TimeReductionRewardChance { get; init; }
-
-    [Serialize]
-    public float AdditionalOutputRewardChance { get; init; }
+    public int AdditionalOutputRewardChance { get; init; }
 }

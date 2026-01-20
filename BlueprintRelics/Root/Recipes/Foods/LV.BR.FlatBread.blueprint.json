@@ -1,0 +1,38 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.FlatBread",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.FlatBread",
+        "CycleDurationInHours": 3.0,
+        "Ingredients": [
+            {
+                "Id": "Wheat",
+                "Amount": 2
+            },
+            {
+                "Id": "Water",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Bread",
+                "Amount": 8
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "PineResin",
+        "CyclesFuelLasts": 10,
+        "FuelCapacity": 5,
+        "CyclesCapacity": 10,
+        "Icon": "Sprites/Goods/BreadIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Common",
+        "BuildingNameLoc": "Building.Gristmill.DisplayName",
+        "Factions": [
+            "Folktails"
+        ]
+    }
+}

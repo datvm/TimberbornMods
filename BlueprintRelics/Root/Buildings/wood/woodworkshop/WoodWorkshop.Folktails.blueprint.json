@@ -1,0 +1,8 @@
+{
+    "ManufactorySpec": {
+        "ProductionRecipeIds#append": [
+            "LV.BR.CarefulReclamation",
+            "LV.BR.HardenedGears"
+        ]
+    }
+}

@@ -1,0 +1,42 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.CaffeinatedEggplantRation",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.CaffeinatedEggplantRation",
+        "CycleDurationInHours": 0.5,
+        "Ingredients": [
+            {
+                "Id": "Eggplant",
+                "Amount": 1
+            },
+            {
+                "Id": "CanolaOil",
+                "Amount": 1
+            },
+            {
+                "Id": "Coffee",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "EggplantRation",
+                "Amount": 12
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "Log",
+        "CyclesFuelLasts": 10,
+        "FuelCapacity": 5,
+        "CyclesCapacity": 10,
+        "Icon": "Sprites/Goods/EggplantRationIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Common",
+        "BuildingNameLoc": "Building.FoodFactory.DisplayName",
+        "Factions": [
+            "IronTeeth"
+        ]
+    }
+}

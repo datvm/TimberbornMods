@@ -1,0 +1,38 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.SawdustBread",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.SawdustBread",
+        "CycleDurationInHours": 1.75,
+        "Ingredients": [
+            {
+                "Id": "WheatFlour",
+                "Amount": 2
+            },
+            {
+                "Id": "Plank",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Bread",
+                "Amount": 15
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "Log",
+        "CyclesFuelLasts": 5,
+        "FuelCapacity": 5,
+        "CyclesCapacity": 20,
+        "Icon": "Sprites/Goods/BreadIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Uncommon",
+        "BuildingNameLoc": "Building.Bakery.DisplayName",
+        "Factions": [
+            "Folktails"
+        ]
+    }
+}

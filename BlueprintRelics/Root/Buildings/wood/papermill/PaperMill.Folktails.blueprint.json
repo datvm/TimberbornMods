@@ -1,0 +1,7 @@
+{
+    "ManufactorySpec": {
+        "ProductionRecipeIds#append": [
+            "LV.BR.StarchAssistedPaper"
+        ]
+    }
+}

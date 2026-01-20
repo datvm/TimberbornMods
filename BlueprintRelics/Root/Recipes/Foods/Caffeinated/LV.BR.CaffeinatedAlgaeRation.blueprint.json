@@ -1,0 +1,42 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.CaffeinatedAlgaeRation",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.CaffeinatedAlgaeRation",
+        "CycleDurationInHours": 0.25,
+        "Ingredients": [
+            {
+                "Id": "Algae",
+                "Amount": 1
+            },
+            {
+                "Id": "CanolaOil",
+                "Amount": 1
+            },
+            {
+                "Id": "Coffee",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "AlgaeRation",
+                "Amount": 12
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "Log",
+        "CyclesFuelLasts": 10,
+        "FuelCapacity": 5,
+        "CyclesCapacity": 10,
+        "Icon": "Sprites/Goods/AlgaeRationIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Common",
+        "BuildingNameLoc": "Building.FoodFactory.DisplayName",
+        "Factions": [
+            "IronTeeth"
+        ]
+    }
+}

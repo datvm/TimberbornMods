@@ -1,5 +1,6 @@
 ﻿namespace BlueprintRelics.Services;
 
+[BindSingleton]
 public class BlueprintRelicCollectorService(
     IDayNightCycle dayNightCycle,
     ScienceService scienceService,
@@ -21,21 +22,38 @@ public class BlueprintRelicCollectorService(
 
     public ImmutableArray<GoodAmount> GenerateGoodRequirements(BlueprintRelicSpec spec)
     {
-        var goods = spec.PossibleRequiredGoods
-            .Where(g => goodService.HasGood(g.Id))
-            .ToArray();
+        Dictionary<int, List<GoodAmount>> requirementGroups = [];
 
-        Dictionary<string, int> requiredGoods = [];
-        for (int i = 0; i < spec.RequiredGoodsCount; i++)
+        foreach (var group in spec.RequiredGoodGroups)
         {
-            var index = Random.Range(0, goods.Length);
-            var good = goods[index];
+            var list = requirementGroups.GetOrAdd(group.Index);
+            var amount = group.MaxAmount;
 
-            // Allow duplicates, just add to the amount:
-            requiredGoods[good.Id] = requiredGoods.GetValueOrDefault(good.Id, 0) + RandomMinMax(good.Amount);
+            foreach (var good in group.GoodIds)
+            {
+                if (goodService.HasGood(good))
+                {
+                    list.Add(new GoodAmount(good, amount));
+                }
+            }
         }
 
-        return [.. requiredGoods.Select(kv => new GoodAmount(kv.Key, kv.Value))];
+        var groups = requirementGroups.OrderBy(kv => kv.Key).Select(kv => kv.Value).ToArray();
+        var result = new GoodAmount[groups.Length];
+
+        for (int i = 0; i < result.Length; i++)
+        {
+            var goods = groups[i];
+
+            var goodIndex = Random.RandomRangeInt(0, goods.Count);
+            var good = goods[goodIndex];
+
+            var amount = RandomMinMax(good.Amount);
+
+            result[i] = new(good.GoodId, amount);
+        }
+
+        return [.. result];
     }
 
     public bool TryCollecting(BlueprintRelicCollector collector, DistrictCenter district)
@@ -114,6 +132,6 @@ public class BlueprintRelicCollectorService(
         }
     }
 
-    public static int RandomMinMax(int max) => Mathf.FloorToInt(Random.Range(MinRequirementFactor * max, max));
+    public static int RandomMinMax(int max) => Math.Max(1, Mathf.FloorToInt(Random.Range(MinRequirementFactor * max, max)));
 
 }

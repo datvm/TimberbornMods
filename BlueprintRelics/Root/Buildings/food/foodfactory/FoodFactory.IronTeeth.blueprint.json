@@ -1,0 +1,9 @@
+﻿{
+    "ManufactorySpec": {
+        "ProductionRecipeIds#append": [
+            "LV.BR.CaffeinatedAlgaeRation",
+            "LV.BR.CaffeinatedCornRation",
+            "LV.BR.CaffeinatedEggplantRation"
+        ]
+    }
+}

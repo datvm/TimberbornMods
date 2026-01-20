@@ -1,0 +1,36 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.LaminatedCasting",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.LaminatedCasting",
+        "CycleDurationInHours": 3.0,
+        "Ingredients": [
+            {
+                "Id": "ScrapMetal",
+                "Amount": 2
+            },
+            {
+                "Id": "TreatedPlank",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "MetalBlock",
+                "Amount": 2
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "Log",
+        "CyclesFuelLasts": 5,
+        "FuelCapacity": 13,
+        "CyclesCapacity": 13,
+        "Icon": "Sprites/Goods/MetalBlockIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Rare",
+        "BuildingNameLoc": "Building.Smelter.DisplayName",
+        "Factions": [ "Folktails" ]
+    }
+}
