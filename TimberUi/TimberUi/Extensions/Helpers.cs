@@ -3,55 +3,73 @@
 public static partial class UiBuilderExtensions
 {
 
-    public static T Initialize<T>(this T el, VisualElementLoader loader) where T : VisualElement
-        => el.Initialize(loader._visualElementInitializer);
-
-    public static T Initialize<T>(this T el, VisualElementInitializer initializer) where T : VisualElement
+    extension<T>(T el) where T : VisualElement
     {
-        initializer.InitializeVisualElement(el);
-        return el;
-    }
+        public T Initialize(VisualElementLoader loader)
+            => el.Initialize(loader._visualElementInitializer);
 
-    public static T PrintVisualTree<T>(this T el, bool printTemplates) where T : VisualElement
-        => PrintVisualTree(el, options: UxmlExporter.ExportOptions.PrintTemplate);
-
-    public static T PrintVisualTree<T>(this T el, string? templateId = default, UxmlExporter.ExportOptions options = default) where T : VisualElement
-    {
-        var tree = DescribeVisualTree(el, templateId, options);
-        Debug.Log(tree);
-
-        return el;
-    }
-
-    public static string DescribeVisualTree<T>(this T el, string? templateId = default, UxmlExporter.ExportOptions options = default) where T : VisualElement
-    {
-        templateId ??= el.fullTypeName;
-
-        return UxmlExporter.Dump(el, templateId, options);
-    }
-
-    public static T PrintStylesheet<T>(this T el, UssExportOptions? options = default) where T : VisualElement
-    {
-        for (int i = 0; i < el.styleSheets.count; i++)
+        public T Initialize(VisualElementInitializer initializer)
         {
-            Debug.Log("Stylesheet " + i);
-            el.styleSheets[i].Print();
+            initializer.InitializeVisualElement(el);
+            return el;
         }
 
-        return el;
+        public T PrintVisualTree(bool printTemplates)
+            => PrintVisualTree(el, options: UxmlExporter.ExportOptions.PrintTemplate);
+
+        public T PrintVisualTree(string? templateId = default, UxmlExporter.ExportOptions options = default)
+        {
+            var tree = DescribeVisualTree(el, templateId, options);
+            Debug.Log(tree);
+
+            return el;
+        }
+
+        public T SetName(string name)
+        {
+            el.name = name;
+            return el;
+        }
+
+        public string DescribeVisualTree(string? templateId = default, UxmlExporter.ExportOptions options = default)
+        {
+            templateId ??= el.fullTypeName;
+
+            return UxmlExporter.Dump(el, templateId, options);
+        }
+
+        [Obsolete("Stylesheet methods are no longer supported.")]
+        public T PrintStylesheet(UssExportOptions? options = default)
+        {
+            for (int i = 0; i < el.styleSheets.count; i++)
+            {
+                Debug.Log("Stylesheet " + i);
+                el.styleSheets[i].Print();
+            }
+
+            return el;
+        }
+
     }
 
-    public static T Print<T>(this T stylesheet, UssExportOptions? options = default) where T : StyleSheet
+    extension<T>(T stylesheet) where T : StyleSheet
     {
-        var tree = Describe(stylesheet, options);
-        Debug.Log(tree);
 
-        return stylesheet;
+        [Obsolete("Stylesheet methods are no longer supported.")]
+        public T Print(UssExportOptions? options = default)
+        {
+            var tree = Describe(stylesheet, options);
+            Debug.Log(tree);
+
+            return stylesheet;
+        }
+
+        [Obsolete("Stylesheet methods are no longer supported.")]
+        public string Describe(UssExportOptions? options = default)
+        {
+            return StyleSheetToUss.ToUssString(stylesheet, options);
+        }
     }
 
-    public static string Describe<T>(this T stylesheet, UssExportOptions? options = default) where T : StyleSheet
-    {
-        return StyleSheetToUss.ToUssString(stylesheet, options);
-    }
 
 }

@@ -3,27 +3,30 @@
 public static partial class UiBuilderExtensions
 {
 
-    public static string Bold(this string input) => $"<b>{input}</b>";
-    public static string Italic(this string input) => $"<i>{input}</i>";
-    public static string Size(this string input, int size) => $"<size={size}>{input}</size>";
-    public static string Strikethrough(this string input) => $"<s>{input}</s>";
-
-    public static string Strikethrough(this string input, bool strikethrough)
-        => strikethrough ? input.Strikethrough() : input;
-
-    public static string Color(this string input, string color) 
-        => $"<color={(color.StartsWith('#') ? color : ('#' + color))}>{input}</color>";
-
-    public static string Color(this string input, TimberbornTextColor color)
+    extension(string input)
     {
-        return input.Color(color switch
+        public string Bold() => $"<b>{input}</b>";
+        public string Italic() => $"<i>{input}</i>";
+        public string Size(int size) => $"<size={size}>{input}</size>";
+        public string Strikethrough() => $"<s>{input}</s>";
+        public string Highlight() => input.Color(TimberbornTextColor.Yellow);
+
+        public string Strikethrough(bool strikethrough)
+            => strikethrough ? input.Strikethrough() : input;
+
+        public string Color(string color)
+            => $"<color={(color.StartsWith('#') ? color : ('#' + color))}>{input}</color>";
+
+        public string Color(TimberbornTextColor color) => input.Color(color switch
         {
             TimberbornTextColor.Green => "#59FF61",
             TimberbornTextColor.Red => "#FF4D4D",
-            TimberbornTextColor.Solid => "#FFFF19",
+            TimberbornTextColor.Yellow => "#FFFF19",
             _ => "#000000",
         });
     }
+
+
 
 
 }
@@ -32,6 +35,7 @@ public enum TimberbornTextColor
 {
     Green,
     Red,
+    [Obsolete($"Use {nameof(Yellow)} instead.")]
     Solid = 2,
     Yellow = 2,
 }

@@ -346,25 +346,7 @@ public class StyleSheetToUss
 
     public static string ToUssString(StyleSheet sheet, UssExportOptions options = null)
     {
-        if (options == null)
-        {
-            options = new UssExportOptions();
-        }
-        var sb = new StringBuilder();
-        if (sheet.complexSelectors != null)
-        {
-            for (var complexSelectorIndex = 0; complexSelectorIndex < sheet.complexSelectors.Length; ++complexSelectorIndex)
-            {
-                var complexSelector = sheet.complexSelectors[complexSelectorIndex];
-                ToUssString(sheet, options, complexSelector, sb);
-                if (complexSelectorIndex != sheet.complexSelectors.Length - 1)
-                {
-                    sb.Append("\n");
-                }
-            }
-        }
-
-        return sb.ToString();
+        throw new NotSupportedException("No longer supported");
     }
 
     public static void WriteStyleSheet(StyleSheet sheet, string path, UssExportOptions options = null)

@@ -1,5 +1,6 @@
 ﻿namespace TimberUi.Services;
 
+[BindSingleton(Contexts = BindAttributeContext.MainMenu)]
 public class ModUpdateService(
     IEnumerable<IModUpdateNotifier> notifiers,
     ModRepository modRepo,

@@ -1,5 +1,6 @@
 ﻿namespace TimberUi.Services.EntityPanelOrder;
 
+[BindSingleton(Contexts = BindAttributeContext.NonMenu)]
 public class EntityFragmentOrderService(
     IEnumerable<IEntityFragmentOrder> orders,
 
