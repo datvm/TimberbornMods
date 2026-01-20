@@ -139,6 +139,7 @@ public class TopBarConfigProvider(
             }
         }
 
+        ClearSelectingGoods();
         GroupsChanged();
     }
 

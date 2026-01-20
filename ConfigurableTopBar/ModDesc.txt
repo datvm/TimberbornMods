@@ -11,5 +11,6 @@ Notes:
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.0.3: Using "Move selected goods here" now deselect the moved goods.
 v10.0.2: Should work with Update 1.0.5 (Dec 03)
 v10.0.1: Fixed conflict with modded groups. Thanks @trifonius for reporting!
