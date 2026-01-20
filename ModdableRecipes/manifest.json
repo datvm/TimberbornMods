@@ -1,6 +1,6 @@
 ﻿{
     "Name": "Moddable Recipes",
-    "Version": "10.0.0",
+    "Version": "10.0.1",
     "Id": "ModdableRecipes",
     "MinimumGameVersion": "1.0.0",
     "Description": "Mod support for recipes",
