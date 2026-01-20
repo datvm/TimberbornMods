@@ -28,27 +28,21 @@ public static class IrrigationPatches
         return false;
     }
 
-    [HarmonyPrefix, HarmonyPatch(typeof(MoistureCalculationJob), nameof(MoistureCalculationJob.GetInitialMoisturizerRange))]
-    public static bool PatchInitialMoisturizerRange(int index3D, ref float __result, MoistureCalculationJob __instance)
+    [HarmonyPrefix, HarmonyPatch(typeof(MoistureCalculationTask), nameof(MoistureCalculationTask.GetInitialMoisturizerRange))]
+    public static bool PatchInitialMoisturizerRange(int index3D, ref float __result, MoistureCalculationTask __instance)
     {
         __result = 2 * __instance._clusterSaturation[index3D] * (MSettings.MaxSpread / DefaultMaxSpread);
         return false;
     }
 
-    [HarmonyTranspiler, HarmonyPatch(typeof(MoistureCalculationJob), nameof(MoistureCalculationJob.CalculateMoistureForCell))]
+    [HarmonyTranspiler, HarmonyPatch(typeof(MoistureCalculationTask), nameof(MoistureCalculationTask.CalculateMoistureForCell))]
     public static IEnumerable<CodeInstruction> PatchMaxSpread(IEnumerable<CodeInstruction> instructions)
     {
         foreach (var i in instructions)
         {
-            if (i.opcode == OpCodes.Ldc_R4 && (float?)i.operand == DefaultMaxSpread)
-            {
-                Debug.Log($"Changing max spread from {i.operand} to {MSettings.MaxSpread}");
-                yield return new(OpCodes.Ldc_R4, (float)MSettings.MaxSpread);
-            }
-            else
-            {
-                yield return i;
-            }
+            yield return (i.opcode == OpCodes.Ldc_R4 && (float?)i.operand == DefaultMaxSpread)
+                ? new(OpCodes.Ldc_R4, (float)MSettings.MaxSpread)
+                : i;
         }
     }
 

@@ -1,0 +1,24 @@
+﻿Soneone said the only mod that nobody made was for irrigation system so I make this one :D You decide how your game's water behaves!
+
+By default, this mod increases the irrigation spread to 24 (from 16) and reduces the cost of going up to 3 (from 6). You can further configure it in the Mod Settings: from the Main Menu -> Mods -> Settings button next to the mod name.
+
+[h3]For Soil Irrigation (Moisture)[/h3]
+
+- Minimum Water Contamination: The minimum water contamination % where water stops giving full irrigation. Game default: 0.01, meaning if your water is 1% contaminated or below, it will give full irrigation.
+- Maximum Water Contamination: The maximum water contamination % where water stops irrigating. Game default: 0.53, meaning if your water is 53% contaminated or above, it will not irrigate.
+- Vertical Spread Cost: The cost multiplier for upward spread. Game default: 6, meaning it generally costs 6 times more to spread water up 1 tile.
+- Max Spread: The maximum spread distance in blocks. Game default: 16, meaning a saturated 3x3 blocks will irrigate up to 16 blocks away.",
+
+[h3]For Soil Contamination[/h3]
+
+- Minimum Water for Soil Contamination: The minimum water contamination % where water starts contaminate soil. Game default: 0.5, meaning if your water is 50% contaminated or above, it will start contaminating soil.
+- Contamination Max Spread: The maximum spread distance in blocks for contaminated water. Game default: 7, meaning contaminated water will contaminate blocks up to 7 blocks away.
+- Contamination Vertical Spread Cost: The cost multiplier for upward spread of contamination. Game default: 5, meaning it generally costs 5 times more to spread contamination up.
+
+Feel free to suggest anything I may be missing. And shamelessly promoting [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3430040592]my other mod Super Cursor[/url] used to get info on how far irrigation and contamination can reach!
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods
+
+v10.0.0: Should work with Timberborn v1.0.
+v7.0.1: Should work with June 2nd update.

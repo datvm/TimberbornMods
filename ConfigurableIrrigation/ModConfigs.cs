@@ -2,7 +2,7 @@
 
 [Context("MainMenu")]
 [Context("Game")]
-public class SettingsConfig : Configurator
+public class MModConfigs : Configurator
 {
     public override void Configure()
     {
@@ -10,7 +10,7 @@ public class SettingsConfig : Configurator
     }
 }
 
-public class ModStater : IModStarter
+public class MStarter : IModStarter
 {
 
     public void StartMod(IModEnvironment modEnvironment)
