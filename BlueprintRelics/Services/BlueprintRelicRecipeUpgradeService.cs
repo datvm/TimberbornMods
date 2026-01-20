@@ -1,10 +1,13 @@
 ﻿namespace BlueprintRelics.Services;
 
+[BindSingleton]
 public class BlueprintRelicRecipeUpgradeService(
     ISingletonLoader loader,
     ISpecService specs,
     LiveRecipeModifierService recipeModifier,
-    RecipeSpecService recipeSpecService
+    RecipeSpecService recipeSpecService,
+    ModdableRecipeLockService locker,
+    TemplateService templateService
 ) : ILoadableSingleton, ISaveableSingleton
 {
     static readonly SingletonKey SaveKey = new(nameof(BlueprintRelicRecipeUpgradeService));
@@ -14,21 +17,43 @@ public class BlueprintRelicRecipeUpgradeService(
     public IReadOnlyDictionary<string, RecipeUpgradeRecord> Upgrades => upgrades;
 
     public BlueprintRelicRecipeUpgradeSpec UpgradeSpec { get; private set; } = null!;
+    ImmutableArray<string> allRecipes = [];
 
     public void Load()
     {
         UpgradeSpec = specs.GetSingleSpec<BlueprintRelicRecipeUpgradeSpec>();
         LoadSavedData();
         ApplyLoadingTimeUpgrades();
+
+        GetAllRecipes();
+    }
+
+    void GetAllRecipes()
+    {
+        var manufactories = templateService.GetAll<ManufactorySpec>();
+        allRecipes = [.. manufactories.SelectMany(q => q.ProductionRecipeIds).Distinct()];
     }
 
     public RecipeUpgradeRecord GetOrCreate(string id) => upgrades.GetOrAdd(id, () => new(id));
+
+    public RecipeSpec GetRandomUnlockedRecipe()
+    {
+        while (true)
+        {
+            var id = allRecipes[Random.RandomRangeInt(0, allRecipes.Length)];
+            if (!locker.IsLocked(id, out _))
+            {
+                return recipeSpecService.GetRecipe(id);
+            }
+        }
+    }
 
     public void UpgradeCapacity(string recipeId)
     {
         var record = GetOrCreate(recipeId);
         record.CapacityUpgrades++;
 
+        var rep = recipeSpecService.GetRecipe(recipeId);
         recipeModifier.Modify(recipeId, curr => curr with
         {
             CyclesCapacity = curr.CyclesCapacity + GetNextAdditionalCapacity(curr.CyclesCapacity)
@@ -68,15 +93,16 @@ public class BlueprintRelicRecipeUpgradeService(
             };
         });
     }
-    public GoodAmountSpec[] GetOutputUpgradeInfo(RecipeSpec spec, string outputId)
+
+    public IEnumerable<GoodAmountSpec> GetOutputUpgradeInfo(RecipeSpec spec, string outputId)
     {
         var index = FindOutputIndex(spec, outputId);
 
-        return [.. spec.Products
+        return spec.Products
             .Select((p, i) => i == index
                 ? p with { Amount = p.Amount + UpgradeSpec.AdditionalOutput }
                 : p
-            )];
+            );
     }
     int FindOutputIndex(RecipeSpec spec, string outputId)
     {

@@ -1,0 +1,42 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.CarefulReclamation",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.CarefulReclamation",
+        "CycleDurationInHours": 12.0,
+        "Ingredients": [
+            {
+                "Id": "Plank",
+                "Amount": 4
+            },
+            {
+                "Id": "PineResin",
+                "Amount": 4
+            }
+        ],
+        "Products": [
+            {
+                "Id": "TreatedPlank",
+                "Amount": 4
+            },
+            {
+                "Id": "Log",
+                "Amount": 1
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "",
+        "CyclesFuelLasts": 0,
+        "FuelCapacity": 0,
+        "CyclesCapacity": 2,
+        "Icon": "Sprites/Recipes/CarefulReclamationIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Common",
+        "BuildingNameLoc": "Building.WoodWorkshop.DisplayName",
+        "Factions": [
+            "Folktails"
+        ]
+    }
+}

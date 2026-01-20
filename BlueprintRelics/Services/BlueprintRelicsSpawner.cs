@@ -1,5 +1,6 @@
 ﻿namespace BlueprintRelics.Services;
 
+[BindSingleton]
 public class BlueprintRelicsSpawner(
     EventBus eb,
     ISpecService specs,

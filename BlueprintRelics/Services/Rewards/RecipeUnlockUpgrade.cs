@@ -1,18 +1,15 @@
 ﻿namespace BlueprintRelics.Services.Rewards;
 
 public class RecipeUnlockUpgrade(
-    RecipeSpec recipeSpec,
-    BlueprintRelicRecipeRarity rarity,
-    ModdableRecipeLockService locker,
-    ILoc t
+    BlueprintRelicRecipePair spec,
+    BlueprintRelicRecipeService recipeService
 ) : IRelicReward
 {
-    public RecipeSpec RecipeSpec { get; } = recipeSpec;
-    public BlueprintRelicRecipeRarity Rarity { get; } = rarity;
-    public string Title => t.T("LV.BRe.RewardUnlock");
+    public BlueprintRelicRecipePair Spec { get; } = spec;
+    public string TitleLoc => "LV.BRe.RewardUnlock";
 
     public void Apply()
     {
-        locker.Unlock(RecipeSpec.Id);
+        recipeService.Unlock(Spec.Recipe.Id);
     }
 }

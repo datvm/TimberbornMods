@@ -2,6 +2,6 @@
 
 public interface IRelicReward
 {
-    string Title { get; }
+    string TitleLoc { get; }
     void Apply();
 }

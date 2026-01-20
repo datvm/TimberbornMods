@@ -1,28 +1,25 @@
 ﻿namespace BlueprintRelics.UI;
 
-public class BlueprintRewardUIController(
-    BlueprintRelicRecipeUpgradeService upgradeService,
+[BindSingleton]
+public class BlueprintRelicRewardUIController(
     IEnumerable<IRewardGenerator> rewardGenerators,
     IContainer container,
-    EntityService entityService
-)
+    EntityService entityService,
+    InputService inputService
+) : IInputProcessor, ILoadableSingleton
 {
-    public static readonly ImmutableArray<BlueprintRelicSize> AllSizes = [..
-        Enum.GetValues(typeof(BlueprintRelicSize))
-        .Cast<BlueprintRelicSize>()
-        .OrderBy(q => q)];
 
     readonly ImmutableArray<IRewardGenerator> rewardGenerators = OrganizeGenerators(rewardGenerators);
     static ImmutableArray<IRewardGenerator> OrganizeGenerators(IEnumerable<IRewardGenerator> generators)
     {
-        var arr = new IRewardGenerator[AllSizes.Length];
+        var arr = new IRewardGenerator[BlueprintRelicRecipeRegistry.AllSizes.Length];
 
         foreach (var g in generators)
         {
-            arr[(int)g.ForSize] = g;
+            arr[(int)g.Size] = g;
         }
 
-        foreach (var s in AllSizes)
+        foreach (var s in BlueprintRelicRecipeRegistry.AllSizes)
         {
             if (arr[(int)s] is null)
             {
@@ -33,6 +30,11 @@ public class BlueprintRewardUIController(
         return [.. arr];
     }
 
+    public void Load()
+    {
+        inputService.AddInputProcessor(this);
+    }
+
     public async void PickReward(BlueprintRelicCollector collector)
     {
         if (!collector.Finished)
@@ -40,10 +42,11 @@ public class BlueprintRewardUIController(
             throw new InvalidOperationException("Cannot pick reward from an unfinished blueprint relic collector.");
         }
 
-        var rewards = rewardGenerators[(int)collector.Size].GenerateRewards(collector, upgradeService.UpgradeSpec);
+        var rewards = rewardGenerators[(int)collector.Size].GenerateRewards(collector);
 
         var diag = container.GetInstance<RelicRewardDialog>();
         diag.SetRewards(rewards);
+        diag.OnUnlockedDialogRequested += ShowRelicUnlockDialog;
 
         var selected = await diag.ShowDialogAsync();
         if (selected is null)
@@ -55,6 +58,22 @@ public class BlueprintRewardUIController(
             selected.Apply();
             entityService.Delete(collector);
         }
+    }
+
+    public async void ShowRelicUnlockDialog()
+    {
+        await container.GetInstance<RelicUpgradesDialog>().ShowAsync();
+    }
+
+    public bool ProcessInput()
+    {
+        if (inputService.IsKeyDown("OpenRelicUnlockDialog"))
+        {
+            ShowRelicUnlockDialog();
+            return true;
+        }
+
+        return false;
     }
 
 }

@@ -1,0 +1,15 @@
+﻿{
+    "KeyBindingSpec": {
+        "Id": "OpenRelicUnlockDialog",
+        "GroupId": "UI",
+        "LocKey": "LV.BRe.OpenUpgradeDialogHotKey",
+        "Order": 700,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/u",
+        "InputModifiers": "Ctrl, Shift",
+        "Unchangeable": false
+    }
+}

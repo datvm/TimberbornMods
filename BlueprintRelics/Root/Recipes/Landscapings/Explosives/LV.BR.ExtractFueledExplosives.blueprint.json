@@ -1,0 +1,35 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.ExtractFueledExplosives",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.ExtractFueledExplosives",
+        "CycleDurationInHours": 3.0,
+        "Ingredients": [
+            {
+                "Id": "Badwater",
+                "Amount": 5
+            },
+            {
+                "Id": "Extract",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Explosives",
+                "Amount": 2
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "",
+        "CyclesFuelLasts": 0,
+        "FuelCapacity": 0,
+        "CyclesCapacity": 5,
+        "Icon": "Sprites/Goods/ExplosivesIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Common",
+        "BuildingNameLoc": "Building.ExplosivesFactory.DisplayName"
+    }
+}

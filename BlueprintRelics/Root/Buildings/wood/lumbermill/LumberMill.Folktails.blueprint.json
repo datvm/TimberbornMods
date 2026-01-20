@@ -1,0 +1,11 @@
+{
+    "ManufactorySpec": {
+        "ProductionRecipeIds#append": [
+            "LV.BR.KilnDriedPlanks",
+            "LV.BR.MillworkIntegration",
+            "LV.BR.ReclaimedLog",
+            "LV.BR.RoughCutGears",
+            "LV.BR.WetPlank"
+        ]
+    }
+}

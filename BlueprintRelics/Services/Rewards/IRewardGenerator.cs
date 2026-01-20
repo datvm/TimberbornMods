@@ -3,13 +3,7 @@
 public interface IRewardGenerator
 {
 
-    BlueprintRelicSize ForSize { get; }
-    IRelicReward[] GenerateRewards(BlueprintRelicCollector collector, BlueprintRelicRecipeUpgradeSpec spec);
+    BlueprintRelicSize Size { get; }
+    IRelicReward[] GenerateRewards(BlueprintRelicCollector collector);
 
-}
-
-public abstract class RewardGeneratorBase : IRewardGenerator
-{
-    public abstract BlueprintRelicSize ForSize { get; }
-    public abstract IRelicReward[] GenerateRewards(BlueprintRelicCollector collector, BlueprintRelicRecipeUpgradeSpec spec);
 }

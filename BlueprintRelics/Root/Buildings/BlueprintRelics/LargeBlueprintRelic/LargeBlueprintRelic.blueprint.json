@@ -4,7 +4,39 @@
         "ExpireInDays": {
             "Min": 30,
             "Max": 60
-        }
+        },
+        "NegotiateCooldownDays": 3,
+        "ExcavationSteps": 20,
+        "ExcavationStepDays": 1,
+        "RecipeRarityChance": [ 10, 50, 40 ],
+        "RequiredGoodGroups": [
+            {
+                "Index": 0,
+                "GoodIds": [ "Gear", "Badwater", "PineResin" ],
+                "MaxAmount": 30
+            },
+            {
+                "Index": 0,
+                "GoodIds": [ "MetalBlock", "TreatedPlank", "Extract", "Explosives" ],
+                "MaxAmount": 10
+            },
+            {
+                "Index": 1,
+                "GoodIds": [ "PunchCard", "Grease", "Antidote", "Biofuel", "Catalyst" ],
+                "MaxAmount": 5
+            },
+            {
+                "Index": 2,
+                "GoodIds": [ "MaplePastry", "CattailCracker", "GrilledChestnut", "CornRation", "AlgaeRation", "FermentedMushroom" ],
+                "MaxAmount": 15
+            },
+            {
+                "Index": 3,
+                "GoodIds": [ "Coffee", "Water" ],
+                "MaxAmount": 15
+            }
+        ],
+        "MaxScienceRequirement": 150
     },
     "BuildingSpec": {
         "SelectionSoundName": "ControlTower",
@@ -31,141 +63,139 @@
     },
     "FloodableObjectBlockerSpec": {},
     "BlockObjectSpec": {
-        "BlocksSpec": {
-            "Size": {
-                "X": 3,
-                "Y": 3,
-                "Z": 2
-            },
-            "BlockSpecs": [
-                {
-                    "MatterBelow": "Ground",
-                    "Occupations": "All",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Ground",
-                    "Occupations": "All",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Ground",
-                    "Occupations": "All",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Ground",
-                    "Occupations": "All",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Ground",
-                    "Occupations": "All",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Ground",
-                    "Occupations": "All",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Ground",
-                    "Occupations": "All",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Ground",
-                    "Occupations": "All",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Ground",
-                    "Occupations": "All",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Any",
-                    "Occupations": "All",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Any",
-                    "Occupations": "All",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Any",
-                    "Occupations": "None",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Any",
-                    "Occupations": "All",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Any",
-                    "Occupations": "Floor, Bottom, Corners, Path, Middle",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Any",
-                    "Occupations": "None",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Any",
-                    "Occupations": "None",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Any",
-                    "Occupations": "None",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Any",
-                    "Occupations": "None",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                }
-            ]
+        "Size": {
+            "X": 3,
+            "Y": 3,
+            "Z": 2
         },
+        "Blocks": [
+            {
+                "MatterBelow": "Ground",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Ground",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Ground",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Ground",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Ground",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Ground",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Ground",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Ground",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Ground",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
         "Entrance": {
             "HasEntrance": true,
             "Coordinates": {
@@ -187,7 +217,7 @@
         "ForceOneFinalAccess": false
     },
     "PlaceableBlockObjectSpec": {
-        "ToolGroupId": "MapEditorResources",
+        "ToolGroupId": "MapEditorObjects",
         "ToolOrder": 4200,
         "ToolShape": "Square",
         "Layout": "Single",
@@ -212,7 +242,7 @@
         "#Unfinished": {},
         "#Model": {
             "TimbermeshSpec": {
-                "Model": "LargeRelic/LargeRelic.Model"
+                "Model": "MapEditor/Objects/LargeRelic/LargeRelic.Model"
             },
             "CollidersSpec": {
                 "BoxColliders": [
@@ -259,7 +289,7 @@
         },
         "#Underground": {
             "TimbermeshSpec": {
-                "Model": "LargeRelic/LargeRelic.Model.Underground.Model"
+                "Model": "MapEditor/Objects/LargeRelic/LargeRelic.Model.Underground.Model"
             }
         }
     }

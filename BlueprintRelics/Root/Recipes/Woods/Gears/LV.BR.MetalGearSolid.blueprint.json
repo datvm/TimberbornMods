@@ -1,0 +1,32 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.MetalGearSolid",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.MetalGearSolid",
+        "CycleDurationInHours": 1.5,
+        "Ingredients": [
+            {
+                "Id": "MetalBlock",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Gear",
+                "Amount": 10
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "",
+        "CyclesFuelLasts": 0,
+        "FuelCapacity": 0,
+        "CyclesCapacity": 10,
+        "Icon": "Sprites/Goods/GearIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Rare",
+        "BuildingNameLoc": "Building.Smelter.DisplayName",
+        "Factions": [ "IronTeeth" ]
+    }
+}

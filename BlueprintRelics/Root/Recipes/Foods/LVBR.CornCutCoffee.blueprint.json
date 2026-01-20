@@ -1,0 +1,42 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.CornCutCoffee",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.CornCutCoffee",
+        "CycleDurationInHours": 1.0,
+        "Ingredients": [
+            {
+                "Id": "CoffeeBean",
+                "Amount": 1
+            },
+            {
+                "Id": "Corn",
+                "Amount": 1
+            },
+            {
+                "Id": "Water",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Coffee",
+                "Amount": 8
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "Log",
+        "CyclesFuelLasts": 10,
+        "FuelCapacity": 5,
+        "CyclesCapacity": 15,
+        "Icon": "Sprites/Goods/CoffeeIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Rare",
+        "BuildingNameLoc": "",
+        "Factions": [
+            "IronTeeth"
+        ]
+    }
+}

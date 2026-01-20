@@ -5,37 +5,30 @@
             "Min": 10,
             "Max": 15
         },
+        "NegotiateCooldownDays": 1,
         "ExcavationSteps": 10,
         "ExcavationStepDays": 0.5,
-        "RequiredGoodsCount": 2,
-        "PossibleRequiredGoods": [
+        "RecipeRarityChance": [ 90, 9, 1 ],
+        "RequiredGoodGroups": [
             {
-                "Id": "Log",
-                "Amount": 10
+                "Index": 0,
+                "GoodIds": [ "Log", "Plank" ],
+                "MaxAmount": 10
             },
             {
-                "Id": "Plank",
-                "Amount": 10
+                "Index": 0,
+                "GoodIds": [ "Gear" ],
+                "MaxAmount": 5
             },
             {
-                "Id": "Gear",
-                "Amount": 3
+                "Index": 1,
+                "GoodIds": [ "Berries", "SunflowerSeeds", "Cassava" ],
+                "MaxAmount": 10
             },
             {
-                "Id": "Berries",
-                "Amount": 20
-            },
-            {
-                "Id": "SunflowerSeeds",
-                "Amount": 10
-            },
-            {
-                "Id": "Potato",
-                "Amount": 3
-            },
-            {
-                "Id": "Cassava",
-                "Amount": 3
+                "Index": 1,
+                "GoodIds": [ "Potato", "Canola" ],
+                "MaxAmount": 5
             }
         ],
         "MaxScienceRequirement": 50
@@ -65,29 +58,27 @@
     },
     "FloodableObjectBlockerSpec": {},
     "BlockObjectSpec": {
-        "BlocksSpec": {
-            "Size": {
-                "X": 2,
-                "Y": 1,
-                "Z": 1
-            },
-            "BlockSpecs": [
-                {
-                    "MatterBelow": "Ground",
-                    "Occupations": "Floor, Bottom, Corners, Path, Middle",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                },
-                {
-                    "MatterBelow": "Ground",
-                    "Occupations": "Floor, Bottom, Corners, Path, Middle",
-                    "Stackable": "None",
-                    "OccupyAllBelow": false,
-                    "Underground": false
-                }
-            ]
+        "Size": {
+            "X": 2,
+            "Y": 1,
+            "Z": 1
         },
+        "Blocks": [
+            {
+                "MatterBelow": "Ground",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Ground",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
         "Entrance": {
             "HasEntrance": true,
             "Coordinates": {
@@ -109,7 +100,7 @@
         "ForceOneFinalAccess": false
     },
     "PlaceableBlockObjectSpec": {
-        "ToolGroupId": "MapEditorResources",
+        "ToolGroupId": "MapEditorObjects",
         "ToolOrder": 4000,
         "ToolShape": "Square",
         "Layout": "Single",
@@ -134,7 +125,7 @@
         "#Unfinished": {},
         "#Model": {
             "TimbermeshSpec": {
-                "Model": "SmallRelic/SmallRelic.Model"
+                "Model": "MapEditor/Objects/SmallRelic/SmallRelic.Model"
             },
             "CollidersSpec": {
                 "BoxColliders": [
@@ -157,7 +148,7 @@
         },
         "#Underground": {
             "TimbermeshSpec": {
-                "Model": "SmallRelic/SmallRelic.Underground.Model"
+                "Model": "MapEditor/Objects/SmallRelic/SmallRelic.Underground.Model"
             }
         }
     }

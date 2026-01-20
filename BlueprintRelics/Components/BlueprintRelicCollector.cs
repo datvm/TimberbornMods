@@ -1,5 +1,6 @@
 ﻿namespace BlueprintRelics.Components;
 
+[AddTemplateModule(typeof(BlueprintRelicSpec))]
 public class BlueprintRelicCollector(BlueprintRelicCollectorService service) : TickableComponent, IAwakableComponent, IPersistentEntity, IInitializableEntity
 {
 
@@ -11,6 +12,7 @@ public class BlueprintRelicCollector(BlueprintRelicCollectorService service) : T
     static readonly PropertyKey<int> StepTickLeftKey = new("StepTickLeft");
     static readonly PropertyKey<int> ScienceRequirementKey = new("ScienceRequirement");
     static readonly PropertyKey<float> TotalDaysKey = new("TotalDays");
+    static readonly PropertyKey<int> NegotiateCooldownTicksKey = new("NegotiateCooldownTicks");
 
 #nullable disable
     BlueprintRelicSpec spec;
@@ -20,6 +22,8 @@ public class BlueprintRelicCollector(BlueprintRelicCollectorService service) : T
 #nullable enable
 
     public BlueprintRelicSize Size => spec.Size;
+    public ImmutableArray<int> RecipeRarityChance => spec.RecipeRarityChance;
+    public DistrictCenter? ConnectedDistrict => districtBuilding.District;
 
     public bool PauseCollecting { get; set; }
 
@@ -33,6 +37,11 @@ public class BlueprintRelicCollector(BlueprintRelicCollectorService service) : T
     public int StepTickLeft { get; private set; }
     public float StepDays => spec.ExcavationStepDays;
     public bool IsExcavating => StepTickLeft > 0;
+
+    public int NegotiateCooldownTicks { get; private set; }
+    public bool CanNegotiate => NegotiateCooldownTicks <= 0 && !IsExcavating && !Finished;
+
+    public float NegotiateCooldownDays => spec.NegotiateCooldownDays;
 
     public ImmutableArray<GoodAmount> RequiredGoods { get; private set; } = [];
     public int ScienceRequirement { get; private set; }
@@ -64,6 +73,11 @@ public class BlueprintRelicCollector(BlueprintRelicCollectorService service) : T
         StepTickLeft = s.Get(StepTickLeftKey);
         ScienceRequirement = s.Get(ScienceRequirementKey);
         TotalDays = s.Get(TotalDaysKey);
+
+        if (s.Has(NegotiateCooldownTicksKey))
+        {
+            NegotiateCooldownTicks = s.Get(NegotiateCooldownTicksKey);
+        }
     }
 
     public void Save(IEntitySaver entitySaver)
@@ -82,6 +96,11 @@ public class BlueprintRelicCollector(BlueprintRelicCollectorService service) : T
         s.Set(StepTickLeftKey, StepTickLeft);
         s.Set(ScienceRequirementKey, ScienceRequirement);
         s.Set(TotalDaysKey, TotalDays);
+
+        if (NegotiateCooldownTicks > 0)
+        {
+            s.Set(NegotiateCooldownTicksKey, NegotiateCooldownTicks);
+        }   
     }
 
     public void InitializeEntity()
@@ -95,6 +114,7 @@ public class BlueprintRelicCollector(BlueprintRelicCollectorService service) : T
 
     void SetFinishState()
     {
+        NegotiateCooldownTicks = 0;
         finishedStatus.Activate();
         DisableComponent();
     }
@@ -108,9 +128,20 @@ public class BlueprintRelicCollector(BlueprintRelicCollectorService service) : T
         ExpiryTicks = Mathf.FloorToInt(TotalDays * service.TicksInDay);
         StepsLeft = TotalSteps;
 
-        // Select requirements
+        SelectStepRequirements();   
+    }
+
+    void SelectStepRequirements()
+    {
         ScienceRequirement = BlueprintRelicCollectorService.RandomMinMax(spec.MaxScienceRequirement);
         RequiredGoods = service.GenerateGoodRequirements(spec);
+    }
+
+    internal void DevFinishExcavation()
+    {
+        StepTickLeft = 0;
+        StepsLeft = 0;
+        SetFinishState();
     }
 
     public override void Tick()
@@ -119,6 +150,11 @@ public class BlueprintRelicCollector(BlueprintRelicCollectorService service) : T
         {
             // Should not happen
             return;
+        }
+
+        if (NegotiateCooldownTicks > 0)
+        {
+            NegotiateCooldownTicks--;
         }
 
         if (IsExcavating)
@@ -172,6 +208,19 @@ public class BlueprintRelicCollector(BlueprintRelicCollectorService service) : T
         StepTickLeft = 0;
 
         EnableComponent();
+    }
+
+    public void Negotiate()
+    {
+        if (!CanNegotiate)
+        {
+            throw new InvalidOperationException("Cannot negotiate now.");
+        }
+
+        SelectStepRequirements();
+        DigAgain();
+        
+        NegotiateCooldownTicks = Mathf.FloorToInt(spec.NegotiateCooldownDays * service.TicksInDay);
     }
 
 }

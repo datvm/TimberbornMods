@@ -5,7 +5,7 @@
     "MinimumGameVersion": "1.0.0",
     "Description": "Random relics that unlock alternate recipes",
     "RequiredMods": [
-        { "Id": "TimberUi" },
-        { "Id": "ModdableRecipes" }
+        { "Id": "TimberUi", "MinimumVersion": "10.1.0" },
+        { "Id": "ModdableRecipes", "MinimumVersion": "10.0.1" }
     ]
 }

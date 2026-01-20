@@ -1,5 +1,6 @@
 ﻿namespace BlueprintRelics.Services;
 
+[BindSingleton]
 public class BlueprintRelicsRegistry
 {
     readonly HashSet<BlueprintRelicComponent> relics = [];

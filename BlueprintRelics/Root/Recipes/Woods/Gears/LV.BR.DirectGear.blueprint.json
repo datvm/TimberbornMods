@@ -1,0 +1,31 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.DirectGear",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.DirectGear",
+        "CycleDurationInHours": 4.25,
+        "Ingredients": [
+            {
+                "Id": "Log",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Gear",
+                "Amount": 1
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "",
+        "CyclesFuelLasts": 0,
+        "FuelCapacity": 0,
+        "CyclesCapacity": 2,
+        "Icon": "Sprites/Goods/GearIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Uncommon",
+        "BuildingNameLoc": "Building.GearWorkshop.DisplayName"
+    }
+}

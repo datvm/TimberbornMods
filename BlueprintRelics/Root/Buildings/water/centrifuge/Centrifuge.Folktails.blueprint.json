@@ -1,0 +1,10 @@
+{
+    "ManufactorySpec": {
+        "ProductionRecipeIds#append": [
+            "LV.BR.BoilingExtract",
+            "LV.BR.IntegratedChemicalProcessing",
+            "LV.BR.PressurePressedExtract",
+            "LV.BR.VacuumConcentration"
+        ]
+    }
+}

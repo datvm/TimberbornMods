@@ -1,0 +1,35 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.PressurePressedExtract",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.PressurePressedExtract",
+        "CycleDurationInHours": 3.0,
+        "Ingredients": [
+            {
+                "Id": "Badwater",
+                "Amount": 40
+            },
+            {
+                "Id": "Log",
+                "Amount": 40
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Extract",
+                "Amount": 10
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "",
+        "CyclesFuelLasts": 0,
+        "FuelCapacity": 0,
+        "CyclesCapacity": 2,
+        "Icon": "Sprites/Goods/ExtractIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Uncommon",
+        "BuildingNameLoc": "Building.Centrifuge.DisplayName"
+    }
+}

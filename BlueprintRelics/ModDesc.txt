@@ -1,0 +1,83 @@
+﻿Blueprint Relics introduce discoverable ancient artifacts that can be excavated to unlock alternate recipes and permanent production upgrades.
+
+[h1]Short Gameplay Flow (Overview)[/h1]
+- Relics periodically spawn on the map and expire if ignored.
+- Connect a path to excavate them through step-based excavation.
+- Excavation consumes science, time, and [b]goods instantly from district storages[/b] (no workers, no haulers, no delivery jobs). Requirements can be negotiated at intervals.
+[img]https://files.catbox.moe/h3ih9y.jpg[/img]
+
+- When finished, choose one reward or dig deeper to reroll rewards at full cost.
+
+[img]https://files.catbox.moe/6qs7jv.jpg[/img]
+
+Larger relics unlock rarer recipes and stronger upgrades.
+Excavation pauses expiration, but nothing ever resets the timer.
+
+[b]Discover all the fun recipes for yourself![/b] I am not listing them here but there are 30 of them (some of them are specific to Folktails or Iron Teeth only).
+
+[h1]Detailed Mechanics[/h1]
+[h2]Relic Spawning and Expiration[/h2]
+
+Every day, the game attempts to spawn a Blueprint Relic (50% chance). This chance is divided by 4 for each existing relic on the map (50% → 12.5% → 3.125%).
+
+If a relic spawns, its size is randomized: 70%, 20% and 10% chance for small, medium and large relics respectively, which will determine:
+- Maximum expiration time
+- Number of excavation steps
+- Required resources.
+- Reward rarity and type.
+
+[h2]Excavation Setup[/h2]
+Relics must be connected to a district path to begin excavation. Excavation draws resources from district storages directly, without using workers or haulers.
+Each step requires:
+- Science (deducted directly).
+- Time (expiration is paused while excavating).
+- Goods, usually grouped into digging materials and food/water for workers.
+All required goods for a step [b]must be fully available at once and cannot be accumulated gradually over time[/b].
+You can [b]Pause[/b] excavation at any time to stop resource consumption but the expiration timer will continue running.
+
+[h2]Negotiation[/h2]
+At any time, you can choose to [b]Negotiate[/b] the requirements for the relic. This will re-randomize the requirements [b]AND[/b] reset all excavation progress. After negotiation, there is a cooldown before you can negotiate again (1/2/3 days based on relic size). Think of it as finding another digging spot. There is no guarantee that the new requirements will be better.
+
+[img]https://files.catbox.moe/h3ih9y.jpg[/img]
+
+[h2]Rewards[/h2]
+After completing all steps, choose one reward:
+
+[img]https://files.catbox.moe/6qs7jv.jpg[/img]
+
+[h3]Unlock a new recipe[/h3]
+Rarity depends on relic size:
+- Common recipes usually involve trade-offs.
+- Uncommon recipes are alternative paths that are generally the same or a bit better.
+- Rare recipes are usually better in all situations.
+
+If you roll an Uncommon recipe but there is no Uncommon recipe left, you will get a Common recipe instead. You cannot get a Rare recipe even if you run out of Uncommon and Common recipes this way. You will however, get something else.
+
+[h3]Special Recipe Upgrades[/h3]
+Depending on relic size, there is a chance you can get a special upgrade for an already unlocked recipe:
+- Small relics: Capacity upgrade.
+- Medium relics: Time reduction.
+- Large relics: One random output +1 (it could be extremely good or hilariously bad depending on the recipe). This option is always present.
+
+If you run out of eligible recipes, you always get this special reward present.
+
+[h3]Science Fallback[/h3]
+
+If no recipes remain to unlock, the relic also gives a Science reward option. The amount scales with relic size and is a multiple of the total Science spent: x2, x4 and x6 for small, medium and large relics respectively.
+
+[h3]Dig Deeper (Reward Reroll)[/h3]
+
+If none of the presented rewards are desirable, you may choose Dig Deeper:
+- Abandons the current reward options
+- [b]Restarts excavation from step 0[/b]
+- Uses the same requirements
+- Expiration timer is [b]NOT[/b] reset
+
+[h2]View unlocked recipes and upgrades[/h2]
+
+At any time you can press the rebindable hotkey "View Blueprint Relic Upgrades" in UI (default: Ctrl + Shift + U) to see all unlocked recipes and upgrades:
+
+[img]https://files.catbox.moe/qgwtep.jpg[/img]
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

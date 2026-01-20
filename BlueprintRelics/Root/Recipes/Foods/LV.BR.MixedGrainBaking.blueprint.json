@@ -1,0 +1,42 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.MixedGrainBaking",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.MixedGrainBaking",
+        "CycleDurationInHours": 1.5,
+        "Ingredients": [
+            {
+                "Id": "WheatFlour",
+                "Amount": 1
+            },
+            {
+                "Id": "CattailFlour",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Bread",
+                "Amount": 5
+            },
+            {
+                "Id": "CattailCracker",
+                "Amount": 4
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "Log",
+        "CyclesFuelLasts": 10,
+        "FuelCapacity": 5,
+        "CyclesCapacity": 20,
+        "Icon": "Sprites/Recipes/MixedGrainBakingIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Uncommon",
+        "BuildingNameLoc": "Building.Bakery.DisplayName",
+        "Factions": [
+            "Folktails"
+        ]
+    }
+}

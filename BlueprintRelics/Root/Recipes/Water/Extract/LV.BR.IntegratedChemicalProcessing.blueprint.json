@@ -1,0 +1,35 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "LV.BR.IntegratedChemicalProcessing",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BRe.Recipe.IntegratedChemicalProcessing",
+        "CycleDurationInHours": 4.5,
+        "Ingredients": [
+            {
+                "Id": "Badwater",
+                "Amount": 9
+            }
+        ],
+        "Products": [
+            {
+                "Id": "Extract",
+                "Amount": 1
+            },
+            {
+                "Id": "Explosives",
+                "Amount": 1
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "",
+        "CyclesFuelLasts": 0,
+        "FuelCapacity": 0,
+        "CyclesCapacity": 5,
+        "Icon": "Sprites/Recipes/IntegratedChemicalProcessingIcon"
+    },
+    "ModdableRecipeLockSpec": {},
+    "BlueprintRelicRecipeSpec": {
+        "Rarity": "Uncommon",
+        "BuildingNameLoc": "Building.Centrifuge.DisplayName"
+    }
+}

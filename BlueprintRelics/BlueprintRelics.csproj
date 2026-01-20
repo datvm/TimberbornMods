@@ -4,6 +4,18 @@
 	</PropertyGroup>
 	<ItemGroup>
 	  <Folder Include="Models\" />
+	  <Folder Include="Root\Blueprints\KeyBindings\" />
+	  <Folder Include="Root\Buildings\food\bakery\" />
+	  <Folder Include="Root\Buildings\food\coffeebrewery\" />
+	  <Folder Include="Root\Buildings\food\foodfactory\" />
+	  <Folder Include="Root\Buildings\food\grill\" />
+	  <Folder Include="Root\Buildings\food\gristmill\" />
+	  <Folder Include="Root\Buildings\food\oilpress\" />
+	  <Folder Include="Root\Buildings\landscaping\explosivesfactory\" />
+	  <Folder Include="Root\Buildings\metal\smelter\" />
+	  <Folder Include="Root\Recipes\Landscapings\Explosives\" />
+	  <Folder Include="Root\Recipes\Metals\MetalBlocks\" />
+	  <Folder Include="Root\Recipes\Woods\TreatedPlanks\" />
 	</ItemGroup>
 	<Import Project="../Targets/Common.targets" />
 	<Import Project="../Targets/CommonTimberUI.targets" />

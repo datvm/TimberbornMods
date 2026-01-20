@@ -7,6 +7,12 @@ public record BlueprintRelicRecipeSpec : ComponentSpec
     public BlueprintRelicRecipeRarity Rarity { get; init; }
 
     [Serialize]
+    public string? BuildingNameLoc { get; init; }
+
+    [Serialize(nameof(BuildingNameLoc))]
+    public LocalizedText? BuildingName { get; init; }
+
+    [Serialize]
     public ImmutableArray<string> Factions { get; init; } = [];
 
 }
