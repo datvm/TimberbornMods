@@ -1,8 +1,8 @@
-{
+﻿{
     "Name": "Configurable Irrigation",
-    "Version": "7.0.1",
+    "Version": "10.0.0",
     "Id": "ConfigurableIrrigation",
-    "MinimumGameVersion": "0.7.0.0",
+    "MinimumGameVersion": "1.0.0",
     "Description": "You decide how your game's water behaves",
     "RequiredMods": [
         { "Id": "eMka.ModSettings" },
