@@ -8,7 +8,7 @@ public class LiveRecipeModifierService(
 )
 {
     static readonly ImmutableArray<PropertyInfo> Properties = [..typeof(RecipeSpec)
-        .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+        .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
         .Where(p => p.CanWrite && p.Name != nameof(RecipeSpec.Id))
     ];
 
