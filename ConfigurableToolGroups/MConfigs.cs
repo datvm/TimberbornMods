@@ -16,6 +16,7 @@ public class ConfigurableToolGroupsConfig : Configurator
         MultiBind<BottomBarModule>().To<DummyBottomBarModule>().AsSingleton();
         Bind<ModdableCustomToolButtonService>().AsSingleton();
 
+
         this.MultiBindElementsRemover<RemoveOriginalBuiltInElements>();
     }
 }

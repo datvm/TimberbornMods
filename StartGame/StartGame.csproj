@@ -19,8 +19,7 @@
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
-		<ProjectReference Include="..\ModdableRecipes\ModdableRecipes.csproj" />
-		<ProjectReference Include="..\BlueprintRelics\BlueprintRelics.csproj" />
+		<ProjectReference Include="..\ConfigurableToolGroups\ConfigurableToolGroups.csproj" />
 
 
 	</ItemGroup>

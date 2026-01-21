@@ -79,5 +79,7 @@ At any time you can press the rebindable hotkey "View Blueprint Relic Upgrades" 
 
 [img]https://files.catbox.moe/qgwtep.jpg[/img]
 
+Feel free to suggest more recipes or upgrades in the comment or [url=https://discord.com/channels/558398674389172225/1463264752007385140/1463264752007385140]on this mod's Discord channel[/url].
+
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
