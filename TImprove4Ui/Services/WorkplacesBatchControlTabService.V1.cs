@@ -1,6 +1,6 @@
-﻿#if TIMBERV1
-namespace TImprove4Ui.Services;
+﻿namespace TImprove4Ui.Services;
 
+[BindSingleton]
 public class WorkplacesBatchControlTabService(
     WorkplacesBatchControlTab tab,
     ILoc t
@@ -67,4 +67,3 @@ public class WorkplacesBatchControlTabService(
         Instance = null;
     }
 }
-#endif

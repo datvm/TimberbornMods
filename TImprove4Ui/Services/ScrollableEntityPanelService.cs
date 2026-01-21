@@ -1,5 +1,6 @@
 ﻿namespace TImprove4Ui.Services;
 
+[BindSingleton(Contexts = BindAttributeContext.NonMenu)]
 public class ScrollableEntityPanelService(
     IEntityPanel entityPanel,
     VisualElementInitializer veInit

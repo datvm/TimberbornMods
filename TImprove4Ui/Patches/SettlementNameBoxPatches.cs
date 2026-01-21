@@ -31,9 +31,9 @@ public static class SettlementNameBoxPatches
 
     public static void OnExitToMenu()
     {
-        if (SceneService.SceneLoader is null) { return; }
+        if (StaticSingletonsService.SceneLoader is null) { return; }
 
-        SceneService.SceneLoader.LoadSceneInstantly(MainMenuSceneParameters.CreateWithoutWelcomeScreen());
+        StaticSingletonsService.SceneLoader.LoadSceneInstantly(MainMenuSceneParameters.CreateWithoutWelcomeScreen());
     }
 
 }

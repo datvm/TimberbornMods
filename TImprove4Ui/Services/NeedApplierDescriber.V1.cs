@@ -1,5 +1,7 @@
 ﻿namespace TImprove4Ui.Services;
 
+[AddTemplateModule2(typeof(AreaNeedApplier))]
+[AddTemplateModule2(typeof(WorkshopRandomNeedApplier), AlsoBindTransient = false)]
 public class NeedApplierDescriber : BaseComponent, IEntityDescriber, IAwakableComponent
 {
 
