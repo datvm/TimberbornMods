@@ -7,6 +7,7 @@ public static class AttributeBinder
     public static void BindAttributes(Assembly assembly, Configurator configurator, Scope defaultScope, BindAttributeContext context)
     {
         var isNonMenu = (context & BindAttributeContext.NonMenu) > 0;
+        var isGame = (context & BindAttributeContext.Game) > 0;
 
         List<KeyValuePair<Type, Type>> decorators = [];
 
@@ -18,8 +19,23 @@ public static class AttributeBinder
             {
                 BindEntityFragment(type, configurator);
 
-                foreach (var attr in type.GetCustomAttributes<AddTemplateModuleAttribute>())
+                if (isGame)
                 {
+                    foreach (var attr in type.GetCustomAttributes<AddTemplateModuleAttribute>())
+                    {
+                        decorators.Add(new(attr.Subject, type));
+
+                        if (attr.AlsoBindTransient)
+                        {
+                            configurator.Bind(type).AsTransient();
+                        }
+                    }
+                }
+
+                foreach (var attr in type.GetCustomAttributes<AddTemplateModule2Attribute>())
+                {
+                    if ((attr.Contexts & context) == 0) { continue; }
+
                     decorators.Add(new(attr.Subject, type));
 
                     if (attr.AlsoBindTransient)

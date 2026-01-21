@@ -1,6 +1,6 @@
-﻿
-namespace TImprove4Ui.Services;
+﻿namespace TImprove4Ui.Services;
 
+[BindSingleton(Contexts = BindAttributeContext.NonMenu)]
 public class ToolPanelDescriptionMover(MSettings s) : ILoadableSingleton
 {
 

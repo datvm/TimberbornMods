@@ -1,6 +1,6 @@
 ﻿{
     "Name": "TImprove 4 UI",
-    "Version": "10.0.2",
+    "Version": "10.1.0",
     "Id": "TImprove4Ui",
     "MinimumGameVersion": "1.0.0",
     "Description": "Improve your Timberborn UI!",
@@ -9,7 +9,7 @@
         { "Id": "Harmony" },
         {
             "Id": "TimberUi",
-            "MinimumVersion": "10.0.1"
+            "MinimumVersion": "10.1.1"
         }
     ]
 }

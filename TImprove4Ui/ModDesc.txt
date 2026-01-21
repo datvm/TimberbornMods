@@ -13,13 +13,12 @@ Note: you can see the features in the screenshots.
 - Highlight similar objects: When you select an object, all objects of the same type will be highlighted. You can also select "Highlight similar objects color"
 - Highlight Tubeway path: Highlight the whole tubeway path connected to the selecting one when you select a Tubeway Station, normal/solid Tubeway. Use the same color from the "Highlight similar objects color" option.
 - Highlight & Select Material Buildings: Hover over a material counter to highlight all buildings that are containing that material. Clicking it will cycle through those buildings. Holding Alternate key (default: Shift) to cycle through them in selecting district only. Note: only works for buildings that actually contain the material (> 0).
-- Disable Shadows: no more shadow. May improve performance.
 - Add buildings' debuff info (for example, Injury or Bee Sting chance.).
 [img]https://i.imgur.com/00xkVcw.jpeg[/img]
-- Disable the pause icon on top of buildings: show an option on each pausable building so you can disable them. You can uncheck this option if you don't like the option clustering the UI.
-[img]https://i.imgur.com/oEeDwV2.jpeg[/img]
 - Collapsible management groups: The management panel (top-left button or pressing F1 to F5) now has collapsible groups (like Population, Workplaces, etc.). You can also enable auto-collapse in the mod settings.
 [img]https://images.steamusercontent.com/ugc/17147611627673040168/C668D6F9E37514509A6B3AAC842610421A36CC45/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+- Keybindings box (both in-game and Main menu): Add a filter box to search for keybindings. Also make groups collapsible.
+[img]https://files.catbox.moe/mmrmeg.jpg[/img]
 
 [h1]Other features[/h1]
 - If you use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3480668755]More Naming[/url] to rename Zipline Station or Pylons, the UI now shows the custom name.
@@ -46,34 +45,12 @@ Credits:
 - Bones: Disable pause icons on buildings.
 - Shimanim: Collapsible management groups.
 
+v10.1.0:
+- Removed "Disable Shadows" feature, it's now part of the base game (Graphics Settings).
+- Removed "Pause Icon Toggle" feature in favor of the more generic solution [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3635342825]Warnings Be Gone[/url].
+- Add a filter box for Keybindings. Also make groups collapsible.
 v10.0.2: Should work with Update 1.0.7 (Jan 12)
 v10.0.1: Highlight Tubeway Path now highlight unconnected ends in red ([url=https://discord.com/channels/558398674389172225/1064824959697944666/1441606244287774720]screenshot[/url])
 v10.0.0:
 - Work for Timberborn v1.0.
 - "Add buildings' debuff info" becomes "Clarify debuff chance" and now shows the actual percentage instead of just low/medium/high.
-
-v7.10.2: Added auto-collapse management groups. Also fixed missing localization keys warnings in the log file.
-v7.10.1: Added an option to disable the pause icon on top of buildings. If you don't like the option clustering the UI, you can disable it in the mod settings.
-v7.10.0: [spoiler]Dev mode's[/spoiler] hotkeys are now visible in the Keybindings panel.
-v7.9.3: The description box is now centered if the material list is too long. [url=https://discord.com/channels/558398674389172225/1366490328785489960/1411567847280214089]Screenshot[/url].
-v7.9.2: Zipline Connections uses custom name (by More Naming mod).
-v7.9.1: The description box should not go indefinitely wide any more.
-v7.9.0: Added an "Exit to menu" button for New settlement dialog box (when you start a new game).
-v7.8.2: Added a scrollbar to the recipe list (for my incoming mod).
-v7.8.1: "Add buildings' debuff info" is now a setting option that is enabled by default, you can disable it in the settings. Also fixed tooltip issue when moving "Tool description location" to the right.
-v7.8.0: Show building's negative effect (like Injury or Beesting chance). See screenshot for demonstration.
-v7.7.1: Fixed a crash when loading Map Editor with this mod.
-v7.7.0: Added "Highlight & Select Material Buildings" option.
-v7.6.0: Added Disable Shadows option.
-v7.5.0: Removed Highlight Power Network as it's added to the game. Should work with Jun 2nd update.
-v7.4.2: "Highlight Tubeway path" [i]should™️[/i] work for modded Tubeway Stations and Tubeways (not tested for modded ones yet)
-v7.4.1: Fixed "Highlight Tubeway path" not working without "Highlight similar objects". Also moved the color option up.
-v7.4.0: Added Highlight Tubeway path. Changed the default color "Highlight similar objects color" to light blue instead of pink.
-v7.3.0: Added Highlight similar objects.
-v7.2.1: Buildings with range like Lumberjack Flag or Farmhouses no longer get their range disabled when Path Highlight is hidden.
-v7.2.0: Added improvements for Management panel.
-v7.1.2: Auto-expand material counters nows automatically expands when you try to build stuff as well so you can see the materials needed (it also auto closes). You can now also click on a material counters panel to keep it open.
-v7.1.1: Added Never hide unlocked counters, suggested by AlwaysMetal
-v7.1.0:
-- Added Auto-expand material counters.
-- Added District Centers to the exception of "Remove Path Highlight" so you can see the Builder Range.

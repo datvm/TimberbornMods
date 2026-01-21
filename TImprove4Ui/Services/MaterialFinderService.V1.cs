@@ -1,5 +1,6 @@
 ﻿namespace TImprove4Ui.Services;
 
+[BindSingleton]
 public class MaterialFinderService(
     Highlighter highlighter,
     MSettings s,

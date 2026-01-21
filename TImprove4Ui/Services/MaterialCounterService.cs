@@ -1,5 +1,6 @@
 ﻿namespace TImprove4Ui.Services;
 
+[BindSingleton]
 public class MaterialCounterService(
     TopBarPanel topBarPanel,
     ISingletonLoader loader,

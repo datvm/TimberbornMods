@@ -1,12 +1,9 @@
 ﻿namespace TImprove4Ui.Services;
 
+[BindSingleton]
 public class FactionNeedSpecService(
     FactionNeedService factionNeedService,
-#if TIMBERU7
-    NeedGroupService needGroupService
-#else
     NeedGroupSpecService needGroupService
-#endif
 ) : ILoadableSingleton
 {
 

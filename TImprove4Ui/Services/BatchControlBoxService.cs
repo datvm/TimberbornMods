@@ -1,5 +1,6 @@
-namespace TImprove4Ui.Services;
+﻿namespace TImprove4Ui.Services;
 
+[BindSingleton]
 public class BatchControlBoxService(
     IBatchControlBox iBatchControlBox,
     ISingletonLoader loader
