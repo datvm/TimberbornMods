@@ -1,8 +1,8 @@
-{
+﻿{
     "Name": "More Naming",
-    "Version": "7.0.0",
+    "Version": "10.0.0",
     "Id": "MoreNaming",
-    "MinimumGameVersion": "0.7.0.0",
+    "MinimumGameVersion": "1.0.0",
     "Description": "You can name almost anything!",
     "RequiredMods": []
 }

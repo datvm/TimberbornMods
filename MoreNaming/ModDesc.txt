@@ -1,0 +1,8 @@
+﻿You can name almost anything instead of just Beavers and Districts!
+
+This is useful if you use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3481116192]Omni Bar & Todo List[/url] mod to search for them by name.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.0: Should work for Timberborn v1.0.

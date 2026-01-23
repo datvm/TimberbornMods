@@ -8,6 +8,8 @@ public class ModGameConfig : Configurator
 
     public override void Configure()
     {
+        Bind<EntityNamingComponent>().AsTransient();
+
         MultiBind<TemplateModule>().ToProvider(() =>
         {
             TemplateModule.Builder b = new();
