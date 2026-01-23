@@ -1,11 +1,11 @@
 ﻿namespace MoreNaming.Components;
 
-public class EntityNamingComponent : BaseComponent, IPersistentEntity, IModifiableEntityBadge, IEntityBadge
+public class EntityNamingComponent : BaseComponent, IPersistentEntity, IModifiableEntityBadge, IEntityBadge, IAwakableComponent
 {
     static readonly ComponentKey SaveKey = new("BuildingNamingComponent");
     static readonly PropertyKey<string> NameKey = new("Name");
 
-    public string? Name { get; set; }
+    public new string? Name { get; set; }
 
     public int EntityBadgePriority { get; } = 5;
     public IEntityBadge? UnderlyingEntityBadge { get; private set; }
@@ -20,7 +20,7 @@ public class EntityNamingComponent : BaseComponent, IPersistentEntity, IModifiab
     IEntityBadge? GetUnderlyingEntityBadge()
     {
         List<IEntityBadge> badges = [];
-        GetComponentsFast(badges);
+        GetComponents(badges);
 
         var currMax = int.MinValue;
         IEntityBadge? result = null;
