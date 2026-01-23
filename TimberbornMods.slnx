@@ -4,7 +4,6 @@
     <Project Path="ConfigurableBeaverWalk/ConfigurableBeaverWalk.csproj" />
     <Project Path="ConfigurableBuildingRange/ConfigurableBuildingRange.csproj" />
     <Project Path="ConfigurableExplosives/ConfigurableExplosives.csproj" />
-    <Project Path="ConfigurableFaction/ConfigurableFaction.csproj" />
     <Project Path="ConfigurableFun/ConfigurableFun.csproj" />
     <Project Path="ConfigurableGameSpeed/ConfigurableGameSpeed.csproj" />
     <Project Path="ConfigurableHousing/ConfigurableHousing.csproj" />
