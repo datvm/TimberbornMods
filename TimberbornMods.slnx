@@ -98,6 +98,25 @@
     <Project Path="ScientificProjects/ScientificProjects/ScientificProjects.csproj" />
     <Project Path="ScientificProjects/WeatherScientificProjects/WeatherScientificProjects.csproj" />
   </Folder>
+  <Folder Name="/Targets/">
+    <File Path="Targets/Common.targets" />
+    <File Path="Targets/CommonBuildingHP.targets" />
+    <File Path="Targets/CommonDebug.targets" />
+    <File Path="Targets/CommonGlobalUsings.targets" />
+    <File Path="Targets/CommonGlobalUsings.U7.targets" />
+    <File Path="Targets/CommonHarmony.targets" />
+    <File Path="Targets/CommonMM.targets" />
+    <File Path="Targets/CommonModBuilder.targets" />
+    <File Path="Targets/CommonModdableRecipes.targets" />
+    <File Path="Targets/CommonModdableTimberborn.targets" />
+    <File Path="Targets/CommonModdableToolGroups.targets" />
+    <File Path="Targets/CommonModdableWeathers.targets" />
+    <File Path="Targets/CommonProperties.targets" />
+    <File Path="Targets/CommonScientificProjects.targets" />
+    <File Path="Targets/CommonTimberUI.targets" />
+    <File Path="Targets/CommonTransparentShaders.targets" />
+    <File Path="Targets/CommonUI.targets" />
+  </Folder>
   <Folder Name="/TimberQuests/">
     <Project Path="ScenarioEditor/ScenarioEditor.csproj" />
     <Project Path="TimberQuests/TimberQuests/TimberQuests.csproj" />

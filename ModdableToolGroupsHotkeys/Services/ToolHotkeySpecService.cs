@@ -139,7 +139,12 @@ public class ToolHotkeySpecService(
     {
         var list = keyBindingsBox._root.Q("Content");
         list.Clear();
-        keyBindingsBox._keyBindingRowFactory.CreateAll(list);
+        
+        var grps = keyBindingsBox._keyBindingRowFactory.CreateAll();
+        foreach (var grp in grps)
+        {
+            list.Add(grp.Root);
+        }        
     }
 
 }
