@@ -39,8 +39,8 @@ public class RestrictionTemplateModifier : ITemplateModifier
                     pbos = spec;
                     pbosIndex = i;
                     break;
-                case BottomMatchingTemplateSpec:
-                    return null; // Do not modify templates with BottomMatchingTemplateSpec
+                case UnderstructureConstraintSpec:
+                    return null; // Do not modify templates with UnderstructureConstraintSpec
             }
         }
 
