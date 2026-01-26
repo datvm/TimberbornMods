@@ -1,4 +1,4 @@
-﻿namespace ConfigurableFaction.Definitions;
+﻿namespace ConfigurableFaction.Models;
 
 public class AggregatedTemplateCollection : AggregatedCollectionBase<TemplateCollectionSpec, TemplateSpec, TemplateCollectionDef, TemplateDefBase>
 {
@@ -24,6 +24,9 @@ public class AggregatedTemplateCollection : AggregatedCollectionBase<TemplateCol
 
     public override string GetCollectionId(TemplateCollectionSpec spec) => spec.CollectionId;
     public override string GetItemId(TemplateDefBase item) => item.TemplateName;
+
+    public IEnumerable<BuildingDef> AllBuildings => ItemsByIds.Values.OfType<BuildingDef>();
+    public IEnumerable<PlantDef> AllPlants => ItemsByIds.Values.OfType<PlantDef>();
 
     public IEnumerable<BuildingDef> GetBuildings(IEnumerable<string> collectionIds)
         => GetByCollectionIds(collectionIds).OfType<BuildingDef>();

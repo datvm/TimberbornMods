@@ -1,4 +1,4 @@
-﻿namespace ConfigurableFaction.Definitions;
+﻿namespace ConfigurableFaction.Models;
 
 public abstract class OrderedSpecCollectionBase<TSpec, TDef>
     where TSpec : ComponentSpec

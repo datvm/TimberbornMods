@@ -1,4 +1,4 @@
-﻿namespace ConfigurableFaction.Definitions;
+﻿namespace ConfigurableFaction.Models;
 
 public abstract class AggregatedCollectionBase<TCollectionSpec, TItemSpec, TItem> : AggregatedCollectionBase<TCollectionSpec, TItemSpec, CollectionDefBase<TItem>, TItem>
     where TCollectionSpec : ComponentSpec

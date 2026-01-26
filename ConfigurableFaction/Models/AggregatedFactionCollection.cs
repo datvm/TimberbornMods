@@ -1,4 +1,4 @@
-﻿namespace ConfigurableFaction.Definitions;
+﻿namespace ConfigurableFaction.Models;
 
 public class AggregatedFactionCollection : OrderedSpecCollectionBase<FactionSpec, FactionDef>
 {
@@ -6,9 +6,9 @@ public class AggregatedFactionCollection : OrderedSpecCollectionBase<FactionSpec
     readonly DataAggregatorService aggregator = null!;
 
     AggregatedFactionCollection() { }
-    public AggregatedFactionCollection(ISpecService specs, DataAggregatorService dataAggregatorService) : base(specs)
+    public AggregatedFactionCollection(ISpecService specs, DataAggregatorService aggregator) : base(specs)
     {
-        this.aggregator = dataAggregatorService;
+        this.aggregator = aggregator;
     }
 
     public override string GetId(FactionDef spec) => spec.Id;
@@ -19,9 +19,9 @@ public class AggregatedFactionCollection : OrderedSpecCollectionBase<FactionSpec
 
         return new(
             spec,
-            aggregator.Templates.GetBuildings(ids),
-            aggregator.Templates.GetPlants(ids),
-            
+            [..aggregator.Templates.GetBuildings(ids)],
+            [..aggregator.Templates.GetPlants(ids)],
+            [..aggregator.Needs.GetByCollectionIds(ids)]
         );
     }
 }

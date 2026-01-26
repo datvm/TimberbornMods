@@ -140,6 +140,7 @@
     <Project Path="GameAssemblyPublicizer/GameAssemblyPublicizer.csproj" />
     <Project Path="GameAssemblyUsingGenerator/GameAssemblyUsingGenerator.csproj" Id="0a90bfcf-d0de-4970-a0f0-9ef778e41a70" />
     <Project Path="ModAnalyzers/ModAnalyzers.csproj" />
+    <Project Path="ModdingAssetUpdater/ModdingAssetUpdater.csproj" Id="42a47b1d-9de4-43e1-983a-9b338e93a609" />
     <Project Path="StartGame/StartGame.csproj" />
     <Project Path="TimbermeshMaterialPatcher/TimbermeshMaterialPatcher.csproj" />
   </Folder>

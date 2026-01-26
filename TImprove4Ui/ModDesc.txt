@@ -22,7 +22,6 @@ Note: you can see the features in the screenshots.
 
 [h1]Other features[/h1]
 - If you use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3480668755]More Naming[/url] to rename Zipline Station or Pylons, the UI now shows the custom name.
-- [spoiler]Dev mode's[/spoiler] hotkeys are now visible in the Keybindings panel, for example, you can now change the keybind for [spoiler]Dev's Fast Speed (4)[/spoiler].
 
 [h1]Management Panel[/h1]
 
@@ -45,7 +44,7 @@ Credits:
 - Bones: Disable pause icons on buildings.
 - Shimanim: Collapsible management groups.
 
-v10.1.1: Should work with Update 1.0.8 (Jan 26)
+v10.1.1: Should work with Update 1.0.8 (Jan 26). Removed [spoiler]Dev mode's[/spoiler] hotkeys feature as it's now working correctly in the base game.
 v10.1.0:
 - Removed "Disable Shadows" feature, it's now part of the base game (Graphics Settings).
 - Removed "Pause Icon Toggle" feature in favor of the more generic solution [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3635342825]Warnings Be Gone[/url].

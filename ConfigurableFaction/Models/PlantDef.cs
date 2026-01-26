@@ -1,4 +1,4 @@
-﻿namespace ConfigurableFaction.Definitions;
+﻿namespace ConfigurableFaction.Models;
 
 public class PlantDef(PlantableSpec Plantable, Blueprint Blueprint, DataAggregatorService dataAggregator, ILoc t) : TemplateDefBase(Blueprint, dataAggregator, t)
 {
