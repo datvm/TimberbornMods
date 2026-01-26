@@ -23,5 +23,3 @@ public abstract class BaseModdableTimberbornConfigurationWithHarmony : BaseModda
 {
     public virtual string? PatchCategory { get; } = null;
 }
-
-public interface IWithDIConfig { }

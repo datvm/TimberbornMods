@@ -1,0 +1,11 @@
+﻿{
+    "Name": "Configurable Faction (Faction Mixer)",
+    "Version": "10.0.0",
+    "Id": "ConfigurableFaction",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Mix up the faction to your desires!",
+    "RequiredMods": [
+        { "Id": "eMka.ModSettings" },
+        { "Id": "ModdableTimberborn" }
+    ]
+}
