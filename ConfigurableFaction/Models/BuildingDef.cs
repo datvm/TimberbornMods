@@ -1,4 +1,4 @@
-﻿namespace ConfigurableFaction.Definitions;
+﻿namespace ConfigurableFaction.Models;
 
 public class BuildingDef(PlaceableBlockObjectSpec Placeable, Blueprint Blueprint, DataAggregatorService dataAggregator, ILoc t) : TemplateDefBase(Blueprint, dataAggregator, t)
 {
@@ -52,7 +52,7 @@ public class BuildingDef(PlaceableBlockObjectSpec Placeable, Blueprint Blueprint
         var manufacturer = Blueprint.GetSpec<ManufactorySpec>();
         if (manufacturer is null) { yield break; }
 
-        var goods = dataAggregator.GoodsByIds;
+        var goods = dataAggregator.Goods.ItemsByIds;
 
         foreach (var recipeId in manufacturer.ProductionRecipeIds)
         {
@@ -83,7 +83,7 @@ public class BuildingDef(PlaceableBlockObjectSpec Placeable, Blueprint Blueprint
             yield break;
         }
 
-        var goods = dataAggregator.GoodsByIds;
+        var goods = dataAggregator.Goods.ItemsByIds;
         foreach (var item in spec.BuildingCost)
         {
             yield return goods[item.Id];

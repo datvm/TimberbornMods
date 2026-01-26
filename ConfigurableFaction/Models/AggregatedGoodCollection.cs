@@ -1,4 +1,4 @@
-﻿namespace ConfigurableFaction.Definitions;
+﻿namespace ConfigurableFaction.Models;
 
 public class AggregatedGoodCollection : AggregatedCollectionBase<GoodCollectionSpec, GoodSpec, GoodDef>
 {
