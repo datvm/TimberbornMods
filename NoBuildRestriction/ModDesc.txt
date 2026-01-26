@@ -26,6 +26,7 @@ Note: for super foundation to work, I also moved the "pivot" or building point o
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.0.5: Should work with Update 1.0.8 (Jan 26)
 v10.0.4: Should work with Update 1.0.7 (Jan 12)
 v10.0.3:
 - Fixed various issues due to conflict with Moddable Tool Groups, please update Moddable Timberborn to the latest version.
@@ -38,11 +39,3 @@ v10.0.0:
 - Should work with Timberborn v1.0.
 - This mod now needs Moddable Timberborn.
 - "Remove Ground-only restriction" does not work with buildings with underground parts yet (like Underground Pile) due to changes in Timberborn v1.0.
-
-v7.4.1: Removed Mechanical Pump (both FT and IT) from Hanging Structure so they can be built.
-v7.4.0: Added "Remove terrain-to-bottom restriction".
-v7.3.0: Added Hanging Structure.
-v7.2.0: Added Super Hanging terrain. Fixed "magical" buildings disappear on loading a save due to April 02 update.
-v7.1.2: Fixed Platform over 1x1 not working without other options.
-v7.1.1: Fixed No-ground restriction break Underground Piles and causes beavers to stuck while trying to access it.
-v7.1.0: Added "Platforms over 1x1" and "Magical foundation" options.
