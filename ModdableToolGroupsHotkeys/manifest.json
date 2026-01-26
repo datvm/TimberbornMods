@@ -1,6 +1,6 @@
 ﻿{
     "Name": "Moddable Tool Groups Hotkeys",
-    "Version": "10.0.0",
+    "Version": "10.0.1",
     "Id": "ModdableToolGroupsHotkeys",
     "MinimumGameVersion": "1.0.0",
     "Description": "Hotkeys support for Moddable Tool Groups",

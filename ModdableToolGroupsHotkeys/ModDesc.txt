@@ -13,3 +13,5 @@ For modder: [url=https://github.com/datvm/TimberbornMods/blob/master/Docs/Moddab
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.1: Should work with Update 1.0.8 (Jan 26)

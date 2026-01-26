@@ -45,6 +45,7 @@ Credits:
 - Bones: Disable pause icons on buildings.
 - Shimanim: Collapsible management groups.
 
+v10.1.1: Should work with Update 1.0.8 (Jan 26)
 v10.1.0:
 - Removed "Disable Shadows" feature, it's now part of the base game (Graphics Settings).
 - Removed "Pause Icon Toggle" feature in favor of the more generic solution [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3635342825]Warnings Be Gone[/url].
