@@ -16,6 +16,7 @@ public class MSettings(
     public static bool MagicStructure { get; private set; } = false;
     public static bool HangingStructure { get; private set; } = false;
     public static bool SuperHangingTerrain { get; private set; } = false;
+    public static int SuperHangingTerrainLimit { get; private set; } = 6;
     public static bool NoBottomOfMap { get; private set; } = false;
 
     public static bool ModifyObjects
@@ -74,6 +75,11 @@ public class MSettings(
         ModSettingDescriptor.CreateLocalized("LV.NBR.SuperHangingTerrain")
             .SetLocalizedTooltip("LV.NBR.SuperHangingTerrainDesc"));
 
+    readonly RangeIntModSetting superHangingTerrainLimit = new(
+        6, 3, 50,
+        ModSettingDescriptor.CreateLocalized("LV.NBR.SuperHangingTerrainLimit")
+            .SetLocalizedTooltip("LV.NBR.SuperHangingTerrainLimitDesc"));
+
     readonly ModSetting<bool> noBottomOfMap = new(
         false,
         ModSettingDescriptor.CreateLocalized("LV.NBR.NoBottomOfMap")
@@ -83,6 +89,7 @@ public class MSettings(
     {
         magicStructure.Descriptor.SetEnableCondition(() => superStructure.Value);
         hangingStructure.Descriptor.SetEnableCondition(() => superStructure.Value && magicStructure.Value);
+        superHangingTerrainLimit.Descriptor.SetEnableCondition(() => superHangingTerrain.Value);
 
         AddCustomModSetting(removeGroundOnly, nameof(removeGroundOnly));
         AddCustomModSetting(removeRoofOnly, nameof(removeRoofOnly));
@@ -93,6 +100,7 @@ public class MSettings(
         AddCustomModSetting(magicStructure, nameof(magicStructure));
         AddCustomModSetting(hangingStructure, nameof(hangingStructure));
         AddCustomModSetting(superHangingTerrain, nameof(superHangingTerrain));
+        AddCustomModSetting(superHangingTerrainLimit, nameof(superHangingTerrainLimit));
         AddCustomModSetting(noBottomOfMap, nameof(noBottomOfMap));
 
         UpdateValues();
@@ -110,6 +118,7 @@ public class MSettings(
         HangingStructure = hangingStructure.Value;
         SuperHangingTerrain = superHangingTerrain.Value;
         NoBottomOfMap = noBottomOfMap.Value;
+        SuperHangingTerrainLimit = superHangingTerrainLimit.Value;
 
         if (SuperHangingTerrain)
         {

@@ -5,10 +5,10 @@ public static class HangingTerrainPatches
 
     public static void PatchHangingTerrain()
     {
-        const int Max = 50;
-
-        typeof(TerrainPhysicsValidator).Field(nameof(TerrainPhysicsValidator.MaxSupportDistanceDoubled)).SetValue(null, Max * 2);
-        typeof(TerrainPhysicsValidator).Field(nameof(TerrainPhysicsValidator.MaxSupportDistance)).SetValue(null, Max);
+        var max = MSettings.SuperHangingTerrainLimit;
+        
+        typeof(TerrainPhysicsValidator).Field(nameof(TerrainPhysicsValidator.MaxSupportDistanceDoubled)).SetValue(null, max * 2);
+        typeof(TerrainPhysicsValidator).Field(nameof(TerrainPhysicsValidator.MaxSupportDistance)).SetValue(null, max);
     }
 
 }

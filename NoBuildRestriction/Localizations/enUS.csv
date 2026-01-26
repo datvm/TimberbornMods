@@ -1,4 +1,4 @@
-ID,Text,Comment
+﻿ID,Text,Comment
 LV.NBR.RemoveGroundOnly,"Remove Ground-only restriction",
 LV.NBR.RemoveGroundOnlyDesc,"Remove the restriction for Ground-only buildings (like Campfire)",
 LV.NBR.RemoveRoofOnly,"Remove Roof-only restriction",
@@ -17,5 +17,7 @@ LV.NBR.HangingStructure,"  Hanging structure",
 LV.NBR.HangingStructureDesc,"You can build buildings hanging next to each other similar to terrain. Require Magic Structure.",
 LV.NBR.SuperHangingTerrain,"Super hanging terrain",
 LV.NBR.SuperHangingTerrainDesc,"You can exceed the 3 hanging terrain limit to 50 (not higher due to performance impact)",
+LV.NBR.SuperHangingTerrainLimit,"Super hanging terrain limit",
+LV.NBR.SuperHangingTerrainLimitDesc,"How many hanging terrain pieces you can have (increase may impact performance)",
 LV.NBR.NoBottomOfMap,"Remove terrain-to-bottom restriction",
 LV.NBR.NoBottomOfMapDesc,"Remove the restriction of 'continuous terrain down to the bottom of the map' (Underground Ruins and Water sources)",
