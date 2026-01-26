@@ -3,26 +3,51 @@
 partial class CommonExtensions
 {
 
-    public static bool IsGameContext(this ConfigurationContext context) => context.HasFlag(ConfigurationContext.Game);
-    public static bool IsMenuContext(this ConfigurationContext context) => context.HasFlag(ConfigurationContext.MainMenu);
-    public static bool IsBootstrapperContext(this ConfigurationContext context) => context.HasFlag(ConfigurationContext.Bootstrapper);
-    public static bool IsMapEditorContext(this ConfigurationContext context) => context.HasFlag(ConfigurationContext.MapEditor);
-    public static bool IsGameplayContext(this ConfigurationContext context) => context.IsGameContext() || context.IsMapEditorContext();
+    extension(ConfigurationContext context)
+    {
 
-    public static Configurator BindTemplateTailRunner<T>(this Configurator configurator, bool alsoBindSelf = false)
-        where T : class, ITemplateCollectionServiceTailRunner 
-        => configurator.MultiBindSingleton<ITemplateCollectionServiceTailRunner, T>(alsoBindSelf);
+        public bool IsGameContext() => context.HasFlag(ConfigurationContext.Game);
+        public bool IsMenuContext() => context.HasFlag(ConfigurationContext.MainMenu);
+        public bool IsBootstrapperContext() => context.HasFlag(ConfigurationContext.Bootstrapper);
+        public bool IsMapEditorContext() => context.HasFlag(ConfigurationContext.MapEditor);
+        public bool IsGameplayContext() => context.IsGameContext() || context.IsMapEditorContext();
 
-    public static Configurator BindTemplateModifier<T>(this Configurator configurator, bool alsoBindSelf = false)
-        where T : class, ITemplateModifier 
-        => configurator.MultiBindSingleton<ITemplateModifier, T>(alsoBindSelf);
+        public BindAttributeContext ToBindAttributeContext() => context switch
+        {
+            ConfigurationContext.Bootstrapper => BindAttributeContext.Bootstrapper,
+            ConfigurationContext.MainMenu => BindAttributeContext.MainMenu,
+            ConfigurationContext.Game => BindAttributeContext.Game,
+            ConfigurationContext.MapEditor => BindAttributeContext.MapEditor,
+            _ => throw new ArgumentOutOfRangeException(nameof(context), $"Cannot convert context value '{context}' to {nameof(BindAttributeContext)}."),
+        };
 
-    public static Configurator BindSpecTailRunner<T>(this Configurator configurator, bool alsoBindSelf = false)
-        where T : class, ISpecServiceTailRunner 
-        => configurator.MultiBindSingleton<ISpecServiceTailRunner, T>(alsoBindSelf);
+    }
 
-    public static Configurator BindSpecModifier<T>(this Configurator configurator, bool alsoBindSelf = false)
-        where T : class, ISpecModifier 
-        => configurator.MultiBindSingleton<ISpecModifier, T>(alsoBindSelf);
+    extension(Configurator configurator)
+    {
+        public Configurator BindAttributes(ConfigurationContext context, Assembly? assembly = default, Scope defaultScope = Scope.Singleton)
+        {
+            assembly ??= Assembly.GetCallingAssembly();
+
+            return configurator.BindAttributes(context.ToBindAttributeContext(), assembly, defaultScope);
+        }
+
+        public Configurator BindTemplateTailRunner<T>(bool alsoBindSelf = false)
+            where T : class, ITemplateCollectionServiceTailRunner
+            => configurator.MultiBindSingleton<ITemplateCollectionServiceTailRunner, T>(alsoBindSelf);
+
+        public Configurator BindTemplateModifier<T>(bool alsoBindSelf = false)
+            where T : class, ITemplateModifier
+            => configurator.MultiBindSingleton<ITemplateModifier, T>(alsoBindSelf);
+
+        public Configurator BindSpecTailRunner<T>(bool alsoBindSelf = false)
+            where T : class, ISpecServiceTailRunner
+            => configurator.MultiBindSingleton<ISpecServiceTailRunner, T>(alsoBindSelf);
+
+        public Configurator BindSpecModifier<T>(bool alsoBindSelf = false)
+            where T : class, ISpecModifier
+            => configurator.MultiBindSingleton<ISpecModifier, T>(alsoBindSelf);
+
+    }
 
 }

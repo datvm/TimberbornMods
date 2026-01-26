@@ -23,3 +23,5 @@ public interface IModdableTimberbornRegistryWithPatchConfig : IModdableTimberbor
     /// </summary>
     string? PatchCategory { get; }
 }
+
+public interface IWithDIConfig { }
