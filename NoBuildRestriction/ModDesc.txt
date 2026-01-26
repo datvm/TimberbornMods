@@ -14,7 +14,7 @@ By default, this mod only removes "Ground-only" and "Rooftop-only" restrictions 
 - Super foundation: All buildings can be built with only one support (see screenshots). For buildings with entrance, that is the block you need to support. For those without, it's the central block.
 - Magical foundation: Your building does not need any support at all. It can just float on the air. You may still need to build the scaffolding to be able to put the buildings, then remove them.
 - Hanging Structure (require Magical Foundation): you can build your buildings sideway to terrains (see screenshot). Only apply to 1xN buildings for V1.
-- Super hanging terrain: You can exceed the 3 hanging terrain limit to 50 (not higher due to performance impact).
+- Super hanging terrain: You can exceed the 3 hanging terrain limit up to 50 (not higher due to performance impact). You can set the limit, the higher the number the more performance impact it has.
 - Remove terrain-to-bottom restriction: Remove the restriction of 'continuous terrain down to the bottom of the map' (Underground Ruins and Water sources). Also works for Map Editor but your users will need this mod with this option on to play your map without those objects getting removed.
 
 Note: for super foundation to work, I also moved the "pivot" or building point of those buildings so when you build, you choose the entrance with your cursor instead of the center of the building. Honestly that feel very nice to me and should have been the game's default.
@@ -26,6 +26,7 @@ Note: for super foundation to work, I also moved the "pivot" or building point o
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
+v10.1.0: Super hanging terrain setting now has a slider to choose the limit (default 6) to reduce performance impact.
 v10.0.5: Should work with Update 1.0.8 (Jan 26)
 v10.0.4: Should work with Update 1.0.7 (Jan 12)
 v10.0.3:

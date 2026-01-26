@@ -4,7 +4,7 @@ public class RestrictionTemplateModifier : ITemplateModifier
 {
     static readonly FrozenSet<string> Excluded1x1Buildings = ["TerrainBlock.Folktails", "TerrainBlock.IronTeeth", "Dynamite.Folktails", "Dynamite.IronTeeth"];
     static readonly FrozenSet<string> HangingStructureExclusions = ["MechanicalFluidPump.Folktails", "DeepMechanicalFluidPump.IronTeeth"];
-
+    static readonly FrozenSet<string> IgnoredStructures = ["TerrainBlock.Folktails", "TerrainBlock.IronTeeth"];
 
     public EditableBlueprint? Modify(EditableBlueprint template, TemplateSpec originalTemplateSpec, Blueprint original)
     {
@@ -245,5 +245,5 @@ public class RestrictionTemplateModifier : ITemplateModifier
     }
 
     public bool ShouldModify(string blueprintName, string templateName, TemplateSpec originalTemplateSpec)
-        => MSettings.ModifyObjects;
+        => !IgnoredStructures.Contains(templateName) && MSettings.ModifyObjects;
 }
