@@ -77,7 +77,7 @@ public class SparePowerToScienceConverter(
 
     public void Load()
     {
-        gameHourTime = dayNightCycle.ConfiguredDayLengthInSeconds / 24f;
+        gameHourTime = dayNightCycle.DayLengthInSeconds / 24f;
         LoadSavedData();
     }
 

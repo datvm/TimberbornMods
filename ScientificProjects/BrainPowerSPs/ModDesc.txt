@@ -26,6 +26,7 @@ Note: a few of the upgrades have "[Reload needed]" tags which means after purcha
 ===
 Mod source code: https://github.com/datvm/TimberbornMods/tree/master/ScientificProjects
 
+v10.0.2: Should work with Update 1.0.8 (Jan 26)
 v10.0.1: Should work with Update 1.0.7 (Jan 12)
 v10.0.0: Should work with Timberborn v1.0 now.
 
