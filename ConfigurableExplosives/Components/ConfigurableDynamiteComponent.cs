@@ -15,7 +15,7 @@ public class ConfigurableDynamiteComponent : TickableComponent, IPersistentEntit
     }
     public int TriggerRadius { get; set; } = 1;
 
-    public bool Triggered => Dynamite.Triggered;
+    public bool Triggered => Dynamite.IsTriggered;
     public float TriggeredTime { get; private set; }
 
     public bool ShouldDetonate => Triggered && TriggeredTime >= DetonationDelay;
