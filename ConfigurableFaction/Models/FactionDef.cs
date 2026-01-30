@@ -4,6 +4,7 @@ public record FactionDef(
     FactionSpec Spec,
     ImmutableArray<BuildingDef> Buildings,
     ImmutableArray<PlantDef> Plants,
+    ImmutableArray<GoodDef> Goods,
     ImmutableArray<NeedSpec> Needs
 )
 {
@@ -12,6 +13,6 @@ public record FactionDef(
     public FrozenDictionary<string, ImmutableArray<BuildingDef>> BuildingsByGroups { get; }
         = Buildings.GroupBy(b => b.GroupId).ToFrozenDictionary(
             g => g.Key,
-            g => g.OrderBy(b => b.DisplayName).ToImmutableArray());
+            g => g.ToImmutableArray());
 
 }

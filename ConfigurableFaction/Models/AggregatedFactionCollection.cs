@@ -15,13 +15,14 @@ public class AggregatedFactionCollection : OrderedSpecCollectionBase<FactionSpec
     public override int GetOrder(FactionSpec spec) => spec.Order;
     public override FactionDef CreateItem(FactionSpec spec)
     {
-        var ids = spec.TemplateCollectionIds;
+        var templateColIds = spec.TemplateCollectionIds;
 
         return new(
             spec,
-            [..aggregator.Templates.GetBuildings(ids)],
-            [..aggregator.Templates.GetPlants(ids)],
-            [..aggregator.Needs.GetByCollectionIds(ids)]
+            [.. aggregator.Templates.GetBuildings(templateColIds)],
+            [.. aggregator.Templates.GetPlants(templateColIds)],
+            [.. aggregator.Goods.GetByCollectionIds(spec.GoodCollectionIds)],
+            [.. aggregator.Needs.GetByCollectionIds(spec.NeedCollectionIds)]
         );
     }
 }

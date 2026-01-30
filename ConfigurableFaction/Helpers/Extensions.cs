@@ -14,4 +14,19 @@ public static class Extensions
         }
     }
 
+    extension<T>(HashSet<T> set)
+    {
+        public void Toggle(T item, bool value)
+        {
+            if (value)
+            {
+                set.Add(item);
+            }
+            else
+            {
+                set.Remove(item);
+            }
+        }
+    }
+
 }

@@ -2,20 +2,15 @@
 
 [BindSingleton(Contexts = BindAttributeContext.MainMenu)]
 public class DataAggregatorService(
-    ILoc t,
-    ISpecService specs
+    ISpecService specs,
+    TemplateDefFactory templateDefFactory
 )
 {
-    public const string CommonId = "Common";
-    public static readonly FrozenDictionary<string, string> SpecialPairBuildings = new KeyValuePair<string, string>[]
-        {
-            new("Buildings/Monuments/EarthRepopulator/EarthRepopulator.IronTeeth", "Buildings/Monuments/EarthRepopulator/EarthRepopulator.IronTeeth.Plane" ),
-        }
-        .ToFrozenDictionary(StringComparer.OrdinalIgnoreCase);
 
     public AggregatedNeedCollection Needs { get; private set; } = AggregatedNeedCollection.Empty;
     public AggregatedGoodCollection Goods { get; private set; } = AggregatedGoodCollection.Empty;
     public FrozenDictionary<string, RecipeSpec> RecipesByIds { get; private set; } = FrozenDictionary<string, RecipeSpec>.Empty;
+    public FrozenDictionary<string, BlockObjectToolGroupSpec> ToolGroupsByIds { get; private set; } = FrozenDictionary<string, BlockObjectToolGroupSpec>.Empty;
     public AggregatedTemplateCollection Templates { get; private set; } = AggregatedTemplateCollection.Empty;
     public AggregatedFactionCollection Factions { get; private set; } = AggregatedFactionCollection.Empty;
     public ImmutableArray<ExclusiveGroupDef> ExclusiveGroups { get; private set; } = [];
@@ -28,10 +23,11 @@ public class DataAggregatorService(
         initialized = true;
 
         RecipesByIds = specs.GetSpecs<RecipeSpec>().ToFrozenDictionary(r => r.Id);
-        Needs = new(specs);
-        Goods = new(specs);
-        Templates = new(specs, this, t);
-        Factions = new(specs, this);
+        ToolGroupsByIds = specs.GetSpecs<BlockObjectToolGroupSpec>().ToFrozenDictionary(t => t.Id);
+        Needs = new(specs); Needs.Aggregate();
+        Goods = new(specs); Goods.Aggregate();
+        Templates = new(specs, this, templateDefFactory); Templates.Aggregate();
+        Factions = new(specs, this); Factions.Aggregate();
 
         PopulateExclusiveGroups();
     }
@@ -46,7 +42,7 @@ public class DataAggregatorService(
             if (planter is not null)
             {
                 var groupName = $"{nameof(PlanterBuildingSpec)}.{planter.PlantableResourceGroup}";
-                groups.GetOrAdd(groupName, () => new(groupName)).Templates.Add(b.TemplateName);
+                groups.GetOrAdd(groupName, () => new(groupName)).Templates.Add(b.Id);
             }
         }
 

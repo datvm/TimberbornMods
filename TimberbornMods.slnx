@@ -169,7 +169,6 @@
   <Project Path="MechanicalFilterPump/MechanicalFilterPump.csproj" />
   <Project Path="MerryChristmas2025/MerryChristmas2025.csproj" Id="88ea19d7-98a9-4248-8bfc-9a49a8b50a1f" />
   <Project Path="MicroManagement/MicroManagement.csproj" />
-  <Project Path="MultiYieldersPlzNoCrashes/MultiYieldersPlzNoCrashes.csproj" />
   <Project Path="NoBuildRestriction/NoBuildRestriction.csproj" />
   <Project Path="NoWaterCompression/NoWaterCompression.csproj" Id="5e34d978-6930-4245-8b77-68ba334912af" />
   <Project Path="PackagerBuilder/PackagerBuilder.csproj" />

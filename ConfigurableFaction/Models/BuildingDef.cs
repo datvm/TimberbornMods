@@ -1,12 +1,12 @@
 ﻿namespace ConfigurableFaction.Models;
 
-public class BuildingDef(PlaceableBlockObjectSpec Placeable, Blueprint Blueprint, DataAggregatorService dataAggregator, ILoc t) : TemplateDefBase(Blueprint, dataAggregator, t)
+public class BuildingDef(PlaceableBlockObjectSpec Placeable, Blueprint Blueprint, string BlueprintPath, DataAggregatorService dataAggregator, ILoc t) : TemplateDefBase(Blueprint, BlueprintPath, dataAggregator, t)
 {
     public PlaceableBlockObjectSpec PlaceableSpec { get; } = Placeable;
     public string GroupId => PlaceableSpec.ToolGroupId;
+    public override int Order => PlaceableSpec.ToolOrder;
 
-    public static BuildingDef? Create(Blueprint bp, DataAggregatorService dataAggregator, ILoc t)
-        => bp.CreateDefinition<BuildingDef, PlaceableBlockObjectSpec>(comp => new(comp, bp, dataAggregator, t));
+    public override string? PlanterGroup { get; } = Blueprint.GetSpec<PlanterBuildingSpec>()?.PlantableResourceGroup;
 
     protected override void InitializeRequirements(DataAggregatorService dataAggregator)
     {
