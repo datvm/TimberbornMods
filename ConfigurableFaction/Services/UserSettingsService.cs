@@ -1,6 +1,5 @@
 ﻿namespace ConfigurableFaction.Services;
 
-[BindSingleton(Contexts = BindAttributeContext.Bootstrapper)]
 public class UserSettingsService : ILoadableSingleton
 {
 
@@ -8,6 +7,11 @@ public class UserSettingsService : ILoadableSingleton
     public static readonly string FilePath = Path.Combine(UserDataFolder.Folder, FileName);
 
     public UserSettings Settings { get; private set; } = new();
+
+    public FactionUserSetting GetOrAddFaction(string factionId)
+        => Settings.Factions.GetOrAdd(factionId, () => new(factionId));
+
+    public void Reset() => Settings = new();
 
     public void Load() => Import(FilePath);
     public void Save() => Export(FilePath);

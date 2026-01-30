@@ -1,10 +1,10 @@
 ﻿{
     "Name": "Daisugi Forestry",
-    "Version": "10.1.1",
+    "Version": "10.1.2",
     "Id": "DaisugiForestry",
     "MinimumGameVersion": "1.0.0",
     "Description": "Sustainable forestry technique from Japan, allowing for continuous timber harvest without replanting.",
     "RequiredMods": [
-        { "Id": "MultiYieldersPlzNoCrashes" }
+        { "Id": "XtraPlzNoCrashes" }
     ]
 }

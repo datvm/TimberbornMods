@@ -1,14 +1,22 @@
 ﻿namespace ConfigurableFaction.Models;
 
-public class FactionUserSetting(string Id)
+public class FactionUserSetting(string FactionId)
 {
 
-    public string Id { get; set; } = Id;
+    public string FactionId { get; set; } = FactionId;
     public bool Clear { get; set; }
 
-    public List<string> Buildings { get; } = [];
-    public List<string> Plants { get; } = [];
-    public List<string> Needs { get; } = [];
-    public List<string> Goods { get; } = [];
+    public HashSet<string> Buildings { get; } = [];
+    public HashSet<string> Plants { get; } = [];
+    public HashSet<string> Needs { get; } = [];
+    public HashSet<string> Goods { get; } = [];
+
+    public void DeselectAll()
+    {
+        Buildings.Clear();
+        Plants.Clear();
+        Needs.Clear();
+        Goods.Clear();
+    }
 
 }

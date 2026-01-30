@@ -13,25 +13,27 @@ public abstract class AggregatedCollectionBase<TCollectionSpec, TItemSpec, TColl
     where TItemSpec : ComponentSpec
     where TCollection : CollectionDefBase<TItem>
 {
-    public FrozenDictionary<string, TItemSpec> ItemSpecsByIds { get; }
 
-    public abstract string GetCollectionId(TCollectionSpec spec);
+    public FrozenDictionary<string, TItemSpec> ItemSpecsByIds { get; private set; } = FrozenDictionary<string, TItemSpec>.Empty;
+
+    public abstract string? GetCollectionId(TCollectionSpec spec);
     public abstract IEnumerable<TItem> GetItems(TCollectionSpec spec);
     public abstract string GetItemSpecId(TItemSpec item);
     public abstract string GetItemId(TItem item);
     public abstract TCollection CreateCollection(string id, List<TItem> items);
 
-    public FrozenDictionary<string, TItem> ItemsByIds { get; }
-    public FrozenDictionary<string, TCollection> CollectionsByIds { get; }
+    public FrozenDictionary<string, TItem> ItemsByIds { get; private set; } = FrozenDictionary<string, TItem>.Empty;
+    public FrozenDictionary<string, TCollection> CollectionsByIds { get; private set; } = FrozenDictionary<string, TCollection>.Empty;
 
-    protected AggregatedCollectionBase()
+    protected readonly ISpecService specs = null!;
+
+    protected AggregatedCollectionBase() { }
+    public AggregatedCollectionBase(ISpecService specs)
     {
-        ItemSpecsByIds = FrozenDictionary<string, TItemSpec>.Empty;
-        ItemsByIds = FrozenDictionary<string, TItem>.Empty;
-        CollectionsByIds = FrozenDictionary<string, TCollection>.Empty;
+        this.specs = specs;
     }
 
-    public AggregatedCollectionBase(ISpecService specs)
+    public virtual void Aggregate()
     {
         ItemSpecsByIds = specs.GetSpecs<TItemSpec>().ToFrozenDictionary(GetItemSpecId);
 
@@ -40,9 +42,10 @@ public abstract class AggregatedCollectionBase<TCollectionSpec, TItemSpec, TColl
 
         foreach (var spec in specs.GetSpecs<TCollectionSpec>())
         {
-            var id = GetCollectionId(spec);
-            var grp = itemsGroups.GetOrAdd(id);
+            var colId = GetCollectionId(spec);
+            if (colId is null) { continue; }
 
+            var grp = itemsGroups.GetOrAdd(colId);
             foreach (var item in GetItems(spec))
             {
                 grp.Add(item);
@@ -63,5 +66,11 @@ public abstract class AggregatedCollectionBase<TCollectionSpec, TItemSpec, TColl
 
     public IEnumerable<TItem> GetByCollectionIds(IEnumerable<string> collectionIds)
         => collectionIds.SelectMany(id => CollectionsByIds[id].Items);
+
+    public IEnumerable<TItem> CommonItems => CollectionsByIds.TryGetValue(ConfigurableFactionUtils.CommonCollectionId, out var items)
+            ? items.Items
+            : [];
+
+    public HashSet<string> CommonItemsIds => [.. CommonItems.Select(GetItemId)];
 
 }

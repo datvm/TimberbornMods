@@ -1,6 +1,15 @@
 ﻿namespace ConfigurableFaction.UI;
 
-public class ConfigurableFactionSettings() : NonPersistentSetting(new("", ""));
+public class ConfigurableFactionSettings(UserSettingsService userSettingsService) : NonPersistentSetting(new("", ""))
+{
+
+    public override void Reset()
+    {
+        base.Reset();
+        userSettingsService.Reset();
+    }
+
+}
 
 [MultiBind(typeof(IModSettingElementFactory), Contexts = BindAttributeContext.MainMenu)]
 public class ConfigurableFactionSettingsFactory(IContainer container) : IModSettingElementFactory

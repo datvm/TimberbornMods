@@ -6,6 +6,10 @@
     "Description": "Mix up the faction to your desires!",
     "RequiredMods": [
         { "Id": "eMka.ModSettings" },
-        { "Id": "ModdableTimberborn" }
+        {
+            "Id": "ModdableTimberborn",
+            "MinimumVersion": "10.1.0"
+        },
+        { "Id": "XtraPlzNoCrashes" }
     ]
 }

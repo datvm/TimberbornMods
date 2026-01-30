@@ -2,60 +2,51 @@
 
 public class AggregatedTemplateCollection : AggregatedCollectionBase<TemplateCollectionSpec, TemplateSpec, TemplateCollectionDef, TemplateDefBase>
 {
-
     public static readonly AggregatedTemplateCollection Empty = new();
 
-    readonly ISpecService specs;
-    readonly DataAggregatorService dataAggregatorService;
-    readonly ILoc t;
+    readonly DataAggregatorService aggregator = null!;
+    readonly TemplateDefFactory fac = null!;
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+    public FrozenDictionary<string, string> IdsByTemplateNames { get; private set; } = FrozenDictionary<string, string>.Empty;
+    
     AggregatedTemplateCollection() : base() { }
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-
-    public AggregatedTemplateCollection(ISpecService specs, DataAggregatorService dataAggregatorService, ILoc t) : base(specs)
+    public AggregatedTemplateCollection(ISpecService specs, DataAggregatorService dataAggregatorService, TemplateDefFactory fac) : base(specs)
     {
-        this.dataAggregatorService = dataAggregatorService;
-        this.t = t;
-        this.specs = specs;
+        aggregator = dataAggregatorService;
+        this.fac = fac;
     }
 
     public override TemplateCollectionDef CreateCollection(string id, List<TemplateDefBase> items) => new(id, [.. items]);
 
-    public override string GetCollectionId(TemplateCollectionSpec spec) => spec.CollectionId;
-    public override string GetItemId(TemplateDefBase item) => item.TemplateName;
+    public override string? GetCollectionId(TemplateCollectionSpec spec) => spec.CollectionId;
+
+    public override string GetItemId(TemplateDefBase item) => item.Id;
 
     public IEnumerable<BuildingDef> AllBuildings => ItemsByIds.Values.OfType<BuildingDef>();
     public IEnumerable<PlantDef> AllPlants => ItemsByIds.Values.OfType<PlantDef>();
 
     public IEnumerable<BuildingDef> GetBuildings(IEnumerable<string> collectionIds)
-        => GetByCollectionIds(collectionIds).OfType<BuildingDef>();
+        => GetByCollectionIds(collectionIds).OfType<BuildingDef>().OrderBy(q => q.Order);
+
     public IEnumerable<PlantDef> GetPlants(IEnumerable<string> collectionIds)
-        => GetByCollectionIds(collectionIds).OfType<PlantDef>();
+        => GetByCollectionIds(collectionIds).OfType<PlantDef>().OrderBy(q => q.Order);
 
-    public override IEnumerable<TemplateDefBase> GetItems(TemplateCollectionSpec spec)
-    {
-        foreach (var bpAsset in spec.Blueprints)
-        {
-            var bp = specs.GetBlueprint(bpAsset.Path);
+    public HashSet<string> CommonBuildingsIds => [.. CommonItems.OfType<BuildingDef>().Select(b => b.Id)];
+    public HashSet<string> CommonPlantsIds => [.. CommonItems.OfType<PlantDef>().Select(p => p.Id)];
 
-            var building = BuildingDef.Create(bp, dataAggregatorService, t);
-            if (building is not null)
-            {
-                yield return building;
-                continue;
-            }
-
-            var plant = PlantDef.Create(bp, dataAggregatorService, t);
-            if (plant is not null)
-            {
-                yield return plant;
-                continue;
-            }
-        }
-    }
+    public override IEnumerable<TemplateDefBase> GetItems(TemplateCollectionSpec spec) =>
+        spec.Blueprints
+            .Select(bp => fac.Create(bp, aggregator))
+            .Where(d => d is not null)!;
 
     public override string GetItemSpecId(TemplateSpec item) => item.TemplateName;
+
+    public override void Aggregate()
+    {
+        base.Aggregate();
+
+        IdsByTemplateNames = ItemsByIds.Values.ToFrozenDictionary(t => t.TemplateName, t => t.Id);
+    }
 }
 
 public record TemplateCollectionDef(string Id, ImmutableArray<TemplateDefBase> Templates) : CollectionDefBase<TemplateDefBase>(Id, Templates)

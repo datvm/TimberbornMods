@@ -1,0 +1,31 @@
+﻿This mod has been rewritten from scratch to be compatible with Timberborn V1.0, with many new features added. With this mod, you can add [b]or remove[/b] buildings, plants, goods, and needs from any faction in the game. Modded factions are supported, but compatibility is not guaranteed.
+
+[h1]Settings[/h1]
+
+From the Main Menu, go to Mods, then click the Settings button next to the mod name.
+
+[img]https://i.imgur.com/VH6z13y.jpeg[/img]
+
+You can choose what to add for each faction using the dropdown. The mod automatically checks required dependencies and locks them as needed. For example, checking the Food Factory will lock all recipes items (Corn Ration, Corn etc), which in turn lock the Corn Ration need.
+
+You can also export and import your settings using the buttons at the top. "Expand All / Collapse All" and "Deselect All" buttons are provided for easier management.
+
+[h1]Clearing a Faction[/h1]
+
+A new feature is added: [b]Clear this faction[/b]. When checking this, all buildings, plants, goods and needsof the selected faction are removed before adding the new ones. This allows you to create a custom faction from scratch.
+
+This enables certain combinations. For example, you can add the Efficient Farmhouse to Iron Teeth, since it normally cannot coexist with the standard Farmhouse.
+
+A few requirements to avoid game crashes:
+- The faction's District Center must remain. You may add another faction's District Center for styling purposes only AFAIK.
+- Each plant and planting building belongs to a specific "Planter Group". If you include a plant, you must also include a compatible planting building. Only one planting building per planter group is allowed.
+
+[b]Known issues:[/b]
+- Do not remove Refinery from Folktails if you haven't got the "Refined Refinement" achievement.
+
+[h1]Troubleshooting[/h1]
+- [b]Breeding[/b] is decided by the Housing building and [b]not[/b] faction (basically all Folktails Housing can do that while none of Iron Teeth housing can). To add/remove the breeding ability, check out [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3446296053]Configurable Housing[/url].
+- If you need any support or feedback, feel free to contact me on [url=https://discord.com/channels/558398674389172225/1382243128253087895]Timberborn's official Discord[/url].
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

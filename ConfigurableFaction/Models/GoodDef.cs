@@ -1,6 +1,6 @@
 ﻿namespace ConfigurableFaction.Models;
 
-public class GoodDef(GoodSpec GoodSpec)
+public class GoodDef(GoodSpec GoodSpec) : IIdDef
 {
     public GoodSpec GoodSpec { get; } = GoodSpec;
     public string Id => GoodSpec.Id;
