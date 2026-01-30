@@ -1,0 +1,10 @@
+﻿{
+    "Name": "XtraPlzNoCrashes",
+    "Version": "10.0.0",
+    "Id": "XtraPlzNoCrashes",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Support for mods so game constraints don't crash them.",
+    "RequiredMods": [
+        { "Id": "Harmony" }
+    ]
+}

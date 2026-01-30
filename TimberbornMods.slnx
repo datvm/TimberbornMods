@@ -37,6 +37,7 @@
     <Project Path="RealLights/RealLights.csproj" />
     <Project Path="RoofMap/RoofMap.csproj" />
     <Project Path="TimberModBuilder/TimberModBuilder.csproj" />
+    <Project Path="XtraPlzNoCrashes/XtraPlzNoCrashes.csproj" />
   </Folder>
   <Folder Name="/Moddable/ModdableAchievements/">
     <Project Path="DemoModdableAchievements/DemoModdableAchievements.csproj" Id="dbc75ca6-0dda-4656-85bb-f95b97280542" />
