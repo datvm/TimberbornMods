@@ -1,0 +1,8 @@
+﻿This is a support mod for other mods that prevent certain crashes from happening due to the game's constraints. It contains the following features:
+
+- [b]MaterialPlzNoCrashes[/b]: Duplicate materials should not crash but print a warning in the log instead.
+- [b]XtraNeedPlzNoCrashes[/b]: Needs and NeedCollections that are not used will no longer crash.
+- [b]MultiYieldersPlzNoCrashes[/b]: Duplicate gatherable should not crash the game.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
