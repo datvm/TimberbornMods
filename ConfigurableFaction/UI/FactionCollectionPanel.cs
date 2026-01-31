@@ -27,18 +27,18 @@ public class FactionCollectionPanel(
         Buildings.Initialize(controller.GetBuildings(faction));
         RegisterEventHandlers(Buildings, controller.ToggleBuilding);
 
-        Plants = CreatePanel<PlantCollectionPanel, TemplateEntryElement>(controller.GetPlants, controller.TogglePlant);
-        Goods = CreatePanel<GoodCollectionPanel, GoodEntryElement>(controller.GetGoods, controller.ToggleGood);
-        Needs = CreatePanel<NeedCollectionPanel, NeedEntryElement>(controller.GetNeeds, controller.ToggleNeed);
+        Plants = CreatePanel<PlantCollectionPanel, TemplateEntryElement<PlantDef>, PlantDef>(controller.GetPlants, controller.TogglePlant);
+        Goods = CreatePanel<GoodCollectionPanel, GoodEntryElement, GoodDef>(controller.GetGoods, controller.ToggleGood);
+        Needs = CreatePanel<NeedCollectionPanel, NeedEntryElement, NeedDef>(controller.GetNeeds, controller.ToggleNeed);
 
         foreach (VisualElement p in AllPanels)
         {
             Container.Add(p.SetMarginBottom(10));
         }
 
-        T CreatePanel<T, TEntry>(Func<FactionDef, IEnumerable<EffectiveEntry>> getEntriesFunc, Action<string, bool> handler)
-            where T : DefaultEntryCollectionPanel<TEntry>
-            where TEntry : SettingEntryElement
+        T CreatePanel<T, TEl, TEntry>(Func<FactionDef, IEnumerable<EffectiveEntry<TEntry>>> getEntriesFunc, Action<string, bool> handler)
+            where T : DefaultEntryCollectionPanel<TEl, TEntry>
+            where TEl : SettingEntryElement
         {
             var p = container.GetInstance<T>();
             p.Initialize(getEntriesFunc(faction));

@@ -29,3 +29,7 @@ A few requirements to avoid game crashes:
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.1:
+- Fixed crashes caused by loading unused buildings/goods.
+- Fixed crashes caused by duplicate building template names. You can only select one building with the same template name (for example, Ladder).

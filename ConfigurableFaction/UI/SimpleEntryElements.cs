@@ -2,9 +2,9 @@
 
 public class NeedEntryElement : SettingEntryElement
 {
-    public NeedEntryElement(EffectiveEntry entry, DataAggregatorService aggregator) : base(entry)
+    public NeedEntryElement(EffectiveEntry<NeedDef> entry) : base(entry)
     {
-        Keyword = aggregator.Needs.ItemsByIds[Entry.Id].DisplayName.Value;
+        Keyword = entry.Data.DisplayName;
         this.AddLabel(Keyword);
 
         Keyword = Keyword.ToLower();
@@ -14,24 +14,23 @@ public class NeedEntryElement : SettingEntryElement
 public class GoodEntryElement : SettingEntryElement
 {
 
-    public GoodEntryElement(EffectiveEntry entry, DataAggregatorService aggregator) : base(entry)
+    public GoodEntryElement(EffectiveEntry<GoodDef> entry) : base(entry)
     {
-        var g = aggregator.Goods.ItemsByIds[Entry.Id];
-        Keyword = g.DisplayName;
-
-        this.AddIconSpan().SetContent(g.GoodSpec.IconSmall.Value, postfixText: Keyword, size: 24);
+        Keyword = entry.Data.DisplayName;
+        this.AddIconSpan().SetContent(entry.Data.GoodSpec.IconSmall.Value, postfixText: Keyword, size: 24);
 
         Keyword = Keyword.ToLower();
     }
 
 }
 
-public class TemplateEntryElement : SettingEntryElement
+public class TemplateEntryElement<T> : SettingEntryElement
+    where T : TemplateDefBase
 {
 
-    public TemplateEntryElement(EffectiveEntry entry, DataAggregatorService aggregator, ILoc t) : base(entry)
+    public TemplateEntryElement(EffectiveEntry<T> entry, ILoc t) : base(entry)
     {
-        var template = aggregator.Templates.ItemsByIds[Entry.Id];
+        var template = entry.Data;
         Keyword = template.DisplayName;
         this.AddIconSpan().SetContent(template.Sprite, postfixText: Keyword, size: 24);
 

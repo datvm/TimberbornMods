@@ -5,7 +5,7 @@ public record FactionDef(
     ImmutableArray<BuildingDef> Buildings,
     ImmutableArray<PlantDef> Plants,
     ImmutableArray<GoodDef> Goods,
-    ImmutableArray<NeedSpec> Needs
+    ImmutableArray<NeedDef> Needs
 )
 {
     public string Id => Spec.Id;
