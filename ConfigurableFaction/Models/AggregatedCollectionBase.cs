@@ -22,8 +22,8 @@ public abstract class AggregatedCollectionBase<TCollectionSpec, TItemSpec, TColl
     public abstract string GetItemId(TItem item);
     public abstract TCollection CreateCollection(string id, List<TItem> items);
 
-    public FrozenDictionary<string, TItem> ItemsByIds { get; private set; } = FrozenDictionary<string, TItem>.Empty;
-    public FrozenDictionary<string, TCollection> CollectionsByIds { get; private set; } = FrozenDictionary<string, TCollection>.Empty;
+    public FrozenDictionary<string, TItem> ItemsByIds { get; protected set; } = FrozenDictionary<string, TItem>.Empty;
+    public FrozenDictionary<string, TCollection> CollectionsByIds { get; protected set; } = FrozenDictionary<string, TCollection>.Empty;
 
     protected readonly ISpecService specs = null!;
 

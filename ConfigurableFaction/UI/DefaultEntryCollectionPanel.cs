@@ -1,17 +1,17 @@
 ﻿namespace ConfigurableFaction.UI;
 
-public abstract class DefaultEntryCollectionPanel<TEntry>(DataAggregatorService aggregator, ILoc t) : CollapsiblePanel, IEntryCollectionPanel
+public abstract class DefaultEntryCollectionPanel<TEntry, T>(DataAggregatorService aggregator, ILoc t) : CollapsiblePanel, IEntryCollectionPanel
     where TEntry : SettingEntryElement
 {
     protected readonly DataAggregatorService aggregator = aggregator;
 
     protected abstract string TitleLoc { get; }
-    protected abstract TEntry CreateEntryElement(EffectiveEntry entry);
+    protected abstract TEntry CreateEntryElement(EffectiveEntry<T> entry);
 
     public ImmutableArray<TEntry> Entries { get; private set; } = [];
     IEnumerable<SettingEntryElement> IEntryCollectionPanel.Entries => Entries;
 
-    public void Initialize(IEnumerable<EffectiveEntry> entity)
+    public void Initialize(IEnumerable<EffectiveEntry<T>> entity)
     {
         SetTitle(t.T(TitleLoc).Bold());
         SetExpand(false);
@@ -29,22 +29,23 @@ public abstract class DefaultEntryCollectionPanel<TEntry>(DataAggregatorService 
 }
 
 [BindTransient(Contexts = BindAttributeContext.MainMenu)]
-public class GoodCollectionPanel(DataAggregatorService aggregator, ILoc t) : DefaultEntryCollectionPanel<GoodEntryElement>(aggregator, t)
+public class GoodCollectionPanel(DataAggregatorService aggregator, ILoc t) : DefaultEntryCollectionPanel<GoodEntryElement, GoodDef>(aggregator, t)
 {
     protected override string TitleLoc => "LV.CF.Goods";
-    protected override GoodEntryElement CreateEntryElement(EffectiveEntry entry) => new(entry, aggregator);
+    protected override GoodEntryElement CreateEntryElement(EffectiveEntry<GoodDef> entry) => new(entry);
 }
 
 [BindTransient(Contexts = BindAttributeContext.MainMenu)]
-public class NeedCollectionPanel(DataAggregatorService aggregator, ILoc t) : DefaultEntryCollectionPanel<NeedEntryElement>(aggregator, t)
+public class NeedCollectionPanel(DataAggregatorService aggregator, ILoc t) : DefaultEntryCollectionPanel<NeedEntryElement, NeedDef>(aggregator, t)
 {
     protected override string TitleLoc => "LV.CF.Needs";
-    protected override NeedEntryElement CreateEntryElement(EffectiveEntry entry) => new(entry, aggregator);
+    protected override NeedEntryElement CreateEntryElement(EffectiveEntry<NeedDef> entry) => new(entry);
 }
 
 [BindTransient(Contexts = BindAttributeContext.MainMenu)]
-public class PlantCollectionPanel(DataAggregatorService aggregator, ILoc t) : DefaultEntryCollectionPanel<TemplateEntryElement>(aggregator, t)
+public class PlantCollectionPanel(DataAggregatorService aggregator, ILoc t) : DefaultEntryCollectionPanel<TemplateEntryElement<PlantDef>, PlantDef>(aggregator, t)
 {
+    readonly ILoc t = t;
     protected override string TitleLoc => "LV.CF.Plants";
-    protected override TemplateEntryElement CreateEntryElement(EffectiveEntry entry) => new(entry, aggregator, t);
+    protected override TemplateEntryElement<PlantDef> CreateEntryElement(EffectiveEntry<PlantDef> entry) => new(entry, t);
 }

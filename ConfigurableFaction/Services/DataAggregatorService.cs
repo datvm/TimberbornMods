@@ -14,6 +14,7 @@ public class DataAggregatorService(
     public AggregatedTemplateCollection Templates { get; private set; } = AggregatedTemplateCollection.Empty;
     public AggregatedFactionCollection Factions { get; private set; } = AggregatedFactionCollection.Empty;
     public ImmutableArray<ExclusiveGroupDef> ExclusiveGroups { get; private set; } = [];
+    public ActiveTemplateCollection ActiveTemplateCollections { get; private set; } = ActiveTemplateCollection.Empty;
 
     bool initialized;
 
@@ -26,6 +27,8 @@ public class DataAggregatorService(
         ToolGroupsByIds = specs.GetSpecs<BlockObjectToolGroupSpec>().ToFrozenDictionary(t => t.Id);
         Needs = new(specs); Needs.Aggregate();
         Goods = new(specs); Goods.Aggregate();
+
+        ActiveTemplateCollections = new(specs); ActiveTemplateCollections.Aggregate();
         Templates = new(specs, this, templateDefFactory); Templates.Aggregate();
         Factions = new(specs, this); Factions.Aggregate();
 

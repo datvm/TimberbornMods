@@ -1,17 +1,17 @@
 ﻿namespace ConfigurableFaction.UI;
 
 [BindTransient(Contexts = BindAttributeContext.MainMenu)]
-public class BuildingCollectionPanel(ILoc t, DataAggregatorService aggregator) : CollapsiblePanel, IEntryCollectionPanel
+public class BuildingCollectionPanel(ILoc t) : CollapsiblePanel, IEntryCollectionPanel
 {
-    public ImmutableArray<TemplateEntryElement> Entries { get; private set; } = [];
+    public ImmutableArray<TemplateEntryElement<BuildingDef>> Entries { get; private set; } = [];
     IEnumerable<SettingEntryElement> IEntryCollectionPanel.Entries => Entries;
 
-    public void Initialize(IEnumerable<IGrouping<BlockObjectToolGroupSpec, EffectiveEntry>> groupedEntries)
+    public void Initialize(IEnumerable<IGrouping<BlockObjectToolGroupSpec, EffectiveEntry<BuildingDef>>> groupedEntries)
     {
         SetTitle(t.T("LV.CF.Buildings").Bold());
         SetExpand(false);
 
-        List<TemplateEntryElement> entries = [];
+        List<TemplateEntryElement<BuildingDef>> entries = [];
         foreach (var grp in groupedEntries)
         {
             var grpInfo = grp.Key;
@@ -27,7 +27,7 @@ public class BuildingCollectionPanel(ILoc t, DataAggregatorService aggregator) :
             
             foreach (var entry in grp)
             {
-                var el = new TemplateEntryElement(entry, aggregator, t).SetMarginBottom(10);
+                var el = new TemplateEntryElement<BuildingDef>(entry, t).SetMarginBottom(10);
                 grpEl.Container.Add(el);
                 entries.Add(el);
             }

@@ -29,28 +29,25 @@ public class UserSettingsUIController(
     public FactionDef GetFaction(string factionId) => aggregator.Factions.ItemsById[factionId];
     public FactionDef CurrentFaction => GetFaction(Current.FactionId);
 
-    public Dictionary<string, EffectiveEntry> Buildings = [];
-    public Dictionary<string, EffectiveEntry> Plants = [];
-    public Dictionary<string, EffectiveEntry> Goods = [];
-    public Dictionary<string, EffectiveEntry> Needs = [];
+    public Dictionary<string, EffectiveEntry<BuildingDef>> Buildings = [];
+    public Dictionary<string, EffectiveEntry<PlantDef>> Plants = [];
+    public Dictionary<string, EffectiveEntry<GoodDef>> Goods = [];
+    public Dictionary<string, EffectiveEntry<NeedDef>> Needs = [];
 
-    Dictionary<string, EffectiveEntry>[] allLists = [];
-    IEnumerable<EffectiveEntry> AllEntries => allLists.SelectMany(l => l.Values);
+    IEnumerable<EffectiveEntry> AllEntries => [.. Buildings.Values, .. Plants.Values, .. Goods.Values, .. Needs.Values];
 
     public void Initialize()
     {
-        allLists = [Buildings, Plants, Goods, Needs];
-
         aggregator.Initialize();
     }
 
-    public IGrouping<BlockObjectToolGroupSpec, EffectiveEntry>[] GetBuildings(FactionDef faction)
+    public IGrouping<BlockObjectToolGroupSpec, EffectiveEntry<BuildingDef>>[] GetBuildings(FactionDef faction)
     {
-        List<IGrouping<BlockObjectToolGroupSpec, EffectiveEntry>> result = [];
+        List<IGrouping<BlockObjectToolGroupSpec, EffectiveEntry<BuildingDef>>> result = [];
 
         foreach (var grp in faction.BuildingsByGroups)
         {
-            result.Add(new Grouping<BlockObjectToolGroupSpec, EffectiveEntry>(
+            result.Add(new Grouping<BlockObjectToolGroupSpec, EffectiveEntry<BuildingDef>>(
                 aggregator.ToolGroupsByIds[grp.Key],
                 [.. grp.Value.Select(b => Buildings[b.Id])]));
         }
@@ -58,13 +55,13 @@ public class UserSettingsUIController(
         return [.. result.OrderBy(q => q.Key.Order)];
     }
 
-    public IEnumerable<EffectiveEntry> GetPlants(FactionDef faction) => GetEntries(faction.Plants, Plants);
-    public IEnumerable<EffectiveEntry> GetGoods(FactionDef faction) => GetEntries(faction.Goods, Goods);
-    public IEnumerable<EffectiveEntry> GetNeeds(FactionDef faction)
-        => faction.Needs.Select(n => Needs[n.Id]);
+    public IEnumerable<EffectiveEntry<PlantDef>> GetPlants(FactionDef faction) => GetEntries(faction.Plants, Plants);
+    public IEnumerable<EffectiveEntry<GoodDef>> GetGoods(FactionDef faction) => GetEntries(faction.Goods, Goods);
+    public IEnumerable<EffectiveEntry<NeedDef>> GetNeeds(FactionDef faction) => GetEntries(faction.Needs, Needs);
 
-    static IEnumerable<EffectiveEntry> GetEntries<T>(IEnumerable<T> list, Dictionary<string, EffectiveEntry> entries)
+    static IEnumerable<TEntry> GetEntries<T, TEntry>(IEnumerable<T> list, Dictionary<string, TEntry> entries)
         where T : IIdDef
+        where TEntry : EffectiveEntry
         => list.Select(e => entries[e.Id]);
 
     public void Import(string path)
@@ -92,7 +89,8 @@ public class UserSettingsUIController(
 
         userSettingsService.Save();
 
-        static void SyncList(Dictionary<string, EffectiveEntry> src, HashSet<string> target, HashSet<string> commonIds, bool clear)
+        static void SyncList<TEntry>(Dictionary<string, TEntry> src, HashSet<string> target, HashSet<string> commonIds, bool clear)
+            where TEntry : EffectiveEntry
         {
             target.Clear();
 
@@ -129,7 +127,8 @@ public class UserSettingsUIController(
     public void TogglePlant(string id, bool check) => ToggleEntry(id, check, Plants);
     public void ToggleGood(string id, bool check) => ToggleEntry(id, check, Goods);
     public void ToggleNeed(string id, bool check) => ToggleEntry(id, check, Needs, refreshLock: false);
-    void ToggleEntry(string id, bool check, Dictionary<string, EffectiveEntry> list, bool refreshLock = true)
+    void ToggleEntry<TEntry>(string id, bool check, Dictionary<string, TEntry> list, bool refreshLock = true)
+        where TEntry : EffectiveEntry
     {
         list[id].SetChecked(check);
 
@@ -141,29 +140,29 @@ public class UserSettingsUIController(
 
     public void RebuildLists()
     {
-        foreach (var l in allLists)
-        {
-            l.Clear();
-        }
+        Buildings.Clear();
+        Plants.Clear();
+        Goods.Clear();
+        Needs.Clear();
 
         foreach (var b in aggregator.Templates.AllBuildings)
         {
-            Buildings[b.Id] = new(b.Id);
+            Buildings[b.Id] = new(b.Id, b);
         }
 
         foreach (var p in aggregator.Templates.AllPlants)
         {
-            Plants[p.Id] = new(p.Id);
+            Plants[p.Id] = new(p.Id, p);
         }
 
         foreach (var g in aggregator.Goods.ItemsByIds.Values)
         {
-            Goods[g.Id] = new(g.Id);
+            Goods[g.Id] = new(g.Id, g);
         }
 
         foreach (var n in aggregator.Needs.ItemsByIds.Values)
         {
-            Needs[n.Id] = new(n.Id);
+            Needs[n.Id] = new(n.Id, n);
         }
 
         ListChanged();
@@ -176,25 +175,31 @@ public class UserSettingsUIController(
         var curr = Current;
         var faction = aggregator.Factions.ItemsById[Current.FactionId];
 
-        CheckList(Buildings, faction.Buildings.Select(q => q.Id), Current.Buildings);
-        CheckList(Plants, faction.Plants.Select(q => q.Id), Current.Plants);
-        CheckList(Goods, faction.Goods.Select(q => q.Id), Current.Goods);
-        CheckList(Needs, faction.Needs.Select(q => q.Id), Current.Needs);
+        CheckList(Buildings, faction.Buildings, Current.Buildings);
+        CheckList(Plants, faction.Plants, Current.Plants);
+        CheckList(Goods, faction.Goods, Current.Goods);
+        CheckList(Needs, faction.Needs, Current.Needs);
 
         // Lock District Center
         if (curr.Clear)
         {
             var districtCenterId = faction.Spec.StartingBuildingId;
-            Buildings[aggregator.Templates.IdsByTemplateNames[districtCenterId]].LockByBase();
+
+            var dcIds = aggregator.Templates.IdsByTemplateNames[districtCenterId];
+            foreach (var id in dcIds)
+            {
+                Buildings[id].LockByBase();
+            }
         }
 
         RefreshLock();
 
-        void CheckList(Dictionary<string, EffectiveEntry> list, IEnumerable<string> defaults, IEnumerable<string> checks)
+        void CheckList<TEntry>(Dictionary<string, TEntry> list, IEnumerable<IIdDef> defaults, IEnumerable<string> checks)
+            where TEntry : EffectiveEntry
         {
             if (!curr.Clear)
             {
-                foreach (var id in defaults)
+                foreach (var id in defaults.Select(q => q.Id))
                 {
                     list[id].LockByBase();
                 }
@@ -219,12 +224,15 @@ public class UserSettingsUIController(
         PerformLock(Goods, LockGoodRequirements, LockGood);
         PerformLock(Needs, null, LockNeed);
 
+        LockSelectedTemplates();
+
         StateChanged();
 
-        static void PerformLock(
-            Dictionary<string, EffectiveEntry> entries,
+        static void PerformLock<TEntry>(
+            Dictionary<string, TEntry> entries,
             Action<string>? performLockRequirement,
             Action<string> baseLock)
+            where TEntry : EffectiveEntry
         {
             foreach (var entry in entries.Values)
             {
@@ -236,7 +244,43 @@ public class UserSettingsUIController(
                 {
                     performLockRequirement(entry.Id);
                 }
+            }
+        }
+    }
 
+    void LockSelectedTemplates()
+    {
+        HashSet<string> checkedTemplates = [];
+
+        foreach (var b in Buildings.Values)
+        {
+            if (b.Checked)
+            {
+                checkedTemplates.Add(b.Data.TemplateName);
+            }
+        }
+
+        foreach (var p in Plants.Values)
+        {
+            if (p.Checked)
+            {
+                checkedTemplates.Add(p.Data.TemplateName);
+            }
+        }
+
+        foreach (var b in Buildings.Values)
+        {
+            if (!b.Checked && checkedTemplates.Contains(b.Data.TemplateName))
+            {
+                b.SetChecked(false, true);
+            }
+        }
+
+        foreach (var p in Plants.Values)
+        {
+            if (!p.Checked && checkedTemplates.Contains(p.Data.TemplateName))
+            {
+                p.SetChecked(false, true);
             }
         }
     }
@@ -322,4 +366,9 @@ public class EffectiveEntry(string id)
         IsClearLocked = true;
     }
 
+}
+
+public class EffectiveEntry<T>(string id, T data) : EffectiveEntry(id)
+{
+    public T Data { get; } = data;
 }
