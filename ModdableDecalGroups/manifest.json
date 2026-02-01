@@ -1,0 +1,11 @@
+﻿{
+    "Name": "Moddable Decal Groups",
+    "Version": "10.0.0",
+    "Id": "ModdableDecalGroups",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Reorganize decals and banners",
+    "RequiredMods": [
+        { "Id": "TimberUi" },
+        { "Id": "Harmony" }
+    ]
+}

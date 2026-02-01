@@ -1,0 +1,8 @@
+﻿{
+    "DecalGroupSpec": {
+        "Id": "DefaultBanners",
+        "TitleLoc": "LV.MDG.Default",
+        "Category": "Banners",
+        "Order": 0
+    }
+}

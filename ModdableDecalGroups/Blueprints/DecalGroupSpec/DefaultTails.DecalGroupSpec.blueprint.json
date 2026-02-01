@@ -1,0 +1,8 @@
+﻿{
+    "DecalGroupSpec": {
+        "Id": "DefaultTails",
+        "TitleLoc": "LV.MDG.Default",
+        "Category": "Tails",
+        "Order": 0
+    }
+}

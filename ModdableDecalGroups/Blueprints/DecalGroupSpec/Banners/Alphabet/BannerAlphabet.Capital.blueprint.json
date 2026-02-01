@@ -1,0 +1,12 @@
+﻿{
+    "DecalGroupSpec": {
+        "Id": "BannerAlphabet.Capital",
+        "TitleLoc": "LV.MDG.BannerAlphabet.Capital",
+        "Category": "Banners",
+        "Order": 1010,
+        "DecalIdPatterns": [
+            "CustomBanner\\.01BasicCapital.+",
+            "CustomBanner\\.05SupplementCapital.+"
+        ]
+    }
+}
