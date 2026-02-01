@@ -1,0 +1,12 @@
+﻿{
+    "DecalGroupSpec": {
+        "Id": "BannerAlphabet.Lowercase",
+        "TitleLoc": "LV.MDG.BannerAlphabet.Lowercase",
+        "Category": "Banners",
+        "Order": 1020,
+        "DecalIdPatterns": [
+            "CustomBanner\\.02BasicSmall.+",
+            "CustomBanner\\.06SupplementSmall.+"
+        ]
+    }
+}

@@ -15,7 +15,7 @@
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
-		<ProjectReference Include="..\ConfigurableFaction\ConfigurableFaction.csproj" />
+		<ProjectReference Include="..\ModdableDecalGroups\ModdableDecalGroups.csproj" />
 
 
 	</ItemGroup>

@@ -1,0 +1,11 @@
+﻿{
+    "DecalGroupSpec": {
+        "Id": "BannerAlphabet.Currencies",
+        "TitleLoc": "LV.MDG.BannerAlphabet.Currencies",
+        "Category": "Banners",
+        "Order": 1060,
+        "DecalIdPatterns": [
+            "CustomBanner\\.13Currency.+"
+        ]
+    }
+}

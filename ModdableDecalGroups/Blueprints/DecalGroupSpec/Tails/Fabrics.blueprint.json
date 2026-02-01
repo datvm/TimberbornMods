@@ -1,0 +1,12 @@
+﻿{
+    "DecalGroupSpec": {
+        "Id": "Fabrics",
+        "TitleLoc": "LV.MDG.Tails.Fabrics",
+        "Category": "Tails",
+        "Order": 1000,
+        "DecalIdExacts": [
+            "FolktailsCrossFabric",
+            "FolktailsSpiralFabric"
+        ]
+    }
+}

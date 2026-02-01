@@ -1,0 +1,14 @@
+﻿The author of Alphabet Banners requested a mod to organize decals into groups for easier access. This mod provides that functionality by categorizing decals into predefined groups based on their themes and styles.
+
+It works for both Banners and Tails (called Decals by the game).
+
+I highly recommend using [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3472334132]TImprove 4 UI[/url] for the scrollbar if the list gets too long.
+
+[img]https://files.catbox.moe/nwceq5.jpg[/img]
+
+[h1]For modders[/h1]
+
+To add your own groups, contact me on Discord or see the docs here: https://github.com/datvm/TimberbornMods/blob/master/Docs/ModdableDecalGroups.MD
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

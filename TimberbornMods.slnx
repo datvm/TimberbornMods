@@ -75,6 +75,7 @@
     <Project Path="EvenMoreLights/EvenMoreLights.csproj" />
     <Project Path="HueAndTurn/HueAndTurn.csproj" />
     <Project Path="MacroManagement/MacroManagement.csproj" />
+    <Project Path="ModdableDecalGroups/ModdableDecalGroups.csproj" Id="ba34c21b-13c2-41a3-81ed-d3c7b6346889" />
     <Project Path="MoreNaming/MoreNaming.csproj" />
     <Project Path="Omnibar/Omnibar.csproj" />
     <Project Path="Pin/Pin.csproj" />

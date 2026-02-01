@@ -1,0 +1,11 @@
+﻿{
+    "DecalGroupSpec": {
+        "Id": "BannerAlphabet.Arrows",
+        "TitleLoc": "LV.MDG.BannerAlphabet.Arrows",
+        "Category": "Banners",
+        "Order": 1040,
+        "DecalIdPatterns": [
+            "CustomBanner\\.12Arrow.+"
+        ]
+    }
+}
