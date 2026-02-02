@@ -73,6 +73,7 @@
     <Project Path="ConstructionNotifier/ConstructionNotifier.csproj" Id="b3cf9873-e156-4ca5-a1cd-2a1883dd1e6f" />
     <Project Path="DevModeButton/DevModeButton.csproj" />
     <Project Path="EvenMoreLights/EvenMoreLights.csproj" />
+    <Project Path="HueAndTurn/HueAndTurn.csproj" Id="bcea191d-7058-4066-b01a-9ce38260c470" />
     <Project Path="MacroManagement/MacroManagement.csproj" />
     <Project Path="ModdableDecalGroups/ModdableDecalGroups.csproj" Id="ba34c21b-13c2-41a3-81ed-d3c7b6346889" />
     <Project Path="MoreNaming/MoreNaming.csproj" />
