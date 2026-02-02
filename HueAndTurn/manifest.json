@@ -1,0 +1,11 @@
+﻿{
+    "Name": "Hue & Turn",
+    "Version": "10.0.0",
+    "Id": "HueAndTurn",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Unleash your creativity!",
+    "RequiredMods": [
+        { "Id": "TimberUi" },
+        { "Id": "TransparentShaders" }
+    ]
+}
