@@ -1,6 +1,6 @@
 ﻿Another TImprove mod and this time it's for your Timberborn UI! If you don't know yet, [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3420372304]TImprove[/url] enhances your Timberborn experience by providing various quality-of-life improvements without altering any game mechanics. This mod focuses on the UI/UX aspect of the game with many features requested by the community.
 
-The only feature the is enabled by default is [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3468993863]Scrollable Entity Panel[/url] which will replace that mod. You can enable or disable features in the Mod Settings: Menu (Esc) or Main Menu -> Mods -> Setting button next to the mod name.
+You can enable or disable features in the Mod Settings: Menu (Esc) or Main Menu -> Mods -> Setting button next to the mod name.
 
 Note: you can see the features in the screenshots.
 
@@ -44,6 +44,8 @@ Credits:
 - Bones: Disable pause icons on buildings.
 - Shimanim: Collapsible management groups.
 
+v10.1.2: Fixed (modded) long recipe list visual bug
+[img]https://i.imgur.com/6ngxFU3.jpeg[/img]
 v10.1.1: Should work with Update 1.0.8 (Jan 26). Removed [spoiler]Dev mode's[/spoiler] hotkeys feature as it's now working correctly in the base game.
 v10.1.0:
 - Removed "Disable Shadows" feature, it's now part of the base game (Graphics Settings).
