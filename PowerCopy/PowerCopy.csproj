@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputModFolderName>PowerCopy</OutputModFolderName>
+	</PropertyGroup>
+
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonTimberUi.targets" />
+
+</Project>
