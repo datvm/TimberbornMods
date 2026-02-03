@@ -7,13 +7,15 @@ public abstract class DuplicableEntry(Type type) : VisualElement
     protected Toggle chk;
 #nullable enable
 
+    public event Action<bool> OnSelectedChanged = null!;
+
     public abstract string Name { get; }
     public abstract int Order { get; }
 
     public Type Type { get; } = type;
     public string DefaultNameLoc { get; } = "DuplicableName_" + type.Name;
 
-    public bool Selected => chk.value;
+    public bool Selected => Visible && chk.value;
 
     bool currVisible = true;
     public bool Visible
@@ -34,7 +36,7 @@ public abstract class DuplicableEntry(Type type) : VisualElement
         Visible = false;
         this.SetAsRow().AlignItems();
 
-        chk = this.AddToggle(Name).SetMarginRight(5).SetFlexGrow();
+        chk = this.AddToggle(Name, onValueChanged: v => OnSelectedChanged(v)).SetMarginRight(5).SetFlexGrow();
         chk.SetValueWithoutNotify(true);
     }
 

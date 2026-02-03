@@ -1,4 +1,5 @@
 ﻿global using PowerCopy.UI;
+global using PowerCopy.Services;
 
 namespace PowerCopy;
 
@@ -10,6 +11,8 @@ public class MGameplayConfig : Configurator
     public override void Configure()
     {
         this
+            .BindSingleton<ObjectListingService>()
+
             .BindSingleton<DuplicableEntryFactory>()
             .BindOrderedFragment<PowerCopyFragment>();  
     }
