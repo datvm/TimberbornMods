@@ -7,7 +7,7 @@ public class MechanicalNodeDescriber(ILoc t) : BaseObjectDescriber<MechanicalNod
     {
         if (!component || !component.Enabled) { return; }
 
-        var power = component.Graph?.CurrentPower;
+        var power = component.Graph;
         if (power is null) { return; }
 
         builder.AppendLine(t.T("ToolGroups.Power").Bold());
@@ -23,8 +23,8 @@ public class MechanicalNodeDescriber(ILoc t) : BaseObjectDescriber<MechanicalNod
         }
 
         builder.AppendLine(t.T(NetworkFragmentService.NetworkPowerLocKey, 
-            power.Value.PowerSupply,
-            $"{power.Value.PowerDemand} {t.T(NetworkFragmentService.PowerSymbolLocKey)}").Indent());
+            power.PowerSupply,
+            $"{power.PowerDemand} {t.T(NetworkFragmentService.PowerSymbolLocKey)}").Indent());
     }
 
 }
