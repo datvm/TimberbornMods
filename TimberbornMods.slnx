@@ -80,6 +80,7 @@
     <Project Path="Omnibar/Omnibar.csproj" />
     <Project Path="Pin/Pin.csproj" />
     <Project Path="PlottingTool/PlottingTool.csproj" />
+    <Project Path="PowerCopy/PowerCopy.csproj" Id="8831a6c9-3817-4a99-b0cd-d22d52a0d688" />
     <Project Path="QuickBar/QuickBar.csproj" />
     <Project Path="QuickStart/QuickStart.csproj" />
     <Project Path="RealStars/RealStars.csproj" Id="dc3d3f53-81b2-4efd-ab07-3c0d84dcd684" />

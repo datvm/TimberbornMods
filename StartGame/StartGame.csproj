@@ -15,7 +15,7 @@
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
-		<ProjectReference Include="..\ModdableDecalGroups\ModdableDecalGroups.csproj" />
+		<ProjectReference Include="..\PowerCopy\PowerCopy.csproj" />
 
 
 	</ItemGroup>
