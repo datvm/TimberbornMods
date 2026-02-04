@@ -5,17 +5,15 @@
         public const string PatchCategoryName = $"{nameof(ModdableTimberborn)}.{nameof(MechanicalSystem)}";
         public static readonly ModdableMechanicalSystemConfig Instance = new();
 
+        ConfigurationContext IModdableTimberbornRegistryConfig.AvailableContexts => ConfigurationContext.Game;
 
         public string PatchCategory { get; } = PatchCategoryName;
-
 
         ModdableMechanicalSystemConfig() { }
 
 
         public void Configure(Configurator configurator, ConfigurationContext context)
         {
-            if (!context.HasFlag(ConfigurationContext.Game)) { return; }
-
             configurator
                 .BindTemplateModule(h => h
                     .AddDecorator<MechanicalNode, ModdableMechanicalNode>()

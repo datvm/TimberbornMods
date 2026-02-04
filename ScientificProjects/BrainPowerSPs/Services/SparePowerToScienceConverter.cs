@@ -49,9 +49,8 @@ public class SparePowerToScienceConverter(
     {
         if (!Unlocked) { return; }
 
-        foreach (var g in graphs.MechanicalGraphs)
+        foreach (var p in graphs.MechanicalGraphs)
         {
-            var p = g.CurrentPower;
             if (p.PowerSupply > p.PowerDemand)
             {
                 powerAccumulation += p.PowerSupply - p.PowerDemand;
