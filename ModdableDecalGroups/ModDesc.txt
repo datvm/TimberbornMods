@@ -12,3 +12,5 @@ To add your own groups, contact me on Discord or see the docs here: https://gith
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+v10.0.1: Removed the Alphabet Banners and Good Banners as the author prefer to use his own grouping.
