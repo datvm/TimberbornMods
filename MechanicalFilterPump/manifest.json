@@ -1,6 +1,6 @@
 ﻿{
     "Name": "Mechanical Filter Pump",
-    "Version": "10.0.0",
+    "Version": "10.0.1",
     "Id": "MechanicalFilterPump",
     "MinimumGameVersion": "1.0.0",
     "Description": "Purify badwater with mechanical pump",

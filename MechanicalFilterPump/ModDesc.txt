@@ -5,6 +5,7 @@ Don't like the power cost? [spoiler]You can enable Dev Mode (Alt + Shift + Z) an
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.0.1: Should work with Update 1.0.8.1 (Feb 03).
 v10.0.0: Works with Timberborn v1.0.1 and it require Moddable Timberborn now.
 
 v7.0.2: added missing TimberUi requirement.

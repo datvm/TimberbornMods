@@ -11,11 +11,11 @@
 
 	<ItemGroup>
 		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
-		<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />
+		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
-		<!--<ProjectReference Include="..\TImprove4Ui\TImprove4Ui.csproj" />-->
+		<ProjectReference Include="..\MechanicalFilterPump\MechanicalFilterPump.csproj" />
 
 
 	</ItemGroup>
