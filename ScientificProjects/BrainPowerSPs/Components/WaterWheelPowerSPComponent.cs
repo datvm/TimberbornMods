@@ -37,7 +37,7 @@ public class WaterWheelPowerSPComponent : BaseComponent, IModdableMechanicalNode
         return false;
     }
 
-    public void OnModifierChanged() => OnChanged?.Invoke();
+    public void OnModifierChanged() => OnChanged!.Invoke();
 
     public IEnumerable<EntityEffectDescription> DescribeAll(ILoc t, IDayNightCycle dayNightCycle)
     {

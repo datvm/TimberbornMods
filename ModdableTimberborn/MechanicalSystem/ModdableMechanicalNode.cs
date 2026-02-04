@@ -15,6 +15,7 @@ public class ModdableMechanicalNode : BaseModdableComponent<MechanicalNode>, IMo
     public void AwakeAfter()
     {
         modifiers = new(this);
+        modifiers.OnDirty += UpdateValues;
 
         var original = OriginalComponent;
         MechanicalNodeValues = new(new(original._nominalPowerInput, original._nominalPowerOutput));
@@ -29,8 +30,18 @@ public class ModdableMechanicalNode : BaseModdableComponent<MechanicalNode>, IMo
 
         var curr = MechanicalNodeValues.Value;
         var c = OriginalComponent;
-        c._nominalPowerInput = curr.NominalInput;
-        c._nominalPowerOutput = curr.NominalOutput;
+
+        if (c._nominalPowerInput != curr.NominalInput)
+        {
+            c._nominalPowerInput = curr.NominalInput;
+            c.UpdatePowerInput();
+        }
+        
+        if (c._nominalPowerOutput != curr.NominalOutput)
+        {
+            c._nominalPowerOutput = curr.NominalOutput;
+            c.UpdatePowerOutput();
+        }
 
         OnMechanicalNodeValuesChanged?.Invoke(this, new ModdableValueChanged<MechanicalNodeValues>(prev, curr));
     }

@@ -17,7 +17,9 @@ public class ModifierCollection<T> : IDisposable
 {
 
     public ImmutableArray<T> Modifiers { get; }
+
     public bool IsDirty { get; set; } = true;
+    public event Action? OnDirty;
 
     public ModifierCollection(BaseComponent comp) : this(ModifierCollection.GetModifiersFromComponents<T>(comp))
     { }
@@ -32,7 +34,11 @@ public class ModifierCollection<T> : IDisposable
         }
     }
 
-    public void MarkDirty() => IsDirty = true;
+    public void MarkDirty()
+    {
+        IsDirty = true;
+        OnDirty?.Invoke();
+    }
 
     public void Dispose()
     {
