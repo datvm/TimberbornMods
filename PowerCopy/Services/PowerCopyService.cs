@@ -1,34 +1,19 @@
 ﻿namespace PowerCopy.Services;
 
-public static class PowerCopyService
+public class PowerCopyService
 {
 
-    static readonly List<IDuplicable> duplicables = [];
-    static readonly Dictionary<Type, bool> validTypeCache = [];
-    public static void GetDuplicables(BaseComponent component, List<IDuplicable> result)
+    static readonly Dictionary<Type, bool> ValidDuplicableTypeCache = [];
+    static readonly Dictionary<Type, MethodInfo> DuplicateMethodCache = [];
+    public static bool IsValidDuplicableType(Type type)
     {
-        component.GetComponents(duplicables);
-
-        result.Clear();
-        foreach (var d in duplicables)
+        if (!ValidDuplicableTypeCache.TryGetValue(type, out bool result))
         {
-            var type = d.GetType();
-            
-            if (!validTypeCache.TryGetValue(type, out var isValid))
-            {
-                isValid = IsValidType(type);
-                validTypeCache[type] = isValid;
-            }
-
-            if (isValid)
-            {
-                result.Add(d);
-            }
+            ValidDuplicableTypeCache[type] = result = PerformCheck(type);
         }
+        return result;
 
-        duplicables.Clear();
-
-        static bool IsValidType(Type type)
+        static bool PerformCheck(Type type)
         {
             if (!type.IsClass || type.IsAbstract)
             {
@@ -49,35 +34,87 @@ public static class PowerCopyService
         }
     }
 
-    static readonly MethodInfo GetComponentMethod = typeof(BaseComponent).GetMethod(nameof(BaseComponent.GetComponent));
-    // types is assumed to be only valid types got from GetDuplicables
-    public static void Duplicate(BaseComponent source, IEnumerable<Type> types, IEnumerable<EntityComponent> targets)
+    static void ExecuteDuplicate(IDuplicable src, IDuplicable dst, Type type)
+    {
+        var method = DuplicateMethodCache.GetOrAdd(type, () =>
+        {
+            var interfaceType = typeof(IDuplicable<>).MakeGenericType(type);
+            return interfaceType.GetMethod(nameof(IDuplicable<>.DuplicateFrom));
+        });
+
+        method.Invoke(dst, [src]);
+    }
+
+    readonly List<IDuplicable> internalDupsForCache = [];
+    readonly Dictionary<string, FrozenSet<Type>> templateCache = [];
+    FrozenSet<Type> GetDuplicableTypesOf(BaseComponent comp) => templateCache.GetOrAdd(
+        comp.GetTemplateName(), () =>
+        {
+            comp.GetComponents(internalDupsForCache);
+
+            FrozenSet<Type> types = [..internalDupsForCache
+                .Select(d => d.GetType())
+                .Where(t => t.IsValidDuplicableType())];
+
+            internalDupsForCache.Clear();
+
+            return types;
+        });
+
+    public void GetDuplicables(BaseComponent component, List<IDuplicable> result, HashSet<Type>? filtered = null)
+    {
+        var types = GetDuplicableTypesOf(component);
+        component.GetComponents(result);
+
+        for (int i = result.Count - 1; i >= 0; i--)
+        {
+            var d = result[i];
+            var t = d.GetType();
+
+            if (!types.Contains(t) || !d.IsDuplicable
+                || (filtered is not null && !filtered.Contains(t)))
+            {
+                result.RemoveAt(i);
+            }
+        }
+    }
+
+    readonly List<IDuplicable> validDuplicables = [];
+    public bool HasAnyValidDuplicables(BaseComponent component, HashSet<Type> expectedTypes)
+    {
+        GetDuplicables(component, validDuplicables, expectedTypes);
+
+        var result = validDuplicables.Count > 0;
+        validDuplicables.Clear();
+
+        return result;
+    }
+
+    readonly List<IDuplicable> srcDuplicables = [];
+    readonly List<IDuplicable> targetDuplicables = [];
+    public void Duplicate(BaseComponent source, HashSet<Type> types, IEnumerable<EntityComponent> targets)
     {
         if (!source) { return; }
 
-        List<(Type T, BaseComponent Source, MethodInfo Method)> sourceComps = [];
+        GetDuplicables(source, srcDuplicables, types);
+        var srcDict = srcDuplicables.ToDictionary(d => d.GetType());
 
-        foreach (var t in types)
+        foreach (var target in targets)
         {
-            var src = (BaseComponent)GetComponentMethod.MakeGenericMethod(t).Invoke(source, []);
-            if (!src || !((IDuplicable)src).IsDuplicable) { continue; }
+            GetDuplicables(target, targetDuplicables, types);
 
-            var method = typeof(IDuplicable<>).MakeGenericType(t).GetMethod(nameof(IDuplicable<>.DuplicateFrom));
-            sourceComps.Add((t, src, method));
-        }
-
-        foreach (var dst in targets)
-        {
-            if (!dst) { continue; }
-
-            foreach (var (t, src, method) in sourceComps)
+            foreach (var dstComp in targetDuplicables)
             {
-                var dstComp = (BaseComponent)GetComponentMethod.MakeGenericMethod(t).Invoke(dst, []);
-                if (!dstComp) { continue; }
-                
-                method.Invoke(src, [dstComp]);
+                var t = dstComp.GetType();
+                var srcComp = srcDict[t];
+
+                ExecuteDuplicate(srcComp, dstComp, t);
             }
+
+            targetDuplicables.Clear();
         }
+
+        srcDuplicables.Clear();
     }
 
 }

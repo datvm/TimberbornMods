@@ -1,47 +1,65 @@
 ﻿namespace PowerCopy.Services;
 
-public class ObjectListingService(EventBus eb) : ILoadableSingleton
+public class ObjectListingService(
+    EventBus eb,
+    EntityBadgeService entityBadgeService,
+    PowerCopyService powerCopyService
+) : ILoadableSingleton
 {
 
     readonly Dictionary<string, HashSet<EntityComponent>> buildingsByTemplates = [];
+    readonly Dictionary<string, FrozenSet<Type>> duplicableTypesByTemplates = [];
 
     public void Load()
     {
         eb.Register(this);
     }
 
-    static bool EntityHasAnyComponent(EntityComponent entity, IReadOnlyList<Type> types)
+    readonly List<IDuplicable> cacheDuplicables = [];
+    public bool HasAnyDuplicableTypes(BaseComponent component, IEnumerable<Type> expectingTypes)
     {
-        var map = entity._componentCache._typeIndexMap._typeIndex;
-        for (int i = 0; i < types.Count; i++)
+        var template = component.GetTemplateName();
+        if (!duplicableTypesByTemplates.TryGetValue(template, out var types))
         {
-            if (map.ContainsKey(types[i]))
-            {
-                return true;
-            }
+            component.GetComponents(cacheDuplicables);
+            types = duplicableTypesByTemplates[template] = [..cacheDuplicables.Select(d => d.GetType())];
+            cacheDuplicables.Clear();
         }
 
-        return false;
+        return types.Any(expectingTypes.Contains);
     }
 
     public IEnumerable<EntityComponent> QueryObjects(ObjectListingQuery query)
     {
-        var searching = query.TemplateName is not null
-            ? (buildingsByTemplates.TryGetValue(query.TemplateName, out var templates) ? templates : [])
-            : buildingsByTemplates.Values.SelectMany(t => t);
+        if (query.Components.Count == 0) { return []; }
 
-        searching = searching.Where(q => q != query.Source);
+        IEnumerable<EntityComponent> searching = [];
 
-        if (query.SelectedBuildings is not null)
+        if (query.TemplateName is not null)
         {
-            searching = searching.Where(query.SelectedBuildings.Contains);
+            searching = buildingsByTemplates.TryGetValue(query.TemplateName, out var templates)
+                ? templates : [];
         }
-
-        if (query.Components is not null)
+        else
         {
             var comps = query.Components;
-            searching = searching.Where(b => EntityHasAnyComponent(b, comps));
+
+            foreach (var (_, grp) in buildingsByTemplates)
+            {
+                if (grp.Count == 0) { continue; }
+
+                var first = grp.First();
+                if (!HasAnyDuplicableTypes(first, comps))
+                {
+                    continue;                    
+                }
+
+                searching = searching.Concat(grp
+                    .Where(q => powerCopyService.HasAnyValidDuplicables(q, comps)));
+            }
         }
+
+        searching = searching.Where(q => q != query.Source);
 
         if (query.InDistrict)
         {
@@ -59,7 +77,49 @@ public class ObjectListingService(EventBus eb) : ILoadableSingleton
         }
     }
 
-    public int Count(ObjectListingQuery query) => QueryObjects(query).Count();
+    readonly List<IDuplicable> duplicables = [];
+    public ObjectListingDetailedResult QueryDetailedObjects(ObjectListingQuery query)
+    {
+        return new([..QueryObjects(query)
+            .GroupBy(GroupByFunc)
+            .Select(g => new KeyValuePair<DistrictCenter?, ImmutableArray<ObjectListingDetailedEntry>>(
+                g.Key,
+                [.. g.Select(GetEntry).OrderBy(q => q.Name)]
+            ))
+            .OrderBy(q => q.Key?.DistrictName)
+        ]);
+
+        static DistrictCenter? GroupByFunc(EntityComponent b)
+        {
+            var db = b.GetComponent<DistrictBuilding>();
+            return (db && db.District) ? db.District : null;
+        }
+
+        ObjectListingDetailedEntry GetEntry(EntityComponent b)
+        {
+            var name = entityBadgeService.GetEntityName(b);
+
+            b.GetComponents(duplicables);
+            var dups = duplicables
+                .Where(d => query.Components.Contains(d.GetType()))
+                .ToImmutableArray();
+            duplicables.Clear();
+
+            return new(b, name, dups);
+        }
+    }
+
+    public int Count(in ObjectListingQuery query) => QueryObjects(query).Count();
+
+    public bool CanCopy(in ObjectListingQuery query, BlockObject to)
+    {
+        var template = to.GetComponent<TemplateSpec>();
+
+        return template is not null 
+            && to.GetComponent<EntityComponent>() != query.Source
+            && (query.TemplateName is null || query.TemplateName == template.TemplateName)
+            && powerCopyService.HasAnyValidDuplicables(to, query.Components);
+    }
 
     [OnEvent]
     public void OnEntityInitialized(EntityInitializedEvent e)

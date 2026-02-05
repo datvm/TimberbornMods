@@ -11,10 +11,14 @@ public class MGameplayConfig : Configurator
     public override void Configure()
     {
         this
+            .BindSingleton<PowerCopyService>()
             .BindSingleton<ObjectListingService>()
+            .BindSingleton<PowerCopyAreaTool>()
 
             .BindSingleton<DuplicableEntryFactory>()
-            .BindOrderedFragment<PowerCopyFragment>();  
+            .BindOrderedFragment<PowerCopyFragment>()
+            
+            .BindTransient<ObjectSelectionDialog>();  
     }
 
 }

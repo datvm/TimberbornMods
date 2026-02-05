@@ -5,7 +5,10 @@ public class PowerCopyFragment(
     DuplicableEntryFactory entryFac,
     ObjectListingService objectListingService,
     DialogService diag,
-    InputService inputService
+    InputService inputService,
+    IContainer container,
+    PowerCopyService powerCopyService,
+    PowerCopyAreaTool areaTool
 ) : IEntityPanelFragment, IEntityFragmentOrder
 {
     public int Order { get; } = -1;
@@ -108,7 +111,7 @@ public class PowerCopyFragment(
         }
         selectingBuildingName = label.DisplayName;
 
-        PowerCopyService.GetDuplicables(entity, duplicables);
+        powerCopyService.GetDuplicables(entity, duplicables);
         if (duplicables.Count == 0)
         {
             ClearFragment();
@@ -125,7 +128,9 @@ public class PowerCopyFragment(
             currDb = null;
         }
 
+        UpdateFragment(); // To adjust visibility so statistics will be correct
         UpdateStatistics();
+
         panel.Visible = true;
     }
 
@@ -196,37 +201,28 @@ public class PowerCopyFragment(
 
     async void OnLocationButtonClick(CopyLocation location)
     {
-        EntityComponent[] entities = [];
-        switch (location)
+        var entities = location switch
         {
-            case CopyLocation.Everywhere:
-            case CopyLocation.District:
-                entities = [.. objectListingService.QueryObjects(GenerateQuery(location))];
+            CopyLocation.Everywhere or CopyLocation.District => [.. objectListingService.QueryObjects(GenerateQuery(location))],
+            CopyLocation.Area => await areaTool.Pick(GenerateQuery(CopyLocation.Everywhere)),
+            CopyLocation.List => await GetEntitiesFromDialogAsync(),
+            _ => throw new ArgumentOutOfRangeException(nameof(location), "Unknown location"),
+        };
 
-                if (!await ConfirmAsync(entities.Length))
-                {
-                    entities = [];
-                }
+        if (entities.Length == 0 || !await ConfirmAsync(entities.Length)) { return; }
 
-                break;
-            case CopyLocation.Area:
-                break;
-            case CopyLocation.List:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(location), "Unknown location");
-        }
-
-        if (entities.Length == 0) { return; }
-
-        PowerCopyService.Duplicate(curr!, SelectedTypes, entities);
+        powerCopyService.Duplicate(curr!, [.. SelectedTypes], entities);
 
         async Task<bool> ConfirmAsync(int count) =>
             inputService.IsKeyHeld(AlternateClickable.AlternateClickableActionKey)
             || await diag.ConfirmAsync(t.T("LV.PC.CopyConfirm", count));
     }
 
-
+    async Task<EntityComponent[]> GetEntitiesFromDialogAsync()
+    {
+        var diag = container.GetInstance<ObjectSelectionDialog>();
+        return await diag.ShowAsync(GenerateQuery(CopyLocation.Everywhere));
+    }
 
     void UpdateStatistics()
     {
@@ -248,18 +244,15 @@ public class PowerCopyFragment(
         }
     }
 
-
-
-    ObjectListingQuery GenerateQuery(CopyLocation location, HashSet<EntityComponent>? areaSelectedBuildings = null)
+    ObjectListingQuery GenerateQuery(CopyLocation location)
     {
         var targetingAll = TargetingAll;
 
         return new(
             curr!,
             targetingAll ? null : selectingTemplateName,
-            targetingAll ? [.. SelectedTypes] : null,
-            (location == CopyLocation.District && currDb && currDb!.District) ? currDb.District : null,
-            areaSelectedBuildings
+            [.. SelectedTypes],
+            (location == CopyLocation.District && currDb && currDb!.District) ? currDb.District : null
         );
     }
 
