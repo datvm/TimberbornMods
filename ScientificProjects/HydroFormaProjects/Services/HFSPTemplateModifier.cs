@@ -31,8 +31,6 @@ public class HFSPTemplateModifier(ScientificProjectUnlockRegistry unlocks) : ITe
             ],
         });
 
-        template.Specs.Add(new ShaftSoundEmitterSpec());
-
         return template;
     }
 
