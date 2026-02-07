@@ -21,24 +21,17 @@ public class TransparentTerrainDialog(
         AddCloseButton();
 
         var panel = Content.AddChild().SetPadding(10);
-        panel.AddToggle(t.T("LV.TrT.Enable"), onValueChanged: OnEnabledChanged)
+        panel.AddToggle(t.T("LV.TrT.Enable"), onValueChanged: v => transparentTerrainService.Toggle(v))
             .SetMarginBottom()
             .SetValueWithoutNotify(transparentTerrainService.Enabled);
+        panel.AddToggle(t.T("LV.TrT.AlwaysTopTransparent"), onValueChanged: transparentTerrainService.ToggleAlwaysEnableTopLayer)
+            .SetMarginBottom()
+            .SetValueWithoutNotify(transparentTerrainService.AlwaysEnableTopLayer);
 
         panel.AddGameLabel(t.T("LV.TrT.Percent"));
         panel.AddSliderInt(values: new(0, 100, Mathf.RoundToInt(transparentTerrainService.Alpha * 100)))
             .AddEndLabel(v => v + "%")
-            .RegisterChange(OnAlphaChanged);
-    }
-
-    void OnEnabledChanged(bool e)
-    {
-        transparentTerrainService.Toggle(e);
-    }
-
-    void OnAlphaChanged(int a)
-    {
-        transparentTerrainService.SetAlpha(a / 100f);
+            .RegisterChange(a => transparentTerrainService.SetAlpha(a / 100f));
     }
 
 }

@@ -15,11 +15,13 @@ public class TransparentTerrainTopMeshService(
 
         var renderer = terrainTopMeshService._topLayerObject.GetComponentInChildren<Renderer>();
         material = renderer.material;
+
+        OnChanged(); // In case always enabled is on
     }
 
     void OnChanged()
     {
-        var alpha = transparentTerrainService.Enabled
+        var alpha = (transparentTerrainService.Enabled || transparentTerrainService.AlwaysEnableTopLayer)
             ? transparentTerrainService.Alpha
             : 1f;
 

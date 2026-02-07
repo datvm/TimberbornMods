@@ -5,6 +5,7 @@ public class TransparentTerrainService : ILoadableSingleton, IUnloadableSingleto
     public const string HoldKeyId = "EnableTerrainTransparency";
     public const string ToggleKeyId = "ToggleTerrainTransparency";
     public const string ConfigureKeyId = "ConfigureTerrainTransparency";
+    const string AlwaysEnableTopLayerId = $"{nameof(TransparentTerrain)}.Settings.{nameof(AlwaysEnableTopLayer)}";
 
     public static TransparentTerrainService? Instance { get; private set; }
 
@@ -32,6 +33,11 @@ public class TransparentTerrainService : ILoadableSingleton, IUnloadableSingleto
 
     public bool Enabled { get; private set; }
     public float Alpha { get; private set; } = .25f;
+    public bool AlwaysEnableTopLayer
+    {
+        get => PlayerPrefs.GetInt(AlwaysEnableTopLayerId, 0) != 0;
+        private set => PlayerPrefs.SetInt(AlwaysEnableTopLayerId, value ? 1 : 0);
+    }
 
     public void Load()
     {
@@ -64,6 +70,12 @@ public class TransparentTerrainService : ILoadableSingleton, IUnloadableSingleto
         }
 
         OnToggled(this, Enabled);
+        OnChanged();
+    }
+
+    public void ToggleAlwaysEnableTopLayer(bool enabled)
+    {
+        AlwaysEnableTopLayer = enabled;
         OnChanged();
     }
 
