@@ -6,10 +6,14 @@ You can toggle and adjust transparency at any time using the in-game configurati
 - Press Ctrl + N or right-click the button to open a configuration box where you can set the transparency level.
 All keybindings can be rebound in the Settings (UI section).
 
+In the configuration box, you can also check the "Always Keep the Layer Top Transparent" option to ensure that the top terrain layer remains transparent when using the visibility layer tool. This option is stored globally, not per save.
+[img]https://files.catbox.moe/tidalm.jpg[/img]
+
 Powered by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3603735817]Transparent Shaders[/url].
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v10.2.0: Added "Always Keep the Layer Top Transparent" option.
 v10.1.0: When using the visibility layer tool, the top layer is now also semi-transparent.
 v10.0.1: Now support U7.
