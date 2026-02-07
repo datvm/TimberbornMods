@@ -9,6 +9,7 @@ public class ToolListener(
 {
     const string ShowGuidelinesHotkey = "ShowGuidelines";
     const string LockHorizontalHotkey = "LockPlottingHorizontal";
+    const string ClearAllPlotsHotkey = "ClearAllPlots";
     bool isInCursorTool;
     int? lockingHeight;
 
@@ -37,6 +38,12 @@ public class ToolListener(
     public bool ProcessInput()
     {
         var shouldReturnTrue = false;
+
+        if (inputService.IsKeyDown(ClearAllPlotsHotkey))
+        {
+            plotterService.ClearAllBeacons();
+            shouldReturnTrue = true;
+        }
 
         if (inputService.IsKeyHeld(ShowGuidelinesHotkey))
         {

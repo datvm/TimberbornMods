@@ -98,6 +98,16 @@ public class PlotterService(
         return true;
     }
 
+    public void ClearAllBeacons()
+    {
+        foreach (var b in beacons.Values.ToArray())
+        {
+            RemoveMainBeacon(b);
+        }
+        beacons.Clear();
+        relatedBeaconLocations.Clear();
+    }
+
     void RemoveMainBeacon(Beacon b)
     {
         foreach (var pair in b.RelatedPairs.ToArray())

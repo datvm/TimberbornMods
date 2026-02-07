@@ -1,0 +1,12 @@
+﻿{
+    "KeyBindingSpec": {
+        "Id": "ClearAllPlots",
+        "GroupId": "UI",
+        "LocKey": "LV.PT.ClearAllPlots",
+        "Order": 82
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/x",
+        "InputModifiers": "Ctrl, Shift"
+    }
+}
