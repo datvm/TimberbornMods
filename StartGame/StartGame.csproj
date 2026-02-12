@@ -15,7 +15,7 @@
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
-		<ProjectReference Include="..\SuperCursor\SuperCursor.csproj" />
+		<!--<ProjectReference Include="..\SuperCursor\SuperCursor.csproj" />-->
 
 
 	</ItemGroup>

@@ -1,10 +1,4 @@
 ﻿This simple mod notifies the player when construction of a building is completed. You can also choose to have the camera focus on the completed building.
 
-[img]https://files.catbox.moe/4f6lyq.jpg[/img]
-
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
-
-v10.0.1:
-- Added Non-blocking notification option.
-- Play a sound when notifying.
