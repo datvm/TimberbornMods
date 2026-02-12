@@ -1,0 +1,8 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<ItemGroup>
+
+		<Reference Include="$(GameModsFolder)ModdableToolGroupsHotkeys\$(TimberbornVersion)\**\*.dll" Private="false" />	
+	</ItemGroup>
+
+</Project>

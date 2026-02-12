@@ -1,19 +1,16 @@
 ﻿namespace Pin.Components;
 
-public class PinComponent : BaseComponent, IPersistentEntity, IFinishedStateListener, IModifiableEntityBadge, IAwakableComponent, IStartableComponent
+public class PinComponent(PinService pinService) : BaseComponent, IDuplicable<PinComponent>, IPersistentEntity, IFinishedStateListener, IAwakableComponent, IStartableComponent
 {
     static readonly ComponentKey SaveKey = new(nameof(PinComponent));
     static readonly PropertyKey<Color> ColorKey = new("Color");
-    static readonly PropertyKey<string> LabelKey = new("Label");
     static readonly PropertyKey<float> HeightKey = new("Height");
 
 #nullable disable
-    PinService pinService;
-
     Transform finished;
     Transform poleTransform;
     Renderer poleRenderer;
-    LabeledEntity labeledEntity;
+    NamedEntity namedEntity;
 #nullable enable
 
     public Vector3 Anchor { get; private set; }
@@ -31,28 +28,22 @@ public class PinComponent : BaseComponent, IPersistentEntity, IFinishedStateList
     public Color ColorWithoutAlpha { get; private set; } = Color.white;
     public float ColorAlpha { get; private set; } = 1;
 
-    public string Label { get; private set; } = "";
+    public string Label => namedEntity.EntityName;
     public float Height { get; set; } = 3;
     public int EntityBadgePriority { get; } = 1;
-
-    [Inject]
-    public void Inject(PinService pinService, ILoc t)
-    {
-        this.pinService = pinService;
-        Label = t.T("LV.Pin.NewPinText");
-    }
 
     public void Awake()
     {
         finished = Transform.Find("#Finished");
 
-        labeledEntity = GetComponent<LabeledEntity>();
+        namedEntity = GetComponent<NamedEntity>();
         InitializePole();
     }
 
     public void Start()
     {
         InitializePin();
+        namedEntity.EntityNameChanged += (_, _) => UpdatePin();
     }
 
     public void Load(IEntityLoader entityLoader)
@@ -62,11 +53,6 @@ public class PinComponent : BaseComponent, IPersistentEntity, IFinishedStateList
         if (s.Has(ColorKey))
         {
             Color = s.Get(ColorKey);
-        }
-
-        if (s.Has(LabelKey))
-        {
-            Label = s.Get(LabelKey);
         }
 
         if (s.Has(HeightKey))
@@ -87,7 +73,6 @@ public class PinComponent : BaseComponent, IPersistentEntity, IFinishedStateList
     {
         var s = entitySaver.GetComponent(SaveKey);
         s.Set(ColorKey, Color);
-        s.Set(LabelKey, Label);
         s.Set(HeightKey, Height);
     }
 
@@ -145,14 +130,14 @@ public class PinComponent : BaseComponent, IPersistentEntity, IFinishedStateList
         Anchor = new(coord.x, coord.y + Height, coord.z);
     }
 
-    public void SetEntityName(string entityName)
-    {
-        Label = entityName;
-        UpdatePin();
-    }
+    public void SetEntityName(string entityName) => namedEntity.SetEntityName(entityName);
 
-    public string GetEntityName() => Label;
-    public string GetEntitySubtitle() => "";
-    public ClickableSubtitle GetEntityClickableSubtitle() => ClickableSubtitle.CreateEmpty();
-    public Sprite GetEntityAvatar() => labeledEntity.Image;
+    public void DuplicateFrom(PinComponent source)
+    {
+        Color = source.Color;
+        Height = source.Height;
+        SetEntityName(source.Label);
+        // No need to call UpdatePin here, as it will be called by the named entity change event.
+        // It will crash if called too early anyway (for build + duplicate).
+    }
 }

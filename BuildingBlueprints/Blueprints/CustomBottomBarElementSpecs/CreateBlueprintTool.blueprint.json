@@ -1,0 +1,14 @@
+﻿{
+    "ToolGroupSpec": {
+        "Id": "BuildingBlueprints",
+        "DisplayNameLocKey": "LV.BB.BlueprintsGroup",
+        "Icon": "Sprites/BottomBar/BuildingBlueprintsIcon"
+    },
+    "CustomBottomBarElementSpec": {
+        "Id": "BuildingBlueprints",
+        "Order": 9001
+    },
+    "CustomRootElementSpec": {
+        "Location": "Middle"
+    }
+}

@@ -1,12 +1,15 @@
 ﻿namespace SuperCursor.Services.ObjectDescribers;
 
 [ServicePriority(0)]
-public class NameDescriber(EntityBadgeService badge) : BaseObjectDescriber<BaseComponent>
+public class NameDescriber : BaseObjectDescriber<BaseComponent>
 {
 
     protected override void DescribeComponent(StringBuilder builder, BaseComponent component)
     {
-        builder.AppendLine(badge.GetEntityName(component).Bold().Bigger());
+        var name = component.GetComponent<NamedEntity>();
+        if (!name) { return; }
+
+        builder.AppendLine(name.EntityName.Bold().Bigger());
     }
 
 }
