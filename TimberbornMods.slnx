@@ -65,6 +65,7 @@
   </Folder>
   <Folder Name="/NonGameplay/">
     <Project Path="BeaverJukebox/BeaverJukebox.csproj" />
+    <Project Path="BuildingBlueprints/BuildingBlueprints.csproj" Id="41a2a567-ed9e-4aaf-a40f-8aa47fd003d4" />
     <Project Path="BuildingDecal/BuildingDecal.csproj" />
     <Project Path="CameraBookmarks/CameraBookmarks.csproj" />
     <Project Path="ColorfulBeavers/ColorfulBeavers.csproj" />
@@ -113,6 +114,7 @@
     <File Path="Targets/CommonModdableRecipes.targets" />
     <File Path="Targets/CommonModdableTimberborn.targets" />
     <File Path="Targets/CommonModdableToolGroups.targets" />
+    <File Path="Targets/CommonModdableToolGroupsHotkey.targets" />
     <File Path="Targets/CommonModdableWeathers.targets" />
     <File Path="Targets/CommonProperties.targets" />
     <File Path="Targets/CommonScientificProjects.targets" />

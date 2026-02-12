@@ -4,5 +4,3 @@ This is useful if you use [url=https://steamcommunity.com/sharedfiles/filedetail
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
-
-v10.0.0: Should work for Timberborn v1.0.

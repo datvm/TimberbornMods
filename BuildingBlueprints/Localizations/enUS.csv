@@ -1,0 +1,22 @@
+﻿ID,Text,Comment
+LV.BB.BlueprintsGroup,"Building Blueprints",
+LV.BB.BlueprintCreate,"Create Building Blueprint",
+LV.BB.BlueprintCreateDesc,"Create a new building blueprint from the selected area",
+LV.BB.BlueprintCreateArea,"Area: {0} × {1}",
+LV.BB.BlueprintCreateBuildings,"Buildings ({0}):",
+LV.BB.BlueprintCreateCosts,"Costs:",
+LV.BB.UnknownBuilding,"<RedHighlight>Unknown building: {0}</RedHighlight>"
+LV.BB.DefaultName,"Unnamed Blueprint",
+LV.BB.InvalidName,"The blueprint name is invalid. It must be a valid filename (avoid special characters).",
+LV.BB.FileDuplicateWarning,"A blueprint with this name already exists.
+<RedHighlight>Do you want to overwrite it?</RedHighlight>",
+LV.BB.Save,"Save Blueprint",
+LV.BB.Reload,"Reload Blueprints",
+LV.BB.Browse,"Browse Blueprints",
+LV.BB.SelectTitle,"Select Building Blueprint",
+LV.BB.SelectDesc,"Select a building blueprint to place in the world.",
+LV.BB.Build,"Build Blueprint",
+LV.BB.NoBlueprints,"No building blueprints available.
+Create one using the Create Building Blueprint tool.",
+LV.BB.MissingBuildings,"Missing buildings: {0}",
+LV.BB.LockedBuildings,"Buildings not unlocked: {0}",

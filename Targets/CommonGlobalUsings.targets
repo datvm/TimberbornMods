@@ -105,6 +105,7 @@
 		<Using Include="Timberborn.CharacterNavigation"/>
 		<Using Include="Timberborn.Characters"/>
 		<Using Include="Timberborn.CharactersBatchControl"/>
+		<Using Include="Timberborn.CharactersGame"/>
 		<Using Include="Timberborn.CharactersUI"/>
 		<Using Include="Timberborn.CommandLine"/>
 		<Using Include="Timberborn.Common"/>
@@ -145,6 +146,8 @@
 		<Using Include="Timberborn.Effects"/>
 		<Using Include="Timberborn.Emptying"/>
 		<Using Include="Timberborn.EnterableSystem"/>
+		<Using Include="Timberborn.EntityNaming"/>
+		<Using Include="Timberborn.EntityNamingUI"/>
 		<Using Include="Timberborn.EntityPanelSystem"/>
 		<Using Include="Timberborn.EntitySystem"/>
 		<Using Include="Timberborn.EntityUndoSystem"/>
@@ -503,6 +506,7 @@
 		<Using Include="Timberborn.ZiplineMovementSystem"/>
 		<Using Include="Timberborn.ZiplineSystem"/>
 		<Using Include="Timberborn.ZiplineSystemUI"/>
+
 
 	</ItemGroup>
 </Project>

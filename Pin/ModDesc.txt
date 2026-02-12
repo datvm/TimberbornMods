@@ -15,8 +15,7 @@ Tip: Supports [url=https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/S
 <color="red">Hello</color> <size=30>World</size>!
 [/code]
 
+Pins can also be copied/duplicated.
+
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
-
-v10.0.2: Should work with Update 1.0.7 (Jan 12)
-v10.0.1: Should work with Update 1.0.5 (Dec 03)

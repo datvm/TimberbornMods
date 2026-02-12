@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputModFolderName>BuildingBlueprints</OutputModFolderName>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Folder Include="Blueprints\CustomCursorSpecs\" />
+	</ItemGroup>
+
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonTimberUi.targets" />
+	<Import Project="../Targets/CommonModdableToolGroups.targets" />
+	
+</Project>

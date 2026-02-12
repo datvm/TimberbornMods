@@ -71,6 +71,9 @@
         "Icon": "Resources/Buildings/Decorations/PinIcon"
     },
     "PinSpec": {},
+    "NamedEntitySpec": {
+        "IsEditable": true
+    },
     "Children": {
         "#Finished": {
             "Children": {
