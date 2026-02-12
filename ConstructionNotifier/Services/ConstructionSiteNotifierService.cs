@@ -3,7 +3,6 @@
 public class ConstructionSiteNotifierService(
     DialogService diag,
     ILoc t,
-    EntityBadgeService badgeService,
     EntitySelectionService selectionService,
     NotificationBus notfBus,
     GameUISoundController sounds
@@ -12,7 +11,7 @@ public class ConstructionSiteNotifierService(
 
     public async void Notify(ConstructionSiteNotifier constructionSiteNotifier, bool nonblocking)
     {
-        var name = badgeService.GetEntityName(constructionSiteNotifier);
+        var name = constructionSiteNotifier.GetComponent<NamedEntity>().EntityName;
         var msg = t.T("LV.CSN.NotifyMsg", name);
 
         sounds.PlayWellbeingHighscoreSound();
