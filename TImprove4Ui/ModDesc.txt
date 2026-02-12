@@ -1,6 +1,6 @@
 ﻿Another TImprove mod and this time it's for your Timberborn UI! If you don't know yet, [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3420372304]TImprove[/url] enhances your Timberborn experience by providing various quality-of-life improvements without altering any game mechanics. This mod focuses on the UI/UX aspect of the game with many features requested by the community.
 
-You can enable or disable features in the Mod Settings: Menu (Esc) or Main Menu -> Mods -> Setting button next to the mod name.
+The only feature the is enabled by default is [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3468993863]Scrollable Entity Panel[/url] which will replace that mod. You can enable or disable features in the Mod Settings: Menu (Esc) or Main Menu -> Mods -> Setting button next to the mod name.
 
 Note: you can see the features in the screenshots.
 
@@ -25,14 +25,14 @@ Note: you can see the features in the screenshots.
 
 [h1]Management Panel[/h1]
 
-From v7.2.0, this mod adds features to the management panel (top-left button or pressing F1 to F8). See screenshot for demo.
+This mod adds a few features to the management panel (top-left button or pressing F1 to F8). See screenshot for demo.
 - Add a Swap location button to move it to the right. Saved with your game. Click again to move it back.
 - Workplaces tab (F3): added Beavers and Bots filter for workplaces.
 
-Please suggest any features you would like in the comments or on the official Timberborn Discord server: https://discord.com/channels/558398674389172225/1366490328785489960
+Please suggest any features you would like in the comments or on the official Timberborn Discord server.
 
 ===
-Mod source code and donation: https://github.com/datvm/TimberbornMods
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
 Credits:
 - YosemiteSam for many suggestions.
@@ -43,16 +43,3 @@ Credits:
 - Acalc79: [spoiler]Dev mode's[/spoiler] hotkeys rebinding.
 - Bones: Disable pause icons on buildings.
 - Shimanim: Collapsible management groups.
-
-v10.1.2: Fixed (modded) long recipe list visual bug
-[img]https://i.imgur.com/6ngxFU3.jpeg[/img]
-v10.1.1: Should work with Update 1.0.8 (Jan 26). Removed [spoiler]Dev mode's[/spoiler] hotkeys feature as it's now working correctly in the base game.
-v10.1.0:
-- Removed "Disable Shadows" feature, it's now part of the base game (Graphics Settings).
-- Removed "Pause Icon Toggle" feature in favor of the more generic solution [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3635342825]Warnings Be Gone[/url].
-- Add a filter box for Keybindings. Also make groups collapsible.
-v10.0.2: Should work with Update 1.0.7 (Jan 12)
-v10.0.1: Highlight Tubeway Path now highlight unconnected ends in red ([url=https://discord.com/channels/558398674389172225/1064824959697944666/1441606244287774720]screenshot[/url])
-v10.0.0:
-- Work for Timberborn v1.0.
-- "Add buildings' debuff info" becomes "Clarify debuff chance" and now shows the actual percentage instead of just low/medium/high.
