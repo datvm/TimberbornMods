@@ -1,6 +1,6 @@
 ﻿namespace BlueprintRelics.Components;
 
-[AddTemplateModule(typeof(BlueprintRelicSpec))]
+[AddTemplateModule2(typeof(BlueprintRelicSpec))]
 public class BlueprintRelicCollector(BlueprintRelicCollectorService service) : TickableComponent, IAwakableComponent, IPersistentEntity, IInitializableEntity
 {
 
@@ -29,6 +29,8 @@ public class BlueprintRelicCollector(BlueprintRelicCollectorService service) : T
 
     public int ExpiryTicks { get; private set; }
     public float TotalDays { get; private set; }
+    public int FastExpireTicks => Mathf.FloorToInt(spec.FastExpireInDays * service.TicksInDay);
+    public bool CanAccelerateExpiry => FastExpireTicks < ExpiryTicks;
 
     public int StepsLeft { get; private set; }
     public int TotalSteps => spec.ExcavationSteps;
@@ -100,7 +102,7 @@ public class BlueprintRelicCollector(BlueprintRelicCollectorService service) : T
         if (NegotiateCooldownTicks > 0)
         {
             s.Set(NegotiateCooldownTicksKey, NegotiateCooldownTicks);
-        }   
+        }
     }
 
     public void InitializeEntity()
@@ -110,6 +112,13 @@ public class BlueprintRelicCollector(BlueprintRelicCollectorService service) : T
         InitRequirements();
 
         if (Finished) { SetFinishState(); }
+    }
+
+    public void AccelerateExpiry()
+    {
+        if (!CanAccelerateExpiry) { return; }
+
+        ExpiryTicks = FastExpireTicks;
     }
 
     void SetFinishState()
@@ -128,7 +137,7 @@ public class BlueprintRelicCollector(BlueprintRelicCollectorService service) : T
         ExpiryTicks = Mathf.FloorToInt(TotalDays * service.TicksInDay);
         StepsLeft = TotalSteps;
 
-        SelectStepRequirements();   
+        SelectStepRequirements();
     }
 
     void SelectStepRequirements()
@@ -219,7 +228,7 @@ public class BlueprintRelicCollector(BlueprintRelicCollectorService service) : T
 
         SelectStepRequirements();
         DigAgain();
-        
+
         NegotiateCooldownTicks = Mathf.FloorToInt(spec.NegotiateCooldownDays * service.TicksInDay);
     }
 

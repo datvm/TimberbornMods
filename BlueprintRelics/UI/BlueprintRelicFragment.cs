@@ -20,14 +20,19 @@ public class BlueprintRelicFragment(
     Button btnReward;
     VisualElement lstStepRequirements;
     Button btnNegotiate;
+    Button btnAccelerateExpiry;
 #nullable enable
 
     bool isShowingNegotiationCooldown;
 
     protected override void InitializePanel()
     {
-        pgbExpiry = panel.AddProgressBar().SetColor(ProgressBarColor.Blue).SetMarginBottom();
+        var expiryRow = panel.AddRow().AlignItems(Align.Stretch).SetMarginBottom(10);
+        pgbExpiry = expiryRow.AddProgressBar().SetColor(ProgressBarColor.Blue).SetFlexGrow();
         lblExpiry = pgbExpiry.AddProgressLabel();
+
+        btnAccelerateExpiry = expiryRow.AddGameButtonPadded(t.T("LV.BRe.Accelerate"), onClick: AccelerateExpiry, paddingY: 0)
+            .SetFlexShrink(0);
 
         lblConnection = panel.AddGameLabel();
         chkPause = panel.AddToggle(t.T("LV.BRe.PauseExcavation"), onValueChanged: TogglePause)
@@ -56,6 +61,19 @@ public class BlueprintRelicFragment(
 
         UpdateRequirements();
         chkPause.SetValueWithoutNotify(component.PauseCollecting);
+    }
+
+    async void AccelerateExpiry()
+    {
+        if (!component || !component!.CanAccelerateExpiry) { return; }
+
+        if (!await diag.ConfirmAsync(t.T("LV.BRe.AccelerateConfirm",
+            GetHoursFromTicks(component.FastExpireTicks).ToString("F0"))))
+        {
+            return;
+        }
+
+        component.AccelerateExpiry();
     }
 
     void UpdateRequirements()
@@ -92,7 +110,9 @@ public class BlueprintRelicFragment(
     {
         if (!component) { return; }
 
-        btnReward.enabledSelf = component!.Finished;
+        btnAccelerateExpiry.SetDisplay(component!.CanAccelerateExpiry);
+
+        btnReward.enabledSelf = component.Finished;
         btnNegotiate.enabledSelf = component.CanNegotiate;
         if (component.NegotiateCooldownTicks > 0)
         {
@@ -149,5 +169,6 @@ public class BlueprintRelicFragment(
     void TogglePause(bool v) => component!.PauseCollecting = v;
 
     float GetDaysFromTicks(int ticks) => ticks / collectorService.TicksInDay;
+    float GetHoursFromTicks(int ticks) => ticks / collectorService.TicksInHour;
 
 }

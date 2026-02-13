@@ -1,6 +1,6 @@
 ﻿{
     "Name": "Blueprint Relics",
-    "Version": "10.0.0",
+    "Version": "10.0.1",
     "Id": "BlueprintRelics",
     "MinimumGameVersion": "1.0.0",
     "Description": "Random relics that unlock alternate recipes",

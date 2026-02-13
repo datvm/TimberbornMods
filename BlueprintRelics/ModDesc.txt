@@ -11,7 +11,7 @@
 [img]https://files.catbox.moe/6qs7jv.jpg[/img]
 
 Larger relics unlock rarer recipes and stronger upgrades.
-Excavation pauses expiration, but nothing ever resets the timer.
+Excavation pauses expiration, but nothing ever resets the timer. You can also accelerate the expiration if it is taking space.
 
 [b]Discover all the fun recipes for yourself![/b] I am not listing them here but there are 30 of them (some of them are specific to Folktails or Iron Teeth only).
 
@@ -25,6 +25,8 @@ If a relic spawns, its size is randomized: 70%, 20% and 10% chance for small, me
 - Number of excavation steps
 - Required resources.
 - Reward rarity and type.
+
+Each relic has a random expiration time based on its size: 10-15, 20-30 and 30-60 days. If you don't like a relic, you can accelerate its expiration at no cost, it will expire in 0.5, 1 and 2 days.
 
 [h2]Excavation Setup[/h2]
 Relics must be connected to a district path to begin excavation. Excavation draws resources from district storages directly, without using workers or haulers.

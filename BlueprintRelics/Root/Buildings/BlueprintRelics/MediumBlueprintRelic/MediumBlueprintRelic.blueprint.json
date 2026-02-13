@@ -5,6 +5,7 @@
             "Min": 20,
             "Max": 30
         },
+        "FastExpireInDays": 1,
         "NegotiateCooldownDays": 2,
         "ExcavationSteps": 15,
         "ExcavationStepDays": 1,

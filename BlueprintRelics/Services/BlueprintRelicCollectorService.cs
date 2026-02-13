@@ -14,10 +14,12 @@ public class BlueprintRelicCollectorService(
     public readonly ILoc t = t;
 
     public float TicksInDay { get; private set; }
+    public float TicksInHour { get; private set; }
 
     public void Load()
     {
         TicksInDay = (dayNightCycle.DaytimeLengthInHours + dayNightCycle.NighttimeLengthInHours) / dayNightCycle.FixedDeltaTimeInHours;
+        TicksInHour = 1f / dayNightCycle.FixedDeltaTimeInHours;
     }
 
     public ImmutableArray<GoodAmount> GenerateGoodRequirements(BlueprintRelicSpec spec)
@@ -77,8 +79,6 @@ public class BlueprintRelicCollectorService(
         notfBus.Post(t.T("LV.BRe.RelicExpired", collector.GetComponent<LabeledEntity>().DisplayName), collector);
         entityService.Delete(collector);
     }
-
-
 
     static bool TryFindingGoods(
         DistrictCenter districtCenter,
