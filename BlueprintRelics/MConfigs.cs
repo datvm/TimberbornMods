@@ -1,4 +1,4 @@
 ﻿namespace BlueprintRelics;
 
 [Context("Game")]
-public class MGameConfig : GameAttributeConfigurator { }
+public class MGameConfig : GameAttributeConfigurator;

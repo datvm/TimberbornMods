@@ -28,6 +28,9 @@ public record BlueprintRelicSpec : ComponentSpec
     [Serialize]
     public float NegotiateCooldownDays { get; init; }
 
+    [Serialize]
+    public float FastExpireInDays { get; init; }
+
 }
 
 public record BlueprintRelicRequiredGoodsSpec : ComponentSpec

@@ -1,6 +1,6 @@
 ﻿namespace BlueprintRelics.Components;
 
-[AddTemplateModule(typeof(BlueprintRelicSpec))]
+[AddTemplateModule2(typeof(BlueprintRelicSpec))]
 public class BlueprintRelicComponent(
     BlueprintRelicsRegistry registry
 ) : BaseComponent, IAwakableComponent, IFinishedStateListener, IBlockObjectDeletionBlocker
