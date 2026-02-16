@@ -17,7 +17,7 @@ public class PreviewEnumerator
             counters[k] = -1;
         }
 
-        AllPreviews = [.. PreviewsByTemplates.Values.SelectMany(arr => arr)];
+        AllPreviews = [.. PreviewsByTemplates.Values.SelectMany(arr => arr)]; 
     }
 
     public Preview GetNext(string templateName)

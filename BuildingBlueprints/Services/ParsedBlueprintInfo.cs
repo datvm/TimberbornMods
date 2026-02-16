@@ -10,6 +10,14 @@ public record ParsedBlueprintInfo(
 {
     public IEnumerable<ValueTuple<string, int>> TemplatesAndCount
         => BuildingsCount.Select(kv => (kv.Key.TemplateName, kv.Value));
+
+    public ParsedBlueprintBuildingPlacement FirstBuilding => Buildings
+        .OrderBy(b => b.Coordinates.z)
+        .ThenBy(b => b.Coordinates.x)
+        .ThenBy(b => b.Coordinates.y)
+        .First();
+
+
 }
 
 public record ParsedBlueprintBuildingPlacement(

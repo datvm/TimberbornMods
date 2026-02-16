@@ -2,9 +2,9 @@
 
 public readonly record struct BuildingBlueprintPlacement(Vector3Int Coordinates, Orientation Orientation);
 
+
 [BindSingleton]
 public class BlueprintPlacementService(
-    CursorCoordinatesPicker cursorCoordinatesPicker,
     BlueprintPreviewRepository previewRepository,
     InputService inputService,
     PreviewShower previewShower,
@@ -12,7 +12,9 @@ public class BlueprintPlacementService(
     Highlighter highlighter,
     ISpecService specService,
     UISoundController uiSoundController,
-    BlueprintGroupService blueprintGroupService
+    BlueprintGroupService blueprintGroupService,
+    CameraService cameraService,
+    BlockObjectPreviewPicker blockObjectPreviewPicker
 ) : IInputProcessor, ILoadableSingleton
 {
     static readonly Vector3Int PlaceholderCoordinates = new(-1, -1, -1);
@@ -20,6 +22,7 @@ public class BlueprintPlacementService(
     PreviewShowerSpec spec = null!;
 
     ParsedBlueprintInfo? blueprintInfo;
+    ParsedBlueprintBuildingPlacement? firstBuilding;
     TaskCompletionSource<BuildingBlueprintPlacement?>? tcs;
     PreviewEnumerator? enumerator;
     Orientation orientation = Orientation.Cw0;
@@ -37,7 +40,7 @@ public class BlueprintPlacementService(
     {
         CleanUp();
 
-        blueprintInfo = bp;
+        blueprintInfo = bp;        
         var t = tcs = new();
         InitializePreviews(bp);
 
@@ -105,7 +108,12 @@ public class BlueprintPlacementService(
 
     bool ProcessCursorLocation()
     {
-        var pos = cursorCoordinatesPicker.PickCoordinates(false);
+        var ray = cameraService.ScreenPointToRayInGridSpace(inputService.MousePosition);
+        var coords = blockObjectPreviewPicker.CenteredPreviewCoordinates(
+            firstBuilding!.Building.PlaceableSpec,
+            RotateBy(firstBuilding.Orientation, orientation),
+            ray);
+        var pos = coords?.Coordinates;
 
         if (pos is null)
         {
@@ -116,9 +124,9 @@ public class BlueprintPlacementService(
         }
 
         shouldShow = true;
-        if (pos.Value.TileCoordinates == prevCoordinates) { return false; }
+        if (pos == prevCoordinates) { return false; }
 
-        prevCoordinates = coordinates = pos.Value.TileCoordinates;
+        prevCoordinates = coordinates = pos.Value;
         return true;
     }
 
@@ -159,12 +167,14 @@ public class BlueprintPlacementService(
         prevCoordinates = PlaceholderCoordinates;
         coordinates = PlaceholderCoordinates;
         blueprintInfo = null;
+        firstBuilding = null;
         lastPositionValid = false;
     }
 
     void InitializePreviews(ParsedBlueprintInfo bp)
     {
         enumerator = previewRepository.GetPreviews(bp.TemplatesAndCount);
+        firstBuilding = bp.FirstBuilding;
     }
 
     void PositionPreviews()
