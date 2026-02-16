@@ -8,6 +8,8 @@ Simply select the tool, drag an area around the buildings you want to include in
 
 [img]https://files.catbox.moe/ymo5ne.jpg[/img]
 
+Blueprint files are just JSON files stored in your game's Documents folder so you can easily copy and share them or even edit them manually if you want to. See the dialog below, there is a Browse button that will open the folder where the blueprints are stored.
+
 Note: terrains are not supported so if your building blocks have terrain blocks, it won't be included.
 
 [h1]Build Blueprint[/h1]
@@ -25,6 +27,11 @@ Choose the blueprint you want to place, then click the Build Blueprint button. [
 A quick way to demolish all buildings that were placed using a building blueprint. Just select the tool and click on any building that was placed with a blueprint, and all buildings from that blueprint will be demolished. You will be asked to confirm before the demolition happens. This tool works even if you already finished some buildings, or demolished a few of them using other tools.
 
 [img]https://files.catbox.moe/vxqwm2.jpg[/img]
+
+[h1]Known Issue[/h1]
+
+- The coordinate picker is a bit unstable on non-ground. I am trying to improve it.
+- Right now blueprints with District Center is a bit risky because it may touch a road. Please avoid putting District Center in blueprints for now.
 
 If you have any issue that I missed, feel free to report it in the comments or on Discord.
 

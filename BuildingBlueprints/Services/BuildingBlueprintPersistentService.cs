@@ -37,6 +37,9 @@ public class BuildingBlueprintPersistentService(IExplorerOpener explorerOpener)
                 var content = File.ReadAllText(file);
                 bp = JsonConvert.DeserializeObject<SerializableBuildingBlueprint>(content)
                     ?? throw new InvalidDataException("Deserialized blueprint is null");
+
+                var fileName = Path.GetFileNameWithoutExtension(file);
+                bp.Name = fileName;
             }
             catch (Exception ex)
             {
