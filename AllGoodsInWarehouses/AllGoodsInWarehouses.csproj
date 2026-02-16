@@ -4,6 +4,16 @@
 		<OutputModFolderName>AllGoodsInWarehouses</OutputModFolderName>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <Folder Include="Root\Buildings\Storage\LargeIndustrialPile\" />
+	  <Folder Include="Root\Buildings\Storage\LargePile\" />
+	  <Folder Include="Root\Buildings\Storage\LargeTank\" />
+	  <Folder Include="Root\Buildings\Storage\MediumTank\" />
+	  <Folder Include="Root\Buildings\Storage\SmallPile\" />
+	  <Folder Include="Root\Buildings\Storage\SmallTank\" />
+	  <Folder Include="Root\Buildings\Storage\UndergroundPile\" />
+	</ItemGroup>
+
 	<Import Project="../Targets/Common.targets" />
 	<Import Project="../Targets/CommonModdableTimberborn.targets" />
 
