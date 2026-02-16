@@ -3,6 +3,7 @@
 public class BuildingBlueprintsButtons(
     CreateBuildingBlueprintTool createBuildingBlueprintTool,
     BuildBuildingBlueprintTool buildBuildingBlueprintTool,
+    DemolishBlueprintTool demolishBlueprintTool,
 
     ToolGroupService toolGroupService,
     ModdableToolGroupButtonFactory grpButtonFac
@@ -14,5 +15,6 @@ public class BuildingBlueprintsButtons(
     {
         btn.AddChildTool(createBuildingBlueprintTool, "BuildingBlueprintsCreate");
         btn.AddChildTool(buildBuildingBlueprintTool, "BuildingBlueprintsBuild");
+        btn.AddChildTool(demolishBlueprintTool, "BuildingBlueprintsDemolish");
     }
 }

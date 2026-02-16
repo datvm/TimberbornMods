@@ -4,9 +4,23 @@
 public class BuildBuildingBlueprintTool(
     IContainer container,
     BlueprintPlacementService blueprintPlacementService,
-    ToolService toolService
-) : ITool
+    ToolService toolService,
+    ILoc t
+) : ITool, IToolDescriptor, ILoadableSingleton
 {
+#nullable disable
+    ToolDescription toolDescription;
+#nullable enable
+
+    public void Load()
+    {
+        toolDescription = new ToolDescription.Builder(t.T("LV.BB.BlueprintBuildTool"))
+            .AddSection(t.T("LV.BB.BlueprintBuildToolDesc"))
+            .AddPrioritizedSection(t.T("LV.BB.BlueprintBuildToolTip"))
+            .Build();
+    }
+
+    public ToolDescription DescribeTool() => toolDescription;
 
     public async void Enter()
     {
@@ -19,13 +33,7 @@ public class BuildBuildingBlueprintTool(
             return;
         }
 
-        while (true)
-        {
-            var placement = await blueprintPlacementService.PickAreaAsync(blueprint);
-            if (placement is null) { break; }
-
-
-        }
+        while (await blueprintPlacementService.PlaceAsync(blueprint) is not null) { }
     }
 
     public void Exit()

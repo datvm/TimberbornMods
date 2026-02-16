@@ -22,6 +22,7 @@ public class CreateBuildingBlueprintTool(
     {
         toolDescription = new ToolDescription.Builder(t.T("LV.BB.BlueprintCreate"))
             .AddSection(t.T("LV.BB.BlueprintCreateDesc"))
+            .AddPrioritizedSection(t.T("LV.BB.BlueprintCreateTip"))
             .Build();
 
         picker = areaBlockObjectPickerFactory.CreatePickingUpwards();
