@@ -3,17 +3,18 @@
 [BindSingleton]
 public class BlueprintPlacementValidator(
     IEnumerable<IBlockObjectPlacer> placers,
-    EntityService entityService
+    EntityService entityService,
+    IBlockService blockService
 )
 {
     readonly BuildingPlacer buildingPlacer = (BuildingPlacer)placers.First(p => p is BuildingPlacer);
 
-    public async Task<HashSet<Preview>> ValidatePreviewsAsync(IEnumerable<Preview> previews) 
+    public async Task<HashSet<Preview>> ValidatePreviewsAsync(ImmutableArray<Preview> previews) 
         => (await ValidatePreviews(previews, true)).ValidPreviews;
-    public async Task<List<BaseComponent>> BuildPreviewsAsync(IEnumerable<Preview> previews) 
+    public async Task<List<BaseComponent>> BuildPreviewsAsync(ImmutableArray<Preview> previews) 
         => (await ValidatePreviews(previews, false)).PlacedBuildings;
 
-    async Task<(HashSet<Preview> ValidPreviews, List<BaseComponent> PlacedBuildings)> ValidatePreviews(IEnumerable<Preview> previews, bool destroy)
+    async Task<(HashSet<Preview> ValidPreviews, List<BaseComponent> PlacedBuildings)> ValidatePreviews(ImmutableArray<Preview> previews, bool destroy)
     {
         HashSet<Preview> result = [];
 
@@ -22,8 +23,9 @@ public class BlueprintPlacementValidator(
 
         var count = sorted.Length;
         List<BaseComponent> placed = [];
+        var validCount = 0;
 
-        while (placed.Count < count)
+        while (validCount < count)
         {
             var hasNew = false;
 
@@ -31,11 +33,16 @@ public class BlueprintPlacementValidator(
             {
                 if (result.Contains(p)) { continue; }
 
-                var comp = await TryPlacingAsync(p);
-                if (comp is null) { continue; }
+                var (valid, comp) = await TryPlacingAsync(p);
+                if (!valid) { continue; }
 
+                validCount++;
                 hasNew = true;
-                placed.Add(comp);
+                if (comp is not null)
+                {
+                    placed.Add(comp);
+                }
+                
                 result.Add(p);
             }
 
@@ -60,25 +67,34 @@ public class BlueprintPlacementValidator(
         return (result, placed);
     }
 
-    static readonly Task<BaseComponent?> NullTask = Task.FromResult<BaseComponent?>(null);
-    Task<BaseComponent?> TryPlacingAsync(Preview preview)
+    async Task<(bool, BaseComponent?)> TryPlacingAsync(Preview preview)
     {
         var bo = preview.BlockObject;
-        if (!bo.IsValid()) { return NullTask; }
+        
+        var template = bo.GetComponent<TemplateSpec>().TemplateName;
+        switch (template)
+        {
+            case "Path" when AlreadyHasPath(bo.Coordinates):
+                return (true, null);
+        }
+
+        if (!bo.IsValid()) { return (false, null); }
 
         var bos = bo.GetComponent<BlockObjectSpec>();
         var placement = bo.Placement;
 
-        return PlaceAsync(bos, placement);
+        return (true, await PlaceAsync(bos, placement));
     }
 
-    Task<BaseComponent?> PlaceAsync(BlockObjectSpec bos, Placement placement)
+    Task<BaseComponent> PlaceAsync(BlockObjectSpec bos, Placement placement)
     {
-        TaskCompletionSource<BaseComponent?> tcs = new();
+        TaskCompletionSource<BaseComponent> tcs = new();
         buildingPlacer.Place(bos, placement, result => tcs.SetResult(result));
         return tcs.Task;
     }
 
-
+    bool AlreadyHasPath(Vector3Int position) =>
+        // Path is valid if there is already a path there
+        blockService.GetPathObjectAt(position);
 
 }
