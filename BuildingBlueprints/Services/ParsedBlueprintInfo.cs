@@ -6,7 +6,11 @@ public record ParsedBlueprintInfo(
     ImmutableArray<ParsedBlueprintBuildingPlacement> Buildings,
     ImmutableArray<KeyValuePair<ParsedBlueprintBuilding, int>> BuildingsCount,
     ImmutableArray<GoodAmount> Costs
-);
+)
+{
+    public IEnumerable<ValueTuple<string, int>> TemplatesAndCount
+        => BuildingsCount.Select(kv => (kv.Key.TemplateName, kv.Value));
+}
 
 public record ParsedBlueprintBuildingPlacement(
     ParsedBlueprintBuilding Building,

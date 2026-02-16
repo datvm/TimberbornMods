@@ -3,16 +3,10 @@
 [BindSingleton]
 public class BuildBuildingBlueprintTool(
     IContainer container,
-    InputService inputService
-) : ITool, ILoadableSingleton, IInputProcessor
+    BlueprintPlacementService blueprintPlacementService,
+    ToolService toolService
+) : ITool
 {
-
-    ParsedBlueprintInfo? placingBlueprint;
-
-    public void Load()
-    {
-        throw new NotImplementedException();
-    }
 
     public async void Enter()
     {
@@ -21,26 +15,22 @@ public class BuildBuildingBlueprintTool(
         if (blueprint is null)
         {
             container.GetInstance<ToolService>().SwitchToDefaultTool();
+            toolService.SwitchToDefaultTool();
+            return;
         }
 
-        placingBlueprint = blueprint;
-        inputService.AddInputProcessor(this);
+        while (true)
+        {
+            var placement = await blueprintPlacementService.PickAreaAsync(blueprint);
+            if (placement is null) { break; }
+
+
+        }
     }
 
     public void Exit()
     {
-        placingBlueprint = null;
-        inputService.RemoveInputProcessor(this);
+        blueprintPlacementService.Stop();
     }
 
-    public bool ProcessInput()
-    {
-        if (placingBlueprint is null) // Should not happen
-        {
-            Exit();
-            return false; 
-        }
-
-        throw new NotImplementedException();
-    }
 }

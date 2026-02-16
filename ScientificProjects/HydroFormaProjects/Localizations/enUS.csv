@@ -25,7 +25,7 @@ LV.HF.TerrainBlockUpgrade1Lore,"'Perfectly safe. Rigorously tested. Now, please 
 LV.HF.TerrainBlockUpgrade2,"Substrata Stress Extender",
 LV.HF.TerrainBlockUpgrade2Lore,"'Unrelated to last cycle's incident.' — HydroForma™ Trust & Transparency Division",
 LV.HF.BarrierUpgrade,"Surface™ Access Coating",
-LV.HF.BarrierUpgradeEff,"Allows paths to be built <s>on top of</s> beneath Contamination and Irrigation Barriers.",
+LV.HF.BarrierUpgradeEff,"Allows paths to be built beneath Contamination and Irrigation Barriers.",
 LV.HF.BarrierUpgradeLore,"'SURFACE Access Coating? More like subterranean sardine. <b>*Bonk*</b>' — An unfortunately tall visitor",
 LV.HF.StreamGaugeUpgrade,"DepthSense™ Array",
 LV.HF.StreamGaugeUpgradeEff,"Stream Gauges now detect water depth to the soil beneath their own tile and can measure volume.",
