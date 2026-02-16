@@ -81,7 +81,6 @@ public static class BatchControlTabPatches
             .SetFlexGrow()
             .InsertSelfAfter(collapsible.HeaderLabel);
         collapsible.HeaderLabel.RemoveFromHierarchy();
-        header.Root.RegisterCallback<ClickEvent>(_ => collapsible.ToggleExpand());
 
         return collapsible;
     }
