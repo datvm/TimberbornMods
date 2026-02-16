@@ -18,7 +18,10 @@ Select the Build Blueprint tool, you will be presented with the Select Building 
 
 [img]https://files.catbox.moe/47f46w.jpg[/img]
 
-Choose the blueprint you want to place, then click the Build Blueprint button. [b]You can rotate the blueprint with the rotate keys while placing it.[/b] Flipping, however, is not supported (because not all buildings support flipping so it would be impossible to flip correctly).
+Choose the blueprint you want to place, then click the Build Blueprint button.
+- [b]You can rotate the blueprint with the rotate keys (default R and Shift R) while placing it.[/b] Flipping, however, is not supported (because not all buildings support flipping so it would be impossible to flip correctly).
+- Hold Alternate button (default Shift) to partially place any valid buildings and ignore invalid ones.
+- Existing paths will not block paths in the blueprint.
 
 [img]https://files.catbox.moe/ygiybh.jpg[/img]
 
@@ -30,7 +33,7 @@ A quick way to demolish all buildings that were placed using a building blueprin
 
 [h1]Known Issue[/h1]
 
-- The coordinate picker is a bit unstable on non-ground. I am trying to improve it.
+- [strike]The coordinate picker is a bit unstable on non-ground. I am trying to improve it.[/strike] Fixed in v10.1.0.
 - Right now blueprints with District Center is a bit risky because it may touch a road. Please avoid putting District Center in blueprints for now.
 
 If you have any issue that I missed, feel free to report it in the comments or on Discord.

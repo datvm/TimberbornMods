@@ -77,7 +77,7 @@ public class BlueprintPlacementService(
     {
         if (!inputService.MainMouseButtonUp || tcs is null) { return false; }
 
-        if (!lastPositionValid)
+        if (!lastPositionValid && !inputService.IsKeyHeld(AlternateClickable.AlternateClickableActionKey))
         {
             uiSoundController.PlayCantDoSound();
             return true;

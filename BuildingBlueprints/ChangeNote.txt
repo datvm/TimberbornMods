@@ -2,7 +2,9 @@
 #1 Blueprint name is now file name. Suggested by calloatti.
 #2 No more flickering when placing on foundations. Issue caught by The Blood Eyes.
 #3 Path should be able to override existing paths. Suggested by calloatti.
+#5 Partial placing.
+
+Issue with District Center is still not resolved. Please avoid putting District Center in blueprints for now.
 
 Issues:
 #4 District Center crashes when included in a blueprint. Issue caught by calloatti.
-#5 Partial placing.
