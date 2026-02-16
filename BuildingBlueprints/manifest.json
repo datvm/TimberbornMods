@@ -5,7 +5,7 @@
     "MinimumGameVersion": "1.0.0",
     "Description": "Save and copy your buildings",
     "RequiredMods": [
-        { "Id": "TimberUi" },
+        { "Id": "ModdableTimberborn" },
         { "Id": "ModdableToolGroups" }
     ]
 }

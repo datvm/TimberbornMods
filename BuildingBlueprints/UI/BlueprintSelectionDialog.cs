@@ -46,7 +46,7 @@ public class BlueprintSelectionDialog(
 
     void RefreshCache()
     {
-        blueprintService.GetParsedBlueprints(true);
+        blueprintService.GetParsedBlueprints(forceReload: true);
         ReloadContent();
     }
 

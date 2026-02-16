@@ -1,0 +1,32 @@
+﻿The highly requested feature is finally here. Building Blueprints lets you save a group of buildings and place them again with one click!
+
+The new tool group "Building Blueprints" located at the end of your toolbar includes 3 tools: Create, Build and Demolish.
+
+[h1]Create Building Blueprint[/h1]
+
+Simply select the tool, drag an area around the buildings you want to include in the blueprint. Then select a name and save it! Only buildings can be included in the blueprint. You also need to include the entire building within the area for it to be added to the blueprint. [b]The buildings' orientation (rotation) and flip are supported![/b]
+
+[img]https://files.catbox.moe/ymo5ne.jpg[/img]
+
+Note: terrains are not supported so if your building blocks have terrain blocks, it won't be included.
+
+[h1]Build Blueprint[/h1]
+
+Select the Build Blueprint tool, you will be presented with the Select Building Blueprint dialog.
+
+[img]https://files.catbox.moe/47f46w.jpg[/img]
+
+Choose the blueprint you want to place, then click the Build Blueprint button. [b]You can rotate the blueprint with the rotate keys while placing it.[/b] Flipping, however, is not supported (because not all buildings support flipping so it would be impossible to flip correctly).
+
+[img]https://files.catbox.moe/ygiybh.jpg[/img]
+
+[h1]Demolish[/h1]
+
+A quick way to demolish all buildings that were placed using a building blueprint. Just select the tool and click on any building that was placed with a blueprint, and all buildings from that blueprint will be demolished. You will be asked to confirm before the demolition happens. This tool works even if you already finished some buildings, or demolished a few of them using other tools.
+
+[img]https://files.catbox.moe/vxqwm2.jpg[/img]
+
+If you have any issue that I missed, feel free to report it in the comments or on Discord.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

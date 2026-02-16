@@ -7,10 +7,17 @@ public class BlueprintPlacementService(
     CursorCoordinatesPicker cursorCoordinatesPicker,
     BlueprintPreviewRepository previewRepository,
     InputService inputService,
-    PreviewShower previewShower
-) : IInputProcessor
+    PreviewShower previewShower,
+    BlueprintPlacementValidator placementValidator,
+    Highlighter highlighter,
+    ISpecService specService,
+    UISoundController uiSoundController,
+    BlueprintGroupService blueprintGroupService
+) : IInputProcessor, ILoadableSingleton
 {
     static readonly Vector3Int PlaceholderCoordinates = new(-1, -1, -1);
+
+    PreviewShowerSpec spec = null!;
 
     ParsedBlueprintInfo? blueprintInfo;
     TaskCompletionSource<BuildingBlueprintPlacement?>? tcs;
@@ -19,8 +26,14 @@ public class BlueprintPlacementService(
     Vector3Int coordinates;
     Vector3Int prevCoordinates;
     bool lastPositionValid;
+    bool shouldShow;
 
-    public async Task<BuildingBlueprintPlacement?> PickAreaAsync(ParsedBlueprintInfo bp)
+    public void Load()
+    {
+        spec = specService.GetSingleSpec<PreviewShowerSpec>();
+    }
+
+    public async Task<BuildingBlueprintPlacement?> PlaceAsync(ParsedBlueprintInfo bp)
     {
         CleanUp();
 
@@ -47,6 +60,11 @@ public class BlueprintPlacementService(
         if (moved || rotated)
         {
             PositionPreviews();
+
+            if (shouldShow)
+            {
+                _ = ValidatePreviewsAsync();
+            }
         }
 
         return ProcessClick() || rotated;
@@ -54,16 +72,35 @@ public class BlueprintPlacementService(
 
     bool ProcessClick()
     {
-        if (!inputService.MainMouseButtonDown || tcs is null) { return false; }
+        if (!inputService.MainMouseButtonUp || tcs is null) { return false; }
 
         if (!lastPositionValid)
         {
-
+            uiSoundController.PlayCantDoSound();
             return true;
         }
 
+        _ = PlaceAsync();
         tcs.TrySetResult(new(coordinates, orientation));
         return true;
+    }
+
+    async Task PlaceAsync()
+    {
+        var buildings = await placementValidator.BuildPreviewsAsync(enumerator!.AllPreviews);
+
+        var groupId = blueprintGroupService.GetNextGroup();
+        foreach (var b in buildings)
+        {
+            var bpComp = b.GetComponent<BuildingBlueprintComponent>();
+            if (bpComp)
+            {
+                bpComp.AssignToGroup(groupId);
+            }
+        }
+
+        lastPositionValid = false;
+        prevCoordinates = PlaceholderCoordinates;
     }
 
     bool ProcessCursorLocation()
@@ -74,9 +111,11 @@ public class BlueprintPlacementService(
         {
             if (prevCoordinates == PlaceholderCoordinates) { return false; }
             prevCoordinates = coordinates = PlaceholderCoordinates;
+            shouldShow = false;
             return true;
         }
 
+        shouldShow = true;
         if (pos.Value.TileCoordinates == prevCoordinates) { return false; }
 
         prevCoordinates = coordinates = pos.Value.TileCoordinates;
@@ -104,17 +143,23 @@ public class BlueprintPlacementService(
     {
         inputService.RemoveInputProcessor(this);
 
-        tcs?.TrySetResult(null);
-        tcs = null;
+        if (tcs is not null)
+        {
+            tcs.TrySetResult(null);
+            tcs = null;
+        }
 
         if (enumerator is not null)
         {
             previewShower.HidePreviews(enumerator.AllPreviews);
             enumerator = null;
         }
+        highlighter.UnhighlightAllPrimary();
 
         prevCoordinates = PlaceholderCoordinates;
+        coordinates = PlaceholderCoordinates;
         blueprintInfo = null;
+        lastPositionValid = false;
     }
 
     void InitializePreviews(ParsedBlueprintInfo bp)
@@ -124,7 +169,14 @@ public class BlueprintPlacementService(
 
     void PositionPreviews()
     {
+        lastPositionValid = false;
         if (enumerator is null || blueprintInfo is null) { return; }
+
+        if (!shouldShow)
+        {
+            previewShower.HidePreviews(enumerator.AllPreviews);
+            return;
+        }
 
         enumerator.Reset();
         var anchor = coordinates;
@@ -142,6 +194,24 @@ public class BlueprintPlacementService(
         }
 
         previewShower.ShowBuildablePreviews(enumerator.AllPreviews, out var warning);
+    }
+
+    async Task ValidatePreviewsAsync()
+    {
+        if (enumerator is null) { return; }
+
+        var previews = enumerator.AllPreviews;
+        var validated = await placementValidator.ValidatePreviewsAsync(previews);
+        lastPositionValid = validated.Count == previews.Length;
+        highlighter.UnhighlightAllPrimary();
+
+        foreach (var p in previews)
+        {
+            var valid = lastPositionValid || validated.Contains(p);
+
+            p.Show(valid ? PreviewState.BuildableNotLast : PreviewState.UnbuildableNotLast);
+            highlighter.HighlightPrimary(p.BlockObject, valid ? spec.BuildablePreview : spec.UnbuildablePreview);
+        }
     }
 
     static Orientation RotateBy(Orientation src, Orientation by) => by switch
