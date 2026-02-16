@@ -1,6 +1,6 @@
 ﻿{
     "Name": "All Goods In Warehouses",
-    "Version": "10.0.0",
+    "Version": "10.1.0",
     "Id": "AllGoodsInWarehouses",
     "MinimumGameVersion": "0.7.0",
     "Description": "All goods are stored in warehouses.",

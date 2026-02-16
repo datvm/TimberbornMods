@@ -4,5 +4,7 @@ After enabling the mod and loading your save, you can freely move existing goods
 
 [b]Important: do not open the Good selection panel on any existing Pile or Tank. The game will crash.[/b] Only use them to evacuate their contents, then demolish them.
 
+To prevent accidental new build, Piles and Tanks also become [spoiler]Dev Tool buildings[/spoiler] which should be hidden unless you enable certain mode. Idea by kathysgeek.
+
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
