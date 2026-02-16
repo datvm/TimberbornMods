@@ -1,0 +1,7 @@
+﻿v10.1.0:
+#1 Blueprint name is now file name. Suggested by calloatti.
+
+Issues:
+#2 "Holey" foundations.
+#3 Path should be able to override existing paths.
+#4 District Center crashes when included in a blueprint.

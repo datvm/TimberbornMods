@@ -31,7 +31,10 @@ public class BuildingBlueprintsService(
     {
         var (sx, sy) = selection.Area.size;
 
-        var bp = new SerializableBuildingBlueprint(name, (sx, sy), [.. ProcessBuildings(selection)]);
+        var bp = new SerializableBuildingBlueprint((sx, sy), [.. ProcessBuildings(selection)])
+        {
+            Name = name,
+        };
         BuildingBlueprintPersistentService.SaveBlueprintToFile(name, bp);
 
         parsedCache = null;
