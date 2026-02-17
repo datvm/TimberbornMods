@@ -7,7 +7,6 @@ global using TimberUi.CommonUi;
 global using TimberUi.Helpers;
 global using TimberUi.Services;
 global using TimberUi.Services.Dialogs;
-global using TimberUi.Services.EntityPanelOrder;
 global using TimberUi.Services.SystemFileDialog;
 global using UiBuilder;
 global using UnityEditor.StyleSheets;

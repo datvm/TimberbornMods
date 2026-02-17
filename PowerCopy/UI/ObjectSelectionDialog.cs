@@ -1,5 +1,6 @@
 ﻿namespace PowerCopy.UI;
 
+[BindTransient(Contexts = BindAttributeContext.NonMenu)]
 public class ObjectSelectionDialog(
     VisualElementInitializer veInit,
     PanelStack panelStack,
@@ -49,7 +50,7 @@ public class ObjectSelectionDialog(
 
                 row.AddChild().SetMarginLeftAuto();
 
-                var dups = string.Join(Environment.NewLine, obj.Duplicables.Select(d => d.GetType().Name));
+                var dups = string.Join(Environment.NewLine, obj.BuildingSettings.Select(d => d.Settings.Name));
                 var lblDups = row.AddGameLabel(dups, name: CopyingComponentsName).SetDisplay(false).SetMarginRight(5);
                 lblDups.style.unityTextAlign = TextAnchor.MiddleRight;
 

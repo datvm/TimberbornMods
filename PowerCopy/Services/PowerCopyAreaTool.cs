@@ -1,5 +1,6 @@
 ﻿namespace PowerCopy.Services;
 
+[BindSingleton(Contexts = BindAttributeContext.NonMenu)]
 public class PowerCopyAreaTool(
     AreaBlockObjectPickerFactory pickerFac,
     ToolService toolService,

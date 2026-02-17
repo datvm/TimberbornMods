@@ -13,4 +13,5 @@ public enum ConfigurationContext
 
     All = 0b1111,
     None = 0,
+    NonMenu = Game | MapEditor,
 }
