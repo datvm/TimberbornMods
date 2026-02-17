@@ -1,10 +1,10 @@
 ﻿{
     "Name": "Power Copy",
-    "Version": "10.0.0",
+    "Version": "10.1.0",
     "Id": "PowerCopy",
     "MinimumGameVersion": "1.0.0",
     "Description": "Copy made easy",
     "RequiredMods": [
-        { "Id": "TimberUi" }
+        { "Id": "ModdableTimberborn" }
     ]
 }

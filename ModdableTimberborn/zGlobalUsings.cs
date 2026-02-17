@@ -9,9 +9,9 @@ global using ModdableTimberborn.SoakEffect;
 global using ModdableTimberborn.DependencyInjection;
 global using ModdableTimberborn.EntityTracker;
 global using ModdableTimberborn.GameModes;
-
-global using System.Reflection.Emit;
+global using ModdableTimberborn.BuildingSettings;
 global using Label = UnityEngine.UIElements.Label;
 global using MechanicalNodeModifierCollection = ModdableTimberborn.Common.ValueModifierCollection<ModdableTimberborn.MechanicalSystem.IModdableMechanicalNodeModifier, ModdableTimberborn.MechanicalSystem.ModdableMechanicalNodeValues, ModdableTimberborn.MechanicalSystem.MechanicalNodeValues>;
 global using Object = UnityEngine.Object;
 global using System.Linq.Expressions;
+global using Priority = Timberborn.PrioritySystem.Priority;

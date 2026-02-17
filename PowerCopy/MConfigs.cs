@@ -1,24 +1,14 @@
-﻿global using PowerCopy.UI;
-global using PowerCopy.Services;
+﻿namespace PowerCopy;
 
-namespace PowerCopy;
-
-[Context(nameof(BindAttributeContext.Game))]
-[Context(nameof(BindAttributeContext.MapEditor))]
-public class MGameplayConfig : Configurator
+public class MConfigs : BaseModdableTimberbornAttributeConfiguration
 {
+    public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.NonMenu;
 
-    public override void Configure()
+    public override void StartMod(IModEnvironment modEnvironment)
     {
-        this
-            .BindSingleton<PowerCopyService>()
-            .BindSingleton<ObjectListingService>()
-            .BindSingleton<PowerCopyAreaTool>()
+        base.StartMod(modEnvironment);
 
-            .BindSingleton<DuplicableEntryFactory>()
-            .BindOrderedFragment<PowerCopyFragment>()
-            
-            .BindTransient<ObjectSelectionDialog>();  
+        ModdableTimberbornRegistry.Instance.UseBuildingSettings();
     }
 
 }

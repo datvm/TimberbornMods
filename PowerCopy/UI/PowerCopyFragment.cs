@@ -1,14 +1,15 @@
 ﻿namespace PowerCopy.UI;
 
+[BindFragment]
 public class PowerCopyFragment(
     ILoc t,
-    DuplicableEntryFactory entryFac,
     ObjectListingService objectListingService,
     DialogService diag,
     InputService inputService,
     IContainer container,
-    PowerCopyService powerCopyService,
-    PowerCopyAreaTool areaTool
+    BuildingSettingsResolver buildingSettingsResolver,
+    PowerCopyAreaTool areaTool,
+    PowerCopyService powerCopyService
 ) : IEntityPanelFragment, IEntityFragmentOrder
 {
     public int Order { get; } = -1;
@@ -17,7 +18,6 @@ public class PowerCopyFragment(
     public VisualElement Fragment => panel;
 
     EntityPanelFragmentElement panel;
-    VisualElement entryList;
     Toggle chkTargetAll, chkTargetSameType;
 
     Button btnLocEverywhere, btnLocDistrict;
@@ -28,30 +28,15 @@ public class PowerCopyFragment(
     EntityComponent? curr;
     DistrictBuilding? currDb;
 
-    string selectingBuildingName = "";
-    string selectingTemplateName = "";
-    readonly List<IDuplicable> duplicables = [];
-    readonly List<KeyValuePair<IDuplicable, DuplicableEntry>> currEntries = [];
-    readonly Dictionary<Type, DuplicableEntry> allEntries = [];
+    string currName = "";
+    string currTemplate = "";
+    BuildingSettingsPair[] currPairs = [];
+    readonly Dictionary<Type, BuildingSettingEntry> entriesByType = [];
 
     public bool TargetingAll => chkTargetAll.value;
-    public IEnumerable<Type> SelectedTypes => currEntries
-        .Where(e => e.Value.Selected)
-        .Select(e => e.Value.Type);
-
-    public void ClearFragment()
-    {
-        panel.Visible = false;
-        curr = null;
-        currDb = null;
-        duplicables.Clear();
-
-        foreach (var e in currEntries)
-        {
-            e.Value.Visible = false;
-        }
-        currEntries.Clear();
-    }
+    public IEnumerable<IBuildingSettings> SelectedSettings => entriesByType.Values
+        .Where(e => e.Selected && e.Visible)
+        .Select(e => e.BuildingSetting);
 
     public VisualElement InitializeFragment()
     {
@@ -63,7 +48,8 @@ public class PowerCopyFragment(
 
         var options = panel.AddChild().SetMarginBottom();
         options.AddLabel(t.T("LV.PC.CopyOptions"));
-        entryList = options.AddChild();
+        var entryList = options.AddChild();
+        InitializeEntries(entryList);
 
         var targets = panel.AddChild().SetMarginBottom();
         targets.AddLabel(t.T("LV.PC.CopyTargets"));
@@ -84,49 +70,55 @@ public class PowerCopyFragment(
 
         NineSliceButton AddLocationButton(CopyLocation location)
             => locations.AddGameButtonPadded(onClick: () => OnLocationButtonClick(location), stretched: true).SetMarginBottom(5);
+
+        void InitializeEntries(VisualElement parent)
+        {
+            foreach (var s in buildingSettingsResolver.AllBuildingSettings)
+            {
+                var entry = new BuildingSettingEntry(s);
+                entry.OnCheckedChanged += UpdateStatistics;
+                entriesByType[s.Type] = entry;
+                parent.Add(entry);
+            }
+        }
+    }
+
+    public void ClearFragment()
+    {
+        panel.Visible = false;
+        curr = null;
+        currDb = null;
+        currPairs = [];
+
+        foreach (var e in entriesByType.Values)
+        {
+            e.Visible = false;
+        }
     }
 
     public void ShowFragment(BaseComponent entity)
     {
         curr = entity.GetComponent<EntityComponent>();
-        if (!curr)
-        {
-            ClearFragment();
-            return;
-        }
-
         var template = entity.GetComponent<TemplateSpec>();
-        if (template is null)
+        if (!curr || template is null)
         {
             ClearFragment();
             return;
         }
-        selectingTemplateName = template.TemplateName;
+        currTemplate = template.TemplateName;
 
-        var label = entity.GetComponent<LabeledEntity>();
-        if (label is null)
-        {
-            ClearFragment();
-            return;
-        }
-        selectingBuildingName = label.DisplayName;
-
-        powerCopyService.GetDuplicables(entity, duplicables);
-        if (duplicables.Count == 0)
+        currPairs = buildingSettingsResolver.Get(entity);
+        if (currPairs.Length == 0 || !ShowValidSettings())
         {
             ClearFragment();
             return;
         }
 
-        chkTargetSameType.text = t.T("LV.PC.CopyTargets_SameType", selectingBuildingName);
-
-        AddAndShowTypes();
+        currName = entity.GetLabeledName(t);
+        chkTargetSameType.text = t.T("LV.PC.CopyTargets_SameType", currName);
 
         currDb = entity.GetComponent<DistrictBuilding>();
-        if (!currDb || !currDb.District)
-        {
-            currDb = null;
-        }
+        if (!currDb || !currDb.District) { currDb = null; }
 
         UpdateFragment(); // To adjust visibility so statistics will be correct
         UpdateStatistics();
@@ -134,55 +126,36 @@ public class PowerCopyFragment(
         panel.Visible = true;
     }
 
-    void AddAndShowTypes()
+    bool ShowValidSettings()
     {
-        var added = false;
+        var hasValid = false;
 
-        foreach (var duplicable in duplicables)
+        foreach (var (d, s) in currPairs)
         {
-            var t = duplicable.GetType();
+            if (!d.IsDuplicable) { continue; }
 
-            var entry = allEntries.GetOrAdd(t, () =>
-            {
-                added = true;
-                return entryFac.CreateFor(t);
-            });
+            var entry = entriesByType[s.Type];
+            entry.Set(d);
+            entry.Visible = true;
 
-            entry.OnSelectedChanged += OnEntryChanged;
-
-            currEntries.Add(new(duplicable, entry));
+            hasValid = true;
         }
 
-        if (added)
-        {
-            entryList.Clear();
-
-            var sorted = allEntries.Values
-                .OrderBy(q => q.Order)
-                .ThenBy(q => q.Name);
-            foreach (var entry in sorted)
-            {
-                entryList.Add(entry);
-            }
-        }
-    }
-
-    void OnEntryChanged(bool obj)
-    {
-        UpdateStatistics();
+        return hasValid;
     }
 
     public void UpdateFragment()
     {
-        if (curr is null || currEntries.Count == 0) { return; }
+        if (curr is null || currPairs.Length == 0) { return; }
 
-        foreach (var (comp, entry) in currEntries)
+        foreach (var (d, s) in currPairs)
         {
-            var visible = entry.Visible = comp.IsDuplicable;
+            var entry = entriesByType[s.Type];
+            var visible = entry.Visible = d.IsDuplicable;
 
-            if (visible && entry is IDuplicableUpdatableEntry u)
+            if (visible)
             {
-                u.UpdateFor(comp);
+                entry.Set(d);
             }
         }
     }
@@ -211,7 +184,7 @@ public class PowerCopyFragment(
 
         if (entities.Length == 0 || !await ConfirmAsync(entities.Length)) { return; }
 
-        powerCopyService.Duplicate(curr!, [.. SelectedTypes], entities);
+        powerCopyService.Copy(curr!, entities, [..SelectedSettings]);
 
         async Task<bool> ConfirmAsync(int count) =>
             inputService.IsKeyHeld(AlternateClickable.AlternateClickableActionKey)
@@ -250,8 +223,8 @@ public class PowerCopyFragment(
 
         return new(
             curr!,
-            targetingAll ? null : selectingTemplateName,
-            [.. SelectedTypes],
+            targetingAll ? null : currTemplate,
+            [.. SelectedSettings],
             (location == CopyLocation.District && currDb && currDb!.District) ? currDb.District : null
         );
     }
