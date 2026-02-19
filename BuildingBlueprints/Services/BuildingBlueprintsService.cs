@@ -116,12 +116,14 @@ public class BuildingBlueprintsService(
     {
         templateMapper.TryGetTemplate(building.TemplateName, out var template);
 
-        return new(
-            building.TemplateName,
-            template?.GetSpec<PlaceableBlockObjectSpec>(),
-            template?.GetSpec<LabeledEntitySpec>(),
-            template?.GetSpec<BuildingSpec>()
-        );
+        return template is null 
+            ? new(building.TemplateName, null, null, null, null) 
+            : new(
+                building.TemplateName,
+                template.GetSpec<PlaceableBlockObjectSpec>(),
+                template.GetSpec<LabeledEntitySpec>(),
+                template.GetSpec<BuildingSpec>(),
+                template.GetSpec<BlockObjectSpec>());
     }
 
     public IReadOnlyList<ParsedBlueprintInfo> GetParsedBlueprints(bool forceReload = false)

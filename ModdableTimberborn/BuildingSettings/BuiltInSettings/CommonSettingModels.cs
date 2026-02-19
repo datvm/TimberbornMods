@@ -32,14 +32,18 @@ public record StringSettingModel(string Value) : ValueSettingModel<string>(Value
 {
     public static implicit operator StringSettingModel(string value) => new(value);
 
+    [JsonIgnore]
     public bool None => string.IsNullOrEmpty(Value);
     public override string ToString() => Value;
 }
 
+[method: JsonConstructor]
 public record CachableStringSettingModel<T>(string Value) : StringSettingModel(Value)
     where T : class
 {
+    [JsonIgnore]
     public T? CachedValue { get; set; }
+    [JsonIgnore]
     public string? CachedDisplay { get; set; }
 
     public CachableStringSettingModel(string? Value, T? cachedValue, ILoc t, Func<T, string> getDisplay) : this(Value ?? "")

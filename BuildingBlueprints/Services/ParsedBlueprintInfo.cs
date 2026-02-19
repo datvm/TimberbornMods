@@ -31,10 +31,11 @@ public record ParsedBlueprintBuilding(
     string TemplateName,
     PlaceableBlockObjectSpec? PlaceableSpec,
     LabeledEntitySpec? LabeledEntitySpec,
-    BuildingSpec? BuildingSpec
+    BuildingSpec? BuildingSpec,
+    BlockObjectSpec? BlockObjectSpec
 )
 {
-    public bool Missing => PlaceableSpec is null || LabeledEntitySpec is null || BuildingSpec is null;
+    public bool Missing => PlaceableSpec is null || LabeledEntitySpec is null || BuildingSpec is null || BlockObjectSpec is null;
 }
 
 public readonly record struct BlueprintWithValidation(ParsedBlueprintInfo Blueprint)
