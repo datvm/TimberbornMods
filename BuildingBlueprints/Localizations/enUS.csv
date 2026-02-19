@@ -29,3 +29,6 @@ LV.BB.NoBlueprints,"No building blueprints available.
 Create one using the Create Building Blueprint tool.",
 LV.BB.MissingBuildings,"Missing buildings: {0}",
 LV.BB.LockedBuildings,"Buildings not unlocked: {0}",
+LV.BB.UnlockBuildings,"Unlock required buildings",
+LV.BB.NotEnoughScience,"Not enough science to unlock required buildings",
+LV.BB.UnlockConfirm,"Unlocking the required buildings will cost {0} science. Do you want to proceed?",

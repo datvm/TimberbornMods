@@ -5,6 +5,8 @@ public class BlueprintSelectionDialog(
     BuildingBlueprintsService blueprintService,
     BuildingBlueprintPersistentService persistentService,
     IGoodService goods,
+    NamedIconProvider namedIconProvider,
+    DialogService diag,
 
     ILoc t,
     VisualElementInitializer veInit,
@@ -57,9 +59,10 @@ public class BlueprintSelectionDialog(
 
         foreach (var bp in blueprintService.GetParsedBlueprintsWithValidation())
         {
-            BuildingBlueprintElement el = new(bp, t, goods);
+            BuildingBlueprintElement el = new(bp, t, goods, namedIconProvider);
             bpEls.Add(el);
             el.BlueprintSelected += () => OnBlueprintSelected(el);
+            el.UnlockRequested += () => ProcessUnlockRequest(bp);
 
             lstBlueprints.Add(el.SetMarginBottom());
         }
@@ -90,6 +93,29 @@ public class BlueprintSelectionDialog(
         }
 
         btnBuild.enabledSelf = true;
+    }
+
+    async void ProcessUnlockRequest(BlueprintWithValidation bp)
+    {
+        var cost = bp.ScienceCost;
+        if (cost > 0)
+        {
+            if (blueprintService.HasEnoughScience(cost))
+            {
+                if (!await diag.ConfirmAsync(t.T("LV.BB.UnlockConfirm", cost)))
+                {
+                    return;
+                }
+            }
+            else
+            {
+                diag.Alert("LV.BB.NotEnoughScience", true);
+                return;
+            }
+        }
+
+        blueprintService.UnlockToolsForBlueprint(bp);
+        ReloadContent();
     }
 
 }
