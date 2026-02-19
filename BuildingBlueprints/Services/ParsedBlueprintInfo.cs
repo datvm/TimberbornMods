@@ -38,10 +38,15 @@ public record ParsedBlueprintBuilding(
     public bool Missing => PlaceableSpec is null || LabeledEntitySpec is null || BuildingSpec is null || BlockObjectSpec is null;
 }
 
-public readonly record struct BlueprintWithValidation(ParsedBlueprintInfo Blueprint)
+public class BlueprintWithValidation(ParsedBlueprintInfo Blueprint)
 {
+    public ParsedBlueprintInfo Blueprint { get; } = Blueprint;
     public HashSet<string> MissingTemplates { get; } = [];
     public HashSet<ParsedBlueprintBuilding> LockedTools { get; } = [];
 
+    public bool HasLockedTools => LockedTools.Count > 0;
+    public int ScienceCost { get; set; }
+
     public bool Invalid => MissingTemplates.Count > 0 || LockedTools.Count > 0;
+
 }

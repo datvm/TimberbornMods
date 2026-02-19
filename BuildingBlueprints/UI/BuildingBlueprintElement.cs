@@ -12,11 +12,12 @@ public class BuildingBlueprintElement : VisualElement
     }
 
     public event Action BlueprintSelected = null!;
+    public event Action UnlockRequested = null!;
 
     public ParsedBlueprintInfo Blueprint { get; }
     public bool Invalid { get; }
 
-    public BuildingBlueprintElement(BlueprintWithValidation info, ILoc t, IGoodService goods)
+    public BuildingBlueprintElement(BlueprintWithValidation info, ILoc t, IGoodService goods, NamedIconProvider namedIconProvider)
     {
         var bp = Blueprint = info.Blueprint;
 
@@ -24,6 +25,17 @@ public class BuildingBlueprintElement : VisualElement
         var invalid = Invalid = info.Invalid;
         title = invalid ? title.Color(TimberbornTextColor.Red) : title.Highlight();
         chkTitle = this.AddToggle(title, onValueChanged: OnChecked).SetMarginBottom(10);
+
+        var hasLockedTools = info.HasLockedTools;
+        if (hasLockedTools)
+        {
+            var btn = this.AddGameButtonPadded(onClick: () => UnlockRequested())
+                .SetAsRow().AlignItems()
+                .SetMarginBottom(10);
+
+            btn.AddIconSpan().SetScience(namedIconProvider, info.ScienceCost.ToString()).SetMarginRight(10).SetVertical(false);
+            btn.AddGameLabel(t.T("LV.BB.UnlockBuildings"));
+        }
 
         if (invalid)
         {
@@ -34,7 +46,7 @@ public class BuildingBlueprintElement : VisualElement
                 errors = t.T("LV.BB.MissingBuildings", string.Join(", ", info.MissingTemplates));
             }
 
-            if (info.LockedTools.Count > 0)
+            if (hasLockedTools)
             {
                 errors += t.T("LV.BB.LockedBuildings", string.Join(", ", info.LockedTools.Select(b => t.T(b.LabeledEntitySpec!.DisplayNameLocKey))));
             }

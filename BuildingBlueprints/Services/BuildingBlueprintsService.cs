@@ -2,9 +2,11 @@
 
 [BindSingleton]
 public class BuildingBlueprintsService(
-    TemplateNameMapper templateMapper,
+    TemplateNameMapper templateNameMapper,
     ToolUnlockingService toolUnlockingService,
-    ToolButtonService toolButtonService
+    ToolButtonService toolButtonService,
+    ScienceService scienceService,
+    BuildingUnlockingService buildingUnlockingService
 ) : IPostLoadableSingleton
 {
 
@@ -56,6 +58,13 @@ public class BuildingBlueprintsService(
     public bool FilterSelection(BlockObject bo, RectInt area)
     {
         if (!bo || !bo.HasComponent<BuildingSpec>() || !bo.HasComponent<PlaceableBlockObjectSpec>()) { return false; }
+
+        // Blacklist certain kind of District buildings
+        if (bo.HasComponent<DistrictCenterSpec>()
+            || bo.HasComponent<LinkedBuildingSpec>())
+        {
+            return false;
+        }
 
         foreach (var pos in bo.PositionedBlocks.GetAllBlocks())
         {
@@ -114,10 +123,10 @@ public class BuildingBlueprintsService(
 
     ParsedBlueprintBuilding ParseBuilding(SerializableBuildingPlacement building)
     {
-        templateMapper.TryGetTemplate(building.TemplateName, out var template);
+        templateNameMapper.TryGetTemplate(building.TemplateName, out var template);
 
-        return template is null 
-            ? new(building.TemplateName, null, null, null, null) 
+        return template is null
+            ? new(building.TemplateName, null, null, null, null)
             : new(
                 building.TemplateName,
                 template.GetSpec<PlaceableBlockObjectSpec>(),
@@ -153,18 +162,42 @@ public class BuildingBlueprintsService(
                     v.MissingTemplates.Add(name);
                 }
 
-                if (IsLocked(name))
+                if (IsLocked(name, out var tool))
                 {
                     v.LockedTools.Add(b);
+
+                    if (tool is BlockObjectTool bot)
+                    {
+                        var cost = bot.Template.GetSpec<BuildingSpec>().ScienceCost;
+                        v.ScienceCost += cost;
+                    }
                 }
             }
         }
 
         return result;
 
-        bool IsLocked(string templateName)
-            => toolByTemplateName.TryGetValue(templateName, out var tool)
+        bool IsLocked(string templateName, [NotNullWhen(true)] out ITool? tool)
+            => toolByTemplateName.TryGetValue(templateName, out tool)
             && toolUnlockingService.IsLocked(tool);
+    }
+
+    public bool HasEnoughScience(int requirement) => scienceService.SciencePoints >= requirement;
+
+    public void UnlockToolsForBlueprint(BlueprintWithValidation bp)
+    {
+        if (!bp.HasLockedTools) { return; }
+
+        if (bp.ScienceCost > 0)
+        {
+            scienceService.SubtractPoints(bp.ScienceCost);
+        }
+
+        foreach (var t in bp.LockedTools)
+        {
+            buildingUnlockingService.UnlockIgnoringCost(t.BuildingSpec);
+            toolUnlockingService.Unlock(toolByTemplateName[t.TemplateName]);
+        }
     }
 
     public static RectInt FromAreaSelection(Vector3Int start, Vector3Int end)
