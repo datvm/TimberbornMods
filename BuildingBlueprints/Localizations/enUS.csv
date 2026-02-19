@@ -9,6 +9,7 @@ LV.BB.BlueprintCreateCosts,"Costs:",
 LV.BB.BlueprintBuildTool,"Build Blueprint",
 LV.BB.BlueprintBuildToolDesc,"Use a building blueprint to place buildings in the world",
 LV.BB.BlueprintBuildToolTip,"• Rotate the blueprint with the rotate keys (default R and Shift R) while placing it.
+• Flip the blueprint with the flip key (default F) while placing it.
 • Hold Alternate button (default Shift) to partially place any valid buildings and ignore invalid ones.",
 LV.BB.DemolishBlueprintTool,"Demolish Blueprint Buildings",
 LV.BB.DemolishBlueprintToolDesc,"Quickly demolish all buildings that were placed using a building blueprint",

@@ -1,4 +1,7 @@
-﻿v10.1.0:
+﻿v10.2.0
+#6 Building Flipping is added by popular demand.
+
+v10.1.0:
 #1 Blueprint name is now file name. Suggested by calloatti.
 #2 No more flickering when placing on foundations. Issue caught by The Blood Eyes.
 #3 Path should be able to override existing paths. Suggested by calloatti.

@@ -25,7 +25,9 @@ public class BlueprintPlacementService(
     ParsedBlueprintBuildingPlacement? firstBuilding;
     TaskCompletionSource<BuildingBlueprintPlacement?>? tcs;
     PreviewEnumerator? enumerator;
-    Orientation orientation = Orientation.Cw0;
+    Orientation blueprintOrientation = Orientation.Cw0;
+    bool blueprintFlip = false;
+    Vector2Int blueprintSize;
     Vector3Int coordinates;
     Vector3Int prevCoordinates;
     bool lastPositionValid;
@@ -40,7 +42,7 @@ public class BlueprintPlacementService(
     {
         CleanUp();
 
-        blueprintInfo = bp;        
+        blueprintInfo = bp;
         var t = tcs = new();
         InitializePreviews(bp);
 
@@ -59,8 +61,9 @@ public class BlueprintPlacementService(
 
         var moved = ProcessCursorLocation();
         var rotated = ProcessRotationInput();
+        var flipped = ProcessFlipInput();
 
-        if (moved || rotated)
+        if (moved || rotated || flipped)
         {
             PositionPreviews();
 
@@ -84,7 +87,7 @@ public class BlueprintPlacementService(
         }
 
         _ = PlaceAsync();
-        tcs.TrySetResult(new(coordinates, orientation));
+        tcs.TrySetResult(new(coordinates, blueprintOrientation));
         return true;
     }
 
@@ -111,7 +114,7 @@ public class BlueprintPlacementService(
         var ray = cameraService.ScreenPointToRayInGridSpace(inputService.MousePosition);
         var coords = blockObjectPreviewPicker.CenteredPreviewCoordinates(
             firstBuilding!.Building.PlaceableSpec,
-            RotateBy(firstBuilding.Orientation, orientation),
+            RotateOrientation(firstBuilding.Orientation, blueprintOrientation),
             ray);
         var pos = coords?.Coordinates;
 
@@ -135,16 +138,27 @@ public class BlueprintPlacementService(
         bool rotated = false;
         if (inputService.IsKeyDown(BlockObjectPlacementPanel.RotateClockwiseKey))
         {
-            orientation = orientation.RotateClockwise();
+            blueprintOrientation = blueprintOrientation.RotateClockwise();
             rotated = true;
         }
         else if (inputService.IsKeyDown(BlockObjectPlacementPanel.RotateCounterclockwiseKey))
         {
-            orientation = orientation.RotateCounterclockwise();
+            blueprintOrientation = blueprintOrientation.RotateCounterclockwise();
             rotated = true;
         }
 
         return rotated;
+    }
+
+    bool ProcessFlipInput()
+    {
+        if (inputService.IsKeyDown(BlockObjectPlacementPanel.FlipKey))
+        {
+            blueprintFlip = !blueprintFlip;
+            return true;
+        }
+
+        return false;
     }
 
     void CleanUp()
@@ -189,18 +203,14 @@ public class BlueprintPlacementService(
         }
 
         enumerator.Reset();
-        var anchor = coordinates;
-        var bpRotation = orientation;
-
+        blueprintSize = blueprintInfo.Size;
         foreach (var b in blueprintInfo.Buildings)
         {
             var name = b.Building.TemplateName;
             var preview = enumerator.GetNext(name);
 
-            var pos = anchor + bpRotation.Transform(b.Coordinates);
-            var ort = RotateBy(b.Orientation, bpRotation);
-
-            preview.Reposition(new(pos, ort, b.Flip));
+            var placement = GetBuildingPlacement(b);
+            preview.Reposition(placement);
         }
 
         previewShower.ShowBuildablePreviews(enumerator.AllPreviews, out var warning);
@@ -224,7 +234,38 @@ public class BlueprintPlacementService(
         }
     }
 
-    static Orientation RotateBy(Orientation src, Orientation by) => by switch
+    Placement GetBuildingPlacement(in ParsedBlueprintBuildingPlacement buildingPlacement)
+    {
+        var (b, localPos, localRot, localFlip) = buildingPlacement;
+
+        if (blueprintFlip)
+        {
+            var bos = b.BlockObjectSpec!;
+            var w = bos.Size.x;
+
+            localPos = TransformFlipX(localPos, localRot, w);
+            localRot = MirrorOrientation(localRot);
+            localFlip = Flip(localFlip, bos);
+        }
+
+        localPos = blueprintOrientation.Transform(localPos);
+        localRot = RotateOrientation(localRot, blueprintOrientation);
+
+        var globalPos = coordinates + localPos;
+        return new(globalPos, localRot, localFlip);
+    }
+
+    // Note: AI code, it works but I have no idea how.
+    static Vector3Int TransformFlipX(Vector3Int p, Orientation orientation, int w) => orientation switch
+    {
+        Orientation.Cw0 => new Vector3Int(-p.x - (w - 1), p.y, p.z),
+        Orientation.Cw90 => new Vector3Int(-p.x, p.y - (w - 1), p.z),
+        Orientation.Cw180 => new Vector3Int(-p.x + (w - 1), p.y, p.z),
+        Orientation.Cw270 => new Vector3Int(-p.x, p.y + (w - 1), p.z),
+        _ => throw new ArgumentOutOfRangeException()
+    };
+
+    static Orientation RotateOrientation(Orientation src, Orientation by) => by switch
     {
         Orientation.Cw0 => src,
         Orientation.Cw90 => src.RotateClockwise(),
@@ -232,5 +273,15 @@ public class BlueprintPlacementService(
         Orientation.Cw270 => src.RotateCounterclockwise(),
         _ => throw new ArgumentOutOfRangeException()
     };
+
+    static Orientation MirrorOrientation(Orientation src) => src switch
+    {
+        Orientation.Cw90 => Orientation.Cw270,
+        Orientation.Cw270 => Orientation.Cw90,
+        _ => src,
+    };
+
+    static FlipMode Flip(FlipMode localFlip, BlockObjectSpec bos) 
+        => (localFlip.IsFlipped || bos.Flippable) ? localFlip.Flip() : localFlip;
 
 }
