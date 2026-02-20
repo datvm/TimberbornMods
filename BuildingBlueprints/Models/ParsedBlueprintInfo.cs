@@ -1,7 +1,8 @@
-﻿namespace BuildingBlueprints.Services;
+﻿namespace BuildingBlueprints.Models;
 
 public record ParsedBlueprintInfo(
     string Name,
+    BuildingBlueprintSourceInfo Source,
     Vector2Int Size,
     ImmutableArray<ParsedBlueprintBuildingPlacement> Buildings,
     ImmutableArray<KeyValuePair<ParsedBlueprintBuilding, int>> BuildingsCount,

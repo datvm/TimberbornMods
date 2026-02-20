@@ -65,7 +65,6 @@
   </Folder>
   <Folder Name="/NonGameplay/">
     <Project Path="BeaverJukebox/BeaverJukebox.csproj" />
-    <Project Path="BuildingBlueprints/BuildingBlueprints.csproj" Id="41a2a567-ed9e-4aaf-a40f-8aa47fd003d4" />
     <Project Path="BuildingDecal/BuildingDecal.csproj" />
     <Project Path="CameraBookmarks/CameraBookmarks.csproj" />
     <Project Path="ColorfulBeavers/ColorfulBeavers.csproj" />
@@ -89,6 +88,10 @@
     <Project Path="TransparentShaders/TransparentShaders.csproj" />
     <Project Path="TransparentTerrain/TransparentTerrain.csproj" />
     <Project Path="WarningsBeGone/WarningsBeGone.csproj" Id="cb3dc4d5-35d0-4c22-a5e5-eb804d097467" />
+  </Folder>
+  <Folder Name="/NonGameplay/BuildingBlueprints/">
+    <Project Path="BuildingBlueprints/BuildingBlueprints.csproj" Id="41a2a567-ed9e-4aaf-a40f-8aa47fd003d4" />
+    <Project Path="BuildingBlueprintsSteamWorkshop/BuildingBlueprintsSteamWorkshop.csproj" Id="04c3399b-1085-4dbf-86d0-5cb6dc0dcee5" />
   </Folder>
   <Folder Name="/Renovations/">
     <Project Path="BeavlineLogistics/BeavlineLogistics.csproj" />

@@ -2,7 +2,7 @@
 
 public class MConfigs : BaseModdableTimberbornAttributeConfiguration
 {
-    public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.NonMenu;
+    public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.Game;
 
     public override void StartMod(IModEnvironment modEnvironment)
     {

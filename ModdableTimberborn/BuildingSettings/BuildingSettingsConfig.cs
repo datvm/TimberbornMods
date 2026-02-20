@@ -4,7 +4,7 @@
     {
         public static readonly BuildingSettingsConfig Instance = new();
 
-        ConfigurationContext IModdableTimberbornRegistryConfig.AvailableContexts => ConfigurationContext.NonMenu;
+        ConfigurationContext IModdableTimberbornRegistryConfig.AvailableContexts => ConfigurationContext.Game;
 
         public void Configure(Configurator configurator, ConfigurationContext context)
         {

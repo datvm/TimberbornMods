@@ -1,7 +1,9 @@
 ﻿v10.2.0
 #6 Building Flipping is added by popular demand.
-#4 District Centers and District Crossings are not excluded when making blueprints to prevent crashes. Issue caught by calloatti.
 #7 Added a Unlock Required Buildings button to the blueprint placement UI when there are locked buildings in the blueprint.
+#4 District Centers and District Crossings are not excluded when making blueprints to prevent crashes. Issue caught by calloatti.
+#8 Prevent accidentally build when clicking the Build button.
+#10 Added Steam Workshop support.
 
 v10.1.0:
 #1 Blueprint name is now file name. Suggested by calloatti.
@@ -13,3 +15,5 @@ Issue with District Center is still not resolved. Please avoid putting District 
 
 ===
 Issues:
+
+#9 Nudge feature.

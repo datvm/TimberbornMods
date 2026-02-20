@@ -6,7 +6,8 @@ public class BuildingBlueprintsService(
     ToolUnlockingService toolUnlockingService,
     ToolButtonService toolButtonService,
     ScienceService scienceService,
-    BuildingUnlockingService buildingUnlockingService
+    BuildingUnlockingService buildingUnlockingService,
+    BuildingBlueprintListingService listingService
 ) : IPostLoadableSingleton
 {
 
@@ -82,9 +83,8 @@ public class BuildingBlueprintsService(
         parsedCache = [];
         Dictionary<string, ParsedBlueprintBuilding> buildingsCache = [];
 
-        foreach (var bp in BuildingBlueprintPersistentService.GetBlueprints())
+        foreach (var bp in listingService.GetBlueprints())
         {
-
             Dictionary<ParsedBlueprintBuilding, int> counter = [];
             Dictionary<string, int> cost = [];
             List<ParsedBlueprintBuildingPlacement> placements = [];
@@ -113,7 +113,7 @@ public class BuildingBlueprintsService(
 
             var (sx, sy) = bp.Size;
             parsedCache.Add(new(
-                bp.Name, new(sx, sy),
+                bp.Name, bp.Source, new(sx, sy),
                 [.. placements],
                 [.. counter],
                 [.. cost.Select(kv => new GoodAmount(kv.Key, kv.Value))]

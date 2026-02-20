@@ -1,4 +1,4 @@
-﻿namespace BuildingBlueprints.Services;
+﻿namespace BuildingBlueprints.Models;
 
 public record BlueprintSelectionInfo(
     string Name,

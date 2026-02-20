@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Building Blueprints Steam Workshop Support",
+    "Version": "10.0.0",
+    "Id": "BuildingBlueprintsSteamWorkshop",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Save and copy your buildings",
+    "RequiredMods": [
+        { "Id": "BuildingBlueprints" }
+    ]
+}

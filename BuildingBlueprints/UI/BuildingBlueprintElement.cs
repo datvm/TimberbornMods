@@ -24,7 +24,12 @@ public class BuildingBlueprintElement : VisualElement
         var title = bp.Name.Bold();
         var invalid = Invalid = info.Invalid;
         title = invalid ? title.Color(TimberbornTextColor.Red) : title.Highlight();
-        chkTitle = this.AddToggle(title, onValueChanged: OnChecked).SetMarginBottom(10);
+
+        var titleRow = this.AddRow().AlignItems().SetMarginBottom(10);
+        chkTitle = titleRow.AddToggle(title, onValueChanged: OnChecked).SetMarginBottom(10).SetFlexGrow();
+
+        var iconName = bp.Source.IsLocal ? "local-file-icon" : "cloud-file-icon";
+        titleRow.AddImage(namedIconProvider.GetOrLoad(iconName, "UI/Images/Core/" + iconName)).SetSize(20);
 
         var hasLockedTools = info.HasLockedTools;
         if (hasLockedTools)

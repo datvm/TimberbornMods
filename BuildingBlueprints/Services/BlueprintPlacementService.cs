@@ -32,6 +32,7 @@ public class BlueprintPlacementService(
     Vector3Int prevCoordinates;
     bool lastPositionValid;
     bool shouldShow;
+    bool firstCoordinate;
 
     public void Load()
     {
@@ -41,6 +42,7 @@ public class BlueprintPlacementService(
     public async Task<BuildingBlueprintPlacement?> PlaceAsync(ParsedBlueprintInfo bp)
     {
         CleanUp();
+        firstCoordinate = true;
 
         blueprintInfo = bp;
         var t = tcs = new();
@@ -130,6 +132,13 @@ public class BlueprintPlacementService(
         if (pos == prevCoordinates) { return false; }
 
         prevCoordinates = coordinates = pos.Value;
+
+        if (firstCoordinate)
+        {
+            firstCoordinate = false;
+            shouldShow = false;
+        }
+
         return true;
     }
 
