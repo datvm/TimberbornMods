@@ -18,14 +18,14 @@ public record ParsedBlueprintInfo(
         .ThenBy(b => b.Coordinates.y)
         .First();
 
-
 }
 
 public record ParsedBlueprintBuildingPlacement(
     ParsedBlueprintBuilding Building,
     Vector3Int Coordinates,
     Orientation Orientation,
-    FlipMode Flip
+    FlipMode Flip,
+    JObject? Settings
 );
 
 public record ParsedBlueprintBuilding(

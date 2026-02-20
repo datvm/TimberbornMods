@@ -1,18 +1,25 @@
 ﻿namespace BuildingBlueprints;
 
-[Context(nameof(BindAttributeContext.Game))]
-public class MGameConfig : GameAttributeConfigurator
+public class MGameConfig : BaseModdableTimberbornAttributeConfiguration
 {
+    public override ConfigurationContext AvailableContexts => ConfigurationContext.Game;
 
-    public override void Configure()
+    public override void StartMod(IModEnvironment modEnvironment)
     {
-        base.Configure();
+        base.StartMod(modEnvironment);
 
-        this
+        ModdableTimberbornRegistry.Instance
+            .UseBuildingSettings();
+    }
+
+    public override void Configure(Configurator configurator, ConfigurationContext context)
+    {
+        base.Configure(configurator, context);
+
+        configurator
             .TryBindingSystemFileDialogService()
 
             .MultiBindCustomTool<BuildingBlueprintsButtons>()
         ;
     }
-
 }

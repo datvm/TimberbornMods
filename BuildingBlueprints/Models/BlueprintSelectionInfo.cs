@@ -6,14 +6,15 @@ public record BlueprintSelectionInfo(
     int BaseZ,
     ImmutableArray<BlockObject> BlockObjects,
     ImmutableArray<GoodAmount> Costs,
-    ImmutableArray<KeyValuePair<string, int>> BuildingsCount
+    ImmutableArray<KeyValuePair<string, int>> BuildingsCount,
+    bool CopySettings
 )
 {
 
     public int AllBuildingsCount => BuildingsCount.Sum(b => b.Value);
     public bool HasAnyBuilding => BuildingsCount.Length > 0;
 
-    public static BlueprintSelectionInfo CreateFromSelection(string name, IEnumerable<BlockObject> blockObjects, RectInt area, int baseZ)
+    public static BlueprintSelectionInfo CreateFromSelection(string name, IEnumerable<BlockObject> blockObjects, RectInt area, int baseZ, bool copySettings)
     {
         Dictionary<string, int> costs = [];
         Dictionary<string, int> counters = [];
@@ -41,7 +42,8 @@ public record BlueprintSelectionInfo(
             baseZ,
             [..blockObjects],
             [.. costs.Select(kv => new GoodAmount(kv.Key, kv.Value))],
-            [.. counters]
+            [.. counters],
+            copySettings
         );
     }
 

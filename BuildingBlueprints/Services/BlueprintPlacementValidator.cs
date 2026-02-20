@@ -11,10 +11,10 @@ public class BlueprintPlacementValidator(
 
     public async Task<HashSet<Preview>> ValidatePreviewsAsync(ImmutableArray<Preview> previews) 
         => (await ValidatePreviews(previews, true)).ValidPreviews;
-    public async Task<List<BaseComponent>> BuildPreviewsAsync(ImmutableArray<Preview> previews) 
+    public async Task<List<ValueTuple<Preview, BaseComponent>>> BuildPreviewsAsync(ImmutableArray<Preview> previews) 
         => (await ValidatePreviews(previews, false)).PlacedBuildings;
 
-    async Task<(HashSet<Preview> ValidPreviews, List<BaseComponent> PlacedBuildings)> ValidatePreviews(ImmutableArray<Preview> previews, bool destroy)
+    async Task<(HashSet<Preview> ValidPreviews, List<ValueTuple<Preview, BaseComponent>> PlacedBuildings)> ValidatePreviews(ImmutableArray<Preview> previews, bool destroy)
     {
         HashSet<Preview> result = [];
 
@@ -22,7 +22,7 @@ public class BlueprintPlacementValidator(
         Preview[] sorted = [.. previews.OrderBy(p => p.BlockObject.Coordinates.z)];
 
         var count = sorted.Length;
-        List<BaseComponent> placed = [];
+        List<ValueTuple<Preview, BaseComponent>> placed = [];
         var validCount = 0;
 
         while (validCount < count)
@@ -40,7 +40,7 @@ public class BlueprintPlacementValidator(
                 hasNew = true;
                 if (comp is not null)
                 {
-                    placed.Add(comp);
+                    placed.Add((p, comp));
                 }
                 
                 result.Add(p);
@@ -54,7 +54,7 @@ public class BlueprintPlacementValidator(
 
         if (destroy)
         {
-            foreach (var p in placed)
+            foreach (var (_, p) in placed)
             {
                 // Disable the deconstructible so effects don't trigger
                 p.GetComponent<Deconstructible>()?.DisableComponent();
