@@ -7,6 +7,8 @@ public class BlueprintSelectionDialog(
     IGoodService goods,
     NamedIconProvider namedIconProvider,
     DialogService diag,
+    BlueprintWorkshopServiceResolver workshopServiceResolver,
+    IContainer container,
 
     ILoc t,
     VisualElementInitializer veInit,
@@ -30,11 +32,23 @@ public class BlueprintSelectionDialog(
 
         var parent = Content;
 
-        var commands = parent.AddRow().AlignItems().SetMarginBottom(5);
-        commands.AddLabel(t.T("LV.BB.SelectDesc"));
-        commands.AddChild().SetMarginLeftAuto();
-        commands.AddGameButtonPadded(t.T("LV.BB.Browse"), onClick: persistentService.ShowFolder).SetMarginRight(5);
-        commands.AddGameButtonPadded(t.T("LV.BB.Reload"), onClick: RefreshCache);
+        var buttons = parent.AddRow().SetMarginBottom(10);
+        buttons.AddChild().SetMarginLeftAuto();
+
+        if (workshopServiceResolver.IsSupported)
+        {
+            buttons.AddGameButtonPadded(t.T("LV.BB.UploadWorkshop"), onClick: ShowUploadDialog).SetMarginRight(5);
+
+            var url = workshopServiceResolver.Provider.WorkshopBrowsingUrl;
+            if (url is not null)
+            {
+                buttons.AddGameButtonPadded(t.T("LV.BB.BrowseWorkshop"), onClick: () => OpenUrl(url)).SetMarginRight(5);
+            }
+        }
+        buttons.AddGameButtonPadded(t.T("LV.BB.Browse"), onClick: persistentService.ShowFolder).SetMarginRight(5);
+        buttons.AddGameButtonPadded(t.T("LV.BB.Reload"), onClick: RefreshCache);
+
+        parent.AddLabel(t.T("LV.BB.SelectDesc")).SetMarginBottom(10);
 
         btnBuild = parent.AddMenuButton(t.T("LV.BB.Build"), onClick: OnUIConfirmed, stretched: true);
         btnBuild.enabledSelf = false;
@@ -44,6 +58,13 @@ public class BlueprintSelectionDialog(
 
         var confirmed = await ShowAsync(veInit, panelStack);
         return confirmed ? SelectingBlueprint : null;
+    }
+
+    void OpenUrl(string url) => Application.OpenURL(url);
+
+    void ShowUploadDialog()
+    {
+        container.GetInstance<BlueprintWorkshopSelectionDialog>().Show();
     }
 
     void RefreshCache()
