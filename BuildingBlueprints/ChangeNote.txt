@@ -4,6 +4,7 @@
 #4 District Centers and District Crossings are not excluded when making blueprints to prevent crashes. Issue caught by calloatti.
 #8 Prevent accidentally build when clicking the Build button.
 #10 Added Steam Workshop support.
+#11 Added Settings copy.
 
 v10.1.0:
 #1 Blueprint name is now file name. Suggested by calloatti.

@@ -17,7 +17,8 @@ public readonly record struct SerializableBuildingPlacement(
     string TemplateName,
     ValueTuple<int, int, int> Coordinates,
     Orientation Orientation,
-    bool Flip
+    bool Flip,
+    JObject? Settings
 );
 
 public readonly record struct BuildingBlueprintSourceInfo(

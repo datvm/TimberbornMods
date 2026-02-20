@@ -7,7 +7,8 @@ public class BuildingBlueprintsService(
     ToolButtonService toolButtonService,
     ScienceService scienceService,
     BuildingUnlockingService buildingUnlockingService,
-    BuildingBlueprintListingService listingService
+    BuildingBlueprintListingService listingService,
+    BlueprintBuildingSettingsService buildingSettingsService
 ) : IPostLoadableSingleton
 {
 
@@ -47,12 +48,16 @@ public class BuildingBlueprintsService(
     {
         var baseCoord = new Vector3Int(selection.Area.xMin, selection.Area.yMin, selection.BaseZ);
 
+        var copySettings = selection.CopySettings;
         foreach (var bo in selection.BlockObjects)
         {
             var coord = bo.Coordinates - baseCoord;
             var template = bo.GetComponent<TemplateSpec>().TemplateName;
 
-            yield return new(template, (coord.x, coord.y, coord.z), bo.Orientation, bo.FlipMode.IsFlipped);
+            yield return new(
+                template,
+                (coord.x, coord.y, coord.z), bo.Orientation, bo.FlipMode.IsFlipped,
+                copySettings ? buildingSettingsService.GetSettings(bo) : null);
         }
     }
 
@@ -107,7 +112,8 @@ public class BuildingBlueprintsService(
                     b,
                     new(x, y, z),
                     rawB.Orientation,
-                    rawB.Flip ? FlipMode.Flipped : FlipMode.Unflipped
+                    rawB.Flip ? FlipMode.Flipped : FlipMode.Unflipped,
+                    rawB.Settings
                 ));
             }
 

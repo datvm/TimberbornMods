@@ -2,7 +2,6 @@
 
 public readonly record struct BuildingBlueprintPlacement(Vector3Int Coordinates, Orientation Orientation);
 
-
 [BindSingleton]
 public class BlueprintPlacementService(
     BlueprintPreviewRepository previewRepository,
@@ -14,7 +13,8 @@ public class BlueprintPlacementService(
     UISoundController uiSoundController,
     BlueprintGroupService blueprintGroupService,
     CameraService cameraService,
-    BlockObjectPreviewPicker blockObjectPreviewPicker
+    BlockObjectPreviewPicker blockObjectPreviewPicker,
+    BlueprintBuildingSettingsService blueprintBuildingSettingsService
 ) : IInputProcessor, ILoadableSingleton
 {
     static readonly Vector3Int PlaceholderCoordinates = new(-1, -1, -1);
@@ -25,14 +25,18 @@ public class BlueprintPlacementService(
     ParsedBlueprintBuildingPlacement? firstBuilding;
     TaskCompletionSource<BuildingBlueprintPlacement?>? tcs;
     PreviewEnumerator? enumerator;
-    Orientation blueprintOrientation = Orientation.Cw0;
-    bool blueprintFlip = false;
-    Vector2Int blueprintSize;
+    readonly Dictionary<Preview, ParsedBlueprintBuildingPlacement> previewPairs = [];
     Vector3Int coordinates;
     Vector3Int prevCoordinates;
     bool lastPositionValid;
     bool shouldShow;
     bool firstCoordinate;
+
+
+    public event Action OnBlueprintPlacementSettingsChanged = null!;
+    public Orientation BlueprintOrientation { get; private set; } = Orientation.Cw0;
+    public bool BlueprintFlip { get; private set; } = false;
+    public bool IgnoreSettings { get; private set; }
 
     public void Load()
     {
@@ -61,11 +65,16 @@ public class BlueprintPlacementService(
     {
         if (enumerator is null) { return false; }
 
+        if (ProcessClick()) { return true; }
+
         var moved = ProcessCursorLocation();
         var rotated = ProcessRotationInput();
         var flipped = ProcessFlipInput();
+        var ignoreCopyChanged = ProcessIgnoreCopy();
 
-        if (moved || rotated || flipped)
+        var nonMovementChanged = rotated || flipped;
+
+        if (nonMovementChanged || moved)
         {
             PositionPreviews();
 
@@ -75,7 +84,13 @@ public class BlueprintPlacementService(
             }
         }
 
-        return ProcessClick() || rotated;
+        var settingsChanged = nonMovementChanged || ignoreCopyChanged;
+        if (settingsChanged)
+        {
+            OnBlueprintPlacementSettingsChanged();
+        }
+
+        return settingsChanged;
     }
 
     bool ProcessClick()
@@ -89,7 +104,7 @@ public class BlueprintPlacementService(
         }
 
         _ = PlaceAsync();
-        tcs.TrySetResult(new(coordinates, blueprintOrientation));
+        tcs.TrySetResult(new(coordinates, BlueprintOrientation));
         return true;
     }
 
@@ -98,12 +113,19 @@ public class BlueprintPlacementService(
         var buildings = await placementValidator.BuildPreviewsAsync(enumerator!.AllPreviews);
 
         var groupId = blueprintGroupService.GetNextGroup();
-        foreach (var b in buildings)
+        var copy = !IgnoreSettings;
+        foreach (var (preview, b) in buildings)
         {
             var bpComp = b.GetComponent<BuildingBlueprintComponent>();
             if (bpComp)
             {
                 bpComp.AssignToGroup(groupId);
+            }
+
+            if (copy)
+            {
+                var info = previewPairs[preview];
+                blueprintBuildingSettingsService.ApplySettings(b, info.Settings);
             }
         }
 
@@ -116,7 +138,7 @@ public class BlueprintPlacementService(
         var ray = cameraService.ScreenPointToRayInGridSpace(inputService.MousePosition);
         var coords = blockObjectPreviewPicker.CenteredPreviewCoordinates(
             firstBuilding!.Building.PlaceableSpec,
-            RotateOrientation(firstBuilding.Orientation, blueprintOrientation),
+            RotateOrientation(firstBuilding.Orientation, BlueprintOrientation),
             ray);
         var pos = coords?.Coordinates;
 
@@ -147,12 +169,12 @@ public class BlueprintPlacementService(
         bool rotated = false;
         if (inputService.IsKeyDown(BlockObjectPlacementPanel.RotateClockwiseKey))
         {
-            blueprintOrientation = blueprintOrientation.RotateClockwise();
+            BlueprintOrientation = BlueprintOrientation.RotateClockwise();
             rotated = true;
         }
         else if (inputService.IsKeyDown(BlockObjectPlacementPanel.RotateCounterclockwiseKey))
         {
-            blueprintOrientation = blueprintOrientation.RotateCounterclockwise();
+            BlueprintOrientation = BlueprintOrientation.RotateCounterclockwise();
             rotated = true;
         }
 
@@ -163,10 +185,20 @@ public class BlueprintPlacementService(
     {
         if (inputService.IsKeyDown(BlockObjectPlacementPanel.FlipKey))
         {
-            blueprintFlip = !blueprintFlip;
+            BlueprintFlip = !BlueprintFlip;
             return true;
         }
 
+        return false;
+    }
+
+    bool ProcessIgnoreCopy()
+    {
+        if (inputService.IsKeyDown(DuplicationInputProcessor.DuplicateSettingsKey))
+        {
+            IgnoreSettings = !IgnoreSettings;
+            return true;
+        }
         return false;
     }
 
@@ -192,6 +224,7 @@ public class BlueprintPlacementService(
         blueprintInfo = null;
         firstBuilding = null;
         lastPositionValid = false;
+        previewPairs.Clear();
     }
 
     void InitializePreviews(ParsedBlueprintInfo bp)
@@ -212,7 +245,7 @@ public class BlueprintPlacementService(
         }
 
         enumerator.Reset();
-        blueprintSize = blueprintInfo.Size;
+        previewPairs.Clear();
         foreach (var b in blueprintInfo.Buildings)
         {
             var name = b.Building.TemplateName;
@@ -220,9 +253,11 @@ public class BlueprintPlacementService(
 
             var placement = GetBuildingPlacement(b);
             preview.Reposition(placement);
+
+            previewPairs.Add(preview, b);
         }
 
-        previewShower.ShowBuildablePreviews(enumerator.AllPreviews, out var warning);
+        previewShower.ShowBuildablePreviews(enumerator.AllPreviews, out _);
     }
 
     async Task ValidatePreviewsAsync()
@@ -245,9 +280,9 @@ public class BlueprintPlacementService(
 
     Placement GetBuildingPlacement(in ParsedBlueprintBuildingPlacement buildingPlacement)
     {
-        var (b, localPos, localRot, localFlip) = buildingPlacement;
+        var (b, localPos, localRot, localFlip, _) = buildingPlacement;
 
-        if (blueprintFlip)
+        if (BlueprintFlip)
         {
             var bos = b.BlockObjectSpec!;
             var w = bos.Size.x;
@@ -257,8 +292,8 @@ public class BlueprintPlacementService(
             localFlip = Flip(localFlip, bos);
         }
 
-        localPos = blueprintOrientation.Transform(localPos);
-        localRot = RotateOrientation(localRot, blueprintOrientation);
+        localPos = BlueprintOrientation.Transform(localPos);
+        localRot = RotateOrientation(localRot, BlueprintOrientation);
 
         var globalPos = coordinates + localPos;
         return new(globalPos, localRot, localFlip);
