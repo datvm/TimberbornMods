@@ -1,0 +1,12 @@
+﻿This mod add Steam Workshop support for Building Blueprints. You can now upload and subscribe to Building Blueprints on Steam Workshop! This mod is also required to see blueprints you have subscribed to in the Workshop.
+
+When this mod is active, in the Blueprint selection dialog, you will see two new buttons:
+- Browse Workshop: open the Steam Workshop page for Building Blueprints.
+- Upload to Workshop: select a list of blueprints you want to upload, and upload them to Steam Workshop. You can also update existing entries by entering their IDs (see the ID in the workshop URL).
+
+[img]https://files.catbox.moe/0322ih.jpg[/img]
+
+Please keep the "[Building Blueprints]" prefix in the blueprint name when uploading to the Workshop as a courtesy.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

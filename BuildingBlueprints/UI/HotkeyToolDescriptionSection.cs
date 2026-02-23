@@ -29,6 +29,14 @@ public class HotkeyToolDescriptionSection
 
         return entry;
     }
+
+    public MultiHotkeyEntry AddMultiEntry(IReadOnlyList<string> keyIds)
+    {
+        var entry = new MultiHotkeyEntry(keyIds, keyBindingShortcutService)
+            .SetMarginBottom(5);
+        Content.Add(entry);
+        return entry;
+    }
 }
 
 public class HotkeyEntry : VisualElement
@@ -57,6 +65,39 @@ public class HotkeyEntry : VisualElement
         }
 
         TextLabel = this.AddGameLabel();
+    }
+
+}
+
+public class MultiHotkeyEntry : VisualElement
+{
+
+    public IReadOnlyList<string> KeyIds { get; }
+
+    public Label TextLabel { get; }
+    public string Text
+    {
+        get => TextLabel.text;
+        set => TextLabel.text = value;
+    }
+
+    public Label[] HotkeyLabels { get; }
+
+    public MultiHotkeyEntry(IReadOnlyList<string> keyIds, KeyBindingShortcutService keyBindingShortcutService)
+    {
+        KeyIds = keyIds;
+
+        this.SetWidthPercent(100).SetAsRow().SetWrap();
+
+        TextLabel = this.AddGameLabel().SetMarginRight(10).SetFlexShrink(0);
+
+        HotkeyLabels = new Label[keyIds.Count];
+        for (int i = 0; i < keyIds.Count; i++)
+        {
+            var hotkeyLabel = this.AddGameLabel().SetFlexShrink(0).SetMarginRight(5);
+            keyBindingShortcutService.CreateAny(hotkeyLabel, keyIds[i]);
+            HotkeyLabels[i] = hotkeyLabel;
+        }
     }
 
 }

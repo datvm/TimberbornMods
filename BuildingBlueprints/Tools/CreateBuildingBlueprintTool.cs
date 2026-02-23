@@ -10,7 +10,7 @@ public class CreateBuildingBlueprintTool(
     ISpecService specService,
     IContainer container,
     BuildingBlueprintsService buildingBlueprintsService
-) : ITool, IToolDescriptor, ILoadableSingleton, IInputProcessor
+) : ITool, IToolDescriptor, ILoadableSingleton, IInputProcessor, IConstructionModeEnabler
 {
 #nullable disable
     ToolDescription toolDescription;

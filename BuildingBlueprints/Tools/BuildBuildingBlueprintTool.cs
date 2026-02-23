@@ -6,11 +6,12 @@ public class BuildBuildingBlueprintTool(
     BlueprintPlacementService blueprintPlacementService,
     ToolService toolService,
     ILoc t
-) : ITool, IToolDescriptor, ILoadableSingleton
+) : ITool, IToolDescriptor, ILoadableSingleton, IConstructionModeEnabler
 {
 #nullable disable
     ToolDescription toolDescription;
-    HotkeyEntry flipEntry, rotateClockwiseEntry, rotateCounterClockwiseEntry, ignoreSettingsEntry;
+    HotkeyEntry flipEntry, rotateClockwiseEntry, rotateCounterClockwiseEntry, ignoreSettingsEntry, nudgeEntry;
+    MultiHotkeyEntry nudgeMoveKeys, nudgeUpDownKeys;
 #nullable enable
 
     public void Load()
@@ -23,8 +24,16 @@ public class BuildBuildingBlueprintTool(
         ignoreSettingsEntry = hotkeySection.AddEntry(DuplicationInputProcessor.DuplicateSettingsKey);
         hotkeySection.AddEntry(AlternateClickable.AlternateClickableActionKey).Text = t.T("LV.BB.BlueprintBuildToolPartial");
 
-        blueprintPlacementService.OnBlueprintPlacementSettingsChanged += UpdatePlacement;
-        UpdatePlacement();
+        nudgeEntry = hotkeySection.AddEntry(BlueprintPlacementService.NudgeKey);
+        
+        nudgeMoveKeys = hotkeySection.AddMultiEntry(BlueprintPlacementService.CameraMoveKeys).SetMargin(left: 10);
+        nudgeMoveKeys.Text = t.T("LV.BB.NudgeMove");
+
+        nudgeUpDownKeys = hotkeySection.AddMultiEntry(BlueprintPlacementService.CameraRotationKeys).SetMargin(left: 10);
+        nudgeUpDownKeys.Text = t.T("LV.BB.NudgeVerticalMove");
+
+        blueprintPlacementService.OnBlueprintPlacementSettingsChanged += UpdateSettingTexts;
+        UpdateSettingTexts();
 
         toolDescription = new ToolDescription.Builder(t.T("LV.BB.BlueprintBuildTool"))
             .AddSection(t.T("LV.BB.BlueprintBuildToolDesc"))
@@ -32,7 +41,7 @@ public class BuildBuildingBlueprintTool(
             .Build();
     }
 
-    void UpdatePlacement()
+    void UpdateSettingTexts()
     {
         var orientation = blueprintPlacementService.BlueprintOrientation.ToString()[2..] + "°";
 
@@ -40,6 +49,11 @@ public class BuildBuildingBlueprintTool(
         rotateCounterClockwiseEntry.Text = t.T("LV.BB.BlueprintBuildToolRotateCounterclockwise", orientation);
         flipEntry.Text = t.T("LV.BB.BlueprintBuildToolFlip", t.TYesNo(blueprintPlacementService.BlueprintFlip));
         ignoreSettingsEntry.Text = t.T("LV.BB.BlueprintBuildToolIgnoreSettings", t.TYesNo(blueprintPlacementService.IgnoreSettings));
+
+        var nudging = blueprintPlacementService.IsNudging;
+        nudgeEntry.Text = t.T("LV.BB.BlueprintBuildToolNudge", t.TYesNo(nudging));
+        nudgeMoveKeys.SetDisplay(nudging);
+        nudgeUpDownKeys.SetDisplay(nudging);
     }
 
     public ToolDescription DescribeTool() => toolDescription;
