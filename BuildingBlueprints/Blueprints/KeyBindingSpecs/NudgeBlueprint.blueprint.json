@@ -1,0 +1,13 @@
+﻿{
+    "KeyBindingSpec": {
+        "Id": "NudgeBlueprint",
+        "GroupId": "Objects",
+        "LocKey": "LV.BB.NudgeKey",
+        "Order": 25,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/n"
+    }
+}

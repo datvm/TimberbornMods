@@ -3,23 +3,27 @@
 The new tool group "Building Blueprints" located at the end of your toolbar includes 3 tools: Create, Build and Demolish.
 
 [h1]Create Building Blueprint[/h1]
-Simply select the tool, drag an area around the buildings you want to include in the blueprint. Then select a name and save it! Only buildings can be included in the blueprint. You also need to include the entire building within the area for it to be added to the blueprint. [b]The buildings' orientation (rotation) and flip are supported![/b]
+Simply select the tool, drag an area around the buildings you want to include in the blueprint. Then select a name and save it! Only buildings can be included in the blueprint. You also need to include the entire building within the area for it to be added to the blueprint. [b]The buildings' orientation (rotation), flip, and settings are supported![/b] You can press the Copy Settings button to choose to include Settings in your blueprint or not.
 
 [img]https://files.catbox.moe/ymo5ne.jpg[/img]
 
 Blueprint files are just JSON files stored in your game's Documents folder so you can easily copy and share them or even edit them manually if you want to. See the dialog below, there is a Browse button that will open the folder where the blueprints are stored.
 
-Note: terrains are not supported so if your building blocks have terrain blocks, it won't be included.
+Note:
+- Terrains are not supported so if your building blocks have terrain blocks, it won't be included.
+- District Centers and District Crossings are excluded from blueprints to prevent crashes.
+- When selection starts with a tile with Road, you may notice certain buildings like Platforms of the same level are not selected. This is due to the game's tool behavior when selecting. Try starting with a non-road tile.
 
 [h1]Build Blueprint[/h1]
 Select the Build Blueprint tool, you will be presented with the Select Building Blueprint dialog.
 
-[img]https://files.catbox.moe/47f46w.jpg[/img]
+[img]https://files.catbox.moe/7w2t4n.jpg[/img]
 
 Choose the blueprint you want to place, then click the Build Blueprint button.
-- [b]You can rotate the blueprint with the rotate keys (default R and Shift R) while placing it.[/b] Flipping, however, is not supported (because not all buildings support flipping so it would be impossible to flip correctly).
-- Hold Alternate button (default Shift) to partially place any valid buildings and ignore invalid ones.
+- [b]You can rotate and flip the whole blueprint while placing it.[/b] Note that flipping may not be possible if certain asymmetrical buildings without flip support are included in the blueprint.
+- Hold Alternate button to partially place any valid buildings and ignore invalid ones.
 - Existing paths will not block paths in the blueprint.
+- You can also press the Copy Settings button to choose to toggle Ignore Settings when placing the blueprint. When Ignore Settings is on, the buildings will be placed with default settings instead of the settings saved in the blueprint.
 
 [img]https://files.catbox.moe/ygiybh.jpg[/img]
 
@@ -28,9 +32,14 @@ A quick way to demolish all buildings that were placed using a building blueprin
 
 [img]https://files.catbox.moe/vxqwm2.jpg[/img]
 
+[h1]Workshops Support[/h1]
+You can also subscribe to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3670094695]Building Blueprints Steam Workshop Support[/url] to subscribe to blueprints uploaded by other players and upload your own blueprints to share with the community! When you have the Workshop Support mod active, in the blueprint selection dialog, you will see two new buttons: Browse Workshop and Upload to Workshop.
+
+If you use non-Steam version, others can still upload their blueprints to mod.io and you can manually place them into the "Documents\Timberborn\BuildingBlueprints" folder.
+
 [h1]Known Issue[/h1]
 - [strike]The coordinate picker is a bit unstable on non-ground. I am trying to improve it.[/strike] Fixed in v10.1.0.
-- Right now blueprints with District Center is a bit risky because it may touch a road. Please avoid putting District Center in blueprints for now.
+- [strike]Right now blueprints with District Center is a bit risky because it may touch a road. Please avoid putting District Center in blueprints for now.[/strike] District Center and District Crossing are now excluded from blueprints.
 
 If you have any issue that I missed, feel free to report it in the comments or on Discord.
 

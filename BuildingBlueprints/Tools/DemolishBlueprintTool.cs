@@ -9,7 +9,7 @@ public class DemolishBlueprintTool(
     InputService inputService,
     DialogService diag,
     DestructionService destructionService
-) : ITool, IToolDescriptor, ILoadableSingleton, IInputProcessor
+) : ITool, IToolDescriptor, ILoadableSingleton, IInputProcessor, IConstructionModeEnabler
 {
 #nullable disable
     ToolDescription toolDescription;

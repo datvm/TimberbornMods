@@ -2,7 +2,7 @@
 
 public class MGameConfig : BaseModdableTimberbornAttributeConfiguration
 {
-    public override ConfigurationContext AvailableContexts => ConfigurationContext.Game;
+    public override ConfigurationContext AvailableContexts => ConfigurationContext.Game | ConfigurationContext.MainMenu;
 
     public override void StartMod(IModEnvironment modEnvironment)
     {
@@ -15,6 +15,8 @@ public class MGameConfig : BaseModdableTimberbornAttributeConfiguration
     public override void Configure(Configurator configurator, ConfigurationContext context)
     {
         base.Configure(configurator, context);
+
+        if (context != ConfigurationContext.Game) { return; }
 
         configurator
             .TryBindingSystemFileDialogService()

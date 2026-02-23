@@ -17,6 +17,11 @@ public class BlueprintPlacementService(
     BlueprintBuildingSettingsService blueprintBuildingSettingsService
 ) : IInputProcessor, ILoadableSingleton
 {
+    public const string NudgeKey = "NudgeBlueprint";
+    public static readonly ImmutableArray<string> CameraMoveKeys = [CameraMovementInput.MoveCameraUpKey, CameraMovementInput.MoveCameraLeftKey, CameraMovementInput.MoveCameraDownKey, CameraMovementInput.MoveCameraRightKey];
+    public static readonly ImmutableArray<string> CameraRotationKeys = [CameraMovementInput.RotateCameraLeftKey, CameraMovementInput.RotateCameraRightKey];
+    static readonly ImmutableArray<string> AllCameraKeys = [.. CameraMoveKeys, .. CameraRotationKeys];
+
     static readonly Vector3Int PlaceholderCoordinates = new(-1, -1, -1);
 
     PreviewShowerSpec spec = null!;
@@ -32,11 +37,11 @@ public class BlueprintPlacementService(
     bool shouldShow;
     bool firstCoordinate;
 
-
     public event Action OnBlueprintPlacementSettingsChanged = null!;
     public Orientation BlueprintOrientation { get; private set; } = Orientation.Cw0;
     public bool BlueprintFlip { get; private set; } = false;
     public bool IgnoreSettings { get; private set; }
+    public bool IsNudging { get; private set; }
 
     public void Load()
     {
@@ -61,20 +66,26 @@ public class BlueprintPlacementService(
         CleanUp();
     }
 
+    bool processedInput;
+    bool placementChanged;
+    bool settingsChanged;
     public bool ProcessInput()
     {
-        if (enumerator is null) { return false; }
+        if (enumerator is null || tcs is null) { return false; }
 
-        if (ProcessClick()) { return true; }
+        processedInput = false;
+        placementChanged = false;
+        settingsChanged = false;
 
-        var moved = ProcessCursorLocation();
-        var rotated = ProcessRotationInput();
-        var flipped = ProcessFlipInput();
-        var ignoreCopyChanged = ProcessIgnoreCopy();
+        ProcessNudgingToggle();
+        if (ProcessPlacement()) { return true; }
 
-        var nonMovementChanged = rotated || flipped;
+        ProcessMovement();
+        ProcessRotationInput();
+        ProcessFlipInput();
+        ProcessIgnoreCopy();
 
-        if (nonMovementChanged || moved)
+        if (placementChanged)
         {
             PositionPreviews();
 
@@ -84,18 +95,18 @@ public class BlueprintPlacementService(
             }
         }
 
-        var settingsChanged = nonMovementChanged || ignoreCopyChanged;
         if (settingsChanged)
         {
             OnBlueprintPlacementSettingsChanged();
         }
 
-        return settingsChanged;
+        return processedInput;
     }
 
-    bool ProcessClick()
+    bool ProcessPlacement()
     {
-        if (!inputService.MainMouseButtonUp || tcs is null) { return false; }
+        var placeRequested = inputService.MainMouseButtonDown || inputService.WasConfirmPressedLastFrame;
+        if (!placeRequested) { return false; }
 
         if (!lastPositionValid && !inputService.IsKeyHeld(AlternateClickable.AlternateClickableActionKey))
         {
@@ -104,7 +115,7 @@ public class BlueprintPlacementService(
         }
 
         _ = PlaceAsync();
-        tcs.TrySetResult(new(coordinates, BlueprintOrientation));
+        tcs!.TrySetResult(new(coordinates, BlueprintOrientation));
         return true;
     }
 
@@ -133,7 +144,69 @@ public class BlueprintPlacementService(
         prevCoordinates = PlaceholderCoordinates;
     }
 
-    bool ProcessCursorLocation()
+    void ProcessNudgingToggle()
+    {
+        if (!inputService.IsKeyDown(NudgeKey)) { return; }
+
+        IsNudging = !IsNudging;
+        processedInput = true;
+        settingsChanged = true;
+    }
+
+    void ProcessMovement()
+    {
+        if (IsNudging)
+        {
+            ProcessKeyNudging();
+        }
+        else
+        {
+            ProcessCursorLocation();
+        }
+    }
+
+    void ProcessKeyNudging()
+    {
+        // Disable camera key when nudging
+        if (AllCameraKeys.Any(inputService.IsKeyHeld))
+        {
+            processedInput = true;
+        }
+
+        if (inputService.IsKeyDown(CameraMovementInput.RotateCameraLeftKey))
+        {
+            coordinates.z = Math.Max(coordinates.z - 1, 0);
+            placementChanged = true;
+        }
+        
+        if (inputService.IsKeyDown(CameraMovementInput.RotateCameraRightKey))
+        {
+            coordinates.z += 1;
+            placementChanged = true;
+        }
+
+        var x = inputService.IsKeyDown(CameraMovementInput.MoveCameraLeftKey) ? -1
+            : inputService.IsKeyDown(CameraMovementInput.MoveCameraRightKey) ? 1 : 0;
+        var y = inputService.IsKeyDown(CameraMovementInput.MoveCameraUpKey) ? 1
+            : inputService.IsKeyDown(CameraMovementInput.MoveCameraDownKey) ? -1 : 0;
+        if (x == 0 && y == 0) { return; }
+
+        var rawDirection = new Vector3(x, 0f, y).normalized;
+        var worldDirection = Quaternion.AngleAxis(cameraService.HorizontalAngle, Vector3.up) * rawDirection;
+
+        if (Math.Abs(worldDirection.x) > Math.Abs(worldDirection.z))
+        {
+            coordinates.x += Math.Sign(worldDirection.x);
+        }
+        else
+        {
+            coordinates.y += Math.Sign(worldDirection.z);
+        }
+
+        placementChanged = true;
+    }
+
+    void ProcessCursorLocation()
     {
         var ray = cameraService.ScreenPointToRayInGridSpace(inputService.MousePosition);
         var coords = blockObjectPreviewPicker.CenteredPreviewCoordinates(
@@ -144,14 +217,14 @@ public class BlueprintPlacementService(
 
         if (pos is null)
         {
-            if (prevCoordinates == PlaceholderCoordinates) { return false; }
+            if (prevCoordinates == PlaceholderCoordinates) { return; }
             prevCoordinates = coordinates = PlaceholderCoordinates;
             shouldShow = false;
-            return true;
+            goto MOVED;
         }
 
         shouldShow = true;
-        if (pos == prevCoordinates) { return false; }
+        if (pos == prevCoordinates) { return; }
 
         prevCoordinates = coordinates = pos.Value;
 
@@ -161,45 +234,46 @@ public class BlueprintPlacementService(
             shouldShow = false;
         }
 
-        return true;
+    MOVED:
+        placementChanged = true;
     }
 
-    bool ProcessRotationInput()
+    void ProcessRotationInput()
     {
-        bool rotated = false;
         if (inputService.IsKeyDown(BlockObjectPlacementPanel.RotateClockwiseKey))
         {
             BlueprintOrientation = BlueprintOrientation.RotateClockwise();
-            rotated = true;
+            goto ROTATED;
         }
         else if (inputService.IsKeyDown(BlockObjectPlacementPanel.RotateCounterclockwiseKey))
         {
             BlueprintOrientation = BlueprintOrientation.RotateCounterclockwise();
-            rotated = true;
+            goto ROTATED;
         }
 
-        return rotated;
+        return;
+    ROTATED:
+        placementChanged = true;
+        processedInput = true;
+        settingsChanged = true;
     }
 
-    bool ProcessFlipInput()
+    void ProcessFlipInput()
     {
-        if (inputService.IsKeyDown(BlockObjectPlacementPanel.FlipKey))
-        {
-            BlueprintFlip = !BlueprintFlip;
-            return true;
-        }
+        if (!inputService.IsKeyDown(BlockObjectPlacementPanel.FlipKey)) { return; }
 
-        return false;
+        BlueprintFlip = !BlueprintFlip;
+        placementChanged = true;
+        processedInput = true;
+        settingsChanged = true;
     }
 
-    bool ProcessIgnoreCopy()
+    void ProcessIgnoreCopy()
     {
-        if (inputService.IsKeyDown(DuplicationInputProcessor.DuplicateSettingsKey))
-        {
-            IgnoreSettings = !IgnoreSettings;
-            return true;
-        }
-        return false;
+        if (!inputService.IsKeyDown(DuplicationInputProcessor.DuplicateSettingsKey)) { return; }
+        IgnoreSettings = !IgnoreSettings;
+        processedInput = true;
+        settingsChanged = true;
     }
 
     void CleanUp()
@@ -225,6 +299,9 @@ public class BlueprintPlacementService(
         firstBuilding = null;
         lastPositionValid = false;
         previewPairs.Clear();
+        IsNudging = false;
+
+        OnBlueprintPlacementSettingsChanged();
     }
 
     void InitializePreviews(ParsedBlueprintInfo bp)
@@ -325,7 +402,7 @@ public class BlueprintPlacementService(
         _ => src,
     };
 
-    static FlipMode Flip(FlipMode localFlip, BlockObjectSpec bos) 
+    static FlipMode Flip(FlipMode localFlip, BlockObjectSpec bos)
         => (localFlip.IsFlipped || bos.Flippable) ? localFlip.Flip() : localFlip;
 
 }
