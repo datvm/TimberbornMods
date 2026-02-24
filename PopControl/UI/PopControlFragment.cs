@@ -40,14 +40,14 @@ public class PopControlFragment(
 
     public void ShowFragment(BaseComponent entity)
     {
-        comp = entity.GetComponentFast<DistrictBuilding>();
+        comp = entity.GetComponent<DistrictBuilding>();
         if (!IsValidBuilding(comp))
         {
             comp = null;
             return;
         }
 
-        blocker = comp.GetComponentFast<BasePopControlBlocker>();
+        blocker = comp.GetComponent<BasePopControlBlocker>();
         UpdateFragment();
 
         panel.Visible = true;
@@ -57,17 +57,17 @@ public class PopControlFragment(
     {
         if (!blocker) { return; }
 
-        lblBlocker.SetDisplay(blocker.IsBlocking);
+        lblBlocker.SetDisplay(blocker!.IsBlocking);
     }
 
     static bool IsValidBuilding(DistrictBuilding? bld)
     {
         if (!bld) { return false; }
 
-        if (bld.GetComponentFast<DistrictCenter>()) { return true; }
-        if (bld.GetComponentFast<Dwelling>()) { return true; }
-        if (bld.GetComponentFast<BotManufactory>()) { return true; }
-        if (bld.GetComponentFast<BreedingPod>()) { return true; }
+        if (bld!.GetComponent<DistrictCenter>()) { return true; }
+        if (bld.GetComponent<Dwelling>()) { return true; }
+        if (bld.GetComponent<BotManufactory>()) { return true; }
+        if (bld.GetComponent<BreedingPod>()) { return true; }
 
         return false;
     }

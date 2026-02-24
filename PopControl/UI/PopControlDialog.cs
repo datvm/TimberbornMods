@@ -2,10 +2,10 @@
 
 public class PopControlDialog : DialogBoxElement
 {
-    private readonly PanelStack panelStack;
-    private readonly PopControlRegistry registry;
-    private readonly DropdownItemsSetter dropdownItemsSetter;
-    private readonly DistrictCenterRegistry districtCenterRegistry;
+    readonly PanelStack panelStack;
+    readonly PopControlRegistry registry;
+    readonly DropdownItemsSetter dropdownItemsSetter;
+    readonly DistrictCenterRegistry districtCenterRegistry;
 
     ReadOnlyList<DistrictCenter> districts = [];
     DistrictPopulationControl data = null!;
@@ -76,7 +76,7 @@ public class PopControlDialog : DialogBoxElement
     void OnScopeChanged(int i)
     {
         var district = i == 0 ? null : districts[i - 1];
-        data = district ? registry.GetControlFor(district) : registry.Global;
+        data = district ? registry.GetControlFor(district!) : registry.Global;
 
         chkLimitBeavers.SetValueWithoutNotify(data.LimitBeavers);
         chkLimitBots.SetValueWithoutNotify(data.LimitBots);

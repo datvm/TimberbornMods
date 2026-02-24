@@ -9,7 +9,7 @@ public class PopControlService(
     public static PopControlService? Instance { get; private set; }
 
     public bool ShouldPreventBreeding(ProcreationHouse procreationHouse)
-        => ShouldPreventBreeding(procreationHouse.GetComponentFast<DistrictBuilding>, true);
+        => ShouldPreventBreeding(procreationHouse.GetComponent<DistrictBuilding>, true);
 
     public bool ShouldPreventBreeding(DistrictBuilding? districtBuilding, bool isBeaver) 
         => ShouldPreventBreeding(() => districtBuilding, isBeaver);
@@ -21,7 +21,7 @@ public class PopControlService(
         var building = districtBuilding();
         if (!building) { return false; }
 
-        var districtCenter = building.District;
+        var districtCenter = building!.District;
         if (!districtCenter) { return false; }
 
         return ShouldNotBreed(isBeaver, districtCenter);
@@ -29,7 +29,7 @@ public class PopControlService(
 
     bool ShouldNotBreed(bool isBeaver, DistrictCenter? districtCenter)
     {
-        var data = districtCenter ? registry.GetControlFor(districtCenter) : registry.Global;
+        var data = districtCenter ? registry.GetControlFor(districtCenter!) : registry.Global;
 
         if (isBeaver)
         {
@@ -37,11 +37,11 @@ public class PopControlService(
         }
         else
         {
-            if (!data.LimitBots || data.Beavers == 0) { return false; }
+            if (!data.LimitBots || data.Bots == 0) { return false; }
         }
 
         var pop = districtCenter
-            ? GetPop(districtCenter, isBeaver)
+            ? GetPop(districtCenter!, isBeaver)
             : GetGlobalPop(isBeaver);
 
         return isBeaver ? pop >= data.Beavers : pop >= data.Bots;

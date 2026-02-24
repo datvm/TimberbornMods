@@ -1,29 +1,21 @@
 ﻿namespace PopControl.Components;
 
-public abstract class BasePopControlBlocker : TickableComponent, IPausableComponent
+public abstract class BasePopControlBlocker(PopControlService service) : TickableComponent, IPausableComponent, IAwakableComponent
 {
 
     public abstract bool IsBeaver { get; }
 
 #nullable disable
-    BlockableBuilding blockableBuilding;
+    BlockableObject blockableObject;
     DistrictBuilding districtBuilding;
-
-    PopControlService service;
 #nullable enable
 
     public bool IsBlocking { get; private set; }
 
-    [Inject]
-    public void Inject(PopControlService service)
-    {
-        this.service = service;
-    }
-
     public void Awake()
     {
-        blockableBuilding = GetComponentFast<BlockableBuilding>();
-        districtBuilding = GetComponentFast<DistrictBuilding>();
+        blockableObject = GetComponent<BlockableObject>();
+        districtBuilding = GetComponent<DistrictBuilding>();
     }
 
     public override void Tick()
@@ -34,22 +26,22 @@ public abstract class BasePopControlBlocker : TickableComponent, IPausableCompon
         IsBlocking = shouldBlock;
         if (shouldBlock)
         {
-            blockableBuilding.Block(this);
+            blockableObject.Block(this);
         }
         else
         {
-            blockableBuilding.Unblock(this);
+            blockableObject.Unblock(this);
         }
     }
 
 }
 
-public class BreedingPodPopControlBlocker : BasePopControlBlocker
+public class BreedingPodPopControlBlocker(PopControlService service) : BasePopControlBlocker(service)
 {
-    public override bool IsBeaver { get; } = true;
+    public override bool IsBeaver => true;
 }
 
-public class BotManufactoryPopControlBlocker : BasePopControlBlocker
+public class BotManufactoryPopControlBlocker(PopControlService service) : BasePopControlBlocker(service)
 {
-    public override bool IsBeaver { get; } = false;
+    public override bool IsBeaver => false;
 }

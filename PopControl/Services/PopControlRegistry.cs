@@ -20,7 +20,7 @@ public class PopControlRegistry(ISingletonLoader loader) : ILoadableSingleton, I
     }
     public DistrictPopulationControl GetControlFor(DistrictCenter districtCenter)
     {
-        var entity = districtCenter.GetComponentFast<EntityComponent>();
+        var entity = districtCenter.GetComponent<EntityComponent>();
         var id = entity.EntityId;
 
         var data = GetControlFor(id);
