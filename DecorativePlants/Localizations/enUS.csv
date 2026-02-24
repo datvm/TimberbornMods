@@ -1,0 +1,27 @@
+﻿ID,Text,Comment
+LV.DP.GroupName,"Decorative Plants",
+LV.DP.SettingDesc,"Generate the Decorative Plants decorations for your game. You should come back here to regenerate every time you have a change in mods that add or remove a faction or plants.",
+LV.DP.Generate,"Generate",
+LV.DP.GenerateDone,"Decorative Plants decorations generated for {0} factions. You should see them in the game now.
+<RedHighlight>Please restart the game to take effect!</RedHighlight>",
+LV.DP.Clear,"Clear",
+LV.DP.ClearDone,"Decorative Plants decorations cleared. Click Generate to regenerate them and add them back to the game.
+<RedHighlight>Please restart the game to take effect!</RedHighlight>",
+LV.DP.RestartNotice,"<i>Please restart the game to take effect!</i>",
+LV.DP.DecorativePlantBuildingDesc,"A decorative plant that does not get harvested",
+LV.DP.NoPlantData,"You have Decorative Plants mod installed but no plant data generated yet.
+Please go to the Mod Settings and click Generate to add them.
+Disable the mod if you don't want to see this message.",
+LV.DP.AllFactions,"All factions",
+LV.DP.AllFactionsDesc,"You can build decorative plants from plants of all factions. You will need XtraPlzNoCrashes mod.",
+LV.DP.Free,"Free",
+LV.DP.FreeDesc,"Decorative plants are free and is finished upon placement.",
+LV.DP.NoOccupation,"No occupation",
+LV.DP.NoOccupationDesc,"Decorative plants do not take any 'space' so you can build it on/with anything else. Due to technical limitation, it has to occupy the ground on the first level.",
+LV.DP.PlantMatureSeedling,Seedling,
+LV.DP.PlantMatureMature,Mature,
+LV.DP.PlantWellnessAlive,Alive,
+LV.DP.PlantWellnessDying,Dying,
+LV.DP.PlantWellnessDead,Dead,
+LV.MT.BldSet.DecorativePlantComponent,"Decorative Plant",
+Name_DecorativePlantFragment,"Decorative Plant",

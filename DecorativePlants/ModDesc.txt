@@ -1,0 +1,27 @@
+﻿Base decorators, rejoice! This mod adds new 'buildings' to the Decoration group that let you place Trees and Crops as purely decorative objects. These plants are not harvested, do not grow, and are not affected by water or contamination.
+
+[img]https://files.catbox.moe/rs2byp.jpg[/img]
+
+You, instead, can choose their state at any time:
+- Maturity: Seedling or Mature
+- Wellness: Alive, Dying, or Dead
+The state can be copied/duplicated as well using the base game feature or my mod Power Copy.
+
+[img]https://files.catbox.moe/y2ptf7.jpg[/img]
+
+[h1]Setup Required[/h1]
+On first use, and whenever you add or remove mods that change factions or plants:
+- From the Main Menu, go to Mods. Click the settings button next to Decorative Plants.
+- Click Generate.
+Restart the game for changes to take effect.
+
+[img]https://files.catbox.moe/fcbu2l.jpg[/img]
+
+You can also choose some options when generating:
+- All factions: Allows building plants from any faction. If the game crashes, install XtraPlzNoCrashes.
+- Free: Decorative plants cost nothing and are completed instantly without builders.
+- No occupation: Decorative plants do not take up space, so they can be placed on or with other objects.
+Due to technical limitations, they still occupy the ground tile on the first level.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
