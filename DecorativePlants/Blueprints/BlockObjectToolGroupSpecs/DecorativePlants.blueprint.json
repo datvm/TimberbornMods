@@ -1,0 +1,11 @@
+﻿{
+    "BlockObjectToolGroupSpec": {
+        "Id": "DecorativePlants",
+        "Order": 5,
+        "NameLocKey": "LV.DP.GroupName",
+        "Icon": "Sprites/BottomBar/BuildingGroups/DecorativePlantsIcon"
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Decoration" ]
+    }
+}

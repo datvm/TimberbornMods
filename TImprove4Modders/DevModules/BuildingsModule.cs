@@ -13,7 +13,7 @@ public class BuildingsModule(
 
     void CompleteAllConstructions()
     {
-        foreach (var entity in entities.Entities)
+        foreach (var entity in entities.Entities.ToArray())
         {
             var construction = entity.GetComponent<ConstructionSite>();
             if (construction)

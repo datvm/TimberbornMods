@@ -71,6 +71,7 @@
     <Project Path="ColorfulZipline/ColorfulZipline.csproj" />
     <Project Path="ConfigurableTopBar/ConfigurableTopBar.csproj" Id="9eb023f5-6743-484b-ac4c-723fb933a1a3" />
     <Project Path="ConstructionNotifier/ConstructionNotifier.csproj" Id="b3cf9873-e156-4ca5-a1cd-2a1883dd1e6f" />
+    <Project Path="DecorativePlants/DecorativePlants.csproj" Id="cae31d9d-4321-4d81-ac9a-6ee34793c666" />
     <Project Path="DevModeButton/DevModeButton.csproj" />
     <Project Path="EvenMoreLights/EvenMoreLights.csproj" />
     <Project Path="HueAndTurn/HueAndTurn.csproj" Id="bcea191d-7058-4066-b01a-9ce38260c470" />

@@ -13,17 +13,45 @@ public class MStarter : IModStarter
 }
 
 [HarmonyPatch]
-public static class RemoveWarningLogPatch
+public static class TestPatch
 {
 
-    [HarmonyTranspiler, HarmonyPatch(typeof(PathMeshDrawer), nameof(PathMeshDrawer.Add))]
-    public static IEnumerable<CodeInstruction> DontPrintLog(IEnumerable<CodeInstruction> instructions)
+    //[HarmonyPrefix, HarmonyPatch(typeof(InputService), nameof(InputService.CallInputProcessors))]
+    public static bool PrintDebug(InputService __instance)
     {
-        var target = typeof(Debug).Method(nameof(Debug.LogWarning), [typeof(object)]);
 
-        foreach (var ins in instructions)
+
+        __instance._inputProcessorsCopy.AddRange(__instance._inputProcessors);
+        try
         {
-            yield return ins.Calls(target) ? new(System.Reflection.Emit.OpCodes.Pop) : ins;
+            for (int i = 0; i < __instance._priorityInputProcessors.Count; i++)
+            {
+                __instance._priorityInputProcessors[i].ProcessInput();
+            }
+            int num = __instance._inputProcessorsCopy.Count - 1;
+
+            Debug.Log("==================================");
+            while (num >= 0)
+            {
+                var processor = __instance._inputProcessorsCopy[num];
+                var processed = processor.ProcessInput();
+
+                Debug.Log($"Processor: {processor.GetType().Name}, Processed: {processed}");
+
+                if (processed)
+                {
+                    break;
+                }
+
+                num--;
+
+            }
         }
+        finally
+        {
+            __instance._inputProcessorsCopy.Clear();
+        }
+
+        return false;
     }
 }

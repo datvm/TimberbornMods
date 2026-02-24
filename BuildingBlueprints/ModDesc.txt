@@ -4,7 +4,6 @@ The new tool group "Building Blueprints" located at the end of your toolbar incl
 
 [h1]Create Building Blueprint[/h1]
 Simply select the tool, drag an area around the buildings you want to include in the blueprint. Then select a name and save it! Only buildings can be included in the blueprint. You also need to include the entire building within the area for it to be added to the blueprint. [b]The buildings' orientation (rotation), flip, and settings are supported![/b] You can press the Copy Settings button to choose to include Settings in your blueprint or not.
-
 [img]https://files.catbox.moe/ymo5ne.jpg[/img]
 
 Blueprint files are just JSON files stored in your game's Documents folder so you can easily copy and share them or even edit them manually if you want to. See the dialog below, there is a Browse button that will open the folder where the blueprints are stored.
@@ -16,7 +15,6 @@ Note:
 
 [h1]Build Blueprint[/h1]
 Select the Build Blueprint tool, you will be presented with the Select Building Blueprint dialog.
-
 [img]https://files.catbox.moe/7w2t4n.jpg[/img]
 
 Choose the blueprint you want to place, then click the Build Blueprint button.
@@ -24,12 +22,13 @@ Choose the blueprint you want to place, then click the Build Blueprint button.
 - Hold Alternate button to partially place any valid buildings and ignore invalid ones.
 - Existing paths will not block paths in the blueprint.
 - You can also press the Copy Settings button to choose to toggle Ignore Settings when placing the blueprint. When Ignore Settings is on, the buildings will be placed with default settings instead of the settings saved in the blueprint.
-
 [img]https://files.catbox.moe/ygiybh.jpg[/img]
+
+You can also nudge the blueprint: press the bindable key for Nudge (default is N) to toggle it. Then use WASD or arrow keys to move it, Q and E to move it up and down. Once you are happy with the position, click or press Enter to build.
+[img]https://files.catbox.moe/lbno60.jpg[/img]
 
 [h1]Demolish[/h1]
 A quick way to demolish all buildings that were placed using a building blueprint. Just select the tool and click on any building that was placed with a blueprint, and all buildings from that blueprint will be demolished. You will be asked to confirm before the demolition happens. This tool works even if you already finished some buildings, or demolished a few of them using other tools.
-
 [img]https://files.catbox.moe/vxqwm2.jpg[/img]
 
 [h1]Workshops Support[/h1]
