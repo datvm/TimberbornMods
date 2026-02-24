@@ -8,7 +8,7 @@ public class BatteryChargeStorageAchievementHelper(DialogService diag, ILoc t)
         var total = 0f;
         foreach (var graph in Achievement._mechanicalGraphRegistry.MechanicalGraphs)
         {
-            total += graph.CurrentPower.BatteryCharge;
+            total += graph.BatteryCharge;
         }
 
         return [
