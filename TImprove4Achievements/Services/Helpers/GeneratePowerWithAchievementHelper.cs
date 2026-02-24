@@ -13,7 +13,7 @@ public abstract class GeneratePowerWithAchievementHelper<T, TComp>(DialogService
         {
             if (graphCandidate is null) { continue; }
 
-            var power = graphCandidate.CurrentPower.PowerSupply;
+            var power = graphCandidate.PowerSupply;
             if (power > max)
             {
                 max = power;
