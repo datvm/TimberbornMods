@@ -36,7 +36,7 @@ public class BlueprintListingService(
         var collectionIds = FactionCollections[factionId].Prepend(CommonId);
         foreach (var collectionId in collectionIds)
         {
-            var items = ItemsOfCollection[collectionId];
+            if (!ItemsOfCollection.TryGetValue(collectionId, out var items)) { continue; }
 
             foreach (var item in items)
             {

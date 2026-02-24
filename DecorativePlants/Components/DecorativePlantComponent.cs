@@ -8,12 +8,14 @@ public class DecorativePlantComponent : BaseComponent, IDuplicable<DecorativePla
     static readonly ComponentKey SaveKey = new(nameof(DecorativePlantComponent));
     static readonly PropertyKey<int> MatureStateKey = new("MatureState");
     static readonly PropertyKey<int> WellnessStateKey = new("WellnessState");
+    static readonly PropertyKey<bool> YieldStateKey = new("YieldState");
 
     public static readonly ImmutableArray<PlantMatureState> AllMatureStates = GetAllEnums<PlantMatureState>();
     public static readonly ImmutableArray<PlantWellnessState> AllWellnessStates = GetAllEnums<PlantWellnessState>();
 
     public PlantMatureState MatureState { get; private set; } = PlantMatureState.Mature;
     public PlantWellnessState WellnessState { get; private set; } = PlantWellnessState.Alive;
+    public bool YieldState { get; private set; }
 
     public void Awake()
     {
@@ -25,7 +27,7 @@ public class DecorativePlantComponent : BaseComponent, IDuplicable<DecorativePla
         UpdateModel();
     }
 
-    public void SetState(PlantMatureState? mature = null, PlantWellnessState? wellness = null)
+    public void SetState(PlantMatureState? mature = null, PlantWellnessState? wellness = null, bool? hasProduct = null)
     {
         if (mature.HasValue)
         {
@@ -37,6 +39,11 @@ public class DecorativePlantComponent : BaseComponent, IDuplicable<DecorativePla
             WellnessState = wellness.Value;
         }
 
+        if (hasProduct.HasValue)
+        {
+            YieldState = hasProduct.Value;
+        }
+
         UpdateModel();
     }
 
@@ -44,6 +51,7 @@ public class DecorativePlantComponent : BaseComponent, IDuplicable<DecorativePla
     {
         MatureState = source.MatureState;
         WellnessState = source.WellnessState;
+        YieldState = source.YieldState;
         UpdateModel();
     }
 
@@ -52,12 +60,27 @@ public class DecorativePlantComponent : BaseComponent, IDuplicable<DecorativePla
         var currMaturity = (int)MatureState;
         var currWellness = (int)WellnessState;
 
+        var showingMature = MatureState == PlantMatureState.Mature;
+        var hasYield = showingMature && YieldState && currWellness != (int)PlantWellnessState.Dead;
+
         var models = GetModels();
         for (int i = 0; i < AllMatureStates.Length; i++)
         {
             for (int j = 0; j < AllWellnessStates.Length; j++)
             {
-                models[i][j].SetActive(i == currMaturity && j == currWellness);
+                var active = i == currMaturity && j == currWellness;
+
+                var model = models[i][j];
+                model.SetActive(active);
+
+                if (active && showingMature)
+                {
+                    var renderers = model.GetComponentsInChildren<Renderer>();
+                    foreach (var r in renderers)
+                    {
+                        r.material.SetFloat(GatherableModel.EnableDetailId, hasYield ? 1f : 0f);
+                    }
+                }
             }
         }
     }
@@ -67,6 +90,11 @@ public class DecorativePlantComponent : BaseComponent, IDuplicable<DecorativePla
         var s = entitySaver.GetComponent(SaveKey);
         s.Set(MatureStateKey, (int)MatureState);
         s.Set(WellnessStateKey, (int)WellnessState);
+
+        if (YieldState)
+        {
+            s.Set(YieldStateKey, true);
+        }
     }
 
     public void Load(IEntityLoader entityLoader)
@@ -75,6 +103,11 @@ public class DecorativePlantComponent : BaseComponent, IDuplicable<DecorativePla
 
         MatureState = (PlantMatureState)s.Get(MatureStateKey);
         WellnessState = (PlantWellnessState)s.Get(WellnessStateKey);
+
+        if (s.Has(YieldStateKey))
+        {
+            YieldState = s.Get(YieldStateKey);
+        }
     }
 
     GameObject[][] GetModels()
