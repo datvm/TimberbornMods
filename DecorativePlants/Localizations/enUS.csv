@@ -9,7 +9,7 @@ LV.DP.ClearDone,"Decorative Plants decorations cleared. Click Generate to regene
 <RedHighlight>Please restart the game to take effect!</RedHighlight>",
 LV.DP.RestartNotice,"<i>Please restart the game to take effect!</i>",
 LV.DP.DecorativePlantBuildingDesc,"A decorative plant that does not get harvested",
-LV.DP.NoPlantData,"You have Decorative Plants mod installed but no plant data generated yet.
+LV.DP.NoPlantData,"You have Decorative Plants mod installed but no plant data generated yet. It may also happen because the mod was updated by Steam as well.
 Please go to the Mod Settings and click Generate to add them.
 Disable the mod if you don't want to see this message.",
 LV.DP.AllFactions,"All factions",
@@ -23,5 +23,6 @@ LV.DP.PlantMatureMature,Mature,
 LV.DP.PlantWellnessAlive,Alive,
 LV.DP.PlantWellnessDying,Dying,
 LV.DP.PlantWellnessDead,Dead,
+LV.DP.HasProduct,"Has Product",
 LV.MT.BldSet.DecorativePlantComponent,"Decorative Plant",
 Name_DecorativePlantFragment,"Decorative Plant",

@@ -1,10 +1,11 @@
-﻿Base decorators, rejoice! This mod adds new 'buildings' to the Decoration group that let you place Trees and Crops as purely decorative objects. These plants are not harvested, do not grow, and are not affected by water or contamination.
+﻿Base decorators, rejoice! This mod adds new 'buildings' to the Decoration group that let you place Trees and Crops as purely decorative objects. These plants can be placed anywhere (no need to be on the ground), are not harvested, do not grow, and are not affected by water or contamination.
 
 [img]https://files.catbox.moe/rs2byp.jpg[/img]
 
 You, instead, can choose their state at any time:
 - Maturity: Seedling or Mature
 - Wellness: Alive, Dying, or Dead
+- Has Product: whether the plant has product or not (line Pine Resin on Pine). Only applies for Mature, Alive or Dying plants. Not all plants have this state and if you activate it on a plant that doesn't have it, the texture will be messed up.
 The state can be copied/duplicated as well using the base game feature or my mod Power Copy.
 
 [img]https://files.catbox.moe/y2ptf7.jpg[/img]

@@ -7,16 +7,19 @@ public class DecorativePlantFragment(
 {
 
     Toggle[] chkMature = [], chkWellness = [];
+    Toggle chkHasProduct = null!;
 
     protected override void InitializePanel()
     {
         chkMature = CreateOptions(panel, DecorativePlantComponent.AllMatureStates, "LV.DP.PlantMature", OnMatureSelected);
         chkWellness = CreateOptions(panel, DecorativePlantComponent.AllWellnessStates, "LV.DP.PlantWellness", OnWellnessSelected);
+
+        chkHasProduct = panel.AddToggle(t.T("LV.DP.HasProduct"), onValueChanged: OnHasProductChanged);
     }
 
     Toggle[] CreateOptions<T>(VisualElement parent, ImmutableArray<T> values, string keyPrefix, Action<T> onSelected)
     {
-        var row = parent.AddRow();
+        var row = parent.AddRow().SetMarginBottom(5);
         var result = new Toggle[values.Length];
 
         for (int i = 0; i < values.Length; i++)
@@ -37,6 +40,7 @@ public class DecorativePlantFragment(
 
     void OnMatureSelected(PlantMatureState state) => component!.SetState(mature: state);
     void OnWellnessSelected(PlantWellnessState state) => component!.SetState(wellness: state);
+    void OnHasProductChanged(bool hasProduct) => component!.SetState(hasProduct: hasProduct);
 
     public override void ShowFragment(BaseComponent entity)
     {
@@ -61,6 +65,9 @@ public class DecorativePlantFragment(
         {
             chkWellness[i].SetValueWithoutNotify(i == wellness);
         }
+
+        chkHasProduct.SetValueWithoutNotify(component!.YieldState);
+        chkHasProduct.enabledSelf = mature == (int)PlantMatureState.Mature && wellness != (int)PlantWellnessState.Dead;
     }
 
 }

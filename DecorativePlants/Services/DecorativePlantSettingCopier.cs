@@ -2,7 +2,8 @@
 
 public record DecorativePlantSettings(
     int MatureState,
-    int WellnessState
+    int WellnessState,
+    bool HasProduct = false
 );
 
 [MultiBind(typeof(IBuildingSettings))]
@@ -13,11 +14,11 @@ public class DecorativePlantSettingCopier(ILoc t) : BuildingSettingsBase<Decorat
 
     protected override bool ApplyModel(DecorativePlantSettings model, DecorativePlantComponent target)
     {
-        target.SetState((PlantMatureState)model.MatureState, (PlantWellnessState)model.WellnessState);
+        target.SetState((PlantMatureState)model.MatureState, (PlantWellnessState)model.WellnessState, model.HasProduct);
         return true;
     }
 
     protected override DecorativePlantSettings GetModel(DecorativePlantComponent duplicable)
-        => new((int)duplicable.MatureState, (int)duplicable.WellnessState);
+        => new((int)duplicable.MatureState, (int)duplicable.WellnessState, duplicable.YieldState);
 
 }
