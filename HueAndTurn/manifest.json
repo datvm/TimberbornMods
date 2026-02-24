@@ -5,7 +5,7 @@
     "MinimumGameVersion": "1.0.0",
     "Description": "Unleash your creativity!",
     "RequiredMods": [
-        { "Id": "TimberUi" },
+        { "Id": "ModdableTimberborn" },
         { "Id": "TransparentShaders" }
     ]
 }

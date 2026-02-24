@@ -15,7 +15,7 @@
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
-		<ProjectReference Include="..\DecorativePlants\DecorativePlants.csproj" />
+		<ProjectReference Include="..\PopControl\PopControl.csproj" />
 
 
 	</ItemGroup>
