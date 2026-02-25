@@ -11,8 +11,6 @@ public class MGameConfigs : Configurator
     public override void Configure()
     {
         this
-            .BindSingleton<AchievementHelperService>()
-
             .MultiBindSingleton<IAchievementDialogListModifier, AchievementDialogHelperModifier>()
         ;
 

@@ -1,4 +1,4 @@
-﻿namespace TImprove4Achievements.Services;
+﻿namespace ModdableTimberbornAchievements.Services;
 
 public abstract class BaseAchievementHelper
 {

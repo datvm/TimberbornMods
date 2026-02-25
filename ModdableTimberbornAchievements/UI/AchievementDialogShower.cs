@@ -37,11 +37,13 @@ public abstract class BaseAchievementDialogShower(
     }
 }
 
+[BindSingleton(Contexts = BindAttributeContext.MainMenu)]
 public class MainMenuDialogShower(MainMenuPanel mainMenuPanel, ILoc t, PanelStack panelStack, IContainer container, InputService inputService) : BaseAchievementDialogShower(t, panelStack, container, inputService)
 {
     protected override VisualElement Root => mainMenuPanel._root;
 }
 
+[BindSingleton(Contexts = BindAttributeContext.Game)]
 public class GameAchievementDialogShower(IOptionsBox optionsBox, ILoc t, PanelStack panelStack, IContainer container, InputService inputService) : BaseAchievementDialogShower(t, panelStack, container, inputService)
 {
 

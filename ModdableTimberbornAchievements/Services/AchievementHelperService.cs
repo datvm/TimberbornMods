@@ -1,5 +1,6 @@
-﻿namespace TImprove4Achievements.Services;
+﻿namespace ModdableTimberbornAchievements.Services;
 
+[BindSingleton(Contexts = BindAttributeContext.Game)]
 public class AchievementHelperService(
     IEnumerable<Achievement> achievements,
     IEnumerable<BaseAchievementHelper> helpers,

@@ -1,16 +1,17 @@
 ﻿namespace ModdableTimberbornAchievements.UI;
 
+[BindTransient(Contexts = BindAttributeContext.Game | BindAttributeContext.MainMenu)]
 public class AchievementDialog : DialogBoxElement
 {
 
-    public readonly VisualElement AchievementsList;
+    public VisualElement AchievementsList { get; }
     readonly IContainer container;
     readonly ModdableAchievementSpecService specs;
-    readonly ModdableAchievementUnlocker unlocker;
-    readonly DialogService dialogService;
 
     public ImmutableArray<AchievementGroupPanel> AchievementGroupPanels { get; private set; } = [];
-    ImmutableArray<IAchievementDialogListModifier> modifiers;
+    readonly ImmutableArray<IAchievementDialogListModifier> modifiers;
+
+    public bool RevealSecrets { get; private set; }
 
     public AchievementDialog(
         IContainer container,
@@ -18,15 +19,11 @@ public class AchievementDialog : DialogBoxElement
         ILoc t,
         VisualElementInitializer veInit,
         DevModeManager devModeManager,
-        ModdableAchievementUnlocker unlocker,
-        DialogService dialogService,
         IEnumerable<IAchievementDialogListModifier> modifiers
     )
     {
         this.container = container;
         this.specs = specs;
-        this.unlocker = unlocker;
-        this.dialogService = dialogService;
         this.modifiers = [.. modifiers];
 
         SetDialogPercentSize(height: .8f);
@@ -39,7 +36,19 @@ public class AchievementDialog : DialogBoxElement
             AddDevButtons();
         }
 
+        var storeAch = container.GetInstance<IStoreAchievements>();
+        if (storeAch is ModdableStoreAchievement msa && msa.CanSync)
+        {
+            Content.AddMenuButton(t.T("LV.MTA.SyncStoreAchievements"), onClick: () => SyncStoreAchievements(msa)).SetMarginBottom(10);
+        }
+
         AchievementsList = Content.AddChild();
+
+        foreach (var m in modifiers)
+        {
+            m.ModifyDialog(this);
+        }
+
         ShowAchievements(false);
 
         this.Initialize(veInit);
@@ -47,22 +56,20 @@ public class AchievementDialog : DialogBoxElement
 
     void AddDevButtons()
     {
-        var devButtons = Content.AddCollapsiblePanel(title: "[DEV Tools]").Container;
-
-        devButtons.AddGameButtonPadded("Show secret achievements details", onClick: () => ShowAchievements(true));
-        devButtons.AddGameButtonPadded("Disable Steam achievement sync for this section", onClick: () => ModdableStoreAchievement.DisableSyncing = true);
-        devButtons.AddGameButtonPadded("Clear unlocked", onClick: ClearUnlocks);
+        var devButtons = Content.AddCollapsiblePanel(title: "[DEV Tools]", name: "DevTools").Container;
     }
 
-    async void ClearUnlocks()
+    void SyncStoreAchievements(ModdableStoreAchievement msa)
     {
-        if (!await dialogService.ConfirmAsync("Are you sure to clear all? (Reload the game to take effect)")) { return; }
-
-        unlocker.Clear();
+        msa.SyncStoreUnlocked();
+        ShowAchievements();
     }
+
+    public void ShowAchievements() => ShowAchievements(RevealSecrets);
 
     public void ShowAchievements(bool showSecrets)
     {
+        RevealSecrets = showSecrets;
         AchievementsList.Clear();
         List<AchievementGroupPanel> els = [];
         foreach (var grp in specs.AchievementGroups)
@@ -76,7 +83,7 @@ public class AchievementDialog : DialogBoxElement
         {
             foreach (var m in modifiers)
             {
-                m.Modify(this, showSecrets);
+                m.ModifyList(this, showSecrets);
             }
         }
     }

@@ -1,41 +1,16 @@
-﻿
-namespace ModdableTimberbornAchievements;
-
-[Context("Game")]
-[Context("MainMenu")]
-public class MAllContextConfig : Configurator
-{
-    public override void Configure()
-    {
-        this
-            .BindSingleton<ModdableAchievementSpecService>()
-            .BindSingleton<ModdableAchievementUnlocker>()
-
-            .BindTransient<AchievementDialog>()
-            .BindTransient<AchievementGroupPanel>()
-        ;
-    }
-}
+﻿namespace ModdableTimberbornAchievements;
 
 [Context("MainMenu")]
-public class MMainMenuConfig : Configurator
-{
-    public override void Configure()
-    {
-        this
-            .BindSingleton<MainMenuDialogShower>()
-        ;
-    }
-}
+public class MMainMenuConfig : MainMenuAttributeConfigurator;
 
 [Context("Game")]
-public class MGameConfig : Configurator
+public class MGameConfig : GameAttributeConfigurator
 {
     public override void Configure()
     {
+        base.Configure();
+
         this
-            .BindSingleton<GameAchievementDialogShower>()
-            
             .BindAlertFragment<AchievementAlert>()
         ;
     }

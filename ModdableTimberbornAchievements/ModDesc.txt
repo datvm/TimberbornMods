@@ -1,35 +1,26 @@
-﻿Moddable Timberborn Achievements gives Timberborn a full, moddable achievement system that works on every platform, even without Steam.
+﻿TImprove 4 Achievements adds optional hints to several Timberborn achievements:
 
-[h1]Features[/h1]
+- Certain hints to help you track your progress towards achievements.
+- Reveal secret achievements if you choose to.
+- Filter achievements by state (locked or unlocked) and keyword.
+- Clear unlocked achievements: if you are up to the challenge again. This only clear the internal state so you can earn in-game again, if you play with Steam, it won't reset the Steam achievement progress.
 
-[img]https://files.catbox.moe/d63po6.jpg[/img]
+[h1]Supported achievement hints[/h1]
+[list]
+[*]Show planted tree count
+[*]Show remaining count of building types to build and List missing building types
+[*]Show current 24h work day streak
+[*]Show current power generated with only specified source
+[*]Show current built hedges count
+[*]Show current exploded dynamite count today
+[*]Show plugged badwater sources count and total
+[*]Show current produced planks count today
+[*]Show current battery charge stored
+[*]Show current longest zipline network length
+[*]Show current built Station and Tubeway segments count
+[/list]
 
-- Brings the full set of Steam achievements to non-Steam players (and still unlocks Steam achievements in parallel if you are on Steam).
-- Adds new pop-up notifications for achievement unlocks (for both Steam and non-Steam players).
-- Automatically unlocks any Steam achievements you earned before installing the mod when you first load a save.
-- Provides a dedicated Achievements dialog, accessible from both the Main Menu and the in-game menu.
-
-Note:
-- Your achievement unlocks is stored in [i]Documents/Timberborn/PlayerData[/i], which is also synced by Steam Cloud.
-- You can also open the Achievements dialog using the default hotkey [b]P[/b] (configurable in the Key Bindings menu in the UI section).
-
-[h1]For Modders[/h1]
-
-This mod lets you create and register your own achievements with custom names, icons, descriptions, and secret flags.
-See the Demo project ([url=https://steamcommunity.com/sharedfiles/filedetails/?id=3613175358]Steam Page[/url]) for example and a step-by-step guide on how to create achievements in your own mods.
-
-Obviously, custom achievements do not sync with Steam achievements since those are defined by the developers.
+If you have any suggestion to add, feel free to contact me through Steam or Discord ( https://discord.com/channels/558398674389172225/1443532763931213879 )
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
-
-v10.0.6: Should work with Update 1.0.7 (Jan 12)
-v10.0.5: Fixed a crash for non-Steam clients.
-v10.0.4:
-- Fixed alerts not showing when this mod is on. Thanks TomToTheBomb for reporting.
-- Added a scrollbar to the notification so you can see them all if there are many at once (especially when syncing with Steam).
-
-v10.0.3: Should work with Update 1.0.5 (Dec 03)
-v10.0.2:
-- Added opening hotkey.
-- Various internal changes to support TImprove 4 Achievements.
