@@ -1,11 +1,12 @@
 ﻿{
-    "Name": "Hue & Turn",
+    "Name": "Hue & Turn X",
     "Version": "10.0.0",
-    "Id": "HueAndTurn",
+    "Id": "HueAndTurnX",
     "MinimumGameVersion": "1.0.0",
-    "Description": "Unleash your creativity!",
+    "Description": "Tune that up!",
     "RequiredMods": [
         { "Id": "ModdableTimberborn" },
+        { "Id": "eMka.ModSettings" },
         { "Id": "TransparentShaders" }
     ]
 }

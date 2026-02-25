@@ -1,0 +1,21 @@
+﻿Rejoice, designer! Hue & Turn is back and it's now Hue & Turn [b]X[/b] with extra improvements:
+- Works with Timberborn V1!
+- Improved UI: new color selector and manual value input. You can also set any value you want without limit.
+- Copy are now more powerful with the game's duplicate feature and my Power Copy mod.
+
+[img]https://files.catbox.moe/i9bn7e.jpg[/img]
+[img]https://files.catbox.moe/efxxhj.jpg[/img]
+
+With this mod, you can change the color and positioning of any block objects (buildings, plants, Water Sources, etc.) in the game:
+- Color: Tint the object with any color.
+- Transparency: Make the object more or less transparent.
+- Rotation, Translation and Scale: Sizing and positioning of the object anywhere you want.
+
+All adjustments are visual only and do not affect the actual gameplay in anyway.
+
+Map creators can also use this mod to apply custom effects to your map. If the player has the mod installed, they will see the changes you made.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+
+The new color selector is made by eMka in the Mod Settings mod. That's why it's now a dependency.
