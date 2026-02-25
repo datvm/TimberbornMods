@@ -7,14 +7,13 @@ public class ModdableStoreAchievement(
     ModdableAchievementSpecService specs
 ) : IStoreAchievements
 {
-    internal static bool DisableSyncing = false;
-
     internal static Type? OriginalStoreAchievementType;
 
     IStoreAchievements? original;
     public readonly ImmutableArray<Achievement> Achievements = [.. achievements];
 
     public bool Initialized { get; private set; }
+    public bool CanSync => original is not null && MStarter.HasSteam;
 
     public void Initialize(Action successCallback)
     {
@@ -25,11 +24,7 @@ public class ModdableStoreAchievement(
             return;
         }
 
-        original.Initialize(() =>
-        {
-            SyncStoreUnlocked();
-            Done();
-        });
+        original.Initialize(Done);
 
         void Done()
         {
@@ -42,22 +37,14 @@ public class ModdableStoreAchievement(
 
     public bool IsAchievementUnlocked(string achievementId) => unlocker.IsUnlocked(achievementId);
 
-    void SyncStoreUnlocked()
+    public void SyncStoreUnlocked()
     {
-        if (DisableSyncing || original is null) { return; }
-
-        // For now, only sync for Steam because everything else return true for non-Steam client
-        var isSteam = original.GetType().Name == nameof(SteamAchievements);
-        TimberUiUtils.LogVerbose(() => $"[{nameof(ModdableTimberbornAchievements)}] Is Steam client: {isSteam}");
-        if (!isSteam)
-        {            
-            return;
-        }
+        if (!CanSync) { return; }
 
         List<string> ids = [];
         foreach (var achievement in Achievements)
         {
-            if (original.IsAchievementUnlocked(achievement.Id))
+            if (original!.IsAchievementUnlocked(achievement.Id))
             {
                 ids.Add(achievement.Id);
             }

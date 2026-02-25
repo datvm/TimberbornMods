@@ -1,4 +1,4 @@
-﻿namespace TImprove4Achievements.Services;
+﻿namespace ModdableTimberbornAchievements.Services;
 
 public abstract class BaseMessageBoxAchievementHelper<T>(string baseLocKey, int stepsCount, DialogService diag, ILoc t)
     : BaseAchievementHelper<T>(baseLocKey, stepsCount) where T : Achievement

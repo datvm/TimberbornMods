@@ -1,5 +1,6 @@
 ﻿namespace ModdableTimberbornAchievements.UI;
 
+[BindTransient(Contexts = BindAttributeContext.Game | BindAttributeContext.MainMenu)]
 public class AchievementGroupPanel : CollapsiblePanel
 {
 

@@ -1,5 +1,6 @@
 ﻿namespace ModdableTimberbornAchievements.Services;
 
+[BindSingleton(Contexts = BindAttributeContext.Game | BindAttributeContext.MainMenu)]
 public class ModdableAchievementSpecService(ISpecService specs) : ILoadableSingleton
 {
 

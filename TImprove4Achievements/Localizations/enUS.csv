@@ -1,4 +1,10 @@
 ﻿ID,Text,Comment
+LV.T4A.Filter,"Filter:",
+LV.T4A.FilterUnlocked,"Unlocked",
+LV.T4A.FilterLocked,"Locked",
+LV.T4A.ClearUnlocked,"Clear unlocked achievements",
+LV.T4A.ClearUnlockedConfirm,"Are you sure you want to clear all unlocked achievements? This cannot be undone.",
+LV.T4A.ClearDone,"Achievements cleared, please restart the game to ensure all changes take effect.",
 LV.T4A.AchievementsHelper,"Achivements Helper",
 LV.T4A.Unavailable,"<RedHighlight>This achievement is unavailable during this game.</RedHighlight>",
 LV.T4A.HintStep,"Hint {0}: {1}",

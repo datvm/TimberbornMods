@@ -2,5 +2,6 @@
 
 public interface IAchievementDialogListModifier
 {
-    void Modify(AchievementDialog dialog, bool showSecrets);
+    void ModifyDialog(AchievementDialog dialog);
+    void ModifyList(AchievementDialog dialog, bool showSecrets);
 }

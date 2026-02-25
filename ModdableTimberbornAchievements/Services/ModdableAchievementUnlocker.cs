@@ -1,5 +1,6 @@
 ﻿namespace ModdableTimberbornAchievements.Services;
 
+[BindSingleton(Contexts = BindAttributeContext.Game | BindAttributeContext.MainMenu)]
 public class ModdableAchievementUnlocker(EventBus eb) : ILoadableSingleton
 {
     public static readonly string FilePath = Path.Combine(PlayerDataFileService.PlayerDataDirectory, "ModdableAchievements.txt");
