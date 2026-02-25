@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<OutputModFolderName>HueAndTurn</OutputModFolderName>
+		<OutputModFolderName>HueAndTurnX</OutputModFolderName>
 	</PropertyGroup>
 
 	<Import Project="../Targets/Common.targets" />
-	<Import Project="../Targets/CommonTimberUi.targets" />
+	<Import Project="../Targets/CommonModdableTimberborn.targets" />
 	<Import Project="../Targets/CommonTransparentShaders.targets" />
-
+	
 </Project>
+

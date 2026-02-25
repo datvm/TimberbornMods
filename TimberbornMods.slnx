@@ -74,7 +74,7 @@
     <Project Path="DecorativePlants/DecorativePlants.csproj" Id="cae31d9d-4321-4d81-ac9a-6ee34793c666" />
     <Project Path="DevModeButton/DevModeButton.csproj" />
     <Project Path="EvenMoreLights/EvenMoreLights.csproj" />
-    <Project Path="HueAndTurn/HueAndTurn.csproj" Id="bcea191d-7058-4066-b01a-9ce38260c470" />
+    <Project Path="HueAndTurnX/HueAndTurnX.csproj" Id="c6f14e26-4102-4679-a11c-07f50cbbfb68" />
     <Project Path="MacroManagement/MacroManagement.csproj" />
     <Project Path="ModdableDecalGroups/ModdableDecalGroups.csproj" Id="ba34c21b-13c2-41a3-81ed-d3c7b6346889" />
     <Project Path="MoreNaming/MoreNaming.csproj" />
