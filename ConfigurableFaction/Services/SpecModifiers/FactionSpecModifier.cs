@@ -1,30 +1,43 @@
 ﻿namespace ConfigurableFaction.Services.SpecAppenders;
 
 [MultiBind(typeof(ISpecModifier))]
-public class FactionSpecModifier : BaseSpecModifier<FactionSpec>
+public class FactionSpecModifier : BaseBlueprintModifier<FactionSpec>
 {
-
-    protected override IEnumerable<NamedSpec<FactionSpec>> Modify(IEnumerable<NamedSpec<FactionSpec>> specs)
+    public override IEnumerable<EditableBlueprint> Modify(IEnumerable<EditableBlueprint> blueprints)
     {
-        var list = specs.ToArray();
-        var materialIds = list
-            .SelectMany(f => f.Spec.MaterialCollectionIds)
+        var bps = blueprints.ToArray();
+        var specWithIndexes = bps.Select(bp => {
+            for (int i = 0; i < bp.Specs.Count; i++)
+            {
+                var spec = bp.Specs[i];
+                if (spec is FactionSpec fs)
+                {
+                    return (i, fs);
+                }
+            }
+
+            throw new InvalidOperationException(); // Can't happen
+        }).ToArray();
+
+        var materialIds = specWithIndexes
+            .SelectMany(t => t.fs.MaterialCollectionIds)
             .Distinct()
             .ToImmutableArray();
 
-        foreach (var spec in list)
+        for (int i = 0; i < bps.Length; i++)
         {
-            var original = spec.Spec;
+            var (index, spec) = specWithIndexes[i];
+            var bp = bps[i];
 
-            NamedSpec<FactionSpec> namedSpec = new(spec.Name, original with
+            bp.Specs[index] = spec with
             {
                 MaterialCollectionIds = materialIds,
-                TemplateCollectionIds = [.. original.TemplateCollectionIds, ConfigurableFactionUtils.ModCollectionId],
-                NeedCollectionIds = [.. original.NeedCollectionIds, ConfigurableFactionUtils.ModCollectionId],
-                GoodCollectionIds = [.. original.GoodCollectionIds, ConfigurableFactionUtils.ModCollectionId],
-            });
-            
-            yield return namedSpec;
+                TemplateCollectionIds = [.. spec.TemplateCollectionIds, ConfigurableFactionUtils.ModCollectionId],
+                NeedCollectionIds = [.. spec.NeedCollectionIds, ConfigurableFactionUtils.ModCollectionId],
+                GoodCollectionIds = [.. spec.GoodCollectionIds, ConfigurableFactionUtils.ModCollectionId],
+            };
+
+            yield return bp;
         }
     }
 
