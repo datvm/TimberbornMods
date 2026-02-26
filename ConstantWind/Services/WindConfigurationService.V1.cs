@@ -16,8 +16,6 @@ public class WindConfigurationService(
         var str = s.WindStrength.Value / 100f;
         windService._windServiceSpec = new()
         {
-            MinWindTimeInHours = float.MaxValue,
-            MaxWindTimeInHours = float.MaxValue,
             MinWindStrength = str,
             MaxWindStrength = str,
         };

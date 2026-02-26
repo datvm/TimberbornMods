@@ -4,9 +4,3 @@
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
-
-v10.0.0: (for V1 games only)
-- Should work for Timberborn v1.0
-- Settings is now a text box so you can enter any number including number higher than 100.
-- Settings are now applied immediately including when changing in-game.
-v7.0.0: added support to Update 7 (Update 6 players still benefit from this update). You can also change the settings while in-game now too instead of just at the Main Menu. As with the below note, when changing the settings in-game, you need to wait until the game actually changes the wind.
