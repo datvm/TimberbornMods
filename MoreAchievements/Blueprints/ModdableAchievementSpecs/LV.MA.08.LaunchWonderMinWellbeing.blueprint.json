@@ -1,0 +1,11 @@
+﻿{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.LaunchWonderMinWellbeing.Name",
+        "DescLoc": "LV.MA.LaunchWonderMinWellbeing.Desc",
+        "IsSecret": false,
+        "Order": 80,
+        "Id": "LV.MA.LaunchWonderMinWellbeing",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/LaunchWonderMinWellbeingIcon"
+    }
+}

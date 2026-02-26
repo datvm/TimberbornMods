@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<OutputModFolderName>TImprove4Achievements</OutputModFolderName>
+		<OutputModFolderName>MoreAchievements</OutputModFolderName>
 	</PropertyGroup>
-	
+
 	<Import Project="../Targets/Common.targets" />
-	<Import Project="../Targets/CommonTimberUI.targets" />
+	<Import Project="../Targets/CommonModdableTimberborn.targets" />
 	<Import Project="../Targets/CommonModdableAchievements.targets" />
 
 </Project>

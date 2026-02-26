@@ -1,0 +1,23 @@
+﻿global using MoreAchievements.Achievements;
+global using ModdableTimberborn.EntityTracker;
+global using MoreAchievements.Components;
+
+namespace MoreAchievements;
+
+public class MoreAchievementsConfigs : BaseModdableTimberbornAttributeConfiguration
+{
+
+    public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.MainMenu | ConfigurationContext.Game;
+
+    public override void StartMod(IModEnvironment modEnvironment)
+    {
+        base.StartMod(modEnvironment);
+
+        ModdableTimberbornRegistry.Instance
+            .UseEntityTracker()
+            .TryTrack<Wonder>()
+            .TryTrack<Stockpile>()
+            .TryTrack<Manufactory>();
+    }
+
+}

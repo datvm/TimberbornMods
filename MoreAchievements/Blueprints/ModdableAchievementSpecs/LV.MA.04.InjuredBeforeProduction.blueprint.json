@@ -1,0 +1,11 @@
+﻿{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.InjuredBeforeProduction.Name",
+        "DescLoc": "LV.MA.InjuredBeforeProduction.Desc",
+        "IsSecret": false,
+        "Order": 40,
+        "Id": "LV.MA.InjuredBeforeProduction",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/InjuredBeforeProductionIcon"
+    }
+}

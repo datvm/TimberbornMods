@@ -1,0 +1,11 @@
+﻿{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.ReachPopBeforeCycle.Name",
+        "DescLoc": "LV.MA.ReachPopBeforeCycle.Desc",
+        "IsSecret": false,
+        "Order": 130,
+        "Id": "LV.MA.ReachPopBeforeCycle",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/ReachPopBeforeCycleIcon"
+    }
+}

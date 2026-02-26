@@ -1,0 +1,11 @@
+﻿{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.WorksiteFarFromCenter.Name",
+        "DescLoc": "LV.MA.WorksiteFarFromCenter.Desc",
+        "IsSecret": false,
+        "Order": 150,
+        "Id": "LV.MA.WorksiteFarFromCenter",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/WorksiteFarFromCenterIcon"
+    }
+}

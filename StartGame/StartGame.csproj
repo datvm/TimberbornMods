@@ -15,8 +15,7 @@
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
-		<ProjectReference Include="..\ModdableTimberbornAchievements\ModdableTimberbornAchievements.csproj" />
-		<ProjectReference Include="..\TImprove4Achievements\TImprove4Achievements.csproj" />
+		<ProjectReference Include="..\MoreAchievements\MoreAchievements.csproj" />
 
 
 	</ItemGroup>

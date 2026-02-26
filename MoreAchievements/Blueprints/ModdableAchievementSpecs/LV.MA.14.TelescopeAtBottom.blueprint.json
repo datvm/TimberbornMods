@@ -1,0 +1,11 @@
+﻿{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.TelescopeAtBottom.Name",
+        "DescLoc": "LV.MA.TelescopeAtBottom.Desc",
+        "IsSecret": false,
+        "Order": 140,
+        "Id": "LV.MA.TelescopeAtBottom",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/TelescopeAtBottomIcon"
+    }
+}

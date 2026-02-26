@@ -1,0 +1,11 @@
+﻿{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.LaunchRepopulatorWithBots.Name",
+        "DescLoc": "LV.MA.LaunchRepopulatorWithBots.Desc",
+        "IsSecret": false,
+        "Order": 60,
+        "Id": "LV.MA.LaunchRepopulatorWithBots",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/LaunchRepopulatorWithBotsIcon"
+    }
+}

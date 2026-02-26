@@ -1,0 +1,11 @@
+﻿{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.HighestWonder.Name",
+        "DescLoc": "LV.MA.HighestWonder.Desc",
+        "IsSecret": false,
+        "Order": 30,
+        "Id": "LV.MA.HighestWonder",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/HighestWonderIcon"
+    }
+}

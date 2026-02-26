@@ -1,0 +1,11 @@
+﻿{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.NoAchForCycles.Name",
+        "DescLoc": "LV.MA.NoAchForCycles.Desc",
+        "IsSecret": true,
+        "Order": 100,
+        "Id": "LV.MA.NoAchForCycles",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/NoAchForCyclesIcon"
+    }
+}

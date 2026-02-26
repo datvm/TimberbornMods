@@ -1,0 +1,11 @@
+﻿{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.DemolishResources.Name",
+        "DescLoc": "LV.MA.DemolishResources.Desc",
+        "IsSecret": false,
+        "Order": 10,
+        "Id": "LV.MA.DemolishResources",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/DemolishResourcesIcon"
+    }
+}
