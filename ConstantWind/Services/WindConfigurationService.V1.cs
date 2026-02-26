@@ -14,7 +14,7 @@ public class WindConfigurationService(
     void OnSettingChanged()
     {
         var str = s.WindStrength.Value / 100f;
-        windService._windServiceSpec = new()
+        windService._windServiceSpec = windService._windServiceSpec with
         {
             MinWindStrength = str,
             MaxWindStrength = str,
