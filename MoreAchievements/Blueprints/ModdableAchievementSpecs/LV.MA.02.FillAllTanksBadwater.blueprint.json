@@ -1,0 +1,11 @@
+﻿{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.FillAllTanksBadwater.Name",
+        "DescLoc": "LV.MA.FillAllTanksBadwater.Desc",
+        "IsSecret": false,
+        "Order": 20,
+        "Id": "LV.MA.FillAllTanksBadwater",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/FillAllTanksBadwaterIcon"
+    }
+}

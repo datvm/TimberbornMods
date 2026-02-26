@@ -1,0 +1,11 @@
+﻿{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.NameKitSirBeavington3.Name",
+        "DescLoc": "LV.MA.NameKitSirBeavington3.Desc",
+        "IsSecret": false,
+        "Order": 90,
+        "Id": "LV.MA.NameKitSirBeavington3",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/NameKitSirBeavington3Icon"
+    }
+}

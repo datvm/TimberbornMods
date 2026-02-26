@@ -1,0 +1,11 @@
+﻿{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.LaunchAllWonders.Name",
+        "DescLoc": "LV.MA.LaunchAllWonders.Desc",
+        "IsSecret": false,
+        "Order": 50,
+        "Id": "LV.MA.LaunchAllWonders",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/LaunchAllWondersIcon"
+    }
+}

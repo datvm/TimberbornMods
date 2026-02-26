@@ -2,10 +2,9 @@
 	<PropertyGroup>
 		<OutputModFolderName>TImprove4Achievements</OutputModFolderName>
 	</PropertyGroup>
+	
 	<Import Project="../Targets/Common.targets" />
 	<Import Project="../Targets/CommonTimberUI.targets" />
+	<Import Project="../Targets/CommonModdableAchievements.targets" />
 
-	<ItemGroup>
-		<Reference Include="$(GameModsFolder)ModdableTimberbornAchievements\$(TimberbornVersion)\**\*.dll" Private="False" />
-	</ItemGroup>
 </Project>

@@ -1,0 +1,8 @@
+﻿{
+    "ModdableAchievementGroupSpec": {
+        "Id": "MoreAchievements",
+        "NameLoc": "LV.MA.MoreAchGroup",
+        "Order": -10,
+        "Icon": "Sprites/AchievementGroups/MoreAchievementsIcon"
+    }
+}

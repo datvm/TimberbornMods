@@ -1,0 +1,11 @@
+﻿{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.OnlyEggplants.Name",
+        "DescLoc": "LV.MA.OnlyEggplants.Desc",
+        "IsSecret": false,
+        "Order": 110,
+        "Id": "LV.MA.OnlyEggplants",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/OnlyEggplantsIcon"
+    }
+}

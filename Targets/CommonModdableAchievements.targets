@@ -1,0 +1,11 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<ItemGroup>
+		<Using Include="ModdableTimberbornAchievements.Services" />
+		<Using Include="ModdableTimberbornAchievements.Specs" />
+		<Using Include="ModdableTimberbornAchievements.UI" />
+		
+
+		<Reference Include="$(GameModsFolder)ModdableTimberbornAchievements\$(TimberbornVersion)\**\*.dll" Private="False" />
+	</ItemGroup>
+</Project>
