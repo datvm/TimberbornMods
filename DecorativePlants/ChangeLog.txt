@@ -1,0 +1,3 @@
+﻿v10.1.1:
+- Added .optional prefix so removing a faction no longer causes cryptic errors. If you chose "All Factions", you likely still see an error and need to re-generate the settings anyway.
+- When using "All Factions" option, plants are now in a subgroup of their Factions so the toolbar doesn't get too cluttered.

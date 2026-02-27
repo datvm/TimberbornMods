@@ -23,23 +23,34 @@ public class BlueprintBuilder(
 
         var factions = specs.GetSpecs<FactionSpec>().ToArray();
 
+        Dictionary<string, string>? parentGroups = null;
+        if (options.AllFactions)
+        {
+            parentGroups = BuildBlockObjectToolGroup(factions);
+        }
+
         foreach (var f in factions)
         {
             var fId = f.Id;
 
             List<GeneratedPlant> plants = [];
             HashSet<string> uniquePaths = [];
+            HashSet<string> uniqueTemplateNames = [];
 
-            MakePlantsForFaction(fId, fId, plants, uniquePaths, 0);
+            var parentGroup = parentGroups?[fId] ?? ToolGroupId;
+            MakePlantsForFaction(fId, fId, plants, uniquePaths, uniqueTemplateNames, 0, parentGroup);
             if (options.AllFactions)
             {
                 var orderPadding = 0;
                 foreach (var f2 in factions)
                 {
-                    if (f2.Id == f.Id) { continue; }
+                    var f2Id = f2.Id;
+
+                    if (f2Id == f.Id) { continue; }
+                    var f2ParentGroup = parentGroups?[f2Id] ?? ToolGroupId;
 
                     orderPadding += FactionOrderPadding;
-                    MakePlantsForFaction(f2.Id, fId, plants, uniquePaths, orderPadding);
+                    MakePlantsForFaction(f2Id, fId, plants, uniquePaths, uniqueTemplateNames, orderPadding, f2ParentGroup);
                 }
             }
 
@@ -53,7 +64,7 @@ public class BlueprintBuilder(
 
         diag.Alert(t.T("LV.DP.GenerateDone", factions.Length));
 
-        void MakePlantsForFaction(string fId, string originalFactionId, List<GeneratedPlant> plants, HashSet<string> uniquePaths, int orderPadding)
+        void MakePlantsForFaction(string fId, string originalFactionId, List<GeneratedPlant> plants, HashSet<string> uniquePaths, HashSet<string> uniqueTemplateNames, int orderPadding, string parentGroup)
         {
             var isOriginalFaction = fId == originalFactionId;
             var blueprintPaths = blueprintListingService.GetFactionBlueprints(fId);
@@ -61,7 +72,7 @@ public class BlueprintBuilder(
             {
                 if (!uniquePaths.Add(path)) { continue; }
 
-                var plant = MakeDecorativePlant(path, originalFactionId, isOriginalFaction, orderPadding, options);
+                var plant = MakeDecorativePlant(path, originalFactionId, isOriginalFaction, orderPadding, uniqueTemplateNames, parentGroup, options);
 
                 if (plant is not null)
                 {
@@ -71,23 +82,54 @@ public class BlueprintBuilder(
         }
     }
 
-    GeneratedPlant? MakeDecorativePlant(string path, string factionId, bool isOriginalFaction, int orderPadding, BuildOptions options)
+    Dictionary<string, string> BuildBlockObjectToolGroup(FactionSpec[] factions)
+    {
+        Dictionary<string, string> factionToGroupId = [];
+
+        var order = 0;
+        foreach (var f in factions)
+        {
+            var id = $"DecorativePlants.{f.Id}";
+            factionToGroupId[f.Id] = id;
+
+            var filePath = PersistentService.GetPlantGroupSpecFilePath(id);
+            File.WriteAllText(filePath, $$"""
+                {
+                    "BlockObjectToolGroupSpec": {
+                        "Id": "{{id}}",
+                        "Order": {{++order}},
+                        "NameLocKey": "{{f.DisplayNameLocKey}}",
+                        "Icon": "{{f.Logo.Path}}"
+                    },
+                    "ParentToolGroupSpec": {
+                        "ParentIds": [ "{{ToolGroupId}}" ]
+                    }
+                }
+                """);
+        }
+
+        return factionToGroupId;
+    }
+
+    GeneratedPlant? MakeDecorativePlant(string path, string factionId, bool isOriginalFaction, int orderPadding, HashSet<string> uniqueTemplateNames, string toolGroupId, BuildOptions options)
     {
         var text = assetLoader.Load<BlueprintAsset>(path).Content;
 
         var src = JObject.Parse(text);
         var template = src[nameof(TemplateSpec)]?.Value<JObject>();
         if (template is null) { return null; }
+        var srcTemplateName = template.GetProperty<string>(nameof(TemplateSpec.TemplateName));
+
+        if (!uniqueTemplateNames.Add(srcTemplateName)) { return null; }
 
         var naturalResourceOrder = IsNaturalResource(src);
 
         if (naturalResourceOrder is null) { return null; }
 
         JObject dst = [];
-        var srcTemplateName = template.GetProperty<string>(nameof(TemplateSpec.TemplateName));
         var templateName = $"DecorativePlants.{srcTemplateName}.{factionId}";
 
-        MakeBuildingSpecs(src, dst, naturalResourceOrder.Value, templateName, options.Free, isOriginalFaction, orderPadding);
+        MakeBuildingSpecs(src, dst, naturalResourceOrder.Value, templateName, options.Free, isOriginalFaction, orderPadding, toolGroupId);
         CopyBlockObjectSpec(src, dst, options.Free && options.NoOccupation);
         CopyLabel(src, dst);
         CopyModel(src, dst);
@@ -98,7 +140,7 @@ public class BlueprintBuilder(
         return new(templateName, PersistentService.GetBuildingAssetPath(templateName));
     }
 
-    static void MakeBuildingSpecs(JObject src, JObject dst, int order, string templateName, bool free, bool isOriginalFaction, int orderPadding)
+    static void MakeBuildingSpecs(JObject src, JObject dst, int order, string templateName, bool free, bool isOriginalFaction, int orderPadding, string toolGroupId)
     {
         var buildingSpec = dst[nameof(BuildingSpec)] = JObject.Parse($$"""
             {
@@ -140,7 +182,7 @@ public class BlueprintBuilder(
 
         dst[nameof(PlaceableBlockObjectSpec)] = JObject.Parse($$"""
             {
-                "ToolGroupId": "{{ToolGroupId}}",
+                "ToolGroupId": "{{toolGroupId}}",
                 "ToolOrder": {{order}},
                 "ToolShape": "Square",
                 "Layout": "{{nameof(BlockObjectLayout.Rectangle)}}",
@@ -273,6 +315,9 @@ public class BlueprintBuilder(
         {
             var src = blueprintSourceService.Get(f.Blueprint);
             var filePath = PersistentService.GetFilePathAndPrepareFolder(src.Path);
+
+            // Make it optional
+            filePath = PersistentService.MakePathOptional(filePath);
 
             File.WriteAllText(filePath, $$"""
                 {
