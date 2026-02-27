@@ -7,10 +7,15 @@ public static class PersistentService
     public const string BuildingsFolderName = "Buildings";
     public const string TemplateCollectionsFolderName = nameof(TemplateCollectionSpec) + "s";
     public const string FactionFolderName = "Factions";
+    public const string ToolGroupSpecsFolderName = "BlockObjectToolGroupSpecs";
+
+    public const string BlueprintFilePostfix = ".blueprint.json";
+    public const string BlueprintOptionalPostfix = ".optional";
 
     public static readonly string TemplatePath = Path.Combine(MStarter.ModFolder, BlueprintTemplatePath);
     public static readonly string BuildingsFolder = Path.Combine(TemplatePath, BuildingsFolderName);
     public static readonly string TemplateCollectionsFolder = Path.Combine(TemplatePath, TemplateCollectionsFolderName);
+    public static readonly string ToolGroupSpecsFolder = Path.Combine(TemplatePath, ToolGroupSpecsFolderName);
 
     // This folder is not in our generated folder to overwrite base game files.
     public static readonly string FactionsFolder = Path.Combine(MStarter.ModFolder, FactionFolderName);
@@ -22,16 +27,20 @@ public static class PersistentService
         Directory.CreateDirectory(BuildingsFolder);
         Directory.CreateDirectory(TemplateCollectionsFolder);
         Directory.CreateDirectory(FactionsFolder);
+        Directory.CreateDirectory(ToolGroupSpecsFolder);
     }
 
     public static string GetTemplateCollectionPath(string collectionId)
-        => Path.Combine(TemplateCollectionsFolder, $"{collectionId}.blueprint.json");
+        => Path.Combine(TemplateCollectionsFolder, $"{collectionId}{BlueprintFilePostfix}");
 
     public static string GetBuildingAssetPath(string templateName)
         => $"{BlueprintTemplatePath}{BuildingsFolderName}/{templateName}.blueprint";
 
     public static string GetBuildingTemplateFilePath(string templateName)
         => Path.Combine(BuildingsFolder, $"{templateName}.blueprint.json");
+
+    public static string GetPlantGroupSpecFilePath(string groupId)
+        => Path.Combine(ToolGroupSpecsFolder, $"{groupId}.blueprint.json");
 
     public static bool HasData() => Directory.EnumerateFiles(TemplateCollectionsFolder).Any();
 
@@ -48,6 +57,21 @@ public static class PersistentService
         Directory.CreateDirectory(folder);
 
         return path;
+    }
+
+    public static string MakePathOptional(string path)
+    {
+        if (!path.EndsWith(BlueprintFilePostfix, StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException($"Path must end with {BlueprintFilePostfix}");
+        }
+
+        if (path.EndsWith($"{BlueprintOptionalPostfix}{BlueprintFilePostfix}"))
+        {
+            return path;
+        }
+
+        return path[..^BlueprintFilePostfix.Length] + BlueprintOptionalPostfix + BlueprintFilePostfix;
     }
 
     public static void Clear()
