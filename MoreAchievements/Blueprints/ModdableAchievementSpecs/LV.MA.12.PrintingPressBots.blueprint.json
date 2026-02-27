@@ -1,0 +1,11 @@
+﻿{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.PrintingPressBots.Name",
+        "DescLoc": "LV.MA.PrintingPressBots.Desc",
+        "IsSecret": true,
+        "Order": 120,
+        "Id": "LV.MA.PrintingPressBots",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/PrintingPressBotsIcon"
+    }
+}

@@ -11,6 +11,16 @@ public class AchievementDescriptionUpdater(ModdableAchievementSpecService specs)
         TransformDescription(NoAchForCyclesAchievement.AchId, [NoAchForCyclesAchievement.RequiredCycles]);
         TransformDescription(DemolishResourcesAchievement.AchId, [DemolishResourcesAchievement.DemolishCount]);
         TransformDescription(FillAllTanksBadwaterAchievement.AchId, [FillAllTanksBadwaterAchievement.MinimumBadwater]);
+        TransformDescription(LaunchWonderMaxWellbeingAchievement.AchId, [LaunchWonderMaxWellbeingAchievement.MaxWellbeing]);
+        TransformDescription(LaunchWonderExactWellbeingAchievement.AchId, [LaunchWonderExactWellbeingAchievement.RequiredWellbeing]);
+        TransformDescription(LaunchWonderDistrictsExactWellbeingAchievement.AchId, [
+            LaunchWonderDistrictsExactWellbeingAchievement.RequiredWellbeing,
+            LaunchWonderDistrictsExactWellbeingAchievement.DistrictCount1,LaunchWonderDistrictsExactWellbeingAchievement.DistrictCount2
+        ]);
+        TransformDescription(NameKitSirBeavington3Achievement.AchId, [NameKitSirBeavington3Achievement.RequiredName]);
+        TransformDescription(OnlyEggplantsAchievement.AchId, [OnlyEggplantsAchievement.AmountRequired]);
+        TransformDescription(ReachPopBeforeCycleAchievement.AchId, [ReachPopBeforeCycleAchievement.RequiredBeavers, ReachPopBeforeCycleAchievement.BeforeCycle]);
+        TransformDescription(WorksiteFarFromCenterAchievement.AchId, [WorksiteFarFromCenterAchievement.RequiredDistance]);
 
         void TransformDescription(string id, object[] formatParameters)
         {

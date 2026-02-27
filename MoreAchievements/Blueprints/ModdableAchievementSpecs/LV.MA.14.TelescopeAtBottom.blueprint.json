@@ -2,7 +2,7 @@
     "ModdableAchievementSpec": {
         "NameLoc": "LV.MA.TelescopeAtBottom.Name",
         "DescLoc": "LV.MA.TelescopeAtBottom.Desc",
-        "IsSecret": false,
+        "IsSecret": true,
         "Order": 140,
         "Id": "LV.MA.TelescopeAtBottom",
         "GroupId": "MoreAchievements",

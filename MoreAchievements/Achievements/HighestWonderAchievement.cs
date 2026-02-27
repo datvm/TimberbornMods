@@ -2,10 +2,9 @@
 
 [MultiBind(typeof(Achievement))]
 public class HighestWonderAchievement(
-    DefaultEntityTracker<Wonder> wonderTracker,
-    MapSize mapSize,
-    TemplateService templateService
-) : Achievement, ILoadableSingleton
+    AchievementWonderService service,
+    MapSize mapSize
+) : BaseWonderLaunchAchievement(service)
 {
     public const string AchId = "LV.MA.HighestWonder";
 
@@ -13,47 +12,20 @@ public class HighestWonderAchievement(
 
     public int RequiredHeight { get; private set; }
 
+    public override bool CanBeAchieved => RequiredHeight > 0;
+    public override bool ShouldUnlock(Wonder launchedWonder)
+        => launchedWonder.GetComponent<BlockObject>().Coordinates.z >= RequiredHeight;
+
     public override void EnableInternal()
     {
-        foreach (var w in wonderTracker.Entities)
-        {
-            w.WonderActivated += OnWonderActivated;
-        }
-        wonderTracker.OnEntityRegistered += TrackWonder;
-    }
+        var wonders = service.WonderTemplates.Values;
 
-    public override void DisableInternal()
-    {
-        wonderTracker.OnEntityRegistered -= TrackWonder;
-        foreach (var w in wonderTracker.Entities)
-        {
-            w.WonderActivated -= OnWonderActivated;
-        }
-    }
+        if (wonders.Length == 0) { return; }
 
-    void TrackWonder(Wonder w)
-    {
-        w.WonderActivated += OnWonderActivated;
-    }
+        var minWonderHeight = wonders.Min(w => w.GetSpec<BlockObjectSpec>().Size.z);
+        RequiredHeight = mapSize.TotalSize.z - minWonderHeight;
 
-    void OnWonderActivated(object sender, EventArgs e)
-    {
-        var obj = ((Wonder)sender).GetComponent<BlockObject>();
-        var z = obj.Coordinates.z;
-
-        if (z >= RequiredHeight)
-        {
-            Unlock();
-        }
-    }
-
-    public void Load()
-    {
-        var wonder = templateService.GetAll<WonderSpec>().FirstOrDefault()
-            ?? throw new InvalidOperationException($"[{nameof(MoreAchievements)}] This faction does not have a wonder?");
-
-        var wonderHeight = wonder.GetSpec<BlockObjectSpec>().Size.z;
-        RequiredHeight = mapSize.TotalSize.z - wonderHeight;
+        base.EnableInternal();
     }
 
 }
