@@ -18,7 +18,7 @@ public class AchievementElement : VisualElement
 
         var parent = this;
 
-        parent.AddImage(spec.Icon.Asset).SetSize(30).SetMarginRight(10);
+        parent.AddImage(spec.Icon.Asset).SetSize(128).SetMarginRight(10);
 
         var content = ContentPanel = parent.AddChild().SetFlexGrow().SetFlexShrink();
         ShowDetails = isUnlocked || !spec.IsSecret || showSecret;

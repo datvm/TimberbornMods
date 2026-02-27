@@ -1,6 +1,7 @@
 ﻿global using MoreAchievements.Achievements;
 global using ModdableTimberborn.EntityTracker;
 global using MoreAchievements.Components;
+global using MoreAchievements.Services;
 
 namespace MoreAchievements;
 

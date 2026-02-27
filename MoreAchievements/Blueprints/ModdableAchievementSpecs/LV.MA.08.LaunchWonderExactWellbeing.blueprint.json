@@ -1,0 +1,11 @@
+﻿{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.LaunchWonderExactWellbeing.Name",
+        "DescLoc": "LV.MA.LaunchWonderExactWellbeing.Desc",
+        "IsSecret": false,
+        "Order": 80,
+        "Id": "LV.MA.LaunchWonderExactWellbeing",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/LaunchWonderExactWellbeingIcon"
+    }
+}
