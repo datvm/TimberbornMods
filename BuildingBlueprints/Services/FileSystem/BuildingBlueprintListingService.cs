@@ -9,6 +9,18 @@ public class BuildingBlueprintListingService(IEnumerable<IBlueprintFileProvider>
 
     readonly ImmutableArray<IBlueprintFileProvider> providers = [.. providers];
 
+    public static string GetNameFromFilePath(string filePath)
+    {
+        if (filePath.EndsWith(FilePostfix, StringComparison.OrdinalIgnoreCase))
+        {
+            return Path.GetFileName(filePath)[..^FilePostfix.Length];
+        }
+        else
+        {
+            throw new ArgumentException($"File path '{filePath}' does not end with the expected postfix '{FilePostfix}'.", nameof(filePath));
+        }
+    }
+
     public IEnumerable<SerializableBuildingBlueprint> GetBlueprints()
     {
         Dictionary<string, int> nameCounters = [];
@@ -32,7 +44,7 @@ public class BuildingBlueprintListingService(IEnumerable<IBlueprintFileProvider>
                     bp = JsonConvert.DeserializeObject<SerializableBuildingBlueprint>(content)
                         ?? throw new InvalidDataException("Deserialized blueprint is null");
 
-                    var name = Path.GetFileName(path)[..^FilePostfix.Length];
+                    var name = GetNameFromFilePath(path);
                     if (nameCounters.TryGetValue(name, out var count))
                     {
                         name += $" [{count + 1}]";

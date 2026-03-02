@@ -11,6 +11,9 @@ public record SerializableBuildingBlueprint(
 
     [JsonIgnore]
     public BuildingBlueprintSourceInfo Source { get; set; }
+
+    public HashSet<string> Tags { get; init; } = [];
+
 }
 
 public readonly record struct SerializableBuildingPlacement(
@@ -24,4 +27,14 @@ public readonly record struct SerializableBuildingPlacement(
 public readonly record struct BuildingBlueprintSourceInfo(
     string FilePath,
     bool IsLocal
-);
+)
+{
+    public Sprite GetIcon(NamedIconProvider namedIconProvider) => GetIcon(IsLocal, namedIconProvider);
+
+    public static Sprite GetIcon(bool isLocal, NamedIconProvider namedIconProvider)
+    {
+        var iconName = isLocal ? "local-file-icon" : "cloud-file-icon";
+        return namedIconProvider.GetOrLoad(iconName, "UI/Images/Core/" + iconName);
+    }
+
+}

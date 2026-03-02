@@ -4,5 +4,6 @@ global using BuildingBlueprints.Services;
 global using BuildingBlueprints.Services.FileSystem;
 global using BuildingBlueprints.Tools;
 global using BuildingBlueprints.UI;
+global using BuildingBlueprints.UI.BlueprintDialogElements;
 global using ModdableTimberborn.BuildingSettings;
 global using Newtonsoft.Json.Linq;

@@ -1,4 +1,8 @@
-﻿v10.3.0
+﻿v10.4.0
+- Added Tag feature. Tags are saved with blueprints so workshop creator can also upload blueprints with tags.
+- Revamp the blueprint list UI, you can now manage your blueprints in a more convenient way: Rename/Delete a blueprint, filter blueprints by keyword, tag or source (local/workshop), and more.
+
+v10.3.0
 #12 Unfinished buildings now show up when using the tools.
 #9 Nudge feature.
 

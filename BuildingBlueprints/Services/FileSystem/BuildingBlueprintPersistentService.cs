@@ -57,6 +57,8 @@ public class BuildingBlueprintPersistentService(IExplorerOpener explorerOpener)
 
     public static IEnumerable<string> GetBlueprintFiles() => Directory.EnumerateFiles(BlueprintFolder, BuildingBlueprintListingService.FileSearchPattern);
 
+    public static void DeleteBlueprintFile(string path) => File.Delete(path);
+
     public void ShowFolder() => explorerOpener.OpenDirectory(BlueprintFolder);
 
     public enum ValidationResult
