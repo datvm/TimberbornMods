@@ -1,14 +1,5 @@
 ﻿namespace ConfigurableToolGroups;
 
-[Context("MainMenu")]
-public class MMenuConfig : Configurator
-{
-    public override void Configure()
-    {
-        Bind<TutorialSettingsService>().AsSingleton();
-    }
-}
-
 [Context("Game")]
 [Context("MapEditor")]
 public class ConfigurableToolGroupsConfig : Configurator
@@ -16,8 +7,6 @@ public class ConfigurableToolGroupsConfig : Configurator
 
     public override void Configure()
     {
-        Bind<TutorialSettingsService>().AsSingleton();
-
         Bind<ModdableToolGroupButtonFactory>().AsSingleton();
 
         Bind<ModdableToolGroupSpecService>().AsSingleton();
