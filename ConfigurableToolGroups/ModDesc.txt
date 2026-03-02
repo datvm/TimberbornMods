@@ -1,11 +1,11 @@
-﻿[b]TLDR: Subscribe to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3293437485]More Groups[/url] and this mod, disable Tutorial if crash.[/b]
+﻿[b]TLDR: Subscribe to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3293437485]More Groups[/url] and this mod.[/b]
 
 Moddable Tool Groups gives full control over how tool groups are structured. It lets mods create multi-level tool groups, put the same tool/group in multiple places, and freely reorganize the tool hierarchy.
 
 You can also add hotkey support by subscribing to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3625954202]Moddable Tool Groups Hotkeys[/url].
 
 [b]Note to players:[/b]
-- Tutorial may cause crashes if certain tools appear in multiple groups. Disable the Tutorial option in Settings if you experience crashes.
+- Certain feature of the tutorials (like highlighting the building) only works limitedly when there are multiple levels.
 - This mod does nothing on its own. It only provides a framework that other mods can use to add multi-level tool groups. [b]You can pick any flavor from those mods like [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3293437485]More Groups[/url][/b] or my own [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3612247861]More Organized Tool Groups mod[/url].
 
 For modders: official docs is now at https://github.com/datvm/TimberbornMods/tree/master/Docs/ModdableToolGroups#README
