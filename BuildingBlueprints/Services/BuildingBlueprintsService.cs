@@ -8,7 +8,8 @@ public class BuildingBlueprintsService(
     ScienceService scienceService,
     BuildingUnlockingService buildingUnlockingService,
     BuildingBlueprintListingService listingService,
-    BlueprintBuildingSettingsService buildingSettingsService
+    BlueprintBuildingSettingsService buildingSettingsService,
+    BuildingBlueprintTagService tagService
 ) : IPostLoadableSingleton
 {
 
@@ -117,14 +118,23 @@ public class BuildingBlueprintsService(
                 ));
             }
 
+            IEnumerable<string> tags = bp.Tags;
+            if (bp.Tags.Count == 0)
+            {
+                tags = tags.Append(tagService.UntaggedName);
+            }
+
             var (sx, sy) = bp.Size;
             parsedCache.Add(new(
-                bp.Name, bp.Source, new(sx, sy),
+                bp,
                 [.. placements],
                 [.. counter],
-                [.. cost.Select(kv => new GoodAmount(kv.Key, kv.Value))]
+                [.. cost.Select(kv => new GoodAmount(kv.Key, kv.Value))],
+                [..tags]
             ));
         }
+
+        tagService.OnBlueprintCacheUpdated(parsedCache);
     }
 
     ParsedBlueprintBuilding ParseBuilding(SerializableBuildingPlacement building)
@@ -186,6 +196,20 @@ public class BuildingBlueprintsService(
         bool IsLocked(string templateName, [NotNullWhen(true)] out ITool? tool)
             => toolByTemplateName.TryGetValue(templateName, out tool)
             && toolUnlockingService.IsLocked(tool);
+    }
+
+    public IEnumerable<ParsedValidatedBlueprintTag> GetValidatedBlueprintTags()
+    {
+        var bps = GetParsedBlueprintsWithValidation()
+            .ToDictionary(bp => bp.Blueprint.Name);
+
+        foreach (var tag in tagService.Tags)
+        {
+            yield return new(
+                tag.Name,
+                [.. tag.Blueprints.Select(bp => bps[bp.Name])]
+            );
+        }
     }
 
     public bool HasEnoughScience(int requirement) => scienceService.SciencePoints >= requirement;

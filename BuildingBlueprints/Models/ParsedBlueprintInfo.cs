@@ -1,14 +1,16 @@
 ﻿namespace BuildingBlueprints.Models;
 
 public record ParsedBlueprintInfo(
-    string Name,
-    BuildingBlueprintSourceInfo Source,
-    Vector2Int Size,
+    SerializableBuildingBlueprint RawInfo,
     ImmutableArray<ParsedBlueprintBuildingPlacement> Buildings,
     ImmutableArray<KeyValuePair<ParsedBlueprintBuilding, int>> BuildingsCount,
-    ImmutableArray<GoodAmount> Costs
+    ImmutableArray<GoodAmount> Costs,
+    FrozenSet<string> Tags
 )
 {
+    public string Name => RawInfo.Name;
+    public ValueTuple<int, int> Size => RawInfo.Size;
+
     public IEnumerable<ValueTuple<string, int>> TemplatesAndCount
         => BuildingsCount.Select(kv => (kv.Key.TemplateName, kv.Value));
 
@@ -48,6 +50,7 @@ public class BlueprintWithValidation(ParsedBlueprintInfo Blueprint)
     public bool HasLockedTools => LockedTools.Count > 0;
     public int ScienceCost { get; set; }
 
+    public bool HasMissingTemplates => MissingTemplates.Count > 0;
     public bool Invalid => MissingTemplates.Count > 0 || LockedTools.Count > 0;
 
 }

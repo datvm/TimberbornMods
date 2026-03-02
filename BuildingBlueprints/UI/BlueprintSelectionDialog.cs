@@ -4,12 +4,10 @@
 public class BlueprintSelectionDialog(
     BuildingBlueprintsService blueprintService,
     BuildingBlueprintPersistentService persistentService,
-    IGoodService goods,
-    NamedIconProvider namedIconProvider,
     DialogService diag,
     BlueprintWorkshopServiceResolver workshopServiceResolver,
+    BlueprintListingSettings listingSettings,
     IContainer container,
-
     ILoc t,
     VisualElementInitializer veInit,
     PanelStack panelStack
@@ -17,12 +15,13 @@ public class BlueprintSelectionDialog(
 {
 
 #nullable disable
-    VisualElement lstBlueprints;
-    Button btnBuild;
+    VisualElement blueprintList;
+    BlueprintFilterPanel filterPanel;
+    Label lblFilter;
 #nullable enable
 
-    ParsedBlueprintInfo? SelectingBlueprint => bpEls.FirstOrDefault(el => el.Selected)?.Blueprint;
-    readonly List<BuildingBlueprintElement> bpEls = [];
+    readonly List<BuildingBlueprintElement> blueprintEls = [];
+    ParsedBlueprintInfo? selected;
 
     public async Task<ParsedBlueprintInfo?> PickAsync()
     {
@@ -30,11 +29,11 @@ public class BlueprintSelectionDialog(
         AddCloseButton();
         SetDialogPercentSize(height: .75f);
 
+
         var parent = Content;
 
         var buttons = parent.AddRow().SetMarginBottom(10);
-        buttons.AddChild().SetMarginLeftAuto();
-
+        
         if (workshopServiceResolver.IsSupported)
         {
             buttons.AddGameButtonPadded(t.T("LV.BB.UploadWorkshop"), onClick: ShowUploadDialog).SetMarginRight(5);
@@ -45,19 +44,23 @@ public class BlueprintSelectionDialog(
                 buttons.AddGameButtonPadded(t.T("LV.BB.BrowseWorkshop"), onClick: () => OpenUrl(url)).SetMarginRight(5);
             }
         }
+
+        buttons.AddChild().SetMarginLeftAuto();
+        
         buttons.AddGameButtonPadded(t.T("LV.BB.Browse"), onClick: persistentService.ShowFolder).SetMarginRight(5);
         buttons.AddGameButtonPadded(t.T("LV.BB.Reload"), onClick: RefreshCache);
 
-        parent.AddLabel(t.T("LV.BB.SelectDesc")).SetMarginBottom(10);
+        filterPanel = container.GetInstance<BlueprintFilterPanel>().SetMarginBottom();
+        filterPanel.FilterChanged += ApplyFilter;
+        parent.Add(filterPanel);
 
-        btnBuild = parent.AddMenuButton(t.T("LV.BB.Build"), onClick: OnUIConfirmed, stretched: true);
-        btnBuild.enabledSelf = false;
+        lblFilter = parent.AddLabel().SetMarginBottom(10).SetMarginLeftAuto();
 
-        lstBlueprints = parent.AddChild();
+        blueprintList = parent.AddChild();
         ReloadContent();
 
         var confirmed = await ShowAsync(veInit, panelStack);
-        return confirmed ? SelectingBlueprint : null;
+        return confirmed ? selected : null;
     }
 
     void OpenUrl(string url) => Application.OpenURL(url);
@@ -75,45 +78,57 @@ public class BlueprintSelectionDialog(
 
     void ReloadContent()
     {
-        lstBlueprints.Clear();
-        bpEls.Clear();
+        blueprintList.Clear();
+        blueprintEls.Clear();
 
         foreach (var bp in blueprintService.GetParsedBlueprintsWithValidation())
         {
-            BuildingBlueprintElement el = new(bp, t, goods, namedIconProvider);
-            bpEls.Add(el);
-            el.BlueprintSelected += () => OnBlueprintSelected(el);
-            el.UnlockRequested += () => ProcessUnlockRequest(bp);
+                var el = blueprintList.AddChild(container.GetInstance<BuildingBlueprintElement>);
+                el.Init(bp);
+                blueprintEls.Add(el);
 
-            lstBlueprints.Add(el.SetMarginBottom());
+                el.BlueprintSelected += () => OnBlueprintSelected(bp);
+                el.UnlockRequested += () => ProcessUnlockRequest(bp);
+                el.EditRequested += () => ShowEditAsync(bp);
         }
 
-        if (bpEls.Count == 0)
+        if (blueprintEls.Count == 0)
         {
-            lstBlueprints.AddLabel(t.T("LV.BB.NoBlueprints"));
+            blueprintList.AddLabel(t.T("LV.BB.NoBlueprints"));
+        }
+
+        filterPanel.ReloadContent();
+
+        ApplyFilter();
+    }
+
+    void ApplyFilter()
+    {
+        var count = 0;
+
+        foreach (var tag in blueprintEls)
+        {
+            if (tag.Filter(listingSettings))
+            {
+                count++;
+            }
+        }
+
+        if (count == blueprintEls.Count)
+        {
+            lblFilter.SetDisplay(false);
         }
         else
         {
-            var el = bpEls.FirstOrDefault(e => !e.Invalid);
-            if (el is not null)
-            {
-                el.Selected = true;
-                OnBlueprintSelected(el);
-            }
+            lblFilter.text = t.T("LV.BB.FilterStat", count, blueprintEls.Count);
+            lblFilter.SetDisplay(true);
         }
     }
 
-    void OnBlueprintSelected(BuildingBlueprintElement el)
+    void OnBlueprintSelected(BlueprintWithValidation bp)
     {
-        foreach (var other in bpEls)
-        {
-            if (other != el && other.Selected)
-            {
-                other.Selected = false;
-            }
-        }
-
-        btnBuild.enabledSelf = true;
+        selected = bp.Blueprint;
+        OnUIConfirmed();
     }
 
     async void ProcessUnlockRequest(BlueprintWithValidation bp)
@@ -137,6 +152,14 @@ public class BlueprintSelectionDialog(
 
         blueprintService.UnlockToolsForBlueprint(bp);
         ReloadContent();
+    }
+
+    async void ShowEditAsync(BlueprintWithValidation bp)
+    {
+        var diag = container.GetInstance<BlueprintEditDialog>();
+        await diag.ShowEditAsync(bp.Blueprint);
+
+        RefreshCache();
     }
 
 }
