@@ -15,7 +15,7 @@
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
-		<ProjectReference Include="..\BuildingBlueprints\BuildingBlueprints.csproj" />
+		<ProjectReference Include="..\ModdableRecipes\ModdableRecipes.csproj" />
 
 
 	</ItemGroup>

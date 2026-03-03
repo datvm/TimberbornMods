@@ -43,6 +43,10 @@
 		<Using Include="Timberborn.Attractions"/>
 		<Using Include="Timberborn.AttractionsBatchControl"/>
 		<Using Include="Timberborn.AttractionsUI"/>
+		<Using Include="Timberborn.Automation"/>
+		<Using Include="Timberborn.AutomationBuildings"/>
+		<Using Include="Timberborn.AutomationBuildingsUI"/>
+		<Using Include="Timberborn.AutomationUI"/>
 		<Using Include="Timberborn.Autosaving"/>
 		<Using Include="Timberborn.AutosavingUI"/>
 		<Using Include="Timberborn.BaseComponentSystem"/>
@@ -164,6 +168,8 @@
 		<Using Include="Timberborn.FieldsUI"/>
 		<Using Include="Timberborn.FileBrowsing"/>
 		<Using Include="Timberborn.FileSystem"/>
+		<Using Include="Timberborn.FireworkSystem"/>
+		<Using Include="Timberborn.FireworkSystemUI"/>
 		<Using Include="Timberborn.Forestry"/>
 		<Using Include="Timberborn.ForestryEffects"/>
 		<Using Include="Timberborn.ForestryUI"/>
@@ -212,6 +218,10 @@
 		<Using Include="Timberborn.HazardousWeatherSystemUI"/>
 		<Using Include="Timberborn.Healthcare"/>
 		<Using Include="Timberborn.HousingBatchControl"/>
+		<Using Include="Timberborn.HttpApiSystem"/>
+		<Using Include="Timberborn.HttpApiSystemUI"/>
+		<Using Include="Timberborn.Illumination"/>
+		<Using Include="Timberborn.IlluminationUI"/>
 		<Using Include="Timberborn.InputSystem"/>
 		<Using Include="Timberborn.InputSystemUI"/>
 		<Using Include="Timberborn.Intro"/>
@@ -506,6 +516,7 @@
 		<Using Include="Timberborn.ZiplineMovementSystem"/>
 		<Using Include="Timberborn.ZiplineSystem"/>
 		<Using Include="Timberborn.ZiplineSystemUI"/>
+
 
 
 	</ItemGroup>

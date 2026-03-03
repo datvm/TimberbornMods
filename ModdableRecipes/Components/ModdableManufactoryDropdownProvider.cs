@@ -17,8 +17,9 @@ public class ModdableManufactoryDropdownProvider(ModdableRecipeUIController cont
         provider = GetComponent<ManufactoryDropdownProvider>();
     }
 
-    public string FormatDisplayText(string value) => GetItem(value).DisplayName;
+    public string FormatDisplayText(string value, bool selected) => GetItem(value).DisplayName;
     public Sprite? GetIcon(string value) => GetItem(value).Icon;
+    public ImmutableArray<string> GetItemClasses(string value) => [];
 
     public string GetValue()
     {
@@ -64,7 +65,5 @@ public class ModdableManufactoryDropdownProvider(ModdableRecipeUIController cont
 
         Items = [.. items.Select((_, i) => i.ToString())];
     }
-
-
 
 }
