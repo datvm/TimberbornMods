@@ -30,7 +30,7 @@ public static partial class UiBuilderExtensions
     public static Dropdown SetSelectedItem<T>(this T dropdown, string value) where T : Dropdown
     {
         dropdown._dropdownProvider?.SetValue(value);
-        dropdown.RefreshContent();
+        dropdown.UpdateSelectedValue();
         return dropdown;
     }
 
@@ -43,7 +43,7 @@ public static partial class UiBuilderExtensions
         }
 
         dropdown._dropdownProvider!.SetValue(dropdown._dropdownProvider.Items[index]);
-        dropdown.RefreshContent();
+        dropdown.UpdateSelectedValue();
         return dropdown;
     }
 
