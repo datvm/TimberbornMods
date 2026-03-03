@@ -1,0 +1,62 @@
+ManifestFileVersion: 0
+UnityVersion: 6000.3.0f1
+CRC: 805441210
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 91abc9dfdc63e894baba059bf0da10f1
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1ad579ced57ffbafdb3806f5eceb7be8
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 7b98101ecccbbabc2f350ed55e24e5f2
+HashAppended: 0
+ClassTypes:
+- Class: 114
+  Script: {fileID: 11998, guid: 0000000000000000e000000000000000, type: 0}
+- Class: 114
+  Script: {fileID: 11995, guid: 0000000000000000e000000000000000, type: 0}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: Timberborn.CoreUI
+  ClassName: Timberborn.CoreUI.LocalizableToggle/UxmlSerializedData
+- AssemblyName: Timberborn.CoreUI
+  ClassName: Timberborn.CoreUI.NineSliceVisualElement/UxmlSerializedData
+- AssemblyName: Timberborn.CoreUI
+  ClassName: Timberborn.CoreUI.PreciseSlider/UxmlSerializedData
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.Label/UxmlFactory
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.Label/UxmlSerializedData
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.StyleComplexSelector
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.StyleProperty
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.StyleRule
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.StyleSelector
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.StyleSelectorPart
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.StyleSheets.Dimension
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.StyleValueHandle
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.Toggle/UxmlFactory
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.Toggle/UxmlSerializedData
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.UxmlRootElementFactory
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.VisualElement/UxmlFactory
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.VisualElement/UxmlSerializedData
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.VisualElementAsset
+Assets:
+- Assets/Mods/SluiceIsBack/AssetBundles/UI/Views/Game/EntityPanel/LVSluiceFragment.uxml
+- Assets/Mods/SluiceIsBack/AssetBundles/UI/Views/Game/EntityPanel/EntityPanelGameStyle.uss
+Dependencies: []

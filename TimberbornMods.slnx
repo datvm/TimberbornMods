@@ -185,6 +185,7 @@
   <Project Path="PowerShaftSwitch/PowerShaftSwitch.csproj" />
   <Project Path="RubbleSatisfactidy/RubbleSatisfactidy.csproj" />
   <Project Path="SaveEveryday/SaveEveryday.csproj" />
+  <Project Path="SluiceIsBack/SluiceIsBack.csproj" Id="42067f99-093b-4d62-a4b1-afdad82f6218" />
   <Project Path="StableCore/StableCore.csproj" />
   <Project Path="StreamGaugeTracker/StreamGaugeTracker.csproj" />
   <Project Path="TestMod/TestMod.csproj" />

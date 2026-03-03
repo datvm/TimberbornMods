@@ -1,0 +1,10 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "Blueprints#append": [
+            "Buildings/Landscaping/LVSluice/Sluice.IronTeeth.blueprint"
+        ],
+        "Blueprints#remove": [
+            "Buildings/Landscaping/Sluice/Sluice.IronTeeth.blueprint"
+        ]
+    }
+}

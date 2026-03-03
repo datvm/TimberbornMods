@@ -1,0 +1,6 @@
+﻿This mod brings back the Sluice that was hidden last patch. This mod does NOT simply unhide the building. It has its own copy of the model and code so your Sluice won't be affected even if the game removes it in the future. Your current Sluice will be seamlessly replaced with the new one.
+
+I only extracted the model and code. They belong to the developer. Credit to Todor Alin for helping me building the UI bundle as well.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

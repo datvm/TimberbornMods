@@ -1,0 +1,11 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "Blueprints#append": [
+            "Buildings/Landscaping/LVSluice/Sluice.Folktails.blueprint"
+        ],
+        "Blueprints#remove": 
+        [
+            "Buildings/Landscaping/Sluice/Sluice.Folktails.blueprint"
+        ]
+    }
+}
