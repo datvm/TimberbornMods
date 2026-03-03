@@ -35,7 +35,7 @@ public static class ManufactoryFragmentPatches
         __instance._tooltipRegistrar.Register(__instance._dropdown, () =>
         {
             if (moddableProvider?.TryGetTarget(out var p) != true) { return null; }
-            return p.FormatDisplayText(p.GetValue());
+            return p.FormatDisplayText(p.GetValue(), false);
         });
     }
 
