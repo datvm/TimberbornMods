@@ -1,7 +1,10 @@
 ﻿using System.Text.Json;
 
 string[] filePaths = [
-    @"D:\Personal\Mods\Timberborn\U7Data\ExportedProject\Assets\Resources\buildings\paths\path\DirtPath0000.Folktails.Model.prefab"
+    @"D:\Personal\Mods\Timberborn\V1DataRipping\ExportedProject\Assets\Resources\buildings\landscaping\sluice\Sluice.Folktails.ConstructionStage0.Model.prefab",
+    @"D:\Personal\Mods\Timberborn\V1DataRipping\ExportedProject\Assets\Resources\buildings\landscaping\sluice\Sluice.Folktails.Model.prefab",
+    @"D:\Personal\Mods\Timberborn\V1DataRipping\ExportedProject\Assets\Resources\buildings\landscaping\sluice\Sluice.IronTeeth.ConstructionStage0.Model.prefab",
+    @"D:\Personal\Mods\Timberborn\V1DataRipping\ExportedProject\Assets\Resources\buildings\landscaping\sluice\Sluice.IronTeeth.Model.prefab",
 ];
 
 var materialMaps = new KeyValuePair<string, string>[]

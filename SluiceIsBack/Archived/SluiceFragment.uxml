@@ -1,0 +1,27 @@
+﻿<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:cui="Timberborn.CoreUI" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="/Assets/Resources/UI/Views/Core/CoreStyle.uss" />
+    <Style src="/Assets/Resources/UI/Views/Common/CommonStyle.uss" />
+    <Style src="/Assets/Resources/UI/Views/Common/EntityPanel/EntityPanelCommonStyle.uss" />
+    <Style src="/Assets/Resources/UI/Views/Game/EntityPanel/EntityPanelGameStyle.uss" />
+    <cui:NineSliceVisualElement name="SluiceFragment">
+        <cui:NineSliceVisualElement name="ModeWrapper" class="sluice-fragment__mode-wrapper entity-sub-panel bg-sub-box--green">
+            <ui:VisualElement name="ModeToggle" />
+            <ui:Label name="Mode" text="Title" class="entity-panel__text sluice-fragment__title" />
+        </cui:NineSliceVisualElement>
+        <cui:NineSliceVisualElement name="Automation" class="entity-sub-panel bg-sub-box--green">
+            <ui:Toggle name="WaterLevelToggle" class="game-toggle entity-panel__text entity-panel__toggle" text="Toggle" />
+            <cui:PreciseSlider name="WaterLevelSlider" />
+            <ui:Toggle name="AboveContaminationToggle" class="game-toggle entity-panel__text entity-panel__toggle" text="Toggle" />
+            <cui:PreciseSlider name="AboveContaminationSlider"/>
+            <ui:Toggle name="BelowContaminationToggle" class="game-toggle entity-panel__text entity-panel__toggle" text="Toggle" />
+            <cui:PreciseSlider name="BelowContaminationSlider"/>
+        </cui:NineSliceVisualElement>
+        <cui:NineSliceVisualElement name="SynchronizeWrapper" class="entity-sub-panel bg-sub-box--green">
+            <cui:LocalizableToggle name="Synchronize" text-loc-key="Building.Sluice.Synchronize" class="game-toggle entity-panel__text entity-panel__toggle" text="Synchronize" />
+        </cui:NineSliceVisualElement>
+        <cui:NineSliceVisualElement name="WaterInfo" class="entity-sub-panel bg-sub-box--green">
+            <ui:Label text="Depth downstream: 0.50" name="DepthLabel" class="entity-panel__text" />
+            <ui:Label text="Contamination: 0%" name="ContaminationLabel" class="entity-panel__text" />
+        </cui:NineSliceVisualElement>
+    </cui:NineSliceVisualElement>
+</ui:UXML>

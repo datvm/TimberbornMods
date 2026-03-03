@@ -1,0 +1,15 @@
+﻿ID,Text,Comment
+Building.Sluice.AboveContaminationToggle,Close above contamination: {0},"Label of a toggle that enables automation based on contamination level, {0} stands for currently set level, ie 5%"
+Building.Sluice.BelowContaminationToggle,Close below contamination: {0},"Label of a toggle that enables automation based on contamination level, {0} stands for currently set level, ie 5%"
+Building.Sluice.Contamination,Contamination: {0},"Level of the water contamination, {0} stands for contamination level in percent. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project."
+Building.Sluice.Description,"A unidirectional, automated water discharge.",
+Building.Sluice.DisplayName,Sluice,"Also known as a sluice gate. Different than Building.Floodgate.DisplayName."
+Building.Sluice.DownstreamDepth,Downstream depth {0},{0} stands for chosen downstream depth maintained by the building.
+Building.Sluice.FlavorDescription,"""Suli, did you forget to flush the badwater again?"" —Ma' Ngonel",Badwater has to be consistent with Good.Badwater.DisplayName
+Building.Sluice.MaximumDepthToggle,Close above downstream depth: {0},Label of a toggle that enables automation based on the maximum downstream depth of water
+Building.Sluice.Mode.Auto,Auto,Label of the toggle that sets the sluice to work in automatic mode
+Building.Sluice.Mode.AutoClosed,Auto: Closed,Label for sluice working in automatic mode and is closed
+Building.Sluice.Mode.AutoOpen,Auto: Open,Label for sluice working in automatic mode and is opened
+Building.Sluice.Mode.Closed,Closed,Label of the toggle that sets the sluice to be always closed
+Building.Sluice.Mode.Open,Open,Label of the toggle that sets the sluice to be always open
+Building.Sluice.Synchronize,Synchronize with adjacent sluices,

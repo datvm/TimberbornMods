@@ -14,6 +14,7 @@ public class ModMenuConfig : Configurator
 {
     public override void Configure()
     {
+        Bind<Test>().AsSingleton();
     }
 }
 
@@ -23,4 +24,28 @@ public class ModGameConfig : Configurator
     public override void Configure()
     {
     }
+}
+
+class Test(IAssetLoader assetLoader) : ILoadableSingleton
+{
+
+    public void Load()
+    {
+        var assets = (AssetLoader)assetLoader;
+
+        foreach (var p in assets._assetProviders)
+        {
+            if (p is ModAssetBundleProvider bp)
+            {
+                Debug.Log(bp);
+
+
+                foreach (var path in bp._assetPaths)
+                {
+                    Debug.Log(path.Key);
+                }
+            }
+        }
+    }
+
 }
