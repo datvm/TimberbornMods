@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputModFolderName>MoreHttpApi</OutputModFolderName>
+	</PropertyGroup>
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonTimberUI.targets" />
+	<ItemGroup>
+	  <ProjectReference Include="..\MoreHttpApi.Shared\MoreHttpApi.Shared.csproj" />
+	</ItemGroup>
+</Project>
