@@ -31,6 +31,11 @@
     <Project Path="ConfigurableDaisugiForestry/ConfigurableDaisugiForestry.csproj" />
     <Project Path="DaisugiForestry/DaisugiForestry.csproj" />
   </Folder>
+  <Folder Name="/Http/">
+    <Project Path="MoreHttpApi.Shared/MoreHttpApi.Shared.csproj" Id="96e529d3-e01f-4ca6-abbf-88ce069f86e2" />
+    <Project Path="MoreHttpApi/MoreHttpApi.csproj" Id="b551f07a-1ca3-4398-9bef-b7374f425ff4" />
+    <Project Path="TimberLive/TimberLive.csproj" Id="621531a0-0c11-46a1-818b-ca401e43bd5d" />
+  </Folder>
   <Folder Name="/JsonMods/">
     <Project Path="AirlockChamber/AirlockChamber.csproj" />
     <Project Path="PaperAndBookForIronTeeth/PaperAndBookForIronTeeth.csproj" />

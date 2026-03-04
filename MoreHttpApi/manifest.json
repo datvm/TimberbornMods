@@ -1,0 +1,10 @@
+﻿{
+    "Name": "More HTTP API",
+    "Version": "10.0.0",
+    "Id": "MoreHttpApi",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Add even more HTTP APIs for your Timberborn!",
+    "RequiredMods": [
+        { "Id": "TimberUi" }
+    ]
+}
