@@ -1,6 +1,6 @@
 ﻿namespace SuperCursor.Services.ObjectDescribers;
 
-public class MechanicalNodeDescriber(ILoc t) : BaseObjectDescriber<MechanicalNode>
+public class MechanicalNodeDescriber(ILoc t, MechanicalNodeTextFormatter formatter) : BaseObjectDescriber<MechanicalNode>
 {
 
     protected override void DescribeComponent(StringBuilder builder, MechanicalNode component)
@@ -14,17 +14,17 @@ public class MechanicalNodeDescriber(ILoc t) : BaseObjectDescriber<MechanicalNod
 
         if (component.IsGenerator)
         {
-            builder.AppendLine(MechanicalNodeTextFormatter.FormatGeneratorText(t, component).Indent());
+            builder.AppendLine(formatter.FormatGeneratorText(component).Indent());
         }
 
         if (component.IsConsumer)
         {
-            builder.AppendLine(MechanicalNodeTextFormatter.FormatConsumerText(t, component).Indent());
+            builder.AppendLine(formatter.FormatConsumerText(component).Indent());
         }
 
-        builder.AppendLine(t.T(NetworkFragmentService.NetworkPowerLocKey, 
+        builder.AppendLine(t.T("Mechanical.NetworkPower", 
             power.PowerSupply,
-            $"{power.PowerDemand} {t.T(NetworkFragmentService.PowerSymbolLocKey)}").Indent());
+            UnitFormatter.FormatPower(power.PowerDemand, t)).Indent());
     }
 
 }
