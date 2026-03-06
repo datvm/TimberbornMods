@@ -24,6 +24,7 @@ public record ParsedBlueprintInfo(
 
 public record ParsedBlueprintBuildingPlacement(
     ParsedBlueprintBuilding Building,
+    Guid? OriginalId,
     Vector3Int Coordinates,
     Orientation Orientation,
     FlipMode Flip,

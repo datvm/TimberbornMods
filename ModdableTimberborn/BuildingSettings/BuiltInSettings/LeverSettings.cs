@@ -15,6 +15,7 @@ public class LeverSettings(ILoc t) : BuildingSettingsBase<Lever, LeverSettingsMo
         target.IsOn = model.IsOn;
         target.SetSpringReturn(model.IsSpringReturn);
         target.SetPinned(model.IsPinned);
+        target.UpdateOutputState();
 
         return true;
     }

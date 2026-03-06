@@ -1,6 +1,6 @@
 ﻿namespace BuildingBlueprints.Services;
 
-[MultiBind(typeof(IModUpdateNotifier), Contexts = BindAttributeContext.MainMenu)]
+//[MultiBind(typeof(IModUpdateNotifier), Contexts = BindAttributeContext.MainMenu)]
 public class ModUpdateNotifier : IModUpdateNotifier
 {
     public string ModId => nameof(BuildingBlueprints);

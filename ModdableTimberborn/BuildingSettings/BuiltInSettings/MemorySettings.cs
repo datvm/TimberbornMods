@@ -29,7 +29,7 @@ public record MemorySettingsModel(
 public class MemorySettings(
     ILoc t,
     EntityRegistry entityRegistry
-) : BuildingSettingsBase<Memory, MemorySettingsModel>(t)
+) : EntityIdBuildingSettingsBase<Memory, MemorySettingsModel>(t)
 {
     public override string DescribeModel(MemorySettingsModel model) => "";
 

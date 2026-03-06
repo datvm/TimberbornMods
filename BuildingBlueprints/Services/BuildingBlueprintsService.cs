@@ -58,7 +58,8 @@ public class BuildingBlueprintsService(
             yield return new(
                 template,
                 (coord.x, coord.y, coord.z), bo.Orientation, bo.FlipMode.IsFlipped,
-                copySettings ? buildingSettingsService.GetSettings(bo) : null);
+                copySettings ? buildingSettingsService.GetSettings(bo) : null,
+                bo.GetEntityId());
         }
     }
 
@@ -111,6 +112,7 @@ public class BuildingBlueprintsService(
                 var (x, y, z) = rawB.Coordinates;
                 placements.Add(new(
                     b,
+                    rawB.OriginalId,
                     new(x, y, z),
                     rawB.Orientation,
                     rawB.Flip ? FlipMode.Flipped : FlipMode.Unflipped,
