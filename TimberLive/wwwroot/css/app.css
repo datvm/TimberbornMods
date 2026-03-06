@@ -1,4 +1,20 @@
-﻿
+﻿.card-gallery {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .card {
+        width: 300px;
+    }
+}
+
+.img-inline {
+    display: inline-block;
+    height: 1.2em;
+}
+
 #blazor-error-ui {
     color-scheme: light only;
     background: lightyellow;

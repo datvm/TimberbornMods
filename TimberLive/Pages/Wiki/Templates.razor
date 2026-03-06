@@ -1,0 +1,39 @@
+﻿@page "/wiki/templates"
+
+@inject ApiService Api;
+@inject BlueprintApiService SpecApi;
+@inject TemplateBlueprintExportService ExportService;
+@inject DownloadService DownloadService;
+@inject Loc T;
+
+<CommonPageTitle>Buildings Wiki</CommonPageTitle>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/wiki">Wiki</a></li>
+        <li class="breadcrumb-item active"><a href="/wiki/templates">Buildings &amp; Plants</a></li>
+    </ol>
+</nav>
+
+<LoadablePage Title="Buildings Wiki" Model="templates">
+    <div class="vstack gap-3">
+        <div class="hstack gap-3">
+            <div class="ms-auto"></div>
+            <span>For wiki editors:</span>
+            <button class="btn btn-primary" @onclick="ExportBuildingAsync">Export buildings</button>
+        </div>
+
+        <div class="form-floating">
+            <select class="form-select" id="cbo-faction" @bind="selectingFactionId">
+                @foreach (var f in templates!.Factions)
+                {
+                    <option value="@(f.Id)">@(f.DisplayName)</option>
+                }
+            </select>
+            <label for="cbo-faction">Faction</label>
+        </div>
+
+        <FactionTemplates Compilation="templates" CurrentFaction="templates.FactionsWithGroupedTemplates[selectingFactionId]" />
+    </div>
+</LoadablePage>

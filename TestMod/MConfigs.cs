@@ -26,26 +26,10 @@ public class ModGameConfig : Configurator
     }
 }
 
-class Test(IAssetLoader assetLoader) : ILoadableSingleton
+class Test : ILoadableSingleton
 {
-
     public void Load()
     {
-        var assets = (AssetLoader)assetLoader;
-
-        foreach (var p in assets._assetProviders)
-        {
-            if (p is ModAssetBundleProvider bp)
-            {
-                Debug.Log(bp);
-
-
-                foreach (var path in bp._assetPaths)
-                {
-                    Debug.Log(path.Key);
-                }
-            }
-        }
+        throw new NotImplementedException();
     }
-
 }

@@ -1,0 +1,12 @@
+﻿@inject ThemeService Theme;
+
+<button class="btn btn-secondary" @onclick="() => Theme.SetThemeAsync()">
+    @if (Theme.DarkTheme)
+    {
+        <i class="fa-regular fa-moon"></i>
+    }
+    else
+    {
+        <i class="fa-regular fa-sun"></i>
+    }
+</button>
