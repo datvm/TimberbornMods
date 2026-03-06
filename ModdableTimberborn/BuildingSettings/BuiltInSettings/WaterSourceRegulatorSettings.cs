@@ -1,14 +1,16 @@
 ﻿namespace ModdableTimberborn.BuildingSettings.BuiltInSettings;
 
-public class WaterSourceRegulatorSettings(ILoc t) : BuildingSettingsBase<WaterSourceRegulator, BoolSettingModel>(t)
-{
-    public override string DescribeModel(BoolSettingModel model) => model.T(t);
+public record WaterSourceRegulatorSettingsModel(WaterSourceRegulator.RegulatorState State);
 
-    protected override bool ApplyModel(BoolSettingModel model, WaterSourceRegulator target)
+public class WaterSourceRegulatorSettings(ILoc t) : BuildingSettingsBase<WaterSourceRegulator, WaterSourceRegulatorSettingsModel>(t)
+{
+    public override string DescribeModel(WaterSourceRegulatorSettingsModel model) => t.T("LV.MT.State_" + model.State.ToString());
+
+    protected override bool ApplyModel(WaterSourceRegulatorSettingsModel model, WaterSourceRegulator target)
     {
-        target.SetOpen(model);
+        target.SetRegulatorState(model.State);
         return true;
     }
 
-    protected override BoolSettingModel GetModel(WaterSourceRegulator duplicable) => duplicable.IsOpen;
+    protected override WaterSourceRegulatorSettingsModel GetModel(WaterSourceRegulator duplicable) => new(duplicable._regulatorState);
 }

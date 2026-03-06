@@ -2,7 +2,7 @@
 
 public class BuildingSettingsResolver(
     IEnumerable<IBuildingSettings> buildingSettings
-)
+) : ILoadableSingleton
 {
 
     readonly FrozenDictionary<Type, IBuildingSettings> handlers
@@ -11,6 +11,26 @@ public class BuildingSettingsResolver(
         = [.. buildingSettings.OrderBy(h => h.Order)];
 
     readonly Dictionary<string, ImmutableArray<IBuildingSettings>> templateCache = [];
+
+    public void Load()
+    {
+        // Only run while developing
+        //ValidateBuildingSettingsHandler();
+    }
+
+    public void ValidateBuildingSettingsHandler()
+    {
+        foreach (var t in AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes()))
+        {
+            if (typeof(IDuplicable).IsAssignableFrom(t) && !t.IsAbstract)
+            {
+                if (!handlers.ContainsKey(t))
+                {
+                    Debug.LogWarning($"[{nameof(ModdableTimberborn)}.{nameof(BuildingSettings)}] WARN: No building settings handler for type {t.FullName}. It won't be serialized.");
+                }
+            }
+        }
+    }
 
     public IBuildingSettings? Get(Type type) => handlers.GetValueOrDefault(type);
 
