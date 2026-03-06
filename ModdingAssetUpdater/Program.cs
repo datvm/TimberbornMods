@@ -1,67 +1,83 @@
-﻿using System.IO.Compression;
+﻿global using System.Collections.Frozen;
+global using System.IO.Compression;
 
 const string OutputFolder = @"D:\Personal\Mods\Timberborn\V1Data\ExportedProject\Assets\Resources";
+
 const string InputFolder = @"D:\Software\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\StreamingAssets\Modding";
+const string AssetRipperFolder = @"D:\Personal\Mods\Timberborn\V1DataRipping\ExportedProject\Assets\Resources";
 
-Console.WriteLine("Performing dry run...");
-
-await RunAsync(true);
-
-Console.Write("Press ENTER to actually perform the updates...");
-Console.ReadLine();
-
-await RunAsync(false);
-
-static async Task RunAsync(bool dryRun)
+// 1. Delete the folder
+if (Directory.Exists(OutputFolder))
 {
-    await UpdateFileAsync("Blueprints.zip", "", dryRun);
-    await UpdateFileAsync("UI.zip", "UI", dryRun);
+    Directory.Delete(OutputFolder, true);
 }
 
-static async Task UpdateFileAsync(string inputFile, string outputFolder, bool dryRun)
+// 2. Extract the zip files
+Dictionary<string, string> ZipFiles = new(){
+    { "Blueprints.zip", "" },
+    { "Localizations.zip", "Localizations" },
+    { "Shaders.zip", "Shaders" },
+    { "UI.zip", "UI" },
+};
+
+foreach (var (name, path) in ZipFiles)
 {
-    await using var stream = File.OpenRead(Path.Combine(InputFolder, inputFile));
-    await using var zip = new ZipArchive(stream, ZipArchiveMode.Read);
+    var outputPath = Path.Combine(OutputFolder, path);
+    Console.WriteLine($"Extracting {name} to {outputPath}");
+    Directory.CreateDirectory(outputPath);
 
-    outputFolder = Path.Combine(OutputFolder, outputFolder);
+    await using var zipStream = File.OpenRead(Path.Combine(InputFolder, name));
+    await using var zipArchive = new ZipArchive(zipStream, ZipArchiveMode.Read);
+    await zipArchive.ExtractToDirectoryAsync(outputPath);
+}
 
-    var rootFolders = GetRootFolders(zip);
-    foreach (var f in rootFolders)
+// 3. Copy the ripped assets
+FrozenSet<string> CopyingExtensions = ((string[])[".prefab", ".mat", ".png"]).ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+Stack<string> rippedPaths = new([""]);
+
+Console.WriteLine("Copying ripped assets...");
+while (rippedPaths.Count > 0)
+{
+    var subPath = rippedPaths.Pop();
+    var fullPath = Path.Combine(AssetRipperFolder, subPath);
+
+    foreach (var subFolder in Directory.EnumerateDirectories(fullPath))
     {
-        var fPath = Path.Combine(outputFolder, f);
-        if (!Directory.Exists(fPath))
-        {
-            Console.WriteLine($"- {fPath} does not exist yet.");
-            continue;
-        }
-
-        Console.WriteLine($"- Deleting {fPath}");
-        if (!dryRun)
-        {
-            Directory.Delete(fPath, true);
-        }
+        var name = Path.GetFileName(subFolder);
+        rippedPaths.Push(Path.Combine(subPath, name));
     }
 
-    Console.WriteLine($"- Extracting {inputFile}...");
-    if (!dryRun)
+    var outputPath = Path.Combine(OutputFolder, subPath);
+    Directory.CreateDirectory(outputPath);
+    foreach (var file in Directory.EnumerateFiles(fullPath))
     {
-        await zip.ExtractToDirectoryAsync(outputFolder);
+        var ext = Path.GetExtension(file);
+        if (!CopyingExtensions.Contains(ext)) { continue; }
+
+        var name = Path.GetFileName(file);
+        Console.WriteLine($"Copying {name} to {outputPath}");
+        File.Copy(file, Path.Combine(outputPath, name));
     }
 }
 
-static HashSet<string> GetRootFolders(ZipArchive zip)
+// 4. Copy Placeholder Shaders to map later
+Console.WriteLine("Copying placeholder shaders...");
+
+var rippedShaderFolder = Path.Combine(AssetRipperFolder, "../Shader");
+var dstPlaceholderShader = Path.Combine(OutputFolder, "ShaderPlaceholders");
+Directory.CreateDirectory(dstPlaceholderShader);
+
+foreach (var path in Directory.EnumerateFiles(rippedShaderFolder))
 {
-    var rootFolders = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+    var fileName = Path.GetFileName(path);
+    var dst = Path.Combine(dstPlaceholderShader, fileName);
+    File.Copy(path, dst);
 
-    foreach (var entry in zip.Entries)
-    {
-        var root = entry.FullName.Split(['\\', '/'])[0];
+    if (!fileName.EndsWith(".shader")) { continue; }
 
-        if (!string.IsNullOrEmpty(root))
-        {
-            rootFolders.Add(root);
-        }
-    }
-
-    return rootFolders;
+    var lines = await File.ReadAllLinesAsync(dst);
+    lines[0] = lines[0].Replace("\" {", "2\" {");
+    await File.WriteAllLinesAsync(dst, lines);
 }
+
+Console.WriteLine("Done");

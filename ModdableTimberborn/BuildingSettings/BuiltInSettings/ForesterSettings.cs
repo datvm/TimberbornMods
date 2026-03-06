@@ -6,7 +6,7 @@ public class ForesterSettings(ILoc t) : BuildingSettingsBase<Forester, BoolSetti
 
     protected override bool ApplyModel(BoolSettingModel model, Forester target)
     {
-        target.ReplantDeadTrees = model;
+        target.SetReplantDeadTrees(model);
         return true;
     }
 
