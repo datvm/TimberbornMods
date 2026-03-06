@@ -5,6 +5,7 @@
     <Project Path="MoreAchievements/MoreAchievements.csproj" Id="f6a03a58-8dab-44a9-bb46-32e48d6e32c4" />
     <Project Path="TImprove4Achievements/TImprove4Achievements.csproj" Id="8dd23b49-330e-4d89-b8ed-55984f92c9e3" />
   </Folder>
+  <Folder Name="/Automations/" />
   <Folder Name="/Configurables/">
     <Project Path="ConfigurableAutoSave/ConfigurableAutoSave.csproj" />
     <Project Path="ConfigurableBeaverWalk/ConfigurableBeaverWalk.csproj" />
@@ -187,8 +188,6 @@
   <Project Path="NoWaterCompression/NoWaterCompression.csproj" Id="5e34d978-6930-4245-8b77-68ba334912af" />
   <Project Path="PackagerBuilder/PackagerBuilder.csproj" />
   <Project Path="PausableSensors/PausableSensors.csproj" Id="c881a04b-23ee-4d5b-9675-0cf98f128b91" />
-  <Project Path="PopControl/PopControl.csproj" />
-  <Project Path="PowerShaftSwitch/PowerShaftSwitch.csproj" />
   <Project Path="RubbleSatisfactidy/RubbleSatisfactidy.csproj" />
   <Project Path="SaveEveryday/SaveEveryday.csproj" />
   <Project Path="SluiceIsBack/SluiceIsBack.csproj" Id="42067f99-093b-4d62-a4b1-afdad82f6218" />
