@@ -139,6 +139,7 @@ public class CollapsibleEntityPanelService : ISaveableSingleton, ILoadableSingle
         if (key == title)
         {
             Debug.LogWarning($"[TImprove4UX] Missing localization for entity panel fragment name '{panelName}' (key: '{key}')");
+            return; // Treat as DoNotCollapse
         }
 
         var isCollapsed = IsCollapsed(panelName);
