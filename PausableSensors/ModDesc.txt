@@ -1,0 +1,8 @@
+﻿This mod allows all Sensors to be paused (their output becomes Off). You can pause a sensor manually or automate it by controlling its pause state with another sensor.
+
+A simple use case is eliminating the need for a Relay as an AND gate: simply chain two sensors.
+
+This mod removes a validation from the game that I believe is unnecessary, but I may be wrong. If you encounter any crashes I did not catch, please report them.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

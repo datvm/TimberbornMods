@@ -1,6 +1,4 @@
-using System.Reflection.Emit;
-
-namespace XtraPlzNoCrashes.Patches;
+﻿namespace XtraPlzNoCrashes.Patches;
 
 [HarmonyPatch]
 public static class TemplateCollectionServicePatches
