@@ -1,0 +1,32 @@
+﻿@inject ApiService Api;
+@inject Loc T;
+
+@{
+    var name = T.T(Blueprint.DisplayNameLoc);
+}
+
+<div class="card">
+    <div class="row g-0">
+        <div class="col-4">
+            <img class="img-fluid rounded-start" src="@(Api.GetImageFileUrl(Blueprint.ImagePath))" alt="@(name)" />
+        </div>
+        <div class="col-8">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="@(DetailsUrl)" class="stretched-link">@(name)</a>                    
+                </h5>
+                <div>
+                    <small class="text-muted">@(Blueprint.TemplateName)</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public IParsedLabeledTemplateBlueprint Blueprint { get; set; }
+
+    string DetailsUrl => $"/wiki/templates/details?path={Uri.EscapeDataString(Blueprint.Path)}";
+
+}

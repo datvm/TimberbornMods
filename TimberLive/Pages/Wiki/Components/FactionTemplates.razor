@@ -1,0 +1,75 @@
+﻿@inject Loc T;
+@inject ApiService Api;
+
+@{
+    var (faction, trees, crops, buildings) = CurrentFaction;
+}
+
+<h3>@(faction.DisplayName)</h3>
+
+<div class="hstack gap-3">
+    <span>Show:</span>
+
+    <div class="btn-group">
+        <input type="checkbox" class="btn-check" id="chk-trees" @bind="showTrees">
+        <label class="btn btn-outline-primary" for="chk-trees">Trees</label>
+
+        <input type="checkbox" class="btn-check" id="chk-crops" @bind="showCrops">
+        <label class="btn btn-outline-primary" for="chk-crops">Crops</label>
+
+        <input type="checkbox" class="btn-check" id="chk-buildings" @bind="showBuildings">
+        <label class="btn btn-outline-primary" for="chk-buildings">Buildings</label>
+    </div>
+</div>
+
+@if (showTrees)
+{
+    <h4>Trees</h4>
+
+    <div class="card-gallery">
+        @foreach (var t in trees.Blueprints)
+        {
+            <LabeledTemplateElement Blueprint="t" />
+        }
+    </div>
+}
+
+@if (showCrops)
+{
+    <h4>Crops</h4>
+
+    <div class="card-gallery">
+        @foreach (var t in crops.Blueprints)
+        {
+            <LabeledTemplateElement Blueprint="t" />
+        }
+    </div>
+}
+
+@if (showBuildings)
+{
+    <h4>Buildings</h4>
+
+    <div>
+        @foreach (var grp in buildings)
+        {
+            var grpInfo = grp.Group!;
+
+            <div>
+                <h5>
+                    <img class="img-inline" src="@(Api.GetImageFileUrl(grpInfo.Icon))" />
+                    <span>@(T.T(grpInfo.NameLocKey))</span>
+                </h5>
+
+                <div class="card-gallery">
+                    @foreach (var t in grp.Blueprints)
+                    {
+                        <LabeledTemplateElement Blueprint="t" />
+                    }
+                </div>
+            </div>
+
+
+        }
+    </div>
+}

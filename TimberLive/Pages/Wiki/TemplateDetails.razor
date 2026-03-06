@@ -1,0 +1,31 @@
+﻿@page "/wiki/templates/details"
+
+@inject Loc T;
+@inject BlueprintApiService BlueprintApi;
+
+@{
+    var titleLoc = bp?.DisplayNameLoc;
+    var title = titleLoc is null ? "…" : T.T(titleLoc);
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/wiki">Wiki</a></li>
+        <li class="breadcrumb-item active">@(title)</li>
+    </ol>
+</nav>
+
+@if (err is not null)
+{
+    <div class="alert alert-danger">
+        @(err)
+    </div>
+}
+else
+{
+    <LoadablePage Title="@(title)" Model="bp">
+        <h4>@(title)</h4>
+    </LoadablePage>
+}
+

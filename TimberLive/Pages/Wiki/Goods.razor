@@ -1,0 +1,29 @@
+﻿@page "/wiki/goods"
+
+@inject ApiService Api;
+@inject BlueprintApiService SpecApi;
+
+<LoadablePage Title="Goods Wiki" Model="specs">
+    <div class="card-gallery">
+        @foreach (var g in context!)
+        {
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-4">
+                        <img class="img-fluid rounded-start" src="@(Api.GetImageFileUrl(g.Icon))" alt="@(g.DisplayName)" />
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                @(g.DisplayName)
+                            </h5>
+                            <div>
+                                <small class="text-muted">@(g.Id)</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</LoadablePage>

@@ -1,0 +1,32 @@
+﻿@inject ApiService Api;
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            @if (WasDisconnected)
+            {
+                <div class="alert alert-warning mb-3">
+                    You were disconnected. It's possible the game API stopped running.
+                </div>
+            }
+
+            <form @onsubmit="ConnectAsync">
+                <div class="form-floating mb-3">
+                    <input @bind="url" type="url" class="form-control" id="txt-url" placeholder="http://localhost:8080" required>
+                    <label for="txt-url">Server URL</label>
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-primary" disabled="@(connecting)">Connect</button>
+                </div>
+
+                @if (err is not null)
+                {
+                    <div class="alert alert-danger mt-3">
+                        @err
+                    </div>
+                }
+            </form>
+        </div>
+    </div>
+</div>

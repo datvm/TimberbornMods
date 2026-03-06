@@ -1,13 +1,28 @@
-﻿
-namespace TimberLive.Services;
+﻿namespace TimberLive.Services;
 
-[Service(Lifetime = ServiceLifetime.Singleton)]
+[SelfService(Lifetime = ServiceLifetime.Singleton)]
 public class ApiService : IDisposable
 {
-    readonly HttpClient http = new();
+    HttpClient http = new();
+
+    bool rechecking;
 
     public bool Connected { get; private set; }
     public event EventHandler<bool>? ConnectionStateChanged;
+
+    readonly HashSet<Func<Task>> connectionCallbacks = [];
+
+    public Uri CurrentUri { get; private set; } = new("http://localhost:8080");
+
+    public void RegisterConnectedCallback(Func<Task> callback)
+    {
+        connectionCallbacks.Add(callback);
+    }
+
+    public void UnregisterConnectedCallback(Func<Task> callback)
+    {
+        connectionCallbacks.Remove(callback);
+    }
 
     public async Task<string?> ConnectAsync(string url)
     {
@@ -16,13 +31,24 @@ public class ApiService : IDisposable
             return "Format error";
         }
 
-        http.BaseAddress = new(uri, MoreHttpApiUtils.EndpointStart);
+        http.Dispose();
+        http = new()
+        {
+            BaseAddress = CurrentUri = new(uri, MoreHttpApiUtils.EndpointStart + "/")
+        };
+
         if (!await PingAsync())
         {
-            return "Ping failed. Please make sure the API is connected";
+            return "Ping failed. Please make sure the API is on.";
         }
 
         Connected = true;
+
+        foreach (var c in connectionCallbacks)
+        {
+            await c();
+        }
+
         ConnectionStateChanged?.Invoke(this, true);
 
         return null;
@@ -30,12 +56,20 @@ public class ApiService : IDisposable
 
     async Task RecheckConnectionAsync()
     {
-        if (!Connected) { return; }
+        if (!Connected || rechecking) { return; }
 
-        var ping = await PingAsync();
-        if (!ping)
+        try
         {
-            Disconnect();
+            rechecking = true;
+            var ping = await PingAsync();
+            if (!ping)
+            {
+                Disconnect();
+            }
+        }
+        finally
+        {
+            rechecking = false;
         }
     }
 
@@ -44,6 +78,8 @@ public class ApiService : IDisposable
         Connected = false;
         ConnectionStateChanged?.Invoke(this, false);
     }
+
+    public string GetImageFileUrl(string path) => new Uri(CurrentUri, "file/image?path=" + Uri.EscapeDataString(path)).ToString();
 
     async Task<bool> PingAsync()
     {
@@ -59,7 +95,7 @@ public class ApiService : IDisposable
         }
     }
 
-    public async Task GetAsync<T>(string path)
+    public async Task<T> GetAsync<T>(string path)
         => await SendAsync<T>(path, HttpMethod.Get);
 
     public async Task<T> SendAsync<T>(string path, HttpMethod method)

@@ -1,0 +1,11 @@
+﻿@typeparam TModel
+
+<CommonPageTitle>@(Title)</CommonPageTitle>
+
+@if (Model is null)
+{
+    <Spinner />
+    return;
+}
+
+@(ChildContent(Model))
