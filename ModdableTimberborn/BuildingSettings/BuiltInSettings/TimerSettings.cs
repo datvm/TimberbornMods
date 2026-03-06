@@ -32,7 +32,7 @@ public record TimerSettingsModel(
 public class TimerSettings(
     EntityRegistry entityRegistry,
     ILoc t
-) : BuildingSettingsBase<Timer, TimerSettingsModel>(t)
+) : EntityIdBuildingSettingsBase<Timer, TimerSettingsModel>(t)
 {
     public override string DescribeModel(TimerSettingsModel model) => "";
 

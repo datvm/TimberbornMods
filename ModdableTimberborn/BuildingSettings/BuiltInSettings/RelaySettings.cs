@@ -22,7 +22,7 @@ public record RelaySettingsModel(
 public class RelaySettings(
     EntityRegistry entityRegistry,
     ILoc t
-) : BuildingSettingsBase<Relay, RelaySettingsModel>(t)
+) : EntityIdBuildingSettingsBase<Relay, RelaySettingsModel>(t)
 {
     public override string DescribeModel(RelaySettingsModel model)
     {

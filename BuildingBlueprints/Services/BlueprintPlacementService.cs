@@ -125,18 +125,32 @@ public class BlueprintPlacementService(
 
         var groupId = blueprintGroupService.GetNextGroup();
         var copy = !IgnoreSettings;
+
+        Dictionary<Guid, Guid> idMapping = [];
+
         foreach (var (preview, b) in buildings)
         {
+            var info = previewPairs[preview];
+            var originalId = info.OriginalId;
+
             var bpComp = b.GetComponent<BuildingBlueprintComponent>();
             if (bpComp)
             {
-                bpComp.AssignToGroup(groupId);
-            }
+                bpComp.AssignToGroup(groupId, originalId);
 
-            if (copy)
+                if (copy && originalId is not null)
+                {
+                    idMapping[originalId.Value] = bpComp.GetEntityId();
+                }
+            }
+        }
+
+        if (copy)
+        {
+            foreach (var (preview, b) in buildings)
             {
                 var info = previewPairs[preview];
-                blueprintBuildingSettingsService.ApplySettings(b, info.Settings);
+                blueprintBuildingSettingsService.ApplySettings(b, info.Settings, idMapping);
             }
         }
 
@@ -178,7 +192,7 @@ public class BlueprintPlacementService(
             coordinates.z = Math.Max(coordinates.z - 1, 0);
             placementChanged = true;
         }
-        
+
         if (inputService.IsKeyDown(CameraMovementInput.RotateCameraRightKey))
         {
             coordinates.z += 1;
@@ -357,7 +371,7 @@ public class BlueprintPlacementService(
 
     Placement GetBuildingPlacement(in ParsedBlueprintBuildingPlacement buildingPlacement)
     {
-        var (b, localPos, localRot, localFlip, _) = buildingPlacement;
+        var (b, _, localPos, localRot, localFlip, _) = buildingPlacement;
 
         if (BlueprintFlip)
         {

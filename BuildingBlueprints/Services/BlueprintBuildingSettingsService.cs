@@ -20,7 +20,7 @@ public class BlueprintBuildingSettingsService(BuildingSettingsResolver buildingS
         return result;
     }
 
-    public void ApplySettings(BaseComponent building, JObject? settings)
+    public void ApplySettings(BaseComponent building, JObject? settings, Dictionary<Guid, Guid> idMapping)
     {
         if (settings is null || !building) { return; }
 
@@ -31,7 +31,16 @@ public class BlueprintBuildingSettingsService(BuildingSettingsResolver buildingS
             if (!settings.TryGetValue(name, out var jValue)) { continue; }
 
             var serialized = jValue.ToString(Formatting.None);
-            s.Deserialize(serialized, d);
+
+            switch (s)
+            {
+                case IEntityIdBuildingSettings idSettings:
+                    idSettings.Deserialize(serialized, d, idMapping);
+                    break;
+                default:
+                    s.Deserialize(serialized, d);
+                    break;
+            }
         }
     }
 

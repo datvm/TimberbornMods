@@ -12,7 +12,7 @@ public record AutomatableSettingsModel(Guid? EntityId) : EntityIdModelBase([Enti
 public class AutomatableSettings(
     EntityRegistry entityRegistry,
     ILoc t
-) : BuildingSettingsBase<Automatable, AutomatableSettingsModel>(t)
+) : EntityIdBuildingSettingsBase<Automatable, AutomatableSettingsModel>(t)
 {
 
     public override string DescribeModel(AutomatableSettingsModel model) => entityRegistry.DescribeEntity(model.EntityId, t);

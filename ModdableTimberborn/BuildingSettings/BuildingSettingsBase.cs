@@ -19,11 +19,19 @@ public abstract class BuildingSettingsBase<T, TModel>(ILoc t) : IBuildingSetting
 
     public string Serialize(T duplicable) => JsonConvert.SerializeObject(GetModel(duplicable));
 
-    public bool Deserialize(string settings, T target)
+    public bool Deserialize(string settings, T target) => DeserializeInternal(settings, target, null);
+
+    protected bool DeserializeInternal(string settings, T target, Func<TModel, TModel>? transformer)
     {
         if (!CanDeserialize(target)) { return false; }
 
         var model = JsonConvert.DeserializeObject<TModel>(settings)!;
+
+        if (transformer is not null)
+        {
+            model = transformer(model);
+        }
+
         return ApplyModel(model, target);
     }
 
