@@ -186,6 +186,7 @@
   <Project Path="NoBuildRestriction/NoBuildRestriction.csproj" />
   <Project Path="NoWaterCompression/NoWaterCompression.csproj" Id="5e34d978-6930-4245-8b77-68ba334912af" />
   <Project Path="PackagerBuilder/PackagerBuilder.csproj" />
+  <Project Path="PausableSensors/PausableSensors.csproj" Id="c881a04b-23ee-4d5b-9675-0cf98f128b91" />
   <Project Path="PopControl/PopControl.csproj" />
   <Project Path="PowerShaftSwitch/PowerShaftSwitch.csproj" />
   <Project Path="RubbleSatisfactidy/RubbleSatisfactidy.csproj" />

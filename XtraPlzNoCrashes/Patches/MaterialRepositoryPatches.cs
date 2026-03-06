@@ -1,6 +1,4 @@
-﻿using System.Reflection.Emit;
-
-namespace XtraPlzNoCrashes.Patches;
+﻿namespace XtraPlzNoCrashes.Patches;
 
 [HarmonyPatch(typeof(MaterialRepository))]
 public static class MaterialRepositoryPatches

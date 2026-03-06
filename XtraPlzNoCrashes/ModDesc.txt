@@ -3,6 +3,7 @@
 - [b]MaterialPlzNoCrashes[/b]: Duplicate materials should not crash but print a warning in the log instead.
 - [b]XtraNeedPlzNoCrashes[/b]: Needs and NeedCollections that are not used will no longer crash.
 - [b]MultiYieldersPlzNoCrashes[/b]: Duplicate gatherable should not crash the game.
+- [b]Duplicate Blueprint PlzNoCrashes[/b]: Duplicate blueprints from multiple template collections should not crash the game. Implemented by [url=https://github.com/datvm/TimberbornMods/pull/14]normanr[/url].
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
