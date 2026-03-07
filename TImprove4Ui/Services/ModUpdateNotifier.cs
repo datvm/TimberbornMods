@@ -1,6 +1,6 @@
 ﻿namespace TImprove4Ui.Services;
 
-[MultiBind(typeof(IModUpdateNotifier), Contexts = BindAttributeContext.MainMenu)]
+//[MultiBind(typeof(IModUpdateNotifier), Contexts = BindAttributeContext.MainMenu)]
 public class ModUpdateNotifier : IModUpdateNotifier
 {
     public string ModId { get; } = nameof(TImprove4Ui);
