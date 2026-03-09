@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputModFolderName>AutomationArrays</OutputModFolderName>
+	</PropertyGroup>
+	<ItemGroup>
+	  <Folder Include="Root\Blueprints\TemplateCollectionSpecs\" />
+	</ItemGroup>
+
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonModdableTimberborn.targets" />
+</Project>

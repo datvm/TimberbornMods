@@ -5,6 +5,7 @@
     "MinimumGameVersion": "1.0.0",
     "Description": "Add even more HTTP APIs for your Timberborn!",
     "RequiredMods": [
-        { "Id": "TimberUi" }
+        { "Id": "TimberUi" },
+        { "Id": "Harmony" }
     ]
 }

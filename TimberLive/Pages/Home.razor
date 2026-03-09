@@ -1,3 +1,59 @@
 ﻿@page "/"
 
-<CommonPageTitle>Home</CommonPageTitle>
+@inject ApiService Api;
+
+<LoadablePage Model="model" Title="Home">
+    <h3>Game Version: @(model!.GameVersion.Full)</h3>
+
+    <div class="accordion">
+        <AccordionItem Title="Mods">
+            <div class="hstack gap-3 mb-3">
+                <div class="form-floating flex-grow-1">
+                    <input class="form-control" id="txt-filter" placeholder="Mod name" @bind="kw" @bind:event="oninput">
+                    <label for="txt-filter">Filter</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" id="chk-sort-name" type="checkbox" @bind="sortByName" @bind:after="SortMods" />
+                    <label class="form-check-label" for="chk-sort-name">Sort by Name</label>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Version</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @{
+                        var hasKw = kw.Length > 0;
+                    }
+
+                    @foreach (var m in sortedMods)
+                    {
+                        if (hasKw && !m.Name.Contains(kw, StringComparison.OrdinalIgnoreCase))
+                        {
+                            continue;
+                        }
+
+                        <tr @key="m">
+                            <td class="text-center">@(m.Active ? "☑" : "☐")</td>
+                            <td>
+                                @(m.Name)<br />
+                                <small class="text-muted">@(m.Id)</small>
+                            </td>
+                            <td>
+                                @(m.Version.Full)<br />
+                                <small class="text-muted">@(m.Path)</small>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </AccordionItem>
+    </div>
+</LoadablePage>

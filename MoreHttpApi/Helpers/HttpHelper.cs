@@ -65,6 +65,12 @@ public static class HttpHelper
             return true;
         }
 
+        public async Task<string> ReadRequestBodyAsync()
+        {
+            using var reader = new StreamReader(context.Request.InputStream);
+            return await reader.ReadToEndAsync();
+        }
+
     }
 
 }

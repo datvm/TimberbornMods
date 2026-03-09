@@ -1,0 +1,11 @@
+﻿ID,Text,Comment
+LV.AA.RelayHub.Name,"Relay Hub",
+LV.AA.RelayHub.Desc,"Receive, relay and perform logical operations on infinite amount of input signals.",
+LV.AA.RelayHub.Parameter.Index,"Index",
+LV.AA.RelayHub.Parameter.Start,"Start Index",
+LV.AA.RelayHub.Parameter.Length,"Length",
+LV.AA.RelayHub.Parameter.ShiftDirection,"Shift Direction",
+LV.AA.RelayHub.Parameter.ShiftAmount,"Shift Amount",
+LV.AA.RelayHub.Parameter.RepeatCount,"Repeat Count",
+LV.AA.Left,"Left",
+LV.AA.Right,"Right",

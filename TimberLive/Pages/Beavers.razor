@@ -1,0 +1,51 @@
+﻿@page "/beavers"
+@inject ApiService Api;
+
+<BreadcrumbRenderer Breadcrumb="Breadcrumb.Beavers" />
+
+<LoadablePage Title="Beavers & Bots" Model="population">
+    <div class="accordion">
+        @foreach (var t in AllTypes)
+        {
+            <AccordionItem Title="@(t.ToString())">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>@(GetProgressLabel(t))</th>
+                            <th>
+                                <i class="fa-regular fa-house"></i>
+                                /
+                                <i class="fa-solid fa-hammer"></i>
+                                /
+                                <i class="fa-regular fa-star"></i>
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var c in population![t])
+                        {
+                            <tr>
+                                <td>@(c.Name.EntityName)</td>
+                                <td>@(c.Progress.ToString("0%"))</td>
+                                <td>
+                                    Put icon here
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary" title="Select and focus on">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-primary" title="Select and follow">
+                                        <i class="fa-solid fa-video"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </AccordionItem>
+        }
+    </div>
+
+</LoadablePage>

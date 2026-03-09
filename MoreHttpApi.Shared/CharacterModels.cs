@@ -2,12 +2,33 @@
 
 public record HttpCharacter(
     HttpEntityModel Entity,
-    bool IsBeaver,
-    bool IsChild,
-    HttpNamedEntity Name
+    CharacterType Type,
+    HttpNamedEntity Name,
+    float Progress,
+    Guid? Dwelling,
+    Guid? Workplace,
+    Guid? District,
+    ValueTuple<string, float>[] Bonuses
+);
+
+public record HttpPopulation(
+    HttpCharacter[] Adult,
+    HttpCharacter[] Child,
+    HttpCharacter[] Bot
 )
 {
-    
-    public bool IsBot => !IsBeaver;
+    public HttpCharacter[] this[CharacterType index] => index switch
+    {
+        CharacterType.Adult => Adult,
+        CharacterType.Child => Child,
+        CharacterType.Bot => Bot,
+        _ => throw new IndexOutOfRangeException()
+    };
+}
 
+public enum CharacterType
+{
+    Adult,
+    Child,
+    Bot
 }

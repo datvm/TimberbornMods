@@ -1,0 +1,35 @@
+﻿@page "/settings"
+@inject StorageService Storage;
+
+
+<CommonPageTitle>Settings</CommonPageTitle>
+
+@if (!initialized)
+{
+    <Spinner />
+    return;
+}
+
+<form class="vstack gap-3" @onsubmit="Submit">
+    <div class="text-center">
+        <button class="btn btn-primary">Save</button>
+    </div>
+
+    @if (error is not null)
+    {
+        <div class="text-center text-danger">
+            @(error)
+        </div>
+    }
+
+    @foreach (var k in StorageService.AllKeys)
+    {
+        var (name, desc) = SettingUI[k];
+
+        <div class="form-floating">
+            <input class="form-control" id="txt-@(k)" placeholder="@(name)" @bind="values[k]" required>
+            <label for="txt-@(k)">@(name)</label>
+        </div>
+    }
+
+</form>

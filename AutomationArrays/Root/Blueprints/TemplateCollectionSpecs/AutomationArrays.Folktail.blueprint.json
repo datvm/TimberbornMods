@@ -1,0 +1,8 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.Folktails",
+        "Blueprints": [
+            "Buildings/Automation/RelayHub/RelayHub.Folktails.blueprint"
+        ]
+    }
+}

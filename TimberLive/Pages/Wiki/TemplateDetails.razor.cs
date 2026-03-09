@@ -12,6 +12,7 @@ partial class TemplateDetails
 
     string? err;
     IParsedLabeledTemplateBlueprint? bp;
+    Breadcrumb breadcrumb = Breadcrumb.WikiTemplateDetails;
 
     protected override async Task OnParametersSetAsync()
     {
@@ -28,6 +29,7 @@ partial class TemplateDetails
             }
 
             bp = t;
+            breadcrumb = Breadcrumb.WikiTemplates.CreateChild(T.T(bp.DisplayNameLoc));
         }
         catch (Exception ex)
         {
