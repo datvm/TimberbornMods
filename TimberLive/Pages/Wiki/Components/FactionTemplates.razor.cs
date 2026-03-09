@@ -9,6 +9,4 @@ partial class FactionTemplates
     [Parameter, EditorRequired]
     public FactionWithGroupedTemplates CurrentFaction { get; set; }
 
-    bool showTrees, showCrops, showBuildings = true;
-
 }

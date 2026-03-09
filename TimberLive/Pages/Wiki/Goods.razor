@@ -3,6 +3,8 @@
 @inject ApiService Api;
 @inject BlueprintApiService SpecApi;
 
+<BreadcrumbRenderer Breadcrumb="Breadcrumb.WikiGoods" />
+
 <LoadablePage Title="Goods Wiki" Model="specs">
     <div class="card-gallery">
         @foreach (var g in context!)

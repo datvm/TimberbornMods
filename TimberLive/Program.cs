@@ -4,6 +4,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services
     .AddServices()
-    .AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+    .AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) })
+    .AddSingleton(sp => (IJSInProcessRuntime)sp.GetRequiredService<IJSRuntime>());
 
 await builder.Build().RunAsync();

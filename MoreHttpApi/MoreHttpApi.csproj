@@ -3,8 +3,12 @@
 		<OutputModFolderName>MoreHttpApi</OutputModFolderName>
 	</PropertyGroup>
 	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonHarmony.targets" />
 	<Import Project="../Targets/CommonTimberUI.targets" />
 	<ItemGroup>
 	  <ProjectReference Include="..\MoreHttpApi.Shared\MoreHttpApi.Shared.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Patches\" />
 	</ItemGroup>
 </Project>

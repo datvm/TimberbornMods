@@ -8,13 +8,7 @@
     var title = titleLoc is null ? "…" : T.T(titleLoc);
 }
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="/wiki">Wiki</a></li>
-        <li class="breadcrumb-item active">@(title)</li>
-    </ol>
-</nav>
+<BreadcrumbRenderer Breadcrumb="breadcrumb" />
 
 @if (err is not null)
 {

@@ -15,6 +15,9 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/beavers">Beavers</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/wiki">Wiki</a>
                 </li>
             </ul>
@@ -23,11 +26,17 @@
         <div>
             <LightModeSwitcher />
         </div>
+        <div class="ms-3">
+            <a class="btn btn-secondary" href="/settings">
+                <i class="fa-solid fa-gear"></i>
+                Settings
+            </a>
+        </div>
     </div>
 </nav>
 
 <main class="container-fluid mb-3">
-    @if (Api.Connected)
+    @if (!NeedConnection)
     {
         @Body
     }

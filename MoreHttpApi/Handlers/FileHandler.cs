@@ -22,9 +22,19 @@ public class FileHandler(IAssetLoader assets) : IMoreHttpApiHandler
                 await context.Write("image/png", bytes);
 
                 return true;
+            case "images":
+                return await context.HandleAsync(() => GetImagesAsync(context));
             default:
                 return false;
         }
+    }
+
+    public async Task<string[]> GetImagesAsync(HttpListenerContext context)
+    {
+        var paths = (await context.ReadRequestBodyAsync()).Split(';');
+        var images = await Task.WhenAll(paths.Select(GetImageAsync));
+
+        return [.. images.Select(Convert.ToBase64String)];
     }
 
     async Task<byte[]> GetImageAsync(string path)

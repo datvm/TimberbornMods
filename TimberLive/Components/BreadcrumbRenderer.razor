@@ -1,0 +1,17 @@
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        @foreach (var (name, url, _) in Breadcrumb.GetParents())
+        {
+            <li class="breadcrumb-item"><a href="@(url)">@(name)</a></li>
+        }
+        
+        <li class="breadcrumb-item active">@(Breadcrumb.Name)</li>
+    </ol>
+</nav>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public Breadcrumb Breadcrumb { get; set; }
+
+}
