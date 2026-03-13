@@ -5,7 +5,8 @@ public class EditDifficultyDialog(
     PanelStack panelStack,
     ILoc t,
     CustomNewGameModeController customNewGameModeController,
-    GameModeSpecService gameModeSpecService
+    GameModeSpecService gameModeSpecService,
+    TutorialSettings tutorialSettings
 ) : DialogBoxElement
 {
     static readonly ImmutableArray<string> InvisibleNames = [
@@ -25,7 +26,15 @@ public class EditDifficultyDialog(
         var warningContent = "LV.ESD.SaveWarning".T(t).Bold().Color(TimberbornTextColor.Red);
         Content.AddGameLabel(warningContent, centered: true);
 
-        var newGamePanel = new NewGameModePanel(veLoader, null, panelStack, t, customNewGameModeController, gameModeSpecService);
+        var newGamePanel = new NewGameModePanel(
+            visualElementLoader: veLoader,
+            gameSceneLoader: null,
+            panelStack: panelStack,
+            loc: t,
+            customNewGameModeController: customNewGameModeController,
+            gameModeSpecService: gameModeSpecService,
+            tutorialToggleController: new(tutorialSettings)
+        );
         newGamePanel.Load();
 
         newGamePanel.SelectFactionAndMap(
