@@ -3,6 +3,11 @@
 [SelfService(Lifetime = ServiceLifetime.Singleton)]
 public class ApiService : IDisposable
 {
+    readonly JsonSerializerOptions jsonOptions = new()
+    {
+        IncludeFields = true, // For tuples
+    };
+
     HttpClient http = new();
 
     bool rechecking;
@@ -34,8 +39,9 @@ public class ApiService : IDisposable
         http.Dispose();
         http = new()
         {
-            BaseAddress = CurrentUri = new(uri, MoreHttpApiUtils.EndpointStart + "/")
+            BaseAddress = new(uri, MoreHttpApiUtils.EndpointStart + "/")
         };
+        CurrentUri = uri;
 
         if (!await PingAsync())
         {
@@ -79,8 +85,6 @@ public class ApiService : IDisposable
         ConnectionStateChanged?.Invoke(this, false);
     }
 
-    public string GetImageFileUrl(string path) => new Uri(CurrentUri, "file/image?path=" + Uri.EscapeDataString(path)).ToString();
-
     async Task<bool> PingAsync()
     {
         try
@@ -98,6 +102,9 @@ public class ApiService : IDisposable
     public async Task<T> GetAsync<T>(string path)
         => await SendAsync<T>(path, HttpMethod.Get);
 
+    public async Task<string> GetStringAsync(string path)
+        => await SendForStringAsync(new HttpRequestMessage(HttpMethod.Get, path));
+
     public async Task<T> SendAsync<T>(string path, HttpMethod method)
     {
         using var req = new HttpRequestMessage(method, path);
@@ -112,7 +119,7 @@ public class ApiService : IDisposable
         using var res = await SendAsync(req);
 
         var body = await res.Content.ReadAsStringAsync();
-        return JsonSerializer.Deserialize<T>(body);
+        return JsonSerializer.Deserialize<T>(body, jsonOptions);
     }
 
     public async Task<string> SendForStringAsync(HttpRequestMessage req)

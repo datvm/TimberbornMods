@@ -3,18 +3,29 @@
 public record HttpCharacter(
     HttpEntityModel Entity,
     CharacterType Type,
-    HttpNamedEntity Name,
+    string Name,
+    string? ImagePath,
+    int Age,
     float Progress,
     Guid? Dwelling,
     Guid? Workplace,
     Guid? District,
+    int Wellbeing,
     ValueTuple<string, float>[] Bonuses
+);
+
+public record HttpCharacterBuilding(
+    Guid Id,
+    string? ImagePath,
+    string Name,
+    string LabelName
 );
 
 public record HttpPopulation(
     HttpCharacter[] Adult,
     HttpCharacter[] Child,
-    HttpCharacter[] Bot
+    HttpCharacter[] Bot,
+    Dictionary<Guid, HttpCharacterBuilding> RelevantBuildings
 )
 {
     public HttpCharacter[] this[CharacterType index] => index switch

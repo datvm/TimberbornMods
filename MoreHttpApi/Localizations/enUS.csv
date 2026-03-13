@@ -1,0 +1,6 @@
+﻿ID,Text,Comment
+LV.MHA.AutoStart,"Auto-start",
+LV.MHA.AutoStartDesc,"Automatically start the API server when loading the game.
+You do not need a HTTP Adapter building if you enable this option.",
+LV.MHA.AutoStartPort,"Auto-start Port",
+LV.MHA.AutoStartPortDesc,"The port used for auto-starting the API server.",

@@ -2,7 +2,7 @@
 
 <CommonPageTitle>@(Title)</CommonPageTitle>
 
-@if (Model is null)
+@if (Model is null || Ready == false)
 {
     <Spinner />
     return;

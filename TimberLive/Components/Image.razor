@@ -1,0 +1,9 @@
+﻿@inject ImageService Images;
+
+@if (imgData is null && Path is not null)
+{
+    <span><InlineSpinner data-path="@(Path)" /></span>
+    return;
+}
+
+<img @attributes="Attributes" src="@(imgData ?? "/img/question-mark.png")" data-path="@(Path)" />

@@ -11,13 +11,13 @@ public class FileHandler(IAssetLoader assets) : IMoreHttpApiHandler
         if (remaining.Length < 1) { return false; }
 
         var type = remaining[0];
-        var path = parsedRequestPath.QueryParameters.Get("path");
-        if (string.IsNullOrEmpty(path)) { return false; }
-
-
+        
         switch (type)
         {
             case "image":
+                var path = parsedRequestPath.QueryParameters.Get("path");
+                if (string.IsNullOrEmpty(path)) { return false; }
+
                 var bytes = await GetImageAsync(path);
                 await context.Write("image/png", bytes);
 

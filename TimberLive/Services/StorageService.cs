@@ -25,6 +25,9 @@ public class StorageService(IJSInProcessRuntime js)
         }
     }
 
+    public bool HasValue(StorageKey key)
+        => js.Invoke<string?>("localStorage.getItem", key.ToString()) is not null;
+
     public T? GetValue<T>(StorageKey key) => GetValue<T>(key.ToString());
     public void SetValue<T>(StorageKey key, T value) where T : notnull
         => SetValue(key.ToString(), value);

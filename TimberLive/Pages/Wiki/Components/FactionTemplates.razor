@@ -25,15 +25,16 @@
         </div>
     </AccordionItem>
     <AccordionItem InitiallyExpanded="false" Title="Buildings">
-        <div class="card-gallery">
+        <div>
             @foreach (var grp in buildings)
             {
                 var grpInfo = grp.Group!;
+                var name = T.T(grpInfo.NameLocKey);
 
-                <div>
+                <div class="mb-3">
                     <h5>
-                        <img class="img-inline" src="@(Api.GetImageFileUrl(grpInfo.Icon))" />
-                        <span>@(T.T(grpInfo.NameLocKey))</span>
+                        <Image class="img-inline" Path="@(grpInfo.Icon)" alt="@(name)" />
+                        <span>@(name)</span>
                     </h5>
 
                     <div class="card-gallery">

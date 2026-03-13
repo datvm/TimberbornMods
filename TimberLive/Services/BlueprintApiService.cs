@@ -153,5 +153,9 @@ public class BlueprintApiService(ApiService api)
         return result;
     }
 
+    public async Task<Dictionary<string, T>> GetSpecsAsync<T>(Func<T, string> keyFunc)
+        where T : ParsedComponentSpec 
+        => (await GetSpecsAsync<T>()).ToDictionary(keyFunc);
+
 
 }

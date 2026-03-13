@@ -4,8 +4,14 @@ namespace Timberborn.BaseComponentSystem;
 public static class ConversionHelper
 {
 
+    extension(EntityBadgeService badge)
+    {
+        public string? GetAvatarPath(BaseComponent comp) => AssetRefTracker.TryGetAssetPath(badge.GetEntityAvatar(comp));
+    }
+
     extension(BaseComponent comp)
     {
+        public EntityComponent GetEntity() => comp.GetComponent<EntityComponent>();
         public Guid GetEntityId() => comp.GetComponent<EntityComponent>().EntityId;
     }
 

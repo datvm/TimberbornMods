@@ -1,49 +1,113 @@
 ﻿@page "/beavers"
 @inject ApiService Api;
+@inject BlueprintApiService Specs;
+@inject StorageService Storage;
+@inject IJSInProcessRuntime Js;
 
 <BreadcrumbRenderer Breadcrumb="Breadcrumb.Beavers" />
 
-<LoadablePage Title="Beavers & Bots" Model="population">
+<DataFetcherPresentation Fetcher="refresher" />
+
+<LoadablePage Title="Beavers & Bots" Model="population" Ready="IsReady">
     <div class="accordion">
         @foreach (var t in AllTypes)
         {
-            <AccordionItem Title="@(t.ToString())">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>@(GetProgressLabel(t))</th>
-                            <th>
-                                <i class="fa-regular fa-house"></i>
-                                /
-                                <i class="fa-solid fa-hammer"></i>
-                                /
-                                <i class="fa-regular fa-star"></i>
-                            </th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var c in population![t])
-                        {
-                            <tr>
-                                <td>@(c.Name.EntityName)</td>
-                                <td>@(c.Progress.ToString("0%"))</td>
-                                <td>
-                                    Put icon here
-                                </td>
-                                <td>
-                                    <button class="btn btn-primary" title="Select and focus on">
+            var progress = GetProgressLabel(t);
+            var showingProgress = t != CharacterType.Adult || showAdultAging;
+            var revertAging = t == CharacterType.Bot;
+
+            var hasHome = t != CharacterType.Bot;
+            var hasWork = t != CharacterType.Child;
+
+            <AccordionItem @key="t" Title="@(t.ToString())">
+                @if (t == CharacterType.Adult)
+                {
+                    <div class="form-check">
+                        <input @bind="showAdultAging" class="form-check-input" type="checkbox" id="chkShowAdultAging" />
+                        <label class="form-check-label" for="chkShowAdultAging">
+                            Show adult aging progress (WARN: cheat option as it is not available in-game).
+                        </label>
+                    </div>
+                }
+
+                <div class="list-group">
+                    @foreach (var c in population![t])
+                    {
+                        var id = c.Entity.EntityId;
+                        var badgeColor = c.Wellbeing >= 0 ? "text-bg-success" : "text-bg-danger";
+
+                        <div class="list-group-item" @key="id">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="fs-3 me-1">
+                                        <Image class="img-inline" Path="@(c.ImagePath)" alt="@(c.Name)" />
+                                    </span>
+                                    <span>@(c.Name)</span>
+                                    <button class="btn btn-link" @onclick="() => RenameAsync(c)">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </button>
+                                </div>
+
+                                <div class="col-2">
+                                    <CharacterBuilding Building="GetBuilding(c.District)" Prefix="District: " />
+
+                                    @if (hasHome)
+                                    {
+                                        <CharacterBuilding Building="GetBuilding(c.Dwelling)" Prefix="Lives in: " />
+                                    }
+
+                                    @if (hasWork)
+                                    {
+                                        <CharacterBuilding Building="GetBuilding(c.Workplace)" Prefix="Works at: " />
+                                    }
+                                </div>
+
+                                <div class="col-2 align-self-center">
+                                    <span class="badge @(badgeColor)">
+                                        @(c.Wellbeing)
+                                    </span>
+
+                                    @foreach (var (bid, value) in c.Bonuses)
+                                    {
+                                        var bonus = bonusSpecs[bid];
+                                        if (bonus.Icon is null) { continue; }
+
+                                        var perc = (value - 1).ToString("+0%;-0%;0%");
+                                        var desc = $"{bonus.DisplayName}: {perc}";
+
+                                        <span title="@(desc)" class="ms-3">
+                                            <Image class="img-inline" Path="@(bonus.Icon)" />
+                                            @(perc)
+                                        </span>
+                                    }
+                                </div>
+
+                                <div class="col-2 hstack">
+                                    <span class="me-3">Age: @(c.Age)</span>
+                                    
+                                    @if (showingProgress)
+                                    {
+                                        var aging = (revertAging ? 1 - c.Progress : c.Progress).ToString("0%");
+
+                                        <div class="progress progress-aging me-1" role="progressbar" title="@(progress + aging)">
+                                            <div class="progress-bar bg-info" style="width: @(aging)"></div>
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="col-2">
+                                    <button class="btn btn-primary" title="Select and focus on" @onclick="() => SelectAsync(id, true)">
                                         <i class="fa-solid fa-eye"></i>
                                     </button>
-                                    <button class="btn btn-primary" title="Select and follow">
+                                    <button class="btn btn-primary" title="Select and follow" @onclick="() => SelectAsync(id, false)">
                                         <i class="fa-solid fa-video"></i>
                                     </button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
             </AccordionItem>
         }
     </div>
