@@ -1,6 +1,6 @@
 ﻿{
     "Name": "Edit Save Difficulty",
-    "Version": "10.0.1",
+    "Version": "10.0.2",
     "Id": "EditSaveDifficulty",
     "MinimumGameVersion": "1.0.0",
     "Description": "Edit a save difficulty",
