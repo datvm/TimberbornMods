@@ -3,16 +3,6 @@
 [BindSingleton]
 public class HttpBlueprintSerializer
 {
-    public static readonly JsonSerializerSettings SpecSerializerSettings = new()
-    {
-        Converters = [
-            new ComponentSpecConverter(),
-            new AssetRefConverter(),
-            new UnityValuesConverter(),
-            new LocalizedTextConverter(),
-        ],
-        ContractResolver = new BlueprintContractResolver(),
-    };
 
     public HttpBlueprint GetSerializableBlueprint(Blueprint blueprint) => new(
         blueprint.Name,
@@ -23,10 +13,8 @@ public class HttpBlueprintSerializer
     public JToken SerializeBlueprint(Blueprint blueprint) => JToken.FromObject(GetSerializableBlueprint(blueprint));
 
     public HttpComponentSpec SerializeSpec(ComponentSpec spec) => new(
-        SerializeSpecData(spec),
+        spec.Serialize(),
         spec.GetType().FullName
     );
-
-    public JObject SerializeSpecData(ComponentSpec spec) => JObject.Parse(JsonConvert.SerializeObject(spec, SpecSerializerSettings));
 
 }

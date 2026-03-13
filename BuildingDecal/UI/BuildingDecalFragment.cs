@@ -8,7 +8,7 @@ public class BuildingDecalFragment(
     BuildingDecalPositionService buildingDecalPositionService,
     DropdownItemsSetter dropdownItemsSetter,
     BuildingDecalClipboard buildingDecalClipboard
-) : BaseEntityPanelFragment<BuildingDecalComponent>, IInputProcessor
+) : BaseEntityPanelFragment<BuildingDecalComponent>
 {
     readonly ILoc t = sliderDI.t;
     readonly VisualElementInitializer veInit = sliderDI.VeInit;
@@ -64,12 +64,10 @@ public class BuildingDecalFragment(
             AppendDecalPanel(item);
         }
 
-        inputService.AddInputProcessor(this);
     }
 
     public override void ClearFragment()
     {
-        inputService.RemoveInputProcessor(this);
         decalPanelsContainer.Clear();
         base.ClearFragment();
         prefabSpec = null;
@@ -144,21 +142,4 @@ public class BuildingDecalFragment(
         ((BuildingDecalItemPanel)sender).SetDecal(decal.Value);
     }
 
-    public bool ProcessInput()
-    {
-        if (!component) { return false; }
-
-        if (inputService.IsKeyDown(BuildingDecalClipboard.CopyDecalKey))
-        {
-            buildingDecalClipboard.Copy(component);
-            return true;
-        }
-        else if (inputService.IsKeyDown(BuildingDecalClipboard.PasteDecalKey))
-        {
-            PasteDecal();
-            return true;
-        }
-
-        return false;
-    }
 }

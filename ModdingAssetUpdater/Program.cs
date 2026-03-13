@@ -6,10 +6,18 @@ const string OutputFolder = @"D:\Personal\Mods\Timberborn\V1Data\ExportedProject
 const string InputFolder = @"D:\Software\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\StreamingAssets\Modding";
 const string AssetRipperFolder = @"D:\Personal\Mods\Timberborn\V1DataRipping\ExportedProject\Assets\Resources";
 
-// 1. Delete the folder
+// 1. Delete the existing output, but not the folder itself
 if (Directory.Exists(OutputFolder))
 {
-    Directory.Delete(OutputFolder, true);
+    foreach (var file in Directory.EnumerateFiles(OutputFolder))
+    {
+        File.Delete(file);
+    }
+
+    foreach (var folder in Directory.EnumerateDirectories(OutputFolder))
+    {
+        Directory.Delete(folder, true);
+    }
 }
 
 // 2. Extract the zip files

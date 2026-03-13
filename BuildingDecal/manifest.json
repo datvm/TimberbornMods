@@ -1,13 +1,11 @@
-{
+﻿{
     "Name": "Building Decals",
-    "Version": "7.0.2",
+    "Version": "10.0.0",
     "Id": "BuildingDecal",
-    "MinimumGameVersion": "0.7.0.0",
+    "MinimumGameVersion": "1.0.0",
     "Description": "Stick it up!",
     "RequiredMods": [
-        {
-            "Id": "TimberUi",
-            "MinimumVersion": "7.8.2"
-        }
+        { "Id": "ModdableTimberborn" },
+        { "Id": "ModdableDecalGroups" }
     ]
 }

@@ -13,4 +13,7 @@ partial class LoadablePage<TModel>
     [Parameter, EditorRequired]
     public string Title { get; set; }
 
+    [Parameter]
+    public bool? Ready { get; set; }
+
 }

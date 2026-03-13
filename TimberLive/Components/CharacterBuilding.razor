@@ -1,0 +1,18 @@
+﻿<a href="@(Href)" class="fs-3 me-2" title="@(Title)">
+    <Image Path="@(Building?.ImagePath)" class="img-inline" />
+</a>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public HttpCharacterBuilding? Building { get; set; }
+
+    [Parameter, EditorRequired]
+    public string Prefix { get; set; }
+
+    string BuildingName => Building!.Name == Building.LabelName ? Building.Name : $"{Building.Name} ({Building.LabelName})";
+
+    string Title => Prefix + (Building is null ? "None" : BuildingName);
+    string? Href => Building is null ? null : ("/buildings/" + Uri.EscapeDataString(Building.Id.ToString()));
+
+}

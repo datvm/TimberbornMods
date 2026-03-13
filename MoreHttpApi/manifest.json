@@ -6,6 +6,7 @@
     "Description": "Add even more HTTP APIs for your Timberborn!",
     "RequiredMods": [
         { "Id": "TimberUi" },
-        { "Id": "Harmony" }
+        { "Id": "Harmony" },
+        { "Id": "eMka.ModSettings" }
     ]
 }

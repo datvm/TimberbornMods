@@ -8,7 +8,7 @@ public class ThemeService(IJSRuntime js, StorageService storage)
 
     public async Task InitAsync()
     {
-        var storedValue = storage.GetValue<bool?>(StorageKey.DarkMode);
+        bool? storedValue = storage.HasValue(StorageKey.DarkMode) ? storage.GetValue<bool>(StorageKey.DarkMode) : null;
         storedValue ??= await js.InvokeAsync<bool>("BlazorHelper.isDarkModePreferred");
 
         DarkTheme = storedValue.Value;

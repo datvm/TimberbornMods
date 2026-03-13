@@ -2,6 +2,22 @@
 
 public static class HttpHelper
 {
+    public static readonly JsonSerializerSettings SpecSerializerSettings = new()
+    {
+        Converters = [
+            new ComponentSpecConverter(),
+            new AssetRefConverter(),
+            new UnityValuesConverter(),
+            new LocalizedTextConverter(),
+            //new TupleConverter(),
+        ],
+        ContractResolver = new BlueprintContractResolver(),
+    };
+
+    extension(ComponentSpec spec)
+    {
+        public JObject Serialize() => JObject.Parse(JsonConvert.SerializeObject(spec, SpecSerializerSettings));
+    }
 
     extension(HttpListenerContext context)
     {
@@ -50,7 +66,8 @@ public static class HttpHelper
                 }
                 else
                 {
-                    await context.WriteJson(result);
+                    var json = JsonConvert.SerializeObject(result, SpecSerializerSettings);
+                    await context.Write("application/json", Encoding.UTF8.GetBytes(json));
                 }
 			}
 			catch (StatusCodeException ex)
@@ -71,6 +88,11 @@ public static class HttpHelper
             return await reader.ReadToEndAsync();
         }
 
+    }
+
+    extension (NameValueCollection query)
+    {
+        public bool HasSwitch(string name) => query.Get(name) is not null;
     }
 
 }

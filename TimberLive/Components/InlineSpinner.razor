@@ -1,3 +1,10 @@
-﻿<div class="spinner-border spinner-border-sm" role="status">
+﻿<div class="spinner-border spinner-border-sm" role="status" @attributes="Attributes">
     <span class="visually-hidden">Loading...</span>
 </div>
+
+@code {
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? Attributes { get; set; }
+
+}

@@ -39,7 +39,7 @@ partial class AccordionItem
 
     public async Task ToggleAsync()
     {
-        isOpen = !isOpen;
+        IsOpen = isOpen = !isOpen;
         await IsOpenChanged.InvokeAsync(isOpen);
     }
 

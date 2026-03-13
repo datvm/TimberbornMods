@@ -1,0 +1,26 @@
+﻿<div class="card mb-3">
+    <div class="card-body">
+        <div class="hstack gap-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" @bind="autoLoading" @bind:after="OnAutoLoadingChanged" id="chk-auto-fetch" />
+                <label class="form-check-label" for="chk-auto-fetch">
+                    Auto-refresh
+                </label>
+            </div>
+
+            @if (Fetcher is null)
+            {
+                <InlineSpinner />
+            }
+            else
+            {
+                @if (!autoLoading)
+                {
+                    <button class="btn btn-primary" @onclick="Refresh">Refresh</button>
+                }
+
+                <span>@(Fetcher.State), last refresh: @(Fetcher.LastRefreshTime.ToLongTimeString())</span>
+            }
+        </div>
+    </div>
+</div>
