@@ -11,4 +11,4 @@ public record ParsedGoodVisualizationSpec(
     string SecondaryMesh,
     string Material,
     Single NonLinearity
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

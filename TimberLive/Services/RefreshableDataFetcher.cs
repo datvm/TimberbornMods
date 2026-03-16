@@ -87,12 +87,16 @@ public class RefreshableDataFetcher(TimeSpan refreshTime, Func<Task> refreshTask
         cts.Cancel();
     }
 
-    public static RefreshableDataFetcher Create(Func<Task> refreshTask, StorageService storageService)
+    public static RefreshableDataFetcher Create(Func<Task> refreshTask, StorageService storageService, bool start = true)
     {
         var refreshTime = TimeSpan.FromSeconds(storageService.GetValue<int>(StorageKey.RefreshTime));
-        return new(refreshTime, refreshTask);
+        var fetcher = new RefreshableDataFetcher(refreshTime, refreshTask);
+        if (start)
+        {
+            fetcher.Start();
+        }
+        return fetcher;
     }
-
     public void Dispose()
     {
         GC.SuppressFinalize(this);

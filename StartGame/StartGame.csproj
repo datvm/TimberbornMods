@@ -17,6 +17,5 @@
 
 		<ProjectReference Include="..\MoreHttpApi\MoreHttpApi.csproj" />
 
-
 	</ItemGroup>
 </Project>

@@ -8,4 +8,4 @@ public record ParsedBlockObjectToolGroupSpec(
     string NameLocKey,
     string Icon,
     Boolean FallbackGroup
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

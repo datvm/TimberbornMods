@@ -1,21 +1,16 @@
-﻿namespace TimberLive.Pages;
+﻿namespace TimberLive.Pages.Characters;
 
 sealed partial class Beavers : IDisposable
 {
-    static readonly CharacterType[] AllTypes = [.. Enum.GetValues<CharacterType>().Order()];
+    static readonly CharacterType[] AllTypes = [.. Enum.GetValues<CharacterType>().Where(q => q != CharacterType.Unknown).Order()];
 
     RefreshableDataFetcher? refresher;
-    Dictionary<string, ParsedBonusTypeSpec> bonusSpecs = [];
 
     HttpPopulation? population;
     bool showAdultAging;
 
-    bool IsReady => bonusSpecs.Count > 0;
-
     protected override async Task OnInitializedAsync()
     {
-        bonusSpecs = await Specs.GetSpecsAsync<ParsedBonusTypeSpec>(b => b.Id);
-
         refresher = RefreshableDataFetcher.Create(FetchAsync, Storage);
         refresher.Start();
     }

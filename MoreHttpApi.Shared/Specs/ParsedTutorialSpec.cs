@@ -10,4 +10,4 @@ public record ParsedTutorialSpec(
     string SkipIfTutorialFinished,
     Int32 SortOrder,
     string[] Stages
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

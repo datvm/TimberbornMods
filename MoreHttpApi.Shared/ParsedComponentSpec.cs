@@ -36,3 +36,8 @@ public abstract record ParsedComponentSpec
     }
 
 }
+
+public interface IComponentSpecWithId
+{
+    string Id { get; }
+}

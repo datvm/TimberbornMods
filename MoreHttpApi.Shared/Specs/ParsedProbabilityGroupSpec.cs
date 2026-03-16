@@ -7,4 +7,4 @@ public record ParsedProbabilityGroupSpec(
     Single Low,
     Single Medium,
     Single High
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

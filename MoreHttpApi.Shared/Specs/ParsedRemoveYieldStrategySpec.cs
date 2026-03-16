@@ -6,4 +6,4 @@ public record ParsedRemoveYieldStrategySpec(
     string Id,
     string[] CompatibleResourceGroups,
     string Animation
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

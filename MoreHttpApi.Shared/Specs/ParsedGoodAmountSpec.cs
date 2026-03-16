@@ -5,4 +5,4 @@ namespace MoreHttpApi.Shared.Specs;
 public record ParsedGoodAmountSpec(
     string Id,
     Int32 Amount
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

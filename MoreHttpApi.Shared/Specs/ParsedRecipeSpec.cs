@@ -15,4 +15,4 @@ public record ParsedRecipeSpec(
     Int32 FuelCapacity,
     Int32 CyclesCapacity,
     string Icon
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

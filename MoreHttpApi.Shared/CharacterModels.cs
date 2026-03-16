@@ -14,6 +14,21 @@ public record HttpCharacter(
     ValueTuple<string, float>[] Bonuses
 );
 
+public record HttpCharacterDetailed(
+    HttpCharacter Basic,
+    Dictionary<Guid, HttpCharacterBuilding> Buildings,
+    HttpCharacterNeed[] Needs,
+    ParsedGoodAmountSpec? CarryingGood,
+    int LiftingCapacity
+);
+
+public record HttpCharacterNeed(
+    string Id,
+    float Points,
+    bool Enabled,
+    int Wellbeing
+);
+
 public record HttpCharacterBuilding(
     Guid Id,
     string? ImagePath,
@@ -39,7 +54,8 @@ public record HttpPopulation(
 
 public enum CharacterType
 {
+    Unknown,
     Adult,
     Child,
-    Bot
+    Bot,    
 }

@@ -5,4 +5,7 @@ namespace MoreHttpApi.Shared.Specs;
 public record ParsedTemplateCollectionSpec(
     string CollectionId,
     string[] Blueprints
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId
+{
+    public string Id => CollectionId;
+}

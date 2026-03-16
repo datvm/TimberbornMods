@@ -1,7 +1,6 @@
 ﻿namespace TimberLive.Services;
 
-[SelfService(Lifetime = ServiceLifetime.Singleton)]
-public class Loc
+public class Loc : IApiConnectionListener
 {
     readonly ApiService api;
     Dictionary<string, string> keys = [];
@@ -10,12 +9,17 @@ public class Loc
     {
         this.api = api;
 
-        api.RegisterConnectedCallback(LoadAsync);
+        api.RegisterConnectedCallback(this);
     }
 
-    public async Task LoadAsync()
+    public async Task OnConnectedAsync()
     {
         keys = await api.GetAsync<Dictionary<string, string>>("loc");
+    }
+
+    public async Task OnDisconnectedAsync()
+    {
+        keys = [];
     }
 
     public string T(string key) => keys.TryGetValue(key, out var v) ? v : key;

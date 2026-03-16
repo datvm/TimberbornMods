@@ -1,14 +1,18 @@
 ﻿@page "/beavers"
 @inject ApiService Api;
-@inject BlueprintApiService Specs;
 @inject StorageService Storage;
 @inject IJSInProcessRuntime Js;
+@inject CommonDataService CommonData;
 
 <BreadcrumbRenderer Breadcrumb="Breadcrumb.Beavers" />
 
 <DataFetcherPresentation Fetcher="refresher" />
 
-<LoadablePage Title="Beavers & Bots" Model="population" Ready="IsReady">
+<LoadablePage Title="Beavers & Bots" Model="population">
+    @{
+        var bonuses = CommonData.BonusTypes;
+    }
+
     <div class="accordion">
         @foreach (var t in AllTypes)
         {
@@ -36,13 +40,21 @@
                         var id = c.Entity.EntityId;
                         var badgeColor = c.Wellbeing >= 0 ? "text-bg-success" : "text-bg-danger";
 
+                        var detailsUrl = "/beavers/" + Uri.EscapeDataString(c.Entity.EntityId.ToString());
+
                         <div class="list-group-item" @key="id">
                             <div class="row">
                                 <div class="col">
-                                    <span class="fs-3 me-1">
-                                        <Image class="img-inline" Path="@(c.ImagePath)" alt="@(c.Name)" />
+                                    <span class="me-1">
+                                        <a href="@(detailsUrl)">
+                                            <Image class="beaver-avatar" Path="@(c.ImagePath)" alt="@(c.Name)" />
+                                        </a>
                                     </span>
-                                    <span>@(c.Name)</span>
+                                    <span>
+                                        <a href="@(detailsUrl)">
+                                            @(c.Name)
+                                        </a>
+                                    </span>
                                     <button class="btn btn-link" @onclick="() => RenameAsync(c)">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </button>
@@ -69,7 +81,8 @@
 
                                     @foreach (var (bid, value) in c.Bonuses)
                                     {
-                                        var bonus = bonusSpecs[bid];
+                                        Console.WriteLine(bid);
+                                        var bonus = bonuses[bid];
                                         if (bonus.Icon is null) { continue; }
 
                                         var perc = (value - 1).ToString("+0%;-0%;0%");

@@ -1,5 +1,9 @@
 ﻿<a href="@(Href)" class="fs-3 me-2" title="@(Title)">
-    <Image Path="@(Building?.ImagePath)" class="img-inline" />
+    <div class="image-container">
+        <Image class="img-bg" Path="UI/images/game/beaver-building-bg" />
+
+        <Image Path="@(Building?.ImagePath)" class="img-building" />
+    </div>
 </a>
 
 @code {

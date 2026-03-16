@@ -20,4 +20,4 @@ public record ParsedNeedSpec(
     string DisplayNameLocKey,
     Int32 FavorableWellbeing,
     Int32 UnfavorableWellbeing
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

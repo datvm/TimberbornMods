@@ -6,4 +6,4 @@ public record ParsedToolGroupSpec(
     string Id,
     string DisplayNameLocKey,
     string Icon
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

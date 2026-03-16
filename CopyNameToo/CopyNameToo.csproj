@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputModFolderName>CopyNameToo</OutputModFolderName>
+	</PropertyGroup>
+
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonModdableTimberborn.targets" />
+
+</Project>

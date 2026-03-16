@@ -5,4 +5,7 @@ namespace MoreHttpApi.Shared.Specs;
 public record ParsedMaterialCollectionSpec(
     string CollectionId,
     string[] Materials
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId
+{
+    public string Id => CollectionId;
+}

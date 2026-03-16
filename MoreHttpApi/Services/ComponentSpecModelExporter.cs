@@ -1,7 +1,8 @@
 ﻿namespace MoreHttpApi.Services;
 
 // Comment or uncomment this to disable/run the exporter.
-//[BindSingleton(Contexts = BindAttributeContext.MainMenu)]
+#warning Comment this out before release
+[BindSingleton(Contexts = BindAttributeContext.MainMenu)]
 public class ComponentSpecModelExporter : ILoadableSingleton
 {
 
@@ -9,6 +10,8 @@ public class ComponentSpecModelExporter : ILoadableSingleton
     static readonly FrozenSet<Type> SerializableIntTypes = [typeof(Vector3Int), typeof(Vector2Int), typeof(RectInt)];
     static readonly FrozenSet<Type> SerializableFloatTypes = [typeof(Vector3), typeof(Vector2), typeof(Quaternion), typeof(Rect), typeof(Vector4), typeof(Color)];
     static readonly FrozenSet<Type> StringTypes = [typeof(string), typeof(LocalizedText)];
+
+    static readonly FrozenSet<string> IdProperties = ["Id", "SoundId", "CollectionId"];
 
     public void Load()
     {
@@ -36,10 +39,31 @@ public class ComponentSpecModelExporter : ILoadableSingleton
                     .Where(p => p.GetCustomAttribute<SerializeAttribute>() is not null);
 
                 List<(string, string)> outputProps = [];
+                string? idProp = null;
 
                 foreach (var p in props)
                 {
                     var pType = p.PropertyType;
+
+                    if (idProp is null)
+                    {
+                        if (IdProperties.Contains(p.Name))
+                        {
+                            if (p.PropertyType != typeof(string))
+                            {
+                                Debug.LogWarning($"[WARN] Skipping 'Id' property of type '{p.PropertyType.FullName}' in spec '{t.FullName}' because it's not a string");
+                            }
+                            else
+                            {
+                                idProp = p.Name;
+                                TimberUiUtils.LogVerbose(() => $"Identified '{p.Name}' as ID property for spec '{t.FullName}'");
+                            }
+                        }
+                        else if (p.Name.EndsWith("Id"))
+                        {
+                            Debug.LogWarning($"[WARN] Skipping '{p.Name}' property in spec '{t.FullName}' because it ends with 'Id' but is not named 'Id'");
+                        }
+                    }
 
                     try
                     {
@@ -67,15 +91,36 @@ public class ComponentSpecModelExporter : ILoadableSingleton
                     className += $"<{genericParams}>";
                 }
 
-                File.WriteAllText(filePath, $$"""
+                var fileContent = $$"""
 namespace MoreHttpApi.Shared.Specs;
 
 [GeneratedCode("{{nameof(MoreHttpApi)}}", "10.0.0")]
 [ComponentSpec("{{t.FullName}}")]
 public record {{className}}(
 {{propList}}
-) : ParsedComponentSpec;
-""");
+) : ParsedComponentSpec{{(idProp is not null ? ", IComponentSpecWithId" : ";")}}
+""";
+
+                if (idProp is not null)
+                {
+                    if (idProp == "Id")
+                    {
+                        fileContent += ";";
+                    }
+                    else
+                    {
+                        fileContent += $$"""
+
+{
+    public string Id => {{idProp}};
+}
+""";
+                    }
+                }
+
+                File.WriteAllText(filePath, fileContent);
+
+
 
                 additionalTypes.Remove(t);
                 types.Add(t);

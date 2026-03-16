@@ -7,4 +7,4 @@ public record ParsedKeyBindingGroupSpec(
     Int32 Order,
     string DisplayName,
     string LocKey
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

@@ -9,4 +9,4 @@ public record ParsedWorkerOutfitSpec(
     string DiffuseTexture,
     string NormalTexture,
     string[] Attachments
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

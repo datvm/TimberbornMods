@@ -3,5 +3,6 @@ namespace MoreHttpApi.Shared.Specs;
 [GeneratedCode("MoreHttpApi", "10.0.0")]
 [ComponentSpec("Timberborn.AutomationBuildings.DepthSensorSpec")]
 public record ParsedDepthSensorSpec(
-    HttpSerializableInts SensorCoordinates
+    HttpSerializableInts SensorCoordinates,
+    Single SensorHeightOffset
 ) : ParsedComponentSpec;

@@ -5,4 +5,4 @@ namespace MoreHttpApi.Shared.Specs;
 public record ParsedBonusSpec(
     string Id,
     Single MultiplierDelta
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

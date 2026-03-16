@@ -1,8 +1,12 @@
-﻿
-namespace Timberborn.BaseComponentSystem;
+﻿namespace Timberborn.BaseComponentSystem;
 
 public static class ConversionHelper
 {
+
+    extension(GoodAmount goodAmount)
+    {
+        public ParsedGoodAmountSpec Http() => new(goodAmount.GoodId, goodAmount.Amount);
+    }
 
     extension(EntityBadgeService badge)
     {
