@@ -31,4 +31,4 @@ public record ParsedFactionSpec(
     string DescriptionLocKey,
     string GameOverMessageLocKey,
     string GameOverFlavorLocKey
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

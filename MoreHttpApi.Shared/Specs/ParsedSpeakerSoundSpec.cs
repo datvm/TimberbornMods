@@ -6,4 +6,7 @@ public record ParsedSpeakerSoundSpec(
     string SoundId,
     string DisplayName,
     string DisplayNameLocKey
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId
+{
+    public string Id => SoundId;
+}

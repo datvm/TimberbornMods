@@ -15,23 +15,8 @@
     height: 1.2em;
 }
 
-/*
-Source - https://stackoverflow.com/a/76155428
-Posted by isherwood, modified by community. See post 'Timeline' for change history
-Retrieved 2026-03-09, License - CC BY-SA 4.0
-*/
-details.accordion-item:not([open]) .accordion-button {
-    background-color: var(--bs-accordion-bg);
-}
-
-    details.accordion-item:not([open]) .accordion-button::after {
-        background-image: var(--bs-accordion-btn-active-icon);
-        transform: unset;
-    }
-
-details.accordion-item[open] .accordion-button::after {
-    background-image: var(--bs-accordion-btn-icon);
-    transform: var(--bs-accordion-btn-icon-transform);
+.beaver-avatar {
+    height: 60px;
 }
 
 #blazor-error-ui {

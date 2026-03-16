@@ -9,4 +9,4 @@ public record ParsedKeyBindingSpec(
     Int32 Order,
     Boolean AllowOtherModifiers,
     Boolean DevModeOnly
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

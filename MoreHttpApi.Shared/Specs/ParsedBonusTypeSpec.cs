@@ -9,4 +9,4 @@ public record ParsedBonusTypeSpec(
     Single MaximumValue,
     string Icon,
     string LocKey
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

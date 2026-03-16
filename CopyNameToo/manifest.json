@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Copy Name Too!",
+    "Version": "10.0.0",
+    "Id": "CopyNameToo",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Copy the buildings' name when using Duplicate feature if possible.",
+    "RequiredMods": [
+        { "Id": "ModdableTimberborn" }
+    ]
+}

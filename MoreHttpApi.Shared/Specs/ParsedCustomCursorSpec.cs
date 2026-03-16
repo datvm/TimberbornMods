@@ -9,4 +9,4 @@ public record ParsedCustomCursorSpec(
     HttpSerializableFloats Hotspot,
     HttpSerializableFloats WindowsCursorOffset,
     HttpSerializableFloats MacOsCursorOffset
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

@@ -5,4 +5,4 @@ namespace MoreHttpApi.Shared.Specs;
 public record ParsedRuinModelVariantSpec(
     string Id,
     string Model
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

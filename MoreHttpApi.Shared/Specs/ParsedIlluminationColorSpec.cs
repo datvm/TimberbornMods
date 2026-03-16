@@ -5,4 +5,4 @@ namespace MoreHttpApi.Shared.Specs;
 public record ParsedIlluminationColorSpec(
     string Id,
     HttpSerializableFloats Color
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

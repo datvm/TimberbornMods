@@ -15,16 +15,16 @@ public class ApiService : IDisposable
     public bool Connected { get; private set; }
     public event EventHandler<bool>? ConnectionStateChanged;
 
-    readonly HashSet<Func<Task>> connectionCallbacks = [];
+    readonly HashSet<IApiConnectionListener> connectionCallbacks = [];
 
     public Uri CurrentUri { get; private set; } = new("http://localhost:8080");
 
-    public void RegisterConnectedCallback(Func<Task> callback)
+    public void RegisterConnectedCallback(IApiConnectionListener callback)
     {
         connectionCallbacks.Add(callback);
     }
 
-    public void UnregisterConnectedCallback(Func<Task> callback)
+    public void UnregisterConnectedCallback(IApiConnectionListener callback)
     {
         connectionCallbacks.Remove(callback);
     }
@@ -52,7 +52,7 @@ public class ApiService : IDisposable
 
         foreach (var c in connectionCallbacks)
         {
-            await c();
+            await c.OnConnectedAsync();
         }
 
         ConnectionStateChanged?.Invoke(this, true);
@@ -70,7 +70,7 @@ public class ApiService : IDisposable
             var ping = await PingAsync();
             if (!ping)
             {
-                Disconnect();
+                await DisconnectAsync();
             }
         }
         finally
@@ -79,9 +79,15 @@ public class ApiService : IDisposable
         }
     }
 
-    public void Disconnect()
+    public async Task DisconnectAsync()
     {
         Connected = false;
+
+        foreach (var c in connectionCallbacks)
+        {
+            await c.OnDisconnectedAsync();
+        }
+
         ConnectionStateChanged?.Invoke(this, false);
     }
 

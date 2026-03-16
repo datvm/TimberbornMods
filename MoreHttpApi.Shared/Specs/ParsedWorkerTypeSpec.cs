@@ -10,4 +10,4 @@ public record ParsedWorkerTypeSpec(
     Boolean IgnoresWorkingHours,
     string DisplayNameLocKey,
     string WorkerOnlyTextLocKey
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

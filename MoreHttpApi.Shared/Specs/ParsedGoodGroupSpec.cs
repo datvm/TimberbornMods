@@ -9,4 +9,4 @@ public record ParsedGoodGroupSpec(
     string Icon,
     Boolean SingleResourceGroup,
     string DisplayNameLocKey
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

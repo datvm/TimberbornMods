@@ -7,3 +7,4 @@ global using Newtonsoft.Json.Linq;
 global using Newtonsoft.Json.Serialization;
 global using System.Collections.Specialized;
 global using System.Net;
+global using MoreHttpApi.Shared.Specs;

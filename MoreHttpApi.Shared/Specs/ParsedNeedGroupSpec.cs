@@ -7,4 +7,4 @@ public record ParsedNeedGroupSpec(
     Int32 Order,
     string DisplayName,
     string DisplayNameLocKey
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

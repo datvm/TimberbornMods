@@ -1,0 +1,10 @@
+﻿Building names are now copied when using Duplicate and Copy Settings feature. If you have [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3660595703]Power Copy[/url] or [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3667559269]Building Blueprints[/url] mods, they are also supported. You can also use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3480668755]More Naming[/url] mod to rename [i]any[/i] building.
+
+This is especially helpful if you need to make blueprints or duplicate named sensors.
+
+Warning:
+- Be careful that the original feature does not differentiate between building types, so for example you may accidentally copy "Sensor Name" to your District Center. Use Power Copy to limit the building type or only copy a specific setting.
+- With this mod, Copy setting now show up on Beavers and Trees as well. Do not use Power Copy's feature on them as it causes a crash. I will update Power Copy later to prevent this.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

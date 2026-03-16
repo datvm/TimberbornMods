@@ -6,4 +6,4 @@ public record ParsedTutorialStageSpec(
     string Id,
     string Intro,
     string IntroLocKey
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

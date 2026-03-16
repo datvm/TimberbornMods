@@ -21,4 +21,4 @@ public record ParsedGoodSpec(
     Boolean ForceImport,
     string DisplayNameLocKey,
     string PluralDisplayNameLocKey
-) : ParsedComponentSpec;
+) : ParsedComponentSpec, IComponentSpecWithId;

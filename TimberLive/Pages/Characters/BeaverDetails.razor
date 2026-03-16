@@ -1,0 +1,26 @@
+﻿@page "/beavers/{Id:guid}"
+
+@inject ApiService Api;
+@inject CommonDataService CommonData;
+@inject StorageService Storage;
+
+@{
+    var name = character?.Basic.Name ?? "…";
+}
+
+<BreadcrumbRenderer Breadcrumb="Breadcrumb.Beavers.CreateChild(name)" />
+
+<DataFetcherPresentation Fetcher="refresher" />
+
+<LoadablePage Model="character" Title="@(name)">
+    @{
+        var b = character!.Basic;
+    }
+
+    <div class="vstack gap-3">
+        <div class="hstack justify-content-center">
+            <Image class="beaver-avatar" Path="@(b.ImagePath)" />
+            <strong>@(b.Name)</strong>
+        </div>
+    </div>
+</LoadablePage>
