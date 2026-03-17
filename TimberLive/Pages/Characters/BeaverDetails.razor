@@ -3,6 +3,7 @@
 @inject ApiService Api;
 @inject CommonDataService CommonData;
 @inject StorageService Storage;
+@inject IJSInProcessRuntime Js;
 
 @{
     var name = character?.Basic.Name ?? "…";
@@ -10,17 +11,93 @@
 
 <BreadcrumbRenderer Breadcrumb="Breadcrumb.Beavers.CreateChild(name)" />
 
+@if (notFound)
+{
+    <div class="alert alert-danger">
+        <p>
+            The character is not found. It may have been DEADED.
+        </p>
+            
+        <p>
+            <a href="/beavers" class="btn btn-info">Go back</a>
+        </p>
+    </div>
+    return;
+}
+
 <DataFetcherPresentation Fetcher="refresher" />
 
 <LoadablePage Model="character" Title="@(name)">
+
     @{
         var b = character!.Basic;
+        var progress = b.Progress.ToString("0%");
     }
 
-    <div class="vstack gap-3">
-        <div class="hstack justify-content-center">
-            <Image class="beaver-avatar" Path="@(b.ImagePath)" />
-            <strong>@(b.Name)</strong>
+    <div class="container">
+        <div class="vstack gap-3">
+            <div class="hstack justify-content-center">
+                <Image @key="b.ImagePath" class="beaver-avatar me-3" Path="@(b.ImagePath)" />
+                <strong>@(b.Name)</strong>
+
+                <button class="btn btn-link" @onclick="() => RenameAsync()">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                </button>
+            </div>
+
+            <div class="text-center">
+                <div>
+                    <span class="me-3">Age: @(b.Age)</span>
+
+                    @switch (b.Type)
+                    {
+                        case CharacterType.Adult:
+                            @if (showAdultProgress)
+                            {
+                                <span>(@(progress) until death)</span>
+                            }
+                            else
+                            {
+                                <button @onclick="() => showAdultProgress = true" class="btn btn-info btn-sm">
+                                    Reveal aging progress
+                                </button>
+                            }
+
+                            break;
+                        case CharacterType.Child:
+                            <span>(@(progress) to Adulthood)</span>
+                            break;
+                        case CharacterType.Bot:
+                            <span>(Durability: @(progress))</span>
+                            break;
+                    }
+                </div>
+            </div>
+
+            <div class="hstack gap-1 justify-content-center">
+                <span>Select and:</span>
+                <button class="btn btn-sm btn-primary" @onclick="() => SelectAsync(false)">
+                    Focus
+                </button>
+                <button class="btn btn-sm btn-primary" @onclick="() => SelectAsync(true)">
+                    Follow
+                </button>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col text-end">Home:</div>
+                <div class="col">
+                    <CharacterBuilding Building="GetBuilding(b.Dwelling)" Prefix="Lives at: " />
+                </div>
+                <div class="col text-end">Workplace:</div>
+                <div class="col">
+                    <CharacterBuilding Building="GetBuilding(b.Workplace)" Prefix="Works at: " />
+                </div>
+                <div class="col text-end">District:</div>
+                <div class="col">
+                    <CharacterBuilding Building="GetBuilding(b.District)" Prefix="District: " />
+                </div>
+            </div>
         </div>
     </div>
 </LoadablePage>

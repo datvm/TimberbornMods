@@ -1,4 +1,6 @@
 ﻿@inject StorageService Storage;
+@inject ApiService Api;
+@inject IEnumerable<IApiConnectionListener> ApiListeners;
 
 @if (!initialized)
 {

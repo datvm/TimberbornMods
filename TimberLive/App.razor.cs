@@ -9,6 +9,11 @@ partial class App
     {
         Storage.Initialize();
 
+        foreach (var listener in ApiListeners)
+        {
+            Api.RegisterConnectionListener(listener);
+        }
+
         initialized = true;
     }
 

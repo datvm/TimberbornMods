@@ -45,8 +45,6 @@ public class MiscHandler(
         var focus = parsedRequestPath.QueryParameters.HasSwitch("focus");
         var follow = parsedRequestPath.QueryParameters.HasSwitch("follow");
 
-        await Awaitable.MainThreadAsync();
-
         var entity = registry.GetEntity(id);
         if (!entity) { return; }
 
@@ -80,7 +78,6 @@ public class MiscHandler(
         var namedEntity = entity.GetComponent<NamedEntity>();
         if (!namedEntity || !namedEntity.IsEditable) { return; }
 
-        await Awaitable.MainThreadAsync();
         namedEntity.SetEntityName(newName);
     }
 

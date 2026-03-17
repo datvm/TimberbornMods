@@ -1,16 +1,8 @@
 ﻿namespace TimberLive.Services;
 
-public class Loc : IApiConnectionListener
+public class Loc(ApiService api) : IApiConnectionListener
 {
-    readonly ApiService api;
     Dictionary<string, string> keys = [];
-
-    public Loc(ApiService api)
-    {
-        this.api = api;
-
-        api.RegisterConnectedCallback(this);
-    }
 
     public async Task OnConnectedAsync()
     {

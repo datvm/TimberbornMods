@@ -10,13 +10,10 @@ public class CommonDataService : IApiConnectionListener
     public FrozenDictionary<string, ParsedBonusTypeSpec> BonusTypes { get; private set; }
 #nullable enable
 
-    public CommonDataService(ApiService api, BlueprintApiService blueprintApi)
+    public CommonDataService(BlueprintApiService blueprintApi)
     {
         this.blueprintApi = blueprintApi;
-
         Clear();
-
-        api.RegisterConnectedCallback(this);
     }
 
     public async Task OnConnectedAsync()
