@@ -32,14 +32,17 @@
 		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
+
 	<Target Name="CopyFiles" AfterTargets="PrepareFilesForCopy">
-		<Message Text="Deleting..." />
-		<RemoveDir Directories="$(ModFolder)" />
+		<Message Condition="!$(IsOptionalDll)" Text="Deleting..." />
+		<RemoveDir Condition="!$(IsOptionalDll)" Directories="$(ModFolder)" />
+
+		<Message Condition="$(IsOptionalDll)" Text="Copying optional DLL, skipping deletion..." />
 
 		<Message Text="Copying..." />
-		<Copy SourceFiles="@(ModManifestFile)" DestinationFolder="$(ModFolder)" />
+		<Copy Condition="!$(IsOptionalDll)" SourceFiles="@(ModManifestFile)" DestinationFolder="$(ModFolder)" />
 		<Copy SourceFiles="@(ModWorkshopDataFile)" DestinationFolder="$(ModFolder)..\" />
-		<Copy SourceFiles="@(DllFiles)" DestinationFolder="$(ModFolder)%(RecursiveDir)" />
+		<Copy Condition="!$(IsOptionalDll)" SourceFiles="@(DllFiles)" DestinationFolder="$(ModFolder)%(RecursiveDir)" />
 		<Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(ModFolder)Localizations\%(RecursiveDir)" />
 		<Copy SourceFiles="@(Assets)" DestinationFolder="$(ModFolder)assets\%(RecursiveDir)" />
 		<Copy SourceFiles="@(AssetBundles)" DestinationFolder="$(ModFolder)AssetBundles\%(RecursiveDir)" />
@@ -49,6 +52,11 @@
 		<Copy SourceFiles="@(ModResources)" DestinationFolder="$(ModFolder)Resources\%(RecursiveDir)" />
 		<Copy SourceFiles="@(ModSounds)" DestinationFolder="$(ModFolder)Sounds\%(RecursiveDir)" />
 		<Copy SourceFiles="@(RootCopyFile)" DestinationFolder="$(ModFolder)%(RecursiveDir)" />
+	</Target>
+
+	<Target Condition="$(IsOptionalDll)" Name="CopyOptionalModFiles" AfterTargets="CopyFiles">
+		<!-- File name becomes <name (including .dll)>.<OptionalForModId>.optional -->
+		<Copy SourceFiles="@(DllFiles)" DestinationFiles="@(DllFiles->'$(ModFolder)%(RecursiveDir)%(Filename)%(Extension).$(OptionalForModId).optional')" />
 	</Target>
 
 	<ItemGroup>
@@ -80,7 +88,7 @@
 		<Content Include="Root\**">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="manifest.json">
+		<Content Condition="!$(IsOptionalDll)" Include="manifest.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Condition="Exists('workshop_data.json')" Include="workshop_data.json">

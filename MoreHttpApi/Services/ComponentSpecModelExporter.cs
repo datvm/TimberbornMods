@@ -1,8 +1,8 @@
 ﻿namespace MoreHttpApi.Services;
 
 // Comment or uncomment this to disable/run the exporter.
-#warning Comment this out before release
-[BindSingleton(Contexts = BindAttributeContext.MainMenu)]
+//#warning Comment this out before release
+//[BindSingleton(Contexts = BindAttributeContext.MainMenu)]
 public class ComponentSpecModelExporter : ILoadableSingleton
 {
 
