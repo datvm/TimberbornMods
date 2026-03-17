@@ -170,6 +170,8 @@
   <Project Path="AlwaysFlexibleStart/AlwaysFlexibleStart.csproj" />
   <Project Path="BeavVsMachine/BeavVsMachine.csproj" />
   <Project Path="BenchmarkAndOptimizer/BenchmarkAndOptimizer.csproj" />
+  <Project Path="BetterWeatherStation/BetterWeatherStation.csproj" Id="2a54e76c-8815-4bf0-9312-78be9bcb629b" />
+  <Project Path="BetterWeatherStationModdableWeather/BetterWeatherStationModdableWeather.csproj" Id="2074ab35-6670-410e-b022-c981e834703c" />
   <Project Path="BlockObjectDebugger/BlockObjectDebugger.csproj" />
   <Project Path="BlueprintRelics/BlueprintRelics.csproj" Id="6fb1bd59-00b6-4e80-a0ae-1d3b1d4b4823" />
   <Project Path="ConveyorBelt/ConveyorBelt.csproj" />

@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputModFolderName>BetterWeatherStation</OutputModFolderName>
+		<OptionalForModId>ModdableWeathers</OptionalForModId>
+	</PropertyGroup>
+	
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonModdableTimberborn.targets" />
+	<Import Project="../Targets/CommonModdableWeathers.targets" />
+
+	<ItemGroup>
+		<!-- Don't use *.dll or it will refer to itself -->
+		<Reference Include="$(GameModsFolder)BetterWeatherStation\$(TimberbornVersion)\**\BetterWeatherStation.dll" Private="False" />
+	</ItemGroup>
+</Project>

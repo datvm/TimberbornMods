@@ -1,0 +1,13 @@
+﻿{
+    "Name": "Better Weather Station",
+    "Version": "10.0.0",
+    "Id": "BetterWeatherStation",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Weather Station can works with Moddable Weathers and you can select multiple weathers.",
+    "RequiredMods": [
+        { "Id": "ModdableTimberborn", "MinimumVersion": "10.4.0" }
+    ],
+    "OptionalMods": [
+        { "Id": "ModdableWeathers" }
+    ]
+}

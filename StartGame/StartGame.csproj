@@ -11,11 +11,12 @@
 
 	<ItemGroup>
 		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
-		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
+		<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
-		<ProjectReference Include="..\MoreHttpApi\MoreHttpApi.csproj" />
-
+		<!--<ProjectReference Include="..\BetterWeatherStation\BetterWeatherStation.csproj" />-->
+		<ProjectReference Include="..\BetterWeatherStationModdableWeather\BetterWeatherStationModdableWeather.csproj" />
+		
 	</ItemGroup>
 </Project>

@@ -19,6 +19,9 @@
 		<GameModsFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\</GameModsFolder>
 		<ModFolder>$(GameModsFolder)$(OutputModFolderName)\$(TimberbornVersion)\</ModFolder>
 
+		<IsOptionalDll>false</IsOptionalDll>
+		<IsOptionalDll Condition="'$(OptionalForModId)'!=''">true</IsOptionalDll>
+
 		<!-- For ignoring Member Accessibility, see https://stackoverflow.com/a/79512179/653457 -->
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
@@ -33,7 +36,7 @@
 			<Specifications Include="$(OutputPath)\Specifications\**\*"/>
 			<ModResources Include="$(OutputPath)\Resources\**\*"/>
 			<ModSounds Include="$(OutputPath)\Sounds\**\*"/>
-			<ModManifestFile Include="$(OutputPath)\**\manifest.json" />
+			<ModManifestFile Condition="!$(IsOptionalDll)" Include="$(OutputPath)\**\manifest.json" />
 			<ModWorkshopDataFile Include="$(OutputPath)\**\workshop_data.json" />
 			<RootCopyFile Include="$(OutputPath)Root\**\*" />
 

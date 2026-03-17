@@ -1,0 +1,11 @@
+﻿This mod let you choose multiple weather types at the Weather Station Sensor. For example, the sensor can turn on when the weather is either "Drought" or "Badtide" where previously you had to use two sensors and an OR relay.
+
+This mod also adds support for Moddable Weathers (but you can still use this mod without Moddable Weathers). You can see all the weather types you enabled and the sensor should work correctly now.
+
+Note:
+- Early activation only works for Hazardous weathers. However, it can work for any Hazardous weather you checked. For example, if you choose Drought and Monsoon and turn on Early activation for 72h, the sensor will be on 72h before Drought or Monsoon but not on for Badtide.
+- When changing Moddable Weathers settings, like enabling a new weather type, please make a save and reload the game to update the list.
+- Internally, the game's Weather Station setting is still there though my mod override the logic. If you use Power Copy, you will see two entries: Weather Station and Better Weather Station. It's fine.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

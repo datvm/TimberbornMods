@@ -40,6 +40,12 @@ public abstract class MethodRequiresInterfaceAnalyzerBase : DiagnosticAnalyzer
             return;
         }
 
+        // Must be a subclass of BaseComponent (directly or indirectly)
+        if (!InheritsFromBaseComponent(type))
+        {
+            return;
+        }
+
         // Find any matching method
         IMethodSymbol? hit = null;
         foreach (var m in type.GetMembers().OfType<IMethodSymbol>())
@@ -66,6 +72,20 @@ public abstract class MethodRequiresInterfaceAnalyzerBase : DiagnosticAnalyzer
 
         var location = type.Locations.FirstOrDefault() ?? Location.None;
         ctx.ReportDiagnostic(Diagnostic.Create(Rule, location, props, type.Name, hit.Name, RequiredInterfaceName));
+    }
+
+    static bool InheritsFromBaseComponent(INamedTypeSymbol type)
+    {
+        while (type.BaseType is not null)
+        {
+            if (type.BaseType.Name == "BaseComponent")
+            {
+                return true;
+            }
+            type = type.BaseType;
+        }
+
+        return false;
     }
 
     bool HasOptOut(INamedTypeSymbol type)
