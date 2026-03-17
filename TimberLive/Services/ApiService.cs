@@ -19,14 +19,9 @@ public class ApiService : IDisposable
 
     public Uri CurrentUri { get; private set; } = new("http://localhost:8080");
 
-    public void RegisterConnectedCallback(IApiConnectionListener callback)
+    public void RegisterConnectionListener(IApiConnectionListener listener)
     {
-        connectionCallbacks.Add(callback);
-    }
-
-    public void UnregisterConnectedCallback(IApiConnectionListener callback)
-    {
-        connectionCallbacks.Remove(callback);
+        connectionCallbacks.Add(listener);
     }
 
     public async Task<string?> ConnectAsync(string url)
@@ -154,7 +149,7 @@ public class ApiService : IDisposable
                 var body = await res.Content.ReadAsStringAsync();
                 Console.WriteLine($"Responded with {res.StatusCode}: {body}");
 
-                throw new HttpRequestException($"Request failed with status code {res.StatusCode}: {body}");
+                throw new HttpRequestException($"Request failed with status code {res.StatusCode}: {body}", null, res.StatusCode);
             }
             catch (Exception ex)
             {

@@ -15,8 +15,7 @@
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
-		<!--<ProjectReference Include="..\BetterWeatherStation\BetterWeatherStation.csproj" />-->
-		<ProjectReference Include="..\BetterWeatherStationModdableWeather\BetterWeatherStationModdableWeather.csproj" />
+		<ProjectReference Include="..\MoreHttpApi\MoreHttpApi.csproj" />
 		
 	</ItemGroup>
 </Project>
