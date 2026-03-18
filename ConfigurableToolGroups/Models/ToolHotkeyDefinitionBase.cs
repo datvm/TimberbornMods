@@ -13,7 +13,7 @@ public abstract class ToolHotkeyDefinitionBase(string id, string locKey) : ITool
 public class ButtonToolHotkeyDefinition(string id, string locKey, IToolbarButton button) : ToolHotkeyDefinitionBase(id, locKey)
 {
     public IToolbarButton Button { get; } = button;
-    public override void Select() => button.Select();
+    public override void Select() => Button.Select();
 }
 
 public class ActionHotkeyDefinition(string id, string locKey, Action action) : ToolHotkeyDefinitionBase(id, locKey)

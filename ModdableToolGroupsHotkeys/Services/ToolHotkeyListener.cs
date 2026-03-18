@@ -8,9 +8,9 @@ public class ToolHotkeyListener(
     CustomBlockObjectButtons customBlockObjectButtons
 ) : ILoadableSingleton
 {
-    private readonly Dictionary<IToolbarButton, ToolGroupButton> _buttonToGroupCache = [];
-    private readonly Dictionary<ToolGroupButton, ModdableToolGroupButton> _toolGroupToModdableCache = [];
-    private readonly Dictionary<ToolGroupButton, ToolGroupButton[]> _parentChainCache = [];
+    readonly Dictionary<IToolbarButton, ToolGroupButton> buttonToGroupCache = [];
+    readonly Dictionary<ToolGroupButton, ModdableToolGroupButton> toolGroupToModdableCache = [];
+    readonly Dictionary<ToolGroupButton, ToolGroupButton[]> parentChainCache = [];
 
     public void Load()
     {
@@ -36,23 +36,23 @@ public class ToolHotkeyListener(
     void BuildCaches()
     {
         // Clear caches
-        _buttonToGroupCache.Clear();
-        _toolGroupToModdableCache.Clear();
-        _parentChainCache.Clear();
+        buttonToGroupCache.Clear();
+        toolGroupToModdableCache.Clear();
+        parentChainCache.Clear();
 
         // Build button-to-group cache
         foreach (var groupButton in toolButtonService._toolGroupButtons)
         {
             foreach (var toolButton in groupButton.ToolButtons)
             {
-                _buttonToGroupCache[toolButton] = groupButton;
+                buttonToGroupCache[toolButton] = groupButton;
             }
         }
 
         // Build ToolGroupButton-to-ModdableToolGroupButton cache
         foreach (var moddableGroup in customBlockObjectButtons.ToolGroupButtonsById.Values)
         {
-            _toolGroupToModdableCache[moddableGroup.ToolGroupButton] = moddableGroup;
+            toolGroupToModdableCache[moddableGroup.ToolGroupButton] = moddableGroup;
         }
 
         // Build parent chain cache for all groups
@@ -61,14 +61,14 @@ public class ToolHotkeyListener(
             var chain = new List<ToolGroupButton>();
             var info = moddableToolGroupButtonService[groupButton];
 
-            while (info?.Parent != null)
+            while (info?.Parent is not null)
             {
                 chain.Add(info.Parent.Button);
                 info = info.Parent;
             }
 
             chain.Reverse();
-            _parentChainCache[groupButton] = chain.ToArray();
+            parentChainCache[groupButton] = [.. chain];
         }
     }
 
@@ -76,7 +76,7 @@ public class ToolHotkeyListener(
     {
         // Find which ModdableToolGroupButton contains this ToolButton
         var groupButton = FindModdableGroupForToolButton(toolButton);
-        if (groupButton != null)
+        if (groupButton is not null)
         {
             SelectGroupWithParents(groupButton.ToolGroupButton);
         }
@@ -91,7 +91,7 @@ public class ToolHotkeyListener(
         if (toolHotkey is ButtonToolHotkeyDefinition btnHotkey)
         {
             var toolGroup = FindToolGroupForButton(btnHotkey.Button);
-            if (toolGroup != null)
+            if (toolGroup is not null)
             {
                 SelectGroupWithParents(toolGroup);
             }
@@ -119,20 +119,20 @@ public class ToolHotkeyListener(
     ToolGroupButton[] GetParentChain(ToolGroupButton groupButton)
     {
         // O(1) lookup from pre-computed cache
-        if (_parentChainCache.TryGetValue(groupButton, out var chain))
+        if (parentChainCache.TryGetValue(groupButton, out var chain))
         {
             return chain;
         }
 
         // Cache miss means do nothing
-        return Array.Empty<ToolGroupButton>();
+        return [];
     }
 
     ModdableToolGroupButton? FindModdableGroupForToolButton(ToolButton toolButton)
     {
         // O(1) lookup: button -> ToolGroupButton -> ModdableToolGroupButton
         var toolGroupButton = FindToolGroupForButton(toolButton);
-        if (toolGroupButton != null && _toolGroupToModdableCache.TryGetValue(toolGroupButton, out var moddableGroup))
+        if (toolGroupButton is not null && toolGroupToModdableCache.TryGetValue(toolGroupButton, out var moddableGroup))
         {
             return moddableGroup;
         }
@@ -143,7 +143,7 @@ public class ToolHotkeyListener(
     ToolGroupButton? FindToolGroupForButton(IToolbarButton button)
     {
         // O(1) lookup from pre-computed cache
-        _buttonToGroupCache.TryGetValue(button, out var groupButton);
+        buttonToGroupCache.TryGetValue(button, out var groupButton);
         return groupButton;
     }
 
