@@ -9,6 +9,7 @@ public class ApiService : IDisposable
     };
 
     HttpClient http = new();
+    static readonly TimeSpan Timeout = TimeSpan.FromSeconds(5);
 
     bool rechecking;
 
@@ -34,7 +35,8 @@ public class ApiService : IDisposable
         http.Dispose();
         http = new()
         {
-            BaseAddress = new(uri, MoreHttpApiUtils.EndpointStart + "/")
+            BaseAddress = new(uri, MoreHttpApiUtils.EndpointStart + "/"),
+            Timeout = Timeout,            
         };
         CurrentUri = uri;
 

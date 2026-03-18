@@ -31,7 +31,7 @@ public static class ConversionHelper
 
     extension(NamedEntity comp)
     {
-        public HttpNamedEntity Http() => new(comp.EntityName);
+        public HttpNamedEntity Http() => new(comp.EntityName, comp.IsEditable);
     }
 
     extension(Versioning.Version version)

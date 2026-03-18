@@ -35,18 +35,22 @@
     }
 
     <div class="container">
-        <div class="vstack gap-3">
-            <div class="hstack justify-content-center">
-                <Image @key="b.ImagePath" class="beaver-avatar me-3" Path="@(b.ImagePath)" />
-                <strong>@(b.Name)</strong>
-
-                <button class="btn btn-link" @onclick="() => RenameAsync()">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                </button>
-            </div>
-
-            <div class="text-center">
-                <div>
+        <div class="card">
+            <div class="row g-0 align-items-center">
+                <div class="col-auto">
+                    <Image @key="b.ImagePath" class="beaver-avatar" Path="@(b.ImagePath)" />
+                </div>
+                <div class="col text-center">
+                    <h5 class="card-title mb-0">
+                        <span class="me-2">@(b.Name)</span>
+                        
+                        <button class="btn btn-link" @onclick="() => RenameAsync()">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </button>
+                    </h5>
+                </div>
+                    
+                <div class="col text-end me-3">
                     <span class="me-3">Age: @(b.Age)</span>
 
                     @switch (b.Type)
@@ -74,29 +78,63 @@
                 </div>
             </div>
 
-            <div class="hstack gap-1 justify-content-center">
-                <span>Select and:</span>
-                <button class="btn btn-sm btn-primary" @onclick="() => SelectAsync(false)">
-                    Focus
-                </button>
-                <button class="btn btn-sm btn-primary" @onclick="() => SelectAsync(true)">
-                    Follow
-                </button>
-            </div>
+            <div class="list-group list-group-flush">
+                <div class="list-group-item">
+                    <div class="hstack gap-1 justify-content-center">
+                        <span>Select and:</span>
+                        <button class="btn btn-sm btn-primary" @onclick="() => SelectAsync(false)">
+                            Focus
+                        </button>
+                        <button class="btn btn-sm btn-primary" @onclick="() => SelectAsync(true)">
+                            Follow
+                        </button>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col text-end">Home:</div>
+                        <div class="col">
+                            <CharacterBuilding Building="GetBuilding(b.Dwelling)" Prefix="Lives at: " />
+                        </div>
+                        <div class="col text-end">Workplace:</div>
+                        <div class="col">
+                            <CharacterBuilding Building="GetBuilding(b.Workplace)" Prefix="Works at: " />
+                        </div>
+                        <div class="col text-end">District:</div>
+                        <div class="col">
+                            <CharacterBuilding Building="GetBuilding(b.District)" Prefix="District: " />
+                        </div>
+                    </div>
+                </div>
+                @if (character.LiftingCapacity > 0)
+                {
+                    <div class="list-group-item hstack text-center">
+                        <div class="col">
+                            Carrying: @(CarryingWeight)/@(character.LiftingCapacity)kg
+                        </div>
+                        <div class="col">
+                            @if (character.CarryingGood is not null)
+                            {
+                                <span>
+                                    @(character.CarryingGood.Amount)×
+                                    <GoodImage Id="@(character.CarryingGood.Id)" />
+                                </span>
+                            }
+                            else
+                            {
+                                <span>Nothing</span>
+                            }
+                        </div>
+                    </div>
+                }
+                <div class="list-group-item text-center">
+                    <WellbeingSummary Character="b" Bonuses="CommonData.BonusTypes" />
+                </div>
 
-            <div class="row align-items-center">
-                <div class="col text-end">Home:</div>
-                <div class="col">
-                    <CharacterBuilding Building="GetBuilding(b.Dwelling)" Prefix="Lives at: " />
+                <div class="list-group-item">
+                    <WellbeingDetails Character="character" />
                 </div>
-                <div class="col text-end">Workplace:</div>
-                <div class="col">
-                    <CharacterBuilding Building="GetBuilding(b.Workplace)" Prefix="Works at: " />
-                </div>
-                <div class="col text-end">District:</div>
-                <div class="col">
-                    <CharacterBuilding Building="GetBuilding(b.District)" Prefix="District: " />
-                </div>
+
             </div>
         </div>
     </div>
