@@ -1,0 +1,32 @@
+﻿@{
+    var badgeColor = Character.Wellbeing >= 0 ? "text-bg-success" : "text-bg-danger";
+}
+
+<span class="badge @(badgeColor)">
+    @(Character.Wellbeing)
+</span>
+
+@foreach (var (bid, value) in Character.Bonuses)
+{
+    Console.WriteLine(bid);
+    var bonus = Bonuses[bid];
+    if (bonus.Icon is null) { continue; }
+
+    var perc = (value - 1).ToString("+0%;-0%;0%");
+    var desc = $"{bonus.DisplayName}: {perc}";
+
+    <span title="@(desc)" class="ms-3">
+        <Image class="img-inline" Path="@(bonus.Icon)" />
+        @(perc)
+    </span>
+}
+
+@code {
+
+    [Parameter, EditorRequired]
+    public HttpCharacter Character { get; set; }
+
+    [Parameter, EditorRequired]
+    public FrozenDictionary<string, ParsedBonusTypeSpec> Bonuses { get; set; }
+
+}

@@ -1,0 +1,10 @@
+﻿@inject CommonDataService CommonData;
+
+<Image @key="@(Id)" Path="@(CommonData.Goods[Id].Icon)" class="img-good img-inline" />
+
+@code {
+
+    [Parameter, EditorRequired]
+    public string Id { get; set; }
+
+}

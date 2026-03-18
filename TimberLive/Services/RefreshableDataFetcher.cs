@@ -100,6 +100,7 @@ public class RefreshableDataFetcher(TimeSpan refreshTime, Func<Task> refreshTask
     public void Dispose()
     {
         GC.SuppressFinalize(this);
+        Pause();
         cts?.Dispose();
         SetState(FetcherState.Disposed);
     }

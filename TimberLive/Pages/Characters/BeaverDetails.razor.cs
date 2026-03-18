@@ -1,6 +1,6 @@
 ﻿namespace TimberLive.Pages.Characters;
 
-partial class BeaverDetails
+sealed partial class BeaverDetails : IDisposable
 {
 
     [Parameter]
@@ -47,4 +47,21 @@ partial class BeaverDetails
     }
 
     HttpCharacterBuilding? GetBuilding(Guid? id) => id is null ? null : character!.Buildings[id.Value];
+
+    public void Dispose()
+    {
+        refresher?.Dispose();
+    }
+
+    int CarryingWeight
+    {
+        get
+        {
+            var g = character!.CarryingGood;
+            if (g is null) { return 0; }
+
+            return g.Amount * CommonData.Goods[g.Id].Weight;
+        }
+    }
+
 }

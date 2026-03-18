@@ -131,13 +131,13 @@ public class CharacterHandler(
             .ToArray();
 
         var carrier = entity.GetComponent<GoodCarrier>();
-        var carrying = carrier && carrier.IsCarrying;
-        ParsedGoodAmountSpec? carryingGood = carrying ? carrier.CarriedGoods.Http() : null;
+        var isCarrier = (bool)carrier;
+        ParsedGoodAmountSpec? carryingGood = isCarrier && carrier.IsCarrying ? carrier.CarriedGoods.Http() : null;
 
         return new(
             basic, ParseRelevantBuildings(buildings),
             needs,
-            carryingGood, carrying ? carrier.LiftingCapacity : 0
+            carryingGood, isCarrier ? carrier.LiftingCapacity : 0
         );
     }
 

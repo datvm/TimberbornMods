@@ -1,0 +1,46 @@
+﻿@inject CommonDataService CommonData;
+
+<div class="accordion">
+    @foreach (var (grp, needs) in CompileNeeds())
+    {
+        <AccordionItem Title="@(grp.DisplayName)">
+            <div class="list-group">
+                @foreach (var (spec, value) in needs)
+                {
+                    var wellbeingClass = value.Wellbeing switch
+                    {
+                        > 0 => "text-bg-success",
+                        0 => "text-bg-primary",
+                        _ => "text-bg-danger"
+                    };
+
+                    var perc = ((value.Points - spec.MinimumValue) / (spec.MaximumValue - spec.MinimumValue)).ToString("0%");
+
+
+                    <div class="list-group-item hstack">
+                        <div class="col-2">
+                            @(spec.DisplayName)
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-auto">@(spec.MinimumValue.ToString("F1"))</div>
+                                <div class="col">
+                                    <div class="progress" role="progressbar">
+                                        <div class="progress-bar" style="width: @(perc)">@(value.Points.ToString("F1"))</div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">@(spec.MaximumValue.ToString("F1"))</div>
+                            </div>
+                        </div>
+                        <div class="col-1 text-end">
+                            <span class="badge @(wellbeingClass) rounded-pill">@(value.Wellbeing.ToString("+0;-0;0"))</span>
+                        </div>
+                         
+                    </div>
+                }
+            </div>
+        </AccordionItem>
+    }
+</div>
+
+

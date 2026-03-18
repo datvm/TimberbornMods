@@ -38,7 +38,6 @@
                     @foreach (var c in population![t])
                     {
                         var id = c.Entity.EntityId;
-                        var badgeColor = c.Wellbeing >= 0 ? "text-bg-success" : "text-bg-danger";
 
                         var detailsUrl = "/beavers/" + Uri.EscapeDataString(c.Entity.EntityId.ToString());
 
@@ -75,24 +74,7 @@
                                 </div>
 
                                 <div class="col-2 align-self-center">
-                                    <span class="badge @(badgeColor)">
-                                        @(c.Wellbeing)
-                                    </span>
-
-                                    @foreach (var (bid, value) in c.Bonuses)
-                                    {
-                                        Console.WriteLine(bid);
-                                        var bonus = bonuses[bid];
-                                        if (bonus.Icon is null) { continue; }
-
-                                        var perc = (value - 1).ToString("+0%;-0%;0%");
-                                        var desc = $"{bonus.DisplayName}: {perc}";
-
-                                        <span title="@(desc)" class="ms-3">
-                                            <Image class="img-inline" Path="@(bonus.Icon)" />
-                                            @(perc)
-                                        </span>
-                                    }
+                                    <WellbeingSummary Character="c" Bonuses="bonuses" />
                                 </div>
 
                                 <div class="col-2 hstack">
