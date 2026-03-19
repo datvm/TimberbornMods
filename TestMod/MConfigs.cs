@@ -30,6 +30,5 @@ class Test : ILoadableSingleton
 {
     public void Load()
     {
-        throw new NotImplementedException();
     }
 }

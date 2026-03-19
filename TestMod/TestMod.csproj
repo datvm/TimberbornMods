@@ -1,9 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputModFolderName>TestMod</OutputModFolderName>
     </PropertyGroup>
+    <ItemGroup>
+      <Folder Include="Root\Recipes\" />
+    </ItemGroup>
     <Import Project="../Targets/Common.targets" />
-    <Import Project="../Targets/CommonHarmony.targets" />
 	<Import Project="../Targets/CommonTransparentShaders.targets" />
 	<Import Project="../Targets/CommonModdableTimberborn.targets" />
 </Project>
