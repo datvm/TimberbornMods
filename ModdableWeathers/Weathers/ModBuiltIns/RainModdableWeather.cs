@@ -12,7 +12,7 @@ public class RainModdableWeather(ModdableWeatherSpecService specs, ModdableWeath
 public class RainModdableWeatherSettings : DefaultModdableWeatherSettings
 {
 
-    public override void SetTo(GameModeSpec gameMode)
+    public override void InitializeNewValuesTo(GameModeSpec gameMode)
     {
         StartCycle = 0;
         Chance = 100;

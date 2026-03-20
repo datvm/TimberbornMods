@@ -13,7 +13,9 @@ public class SettingElement(
 #nullable enable
 
     public bool IsEnabledProperty { get; private set; }
-    public event Action<bool>? OnEnabledChanged;
+    
+    public event Action<bool> OnEnabledChanged = null!;
+    protected void RaiseEnabledChanged(bool enabled) => OnEnabledChanged(enabled);
 
     public void Init(NamedPropertyInfo property, object settings)
     {
@@ -41,6 +43,7 @@ public class SettingElement(
             prop.Name == nameof(ModdableWeatherModifierSettings.Weathers)
             && Settings is ModdableWeatherModifierSettings s)
         {
+            IsEnabledProperty = true;
             AddWeatherList(s);
         }
         else
@@ -84,7 +87,7 @@ public class SettingElement(
 
             if (IsEnabledProperty)
             {
-                OnEnabledChanged?.Invoke(v);
+                OnEnabledChanged(v);
             }
         })
             .SetFlexGrow().SetFlexShrink()
@@ -100,6 +103,7 @@ public class SettingElement(
         foreach (var w in s.Weathers)
         {
             var el = container.GetInstance<WeatherModifierAssociationPanel>();
+            el.OnEnabledChanged += RaiseEnabledChanged;
             el.Init(w.Key, w.Value);
 
             panel.Add(el);

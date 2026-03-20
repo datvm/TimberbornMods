@@ -1,0 +1,38 @@
+﻿{
+    "ModdableWeatherModifierSpec": {
+        "Id": "Skyblight",
+        "Order": 100,
+        "NameLoc": "LV.MWSb.Skyblight",
+        "DescLoc": "LV.MWSb.SkyblightModifierDesc",
+        "IncompatibleModifierIds": [ "SurprisinglyRefreshing" ],
+        "CompatibleWeathers": [
+            {
+                "WeatherId": "Skyblight",
+                "Chance": 100,
+                "DefaultEnabled": true,
+                "Lock": true
+            },
+            {
+                "WeatherId": "BadtideWeather",
+                "DefaultEnabled": true,
+                "Chance": 20
+            },
+            {
+                "WeatherId": "DroughtWeather",
+                "Chance": 33
+            },
+            {
+                "WeatherId": "Rain",
+                "Chance": 33
+            },
+            {
+                "WeatherId": "Monsoon",
+                "Chance": 33
+            },
+            {
+                "WeatherId": "Earthquake",
+                "Chance": 33
+            }
+        ]
+    }
+}

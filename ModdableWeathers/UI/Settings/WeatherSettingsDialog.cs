@@ -1,24 +1,21 @@
 ﻿namespace ModdableWeathers.UI.Settings;
 
-public class WeatherSettingsDialog : DialogBoxElement
+public class WeatherSettingsDialog(
+    VisualElementInitializer veInit,
+    PanelStack panelStack,
+    ILoc t,
+    ModdableWeatherRegistry weatherRegistry,
+    ModdableWeatherModifierRegistry weatherModifierRegistry,
+    WeatherHistoryRegistry weatherHistoryRegistry,
+    RainSettings rainSettings,
+    IContainer container
+) : DialogBoxElement
 {
-    readonly PanelStack panelStack;
-    readonly IContainer container;
-    readonly ImmutableArray<IFilterablePanel> panels = [];
+    ImmutableArray<IFilterablePanel> panels = [];
     readonly WeatherSettingsDialogFilter filter = new();
 
-    public WeatherSettingsDialog(
-        VisualElementInitializer veInit,
-        PanelStack panelStack,
-        ILoc t,
-        ModdableWeatherRegistry weatherRegistry,
-        ModdableWeatherModifierRegistry weatherModifierRegistry,
-        WeatherHistoryRegistry weatherHistoryRegistry,
-        RainSettings rainSettings,
-        IContainer container)
+    public void Init()
     {
-        this.panelStack = panelStack;
-        this.container = container;
         List<IFilterablePanel> panels = [];
 
         SetTitle(t.T("LV.MW.ShowSettings"));
@@ -46,6 +43,8 @@ public class WeatherSettingsDialog : DialogBoxElement
         foreach (var w in weatherRegistry.Weathers)
         {
             var el = container.GetInstance<WeatherSettingsPanel>();
+            el.OnEnabledChanged += OnEnabledChanged;
+
             el.Init(w);
             weathersPanel.Add(el);
             panels.Add(el);
@@ -57,6 +56,8 @@ public class WeatherSettingsDialog : DialogBoxElement
         foreach (var m in weatherModifierRegistry.Modifiers)
         {
             var el = container.GetInstance<WeatherModifierSettingsPanel>();
+            el.OnEnabledChanged += OnEnabledChanged;
+
             el.Init(m);
             modifiersPanel.Add(el);
             panels.Add(el);
@@ -66,7 +67,79 @@ public class WeatherSettingsDialog : DialogBoxElement
         UpdateFilters();
 
         this.panels = [.. panels];
+        OnEnabledChanged();
+    }
 
+    void OnEnabledChanged()
+    {
+        foreach (var el in panels)
+        {
+            switch (el)
+            {
+                case WeatherSettingsPanel wp:
+                    var disabled = !wp.Entity.Enabled;
+
+                    if (disabled)
+                    {
+                        wp.SetDisabled(true);
+                    }
+                    else
+                    {
+                        wp.SetDisabled(false);
+                        wp.SetTags([
+                            t.T("LV.MW.ModifiersShort"),
+                            string.Join(" / ", GetEnabledModifiersFor(wp.Entity.Id))
+                        ]);
+                    }
+
+                    break;
+                case WeatherModifierSettingsPanel mp:
+                    var weathers = GetEnabledWeathersForModifier(mp.Entity.Id).ToArray();
+                    if (weathers.Length > 0)
+                    {
+                        mp.SetDisabled(false);
+                        mp.SetTags([t.T("LV.MW.WeathersShort"), string.Join(" / ", weathers)]);
+                    }
+                    else
+                    {
+                        mp.SetDisabled(true);
+                    }
+
+                    break;
+            }
+        }
+    }
+
+    IEnumerable<string> GetEnabledModifiersFor(string weatherId)
+    {
+        foreach (var mod in weatherModifierRegistry.Modifiers)
+        {
+            if (mod.Settings.Weathers.TryGetValue(weatherId, out var wInfo))
+            {
+                if (wInfo.Lock || !wInfo.Enabled) { continue; }
+
+                yield return mod.Spec.Name.Value;
+            }
+        }
+    }
+
+    IEnumerable<string> GetEnabledWeathersForModifier(string modifierId)
+    {
+        var mod = weatherModifierRegistry.ModifiersById[modifierId];
+
+        var enabledWeathers = mod.Settings.Weathers
+            .Where(kv => kv.Value.Enabled)
+            .OrderBy(kv => !kv.Value.Lock)
+            .Select(kv => kv.Key)
+            .ToArray();
+
+        foreach (var wId in enabledWeathers)
+        {
+            if (weatherRegistry.WeathersById.TryGetValue(wId, out var weather))
+            {
+                yield return weather.Spec.Display.Value;
+            }
+        }
     }
 
     void Reload()

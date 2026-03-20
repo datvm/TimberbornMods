@@ -3,7 +3,7 @@
 public interface IModdableWeatherSettings : IBaseWeatherSettings
 {
     bool CanSupport(GameModeSpec gameMode);
-    void SetTo(GameModeSpec gameMode);
+    void InitializeNewValuesTo(GameModeSpec gameMode);
 }
 
 public interface IDefaultModdableWeatherSettings : IModdableWeatherSettings

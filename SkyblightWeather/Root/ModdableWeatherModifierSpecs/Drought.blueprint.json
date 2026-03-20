@@ -1,0 +1,10 @@
+﻿{
+    "ModdableWeatherModifierSpec": {
+        "CompatibleWeathers#append": [
+            {
+                "WeatherId": "Skyblight",
+                "Chance": 33
+            }
+        ]
+    }
+}

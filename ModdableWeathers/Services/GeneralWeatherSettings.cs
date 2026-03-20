@@ -9,6 +9,8 @@ public class GeneralWeatherSettings(ISingletonLoader loader) : ISaveableSingleto
     [Description("LV.MW.AlwaysShowHazDur")]
     public bool AlwaysShowHazardousDuration { get; set; }
 
+    public bool FirstLoad { get; set; }
+
     public void Load()
     {
         if (!loader.TryGetSingleton(SaveKey, out var s)) { return; }

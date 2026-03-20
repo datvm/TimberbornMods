@@ -1,6 +1,4 @@
-﻿using System.Reflection.Emit;
-
-namespace ModdableWeathers.Patches.Game;
+﻿namespace ModdableWeathers.Patches.Game;
 
 [HarmonyPatch(typeof(DayStageCycle))]
 public static class DayStageCyclePatches

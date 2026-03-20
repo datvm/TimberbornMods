@@ -1,11 +1,16 @@
-ID,Text,Comment
+﻿ID,Text,Comment
 LV.MWSb.Skyblight,"Skyblight",
+LV.MWSb.SkyblightDesc,"Hazardous weather: The air itself conspires against you! See Skyblight and Badrain modifiers for effects.",
+LV.MWSb.SkyblightModifierDesc,"All water get contaminated over time. Does not affect waters in storage (Tanks).",
 LV.MWSb.SkyblightStrength,"Blight Strength",
-LV.MWSb.SkyblightStrengthDesc,"How fast the blight spreads into the water (%/tick).
-Each game tick (0.6s), a part of water is made into badwater.
-For example, at default 0.1%, your reservoir without any new fresh water in
-will become 100% contaminated after 1000 ticks / 600s (about one and a half game day).",
+LV.MWSb.SkyblightStrengthDesc,"How fast the blight spreads into the water (%/hour).
+For example, at default 10%/hour, if you have 1m³ of water at 40% contamination, after an hour, it will be 50% contaminated.",
 LV.MWSb.Badrain,"Badrain",
+LV.MWSb.BadrainDesc,"Contaminated rain that causes various (configurable) negative effects:
+- Limit the moisture range of your land.
+- Contaminate the land every now and then.
+- Beavers get sick if outside for too long every day.
+- Bots get damaged when outside.",
 LV.MWSb.BadrainLimitMoisture,"Limit Moisture Range",
 LV.MWSb.BadrainLimitMoistureDesc,"Limit the range your land get moisture when badrain is active.",
 LV.MWSb.BadrainMoistureRange,"Limited Moisture Range",
@@ -13,13 +18,18 @@ LV.MWSb.BadrainMoistureRangeDesc,"The maximum moisture range when badrain is act
 LV.MWSb.BadrainContamination,"Frequent land contamination",
 LV.MWSb.BadrainContaminationDesc,"Contaminate the land every now and then when badrain is active.",
 LV.MWSb.BadrainContaminationDuration,"Contamination Duration",
-LV.MWSb.BadrainContaminationDurationDesc,"How long the land is contaminated (days) when badrain is active.",
+LV.MWSb.BadrainContaminationDurationDesc,"How long the land is contaminated (hours) when badrain is active.",
 LV.MWSb.BadrainClearDuration,"Clear Duration",
-LV.MWSb.BadrainClearDurationDesc,"How long the land is clear of contamination (days) when badrain is active.",
-LV.MWSb.Update704,"The Skyblight Strength setting unit is now % instead of ‰.
-You can also set it to smaller number by using decimal.
-The default value is set to 0.1% (5 times slower than previous default settings).",
-LV.MWSb.SkyblightDesc,"Hazardous weather: All water get contaminated over time. Does not affect waters in storage (Tanks).",
-LV.MWSb.BadrainDesc,"Hazardous weather: Same effect as Skyblight and selectable additional effects:
-- Limit Moisture Range: your land can only carry moisture to a much smaller range.
-- Contaminate Land: the land will be contaminated every now and then.",
+LV.MWSb.BadrainClearDurationDesc,"How long the land is clear of contamination (hours) when badrain is active.",
+LV.MWSb.BadrainSickBeavers,"Cause sick beavers",
+LV.MWSb.BadrainSickBeaversDesc,"Beavers get sick if outside for too long when badrain is active.",
+LV.MWSb.BadrainSickBeaversMin,"Minimum Time Outside",
+LV.MWSb.BadrainSickBeaversMinDesc,"Minimum time outside (hours) before it risks getting sick.",
+LV.MWSb.BadrainSickBeaversMax,"Maximum Time Outside",
+LV.MWSb.BadrainSickBeaversMaxDesc,"Maximum time outside (hours) at which a beaver will surely get sick. Between minimum and maximum time, the chance to get sick increases linearly.",
+LV.MWSb.BadrainDamageBots,"Damage bots",
+LV.MWSb.BadrainDamageBotsDesc,"Bots get damaged when outside while badrain is active.",
+LV.MWSb.BadrainBotDamage,"Bot Damage (%/hour)",
+LV.MWSb.BadrainBotDamageDesc,"How much damage bots get per hour outside when badrain is active.",
+LV.MWSb.BadrainBotStatus,"This Bot is in Badrain. It is being damaged at {0:0%} per hour while outside.",
+LV.MWSb.BadrainBeaverStatus,"This Beaver has been in Badrain for {0:0.0}h today. It has {1:0%} chance of being sick.",

@@ -1,34 +1,27 @@
-﻿global using SkyblightWeather.Services;
-global using SkyblightWeather.Weathers;
+﻿namespace SkyblightWeather;
 
-namespace SkyblightWeather;
-
-[Context("MainMenu")]
-public class ModMainMenuConfig : Configurator
+public class SkyblightWeatherConfigs : BaseModdableTimberbornAttributeConfiguration, IModdableTimberbornRegistryWithPatchConfig
 {
-    public override void Configure()
-    {
-        this
-            .BindHazardousWeather<SkyblightWeatherType, SkyblightWeatherSettings>(true)
-            .BindHazardousWeather<BadrainWeather, BadrainWeatherSettings>(true)
+    public override ConfigurationContext AvailableContexts => ConfigurationContext.Game;
+    public string? PatchCategory => null;
 
-            .MultiBindSingleton<IModUpdateNotifier, UpdateNotifier>()
-        ;
+    public override void StartMod(IModEnvironment modEnvironment)
+    {
+        base.StartMod(modEnvironment);
+
+        ModdableTimberbornRegistry.Instance
+            .UseEntityTracker()
+            .TryTrack<BadrainCharacterComponent>();
     }
-}
 
-[Context("Game")]
-public class ModGameConfig : Configurator
-{
-    public override void Configure()
+    public override void Configure(Configurator configurator, ConfigurationContext context)
     {
-        this
-            .BindHazardousWeather<SkyblightWeatherType, SkyblightWeatherSettings>(false)
-            .BindHazardousWeather<BadrainWeather, BadrainWeatherSettings>(false)
+        base.Configure(configurator, context);
 
-            .BindRainEffectWeather<BadrainWeather>()
-
-            .BindSingleton<BlightApplier>()
+        configurator
+            .BindWeather<SkyblightModdableWeather, SkyblightWeatherSettings>()
+            .BindWeatherModifier<SkyblightModifier, SkyblightModifierSettings>()
+            .BindWeatherModifier<BadrainModifier, BadrainModifierSettings>()
         ;
     }
 }

@@ -11,7 +11,7 @@ public class MonsoonModdableWeather(ModdableWeatherSpecService specs, ModdableWe
 public class MoonsoonWeatherSettings : DefaultModdableWeatherSettings
 {
 
-    public override void SetTo(GameModeSpec gameMode)
+    public override void InitializeNewValuesTo(GameModeSpec gameMode)
     {
         StartCycle = Mathf.CeilToInt(gameMode.CyclesBeforeRandomizingBadtide / 2f);
         Chance = Mathf.FloorToInt(gameMode.ChanceForBadtide * 100f);

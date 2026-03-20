@@ -1,26 +1,31 @@
-When the skies themselves conspire, no dam can save you. This expansion mod for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3493039008]Moddable Weather[/url] introduces two new hazardous weather types:
+ï»¿When the skies themselves conspire, no dam can save you. The Skyblight & Badrain expansion for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3630523180]Moddable Weather[/url] is back with even more challenges!
+
+[img]https://files.catbox.moe/fvap3a.jpg[/img]
+
+Both Skyblight and Badrain are now weather modifiers so you can combine it with other weather types. Skyblight is also a standalone weather type.
 
 [h1]Skyblight[/h1]
 
 Think you're safe with your massive reservoir that withstands the worst droughts? Now the air itself will turn against you: toxic pollen will slowly contaminate all water, bypassing traditional defenses.
 
-  * Water in storages is safe, as beavers can cover them.
-  * Running water is generally safer, but it becomes contaminated the farther it gets from the source.
-  * Default setting: starts at cycle 7, with stats similar to Badtide but at half the chance of occurrence.
-  * You can adjust the [b]strength[/b] of the pollution (%/game tick): Each game tick (0.6s), a part of water is made into badwater. For example, at default 0.1%, your reservoir without any new fresh water in will become 100% contaminated after 1000 ticks / 600s (about one and a half game day).
+[img]https://files.catbox.moe/44qzvk.jpg[/img]
+
+This weather is enabled by default when you have this mod. Skyblight is now both a weather type and a modifier. [b]Note: by default, Skyblight is also enabled along with Badtide at 20% chance[/b].
+
+- Water in storages is safe.
+- Any outside water will gradually become contaminated. You can configure the strength of the effect. At default 10%/hour, it will takes 10 hours for your reservoir without any incoming fresh water to become fully contaminated.
 
 [h1]Badrain[/h1]
-If Skyblight isn't challenging enough, enable Badrain. It's the same as Skyblight with additional challenges:
-  * Limit Moisture Range: your land can only carry moisture to a much smaller range. Default: On at 3 (game default 16).
-  * Contaminate Land: the land will be contaminated every now and then. Default: Off. You should tweak around the number a lot.
-  * Default: starts at cycle 10, a quarter of the chance of Badtide for happening.
-  * It uses the same Skyblight's Strength setting.
+If Skyblight isn't challenging enough, combine Badrain with it or other weather types. In this version, Badrain has even more effects. You can choose the effects and its strength in the settings:
+
+[img]https://files.catbox.moe/5hb4w7.jpg[/img]
+
+- Limit the moisture range of your land.
+- Contaminate the land every now and then.
+- Beavers get sick if outside for too long every day.
+- Bots get damaged when outside.
+
+It can be combined with almost any weather type except Rain.
 
 ===
-Mod source code and donation: https://github.com/datvm/TimberbornMods
-
-v7.0.5: Should work with Sep 17th update.
-v7.0.4: The Skyblight Strength setting unit is now % instead of ‰. You can also set it to smaller number by using decimal. The default value is set to 0.1% (5 times slower than previous default settings).
-v7.0.3: Fixed Limit Moisture sometimes does not work as intended. Thanks Akinare for helping identifying the problem.
-v7.0.2: You can now choose effects of Badrain (Limit Moisture and/or Contaminate Land). Default settings are the same as before so you should not be affected without changing settings.
-v7.0.1: Updated Badrain effect. Badrain is now enabled by default in the settings.
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

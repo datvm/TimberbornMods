@@ -10,6 +10,8 @@ public class WeatherModifierAssociationPanel(
     public IModdableWeather? Weather { get; private set; }
     Label? lblDisabled;
 
+    public event Action<bool> OnEnabledChanged = null!;
+
     public void Init(string weatherId, ModdableWeatherModifierWeatherSettings settings)
     {
         this.BorderAndSpace();
@@ -35,7 +37,7 @@ public class WeatherModifierAssociationPanel(
 
             if (el.IsEnabledProperty)
             {
-                el.OnEnabledChanged += e => lblDisabled.SetDisplay(!e);
+                el.OnEnabledChanged += InternalOnEnabledChanged;
                 lblDisabled.SetDisplay(!(bool)property.Property.GetValue(settings));
             }
 
@@ -47,6 +49,12 @@ public class WeatherModifierAssociationPanel(
             panel.enabledSelf = false;
             AppendHeaderLabel(t.T("LV.MW.SettingsLocked"));
         }
+    }
+
+    void InternalOnEnabledChanged(bool e)
+    {
+        lblDisabled?.SetDisplay(!e);
+        OnEnabledChanged(e);
     }
 
     Label AppendHeaderLabel(string text)

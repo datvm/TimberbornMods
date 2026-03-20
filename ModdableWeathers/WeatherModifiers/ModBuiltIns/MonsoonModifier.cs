@@ -8,15 +8,6 @@ public class MonsoonModifier(
     public const string ModifierId = "Monsoon";
     public override string Id { get; } = ModifierId;
 
-    protected override void InitializeSettings()
-    {
-        base.InitializeSettings();
-
-        Settings.MonsoonMultiplier = 350;
-        Settings.HandicapCycles = 5;
-        Settings.HandicapPercent = 35;
-    }
-
     public override void Start(DetailedWeatherStageReference stage, WeatherHistoryService history, bool onLoad)
     {
         base.Start(stage, history, onLoad);
@@ -49,4 +40,12 @@ public class MonsoonModifierSettings : ModdableWeatherModifierSettings
 
     [Description("LV.MW.HandicapCycles")]
     public int HandicapCycles { get; set; }
+
+    public override void InitializeNewSettings()
+    {
+        MonsoonMultiplier = 350;
+        HandicapCycles = 5;
+        HandicapPercent = 35;
+    }
+
 }

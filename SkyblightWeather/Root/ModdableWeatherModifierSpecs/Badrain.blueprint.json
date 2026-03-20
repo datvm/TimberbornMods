@@ -1,0 +1,32 @@
+﻿{
+    "ModdableWeatherModifierSpec": {
+        "Id": "Badrain",
+        "Order": 110,
+        "NameLoc": "LV.MWSb.Badrain",
+        "DescLoc": "LV.MWSb.BadrainDesc",
+        "IncompatibleModifierIds": [ "Rain", "SurprisinglyRefreshing" ],
+        "CompatibleWeathers": [
+            {
+                "WeatherId": "Skyblight",
+                "DefaultEnabled": true,
+                "Chance": 33
+            },
+            {
+                "WeatherId": "BadtideWeather",
+                "Chance": 33
+            },
+            {
+                "WeatherId": "DroughtWeather",
+                "Chance": 33
+            },
+            {
+                "WeatherId": "Monsoon",
+                "Chance": 33
+            },
+            {
+                "WeatherId": "Earthquake",
+                "Chance": 33
+            }
+        ]
+    }
+}

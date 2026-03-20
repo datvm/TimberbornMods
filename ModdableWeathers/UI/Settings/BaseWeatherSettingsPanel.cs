@@ -6,8 +6,12 @@ public abstract class BaseWeatherSettingsPanel<T, TSettings>(ILoc t, IContainer 
 #nullable disable
     public T Entity { get; private set; }
     public TSettings Settings { get; private set; }
+
+    VisualElement tagPanel;
     Label lblDisabled;
 #nullable enable
+
+    public event Action OnEnabledChanged = null!;
 
     public virtual void Init(T entity)
     {
@@ -20,6 +24,9 @@ public abstract class BaseWeatherSettingsPanel<T, TSettings>(ILoc t, IContainer 
         lblDisabled = this.AddLabel(t.T("LV.MW.SettingsDisabled"));
         lblDisabled.InsertSelfAfter(HeaderLabel);
         lblDisabled.SetDisplay(false);
+
+        tagPanel = this.AddRow();
+        tagPanel.InsertSelfBefore(lblDisabled);
 
         var parent = Container;
         parent.AddLabel(GetDescription()).SetMarginBottom();
@@ -48,11 +55,30 @@ public abstract class BaseWeatherSettingsPanel<T, TSettings>(ILoc t, IContainer 
 
             if (el.IsEnabledProperty)
             {
-                el.OnEnabledChanged += enabled => lblDisabled.SetDisplay(!enabled);
-                lblDisabled.SetDisplay(!(bool)prop.Property.GetValue(Settings));
+                el.OnEnabledChanged += _ => OnEnabledChanged();
             }
 
             list.Add(el);
+        }
+    }
+
+    public void SetDisabled(bool disabled)
+    {
+        lblDisabled.SetDisplay(disabled);
+
+        if (disabled)
+        {
+            tagPanel.Clear();
+        }
+    }
+
+    public void SetTags(IEnumerable<string> tags)
+    {
+        tagPanel.Clear();
+
+        foreach (var tag in tags)
+        {
+            tagPanel.AddLabel(tag.Length == 0 ? t.TNone() : tag).SetMarginRight(5);
         }
     }
 
