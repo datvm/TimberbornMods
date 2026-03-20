@@ -6,7 +6,6 @@ public record ParsedUnknownBlueprint(HttpBlueprint Blueprint, string Path) : IPa
     public int Order => 0;
     public string TemplateName => "";
     public string DisplayNameLoc => "Unknown";
-    public string Path => Path;
 
     public ParsedTemplateSpec TemplateSpec => throw new NotSupportedException();
 }

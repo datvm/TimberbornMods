@@ -12,7 +12,7 @@ public class WatherSettingsExportService(
     GeneralWeatherSettings generalWeatherSettings
 )
 {
-    IBaseWeatherSettings generalWeatherSettings = generalWeatherSettings;
+    readonly IBaseWeatherSettings generalWeatherSettings = generalWeatherSettings;
 
     const string WeathersKey = "Weathers";
     const string WeatherModifiersKey = "WeatherModifiers";
@@ -29,10 +29,15 @@ public class WatherSettingsExportService(
             filePath += ".json";
         }
 
-        var serialized = SerializeSettings().ToString();
-        File.WriteAllText(filePath, serialized);
+        ExportToPath(filePath);
 
         return true;
+    }
+
+    public void ExportToPath(string filePath)
+    {
+        var serialized = SerializeSettings().ToString();
+        File.WriteAllText(filePath, serialized);
     }
 
     public bool RequestImport()
@@ -40,6 +45,12 @@ public class WatherSettingsExportService(
         var filePath = fileDialogService.ShowOpenFileDialog("json");
         if (filePath is null) { return false; }
 
+        ImportFromPath(filePath);
+        return true;
+    }
+
+    public void ImportFromPath(string filePath)
+    {
         var fileContent = File.ReadAllText(filePath);
         var json = JObject.Parse(fileContent);
 
@@ -57,8 +68,6 @@ public class WatherSettingsExportService(
 
         weatherRegistry.ReloadSettings();
         modifierRegistry.ReloadSettings();
-
-        return true;
 
         void LoadIfHasValue(string name, Action<JObject> action)
         {

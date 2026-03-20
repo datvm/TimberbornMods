@@ -71,6 +71,7 @@ public class ModdableWeatherConfig : BaseModdableTimberbornConfigurationWithHarm
             .BindSingleton<GeneralWeatherSettings>()
             .BindSingleton<WatherSettingsExportService>()
             .BindSingleton<GeneralGlobalSettings>()
+            .BindSingleton<InitialWeatherSettingsService>()
 
             // Settings Dialog            
             .BindSingleton<WeatherSettingsDialogShower>()

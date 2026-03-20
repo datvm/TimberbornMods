@@ -4,6 +4,8 @@
 
 This is not an update of the old mod. [i]Unfortunately, previous saves from Update 7 are not compatible[/i] and existing users should expect significant changes in behavior and configuration. This version is designed to be feature-focused rather than compatibility-focused. Saves that were played with this mod may not work correctly if the mod is later removed (behavior is undefined).
 
+[b]Note: please disable this mod to use the Map Editor.[/b]
+
 [h1]Save-based Settings[/h1]
 Weather settings are now per-save, not global: each save maintains its own independent weather configuration. Settings can be changed mid-game, taking effect starting from the next weather cycle. [b]Saving and reloading is recommended after editing settings to ensure everything is applied correctly.[/b]
 
@@ -11,6 +13,8 @@ Initial values are derived from the selected game difficulty. To change the weat
 [img]https://files.catbox.moe/asvsbo.jpg[/img]
 
 The profile feature where you can export and import settings is retained for easy sharing of configurations between saves.
+
+From v10.1.0, there's also a new [b]Default Settings[/b] you can use to set the initial values for new saves. Note that if you use it, difficulty values are ignored and the default settings are used instead. You can always clear the default settings to revert to difficulty-based initial values.
 
 [h1]New Weathers[/h1]
 To avoid confusion, weather is now classified into two clear categories: [b]Benign[/b] (formerly called Temperate) and [b]Hazardous[/b]. This separates the weather category from the vanilla [i]Temperate[/i] weather name and makes configuration clearer.
@@ -71,6 +75,7 @@ Because this mod fundamentally changes how weather cycles work, some behaviors d
 - [b]Water transition behavior (Drought and Badtide)[/b]: When a Drought or Badtide starts, water sources now gradually transition to their target state [b]after[/b] the weather begins, instead of before. Likewise, water only returns to normal [b]after[/b] the weather ends. This transition always takes a [b]fixed 3 in-game hours[/b], independent of water strength or source output.
 - [b]Hazardous weather duration visibility[/b]: Because a cycle may contain multiple stages and mixed weather types, hazardous weather duration is only revealed [b]3 days before it ends[/b]. To match vanilla behavior, a new setting is available: [b]Always show hazardous weather duration[/b]: When enabled, the full duration of hazardous weather is always visible.
 - [b]Aquafier[/b]: In the base game, the Aquifer Drill is completely disabled during [i]any[/i] hazardous weather. This mod preserves that behavior, so the drill remains inactive during hazardous weathers such as Monsoon or Surprisingly Refreshing. Since Badwater is now implemented as a modifier rather than a standalone weather, this mod adds an additional restriction: if the water source has any contamination, the Aquifer Drill will stop producing water. However, it will still consume power while inactive.
+- Please use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3686679308]Better Weather Station[/url] to make Weather Station work with this mod.
 
 [h1]For Modders[/h1]
 This mod provides an extensible framework for custom weather content. Modders can add:
@@ -83,18 +88,3 @@ If you need any help, feel free to leave a comment on Steam or Discord ([url=htt
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
-
-v10.0.6:
-- Should work with Update 1.0.7 (Jan 12)
-- The setting dialog now show up for new games (once per save). You can disable it with a new setting as well.
-[img]https://files.catbox.moe/cwfh4f.jpg[/img]
-v10.0.5: Fixed two music tracks playing at the same time.
-v10.0.4:
-- Badtide-related achievements should now trigger correctly (not tested).
-- Fixed Aquafier spilling Badwater during Badtide. It also should correctly be blocked during Hazardous weathers now. See the behavior changes section for details.
-v10.0.3: Fixed hazardous weather music keeps playing.
-v10.0.2
-- Fixed Iron Teeth Badwater Discharges not producing badwater during Drought.
-- Fixed water briefly reverting to normal when loading a save during Drought or Monsoon.
-- Added the [i]Always show hazardous weather duration[/i] setting.
-v10.0.1: Fixed a crash with ISystemFileDialogService missing.
