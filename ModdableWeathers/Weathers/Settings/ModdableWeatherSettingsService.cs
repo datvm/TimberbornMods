@@ -8,8 +8,11 @@ public class ModdableWeatherSettingsService(
 {
     protected override SingletonKey SaveKey { get; } = new(nameof(ModdableWeatherSettingsService));
 
-    protected override void InitializeNewData()
+    public override void Load()
     {
+        base.Load();
+        if (!HasNewSettingEntry) { return; }
+
         GameModeSpec[] difficulties = [
             persistentGameModeService.ReconstructedMode,
             persistentGameModeService.BestMatchedMode,
@@ -17,11 +20,13 @@ public class ModdableWeatherSettingsService(
 
         foreach (var s in settingsByType.Values)
         {
+            if (!s.FirstLoad) { continue; }
+
             foreach (var d in difficulties)
             {
                 if (s.CanSupport(d))
                 {
-                    s.SetTo(d);
+                    s.InitializeNewValuesTo(d);
                     break;
                 }
             }

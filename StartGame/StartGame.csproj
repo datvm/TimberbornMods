@@ -15,7 +15,7 @@
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
-		<ProjectReference Include="..\ModdableWeathers\ModdableWeathers.csproj" />
+		<ProjectReference Include="..\SkyblightWeather\SkyblightWeather.csproj" />
 		
 	</ItemGroup>
 </Project>

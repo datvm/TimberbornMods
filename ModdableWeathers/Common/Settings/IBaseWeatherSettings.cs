@@ -5,6 +5,8 @@ public interface IBaseWeatherSettings
 {
     static readonly Dictionary<Type, ImmutableArray<NamedPropertyInfo>> TypeProperties = [];
 
+    bool FirstLoad { get; set; }
+
     ImmutableArray<NamedPropertyInfo> Properties => GetPropertiesFor(GetType());
 
     void Deserialize(JObject json) => DefaultDeserialize(this, json);

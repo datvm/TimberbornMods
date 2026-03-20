@@ -26,6 +26,8 @@
 		<Using Include="ModdableWeathers.Common.PrioritizedModifiers" />
 		<Using Include="ModdableWeathers.UI" />
 
+		<Using Include="System.ComponentModel"/>
+
 		<Reference Include="$(ModdableWeatherPath)" Private="False" />
 	</ItemGroup>
 

@@ -11,7 +11,7 @@ public class GameTemperateWeather(ModdableWeatherSpecService specs, ModdableWeat
 
 public class GameTemperateWeatherSettings : DefaultModdableWeatherSettings
 {
-    public override void SetTo(GameModeSpec gameMode)
+    public override void InitializeNewValuesTo(GameModeSpec gameMode)
     {
         Enabled = true;
         StartCycle = 0;

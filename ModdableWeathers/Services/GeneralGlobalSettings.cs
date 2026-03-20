@@ -5,6 +5,8 @@ public class GeneralGlobalSettings : IBaseWeatherSettings
     const string SettingPrefix = $"{nameof(ModdableWeathers)}.General.";
     const string DoNotShowOnNewGameKey = $"{SettingPrefix}DoNotShowOnNewGame";
 
+    public bool FirstLoad { get; set; }
+
     [Description("LV.MW.NoNewSetting")]
     public bool DoNotShowOnNewGame
     {

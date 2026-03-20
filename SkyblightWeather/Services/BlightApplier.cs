@@ -1,9 +1,8 @@
 ﻿namespace SkyblightWeather.Services;
 
+[BindSingleton]
 public class BlightApplier(
-    SkyblightWeatherType skyblight,
-    BadrainWeather badrain,
-    SkyblightWeatherSettings s,
+    IDayNightCycle dayNightCycle,
     IWaterService waterService,
     IThreadSafeWaterMap waterMap,
     MapIndexService mapIndex
@@ -11,18 +10,32 @@ public class BlightApplier(
 {
     int verticalStride;
 
+    int tickAccumulated;
+    int ticksToAddOnePercent;
+
+    int ticksPerHour;
+
     public void Load()
     {
-        var size = mapIndex.TerrainSize;
         verticalStride = mapIndex.VerticalStride;
+        ticksPerHour = dayNightCycle.HoursToTicks(1);
     }
+
+    public void Start(float strength)
+    {
+        tickAccumulated = 0;
+        ticksToAddOnePercent = strength > 0 ? Mathf.RoundToInt(ticksPerHour / strength / 100) : 0;
+    }
+    public void Stop() => Start(0);
 
     public void Tick()
     {
-        if (!skyblight.Active && !badrain.Active) { return; }
+        if (ticksToAddOnePercent == 0) { return; }
 
-        var str = s.SkyblightStrength.Value / 100f;
-        if (str <= 0f) { return; }
+        tickAccumulated++;
+        if (tickAccumulated < ticksToAddOnePercent) { return; }
+
+        tickAccumulated = 0;
 
         var columns = waterMap.WaterColumns;
         var columnCounts = waterMap.ColumnCounts;
@@ -36,10 +49,18 @@ public class BlightApplier(
                 var column = columns[k * verticalStride + i];
                 if (column.Contamination >= 1f || column.WaterDepth == 0) { continue; }
 
-                var removing = Mathf.Min(column.WaterDepth, column.WaterDepth * str);
+                // Goal: add 1% contamination: 40% contamination becomes 41% contamination.
+
+                var cleanWaterRemoving = column.WaterDepth * .01f;
+                var availableCleanWater = column.WaterDepth * (1f - column.Contamination);
+                if (cleanWaterRemoving > availableCleanWater)
+                {
+                    cleanWaterRemoving = availableCleanWater;
+                }
+
                 var coord = mapIndex.IndexToCoordinates(i, column.Floor);
-                waterService.RemoveCleanWater(coord, removing);
-                waterService.AddContaminatedWater(coord, removing);
+                waterService.RemoveCleanWater(coord, cleanWaterRemoving);
+                waterService.AddContaminatedWater(coord, cleanWaterRemoving);
             }
         }
     }

@@ -56,6 +56,7 @@ public class WeatherSettingsDialogShower(
     public async Task ShowDialogAsync()
     {
         var diag = container.GetInstance<WeatherSettingsDialog>();
+        diag.Init();
         await diag.ShowAsync();
 
         var cycle = gameCycleService.Cycle;

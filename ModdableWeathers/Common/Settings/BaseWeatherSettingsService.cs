@@ -12,19 +12,29 @@ public abstract class BaseWeatherSettingsService<T>(
     protected FrozenDictionary<Type, T> settingsByType = FrozenDictionary<Type, T>.Empty;
 
     public bool IsNewData { get; private set; }
+    public bool HasNewSettingEntry { get; private set; }
 
     public TSetting GetSettings<TSetting>()
         where TSetting : T
         => (TSetting)settingsByType[typeof(TSetting)];
 
-    public void Load()
+    public virtual void Load()
     {
         settingsByType = settings.ToFrozenDictionary(q => q.GetType());
 
         IsNewData = !TryLoadData();
+
         if (IsNewData)
         {
-            InitializeNewData();
+            foreach (var s in settingsByType.Values)
+            {
+                s.FirstLoad = true;
+            }
+            HasNewSettingEntry = true;
+        }
+        else
+        {
+            HasNewSettingEntry = settingsByType.Any(kv => kv.Value.FirstLoad);
         }
     }
 
@@ -36,8 +46,6 @@ public abstract class BaseWeatherSettingsService<T>(
         LoadSerializedSettings(json);
         return true;
     }
-
-    protected abstract void InitializeNewData();
 
     public void Save(ISingletonSaver singletonSaver)
     {
@@ -70,6 +78,10 @@ public abstract class BaseWeatherSettingsService<T>(
             if (obj.TryGetValue(t.FullName, out var serialized))
             {
                 settings.Deserialize(serialized.Value<JObject>()!);
+            }
+            else
+            {
+                settings.FirstLoad = true;
             }
         }
     }

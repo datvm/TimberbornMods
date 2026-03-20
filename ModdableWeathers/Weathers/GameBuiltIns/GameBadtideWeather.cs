@@ -11,7 +11,7 @@ public class GameBadtideWeather(
 
 public class GameBadtideWeatherSettings : DefaultModdableWeatherSettings
 {
-    public override void SetTo(GameModeSpec gameMode)
+    public override void InitializeNewValuesTo(GameModeSpec gameMode)
     {
         Enabled = true;
         StartCycle = gameMode.CyclesBeforeRandomizingBadtide;

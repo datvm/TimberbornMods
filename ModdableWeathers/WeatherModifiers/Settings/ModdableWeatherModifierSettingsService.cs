@@ -5,7 +5,17 @@ public class ModdableWeatherModifierSettingsService(IEnumerable<ModdableWeatherM
 {
     protected override SingletonKey SaveKey { get; } = new(nameof(ModdableWeatherModifierSettingsService));
 
-    // Initialize by the modifier classes
-    protected override void InitializeNewData() { }
+    public override void Load()
+    {
+        base.Load();
+        if (!HasNewSettingEntry) { return; }
+
+        foreach (var s in settingsByType.Values)
+        {
+            if (!s.FirstLoad) { continue; }
+
+            s.InitializeNewSettings();
+        }
+    }
 
 }

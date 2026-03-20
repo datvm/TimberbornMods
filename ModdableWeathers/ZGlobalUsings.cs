@@ -19,7 +19,6 @@ global using ModdableWeathers.Common.PrioritizedModifiers;
 global using ModdableWeathers.UI;
 
 global using ModdableTimberborn.GameModes;
-global using ModdableTimberborn.Common;
 
 global using System.ComponentModel;
 global using Newtonsoft.Json.Linq;

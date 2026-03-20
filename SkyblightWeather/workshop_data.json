@@ -1,8 +1,14 @@
 {
-  "ItemId": "3537800431",
+  "ItemId": "3688484662",
   "Name": "Skyblight & Badrain Weather",
   "Visibility": "Public",
   "UpdateDescription": false,
   "UpdateVisibility": false,
-  "UpdatePreview": false
+  "UpdatePreview": false,
+  "UpdateTags": false,
+  "Tags": [
+    "Update 1.0",
+    "New content",
+    "Miscellaneous"
+  ]
 }

@@ -11,7 +11,7 @@ public class SurprisinglyRefreshingWeatherSettings : DefaultModdableWeatherSetti
 {
 
     public override bool CanSupport(GameModeSpec gameMode) => gameMode.IsDefault;
-    public override void SetTo(GameModeSpec gameMode)
+    public override void InitializeNewValuesTo(GameModeSpec gameMode)
     {
         Chance = 10;
         MinDay = 1;
