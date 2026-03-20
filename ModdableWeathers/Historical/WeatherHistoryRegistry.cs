@@ -2,7 +2,8 @@
 
 public class WeatherHistoryRegistry(
     ISingletonLoader loader,
-    HazardousWeatherHistory baseGameHistory
+    HazardousWeatherHistory baseGameHistory,
+    InitialWeatherSettingsService initialWeatherSettingsService
 ) : ILoadableSingleton, ISaveableSingleton
 {
     static readonly SingletonKey SaveKey = new(nameof(WeatherHistoryRegistry));
@@ -19,6 +20,9 @@ public class WeatherHistoryRegistry(
     {
         if (!TryLoadSavedData())
         {
+            ModdableWeathersUtils.LogVerbose(() => $"New save: Applying default settings");
+            initialWeatherSettingsService.ApplyDefaultSettings();
+
             TryRestoreFromHistoricalData();
         }
     }
