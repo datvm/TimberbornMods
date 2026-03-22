@@ -1,0 +1,6 @@
+﻿ID,Text,Comment
+LV.RHP.RamPump.Name,"Ram Pump",
+LV.RHP.RamPump.Desc,"Move a portion of the liquid to a higher location without using power.",
+LV.RHP.RamPump.Flavor,"Powered by patience, pressure, and a bit of wasted water."
+LV.RHP.RamPump.StrengthDesc,"<YellowHighlight>Pump Strength:</YellowHighlight> {0:0.0##%}
+(at 1m³/s Current: delivering {0:0.###}m³/s, or {1:0.0} game hours to pump 1m³)",

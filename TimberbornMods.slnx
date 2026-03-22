@@ -194,6 +194,7 @@
   <Project Path="NoBuildRestriction/NoBuildRestriction.csproj" />
   <Project Path="NoWaterCompression/NoWaterCompression.csproj" Id="5e34d978-6930-4245-8b77-68ba334912af" />
   <Project Path="PackagerBuilder/PackagerBuilder.csproj" />
+  <Project Path="RamPump/RamPump.csproj" Id="d754f19b-75c3-4bf1-ae12-cfcdc54933ed" />
   <Project Path="RubbleSatisfactidy/RubbleSatisfactidy.csproj" />
   <Project Path="SaveEveryday/SaveEveryday.csproj" />
   <Project Path="SluiceIsBack/SluiceIsBack.csproj" Id="42067f99-093b-4d62-a4b1-afdad82f6218" />

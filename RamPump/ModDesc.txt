@@ -1,0 +1,23 @@
+﻿This mod adds Ram (Hydraulic) Pumps, a mid-game pump that operates without power but requires water current to function. Like real-life ram pumps, they move a portion of liquid (clean or contaminated water) to a higher location while most of the water simply flows through.
+
+[h1]Ram Pump[/h1]
+Move a portion of the liquid to a higher location without using power.
+[i]Powered by patience, pressure, and a bit of wasted water.[/i]
+
+- Cost: 10 Planks and 5 Gears, 200 Science to unlock. Can be flipped when placing.
+- Strength: 2.5% meaning at 1m³/s Current, it delivers 0.025m³/s, or about 2.1 in-game hours to pump 1m³, or 1/10 strength of the Mechanical Fluid Pump at full power.
+- Can be paused, and as such, be automated with sensors as well! For example, below is a simple setup to fill up a water reservoir:
+[img]https://files.catbox.moe/1fbi7f.jpg[/img]
+
+- The bottom piece acts as a one-way inlet valve that allows water to flow through in one direction. This part cannot be paused. Water current and intake are measured here.
+- The top piece fully blocks water (like a Levee) even though it reuses a Valve model. This water blocking behavior also cannot be paused. The outlet itself does not block water.
+
+- Located in the Water group, typically to the left of the Mechanical Fluid Pump.
+[img]https://files.catbox.moe/lw98rs.jpg[/img]
+
+[b]Note:[/b]
+- Placement can be slightly finicky because the pump is technically a 2x2 structure. It cannot be anchored to the ground piece without making flipped placement more difficult. Please try moving it half a tile at a time when positioning.
+- The pump has an internal buffer of 0.2m³ and will only output water when the buffer is full to reduce performance impact. It kinda mirrors the real-life ram pump behavior anyway.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
