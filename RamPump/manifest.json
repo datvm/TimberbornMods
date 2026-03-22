@@ -1,0 +1,9 @@
+﻿{
+    "Name": "Ram (Hydraulic) Pump",
+    "Version": "10.0.0",
+    "Id": "RamPump",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Pump without power",
+    "RequiredMods": [
+    ]
+}

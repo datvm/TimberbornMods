@@ -1,0 +1,274 @@
+﻿{
+    "BuildingSpec": {
+        "SelectionSoundName": "MechanicalFluidPump",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            {
+                "Id": "Plank",
+                "Amount": 10
+            },
+            {
+                "Id": "Gear",
+                "Amount": 5
+            }
+        ],
+        "ScienceCost": 200,
+        "PlaceFinished": false,
+        "FinishableWithBeaversOnSite": false,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "RamPump.Folktails",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BlockObjectSpec": {
+        "Size": {
+            "X": 2,
+            "Y": 2,
+            "Z": 2
+        },
+        "Blocks": [
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Bottom, Top, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "BlockObject",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
+        "Entrance": {
+            "HasEntrance": false,
+            "Coordinates": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": true
+    },
+    "BlockObjectNavMeshSettingsSpec": {
+        "NoAutoWalls": false,
+        "GenerateFloorsOnStackable": false,
+        "EdgeGroups": [],
+        "UnblockedCoordinates": [],
+        "BlockedEdges": []
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "Water",
+        "ToolOrder": 48,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.5,
+                "Y": 0.5,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": false
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.RHP.RamPump.Name",
+        "DescriptionLocKey": "LV.RHP.RamPump.Desc",
+        "FlavorDescriptionLocKey": "",
+        "Icon": "Buildings/Water/RamPump/RamPumpIcon"
+    },
+    "ConstructionSiteProgressVisualizerSpec": {
+        "ProgressThresholds": [
+            0.0
+        ]
+    },
+    "RamPumpSpec": {
+        "PumpPortion": 0.025,
+        "Buffer": 0.2,
+        "InputChamber": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+        },
+        "OutputCoordinates": {
+            "X": 1,
+            "Y": 0,
+            "Z": 1
+        },
+        "WaterBlockingCoordinates": [
+            {
+                "X": 0,
+                "Y": 0,
+                "Z": 1
+            }
+        ]
+    },
+    "Children": {
+        "#Finished": {
+            "Children": {
+                "#Bottom": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Landscaping/FillValve/FillValve.Folktails.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.510495067,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 0.9,
+                                    "Y": 1.02099013,
+                                    "Z": 0.9
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                },
+                "#Top": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Landscaping/FillValve/FillValve.Folktails.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.510495067,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 0.9,
+                                    "Y": 1.02099013,
+                                    "Z": 0.9
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase1x1#nested": {
+                    "BlueprintPath": "ConstructionBases/ConstructionBase1x1/ConstructionBase1x1.blueprint"
+                },
+                "ConstructionStage0": {
+                    "Children": {
+                        "#Bottom": {
+                            "TimbermeshSpec": {
+                                "Model": "Buildings/Landscaping/FillValve/FillValve.Folktails.ConstructionStage0.Model"
+                            },
+                            "CollidersSpec": {
+                                "BoxColliders": [
+                                    {
+                                        "Center": {
+                                            "X": 0.5,
+                                            "Y": 0.05,
+                                            "Z": 0.5
+                                        },
+                                        "Size": {
+                                            "X": 1.0,
+                                            "Y": 0.1,
+                                            "Z": 1.0
+                                        }
+                                    }
+                                ],
+                                "SphereColliders": [],
+                                "CapsuleColliders": []
+                            }
+                        },
+                        "#Top": {
+                            "TimbermeshSpec": {
+                                "Model": "Buildings/Landscaping/FillValve/FillValve.Folktails.ConstructionStage0.Model"
+                            },
+                            "CollidersSpec": {
+                                "BoxColliders": [
+                                    {
+                                        "Center": {
+                                            "X": 0.5,
+                                            "Y": 0.05,
+                                            "Z": 0.5
+                                        },
+                                        "Size": {
+                                            "X": 1.0,
+                                            "Y": 0.1,
+                                            "Z": 1.0
+                                        }
+                                    }
+                                ],
+                                "SphereColliders": [],
+                                "CapsuleColliders": []
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

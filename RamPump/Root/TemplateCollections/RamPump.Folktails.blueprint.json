@@ -1,0 +1,8 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.Folktails",
+        "Blueprints": [
+            "Buildings/Water/RamPump/RamPump.Folktails.blueprint"
+        ]
+    }
+}
