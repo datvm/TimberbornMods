@@ -10,13 +10,13 @@ LV.CPl.NoConUp,"> No contamination up (cheater :P)",
 LV.CPl.NoConUpDesc,"Prevents land contamination from being brought up. Enables planting trees or crops on platforms even if the land below is unsuitable.",
 LV.CPl.GrowthSect,"<b>Growth options:</b> Set below default ×1 to decrease difficulty except for Output Multiplier. Examples:
 - Planting Time Multiplier ×0.5: Planting Oak 1 hours → 0.5 hours.
-- Growth Rate ×0.5: Potato grows in 5 days → 2.5 days.
+- Growth Time ×0.5: Potato grows in 5 days → 2.5 days.
 - Output Multiplier ×1.5: Carrot yields 3 → 4.
 - Harvest Time Multiplier ×0.5: Oak cutting 2 hours → 1 hour.
 - Demolishing Time Multiplier ×0.5: demolishing Pine 1.2 hours → 0.6 hours.",
 LV.CPl.PlantingTime,"Planting time multiplier",
 LV.CPl.PlantingTimeDesc,"Multiplier for time taken to plant.",
-LV.CPl.GrowthRate,"Growth rate multiplier",
+LV.CPl.GrowthRate,"Growth time multiplier",
 LV.CPl.GrowthRateDesc,"Multiplier for growth time.",
 LV.CPl.OutputMul,"Output multiplier",
 LV.CPl.OutputMulDesc,"Multiplier for output (rounded down).",
