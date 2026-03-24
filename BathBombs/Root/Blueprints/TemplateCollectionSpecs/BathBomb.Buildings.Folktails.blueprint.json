@@ -1,0 +1,9 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.Folktails",
+        "Blueprints": [
+            "Blueprints/Buildings/Water/BathBomb/BathBomb.Folktails.blueprint",
+            "Blueprints/Buildings/Water/DirtyBathBomb/DirtyBathBomb.Folktails.blueprint"
+        ]
+    }
+}

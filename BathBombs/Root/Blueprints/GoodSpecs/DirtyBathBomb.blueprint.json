@@ -1,0 +1,25 @@
+﻿{
+    "GoodSpec": {
+        "Id": "DirtyBathBomb",
+        "BackwardCompatibleIds": [],
+        "ConsumptionEffects": [],
+        "GoodType": "Box",
+        "StockpileVisualization": "Box",
+        "VisibleContainer": "Box",
+        "ContainerColor": {
+            "r": 0.6509804,
+            "g": 0.0627451,
+            "b": 0.105882354,
+            "a": 1.0
+        },
+        "ContainerMaterial": "",
+        "CarryingAnimation": "CarryInHands",
+        "Weight": 11,
+        "GoodGroupId": "Materials",
+        "GoodOrder": 4020,
+        "Icon": "Sprites/Goods/DirtyBathBombIcon",
+        "ForceImport": false,
+        "DisplayNameLocKey": "LV.BBb.DirtyBathBomb.GoodName",
+        "PluralDisplayNameLocKey": "LV.BBb.DirtyBathBomb.GoodNamePlural"
+    }
+}

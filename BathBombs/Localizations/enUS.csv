@@ -1,0 +1,13 @@
+﻿ID,Text,Comment
+LV.BBb.BathBomb.GoodName,"Bath Bomb",
+LV.BBb.BathBomb.GoodNamePlural,"Bath Bombs",
+LV.BBb.BathBomb.Name,"Bath Bomb",
+LV.BBb.BathBomb.Description,"A dynamite that releases a burst of water when it explodes. Does not affect terrain or beavers.",
+LV.BBb.BathBomb.Flavor,"Inspired by the name recovered from a hooman \"bathroom manual\". Apparently explosions were part of proper hygiene.",
+LV.BBb.DirtyBathBomb.GoodName,"Dirty Bath Bomb",
+LV.BBb.DirtyBathBomb.GoodNamePlural,"Dirty Bath Bombs",
+LV.BBb.DirtyBathBomb.Name,"Dirty Bath Bomb",
+LV.BBb.DirtyBathBomb.Description,"A dynamite that releases a burst of badwater when it explodes. Does not affect terrain or beavers.",
+LV.BBb.DirtyBathBomb.Flavor,"In the same manual, apparently this explosive discharge is sure to follow after the use of an interesting artifact called taco.",
+LV.BBb.BurstAmount,"<YellowHighlight>Burst Amount:</YellowHighlight> {0:0.#}m³",
+Name_BathBombFragment,"[DO_NOT_COLLAPSE]",

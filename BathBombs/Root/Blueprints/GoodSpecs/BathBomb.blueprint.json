@@ -1,0 +1,25 @@
+﻿{
+    "GoodSpec": {
+        "Id": "BathBomb",
+        "BackwardCompatibleIds": [],
+        "ConsumptionEffects": [],
+        "GoodType": "Box",
+        "StockpileVisualization": "Box",
+        "VisibleContainer": "Box",
+        "ContainerColor": {
+            "r": 0.6509804,
+            "g": 0.0627451,
+            "b": 0.105882354,
+            "a": 1.0
+        },
+        "ContainerMaterial": "",
+        "CarryingAnimation": "CarryInHands",
+        "Weight": 11,
+        "GoodGroupId": "Materials",
+        "GoodOrder": 4010,
+        "Icon": "Sprites/Goods/BathBombIcon",
+        "ForceImport": false,
+        "DisplayNameLocKey": "LV.BBb.BathBomb.GoodName",
+        "PluralDisplayNameLocKey": "LV.BBb.BathBomb.GoodNamePlural"
+    }
+}
