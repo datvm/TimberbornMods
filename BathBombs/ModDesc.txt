@@ -1,0 +1,36 @@
+﻿You're gonna have a splash. The beavers have just recovered a hooman's genius invention: Bath bombs! This mod adds two new buildings: Bath Bomb and Dirty Bath Bomb that release a burst of water on detonation.
+
+[h1]New buildings[/h1]
+[h2]Bath Bombs[/h2]
+A dynamite that releases a burst of water when it explodes. Does not affect terrain or beavers.
+[i]Inspired by the name recovered from a hooman "bathroom manual". Apparently explosions were part of proper hygiene.[/i]
+Need 2 Bath Bombs items to build, 600 Science to unlock.
+
+[img]https://files.catbox.moe/p1i62b.jpg[/img]
+
+[h2]Dirty Bath Bombs[/h2]
+A dynamite that releases a burst of badwater when it explodes. Does not affect terrain or beavers.
+[i]In the same manual, apparently this explosive discharge is sure to follow after the use of an interesting artifact called taco.[/i]
+Need 2 Dirty Bath Bombs items to build, 600 Science to unlock.
+
+[h2]Note and Effects[/h2]
+Both buildings are located in the Water group, near the end of the category.
+
+[img]https://files.catbox.moe/cispyy.jpg[/img]
+
+On detonation, each bath bomb releases a burst of [b]2m³[/b] of water or badwater (the same amount of liquid used to build them).
+
+Unlike Dynamites, these explosives do not affect terrain or beavers. They do trigger neighboring bath bombs, including the other type. However, they won't trigger Dynamite or be triggered by it. Since terrain is unaffected, placement of bath bombs is more flexible, you can place them almost anywhere.
+
+[h1]New items[/h1]
+To build the new buildings, you need to craft Bath Bomb and Dirty Bath Bomb items. 
+- Crafted in the Explosives Factory.
+- Same base cost as the Dynamite (5 Badwater), plus 5 Water for Bath Bomb or 5 Badwater for Dirty Bath Bomb (that is, 1m³ of water or badwater).
+- Take 5 hours to craft one.
+- Weigh 11kg (same as Dynamite 1kg + 10kg of liquid).
+Fun fact: 1m³ of water weighs 1000kg in real life. The correct unit for a game tile would actually be closer to 1L (dm³).
+
+[img]https://files.catbox.moe/nry5n9.jpg[/img]
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

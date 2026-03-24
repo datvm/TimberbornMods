@@ -1,0 +1,9 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.IronTeeth",
+        "Blueprints": [
+            "Blueprints/Buildings/Water/BathBomb/BathBomb.IronTeeth.blueprint",
+            "Blueprints/Buildings/Water/DirtyBathBomb/DirtyBathBomb.IronTeeth.blueprint"
+        ]
+    }
+}

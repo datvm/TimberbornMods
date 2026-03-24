@@ -15,7 +15,7 @@
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
-		<ProjectReference Include="..\RamPump\RamPump.csproj" />
+		<ProjectReference Include="..\BathBombs\BathBombs.csproj" />
 		
 	</ItemGroup>
 </Project>

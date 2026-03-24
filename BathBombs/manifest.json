@@ -1,0 +1,8 @@
+﻿{
+    "Name": "Bath Bombs",
+    "Version": "10.0.0",
+    "Id": "BathBombs",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Have a splash!",
+    "RequiredMods": []
+}

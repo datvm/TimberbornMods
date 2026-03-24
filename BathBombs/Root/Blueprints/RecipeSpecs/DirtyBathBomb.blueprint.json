@@ -1,0 +1,26 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "DirtyBathBomb",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.BBb.DirtyBathBomb.GoodNamePlural",
+        "CycleDurationInHours": 5.0,
+        "Ingredients": [
+            {
+                "Id": "Badwater",
+                "Amount": 10
+            }
+        ],
+        "Products": [
+            {
+                "Id": "DirtyBathBomb",
+                "Amount": 1
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "",
+        "CyclesFuelLasts": 0,
+        "FuelCapacity": 0,
+        "CyclesCapacity": 5,
+        "Icon": "Sprites/Goods/DirtyBathBombIcon"
+    }
+}
