@@ -8,7 +8,7 @@
     return;
 }
 
-<Router AppAssembly="@typeof(App).Assembly" NotFoundPage="typeof(Pages.NotFound)">
+<Router AppAssembly="@typeof(App).Assembly" NotFoundPage="typeof(NotFound)">
     <Found Context="routeData">
         <CascadingValue Value="routeData">
             <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />

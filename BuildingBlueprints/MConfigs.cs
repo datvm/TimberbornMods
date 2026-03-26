@@ -1,8 +1,9 @@
 ﻿namespace BuildingBlueprints;
 
-public class MGameConfig : BaseModdableTimberbornAttributeConfiguration
+public class MGameConfig : BaseModdableTimberbornAttributeConfiguration, IModdableTimberbornRegistryWithPatchConfig
 {
     public override ConfigurationContext AvailableContexts => ConfigurationContext.Game | ConfigurationContext.MainMenu;
+    public string? PatchCategory => null;
 
     public override void StartMod(IModEnvironment modEnvironment)
     {

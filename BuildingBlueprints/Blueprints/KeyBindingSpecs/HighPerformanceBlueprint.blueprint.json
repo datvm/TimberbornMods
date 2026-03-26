@@ -1,0 +1,14 @@
+﻿{
+    "KeyBindingSpec": {
+        "Id": "HighPerformanceBlueprint",
+        "GroupId": "Objects",
+        "LocKey": "LV.BB.HighPerformanceMode",
+        "Order": 26,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    },
+    "PrimaryInputBindingSpec": {
+        "InputModifiers": "Ctrl",
+        "Path": "/Keyboard/p"
+    }
+}

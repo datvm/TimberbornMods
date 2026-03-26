@@ -1,4 +1,4 @@
-﻿namespace TimberLive.Pages.Wiki.Components;
+﻿namespace TimberLive.Components.Pages.Wiki.Components;
 
 partial class FactionTemplates
 {

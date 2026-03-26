@@ -1,4 +1,4 @@
-﻿namespace TimberLive.Pages.Characters.Components;
+﻿namespace TimberLive.Components.Pages.Characters.Components;
 
 partial class WellbeingDetails
 {
