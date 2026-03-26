@@ -162,7 +162,7 @@
             "Children": {
                 "#Bottom": {
                     "TimbermeshSpec": {
-                        "Model": "Buildings/Landscaping/FillValve/FillValve.Folktails.Model"
+                        "Model": "Buildings/Landscaping/FillValve/FillValve.IronTeeth.Model"
                     },
                     "CollidersSpec": {
                         "BoxColliders": [
@@ -185,7 +185,7 @@
                 },
                 "#Top": {
                     "TimbermeshSpec": {
-                        "Model": "Buildings/Landscaping/FillValve/FillValve.Folktails.Model"
+                        "Model": "Buildings/Landscaping/FillValve/FillValve.IronTeeth.Model"
                     },
                     "CollidersSpec": {
                         "BoxColliders": [
@@ -217,7 +217,7 @@
                     "Children": {
                         "#Bottom": {
                             "TimbermeshSpec": {
-                                "Model": "Buildings/Landscaping/FillValve/FillValve.Folktails.ConstructionStage0.Model"
+                                "Model": "Buildings/Landscaping/FillValve/FillValve.IronTeeth.ConstructionStage0.Model"
                             },
                             "CollidersSpec": {
                                 "BoxColliders": [
@@ -240,7 +240,7 @@
                         },
                         "#Top": {
                             "TimbermeshSpec": {
-                                "Model": "Buildings/Landscaping/FillValve/FillValve.Folktails.ConstructionStage0.Model"
+                                "Model": "Buildings/Landscaping/FillValve/FillValve.IronTeeth.ConstructionStage0.Model"
                             },
                             "CollidersSpec": {
                                 "BoxColliders": [
