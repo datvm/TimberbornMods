@@ -8,7 +8,7 @@ namespace MoreAchievements;
 public class MoreAchievementsConfigs : BaseModdableTimberbornAttributeConfiguration
 {
 
-    public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.MainMenu | ConfigurationContext.Game;
+    public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.Game;
 
     public override void StartMod(IModEnvironment modEnvironment)
     {
