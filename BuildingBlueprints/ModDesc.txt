@@ -9,13 +9,13 @@ Simply select the tool, drag an area around the buildings you want to include in
 Blueprint files are just JSON files stored in your game's Documents folder so you can easily copy and share them or even edit them manually if you want to. See the dialog below, there is a Browse button that will open the folder where the blueprints are stored.
 
 Note:
-- Terrains are not supported so if your building blocks have terrain blocks, it won't be included.
+- Terrains are not supported so if your building blocks have [b]finished[/b] terrain blocks, they won't be included. You can, however, include unfinished terrain blocks.
 - District Centers and District Crossings are excluded from blueprints to prevent crashes.
 - When selection starts with a tile with Road, you may notice certain buildings like Platforms of the same level are not selected. This is due to the game's tool behavior when selecting. Try starting with a non-road tile.
 
 [h1]Build Blueprint[/h1]
 Select the Build Blueprint tool, you will be presented with the Select Building Blueprint dialog.
-[img]https://files.catbox.moe/7w2t4n.jpg[/img]
+[img]https://files.catbox.moe/8s05wl.jpg[/img]
 
 Choose the blueprint you want to place, then click the Build Blueprint button.
 - [b]You can rotate and flip the whole blueprint while placing it.[/b] Note that flipping may not be possible if certain asymmetrical buildings without flip support are included in the blueprint.
@@ -27,6 +27,11 @@ Choose the blueprint you want to place, then click the Build Blueprint button.
 You can also nudge the blueprint: press the bindable key for Nudge (default is N) to toggle it. Then use WASD or arrow keys to move it, Q and E to move it up and down. Once you are happy with the position, click or press Enter to build.
 [img]https://files.catbox.moe/lbno60.jpg[/img]
 
+[h2]High-performance Mode[/h2]
+A new mode was added in v10.6.0. Use the rebindable hotkey (default Ctrl + P) to toggle it, and its state is persisted globally. In this mode, your blueprint will always be considered "invalid" and no validation is performed until you use left click or Enter. A second click on the same position will place the blueprint.
+
+Internally, this mod validates blueprint placement by placing actual buildings and then deleting them. This may interfere with mods that change building placements.
+
 [h1]Demolish[/h1]
 A quick way to demolish all buildings that were placed using a building blueprint. Just select the tool and click on any building that was placed with a blueprint, and all buildings from that blueprint will be demolished. You will be asked to confirm before the demolition happens. This tool works even if you already finished some buildings, or demolished a few of them using other tools.
 [img]https://files.catbox.moe/vxqwm2.jpg[/img]
@@ -37,8 +42,7 @@ You can also subscribe to [url=https://steamcommunity.com/sharedfiles/filedetail
 If you use non-Steam version, others can still upload their blueprints to mod.io and you can manually place them into the "Documents\Timberborn\BuildingBlueprints" folder.
 
 [h1]Known Issue[/h1]
-- [strike]The coordinate picker is a bit unstable on non-ground. I am trying to improve it.[/strike] Fixed in v10.1.0.
-- [strike]Right now blueprints with District Center is a bit risky because it may touch a road. Please avoid putting District Center in blueprints for now.[/strike] District Center and District Crossing are now excluded from blueprints.
+- May interfere with mods that change building placements since the buildings are invisibly placed for validation. Use Performance Mode may help.
 
 If you have any issue that I missed, feel free to report it in the comments or on Discord.
 

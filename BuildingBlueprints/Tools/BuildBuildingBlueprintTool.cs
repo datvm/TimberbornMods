@@ -10,7 +10,7 @@ public class BuildBuildingBlueprintTool(
 {
 #nullable disable
     ToolDescription toolDescription;
-    HotkeyEntry flipEntry, rotateClockwiseEntry, rotateCounterClockwiseEntry, ignoreSettingsEntry, nudgeEntry;
+    HotkeyEntry flipEntry, rotateClockwiseEntry, rotateCounterClockwiseEntry, ignoreSettingsEntry, highPerformanceEntry, nudgeEntry;
     MultiHotkeyEntry nudgeMoveKeys, nudgeUpDownKeys;
 #nullable enable
 
@@ -22,10 +22,11 @@ public class BuildBuildingBlueprintTool(
         rotateCounterClockwiseEntry = hotkeySection.AddEntry(BlockObjectPlacementPanel.RotateCounterclockwiseKey);
         flipEntry = hotkeySection.AddEntry(BlockObjectPlacementPanel.FlipKey);
         ignoreSettingsEntry = hotkeySection.AddEntry(DuplicationInputProcessor.DuplicateSettingsKey);
+        highPerformanceEntry = hotkeySection.AddEntry(BlueprintPlacementService.HighPerformanceBlueprintKey);
         hotkeySection.AddEntry(AlternateClickable.AlternateClickableActionKey).Text = t.T("LV.BB.BlueprintBuildToolPartial");
 
         nudgeEntry = hotkeySection.AddEntry(BlueprintPlacementService.NudgeKey);
-        
+
         nudgeMoveKeys = hotkeySection.AddMultiEntry(BlueprintPlacementService.CameraMoveKeys).SetMargin(left: 10);
         nudgeMoveKeys.Text = t.T("LV.BB.NudgeMove");
 
@@ -49,6 +50,13 @@ public class BuildBuildingBlueprintTool(
         rotateCounterClockwiseEntry.Text = t.T("LV.BB.BlueprintBuildToolRotateCounterclockwise", orientation);
         flipEntry.Text = t.T("LV.BB.BlueprintBuildToolFlip", t.TYesNo(blueprintPlacementService.BlueprintFlip));
         ignoreSettingsEntry.Text = t.T("LV.BB.BlueprintBuildToolIgnoreSettings", t.TYesNo(blueprintPlacementService.IgnoreSettings));
+
+        var highPerformanceText = t.T("LV.BB.HighPerformanceModeStatus", t.TYesNo(blueprintPlacementService.HighPerformanceMode));
+        if (blueprintPlacementService.HighPerformanceMode)
+        {
+            highPerformanceText = highPerformanceText.Color(TimberbornTextColor.Red);
+        }
+        highPerformanceEntry.Text = highPerformanceText;
 
         var nudging = blueprintPlacementService.IsNudging;
         nudgeEntry.Text = t.T("LV.BB.BlueprintBuildToolNudge", t.TYesNo(nudging));

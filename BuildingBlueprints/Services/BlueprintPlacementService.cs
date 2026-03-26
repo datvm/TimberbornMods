@@ -18,6 +18,10 @@ public class BlueprintPlacementService(
 ) : IInputProcessor, ILoadableSingleton
 {
     public const string NudgeKey = "NudgeBlueprint";
+    public const string HighPerformanceBlueprintKey = "HighPerformanceBlueprint";
+
+    const string HighPerformanceSaveKey = $"{nameof(BuildingBlueprints)}.Settings.{nameof(HighPerformanceMode)}";
+
     public static readonly ImmutableArray<string> CameraMoveKeys = [CameraMovementInput.MoveCameraUpKey, CameraMovementInput.MoveCameraLeftKey, CameraMovementInput.MoveCameraDownKey, CameraMovementInput.MoveCameraRightKey];
     public static readonly ImmutableArray<string> CameraRotationKeys = [CameraMovementInput.RotateCameraLeftKey, CameraMovementInput.RotateCameraRightKey];
     static readonly ImmutableArray<string> AllCameraKeys = [.. CameraMoveKeys, .. CameraRotationKeys];
@@ -42,10 +46,12 @@ public class BlueprintPlacementService(
     public bool BlueprintFlip { get; private set; } = false;
     public bool IgnoreSettings { get; private set; }
     public bool IsNudging { get; private set; }
+    public bool HighPerformanceMode { get; private set; }
 
     public void Load()
     {
         spec = specService.GetSingleSpec<PreviewShowerSpec>();
+        HighPerformanceMode = PlayerPrefs.GetInt(HighPerformanceSaveKey, 0) == 1;
     }
 
     public async Task<BuildingBlueprintPlacement?> PlaceAsync(ParsedBlueprintInfo bp)
@@ -73,6 +79,12 @@ public class BlueprintPlacementService(
     {
         if (enumerator is null || tcs is null) { return false; }
 
+        if (ProcessHighPerformanceToggle())
+        {
+            OnBlueprintPlacementSettingsChanged();
+            return true;
+        }
+
         processedInput = false;
         placementChanged = false;
         settingsChanged = false;
@@ -91,7 +103,7 @@ public class BlueprintPlacementService(
 
             if (shouldShow)
             {
-                _ = ValidatePreviewsAsync();
+                _ = ValidatePreviewsAsync(false);
             }
         }
 
@@ -103,6 +115,13 @@ public class BlueprintPlacementService(
         return processedInput;
     }
 
+    public void SetHighPerformanceMode(bool enabled)
+    {
+        HighPerformanceMode = enabled;
+        PlayerPrefs.SetInt(HighPerformanceSaveKey, enabled ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
     bool ProcessPlacement()
     {
         var placeRequested = inputService.MainMouseButtonDown || inputService.WasConfirmPressedLastFrame;
@@ -110,6 +129,11 @@ public class BlueprintPlacementService(
 
         if (!lastPositionValid && !inputService.IsKeyHeld(AlternateClickable.AlternateClickableActionKey))
         {
+            if (HighPerformanceMode)
+            {
+                _ = ValidatePreviewsAsync(true);
+            }
+
             uiSoundController.PlayCantDoSound();
             return true;
         }
@@ -156,6 +180,13 @@ public class BlueprintPlacementService(
 
         lastPositionValid = false;
         prevCoordinates = PlaceholderCoordinates;
+    }
+
+    bool ProcessHighPerformanceToggle()
+    {
+        if (!inputService.IsKeyDown(HighPerformanceBlueprintKey)) { return false; }
+        SetHighPerformanceMode(!HighPerformanceMode);
+        return true;
     }
 
     void ProcessNudgingToggle()
@@ -351,12 +382,12 @@ public class BlueprintPlacementService(
         previewShower.ShowBuildablePreviews(enumerator.AllPreviews, out _);
     }
 
-    async Task ValidatePreviewsAsync()
+    async Task ValidatePreviewsAsync(bool force)
     {
         if (enumerator is null) { return; }
 
         var previews = enumerator.AllPreviews;
-        var validated = await placementValidator.ValidatePreviewsAsync(previews);
+        var validated = await GetPreviewValidationAsync(previews, force);
         lastPositionValid = validated.Count == previews.Length;
         highlighter.UnhighlightAllPrimary();
 
@@ -368,6 +399,10 @@ public class BlueprintPlacementService(
             highlighter.HighlightPrimary(p.BlockObject, valid ? spec.BuildablePreview : spec.UnbuildablePreview);
         }
     }
+
+    async Task<HashSet<Preview>> GetPreviewValidationAsync(ImmutableArray<Preview> previews, bool force) => !force && HighPerformanceMode
+        ? []
+        : await placementValidator.ValidatePreviewsAsync(previews);
 
     Placement GetBuildingPlacement(in ParsedBlueprintBuildingPlacement buildingPlacement)
     {

@@ -10,7 +10,7 @@ public class CreateBuildingBlueprintTool(
     ISpecService specService,
     IContainer container,
     BuildingBlueprintsService buildingBlueprintsService
-) : ITool, IToolDescriptor, ILoadableSingleton, IInputProcessor, IConstructionModeEnabler
+) : ITool, IToolDescriptor, ILoadableSingleton, IInputProcessor, IConstructionModeEnabler, IUnloadableSingleton
 {
 #nullable disable
     ToolDescription toolDescription;
@@ -18,6 +18,8 @@ public class CreateBuildingBlueprintTool(
     BlockObjectSelectionDrawer highlighter;
     HotkeyEntry duplicateSettingEntry;
 #nullable enable
+
+    public static bool IsSelecting { get; private set; }
 
     bool copySettings = true;
 
@@ -48,12 +50,14 @@ public class CreateBuildingBlueprintTool(
 
     public void Enter()
     {
+        IsSelecting = true;
         inputService.AddInputProcessor(this);
         cursorService.SetCursor("BuildingBlueprintCursor");
     }
 
     public void Exit()
     {
+        IsSelecting = false;
         cursorService.ResetCursor();
         picker.Reset();
         ClearHighlights();
@@ -108,4 +112,9 @@ public class CreateBuildingBlueprintTool(
 
     void ShowNoneCallback() => ClearHighlights();
     void ClearHighlights() => highlighter.StopDrawing();
+
+    public void Unload()
+    {
+        IsSelecting = false;
+    }
 }

@@ -1,4 +1,4 @@
-﻿namespace TimberLive.Pages.Wiki;
+﻿namespace TimberLive.Components.Pages.Wiki;
 
 partial class Templates
 {

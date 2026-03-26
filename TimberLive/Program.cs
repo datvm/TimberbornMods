@@ -9,6 +9,7 @@ builder.Services
     
     .AddSingletonApiListener<Loc>()
     .AddSingletonApiListener<CommonDataService>()
-    ;
+    .AddSingletonApiListener<CommonLiveDataService>()
+;
 
 await builder.Build().RunAsync();

@@ -1,0 +1,87 @@
+﻿@inject CommonLiveDataService LiveData
+@inject CommonDataService CommonData
+@inject ApiService Api
+@inject Loc t;
+
+<div class="card mb-3">
+    <div class="card-body">
+        @if (data is null)
+        {
+            <Spinner />
+        }
+        else
+        {
+            var topBar = data.TopBar;
+            var (cycle, weather, speed) = topBar;
+
+            var (currW, nextW, shouldShowNext) = weather;
+            var currWInfo = CommonData.WeatherTypes[currW.Id];
+            var nextWInfo = nextW is null ? null : CommonData.WeatherTypes[nextW.Weather.Id];
+
+            <div class="row align-items-center">
+                <div class="col text-start">
+                    <span class="me-3">
+                        Cycle @(cycle.Cycle)
+                    </span>
+                    <span>
+                        Day @(cycle.Day),
+                        <span>@(FormatHours(cycle.Hours))</span>
+                    </span>
+                </div>
+                <div class="col text-center">
+                    <div>
+                        <Image class="img-inline" Path="@(currWInfo.Icon)" />
+                        @(currWInfo.Name)
+                    </div>
+                    <div>
+                        <span>Next: </span>
+
+                        @if (nextWInfo is not null)
+                        {
+                            @if (shouldShowNext || forceShowNextWeather)
+                            {
+                                <span>
+                                    <Image class="img-inline" Path="@(nextWInfo.Icon)" />
+                                    @(nextWInfo.Name)
+                                    in <span>@(FormatDays(nextW!.ComingInDays))</span>
+                                </span>
+                            }
+                            else
+                            {
+                                <span>
+                                    Not known yet.
+                                    <button class="btn btn-link btn-sm" @onclick="() => forceShowNextWeather = true">Force showing</button>
+                                </span>
+                            }
+                        }
+                        else
+                        {
+                            <span>Unknown</span>
+                        }
+                    </div>
+                </div>
+                <div class="col text-end">
+                    <div>Speed: @(speed.Speed == 0 ? "Paused" : speed.Speed.ToString())</div>
+                    <div class="hstack gap-1">
+                        <span class="ms-auto"></span>
+
+                        @foreach (var t in SpeedTemplates)
+                        {
+                            <button disabled="@(speed.Locked)" class="btn btn-info btn-sm"
+                                    @onclick="() => SetTemplateSpeedAsync(t)">
+                                @(t.ToString("0.##"))x
+                            </button>
+                        }
+
+                        <form @onsubmit="SetSpeedAsync">
+                            <div class="input-group">
+                                <input class="form-control text-end" @bind="currSpeed" type="number" min="0" step="0.01" required />
+                                <button disabled="@(speed.Locked)" class="btn btn-outline-secondary">Set</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

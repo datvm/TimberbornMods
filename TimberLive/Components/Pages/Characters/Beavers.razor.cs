@@ -1,4 +1,4 @@
-﻿namespace TimberLive.Pages.Characters;
+﻿namespace TimberLive.Components.Pages.Characters;
 
 sealed partial class Beavers : IDisposable
 {

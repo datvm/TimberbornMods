@@ -1,4 +1,4 @@
-﻿namespace TimberLive.Pages;
+﻿namespace TimberLive.Components.Pages;
 
 [NoConnectionRequired]
 partial class Settings
