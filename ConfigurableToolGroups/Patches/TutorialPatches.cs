@@ -1,4 +1,6 @@
-﻿using System.Reflection.Emit;
+using System.Reflection;
+using System.Reflection.Emit;
+using HarmonyLib;
 
 namespace ConfigurableToolGroups.Patches;
 
@@ -30,8 +32,7 @@ public static class TutorialPatches
 
                 yield return new CodeInstruction(
                     OpCodes.Call,
-                    typeof(TutorialPatches)
-                    .Method(nameof(GetToolButtonByType))
+                    AccessTools.Method(typeof(TutorialPatches), nameof(GetToolButtonByType))
                     .MakeGenericMethod(genericType)
                 );
             }
@@ -59,8 +60,7 @@ public static class TutorialPatches
                 var genericType = mi.GetGenericArguments().First();
                 yield return new CodeInstruction(
                     OpCodes.Call,
-                    typeof(TutorialPatches)
-                    .Method(nameof(GetToolButtonByTypeAndPredicate))
+                    AccessTools.Method(typeof(TutorialPatches), nameof(GetToolButtonByTypeAndPredicate))
                     .MakeGenericMethod(genericType)
                 );
             }
