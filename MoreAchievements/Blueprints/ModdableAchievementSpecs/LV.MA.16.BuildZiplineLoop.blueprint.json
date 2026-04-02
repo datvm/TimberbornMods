@@ -1,0 +1,11 @@
+{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.BuildZiplineLoop.Name",
+        "DescLoc": "LV.MA.BuildZiplineLoop.Desc",
+        "IsSecret": false,
+        "Order": 160,
+        "Id": "LV.MA.BuildZiplineLoop",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/BuildZiplineLoopIcon"
+    }
+}

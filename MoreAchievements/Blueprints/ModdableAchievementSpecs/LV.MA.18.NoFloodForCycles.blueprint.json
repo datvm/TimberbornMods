@@ -1,0 +1,11 @@
+{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.NoFloodForCycles.Name",
+        "DescLoc": "LV.MA.NoFloodForCycles.Desc",
+        "IsSecret": false,
+        "Order": 180,
+        "Id": "LV.MA.NoFloodForCycles",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/NoFloodForCyclesIcon"
+    }
+}

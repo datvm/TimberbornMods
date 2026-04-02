@@ -1,0 +1,11 @@
+{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.WonderInADay.Name",
+        "DescLoc": "LV.MA.WonderInADay.Desc",
+        "IsSecret": false,
+        "Order": 260,
+        "Id": "LV.MA.WonderInADay",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/WonderInADayIcon"
+    }
+}

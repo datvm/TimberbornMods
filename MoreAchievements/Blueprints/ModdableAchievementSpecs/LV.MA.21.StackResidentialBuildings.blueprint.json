@@ -1,0 +1,11 @@
+{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.StackResidentialBuildings.Name",
+        "DescLoc": "LV.MA.StackResidentialBuildings.Desc",
+        "IsSecret": false,
+        "Order": 210,
+        "Id": "LV.MA.StackResidentialBuildings",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/StackResidentialBuildingsIcon"
+    }
+}

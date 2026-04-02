@@ -1,0 +1,11 @@
+{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.StackAllFoodWarehouses.Name",
+        "DescLoc": "LV.MA.StackAllFoodWarehouses.Desc",
+        "IsSecret": false,
+        "Order": 250,
+        "Id": "LV.MA.StackAllFoodWarehouses",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/StackAllFoodWarehousesIcon"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.BuildLeveeOnDam.Name",
+        "DescLoc": "LV.MA.BuildLeveeOnDam.Desc",
+        "IsSecret": false,
+        "Order": 270,
+        "Id": "LV.MA.BuildLeveeOnDam",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/BuildLeveeOnDamIcon"
+    }
+}
