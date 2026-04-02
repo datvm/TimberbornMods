@@ -24,7 +24,8 @@ public class AchievementDescriptionUpdater(ModdableAchievementSpecService specs)
         TransformDescription(BuildZiplineLoopAchievement.AchId, [BuildZiplineLoopAchievement.LoopCount]);
         TransformDescription(BuildUndergroundTubewayAchievement.AchId, [BuildUndergroundTubewayAchievement.RequiredLength]);
         TransformDescription(NoFloodForCyclesAchievement.AchId, [NoFloodForCyclesAchievement.RequiredCycles]);
-
+        TransformDescription(StackResidentialBuildingsAchievement.AchId, [StackResidentialBuildingsAchievement.RequiredStack]);
+        
         void TransformDescription(string id, object[] formatParameters)
         {
             var spec = achs[id];

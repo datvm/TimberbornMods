@@ -1,5 +1,6 @@
 ﻿namespace MoreAchievements.Achievements;
 
+[MultiBind(typeof(Achievement))]
 public class SingleWaterBodyAchievement(
     EventBus eb,
     IThreadSafeWaterMap waterMap,
