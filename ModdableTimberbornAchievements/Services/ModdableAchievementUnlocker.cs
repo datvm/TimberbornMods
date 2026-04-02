@@ -37,6 +37,17 @@ public class ModdableAchievementUnlocker(EventBus eb) : ILoadableSingleton
         Save();
     }
 
+    public bool Lock(string id)
+    {
+        if (unlocked.Remove(id))
+        {
+            Save();
+            return true;
+        }
+
+        return false;
+    }
+
     public void Clear()
     {
         unlocked.Clear();

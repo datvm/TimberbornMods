@@ -1,6 +1,6 @@
 ﻿{
     "FloodableBuildingSpec": {},
-    "BlockableFloodableObjectSpec": {},
+    "FloodableObjectBlockerSpec": {},
     "NumbercruncherFloodSpec": {},
     "WaterObjectSpec": {
         "WaterCoordinates": {

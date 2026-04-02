@@ -21,6 +21,7 @@ public class SubmergeNumbercruncherAchievement(DefaultEntityTracker<Numbercrunch
     void OnEntityRegistered(NumbercruncherSubmergeComponent obj)
     {
         obj.OnSubmerged += OnSubmerged;
+        obj.Enable();
     }
 
     void OnSubmerged(object sender, EventArgs e) => Unlock();
@@ -33,6 +34,7 @@ public class SubmergeNumbercruncherAchievement(DefaultEntityTracker<Numbercrunch
         foreach (var e in tracker.Entities)
         {
             e.OnSubmerged -= OnSubmerged;
+            e.Disable();
         }
     }
 
