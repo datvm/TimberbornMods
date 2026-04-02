@@ -20,7 +20,7 @@ public class AlternateDeleteObjectTool(
     MSettings s,
     ToolService toolManager
 ) : BuildingDeconstructionTool(inputService, areaBlockObjectAndTerrainPicker, entityService, blockObjectSelectionDrawerFactory, cursorService, loc, blockObjectModelBlockadeIgnorer, specService, levelVisibilityService, dialogBoxShower, recoverableGoodElementFactory, recoverableGoodTooltip, terrainDestroyer, terrainHighlightingService, undoRegistry),
-    ILoadableSingleton, IUnloadableSingleton, IInputProcessor
+    ILoadableSingleton, IUnloadableSingleton, IInputProcessor, IConstructionModeEnabler
 {
     const string AlternateHotkeyId = "AlternateClickableAction";
 
