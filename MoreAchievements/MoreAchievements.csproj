@@ -2,6 +2,9 @@
 	<PropertyGroup>
 		<OutputModFolderName>MoreAchievements</OutputModFolderName>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Folder Include="Root\Buildings\Science\Numbercruncher\" />
+	</ItemGroup>
 
 	<Import Project="../Targets/Common.targets" />
 	<Import Project="../Targets/CommonModdableTimberborn.targets" />

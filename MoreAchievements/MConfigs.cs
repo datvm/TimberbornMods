@@ -20,6 +20,7 @@ public class MoreAchievementsConfigs : BaseModdableTimberbornAttributeConfigurat
             .TryTrack<Stockpile>()
             .TryTrack<Manufactory>()
             .TryTrack<FloodableObject>()
+            .TryTrack<NumbercruncherSubmergeComponent>()
         ;
     }
 

@@ -1,0 +1,12 @@
+﻿{
+    "FloodableBuildingSpec": {},
+    "BlockableFloodableObjectSpec": {},
+    "NumbercruncherFloodSpec": {},
+    "WaterObjectSpec": {
+        "WaterCoordinates": {
+            "X": 2,
+            "Y": 2,
+            "Z": 0
+        }
+    }
+}
