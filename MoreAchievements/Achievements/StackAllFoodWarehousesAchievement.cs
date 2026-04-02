@@ -54,7 +54,7 @@ public class StackAllFoodWarehousesAchievement(
             HashSet<string> goodsInStack = [];
             foreach (var sp in stack)
             {
-                var goodId = sp.GetComponent<Stockpile>().Inventory.AllowedGoods.First().StorableGood.GoodId;
+                var goodId = ((SingleGoodAllower) sp.GetComponent<Stockpile>().Inventory._goodDisallower).AllowedGood;
                 goodsInStack.Add(goodId);
 
                 if (goodsInStack.Count == requiredGoods.Count)
@@ -72,11 +72,10 @@ public class StackAllFoodWarehousesAchievement(
     {
         var sp = obj.GetComponent<Stockpile>();
         var inv = sp.Inventory;
-        var good = inv.AllowedGoods.FirstOrDefault();
-        var goodId = good.StorableGood.GoodId;
+        var goodId = ((SingleGoodAllower) inv._goodDisallower).AllowedGood;
         if (goodId is null || !requiredGoods.Contains(goodId)) { return false; }
 
-        return inv.GoodCapacity(goodId) == inv.AmountInStock(goodId);
+        return inv.LimitedAmount(goodId) == inv.AmountInStock(goodId);
     }
 
 }

@@ -1,0 +1,11 @@
+﻿{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.NoWaterAnywhere.Name",
+        "DescLoc": "LV.MA.NoWaterAnywhere.Desc",
+        "IsSecret": true,
+        "Order": 200,
+        "Id": "LV.MA.NoWaterAnywhere",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/NoWaterAnywhereIcon"
+    }
+}
