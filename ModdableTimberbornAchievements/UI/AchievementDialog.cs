@@ -56,7 +56,8 @@ public class AchievementDialog : DialogBoxElement
 
     void AddDevButtons()
     {
-        var devButtons = Content.AddCollapsiblePanel(title: "[DEV Tools]", name: "DevTools").Container;
+        //_ = Content.AddCollapsiblePanel(title: "[DEV Tools]", name: "DevTools").Container;
+        // Nothing for now
     }
 
     void SyncStoreAchievements(ModdableStoreAchievement msa)
@@ -74,7 +75,9 @@ public class AchievementDialog : DialogBoxElement
         List<AchievementGroupPanel> els = [];
         foreach (var grp in specs.AchievementGroups)
         {
-            els.Add(AchievementsList.AddChild(() => container.GetInstance<AchievementGroupPanel>().Init(grp, showSecrets)));
+            var el = AchievementsList.AddChild(() => container.GetInstance<AchievementGroupPanel>().Init(grp, showSecrets));
+            el.OnResetPerformed += OnResetPerformed;
+            els.Add(el);
         }
 
         AchievementGroupPanels = [.. els];
@@ -88,4 +91,8 @@ public class AchievementDialog : DialogBoxElement
         }
     }
 
+    void OnResetPerformed(object sender, EventArgs e)
+    {
+        ShowAchievements();
+    }
 }

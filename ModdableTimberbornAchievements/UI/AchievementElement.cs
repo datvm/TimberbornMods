@@ -8,7 +8,9 @@ public class AchievementElement : VisualElement
     public bool IsUnlocked { get; private set; }
     public bool ShowDetails { get; private set; }
 
-    public AchievementElement(ModdableAchievementSpec spec, ILoc t, bool isUnlocked, bool showSecret)
+    public event EventHandler? OnResetRequested;
+
+    public AchievementElement(ModdableAchievementSpec spec, ILoc t, bool isUnlocked, bool showSecret, bool showReset = false)
     {
         Spec = spec;
         IsUnlocked = isUnlocked;
@@ -37,5 +39,12 @@ public class AchievementElement : VisualElement
 
         var desc = ShowDetails ? spec.Description.Value : t.T("LV.MTA.Secret");
         content.AddLabel(desc);
+
+        if (showReset && isUnlocked)
+        {
+            content.AddChild().SetMarginBottom();
+            content.AddGameButtonPadded(t.T("LV.MTA.LockAch"), onClick: () => OnResetRequested?.Invoke(this, EventArgs.Empty))
+                .SetMarginLeftAuto();
+        }
     }
 }
