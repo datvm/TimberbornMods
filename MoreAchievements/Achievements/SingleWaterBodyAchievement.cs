@@ -7,7 +7,7 @@ public class SingleWaterBodyAchievement(
     MapIndexService mapIndexService
 ) : EbAchievementBase(eb)
 {
-    public const string AchId = "SingleWaterBody";
+    public const string AchId = "LV.MA.SingleWaterBody";
     const float MinDepth = 1f - .01f;
 
     public override string Id => AchId;

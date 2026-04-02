@@ -13,6 +13,7 @@ public class StackAllFoodWarehousesAchievement(
     public override string Id => AchId;
 
     readonly List<string> requiredGoods = [];
+    public IEnumerable<string> RequiredGoodNames => requiredGoods.Select(id => goods.GetGood(id).DisplayName.Value);
 
     public override void EnableInternal()
     {
