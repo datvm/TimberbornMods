@@ -21,6 +21,7 @@ public class MoreAchievementsConfigs : BaseModdableTimberbornAttributeConfigurat
             .TryTrack<Manufactory>()
             .TryTrack<FloodableObject>()
             .TryTrack<NumbercruncherSubmergeComponent>()
+            .TryTrack<WonderCompletionTracker>()
         ;
     }
 

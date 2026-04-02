@@ -6,7 +6,7 @@ public class StackResidentialBuildingsAchievement(
     BuildingStackService buildingStackService
 ) : EbAchievementBase(eb)
 {
-    public const string AchId = "StackResidentialBuildings";
+    public const string AchId = "LV.MA.StackResidentialBuildings";
     public const int RequiredStack = 5;
 
     public override string Id => AchId;
