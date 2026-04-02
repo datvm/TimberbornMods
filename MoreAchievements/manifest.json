@@ -1,13 +1,13 @@
 ﻿{
     "Name": "More Achievements",
-    "Version": "10.1.0",
+    "Version": "10.0.0",
     "Id": "MoreAchievements",
     "MinimumGameVersion": "1.0.4",
     "Description": "More achievements to challenge yourself.",
     "RequiredMods": [
         {
             "Id": "ModdableTimberbornAchievements",
-            "MinimumVersion": "10.1.0"
+            "MinimumVersion": "10.2.0"
         },
         { "Id": "ModdableTimberborn" }
     ],

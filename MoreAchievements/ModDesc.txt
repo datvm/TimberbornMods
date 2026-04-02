@@ -1,0 +1,8 @@
+﻿Adds 26 new achievements to Timberborn, including 7 secret ones to discover during gameplay. More achievements may be added over time based on suggestions and contributions from other modders.
+
+Works for all players, including non-Steam versions, through integration with Moddable Timberborn Achievements, along with support for its extended achievement features.
+
+Designed to expand long-term goals and add new challenges for both new and experienced settlements alike.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
