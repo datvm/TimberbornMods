@@ -33,27 +33,13 @@
     },
     "BlockObjectSpec": {
         "Size": {
-            "X": 1,
+            "X": 2,
             "Y": 2,
-            "Z": 3
+            "Z": 2
         },
         "Blocks": [
             {
                 "MatterBelow": "GroundOrStackable",
-                "Occupations": "Bottom, Top, Corners, Path, Middle",
-                "Stackable": "None",
-                "OccupyAllBelow": false,
-                "Underground": false
-            },
-            {
-                "MatterBelow": "Any",
-                "Occupations": "Middle",
-                "Stackable": "None",
-                "OccupyAllBelow": false,
-                "Underground": false
-            },
-            {
-                "MatterBelow": "Any",
                 "Occupations": "Bottom, Top, Corners, Path, Middle",
                 "Stackable": "None",
                 "OccupyAllBelow": false,
@@ -69,6 +55,34 @@
             {
                 "MatterBelow": "Any",
                 "Occupations": "Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "BlockObject",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
                 "Stackable": "None",
                 "OccupyAllBelow": false,
                 "Underground": false
@@ -91,7 +105,7 @@
         },
         "BaseZ": 0,
         "Overridable": false,
-        "Flippable": false
+        "Flippable": true
     },
     "BlockObjectNavMeshSettingsSpec": {
         "NoAutoWalls": false,
@@ -121,15 +135,6 @@
         "DescriptionLocKey": "LV.RHP.RamPump.Desc",
         "FlavorDescriptionLocKey": "",
         "Icon": "Buildings/Water/RamPump/RamPumpIcon"
-    },
-    "FinishableHorizontalWaterObstacleSpec": {
-        "Obstacles": [
-            {
-                "X": 0,
-                "Y": 0,
-                "Z": 1
-            }
-        ]
     },
     "ConstructionSiteProgressVisualizerSpec": {
         "ProgressThresholds": [
