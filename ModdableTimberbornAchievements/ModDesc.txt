@@ -8,6 +8,7 @@
 - Adds new pop-up notifications for achievement unlocks (for both Steam and non-Steam players).
 - [strike]Automatically[/strike] Sync any Steam achievements you earned. You can do this by clicking a button while in-game.
 - Provides a dedicated Achievements dialog, accessible from both the Main Menu and the in-game menu.
+- You can also lock an unlocked achievement to attempt it again.
 
 Note:
 - Your achievement unlocks is stored in [i]Documents/Timberborn/PlayerData[/i], which is also synced by Steam Cloud.

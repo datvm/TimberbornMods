@@ -15,7 +15,7 @@ public class BuildLeveeOnDamAchievement(
     [OnEvent]
     public void OnNewBuilding(EnteredFinishedStateEvent e)
     {
-        if (e.BlockObject.GetTemplateName() != LeveeTemplate) { return; }
+        if (!e.BlockObject.GetTemplateName().Contains(LeveeTemplate)) { return; }
 
         var coord = e.BlockObject.Coordinates;
         coord = coord with { z = coord.z - 1, };
@@ -23,7 +23,7 @@ public class BuildLeveeOnDamAchievement(
         var objs = blocks.GetObjectsAt(coord);
         foreach (var obj in objs)
         {
-            if (obj.GetTemplateName() == DamTemplate)
+            if (obj.GetTemplateName().Contains(DamTemplate))
             {
                 Unlock();
                 break;
