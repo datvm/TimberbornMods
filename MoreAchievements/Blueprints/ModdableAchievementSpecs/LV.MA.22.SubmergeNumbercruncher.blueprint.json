@@ -1,0 +1,11 @@
+{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.SubmergeNumbercruncher.Name",
+        "DescLoc": "LV.MA.SubmergeNumbercruncher.Desc",
+        "IsSecret": false,
+        "Order": 220,
+        "Id": "LV.MA.SubmergeNumbercruncher",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/SubmergeNumbercruncherIcon"
+    }
+}

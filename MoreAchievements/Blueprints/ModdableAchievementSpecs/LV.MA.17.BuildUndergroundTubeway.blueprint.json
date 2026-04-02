@@ -1,0 +1,11 @@
+{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.BuildUndergroundTubeway.Name",
+        "DescLoc": "LV.MA.BuildUndergroundTubeway.Desc",
+        "IsSecret": false,
+        "Order": 170,
+        "Id": "LV.MA.BuildUndergroundTubeway",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/BuildUndergroundTubewayIcon"
+    }
+}

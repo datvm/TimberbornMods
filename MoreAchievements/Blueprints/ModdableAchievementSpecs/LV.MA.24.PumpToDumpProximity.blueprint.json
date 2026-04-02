@@ -1,0 +1,11 @@
+{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.PumpToDumpProximity.Name",
+        "DescLoc": "LV.MA.PumpToDumpProximity.Desc",
+        "IsSecret": false,
+        "Order": 240,
+        "Id": "LV.MA.PumpToDumpProximity",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/PumpToDumpProximityIcon"
+    }
+}

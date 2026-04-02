@@ -1,0 +1,11 @@
+{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.DestroyChainBuildings.Name",
+        "DescLoc": "LV.MA.DestroyChainBuildings.Desc",
+        "IsSecret": false,
+        "Order": 190,
+        "Id": "LV.MA.DestroyChainBuildings",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/DestroyChainBuildingsIcon"
+    }
+}

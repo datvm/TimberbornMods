@@ -1,0 +1,11 @@
+{
+    "ModdableAchievementSpec": {
+        "NameLoc": "LV.MA.StreamGaugeZero.Name",
+        "DescLoc": "LV.MA.StreamGaugeZero.Desc",
+        "IsSecret": false,
+        "Order": 230,
+        "Id": "LV.MA.StreamGaugeZero",
+        "GroupId": "MoreAchievements",
+        "Icon": "Sprites/Achievements/StreamGaugeZeroIcon"
+    }
+}
