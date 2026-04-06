@@ -7,4 +7,8 @@
 	<Import Project="../Targets/Common.targets" />
 	<Import Project="../Targets/CommonModdableTimberborn.targets" />
 
+	<ItemGroup>
+		<Reference Include="$(GameModsFolder)ModdableDecalGroups\$(TimberbornVersion)\**\*.dll" Private="False" />
+	</ItemGroup>
+
 </Project>

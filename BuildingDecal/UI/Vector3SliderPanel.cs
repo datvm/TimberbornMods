@@ -9,6 +9,9 @@ public class Vector3SliderPanel : CollapsiblePanel
     readonly GameSlider[] sliders;
 
     Func<Vector3, string>? titleFunc;
+    readonly Toggle? chkUniform;
+
+    int visibleSliders = 0;
 
     public Vector3 Value
     {
@@ -22,7 +25,7 @@ public class Vector3SliderPanel : CollapsiblePanel
         }
     }
 
-    public Vector3SliderPanel(GameSliderAlternativeManualValueDI di)
+    public Vector3SliderPanel(GameSliderAlternativeManualValueDI di, bool addUniform = false)
     {
         var parent = Container;
 
@@ -32,11 +35,18 @@ public class Vector3SliderPanel : CollapsiblePanel
         labels = new Label[3];
         for (int i = 0; i < 3; i++)
         {
-            labels[i] = parent.AddLabel();
+            var z = i;
+
+            labels[z] = parent.AddLabel();
             var slider = sliders[i] = parent.AddSlider()
                 .AddEndLabel(v => v.ToString("0.00"))
-                .RegisterChange(v => InternalOnValueChanged(true))
+                .RegisterChange(v => InternalOnValueChanged(z, true))
                 .RegisterAlternativeManualValue(di);
+        }
+
+        if (addUniform)
+        {
+            chkUniform = parent.AddToggle(di.t.T("LV.BDl.Uniform"));
         }
 
         SetExpand(false);
@@ -55,7 +65,9 @@ public class Vector3SliderPanel : CollapsiblePanel
 
     public Vector3SliderPanel SetLabels(string[] labels)
     {
-        for (int i = 0; i < sliders.Length; i++)
+        visibleSliders = sliders.Length;
+
+        for (int i = 0; i < visibleSliders; i++)
         {
             if (labels.Length > i)
             {
@@ -83,8 +95,21 @@ public class Vector3SliderPanel : CollapsiblePanel
         return this;
     }
 
-    void InternalOnValueChanged(bool notify)
+    void InternalOnValueChanged(int index, bool notify)
     {
+        if (index != -1 && chkUniform is not null && chkUniform.value)
+        {
+            var value = sliders[index].Value;
+
+            for (int i = 0; i < visibleSliders; i++)
+            {
+                if (i != index)
+                {
+                    sliders[i].SetValueWithoutNotify(value);
+                }
+            }
+        }
+
         var v = Value;
 
         if (titleFunc is not null)
@@ -105,7 +130,23 @@ public class Vector3SliderPanel : CollapsiblePanel
             sliders[i].SetValueWithoutNotify(value[i]);
         }
 
-        InternalOnValueChanged(false);
+        if (chkUniform is not null)
+        {
+            var uniform = true;
+            var initValue = sliders[0].Value;
+            for (int i = 1; i < visibleSliders; i++)
+            {
+                if (sliders[i].Value != initValue)
+                {
+                    uniform = false;
+                    break;
+                }
+            }
+
+            chkUniform.SetValueWithoutNotify(uniform);
+        }
+
+        InternalOnValueChanged(-1, false);
         return this;
     }
 

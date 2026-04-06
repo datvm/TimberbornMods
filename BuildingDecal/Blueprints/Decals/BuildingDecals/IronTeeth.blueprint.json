@@ -1,0 +1,7 @@
+﻿{
+    "DecalSpec": {
+        "FactionId": "IronTeeth",
+        "Category": "Banners",
+        "Texture": "Sprites/BuildingDecals/ironteeth"
+    }
+}

@@ -17,7 +17,7 @@ public class BuildingDecalItemSerializer : IValueSerializer<BuildingDecalItem>
 
         return new BuildingDecalItem()
         {
-            DecalName = s.Has(DecalNameKey) ? s.Get(DecalNameKey) : DecalPictureService.ErrorIconName,
+            DecalName = s.Has(DecalNameKey) ? s.Get(DecalNameKey) : BuildingDecalProvider.DefaultIconName,
             Position = s.Has(PositionKey) ? s.Get(PositionKey) : Vector3.zero,
             Rotation = s.Has(RotationKey) ? s.Get(RotationKey) : Quaternion.identity,
             Scale = s.Has(ScaleKey) ? s.Get(ScaleKey) : Vector3.one,

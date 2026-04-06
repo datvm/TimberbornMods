@@ -9,7 +9,7 @@ public class BuildingDecalItem
 #nullable enable
 
     public bool Attached => decalObject && renderer;
-    public string DecalName { get; set; } = DecalPictureService.ErrorIconName;
+    public string DecalName { get; set; } = BuildingDecalProvider.DefaultIconName;
     public Vector3 Position
     {
         get;
@@ -83,7 +83,7 @@ public class BuildingDecalItem
         }
     }
 
-    public Vector2 SpriteSize => renderer.sprite.textureRect.size / DecalPictureService.PixelPerUnit;
+    public Vector2 SpriteSize => renderer.sprite.textureRect.size / BuildingDecalProvider.PixelPerUnit;
 
     public void AttachTo(GameObject parent)
     {
