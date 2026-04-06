@@ -14,7 +14,7 @@ public class PrintUiModule(PanelStack panelStack, IAssetLoader loader) : IDevMod
     void ExportAllViews()
     {
         var assets = loader.LoadAll<VisualTreeAsset>("UI/Views");
-        var folder = Path.Combine(ModStarter.ModPath, "ExportedViews");
+        var folder = Path.Combine(MStarter.ModPath, "ExportedViews");
         Directory.CreateDirectory(folder);
 
         foreach (var a in assets)
