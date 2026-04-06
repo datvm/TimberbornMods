@@ -1,4 +1,4 @@
-﻿{
+{
   "ItemId": "3543155128",
   "Name": "Powered Tubeway",
   "Visibility": "Public",
@@ -6,10 +6,5 @@
   "UpdateVisibility": false,
   "UpdatePreview": false,
   "UpdateTags": false,
-  "Tags": [
-    "Update 1.0",
-    "Update 0.7",
-    "New content",
-    "Buildings"
-  ]
+  "Tags": []
 }
