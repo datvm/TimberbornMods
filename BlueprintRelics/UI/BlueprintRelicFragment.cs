@@ -84,12 +84,12 @@ public class BlueprintRelicFragment(
         var row = lstStepRequirements.AddRow().AlignItems().JustifyContent(Justify.SpaceEvenly);
         row.AddIconSpan()
             .SetVertical()
-            .SetContent(namedIconProvider.Clock, prefixText: t.T("Time.DaysShort", component!.StepDays.ToString("0.0")), size: 24);
+            .SetContent(namedIconProvider.Clock, prefixText: t.T("Unit.Day.NumberAndUnit", component!.StepDays.ToString("0.0")), size: 24);
         row.AddIconSpan().SetScience(namedIconProvider, component.ScienceRequirement.ToString());
 
         foreach (var g in component.RequiredGoods)
         {
-            row.AddIconSpan().SetGood(goodService, g.GoodId, g.Amount.ToString()).SetVertical();
+            row.AddIconSpan().SetGood(goodService, g.GoodId, g.Amount.ToString(), showName: true).SetVertical();
         }
     }
 
