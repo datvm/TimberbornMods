@@ -17,14 +17,19 @@ public class ModdableStoreAchievement(
 
     public void Initialize(Action successCallback)
     {
-        if (OriginalStoreAchievementType is null
-            || (original = (IStoreAchievements)container.GetInstance(OriginalStoreAchievementType)) is null)
+        if (OriginalStoreAchievementType is not null)
         {
-            Done();
-            return;
+            original = (IStoreAchievements)container.GetInstance(OriginalStoreAchievementType);
         }
 
-        original.Initialize(Done);
+        if (original is not null && MStarter.HasSteam)
+        {
+            original!.Initialize(Done);
+        }
+        else
+        {
+            Done();  // Even the default non-Steam one won't call the callback
+        }
 
         void Done()
         {

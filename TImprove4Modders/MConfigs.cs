@@ -69,16 +69,3 @@ public class ModMapEditorConfig : NonMenuConfig
     }
 
 }
-
-public class ModStarter : IModStarter
-{
-    public static string ModPath { get; private set; } = null!;
-
-    public void StartMod(IModEnvironment modEnvironment)
-    {
-        ModPath = modEnvironment.ModPath;
-
-        new Harmony(nameof(TImprove4Modders)).PatchAll();
-    }
-
-}

@@ -1,10 +1,8 @@
 ﻿namespace TImprove4Modders.Patches;
 
-[HarmonyPatch]
 public static class ThumbnailPatches
 {
 
-    [HarmonyPrefix, HarmonyPatch(typeof(SteamWorkshopModThumbnail), nameof(SteamWorkshopModThumbnail.TryGetCustomThumbnailPath))]
     public static bool PatchThumbnailPath(ref bool __result, out string? previewPath)
     {
         previewPath = null;
