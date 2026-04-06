@@ -1,28 +1,20 @@
 ﻿
 namespace BuildingDecal.Components;
 
-public class BuildingDecalComponent : BaseComponent, IPersistentEntity
+public class BuildingDecalComponent(BuildingDecalProvider decalPictureService) : BaseComponent, IPersistentEntity, IAwakableComponent, IStartableComponent
 {
     static readonly ComponentKey SaveKey = new(nameof(BuildingDecalComponent));
     static readonly ListKey<BuildingDecalItem> DecalItemsKey = new("DecalItems");
 
 #nullable disable
-    DecalPictureService decalPictureService;
     BlockObject blockObject;
 #nullable enable
 
     List<BuildingDecalItem> decalItems = [];
     public IReadOnlyList<BuildingDecalItem> DecalItems => decalItems;
-    public Vector3Int BuildingSize => blockObject.BlocksSpec.Size;
+    public Vector3Int BuildingSize => blockObject._blockObjectSpec.Size;
 
-    [Inject]
-    public void Inject(DecalPictureService decalPictureService)
-    {
-        this.decalPictureService = decalPictureService;
-        decalPictureService.OnDecalsReloaded += DecalPictureService_OnDecalsReloaded;
-    }
-
-    private void DecalPictureService_OnDecalsReloaded()
+    void OnDecalsReloaded()
     {
         foreach (var item in decalItems)
         {
@@ -35,12 +27,13 @@ public class BuildingDecalComponent : BaseComponent, IPersistentEntity
 
     public void Awake()
     {
-        blockObject = GetComponentFast<BlockObject>();
+        decalPictureService.OnDecalsReloaded += OnDecalsReloaded;
+        blockObject = GetComponent<BlockObject>();
     }
 
     public void Start()
     {
-        var go = GameObjectFast;
+        var go = GameObject;
         foreach (var item in decalItems)
         {
             item.AttachTo(go);
@@ -51,7 +44,7 @@ public class BuildingDecalComponent : BaseComponent, IPersistentEntity
     public BuildingDecalItem AddDecal(SpriteWithName sprite)
     {
         var decal = new BuildingDecalItem();
-        decal.AttachTo(GameObjectFast);
+        decal.AttachTo(GameObject);
         decal.SetSprite(sprite);
         decalItems.Add(decal);
 

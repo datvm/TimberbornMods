@@ -49,13 +49,15 @@ public class BuildingDecalItemPanel : CollapsiblePanel
             .RegisterChange(OnRotationChanged)
             .SetValueWithoutNotify(item.Rotation.eulerAngles)
             .SetTitleFunction(v => TitleFunction("LV.BDl.Rotation", v));
-        scalePanel = parent.AddChild(() => new Vector3SliderPanel(sliderDI))
+        
+        scalePanel = parent.AddChild(() => new Vector3SliderPanel(sliderDI, addUniform: true))
             .SetTitle(t.T("LV.BDl.Scale"))
-            .SetLabels(["X"])
+            .SetLabels(["X", "Y"])
             .SetRange(0.01f, 10)
             .RegisterChange(OnScaleChanged)
             .SetValueWithoutNotify(item.Scale)
-            .SetTitleFunction(v => t.T("LV.BDl.Scale", v.x));
+            .SetTitleFunction(v => t.T("LV.BDl.Scale", v.x, v.y));
+
         parent.AddChild(() => new Vector3SliderPanel(sliderDI))
             .SetTitle(t.T("LV.BDl.Color"))
             .SetLabels(["R", "G", "B"])
@@ -82,7 +84,7 @@ public class BuildingDecalItemPanel : CollapsiblePanel
 
     void OnPositionChanged(Vector3 pos) => Item.Position = pos;
     void OnRotationChanged(Vector3 rotation) => Item.Rotation = Quaternion.Euler(rotation);
-    void OnScaleChanged(Vector3 scale) => Item.Scale = new(scale.x, scale.x, scale.x);
+    void OnScaleChanged(Vector3 scale) => Item.Scale = new(scale.x, scale.y, scale.z);
     void OnColorChanged(Vector3 color) => Item.Color = color.ToColor();
     void SetFlipX(bool flip) => Item.FlipX = flip;
     void SetFlipY(bool flip) => Item.FlipY = flip;
@@ -127,7 +129,7 @@ public class BuildingDecalItemPanel : CollapsiblePanel
         if (t.ScaleXTo != SizeEdge.None || t.ScaleYTo != SizeEdge.None)
         {
             var scale = GetScale(t, worldSize);
-            scalePanel.Value = new Vector3(scale, 0, 0);
+            scalePanel.Value = new Vector3(scale, scale, 1);
         }
 
         cboTemplate.SetSelectedItem(0);

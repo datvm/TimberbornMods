@@ -1,7 +1,8 @@
 ﻿global using BuildingDecal.Components;
 global using BuildingDecal.Services;
-global using BuildingDecal.UI;
 global using BuildingDecal.Specs;
+global using BuildingDecal.UI;
+global using ModdableDecalGroups.Services;
 
 namespace BuildingDecal;
 
@@ -11,7 +12,7 @@ public class ModGameConfig : Configurator
     public override void Configure()
     {
         this
-            .BindSingleton<DecalPictureService>()
+            .BindSingleton<BuildingDecalProvider>()
             .BindSingleton<BuildingDecalPositionService>()
             .BindSingleton<BuildingDecalClipboard>()
 

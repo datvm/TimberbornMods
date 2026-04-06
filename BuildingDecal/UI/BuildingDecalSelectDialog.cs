@@ -8,17 +8,21 @@ public class BuildingDecalSelectDialog : DialogBoxElement, ILoadableSingleton
 #nullable disable
     TextField txtFilter;
 #nullable enable
-    readonly VisualElement imageContainer;
+    readonly VisualElement groupsContainer;
     readonly List<BuildingDecalImage> images = [];
 
     readonly PanelStack panelStack;
-    readonly DecalPictureService decalPictureService;
+    readonly BuildingDecalProvider buildingDecalProvider;
 
-    public BuildingDecalSelectDialog(VisualElementInitializer veInit, PanelStack panelStack, ILoc t, DecalPictureService decalPictureService)
+    public BuildingDecalSelectDialog(
+        VisualElementInitializer veInit,
+        PanelStack panelStack,
+        ILoc t,
+        BuildingDecalProvider buildingDecalProvider
+    )
     {
         this.panelStack = panelStack;
-        this.decalPictureService = decalPictureService;
-
+        this.buildingDecalProvider = buildingDecalProvider;
         AddCloseButton();
         SetTitle(t.T("LV.BDl.PickDecal"));
 
@@ -26,7 +30,7 @@ public class BuildingDecalSelectDialog : DialogBoxElement, ILoadableSingleton
         CreateCommandPanel(Content, t);
 
         var containerScroll = Content.AddScrollView().SetHeight(400);
-        imageContainer = containerScroll.AddRow().SetWrap();
+        groupsContainer = containerScroll.AddChild();
 
         this.Initialize(veInit);
     }
@@ -46,7 +50,7 @@ public class BuildingDecalSelectDialog : DialogBoxElement, ILoadableSingleton
     {
         var container = parent.AddRow().AlignItems();
 
-        container.AddMenuButton(t.T("LV.BDl.BrowseDir"), onClick: decalPictureService.OpenFolder);
+        container.AddMenuButton(t.T("LV.BDl.BrowseDir"), onClick: buildingDecalProvider.OpenFolder);
         container.AddMenuButton(t.T("LV.BDl.Reload"), onClick: ReloadDecals);
 
         return container;
@@ -59,26 +63,32 @@ public class BuildingDecalSelectDialog : DialogBoxElement, ILoadableSingleton
 
     void ReloadDecals()
     {
-        decalPictureService.ReloadDecals();
+        buildingDecalProvider.ReloadDecals();
         ShowImages();
     }
 
     void ShowImages()
     {
-        imageContainer.Clear();
+        groupsContainer.Clear();
         images.Clear();
         txtFilter.text = "";
 
-        Add(decalPictureService.ErrorIcon);
-        foreach (var s in decalPictureService.DecalsList)
+        foreach (var grp in buildingDecalProvider.GetGroups().Groups)
         {
-            Add(s);
+            var panel = groupsContainer.AddCollapsiblePanel(grp.Spec.Title.Value).SetMarginBottom();
+            var panelContent = panel.Container.AddRow().SetWrap();
+
+            foreach (var d in grp.Decals)
+            {
+                var s = buildingDecalProvider.GetSprite(d);
+                Add(s, panelContent);
+            }
         }
 
-        void Add(SpriteWithName s)
+        void Add(SpriteWithName s, VisualElement panelContent)
         {
             var img = new BuildingDecalImage(s);
-            imageContainer.Add(img);
+            panelContent.Add(img);
             images.Add(img);
 
             img.RegisterCallback<ClickEvent>(_ =>

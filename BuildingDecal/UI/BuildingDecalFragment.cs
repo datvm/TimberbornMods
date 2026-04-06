@@ -12,14 +12,13 @@ public class BuildingDecalFragment(
 {
     readonly ILoc t = sliderDI.t;
     readonly VisualElementInitializer veInit = sliderDI.VeInit;
-    readonly InputService inputService = sliderDI.InputService;
 
 #nullable disable
     VisualElement decalPanelsContainer;
     Button btnPaste;
 #nullable enable
 
-    PrefabSpec? prefabSpec;
+    TemplateSpec? templateSpec;
     ImmutableArray<DecalPositionSpec> templatePositions = [];
     Vector3Int buildingSize;
 
@@ -39,7 +38,7 @@ public class BuildingDecalFragment(
         buildingDecalClipboard.OnClipboardChanged += OnClipboardChanged;
     }
 
-    private void OnClipboardChanged()
+    void OnClipboardChanged()
     {
         btnPaste.enabledSelf = buildingDecalClipboard.CanPaste;
     }
@@ -49,13 +48,13 @@ public class BuildingDecalFragment(
         base.ShowFragment(entity);
         if (!component) { return; }
 
-        prefabSpec = component.GetComponentFast<PrefabSpec>();
-        if (!prefabSpec)
+        templateSpec = component!.GetComponent<TemplateSpec>();
+        if (templateSpec is null)
         {
             ClearFragment();
             return;
         }
-        templatePositions = buildingDecalPositionService.GetPositionsForBuilding(prefabSpec.Name);
+        templatePositions = buildingDecalPositionService.GetPositionsForBuilding(templateSpec.TemplateName);
         buildingSize = component.BuildingSize;
 
         decalPanelsContainer.Clear();
@@ -70,7 +69,7 @@ public class BuildingDecalFragment(
     {
         decalPanelsContainer.Clear();
         base.ClearFragment();
-        prefabSpec = null;
+        templateSpec = null;
         templatePositions = [];
     }
 
@@ -81,7 +80,7 @@ public class BuildingDecalFragment(
         var decal = await diag.ShowPickerAsync();
         if (decal is null) { return; }
 
-        var item = component.AddDecal(decal.Value);
+        var item = component!.AddDecal(decal.Value);
         AppendDecalPanel(item)
             .ActivateFirstTemplate();
     }
@@ -110,7 +109,7 @@ public class BuildingDecalFragment(
     {
         if (!component) { return; }
 
-        var item = buildingDecalClipboard.Paste(component);
+        var item = buildingDecalClipboard.Paste(component!);
         if (item is not null)
         {
             AppendDecalPanel(item);
@@ -130,11 +129,11 @@ public class BuildingDecalFragment(
     {
         if (!component) { return; }
 
-        component.RemoveDecal(panel.Item);
+        component!.RemoveDecal(panel.Item);
         panel.RemoveFromHierarchy();
     }
 
-    private async void OnItemDecalRequested(object sender, EventArgs e)
+    async void OnItemDecalRequested(object sender, EventArgs e)
     {
         var decal = await diag.ShowPickerAsync();
         if (decal is null) { return; }

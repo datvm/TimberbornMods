@@ -1,8 +1,17 @@
 {
-  "ItemId": "3570383146",
-  "Name": "Building Decals",
+  "ItemId": "3701338675",
+  "Name": "Building Banners",
   "Visibility": "Public",
   "UpdateDescription": false,
   "UpdateVisibility": false,
-  "UpdatePreview": false
+  "UpdatePreview": false,
+  "UpdateTags": false,
+  "Tags": [
+    "Update 1.0",
+    "New content",
+    "Visuals",
+    "Buildings",
+    "Outfits",
+    "Decals"
+  ]
 }

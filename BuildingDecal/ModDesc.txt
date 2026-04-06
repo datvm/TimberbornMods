@@ -1,26 +1,28 @@
-﻿Give your buildings some style! With Building Decals, you can decorate any building in Timberborn with custom images. Flags, emblems, clan symbols, warning signs, memes - whatever you want!
+﻿Building Decals came back to Timberborn V1 with a new name: Building Banners! Give your buildings some style: you can decorate any building in Timberborn with custom images. Flags, emblems, clan symbols, warning signs, memes - whatever you want! And best of all, you can put them directly on any building!
 
-- Add unlimited decals to any building: Works with any PNG file (supports transparency). You can even add holes or cutouts. Uses 128 PPU (Pixels Per Unit): a 128×128 image matches a 1×1 building, but you can freely scale decals.
-- Rotate, scale, and position decals anywhere. You can also Flip and Tint decals.
-- Copy & paste decal setups between buildings. Hotkeys: Ctrl+D to copy, Ctrl+Shift+D to paste (configurable in Settings → Keybindings).
+[img]https://files.catbox.moe/5nz3r5.jpg[/img]
+
+- Add unlimited banners to any building: The mod uses the same source of images as the in-game banners so you can subscribe to wonderful banners mods on Steam Workshop and use them in your game, or use your own file! Works with any PNG file (supports transparency). You can even add holes or cutouts. Uses 256 PPU (Pixels Per Unit): a 256×256px image matches a 1×1 building, but you can freely scale them. 
+
+[img]https://files.catbox.moe/mnbnqo.jpg[/img]
+
+- Rotate, scale, and position banners anywhere. You can also Flip and Tint banners.
+- Copy & paste banner setups between buildings.
 
 Tips:
 - Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3472334132]TImprove 4 UI[/url] for a better scrollbar.
 - Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3547764728]TImprove 4 UX[/url] for collapsible panels.
 - When sliders are tricky, hold Shift and click the number to enter values manually.
-- Layer multiple decals for unique effects. You can also use transparency channel for glass effect. This is a good decal for making window glass thanks to Anythin: https://i.imgur.com/dRoPdwi.png
 
-[img]https://i.imgur.com/3tmPtZt.jpeg[/img]
+- Layer multiple banners for unique effects. You can also use transparency channel for glass effect. This is a good banner for making window glass thanks to @Anythin:
 
-The decals are purely visual and do not affect gameplay.
+[img]https://files.catbox.moe/rlrdlt.jpg[/img]
 
-Be sure to share your feedback and awesome screenshot to me on official Discord https://discord.gg/timberborn, in the [url=https://discord.com/channels/558398674389172225/1417907482973442140]Building Decals[/url] channel!
+The banners are purely visual and do not affect gameplay.
+
+Be sure to share your feedback and awesome screenshot to me on official Discord https://discord.gg/timberborn, in the [url=https://discord.com/channels/558398674389172225/1417907482973442140]Building Banners[/url] channel!
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods
 
-Credit: @Anythin for the wonderful screenshots!
-
-v7.0.2:
-- Added scrollbar to the decal list.
-- Added a few built-in decals. The glass panel decal is credited to @Anythin.
+Credit: @Anythin and @LupaLiam for the wonderful screenshots!
