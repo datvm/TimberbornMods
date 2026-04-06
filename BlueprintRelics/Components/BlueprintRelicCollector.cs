@@ -215,8 +215,9 @@ public class BlueprintRelicCollector(BlueprintRelicCollectorService service) : T
     {
         StepsLeft = TotalSteps;
         StepTickLeft = 0;
+        finishedStatus.Deactivate();
 
-        EnableComponent();
+        EnableComponent();        
     }
 
     public void Negotiate()
