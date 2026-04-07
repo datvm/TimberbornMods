@@ -2,8 +2,6 @@
 
 Don't like the default projects or even the numbers? This mod is developed with modding in mind, so you can easily add your own projects or tweak the existing ones. In fact, I am releasing this mod with a few extra projects that I hope you will enjoy. I will even write a step-by-step guide on how to make your own mod that uses this mod!
 
-[b]After Update 7.4, please make sure to subscribe to the dependency [b]Moddable Timberborn[/b], and you can remove Buff & Debuff System and Moddable Bindito as they are no longer used. Also please make sure all mods are updated to the latest version (Steam sometimes just refuses to update, you can use Verify Game Files option to update all the mods)[/b]
-
 [h1]Update 7.1: Faction-specific projects and UI Update[/h1]
 
 This mod now has faction-specific projects! This update comes with one new late-game powerful project for each faction.
@@ -33,21 +31,3 @@ If you need to contact me about this mod, please use the comment section below o
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods/tree/master/ScientificProjects
-
-v10.0.0: Should work with Timberborn v1.0.
-
-v7.4.0: This is a big update! While you will not see many new features but the UI was revamped, the code was completely rewritten using Moddable Timberborn [b]instead of Buff & Debuff System[/b] with great performance improvements. Expansion mods that used Moddable Bindito no longer needs it as well! Please make sure all other mods are updated to the latest versions as well! You can now safely remove Buff & Debuff System and Moddable Bindito. All expansion mods of this mod is updated to v7.4.0 to accompany the changes as well.
-v7.3.1: Removed excessive log printing when Wheelbarrows upgrade (rarely) fails.
-v7.3.0: Removed Emergencies projects (moved to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3498474788]Weather Projects[/url]).
-v7.2.1: Should work with April 10 update now.
-v7.2.0: Greedy Builders can now use the faction-specific projects.
-v7.1.4-7: Added various support for the extension mods. Updated the keybinding specs following April 02 update.
-v7.1.3: Should work with April 02 update now.
-v7.1.2: Should fix the crash when placing and deleting Smelter and Wood Workshop with the new upgrades now. Also fix the recipe keeps getting doubled for each building instead of just once.
-v7.1.1: Fixed crash when deleting Smelter and Wood Workshop with the new upgrades.
-v7.1.0: Added faction-specific projects and UI update. Added a new filter section to the dialog. Added flavor text to each project.
-
-v7.0.5: should™️ fix the Wheelbarrow crashing. Unfortunately it is a blind fix because I can't reproduce that myself so I fix it based on a crash log I received. Please tell me if it still happens.
-v7.0.4: Provided a fix for Weather Prediction.
-v7.0.3: Added an intro box for the first load of each save so users know how to open the dialog.
-v7.0.2: Fixed dialog size on screen resolution with UI Scale.
