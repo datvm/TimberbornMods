@@ -3,6 +3,7 @@ global using BuildingDecal.Services;
 global using BuildingDecal.Specs;
 global using BuildingDecal.UI;
 global using ModdableDecalGroups.Services;
+global using ModdableTimberborn.BuildingSettings;
 
 namespace BuildingDecal;
 
@@ -18,6 +19,8 @@ public class ModGameConfig : Configurator
 
             .BindFragment<BuildingDecalFragment>()
             .BindSingleton<BuildingDecalSelectDialog>()
+
+            .MultiBindSingleton<IBuildingSettings, BuildingDecalBuildingSettings>()
 
             .BindTemplateModule(h => h
                 .AddDecorator<BuildingSpec, BuildingDecalComponent>()

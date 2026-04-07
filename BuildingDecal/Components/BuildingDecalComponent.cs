@@ -1,7 +1,7 @@
 ﻿
 namespace BuildingDecal.Components;
 
-public class BuildingDecalComponent(BuildingDecalProvider decalPictureService) : BaseComponent, IPersistentEntity, IAwakableComponent, IStartableComponent
+public class BuildingDecalComponent(BuildingDecalProvider decalPictureService) : BaseComponent, IPersistentEntity, IAwakableComponent, IStartableComponent, IDuplicable<BuildingDecalComponent>
 {
     static readonly ComponentKey SaveKey = new(nameof(BuildingDecalComponent));
     static readonly ListKey<BuildingDecalItem> DecalItemsKey = new("DecalItems");
@@ -89,5 +89,42 @@ public class BuildingDecalComponent(BuildingDecalProvider decalPictureService) :
         s.Set(DecalItemsKey, decalItems, BuildingDecalItemSerializer.Instance);
     }
 
+    public void SetTo(IReadOnlyCollection<BuildingDecalItem> items)
+    {
+        if (items.Count <= 0) { return; }
 
+        SetTo([.. items.Select(SerializableDecalItem.From)]);
+    }
+
+    public bool SetTo(IReadOnlyCollection<SerializableDecalItem> items)
+    {
+        if (items.Count <= 0) { return false; }
+
+        Clear();
+
+        foreach (var item in items)
+        {
+            var sprite = decalPictureService.GetSprite(item.Name);
+            var decal = AddDecal(sprite);
+
+            decal.Position = item.Position;
+            decal.Rotation = item.Rotation;
+            decal.Scale = item.Scale;
+            decal.Color = item.Color;
+            decal.FlipX = item.FlipX;
+            decal.FlipY = item.FlipY;
+        }
+
+        return true;
+    }
+
+    public void Clear()
+    {
+        while (decalItems.Count > 0)
+        {
+            RemoveDecal(decalItems[0]);
+        }
+    }
+
+    public void DuplicateFrom(BuildingDecalComponent source) => SetTo(source.DecalItems);
 }

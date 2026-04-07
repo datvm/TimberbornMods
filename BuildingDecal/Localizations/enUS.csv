@@ -30,4 +30,6 @@ LV.BDl.CopyOneNotf,"This building has multiple banners. Only the first one was c
 LV.BDl.CopyButton,"Copy",
 LV.BDl.PasteButton,"Paste",
 LV.BDl.NoDecal,"The building has no banner to copy.",
+LV.BDl.BannersDesc,"{0} banners",
+LV.MT.BldSet.BuildingDecalComponent,"Building Banners",
 Name_BuildingDecalFragment,"Building Banners",
