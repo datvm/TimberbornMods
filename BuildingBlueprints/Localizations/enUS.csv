@@ -18,7 +18,7 @@ LV.BB.BlueprintBuildToolNudge,"Nudge blueprint with camera keys: {0}",
 LV.BB.DemolishBlueprintTool,"Demolish Blueprint Buildings",
 LV.BB.DemolishBlueprintToolDesc,"Quickly demolish all buildings that were placed using a building blueprint",
 LV.BB.DemolishConfirm,"Are you sure you want to demolish all {0} buildings?",
-LV.BB.UnknownBuilding,"<RedHighlight>Unknown building: {0}</RedHighlight>"
+LV.BB.UnknownBuilding,"<RedHighlight>Unknown building: {0}</RedHighlight>",
 LV.BB.DefaultName,"Unnamed Blueprint",
 LV.BB.InvalidName,"The blueprint name is invalid. It must be a valid filename (avoid special characters).",
 LV.BB.FileDuplicateWarning,"A blueprint with this name already exists.
