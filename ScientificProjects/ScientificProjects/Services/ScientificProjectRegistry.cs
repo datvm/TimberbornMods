@@ -102,7 +102,7 @@ public class ScientificProjectRegistry(
 
                 p.ScalingCostDisplay = string
                     .Format(t.T(p.ScalingCostKey), [.. p.Parameters])
-                    .Replace("[Cost]", NumberFormatter.Format(p.ScienceCost));
+                    .Replace("[Cost]", p.ScienceCost.ToString("0,0"));
 
                 expectingCostProviderIds.Add(p.Id);
             }
