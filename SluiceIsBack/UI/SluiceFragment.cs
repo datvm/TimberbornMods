@@ -20,13 +20,7 @@ public class SluiceFragment : IEntityPanelFragment
 
     static readonly string MaximumDepthToggleLocKey = "Building.Sluice.MaximumDepthToggle";
 
-    static readonly string AboveContaminationToggleLocKey = "Building.Sluice.AboveContaminationToggle";
-
-    static readonly string BelowContaminationToggleLocKey = "Building.Sluice.BelowContaminationToggle";
-
     static readonly string DownstreamDepthLocKey = "Building.Sluice.DownstreamDepth";
-
-    static readonly string ContaminationLocKey = "Building.Sluice.Contamination";
 
     readonly VisualElementLoader _visualElementLoader;
 
@@ -64,9 +58,15 @@ public class SluiceFragment : IEntityPanelFragment
 
     bool _sliderInitialization;
 
+    readonly Phrase _contaminationPhrase = Phrase.New("Building.Sluice.Contamination").FormatPercentRounded();
+
+    readonly Phrase _aboveContaminationPhrase = Phrase.New("Building.Sluice.AboveContaminationToggle").FormatPercentRounded();
+
+    readonly Phrase _belowContaminationPhrase = Phrase.New("Building.Sluice.BelowContaminationToggle").FormatPercentRounded();
+
     int Range => _sluice.MaxHeight - _sluice.MinHeight;
 
-    float WaterLevelSliderValue => Range + _sluiceState.OutflowLimit;
+    float WaterLevelSliderValue => (float)Range + _sluiceState.OutflowLimit;
 
     public SluiceFragment(VisualElementLoader visualElementLoader, SluiceToggleFactory sluiceToggleFactory, ILoc loc)
     {
@@ -77,9 +77,7 @@ public class SluiceFragment : IEntityPanelFragment
 
     public VisualElement InitializeFragment()
     {
-        var vta = _visualElementLoader._assetLoader.Load<VisualTreeAsset>("mods/sluiceisback/assetbundles/ui/views/game/entitypanel/lvsluicefragment");
-        _root = _visualElementLoader.LoadVisualElement(vta);
-
+        _root = _visualElementLoader.LoadVisualElement("Game/EntityPanel/SluiceFragment");
         _modeToggle = _sluiceToggleFactory.Create(_root.Q<VisualElement>("ModeToggle"));
         _modeLabel = _root.Q<Label>("Mode");
         _waterLevelToggle = _root.Q<Toggle>("WaterLevelToggle");
@@ -139,7 +137,7 @@ public class SluiceFragment : IEntityPanelFragment
             UpdateAutomation();
             _synchronizeToggle.SetValueWithoutNotify(_sluiceState.IsSynchronized);
             _depthLabel.text = _loc.T(DownstreamDepthLocKey, FormatValue(_sluice.TargetDepth));
-            _contaminationLabel.text = _loc.T(ContaminationLocKey, NumberFormatter.FormatAsPercentRounded(_sluice.Contamination));
+            _contaminationLabel.text = _loc.T(_contaminationPhrase, _sluice.Contamination);
             _root.ToggleDisplayStyle(visible: true);
         }
         else
@@ -242,10 +240,10 @@ public class SluiceFragment : IEntityPanelFragment
         _waterLevelToggle.text = _loc.T(MaximumDepthToggleLocKey, FormatValue(_waterLevelSlider.Value));
         _aboveContaminationSlider.SetValueWithoutNotify(_sluiceState.OnAboveLimit);
         _aboveContaminationToggle.SetValueWithoutNotify(_sluiceState.AutoCloseOnAbove);
-        _aboveContaminationToggle.text = _loc.T(AboveContaminationToggleLocKey, NumberFormatter.FormatAsPercentRounded(_aboveContaminationSlider.Value));
+        _aboveContaminationToggle.text = _loc.T(_aboveContaminationPhrase, _aboveContaminationSlider.Value);
         _belowContaminationSlider.SetValueWithoutNotify(_sluiceState.OnBelowLimit);
         _belowContaminationToggle.SetValueWithoutNotify(_sluiceState.AutoCloseOnBelow);
-        _belowContaminationToggle.text = _loc.T(BelowContaminationToggleLocKey, NumberFormatter.FormatAsPercentRounded(_belowContaminationSlider.Value));
+        _belowContaminationToggle.text = _loc.T(_belowContaminationPhrase, _belowContaminationSlider.Value);
     }
 
     void ChangeFlow(float newHeight)
