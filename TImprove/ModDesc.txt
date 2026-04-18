@@ -28,8 +28,10 @@ Visual/UI only. Locks the sun and sky lighting to a fixed state.
 
 [h1]Automation & Priorities[/h1]
 
-[b]Prioritize Rubbles[/b]: Automatically sets rubble gathering priority to High, ensuring builders collect materials first.
-[img]https://files.catbox.moe/ah60t6.jpg[/img]
+[b]Default rubble priority[/b]: Automatically sets rubble gathering priority. Set to High or above to ensure builders collect materials first.
+[img]https://i.imgur.com/uyoGbPl.jpeg[/img]
+
+[b]Default building priority[/b]: Automatically sets new building priority to a specified level when placing. There is also a "Remember" option that will keep the last used priority. The remember option only works for the current game session. It also does not work when you use the Duplicate feature because the priority will be copied from the original building instead of using the default one.
 
 [b]Auto Clear Dead Stumps[/b]: Automatically clears dead stumps or bushes that could normally be removed by building over them.
 [img]https://files.catbox.moe/pg9rph.jpg[/img]
@@ -66,20 +68,4 @@ This can be configured to trigger on:
 [b]Quick / Force Quit [Ctrl + Shift + Q] (!)[/b] Immediately terminates the game process. [b]⚠️ Warning:[/b] No saving or cleanup is performed. Use with caution.
 
 ===
-Mod source code and donation: https://github.com/datvm/TimberbornMods
-
-v10.1.3: Fixed the pause on Hazardous Weather option pauses on Weather warning day also.
-v10.1.2: Fixed an underestimation of the hatred of players against dead stumps. "Auto clear dead stumps" option is now back with just one option to automatically clear dead stumps or bushes (those that you could have destroyed immediately by building over) right when they appear.
-v10.1.1: Fixed real-time clock not showing when loading.
-v10.1.0:
-- [b]There was a change in Mod Settings so your settings are reset to default. Please reconfigure them.[/b]
-- Various UI and performance improvements: Game time, real-time clock and No daylight change now use less resources.
-- Removed Dead Tree option as it's now included in the base game.
-- "No daylight change" and "Static Light" options are now merged and it apply to both the Sky and Sun light. "Disable shadow rotation" is removed as well and included in this new option.
-v10.0.0: Works with game v1.0.
-
-v7.6.0: Added "On Shift end" speed option. Changed the in-game mod name to just "TImprove".
-v7.5.0: Added Lock free camera angle and Use 24-hour format options.
-v7.4.0: Refined the "Clear dead stumps" option and expanded "Pause on Bad weather" to "On new day" options.
-v7.2.2: should work with U7 April 23 update.
-v7.2.1: should work with U7 April 02 update.
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

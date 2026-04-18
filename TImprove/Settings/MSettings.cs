@@ -1,4 +1,5 @@
-﻿namespace TImprove.Settings;
+﻿
+namespace TImprove.Settings;
 
 public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
@@ -18,7 +19,6 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
             .. Lights.Select(q => new LimitedStringModSettingValue(q.ToString(), $"LV.TI.Light{q}"))
         ],
         CreateDescriptor(nameof(StaticLight)));
-    public ModSetting<bool> PrioritizeRubbles { get; } = Create(nameof(PrioritizeRubbles));
     public ModSetting<bool> ShowCoords { get; } = Create(nameof(ShowCoords));
     public ModSetting<bool> OnlyShowHeight { get; } = Create(nameof(OnlyShowHeight));
     public ModSetting<bool> ShowGameTime { get; } = Create(nameof(ShowGameTime), true);
@@ -29,11 +29,20 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     public ModSetting<bool> EnableSpeed4 { get; } = Create(nameof(EnableSpeed4), true);
     public ModSetting<bool> EnableSpeed5 { get; } = Create(nameof(EnableSpeed5));
     public ModSetting<bool> QuickQuit { get; } = Create(nameof(QuickQuit));
+    public LimitedStringModSetting RubbleDefaultPriority { get; } = new(2, [..GetPriorityList()], CreateDescriptor("DefaultRubblePriority"));
+    public LimitedStringModSetting DefaultBuildingPriority { get; } = new(2, 
+        [
+            ..GetPriorityList(),
+            new((BuildingPrioritizableService.MaxPriorityValue + 1).ToString(), "LV.TI.DefaultBuildingPriorityRemember"),
+        ],
+        CreateDescriptor("DefaultBuildingPriority"));
 
     public RangeIntModSetting BiggerBuildDragArea { get; } = new(0, 0, 20, CreateDescriptor(nameof(BiggerBuildDragArea)));
     public static int BiggerBuildDragAreaValue { get; private set; }
 
     public DayStage? AllDayStage { get; private set; }
+
+    public Priority DefaultRubblePriority => (Priority)int.Parse(RubbleDefaultPriority.Value);
 
     public override void OnBeforeLoad()
     {
@@ -70,6 +79,10 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
 
     static ModSetting<bool> Create(string name, bool defaultValue = false) =>
         new(defaultValue, CreateDescriptor(name));
+
+    static IEnumerable<LimitedStringModSettingValue> GetPriorityList() => 
+        Enum.GetValues(typeof(Priority)).Cast<Priority>()
+        .Select(q => new LimitedStringModSettingValue(((int)q).ToString(), $"Priorities.{q}"));
 
 }
 
