@@ -1,22 +1,24 @@
 {
-    "RealLightsSpec": {
-        "PrefabNames": [ "Numbercruncher.IronTeeth" ],
-        "Lights": [
-            {
-                "Range": 4,
-                "Intensity": 4,
-                "Position": {
-                    "X": 2,
-                    "Y": 2,
-                    "Z": 2.2
-                },
-                "Color": {
-                    "r": 1,
-                    "g": 0.5,
-                    "b": 0,
-                    "a": 1
-                }
-            }
-        ]
-    }
+  "RealLightsSpec": {
+    "PrefabNames": [
+      "Numbercruncher.IronTeeth"
+    ],
+    "Lights": [
+      {
+        "Range": 4,
+        "Intensity": 2,
+        "Position": {
+          "X": 2,
+          "Y": 2,
+          "Z": 2.2
+        },
+        "Color": {
+          "r": 1,
+          "g": 0.5,
+          "b": 0,
+          "a": 1
+        }
+      }
+    ]
+  }
 }

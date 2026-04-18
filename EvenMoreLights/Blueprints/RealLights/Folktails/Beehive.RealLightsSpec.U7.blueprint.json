@@ -1,23 +1,25 @@
 {
-    "RealLightsSpec": {
-        "PrefabNames": [ "Beehive.Folktails" ],
-        "Lights": [
-            {
-                "Range": 4,
-                "Intensity": 4,
-                "IsNightLight": true,
-                "Position": {
-                    "X": 0.5,
-                    "Y": 0.5,
-                    "Z": 1.1
-                },
-                "Color": {
-                    "r": 1,
-                    "g": 0.4,
-                    "b": 0,
-                    "a": 1
-                }
-            }
-        ]
-    }
+  "RealLightsSpec": {
+    "PrefabNames": [
+      "Beehive.Folktails"
+    ],
+    "Lights": [
+      {
+        "Range": 4,
+        "Intensity": 2,
+        "IsNightLight": true,
+        "Position": {
+          "X": 0.5,
+          "Y": 0.5,
+          "Z": 1.1
+        },
+        "Color": {
+          "r": 1,
+          "g": 0.4,
+          "b": 0,
+          "a": 1
+        }
+      }
+    ]
+  }
 }

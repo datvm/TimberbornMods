@@ -1,23 +1,25 @@
 {
-    "RealLightsSpec": {
-        "PrefabNames": [ "FarmerMonument.Folktails" ],
-        "Lights": [
-            {
-                "Range": 3,
-                "Intensity": 3,
-                "IsNightLight": true,
-                "Position": {
-                    "X": 1,
-                    "Y": 0.4,
-                    "Z": 2.3
-                },
-                "Color": {
-                    "r": 1,
-                    "g": 0.45,
-                    "b": 0.3,
-                    "a": 1
-                }
-            }
-        ]
-    }
+  "RealLightsSpec": {
+    "PrefabNames": [
+      "FarmerMonument.Folktails"
+    ],
+    "Lights": [
+      {
+        "Range": 3,
+        "Intensity": 1.5,
+        "IsNightLight": true,
+        "Position": {
+          "X": 1,
+          "Y": 0.4,
+          "Z": 2.3
+        },
+        "Color": {
+          "r": 1,
+          "g": 0.45,
+          "b": 0.3,
+          "a": 1
+        }
+      }
+    ]
+  }
 }

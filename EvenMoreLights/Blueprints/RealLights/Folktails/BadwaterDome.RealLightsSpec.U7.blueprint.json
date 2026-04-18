@@ -1,67 +1,69 @@
 {
-    "RealLightsSpec": {
-        "PrefabNames": [ "BadwaterDome.Folktails" ],
-        "Lights": [
-            {
-                "Range": 1,
-                "Intensity": 1,
-                "Position": {
-                    "X": 0.3,
-                    "Y": 0.3,
-                    "Z": 2.25
-                },
-                "Color": {
-                    "r": 1,
-                    "g": 0,
-                    "b": 0,
-                    "a": 1
-                }
-            },
-            {
-                "Range": 2,
-                "Intensity": 2,
-                "Position": {
-                    "X": 0.3,
-                    "Y": 2.7,
-                    "Z": 2.25
-                },
-                "Color": {
-                    "r": 1,
-                    "g": 0,
-                    "b": 0,
-                    "a": 1
-                }
-            },
-            {
-                "Range": 2,
-                "Intensity": 2,
-                "Position": {
-                    "X": 2.7,
-                    "Y": 0.3,
-                    "Z": 2.25
-                },
-                "Color": {
-                    "r": 1,
-                    "g": 0,
-                    "b": 0,
-                    "a": 1
-                }
-            },
-            {
-                "Range": 2,
-                "Intensity": 2,
-                "Position": {
-                    "X": 2.7,
-                    "Y": 2.7,
-                    "Z": 2.25
-                },
-                "Color": {
-                    "r": 1,
-                    "g": 0,
-                    "b": 0,
-                    "a": 1
-                }
-            }
-        ]
-    }
+  "RealLightsSpec": {
+    "PrefabNames": [
+      "BadwaterDome.Folktails"
+    ],
+    "Lights": [
+      {
+        "Range": 1,
+        "Intensity": 0.5,
+        "Position": {
+          "X": 0.3,
+          "Y": 0.3,
+          "Z": 2.25
+        },
+        "Color": {
+          "r": 1,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      },
+      {
+        "Range": 2,
+        "Intensity": 1,
+        "Position": {
+          "X": 0.3,
+          "Y": 2.7,
+          "Z": 2.25
+        },
+        "Color": {
+          "r": 1,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      },
+      {
+        "Range": 2,
+        "Intensity": 1,
+        "Position": {
+          "X": 2.7,
+          "Y": 0.3,
+          "Z": 2.25
+        },
+        "Color": {
+          "r": 1,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      },
+      {
+        "Range": 2,
+        "Intensity": 1,
+        "Position": {
+          "X": 2.7,
+          "Y": 2.7,
+          "Z": 2.25
+        },
+        "Color": {
+          "r": 1,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      }
+    ]
+  }
 }

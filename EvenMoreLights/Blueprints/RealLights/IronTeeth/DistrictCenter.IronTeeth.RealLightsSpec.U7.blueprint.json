@@ -1,22 +1,24 @@
 {
-    "RealLightsSpec": {
-        "PrefabNames": [ "DistrictCenter.IronTeeth" ],
-        "Lights": [
-            {
-                "Range": 8,
-                "Intensity": 8,
-                "Position": {
-                    "X": 1.5,
-                    "Y": 0.8,
-                    "Z": 2.5
-                },
-                "Color": {
-                    "r": 1,
-                    "g": 0.5,
-                    "b": 0,
-                    "a": 1
-                }
-            }
-        ]
-    }
+  "RealLightsSpec": {
+    "PrefabNames": [
+      "DistrictCenter.IronTeeth"
+    ],
+    "Lights": [
+      {
+        "Range": 8,
+        "Intensity": 4,
+        "Position": {
+          "X": 1.5,
+          "Y": 0.8,
+          "Z": 2.5
+        },
+        "Color": {
+          "r": 1,
+          "g": 0.5,
+          "b": 0,
+          "a": 1
+        }
+      }
+    ]
+  }
 }
