@@ -1,22 +1,24 @@
 {
-    "RealLightsSpec": {
-        "PrefabNames": [ "BadwaterRig.Folktails" ],
-        "Lights": [
-            {
-                "Range": 4,
-                "Intensity": 4,
-                "Position": {
-                    "X": 1.5,
-                    "Y": 1.5,
-                    "Z": 3.7
-                },
-                "Color": {
-                    "r": 1,
-                    "g": 0,
-                    "b": 0,
-                    "a": 1
-                }
-            }
-        ]
-    }
+  "RealLightsSpec": {
+    "PrefabNames": [
+      "BadwaterRig.Folktails"
+    ],
+    "Lights": [
+      {
+        "Range": 4,
+        "Intensity": 2,
+        "Position": {
+          "X": 1.5,
+          "Y": 1.5,
+          "Z": 3.7
+        },
+        "Color": {
+          "r": 1,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      }
+    ]
+  }
 }

@@ -1,23 +1,25 @@
 {
-    "RealLightsSpec": {
-        "PrefabNames": [ "BreedingPod.IronTeeth" ],
-        "Lights": [
-            {
-                "Range": 1,
-                "Intensity": 1,
-                "IsNightLight": true,
-                "Position": {
-                    "X": 0.5,
-                    "Y": 0.5,
-                    "Z": 1
-                },
-                "Color": {
-                    "r": 1,
-                    "g": 0,
-                    "b": 0.8,
-                    "a": 1
-                }
-            }
-        ]
-    }
+  "RealLightsSpec": {
+    "PrefabNames": [
+      "BreedingPod.IronTeeth"
+    ],
+    "Lights": [
+      {
+        "Range": 1,
+        "Intensity": 0.5,
+        "IsNightLight": true,
+        "Position": {
+          "X": 0.5,
+          "Y": 0.5,
+          "Z": 1
+        },
+        "Color": {
+          "r": 1,
+          "g": 0,
+          "b": 0.8,
+          "a": 1
+        }
+      }
+    ]
+  }
 }

@@ -1,0 +1,1 @@
+﻿v10.1.0: Thanks to the feedback, all the default Intensity is halved to accomodate the new Bloom effect in game.

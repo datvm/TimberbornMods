@@ -1,23 +1,26 @@
 {
-    "RealLightsSpec": {
-        "PrefabNames": [ "Barrack.IronTeeth", "LargeBarrack.IronTeeth" ],
-        "Lights": [
-            {
-                "Range": 1,
-                "Intensity": 1,
-                "IsNightLight": true,
-                "Position": {
-                    "X": 1.5,
-                    "Y": 0,
-                    "Z": 1.5
-                },
-                "Color": {
-                    "r": 1,
-                    "g": 0.8,
-                    "b": 0.6,
-                    "a": 1
-                }
-            }
-        ]
-    }
+  "RealLightsSpec": {
+    "PrefabNames": [
+      "Barrack.IronTeeth",
+      "LargeBarrack.IronTeeth"
+    ],
+    "Lights": [
+      {
+        "Range": 1,
+        "Intensity": 0.5,
+        "IsNightLight": true,
+        "Position": {
+          "X": 1.5,
+          "Y": 0,
+          "Z": 1.5
+        },
+        "Color": {
+          "r": 1,
+          "g": 0.8,
+          "b": 0.6,
+          "a": 1
+        }
+      }
+    ]
+  }
 }
