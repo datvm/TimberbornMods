@@ -10,6 +10,9 @@ public class ModdableToolGroupButtonFactory(
 {
 
     public ModdableToolGroupButton Create(ToolGroupSpec spec, ModdableToolGroupButton? parent, ToolButtonColor color = default)
-        => new(spec, parent, color, ButtonFactory, T, ButtonService, ToolGroupService, ToolButtonFactory, this);
+        => Create(spec, parent, color, isRoot: parent is null);
+
+    public ModdableToolGroupButton Create(ToolGroupSpec spec, ModdableToolGroupButton? parent, ToolButtonColor color = default, bool isRoot = false)
+        => new(spec, parent, color, ButtonFactory, T, ButtonService, ToolGroupService, ToolButtonFactory, this, isRoot);
 
 }
