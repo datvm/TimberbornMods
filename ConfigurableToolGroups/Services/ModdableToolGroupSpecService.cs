@@ -155,6 +155,12 @@ public class ModdableToolGroupSpecService(
                     info = result[toolTemplateName] = new();
                 }
 
+                var id = grp.spec.Id;
+                if (string.IsNullOrEmpty(id))
+                {
+                    throw new InvalidOperationException($"Tool group with empty id cannot be a parent of a tool. Offending group spec: '{grp.spec.Blueprint.Name}'");
+                }
+
                 info.ParentGroups.Add(grp.spec.Id);
                 if (childSpec.DoNotIncludePlaceableToolGroup)
                 {

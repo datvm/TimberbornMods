@@ -1,6 +1,8 @@
-﻿namespace ConfigurableToolGroups.Services;
+﻿using UnityEngine.Assertions;
 
-public class ModdableToolGroupButtonService : IUnloadableSingleton
+namespace ConfigurableToolGroups.Services;
+
+public class ModdableToolGroupButtonService : ILoadableSingleton, IUnloadableSingleton
 {
 
     static ModdableToolGroupButtonService? instance;
@@ -8,11 +10,16 @@ public class ModdableToolGroupButtonService : IUnloadableSingleton
         ?? throw new InvalidOperationException($"Service {nameof(ModdableToolGroupButtonService)} is not initialized.");
 
     readonly Dictionary<ToolGroupButton, ModdableToolGroupButtonInfo> buttons = [];
+    readonly IAssetLoader assets;
+
     public ModdableToolGroupButtonInfo? this[ToolGroupButton index] => buttons.TryGetValue(index, out var info) ? info : null;
 
-    public ModdableToolGroupButtonService()
+    public Texture2D BackgroundTexture { get; private set; } = null!;
+
+    public ModdableToolGroupButtonService(IAssetLoader assets)
     {
         instance = this;
+        this.assets = assets;
     }
 
     public ModdableToolGroupButtonInfo GetOrAddButton(ToolGroupButton button, ModdableToolGroupButtonInfo? parent)
@@ -27,7 +34,11 @@ public class ModdableToolGroupButtonService : IUnloadableSingleton
         return info;
     }
 
-    public void Unload() => instance = null;
+    public void Load()
+    {
+        BackgroundTexture = assets.Load<Texture2D>("UI/Images/BottomBar/bar-bg");
+    }
 
+    public void Unload() => instance = null;
 
 }

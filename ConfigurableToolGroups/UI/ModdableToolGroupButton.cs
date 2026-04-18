@@ -7,7 +7,7 @@ public class ModdableToolGroupButton
     readonly ModdableToolGroupButtonFactory factory;
 
     public ToolGroupButton ToolGroupButton { get; }
-    public VisualElement Root => ToolGroupButton.Root;
+    public VisualElement Root { get; }
     public VisualElement ToolButtonsElement => ToolGroupButton.ToolButtonsElement;
     public ToolGroupSpec Spec => ToolGroupButton._toolGroup;
     public ModdableToolGroupButtonInfo Info { get; }
@@ -21,7 +21,8 @@ public class ModdableToolGroupButton
         ModdableToolGroupButtonService serv,
         ToolGroupService toolGrps,
         ToolButtonFactory toolBtnFac,
-        ModdableToolGroupButtonFactory factory
+        ModdableToolGroupButtonFactory factory,
+        bool isRoot
     )
     {
         this.toolGrps = toolGrps;
@@ -30,8 +31,23 @@ public class ModdableToolGroupButton
 
         var btn = ToolGroupButton = grpBtnFac.Create(spec, color);
 
+        // Wrap non-root buttons
+        var r = Root = btn.Root;
+        if (!isRoot)
+        {
+            var wrapper = btn._toolGroupButtonWrapper;
+
+            wrapper.AddToClassList("bottom-bar-button--background"); // For some reason adding this does nothing
+
+            var ws = wrapper.style;
+            ws.minHeight = ws.maxHeight = 60;
+            ws.paddingLeft = ws.paddingRight = 2;
+            ws.paddingTop = ws.paddingBottom = 5;
+            ws.backgroundImage = serv.BackgroundTexture;
+        }
+
         // Fix tooltip
-        Root.Q<Label>("Tooltip").text = t.T(spec.DisplayNameLocKey);
+        r.Q<Label>("Tooltip").text = t.T(spec.DisplayNameLocKey);
         btn._toolGroupButtonWrapper.style.left = 0;
 
         // Sub elements
@@ -42,6 +58,7 @@ public class ModdableToolGroupButton
         s.bottom = Length.Percent(100);
         s.left = Length.Percent(50);
         s.translate = new Translate(Length.Percent(-50), 0);
+        s.maxWidth = 1200;
 
         // Register
         Info = serv.GetOrAddButton(btn, parent?.Info);
@@ -83,5 +100,12 @@ public class ModdableToolGroupButton
     }
 
     public BottomBarElement ToBottomBarElement() => new(Root, ToolButtonsElement);
+
+    static VisualElement CreateSpacer()
+    {
+        var ve = new VisualElement();
+        ve.AddToClassList("tool-group__spacer");
+        return ve;
+    }
 
 }

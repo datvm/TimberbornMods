@@ -1,0 +1,4 @@
+﻿v10.4.6:
+- Fixed sub-group UI visual issues.
+- Support wrapping when a toolbar is too long. Note that the info box may not be positioned correctly when wrapping happens.
+- Added more info on crash to help identify the cause of the crash.
