@@ -1,0 +1,4 @@
+﻿v10.2.0:
+- Prioritize Rubbles is now "Default rubble priority" and you can choose the priority instead of just setting it to High. It has been reset to Normal so please choose a new priority if you want to use it.
+- Added a new option "Default building priority" that allows you to set the default priority for buildings. You can also choose "Remember" which will remember the last priority you set and use it for new buildings. The remember option only works for the current game session and is not saved.
+[img]https://i.imgur.com/uyoGbPl.jpeg[/img]

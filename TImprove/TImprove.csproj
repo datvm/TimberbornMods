@@ -3,5 +3,6 @@
         <OutputModFolderName>TImprove</OutputModFolderName>
     </PropertyGroup>
     <Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonTimberUI.targets" />
     <Import Project="../Targets/CommonHarmony.targets" />
 </Project>

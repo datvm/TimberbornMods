@@ -30,6 +30,8 @@ public class ModMenuConfig : DefaultModConfigurator
     public override void Configure()
     {
         base.Configure();
+
+        MultiBind<IModUpdateNotifier>().To<ModUpdateNotifier>().AsSingleton();
     }
 }
 
@@ -44,6 +46,7 @@ public class GameConfig : NonMenuConfigurator
         Bind<RealTimePanel>().AsSingleton();
         Bind<NewDayService>().AsSingleton();
         Bind<WorkingHoursHandler>().AsSingleton();
+        Bind<BuildingPrioritizableService>().AsSingleton();
     }
 }
 
