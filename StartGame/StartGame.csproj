@@ -15,7 +15,7 @@
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
-		<ProjectReference Include="..\ConfigurableToolGroups\ConfigurableToolGroups.csproj" />
+		<ProjectReference Include="..\DistroStorage\DistroStorage.csproj" />
 		
 	</ItemGroup>
 </Project>
