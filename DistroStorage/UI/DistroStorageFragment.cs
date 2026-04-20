@@ -4,7 +4,8 @@
 public class DistroStorageFragment(
     ILoc t,
     EntitySelectionService selectionService,
-    IGoodService goods
+    IGoodService goods,
+    BuilderPriorityToggleGroupFactory priorityFac
 ) : BaseEntityPanelFragment<DistroStorageComponent>
 {
 
@@ -23,7 +24,7 @@ public class DistroStorageFragment(
 
         DistroPanel<T> Create<T>() where T : IDistroComponent
         {
-            DistroPanel<T> r = new(t, goods);
+            DistroPanel<T> r = new(t, goods, priorityFac);
             r.OnSelectRequested += OnSelectRequested;
             return r;
         }

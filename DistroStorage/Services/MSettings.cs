@@ -7,7 +7,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     public override string ModId => nameof(DistroStorage);
 
     public ModSetting<int> Range { get; } = new(3, CreateDesc("Range"));
-    public ModSetting<int> TransferRate { get; } = new(6, CreateDesc("TransferRate"));
+    public ModSetting<float> TransferRate { get; } = new(2, CreateDesc("TransferRate"));
 
     public ModSetting<bool> StockpileEnableDefault { get; } = new(false, CreateDesc("StockpileEnableDefault"));
 

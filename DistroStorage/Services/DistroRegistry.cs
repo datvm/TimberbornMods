@@ -83,20 +83,33 @@ public class DistroRegistry(
         var (x2, y2, z2) = bounds.max + connectionRange; // Unity doc: max is EXCLUSIVE, so use < instead of <=
         HashSet<T> result = [];
 
+        List<T> tmp = [];
+        HashSet<BlockObject> visitedObjs = [];
         for (int x = x1; x < x2; x++)
         {
             for (int y = y1; y < y2; y++)
             {
                 for (int z = z1; z < z2; z++)
                 {
-                    var objs = blocks.GetObjectsWithComponentAt<T>(new(x, y, z));
+                    // Do not use GetObjectsWithComponent<T> because there are buildings with multiple T
+                    var objs = blocks.GetObjectsAt(new(x, y, z)); 
 
                     foreach (var obj in objs)
                     {
-                        if (!obj.DisabledBySetting && registeredList.Contains(obj))
+                        if (!visitedObjs.Add(obj)) { continue; }
+
+                        obj.GetComponents(tmp);
+                        if (tmp.Count == 0) { continue; }
+
+                        foreach (var other in tmp)
                         {
-                            result.Add(obj);
+                            if (!other.SystemDisabled && registeredList.Contains(other))
+                            {
+                                result.Add(other);
+                            }
                         }
+
+                        tmp.Clear();
                     }
                 }
             }

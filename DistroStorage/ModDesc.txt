@@ -1,0 +1,42 @@
+﻿Distro Storages allows Storage buildings to send items directly to nearby buildings through a short-range transfer system. Receivers currently include Construction Sites and Manufactory buildings and can be added by other mods.
+
+[img]https://files.catbox.moe/jse1q0.jpg[/img]
+
+[h1]Senders[/h1]
+All storage buildings (Piles, Warehouses and Tanks) act as senders. By default, storage buildings are not enabled as senders. You must opt in per building, unless you change the default in settings.
+
+[img]https://files.catbox.moe/ra74n5.jpg[/img]
+
+They send goods to nearby enabled receivers in range (default: 3). Transfers happen automatically over time, default at 2 items per hour (1 item every 30 minutes).
+
+[h1]Receivers[/h1]
+Construction sites can receive building materials. Manufactory buildings can receive input goods (note: they cannot send out outputs).
+
+[img]https://files.catbox.moe/bwobrv.jpg[/img]
+
+Receivers have adjustable priority. Higher priority receivers are served first when a sender has multiple nearby receivers.
+
+[img]https://files.catbox.moe/lp0gzf.jpg[/img]
+
+Note:
+- You can "teleport" construction material this way but you still need Builders to actually perform the construction progress even though they don't have to carry the materials to the site.
+- Pausing a receiver building also pauses the transfer to it.
+- There is no limit to how many senders or items a receiver can receive from, but the transfer rate is determined by the sender.
+
+[h1]Settings[/h1]
+
+To change the default settings, you must be in the Main Menu. You can only view the settings while in-game.
+
+[img]https://files.catbox.moe/cww375.jpg[/img]
+
+- Range (default 3): the maximum distance between a sender and receiver for them to be able to transfer goods. Count by the buildings' border tiles.
+- Transfer Rate (default 2 items/hour): how many items a sender can send per hour.
+- Enable for Constructions: whether Distro Storages can send items to construction sites.
+- Enable for Manufactory buildings: whether Distro Storages can send ingredients to manufactory buildings.
+
+For each supported building type, you can also choose if they are enabled by default when placing a new building. Duplicating is also supported. The duplicated building copies the source building's setting instead of using the default.
+
+This mod is intended to support my other mods to transfer items between buildings and sites. You can still use it on its own to build "distro centers" for your colony to improve local logistics.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

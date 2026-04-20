@@ -1,7 +1,7 @@
 ﻿namespace DistroStorage.Components.InventoryDistros;
 
 [AddTemplateModule2(typeof(Manufactory))]
-public class ManufactoryDistroReceiver(DistroService service) : InventoryDistroReceiverBase(service)
+public class ManufactoryDistroReceiver(DistroService service) : InventoryDistroReceiverBase(service), IDuplicable<ManufactoryDistroReceiver>
 {
 
 #nullable disable
@@ -9,7 +9,7 @@ public class ManufactoryDistroReceiver(DistroService service) : InventoryDistroR
 #nullable enable
 
     public override Inventory Inventory => manufactory.Inventory;
-    public override bool DisabledBySetting => service.DisableManufactory;
+    public override bool SystemDisabled => base.SystemDisabled || service.DisableManufactory;
     public override bool EnabledByDefault => service.ManufactoryEnableDefault;
 
     public override void Awake()
@@ -18,4 +18,5 @@ public class ManufactoryDistroReceiver(DistroService service) : InventoryDistroR
         base.Awake();
     }
 
+    public void DuplicateFrom(ManufactoryDistroReceiver source) => Deserialize(source.Serialize());
 }

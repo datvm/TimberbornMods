@@ -2,6 +2,10 @@
 
 public abstract class InventoryDistroReceiverBase(DistroService service) : InventoryDistroComponentBase(service), IDistroReceiver
 {
+    static readonly ComponentKey SaveKey = new(nameof(InventoryDistroReceiverBase));
+    static readonly PropertyKey<int> PriorityKey = new("Priority");
+
+    PausableBuilding? pausableBuilding;
 
     public override IEnumerable<GoodAmount> Goods
     {
@@ -22,7 +26,21 @@ public abstract class InventoryDistroReceiverBase(DistroService service) : Inven
     }
     public override IEnumerable<string> GoodIds => Goods.Select(g => g.GoodId);
 
-    public Priority Priority { get; protected set; }
+    public Priority Priority { get; protected set; } = Priority.Normal;
+
+    protected override bool CalculateActive() => base.CalculateActive() && (!pausableBuilding || !pausableBuilding!.Paused);
+
+    public override void Awake()
+    {
+        pausableBuilding = this.GetComponentOrNull<PausableBuilding>();
+        
+        if (pausableBuilding)
+        {
+            pausableBuilding!.PausedChanged += (_, _) => MarkActiveDirty();
+        }
+
+        base.Awake();
+    }
 
     public void TransferIn(GoodAmount good) => Inventory.Give(good);
     public void SetPriority(Priority priority) => Priority = priority;
@@ -40,4 +58,39 @@ public abstract class InventoryDistroReceiverBase(DistroService service) : Inven
 
         return null;
     }
+
+    public override void Save(IEntitySaver entitySaver)
+    {
+        base.Save(entitySaver);
+
+        var s = entitySaver.GetComponent(SaveKey);
+        s.Set(PriorityKey, (int)Priority);
+    }
+
+    public override void Load(IEntityLoader entityLoader)
+    {
+        base.Load(entityLoader);
+
+        if (!entityLoader.TryGetComponent(SaveKey, out var s)) { return; }
+
+        if (s.Has(PriorityKey))
+        {
+            Priority = (Priority)s.Get(PriorityKey);
+        }
+    }
+
+    public virtual DistroReceiverSerializableModel Serialize() => new(Enabled, Priority);
+    public virtual void Deserialize(DistroReceiverSerializableModel model)
+    {
+        if (model.Enabled != Enabled)
+        {
+            SetEnabled(model.Enabled);
+        }
+
+        if (model.Priority != Priority)
+        {
+            SetPriority(model.Priority);
+        }
+    }
+
 }

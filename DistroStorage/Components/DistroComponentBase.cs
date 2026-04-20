@@ -7,8 +7,8 @@ public abstract class DistroComponentBase : BaseComponent, IDistroComponent, IPr
 
     protected BlockObject blockObject = null!;
 
-    bool disabledBySettings;
-    public virtual bool DisabledBySetting => disabledBySettings;
+    bool disabledByPreview;
+    public virtual bool SystemDisabled => disabledByPreview;
     public virtual bool EnabledByDefault => true;
     public virtual bool RequireFinishedBuilding => true;
 
@@ -79,7 +79,7 @@ public abstract class DistroComponentBase : BaseComponent, IDistroComponent, IPr
     protected void MarkActiveDirty() => activeDirty = true;
 
     protected virtual bool CalculateActive() =>
-        !DisabledBySetting
+        !SystemDisabled
         && (!RequireFinishedBuilding || blockObject.IsFinished);
 
     public virtual void DeleteEntity()
@@ -119,7 +119,7 @@ public abstract class DistroComponentBase : BaseComponent, IDistroComponent, IPr
 
     public void OnEnterPreviewState()
     {
-        disabledBySettings = true;
+        disabledByPreview = true;
         DisableComponent();
         MarkActiveDirty();
 
@@ -155,4 +155,5 @@ public abstract class DistroComponentBase : BaseComponent, IDistroComponent, IPr
 
     public virtual void OnEnterFinishedState() => MarkActiveDirty();
     public virtual void OnExitFinishedState() => MarkActiveDirty();
+
 }

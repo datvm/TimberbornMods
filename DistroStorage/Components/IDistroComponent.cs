@@ -5,7 +5,7 @@ public interface IDistroComponent
     bool IsSender { get; }
     bool IsReceiver { get; }
 
-    bool DisabledBySetting { get; }
+    bool SystemDisabled { get; }
 
     bool Enabled { get; }
     bool Active { get; }
@@ -22,4 +22,5 @@ public interface IDistroComponent
     void ClearConnections();
 
     void SetEnabled(bool enabled);
+
 }

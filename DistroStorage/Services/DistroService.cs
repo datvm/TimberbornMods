@@ -17,7 +17,7 @@ public class DistroService(
     public void Load()
     {
         // TransferRate is items per hour, transfer time should be hours per item
-        TransferTime = 1f / settings.TransferRate.Value;
+        TransferTime = 1f / Mathf.Max(.01f, settings.TransferRate.Value);
 
         StockpileEnabledDefault = settings.StockpileEnableDefault.Value;
         DisableConstruction = !settings.EnableConstruction.Value;

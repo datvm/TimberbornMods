@@ -31,6 +31,16 @@ public class DefaultDistroSenderTimer : IDistroSenderTimer
         NextTransfer = s.Get(NextTransferKey);
     }
 
-    public void SetModifier(string id, float multiplier) => modifiers[id] = multiplier;
+    public void SetModifier(string id, float multiplier)
+    {
+        modifiers[id] = multiplier;
+
+        var newEffective = EffectiveHoursPerItem;
+        if (NextTransfer > newEffective)
+        {
+            NextTransfer = newEffective;
+        }
+    }
+
     public void RemoveModifier(string id) => modifiers.Remove(id);
 }
