@@ -46,7 +46,7 @@ public class RecipeRow : VisualElement
 
         Time = this.AddIconSpan()
             .SetName("Time")
-            .SetTime(icons, t.T("Time.HoursShort", recipe.CycleDurationInHours.ToString("0.##")));
+            .SetTime(icons, t.T("Unit.Hour.NumberAndUnit", recipe.CycleDurationInHours.ToString("F2")));
 
         list.Clear();
         if (recipe.ProducesProducts || recipe.ProducesSciencePoints)
