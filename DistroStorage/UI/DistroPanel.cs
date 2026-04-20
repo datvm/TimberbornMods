@@ -21,11 +21,12 @@ public class DistroPanel<T> : VisualElement where T : IDistroComponent
     readonly Toggle chkEnabled;
     readonly string enabledText, disabledText;
 
-    readonly Label? lblNextTransfer;
+    readonly ProgressBarWithLabel pgbTransfer;
+    readonly PriorityToggleGroup? optPriority;
 
     public bool Visible => this.IsDisplayed();
 
-    public DistroPanel(ILoc t, IGoodService goods)
+    public DistroPanel(ILoc t, IGoodService goods, BuilderPriorityToggleGroupFactory priorityFac)
     {
         this.t = t;
         this.goods = goods;
@@ -44,7 +45,13 @@ public class DistroPanel<T> : VisualElement where T : IDistroComponent
 
         if (isSender)
         {
-            lblNextTransfer = this.AddLabel("").SetMarginBottom(10);
+            pgbTransfer = this.AddProgressBarWithLabel(color: ProgressBarColor.Teal);
+            pgbTransfer.ProgressBar.SetMarginBottom(10);
+        }
+        else
+        {
+            var priContainer = this.AddChild().SetMarginBottom(10);
+            optPriority = priorityFac.Create(priContainer, "LV.DS.Priority");            
         }
 
         goodsList = this.AddRow().SetWrap().SetMarginBottom();
@@ -57,13 +64,20 @@ public class DistroPanel<T> : VisualElement where T : IDistroComponent
 
     public void SetComponent(T? comp)
     {
-        if (Component?.Equals(comp) == true) { return; }
+        if (comp is not null && !comp.Active) { comp = default; }
+
+        if (Equals(Component, comp)) { return; }
 
         ClearInfo();
         Component = comp;
 
         if (comp is not null)
         {
+            if (!IsSender && comp is IDistroReceiver r)
+            {
+                optPriority!.Enable(r);
+            }
+
             this.SetDisplay(true);
         }
     }
@@ -86,6 +100,10 @@ public class DistroPanel<T> : VisualElement where T : IDistroComponent
         if (IsSender)
         {
             UpdateSenderInfo();
+        }
+        else
+        {
+            optPriority!.UpdateGroup();
         }
     }
 
@@ -161,7 +179,9 @@ public class DistroPanel<T> : VisualElement where T : IDistroComponent
     {
         var s = (IDistroSender)Component!;
 
-        lblNextTransfer!.text = t.T("LV.DS.NextTransfer", s.NextTransferTime);
+        pgbTransfer.SetProgress(
+            s.TransferProgress,
+            t.T("LV.DS.NextTransfer", s.NextTransferTime));
     }
 
     public void ClearInfo()
@@ -173,6 +193,8 @@ public class DistroPanel<T> : VisualElement where T : IDistroComponent
 
         goodsList.Clear();
         showingGoods.Clear();
+
+        optPriority?.Disable();
 
         this.SetDisplay(false);
     }

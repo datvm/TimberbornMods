@@ -1,7 +1,7 @@
 ﻿namespace DistroStorage.Components.InventoryDistros;
 
 [AddTemplateModule2(typeof(Stockpile))]
-public class StockpileDistroSender(DistroService service) : InventoryDistroSenderBase(service)
+public class StockpileDistroSender(DistroService service) : InventoryDistroSenderBase(service), IDuplicable<StockpileDistroSender>
 {
     static readonly ComponentKey StaticSaveKey = new(nameof(StockpileDistroSender));
 
@@ -20,4 +20,5 @@ public class StockpileDistroSender(DistroService service) : InventoryDistroSende
         stockpile = GetComponent<Stockpile>();
     }
 
+    public void DuplicateFrom(StockpileDistroSender source) => Deserialize(source.Serialize());
 }

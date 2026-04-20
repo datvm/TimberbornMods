@@ -6,8 +6,11 @@ public interface IDistroSender : IDistroComponent, IPersistentEntity
     void TransferOut(GoodAmount good);
 
     IEnumerable<IDistroReceiver> GetPrioritizedReceivers();
+    DistroSenderSerializableModel Serialize();
+    void Deserialize(DistroSenderSerializableModel model);
 
     float NextTransferTime => Timer.NextTransfer;
+    float TransferProgress => 1f - (Timer.NextTransfer / Timer.EffectiveHoursPerItem);
 }
 
 public interface IDistroSenderTimer

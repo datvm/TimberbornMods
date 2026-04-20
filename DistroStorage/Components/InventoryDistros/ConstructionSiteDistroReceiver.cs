@@ -1,7 +1,7 @@
 ﻿namespace DistroStorage.Components.InventoryDistros;
 
 [AddTemplateModule2(typeof(ConstructionSite))]
-public class ConstructionSiteDistroReceiver(DistroService service) : InventoryDistroReceiverBase(service)
+public class ConstructionSiteDistroReceiver(DistroService service) : InventoryDistroReceiverBase(service), IDuplicable<ConstructionSiteDistroReceiver>
 {
 
 #nullable disable
@@ -9,7 +9,7 @@ public class ConstructionSiteDistroReceiver(DistroService service) : InventoryDi
 #nullable enable
 
     public override Inventory Inventory => constructionSite.Inventory;
-    public override bool DisabledBySetting => service.DisableConstruction;
+    public override bool SystemDisabled => base.SystemDisabled || service.DisableConstruction;
     public override bool EnabledByDefault => service.ConstructionEnableDefault;
     public override bool RequireFinishedBuilding => false;
 
@@ -21,4 +21,7 @@ public class ConstructionSiteDistroReceiver(DistroService service) : InventoryDi
 
         constructionSite = GetComponent<ConstructionSite>();
     }
+
+    public void DuplicateFrom(ConstructionSiteDistroReceiver source) => Deserialize(source.Serialize());
+
 }

@@ -34,4 +34,12 @@ public abstract class InventoryDistroSenderBase(DistroService service) : Invento
         }
     }
 
+    public virtual DistroSenderSerializableModel Serialize() => new(Enabled);
+    public virtual void Deserialize(DistroSenderSerializableModel model)
+    {
+        if (model.Enabled != Enabled)
+        {
+            SetEnabled(model.Enabled);
+        }
+    }
 }
