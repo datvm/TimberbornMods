@@ -10,6 +10,14 @@ public class BindSingletonAttribute : BindAttribute
 
 }
 
+public class BindMenuSingletonAttribute : BindSingletonAttribute
+{
+    public BindMenuSingletonAttribute()
+    {
+        Contexts = BindAttributeContext.MainMenu;
+    }
+}
+
 public class BindTransientAttribute : BindAttribute
 {
     public BindTransientAttribute()
