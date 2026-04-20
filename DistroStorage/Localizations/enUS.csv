@@ -1,0 +1,28 @@
+﻿ID,Text,Comment
+LV.DS.Range,"Range",
+LV.DS.RangeDesc,"The range of the Distro storage.
+Items can be sent from a storage to another building this range.
+Default: 3",
+LV.DS.TransferRate,"Transfer Rate (items/hour)",
+LV.DS.TransferRateDesc,"How many items can a Distro sender send per hour.",
+LV.DS.StockpileEnableDefault,"Storage enabled by default",
+LV.DS.StockpileEnableDefaultDesc,"Whether Distro storage is enabled by default for Storage buildings.",
+LV.DS.EnableConstruction,"Enable for Constructions",
+LV.DS.EnableConstructionDesc,"Whether Distro storage can send items to construction sites.",
+LV.DS.EnableDefault,"Enabled by default",
+LV.DS.EnableDefaultDesc,"Whether Distro storage is enabled by default for these.",
+LV.DS.EnableManufactory,"Enable for Manufactory buildings",
+LV.DS.EnableManufactoryDesc,"Whether Distro storage can send ingredients to manufactory buildings.
+The output is <RedHighlight>not</RedHighlight> sent back.",
+LV.DS.DistroSender,"Distro Sender",
+LV.DS.DistroReceiver,"Distro Receiver",
+LV.DS.InRangeForReceiver,"Senders in Range",
+LV.DS.InRangeForSender,"Receivers in Range",
+LV.DS.Select,"Select",
+LV.DS.Enabled,"Enabled",
+LV.DS.Disabled,"Disabled",
+LV.DS.EnabledDescSender,"Items from this building can be sent to receivers",
+LV.DS.EnabledDescReceiver,"Items can be sent to this building from senders",
+LV.DS.NoneInRange,"None in range",
+LV.DS.NextTransfer,"Next transfer: {0:0.00}h",
+Name_DistroStorageFragment,"Distro Storage",

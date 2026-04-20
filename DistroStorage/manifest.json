@@ -1,0 +1,11 @@
+﻿{
+    "Name": "Distro Storages",
+    "Version": "10.0.0",
+    "Id": "DistroStorage",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "A short distance distro storage option.",
+    "RequiredMods": [
+        { "Id": "eMka.ModSettings" },
+        { "Id": "ModdableTimberborn" }
+    ]
+}

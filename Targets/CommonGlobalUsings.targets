@@ -402,7 +402,7 @@
 		<Using Include="Timberborn.StatusSystem"/>
 		<Using Include="Timberborn.StatusSystemUI"/>
 		<Using Include="Timberborn.SteamAchievementSystem"/>
-		<Using Include="Timberborn.SteamOnScreenKeyboard"/>
+		<Using Include="Timberborn.SteamDeckUI"/>
 		<Using Include="Timberborn.SteamOverlaySystem"/>
 		<Using Include="Timberborn.SteamStoreSystem"/>
 		<Using Include="Timberborn.SteamWorkshop"/>
@@ -516,8 +516,6 @@
 		<Using Include="Timberborn.ZiplineMovementSystem"/>
 		<Using Include="Timberborn.ZiplineSystem"/>
 		<Using Include="Timberborn.ZiplineSystemUI"/>
-
-
 
 	</ItemGroup>
 </Project>
