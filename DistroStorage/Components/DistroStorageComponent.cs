@@ -5,14 +5,31 @@
 public class DistroStorageComponent : BaseComponent, IAwakableComponent
 {
 
+#nullable disable
+    BlockObject blockObject;
+    BlockObjectCenter blockObjectCenter;
+#nullable enable
+
     ImmutableArray<IDistroSender> senders = [];
     ImmutableArray<IDistroReceiver> receivers = [];
 
     public IDistroSender? Sender => GetSingleActive(senders);
     public IDistroReceiver? Receiver => GetSingleActive(receivers);
 
+    public Vector3 AboveCenter
+    {
+        get
+        {
+            var y = blockObject.Coordinates.z + blockObject._blockObjectSpec.Size.z + .5f;
+            return blockObjectCenter.WorldCenter with { y = y };
+        }
+    }
+
     public void Awake()
     {
+        blockObjectCenter = GetComponent<BlockObjectCenter>();
+        blockObject = GetComponent<BlockObject>();
+
         senders = [.. GetComponentsAllocating<IDistroSender>()];
         receivers = [.. GetComponentsAllocating<IDistroReceiver>()];
     }
