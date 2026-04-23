@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputModFolderName>Battery</OutputModFolderName>
+	</PropertyGroup>
+	
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonTimberUI.targets" />
+</Project>

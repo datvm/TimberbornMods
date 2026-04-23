@@ -1,0 +1,8 @@
+﻿{
+    "Name": "Battery",
+    "Version": "10.0.0",
+    "Id": "Battery",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Provide battery for your colony.",
+    "RequiredMods": []
+}

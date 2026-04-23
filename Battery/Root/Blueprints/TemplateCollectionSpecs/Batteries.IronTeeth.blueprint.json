@@ -1,0 +1,9 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.IronTeeth",
+        "Blueprints": [
+            "Buildings/Power/BatteryCharger/BatteryCharger.IronTeeth.blueprint",
+            "Buildings/Power/BatteryDischarger/BatteryDischarger.IronTeeth.blueprint"
+        ]
+    }
+}

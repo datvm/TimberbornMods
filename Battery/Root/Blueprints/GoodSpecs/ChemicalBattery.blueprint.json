@@ -1,0 +1,30 @@
+﻿{
+    "GoodSpec": {
+        "Id": "ChemicalBattery",
+        "BackwardCompatibleIds": [],
+        "ConsumptionEffects": [],
+        "GoodType": "Box",
+        "StockpileVisualization": "Box",
+        "VisibleContainer": "Box",
+        "ContainerColor": {
+            "r": 0.56078434,
+            "g": 0.5372549,
+            "b": 0.5372549,
+            "a": 1.0
+        },
+        "ContainerMaterial": "",
+        "CarryingAnimation": "CarryInHands",
+        "Weight": 6,
+        "GoodGroupId": "Batteries",
+        "GoodOrder": 130,
+        "Icon": "Sprites/Goods/ChemicalBatteryIcon",
+        "ForceImport": false,
+        "DisplayNameLocKey": "LV.Btr.ChemicalBattery.NameSingular",
+        "PluralDisplayNameLocKey": "LV.Btr.ChemicalBattery.NamePlural"
+    },
+    "ChargedBatterySpec": {
+        "Charges": 0,
+        "ChargeEfficiency": 1,
+        "ChargedGoodId": "ChemicalBatteryCharged"
+    }
+}

@@ -1,0 +1,1 @@
+﻿v10.2.0: Added a new option: "Add hourly production time" to add "x/h" info in the Recipe details. You may need to reload a save when enabling/disabling this option while in-game to fully see the change everywhere.

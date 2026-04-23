@@ -1,0 +1,15 @@
+﻿{
+    "GoodCollectionSpec": {
+        "CollectionId": "Common",
+        "Goods": [
+            "WoodBattery",
+            "WoodBatteryCharged",
+            "CompositeBattery",
+            "CompositeBatteryCharged",
+            "HeavyBattery",
+            "HeavyBatteryCharged",
+            "ChemicalBattery",
+            "ChemicalBatteryCharged"
+        ]
+    }
+}
