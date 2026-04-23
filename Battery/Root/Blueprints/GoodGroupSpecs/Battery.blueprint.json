@@ -1,0 +1,9 @@
+﻿{
+    "GoodGroupSpec": {
+        "Id": "Batteries",
+        "Order": 200,
+        "Icon": "Sprites/TopBar/BatteryIcon",
+        "SingleResourceGroup": false,
+        "DisplayNameLocKey": "LV.Btr.BatteryGroup"
+    }
+}

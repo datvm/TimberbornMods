@@ -1,0 +1,28 @@
+﻿{
+    "GoodSpec": {
+        "Id": "CompositeBatteryCharged",
+        "BackwardCompatibleIds": [],
+        "ConsumptionEffects": [],
+        "GoodType": "Box",
+        "StockpileVisualization": "Box",
+        "VisibleContainer": "Box",
+        "ContainerColor": {
+            "r": 0.56078434,
+            "g": 0.5372549,
+            "b": 0.5372549,
+            "a": 1.0
+        },
+        "ContainerMaterial": "",
+        "CarryingAnimation": "CarryInHands",
+        "Weight": 6,
+        "GoodGroupId": "Batteries",
+        "GoodOrder": 1010,
+        "Icon": "Sprites/Goods/CompositeBatteryChargedIcon",
+        "ForceImport": false,
+        "DisplayNameLocKey": "LV.Btr.CompositeBatteryCharged.NameSingular",
+        "PluralDisplayNameLocKey": "LV.Btr.CompositeBatteryCharged.NamePlural"
+    },
+    "ChargedBatterySpec": {
+        "Charges": 500
+    }
+}

@@ -1,0 +1,9 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.Folktails",
+        "Blueprints": [
+            "Buildings/Power/BatteryCharger/BatteryCharger.Folktails.blueprint",
+            "Buildings/Power/BatteryDischarger/BatteryDischarger.Folktails.blueprint"
+        ]
+    }
+}

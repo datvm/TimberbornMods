@@ -167,6 +167,7 @@
   <Project Path="AlwaysConnected/AlwaysConnected.csproj" />
   <Project Path="AlwaysFlexibleStart/AlwaysFlexibleStart.csproj" />
   <Project Path="BathBombs/BathBombs.csproj" Id="3f10831a-291c-4b0e-b023-cce6242f0c07" />
+  <Project Path="Battery/Battery.csproj" Id="ac915a66-7cd5-426b-81a1-d5c10e9bc206" />
   <Project Path="BeavVsMachine/BeavVsMachine.csproj" />
   <Project Path="BenchmarkAndOptimizer/BenchmarkAndOptimizer.csproj" />
   <Project Path="BetterWeatherStation/BetterWeatherStation.csproj" Id="2a54e76c-8815-4bf0-9312-78be9bcb629b" />

@@ -14,6 +14,8 @@
 - [b]Copy building[/b]: While in the default (Cursor) tool, middle click (mouse 3, rebindable) on a building to quickly switch to that building tool. You can also then hold Shift to delete matching buildings with "Shift to Delete" function.
 - [b]Cardinal Rotate[/b]: Rotate camera to the nearest cardinal left or right (N, E, S, W). Default hotkeys: Ctrl + Shift + Z and C.
 [img]https://files.catbox.moe/4uwy8j.jpg[/img]
+- [b]Add hourly production time[/b]: Add hourly consumption and production time to the Recipe details. You may need to reload a save when enabling/disabling this option while in-game to fully see the change everywhere.
+[img]https://files.catbox.moe/ukvphx.jpg[/img]
 
 All hotkeys can be changed in the game Settings -> Keybindings. It's in the mod's own "TImprove 4 UX" hotkey group.
 

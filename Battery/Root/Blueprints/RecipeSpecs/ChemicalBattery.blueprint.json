@@ -1,0 +1,30 @@
+﻿{
+    "RecipeSpec": {
+        "Id": "ChemicalBattery",
+        "BackwardCompatibleIds": [],
+        "DisplayLocKey": "LV.Btr.ChemicalBattery.NameSingular",
+        "CycleDurationInHours": 0.5,
+        "Ingredients": [
+            {
+                "Id": "Extract",
+                "Amount": 1
+            },
+            {
+                "Id": "MetalBlock",
+                "Amount": 1
+            }
+        ],
+        "Products": [
+            {
+                "Id": "ChemicalBattery",
+                "Amount": 1
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "",
+        "CyclesFuelLasts": 0,
+        "FuelCapacity": 0,
+        "CyclesCapacity": 10,
+        "Icon": "Sprites/Goods/ChemicalBatteryIcon"
+    }
+}

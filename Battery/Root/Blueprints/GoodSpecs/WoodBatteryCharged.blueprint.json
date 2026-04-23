@@ -1,0 +1,28 @@
+﻿{
+    "GoodSpec": {
+        "Id": "WoodBatteryCharged",
+        "BackwardCompatibleIds": [],
+        "ConsumptionEffects": [],
+        "GoodType": "Box",
+        "StockpileVisualization": "Box",
+        "VisibleContainer": "Box",
+        "ContainerColor": {
+            "r": 0.56078434,
+            "g": 0.5372549,
+            "b": 0.5372549,
+            "a": 1.0
+        },
+        "ContainerMaterial": "",
+        "CarryingAnimation": "CarryInHands",
+        "Weight": 6,
+        "GoodGroupId": "Batteries",
+        "GoodOrder": 1000,
+        "Icon": "Sprites/Goods/WoodBatteryChargedIcon",
+        "ForceImport": false,
+        "DisplayNameLocKey": "LV.Btr.WoodBatteryCharged.NameSingular",
+        "PluralDisplayNameLocKey": "LV.Btr.WoodBatteryCharged.NamePlural"
+    },
+    "ChargedBatterySpec": {
+        "Charges": 200
+    }
+}

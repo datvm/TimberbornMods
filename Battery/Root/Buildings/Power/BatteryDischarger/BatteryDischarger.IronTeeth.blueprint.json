@@ -1,0 +1,199 @@
+﻿{
+    "BuildingSpec": {
+        "SelectionSoundName": "GravityBattery",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            {
+                "Id": "Log",
+                "Amount": 3
+            },
+            {
+                "Id": "Gear",
+                "Amount": 3
+            }
+        ],
+        "ScienceCost": 150,
+        "PlaceFinished": false,
+        "FinishableWithBeaversOnSite": false,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "StockpileSpec": {
+        "MaxCapacity": 30,
+        "WhitelistedGoodType": "Box"
+    },
+    "EnterableSpec": {
+        "OperatingState": "Finished",
+        "LimitedCapacityFinished": false,
+        "CapacityFinished": 0,
+        "LimitedCapacityUnfinished": false,
+        "CapacityUnfinished": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "BatteryDischarger.IronTeeth",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BlockObjectSpec": {
+        "Size": {
+            "X": 1,
+            "Y": 1,
+            "Z": 1
+        },
+        "Blocks": [
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Bottom, Top, Corners, Path, Middle",
+                "Stackable": "BlockObject",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
+        "Entrance": {
+            "HasEntrance": true,
+            "Coordinates": {
+                "X": 0,
+                "Y": -1,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": false
+    },
+    "TransputProviderSpec": {
+        "Transputs": [
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "All",
+                "ReverseRotation": false
+            }
+        ],
+        "IgnoreRotation": false
+    },
+    "BlockObjectNavMeshSettingsSpec": {
+        "NoAutoWalls": false,
+        "GenerateFloorsOnStackable": true,
+        "EdgeGroups": [],
+        "UnblockedCoordinates": [],
+        "BlockedEdges": []
+    },
+    "BuildingAccessibleSpec": {
+        "LocalAccess": {
+            "X": 0.5,
+            "Y": 0.0,
+            "Z": 0.2
+        },
+        "ForceOneFinalAccess": false
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "Power",
+        "ToolOrder": 47,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": false
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.Btr.BatteryDischarger.Name",
+        "DescriptionLocKey": "LV.Btr.BatteryDischarger.Description",
+        "FlavorDescriptionLocKey": "LV.Btr.BatteryDischarger.Flavor",
+        "Icon": "Buildings/Power/BatteryDischarger/BatteryDischargerIcon"
+    },
+    "StockpileGoodColumnVisualizerSpec": {
+        "CenterOffset": {
+            "X": 0.5,
+            "Y": 0.5,
+            "Z": 0.04
+        },
+        "GoodVisualizationId": "Box",
+        "GoodVisualizationVariant": "4H"
+    },
+    "ConstructionSiteProgressVisualizerSpec": {
+        "ProgressThresholds": [
+            0.0
+        ]
+    },
+    "MechanicalBuildingSpec": {},
+    "MechanicalNodeSpec": {
+        "PowerOutput": 0,
+        "PowerInput": 0,
+        "IsShaft": false
+    },
+    "BatteryDischargerSpec": {},
+    "Children": {
+        "#Finished": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Storage/SmallWarehouse/SmallWarehouse.IronTeeth.Model"
+            },
+            "CollidersSpec": {
+                "BoxColliders": [
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.5,
+                            "Z": 0.5
+                        },
+                        "Size": {
+                            "X": 1.0,
+                            "Y": 1.0,
+                            "Z": 1.0
+                        }
+                    }
+                ],
+                "SphereColliders": [],
+                "CapsuleColliders": []
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase1x1#nested": {
+                    "BlueprintPath": "ConstructionBases/ConstructionBase1x1/ConstructionBase1x1.blueprint"
+                },
+                "ConstructionStage0": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Storage/SmallWarehouse/SmallWarehouse.IronTeeth.ConstructionStage0.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.05,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.1,
+                                    "Z": 1.0
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        }
+    }
+}

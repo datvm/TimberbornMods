@@ -6,7 +6,7 @@ public class MSettings(
     ModRepository modRepository,
     ILoc t,
     IModSettingsContextProvider contextProvider
-) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository)
+) : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
 
     public override string ModId { get; } = nameof(TImprove4UX);
@@ -36,6 +36,12 @@ public class MSettings(
         .CreateLocalized("LV.T4UX.WorkerIdleWarning")
         .SetLocalizedTooltip("LV.T4UX.WorkerIdleWarningDesc"));
 
+    public ModSetting<bool> ReverseProductionTime { get; } = new(false, ModSettingDescriptor
+        .CreateLocalized("LV.T4UX.ReverseProductionTime")
+        .SetLocalizedTooltip("LV.T4UX.ReverseProductionTimeDesc"));
+
+    public static bool ReverseProductionTimeValue { get; private set; }
+
     public override void OnBeforeLoad()
     {
         base.OnBeforeLoad();
@@ -49,13 +55,22 @@ public class MSettings(
         CollapseEntityPanelGlobal.Descriptor.SetEnableCondition(() => CollapseEntityPanel.Value);
 
         ShowDynamiteDestruction.Descriptor.SetEnableCondition(() => !MStarter.HasDirectionalDynamite);
+
+        ModSettingChanged += (_, _) => UpdateStaticValues();
     }
 
     public override void OnAfterLoad()
     {
         base.OnAfterLoad();
+        UpdateStaticValues();
 
         ShiftToDeleteAll.Descriptor.SetEnableCondition(() => ShiftToDelete.Value);
     }
 
+    public void Unload() => UpdateStaticValues();
+
+    void UpdateStaticValues()
+    {
+        ReverseProductionTimeValue = ReverseProductionTime.Value;
+    }
 }

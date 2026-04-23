@@ -1,0 +1,30 @@
+﻿{
+    "GoodSpec": {
+        "Id": "HeavyBattery",
+        "BackwardCompatibleIds": [],
+        "ConsumptionEffects": [],
+        "GoodType": "Box",
+        "StockpileVisualization": "Box",
+        "VisibleContainer": "Box",
+        "ContainerColor": {
+            "r": 0.56078434,
+            "g": 0.5372549,
+            "b": 0.5372549,
+            "a": 1.0
+        },
+        "ContainerMaterial": "",
+        "CarryingAnimation": "CarryInHands",
+        "Weight": 6,
+        "GoodGroupId": "Batteries",
+        "GoodOrder": 120,
+        "Icon": "Sprites/Goods/HeavyBatteryIcon",
+        "ForceImport": false,
+        "DisplayNameLocKey": "LV.Btr.HeavyBattery.NameSingular",
+        "PluralDisplayNameLocKey": "LV.Btr.HeavyBattery.NamePlural"
+    },
+    "ChargedBatterySpec": {
+        "Charges": 0,
+        "ChargeEfficiency": 0.9,
+        "ChargedGoodId": "HeavyBatteryCharged"
+    }
+}
