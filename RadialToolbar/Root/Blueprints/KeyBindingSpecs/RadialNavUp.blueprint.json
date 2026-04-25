@@ -1,0 +1,20 @@
+﻿{
+    "KeyBindingSpec": {
+        "Id": "RadialNavUp",
+        "GroupId": "RadialToolbar",
+        "LocKey": "LV.RT.HotkeyUp",
+        "Order": 20,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/W",
+        "InputModifiers": "None",
+        "Unchangeable": false
+    },
+    "SecondaryInputBindingSpec": {
+        "Path": "/Keyboard/numpad8",
+        "InputModifiers": "None",
+        "Unchangeable": false
+    }
+}

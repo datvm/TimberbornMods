@@ -1,0 +1,7 @@
+﻿{
+    "KeyBindingGroupSpec": {
+        "Id": "RadialToolbar",
+        "Order": 15,
+        "LocKey": "LV.RT.HotkeyGroup"
+    }
+}

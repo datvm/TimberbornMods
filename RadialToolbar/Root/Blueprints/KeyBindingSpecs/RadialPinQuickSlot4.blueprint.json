@@ -1,0 +1,15 @@
+{
+    "KeyBindingSpec": {
+        "Id": "RadialPinQuickSlot4",
+        "GroupId": "RadialToolbar",
+        "LocKey": "LV.RT.HotkeyQuick4",
+        "Order": 190,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/4",
+        "InputModifiers": "Shift",
+        "Unchangeable": false
+    }
+}

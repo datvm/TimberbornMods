@@ -1,0 +1,30 @@
+﻿This mod adds a radial toolbar for tool actions, so you can open your tools quickly without moving the mouse across the screen. You can now select your tools with only the keyboard or mouse. There is also a quick access menu built-in for your recently used tools.
+
+This mod [b]works with the Map Editor[/b].
+
+[h1]The radial toolbar[/h1]
+
+Note:
+- All mentioned keys in this guide are customizable (menu -> Settings -> Keybindings).
+- All mod's settings can be changed anytime from the menu -> Mods -> Settings button next to the mod.
+
+Press Tab to toggle the radial toolbar. Click or press a navigation key (default QWEDCXZA or Numpad keys) to select a segment. Right click or press the Back key (default S or Numpad 0) to go back one level or close the toolbar if you are at the top level.
+
+You can choose between a 4-segment or an 8-segment variant in the mod's settings:
+[img]https://files.catbox.moe/qfnepg.jpg[/img]
+
+You can also choose an option to Flatten menus, a special distribution algorithm that will try to fill up the parent menu with its child items if there is enough space. This will reduce the number of clicks needed to access your tools:
+[img]https://files.catbox.moe/vtxfpg.jpg[/img]
+
+[h1]The quick access menu[/h1]
+
+A built-in quick access menu is added for your most recent tools. You can click on it or press the Quick slot keys (default 1-4) to open it. You can also pin your favorite tools to the quick access menu with the Pin Quick slot keys (default Shift + 1-4):
+[img]https://files.catbox.moe/733okj.jpg[/img]
+
+[h1]Hide the bottom bar[/h1]
+
+With this new menu, if you like, you can also hide the game's default bottom bar to save some screen space. Access it in the mod's settings:
+[img]https://files.catbox.moe/stfevn.jpg[/img]
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

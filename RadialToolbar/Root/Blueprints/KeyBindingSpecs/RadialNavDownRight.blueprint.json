@@ -1,0 +1,20 @@
+﻿{
+    "KeyBindingSpec": {
+        "Id": "RadialNavDownRight",
+        "GroupId": "RadialToolbar",
+        "LocKey": "LV.RT.HotkeyDownRight",
+        "Order": 50,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/c",
+        "InputModifiers": "None",
+        "Unchangeable": false
+    },
+    "SecondaryInputBindingSpec": {
+        "Path": "/Keyboard/numpad3",
+        "InputModifiers": "None",
+        "Unchangeable": false
+    }
+}
