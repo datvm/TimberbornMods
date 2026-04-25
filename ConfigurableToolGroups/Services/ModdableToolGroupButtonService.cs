@@ -13,6 +13,7 @@ public class ModdableToolGroupButtonService : ILoadableSingleton, IUnloadableSin
     readonly IAssetLoader assets;
 
     public ModdableToolGroupButtonInfo? this[ToolGroupButton index] => buttons.TryGetValue(index, out var info) ? info : null;
+    public IReadOnlyCollection<ToolGroupButton> AllButtons => buttons.Keys;
 
     public Texture2D BackgroundTexture { get; private set; } = null!;
 

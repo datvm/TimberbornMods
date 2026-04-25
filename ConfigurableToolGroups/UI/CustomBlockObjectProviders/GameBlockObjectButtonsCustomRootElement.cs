@@ -5,8 +5,9 @@ public class GameBlockObjectButtonsCustomRootElement
 (
     ModdableToolGroupSpecService specs,
     ModdableToolGroupButtonFactory grpButtonFac,
-    BlockObjectToolButtonFactory boBtnFac
-) : CustomBlockObjectButtons(grpButtonFac, boBtnFac)
+    BlockObjectToolButtonFactory boBtnFac,
+    BottomBarButtonLookupService lookupService
+) : CustomBlockObjectButtons(grpButtonFac, boBtnFac, lookupService)
 {
     public override string Id { get; } = nameof(GameBlockObjectButtons);
 

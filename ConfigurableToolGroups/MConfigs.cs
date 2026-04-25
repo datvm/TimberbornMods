@@ -12,10 +12,12 @@ public class ConfigurableToolGroupsConfig : Configurator
         Bind<ModdableToolGroupSpecService>().AsSingleton();
         Bind<ModdableToolGroupButtonService>().AsSingleton();
         Bind<ToolPanelPositioningService>().AsSingleton();
+        Bind<BottomBarButtonLookupService>().AsSingleton();
+
+        Bind<GroupedBuiltInButtonCustomRootElementDI>().AsSingleton();
 
         MultiBind<BottomBarModule>().To<DummyBottomBarModule>().AsSingleton();
         Bind<ModdableCustomToolButtonService>().AsSingleton();
-
 
         this.MultiBindElementsRemover<RemoveOriginalBuiltInElements>();
     }

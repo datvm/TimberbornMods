@@ -2,7 +2,8 @@
 
 public abstract class CustomBlockObjectButtons(
     ModdableToolGroupButtonFactory grpButtonFac,
-    BlockObjectToolButtonFactory boBtnFac
+    BlockObjectToolButtonFactory boBtnFac,
+    BottomBarButtonLookupService lookupService
 ) : CustomBottomBarElement
 {
 
@@ -38,6 +39,7 @@ public abstract class CustomBlockObjectButtons(
         var btn = grpButtonFac.Create(grp.Spec.ToToolGroupSpec(), parent, ToolButtonColor.Green);
         parent?.AddChildGroup(btn);
         toolGroupButtonsById.TryAdd(grp.Spec.Id, btn);
+        lookupService.Register(btn);
 
         var btns = btn.ToolButtonsElement;
 
@@ -55,6 +57,11 @@ public abstract class CustomBlockObjectButtons(
                     var toolBtn = boBtnFac.Create(bo, btns);
                     toolButtonsById.TryAdd(pti.Id, toolBtn);
                     btn.AddChildTool(toolBtn);
+
+                    lookupService.Register(toolBtn, 
+                        "BlockObjectTool-" + bo.GetSpec<TemplateSpec>().TemplateName, 
+                        bo.GetSpec<LabeledEntitySpec>().DisplayNameLocKey);
+
                     break;
                 default:
                     throw new InvalidOperationException($"Unknown child type {child.GetType().FullName} in tool group {grp.Spec.Id}.");

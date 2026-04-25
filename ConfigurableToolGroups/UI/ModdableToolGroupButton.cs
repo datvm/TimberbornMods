@@ -58,7 +58,16 @@ public class ModdableToolGroupButton
         s.bottom = Length.Percent(100);
         s.left = Length.Percent(50);
         s.translate = new Translate(Length.Percent(-50), 0);
-        s.maxWidth = 1200;
+
+        if (r.panel is not null)
+        {
+            OnAttach();
+        }
+        else
+        {
+            r.RegisterCallbackOnce<AttachToPanelEvent>(_ => OnAttach());
+        }
+        
 
         // Register
         Info = serv.GetOrAddButton(btn, parent?.Info);
@@ -66,6 +75,11 @@ public class ModdableToolGroupButton
         if (!toolGrps._toolGroups.ContainsKey(Spec.Id))
         {
             toolGrps.RegisterGroup(Spec);
+        }
+
+        void OnAttach()
+        {
+            s.maxWidth = Screen.width / r.panel!.scaledPixelsPerPoint * .95f;
         }
     }
 
@@ -100,12 +114,5 @@ public class ModdableToolGroupButton
     }
 
     public BottomBarElement ToBottomBarElement() => new(Root, ToolButtonsElement);
-
-    static VisualElement CreateSpacer()
-    {
-        var ve = new VisualElement();
-        ve.AddToClassList("tool-group__spacer");
-        return ve;
-    }
 
 }
