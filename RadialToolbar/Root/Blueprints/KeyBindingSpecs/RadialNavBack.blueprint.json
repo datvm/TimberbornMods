@@ -1,0 +1,20 @@
+﻿{
+    "KeyBindingSpec": {
+        "Id": "RadialNavBack",
+        "GroupId": "RadialToolbar",
+        "LocKey": "LV.RT.ToggleHotkey",
+        "Order": 110,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/s",
+        "InputModifiers": "None",
+        "Unchangeable": false
+    },
+    "SecondaryInputBindingSpec": {
+        "Path": "/Keyboard/numpad0",
+        "InputModifiers": "None",
+        "Unchangeable": false
+    }
+}

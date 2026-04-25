@@ -14,8 +14,9 @@
 		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
-
-		<ProjectReference Include="..\DistroStorage\DistroStorage.csproj" />
+		
+		<ProjectReference Include="..\ConfigurableToolGroups\ConfigurableToolGroups.csproj" />
+		<ProjectReference Include="..\RadialToolbar\RadialToolbar.csproj" />
 		
 	</ItemGroup>
 </Project>

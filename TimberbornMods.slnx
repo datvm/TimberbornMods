@@ -68,6 +68,7 @@
     <Project Path="ModdableToolGroupsDemo/ModdableToolGroupsDemo.csproj" Id="86d937ab-5644-43a2-8e4f-296ce24bd416" />
     <Project Path="ModdableToolGroupsHotkeys/ModdableToolGroupsHotkeys.csproj" Id="e8f9093b-605e-4ef4-8c3d-be0a4a532388" />
     <Project Path="MoreOrganizedToolGroups/MoreOrganizedToolGroups.csproj" Id="0bc40b6f-0a04-44c4-9d3d-0937b4def1b5" />
+    <Project Path="RadialToolbar/RadialToolbar.csproj" Id="06d478d1-4f9b-429b-a34f-abf381353eff" />
   </Folder>
   <Folder Name="/Moddable/ModdableWeathers/">
     <Project Path="EarthquakeWeather/EarthquakeWeather.csproj" />

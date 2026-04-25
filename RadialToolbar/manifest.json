@@ -1,0 +1,12 @@
+﻿{
+    "Name": "Radial Toolbar",
+    "Version": "10.0.0",
+    "Id": "RadialToolbar",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Your ergonomic solution for accessing your tools",
+    "RequiredMods": [
+        { "Id": "eMka.ModSettings" },
+        { "Id": "TimberUi" },
+        { "Id": "ModdableToolGroups", "MinimumVersion": "10.5.0" }
+    ]
+}

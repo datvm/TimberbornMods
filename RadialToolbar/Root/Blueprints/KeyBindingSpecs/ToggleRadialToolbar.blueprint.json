@@ -1,0 +1,20 @@
+﻿{
+    "KeyBindingSpec": {
+        "Id": "ToggleRadialToolbar",
+        "GroupId": "RadialToolbar",
+        "LocKey": "LV.RT.ToggleHotkey",
+        "Order": 10,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/tab",
+        "InputModifiers": "None",
+        "Unchangeable": false
+    },
+    "SecondaryInputBindingSpec": {
+        "Path": "/Keyboard/q",
+        "InputModifiers": "Shift",
+        "Unchangeable": false
+    }
+}

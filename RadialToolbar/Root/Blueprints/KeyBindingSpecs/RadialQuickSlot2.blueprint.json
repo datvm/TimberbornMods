@@ -1,0 +1,15 @@
+{
+    "KeyBindingSpec": {
+        "Id": "RadialQuickSlot2",
+        "GroupId": "RadialToolbar",
+        "LocKey": "LV.RT.HotkeyQuick2",
+        "Order": 130,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/2",
+        "InputModifiers": "None",
+        "Unchangeable": false
+    }
+}

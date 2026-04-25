@@ -1,0 +1,20 @@
+﻿{
+    "KeyBindingSpec": {
+        "Id": "RadialNavUpLeft",
+        "GroupId": "RadialToolbar",
+        "LocKey": "LV.RT.HotkeyUpLeft",
+        "Order": 100,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/q",
+        "InputModifiers": "None",
+        "Unchangeable": false
+    },
+    "SecondaryInputBindingSpec": {
+        "Path": "/Keyboard/numpad7",
+        "InputModifiers": "None",
+        "Unchangeable": false
+    }
+}

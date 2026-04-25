@@ -1,0 +1,20 @@
+﻿{
+    "KeyBindingSpec": {
+        "Id": "RadialNavRight",
+        "GroupId": "RadialToolbar",
+        "LocKey": "LV.RT.HotkeyRight",
+        "Order": 40,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/d",
+        "InputModifiers": "None",
+        "Unchangeable": false
+    },
+    "SecondaryInputBindingSpec": {
+        "Path": "/Keyboard/numpad6",
+        "InputModifiers": "None",
+        "Unchangeable": false
+    }
+}
