@@ -13,6 +13,8 @@ public abstract class CustomRootToolElement<TTool>(
     public override IEnumerable<BottomBarElement> GetElements()
     {
         var btn = toolButtonFactory.CreateGroupless(tool, ImageName, Color);
+        btn.HideTooltip(null);
+
         yield return BottomBarElement.CreateSingleLevel(btn.Root);
     }
 }

@@ -1,8 +1,8 @@
 ﻿
 namespace ConfigurableToolGroups.UI.BuiltInRootProviders;
 
-public class TreeCuttingAreaButtonCustomRootElement(TreeCuttingAreaButton button, ToolButtonService toolButtonService) 
-    : GroupedBuiltInButtonCustomRootElement<TreeCuttingAreaButton>(button, toolButtonService)
+public class TreeCuttingAreaButtonCustomRootElement(TreeCuttingAreaButton button, GroupedBuiltInButtonCustomRootElementDI di) 
+    : GroupedBuiltInButtonCustomRootElement<TreeCuttingAreaButton>(button, di)
 {
     protected override string ToolGroupId { get; } = TreeCuttingAreaButton.ToolGroupId;
     protected override int ReservedOrder => 0;
@@ -19,4 +19,17 @@ public class TreeCuttingAreaButtonCustomRootElement(TreeCuttingAreaButton button
             btn),
         _ => null,
     };
+
+    static string GetLocKey(ToolButton btn) => btn.Tool switch
+    {
+        TreeCuttingAreaSelectionTool => TreeCuttingAreaSelectionTool.TitleLocKey,
+        TreeCuttingAreaUnselectionTool => TreeCuttingAreaUnselectionTool.TitleLocKey,
+        _ => throw new ArgumentException($"Unexpected tool type {btn.Tool.GetType()}"),
+    };
+
+    protected override void RegisterToolButton(VisualElement el, ToolButton btn)
+    {
+        var loc = GetLocKey(btn);
+        RegisterTool(btn, loc, loc);
+    }
 }

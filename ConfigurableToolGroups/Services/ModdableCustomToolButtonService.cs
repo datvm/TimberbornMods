@@ -1,7 +1,10 @@
 ﻿namespace ConfigurableToolGroups.Services;
 
 #pragma warning disable CS9113 // Parameter to ensure DI loading order
-class DummyBottomBarModule(ModdableCustomToolButtonService _) : BottomBarModule([], [], []);
+class DummyBottomBarModule(
+    ModdableCustomToolButtonService toolButtonService,
+    BottomBarButtonLookupService lookupService
+) : BottomBarModule([], [], []);
 #pragma warning restore CS9113
 
 public class ModdableCustomToolButtonService(

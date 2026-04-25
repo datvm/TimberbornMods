@@ -1,8 +1,22 @@
 ﻿namespace ConfigurableToolGroups.UI.BuiltInRootProviders;
 
-public abstract class PlantingBuiltInButtonCustomRootElement<T>(T button, ToolButtonService toolButtonService) : GroupedBuiltInButtonCustomRootElement<T>(button, toolButtonService)
+public abstract class PlantingBuiltInButtonCustomRootElement<T>(T button, GroupedBuiltInButtonCustomRootElementDI di) : GroupedBuiltInButtonCustomRootElement<T>(button, di)
     where T : IBottomBarElementsProvider
 {
+
+    static string GetLocKey(PlantingTool tool) => tool.PlantableSpec.GetSpec<LabeledEntitySpec>().DisplayNameLocKey;
+
+    protected override void RegisterToolButton(VisualElement el, ToolButton btn)
+    {
+        var loc = btn.Tool switch
+        {
+            CancelPlantingTool => CancelPlantingTool.TitleLocKey,
+            PlantingTool plantingTool => GetLocKey(plantingTool),
+            _ => throw new ArgumentException($"Unexpected tool type {btn.Tool.GetType()}"),
+        };
+
+        RegisterTool(btn, loc, loc);
+    }
 
     protected override ToolHotkeyDefinitionBase? GetHotkeyDefinition(ToolButton btn)
     {
@@ -20,9 +34,8 @@ public abstract class PlantingBuiltInButtonCustomRootElement<T>(T button, ToolBu
 
         var tool = (PlantingTool)btn.Tool;
 
-        var spec = tool.PlantableSpec.GetSpec<LabeledEntitySpec>();
         var id = $"Tool.Planting.{tool.PlantableSpec.TemplateName}";
-        var locKey = spec.DisplayNameLocKey;
+        var locKey = GetLocKey(tool);
 
         return new ButtonToolHotkeyDefinition(id, locKey, btn)
         {
@@ -32,14 +45,14 @@ public abstract class PlantingBuiltInButtonCustomRootElement<T>(T button, ToolBu
 
 }
 
-public class FieldsButtonCustomRootElement(FieldsButton button, ToolButtonService toolButtonService) : PlantingBuiltInButtonCustomRootElement<FieldsButton>(button, toolButtonService)
+public class FieldsButtonCustomRootElement(FieldsButton button, GroupedBuiltInButtonCustomRootElementDI di) : PlantingBuiltInButtonCustomRootElement<FieldsButton>(button, di)
 {
     protected override string ToolGroupId { get; } = FieldsButton.ToolGroupId;
     protected override int ReservedOrder => 100;
 
 }
 
-public class ForestryButtonCustomRootElement(ForestryButton button, ToolButtonService toolButtonService) : PlantingBuiltInButtonCustomRootElement<ForestryButton>(button, toolButtonService)
+public class ForestryButtonCustomRootElement(ForestryButton button, GroupedBuiltInButtonCustomRootElementDI di) : PlantingBuiltInButtonCustomRootElement<ForestryButton>(button, di)
 {
     protected override string ToolGroupId { get; } = ForestryButton.ToolGroupId;
     protected override int ReservedOrder => 300;

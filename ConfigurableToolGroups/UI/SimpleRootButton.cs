@@ -30,6 +30,7 @@ public abstract class SimpleRootButton : CustomBottomBarElement
     {
         var btn = Button = loader.LoadVisualElement("Common/BottomBar/GrouplessToolButton");
         btn.AddToClassList("bottom-bar-button--" + Color.ToString().ToLowerInvariant());
+        btn.Q("TooltipContent").ToggleDisplayStyle(false);
 
         var sprite = toolButtonFactory.LoadImage(ImageName);
         btn.Q<VisualElement>("ToolImage").style.backgroundImage = new(sprite);

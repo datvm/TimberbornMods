@@ -1,4 +1,8 @@
-﻿v10.4.6:
+﻿v10.5.0:
+- Fixed wrapping happening too early. It's now at 95% of the screen width instead of 1200px.
+- Added more API support for other mods.
+- Fixed Tooltip showing up for simple buttons.
+v10.4.6:
 - Fixed sub-group UI visual issues.
 - Support wrapping when a toolbar is too long. Note that the info box may not be positioned correctly when wrapping happens.
 - Added more info on crash to help identify the cause of the crash.
