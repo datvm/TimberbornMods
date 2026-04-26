@@ -4,10 +4,6 @@
 		<OutputModFolderName>RadialToolbar</OutputModFolderName>
 	</PropertyGroup>
 
-	<ItemGroup>
-	  <Folder Include="Root\Blueprints\KeyBindingGroupSpecs\" />
-	</ItemGroup>
-
 	<Import Project="../Targets/Common.targets" />
 	<Import Project="../Targets/CommonTimberUI.targets" />
 	<Import Project="../Targets/CommonModdableToolGroups.targets" />

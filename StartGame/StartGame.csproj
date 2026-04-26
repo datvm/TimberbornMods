@@ -15,8 +15,7 @@
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 		
-		<ProjectReference Include="..\ConfigurableToolGroups\ConfigurableToolGroups.csproj" />
-		<ProjectReference Include="..\RadialToolbar\RadialToolbar.csproj" />
+		<ProjectReference Include="..\BeaverChronicles\BeaverChronicles.csproj" />
 		
 	</ItemGroup>
 </Project>

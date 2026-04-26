@@ -116,4 +116,14 @@ public static partial class CommonExtensions
         };
     }
 
+    extension(ITimeTriggerFactory fac)
+    {
+        public ITimeTrigger CreateAndStart(Action action, float delayInDays)
+        {
+            var timer = fac.Create(action, delayInDays);
+            timer.Resume();
+            return timer;
+        }
+    }
+
 }
