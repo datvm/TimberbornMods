@@ -8,13 +8,14 @@ public class ModdableTimberbornConfigurator : IModdableTimberbornRegistryConfig
     public void Configure(Configurator configurator, ConfigurationContext context)
     {
         configurator
-            .BindSingleton<DestructionService>()
+            .BindSingleton<DestructionService>()            
         ;
 
         if (!context.IsGameContext()) { return; }
 
         configurator
             .BindSingleton<PersistentGameModeService>()
+            .BindSingleton<DayTimerService>()
         ;
     }
 
