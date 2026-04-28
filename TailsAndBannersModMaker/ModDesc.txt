@@ -1,0 +1,31 @@
+﻿With this helper mod, you can easily create a mod to add Banners and Tails (called Decals) to the game without any coding or JSON knowledge. It's basically a UI for creating a Decals mod.
+
+You only need this mod for creating your mod, [b]your users does NOT need to have this mod[/b]. In fact, you can just disable this mod after creating your mod.
+
+You can have both Banners and Tails in the same mod, or just one of them. This mod also supports creating [b]optional[/b] groups for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3658303906]Moddable Decal Groups[/url] so you can organize your decals into different groups. The groups feature is optional, your users can still use your decals without MDG but they won't see the groups, just all the decals in one list like usual.
+
+[h1]How to use[/h1]
+
+[b]You should prepare all your Tails and Banners files in advance because you have to restart the game to add/change them.[/b]
+
+When subscribed, you will see a new button in the Main Menu. Simply click it to open the UI. Note that there is no save feature so you need to do everything in one go.
+
+[img]https://i.imgur.com/LBfkmT5.jpeg[/img]
+
+First, specify the mod's metadata like ID, name and version.
+
+Then, you can add your Banners and Tails into groups or just use the Default Group (i.e. no group). You can also limit a decal to a specific faction only.
+[img]https://i.imgur.com/ys3PTT5.jpeg[/img]
+
+When you are happy with your mod, click "Build the mod". You can see where it's generated. You will need to restart the game to see it.
+[img]https://i.imgur.com/zqMCuLp.jpeg[/img]
+
+With the newly generated mod enabled, you can test it in your game using the Detailer or Banner buildings.
+
+When everything is good, you can click Upload mod to upload it to Steam Workshop:
+[img]https://i.imgur.com/3Aex3C9.jpeg[/img]
+
+Note: Anyone joining the Mod Contest for Tails and Decals, remember to add the tag to the mod name. You can do so from Steam web page as you cannot change the name from the mod upload dialog.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
