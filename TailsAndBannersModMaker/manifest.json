@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Tails & Banners Mod Maker",
+    "Version": "10.0.0",
+    "Id": "TailsAndBannersModMaker",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Quickly make Tails and Banners mods",
+    "RequiredMods": [
+        { "Id": "TimberUi" }
+    ]
+}

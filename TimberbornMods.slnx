@@ -52,6 +52,7 @@
     <Project Path="ExtendedOptionalModSupport/ExtendedOptionalModSupport.csproj" Id="b2b9ec26-90c8-4059-bd4d-af07b21fae7d" />
     <Project Path="RealLights/RealLights.csproj" />
     <Project Path="RoofMap/RoofMap.csproj" />
+    <Project Path="TailsAndBannersModMaker/TailsAndBannersModMaker.csproj" Id="70e35928-508a-4e17-82dc-1b14a24fc814" />
     <Project Path="TimberModBuilder/TimberModBuilder.csproj" />
     <Project Path="XtraPlzNoCrashes/XtraPlzNoCrashes.csproj" />
   </Folder>
