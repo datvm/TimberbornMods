@@ -14,14 +14,13 @@ public class DecalPickerDialog(
 
     void Init(string type)
     {
-        const int height = 800;
         const int imageSize = 100;
 
         var typeName = t.TDecal(type);
 
         AddCloseButton();
         SetTitle(t.T("LV.TBMM.AddDecals", typeName));
-        SetDialogSize(height);
+        SetDialogSize(1200, 800);
 
         var parent = Content;
 
