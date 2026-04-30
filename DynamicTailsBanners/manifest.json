@@ -1,0 +1,11 @@
+﻿{
+    "Name": "Dynamic Tails & Banners",
+    "Version": "10.0.0",
+    "Id": "DynamicTailsBanners",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Tails and Banners that change",
+    "RequiredMods": [
+        { "Id": "TimberUi" },
+        { "Id": "Harmony" }
+    ]
+}
