@@ -36,6 +36,11 @@
     <Project Path="ConfigurableDaisugiForestry/ConfigurableDaisugiForestry.csproj" />
     <Project Path="DaisugiForestry/DaisugiForestry.csproj" />
   </Folder>
+  <Folder Name="/Decals/">
+    <Project Path="DynamicTailsBanners/DynamicTailsBanners.csproj" Id="735535db-d93a-4b5e-b0d9-9cf003a2ba09" />
+    <Project Path="ModdableDecalGroups/ModdableDecalGroups.csproj" Id="ba34c21b-13c2-41a3-81ed-d3c7b6346889" />
+    <Project Path="TailsAndBannersModMaker/TailsAndBannersModMaker.csproj" Id="70e35928-508a-4e17-82dc-1b14a24fc814" />
+  </Folder>
   <Folder Name="/Http/">
     <Project Path="MoreHttpApi.Shared/MoreHttpApi.Shared.csproj" Id="96e529d3-e01f-4ca6-abbf-88ce069f86e2" />
     <Project Path="MoreHttpApi/MoreHttpApi.csproj" Id="b551f07a-1ca3-4398-9bef-b7374f425ff4" />
@@ -52,7 +57,6 @@
     <Project Path="ExtendedOptionalModSupport/ExtendedOptionalModSupport.csproj" Id="b2b9ec26-90c8-4059-bd4d-af07b21fae7d" />
     <Project Path="RealLights/RealLights.csproj" />
     <Project Path="RoofMap/RoofMap.csproj" />
-    <Project Path="TailsAndBannersModMaker/TailsAndBannersModMaker.csproj" Id="70e35928-508a-4e17-82dc-1b14a24fc814" />
     <Project Path="TimberModBuilder/TimberModBuilder.csproj" />
     <Project Path="XtraPlzNoCrashes/XtraPlzNoCrashes.csproj" />
   </Folder>
@@ -91,7 +95,6 @@
     <Project Path="EvenMoreLights/EvenMoreLights.csproj" />
     <Project Path="HueAndTurnX/HueAndTurnX.csproj" Id="c6f14e26-4102-4679-a11c-07f50cbbfb68" />
     <Project Path="MacroManagement/MacroManagement.csproj" />
-    <Project Path="ModdableDecalGroups/ModdableDecalGroups.csproj" Id="ba34c21b-13c2-41a3-81ed-d3c7b6346889" />
     <Project Path="MoreNaming/MoreNaming.csproj" />
     <Project Path="Pin/Pin.csproj" />
     <Project Path="PlottingTool/PlottingTool.csproj" />

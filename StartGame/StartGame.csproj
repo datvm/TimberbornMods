@@ -15,7 +15,7 @@
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 		
-		<ProjectReference Include="..\TailsAndBannersModMaker\TailsAndBannersModMaker.csproj" />
+		<ProjectReference Include="..\DynamicTailsBanners\DynamicTailsBanners.csproj" />
 		
 	</ItemGroup>
 </Project>
