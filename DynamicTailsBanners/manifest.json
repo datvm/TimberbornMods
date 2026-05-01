@@ -6,6 +6,7 @@
     "Description": "Tails and Banners that change",
     "RequiredMods": [
         { "Id": "TimberUi" },
-        { "Id": "Harmony" }
+        { "Id": "Harmony" },
+        { "Id": "ModdableDecalGroups", "MinimumVersion": "10.1.0" }
     ]
 }

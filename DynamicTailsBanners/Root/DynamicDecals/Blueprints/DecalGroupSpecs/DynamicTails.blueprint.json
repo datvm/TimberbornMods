@@ -1,0 +1,13 @@
+﻿{
+    "DecalGroupSpec": {
+        "Id": "DynamicTails",
+        "TitleLoc": "LV.DTB.DynamicTails",
+        "Category": "Tails",
+        "Order": 0,
+        "DecalIdExacts": [
+            "tail-weather-dynamic",
+            "dynamic-tail-workplaces",
+            "dynamic-tail-random"
+        ]
+    }
+}

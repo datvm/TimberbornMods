@@ -1,0 +1,15 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<ModdableDecalGroupsPath>$(GameModsFolder)ModdableDecalGroups\$(TimberbornVersion)\**\*.dll</ModdableDecalGroupsPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Include="ModdableDecalGroups" />
+		<Using Include="ModdableDecalGroups.Services" />
+		<Using Include="ModdableDecalGroups.Specs" />
+		<Using Include="ModdableDecalGroups.UI" />
+		
+		<Reference Include="$(ModdableDecalGroupsPath)" Private="False" />
+	</ItemGroup>
+</Project>

@@ -4,7 +4,8 @@ namespace ModdableDecalGroups.Services;
 [BindSingleton]
 public class DecalGroupService(
     ISpecService specs,
-    IDecalService decalService
+    IDecalService decalService,
+    EventBus eb
 ) : ILoadableSingleton
 {
     readonly DecalService decalService = (DecalService)decalService;
@@ -22,6 +23,15 @@ public class DecalGroupService(
     public DecalGroupSpec GetGroupSpec(string groupId) => groupsByIds[groupId];
     
     public void Load()
+    {
+        eb.Register(this);
+        ReloadDecals();
+    }
+
+    [OnEvent]
+    public void OnDecalReloaded(DecalsReloadedEvent _) => ReloadDecals();
+
+    void ReloadDecals()
     {
         Dictionary<string, List<DecalGroup>> groupsInCategories = [];
         Dictionary<string, DecalGroupSpec> defaultGroups = [];
@@ -101,7 +111,7 @@ public class DecalGroupService(
         this.groupsInCategories = groupsInCategories
             .ToFrozenDictionary(
                 kv => kv.Key,
-                kv => new DecalCategoryGroups(kv.Key, [..kv.Value.OrderBy(q => q.Spec.Order)])
+                kv => new DecalCategoryGroups(kv.Key, [.. kv.Value.OrderBy(q => q.Spec.Order)])
             );
         this.groupsByIds = groupsByIds.ToFrozenDictionary();
         this.defaultGroups = defaultGroups.ToFrozenDictionary();
