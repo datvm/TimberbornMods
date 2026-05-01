@@ -10,15 +10,18 @@ public class DynamicDecalService(IEnumerable<IDynamicDecalProvider> providers)
         => providers.TryGetValue(id, out var p) ? p : null;
 
     public IDynamicTailDecalProvider? GetTail(string id)
-        => GetSpecific<IDynamicTailDecalProvider>(id);
+        => GetProvider<IDynamicTailDecalProvider>(id);
 
-    T? GetSpecific<T>(string id) where T : IDynamicDecalProvider
+    public IDynamicBannerDecalProvider? GetBanner(string id)
+        => GetProvider<IDynamicBannerDecalProvider>(id);
+
+    public T? GetProvider<T>(string id) where T : IDynamicDecalProvider
     {
         var p = GetProvider(id);
         if (p is null) { return default; }
 
         return p is T specific 
             ? specific 
-            : throw new InvalidOperationException($"Provider with id '{id}' is not of type {typeof(T).Name}.");
+            : throw new InvalidOperationException($"Provider {p.GetType().Name} with id '{id}' does not implement {typeof(T).Name}.");
     }
 }

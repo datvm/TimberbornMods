@@ -1,3 +1,8 @@
 ﻿ID,Text,Comment
 LV.MDG.Default,"Default",
 LV.MDG.Tails.Fabrics,"Fabrics",
+LV.MDG.Filter,"Filter:",
+LV.MDG.Type.Tails,"Tails",
+LV.MDG.Type.Banners,"Banners",
+LV.MDG.PickerTitle,"Pick {0}",
+LV.MDG.ConfirmPick,"Pick {0} {1}",

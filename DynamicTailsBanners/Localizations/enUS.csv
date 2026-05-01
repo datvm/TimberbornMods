@@ -1,0 +1,8 @@
+﻿ID,Text,Comment
+LV.DTB.OptionsTitle,"Dynamic {0} Options",
+LV.DTB.DynamicTails,"Dynamic Tails",
+LV.DTB.DynamicBanners,"Dynamic Banners",
+LV.DTB.SameForAll,"Same for all Beavers",
+LV.DTB.RandomList,"Random tails:",
+LV.DTB.Add,"Add",
+LV.DTB.Remove,"Remove",

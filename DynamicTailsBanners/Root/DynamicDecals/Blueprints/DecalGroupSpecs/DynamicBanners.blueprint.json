@@ -1,0 +1,13 @@
+﻿{
+    "DecalGroupSpec": {
+        "Id": "DynamicBanners",
+        "TitleLoc": "LV.DTB.DynamicBanners",
+        "Category": "Banners",
+        "Order": 0,
+        "DecalIdExacts": [
+            "banner-weather-dynamic",
+            "dynamic-banner-building",
+            "dynamic-banner-random"
+        ]
+    }
+}

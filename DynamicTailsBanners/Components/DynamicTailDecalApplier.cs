@@ -1,37 +1,20 @@
 ﻿namespace DynamicTailsBanners.Components;
 
 [AddTemplateModule2(typeof(TailDecalApplier))]
-public class DynamicTailDecalApplier(DynamicDecalService service) : BaseComponent, IAwakableComponent
+public class DynamicTailDecalApplier(DynamicDecalService service)
+    : DynamicDecalComponentBase<DynamicTailDecalApplier, IDynamicTailDecalProvider>(service), IAwakableComponent
 {
 
 #nullable disable
     TailDecalApplier applier;
 #nullable enable
 
-    IDynamicTailDecalProvider? decalProvider;
-
     public void Awake()
     {
         applier = GetComponent<TailDecalApplier>();
     }
 
-    public bool ShowTexture()
-    {
-        if (decalProvider is null) { return false; }
-
-        var texture = decalProvider.GetTexture(this);
-        applier._tailDecalTextureSetter.SetTexture(texture);
-        return true;
-    }
-
-    public void OnDecalApplied(Decal decal)
-    {
-        if (decal.Id == decalProvider?.Id) { return; }
-
-        decalProvider?.Unregister(this);
-
-        decalProvider = service.GetTail(decal.Id);
-        decalProvider?.Register(this);
-    }
+    protected override void ShowTexture(Texture2D texture)
+        => applier._tailDecalTextureSetter.SetTexture(texture);
 
 }

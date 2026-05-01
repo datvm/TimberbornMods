@@ -14,3 +14,4 @@ public interface IDynamicDecalProvider<T> : IDynamicDecalProvider where T : Base
 }
 
 public interface IDynamicTailDecalProvider : IDynamicDecalProvider<DynamicTailDecalApplier>;
+public interface IDynamicBannerDecalProvider : IDynamicDecalProvider<DynamicDecalSupplierBuildingIcon>;

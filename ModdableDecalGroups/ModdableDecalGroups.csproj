@@ -2,9 +2,6 @@
 	<PropertyGroup>
 		<OutputModFolderName>ModdableDecalGroups</OutputModFolderName>
 	</PropertyGroup>
-	<ItemGroup>
-	  <Folder Include="Blueprints\DecalGroupSpec\Tails\" />
-	</ItemGroup>
 
 	<Import Project="../Targets/Common.targets" />
 	<Import Project="../Targets/CommonHarmony.targets" />
