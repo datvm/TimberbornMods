@@ -4,7 +4,8 @@
 public class ToolbarSegmentItemProvider(
     MSettings s,
     BottomBarPanel bottomBarPanel,
-    BottomBarButtonLookupService lookupService
+    BottomBarButtonLookupService lookupService,
+    ToolButtonActivationService toolButtonActivationService
 )
 {
 
@@ -123,15 +124,16 @@ public class ToolbarSegmentItemProvider(
         return item;
     }
 
-    public static ToolbarSegmentItem CreateItemFromToolButton(BottomBarButtonLookup<ToolButton> btn, VisualElement ve) => new()
+    public ToolbarSegmentItem CreateItemFromToolButton(BottomBarButtonLookup<ToolButton> btn, VisualElement ve) => new()
     {
         ButtonId = btn.Id,
         Name = btn.Title,
         Sprite = btn.Sprite,
         IsLocked = btn.IsLockedFunc?.Invoke() == true,
-        Action = btn.Activate,
+        Action = () => toolButtonActivationService.ActivateButtonAndGroup(btn),
         OriginalElement = ve
     };
+
 
     void Distribute(ReadOnlySpan<ToolbarSegmentItem> allChildren, ToolbarSegmentItem?[] items, int segmentCount)
     {

@@ -58,6 +58,8 @@ public class ToolbarController(
 
     void OnSegmentChosen(int index)
     {
+        inputService.FlushUIInput();
+
         var child = navigator.CurrentItem.Children?[index];
         if (child is null) { return; }
 
@@ -72,7 +74,7 @@ public class ToolbarController(
             {
                 quickSlotService.Push(child.ButtonId);
             }
-            
+
             child.Action?.Invoke();
             Dismiss();
         }
@@ -82,6 +84,8 @@ public class ToolbarController(
 
     void OnQuickSlotChosen(int index)
     {
+        inputService.FlushUIInput();
+
         var btn = quickSlotService.GetButtonAtSlot(index);
         if (btn is null) { return; }
 
