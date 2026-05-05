@@ -99,6 +99,12 @@ public class DecalPickerDialog(
         OnUIConfirmed();
     }
 
+    public async Task<DecalSpec?> PickSingleAsync(DecalTypeEnum type) => await PickSingleAsync(type.ToString());
+    public async Task<DecalSpec[]?> PickMultipleAsync(DecalTypeEnum type) => await PickMultipleAsync(type.ToString());
+
+    public async Task<DecalSpec?> PickSingleAsync(string type) => (await PickAsync(type, false))?.FirstOrDefault();
+    public async Task<DecalSpec[]?> PickMultipleAsync(string type) => await PickAsync(type, true);
+
     public async Task<DecalSpec[]?> PickAsync(string type, bool multiple)
     {
         this.multiple = multiple;
@@ -110,9 +116,6 @@ public class DecalPickerDialog(
 
         return selectedItems;
     }
-
-    public async Task<DecalSpec?> PickSingleAsync(string type) => (await PickAsync(type, false))?.FirstOrDefault();
-    public async Task<DecalSpec[]?> PickMultipleAsync(string type) => await PickAsync(type, true);
 
     void Filter(string kw)
     {

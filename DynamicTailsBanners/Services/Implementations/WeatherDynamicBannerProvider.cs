@@ -5,7 +5,7 @@ public class WeatherDynamicBannerProvider(
     IAssetLoader assets,
     WeatherIdService weatherIdService,
     EventBus eb
-) : WeatherProviderBase<DynamicDecalSupplierBuildingIcon>(assets, weatherIdService, eb), IDynamicBannerDecalProvider
+) : WeatherProviderBase<DynamicBuildingDecal>(assets, weatherIdService, eb), IDynamicBannerDecalProvider
 {
 
     public override string Id => "banner-weather-dynamic";

@@ -9,6 +9,8 @@ public class NamedIconProvider(IAssetLoader assets)
 
     public Sprite this[string name] => spritesByName[name];
 
+    public Sprite QuestionMark => GetOrLoadGameIcon(nameof(QuestionMark), "question-mark");
+
     public Sprite Food => GetOrLoadTopbar(nameof(Food), nameof(Food));
     public Sprite Logs => GetOrLoadTopbar(nameof(Logs), nameof(Logs));
     public Sprite Materials => GetOrLoadTopbar(nameof(Materials), nameof(Materials));

@@ -10,6 +10,7 @@
 		<Using Include="TimberUi.CommonProviders" />
 		<Using Include="TimberUi.Services" />
 		<Using Include="TimberUi.Helpers" />
+		<Using Include="TimberUi.Tools" />
 
 		<Reference Include="$(TimberUiPath)" Private="False" />
 	</ItemGroup>

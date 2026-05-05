@@ -11,7 +11,7 @@ public class WorkplaceDynamicTailProvider(IAssetLoader assets) : IDynamicTailDec
     Texture2D UnemployedTexture => unemployed ??= assets.Load<Texture2D>("Sprites/StatusIcons/NothingToDo");
     readonly Dictionary<string, Texture2D> cached = [];
 
-    public Texture2D GetTexture(DynamicTailDecalApplier comp)
+    public Texture2D GetTexture(DynamicTailDecal comp)
     {
         var worker = comp.GetComponent<Worker>();
         if (!worker) { return UnemployedTexture; }
@@ -70,7 +70,7 @@ public class WorkplaceDynamicTailProvider(IAssetLoader assets) : IDynamicTailDec
         return cached[templateName] = paddedTexture;
     }
 
-    public void Register(DynamicTailDecalApplier comp)
+    public void Register(DynamicTailDecal comp)
     {
         var worker = comp.GetComponent<Worker>();
         if (!worker) { return; }
@@ -78,7 +78,7 @@ public class WorkplaceDynamicTailProvider(IAssetLoader assets) : IDynamicTailDec
         worker.RelationsChanged += UpdateDecal;        
     }
 
-    public void Unregister(DynamicTailDecalApplier comp)
+    public void Unregister(DynamicTailDecal comp)
     {
         var worker = comp.GetComponent<Worker>();
         if (!worker) { return; }
@@ -86,7 +86,7 @@ public class WorkplaceDynamicTailProvider(IAssetLoader assets) : IDynamicTailDec
         worker.RelationsChanged -= UpdateDecal;
     }
 
-    void UpdateDecal(object sender, EventArgs e) => ((Worker)sender).GetComponent<DynamicTailDecalApplier>().ShowTexture();
+    void UpdateDecal(object sender, EventArgs e) => ((Worker)sender).GetComponent<DynamicTailDecal>().ShowTexture();
 
     public void Unload()
     {

@@ -7,6 +7,7 @@ public static class EntityExtensions
     extension<T>(T comp) where T : BaseComponent
     {
         public Guid GetEntityId() => comp.GetComponent<EntityComponent>().EntityId;
+        public UpdatableEntityStatComponent GetUpdatableStatComponent() => comp.GetComponent<UpdatableEntityStatComponent>();
     }
 
     extension(EntityRegistry entityRegistry)

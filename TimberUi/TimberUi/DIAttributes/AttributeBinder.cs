@@ -71,6 +71,8 @@ public static class AttributeBinder
 
             if (attr.MultiBind)
             {
+                IExportAssignee assignee;
+
                 if (asType is null)
                 {
                     throw new InvalidOperationException($"Multibind attribute on type {type.FullName} must specify an '{nameof(attr.As)}' type.");
@@ -78,23 +80,32 @@ public static class AttributeBinder
 
                 if (alsoBindSelf)
                 {
-                    configurator.Bind(type).AsScope(scope);
+                    assignee = configurator.Bind(type).AsScope(scope);
                     configurator.MultiBind(asType, type, true);
                 }
                 else
                 {
-                    configurator.MultiBind(asType, type, false).AsScope(scope);
+                    assignee = configurator.MultiBind(asType, type, false).AsScope(scope);
+                }
+
+                if (attr.Exported)
+                {
+                    assignee.AsExported();
                 }
             }
             else
             {
                 if (asType is null)
                 {
-                    configurator.Bind(type).AsScope(scope);
+                    var assignee = configurator.Bind(type).AsScope(scope);
+                    if (attr.Exported)
+                    {
+                        assignee.AsExported();
+                    }
                 }
                 else
                 {
-                    configurator.Bind(asType, type, scope, alsoBindSelf);
+                    configurator.BindExported(asType, type, scope, alsoBindSelf, attr.Exported);
                 }
             }
         }

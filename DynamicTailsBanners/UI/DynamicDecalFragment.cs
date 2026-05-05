@@ -52,6 +52,7 @@ public class DynamicDecalFragment(
         if (!decalSupplier) { return; }
         
         SetTitle(t.T("LV.DTB.OptionsTitle", t.TDecal(decalSupplier.Category)));
+        currId = null;
     }
 
     public void UpdateFragment()
