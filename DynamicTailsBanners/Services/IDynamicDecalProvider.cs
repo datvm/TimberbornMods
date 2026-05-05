@@ -13,5 +13,5 @@ public interface IDynamicDecalProvider<T> : IDynamicDecalProvider where T : Base
     Texture2D GetTexture(T comp);
 }
 
-public interface IDynamicTailDecalProvider : IDynamicDecalProvider<DynamicTailDecalApplier>;
-public interface IDynamicBannerDecalProvider : IDynamicDecalProvider<DynamicDecalSupplierBuildingIcon>;
+public interface IDynamicTailDecalProvider : IDynamicDecalProvider<DynamicTailDecal>;
+public interface IDynamicBannerDecalProvider : IDynamicDecalProvider<DynamicBuildingDecal>;

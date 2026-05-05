@@ -1,14 +1,18 @@
 ﻿namespace DynamicTailsBanners.Components;
 
 [AddTemplateModule2(typeof(DecalSupplierBuildingIcon))]
-public class DynamicDecalSupplierBuildingIcon(DynamicDecalService service)
-    : DynamicDecalComponentBase<DynamicDecalSupplierBuildingIcon, IDynamicBannerDecalProvider>(service), IAwakableComponent
+public class DynamicBuildingDecal(DynamicDecalService service)
+    : DynamicDecalComponentBase<DynamicBuildingDecal, IDynamicBannerDecalProvider>(service), IAwakableComponent
 {
 
     DecalSupplierBuildingIcon? buildingIcon;
 
-    public void Awake()
+    public override Material RendererMaterial => buildingIcon!._iconRenderer.material;
+
+    public override void Awake()
     {
+        base.Awake();
+
         if (HasComponent<EnterableTailDecalApplierSpec>()) // Disable on Detailer building
         {
             DisableComponent();

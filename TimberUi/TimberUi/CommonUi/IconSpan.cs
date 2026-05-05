@@ -42,10 +42,18 @@ public class IconSpan : VisualElement
 
         if (size.HasValue)
         {
-            var (x, y) = size.Value;
-            Icon.SetSize(x, y);
+            Icon.SetSize((int)size.Value.x, (int)size.Value.y);
         }
 
+        return this;
+    }
+
+    public IconSpan SetImageSize(Vector2 size) => SetImageSize((int)size.x, (int)size.y);
+    public IconSpan SetImageSize(int size) => SetImageSize(new Vector2(size, size));
+
+    public IconSpan SetImageSize(int w, int h)
+    {
+        Icon.SetSize(w, h);
         return this;
     }
 
@@ -55,6 +63,9 @@ public class IconSpan : VisualElement
         PostfixLabel.text = text;
         return this;
     }
+
+    public IconSpan SetContent(ImageSource src, string? prefixText = null, string? postfixText = null)
+        => SetContent(src, prefixText, postfixText, (Vector2?)null);
 
     public IconSpan SetContent(ImageSource src, string? prefixText = null, string? postfixText = null, int? size = null)
         => SetContent(src, prefixText, postfixText, size is null ? null : new Vector2(size.Value, size.Value));
@@ -70,6 +81,24 @@ public class IconSpan : VisualElement
         {
             SetPostfixText(postfixText);
         }
+        return this;
+    }
+
+    public IconSpan ClearImage()
+    {
+        Icon.sprite = null;
+        Icon.image = null;
+        Icon.vectorImage = null;
+        return this;
+    }
+
+    public IconSpan ClearContent()
+    {
+        ClearImage();
+
+        PrefixLabel?.text = "";
+        PostfixLabel?.text = "";
+
         return this;
     }
 

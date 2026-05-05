@@ -1,11 +1,13 @@
 ﻿namespace TimberUi;
 
+[Context(nameof(BindAttributeContext.Bootstrapper))]
+public class MBootstrapperConfig : BootstrapperAttributeConfigurator { }
 
-[Context("MainMenu")]
+[Context(nameof(BindAttributeContext.MainMenu))]
 public class MMenuConfig : MainMenuAttributeConfigurator { }
 
-[Context("Game")]
+[Context(nameof(BindAttributeContext.Game))]
 public class MGameConfig : GameAttributeConfigurator { }
 
-[Context("MapEditor")]
+[Context(nameof(BindAttributeContext.MapEditor))]
 public class MMapConfig : MapEditorAttributeConfigurator { }

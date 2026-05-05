@@ -1,11 +1,10 @@
 ﻿namespace DynamicTailsBanners.UI.DynamicOptions;
 
 [MultiBind(typeof(IDecalOptionFragment))]
-public class RandomTailProviderOption(
+public class RandomTailFragment(
     RandomTailProvider randomTailProvider,
     IContainer container,
-    ILoc t,
-    IDecalService decalService
+    ILoc t
 ) : VisualElement, IDecalOptionFragment
 {
     public string Id => RandomTailProvider.Id;
@@ -37,7 +36,7 @@ public class RandomTailProviderOption(
 
     async void Add()
     {
-        var decals = await container.GetInstance<DecalPickerDialog>().PickMultipleAsync(nameof(DecalTypeEnum.Tails));
+        var decals = await container.GetInstance<DecalPickerDialog>().PickMultipleAsync(DecalTypeEnum.Tails);
         if (decals is null || decals.Length == 0) { return; }
 
         var set = randomTailProvider.DecalIds.ToHashSet();
@@ -64,17 +63,14 @@ public class RandomTailProviderOption(
 
     void AddDecalUI(string id)
     {
-        var el = tailList.AddRow().AlignItems();
-
-        var texture = decalService.GetDecalTexture(new(id, nameof(DecalTypeEnum.Tails)));
-        el.AddIconSpan(texture, postfixText: id, size: 20).SetFlexGrow().SetFlexShrink().SetMarginRight(5);
-        el.AddGameButtonPadded(t.T("LV.DTB.Remove"), onClick: () => Remove(el, id));
+        var el = tailList.AddChild(container.GetInstance<DecalRow>).SetDecal(new(id, nameof(DecalTypeEnum.Tails)));
+        el.OnRemoveRequested += Remove;
     }
 
-    void Remove(VisualElement el, string id)
+    void Remove(object sender, DecalRow e)
     {
-        randomTailProvider.DecalIds.Remove(id);
-        el.RemoveFromHierarchy();
+        randomTailProvider.DecalIds.Remove(e.Decal.Id);
+        e.RemoveFromHierarchy();
 
         randomTailProvider.Randomize();
     }
@@ -90,6 +86,7 @@ public class RandomTailProviderOption(
     public void ClearFragment()
     {
         tailList.Clear();
+        this.SetDisplay(false);
     }
 
     public void UpdateFragment()

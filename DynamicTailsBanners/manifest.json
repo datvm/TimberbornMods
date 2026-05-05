@@ -5,8 +5,14 @@
     "MinimumGameVersion": "1.0.0",
     "Description": "Tails and Banners that change",
     "RequiredMods": [
-        { "Id": "TimberUi" },
-        { "Id": "Harmony" },
-        { "Id": "ModdableDecalGroups", "MinimumVersion": "10.1.0" }
+        {
+            "Id": "ModdableTimberborn",
+            "MinimumVersion": "10.1.5"
+        },
+        { "Id": "eMka.ModSettings" },
+        {
+            "Id": "ModdableDecalGroups",
+            "MinimumVersion": "10.1.0"
+        }
     ]
 }

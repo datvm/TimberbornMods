@@ -9,6 +9,12 @@ public static class TimberUiUtils
 
     public const string SteamId = "1062090";
 
+    public static readonly Color SuccessColor = new(0, .5f, .0686f);
+    public static readonly Color NeutralColor = new(.8f, .8f, .8f);
+    public static readonly Color WarningColor = new(.5f, .397f, 0);
+    public static readonly Color DangerColor = new(.5f, 0, 0);
+    public static readonly Color TransparentColor = new(0, 0, 0, 0);
+
     static TimberUiUtils()
     {
         LoadedAssemblyNames = AppDomain.CurrentDomain.GetAssemblies()
@@ -69,5 +75,8 @@ public static class TimberUiUtils
     public static AudioClip LoadAudioClipFrom(string filePath, string? name) => WavUtility.ToAudioClip(filePath, name: name);
 
     public static AudioClip LoadAudioClipFrom(byte[] bytes, string name) => WavUtility.ToAudioClip(bytes, name: name);
+
+    public static ImmutableArray<T> GetSortedEnumValues<T>() where T : struct, Enum
+        => [.. Enum.GetValues(typeof(T)).Cast<T>().OrderBy(e => e)];
 
 }

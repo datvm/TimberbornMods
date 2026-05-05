@@ -217,7 +217,9 @@ public static partial class UiBuilderExtensions
         /// <summary>
         /// Binds a source type to a destination type with the specified scope when the types are unknown at compile time.
         /// </summary>
-        public Configurator Bind(Type src, Type dst, Scope scope, bool alsoBindDestByItself = false)
+        public Configurator Bind(Type src, Type dst, Scope scope, bool alsoBindDestByItself = false) => configurator.BindExported(src, dst, scope, alsoBindDestByItself, false);
+
+        public Configurator BindExported(Type src, Type dst, Scope scope, bool alsoBindDestByItself = false, bool asExported = false)
         {
             if (alsoBindDestByItself)
             {
@@ -229,15 +231,24 @@ public static partial class UiBuilderExtensions
             {
                 var toExistingMethod = assignee.GetType().GetMethod(nameof(IBindingBuilder<>.ToExisting))
                     .MakeGenericMethod(dst);
-                toExistingMethod.Invoke(assignee, []);
+                var exportAssignee = (IExportAssignee)toExistingMethod.Invoke(assignee, []);
 
+                if (asExported)
+                {
+                    exportAssignee.AsExported();
+                }
             }
             else
             {
                 var toMethod = assignee.GetType().GetMethod(nameof(IBindingBuilder<>.To))
                     .MakeGenericMethod(dst);
                 var scopeAssignee = (IScopeAssignee)toMethod.Invoke(assignee, []);
-                scopeAssignee.AsScope(scope);
+                
+                var exportAssignee = scopeAssignee.AsScope(scope);
+                if (asExported)
+                {
+                    exportAssignee.AsExported();
+                }
             }
 
             return configurator;

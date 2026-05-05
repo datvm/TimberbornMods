@@ -5,7 +5,7 @@ public class WeatherDynamicTailProvider(
     IAssetLoader assets,
     WeatherIdService weatherIdService,
     EventBus eb
-) : WeatherProviderBase<DynamicTailDecalApplier>(assets, weatherIdService, eb), IDynamicTailDecalProvider
+) : WeatherProviderBase<DynamicTailDecal>(assets, weatherIdService, eb), IDynamicTailDecalProvider
 {
 
     public override string Id => "tail-weather-dynamic";

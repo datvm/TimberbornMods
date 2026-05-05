@@ -31,4 +31,9 @@ public static partial class UiBuilderExtensions
         public string T(ILoc t) => Priorities[(int)priority] ??= t.T($"Priorities.{priority}");
     }
 
+    extension(PopulationCounterMode m)
+    {
+        public string T(ILoc t) => t.T("Building.PopulationCounter.Mode." + m);
+    }
+
 }

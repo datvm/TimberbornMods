@@ -4,7 +4,8 @@
 public class RandomTailProvider(
     ISingletonLoader loader,
     IDecalService decalService,
-    EventBus eb
+    EventBus eb,
+    NamedIconProvider namedIconProvider
 ) : IDynamicTailDecalProvider, ILoadableSingleton, ISaveableSingleton
 {
     static readonly SingletonKey SaveKey = new(nameof(RandomTailProvider));
@@ -25,9 +26,9 @@ public class RandomTailProvider(
     string? currTextureId;
     Texture2D? todayTexture;
 
-    readonly HashSet<DynamicTailDecalApplier> comps = [];
+    readonly HashSet<DynamicTailDecal> comps = [];
 
-    public Texture2D GetTexture(DynamicTailDecalApplier comp)
+    public Texture2D GetTexture(DynamicTailDecal comp)
     {
         if (!SameForAll)
         {
@@ -62,8 +63,8 @@ public class RandomTailProvider(
         }
     }
 
-    public void Register(DynamicTailDecalApplier comp) => comps.Add(comp);
-    public void Unregister(DynamicTailDecalApplier comp) => comps.Remove(comp);
+    public void Register(DynamicTailDecal comp) => comps.Add(comp);
+    public void Unregister(DynamicTailDecal comp) => comps.Remove(comp);
 
     public void Save(ISingletonSaver singletonSaver)
     {
@@ -97,15 +98,10 @@ public class RandomTailProvider(
         }
     }
 
-    string RandomizeDecalId() => DecalIds.Count switch
-    {
-        0 => "",
-        1 => DecalIds[0],
-        _ => DecalIds[UnityEngine.Random.RandomRangeInt(0, DecalIds.Count)]
-    };
+    string RandomizeDecalId() => DecalIds.Randomize() ?? "";
 
     Texture2D GetTextureFrom(string? id) => string.IsNullOrEmpty(id)
-        ? Texture2D.whiteTexture
+        ? namedIconProvider.QuestionMark.texture
         : decalService.GetDecalTexture(new(id, nameof(DecalTypeEnum.Tails)));
 
 }

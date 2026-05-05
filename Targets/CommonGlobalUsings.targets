@@ -25,6 +25,10 @@
 		<Using Include="UnityEngine"/>
 		<Using Include="UnityEngine.UIElements" />
 		<Using Include="UnityEngine.InputSystem" />
+		
+		<Using Alias="Object" Include="UnityEngine.Object" />
+		<Using Alias="Label" Include="UnityEngine.UIElements.Label" />
+		
 
 		<Using Include="Timberborn.AccessibilitySettingsSystem"/>
 		<Using Include="Timberborn.AccessibleNavigation"/>

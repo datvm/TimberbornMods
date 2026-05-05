@@ -8,6 +8,7 @@ public class BindAttribute : Attribute
     public Scope? Scope { get; init; }
     public Type? As { get; init; }
     public bool AlsoBindSelf { get; init; }
+    public bool Exported { get; init; }
 
     public bool MultiBind { get; init; }
 
