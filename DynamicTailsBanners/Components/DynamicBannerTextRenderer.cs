@@ -40,13 +40,12 @@ public class DynamicBannerTextRenderer(TextTextureRenderer renderer) : BaseCompo
         Disable();
 
         opts = optionsComp.GetSettingsOrThrow<DynamicBannerTextOptions>();
-        opts.OnFontSizeChanged += OnFontSizeChanged;
-        OnFontSizeChanged(this, opts.FontSize);
+        SetFontSize(opts.FontSize);
     }
 
-    void OnFontSizeChanged(object sender, int e)
+    public void SetFontSize(int size)
     {
-        InitializeText(e);
+        InitializeText(size);
         SetContent(opts!.Content);
 
         this.RefreshDecalTexture();
@@ -54,7 +53,6 @@ public class DynamicBannerTextRenderer(TextTextureRenderer renderer) : BaseCompo
 
     public void Disable()
     {
-        opts?.OnFontSizeChanged -= OnFontSizeChanged;
         opts = null;
         DisposeText();
     }

@@ -5,6 +5,7 @@ namespace ModdableDecalGroups.UI;
 public class DecalButtonContainerGroupper
 {
     public const string ContainerName = "DecalGroups";
+    readonly HashSet<string> expandingIds = [];
 
     static WeakReference<DecalButtonContainerGroupper>? weakRef;
     readonly DecalGroupService groupService;
@@ -80,7 +81,10 @@ public class DecalButtonContainerGroupper
 
             var panel = root.AddChild<CollapsiblePanel>();
             panel.SetTitle(grp.Spec.Title.Value);
-            panel.SetExpand(grp.Spec.IsDefault);
+            
+            var id = grp.Spec.Id;
+            panel.SetExpand(expandingIds.Contains(id));
+            panel.ExpandChanged += e => OnPanelExpandChanged(e, id);
 
             var grpContainer = panel.Container.AddRow();
             grpContainer.SetWrap().SetMargin(top: 20);
@@ -95,4 +99,15 @@ public class DecalButtonContainerGroupper
         }
     }
 
+    void OnPanelExpandChanged(bool expand, string id)
+    {
+        if (expand)
+        {
+            expandingIds.Add(id);
+        }
+        else
+        {
+            expandingIds.Remove(id);
+        }        
+    }
 }

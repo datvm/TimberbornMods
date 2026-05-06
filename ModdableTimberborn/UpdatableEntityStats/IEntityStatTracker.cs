@@ -6,6 +6,8 @@ public interface IStatTracker : IDisposable
     void Pause();
     bool Running { get; }
 
+    void ForceUpdating();
+
     string ValueFormatted { get; }
     event EventHandler? OnValueChanged;
 }

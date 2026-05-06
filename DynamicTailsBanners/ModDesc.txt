@@ -1,0 +1,39 @@
+﻿This mod adds [b]Dynamic Tails and Banners[/b] to the game. Tails and banners can change based on certain conditions, including custom text and colors that display building or character stats. The mod is also expandable, allowing other mods to add their own dynamic tails and banners.
+
+[img]https://files.catbox.moe/p5hoo5.jpg[/img]
+
+All dynamic tails and banners are neatly organized in the new [b]Dynamic Tails/Banners[/b] group.
+
+[h1]Dynamic Tails[/h1]
+
+This mod includes:
+
+[img]https://files.catbox.moe/3vldrk.jpg[/img]
+
+- Weather Tails: the pattern changes based on the current weather condition.
+- Job Tails: displays the icon of the building where the beaver works.
+- Random Tails: choose from a list of patterns, and each day, one pattern will be randomly selected from the list. You can also optionally make all beavers share the same pattern each day.
+
+[h1]Dynamic Banners[/h1]
+
+Similar to tails, there are also [b]Weather[/b] and [b]Random[/b] banners. In addition, there are two major banner types that can display icons and text. You can also choose the background color and font size.
+
+- Icon Stat: displays an avatar icon, such as a building, tree, healthy beaver, contaminated beaver, or sick beaver. It can also display a production building's recipe icon or a storage building's stored-good icon.
+
+[img]https://files.catbox.moe/c4w51u.jpg[/img]
+
+- Dynamic Text: displays your own custom text or one of the relevant stats, such as storage stock, capacity, percentage full, production progress, or population-related stats.
+
+[img]https://files.catbox.moe/hp8rn9.jpg[/img]
+
+[img]https://files.catbox.moe/hp8rn9.jpg[/img]
+
+Feel free to suggest any useful stats that I missed. I will be happy to add them. The Stat API is provided by Moddable Timberborn, so it can be used by other mods as well. The text rendering is also a new feature provided by TimberUI that other mods can use to draw text on their own textures.
+
+[h1]Notes[/h1]
+
+- Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3480668755]More Naming[/url] mod if you want to rename everything to use for the Name banners.
+- The Copy/Duplicate feature was somewhat buggy. I fixed all issues I could find, but if you find any more, please let me know.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

@@ -47,6 +47,14 @@ public class DynamicBannerTextProvider(UpdatableEntityStatService statService) :
         RenderText(text, opts);
     }
 
+    public void SetTextSize(DynamicDecalOption opts, int size)
+    {
+        var s = GetSettings(opts);
+        s.FontSize = size;
+
+        GetRenderer(opts).SetFontSize(size);
+    }
+
     public void ChangeSettings(DynamicDecalOption opts, Action changeSettings)
     {
         UnregisterTracker(opts);
@@ -102,14 +110,20 @@ public class DynamicBannerTextProvider(UpdatableEntityStatService statService) :
 
         tracker.OnValueChanged += (_, _) => OnTextChanged(opts, tracker);
         tracker.Start();
-        
+
         opts.SetReference(tracker);
-        OnTextChanged(opts, tracker);
+        tracker.ForceUpdating();
     }
 
     void OnEntityLost(DynamicDecalOption opts) => SetEntity(opts, null);
     void OnTextChanged(DynamicDecalOption opts, IStatTracker tracker)
     {
+        if (!opts)
+        {
+            Debug.LogWarning($"DynamicDecalOption is null. This should not be happening.");
+            return;
+        }
+
         var s = GetSettings(opts);
         var c = s.Content = tracker.ValueFormatted;
 
@@ -128,7 +142,7 @@ public class DynamicBannerTextProvider(UpdatableEntityStatService statService) :
         opts.RefreshDecalTexture();
     }
 
-    void RegisterPopulationStat(DynamicDecalOption opts, PopulationStat popStat)
+    async void RegisterPopulationStat(DynamicDecalOption opts, PopulationStat popStat)
     {
         var dc = opts.Components[0]?.GetComponent<DistrictCenter>();
         var updatable = dc ? dc!.GetUpdatableStatComponent() : null;
@@ -152,11 +166,13 @@ public class DynamicBannerTextProvider(UpdatableEntityStatService statService) :
         }
 
         SetupTracker(tracker, opts);
+
     }
 
     void UnregisterTracker(DynamicDecalOption opts)
     {
         var tracker = GetTracker(opts);
+
         tracker?.Dispose();
         opts.ClearReference();
     }
