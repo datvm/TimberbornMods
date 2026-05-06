@@ -119,22 +119,30 @@ public class DynamicDecalOption(EntityRegistry registry) : BaseComponent, IDupli
         }
     }
 
-    public void DuplicateFrom(DynamicDecalOption source)
+    public async void DuplicateFrom(DynamicDecalOption source)
     {
+        await Awaitable.NextFrameAsync(); // Let the Decal ID copied first
+
         var min = Math.Min(Components.Length, source.Components.Length);
 
         for (int i = 0; i < min; i++)
         {
             Components[i] = source.Components[i];
         }
-        settings = source.settings;
 
-        foreach (var c in GetComponentsAllocating<IDynamicDecalComponent>())
+        // Deep copy the settings, do NOT just copy the reference
+        if (settings is not null)
         {
-            if (((BaseComponent)c).Enabled)
-            {
-                c.ShowTexture();
-            }
+            var json = JsonConvert.SerializeObject(source.settings);
+            settings = JsonConvert.DeserializeObject(json, settings.GetType());
+        }
+
+        // Do NOT copy reference
+
+        var buildingDecal = GetComponent<DynamicBuildingDecal>();
+        if (buildingDecal)
+        {
+            buildingDecal.ReregisterProvider(true);
         }
     }
 

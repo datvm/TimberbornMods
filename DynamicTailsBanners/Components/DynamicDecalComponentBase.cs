@@ -19,6 +19,7 @@ public abstract class DynamicDecalComponentBase<T, TProvider>(DynamicDecalServic
     public abstract Material RendererMaterial { get; }
 
     public DynamicDecalOption Options { get; private set; } = null!;
+    Decal? currDecal;
 
     public virtual void Awake()
     {
@@ -33,13 +34,25 @@ public abstract class DynamicDecalComponentBase<T, TProvider>(DynamicDecalServic
     {
         if (decal.Id == provider?.Id || !Enabled) { return; }
 
+        currDecal = decal;
+        ReregisterProvider(false);
+    }
+
+    public void ReregisterProvider(bool keepOptions)
+    {
         if (provider is not null)
         {
             provider.Unregister((T)this);
-            Options.Clear(); // Don't call this outside, because on load, it will get cleared
+
+            if (!keepOptions)
+            {
+                Options.Clear();
+            }
         }
 
-        provider = GetProvider(decal);
+        if (currDecal is null) { return; }
+
+        provider = GetProvider(currDecal.Value);
 
         if (provider is IConnectedDynamicDecal c)
         {
@@ -47,7 +60,6 @@ public abstract class DynamicDecalComponentBase<T, TProvider>(DynamicDecalServic
         }
 
         provider?.Register((T)this);
-
     }
 
     public bool ShowTexture()

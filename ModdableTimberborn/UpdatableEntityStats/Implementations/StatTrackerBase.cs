@@ -18,7 +18,7 @@ public abstract class StatTrackerBase<T> : IEntityStatTracker<T>
     public bool Running { get; private set; }
     public T? Value { get; protected set; }
     public virtual string ValueFormatted => Value?.ToString() ?? "?";
-    
+
     public StatTrackerBase(UpdatableEntityStatComponent comp)
     {
         this.comp = comp;
@@ -26,7 +26,7 @@ public abstract class StatTrackerBase<T> : IEntityStatTracker<T>
     }
 
     public virtual void Start()
-    {        
+    {
         if (Running) { return; }
 
         Running = true;
@@ -47,12 +47,14 @@ public abstract class StatTrackerBase<T> : IEntityStatTracker<T>
 
     protected abstract T CalculateValue();
 
-    protected void UpdateValue()
+    public void ForceUpdating() => UpdateValue(true);
+
+    protected void UpdateValue(bool force = false)
     {
         var oldValue = Value;
         Value = CalculateValue();
 
-        if (!EqualityComparer<T?>.Default.Equals(oldValue, Value) && Running)
+        if (force || (!EqualityComparer<T?>.Default.Equals(oldValue, Value) && Running))
         {
             OnValueChanged?.Invoke(this, EventArgs.Empty);
             OnTypedValueChanged?.Invoke(this, Value);

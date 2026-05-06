@@ -9,8 +9,7 @@ public class DynamicTextBannerFragment(
     DynamicBannerTextProvider p,
     EntityPickerPanel entityPickerPanel,
     ColorPickerPanel colorPickerPanel,
-    DistrictCenterRegistry districtCenterRegistry,
-    DialogService diag
+    DistrictCenterRegistry districtCenterRegistry
 ) : VisualElement, IDecalOptionFragment
 {
     public string Id => DynamicBannerTextProvider.Id;
@@ -20,7 +19,6 @@ public class DynamicTextBannerFragment(
     VisualElement pnlPopulation;
     DropdownRow<PopulationCounterMode> cboPopulationModes;
     TextField txtContent;
-    Button btnChangeContent;
     DropdownRow<int> cboFontSize;
     VisualElement pnlEntityPicker;
 #nullable enable
@@ -83,11 +81,8 @@ public class DynamicTextBannerFragment(
         
 
         var contentRow = this.AddRow().AlignItems();
-        txtContent = contentRow.AddTextField("DynamicDecalTextContent").SetFlexGrow().SetMarginRight(5);
-        txtContent.enabledSelf = false;
-
-        btnChangeContent = contentRow.AddGameButtonPadded(t.T("LV.DTB.Change"), ChangeContentAsync)
-            .SetFlexShrink(0);
+        txtContent = contentRow.AddTextField("DynamicDecalTextContent", OnContentChanged).SetFlexGrow().SetMarginRight(5)
+            .Initialize(veInit);
 
         return this;
     }
@@ -166,7 +161,7 @@ public class DynamicTextBannerFragment(
 
         if (!settings.IsCustomText)
         {
-            txtContent.text = settings.Content;
+            txtContent.SetValueWithoutNotify(settings.Content);
         }
     }
 
@@ -212,22 +207,22 @@ public class DynamicTextBannerFragment(
         var isCustomText = settings.IsCustomText;
 
         pnlPopulation.SetDisplay(isPopulation);
-        btnChangeContent.enabledSelf = isCustomText;
+        txtContent.enabledSelf = isCustomText;
         pnlEntityPicker.SetDisplay(!isPopulation && !isCustomText);
     }
 
-    async void ChangeContentAsync()
+    void OnContentChanged(string v)
     {
-        if (!opts || settings?.IsCustomText != true) { return; }
+        if (!opts) { return; }
 
-        var content = settings.Content;
-        var newContent = await diag.PromptAsync("", content);
-        if (newContent is null || content == newContent) { return; }
-
-        p.SetCustomText(opts!, newContent);
-        txtContent.text = newContent;
+        p.SetCustomText(opts!, v);
     }
 
-    void OnSizeChanged(IndexedDropdownRowItem<int> e) => settings?.FontSize = e.Item.Value;
+    void OnSizeChanged(IndexedDropdownRowItem<int> e)
+    {
+        if (!opts) { return; }
+
+        p.SetTextSize(opts!, e.Item.Value);
+    }
 
 }

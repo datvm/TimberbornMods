@@ -76,12 +76,12 @@ public class GlobalPopulationStatTracker(PopulationCounterOptions options, Popul
         UpdateValue();
     }
 
-    void UpdateValue()
+    void UpdateValue(bool force = false)
     {
         var old = Value;
         Value = service.GetGlobalData(options);
 
-        if (old != Value && Running)
+        if (force || (old != Value && Running))
         {
             OnValueChanged?.Invoke(this, EventArgs.Empty);
             OnTypedValueChanged?.Invoke(this, Value);
@@ -90,4 +90,5 @@ public class GlobalPopulationStatTracker(PopulationCounterOptions options, Popul
 
     public void Dispose() => Pause();
 
+    public void ForceUpdating() => UpdateValue(true);
 }
