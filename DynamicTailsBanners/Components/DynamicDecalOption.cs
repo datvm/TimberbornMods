@@ -7,7 +7,7 @@ public class DynamicDecalOption(EntityRegistry registry) : BaseComponent, IDupli
     static readonly ListKey<Guid> ComponentsKey = new("ComponentIds");
     static readonly PropertyKey<string> SettingsKey = new("Settings");
 
-    public EntityComponent?[] Components { get; private set; } = [];
+    public EntityComponent?[] Components { get; internal set; } = [];
     public HashSet<Delegate> Handlers { get; } = [];
 
     string? json;
@@ -16,6 +16,8 @@ public class DynamicDecalOption(EntityRegistry registry) : BaseComponent, IDupli
 
     public DynamicBuildingDecal? BuildingDecal { get; private set; }
     public DynamicTailDecal? TailDecal { get; private set; }
+
+    public string? SerializedSettings => settings is null ? null : JsonConvert.SerializeObject(settings);
 
     public void Awake()
     {
@@ -121,25 +123,31 @@ public class DynamicDecalOption(EntityRegistry registry) : BaseComponent, IDupli
 
     public async void DuplicateFrom(DynamicDecalOption source)
     {
+        await ApplyModelAsync(DynamicDecalOptionBuildingSettingsModel.Create(source));
+    }
+
+    public async Task ApplyModelAsync(DynamicDecalOptionBuildingSettingsModel model)
+    {
         await Awaitable.NextFrameAsync(); // Let the Decal ID copied first
 
-        var min = Math.Min(Components.Length, source.Components.Length);
+        var buildingDecal = GetComponent<DynamicBuildingDecal>();
+        if (!buildingDecal) { return; } // Should not happen, but just in case
+
+        buildingDecal.UnregisterProvider(false);
+
+        var min = Math.Min(Components.Length, model.EntityIds.Length);
 
         for (int i = 0; i < min; i++)
         {
-            Components[i] = source.Components[i];
+            var id = model.EntityIds[i];
+            Components[i] = id is null ? null : registry.GetEntity(id.Value);
         }
 
         // Deep copy the settings, do NOT just copy the reference
-        if (settings is not null)
-        {
-            var json = JsonConvert.SerializeObject(source.settings);
-            settings = JsonConvert.DeserializeObject(json, settings.GetType());
-        }
+        json = model.SettingsJson;
 
         // Do NOT copy reference
 
-        var buildingDecal = GetComponent<DynamicBuildingDecal>();
         if (buildingDecal)
         {
             buildingDecal.ReregisterProvider(true);

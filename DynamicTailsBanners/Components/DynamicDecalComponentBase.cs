@@ -38,17 +38,22 @@ public abstract class DynamicDecalComponentBase<T, TProvider>(DynamicDecalServic
         ReregisterProvider(false);
     }
 
-    public void ReregisterProvider(bool keepOptions)
+    public void UnregisterProvider(bool keepOptions)
     {
         if (provider is not null)
         {
             provider.Unregister((T)this);
-
+            provider = default;
             if (!keepOptions)
             {
                 Options.Clear();
             }
         }
+    }
+
+    public void ReregisterProvider(bool keepOptions)
+    {
+        UnregisterProvider(keepOptions);
 
         if (currDecal is null) { return; }
 

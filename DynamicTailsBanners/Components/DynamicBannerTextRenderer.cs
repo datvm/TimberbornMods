@@ -40,12 +40,17 @@ public class DynamicBannerTextRenderer(TextTextureRenderer renderer) : BaseCompo
         Disable();
 
         opts = optionsComp.GetSettingsOrThrow<DynamicBannerTextOptions>();
-        SetFontSize(opts.FontSize);
+        if (opts.FontName is null)
+        {
+            throw new InvalidOperationException($"Font name is not set in options. Cannot enable DynamicBannerTextRenderer.");
+        }
+
+        SetFont(opts.FontName, opts.FontSize);
     }
 
-    public void SetFontSize(int size)
+    public void SetFont(string fontName, int fontSize)
     {
-        InitializeText(size);
+        InitializeText(fontName, fontSize);
         SetContent(opts!.Content);
 
         this.RefreshDecalTexture();
@@ -57,14 +62,14 @@ public class DynamicBannerTextRenderer(TextTextureRenderer renderer) : BaseCompo
         DisposeText();
     }
 
-    void InitializeText(int fontSize)
+    void InitializeText(string fontName, int fontSize)
     {
         if (textTexture is not null)
         {
             DisposeText();
         }
 
-        textTexture = renderer.Create(Size, Size, TextTextureRenderer.MonospaceFonts, fontSize);
+        textTexture = renderer.Create(Size, Size, [fontName], fontSize);
     }
 
     void DisposeText()

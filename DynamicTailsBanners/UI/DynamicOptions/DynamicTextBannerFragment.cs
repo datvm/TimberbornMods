@@ -9,7 +9,8 @@ public class DynamicTextBannerFragment(
     DynamicBannerTextProvider p,
     EntityPickerPanel entityPickerPanel,
     ColorPickerPanel colorPickerPanel,
-    DistrictCenterRegistry districtCenterRegistry
+    DistrictCenterRegistry districtCenterRegistry,
+    TextTextureFontService fontService
 ) : VisualElement, IDecalOptionFragment
 {
     public string Id => DynamicBannerTextProvider.Id;
@@ -21,6 +22,7 @@ public class DynamicTextBannerFragment(
     TextField txtContent;
     DropdownRow<int> cboFontSize;
     VisualElement pnlEntityPicker;
+    DropdownRow<string> cboFontName;
 #nullable enable
 
     DropdownRow<IUpdatableEntityStat?> cboStats = null!;
@@ -41,6 +43,13 @@ public class DynamicTextBannerFragment(
     {
         Add(colorPickerPanel.SetMarginBottom(10));
         colorPickerPanel.OnColorChanged += OnColorChanged;
+
+        cboFontName = this.AddDropdownRow<string>(
+            t.T("LV.DTB.FontName"),
+            OnFontNameChanged,
+            veInit, dropdownItemsSetter
+        ).SetMarginBottom(10);
+        fontService.PopulateDropdown(cboFontName);
 
         cboFontSize = this.AddDropdownRow(
             [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
@@ -119,6 +128,7 @@ public class DynamicTextBannerFragment(
             return;
         }
 
+        cboFontName.SetSelectedValueWithoutNotifying(settings.FontName);
         cboFontSize.SetSelectedValueWithoutNotifying(settings.FontSize);
 
         var statId = settings.StatId;        
@@ -218,11 +228,18 @@ public class DynamicTextBannerFragment(
         p.SetCustomText(opts!, v);
     }
 
+    void OnFontNameChanged(IndexedDropdownRowItem<string> e)
+    {
+        if (!opts) { return; }
+
+        p.SetTextFont(opts!, e.Item.Value, null);
+    }
+
     void OnSizeChanged(IndexedDropdownRowItem<int> e)
     {
         if (!opts) { return; }
 
-        p.SetTextSize(opts!, e.Item.Value);
+        p.SetTextFont(opts!, null, e.Item.Value);
     }
 
 }

@@ -220,18 +220,44 @@ public static class GlyphLayout
                 return;
             }
 
-            if (line.Width > 0 && line.Width + wordWidth > width)
+            var isWhitespaceWord =
+                word.Count == 1 &&
+                (word[0].Character == TextTextureRenderer.Space ||
+                 word[0].Character == TextTextureRenderer.Tab);
+
+            if (wordWidth <= width)
             {
-                TrimTrailingSpaces(line);
+                if (line.Width > 0 && line.Width + wordWidth > width)
+                {
+                    TrimTrailingSpaces(line);
 
-                line = new RawLine();
-                lines.Add(line);
+                    line = new RawLine();
+                    lines.Add(line);
 
-                TrimLeadingSpaces(word, ref wordWidth);
+                    TrimLeadingSpaces(word, ref wordWidth);
+                }
+
+                line.Items.AddRange(word);
+                line.Width += wordWidth;
             }
+            else if (!isWhitespaceWord)
+            {
+                TrimLeadingSpaces(word, ref wordWidth);
 
-            line.Items.AddRange(word);
-            line.Width += wordWidth;
+                foreach (var wordItem in word)
+                {
+                    if (line.Width > 0 && line.Width + wordItem.Advance > width)
+                    {
+                        TrimTrailingSpaces(line);
+
+                        line = new RawLine();
+                        lines.Add(line);
+                    }
+
+                    line.Items.Add(wordItem);
+                    line.Width += wordItem.Advance;
+                }
+            }
 
             word.Clear();
             wordWidth = 0;
@@ -263,25 +289,6 @@ public static class GlyphLayout
             if (c == TextTextureRenderer.Space || c == TextTextureRenderer.Tab)
             {
                 FlushWord();
-            }
-            else if (wordWidth > width && line.Width == 0)
-            {
-                // Single word is longer than the texture.
-                // Fall back to anywhere wrapping for this word.
-                foreach (var wordItem in word)
-                {
-                    if (line.Width > 0 && line.Width + wordItem.Advance > width)
-                    {
-                        line = new RawLine();
-                        lines.Add(line);
-                    }
-
-                    line.Items.Add(wordItem);
-                    line.Width += wordItem.Advance;
-                }
-
-                word.Clear();
-                wordWidth = 0;
             }
         }
 
