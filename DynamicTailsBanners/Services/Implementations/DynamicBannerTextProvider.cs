@@ -1,12 +1,17 @@
 ﻿namespace DynamicTailsBanners.Services.Implementations;
 
 [MultiBind(typeof(IDynamicDecalProvider), AlsoBindSelf = true)]
-public class DynamicBannerTextProvider(UpdatableEntityStatService statService) : IDynamicBannerDecalProvider, IConnectedDynamicDecal
+public class DynamicBannerTextProvider(UpdatableEntityStatService statService, TextTextureFontService fontService) : IDynamicBannerDecalProvider, IConnectedDynamicDecal, ILoadableSingleton
 {
     public const string Id = "dynamic-banner-text";
 
     string IDynamicDecalProvider.Id => Id;
     public int ExpectedConnectionCount => 1;
+
+    public void Load()
+    {
+        fontService.EnsureInitialized();
+    }
 
     public Texture2D GetTexture(DynamicBuildingDecal comp)
     {
@@ -47,12 +52,21 @@ public class DynamicBannerTextProvider(UpdatableEntityStatService statService) :
         RenderText(text, opts);
     }
 
-    public void SetTextSize(DynamicDecalOption opts, int size)
+    public void SetTextFont(DynamicDecalOption opts, string? name, int? size)
     {
         var s = GetSettings(opts);
-        s.FontSize = size;
 
-        GetRenderer(opts).SetFontSize(size);
+        if (name is not null)
+        {
+            s.FontName = name;
+        }
+
+        if (size.HasValue)
+        {
+            s.FontSize = size.Value;
+        }
+        
+        GetRenderer(opts).SetFont(s.FontName!, s.FontSize);
     }
 
     public void ChangeSettings(DynamicDecalOption opts, Action changeSettings)
@@ -180,7 +194,8 @@ public class DynamicBannerTextProvider(UpdatableEntityStatService statService) :
     public void Register(DynamicBuildingDecal comp)
     {
         var opts = comp.Options;
-        GetSettings(opts); // Also use for setting default
+        var s = GetSettings(opts); // Also use for setting default
+        s.FontName ??= fontService.MonospaceFont;
 
         GetRenderer(comp).Enable();
 
@@ -200,5 +215,6 @@ public class DynamicBannerTextProvider(UpdatableEntityStatService statService) :
         => opts.GetSettingsOrDefault<DynamicBannerTextOptions>();
 
     static IStatTracker? GetTracker(DynamicDecalOption opts) => opts.GetReference<IStatTracker>();
+
 
 }

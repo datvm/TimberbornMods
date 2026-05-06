@@ -9,19 +9,8 @@ public class TextTextureRenderer : IUnloadableSingleton
     public const char Space = ' ';
     public static readonly FrozenSet<char> IgnoredChars = [NewLine, Tab, CarriageReturn, Space];
 
-    public static readonly string[] MonospaceFonts =
-    [
-        "Cascadia Mono", "Consolas", "Courier New", // Windows
-        "SF Mono", "Menlo", "Monaco", "Courier", // Mac
-        "DejaVu Sans Mono", "Liberation Mono", "Ubuntu Mono", "Noto Sans Mono", // Linux
-    ];
-
-    public static readonly string[] DefaultFonts =
-    [
-        "Segoe UI", "Arial", "Calibri", "Tahoma", // Windows
-        "SF Pro", "Helvetica Neue", "Helvetica", "Arial", // Mac
-        "Noto Sans", "DejaVu Sans", "Liberation Sans", "Ubuntu", // Linux
-    ];
+    public static readonly string[] MonospaceFonts = TextTextureFontService.MonospaceFonts;
+    public static readonly string[] DefaultFonts = TextTextureFontService.DefaultFonts;
 
     public const TextureFormat GlyphTextureFormat = TextureFormat.RGBA32;
 
