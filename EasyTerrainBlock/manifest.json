@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Easy Terrain Block",
+    "Version": "10.0.0",
+    "Id": "EasyTerrainBlock",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Placing Terrain Blocks over 1x1x1 buildings",
+    "RequiredMods": [
+        { "Id": "ModdableTimberborn" }
+    ]
+}

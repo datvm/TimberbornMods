@@ -19,14 +19,15 @@ public class ChronicleEventHistoryService(
     public HashSet<string> FinishedEventIds { get; } = [];
     public string? NextEventIdRequested { get; set; }
 
-    public string? ActiveEventId
+    public EventHistoryRecord? ActiveRecord
     {
         get
         {
             var lastEv = records.LastOrDefault();
-            return lastEv is not null && lastEv.EndDay is null ? lastEv.Id : null;
+            return (lastEv is not null && lastEv.EndDay is null) ? lastEv : null;
         }
     }
+    public string? ActiveEventId => ActiveRecord?.Id;
 
     public float NextEventMinimumDay { get; private set; }
 

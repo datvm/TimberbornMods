@@ -84,6 +84,7 @@
   <Folder Name="/NonGameplay/">
     <Project Path="BeaverJukebox/BeaverJukebox.csproj" />
     <Project Path="BuildingDecal/BuildingDecal.csproj" />
+    <Project Path="BuildingSigns/BuildingSigns.csproj" Id="2c2eadea-3298-4657-8e3c-462748e7ba53" />
     <Project Path="CameraBookmarks/CameraBookmarks.csproj" />
     <Project Path="ColorfulBeavers/ColorfulBeavers.csproj" />
     <Project Path="ColorfulZipline/ColorfulZipline.csproj" />
@@ -92,6 +93,7 @@
     <Project Path="CopyNameToo/CopyNameToo.csproj" Id="86034be9-2cbd-47bf-b296-dd3a9349a77a" />
     <Project Path="DecorativePlants/DecorativePlants.csproj" Id="cae31d9d-4321-4d81-ac9a-6ee34793c666" />
     <Project Path="DevModeButton/DevModeButton.csproj" />
+    <Project Path="EasyTerrainBlock/EasyTerrainBlock.csproj" Id="8f965d23-143c-464c-8132-6435687ca77a" />
     <Project Path="EvenMoreLights/EvenMoreLights.csproj" />
     <Project Path="HueAndTurnX/HueAndTurnX.csproj" Id="c6f14e26-4102-4679-a11c-07f50cbbfb68" />
     <Project Path="MacroManagement/MacroManagement.csproj" />
@@ -213,6 +215,7 @@
   <Project Path="TimberMarket/TimberMarket.csproj" />
   <Project Path="UnlimitedDistrictRange/UnlimitedDistrictRange.csproj" />
   <Project Path="UnstableCoreChallenge/UnstableCoreChallenge.csproj" />
+  <Project Path="WaterErosion/WaterErosion.csproj" Id="93573e9b-b1df-4bef-a732-297979de88d5" />
   <Project Path="WaterSwap/WaterSwap.csproj" />
   <Project Path="WirelessCoil/WirelessCoil.csproj" />
   <Project Path="Ziporter/Ziporter.csproj" />

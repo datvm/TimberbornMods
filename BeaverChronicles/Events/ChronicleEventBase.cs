@@ -2,7 +2,9 @@
 
 public abstract class ChronicleEventBase : IChronicleEvent
 {
-    public virtual string Id => GetType().FullName;
+    public virtual string Id { get; }
+    public virtual string NameLoc => "LV.BCEv." + Id;
+
     public abstract IReadOnlyCollection<EventTriggerSource> TriggerSources { get; }
     public abstract void OnTriggered(IEventTriggerParameters parameters);
 
@@ -10,6 +12,12 @@ public abstract class ChronicleEventBase : IChronicleEvent
 
     protected ChronicleEventService? chronicleEventService;
     protected IEventTriggerParameters? triggerParameters;
+    protected EventHistoryRecord? historyRecord;
+
+    public ChronicleEventBase()
+    {
+        Id = GetType().Name;
+    }
 
     public abstract int GetTriggerWeight(IEventTriggerParameters parameters);
 
@@ -17,6 +25,7 @@ public abstract class ChronicleEventBase : IChronicleEvent
     {
         this.chronicleEventService = chronicleEventService;
         triggerParameters = parameters;
+        historyRecord = chronicleEventService.ActiveRecord;
 
         OnTriggered(parameters);
     }
@@ -29,9 +38,9 @@ public abstract class ChronicleEventBase : IChronicleEvent
         }
 
         OnConcluded();
+        chronicleEventService!.ConcludeEvent();
 
         Clear();
-        chronicleEventService!.ConcludeEvent();
     }
 
     protected virtual void OnConcluded() { }
@@ -40,6 +49,7 @@ public abstract class ChronicleEventBase : IChronicleEvent
     {
         triggerParameters = null;
         chronicleEventService = null;
+        historyRecord = null;
     }
 
 }

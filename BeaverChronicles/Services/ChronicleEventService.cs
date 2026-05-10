@@ -5,22 +5,32 @@ public class ChronicleEventService(
     ChronicleEventRegistry registry,
     ChronicleEventHistoryService history,
     ChronicleGameEventHandler gameEventHandler,
-    IDayNightCycle dayNightCycle
+    IDayNightCycle dayNightCycle,
+    ActiveChronicleEventService activeEventService
 ) : ILoadableSingleton, IPostLoadableSingleton, ITickableSingleton
 {
     public readonly ChronicleEventRegistry Registry = registry;
     public readonly ChronicleEventHistoryService History = history;
 
     public IChronicleEvent? ActiveEvent { get; private set; }
+    public EventHistoryRecord? ActiveRecord => History.ActiveRecord;
     public bool HasActiveEvent => ActiveEvent is not null;
 
     public event EventHandler<IChronicleEvent>? BeforeEventTriggered;
     public event EventHandler<IChronicleEvent>? OnEventEnded;
+    public event EventHandler<IChronicleEvent?> ActiveEventChanged = null!;
 
     public void Load()
     {
+        ActiveEventChanged += OnActiveEventChanged;
+
         gameEventHandler.GameEventTriggered += OnGameEvent;
         TriggerSavedEvent();
+    }
+
+    void OnActiveEventChanged(object sender, IChronicleEvent? e)
+    {
+        activeEventService.SetActiveEvent(e);
     }
 
     public void PostLoad()
@@ -52,6 +62,7 @@ public class ChronicleEventService(
         }
 
         ActiveEvent = null;
+        ActiveEventChanged?.Invoke(this, null);
 
         if (MetMinimumEventDay)
         {
@@ -83,8 +94,6 @@ public class ChronicleEventService(
 
     IChronicleEvent? ChooseEvent(IEventTriggerParameters p)
     {
-        TimberUiUtils.LogDev($"Choosing event for trigger {p}");
-
         var events = Registry.EventsByTrigger[p.Source];
         if (events.Length == 0) { return null; }
 
@@ -194,6 +203,7 @@ public class ChronicleEventService(
 
         ActiveEvent = e;
         BeforeEventTriggered?.Invoke(this, e);
+        ActiveEventChanged?.Invoke(this, e);
         e.Trigger(parameters, this);
     }
 

@@ -1,5 +1,4 @@
-﻿
-namespace BeaverChronicles.Services;
+﻿namespace BeaverChronicles.Services;
 
 [BindSingleton]
 public class ChronicleGameEventHandler(
@@ -8,7 +7,7 @@ public class ChronicleGameEventHandler(
     IDayNightCycle dayNightCycle,
     GameCycleService gameCycleService,
     ITimeTriggerFactory timeTriggerFactory,
-    IWeatherIdService weatherIdService
+    WeatherIdService weatherIdService
 ) : ITickableSingleton, ISaveableSingleton, ILoadableSingleton
 {
     const float NewDayDelay = .5f / 24f; // Delay half an hour so it's not conflict with other events.
@@ -135,7 +134,7 @@ public class ChronicleGameEventHandler(
         if (hour == currHour) { return; }
 
         var cycle = gameCycleService.Cycle;
-        var weatherId = weatherIdService.GetWeatherId();
+        var weatherId = weatherIdService.GetId();
         var parameters = CreateParameters();
 
         Trigger(Create(EventTriggerSource.NewHour, parameters));

@@ -1,0 +1,11 @@
+﻿{
+    "Name": "Water Erosion",
+    "Version": "10.0.0",
+    "Id": "WaterErosion",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Water eventually erode your land",
+    "RequiredMods": [
+        { "Id": "eMka.ModSettings" },
+        { "Id": "ModdableTimberborn" }
+    ]
+}

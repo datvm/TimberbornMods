@@ -1,0 +1,10 @@
+﻿ID,Text,Comment
+LV.WE.ErosionRate,"Water Erosion Rate (%/day)",
+LV.WE.ErosionRateDesc,"The standard rate at which 0% contamination water erodes the terrain per 1m³/s.
+1%/day means a tile will fully collapse after 50 days under constant 1m³/s water flow.",
+LV.WE.BadwaterErosionRate,"Badwater Erosion Rate (%/day)",
+LV.WE.BadwaterErosionRate,"The rate of erosion for water with 100% contamination.
+Any water with contamination between 0% and 100% will have an erosion rate between the standard and badwater rates scaled linearly.",
+LV.WE.BlockageThreshold,"Blockage threshold (%)",
+LV.WE.BlockageThresholdDesc,"The threshold of erosion that a land tile becomes a Blockage.
+Blockage then becomes ¾ blockage, then ½ blockage, then ¼ blockage, and finally fully eroded at linearly scaled thresholds after the initial blockage threshold.",

@@ -10,12 +10,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />
+		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
 		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 		
-		<ProjectReference Include="..\DynamicTailsBanners\DynamicTailsBanners.csproj" />
+		<ProjectReference Include="..\BeaverChronicles\BeaverChronicles.csproj" />
 		
 	</ItemGroup>
 </Project>

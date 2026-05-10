@@ -16,7 +16,7 @@ This mod includes:
 
 [h1]Dynamic Banners[/h1]
 
-Similar to tails, there are also [b]Weather[/b] and [b]Random[/b] banners. In addition, there are two major banner types that can display icons and text. You can also choose the background color and font size.
+Similar to tails, there are also [b]Weather[/b] and [b]Random[/b] banners. In addition, there are two major banner types that can display icons and text. You can also choose the background color, and font name and size.
 
 - Icon Stat: displays an avatar icon, such as a building, tree, healthy beaver, contaminated beaver, or sick beaver. It can also display a production building's recipe icon or a storage building's stored-good icon.
 
@@ -29,6 +29,9 @@ Similar to tails, there are also [b]Weather[/b] and [b]Random[/b] banners. In ad
 [img]https://files.catbox.moe/hp8rn9.jpg[/img]
 
 Feel free to suggest any useful stats that I missed. I will be happy to add them. The Stat API is provided by Moddable Timberborn, so it can be used by other mods as well. The text rendering is also a new feature provided by TimberUI that other mods can use to draw text on their own textures.
+
+A mini update to v10.0.1 also added the ability to choose any font you installed, as well as making into Building Blueprints.
+[img]https://files.catbox.moe/ll9gkw.jpg[/img]
 
 [h1]Notes[/h1]
 

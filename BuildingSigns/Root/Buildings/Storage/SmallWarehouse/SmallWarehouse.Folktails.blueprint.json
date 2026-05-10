@@ -1,0 +1,27 @@
+﻿{
+    "BuildingSignsSpec": {
+        "Signs": [
+            {
+                "Id": "Roof",
+                "DisplayNameLoc": "LV.BdS.Sign.Roof",
+                "Face": "Top",
+                "DefaultOn": true
+            },
+            {
+                "Id": "Left",
+                "DisplayNameLoc": "LV.BdS.Sign.Left",
+                "Face": "Left"
+            },
+            {
+                "Id": "Right",
+                "DisplayNameLoc": "LV.BdS.Sign.Right",
+                "Face": "Right"
+            },
+            {
+                "Id": "Back",
+                "DisplayNameLoc": "LV.BdS.Sign.Back",
+                "Face": "Up"
+            }
+        ]
+    }
+}

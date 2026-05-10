@@ -1,1 +1,53 @@
 ﻿ID,Text,Comment
+LV.BCEv.BeaverChronicles,"Beaver Chronicles",
+LV.BCEv.ChronicleDialogHotkey,"Show Chronicles Dialog",
+LV.BCEv.CurrentEvent,"<YellowHighlight>Current Event</YellowHighlight>",
+LV.BCEv.PastEvents,"<YellowHighlight>Past Events</YellowHighlight>",
+LV.BCEv.Pages,"Pages:",
+LV.BCEv.Unknown,"<RedHighlight>Unknown</RedHighlight>",
+LV.BCEv.ListText,"AC{0:0} - {1}",
+LV.BCEv.EntryTitle,"{0} - (AC{1:0} - {2:0})",
+LV.BCEv.EntryTitleActive,"{0} - (started AC{1:0})",
+LV.BCEv.Remaining,"Remaining:",
+LV.BCEv.Amount,"Amount:",
+LV.BCEv.Max,"Max",
+LV.BCEv.Pay,"Pay",
+LV.BCEv.DisabledNoDc," <RedHighlight>There is no District Center.</RedHighlight>",
+LV.BCEv.DisabledNoSpawnLocation," <RedHighlight>There is no suitable spawn location.</RedHighlight>",
+LV.BCEv.GenericOk,"I see",
+LV.BCEv.StartBonus,"A new start",
+LV.BCEv.StartBonus.Content,"The last bend of the river opens into a quiet stretch of land. The water runs clear, berry bushes cling to the bank, and a stand of young trees waits just beyond the shore.
+It is not much yet, but it is enough.
+The beavers gather around the camp, tired but hopeful. Before the work begins, the scouts report one small blessing found nearby.",
+LV.BCEv.StartBonus.C1,"Gather the berries",
+LV.BCEv.StartBonus.C1N,"[[C]]A hidden patch of ripe berries is found nearby. [[+]][[good:Berries:{0:+0}]]",
+LV.BCEv.StartBonus.C2,"Fill the barrels",
+LV.BCEv.StartBonus.C2N,"[[C]]Clean water collects in a shallow pool. [[+]][[good:Water:{0:+0}]]",
+LV.BCEv.StartBonus.C3,"Claim the fallen logs",
+LV.BCEv.StartBonus.C3N,"[[C]]Dry fallen trunks lie near the treeline. [[+]][[good:Log:{0:+0}]]",
+LV.BCEv.StartBonus.C4,"Rescue the youngling",
+LV.BCEv.StartBonus.C4N,"[[C]]A young kit is found near the river, barely alive. [[+]]{0:+0} [[icon:UI/images/game/ico-child]] Child Beaver",
+LV.BCEv.FirstDeath,"First Passing",
+LV.BCEv.FirstDeath.Content,"{0} has passed away.
+
+The colony grows quiet. For the first time, the beavers are not only thinking about survival, but about memory. A few gather nearby, unsure what to do next. Work still needs doing, but so does grief.",
+LV.BCEv.FirstDeath.C1,"Send them downriver",
+LV.BCEv.FirstDeath.C1N,"[[C]][[-]]{good:Log:{0}} within [[time:{1}d]]",
+LV.BCEv.FirstDeath.C2,"Build a cemetery",
+LV.BCEv.FirstDeath.C2N,"[[C]]All beavers permanently gain the <GreenHighlight>+Remembrance</GreenHighlight> Wellbeing bonus.
+[[C]][[-]]{good:Plank:{0}} within [[time:{1}d]]",
+LV.BCEv.FirstDeath.C3,"Keep working",
+LV.BCEv.FirstDeath.C3N,"There is no time for this. The colony must move on. <YellowHighlight>Unknown consequences.</YellowHighlight>",
+LV.BCEv.FirstDeath.O1,"The logs are lashed together into a small raft, just large enough to carry {0} downriver.
+The colony watches in silence as the current takes them away. It is a simple farewell, but it gives the beavers a little peace.
+[[C]][[+]]All beavers gain the <GreenHighlight>+Comforted</GreenHighlight> Wellbeing bonus for some time.",
+LV.BCEv.FirstDeath.O2,"The planks are shaped into a small cemetery marker for {0}.
+It is not much, but it gives the colony a place to pause, remember, and honor those who came before them.
+[[C]][[+]]All beavers permanently gain the <GreenHighlight>+Remembrance</GreenHighlight> Wellbeing bonus.",
+LV.BCEv.FirstDeath.O3,"No farewell is given for {0}. No marker is built. The colony simply returns to work.
+Some beavers try not to think about it, but the silence settles heavily over the settlement. To them, it feels as if {0} was simply ignored.
+[[C]][[-]]All beavers suffer Heavy Hearts effect for {0}d.",
+LV.BCEv.FirstDeath.O4,"The colony returns to work.
+There is sadness, but also understanding. Food must be gathered, water must be stored, and the settlement must survive. For now, the beavers carry the loss quietly and move on.",
+LV.BCEv.FirstDeath.MalusName,"Heavy Hearts",
+LV.BCEv.FirstDeath.MalusDesc,"{0:-0%} Working Speed",
