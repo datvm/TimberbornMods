@@ -1,0 +1,13 @@
+﻿{
+    "BlockObjectSpec": {
+        "Blocks": [
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor",
+                "Stackable": "UnfinishedGround",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ]
+    }
+}

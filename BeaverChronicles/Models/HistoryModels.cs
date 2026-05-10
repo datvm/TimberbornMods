@@ -2,22 +2,48 @@
 
 public record EventHistoryRecord(string Id, float StartDay, float? EndDay)
 {
-    public string Serialize() => $"{Id}|{StartDay}|{EndDay ?? -1}";
+    readonly List<EventHistoryPage> pages = [];
+    public IReadOnlyList<EventHistoryPage> Pages => pages;
 
-    public static EventHistoryRecord Deserialize(string s)
+    public EventHistoryPage CurrentPage => pages[^1];
+
+    public EventHistoryPage AddPage() => AddPage(false, false);
+
+    public EventHistoryPage AddPage(bool top = false, bool side = false)
     {
-        var parts = s.Split('|');
-        if (parts.Length != 3)
-        {
-            throw new FormatException($"Invalid event history record: {s}");
-        }
-
-        var endDay = float.Parse(parts[2]);
-
-        return new(
-            parts[0],
-            float.Parse(parts[1]),
-            endDay == -1 ? null : endDay
-        );
+        var topImg = top ? ChronicleEventUIHelper.GetTopImagePath(Id) : null;
+        var sideImg = side ? ChronicleEventUIHelper.GetSideImagePath(Id) : null;
+        return AddPage(topImg, sideImg);
     }
+
+    public EventHistoryPage AddPage(string? topImagePath = null, string? sideImagePath = null)
+    {
+        var page = new EventHistoryPage()
+        {
+            TopImagePath = topImagePath,
+            SideImagePath = sideImagePath
+        };
+        pages.Add(page);
+        return page;
+    }
+
+    public string Serialize() => JsonConvert.SerializeObject(this);
+    public static EventHistoryRecord Deserialize(string s) => JsonConvert.DeserializeObject<EventHistoryRecord>(s) 
+        ?? throw new InvalidOperationException("Deserialization failed");
+}
+
+public class EventHistoryPage
+{
+    public string? TopImagePath { get; set; }
+    public string? SideImagePath { get; set; }
+
+    readonly List<string> content = [];
+    public IReadOnlyList<string> Content => content;
+    
+    public EventHistoryPage AddContent(string text)
+    {
+        content.Add(text);
+        return this;
+    }
+
 }

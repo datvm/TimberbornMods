@@ -5,6 +5,8 @@ public interface IChronicleEvent
 {
 
     string Id { get; }
+    string NameLoc { get; }
+
     IReadOnlyCollection<EventTriggerSource> TriggerSources { get; }
     bool CanRepeat => false;
 

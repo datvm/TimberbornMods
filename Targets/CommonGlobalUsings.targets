@@ -28,7 +28,7 @@
 		
 		<Using Alias="Object" Include="UnityEngine.Object" />
 		<Using Alias="Label" Include="UnityEngine.UIElements.Label" />
-		
+
 
 		<Using Include="Timberborn.AccessibilitySettingsSystem"/>
 		<Using Include="Timberborn.AccessibleNavigation"/>
@@ -406,7 +406,7 @@
 		<Using Include="Timberborn.StatusSystem"/>
 		<Using Include="Timberborn.StatusSystemUI"/>
 		<Using Include="Timberborn.SteamAchievementSystem"/>
-		<Using Include="Timberborn.SteamDeckUI"/>
+		<Using Include="Timberborn.SteamOSUI"/>
 		<Using Include="Timberborn.SteamOverlaySystem"/>
 		<Using Include="Timberborn.SteamStoreSystem"/>
 		<Using Include="Timberborn.SteamWorkshop"/>
@@ -520,6 +520,7 @@
 		<Using Include="Timberborn.ZiplineMovementSystem"/>
 		<Using Include="Timberborn.ZiplineSystem"/>
 		<Using Include="Timberborn.ZiplineSystemUI"/>
+
 
 	</ItemGroup>
 </Project>
