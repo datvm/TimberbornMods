@@ -34,5 +34,12 @@ public class DynamicBuildingDecal(DynamicDecalService service)
     }
 
     protected override void ShowTexture(Texture2D texture)
-        => buildingIcon?._iconRenderer.material.SetTexture(DecalSupplierBuildingIcon.IconPropertyId, texture);
+    {
+        if (!buildingIcon) { return; }
+
+        var renderer = buildingIcon?._iconRenderer;
+        if (!renderer) { return; }
+
+        renderer.material?.SetTexture(DecalSupplierBuildingIcon.IconPropertyId, texture);
+    }
 }
