@@ -8,7 +8,7 @@ public interface IDynamicDecalComponent
     Material RendererMaterial { get; }
 }
 
-public abstract class DynamicDecalComponentBase<T, TProvider>(DynamicDecalService service) : BaseComponent, IDynamicDecalComponent, IAwakableComponent
+public abstract class DynamicDecalComponentBase<T, TProvider>(DynamicDecalService service) : BaseComponent, IDynamicDecalComponent, IAwakableComponent, IDeletableEntity
     where T : DynamicDecalComponentBase<T, TProvider>
     where TProvider : IDynamicDecalProvider<T>
 {
@@ -76,4 +76,8 @@ public abstract class DynamicDecalComponentBase<T, TProvider>(DynamicDecalServic
         return true;
     }
 
+    public void DeleteEntity()
+    {
+        UnregisterProvider(false);
+    }
 }
