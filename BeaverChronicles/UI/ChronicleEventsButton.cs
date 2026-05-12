@@ -42,7 +42,11 @@ public class ChronicleEventsButton(
         uILayout.AddTopRightButton(root, 4);
     }
 
-    void OnToggle(bool _) => uiHelper.ShowChronicleDialog();
+    void OnToggle(bool _)
+    {
+        toggle.SetValueWithoutNotify(false);
+        uiHelper.ShowChronicleDialog();
+    }
 
     string GetTooltip() => t.T("LV.BCEv.BeaverChronicles");
 

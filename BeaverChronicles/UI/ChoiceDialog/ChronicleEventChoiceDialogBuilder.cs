@@ -1,11 +1,12 @@
 ﻿namespace BeaverChronicles.UI;
 
-public readonly record struct SimpleChoiceData(string Text, string? Note = null, bool Disabled = false);
+
 
 [BindTransient]
 public class ChronicleEventChoiceDialogBuilder(
     ILoc t,
-    ChronicleEventUIHelper helper
+    ChronicleEventUIHelper helper,
+    IAssetLoader assets
 )
 {
 
@@ -100,6 +101,8 @@ public class ChronicleEventChoiceDialogBuilder(
         return this;
     }
 
+    public ChronicleEventChoiceDialogBuilder AddDismissChoice() => AddChoice(t.T("LV.BCEv.GenericOk"));
+
     public ChronicleEventChoiceDialogBuilder AddChoice(string text, string? note = null, bool disabled = false)
     {
         var c = new SimpleEventDialogChoice(text, helper, note)
@@ -134,6 +137,9 @@ public class ChronicleEventChoiceDialogBuilder(
     public ChronicleEventChoiceDialogBuilder SetTopImage()
         => SetTopImage(helper.GetTopImage(def.Event));
 
+    public ChronicleEventChoiceDialogBuilder SetTopImage(string path)
+        => SetTopImage(assets.Load<Sprite>(path));
+
     public ChronicleEventChoiceDialogBuilder SetTopImage(Sprite sprite)
     {
         def.TopImage = sprite;
@@ -142,6 +148,9 @@ public class ChronicleEventChoiceDialogBuilder(
 
     public ChronicleEventChoiceDialogBuilder SetSideImage()
         => SetSideImage(helper.GetSideImage(def.Event));
+
+    public ChronicleEventChoiceDialogBuilder SetSideImage(string path)
+        => SetSideImage(assets.Load<Sprite>(path));
 
     public ChronicleEventChoiceDialogBuilder SetSideImage(Sprite sprite)
     {

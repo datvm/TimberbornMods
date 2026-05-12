@@ -70,7 +70,7 @@ public class ChronicleEventService(
         }
     }
 
-    public void RequestNextEvent(string? id, float? days = null)
+    public void RequestNextEvent(string? id)
     {
         if (id is not null && !Registry.Has(id))
         {
@@ -78,11 +78,9 @@ public class ChronicleEventService(
         }
 
         History.NextEventIdRequested = id;
-        if (days.HasValue)
-        {
-            History.RequestNextEventDelay(days.Value);
-        }
     }
+
+    public void RequestNextEventDelay(float delayDays) => History.RequestNextEventDelay(delayDays);
 
     void OnGameEvent(object sender, IEventTriggerParameters p)
     {
@@ -94,24 +92,22 @@ public class ChronicleEventService(
 
     IChronicleEvent? ChooseEvent(IEventTriggerParameters p)
     {
-        var events = Registry.EventsByTrigger[p.Source];
-        if (events.Length == 0) { return null; }
-
         if (!MetMinimumEventDay) // Should not happen but just in case
         {
             gameEventHandler.StopListening();
             return null;
         }
 
-        var finished = History.FinishedEventIds;
-
         var requestedNextEventId = History.NextEventIdRequested;
-        if (requestedNextEventId is not null
-            && (!Registry.Has(requestedNextEventId) || finished.Contains(requestedNextEventId)))
+        if (requestedNextEventId is not null)
         {
-            requestedNextEventId = History.NextEventIdRequested = null;
+            return ChooseRequestedEvent(p, requestedNextEventId);
         }
 
+        var events = Registry.EventsByTrigger[p.Source];
+        if (events.Length == 0) { return null; }
+
+        var finished = History.FinishedEventIds;
         var totalWeight = 0;
         List<(IChronicleEvent, int)> weightedEvents = [];
         List<IChronicleEvent> maxWeightEvents = [];
@@ -119,9 +115,8 @@ public class ChronicleEventService(
         foreach (var e in events)
         {
             if (finished.Contains(e.Id)) { continue; }
-            if (requestedNextEventId is not null && e.Id != requestedNextEventId) { continue; }
 
-            var weight = e.GetTriggerWeight(p);
+            var weight = e.GetTriggerWeight(p, this);
             if (weight <= 0)
             {
                 if (weight == -1)
@@ -130,12 +125,6 @@ public class ChronicleEventService(
                 }
 
                 continue;
-            }
-
-            if (requestedNextEventId is not null)
-            {
-                maxWeightEvents.Add(e);
-                break;
             }
 
             if (weight == int.MaxValue)
@@ -173,6 +162,29 @@ public class ChronicleEventService(
         return null; // Should never reach here
     }
 
+    IChronicleEvent? ChooseRequestedEvent(IEventTriggerParameters p, string id)
+    {
+        var finished = History.FinishedEventIds;
+
+        if (finished.Contains(id) || !Registry.TryGet(id, out var e))
+        {
+            History.NextEventIdRequested = null;
+            return null;
+        }
+
+        if (!e.TriggerSources.Contains(p.Source)) { return null; }
+
+        var weight = e.GetTriggerWeight(p, this);
+        if (weight == -1)
+        {
+            History.NextEventIdRequested = null;
+            finished.Add(e.Id);
+            return null;
+        }
+
+        return weight > 0 ? e : null;
+    }
+
     void TriggerSavedEvent()
     {
         var activeId = History.ActiveEventId;
@@ -200,6 +212,10 @@ public class ChronicleEventService(
 
         BeaverChroniclesUtils.Log($"Triggering event {e.Id}");
         TimberUiUtils.LogVerbose(() => "- Parameters: " + parameters);
+
+        // Clear the requested next event parameters since we're triggering an event (whether it's the requested one or not)
+        History.NextEventIdRequested = null;
+        History.RequestNextEventDelay(0);
 
         ActiveEvent = e;
         BeforeEventTriggered?.Invoke(this, e);

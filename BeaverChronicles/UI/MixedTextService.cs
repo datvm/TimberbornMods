@@ -155,7 +155,9 @@ public class MixedTextService(
         if (parameters.Length < 2) { return false; }
 
         var goodId = parameters[1].Trim();
-        if (!goodService.HasGood(goodId))
+        var isScience = goodId == ActiveEventPayment.ScienceId;
+
+        if (!isScience && !goodService.HasGood(goodId))
         {
             throw new InvalidOperationException($"No good ID: {goodId}");
         }
@@ -164,25 +166,8 @@ public class MixedTextService(
         TimberbornTextColor? color = null;
         if (parameters.Length > 2)
         {
-            var amountStr = parameters[2].Trim();
-
-            if (!int.TryParse(amountStr, out var amountInt))
-            {
-                if (!float.TryParse(parameters[2].Trim(), out var amountFloat))
-                {
-                    return false;
-                }
-                else
-                {
-                    amount = amountFloat.ToString("0.##");
-                }
-            }
-            else
-            {
-                amount = amountInt.ToString();
-            }
-
-            switch (amountStr[0])
+            amount = parameters[2].Trim();
+            switch (amount[0])
             {
                 case '-':
                     color = TimberbornTextColor.Red;
@@ -193,7 +178,17 @@ public class MixedTextService(
             }
         }
 
-        var el = new IconSpan().SetGood(goodService, goodId, amount, true);
+        var el = new IconSpan();
+        
+        if (isScience)
+        {
+            el.SetScience(namedIconProvider, amount).SetVertical(false);
+        }
+        else
+        {
+            el.SetGood(goodService, goodId, amount, true);
+        }
+        
 
         if (color is not null)
         {
@@ -211,7 +206,7 @@ public class MixedTextService(
         if (parameters.Length < 2) { return false; }
         
         var time = parameters[1].Trim();        
-        var el = new IconSpan().SetTime(namedIconProvider, time);
+        var el = new IconSpan().SetTime(namedIconProvider, time).SetVertical(false);
 
         part = new ParsedPart(el);
         return true;

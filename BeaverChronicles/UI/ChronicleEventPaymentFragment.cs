@@ -72,7 +72,7 @@ public class ChronicleEventPaymentFragment(
         }
 
         panel.Visible = showing = true;
-        btnPay.enabledSelf = CanPay();
+        SetToMax();
     }
 
     public void UpdateFragment()
@@ -120,7 +120,7 @@ public class ChronicleEventPaymentFragment(
         showingGood = new(id, amount);
         if (id == ActiveEventPayment.ScienceId)
         {
-            goodDisplay.SetScience(namedIconProvider, amount.ToString());
+            goodDisplay.SetScience(namedIconProvider, amount.ToString()).SetVertical(false);
 
         }
         else

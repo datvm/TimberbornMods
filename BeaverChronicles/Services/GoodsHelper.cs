@@ -9,7 +9,7 @@ public class GoodsHelper(
     public bool CanGiveToDistrictCenter([NotNullWhen(true)] out DistrictCenter? dc, DistrictCenter? preferred = null)
         => findEntityHelper.FindDistrictCenter(out dc, preferred);
 
-    public bool GiveToDistrictCenter(IEnumerable<GoodAmount> goods, DistrictCenter? preferred)
+    public bool GiveToDistrictCenter(IEnumerable<GoodAmount> goods, DistrictCenter? preferred = null)
     {
         if (!findEntityHelper.FindDistrictCenter(out var dc, preferred))
         {

@@ -6,11 +6,11 @@ public class StartBonus(ChronicleEventUIHelper uiHelper, CharacterSpawnHelper ch
 
     public override IReadOnlyCollection<EventTriggerSource> TriggerSources => [EventTriggerSource.NewDay];
 
-    public override int GetTriggerWeight(IEventTriggerParameters parameters) => int.MaxValue;
+    public override int GetTriggerWeight(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService) => int.MaxValue;
 
-    public override async void OnTriggered(IEventTriggerParameters parameters)
+    protected override async void OnTriggered(IEventTriggerParameters parameters, EventHistoryRecord record)
     {
-        var page = historyRecord!.AddPage(top: true);
+        var page = record.AddPage(top: true);
 
         var content = t.T(ChronicleEventUIHelper.GetDefaultContentLoc(Id));
         page.AddContent(content); 
@@ -18,39 +18,35 @@ public class StartBonus(ChronicleEventUIHelper uiHelper, CharacterSpawnHelper ch
         var canGiveGood = givingHelper.CanGiveToDistrictCenter(out var dc);
         var canSpawn = charHelper.FindAnySpawnSpot(out var spawnLoc);
 
-        var choices = new SimpleChoiceData[4];
-        for (int i = 0; i < 4; i++)
+        var choices = SimpleChoiceData.Create(4, Id, t, (i, n) =>
         {
-            var note = t.TEventChoiceNote(Id, i).Format(startBonus[i]);
-            var disabled = false;
+            n = n.Format(startBonus[i]);
 
             if (i < 3)
             {
                 if (!canGiveGood)
                 {
-                    disabled = true;
-                    note += t.TNoDc();
+                    return n + t.TNoDc();
                 }
             }
             else
             {
                 if (!canSpawn)
                 {
-                    disabled = true;
-                    note += t.TNoDc();
+                    return n + t.TNoDc();
                 }
             }
 
-            choices[i] = new(t.TEventChoice(Id, i), note, disabled);
-        }
+            return n;
+        }, i => i < 3 ? !canGiveGood : !canSpawn);
 
-        var index = await uiHelper.ShowEventDialogAsync(this, b => b
+
+        var index = await uiHelper.ShowChoiceDialogAsync(this, b => b
             .SetTextContent(content)
             .SetTopImage()
             .AddChoices(choices)
         );
-        var choice = choices[index];
-        page.AddContent(choice.Text).AddContent(choice.Note!);
+        choices[index].Record(page);
 
         var amount = startBonus[index];
 

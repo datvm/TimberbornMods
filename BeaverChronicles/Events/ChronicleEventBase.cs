@@ -6,9 +6,10 @@ public abstract class ChronicleEventBase : IChronicleEvent
     public virtual string NameLoc => "LV.BCEv." + Id;
 
     public abstract IReadOnlyCollection<EventTriggerSource> TriggerSources { get; }
-    public abstract void OnTriggered(IEventTriggerParameters parameters);
+    protected abstract void OnTriggered(IEventTriggerParameters parameters, EventHistoryRecord record);
 
     public bool Active => chronicleEventService is not null && triggerParameters is not null;
+    public virtual float? DelayAfterConclusion => 1.5f;
 
     protected ChronicleEventService? chronicleEventService;
     protected IEventTriggerParameters? triggerParameters;
@@ -19,7 +20,7 @@ public abstract class ChronicleEventBase : IChronicleEvent
         Id = GetType().Name;
     }
 
-    public abstract int GetTriggerWeight(IEventTriggerParameters parameters);
+    public abstract int GetTriggerWeight(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService);
 
     public void Trigger(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService)
     {
@@ -27,7 +28,7 @@ public abstract class ChronicleEventBase : IChronicleEvent
         triggerParameters = parameters;
         historyRecord = chronicleEventService.ActiveRecord;
 
-        OnTriggered(parameters);
+        OnTriggered(parameters, historyRecord!);
     }
 
     protected virtual void Conclude()
@@ -35,6 +36,12 @@ public abstract class ChronicleEventBase : IChronicleEvent
         if (!Active)
         {
             throw new InvalidOperationException("Cannot conclude an event that is not active.");
+        }
+
+        var delay = DelayAfterConclusion;
+        if (delay.HasValue)
+        {
+            chronicleEventService!.RequestNextEventDelay(delay.Value);
         }
 
         OnConcluded();
@@ -51,5 +58,8 @@ public abstract class ChronicleEventBase : IChronicleEvent
         chronicleEventService = null;
         historyRecord = null;
     }
+
+    protected string GetParameter(string key) => historyRecord!.CustomParameters[key];
+    protected void SetParameter(string key, string value) => historyRecord!.CustomParameters[key] = value;
 
 }

@@ -7,7 +7,9 @@ public class ChronicleGameEventHandler(
     IDayNightCycle dayNightCycle,
     GameCycleService gameCycleService,
     ITimeTriggerFactory timeTriggerFactory,
-    WeatherIdService weatherIdService
+    WeatherIdService weatherIdService,
+    DefaultEntityTracker<Beaver> beavers,
+    DefaultEntityTracker<Bot> bots
 ) : ITickableSingleton, ISaveableSingleton, ILoadableSingleton
 {
     const float NewDayDelay = .5f / 24f; // Delay half an hour so it's not conflict with other events.
@@ -17,16 +19,54 @@ public class ChronicleGameEventHandler(
     static readonly PropertyKey<int> DayKey = new("Day");
     static readonly PropertyKey<int> CycleKey = new("Cycle");
     static readonly PropertyKey<string> WeatherKey = new("Weather");
+    static readonly PropertyKey<string> EventCountKey = new("EventCount");
 
     public bool Listening { get; private set; }
     int currHour, currDay, currCycle;
     string currWeather = "";
+
+    readonly Dictionary<EventTriggerSource, int> triggerCount = [];
+    public int GetTriggerCount(EventTriggerSource source) => triggerCount.TryGetValue(source, out var c) ? c : 0;
+    int GetAndIncreaseTriggerCount(EventTriggerSource source)
+    {
+        var c = GetTriggerCount(source);
+        triggerCount[source] = c + 1;
+        return c;
+    }
 
     public event EventHandler<IEventTriggerParameters> GameEventTriggered = null!;
 
     public void Load()
     {
         LoadSavedData();
+
+        beavers.OnEntityRegistered += OnCharacterRegistered;
+        bots.OnEntityRegistered += OnCharacterRegistered;
+    }
+
+    void OnCharacterRegistered(BaseComponent c)
+    {
+        var needMan = c.GetComponent<NeedManager>();
+        var character = c.GetComponent<Character>();
+        needMan.NeedChangedActiveState += (_, e) => OnCharacterNeedChanged(character, e);
+    }
+
+    void OnCharacterNeedChanged(Character character, NeedChangedActiveStateEventArgs e)
+    {
+        var c = Create(character);
+        var p = new NeedChangedParameters(e.NeedSpec, e.IsActive, c);
+
+        Trigger(Create(e.IsActive ? EventTriggerSource.NeedActivated : EventTriggerSource.NeedDeactivated, p));
+
+        switch (e.NeedSpec.Id)
+        {
+            case "Injury":
+                Trigger(Create(e.IsActive ? EventTriggerSource.Injured : EventTriggerSource.InjuryCured, c));
+                break;
+            case "Contamination":
+                Trigger(Create(e.IsActive ? EventTriggerSource.Contaminated : EventTriggerSource.Decontaminated, c));
+                break;
+        }
     }
 
     public void Save(ISingletonSaver singletonSaver)
@@ -36,6 +76,7 @@ public class ChronicleGameEventHandler(
         s.Set(DayKey, currDay);
         s.Set(CycleKey, currCycle);
         s.Set(WeatherKey, currWeather);
+        s.Set(EventCountKey, JsonConvert.SerializeObject(triggerCount));
     }
 
     void LoadSavedData()
@@ -46,6 +87,17 @@ public class ChronicleGameEventHandler(
         currDay = s.Get(DayKey);
         currCycle = s.Get(CycleKey);
         currWeather = s.Get(WeatherKey);
+
+        if (s.Has(EventCountKey))
+        {
+            var list = JsonConvert.DeserializeObject<Dictionary<EventTriggerSource, int>>(s.Get(EventCountKey)) ?? [];
+            triggerCount.Clear();
+
+            foreach (var (k, v) in list)
+            {
+                triggerCount[k] = v;
+            }
+        }
     }
 
     public void StartListening()
@@ -61,7 +113,7 @@ public class ChronicleGameEventHandler(
         if (!Listening) { return; }
 
         Listening = false;
-        eb.UnregisterNow(this);
+        eb.Unregister(this);
     }
 
     public void Tick()
@@ -74,7 +126,7 @@ public class ChronicleGameEventHandler(
     [OnEvent]
     public void OnCharacterCreated(CharacterCreatedEvent e)
         => Trigger(Create(EventTriggerSource.CharacterCreated, Create(e.Character)));
-
+    
     [OnEvent]
     public void OnBeaverGrownUp(BeaverGrowTracker.BeaverGrownUpEvent e)
         => Trigger(Create(EventTriggerSource.BeaverGrownUp, new BeaverGrownUpParameters(e.Character, e.Child)));
@@ -156,11 +208,16 @@ public class ChronicleGameEventHandler(
         Trigger(Create(EventTriggerSource.NewCycle, parameters));
         currCycle = cycle;
 
+        if (weatherIdService.IsWeatherWarningDay(out var warningWeatherId))
+        {
+            Trigger(Create(EventTriggerSource.WeatherWarning, new WeatherWarningParameters(warningWeatherId, parameters)));
+        }
+
         DayTimeParameters CreateParameters() => new(day, cycle, gameCycleService.CycleDay, partialDay, hours, weatherId);
     }
 
-    static IEventTriggerParameters Create<T>(EventTriggerSource source, T data)
-        => new EventTriggerParameter<T>(source, data);
+    IEventTriggerParameters Create<T>(EventTriggerSource source, T data)
+        => new EventTriggerParameter<T>(source, GetAndIncreaseTriggerCount(source), data);
 
     static CharacterParameters Create(Character c)
     {
