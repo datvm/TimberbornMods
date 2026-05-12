@@ -7,6 +7,7 @@ LV.BCEv.PastEvents,"<YellowHighlight>Past Events</YellowHighlight>",
 LV.BCEv.Pages,"Pages:",
 LV.BCEv.Unknown,"<RedHighlight>Unknown</RedHighlight>",
 LV.BCEv.WorkingSpeedDesc,"{0:+0%;-0%;0%} Working Speed",
+LV.BCEv.MovementSpeedDesc,"{0:+0%;-0%;0%} Movement Speed",
 LV.BCEv.ListText,"AC{0:0} - {1}",
 LV.BCEv.EntryTitle,"{0} (from AC{1:0} to AC{2:0})",
 LV.BCEv.EntryTitleActive,"{0} (started AC{1:0})",
@@ -150,3 +151,40 @@ LV.BCEv.FoodWoodDispute2.O5,"Without guidance, resentment festers unchecked. Wor
 [[C]][[-]]Both groups' workers lose {1:0%} Working Speed for [[time:{0}d]]",
 LV.BCEv.FoodWoodDispute2.Lumberjack,"Lumberjack Flags'",
 LV.BCEv.FoodWoodDispute2.Farmer,"Farmhouses'",
+LV.BCEv.ContaminationCure,"Pasteur's Gamble",
+LV.BCEv.ContaminationCure.Content,"{0} has been contaminated, lying still with damp fur, dull eyes, and a tail too weak to slap the ground. Most of the colony keeps a careful distance.
+Then a self-declared doctor steps forward with stained notes and a theory called Pasteur's Gamble. The treatment is untested. Water may flush the poison. Sunflowers may strengthen the body. More careful aid may improve the odds, though no one can say what failure might bring.",
+LV.BCEv.ContaminationCure.C1,"Give water",
+LV.BCEv.ContaminationCure.C1N,"[[C]]Pay [[good:{1}:{2}]] in [[time:{0}d]]. <YellowHighlight>Unknown consequences.</YellowHighlight>",
+LV.BCEv.ContaminationCure.C2,"Give sunflowers",
+LV.BCEv.ContaminationCure.C2N,"[[C]]Pay [[good:{1}:{2}]] in [[time:{0}d]]. <YellowHighlight>Unknown consequences.</YellowHighlight>",
+LV.BCEv.ContaminationCure.C3,"Aid the treatment",
+LV.BCEv.ContaminationCure.C3N,"[[C]]Pay [[good:{1}:{2}]], [[good:{3}:{4}]], and [[good:{5}:{6}]] in [[time:{0}d]]. <YellowHighlight>Unknown consequences.</YellowHighlight>",
+LV.BCEv.ContaminationCure.C4,"Dismiss the doctor",
+LV.BCEv.ContaminationCure.C4N,"[[C]]Nothing happens.",
+LV.BCEv.ContaminationCure.O1,"Against every doubtful stare, the treatment works. {0}'s breathing steadies, their eyes clear, and before long they are sitting upright again.
+Better still, the remaining mixture proves stable enough to store. Pasteur's Gamble may be crude, but it has given the colony something useful.
+[[C]][[+]]{0} is cured.
+[[C]][[+]]Gain [[good:{1}:{2}]].",
+LV.BCEv.ContaminationCure.O2,"The treatment fails. {0} remains weak, and the hopeful mixture turns bitter and useless. By morning, several helpers begin showing the same signs of contamination.
+[[C]][[-]]{1} random beavers become contaminated.",
+LV.BCEv.ContaminationCure.O3,"The treatment fails. {0} remains weak, and the prepared goods are spent with nothing to show for them.
+The careful notes, however, prove useful for something else. The doctor cannot save the cure, but the colony recovers the lesson.
+[[C]][[+]]Refund {1} Science.",
+LV.BCEv.ContaminationConspiracy,"A Quiet Place",
+LV.BCEv.ContaminationConspiracy.Content,"{0} is contaminated.
+By dusk, whispers crawl through the colony like mist over badwater. Some say the contaminated are not merely sent away for safety. Some say a far district waits for them, quiet and empty, with no warm beds, no full tanks, and no one to hear the last tail-slap.
+No one says it loudly. No one admits they believe it. But every beaver has seen how quickly a sick worker can become a problem to solve.
+Now {0} watches the others from a distance, and the colony watches itself.",
+LV.BCEv.ContaminationConspiracy.C1,"We will dispel this conspiracy theory",
+LV.BCEv.ContaminationConspiracy.C1N,"[[C]]Cure {0} within [[time:{1}d]]",
+LV.BCEv.ContaminationConspiracy.O1,"{0} returns clean, living, and loudly welcomed.
+The rumor does not vanish all at once, but it loses its teeth. A beaver can be contaminated and still be counted among the colony. A beaver can be isolated without being abandoned.
+That matters.
+[[C]][[+]]All beavers gain {1} for [[time:{2}d]]",
+LV.BCEv.ContaminationConspiracy.O2,"The quiet district remains quiet. There is no sound of {0} returning, no sign of recovery, and no end to the whispers.
+Whether by neglect, fear, or cruel necessity, the rumor now has a name and a shape. Beavers lower their voices when a contaminated worker passes. Some glance toward the far paths and wonder who will be sent there next.
+The colony keeps working, but not without looking over its shoulder.
+[[C]][[-]]All beavers get {1} for [[time:{2}d]]",
+LV.BCEv.ContaminationConspiracy.BuffName,"Reassured",
+LV.BCEv.ContaminationConspiracy.DebuffName,"Quiet Dread",

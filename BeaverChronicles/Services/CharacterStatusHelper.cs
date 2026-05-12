@@ -7,7 +7,8 @@ public class CharacterStatusHelper(
     DefaultEntityTracker<Beaver> beavers,
     DefaultEntityTracker<Bot> bots,
     BeaverPopulation beaverPopulation,
-    IDayNightCycle dayNightCycle
+    IDayNightCycle dayNightCycle,
+    EntityRegistry entityRegistry
 ) : ILoadableSingleton, ISaveableSingleton, ITickableSingleton
 {
     static readonly SingletonKey SaveKey = new(nameof(CharacterStatusHelper));
@@ -51,7 +52,7 @@ public class CharacterStatusHelper(
         {
             foreach (var id in ids)
             {
-                BoostNeed(b.GetComponent<NeedManager>(), id, amount);
+                BoostNeed(b.GetNeedManager(), id, amount);
             }
         }
     }
@@ -99,6 +100,65 @@ public class CharacterStatusHelper(
             entity.Remove(id);
             entity.GetStatusDescription().RemoveStatus(id);
         }
+    }
+
+    public void FindAndContaminateRandomBeavers(int count)
+    {
+        var counter = 0;
+
+        foreach (var (man, n) in FindUncontaminatedBeavers())
+        {
+            man.ApplyEffect(new(ChronicleGameEventHandler.ContaminationId, -n.PointToMin, 1));
+            counter++;
+
+            if (counter >= count) { break; }
+        }
+
+        IEnumerable<(NeedManager, Need)> FindUncontaminatedBeavers()
+        {
+            foreach (var b in beavers.Entities)
+            {
+                var needMan = b.GetNeedManager();
+                var n = needMan.GetNeed(ChronicleGameEventHandler.ContaminationId);
+
+                if (n is not null && n.Points == 0)
+                {
+                    yield return (needMan, n);
+                }
+            }
+        }
+    }
+
+    public void CureContamination(Guid characterId) => RemoveNeed(characterId, ChronicleGameEventHandler.ContaminationId);
+
+    public bool CharacterExists(Guid characterId) => entityRegistry.GetEntity(characterId);
+
+    public bool IsContaminated(Guid characterId) => IsNeedActive(characterId, ChronicleGameEventHandler.ContaminationId);
+
+    public bool IsNeedActive(Guid characterId, string needId)
+    {
+        var e = entityRegistry.GetEntity(characterId);
+        if (!e) { return false; }
+
+        var man = e.GetNeedManager();
+        if (!man) { return false; }
+
+        var n = man.GetNeed(needId);
+        return n is not null && n.Points > 0;
+    }
+
+    public void RemoveNeed(Guid characterId, string needId)
+    {
+        var e = entityRegistry.GetEntity(characterId);
+        if (!e) { return; }
+
+        var man = e.GetNeedManager();
+        if (!man) { return; }
+
+        var n = man.GetNeed(needId);
+        if (n is null) { return; }
+
+        man.ApplyEffect(new(needId, -n.Points, 1));
     }
 
     IEnumerable<BonusTrackerComponent> GetBonusTrackers(CharacterType c)
