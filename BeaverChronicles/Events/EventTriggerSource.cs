@@ -16,4 +16,11 @@ public enum EventTriggerSource
     BuildingPlaced,
     BuildingFinished,
     NewWellbeingHighscore,
+    WeatherWarning,
+    NeedActivated,
+    NeedDeactivated,
+    Injured,
+    InjuryCured,
+    Contaminated,
+    Decontaminated,
 }

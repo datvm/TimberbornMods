@@ -1,19 +1,28 @@
 ﻿ID,Text,Comment
 LV.BCEv.BeaverChronicles,"Beaver Chronicles",
 LV.BCEv.ChronicleDialogHotkey,"Show Chronicles Dialog",
+LV.BCEv.Details,"Details",
 LV.BCEv.CurrentEvent,"<YellowHighlight>Current Event</YellowHighlight>",
 LV.BCEv.PastEvents,"<YellowHighlight>Past Events</YellowHighlight>",
 LV.BCEv.Pages,"Pages:",
 LV.BCEv.Unknown,"<RedHighlight>Unknown</RedHighlight>",
+LV.BCEv.WorkingSpeedDesc,"{0:+0%;-0%;0%} Working Speed",
 LV.BCEv.ListText,"AC{0:0} - {1}",
-LV.BCEv.EntryTitle,"{0} - (AC{1:0} - {2:0})",
-LV.BCEv.EntryTitleActive,"{0} - (started AC{1:0})",
+LV.BCEv.EntryTitle,"{0} (from AC{1:0} to AC{2:0})",
+LV.BCEv.EntryTitleActive,"{0} (started AC{1:0})",
 LV.BCEv.Remaining,"Remaining:",
 LV.BCEv.Amount,"Amount:",
 LV.BCEv.Max,"Max",
 LV.BCEv.Pay,"Pay",
+LV.BCEv.PayGuide.Title,"Event Payments",
+LV.BCEv.PayGuide.Content,"Some events need resources to complete.
+Select a storage building with the required item, then use Event Payment to pay. This works with <YellowHighlight>Piles, Warehouses, and Tanks</YellowHighlight>.
+For Science, select a <YellowHighlight>Science production building</YellowHighlight>, such as an <YellowHighlight>Inventor</YellowHighlight>.
+Enter the amount you want to contribute, then click Pay. You can pay in smaller amounts over time until the event requirement is complete.",
+Name_ChronicleEventPaymentFragment,"Event Payment",
 LV.BCEv.DisabledNoDc," <RedHighlight>There is no District Center.</RedHighlight>",
 LV.BCEv.DisabledNoSpawnLocation," <RedHighlight>There is no suitable spawn location.</RedHighlight>",
+LV.BCEv.UnknownConsequences,"[[C]]<YellowHighlight>Unknown consequences.</YellowHighlight>",
 LV.BCEv.GenericOk,"I see",
 LV.BCEv.StartBonus,"A new start",
 LV.BCEv.StartBonus.Content,"The last bend of the river opens into a quiet stretch of land. The water runs clear, berry bushes cling to the bank, and a stand of young trees waits just beyond the shore.
@@ -32,22 +41,112 @@ LV.BCEv.FirstDeath.Content,"{0} has passed away.
 
 The colony grows quiet. For the first time, the beavers are not only thinking about survival, but about memory. A few gather nearby, unsure what to do next. Work still needs doing, but so does grief.",
 LV.BCEv.FirstDeath.C1,"Send them downriver",
-LV.BCEv.FirstDeath.C1N,"[[C]][[-]]{good:Log:{0}} within [[time:{1}d]]",
+LV.BCEv.FirstDeath.C1N,"[[C]][[-]][[good:{1}:{2}]] within [[time:{0}d]]",
 LV.BCEv.FirstDeath.C2,"Build a cemetery",
-LV.BCEv.FirstDeath.C2N,"[[C]]All beavers permanently gain the <GreenHighlight>+Remembrance</GreenHighlight> Wellbeing bonus.
-[[C]][[-]]{good:Plank:{0}} within [[time:{1}d]]",
+LV.BCEv.FirstDeath.C2N,"[[C]][[-]][[good:{1}:{2}]] [[good:{3}:{4}]] within [[time:{0}d]]",
 LV.BCEv.FirstDeath.C3,"Keep working",
-LV.BCEv.FirstDeath.C3N,"There is no time for this. The colony must move on. <YellowHighlight>Unknown consequences.</YellowHighlight>",
+LV.BCEv.FirstDeath.C3N,"[[C]]There is no time for this. The colony must move on. <YellowHighlight>Unknown consequences.</YellowHighlight>",
 LV.BCEv.FirstDeath.O1,"The logs are lashed together into a small raft, just large enough to carry {0} downriver.
 The colony watches in silence as the current takes them away. It is a simple farewell, but it gives the beavers a little peace.
-[[C]][[+]]All beavers gain the <GreenHighlight>+Comforted</GreenHighlight> Wellbeing bonus for some time.",
+[[C]][[+]]All beavers gain the <GreenHighlight>+Remembrance</GreenHighlight> Wellbeing bonus for some time.",
 LV.BCEv.FirstDeath.O2,"The planks are shaped into a small cemetery marker for {0}.
 It is not much, but it gives the colony a place to pause, remember, and honor those who came before them.
 [[C]][[+]]All beavers permanently gain the <GreenHighlight>+Remembrance</GreenHighlight> Wellbeing bonus.",
 LV.BCEv.FirstDeath.O3,"No farewell is given for {0}. No marker is built. The colony simply returns to work.
 Some beavers try not to think about it, but the silence settles heavily over the settlement. To them, it feels as if {0} was simply ignored.
-[[C]][[-]]All beavers suffer Heavy Hearts effect for {0}d.",
+[[C]][[-]]All beavers suffer Heavy Hearts effect for {1}d.",
 LV.BCEv.FirstDeath.O4,"The colony returns to work.
 There is sadness, but also understanding. Food must be gathered, water must be stored, and the settlement must survive. For now, the beavers carry the loss quietly and move on.",
+LV.BCEv.FirstDeath.BonusName,"Remembrance",
 LV.BCEv.FirstDeath.MalusName,"Heavy Hearts",
-LV.BCEv.FirstDeath.MalusDesc,"{0:-0%} Working Speed",
+LV.BCEv.Unhoused,"Still Under the Open Sky",
+LV.BCEv.Unhoused.Content,"Some time has passed since the colony began, but not every beaver has a roof to sleep under.
+At dusk, the unhoused gather near the paths, wrapping their tails close against the cold ground. No one complains loudly. They only glance toward the finished lodges, then back at the empty spaces where more homes should have stood.
+The colony looks to you for an answer.",
+LV.BCEv.Unhoused.C1,"Promise shelter for most",
+LV.BCEv.Unhoused.C1N,"[[C]]Ensure at least {1:0%} of beavers remain sheltered after [[time:{0}d]]",
+LV.BCEv.Unhoused.C2,"Promise shelter for all",
+LV.BCEv.Unhoused.C2N,"[[C]]Ensure all beavers remain sheltered after [[time:{0}d]]",
+LV.BCEv.Unhoused.C3,"Make no promise",
+LV.BCEv.Unhoused.C3N,"[[C]]The colony is too busy to make any promises. <YellowHighlight>Unknown consequences.</YellowHighlight>",
+LV.BCEv.Unhoused.BuffName,"Sheltered",
+LV.BCEv.Unhoused.Buff1Desc,"{0:+0%} Working Speed",
+LV.BCEv.Unhoused.Buff2Desc,"{0:+0%} Working and Movement Speed",
+LV.BCEv.Unhoused.DebuffName,"Unhoused",
+LV.BCEv.Unhoused.O1,"By the promised day, most of the unhoused beavers have found a place indoors. It is not perfect, but it is enough to prove that the colony remembers those sleeping under the open sky. The mood lifts. Work resumes with steadier paws.
+[[C]][[+]]All beavers gain {0} for [[time:{1}d]]",
+LV.BCEv.Unhoused.O2,"By the promised day, every beaver has a roof overhead. The last bed is claimed before nightfall, and for the first time in days, no one has to choose between sleep and the cold ground. The colony rests easier, and rises stronger.
+[[C]][[+]]All beavers gain {0} for [[time:{1}d]]",
+LV.BCEv.Unhoused.O3,"Too many beavers are still sleeping outside. Whatever was said before, the colony has not given them shelter.
+They rise tired, work slower, and keep their doubts mostly to themselves.
+[[C]][[-]]All beavers suffer {0} for [[time:{1}d]]",
+LV.BCEv.FirstChildGrowth,"First Furrows",
+LV.BCEv.FirstChildGrowth.Content,"{0} has come of age. Yesterday, they chased dragonflies along the bank. Today, they stand ready to take their place among the builders, haulers, growers, and dreamers.
+Some beavers suggest marking the moment with a small feast. It would cost precious resources, but a colony that celebrates its young may find its spirits lifted.",
+LV.BCEv.FirstChildGrowth.C1,"Hold a party",
+LV.BCEv.FirstChildGrowth.C1N,"[[C]]Pay [[good:{1}:{2}]] and [[good:{3}:{4}]] in [[time:{0}d]].",
+LV.BCEv.FirstChildGrowth.C2,"Let the day pass",
+LV.BCEv.FirstChildGrowth.C2N,"[[C]]Nothing happens",
+LV.BCEv.FirstChildGrowth.O1,"The feast is simple, but joyful. Food is shared, cups are raised, and {0} is welcomed into adulthood with cheers, jokes, and proud tail-slaps.
+For a moment, the colony feels less like a settlement and more like a family.
+[[C]][[+]]All beavers gain {1} for [[time:{2}d]]",
+LV.BCEv.FirstChildGrowth.O2,"The planned celebration never quite comes together. Supplies are needed elsewhere, and the colony quietly returns to its routines.",
+LV.BCEv.FirstChildGrowth.BuffName,"Celebration",
+LV.BCEv.DroughtPrep,"Dry Days Ahead",
+LV.BCEv.DroughtPrep.Content,"The air has turned brittle, and the river runs lower than it should. Old paws sniff the wind and mutter that a drought is coming.
+A group of volunteers gathers before dawn, packs ready and tails high. They want to make one last trip before the dry days arrive, but the colony must decide where their effort is best spent.",
+LV.BCEv.DroughtPrep.C1,"Search the spring",
+LV.BCEv.DroughtPrep.C2,"Search the woods",
+LV.BCEv.DroughtPrep.C3,"Search the meadow",
+LV.BCEv.DroughtPrep.O1,"The volunteers return with muddy paws and full barrels. The spring was weak, but not empty.
+[[C]][[+]]Gain [[good:{0}:{1}]]",
+LV.BCEv.DroughtPrep.O4,"The volunteers find only damp stones and cracked reeds. Whatever water once pooled there has already sunk away.",
+LV.BCEv.DroughtPrep.O2,"The volunteers return dragging branches, cuttings, and dry timber. The woods offered more than expected.
+[[C]][[+]]Gain [[good:{0}:{1}]]",
+LV.BCEv.DroughtPrep.O5,"The woods are quiet and picked clean. The volunteers return tired, with little more than scratches and burrs.",
+LV.BCEv.DroughtPrep.O3,"The volunteers come back with baskets of gathered food, enough to make the coming days feel a little less sharp.
+[[C]][[+]]Gain [[good:{0}:{1}]]",
+LV.BCEv.DroughtPrep.O6,"The meadow has already withered under the heat. The volunteers find only dry stalks and empty roots.",
+LV.BCEv.FoodWoodDispute1,"Axes and Plows",
+LV.BCEv.FoodWoodDispute1.Content,"A quarrel has grown between the farmers and the lumberjacks. At first, it was only boasting over whose work mattered more. Then the jokes sharpened, the grumbling spread, and soon both sides were loudly claiming that the colony would fall apart without them.
+The farmers say full bellies keep paws moving. The lumberjacks say every roof, dam, and workshop begins with timber.
+Now both groups have come before you, waiting to hear which work the colony values more.",
+LV.BCEv.FoodWoodDispute1.C1,"""We can't eat wood!""",
+LV.BCEv.FoodWoodDispute1.C2,"""Logs build the colony!""",
+LV.BCEv.FoodWoodDispute1.C3,"""Settle it yourselves.""",
+LV.BCEv.FoodWoodDispute1.O1,"The farmers cheer your judgment and return to the fields with renewed pride. If food is the heart of the colony, they intend to keep it beating.
+The lumberjacks return to the forest in bitter silence.
+[[C]][[-]]Lumberjack Flags' workers lose {1:0%} Working Speed for [[time:{0}d]]
+[[C]][[+]]Farmhouses' workers gain {2:+0%} Working Speed for [[time:{0}d]]",
+LV.BCEv.FoodWoodDispute1.O2,"The lumberjacks thump their tails in approval and march back toward the trees. Every raised roof and sturdy dam will prove their worth.
+The farmers return to their fields with sour looks and sharper words.
+[[C]][[+]]Lumberjack Flags' workers gain {1:+0%} Working Speed for [[time:{0}d]]
+[[C]][[-]]Farmhouses' workers lose {2:0%} Working Speed for [[time:{0}d]]",
+LV.BCEv.FoodWoodDispute1.O3,"To everyone's surprise, your refusal to choose sides works. The two groups argue a little longer, then begin laughing at how foolish the quarrel has become.
+Both return to work determined to prove their worth without tearing the colony apart.
+[[C]][[+]]Lumberjack Flags' workers gain {1:+0%} Working Speed for [[time:{0}d]]
+[[C]][[+]]Farmhouses' workers gain {2:+0%} Working Speed for [[time:{0}d]]",
+LV.BCEv.FoodWoodDispute1.O4,"Your refusal to choose sides satisfies nobody. The farmers feel ignored, the lumberjacks feel dismissed, and both groups return to work with their tails low and tempers high.
+The quarrel is not over.
+[[C]][[-]]Lumberjack Flags' workers lose {1:0%} Working Speed for [[time:{0}d]]
+[[C]][[-]]Farmhouses' workers lose {2:0%} Working Speed for [[time:{0}d]]",
+LV.BCEv.FoodWoodDispute2,"Axes and Plows: Escalation",
+LV.BCEv.FoodWoodDispute2.Content,"The quarrel has not faded. Days later, the arguments flare up once again, louder and harsher than before. Workers accuse each other of arrogance, laziness, and draining the colony's labor for their own needs.
+Now the entire district waits to see whether you will stand firm, change course, or refuse to take part in the dispute at all.",
+LV.BCEv.FoodWoodDispute2.C1,"""Food comes first.""",
+LV.BCEv.FoodWoodDispute2.C2,"""Wood keeps us alive.""",
+LV.BCEv.FoodWoodDispute2.C3,"""I will not choose sides.""",
+LV.BCEv.FoodWoodDispute2.O1,"Your repeated support leaves no doubt where the colony leadership stands. The favored workers grow proud and energetic, while the others lose heart entirely.
+[[C]][[+]]{3} workers gain {1:0%} Working Speed for [[time:{0}d]]
+[[C]][[-]]{4} workers lose {2:0%} Working Speed for [[time:{0}d]]",
+LV.BCEv.FoodWoodDispute2.O2,"The sudden shift catches the colony off guard, but over time the workers begin accepting the new balance. Tempers cool, though some resentment remains.
+[[C]][[+]]{3} workers gain {1:0%} Working Speed for [[time:{0}d]]
+[[C]][[-]]{4} workers lose {2:0%} Working Speed for [[time:{0}d]]",
+LV.BCEv.FoodWoodDispute2.O3,"Your attempt to reverse course pleases nobody. One side feels abandoned while the other doubts your sincerity. The arguments only grow louder.
+[[C]][[-]]Both {3} and {4} workers lose {1:0%} Working Speed for [[time:{0}d]]",
+LV.BCEv.FoodWoodDispute2.O4,"At last, exhaustion overcomes anger. The workers slowly realize the quarrel is hurting the colony more than helping it, and cooperation gradually returns.
+[[C]][[+]]Both groups' workers gain {1:0%} Working Speed for [[time:{0}d]]",
+LV.BCEv.FoodWoodDispute2.O5,"Without guidance, resentment festers unchecked. Workers from both sides leave the meeting more frustrated than before, blaming the colony leadership for failing to settle the matter.
+[[C]][[-]]Both groups' workers lose {1:0%} Working Speed for [[time:{0}d]]",
+LV.BCEv.FoodWoodDispute2.Lumberjack,"Lumberjack Flags'",
+LV.BCEv.FoodWoodDispute2.Farmer,"Farmhouses'",

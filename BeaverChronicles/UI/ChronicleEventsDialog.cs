@@ -1,4 +1,4 @@
-﻿namespace BeaverChronicles.UI.ChronicleDialog;
+﻿namespace BeaverChronicles.UI;
 
 [BindTransient]
 public class ChronicleEventsDialog(
@@ -38,18 +38,19 @@ public class ChronicleEventsDialog(
 
         InitSidebar(sideBar);
         InitContent(panelContent);
+
+        if (chkEvents.Options.Length > 0)
+        {
+            var v = chkEvents.Options[0].Value;
+            chkEvents.SetValueWithoutNotify(v);
+            OnEventSelected(this, v);
+        }
     }
 
     void InitSidebar(VisualElement parent)
     {
         chkEvents = new ToggleGroup<EventHistoryRecord>(GetOptions());
-
         chkEvents.OnValueChanged += OnEventSelected;
-
-        if (chkEvents.Options.Length > 0)
-        {
-            chkEvents.SetValue(chkEvents.Options[0].Value);
-        }
 
         IEnumerable<ToggleGroupOption<EventHistoryRecord>> GetOptions()
         {
@@ -114,15 +115,15 @@ public class ChronicleEventsDialog(
         sideImg.SetDisplay(false);
 
         registry.TryGet(e.Id, out var ev);
-        var nameLoc = ev?.NameLoc ?? "LV.BCEv.Unknown";
+        var name = t.T(ev?.NameLoc ?? "LV.BCEv.Unknown");
 
         if (e.EndDay is null)
         {
-            lblTitle.text = t.T("LV.BCEv.EntryTitleActive", nameLoc ?? "", e.StartDay);
+            lblTitle.text = t.T("LV.BCEv.EntryTitleActive", name, e.StartDay);
         }
         else
         {
-            lblTitle.text = t.T("LV.BCEv.EntryTitle", nameLoc, e.StartDay, e.EndDay.Value);
+            lblTitle.text = t.T("LV.BCEv.EntryTitle", name, e.StartDay, e.EndDay.Value);
         }
 
         ShowCurrentPage();
@@ -142,9 +143,8 @@ public class ChronicleEventsDialog(
         topImg.style.alignSelf = Align.Center;
 
         var contentRow = parent.AddRow();
-        sideImg = contentRow.AddImage().SetMaxWidth(150).SetMaxHeight(450).SetMarginRight(10).SetDisplay(false);
-
-        contentPanel = parent.AddChild();
+        sideImg = contentRow.AddImage().SetMaxWidth(150).SetMaxHeight(450).SetMarginRight(10).SetDisplay(false).SetFlexShrink(0);
+        contentPanel = contentRow.AddChild().SetFlexGrow().SetFlexShrink();
     }
 
     void ChangePage(int delta)
@@ -158,9 +158,9 @@ public class ChronicleEventsDialog(
     void ShowCurrentPage()
     {
         ClearContent();
-        if (currRecord is null || currPage >= totalPages || currPage < 0) { return; }
-
         lblPage.text = $"{currPage + 1} / {totalPages}";
+
+        if (currRecord is null || currPage >= totalPages || currPage < 0) { return; }
 
         var r = currRecord.Pages[currPage];
         SetImage(topImg, r.TopImagePath);

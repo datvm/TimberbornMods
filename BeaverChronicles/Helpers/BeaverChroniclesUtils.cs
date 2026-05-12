@@ -8,6 +8,17 @@ public static class BeaverChroniclesUtils
 
     public static void Log(string msg) => Debug.Log($"[{nameof(BeaverChronicles)}] {msg}");
 
+    public static void LogVerbose(Func<string> msgFunc) => TimberUiUtils.LogVerbose(() => $"[{nameof(BeaverChronicles)}] {msgFunc()}");
+
+    public static bool Chance(float chance)
+    {
+        var value = Random.value;
+        var result = value < chance;
+
+        LogVerbose(() => $"Chance check: {chance:P2} vs {value:P2} => {(result ? "Success" : "Failure")}");
+        return result;
+    }
+
     extension(Configurator config)
     {
 
@@ -74,6 +85,8 @@ public static class BeaverChroniclesUtils
         public string TEventContent(string evId) => t.T(ChronicleEventUIHelper.GetDefaultContentLoc(evId));
         public string TEventChoice(string evId, int index) => t.T($"LV.BCEv.{evId}.C{index + 1}");
         public string TEventChoiceNote(string evId, int index) => t.T($"LV.BCEv.{evId}.C{index + 1}N");
+        public string TEventOutcome(string evId, int index) => t.T($"LV.BCEv.{evId}.O{index + 1}");
+        public string TUnknownConsequences() => t.T("LV.BCEv.UnknownConsequences");
     }
 
     extension(IEventTriggerParameters p)
@@ -94,6 +107,15 @@ public static class BeaverChroniclesUtils
     {
         [return: NotNullIfNotNull(nameof(str))]
         public string? Format(params object[] args) => str is null ? null : string.Format(str, args);
+
+        [return: NotNullIfNotNull(nameof(str))]
+        public string? CenterMixed() => str is null ? null : "[[C]]" + str;
+
+    }
+
+    extension (BaseComponent comp)
+    {
+        public StatusDescriptionComponent GetStatusDescription() => comp.GetComponent<StatusDescriptionComponent>();
     }
 
 }

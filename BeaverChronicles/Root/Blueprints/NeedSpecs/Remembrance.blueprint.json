@@ -1,0 +1,21 @@
+﻿{
+    "NeedSpec": {
+        "Id": "Remembrance",
+        "BackwardCompatibleIds": [],
+        "Order": 1800,
+        "NeedGroupId": "BasicNeeds",
+        "CharacterType": "Beaver",
+        "StartingValue": 0.0,
+        "MinimumValue": 0.0,
+        "MaximumValue": 3.0,
+        "DailyDelta": -1.0,
+        "ImportanceMultiplier": 1.0,
+        "Effectiveness": 1.0,
+        "Wastable": false,
+        "HoursWarningThreshold": 0.0,
+        "DisplayNameLocKey": "LV.BCEv.FirstDeath.BonusName",
+        "FavorableWellbeing": 1,
+        "UnfavorableWellbeing": 0
+    },
+    "InactiveHiddenNeedSpec": {}
+}

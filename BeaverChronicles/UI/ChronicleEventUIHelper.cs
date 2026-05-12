@@ -14,18 +14,27 @@ public class ChronicleEventUIHelper(
     public static string GetTopImagePath(string id) => RecommendedImagePath + id + "_Top";
     public static string GetSideImagePath(string id) => RecommendedImagePath + id + "_Side";
 
-    public async Task<int> ShowEventDialogAsync(IChronicleEvent ev, Action<ChronicleEventChoiceDialogBuilder> buildFn)
+    public async Task<int> ShowChoiceDialogAsync(IChronicleEvent ev, Action<ChronicleEventChoiceDialogBuilder> buildFn)
     {
         var builder = container.GetInstance<ChronicleEventChoiceDialogBuilder>();
         builder.SetEvent(ev);
         buildFn(builder);
-        return await ShowEventDialogAsync(builder.Build());
+        return await ShowChoiceDialogAsync(builder.Build());
     }
 
-    public async Task<int> ShowEventDialogAsync(ChronicleEventDialogDefinition def)
+    public async Task<int> ShowChoiceDialogAsync(ChronicleEventDialogDefinition def)
     {
         var diag = container.GetInstance<ChronicleEventChoiceDialog>();
         return await diag.ShowAsync(def);
+    }
+
+    public void ShowDismissOnlyChoiceDialog(IChronicleEvent ev, Action<ChronicleEventChoiceDialogBuilder> buildFn)
+    {
+        _ = ShowChoiceDialogAsync(ev, b =>
+        {
+            b.AddDismissChoice();
+            buildFn(b);
+        });
     }
 
     public void ShowChronicleDialog() => container.GetInstance<ChronicleEventsDialog>().Show();

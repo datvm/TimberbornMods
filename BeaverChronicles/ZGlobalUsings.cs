@@ -4,6 +4,7 @@ global using BeaverChronicles.Helpers;
 global using BeaverChronicles.Models;
 global using BeaverChronicles.Services;
 global using BeaverChronicles.UI;
-global using BeaverChronicles.UI.ChronicleDialog;
+global using ModdableTimberborn.BonusSystem;
 global using ModdableTimberborn.EntityTracker;
+global using ModdableTimberborn.WorkSystem;
 global using Random = UnityEngine.Random;

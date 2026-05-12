@@ -1,5 +1,7 @@
 ﻿namespace BeaverChronicles.Models;
 
+public readonly record struct OnNewChroniclePaymentEvent();
+
 public class ActiveEventPayment
 {
     public const string ScienceId = "Science";

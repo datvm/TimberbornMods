@@ -1,0 +1,8 @@
+﻿{
+    "NeedCollectionSpec": {
+        "CollectionId": "Common",
+        "Needs": [
+            "Remembrance"
+        ]
+    }
+}

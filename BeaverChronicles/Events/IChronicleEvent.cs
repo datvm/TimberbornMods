@@ -22,7 +22,7 @@ public interface IChronicleEvent
     /// In that case, one of them will be randomly chosen.<br />
     /// Other values: the higher the weight, the more likely this event will be triggered. Use 100 for a "standard" value.
     /// </returns>
-    int GetTriggerWeight(IEventTriggerParameters parameters);
+    int GetTriggerWeight(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService);
 
     /// <summary>
     /// Handle the control flow over to this event instance.
