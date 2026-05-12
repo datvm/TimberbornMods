@@ -14,6 +14,9 @@ public class ChronicleGameEventHandler(
 {
     const float NewDayDelay = .5f / 24f; // Delay half an hour so it's not conflict with other events.
 
+    public const string InjuryId = "Injury";
+    public const string ContaminationId = "BadwaterContamination";
+
     static readonly SingletonKey SaveKey = new(nameof(ChronicleGameEventHandler));
     static readonly PropertyKey<int> HourKey = new("Hour");
     static readonly PropertyKey<int> DayKey = new("Day");
@@ -54,17 +57,18 @@ public class ChronicleGameEventHandler(
     void OnCharacterNeedChanged(Character character, NeedChangedActiveStateEventArgs e)
     {
         var c = Create(character);
-        var p = new NeedChangedParameters(e.NeedSpec, e.IsActive, c);
+        var active = e.IsActive;
+        var spec = e.NeedSpec;
+        var p = new NeedChangedParameters(spec, active, c);
 
-        Trigger(Create(e.IsActive ? EventTriggerSource.NeedActivated : EventTriggerSource.NeedDeactivated, p));
-
-        switch (e.NeedSpec.Id)
+        Trigger(Create(active ? EventTriggerSource.NeedActivated : EventTriggerSource.NeedDeactivated, p));
+        switch (spec.Id)
         {
-            case "Injury":
-                Trigger(Create(e.IsActive ? EventTriggerSource.Injured : EventTriggerSource.InjuryCured, c));
+            case InjuryId:
+                Trigger(Create(active ? EventTriggerSource.Injured : EventTriggerSource.InjuryCured, c));
                 break;
-            case "Contamination":
-                Trigger(Create(e.IsActive ? EventTriggerSource.Contaminated : EventTriggerSource.Decontaminated, c));
+            case ContaminationId:
+                Trigger(Create(active ? EventTriggerSource.Contaminated : EventTriggerSource.Decontaminated, c));
                 break;
         }
     }

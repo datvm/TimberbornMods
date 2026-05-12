@@ -111,11 +111,15 @@ public static class BeaverChroniclesUtils
         [return: NotNullIfNotNull(nameof(str))]
         public string? CenterMixed() => str is null ? null : "[[C]]" + str;
 
+        [return: NotNullIfNotNull(nameof(str))]
+        public string? UncenterMixed() => str?.Replace("[[C]]", "");
+
     }
 
     extension (BaseComponent comp)
     {
         public StatusDescriptionComponent GetStatusDescription() => comp.GetComponent<StatusDescriptionComponent>();
+        public NeedManager GetNeedManager() => comp.GetComponent<NeedManager>();
     }
 
 }
