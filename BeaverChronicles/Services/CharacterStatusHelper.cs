@@ -102,13 +102,13 @@ public class CharacterStatusHelper(
         }
     }
 
-    public void FindAndContaminateRandomBeavers(int count)
+    public void FindAndInflictRandomBeavers(string needId, int count)
     {
         var counter = 0;
 
         foreach (var (man, n) in FindUncontaminatedBeavers())
         {
-            man.ApplyEffect(new(ChronicleGameEventHandler.ContaminationId, -n.PointToMin, 1));
+            man.ApplyEffect(new(needId, -n.PointToMin, 1));
             counter++;
 
             if (counter >= count) { break; }
@@ -119,7 +119,7 @@ public class CharacterStatusHelper(
             foreach (var b in beavers.Entities)
             {
                 var needMan = b.GetNeedManager();
-                var n = needMan.GetNeed(ChronicleGameEventHandler.ContaminationId);
+                var n = needMan.GetNeed(needId);
 
                 if (n is not null && n.Points == 0)
                 {
@@ -128,6 +128,9 @@ public class CharacterStatusHelper(
             }
         }
     }
+
+    public void FindAndContaminateRandomBeavers(int count) => FindAndInflictRandomBeavers(ChronicleGameEventHandler.ContaminationId, count);
+    public void FindAndInjureRandomBeavers(int count) => FindAndInflictRandomBeavers(ChronicleGameEventHandler.InjuryId, count);
 
     public void CureContamination(Guid characterId) => RemoveNeed(characterId, ChronicleGameEventHandler.ContaminationId);
 

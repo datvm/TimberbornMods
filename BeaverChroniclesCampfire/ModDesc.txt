@@ -1,0 +1,41 @@
+﻿Beaver Chronicles adds narrative events, colony choices, and remembered consequences to Timberborn.
+
+Instead of only reacting to numbers, alerts, and shortages, your settlement can now face story moments as it grows: disputes, discoveries, difficult losses, suspicious illnesses, desperate promises, strange opportunities, and other small events that make the colony feel more alive.
+
+[img]https://files.catbox.moe/b8azee.jpg[/img]
+
+[h1]Story Events[/h1]
+
+Events can appear as your colony reaches certain conditions. Some are simple one-time moments, while others may ask you to make a choice, commit resources, meet an objective, or accept unknown consequences.
+
+[img]https://files.catbox.moe/ahtypr.jpg[/img]
+
+Your decisions can lead to rewards, penalties, temporary effects, follow-up events, or outcomes recorded in the Chronicle.
+
+[img]https://files.catbox.moe/raahyq.jpg[/img]
+
+[h1]The Chronicle[/h1]
+
+Past events are saved in the Chronicle so you can look back at what happened to your settlement. Active events, completed choices, outcomes, and ongoing objectives can be reviewed from the Chronicle screen.
+
+[i]Can your colony survive a bitter dispute between the lumberjacks and the farmers?[/i]
+[img]https://files.catbox.moe/y1lqa9.jpg[/img]
+
+[h1]Expandable Stories[/h1]
+
+Beaver Chronicles is also built to support expansion packs. Add-ons can introduce their own events, images, branching chapters, objectives, rewards, penalties, hidden consequences, and remembered choices.
+
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3725316854]Campfire Mystery[/url] is one example: a standalone multi-chapter campfire story built on top of Beaver Chronicles, and also a reference for creating your own scenario-style expansion.
+
+[h1]For Mod Developers[/h1]
+
+Beaver Chronicles provides a framework for creating narrative Timberborn events without rebuilding the whole event pipeline yourself.
+
+It handles event registration, trigger handling, saved active events, choice dialogs, payment objectives, history pages, mixed resource text, temporary character bonuses, follow-up events, helper services, and localization patterns for writing Chronicle scenarios.
+
+Until full documentation is ready, Campfire Mystery is a good example of how to build a story event or scenario.
+
+Feel free to contact me on the official Timberborn Discord.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

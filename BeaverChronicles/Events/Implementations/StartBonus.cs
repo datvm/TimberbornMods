@@ -33,7 +33,7 @@ public class StartBonus(ChronicleEventUIHelper uiHelper, CharacterSpawnHelper ch
             {
                 if (!canSpawn)
                 {
-                    return n + t.TNoDc();
+                    return n + t.TNoSpawn();
                 }
             }
 

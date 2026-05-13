@@ -16,6 +16,6 @@
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 		
 		<ProjectReference Include="..\BeaverChronicles\BeaverChronicles.csproj" />
-		
+		<ProjectReference Include="..\BeaverChroniclesCampfire\BeaverChroniclesCampfire.csproj" />
 	</ItemGroup>
 </Project>

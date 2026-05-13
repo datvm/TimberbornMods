@@ -82,6 +82,8 @@ public class ChronicleEventService(
 
     public void RequestNextEventDelay(float delayDays) => History.RequestNextEventDelay(delayDays);
 
+    public bool HasCompletedEvent(string id) => History.FinishedEventIds.Contains(id);
+
     void OnGameEvent(object sender, IEventTriggerParameters p)
     {
         var e = ChooseEvent(p);
