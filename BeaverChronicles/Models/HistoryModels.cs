@@ -43,6 +43,8 @@ public record EventHistoryRecord(string Id, float StartDay, float? EndDay)
         return false;
     }
 
+    public int GetChoice(int pos) => TryGetChoice(pos, out var index) ? index : throw new InvalidOperationException($"No choice recorded at position {pos}");
+
     public EventHistoryPage AddPage() => AddPage(false, false);
 
     public EventHistoryPage AddPage(bool top = false, bool side = false)

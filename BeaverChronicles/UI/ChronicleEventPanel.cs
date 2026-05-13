@@ -31,7 +31,8 @@ public class ChronicleEventPanel(
             .SetDisplay(false);
 
         collapsible = this.AddCollapsiblePanel();
-        
+        collapsible.HeaderLabel.SetFlexShrink();
+
         var parent = collapsible.Container;
         descContainer = parent.AddChild().SetMarginBottom(5).SetDisplay(false);
         lblTimer = parent.AddIconSpan().SetTime(namedIconProvider, "").SetVertical(false).SetMarginBottom(5).SetDisplay(false);

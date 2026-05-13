@@ -10,6 +10,10 @@
     <Project Path="AutomationGraph/AutomationGraph.csproj" Id="12e55752-db52-465a-8e8f-d3db9f885856" />
     <Project Path="PausableSensors/PausableSensors.csproj" Id="c881a04b-23ee-4d5b-9675-0cf98f128b91" />
   </Folder>
+  <Folder Name="/BChronicles/">
+    <Project Path="BeaverChronicles/BeaverChronicles.csproj" Id="c21248d9-cac1-4194-b0f9-aae8a889e8ad" />
+    <Project Path="BeaverChroniclesCampfire/BeaverChroniclesCampfire.csproj" Id="8cf1e96a-1dae-40b6-9c7d-410f406bea43" />
+  </Folder>
   <Folder Name="/Configurables/">
     <Project Path="ConfigurableAutoSave/ConfigurableAutoSave.csproj" />
     <Project Path="ConfigurableBeaverWalk/ConfigurableBeaverWalk.csproj" />
@@ -152,6 +156,7 @@
   </Folder>
   <Folder Name="/_Utils/Targets/">
     <File Path="Targets/Common.targets" />
+    <File Path="Targets/CommonBeaverChronicles.targets" />
     <File Path="Targets/CommonBuildingHP.targets" />
     <File Path="Targets/CommonDebug.targets" />
     <File Path="Targets/CommonGlobalUsings.targets" />
@@ -175,7 +180,6 @@
   <Project Path="AlwaysFlexibleStart/AlwaysFlexibleStart.csproj" />
   <Project Path="BathBombs/BathBombs.csproj" Id="3f10831a-291c-4b0e-b023-cce6242f0c07" />
   <Project Path="Battery/Battery.csproj" Id="ac915a66-7cd5-426b-81a1-d5c10e9bc206" />
-  <Project Path="BeaverChronicles/BeaverChronicles.csproj" Id="c21248d9-cac1-4194-b0f9-aae8a889e8ad" />
   <Project Path="BeavVsMachine/BeavVsMachine.csproj" />
   <Project Path="BenchmarkAndOptimizer/BenchmarkAndOptimizer.csproj" />
   <Project Path="BetterWeatherStation/BetterWeatherStation.csproj" Id="2a54e76c-8815-4bf0-9312-78be9bcb629b" />

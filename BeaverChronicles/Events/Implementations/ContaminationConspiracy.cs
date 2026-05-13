@@ -69,7 +69,7 @@ public class ContaminationConspiracy(
 
         var index = await uiHelper.ShowChoiceDialogAsync(this, b => b
             .SetTextContent(content)
-            .SetTopImage()
+            .SetSideImage()
             .AddChoices(choices)
         );
 

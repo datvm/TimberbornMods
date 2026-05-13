@@ -1,0 +1,14 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<ItemGroup>
+		<Using Include="BeaverChronicles" />
+		<Using Include="BeaverChronicles.Services" />
+		<Using Include="BeaverChronicles.Events" />
+		<Using Include="BeaverChronicles.Helpers" />
+		<Using Include="BeaverChronicles.Models" />
+		<Using Include="BeaverChronicles.UI" />
+
+		<Reference Include="$(GameModsFolder)BeaverChronicles\$(TimberbornVersion)\**\*.dll" Private="false" />	
+	</ItemGroup>
+
+</Project>

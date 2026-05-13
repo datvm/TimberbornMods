@@ -1,0 +1,12 @@
+﻿{
+    "Name": "Beaver Chronicles - Campfire",
+    "Version": "10.0.0",
+    "Id": "BeaverChroniclesCampfire",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "A campfire story",
+    "RequiredMods": [
+        {
+            "Id": "BeaverChronicles"
+        }
+    ]
+}

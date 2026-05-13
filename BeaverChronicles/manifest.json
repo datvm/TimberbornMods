@@ -1,13 +1,12 @@
 ﻿{
-    "Name": "Beaver Chronicles",
+    "Name": "Beaver Chronicles - Scenarios & Narrative Events",
     "Version": "10.0.0",
     "Id": "BeaverChronicles",
     "MinimumGameVersion": "1.0.0",
-    "Description": "Random events for your Beaver colony",
+    "Description": "Narrative events for your Beaver colony",
     "RequiredMods": [
         {
-            "Id": "ModdableTimberborn",
-            "MinimumVersion": "10.5.0"
+            "Id": "ModdableTimberborn"
         }
     ]
 }

@@ -103,7 +103,7 @@ public static class BeaverChroniclesUtils
 
     }
 
-    extension (string? str)
+    extension(string? str)
     {
         [return: NotNullIfNotNull(nameof(str))]
         public string? Format(params object[] args) => str is null ? null : string.Format(str, args);
@@ -116,10 +116,30 @@ public static class BeaverChroniclesUtils
 
     }
 
-    extension (BaseComponent comp)
+    extension(BaseComponent comp)
     {
         public StatusDescriptionComponent GetStatusDescription() => comp.GetComponent<StatusDescriptionComponent>();
         public NeedManager GetNeedManager() => comp.GetComponent<NeedManager>();
+    }
+
+    extension(IReadOnlyList<object> list)
+    {
+
+        public IEnumerable<GoodAmount> ToGoods(int startIndex)
+        {
+            for (int i = startIndex; i + 1 < list.Count; i += 2)
+            {
+                yield return new((string)list[i], (int)list[i + 1]);
+            }
+        }
+
+    }
+
+    extension(IEnumerable<GoodAmount> goods)
+    {
+
+        public string ToMixedText() => string.Join(", ", goods.Select(g => $"[[good:{g.GoodId}:{g.Amount}]]"));
+
     }
 
 }

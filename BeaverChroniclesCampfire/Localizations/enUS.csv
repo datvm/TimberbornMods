@@ -1,0 +1,242 @@
+﻿ID,Text,Comment
+LV.BCEv.CampfireMystery.WaitNight,"Wait for the night...",
+LV.BCEv.CampfireMystery.WaitPrompt,"With the Campfire built, the colony already seems warmer.
+Beavers glance toward it between tasks, trading guesses about the stories that will be told when the workday ends. Some want old legends. Some want jokes. One insists every proper Campfire story needs at least one mysterious knock.
+Gather the colony when the hour grows late.
+[[C]]Wait until [[time:{0:0}h]] to begin the story.",
+LV.BCEv.CampfireMystery1,"Campfire Mystery: The Tail That Knocked Thrice",
+LV.BCEv.CampfireMystery1.Content,"The Campfire burns low, and the colony gathers close. At first, the evening belongs to ordinary things: tired paws, warm light, old jokes, and the comforting crackle of wood becoming ash. Then something knocks from beyond the firelight.
+[[C]]<YellowHighlight><i>Knock. Knock. Knock.</i></YellowHighlight>
+No one moves. A young beaver whispers that it came from the trees. An elder insists it was only old timber settling. Someone else points out that old timber usually does not wait politely between knocks.
+The fire snaps. Sparks drift upward. Every eye turns toward the dark beyond the circle. Then it comes again.
+[[C]]<YellowHighlight><i>Knock. Knock. Knock.</i></YellowHighlight>
+This time, the sound is closer. By morning, the colony finds muddy pawprints near the storage piles, a few missing supplies, and a strange spiral scratched into a plank. It looks almost like a beaver tail, if the beaver drawing it had never seen one clearly. By sunset, every beaver has a theory.
+[[C]]A ghost from the Old Banks.
+[[C]]A thief with very small paws.
+[[C]]A warning from the forest.
+[[C]]A prank by someone with too much free time.
+[[C]]<i>Or something worse.</i>
+Tonight, the Campfire will burn again. The colony must decide what kind of answer it wants from the dark.",
+LV.BCEv.CampfireMystery1.C1,"Feed the fire",
+LV.BCEv.CampfireMystery1.C1N,"[[C]]Pay [[good:{0}:{1}]] to keep the Campfire bright through the night.",
+LV.BCEv.CampfireMystery1.C2,"Leave food beyond the light",
+LV.BCEv.CampfireMystery1.C2N,"[[C]]Pay [[good:{0}:{1}]] as bait, tribute, or dinner. The difference is mostly confidence.",
+LV.BCEv.CampfireMystery1.C3,"Ask the Inventor to listen",
+LV.BCEv.CampfireMystery1.C3N,"[[C]]Pay [[good:{0}:{1}]] to investigate the knocking with something more reliable than panic.",
+LV.BCEv.CampfireMystery1.O1,"The beavers stack fresh logs beside the Campfire and keep the flames high.
+The dark does not vanish. It only steps backward.
+All night, the colony watches the firelight push against the trees, the storage piles, and the uneven ground beyond the camp. The knocking comes twice more, but each time it sounds farther away, as if whatever waits outside the circle refuses to cross into the glow.
+By dawn, the missing supplies are still missing. The spiral mark is still carved into the plank.
+But the colony has learned one thing.
+<b>Whatever made the sound, it does not like being seen.</b>",
+LV.BCEv.CampfireMystery1.O2,"The berries are placed carefully at the edge of the firelight.
+No one agrees what this means.
+Some call it bait. Some call it mercy. One very nervous beaver calls it diplomacy and insists the bowl should be turned slightly to show respect.
+By morning, the berries are gone. The bowl remains.
+It has been pushed back toward the Campfire, badly cleaned, with a small spiral scratched into the dirt beside it. The mark is less like a threat. More like a reply.
+The colony does not know what waits beyond the light.
+<b>But now it knows the dark was hungry.</b>",
+LV.BCEv.CampfireMystery1.O3,"The Inventor arrives with a device made from hollow reeds, a bent cup, stretched bark, and the absolute confidence of someone who has not tested anything yet.
+The colony gathers around as the strange tool is pointed toward the dark.
+For a while, there is only wind, fire, and embarrassed silence.
+Then the knocking comes again.
+[[C]]<YellowHighlight><i>Knock. Knock. Knock.</i></YellowHighlight>
+The Inventor's ears rise. The sound is not coming from the trees. It is not even coming from beyond the Campfire.
+The device catches the echo from beneath the storage floor, hollow and faint, as if the colony has been listening in the wrong direction all along.
+By morning, the spiral mark feels less like a curse and more like a clue.",
+LV.BCEv.CampfireMystery2,"Campfire Mystery: The Spiral Trail",
+LV.BCEv.CampfireMystery2.Content,"{0}
+The next night, the Campfire is lit again.
+No one pretends this is only for stories anymore.
+The beavers sit closer together than usual. Some watch the trees. Some watch the storage piles. One watches the other watchers and calls it strategy.
+Then the knocking comes again.
+[[C]]<YellowHighlight><i>Knock. Knock. Knock.</i></YellowHighlight>
+This time, the colony is ready enough to be afraid properly.
+{1}
+A few beavers argue that it is a warning. Others think it is a trail. The Inventor says it is definitely evidence, though evidence of what remains inconveniently unclear.
+The colony now knows one thing for certain:
+<b>The spiral is not random.</b>
+{2}
+Tonight, the beavers must decide how closely they are willing to follow it.",
+LV.BCEv.CampfireMystery2.Content.Ch1C1,"After the fire was fed, the first night ended with one strange lesson: whatever made the sound avoided the light.
+So tonight, the logs are stacked higher. The flames rise brighter. The colony waits inside a wider circle of warmth, hoping courage can be built from wood.",
+LV.BCEv.CampfireMystery2.Content.Ch1C2,"After the berries vanished, the first night ended with one strange lesson: whatever waited in the dark was hungry.
+So tonight, the returned bowl sits near the Campfire where everyone can see it. No one agrees whether it is proof of mercy, manners, or a very selective appetite.",
+LV.BCEv.CampfireMystery2.Content.Ch1C3,"After the Inventor's device caught the hollow echo, the first night ended with one strange lesson: the sound may not have come from the trees at all.
+So tonight, the device sits beside the Campfire like an honored guest, though several beavers privately note that it still looks like a cup tied to a mistake.",
+LV.BCEv.CampfireMystery2.Content.ClueCh1C1,"When the flames rise, the knocking fades. When the fire settles, it returns. Whatever is out there does not flee the Campfire completely, but it keeps to the edge of the glow.",
+LV.BCEv.CampfireMystery2.Content.ClueCh1C2,"The bowl is found again before sunrise. It has been pushed a little closer to camp and badly cleaned again. The message is unclear, but the care is not.",
+LV.BCEv.CampfireMystery2.Content.ClueCh1C3,"When the knocking begins, the Inventor points the device toward the trees. Nothing. Then toward the storage piles. The stretched bark trembles. The hollow echo returns from below.",
+LV.BCEv.CampfireMystery2.Content.ToneCh1C1,"The mark points toward the old storage area, just beyond where the firelight was strongest. The colony wonders whether the dark is retreating, or simply inviting them to follow.",
+LV.BCEv.CampfireMystery2.Content.ToneCh1C2,"The mark points toward the old storage area. If it is a trail, it was left by someone cautious. If it is a warning, it was left by someone who still returned the bowl.",
+LV.BCEv.CampfireMystery2.Content.ToneCh1C3,"The mark points toward the old storage area, exactly where the device heard the hollow echo. For once, the Inventor looks both smug and alarmed.",
+LV.BCEv.CampfireMystery2.C3.Ch1C1,"Widen the fireline",
+LV.BCEv.CampfireMystery2.C3N.Ch1C1,"[[C]]Pay [[good:Log:{0}]] to push the Campfire's light farther into the dark.",
+LV.BCEv.CampfireMystery2.C3.Ch1C2,"Leave another bowl",
+LV.BCEv.CampfireMystery2.C3N.Ch1C2,"[[C]]Pay [[good:Berries:{0}]] to see whether the dark answers kindness twice.",
+LV.BCEv.CampfireMystery2.C3.Ch1C3,"Improve the listening device",
+LV.BCEv.CampfireMystery2.C3N.Ch1C3,"[[C]]Pay [[good:Science:{0}]] to make the Inventor's questionable device slightly less questionable.",
+LV.BCEv.CampfireMystery2.O3.Ch1C1,"The widened fireline reaches farther than before, and the dark gives up more of its shape.
+By dawn, another spiral is found scratched into the ground near the old storage floor. Near the edge of the new light, the beavers find claw marks in the dirt, a smear of mud on old wood, and the mark pointing straight toward storage.",
+LV.BCEv.CampfireMystery2.O3.Ch1C2,"The second bowl is gone before dawn.
+By dawn, another spiral is found near the old storage floor. Beside it, the beavers find three berries arranged in a neat line. Not eaten. Not hidden. Left behind.
+No one knows whether it means thanks, warning, or terrible table manners.",
+LV.BCEv.CampfireMystery2.O3.Ch1C3,"The improved device works almost too well.
+When the knocking comes, the stretched bark trembles hard enough to make the Inventor squeak. The echo is definitely beneath the old storage floor.
+By dawn, another spiral is found near the old storage floor, exactly where the hollow echo was strongest.
+The ghost, if it is a ghost, has very ordinary acoustics.",
+LV.BCEv.CampfireMystery3,"Campfire Mystery: The Caped Chewer",
+LV.BCEv.CampfireMystery3.Content,"{0}
+The next night, the Campfire is louder than the stories.
+Every beaver has an opinion about the old storage floor. Some want patience. Some want guards. Some want the floor opened at once, preferably by someone else.
+Then the young beavers make their proposal.
+They have prepared bark masks, a leaf cape, and a heroic name that no adult remembers approving.
+<b>The Caped Chewer.</b>
+The elders stare.
+The Inventor asks whether this is a patrol, a performance, or a workplace accident waiting for witnesses.
+The Caped Chewer says it is all three, which does not help.
+Still, the colony must act. Something is beneath the old storage floor. Something hungry, clever, and afraid of being seen.
+Tonight, the beavers will stop waiting for the knocking to come to them.",
+LV.BCEv.CampfireMystery3.Content.Ch1C1,"The colony remembers the way the knocking retreated from the light.
+If the thing under storage fears the glow, then the boldest plan is obvious: carry the glow closer.
+This is how the Caped Chewer explains it.
+This is also how several elders realize the cape is probably flammable.",
+LV.BCEv.CampfireMystery3.Content.Ch1C2,"The colony remembers the empty bowl, the missing berries, and the careful spiral left beside them.
+If the thing under storage is hungry, perhaps it can be drawn out without fear.
+This is how the Caped Chewer explains it.
+The Inventor calls it bait. The Caped Chewer calls it a heroic invitation snack.",
+LV.BCEv.CampfireMystery3.Content.Ch1C3,"The colony remembers the Inventor's device trembling toward the old storage floor.
+If the sound comes from below, then the trap must be set above.
+This is how the Caped Chewer explains it.
+The Inventor is pleased to be cited as evidence and alarmed to be included in the plan.",
+LV.BCEv.CampfireMystery3.C1,"Encourage the Caped Chewer",
+LV.BCEv.CampfireMystery3.C1N,"{0}",
+LV.BCEv.CampfireMystery3.C1N.Ch1C1,"[[C]]Pay {0} to equip the hero with a proper torch patrol.",
+LV.BCEv.CampfireMystery3.C1N.Ch1C2,"[[C]]Pay {0} to prepare a heroic invitation snack using the Inventor's very scientific bait protocol.",
+LV.BCEv.CampfireMystery3.C1N.Ch1C3,"[[C]]Pay {0} to set bait near the old storage floor and keep the hero's watch lit.",
+LV.BCEv.CampfireMystery3.C2,"Post real guards",
+LV.BCEv.CampfireMystery3.C2N,"[[C]]Pay {0} to keep guards posted through the night.",
+LV.BCEv.CampfireMystery3.C3,"Seal the old storage floor",
+LV.BCEv.CampfireMystery3.C3N,"[[C]]Pay {0} to block the raised boards and seal the gaps.",
+LV.BCEv.CampfireMystery3.O1,"The Caped Chewer takes position near the old storage floor.
+{0}
+For a while, nothing happens.
+Then the knocking comes from below.
+<YellowHighlight><i>Knock. Knock. Knock.</i></YellowHighlight>
+The Caped Chewer raises one paw for silence, which would be more impressive if everyone had not already stopped breathing.
+A shadow moves beneath the raised board.
+The hero leaps.
+The shadow leaps back.
+The next few moments are mostly noise: scraping claws, splintering wood, startled shouts, and one heroic declaration that turns into a squeak halfway through.
+When the colony rushes in, the Caped Chewer and the young volunteers are bruised and shaken.
+But they are not empty-pawed.
+In the firelight, dragged from the broken storage floor, lies an unconscious beaver no one recognizes.
+[[C]][[-]]{1} Beaver injured.",
+LV.BCEv.CampfireMystery3.O1.Ch1C1,"The torch burns bright enough to make every mask look braver than its owner. Resin smoke curls through the storage piles, sharp and golden, pushing the dark into narrow corners.",
+LV.BCEv.CampfireMystery3.O1.Ch1C2,"The berries are arranged with great ceremony. The Caped Chewer insists the bowl should face the heroic direction. No one asks what direction that is.",
+LV.BCEv.CampfireMystery3.O1.Ch1C3,"The bait is placed near the raised plank, and the patrol keeps the area lit. The Inventor gives three pieces of advice, two warnings, and one diagram no one requested.",
+LV.BCEv.CampfireMystery3.O2,"The guards take their posts near the old storage floor.
+They have water, berries, and the kind of courage that gets quieter the longer the night lasts.
+The Campfire burns behind them. The storage piles creak ahead of them. Beneath the raised plank, something shifts.
+Then the knocking comes.
+<YellowHighlight><i>Knock. Knock. Knock.</i></YellowHighlight>
+One guard calls out.
+Another steps closer.
+The floor erupts.
+A shadow bolts from below, fast and wild with panic. The guards close ranks, but the thing fights like it has already decided capture means death.
+By the time the colony reaches them, several guards are injured. A cup rolls across the dirt. Berries scatter underfoot.
+But the shadow has been caught.
+In the firelight, held down at last, lies an unconscious beaver no one recognizes.
+[[C]][[-]]{0} Beavers injured.",
+LV.BCEv.CampfireMystery3.O3,"The old storage floor is sealed before sunset.
+Planks are nailed over the raised boards. Gaps are blocked. Loose corners are pressed flat until the floor looks ordinary again.
+For a while, the knocking stops.
+Some beavers relax.
+That is when it returns.
+<YellowHighlight><i>Knock. Knock. Knock.</i></YellowHighlight>
+Faster this time.
+Louder.
+Not a warning from beyond the dark, but a desperate sound from underneath.
+The planks shudder. One snaps. Then another.
+A shadow bursts from the broken floor and crashes into the workers nearby. Paws scramble. Teeth flash. Someone shouts for help.
+The colony fights back before fear can scatter them completely.
+When the noise finally ends, several workers are injured, the new planks are ruined, and an unconscious beaver no one recognizes lies beside the broken storage floor.
+[[C]][[-]]{0} Beavers injured.",
+LV.BCEv.CampfireMystery4,"Campfire Mystery: The Beaver Beneath",
+LV.BCEv.CampfireMystery4.Content,"{0}
+For two days, the captured beaver does not wake.
+The injured are bandaged. The old storage floor is watched. The Campfire burns quietly, but no one asks for stories.
+Then, at last, the stranger opens their eyes.
+They are thin, frightened, and smaller than the shadow made them seem.
+When they see the gathered colony, they scramble backward until their tail strikes the wall. It is crooked, scarred, and stiff, curled strangely enough that several beavers understand the spiral marks all at once.
+The marks were not curses.
+They were not warnings from a ghost.
+They were tail-signs, scratched by someone who needed to find their way through the dark.
+Piece by piece, the truth comes out.
+The stranger came from a failed settlement beyond the trees. They followed the smoke of the Campfire, found the colony, and hid beneath the storage floor because hunger was easier to face than being chased away.
+They stole only what they could carry.
+They knocked because they were afraid.
+They fought because, in the dark, every paw reaching down looked like an enemy.
+{1}
+Now the colony must decide what kind of story this will become.
+A warning.
+A welcome.
+Or the tale of a beaver who found firelight and was sent back into the dark.",
+LV.BCEv.CampfireMystery4.Content.Ch3C1,"The Caped Chewer's patrol is already becoming a legend, mostly because every witness tells it differently.
+Some say the hero leapt bravely. Some say the hero slipped. The Caped Chewer insists both can be true if one falls with purpose.
+But beneath the jokes are bandages, bruises, and shaken young beavers who learned that shadows can bite back.",
+LV.BCEv.CampfireMystery4.Content.Ch3C2,"The guards did their duty, and duty has left marks.
+They held the old storage floor through the night. They caught the shadow before it vanished again. Now they sit near the Campfire with bandaged paws, quiet faces, and the uneasy knowledge that they captured someone who had only been trying to survive.",
+LV.BCEv.CampfireMystery4.Content.Ch3C3,"The sealed floor has been torn open again.
+The new planks are broken. The workers are injured. No one says the word trap, but everyone thinks it.
+The stranger watches the colony with wide eyes, as if still hearing the sound of exits being closed above them.",
+LV.BCEv.CampfireMystery4.Content.TrialCh3C1,"If the colony wants the stranger to stay, it must show that the Campfire is not just noise, masks, and brave speeches.
+It must prove that every beaver in the colony is truly cared for.",
+LV.BCEv.CampfireMystery4.Content.TrialCh3C2,"If the colony wants the stranger to stay, it must show that guards are not only there to corner the frightened.
+It must prove that order protects the colony from real danger.",
+LV.BCEv.CampfireMystery4.Content.TrialCh3C3,"If the colony wants the stranger to stay, it must show that no beaver here is left trapped, hungry, thirsty, or forgotten.
+It must prove that shelter is not another word for a closed door.",
+LV.BCEv.CampfireMystery4.C1,"Prove the colony is safe",
+LV.BCEv.CampfireMystery4.C1N,"{0}",
+LV.BCEv.CampfireMystery4.C1N.Ch3C1,"[[C]]Ensure average wellbeing is at least {1} after [[time:{0}d]].",
+LV.BCEv.CampfireMystery4.C1N.Ch3C2,"[[C]]Keep the colony from flooding for [[time:{0}d]].",
+LV.BCEv.CampfireMystery4.C1N.Ch3C3,"[[C]]Ensure all beavers are sheltered, not hungry, and not thirsty after [[time:{0}d]].",
+LV.BCEv.CampfireMystery4.C2,"Send them away with supplies",
+LV.BCEv.CampfireMystery4.C2N,"[[C]]Pay {1} within [[time:{0}d]]. The stranger will leave, but not empty-pawed.",
+LV.BCEv.CampfireMystery4.C3,"Drive them out",
+LV.BCEv.CampfireMystery4.C3N,"[[C]]The colony will not risk another attack. <YellowHighlight>Unknown consequences.</YellowHighlight>",
+LV.BCEv.CampfireMystery4.BuffName,"Inside the Circle",
+LV.BCEv.CampfireMystery4.DebuffName,"Cold Firelight",
+LV.BCEv.CampfireMystery4.O1,"For days, the colony does not argue with the stranger.
+It simply proves itself.
+No beaver is ignored. No fear is answered with panic. No tired paw is treated as a burden.
+The stranger watches from the edge of the Campfire light, silent and uncertain.
+Then, one evening, they step closer. Not beneath the floor. Not beyond the glow. Inside the circle. The colony makes room.
+Only then does the stranger point back toward the broken storage floor. Beneath a loose board, hidden away from panic and pursuit, they reveal a small trove of salvaged materials they had carried from the failed settlement and never dared to show.
+The Tail That Knocked Thrice is no longer a ghost story. It is a welcome story.
+[[C]][[+]]A new beaver joins the colony.
+[[C]][[+]]Gain {2}.
+[[C]][[+]]All beavers gain {0} for [[time:{1}d]]",
+LV.BCEv.CampfireMystery4.O2,"The colony tries, but fear has a long memory.
+{0}
+The stranger watches from the edge of the Campfire light, silent and uncertain. They flinch at hurried paws, raised voices, and every creak from the old storage floor.
+When the time comes, they do not step closer. Before dawn, they leave.
+There is no knocking this time. No spiral mark. No final warning. Only a place by the fire that remains empty.
+The mystery ends, but not as a welcome story.
+[[C]][[-]]Adult beavers suffer {1} for [[time:{2}d]]",
+LV.BCEv.CampfireMystery4.O2.FailCh3C1,"Some beavers are still worn down, unhappy, or forgotten at the edges of colony life. To the stranger, the Campfire looks warm, but not wide enough.",
+LV.BCEv.CampfireMystery4.O2.FailCh3C2,"The water rises where it should not. Paths flood, work stalls, and the colony rushes to protect itself. To the stranger, order still looks fragile.",
+LV.BCEv.CampfireMystery4.O2.FailCh3C3,"Some beavers still go without shelter, food, or water. To the stranger, the colony has not proven that a frightened mouth will be cared for instead of closed away.",
+LV.BCEv.CampfireMystery4.O3,"The colony packs berries and water, then leaves the bundle near the edge of the Campfire light.
+The stranger takes it silently.
+For a moment, it seems they might speak. Instead, they scratch one final spiral into the dirt.
+This one does not point toward storage. It does not point beneath the floor. It points away.
+The colony watches until the trees swallow them. The mystery ends gently, but not happily.",
+LV.BCEv.CampfireMystery4.O4,"The colony drives the stranger beyond the light.
+No one cheers.
+The stolen goods are counted. The broken planks are replaced. The injured slowly return to work.
+At the next Campfire, someone begins to tell the story of the ghost beneath storage.
+No one asks them to continue.
+Some stories are not frightening because of the shadow.
+Some are frightening because of what the firelight did after it found one.
+[[C]][[-]]Adult beavers suffer {0} for [[time:{1}d]]",

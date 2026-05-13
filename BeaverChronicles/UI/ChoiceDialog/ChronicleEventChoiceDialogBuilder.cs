@@ -49,18 +49,6 @@ public class ChronicleEventChoiceDialogBuilder(
         return this;
     }
 
-    public ChronicleEventChoiceDialogBuilder AddChoices(int choices, bool hasNote = true)
-    {
-        for (int i = 0; i < choices; i++)
-        {
-            var text = t.T($"LV.BCEv.{Event.Id}.C1");
-            var note = hasNote ? t.T($"LV.BCEv.{Event.Id}.C1N") : null;
-
-            AddChoice(text, note);
-        }
-        return this;
-    }
-
     public ChronicleEventChoiceDialogBuilder AddChoices(SimpleChoiceData[] choices)
     {
         foreach (var c in choices)
@@ -68,18 +56,6 @@ public class ChronicleEventChoiceDialogBuilder(
             AddChoice(c.Text, c.Note, c.Disabled);
         }
 
-        return this;
-    }
-
-    public ChronicleEventChoiceDialogBuilder AddChoices(int choices, object[][] noteFormats)
-    {
-        for (int i = 0; i < choices; i++)
-        {
-            var text = t.T($"LV.BCEv.{Event.Id}.C{i + 1}");
-            var note = string.Format(t.T($"LV.BCEv.{Event.Id}.C{i + 1}N"), noteFormats[i]);
-
-            AddChoice(text, note);
-        }
         return this;
     }
 

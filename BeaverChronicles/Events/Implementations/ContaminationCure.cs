@@ -25,7 +25,7 @@ public class ContaminationCure(
     const float ShortPaymentDays = .5f;
     const float LongPaymentDays = 1f;
     const float SingleTreatmentSuccessChance = .4f;
-    const float AssistedTreatmentSuccessChance = .1f;
+    const float AssistedTreatmentSuccessChance = .7f;
 
     bool checkedForGoods = false;
 
