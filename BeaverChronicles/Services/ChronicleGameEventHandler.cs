@@ -7,9 +7,9 @@ public class ChronicleGameEventHandler(
     IDayNightCycle dayNightCycle,
     GameCycleService gameCycleService,
     ITimeTriggerFactory timeTriggerFactory,
-    WeatherIdService weatherIdService,
     DefaultEntityTracker<Beaver> beavers,
-    DefaultEntityTracker<Bot> bots
+    DefaultEntityTracker<Bot> bots,
+    CompatWeatherService compatWeatherService
 ) : ITickableSingleton, ISaveableSingleton, ILoadableSingleton
 {
     const float NewDayDelay = .5f / 24f; // Delay half an hour so it's not conflict with other events.
@@ -190,7 +190,7 @@ public class ChronicleGameEventHandler(
         if (hour == currHour) { return; }
 
         var cycle = gameCycleService.Cycle;
-        var weatherId = weatherIdService.GetId();
+        var weatherId = compatWeatherService.Provider.GetCurrentCycleStage().WeatherId;
         var parameters = CreateParameters();
 
         Trigger(Create(EventTriggerSource.NewHour, parameters));
@@ -208,14 +208,15 @@ public class ChronicleGameEventHandler(
             currWeather = weatherId;
         }
 
+        var weatherWarning = compatWeatherService.Provider.GetWarningStatus();
+        if (weatherWarning.Stage == CompatWeatherWarningStage.ShowedToday)
+        {
+            Trigger(Create(EventTriggerSource.WeatherWarning, new WeatherWarningParameters(weatherWarning.NextWeatherId!, parameters)));
+        }
+
         if (cycle == currCycle) { return; }
         Trigger(Create(EventTriggerSource.NewCycle, parameters));
         currCycle = cycle;
-
-        if (weatherIdService.IsWeatherWarningDay(out var warningWeatherId))
-        {
-            Trigger(Create(EventTriggerSource.WeatherWarning, new WeatherWarningParameters(warningWeatherId, parameters)));
-        }
 
         DayTimeParameters CreateParameters() => new(day, cycle, gameCycleService.CycleDay, partialDay, hours, weatherId);
     }

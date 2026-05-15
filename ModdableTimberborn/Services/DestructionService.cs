@@ -1,5 +1,6 @@
 ﻿namespace ModdableTimberborn.Services;
 
+[BindSingleton(Contexts = BindAttributeContext.NonMenu)]
 /// <summary>
 /// A service for querying, highlighting and destroying block objects and terrains that would be affected by destruction.
 /// </summary>

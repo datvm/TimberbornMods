@@ -20,7 +20,7 @@ public class DroughtPrep(
     public override int GetTriggerWeight(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService)
     {
         var p = parameters.GetParameterOrDefault<WeatherWarningParameters>();
-        return p is null || p.HazardousWeatherId != WeatherIdService.DroughtId || !BeaverChroniclesUtils.Chance(TriggerChance)
+        return p is null || p.HazardousWeatherId != CompatWeatherService.DroughtId || !BeaverChroniclesUtils.Chance(TriggerChance)
             ? 0
             : int.MaxValue;
     }

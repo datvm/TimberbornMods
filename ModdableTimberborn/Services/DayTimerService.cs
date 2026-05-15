@@ -1,5 +1,6 @@
 ﻿namespace ModdableTimberborn.Services;
 
+[BindSingleton]
 public class DayTimerService(
     EventBus eb,
     ITimeTriggerFactory timeTriggerFactory
