@@ -1,5 +1,6 @@
 ﻿namespace ModdableTimberborn.GameModes;
 
+[BindSingleton]
 public class PersistentGameModeService(
     GameModeSpecService gameModeSpecService,
     ISingletonLoader loader,

@@ -1,34 +1,40 @@
-﻿namespace TestMod;
+﻿using ModdableTimberborn.CompatWeatherService;
 
-[Context("Bootstrapper")]
-public class ModBootstrapperConfig : Configurator
+namespace TestMod;
+
+public class MConfig : BaseModdableTimberbornAttributeConfiguration
 {
-    public override void Configure()
-    {
-
-    }
+    public override ConfigurationContext AvailableContexts => ConfigurationContext.All;
 }
 
-[Context("MainMenu")]
-public class ModMenuConfig : Configurator
+[MultiBind(typeof(IDevModule))]
+class Test(CompatWeatherService service) : IDevModule
 {
-    public override void Configure()
+    public DevModuleDefinition GetDefinition()
     {
-        Bind<Test>().AsSingleton();
+        return new DevModuleDefinition.Builder()
+            .AddMethod(DevMethod.Create("Test weather compat", TestWeather))
+            .Build();
     }
-}
 
-[Context("Game")]
-public class ModGameConfig : Configurator
-{
-    public override void Configure()
+    void TestWeather()
     {
-    }
-}
+        var p = service.Provider;
 
-class Test : ILoadableSingleton
-{
-    public void Load()
-    {
+        Debug.Log(JsonConvert.SerializeObject((object?[])[
+            p.GetType().Name,
+            string.Join(", ", p.WeatherTypes),
+            p.ApproachingNotificationDays,
+            p.CurrentCycleHazardousId,
+            p.IsHazardous,
+            p.IsNextDayHazardous,
+            p.GetCurrentCycle(),
+            p.GetCurrentCycleStage(),
+            p.GetCurrentCycleBenignStage(),
+            p.GetCurrentCycleHazardousStage(),            
+            p.GetNextCycleStage(),
+            p.GetWarningStatus(),
+        ], Formatting.Indented));
     }
+
 }

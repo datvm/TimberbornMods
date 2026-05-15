@@ -12,12 +12,14 @@ Events can appear as your colony reaches certain conditions. Some are simple one
 
 Your decisions can lead to rewards, penalties, temporary effects, follow-up events, or outcomes recorded in the Chronicle.
 
-[img]https://files.catbox.moe/ts9i93.jpg[/img]
 [i]Can your colony survive a bitter dispute between the lumberjacks and the farmers?[/i]
+[img]https://files.catbox.moe/ts9i93.jpg[/img]
 
 [h1]The Chronicle[/h1]
 
-Past events are saved in the Chronicle so you can look back at what happened to your settlement. Active events, completed choices, outcomes, and ongoing objectives can be reviewed from the Chronicle screen.
+Past events are saved in the Chronicle so you can look back at what happened to your settlement. Active events, completed choices, outcomes, and ongoing objectives can be reviewed from the Chronicle screen. To open it, click the new scroll icon on the top right or press Ctrl + E (rebindable in the Settings).
+
+[img]https://files.catbox.moe/raahyq.jpg[/img]
 
 [h1]Expandable Stories[/h1]
 
