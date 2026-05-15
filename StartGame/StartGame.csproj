@@ -14,8 +14,13 @@
 		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
+
+		<!--<ProjectReference Include="..\BeaverChronicles\BeaverChronicles.csproj" />
+		<ProjectReference Include="..\ModdableTimberborn.ModdableWeather\ModdableTimberborn.ModdableWeather.csproj" />-->
 		
-		<ProjectReference Include="..\BeaverChronicles\BeaverChronicles.csproj" />
-		<ProjectReference Include="..\BeaverChroniclesCampfire\BeaverChroniclesCampfire.csproj" />
+		<ProjectReference Include="..\MoreOverlay\MoreOverlay.csproj" />
+		
+		
+
 	</ItemGroup>
 </Project>

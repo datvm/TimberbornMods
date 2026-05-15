@@ -1,0 +1,10 @@
+﻿{
+    "Name": "More Overlays",
+    "Version": "10.0.0",
+    "Id": "MoreOverlay",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "More info on the overlay",
+    "RequiredMods": [
+        { "Id": "ModdableTimberborn" }
+    ]
+}

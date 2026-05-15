@@ -8,6 +8,8 @@
   <Folder Name="/Automations/">
     <Project Path="AutomationArrays/AutomationArrays.csproj" Id="4e7ed989-493f-44ef-82bd-d4de4493f532" />
     <Project Path="AutomationGraph/AutomationGraph.csproj" Id="12e55752-db52-465a-8e8f-d3db9f885856" />
+    <Project Path="BetterWeatherStation/BetterWeatherStation.csproj" Id="2a54e76c-8815-4bf0-9312-78be9bcb629b" />
+    <Project Path="BetterWeatherStationModdableWeather/BetterWeatherStationModdableWeather.csproj" Id="2074ab35-6670-410e-b022-c981e834703c" />
     <Project Path="PausableSensors/PausableSensors.csproj" Id="c881a04b-23ee-4d5b-9675-0cf98f128b91" />
   </Folder>
   <Folder Name="/BChronicles/">
@@ -69,6 +71,7 @@
     <Project Path="ModdableRecipesDemo/ModdableRecipesDemo.csproj" Id="d415c597-a188-4a36-bb28-79e7f249fe26" />
   </Folder>
   <Folder Name="/Moddable/ModdableTimberborn/">
+    <Project Path="ModdableTimberborn.ModdableWeather/ModdableTimberborn.ModdableWeather.csproj" Id="9fce2680-3e65-40a3-a70f-f6d9c86482a3" />
     <Project Path="ModdableTimberborn/ModdableTimberborn.csproj" />
     <Project Path="ModdableTimberbornDemo/ModdableTimberbornDemo.csproj" />
   </Folder>
@@ -102,6 +105,7 @@
     <Project Path="HueAndTurnX/HueAndTurnX.csproj" Id="c6f14e26-4102-4679-a11c-07f50cbbfb68" />
     <Project Path="MacroManagement/MacroManagement.csproj" />
     <Project Path="MoreNaming/MoreNaming.csproj" />
+    <Project Path="MoreOverlay/MoreOverlay.csproj" Id="62c8c4e9-7452-464f-8b8f-3b826cf0c4fb" />
     <Project Path="Pin/Pin.csproj" />
     <Project Path="PlottingTool/PlottingTool.csproj" />
     <Project Path="PowerCopy/PowerCopy.csproj" Id="8831a6c9-3817-4a99-b0cd-d22d52a0d688" />
@@ -182,8 +186,6 @@
   <Project Path="Battery/Battery.csproj" Id="ac915a66-7cd5-426b-81a1-d5c10e9bc206" />
   <Project Path="BeavVsMachine/BeavVsMachine.csproj" />
   <Project Path="BenchmarkAndOptimizer/BenchmarkAndOptimizer.csproj" />
-  <Project Path="BetterWeatherStation/BetterWeatherStation.csproj" Id="2a54e76c-8815-4bf0-9312-78be9bcb629b" />
-  <Project Path="BetterWeatherStationModdableWeather/BetterWeatherStationModdableWeather.csproj" Id="2074ab35-6670-410e-b022-c981e834703c" />
   <Project Path="BlockObjectDebugger/BlockObjectDebugger.csproj" />
   <Project Path="BlueprintRelics/BlueprintRelics.csproj" Id="6fb1bd59-00b6-4e80-a0ae-1d3b1d4b4823" />
   <Project Path="ConveyorBelt/ConveyorBelt.csproj" />
