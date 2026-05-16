@@ -18,7 +18,7 @@
 		<!--<ProjectReference Include="..\BeaverChronicles\BeaverChronicles.csproj" />
 		<ProjectReference Include="..\ModdableTimberborn.ModdableWeather\ModdableTimberborn.ModdableWeather.csproj" />-->
 		
-		<ProjectReference Include="..\MoreOverlay\MoreOverlay.csproj" />
+		<ProjectReference Include="..\MoreHttpApi\MoreHttpApi.csproj" />
 		
 		
 

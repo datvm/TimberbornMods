@@ -8,6 +8,6 @@ public class MMoreOverlayConfig : BaseModdableTimberbornAttributeConfiguration, 
 {
     public string? PatchCategory { get; }
 
-    public override ConfigurationContext AvailableContexts => ConfigurationContext.Game;
+    public override ConfigurationContext AvailableContexts => ConfigurationContext.MainMenu | ConfigurationContext.Game;
 
 }

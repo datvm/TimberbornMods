@@ -1,7 +1,7 @@
 ﻿namespace MoreOverlay.Services;
 
 [BindSingleton]
-public class MoreOverlayHighlighter(Highlighter highlighter)
+public class MoreOverlayHighlighter(Highlighter highlighter, MSettings s)
 {
     static readonly float r0 = TimberUiUtils.DangerColor.r;
     static readonly float g0 = TimberUiUtils.DangerColor.g;
@@ -22,7 +22,7 @@ public class MoreOverlayHighlighter(Highlighter highlighter)
 
     void PerformHighlight(MoreOverlayComponent comp, Func<Color> colorFn, int priority)
     {
-        if (comp.ColorPriority > priority) { return; }
+        if (!s.HighlightValue || comp.ColorPriority > priority) { return; }
 
         comp.ColorPriority = priority;
         highlighter.HighlightPrimary(comp, colorFn());

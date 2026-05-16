@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "MoreHttpApi"
+		},
+		{
+			"path": "MoreHttpApi.Shared"
+		},
+		{
+			"path": "TimberLive"
+		}
+	],
+	"settings": {}
+}
