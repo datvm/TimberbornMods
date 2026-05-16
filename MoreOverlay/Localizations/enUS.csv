@@ -1,1 +1,13 @@
 ﻿ID,Text,Comment
+LV.MOv.SameOnHover,"Hide others on hover",
+LV.MOv.SameOnHoverDesc,"When hovering over an overlay, only those of the same type will be shown.",
+LV.MOv.Highlight,"Highlight",
+LV.MOv.HighlightDesc,"Highlight certain entities with supported overlays.",
+LV.MOv.EnabledOverlays,"Enabled overlays (reload the game to take effect):",
+LV.MOv.Overlay.DwellingOverlayProvider,"Housings",
+LV.MOv.Overlay.GrowableOverlayProvider,"Plants",
+LV.MOv.Overlay.InventoryOverlayProvider,"Inventories",
+LV.MOv.Overlay.ManufactoryOverlayProvider,"Manufactories",
+LV.MOv.Overlay.WaterSourceOverlayProvider,"Water sources",
+LV.MOv.Overlay.PowerOverlayProvider,"Power",
+LV.MOv.Overlay.WorkplaceOverlayProvider,"Workplaces",

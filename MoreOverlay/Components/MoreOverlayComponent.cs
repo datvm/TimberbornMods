@@ -11,11 +11,13 @@ public class MoreOverlayComponent(MoreOverlayService service) : TickableComponen
     public int ColorPriority { get; set; }
 
     public bool HasOverlay => instances.Length > 0;
+    public string TemplateName { get; private set; } = "";
 
     VisualElement? panel;
 
     public void Awake()
     {
+        TemplateName = GetComponent<TemplateSpec>()?.TemplateName ?? "";
         DisableComponent();
     }
 
@@ -50,12 +52,34 @@ public class MoreOverlayComponent(MoreOverlayService service) : TickableComponen
         {
             OnOverlayToggled(this, true);
         }
+
+        service.OnSameOverlayRequested += OnSameOverlayRequested;
+        service.OnSameOverlayReleased += OnSameOverlayReleased;
+
+        panel.RegisterCallback<PointerEnterEvent>(_ => service.OnOverlayHovered(TemplateName));
+        panel.RegisterCallback<PointerLeaveEvent>(_ => service.OnOverlayUnhovered());
+    }
+
+    
+    void OnSameOverlayRequested(object sender, string e)
+    {
+        if (panel is not null && e != TemplateName)
+        {
+            panel.SetDisplay(false);
+        }
+    }
+
+    void OnSameOverlayReleased(object sender, EventArgs e)
+    {
+        panel?.SetDisplay(true);
     }
 
     void OnOverlayToggled(object sender, bool e)
     {
         if (e)
         {
+            panel!.SetDisplay(true);
+
             if (hasTickable)
             {
                 EnableComponent();

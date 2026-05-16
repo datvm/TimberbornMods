@@ -6,18 +6,23 @@ public class MoreOverlayService(
     VisualElementLoader veLoader,
     EntitySelectionService entitySelectionService,
     StockpileOverlay stockpileOverlay,
-    MoreOverlayHighlighter highlighter
+    MoreOverlayHighlighter highlighter,
+    MSettings s
 ) : ILoadableSingleton, IUnloadableSingleton
 {
     public static MoreOverlayService? Instance { get; private set; }
 
-    public readonly ImmutableArray<IMoreOverlayProvider> Providers = [.. providers.OrderBy(p => p.Order)];
+    public ImmutableArray<IMoreOverlayProvider> EnabledProviders { get; private set; } = [];
 
     public bool IsOverlayActive => stockpileOverlay._enabled;
     public event EventHandler<bool> OnOverlayToggled = null!;
+    public event EventHandler<string> OnSameOverlayRequested = null!;
+    public event EventHandler OnSameOverlayReleased = null!;
 
     public void Load()
     {
+        EnabledProviders = [.. providers.Where(s.IsOverlayTypeEnabled)];
+
         Instance = this;
         OnOverlayToggled += InternalOnOverlayToggled;
     }
@@ -34,7 +39,7 @@ public class MoreOverlayService(
     {
         if (comp.HasComponent<StockpileOverlayItemAdder>()) { yield break; }
 
-        foreach (var p in Providers)
+        foreach (var p in EnabledProviders)
         {
             if (p.TrySupporting(comp, out var instance))
             {
@@ -66,6 +71,18 @@ public class MoreOverlayService(
     public void AddOverlay(VisualElement panel, Vector3 worldPos) => stockpileOverlay.Add(panel, worldPos);
 
     public void RemoveOverlay(VisualElement panel) => stockpileOverlay.Remove(panel);
+
+    public void OnOverlayHovered(string templateName)
+    {
+        if (!s.SameOnHoverValue) { return; }
+        OnSameOverlayRequested?.Invoke(this, templateName);
+    }
+
+    public void OnOverlayUnhovered()
+    {
+        if (!s.SameOnHoverValue) { return; }
+        OnSameOverlayReleased?.Invoke(this, EventArgs.Empty);
+    }
 
     internal void SetOverlayActive(bool active)
     {

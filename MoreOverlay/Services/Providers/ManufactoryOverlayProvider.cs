@@ -21,7 +21,13 @@ public class ManufactoryOverlayInstance(MoreOverlayComponent overlayComp, Manufa
     {
         base.Initialize(container);
         recipe = el.AddIconSpan().SetImageSize(IconSize).SetMarginRight(5);
-        productivity = el.AddIconSpan(namedIconProvider.GetOrLoadGameIcon("ico-work-empty-beaver", "ico-work-empty-beaver"), size: IconSize);
+
+        if (productivityComp)
+        {
+            productivity = container
+                .AddIconSpan(namedIconProvider.GetOrLoadGameIcon("ico-work-empty-beaver", "ico-work-empty-beaver"), size: IconSize)
+                .SetMarginBottom(5);
+        }
 
         Component.RecipeChanged += (_, _) => UpdateData();
     }
