@@ -3,8 +3,7 @@
 		<OutputModFolderName>MoreHttpApi</OutputModFolderName>
 	</PropertyGroup>
 	<Import Project="../Targets/Common.targets" />
-	<Import Project="../Targets/CommonHarmony.targets" />
-	<Import Project="../Targets/CommonTimberUI.targets" />
+	<Import Project="../Targets/CommonModdableTimberborn.targets" />
 	<ItemGroup>
 	  <ProjectReference Include="..\MoreHttpApi.Shared\MoreHttpApi.Shared.csproj" />
 	</ItemGroup>

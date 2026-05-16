@@ -1,0 +1,89 @@
+﻿@page "/buildings/{Id:guid}"
+
+@inject ApiService Api;
+@inject StorageService Storage;
+@inject IJSInProcessRuntime Js;
+
+@{
+    var name = building?.Name.EntityName ?? "…";
+}
+
+<BreadcrumbRenderer Breadcrumb="Breadcrumb.Buildings.CreateChild(name)" />
+
+@if (notFound)
+{
+    <div class="alert alert-danger">
+        <p>
+            The building is not found. It may have been destroyed.
+        </p>
+            
+        <p>
+            <a href="/buildings" class="btn btn-info">Go back</a>
+        </p>
+    </div>
+    return;
+}
+
+<DataFetcherPresentation Fetcher="refresher" />
+
+<p>
+    <i>More features will be added soon, stay tuned!</i>
+</p>
+
+<LoadablePage Model="building" Title="@(name)">
+
+    @{
+        var b = building!;
+        var isPaused = b.Pausable?.IsPaused ?? false;
+    }
+
+    <div class="container">
+        <div class="card">
+            <div class="row g-0 align-items-center">
+                <div class="col-auto">
+                    @if (b.TemplateSpec?.ImagePath is not null)
+                    {
+                        <Image @key="b.TemplateSpec.ImagePath" class="building-avatar" style="max-width: 64px; max-height: 64px;" Path="@(b.TemplateSpec.ImagePath)" />
+                    }
+                </div>
+                <div class="col text-center">
+                    <h5 class="card-title mb-0">
+                        <span class="me-2">@(b.Name.EntityName)</span>
+                        
+                        @if (b.Name.Editable)
+                        {
+                            <button class="btn btn-link" @onclick="() => RenameAsync()">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </button>
+                        }
+                    </h5>
+                </div>
+                    
+                <div class="col text-end me-3">
+                    @if (b.Pausable?.Pausable ?? false)
+                    {
+                        <span class="badge @(isPaused ? "bg-warning" : "bg-success") me-2">
+                            @(isPaused ? "Paused" : "Running")
+                        </span>
+                        <button class="btn btn-sm @(isPaused ? "btn-warning" : "btn-secondary")" 
+                                title="@(isPaused ? "Resume" : "Pause")" 
+                                @onclick="() => TogglePauseAsync(!isPaused)">
+                            <i class="fa-solid @(isPaused ? "fa-play" : "fa-pause")"></i>
+                        </button>
+                    }
+                </div>
+            </div>
+
+            <div class="list-group list-group-flush">
+                <div class="list-group-item">
+                    <div class="hstack gap-1 justify-content-center">
+                        <span>Select and:</span>
+                        <button class="btn btn-sm btn-primary" @onclick="() => SelectAsync(false)">
+                            Focus
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</LoadablePage>

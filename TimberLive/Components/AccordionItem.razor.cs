@@ -31,10 +31,6 @@ partial class AccordionItem
             isOpen = InitiallyExpanded;
             initialized = true;
         }
-        else
-        {
-            isOpen = IsOpen;
-        }
     }
 
     public async Task ToggleAsync()

@@ -17,6 +17,15 @@ public static class ConversionHelper
     {
         public EntityComponent GetEntity() => comp.GetComponent<EntityComponent>();
         public Guid GetEntityId() => comp.GetComponent<EntityComponent>().EntityId;
+        
+        public void ActWithComponent<T>(Action<T> action)
+        {
+            var c = comp.GetComponent<T>();
+            if (c is not null)
+            {
+                action(c);
+            }
+        }
     }
 
     extension(EntityComponent comp)

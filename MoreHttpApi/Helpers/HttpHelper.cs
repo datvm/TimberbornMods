@@ -51,8 +51,8 @@ public static class HttpHelper
 
         public async Task<bool> HandleAsync<T>(Func<Task<T>> handler)
         {
-			try
-			{
+            try
+            {
                 var result = await handler();
 
                 if (result is string str)
@@ -69,11 +69,11 @@ public static class HttpHelper
                     var json = JsonConvert.SerializeObject(result, SpecSerializerSettings);
                     await context.Write("application/json", Encoding.UTF8.GetBytes(json));
                 }
-			}
-			catch (StatusCodeException ex)
-			{
+            }
+            catch (StatusCodeException ex)
+            {
                 await context.WriteText(ex.Content, ex.StatusCode);
-			}
+            }
             catch (Exception ex)
             {
                 await context.WriteText(ex.ToString(), 500);
@@ -90,9 +90,24 @@ public static class HttpHelper
 
     }
 
-    extension (NameValueCollection query)
+    extension(NameValueCollection query)
     {
         public bool HasSwitch(string name) => query.Get(name) is not null;
+    }
+
+    extension(EntityRegistry registry)
+    {
+        public bool TryGetActiveEntity(Guid? id, [NotNullWhen(true)] out EntityComponent? entity)
+        {
+            entity = null;
+            if (id is null) { return false; }
+
+            entity = registry.GetEntity(id.Value);
+            if (entity) { return true; }
+
+            entity = null;
+            return false;
+        }
     }
 
 }
