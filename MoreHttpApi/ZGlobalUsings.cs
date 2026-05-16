@@ -8,3 +8,5 @@ global using Newtonsoft.Json.Serialization;
 global using System.Collections.Specialized;
 global using System.Net;
 global using MoreHttpApi.Shared.Specs;
+
+global using CharacterType = MoreHttpApi.Shared.CharacterType;

@@ -1,1 +1,97 @@
 ﻿@page "/buildings"
+
+@inject ApiService Api;
+@inject StorageService Storage;
+@inject IJSInProcessRuntime Js;
+
+<BreadcrumbRenderer Breadcrumb="Breadcrumb.Buildings" />
+
+<DataFetcherPresentation Fetcher="refresher" />
+
+<LoadablePage Title="Buildings" Model="buildingsData">
+    <div class="vstack gap-3">
+        <div class="form-floating">
+            <input class="form-control" id="txt-filter" placeholder="Building name" @bind="filterKeyword" @bind:event="oninput">
+            <label for="txt-filter">Filter by name</label>
+        </div>
+
+        <div class="accordion">
+            @foreach (var group in buildingsData?.Groups ?? [])
+            {
+                var totalCount = group.Buildings.Length;
+                var filteredList = FilteredBuildingsInGroup(group).ToList();
+                var filteredCount = filteredList.Count;
+
+                @if (filteredCount == 0)
+                {
+                    continue;
+                }
+
+                var pausedCount = group.Buildings.Count(b => b.Pausable?.IsPaused ?? false);
+                var isFiltering = !string.IsNullOrWhiteSpace(filterKeyword);
+
+                <AccordionItem @key="group.TemplateName" Title="" InitiallyExpanded="false">
+                    <Header>
+                        @if (group.TemplateSpec?.ImagePath is not null)
+                        {
+                            <Image class="me-2" style="max-width: 24px; max-height: 24px;" Path="@(group.TemplateSpec.ImagePath)" alt="@(group.TemplateSpec.Display)" />
+                        }
+                        <span class="me-3">@(group.TemplateSpec?.Display ?? group.TemplateName)</span>
+                        <span class="badge bg-primary me-2">Total: @(totalCount)</span>
+                        @if (pausedCount > 0)
+                        {
+                            <span class="badge bg-warning">Paused: @(pausedCount)</span>
+                        }
+                        @if (isFiltering)
+                        {
+                            <span class="badge bg-success">Filter: @(filteredCount)</span>
+                        }
+                    </Header>
+                    <ChildContent>
+                        <div class="list-group">
+                            @foreach (var b in filteredList)
+                            {
+                                var id = b.Entity.EntityId;
+                                var isPaused = b.Pausable?.IsPaused ?? false;
+
+                                <div class="list-group-item" @key="id">
+                                    <div class="row align-items-center">
+                                        <div class="col hstack gap-2">
+                                            <a href="@($"/buildings/{id}")">@(b.Name.EntityName)</a>
+                                            @if (b.Name.Editable)
+                                            {
+                                                <button class="btn btn-link" @onclick="() => RenameAsync(b)">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </button>
+                                            }
+                                        </div>
+
+                                        <div class="col-3 hstack justify-content-end gap-2">
+                                            @if (b.Pausable?.Pausable ?? false)
+                                            {
+                                                <span class="badge @(isPaused ? "bg-warning" : "bg-success")">
+                                                    @(isPaused ? "Paused" : "Running")
+                                                </span>
+                                                <button class="btn btn-sm @(isPaused ? "btn-warning" : "btn-secondary")"
+                                                        title="@(isPaused ? "Resume" : "Pause")"
+                                                        @onclick="() => TogglePauseAsync(id, !isPaused)">
+                                                    <i class="fa-solid @(isPaused ? "fa-play" : "fa-pause")"></i>
+                                                </button>
+                                            }
+                                        </div>
+
+                                        <div class="col-2">
+                                            <button class="btn btn-primary" title="Select and focus on" @onclick="() => SelectAsync(id)">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </ChildContent>
+                </AccordionItem>
+            }
+        </div>
+    </div>
+</LoadablePage>

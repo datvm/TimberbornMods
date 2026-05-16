@@ -1,15 +1,16 @@
 ﻿<div class="accordion-item">
     <h2 class="accordion-header">
-        @if (Header is null)
-        {
-            <button class="accordion-button @(isOpen ? "" : "collapsed")" @onclick="ToggleAsync">
+        <button class="accordion-button @(isOpen ? "" : "collapsed")" @onclick="ToggleAsync">
+            @if (Header is null)
+            {
                 @(Title ?? "")
-            </button>
-        }
-        else
-        {
-            @(Header)
-        }
+            }
+            else
+            {
+                @(Header)
+            }
+        </button>
+        
     </h2>
 
     @if (isOpen)
