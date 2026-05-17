@@ -3,6 +3,11 @@
 public static class ConversionHelper
 {
 
+    extension(Color color)
+    {
+        public HttpColor Http() => new(color.r, color.g, color.b, color.a);
+    }
+
     extension(GoodAmount goodAmount)
     {
         public ParsedGoodAmountSpec Http() => new(goodAmount.GoodId, goodAmount.Amount);

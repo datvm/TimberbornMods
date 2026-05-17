@@ -1,6 +1,6 @@
 ﻿namespace MoreHttpApi.Handlers;
 
-[MultiBind(typeof(IMoreHttpApiHandler))]
+
 public class DistrictHandler : IMoreHttpApiHandler
 {
     public string Endpoint => "districts";

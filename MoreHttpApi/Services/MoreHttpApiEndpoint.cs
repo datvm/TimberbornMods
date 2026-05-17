@@ -26,9 +26,13 @@ public class MoreHttpApiEndpoint(SimpleRouter simpleRouter) : IHttpApiEndpoint
         var remainingSegment = parts.Skip(2).ToArray();
 
         var query = System.Web.HttpUtility.ParseQueryString(context.Request.Url.Query);
-        await simpleRouter.TryRouteAsync(
+        var handled = await simpleRouter.TryRouteAsync(
             context, 
             new(routerSegment, remainingSegment, query));
+        if (!handled)
+        {
+            await context.WriteText("Not found", 404);
+        }
 
         return true;
     }

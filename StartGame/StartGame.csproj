@@ -19,7 +19,7 @@
 		<ProjectReference Include="..\ModdableTimberborn.ModdableWeather\ModdableTimberborn.ModdableWeather.csproj" />-->
 		
 		<ProjectReference Include="..\MoreHttpApi\MoreHttpApi.csproj" />
-		
+		<ProjectReference Include="..\MoreHttpApiAutomations\MoreHttpApiAutomations.csproj" />
 		
 
 	</ItemGroup>

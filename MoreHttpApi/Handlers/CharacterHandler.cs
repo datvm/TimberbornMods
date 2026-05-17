@@ -1,6 +1,6 @@
 ﻿namespace MoreHttpApi.Handlers;
 
-[MultiBind(typeof(IMoreHttpApiHandler))]
+
 public class CharacterHandler(
     BeaverPopulation beavers,
     EventBus eb,

@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "TimberLive"
+		},
+		{
+			"path": "MoreHttpApiAutomations"
 		}
 	],
 	"settings": {}
