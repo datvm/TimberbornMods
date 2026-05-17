@@ -6,6 +6,7 @@ public record Breadcrumb(string Name, string Url, Breadcrumb? Parent = null)
     public static readonly Breadcrumb Home = new("Home", "/");
     public static readonly Breadcrumb Beavers = Home.CreateChild("Beavers & Bots", "/beavers");
     public static readonly Breadcrumb Buildings = Home.CreateChild("Buildings", "/buildings");
+    public static readonly Breadcrumb Automations = Home.CreateChild("Automations", "/automations");
     public static readonly Breadcrumb Wiki = Home.CreateChild("Wiki", "/wiki");
     public static readonly Breadcrumb WikiTemplates = Wiki.CreateChild("Buildings & Plants", "/wiki/templates");
     public static readonly Breadcrumb WikiTemplateDetails = WikiTemplates.CreateChild("…", "");

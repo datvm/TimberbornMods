@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputModFolderName>MoreHttpApiAutomations</OutputModFolderName>
+	</PropertyGroup>
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonModdableTimberborn.targets" />
+	<Import Project="../Targets/CommonMoreHttpApi.targets" />
+</Project>

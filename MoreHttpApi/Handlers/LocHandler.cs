@@ -1,6 +1,6 @@
 ﻿namespace MoreHttpApi.Handlers;
 
-[MultiBind(typeof(IMoreHttpApiHandler))]
+
 public class LocHandler(ILoc t) : IMoreHttpApiHandler
 {
     readonly Loc t = (Loc)t;

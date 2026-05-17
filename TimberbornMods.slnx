@@ -50,6 +50,7 @@
   <Folder Name="/Http/">
     <Project Path="MoreHttpApi.Shared/MoreHttpApi.Shared.csproj" Id="96e529d3-e01f-4ca6-abbf-88ce069f86e2" />
     <Project Path="MoreHttpApi/MoreHttpApi.csproj" Id="b551f07a-1ca3-4398-9bef-b7374f425ff4" />
+    <Project Path="MoreHttpApiAutomations/MoreHttpApiAutomations.csproj" Id="4491d5ba-2eb8-400d-9d77-268fe4cbae14" />
     <Project Path="TimberLive/TimberLive.csproj" Id="621531a0-0c11-46a1-818b-ca401e43bd5d" />
   </Folder>
   <Folder Name="/JsonMods/">
@@ -150,6 +151,7 @@
   </Folder>
   <Folder Name="/_Utils/">
     <File Path=".editorconfig" />
+    <File Path=".github/copilot-instructions.md.MD" />
     <Project Path="FileFinder/FileFinder.csproj" />
     <Project Path="GameAssemblyPublicizer/GameAssemblyPublicizer.csproj" />
     <Project Path="GameAssemblyUsingGenerator/GameAssemblyUsingGenerator.csproj" Id="0a90bfcf-d0de-4970-a0f0-9ef778e41a70" />
@@ -173,6 +175,7 @@
     <File Path="Targets/CommonModdableToolGroups.targets" />
     <File Path="Targets/CommonModdableToolGroupsHotkey.targets" />
     <File Path="Targets/CommonModdableWeathers.targets" />
+    <File Path="Targets/CommonMoreHttpApi.targets" />
     <File Path="Targets/CommonProperties.targets" />
     <File Path="Targets/CommonScientificProjects.targets" />
     <File Path="Targets/CommonTimberUI.targets" />

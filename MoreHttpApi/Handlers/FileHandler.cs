@@ -1,6 +1,6 @@
 ﻿namespace MoreHttpApi.Handlers;
 
-[MultiBind(typeof(IMoreHttpApiHandler))]
+
 public class FileHandler(IAssetLoader assets) : IMoreHttpApiHandler
 {
     public string Endpoint { get; } = "file";

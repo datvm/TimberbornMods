@@ -13,5 +13,4 @@ global using ModdableTimberborn.SoakEffect;
 global using ModdableTimberborn.UpdatableEntityStats;
 global using System.Linq.Expressions;
 global using MechanicalNodeModifierCollection = ModdableTimberborn.Common.ValueModifierCollection<ModdableTimberborn.MechanicalSystem.IModdableMechanicalNodeModifier, ModdableTimberborn.MechanicalSystem.ModdableMechanicalNodeValues, ModdableTimberborn.MechanicalSystem.MechanicalNodeValues>;
-global using Priority = Timberborn.PrioritySystem.Priority;
 global using ModdableTimberborn.CompatWeatherService;

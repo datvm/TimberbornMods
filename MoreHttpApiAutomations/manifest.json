@@ -1,0 +1,10 @@
+﻿{
+    "Name": "More HTTP API - Automations",
+    "Version": "10.0.0",
+    "Id": "MoreHttpApiAutomations",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Add Automations API for More HTTP API",
+    "RequiredMods": [
+        { "Id": "MoreHttpApi" }
+    ]
+}

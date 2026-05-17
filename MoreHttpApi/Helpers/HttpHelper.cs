@@ -2,6 +2,7 @@
 
 public static class HttpHelper
 {
+
     public static readonly JsonSerializerSettings SpecSerializerSettings = new()
     {
         Converters = [

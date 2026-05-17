@@ -1,6 +1,6 @@
 ﻿namespace MoreHttpApi.Handlers;
 
-[MultiBind(typeof(IMoreHttpApiHandler))]
+
 public class MiscHandler(
     ModRepository modRepository,
     EntityRegistry registry,
@@ -14,13 +14,19 @@ public class MiscHandler(
         return parsedRequestPath.RemainingSegment.Length switch
         {
             0 => await context.HandleAsync(GetHomePageInfoAsync),
-            _ => parsedRequestPath.RemainingSegment[0] switch
+            1 => parsedRequestPath.RemainingSegment[0] switch
             {
                 "mods" => await context.HandleAsync(GetModsAsync),
                 "select" => await context.HandleAsync(() => SelectEntityAsync(parsedRequestPath)),
                 "rename" => await context.HandleAsync(() => RenameAsync(parsedRequestPath)),
                 _ => false,
             },
+            2 => parsedRequestPath.RemainingSegment switch
+            {
+                ["mods", "enabled"] => await context.HandleAsync(() => IsModEnabledAsync(parsedRequestPath)),
+                _ => false,
+            },
+            _ => false,
         };
     }
 
@@ -37,6 +43,18 @@ public class MiscHandler(
                 manifest.Id, manifest.Name, manifest.Version.Http(),
                 m.ModDirectory.Directory.FullName, m.IsEnabled);
         })];
+
+    public async Task<bool> IsModEnabledAsync(ParsedRequestPath parsedRequestPath)
+    {
+        var id = parsedRequestPath.QueryParameters.Get("id");
+        if (string.IsNullOrEmpty(id))
+        {
+            throw new StatusCodeException(400, "Missing 'id' query parameter.");
+        }
+
+        return modRepository.Mods.Any(m
+            => string.Equals(m.Manifest.Id, id, StringComparison.OrdinalIgnoreCase) && m.IsEnabled);
+    }
 
     public async Task SelectEntityAsync(ParsedRequestPath parsedRequestPath)
     {

@@ -1,7 +1,7 @@
 ﻿
 namespace MoreHttpApi.Handlers;
 
-[MultiBind(typeof(IMoreHttpApiHandler))]
+
 public class BlueprintHandler(ISpecService specs, HttpBlueprintSerializer serializer) : IMoreHttpApiHandler, ILoadableSingleton
 {
     readonly SpecService specs = (SpecService)specs;
