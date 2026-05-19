@@ -11,8 +11,9 @@ public record HttpAutomator(
 
     HttpColor Color,
 
-    HttpAutomatorState State,
+    HttpAutomatorState AutomatorState,
     bool IsCyclicOrBlocked,
+    HttpAutomationConnectionState? AutomatableState,
 
     IReadOnlyList<HttpAutomationInput> Inputs
 );

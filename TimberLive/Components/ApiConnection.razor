@@ -16,6 +16,11 @@
                     <label for="txt-url">Server URL</label>
                 </div>
 
+                <div class="form-floating mb-3">
+                    <input @bind="password" type="password" class="form-control" id="txt-password" placeholder="If enabled in mod settings">
+                    <label for="txt-password">Server Authentication (if enabled)</label>
+                </div>
+
                 <div class="text-center">
                     <button class="btn btn-primary" disabled="@(connecting)">Connect</button>
                 </div>

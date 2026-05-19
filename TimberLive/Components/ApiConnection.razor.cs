@@ -7,6 +7,7 @@ partial class ApiConnection
     public bool WasDisconnected { get; set; }
 
     string url = "";
+    string password = "";
     public string Url => url;
 
     bool connecting;
@@ -26,7 +27,7 @@ partial class ApiConnection
 
         try
         {
-            err = await Api.ConnectAsync(url);
+            err = await Api.ConnectAsync(url, password);
         }
         catch (Exception ex)
         {

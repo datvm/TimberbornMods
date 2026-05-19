@@ -1,4 +1,6 @@
-﻿.card-gallery {
+﻿@import url("./mermaid.css");
+
+.card-gallery {
     display: flex;
     flex-direction: row;
     gap: 1rem;

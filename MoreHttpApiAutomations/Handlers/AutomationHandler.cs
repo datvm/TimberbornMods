@@ -23,6 +23,8 @@ public class AutomationHandler(
         for (int i = 0; i < src.Count; i++)
         {
             var curr = src[i];
+            var automatable = curr.GetComponent<Automatable>();
+
             var entity = curr.GetEntity();
             ids.Add(entity.EntityId);
 
@@ -30,13 +32,13 @@ public class AutomationHandler(
                 entity.Http(),
                 GetKind(curr),
                 GetColor(curr),
-                
-                (HttpAutomatorState)(int)curr.State,
+                GetAutomatorState(curr.State),
                 curr.IsCyclicOrBlocked,
-                
+                automatable ? (HttpAutomationConnectionState)(int)automatable.State : null,
+
                 [..curr.InputConnections.Select(conn => new HttpAutomationInput(
                     conn.Transmitter?.GetEntityId(),
-                    (HttpAutomationConnectionState)(int)conn.State
+                    GetConnectionState(conn.State)
                 ))]
             );
         }
@@ -50,6 +52,22 @@ public class AutomationHandler(
         var comp = automator.GetComponent<CustomizableIlluminator>();
         return (comp ? comp.CustomColor : Color.white).Http();
     }
+
+    static HttpAutomatorState GetAutomatorState(Enum state)
+        => state.ToString() switch
+        {
+            nameof(HttpAutomatorState.On) => HttpAutomatorState.On,
+            nameof(HttpAutomatorState.Error) => HttpAutomatorState.Error,
+            _ => HttpAutomatorState.Off,
+        };
+
+    static HttpAutomationConnectionState GetConnectionState(Enum state)
+        => state.ToString() switch
+        {
+            nameof(HttpAutomationConnectionState.On) => HttpAutomationConnectionState.On,
+            nameof(HttpAutomationConnectionState.Disconnected) => HttpAutomationConnectionState.Disconnected,
+            _ => HttpAutomationConnectionState.Off,
+        };
 
     static HttpAutomatorKind GetKind(Automator automator)
     {

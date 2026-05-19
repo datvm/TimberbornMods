@@ -15,6 +15,10 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         .CreateLocalized("LV.MHA.AutoStartPort")
         .SetLocalizedTooltip("LV.MHA.AutoStartPortDesc"));
 
+    public ModSetting<string> Authentication { get; } = new("", ModSettingDescriptor
+        .CreateLocalized("LV.MHA.Authentication")
+        .SetLocalizedTooltip("LV.MHA.AuthenticationDesc"));
+
     public override void OnBeforeLoad()
     {
         base.OnBeforeLoad();

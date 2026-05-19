@@ -23,13 +23,34 @@ public class ClientAutomationPartition
     public bool IsIsolated => Automators.Count == 1 && Edges.Count == 0;
 }
 
-public class ClientAutomatorNode
+public interface IClientAutomatorNode
+{
+    Guid Id { get; }
+    bool IsCyclicOrBlocked { get; }
+    HttpAutomatorKind Kind { get; }
+    string Label { get; }
+    HttpAutomatorState State { get; }
+}
+
+public interface IClientAutomatorNode<TSettings> : IClientAutomatorNode
+{
+    TSettings Settings { get; }
+}
+
+public class ClientAutomatorNode : IClientAutomatorNode
 {
     public Guid Id { get; set; }
     public HttpAutomatorKind Kind { get; set; }
     public HttpAutomatorState State { get; set; }
     public bool IsCyclicOrBlocked { get; set; }
     public string Label { get; set; } = string.Empty;
+    public IClientAutomationBuilding? AutomationBuilding { get; set; }
+    public object? AutomationSettings { get; set; }
+}
+
+public class ClientAutomatorNode<TSettings> : ClientAutomatorNode, IClientAutomatorNode<TSettings>
+{
+    public required TSettings Settings { get; init; }
 }
 
 public class ClientAutomatorEdge
@@ -37,4 +58,5 @@ public class ClientAutomatorEdge
     public required ClientAutomatorNode From { get; set; }
     public required ClientAutomatorNode To { get; set; }
     public HttpAutomationConnectionState State { get; set; }
+    public int? InputIndex { get; set; }
 }

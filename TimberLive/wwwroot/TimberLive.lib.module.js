@@ -1,4 +1,25 @@
-﻿globalThis.BlazorHelper = new class {
+﻿import "./js/MermaidChartElement.js";
+
+function registerCustomEvents(blazor) {
+    blazor.registerCustomEventType("nodeclick", {
+        browserEventName: "nodeclick",
+        createEventArgs: event => {
+            return {
+                entityId: event.detail?.entityId ?? null,
+            };
+        }
+    });
+}
+
+export function afterStarted(blazor) {
+    registerCustomEvents(blazor);
+}
+
+export function afterWebStarted(blazor) {
+    registerCustomEvents(blazor);
+}
+
+globalThis.BlazorHelper = new class {
 
     constructor() {
         if (this.isDarkModePreferred()) {

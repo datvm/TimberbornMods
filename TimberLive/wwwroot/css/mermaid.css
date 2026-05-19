@@ -1,0 +1,169 @@
+﻿:root,
+[data-bs-theme="light"] {
+    --automation-chart-bg: transparent;
+    --automation-partition-fill: transparent;
+    --automation-partition-stroke: #aaaaaa;
+    --automation-node-on-fill: #d1fae5;
+    --automation-node-on-stroke: #10b981;
+    --automation-node-on-text: #064e3b;
+    --automation-node-off-fill: #f3f4f6;
+    --automation-node-off-stroke: #9ca3af;
+    --automation-node-off-text: #374151;
+    --automation-node-error-fill: #fee2e2;
+    --automation-node-error-stroke: #ef4444;
+    --automation-node-error-text: #7f1d1d;
+    --automation-edge-on-stroke: #10b981;
+    --automation-edge-off-stroke: #6b7280;
+    --automation-edge-disconnected-stroke: #9ca3af;
+    --automation-edge-label-fill: transparent;
+    --automation-edge-label-stroke: transparent;
+    --automation-edge-label-text: #111827;
+}
+
+[data-bs-theme="dark"] {
+    --automation-chart-bg: transparent;
+    --automation-partition-fill: transparent;
+    --automation-partition-stroke: #6b7280;
+    --automation-node-on-fill: #064e3b;
+    --automation-node-on-stroke: #34d399;
+    --automation-node-on-text: #d1fae5;
+    --automation-node-off-fill: #1f2937;
+    --automation-node-off-stroke: #9ca3af;
+    --automation-node-off-text: #e5e7eb;
+    --automation-node-error-fill: #7f1d1d;
+    --automation-node-error-stroke: #f87171;
+    --automation-node-error-text: #fee2e2;
+    --automation-edge-on-stroke: #34d399;
+    --automation-edge-off-stroke: #9ca3af;
+    --automation-edge-disconnected-stroke: #6b7280;
+    --automation-edge-label-fill: transparent;
+    --automation-edge-label-stroke: transparent;
+    --automation-edge-label-text: #f9fafb;
+}
+
+mermaid-chart svg {
+    background-color: var(--automation-chart-bg) !important;
+
+    g.node[id*="Entity_"] {
+        cursor: pointer;
+    }
+
+    g.partition rect,
+    g.cluster.partition rect {
+        fill: var(--automation-partition-fill) !important;
+        stroke: var(--automation-partition-stroke) !important;
+        stroke-width: 1px !important;
+    }
+
+    .edgeLabel rect,
+    .edgeLabel .labelBkg,
+    g.label rect,
+    g.label .labelBkg {
+        fill: var(--automation-edge-label-fill) !important;
+        stroke: var(--automation-edge-label-stroke) !important;
+        stroke-width: 0 !important;
+    }
+
+    .edgeLabel,
+    .edgeLabel *,
+    g.label,
+    g.label * {
+        fill: var(--automation-edge-label-text) !important;
+        color: var(--automation-edge-label-text) !important;
+    }
+
+    .state_on {
+        --automation-state-node-fill: var(--automation-node-on-fill);
+        --automation-state-node-stroke: var(--automation-node-on-stroke);
+        --automation-state-node-text: var(--automation-node-on-text);
+        --automation-state-edge-stroke: var(--automation-edge-on-stroke);
+        --automation-state-edge-dasharray: none;
+    }
+
+    .state_off {
+        --automation-state-node-fill: var(--automation-node-off-fill);
+        --automation-state-node-stroke: var(--automation-node-off-stroke);
+        --automation-state-node-text: var(--automation-node-off-text);
+        --automation-state-edge-stroke: var(--automation-edge-off-stroke);
+        --automation-state-edge-dasharray: none;
+    }
+
+    .state_error {
+        --automation-state-node-fill: var(--automation-node-error-fill);
+        --automation-state-node-stroke: var(--automation-node-error-stroke);
+        --automation-state-node-text: var(--automation-node-error-text);
+        --automation-state-edge-stroke: var(--automation-edge-disconnected-stroke);
+        --automation-state-edge-dasharray: 4 3;
+    }
+
+    g.state_on,
+    g.state_off,
+    g.state_error {
+        rect,
+        polygon,
+        path {
+            fill: var(--automation-state-node-fill) !important;
+            stroke: var(--automation-state-node-stroke) !important;
+        }
+
+        text,
+        tspan,
+        foreignObject,
+        span {
+            fill: var(--automation-state-node-text) !important;
+            color: var(--automation-state-node-text) !important;
+        }
+    }
+
+    g.edgeLabel.state_on,
+    g.edgeLabel.state_off,
+    g.edgeLabel.state_error,
+    g.label.state_on,
+    g.label.state_off,
+    g.label.state_error {
+        rect,
+        .labelBkg {
+            fill: var(--automation-state-node-fill) !important;
+            stroke: var(--automation-state-node-stroke) !important;
+            stroke-width: 1px !important;
+        }
+
+        &,
+        * {
+            fill: var(--automation-state-node-text) !important;
+            color: var(--automation-state-node-text) !important;
+            background-color: var(--automation-state-node-fill) !important;
+        }
+    }
+
+    path.state_on,
+    path.state_off,
+    path.state_error,
+    .state_on path[data-edge='true'],
+    .state_off path[data-edge='true'],
+    .state_error path[data-edge='true'] {
+        stroke: var(--automation-state-edge-stroke) !important;
+        stroke-dasharray: var(--automation-state-edge-dasharray) !important;
+    }
+
+    path.state_on + marker path,
+    marker.state_on path,
+    .state_on marker path {
+        fill: var(--automation-edge-on-stroke) !important;
+        stroke: var(--automation-edge-on-stroke) !important;
+    }
+
+    path.state_off + marker path,
+    marker.state_off path,
+    .state_off marker path {
+        fill: var(--automation-edge-off-stroke) !important;
+        stroke: var(--automation-edge-off-stroke) !important;
+    }
+
+    path.state_error + marker path,
+    marker.state_error path,
+    .state_error marker path {
+        fill: var(--automation-edge-disconnected-stroke) !important;
+        stroke: var(--automation-edge-disconnected-stroke) !important;
+    }
+}

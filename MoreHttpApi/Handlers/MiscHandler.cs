@@ -16,17 +16,16 @@ public class MiscHandler(
             0 => await context.HandleAsync(GetHomePageInfoAsync),
             1 => parsedRequestPath.RemainingSegment[0] switch
             {
-                "mods" => await context.HandleAsync(GetModsAsync),
-                "select" => await context.HandleAsync(() => SelectEntityAsync(parsedRequestPath)),
+                "mods" => await context.HandleAsync(GetModsAsync),                
                 "rename" => await context.HandleAsync(() => RenameAsync(parsedRequestPath)),
                 _ => false,
             },
-            2 => parsedRequestPath.RemainingSegment switch
+            _ => parsedRequestPath.RemainingSegment switch
             {
+                ["select", ..] => await context.HandleAsync(() => SelectEntityAsync(parsedRequestPath)),
                 ["mods", "enabled"] => await context.HandleAsync(() => IsModEnabledAsync(parsedRequestPath)),
                 _ => false,
             },
-            _ => false,
         };
     }
 
