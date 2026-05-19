@@ -1,0 +1,30 @@
+/* /Components/CharacterBuilding.razor.rz.scp.css */
+[b-0vwty3mshh] .image-container {
+    position: relative;
+    padding: .5rem;
+    aspect-ratio: 1 / 1;
+    width: 60px;
+    display: inline-flex;
+    justify-content: stretch;
+    align-items: stretch;
+}
+
+[b-0vwty3mshh] .img-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+[b-0vwty3mshh] .img-building {
+    z-index: 2;
+}
+/* /Components/Pages/Characters/Beavers.razor.rz.scp.css */
+.row[b-bppnyq3d16] {
+    align-items: center;
+}
+
+.progress-aging[b-bppnyq3d16]{
+    width: 100px;
+}
