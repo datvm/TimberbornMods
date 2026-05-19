@@ -28,11 +28,15 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore TimberLive/TimberLive.csproj
 
-      - name: Build TimberLive
-        run: dotnet build TimberLive/TimberLive.csproj --configuration Release --no-restore
-
       - name: Publish TimberLive
-        run: dotnet publish TimberLive/TimberLive.csproj --configuration Release --no-build --output /tmp/TimberLive-publish
+        run: dotnet publish TimberLive/TimberLive.csproj --configuration Release --output /tmp/TimberLive-publish
+
+      - name: Verify fingerprint placeholders were replaced
+        run: |
+          if grep -R "#\[.{fingerprint}\]" /tmp/TimberLive-publish/wwwroot/index.html; then
+            echo "Fingerprint placeholder was not replaced in published index.html"
+            exit 1
+          fi
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
