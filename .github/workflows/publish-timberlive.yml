@@ -39,7 +39,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy /tmp/TimberLive-publish --project-name=timberlive
+          command: pages deploy /tmp/TimberLive-publish/wwwroot --project-name=timberlive
 
       - name: Checkout or create publish branch
         run: |
@@ -59,7 +59,7 @@ jobs:
         run: |
           rm -rf TimberLive
           mkdir -p TimberLive
-          cp -a /tmp/TimberLive-publish/. TimberLive/
+          cp -a /tmp/TimberLive-publish/wwwroot/. TimberLive/
 
       - name: Commit and push changes
         run: |
