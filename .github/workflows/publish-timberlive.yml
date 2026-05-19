@@ -1,0 +1,72 @@
+﻿name: Publish TimberLive
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-timberlive
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore TimberLive/TimberLive.csproj
+
+      - name: Build TimberLive
+        run: dotnet build TimberLive/TimberLive.csproj --configuration Release --no-restore
+
+      - name: Publish TimberLive
+        run: dotnet publish TimberLive/TimberLive.csproj --configuration Release --no-build --output /tmp/TimberLive-publish
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy /tmp/TimberLive-publish --project-name=timberlive
+
+      - name: Checkout or create publish branch
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          if git ls-remote --exit-code --heads origin TimberLive-publish; then
+            git fetch origin TimberLive-publish
+            git switch TimberLive-publish
+            git reset --hard origin/TimberLive-publish
+          else
+            git switch --orphan TimberLive-publish
+            git rm -rf . || true
+          fi
+
+      - name: Copy published files
+        run: |
+          rm -rf TimberLive
+          mkdir -p TimberLive
+          cp -a /tmp/TimberLive-publish/. TimberLive/
+
+      - name: Commit and push changes
+        run: |
+          git add TimberLive
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: publish TimberLive from ${{ github.sha }}"
+            git push origin TimberLive-publish
+          fi
