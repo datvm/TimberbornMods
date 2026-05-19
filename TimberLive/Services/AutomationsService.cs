@@ -4,8 +4,10 @@
 /// Converts HTTP automation data into client-optimized models for UI rendering and Mermaid visualization.
 /// </summary>
 [SelfService(Lifetime = ServiceLifetime.Singleton)]
-public partial class AutomationsService
+public partial class AutomationsService(AutomationBuildingRegistry automationBuildingRegistry)
 {
+    static readonly Dictionary<Type, (Type, MethodInfo?)> ClientAutomatorNodeTypeCache = [];
+
     /// <summary>
     /// Converts HttpAutomationMap into partitioned ClientAutomationMap with connected components.
     /// </summary>
@@ -82,14 +84,8 @@ public partial class AutomationsService
 
             foreach (var automator in automators)
             {
-                var node = new ClientAutomatorNode
-                {
-                    Id = automator.Entity.EntityId,
-                    Kind = automator.Kind,
-                    State = automator.State,
-                    IsCyclicOrBlocked = automator.IsCyclicOrBlocked,
-                    Label = GetLabel(automator, httpMap.Buildings)
-                };
+                var building = httpMap.Buildings.Buildings[automator.Entity.EntityId];
+                var node = CreateNode(automator, building);
 
                 partition.Automators.Add(node);
                 nodesById[node.Id] = node;
@@ -100,8 +96,9 @@ public partial class AutomationsService
             {
                 var toId = automator.Entity.EntityId;
 
-                foreach (var input in automator.Inputs)
+                for (var inputIndex = 0; inputIndex < automator.Inputs.Count; inputIndex++)
                 {
+                    var input = automator.Inputs[inputIndex];
                     if (!input.FromAutomatorId.HasValue)
                     {
                         continue;
@@ -117,7 +114,8 @@ public partial class AutomationsService
                     {
                         From = nodesById[fromId],
                         To = nodesById[toId],
-                        State = input.State
+                        State = input.State,
+                        InputIndex = inputIndex,
                     });
                 }
             }
@@ -133,10 +131,46 @@ public partial class AutomationsService
         return result;
     }
 
-    static string GetLabel(HttpAutomator automator, HttpBuildingsResult buildings)
+    ClientAutomatorNode CreateNode(HttpAutomator automator, HttpBuilding building)
     {
-        return buildings.Buildings.TryGetValue(automator.Entity.EntityId, out var building)
-            ? !string.IsNullOrEmpty(building.LabelName) ? building.LabelName : building.Name.EntityName
-            : automator.Entity.EntityId.ToString();
+        IClientAutomationBuilding? automationBuilding = null;
+        object? automationSettings = null;
+        if (automationBuildingRegistry.FindAutomationBuilding(building, out var found))
+        {
+            automationBuilding = found.Value.Item1;
+            automationSettings = found.Value.Item2;
+        }
+
+        var (nodeType, propertySetter) = automationBuilding is null
+            ? (typeof(ClientAutomatorNode), null)
+            : ClientAutomatorNodeTypeCache.GetOrAdd(automationBuilding.SettingsType, static t =>
+            {
+                var resolvedNodeType = typeof(ClientAutomatorNode<>).MakeGenericType(t);
+                return (resolvedNodeType, resolvedNodeType.GetProperty(nameof(ClientAutomatorNode<>.Settings))?.SetMethod);
+            });
+
+        var node = (ClientAutomatorNode)Activator.CreateInstance(nodeType)!;
+
+        node.Id = automator.Entity.EntityId;
+        node.Kind = automator.Kind;
+
+        if (automator.AutomatableState is not null)
+        {
+            node.State = automator.AutomatableState == HttpAutomationConnectionState.On ? HttpAutomatorState.On : HttpAutomatorState.Off;
+        }
+        else
+        {
+            node.State = automator.AutomatorState;
+        }
+
+        node.IsCyclicOrBlocked = automator.IsCyclicOrBlocked;
+        node.Label = building.Name.EntityName;
+        node.AutomationBuilding = automationBuilding;
+        node.AutomationSettings = automationSettings;
+
+        propertySetter?.Invoke(node, [automationSettings]);
+
+        return node;
     }
+
 }

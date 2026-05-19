@@ -7,7 +7,7 @@ public readonly record struct ParsedRequestPath(
 );
 
 [MultiBind(typeof(IHttpApiEndpoint))]
-public class MoreHttpApiEndpoint(SimpleRouter simpleRouter) : IHttpApiEndpoint
+public class MoreHttpApiEndpoint(SimpleRouter simpleRouter, MSettings s) : IHttpApiEndpoint
 {
 
     public async Task<bool> TryHandle(HttpListenerContext context)
@@ -21,6 +21,23 @@ public class MoreHttpApiEndpoint(SimpleRouter simpleRouter) : IHttpApiEndpoint
         }
 
         context.AddCorsHeaders();
+
+        if (context.Request.HttpMethod == "OPTIONS")
+        {
+            await context.WriteText("OK", 200);
+            return true;
+        }
+       
+        var auth = s.Authentication.Value;
+        if (!string.IsNullOrEmpty(auth))
+        {
+            var header = context.Request.Headers["Authorization"];
+            if (header != auth)
+            {
+                await context.WriteText("Unauthorized", 401);
+                return true;
+            }
+        }
 
         var routerSegment = parts[1];
         var remainingSegment = parts.Skip(2).ToArray();

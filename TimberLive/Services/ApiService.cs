@@ -19,13 +19,13 @@ public class ApiService : IDisposable
     readonly HashSet<IApiConnectionListener> connectionCallbacks = [];
 
     public Uri CurrentUri { get; private set; } = new("http://localhost:8080");
-
+    
     public void RegisterConnectionListener(IApiConnectionListener listener)
     {
         connectionCallbacks.Add(listener);
     }
 
-    public async Task<string?> ConnectAsync(string url)
+    public async Task<string?> ConnectAsync(string url, string password)
     {
         if (!Uri.TryCreate(url, UriKind.Absolute, out var uri))
         {
@@ -36,8 +36,14 @@ public class ApiService : IDisposable
         http = new()
         {
             BaseAddress = new(uri, MoreHttpApiUtils.EndpointStart + "/"),
-            Timeout = Timeout,            
+            Timeout = Timeout
         };
+
+        if (!string.IsNullOrEmpty(password))
+        {
+            http.DefaultRequestHeaders.Add("Authorization", password);
+        }
+
         CurrentUri = uri;
 
         if (!await PingAsync())

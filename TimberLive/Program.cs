@@ -12,4 +12,12 @@ builder.Services
     .AddSingletonApiListener<CommonLiveDataService>()
 ;
 
+foreach (var t in Assembly.GetExecutingAssembly().GetTypes())
+{
+    if (t.IsClass && !t.IsAbstract && typeof(IClientAutomationBuilding).IsAssignableFrom(t))
+    {
+        builder.Services.AddSingleton(typeof(IClientAutomationBuilding), t);
+    }
+}
+
 await builder.Build().RunAsync();

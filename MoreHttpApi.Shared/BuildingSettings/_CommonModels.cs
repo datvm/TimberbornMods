@@ -38,5 +38,3 @@ public record StringSettingModel(string Value) : ValueSettingModel<string>(Value
     public bool None => string.IsNullOrEmpty(Value);
     public override string ToString() => Value;
 }
-
-public record CachableStringSettingModel<T>(string Value) : StringSettingModel(Value) where T : class;
