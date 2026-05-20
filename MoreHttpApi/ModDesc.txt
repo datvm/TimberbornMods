@@ -1,0 +1,37 @@
+﻿This mod adds more HTTP API capacities to Timberborn, letting you read and interact with your game in new ways.
+[img]https://files.catbox.moe/zsdooj.jpg[/img]
+
+- For players, it can be used to read live game data and control certain aspects of the game from a web dashboard. You can also use the APIs without building the HTTP Adapter building. You can also set an optional password in case you want to expose over the Internet (does not work for the base game's APIs).
+- For modders, it provides prebuilt functions so you can easily make new API endpoints: a simple router, a shared library of models, and CORS support.
+
+A prebuilt web client is available at https://timberlive.lukevo.com/ (the source code is the TimberLive project) which connects to the mod and provides a live dashboard of your game.
+
+[h1]For Players[/h1]
+
+In the mod settings (Main/Game menu -> Mods -> setting button next to the mod name):
+[img]https://files.catbox.moe/v1t0cg.jpg[/img]
+
+- Auto-start: automatically start the server when loading a game. It is as if you built the HTTP Adapter building and turned it on, but you cannot turn it off without the building unless you exit the game. You can also setup the port.
+- Authentication: optional (leave blank to disable) password for the API. This does not affect the base game's APIs, only the ones added by this mod and any custom endpoints you make.
+
+Now when you enter the game, you can access https://timberlive.lukevo.com/ (or any other client anyone can make), enter the URL, port and password.
+
+You should see live data like Weather, Cycles, Beavers, Buildings and more. You can also select any building or beaver from the web UI, toggle some options. It's limited for now but it is easy to expand later.
+[img]https://files.catbox.moe/uqpgrp.jpg[/img]
+
+The TimberLive client supports Dark mode as well (top-right)
+[img]https://files.catbox.moe/7a6ebd.jpg[/img]
+
+[h1]Automations[/h1]
+
+One main point of this mod is to provide a framework for other mods to add their own API endpoints. I provide an example with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3729176685]More HTTP API - Automations[/url]: it adds API so you can map out all Automations in your game. Please see that page for example.
+[img]https://files.catbox.moe/jvcfu9.jpg[/img]
+
+[h1]For Modders[/h1]
+
+Please see the mod above for example. You simply need to create an `IMoreHttpApiHandler` service to have your own endpoint for users to interact with the game.
+
+The mod also provides serializable models of a lot of the game's data so serialization should not be a problem anymore.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

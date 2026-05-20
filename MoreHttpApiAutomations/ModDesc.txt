@@ -1,0 +1,20 @@
+﻿This is an expansion mod for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3729176372]More HTTP API[/url] that adds automation data to the HTTP API.
+It powers the Automations page at https://timberlive.lukevo.com/automations, where you can map and (soon) control your automation buildings.
+[img]https://files.catbox.moe/jvcfu9.jpg[/img]
+
+[h1]For Players[/h1]
+Open the Automations page in TimberLive and get a visual graph of all your automation buildings.
+[list]
+[*] All automators are grouped into [b]partitions[/b] — connected clusters of buildings that interact with each other.
+[*] Each partition is shown as a [b]Mermaid flowchart[/b] so you can clearly see which buildings are transmitting or receiving signals.
+[*] Node colors reflect the building's illuminator color in-game. You can use this to quickly identify circular problem:
+[img]https://files.catbox.moe/cl3ho8.jpg[/img]
+[*] Isolated buildings (not connected to anything) can be hidden to reduce clutter.
+[*] You can copy the full Mermaid chart text to use in your own tools or notes.
+[/list]
+
+[h1]For Modders[/h1]
+Most of the features are done at client-side, the server side simply sends out the information so you can check the source code to see how a handler is made.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
