@@ -2,7 +2,8 @@
 
 public static class ModdableTimberbornUtils
 {
-
+    public static readonly ImmutableArray<CharacterType> AllCharacterTypes = [CharacterType.AdultBeaver, CharacterType.ChildBeaver, CharacterType.Bot];
+    
     public static ConfigurationContext CurrentContext { get; internal set; } = ConfigurationContext.Bootstrapper;
 
     public static void LogVerbose(Func<string> msg)

@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "ModdableTimberborn"
+		},
+		{
+			"path": "ModdableTimberborn.Tests"
+		}
+	],
+	"settings": {}
+}

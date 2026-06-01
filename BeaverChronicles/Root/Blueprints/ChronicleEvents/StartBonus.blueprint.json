@@ -1,0 +1,98 @@
+﻿{
+    "ChronicleEventSpec": {
+        "Id": "StartBonus",
+        "TitleLoc": "LV.BCEv.StartBonus",
+        "Conditions": {
+            "Sources": [ "NewHour" ],
+            "Weight": 2147483647
+        },
+        "Parameters": {
+            "Strings": [ "Berries", "Water", "Log", "ChildBeaver" ],
+            "Ints": [ 20, 20, 20, 1 ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.StartBonus.Content",
+                        "TopImage": true,
+                        "DefaultOption": 4,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCEv.StartBonus.C1",
+                                "NoteLoc": "LV.BCEv.StartBonus.C1N",
+                                "NextNodeId": "C1"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.StartBonus.C2",
+                                "NoteLoc": "LV.BCEv.StartBonus.C2N",
+                                "NextNodeId": "C2"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.StartBonus.C3",
+                                "NoteLoc": "LV.BCEv.StartBonus.C3N",
+                                "NextNodeId": "C3"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.StartBonus.C4",
+                                "NoteLoc": "LV.BCEv.StartBonus.C4N",
+                                "NextNodeId": "C4"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "C1",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{I1}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "C2",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{I2}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "C3",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [
+                            {
+                                "Id": "{S3}",
+                                "Amount": "{I3}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "C4",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [
+                            {
+                                "Id": "{S4}",
+                                "Amount": "{I4}"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

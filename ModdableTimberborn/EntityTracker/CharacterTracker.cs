@@ -14,6 +14,36 @@ public class CharacterTracker : IEntityTracker<CharacterTrackerComponent>
     public IEnumerable<CharacterTrackerComponent> Beavers => adults.Concat(children);
     public IEnumerable<CharacterTrackerComponent> Workers => adults.Concat(bots);
 
+    public IEnumerable<CharacterTrackerComponent> GetCharacters(CharacterType type)
+    {
+        if ((type & CharacterType.AdultBeaver) != 0)
+        {
+            foreach (var character in adults)
+            {
+                yield return character;
+            }
+        }
+
+        if ((type & CharacterType.ChildBeaver) != 0)
+        {
+            foreach (var character in children)
+            {
+                yield return character;
+            }
+        }
+
+        if ((type & CharacterType.Bot) != 0)
+        {
+            foreach (var character in bots)
+            {
+                yield return character;
+            }
+        }
+    }
+
+    public IEnumerable<T> GetCharacters<T>(CharacterType type)
+        => GetCharacters(type).Select(c => c.GetComponent<T>());
+
     readonly HashSet<CharacterTrackerComponent> entities = [];
     public IReadOnlyCollection<CharacterTrackerComponent> Entities => entities;
 

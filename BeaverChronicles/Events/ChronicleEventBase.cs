@@ -9,7 +9,7 @@ public abstract class ChronicleEventBase : IChronicleEvent
     protected abstract void OnTriggered(IEventTriggerParameters parameters, EventHistoryRecord record);
 
     public bool Active => chronicleEventService is not null && triggerParameters is not null;
-    public virtual float? DelayAfterConclusion => 1.5f;
+    public virtual float? DelayAfterConclusion => 0f;
 
     protected ChronicleEventService? chronicleEventService;
     protected IEventTriggerParameters? triggerParameters;

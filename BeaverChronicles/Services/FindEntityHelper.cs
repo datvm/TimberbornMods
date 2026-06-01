@@ -6,7 +6,7 @@ public class FindEntityHelper(
     BeaverPopulation beaverPopulation,
     DefaultEntityTracker<Stockpile> stockpileTracker,
     DefaultEntityTracker<BlockObject> blockObjectTracker,
-    DefaultEntityTracker<Bot> botTracker
+    DefaultEntityTracker<Bot> bots
 )
 {
 
@@ -31,6 +31,30 @@ public class FindEntityHelper(
 
         dc = null;
         return false;
+    }
+
+    public int CountFinishedBlockObjects(IReadOnlyCollection<string>? templateNames, IReadOnlyCollection<string>? excluded)
+    {
+        var counter = 0;
+
+        foreach (var bo in blockObjectTracker.Entities)
+        {
+            if (!bo.IsFinished) { continue; }
+
+            var templateName = bo.GetTemplateName();
+            var satisfy = templateNames is null || templateNames.Contains(templateName);
+            if (satisfy)
+            {
+                if (excluded is not null && excluded.Contains(templateName))
+                {
+                    continue;
+                }
+
+                counter++;
+            }
+        }
+
+        return counter;
     }
 
     public IEnumerable<Stockpile> FindStockpiles(string? hasGoodId)
@@ -61,7 +85,7 @@ public class FindEntityHelper(
             yield return b;
         }
 
-        foreach (var b in botTracker.Entities)
+        foreach (var b in bots.Entities)
         {
             yield return b;
         }
@@ -72,6 +96,52 @@ public class FindEntityHelper(
             if (bo)
             {
                 yield return bo;
+            }
+        }
+    }
+
+
+    public int FindInAreas(IReadOnlyList<Bounds> areas, CharacterType characterTypes = BeaverChroniclesUtils.AllCharactersEnum, int stopAt = 1)
+    {
+        var counter = 0;
+
+        foreach (var c in GetCharacters(characterTypes))
+        {
+            var pos = c.Transform.position;
+
+            if (areas.FastAny(a => a.Contains(pos)))
+            {
+                counter++;
+                if (counter >= stopAt) { return counter; }
+            }
+        }
+
+        return counter;
+    }
+
+    public IEnumerable<BaseComponent> GetCharacters(CharacterType types = BeaverChroniclesUtils.AllCharactersEnum)
+    {
+        if ((types & CharacterType.AdultBeaver) != 0)
+        {
+            foreach (var b in beaverPopulation._beaverCollection._adults)
+            {
+                yield return b;
+            }
+        }
+
+        if ((types & CharacterType.ChildBeaver) != 0)
+        {
+            foreach (var b in beaverPopulation._beaverCollection._children)
+            {
+                yield return b;
+            }
+        }
+
+        if ((types & CharacterType.Bot) != 0)
+        {
+            foreach (var b in bots.Entities)
+            {
+                yield return b;
             }
         }
     }

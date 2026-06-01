@@ -73,6 +73,7 @@
   </Folder>
   <Folder Name="/Moddable/ModdableTimberborn/">
     <Project Path="ModdableTimberborn.ModdableWeather/ModdableTimberborn.ModdableWeather.csproj" Id="9fce2680-3e65-40a3-a70f-f6d9c86482a3" />
+    <Project Path="ModdableTimberborn.Tests/ModdableTimberborn.Tests.csproj" Id="dd6ba177-8481-4317-8127-84efd400fc36" />
     <Project Path="ModdableTimberborn/ModdableTimberborn.csproj" />
     <Project Path="ModdableTimberbornDemo/ModdableTimberbornDemo.csproj" />
   </Folder>
@@ -178,6 +179,7 @@
     <File Path="Targets/CommonMoreHttpApi.targets" />
     <File Path="Targets/CommonProperties.targets" />
     <File Path="Targets/CommonScientificProjects.targets" />
+    <File Path="Targets/CommonTests.targets" />
     <File Path="Targets/CommonTimberUI.targets" />
     <File Path="Targets/CommonTransparentShaders.targets" />
     <File Path="Targets/CommonUI.targets" />

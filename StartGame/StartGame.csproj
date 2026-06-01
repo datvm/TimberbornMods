@@ -15,12 +15,9 @@
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
-		<!--<ProjectReference Include="..\BeaverChronicles\BeaverChronicles.csproj" />
-		<ProjectReference Include="..\ModdableTimberborn.ModdableWeather\ModdableTimberborn.ModdableWeather.csproj" />-->
-		
-		<ProjectReference Include="..\MoreHttpApi\MoreHttpApi.csproj" />
-		<ProjectReference Include="..\MoreHttpApiAutomations\MoreHttpApiAutomations.csproj" />
-		
+		<ProjectReference Include="..\BeaverChronicles\BeaverChronicles.csproj" />
+		<!--<ProjectReference Include="..\ModdableTimberborn.ModdableWeather\ModdableTimberborn.ModdableWeather.csproj" />-->
+				
 
 	</ItemGroup>
 </Project>

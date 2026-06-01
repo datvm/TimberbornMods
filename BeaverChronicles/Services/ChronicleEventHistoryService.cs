@@ -14,9 +14,15 @@ public class ChronicleEventHistoryService(
 
     readonly List<EventHistoryRecord> records = [];
     readonly Dictionary<string, List<EventHistoryRecord>> recordsById = [];
-    
+
+    public event EventHandler<string>? EventFinished;
+    public event EventHandler<string>? EventRestored;
+
     public IReadOnlyList<EventHistoryRecord> Records => records;
-    public HashSet<string> FinishedEventIds { get; } = [];
+    
+    readonly HashSet<string> finishedEventIds = [];
+    public IReadOnlyCollection<string> FinishedEventIds => finishedEventIds;
+
     public string? NextEventIdRequested { get; set; }
 
     public EventHistoryRecord? ActiveRecord
@@ -39,6 +45,19 @@ public class ChronicleEventHistoryService(
         {
             PopulateLookupData();
         }
+    }
+
+    public bool HasFinished(string id) => finishedEventIds.Contains(id);
+    public void MarkFinished(string id)
+    {
+        finishedEventIds.Add(id);
+        EventFinished?.Invoke(this, id);
+    }
+
+    public void RestoreFinished(string id)
+    {
+        finishedEventIds.Remove(id);
+        EventRestored?.Invoke(this, id);
     }
 
     public IReadOnlyList<EventHistoryRecord> Get(string id) 
@@ -83,7 +102,7 @@ public class ChronicleEventHistoryService(
 
         records.AddRange(s.Get(RecordsKey).Select(EventHistoryRecord.Deserialize));
         NextEventMinimumDay = s.Get(NextEventMinimumDayKey);
-        FinishedEventIds.UnionWith(s.Get(FinishedEventIdsKey));
+        finishedEventIds.UnionWith(s.Get(FinishedEventIdsKey));
 
         if (s.Has(NextEventIdRequestedKey))
         {
@@ -104,7 +123,7 @@ public class ChronicleEventHistoryService(
         var s = singletonSaver.GetSingleton(SaveKey);
         s.Set(RecordsKey, [.. records.Select(r => r.Serialize())]);
         s.Set(NextEventMinimumDayKey, NextEventMinimumDay);
-        s.Set(FinishedEventIdsKey, FinishedEventIds);
+        s.Set(FinishedEventIdsKey, finishedEventIds);
 
         if (NextEventIdRequested is not null)
         {

@@ -18,7 +18,7 @@
 		<None Include="**\*.V1.cs" />
 	</ItemGroup>
 	
-	<Target Name="Validate">
+	<Target Name="Validate" Condition="!$(IsTestProject)">
 		<Error Condition="'$(OutputModFolderName)'==''" Text="OutputModFolderName was not specified" />
 	</Target>
 
@@ -33,7 +33,7 @@
 	</PropertyGroup>
 
 
-	<Target Name="CopyFiles" AfterTargets="PrepareFilesForCopy">
+	<Target Condition="!$(IsTestProject)" Name="CopyFiles" AfterTargets="PrepareFilesForCopy">
 		<Message Condition="!$(IsOptionalDll)" Text="Deleting..." />
 		<RemoveDir Condition="!$(IsOptionalDll)" Directories="$(ModFolder)" />
 
@@ -60,6 +60,10 @@
 	</Target>
 
 	<ItemGroup>
+		<AssemblyAttribute Condition="$(IsTestProject)" Include="System.Reflection.AssemblyMetadataAttribute">
+			<_Parameter1>GameAssemblyPath</_Parameter1>
+			<_Parameter2>$(AssemblyPath)</_Parameter2>
+		</AssemblyAttribute>
 		
 		<Content Include="Assets\**\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -88,7 +92,7 @@
 		<Content Include="Root\**">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Condition="!$(IsOptionalDll)" Include="manifest.json">
+		<Content Condition="!$(IsOptionalDll) AND !$(IsTestProject)" Include="manifest.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Condition="Exists('workshop_data.json')" Include="workshop_data.json">

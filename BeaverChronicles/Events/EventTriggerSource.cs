@@ -23,4 +23,6 @@ public enum EventTriggerSource
     InjuryCured,
     Contaminated,
     Decontaminated,
+    Custom,
+    CharacterEnteredArea,
 }

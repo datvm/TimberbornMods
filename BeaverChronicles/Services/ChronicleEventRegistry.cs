@@ -1,7 +1,7 @@
 ﻿namespace BeaverChronicles.Services;
 
 [BindSingleton]
-public class ChronicleEventRegistry(IEnumerable<IChronicleEvent> events) : ILoadableSingleton
+public class ChronicleEventRegistry(IEnumerable<IChronicleEventsProvider> eventsProviders) : ILoadableSingleton
 {
 
 #nullable disable
@@ -12,16 +12,20 @@ public class ChronicleEventRegistry(IEnumerable<IChronicleEvent> events) : ILoad
     public void Load()
     {
         Dictionary<string, IChronicleEvent> eventById = [];
-        foreach (var e in events)
+        foreach (var p in eventsProviders)
         {
-            var id = e.Id;
-            if (eventById.ContainsKey(id))
+            foreach (var e in p.GetEvents())
             {
-                throw new InvalidOperationException($"Duplicate event id {id} by {e} and {eventById[e.Id]}");
-            }
+                var id = e.Id;
+                if (eventById.ContainsKey(id))
+                {
+                    throw new InvalidOperationException($"Duplicate event id {id} by {e} and {eventById[e.Id]}, provided by {p.GetType().Name}");
+                }
 
-            eventById[e.Id] = e;
+                eventById[e.Id] = e;
+            }
         }
+        
         EventById = eventById.ToFrozenDictionary();
 
         Dictionary<EventTriggerSource, HashSet<IChronicleEvent>> eventByTrigger = [];
