@@ -13,6 +13,7 @@
 
 	<ItemGroup>
 		<Compile Include="..\ModdableTimberborn\zGlobalUsings.cs" Link="zGlobalUsings.cs" />
+		<Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
 	</ItemGroup>
 
 	<ItemGroup>

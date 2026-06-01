@@ -1,4 +1,4 @@
-﻿# Code Style
+# Code Style
 
 Always use code block even for single conditional or loop statements. For example:
 ```cs
@@ -18,9 +18,9 @@ List<int> numbers = new();
 MyType variable = new MyType();
 ```
 
-Prefer no access modifier for lowest visibility. Do not use _ to prefix fields. For example:
+Prefer no access modifier for lowest visibility. Do not use `_` to prefix fields. For example:
 ```cs
-int filed;
+int field;
 class MyClass {}
 
 // NOT:
@@ -34,3 +34,9 @@ When searching for references, check all the `*.code-workspace` files in the rep
 
 - MoreHttpApi.code-workspace
 - BeaverChronicles.code-workspace
+
+# Tests
+
+Keep test method names short and descriptive. Prefer names like `InitializeWithCorrectCharacterType`, `IgnoreWrongCharacterType`, or `ComputeSegments` over long Given/When/Then-style names.
+
+Prefer focused tests with clear arrange/act/assert spacing. Use helpers or factories for repeated setup when Unity or Timberborn types require reflection or publicized DLL setup.

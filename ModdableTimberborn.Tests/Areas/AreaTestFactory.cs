@@ -23,8 +23,18 @@ static class AreaTestFactory
     {
         var tracker = new CharacterPositionTracker(CreateSegmentService());
         SetProperty(tracker, nameof(CharacterPositionTracker.CharacterType), characterType);
-        SetProperty(tracker, nameof(CharacterPositionTracker.Cell), cell);
+        SetCell(tracker, cell);
         return tracker;
+    }
+
+    public static void SetCell(CharacterPositionTracker tracker, Vector3Int cell)
+    {
+        SetProperty(tracker, nameof(CharacterPositionTracker.Cell), cell);
+    }
+
+    public static void SetCharacterType(CharacterPositionTracker tracker, CharacterType characterType)
+    {
+        SetProperty(tracker, nameof(CharacterPositionTracker.CharacterType), characterType);
     }
 
     static void SetProperty<T>(object target, string propertyName, T value)

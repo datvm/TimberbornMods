@@ -28,21 +28,29 @@ public sealed class GameAssemblyFixture
 
         AssemblyLoadContext.Default.Resolving += (_, assemblyName) => ResolveFromProbePaths(probePaths, assemblyName);
 
+        var loaded = 0;
+        var alreadyLoaded = 0;
         foreach (var dll in Directory.GetFiles(asmPath, "Timberborn.*.dll"))
         {
-            LoadAssembly(dll);
+            if (LoadAssembly(dll) is null)
+            {
+                alreadyLoaded++;
+            }
+            else
+            {
+                loaded++;
+            }
         }
+
+        Log("Loaded {0} Timberborn assemblies. Already loaded: {1}.", loaded, alreadyLoaded);
     }
 
     Assembly? ResolveFromProbePaths(string[] probePaths, AssemblyName assemblyName)
     {
-        Log("Resolving {0}", assemblyName.Name);
-
         foreach (var probePath in probePaths)
         {
             if (!Directory.Exists(probePath))
             {
-                Log("Skipped missing probe path: {0}", probePath);
                 continue;
             }
 
@@ -53,7 +61,6 @@ public sealed class GameAssemblyFixture
 
             if (assembly is not null)
             {
-                Log("Resolved {0} from {1}", assemblyName.Name, assembly.Location);
                 return assembly;
             }
         }
@@ -67,18 +74,17 @@ public sealed class GameAssemblyFixture
         try
         {
             var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(Path.GetFullPath(path));
-            Log("Loaded {0}", assembly.Location);
             return assembly;
         }
         catch (FileLoadException)
         {
-            Log("Already loaded {0}", path);
             return null;
         }
     }
 
     void Log(string message, params object?[] args)
     {
-        Console.Error.WriteLine("[assembly-load] " + message, args);
+        var text = "[assembly-load] " + string.Format(message, args);
+        TestContext.Current.SendDiagnosticMessage(text);
     }
 }
