@@ -6,11 +6,13 @@ public class ChronicleEventService(
     ChronicleEventHistoryService history,
     ChronicleGameEventHandler gameEventHandler,
     IDayNightCycle dayNightCycle,
-    ActiveChronicleEventService activeEventService
+    ActiveChronicleEventService activeEventService,
+    ChronicleEventFlagHelper flagHelper
 ) : ILoadableSingleton, IPostLoadableSingleton, ITickableSingleton
 {
     public readonly ChronicleEventRegistry Registry = registry;
     public readonly ChronicleEventHistoryService History = history;
+    public readonly ChronicleEventFlagHelper FlagHelper = flagHelper;
 
     public IChronicleEvent? ActiveEvent { get; private set; }
     public EventHistoryRecord? ActiveRecord => History.ActiveRecord;
@@ -58,7 +60,7 @@ public class ChronicleEventService(
         doNotRepeat ??= (!e.CanRepeat);
         if (doNotRepeat == true)
         {
-            History.FinishedEventIds.Add(e.Id);
+            History.MarkFinished(e.Id);
         }
 
         ActiveEvent = null;
@@ -82,7 +84,7 @@ public class ChronicleEventService(
 
     public void RequestNextEventDelay(float delayDays) => History.RequestNextEventDelay(delayDays);
 
-    public bool HasCompletedEvent(string id) => History.FinishedEventIds.Contains(id);
+    public bool HasCompletedEvent(string id) => History.HasFinished(id);
 
     void OnGameEvent(object sender, IEventTriggerParameters p)
     {
@@ -100,30 +102,39 @@ public class ChronicleEventService(
             return null;
         }
 
+        var specific = p is IEventSpecificTriggerParameters specificParams ? specificParams.Event : null;
+
         var requestedNextEventId = History.NextEventIdRequested;
         if (requestedNextEventId is not null)
         {
+            // If a specific event is being requested but it doesn't match the requested next event ID, skip.
+            if (specific is not null && requestedNextEventId != specific.Id) { return null; }
+
             return ChooseRequestedEvent(p, requestedNextEventId);
+        }
+
+        if (specific is not null) // If a specific event is being triggered, try to trigger it directly (but only if it matches the requested next event ID if there is one)
+        {
+            return ChooseRequestedEvent(p, specific.Id);
         }
 
         var events = Registry.EventsByTrigger[p.Source];
         if (events.Length == 0) { return null; }
 
-        var finished = History.FinishedEventIds;
         var totalWeight = 0;
         List<(IChronicleEvent, int)> weightedEvents = [];
         List<IChronicleEvent> maxWeightEvents = [];
 
         foreach (var e in events)
         {
-            if (finished.Contains(e.Id)) { continue; }
+            if (History.HasFinished(e.Id)) { continue; }
 
             var weight = e.GetTriggerWeight(p, this);
             if (weight <= 0)
             {
                 if (weight == -1)
                 {
-                    finished.Add(e.Id);
+                    History.MarkFinished(e.Id);
                 }
 
                 continue;
@@ -166,9 +177,7 @@ public class ChronicleEventService(
 
     IChronicleEvent? ChooseRequestedEvent(IEventTriggerParameters p, string id)
     {
-        var finished = History.FinishedEventIds;
-
-        if (finished.Contains(id) || !Registry.TryGet(id, out var e))
+        if (History.HasFinished(id) || !Registry.TryGet(id, out var e))
         {
             History.NextEventIdRequested = null;
             return null;
@@ -180,7 +189,7 @@ public class ChronicleEventService(
         if (weight == -1)
         {
             History.NextEventIdRequested = null;
-            finished.Add(e.Id);
+            History.MarkFinished(e.Id);
             return null;
         }
 

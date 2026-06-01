@@ -3,9 +3,12 @@ namespace BeaverChronicles.Helpers;
 
 public static class BeaverChroniclesUtils
 {
+    public const CharacterType AllCharactersEnum = CharacterType.AdultBeaver | CharacterType.ChildBeaver | CharacterType.Bot;
+    public static readonly ImmutableArray<CharacterType> AllCharacters = [ CharacterType.AdultBeaver, CharacterType.ChildBeaver, CharacterType.Bot, ];
+
     public static readonly ImmutableArray<EventTriggerSource> AllTriggerSources
         = [.. Enum.GetValues(typeof(EventTriggerSource)).Cast<EventTriggerSource>()];
-
+    
     public static void Log(string msg) => Debug.Log($"[{nameof(BeaverChronicles)}] {msg}");
 
     public static void LogVerbose(Func<string> msgFunc) => TimberUiUtils.LogVerbose(() => $"[{nameof(BeaverChronicles)}] {msgFunc()}");
@@ -19,6 +22,38 @@ public static class BeaverChroniclesUtils
         return result;
     }
 
+    static readonly Vector3Int Max = new(int.MaxValue, int.MaxValue, int.MaxValue);
+    static readonly Vector3Int Min = new(int.MinValue, int.MinValue, int.MinValue);
+
+    extension(BlockObject bo)
+    {
+
+        public BoundsInt GetBounds()
+        {
+            var max = Min; var min = Max;
+
+            foreach (var block in bo.PositionedBlocks.GetAllBlocks())
+            {
+                var coord = block.Coordinates;
+
+                for (int i = 0; i < 3; i++) 
+                {
+                    var e = coord[i];
+                    if (e > max[i]) { max[i] = e; }
+                    if (e < min[i]) { min[i] = e; }
+                }
+            }
+
+            return new(min, max - min + Vector3Int.one);
+        }
+
+    }
+
+    extension<T>(IReadOnlyCollection<T> collections)
+    {
+        public bool EmptyOrContains(T item) => collections.Count == 0 || collections.Contains(item);
+    }
+
     extension(Configurator config)
     {
 
@@ -28,7 +63,8 @@ public static class BeaverChroniclesUtils
 
             foreach (var t in assembly.GetTypes())
             {
-                if (typeof(IChronicleEvent).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract && t.IsClass)
+                if (typeof(IChronicleEvent).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract && t.IsClass
+                    && t.GetCustomAttribute<NonBindingEventAttribute>() is null)
                 {
                     config.BindSingleton(t);
                     config.MultiBind(typeof(IChronicleEvent), t, true);
@@ -92,14 +128,14 @@ public static class BeaverChroniclesUtils
     extension(IEventTriggerParameters p)
     {
 
-        public bool IsParameter<T>() => p is EventTriggerParameter<T>;
-        public int GetParameterWeight<T>() => p is EventTriggerParameter<T> ? int.MaxValue : 0;
+        public bool IsParameter<T>() => p is IEventTriggerParameters<T>;
+        public int GetParameterWeight<T>() => p is IEventTriggerParameters<T> ? int.MaxValue : 0;
 
-        public T GetParameter<T>() => p is EventTriggerParameter<T> tp
+        public T GetParameter<T>() => p is IEventTriggerParameters<T> tp
             ? tp.Data
             : throw new InvalidOperationException($"Unexpected parameters type: {p.GetType().FullName}, instead of {typeof(EventTriggerParameter<T>)}");
 
-        public T? GetParameterOrDefault<T>() => p is EventTriggerParameter<T> tp ? tp.Data : default;
+        public T? GetParameterOrDefault<T>() => p is IEventTriggerParameters<T> tp ? tp.Data : default;
 
     }
 
@@ -140,6 +176,26 @@ public static class BeaverChroniclesUtils
 
         public string ToMixedText() => string.Join(", ", goods.Select(g => $"[[good:{g.GoodId}:{g.Amount}]]"));
 
+    }
+
+    extension(ConditionType c)
+    {
+        public bool Evaluate<T>(IReadOnlyList<T> values, Predicate<T> fn)
+        {
+            if (values.Count == 0 || c == ConditionType.Never) { return false; }
+
+            if (values.Count == 1)
+            {
+                return fn(values[0]);
+            }
+
+            return c switch
+            {
+                ConditionType.Any => values.FastAny(v => fn(v)),
+                ConditionType.All => values.FastAll(v => fn(v)),
+                _ => throw new InvalidOperationException($"Unexpected condition type: {c}"),
+            };
+        }
     }
 
 }

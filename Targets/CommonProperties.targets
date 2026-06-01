@@ -19,6 +19,9 @@
 		<GameModsFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\</GameModsFolder>
 		<ModFolder>$(GameModsFolder)$(OutputModFolderName)\$(TimberbornVersion)\</ModFolder>
 
+		<IsTestProject Condition="'$(IsTestProject)'==''">false</IsTestProject>
+
+
 		<IsOptionalDll>false</IsOptionalDll>
 		<IsOptionalDll Condition="'$(OptionalForModId)'!=''">true</IsOptionalDll>
 
@@ -26,23 +29,25 @@
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 
-	<Target Name="PrepareFilesForCopy" AfterTargets="Build">
+	<Target Condition="!$(IsTestProject)" Name="PrepareFilesForCopy" AfterTargets="Build">
 		<ItemGroup>
 			<LocalizationFiles Include="$(OutputPath)Localizations\**\*.*" />
-			<DllFiles Include="$(OutputPath)\**\*.dll"/>
-			<Assets Include="$(OutputPath)\Assets\**\*"/>
-			<AssetBundles Include="$(OutputPath)\AssetBundles\**\*"/>
-			<Sprites Include="$(OutputPath)\Sprites\**\*"/>
-			<Specifications Include="$(OutputPath)\Specifications\**\*"/>
-			<ModResources Include="$(OutputPath)\Resources\**\*"/>
-			<ModSounds Include="$(OutputPath)\Sounds\**\*"/>
+			<DllFiles Include="$(OutputPath)\**\*.dll" />
+			<Assets Include="$(OutputPath)\Assets\**\*" />
+			<AssetBundles Include="$(OutputPath)\AssetBundles\**\*" />
+			<Sprites Include="$(OutputPath)\Sprites\**\*" />
+			<Specifications Include="$(OutputPath)\Specifications\**\*" />
+			<ModResources Include="$(OutputPath)\Resources\**\*" />
+			<ModSounds Include="$(OutputPath)\Sounds\**\*" />
 			<ModManifestFile Condition="!$(IsOptionalDll)" Include="$(OutputPath)\**\manifest.json" />
 			<ModWorkshopDataFile Include="$(OutputPath)\**\workshop_data.json" />
 			<RootCopyFile Include="$(OutputPath)Root\**\*" />
 
-			<Blueprints Condition="$(IsV1)" Include="$(OutputPath)\Blueprints\**\*.blueprint.json"/>
-			<Blueprints Condition="$(IsU7)" Include="$(OutputPath)\Blueprints\**\*" Exclude="$(OutputPath)\Blueprints\**\*.blueprint.json"/>
-			<Blueprints Condition="$(IsU7)" Include="$(OutputPath)\Blueprints\**\*.U7.blueprint.json"/>
+			<Blueprints Condition="$(IsV1)" Include="$(OutputPath)\Blueprints\**\*.blueprint.json" />
+			<Blueprints Condition="$(IsU7)" Include="$(OutputPath)\Blueprints\**\*"
+				Exclude="$(OutputPath)\Blueprints\**\*.blueprint.json" />
+			<Blueprints Condition="$(IsU7)"
+				Include="$(OutputPath)\Blueprints\**\*.U7.blueprint.json" />
 		</ItemGroup>
 	</Target>
 

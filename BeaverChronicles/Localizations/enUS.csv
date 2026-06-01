@@ -30,13 +30,13 @@ LV.BCEv.StartBonus.Content,"The last bend of the river opens into a quiet stretc
 It is not much yet, but it is enough.
 The beavers gather around the camp, tired but hopeful. Before the work begins, the scouts report one small blessing found nearby.",
 LV.BCEv.StartBonus.C1,"Gather the berries",
-LV.BCEv.StartBonus.C1N,"[[C]]A hidden patch of ripe berries is found nearby. [[+]][[good:Berries:{0:+0}]]",
+LV.BCEv.StartBonus.C1N,"[[C]]A hidden patch of ripe berries is found nearby. [[+]][[good:{S1}:{I1}]]",
 LV.BCEv.StartBonus.C2,"Fill the barrels",
-LV.BCEv.StartBonus.C2N,"[[C]]Clean water collects in a shallow pool. [[+]][[good:Water:{0:+0}]]",
+LV.BCEv.StartBonus.C2N,"[[C]]Clean water collects in a shallow pool. [[+]][[good:{S2}:{I2}]]",
 LV.BCEv.StartBonus.C3,"Claim the fallen logs",
-LV.BCEv.StartBonus.C3N,"[[C]]Dry fallen trunks lie near the treeline. [[+]][[good:Log:{0:+0}]]",
+LV.BCEv.StartBonus.C3N,"[[C]]Dry fallen trunks lie near the treeline. [[+]][[good:{S3}:{I3}]]",
 LV.BCEv.StartBonus.C4,"Rescue the youngling",
-LV.BCEv.StartBonus.C4N,"[[C]]A young kit is found near the river, barely alive. [[+]]{0:+0} [[icon:UI/images/game/ico-child]] Child Beaver",
+LV.BCEv.StartBonus.C4N,"[[C]]A young kit is found near the river, barely alive. [[+]]{I4} [[icon:UI/images/game/ico-child]] Child Beaver",
 LV.BCEv.FirstDeath,"First Passing",
 LV.BCEv.FirstDeath.Content,"{0} has passed away.
 

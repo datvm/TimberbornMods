@@ -8,4 +8,16 @@ public interface IEventTriggerParameters
 
 }
 
-public readonly record struct EventTriggerParameter<T>(EventTriggerSource Source, int SourceCount, T Data) : IEventTriggerParameters;
+public interface IEventTriggerParameters<T> : IEventTriggerParameters
+{
+    int SourceCount { get; }
+    T Data { get; }
+}
+
+public interface IEventSpecificTriggerParameters : IEventTriggerParameters
+{
+    IChronicleEvent Event { get; }
+}
+
+public readonly record struct EventTriggerParameter<T>(EventTriggerSource Source, int SourceCount, T Data) : IEventTriggerParameters<T>;
+public readonly record struct EventSpecificTriggerParameter<T>(EventTriggerSource Source, int SourceCount, T Data, IChronicleEvent Event) : IEventSpecificTriggerParameters, IEventTriggerParameters<T>;

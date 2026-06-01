@@ -8,4 +8,8 @@
 	<Import Project="../Targets/CommonTimberUi.targets" />
 	<Import Project="../Targets/CommonHarmony.targets" />
 
+	<ItemGroup>
+		<InternalsVisibleTo Include="ModdableTimberborn.Tests" />
+	</ItemGroup>
+
 </Project>

@@ -1,4 +1,6 @@
-﻿namespace BeaverChronicles.Services;
+﻿using static UnityEngine.GridBrushBase;
+
+namespace BeaverChronicles.Services;
 
 [BindSingleton]
 public class ChronicleGameEventHandler(
@@ -153,25 +155,39 @@ public class ChronicleGameEventHandler(
     [OnEvent]
     public void OnEntityInitialized(EntityInitializedEvent e)
     {
-        var pbos = e.Entity.GetComponent<PlaceableBlockObjectSpec>();
-        if (pbos is null) { return; }
-
-        Trigger(Create(EventTriggerSource.BuildingPlaced, Create(pbos, null)));
+        if (CreateBuilding(e.Entity) is { } p)
+        {
+            Trigger(Create(EventTriggerSource.BuildingPlaced, p));
+        }
     }
 
     [OnEvent]
     public void OnEnteredFinishedState(EnteredFinishedStateEvent e)
     {
-        var pbos = e.BlockObject.GetComponent<PlaceableBlockObjectSpec>();
-        if (pbos is null) { return; }
-
-        Trigger(Create(EventTriggerSource.BuildingFinished, Create(pbos, null)));
+        if (CreateBuilding(e.BlockObject) is { } p)
+        {
+            Trigger(Create(EventTriggerSource.BuildingPlaced, p));
+        }
     }
 
     [OnEvent]
     public void OnWellbeingHighscore(NewWellbeingHighscoreEvent e)
     {
         Trigger(Create(EventTriggerSource.NewWellbeingHighscore, e.WellbeingHighscore));
+    }
+
+    [OnEvent]
+    public void OnCustomEvent(OnCustomChronicleEvent e)
+    {
+        Trigger(Create(EventTriggerSource.Custom, new CustomEventParameters(e.Name, e.Data)));
+    }
+
+    [OnEvent]
+    public void OnCharacterEnteredArea(OnCharacterEnteredAreaEvent e)
+    {
+        Trigger(Create(EventTriggerSource.CharacterEnteredArea,
+            new CharacterInAreaParameters(Create(e.Character.GetComponent<Character>())),
+            e.Event));
     }
 
     void Trigger(IEventTriggerParameters p)
@@ -221,8 +237,10 @@ public class ChronicleGameEventHandler(
         DayTimeParameters CreateParameters() => new(day, cycle, gameCycleService.CycleDay, partialDay, hours, weatherId);
     }
 
-    IEventTriggerParameters Create<T>(EventTriggerSource source, T data)
-        => new EventTriggerParameter<T>(source, GetAndIncreaseTriggerCount(source), data);
+    IEventTriggerParameters Create<T>(EventTriggerSource source, T data, IChronicleEvent? ev = null)
+        => ev is null
+        ? new EventTriggerParameter<T>(source, GetAndIncreaseTriggerCount(source), data)
+        : new EventSpecificTriggerParameter<T>(source, GetAndIncreaseTriggerCount(source), data, ev);
 
     static CharacterParameters Create(Character c)
     {
@@ -234,4 +252,15 @@ public class ChronicleGameEventHandler(
     static BuildingParameters Create(PlaceableBlockObjectSpec pbos, BlockObjectTool? tool)
         => new(pbos.GetTemplateName(), pbos, tool);
 
+    static BuildingInstanceParameters? CreateBuilding(BaseComponent comp)
+    {
+        var pbos = comp.GetComponent<PlaceableBlockObjectSpec>();
+        if (pbos is null) { return null; }
+
+        var bo = comp is BlockObject cbo ? cbo : comp.GetComponent<BlockObject>();
+        if (!bo) { return null; }
+
+        return new(pbos.GetTemplateName(), pbos, null, bo);
+    }
+        
 }

@@ -16,6 +16,7 @@ public class MBeaverChroniclesConfigs : BaseModdableTimberbornAttributeConfigura
             .TryTrack<BlockObject>()
             .TryTrack<Bot>()
             .TryTrack<Beaver>()
+            .TryTrack<CharacterCellTracker>()
         ;
     }
 
