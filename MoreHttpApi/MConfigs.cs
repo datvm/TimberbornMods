@@ -5,6 +5,14 @@ public class MMoreHttpApiConfigs : BaseModdableTimberbornAttributeConfiguration,
     public override ConfigurationContext AvailableContexts => ConfigurationContext.All;
     public string? PatchCategory { get; }
 
+    public override void StartMod(IModEnvironment modEnvironment)
+    {
+        base.StartMod(modEnvironment);
+
+        ModdableTimberbornRegistry.Instance
+            .UseBuildingSettings();
+    }
+
     public override void Configure(Configurator configurator, ConfigurationContext context)
     {
         base.Configure(configurator, context);
