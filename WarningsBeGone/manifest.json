@@ -1,6 +1,6 @@
 ﻿{
     "Name": "Warnings Be Gone",
-    "Version": "10.0.1",
+    "Version": "10.0.2",
     "Id": "WarningsBeGone",
     "MinimumGameVersion": "1.0.0",
     "Description": "Hide certain warnings.",
