@@ -4,11 +4,14 @@ The Mechanical System subsystem makes a building's nominal power input and outpu
 
 ## Enabling the subsystem
 
-Call `UseMechanicalSystem()` on the shared registry inside your plugin's `Configure` method before the game context is built. The method is idempotent — calling it more than once is safe.
+Enable the subsystem at **mod startup** — `Use…()` opt-ins run before the Bindito contexts are built, so call it from your config's `StartMod` (a `BaseModdableTimberbornConfiguration` subclass), *not* from `Configure`. The method is idempotent — calling it more than once is safe.
 
 ```cs
-ModdableTimberbornRegistry.Instance
-    .UseMechanicalSystem();
+public override void StartMod(IModEnvironment modEnvironment)
+{
+    base.StartMod(modEnvironment);
+    ModdableTimberbornRegistry.Instance.UseMechanicalSystem();
+}
 ```
 
 Source: [`ModdableMechanicalSystemConfig.cs`](../../ModdableTimberborn/MechanicalSystem/ModdableMechanicalSystemConfig.cs)

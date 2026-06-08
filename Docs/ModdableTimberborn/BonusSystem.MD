@@ -9,9 +9,12 @@ The Bonus System lets you attach, replace, and remove named groups of bonus mult
 Call one of the opt-in methods on `ModdableTimberbornRegistry.Instance` from your `IModStarter`:
 
 ```cs
+// Pick ONE — enabling both adds both decorators to every BonusManager entity (see below).
 ModdableTimberbornRegistry.Instance
-    .UseBonusTracker()           // transient — bonuses are not saved
-    .UsePersistentBonusTracker() // persistent — bonuses survive save/load
+    .UseBonusTracker();            // transient — bonuses are not saved
+
+// — or — persistent bonuses that survive save/load:
+// ModdableTimberbornRegistry.Instance.UsePersistentBonusTracker();
 ```
 
 `UseBonusTracker(bool persistent)` is also available if the choice is determined at runtime. Both methods are chainable and safe to call multiple times.
@@ -72,11 +75,11 @@ static readonly BonusTrackerItem MyBuffBonuses = new("MyBuff", [
 Use the extension methods from [`../../ModdableTimberborn/Helpers/CharacterExtensions.cs`](../../ModdableTimberborn/Helpers/CharacterExtensions.cs):
 
 ```cs
-// Transient variant
-BonusTrackerComponent tracker = worker.GetBonusTracker();
+// Transient variant — null if UseBonusTracker() wasn't called or the entity has no BonusManager
+BonusTrackerComponent? tracker = worker.GetBonusTracker();
 
 // Persistent variant
-PersistentBonusTrackerComponent tracker = worker.GetPersistentBonusTracker();
+PersistentBonusTrackerComponent? persistentTracker = worker.GetPersistentBonusTracker();
 ```
 
 Both return `null` if the corresponding subsystem has not been enabled or if the entity has no `BonusManager`. Both types implement `IBonusTrackerComponent`, so `BonusSystemExtensions` methods work on either.

@@ -21,7 +21,7 @@ public class MStarter : IModStarter
 }
 ```
 
-This is idempotent and chainable. Internally it adds [`BuildingSettingsConfig`](../../ModdableTimberborn/BuildingSettings/BuildingSettingsConfig.cs), which registers `BuildingSettingsResolver` as a singleton and auto-discovers every concrete `IBuildingSettings` in the assembly.
+This is idempotent and chainable. Internally it adds [`BuildingSettingsConfig`](../../ModdableTimberborn/BuildingSettings/BuildingSettingsConfig.cs), which registers `BuildingSettingsResolver` as a singleton and auto-discovers every concrete `IBuildingSettings` in **ModdableTimberborn's own assembly**. Handlers you define in your own mod must be registered manually — see [Registering a custom handler](#4-registering-a-custom-handler).
 
 ## Using the resolver
 
@@ -160,9 +160,13 @@ public class MyLinkedSettings(EntityRegistry entityRegistry, ILoc t)
 
 See [`AutomatableSettings`](../../ModdableTimberborn/BuildingSettings/BuiltInSettings/AutomatableSettings.cs) for the canonical real-world example.
 
-### 4. No manual registration needed
+### 4. Registering a custom handler
 
-`BuildingSettingsConfig` scans the assembly at startup and registers every non-abstract `IBuildingSettings` class it finds as a multibind singleton. Add the class; nothing else is required.
+`BuildingSettingsConfig` scans **only the ModdableTimberborn assembly** (`typeof(BuildingSettingsConfig).Assembly`) and auto-registers every non-abstract `IBuildingSettings` it finds *there*. A handler defined in **your own** mod assembly is therefore **not** picked up automatically — multibind it yourself in your configurator:
+
+```cs
+configurator.MultiBind(typeof(IBuildingSettings), typeof(MyBuildingSettings)).AsSingleton();
+```
 
 ## Built-in handlers
 
@@ -185,4 +189,4 @@ ModdableTimberborn includes handlers for all stock Timberborn `IDuplicable` comp
 | [`IEntityIdModel` / `EntityIdModelBase`](../../ModdableTimberborn/BuildingSettings/IEntityIdModel.cs) | Model base that exposes the `Guid?[]` slot array for generic remapping. |
 | [`BuildingSettingsResolver`](../../ModdableTimberborn/BuildingSettings/BuildingSettingsResolver.cs) | Singleton; resolves handlers by type and returns `BuildingSettingsPair[]` for a building. |
 | [`BuildingSettingsPair`](../../ModdableTimberborn/BuildingSettings/BuildingSettingsResolver.cs) | `readonly record struct(IDuplicable, IBuildingSettings)` returned by the resolver. |
-| [`BuildingSettingsConfig`](../../ModdableTimberborn/BuildingSettings/BuildingSettingsConfig.cs) | Registry config; activated by `UseBuildingSettings()`. Auto-discovers all handlers. |
+| [`BuildingSettingsConfig`](../../ModdableTimberborn/BuildingSettings/BuildingSettingsConfig.cs) | Registry config; activated by `UseBuildingSettings()`. Auto-discovers handlers in the ModdableTimberborn assembly; register your own with `MultiBind`. |
