@@ -48,7 +48,7 @@ public class FoodWoodDispute1(
 
     public override IReadOnlyCollection<EventTriggerSource> TriggerSources => [EventTriggerSource.NewDay];
 
-    public override int GetTriggerWeight(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService)
+    public override int GetTriggerWeight(ChronicleEventContext context)
     {
         if (gameCycleService.Cycle < MinCycle) { return 0; }
 
@@ -86,7 +86,7 @@ public class FoodWoodDispute1(
         workplaceHelper.RemoveWorkplaceBonus(FarmhouseStatusId);
 
         // Chapter 2 should trigger next day
-        chronicleEventService!.RequestNextEvent(FoodWoodDispute2.EventId);
+        context!.RequestNextEvent(FoodWoodDispute2.EventId);
         Conclude();
     }
 

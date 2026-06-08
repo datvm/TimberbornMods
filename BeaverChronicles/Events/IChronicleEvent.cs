@@ -22,7 +22,7 @@ public interface IChronicleEvent
     /// In that case, one of them will be randomly chosen.<br />
     /// Other values: the higher the weight, the more likely this event will be triggered. Use 100 for a "standard" value.
     /// </returns>
-    int GetTriggerWeight(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService);
+    int GetTriggerWeight(ChronicleEventContext context);
 
     /// <summary>
     /// Handle the control flow over to this event instance.
@@ -30,6 +30,6 @@ public interface IChronicleEvent
     /// <remarks>
     /// Also called when this is the current event and the game is loaded, with parameters being EventTriggerSource.GameLoad.
     /// </remarks>
-    void Trigger(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService);
+    void Trigger(ChronicleEventContext context);
 
 }

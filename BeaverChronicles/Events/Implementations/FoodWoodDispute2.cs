@@ -49,13 +49,13 @@ public class FoodWoodDispute2(
 
     public override IReadOnlyCollection<EventTriggerSource> TriggerSources => [ EventTriggerSource.NewDay, ];
 
-    public override int GetTriggerWeight(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService)
+    public override int GetTriggerWeight(ChronicleEventContext context)
     {
         // Check for the first event
-        var firstRecord = GetFirstRecord(chronicleEventService);
+        var firstRecord = GetFirstRecord(context);
         if (firstRecord is null)
         {
-            return chronicleEventService.History.NextEventIdRequested == EventId ? -1 : 0;
+            return context.History.NextEventIdRequested == EventId ? -1 : 0;
         }
 
         if (!firstRecord.TryGetChoice(0, out var choice))
@@ -68,8 +68,8 @@ public class FoodWoodDispute2(
         return int.MaxValue;
     }
 
-    static EventHistoryRecord? GetFirstRecord(ChronicleEventService service)
-        => service.History.Get(FoodWoodDispute1.EventId).FirstOrDefault();
+    static EventHistoryRecord? GetFirstRecord(ChronicleEventContext context)
+        => context.History.Get(FoodWoodDispute1.EventId).FirstOrDefault();
 
     void OnTimeFinished()
     {
@@ -185,7 +185,7 @@ public class FoodWoodDispute2(
 
     protected override async void OnNewlyTriggered(IEventTriggerParameters parameters, EventHistoryRecord record)
     {
-        var firstRecord = GetFirstRecord(chronicleEventService!)
+        var firstRecord = GetFirstRecord(context!)
             ?? throw new InvalidOperationException("The first food and wood dispute event has no record.");
 
         if (!firstRecord.TryGetChoice(0, out var firstChoice))

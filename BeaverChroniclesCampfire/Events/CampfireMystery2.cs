@@ -18,8 +18,8 @@ public class CampfireMystery2(
 
     public override IReadOnlyCollection<EventTriggerSource> TriggerSources => [EventTriggerSource.NewDay];
 
-    public override int GetTriggerWeight(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService)
-        => chronicleEventService.GetCampfireTriggerWeight(1);
+    public override int GetTriggerWeight(ChronicleEventContext context)
+        => context.GetCampfireTriggerWeight(1);
 
     protected override void OnNewlyTriggered(IEventTriggerParameters parameters, EventHistoryRecord record)
         => activeService.WaitUntilNighttime(OnNightTime, dayNightCycle, t);
@@ -42,7 +42,7 @@ public class CampfireMystery2(
 
     async void OnNightTime()
     {
-        var firstChapterRecord = chronicleEventService!.GetCampfireRecord(0);
+        var firstChapterRecord = context!.GetCampfireRecord(0);
         var ch1Choice = firstChapterRecord.GetChoice(0);
         var ch1Key = GetChapter1ChoiceKey(ch1Choice);
 
@@ -95,7 +95,7 @@ public class CampfireMystery2(
     protected override void OnConcluded()
     {
         base.OnConcluded();
-        chronicleEventService!.RequestNextEvent(CampfireUtils.Chapter3Id);
+        context!.RequestNextEvent(CampfireUtils.Chapter3Id);
     }
 
 }

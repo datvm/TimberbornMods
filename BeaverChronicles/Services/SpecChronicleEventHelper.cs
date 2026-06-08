@@ -2,7 +2,7 @@
 
 public class SpecChronicleEventHelper
 {
-    public readonly ChronicleEventService Service;
+    public readonly ChronicleEventContext Context;
     public readonly ChronicleEventFlagHelper FlagHelper;
     public readonly ISpecChronicleEventCustomCode? CustomCode;
     public readonly ChronicleEventSpec Spec;
@@ -34,6 +34,7 @@ public class SpecChronicleEventHelper
 
     public SpecChronicleEventHelper(
         SpecChronicleEvent ev,
+        ChronicleEventContext context,
         FrozenDictionary<string, ISpecNodeHandler> handlers,
         EvaluationCacheService evaluationCache,
         ChronicleEventConditionService conditionService
@@ -44,12 +45,12 @@ public class SpecChronicleEventHelper
         this.evaluationCache = evaluationCache;
         this.conditionService = conditionService;
 
-        Service = ev.Service ?? throw new InvalidOperationException("Event must be active to create helper.");
-        FlagHelper = Service.FlagHelper;
+        Context = context;
+        FlagHelper = context.FlagHelper;
         CustomCode = ev.CustomCode;
         Spec = ev.Spec;
 
-        CurrentRecord = Service.History.ActiveRecord!;
+        CurrentRecord = context.ActiveRecord!;
     }
 
     public FlagCheckResult CheckFlags()

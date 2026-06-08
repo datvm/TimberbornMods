@@ -86,6 +86,8 @@ public class ChronicleEventService(
 
     public bool HasCompletedEvent(string id) => History.HasFinished(id);
 
+    ChronicleEventContext CreateContext(IEventTriggerParameters parameters) => new(parameters, History, FlagHelper, this);
+
     void OnGameEvent(object sender, IEventTriggerParameters p)
     {
         var e = ChooseEvent(p);
@@ -129,7 +131,7 @@ public class ChronicleEventService(
         {
             if (History.HasFinished(e.Id)) { continue; }
 
-            var weight = e.GetTriggerWeight(p, this);
+            var weight = e.GetTriggerWeight(CreateContext(p));
             if (weight <= 0)
             {
                 if (weight == -1)
@@ -185,7 +187,7 @@ public class ChronicleEventService(
 
         if (!e.TriggerSources.Contains(p.Source)) { return null; }
 
-        var weight = e.GetTriggerWeight(p, this);
+        var weight = e.GetTriggerWeight(CreateContext(p));
         if (weight == -1)
         {
             History.NextEventIdRequested = null;
@@ -231,7 +233,7 @@ public class ChronicleEventService(
         ActiveEvent = e;
         BeforeEventTriggered?.Invoke(this, e);
         ActiveEventChanged?.Invoke(this, e);
-        e.Trigger(parameters, this);
+        e.Trigger(CreateContext(parameters));
     }
 
     public void Tick()

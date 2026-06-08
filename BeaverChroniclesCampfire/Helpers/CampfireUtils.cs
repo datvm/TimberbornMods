@@ -14,13 +14,13 @@ public static class CampfireUtils
     public const string Chapter4Id = nameof(CampfireMystery4);
     static readonly ImmutableArray<string> ChapterIds = [Chapter1Id, Chapter2Id, Chapter3Id, Chapter4Id];
 
-    extension(ChronicleEventService service)
+    extension(ChronicleEventContext context)
     {
         public int GetCampfireTriggerWeight(int index)
-            => index == 0 || service.HasCompletedEvent(ChapterIds[index - 1]) ? 100 : 0;
+            => index == 0 || context.HasCompletedEvent(ChapterIds[index - 1]) ? 100 : 0;
 
         public EventHistoryRecord GetCampfireRecord(int index)
-            => service.History.Get(ChapterIds[index]).First();
+            => context.History.Get(ChapterIds[index]).First();
 
     }
 

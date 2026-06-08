@@ -20,9 +20,9 @@ public class CampfireMystery1(
 
     public override IReadOnlyCollection<EventTriggerSource> TriggerSources => [EventTriggerSource.BuildingFinished];
 
-    public override int GetTriggerWeight(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService)
+    public override int GetTriggerWeight(ChronicleEventContext context)
     {
-        var p = parameters.GetParameterOrDefault<BuildingParameters>();
+        var p = context.Parameters.GetParameterOrDefault<BuildingParameters>();
         if (p is null || !p.TemplateName.StartsWith("Campfire.")) { return 0; }
 
         return 100;
@@ -108,7 +108,7 @@ public class CampfireMystery1(
     {
         base.OnConcluded();
 
-        chronicleEventService!.RequestNextEvent(CampfireUtils.Chapter2Id);
+        context!.RequestNextEvent(CampfireUtils.Chapter2Id);
     }
 
 }

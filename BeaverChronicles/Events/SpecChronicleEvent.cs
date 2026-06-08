@@ -14,19 +14,19 @@ public class SpecChronicleEvent(
     public bool Active { get; private set; }
     public bool CanRepeat => spec.Repeat;
 
-    ChronicleEventService? service;
+    ChronicleEventContext? context;
     IEventTriggerParameters? parameters;
     SpecChronicleEventHelper? helper;
 
-    public ChronicleEventService Service => service ?? throw Throw();
+    public ChronicleEventContext Context => context ?? throw Throw();
     public IEventTriggerParameters Parameters => parameters ?? throw Throw();
     public SpecChronicleEventHelper Helper => helper ?? throw Throw();
     public ISpecChronicleEventCustomCode? CustomCode => customCode;
     static InvalidOperationException Throw() => new("Event is not active");
 
-    public int GetTriggerWeight(IEventTriggerParameters parameters, ChronicleEventService service)
+    public int GetTriggerWeight(ChronicleEventContext context)
     {
-        SetParameters(parameters, service);
+        SetContext(context);
 
         return helper!.CheckFlags() switch
         {
@@ -36,12 +36,12 @@ public class SpecChronicleEvent(
         };
     }
 
-    public void Trigger(IEventTriggerParameters parameters, ChronicleEventService service)
+    public void Trigger(ChronicleEventContext context)
     {
-        SetParameters(parameters, service);
+        SetContext(context);
         Active = true;
 
-        if (parameters.Source == EventTriggerSource.GameLoad)
+        if (context.Parameters.Source == EventTriggerSource.GameLoad)
         {
             helper!.RestoreGameState();
             return;
@@ -82,19 +82,19 @@ public class SpecChronicleEvent(
         helper!.TriggerNode(node);
     }
 
-    void SetParameters(IEventTriggerParameters parameters, ChronicleEventService service)
+    void SetContext(ChronicleEventContext context)
     {
-        this.service = service;
-        this.parameters = parameters;
-        helper = helperFac.Create(this);
+        this.context = context;
+        parameters = context.Parameters;
+        helper = helperFac.Create(this, context);
     }
 
     void Conclude()
     {
-        service!.ConcludeEvent();
+        context!.ConcludeEvent();
         Active = false;
 
-        service = null;
+        context = null;
         parameters = null;
         helper = null;
     }

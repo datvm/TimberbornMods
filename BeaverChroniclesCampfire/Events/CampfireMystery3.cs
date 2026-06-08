@@ -26,8 +26,8 @@ public class CampfireMystery3(
     ];
     
 
-    public override int GetTriggerWeight(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService)
-        => chronicleEventService.GetCampfireTriggerWeight(2);
+    public override int GetTriggerWeight(ChronicleEventContext context)
+        => context.GetCampfireTriggerWeight(2);
 
     protected override void OnNewlyTriggered(IEventTriggerParameters parameters, EventHistoryRecord record)
     {
@@ -52,7 +52,7 @@ public class CampfireMystery3(
 
     async void OnNightTime()
     {
-        var firstChoice = chronicleEventService!.GetCampfireRecord(0).GetChoice(0);
+        var firstChoice = context!.GetCampfireRecord(0).GetChoice(0);
         historyRecord!.RecordChoice(0, firstChoice);
 
         var ch1Key = GetChapter1ChoiceKey(firstChoice);
@@ -141,7 +141,7 @@ public class CampfireMystery3(
     {
         base.OnConcluded();
 
-        chronicleEventService!.RequestNextEvent(CampfireUtils.Chapter4Id);
+        context!.RequestNextEvent(CampfireUtils.Chapter4Id);
     }
 
     static GoodAmount[] GetPayment(int firstChoice, int choice) => choice switch

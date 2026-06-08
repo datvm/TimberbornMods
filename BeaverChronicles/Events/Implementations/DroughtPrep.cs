@@ -17,9 +17,9 @@ public class DroughtPrep(
     public override float? DelayAfterConclusion => null;
     bool IChronicleEvent.CanRepeat => true;
 
-    public override int GetTriggerWeight(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService)
+    public override int GetTriggerWeight(ChronicleEventContext context)
     {
-        var p = parameters.GetParameterOrDefault<WeatherWarningParameters>();
+        var p = context.Parameters.GetParameterOrDefault<WeatherWarningParameters>();
         return p is null || p.HazardousWeatherId != CompatWeatherService.DroughtId || !BeaverChroniclesUtils.Chance(TriggerChance)
             ? 0
             : int.MaxValue;
