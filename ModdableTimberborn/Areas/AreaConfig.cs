@@ -11,6 +11,7 @@
                 .BindSingleton<CharacterAreaTrackerService>()
                 .BindTemplateModule(h => h
                     .AddDecorator<Character, CharacterPositionTracker>()
+                    .AddDecorator<BlockObject, BlockObjectBound>()
                 )
             ;
         }
@@ -33,6 +34,7 @@ namespace ModdableTimberborn.Registry
             AddConfigurator<AreaConfig>();
             UseEntityTracker();
             TryTrack<CharacterPositionTracker>();
+            TryTrack<BlockObjectBound>();
 
             return this;
         }

@@ -2,6 +2,19 @@
 
 public static partial class CommonExtensions
 {
+
+    extension(int i)
+    {
+        public float PercentOf(int total) => total > 0 ? ((float)i / total) : 1f;
+    }
+
+
+    extension(float f)
+    {
+        public float PercentOf(float total) => total > 0 ? (f / total) : 1f;
+        public string Percent() => f.ToString("P0");
+    }
+
     extension(ILoc t)
     {
         public string THours(float time, string? format = "F1") => t.T(UnitFormatter.HourUnitLocKey, time.ToString(format));

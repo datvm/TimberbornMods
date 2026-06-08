@@ -12,11 +12,12 @@ public class MBeaverChroniclesConfigs : BaseModdableTimberbornAttributeConfigura
         ModdableTimberbornRegistry.Instance
             .UseBonusTracker()
             .UseEntityTracker()
+            .UseGameStats()
             .TryTrack<Stockpile>()
             .TryTrack<BlockObject>()
+            .TryTrack<BlockObjectBound>()
             .TryTrack<Bot>()
             .TryTrack<Beaver>()
-            .TryTrack<CharacterCellTracker>()
         ;
     }
 

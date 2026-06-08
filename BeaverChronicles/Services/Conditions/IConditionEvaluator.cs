@@ -2,7 +2,7 @@
 
 public interface IConditionEvaluator
 {
-    ConditionItemType ForType { get; }
+    string ForType { get; }
 
     bool Evaluate(ConditionItem c, SpecChronicleEvent ev, ChronicleEventNodeSpec node, ConditionData conditionData);
 }

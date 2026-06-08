@@ -12,14 +12,9 @@ public record ConditionData
 
 public record ConditionItem
 {
-    public ConditionItemType Type { get; init; }
+    public string Type { get; init; }
     public JObject? Parameters { get; init; }
 
     public T? GetParameters<T>() where T : class => Parameters?.ToObject<T>();
 
-}
-
-public enum ConditionItemType
-{
-    HasBuildings,
 }

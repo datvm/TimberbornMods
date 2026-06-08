@@ -2,7 +2,7 @@
 
 public interface ISpecNodeHandler
 {
-    ChronicleEventNodeType ForType { get; }
+    string ForType { get; }
 
     void HandleNode(ChronicleEventNodeSpec node, SpecChronicleEventHelper helper);
     void RestoreGameState(ChronicleEventNodeSpec node, SpecChronicleEventHelper helper);
