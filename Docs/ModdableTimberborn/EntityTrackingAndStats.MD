@@ -302,7 +302,6 @@ public class MyHealthTracker(MyHealthComponent health, UpdatableEntityStatCompon
 **2. The stat factory** — extend `ComponentUpdatableEntityStatBase<T, TComp>` if your stat gates on a single component:
 
 ```cs
-// Registered automatically — no manual binding needed.
 public class MyHealthStat : ComponentUpdatableEntityStatBase<float, MyHealthComponent>
 {
     public override string Id => "MyHealth";
@@ -314,7 +313,13 @@ public class MyHealthStat : ComponentUpdatableEntityStatBase<float, MyHealthComp
 }
 ```
 
-Because `UpdatableEntityStatsConfig` discovers concrete `IUpdatableEntityStat` implementations via reflection at startup, **no manual DI binding is required**. Add the class and it is available through `UpdatableEntityStatService` immediately.
+`UpdatableEntityStatsConfig` discovers `IUpdatableEntityStat` implementations via reflection at startup — but only within the **ModdableTimberborn** assembly (`Assembly.GetExecutingAssembly()`). A stat you define in your own mod assembly is **not** discovered automatically; multibind it in your configurator:
+
+```cs
+configurator.MultiBind<IUpdatableEntityStat>().To<MyHealthStat>().AsSingleton();
+```
+
+Once bound, it is available through `UpdatableEntityStatService`.
 
 For a percent stat (displayed as `"P0"`), extend `ComponentUpdatableEntityPercentStatBase<TComp>` and implement `GetComponentPercentTracker` instead. The tracker should extend `StatPercentTrackerBase`.
 

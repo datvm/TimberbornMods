@@ -10,29 +10,58 @@ Each subsystem is **opt-in**: you enable only the ones you use. See [the Demo pr
 
 Add ModdableTimberborn as a dependency in your mod's `manifest.json` (see the demo's [`manifest.json`](../../ModdableTimberbornDemo/manifest.json)) and reference the assembly from your `.csproj`. Also include ModdableTimberborn's own transitive requirements — `Harmony` and `TimberUi` — in your `RequiredMods` list.
 
-### 2. Enable the subsystems you need
+### 2. Create your mod's configuration
 
-Everything is registered through the singleton `ModdableTimberbornRegistry.Instance`, from your `IModStarter`:
+Your mod's entry point is a class that derives from **`BaseModdableTimberbornConfiguration`** — or **`BaseModdableTimberbornConfigurationWithHarmony`** if your mod also applies Harmony patches. This class *is* your `IModStarter`: it registers itself with `ModdableTimberbornRegistry` automatically, so you don't write a separate starter. Implement `AvailableContexts` (the Bindito context(s) your `Configure` runs in) and `Configure`:
 
 ```cs
-public class MStarter : IModStarter
+public class MyModConfig : BaseModdableTimberbornConfiguration
 {
-    void IModStarter.StartMod(IModEnvironment modEnvironment)
-    {
-        ModdableTimberbornRegistry.Instance
-            // Turn on the built-in subsystems you use:
-            .UseBuildingSettings()
-            .UseEntityTracker()
-            .UseGameStats()
+    // Which Bindito context(s) Configure runs in. This is a [Flags] value —
+    // combine them, e.g. ConfigurationContext.Game | ConfigurationContext.MapEditor.
+    public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.Game;
 
-            // Register your own configurators:
-            .AddConfigurator<MyGameConfig>()
+    public override void Configure(Configurator configurator, ConfigurationContext context)
+    {
+        configurator
+            .BindFragment<MyEntityPanelFragment>()
+            .BindTemplateModule(h => h
+                .AddDecorator<Enterable, MyBuffComponent>()
+            )
         ;
     }
 }
 ```
 
-The `Use…()` calls turn on a built-in subsystem (they're chainable and idempotent). `AddConfigurator<T>()` registers *your* code; `T` must have a parameterless constructor (`where T : IModdableTimberbornRegistryConfig, new()`). The full set of enablers:
+`Configure` runs once per matching context, using the standard Timberborn/`Configurator` API for your bindings.
+
+> Prefer the base class over hand-rolling an `IModStarter` plus a plain `IModdableTimberbornRegistryConfig`. (Registering a plain config manually via `ModdableTimberbornRegistry.Instance.AddConfigurator<T>()` still works, but the base class is the supported pattern — and is required for the `IWithDIConfig` shortcut below.)
+
+### 3. Enable the subsystems you need
+
+Each built-in subsystem is **opt-in** — turn on only the ones you use:
+
+- **Spec & template modifiers:** implement the `IWithDIConfig` marker interface on your config class. The base class detects it and enables the subsystem for you — nothing else needed:
+
+  ```cs
+  public class MyModConfig : BaseModdableTimberbornConfiguration, IWithDIConfig { /* ... */ }
+  ```
+
+- **Every other subsystem:** override `StartMod`, call `base.StartMod(...)` first, then chain the `Use…()` enablers on the registry (they're chainable and idempotent):
+
+  ```cs
+  public override void StartMod(IModEnvironment modEnvironment)
+  {
+      base.StartMod(modEnvironment);   // registers this config
+
+      ModdableTimberbornRegistry.Instance
+          .UseBuildingSettings()
+          .UseEntityTracker()
+          .UseGameStats();
+  }
+  ```
+
+The available enablers:
 
 | Enabler | Subsystem | Guide |
 |---|---|---|
@@ -44,30 +73,7 @@ The `Use…()` calls turn on a built-in subsystem (they're chainable and idempot
 | `UseMechanicalSystem()` | Runtime-moddable power input/output | [Mechanical System](./MechanicalSystem.MD) |
 | `UseSoakEffect()` | Per-character water-submersion ticks | [Effect Components](./EffectComponents.MD) |
 | `UseAreaApis()` | Spatial zone (area) tracking | [Areas](./Areas.MD) |
-| `IWithDIConfig` (on a `BaseModdableTimberbornConfiguration` subclass) | Spec & template (prefab) modifiers — auto-activates when a config deriving from `BaseModdableTimberbornConfiguration` implements `IWithDIConfig` (see note below). (`UseDependencyInjection()` still works but is `[Obsolete]`.) | [Spec & Template Modifiers](./SpecAndTemplateModifiers.MD) |
-
-### 3. Write a configurator
-
-Your configurator implements `IModdableTimberbornRegistryConfig`. It's invoked once per Bindito **context** (Bootstrapper, MainMenu, Game, MapEditor) — guard for the context you want and bind your services with the standard Timberborn/`Configurator` API:
-
-```cs
-public class MyGameConfig : IModdableTimberbornRegistryConfig
-{
-    public void Configure(Configurator configurator, ConfigurationContext context)
-    {
-        if (!context.IsGameContext()) { return; }
-
-        configurator
-            .BindFragment<MyEntityPanelFragment>()
-            .BindTemplateModule(h => h
-                .AddDecorator<Enterable, MyBuffComponent>()
-            )
-        ;
-    }
-}
-```
-
-> **Heads-up — `IWithDIConfig` needs the base class.** The plain-interface configurator above is fine for binding, but the `IWithDIConfig` opt-in (for [Spec & Template Modifiers](./SpecAndTemplateModifiers.MD)) is only detected when your config derives from `BaseModdableTimberbornConfiguration`. That base type doubles as your `IModStarter`: it auto-registers itself and, when it implements `IWithDIConfig`, enables the DI subsystem for you — so you don't need the separate `MStarter` from step 2. Adding `IWithDIConfig` to a *plain* `IModdableTimberbornRegistryConfig` (as in the example above) has no effect.
+| `IWithDIConfig` (marker interface) | Spec & template (prefab) modifiers — auto-enabled by the base class. (`UseDependencyInjection()` still works but is `[Obsolete]`.) | [Spec & Template Modifiers](./SpecAndTemplateModifiers.MD) |
 
 ## Subsystem guides
 
