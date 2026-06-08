@@ -63,6 +63,6 @@ public class TimerSettings(
     {
         i.Type = m.Type;
         i.Ticks = m.Ticks;
-        i._hours = m.Hours ?? 0;
+        i._hours = m.Hours;
     }
 }

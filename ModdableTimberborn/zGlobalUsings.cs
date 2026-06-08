@@ -6,6 +6,7 @@ global using ModdableTimberborn.DependencyInjection;
 global using ModdableTimberborn.EntityDescribers;
 global using ModdableTimberborn.EntityTracker;
 global using ModdableTimberborn.GameModes;
+global using ModdableTimberborn.GameStats;
 global using ModdableTimberborn.Helpers;
 global using ModdableTimberborn.MechanicalSystem;
 global using ModdableTimberborn.Registry;

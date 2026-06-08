@@ -3,10 +3,10 @@
 public record class ChronicleEventNodeSpec
 {
     [Serialize]
-    public string Id { get; init; } = null!;
+    public string Id { get; init; } = "";
 
     [Serialize]
-    public ChronicleEventNodeType Type { get; init; }
+    public string Type { get; init; } = "";
 
     [Serialize]
     public SerializedObject Data { get; init; } = null!;
@@ -16,6 +16,9 @@ public record class ChronicleEventNodeSpec
 
     public T GetData<T>()
         => Data.DeserializeTo<T>() ?? throw new InvalidDataException($"Node {Id} is missing data.");
+
+    [JsonIgnore]
+    public bool IsConditionNode => Type == ConditionNodeHandler.NodeType;
 }
 
 public record ChronicleEventNodes

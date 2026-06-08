@@ -4,7 +4,8 @@
 public class SpecChronicleEventProvider(
     ISpecService specs,
     IEnumerable<ISpecChronicleEventCustomCode> customCodes,
-    SpecChronicleEventHelperFactory helperFac
+    SpecChronicleEventHelperFactory helperFac,
+    ChronicleEventConditionService conditions
 ) : IChronicleEventsProvider
 {
 
@@ -16,6 +17,8 @@ public class SpecChronicleEventProvider(
 
         foreach (var spec in evSpecs)
         {
+            ValidateSpec(spec);
+
             if (!codeById.Remove(spec.Id, out var customCode) && spec.NeedCustomCode)
             {
                 throw new InvalidOperationException($"Spec {spec.Id} requires custom code, but none was found.");
@@ -29,6 +32,41 @@ public class SpecChronicleEventProvider(
             var extraCodes = string.Join(", ", codeById.Keys);
             throw new InvalidOperationException($"Custom code provided for non-existent specs: {extraCodes}");
         }
+    }
+
+    public void ValidateSpec(ChronicleEventSpec spec)
+    {
+        if (string.IsNullOrEmpty(spec.Id))
+        {
+            throw new InvalidDataException("Spec Id cannot be null or empty. Blueprint name: " + spec.Blueprint.Name);
+        }
+
+        foreach (var n in spec.Nodes.Items)
+        {
+            if (!helperFac.CanHandle(n.Type))
+            {
+                throw new InvalidDataException($"Spec {spec.Id} contains node with unsupported type: {n.Type}");
+            }
+
+            if (n.Type == ConditionNodeHandler.NodeType)
+            {
+                var data = n.GetData<ConditionData>();
+
+                if (data.Conditions.Length == 0)
+                {
+                    throw new InvalidDataException($"Spec {spec.Id}, Node {n.Id}: empty conditions array is not allowed.");
+                }
+
+                foreach (var c in data.Conditions)
+                {
+                    if (!conditions.HasEvaluator(c.Type))
+                    {
+                        throw new InvalidDataException($"Spec {spec.Id}, Node {n.Id}: condition type {c.Type} is not supported.");
+                    }
+                }
+            }
+        }
+
     }
 
 }

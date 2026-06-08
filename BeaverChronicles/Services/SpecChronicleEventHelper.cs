@@ -1,6 +1,5 @@
 ﻿namespace BeaverChronicles.Services;
 
-
 public class SpecChronicleEventHelper
 {
     public readonly ChronicleEventService Service;
@@ -29,18 +28,21 @@ public class SpecChronicleEventHelper
         set => CurrentRecord.CustomParameters["CurrentNodeId"] = value;
     }
 
-    readonly FrozenDictionary<ChronicleEventNodeType, ISpecNodeHandler> handlers;
+    readonly FrozenDictionary<string, ISpecNodeHandler> handlers;
     readonly EvaluationCacheService evaluationCache;
+    readonly ChronicleEventConditionService conditionService;
 
     public SpecChronicleEventHelper(
         SpecChronicleEvent ev,
-        FrozenDictionary<ChronicleEventNodeType, ISpecNodeHandler> handlers,
-        EvaluationCacheService evaluationCache
+        FrozenDictionary<string, ISpecNodeHandler> handlers,
+        EvaluationCacheService evaluationCache,
+        ChronicleEventConditionService conditionService
     )
     {
         Event = ev;
         this.handlers = handlers;
         this.evaluationCache = evaluationCache;
+        this.conditionService = conditionService;
 
         Service = ev.Service ?? throw new InvalidOperationException("Event must be active to create helper.");
         FlagHelper = Service.FlagHelper;
@@ -85,19 +87,13 @@ public class SpecChronicleEventHelper
         handlers[node.Type].HandleNode(node, this);
     }
 
-    public bool EvaluateConditionNode(string id)
-    {
-        if (Spec.Nodes[id] is not { Type: ChronicleEventNodeType.Condition } n)
-        {
-            throw new InvalidOperationException($"Node {id} is not a condition node.");
-        }
-
-        return evaluationCache.GetOrEvaluate<bool>($"ActiveEvent.Condition.{id}", () =>
-        {
-#warning Implement condition node evaluation
-            throw new NotImplementedException();
-        });
-    }
+    public bool EvaluateConditionNode(string id) =>
+        Spec.Nodes[id] is not { IsConditionNode: true } n
+            ? throw new InvalidOperationException($"Node {id} is not a condition node.")
+            : evaluationCache.GetOrEvaluate($"ActiveEvent.Condition.{id}", () =>
+            {
+                return conditionService.Evaluate(Event, n, n.GetData<ConditionData>());
+            });
 
     [return: NotNullIfNotNull(nameof(input))]
     public string? FormatText(string? input)

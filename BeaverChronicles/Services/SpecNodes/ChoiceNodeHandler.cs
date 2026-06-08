@@ -7,8 +7,8 @@ public class ChoiceNodeHandler(
     ILoc t
 ) : ISpecNodeHandler
 {
-
-    public ChronicleEventNodeType ForType => ChronicleEventNodeType.Choice;
+    public const string NodeType = "Choice";
+    public string ForType => NodeType;
 
     public async void HandleNode(ChronicleEventNodeSpec node, SpecChronicleEventHelper helper)
     {
