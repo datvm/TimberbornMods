@@ -11,7 +11,7 @@
             {
                 if (!t.IsAbstract && typeof(IGameStatProvider).IsAssignableFrom(t))
                 {
-                    configurator.MultiBind(typeof(IGameStatProvider), t);
+                    configurator.MultiBind(typeof(IGameStatProvider), t).AsSingleton();
                 }
             }
 
