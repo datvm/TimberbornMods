@@ -6,7 +6,9 @@ The builder extension methods live in `UnityEngine.UIElements`, but several type
 
 - **`using UiBuilder;`** — style enums: `GameLabelStyle`, `GameLabelSize`, `GameLabelColor`, `GameButtonStyle`, `GameButtonSize`, `ToggleStyle`
 - **`using TimberUi;`** — `UiCssClasses`
-- **`using TimberUi.CommonUi;`** — widget types returned by builders: `GameSlider`, `GameSliderInt`, `DropdownRow<>`, `IconSpan`, `ImageSource`, `CollapsiblePanel`, `ProgressBarWithLabel`, `MinMaxSliderValues`
+- **`using TimberUi.CommonUi;`** — widget types returned by builders: `GameSlider`, `GameSliderInt`, `DropdownRow<>`, `IconSpan`, `ImageSource`, `CollapsiblePanel`, `ProgressBarWithLabel`
+
+(`MinMaxSliderValues` lives in `UnityEngine.UIElements`, so it needs no extra `using`.)
 
 A typical fragment therefore needs all three in addition to the standard `UnityEngine.UIElements` import.
 
@@ -321,21 +323,22 @@ cbo.SetSelectedItem(0);
 // 1. Minimal — populate later
 DropdownRow<Difficulty> row = parent.AddDropdownRow<Difficulty>(
     label:    "Difficulty",
-    onChange: e => ApplyDifficulty(e.Value));
+    onChange: e => ApplyDifficulty(e.Item.Value));
 
 // 2. Pre-populated from DropdownRowItem<TValue> collection
 var items = new[]
 {
-    new DropdownRowItem<Difficulty>("Easy",   Difficulty.Easy),
-    new DropdownRowItem<Difficulty>("Normal", Difficulty.Normal),
-    new DropdownRowItem<Difficulty>("Hard",   Difficulty.Hard),
+    // record is (TValue Value, string Text)
+    new DropdownRowItem<Difficulty>(Difficulty.Easy,   "Easy"),
+    new DropdownRowItem<Difficulty>(Difficulty.Normal, "Normal"),
+    new DropdownRowItem<Difficulty>(Difficulty.Hard,   "Hard"),
 };
 DropdownRow<Difficulty> row2 = parent.AddDropdownRow(
     values:     items,
     veInit:     initializer,
     itemSetter: dropdownSetter,
     label:      "Difficulty",
-    onChange:   e => ApplyDifficulty(e.Value));
+    onChange:   e => ApplyDifficulty(e.Item.Value));
 
 // 3. Pre-populated from raw values + display-string function
 DropdownRow<int> row3 = parent.AddDropdownRow(
@@ -416,10 +419,10 @@ parent.AddInventoryOutputImage();
 
 ### `AddProgressBar`
 
-A bare `TProgressBar` with the `progress-bar` class:
+A bare progress bar with the `progress-bar` class. The return type is Timberborn's `ProgressBar` (`Timberborn.CoreUI.ProgressBar`, which TimberUi aliases internally as `TProgressBar`); from your own code, declare it as `ProgressBar` or just use `var`:
 
 ```cs
-TProgressBar bar = parent.AddProgressBar()
+var bar = parent.AddProgressBar()        // Timberborn.CoreUI.ProgressBar
     .SetFlexGrow()
     .SetColor(ProgressBarColor.Green);
 
@@ -430,7 +433,7 @@ bar.SetProgress(ratio, label: null, text: null,
 
 ### `AddProgressBarWithLabel`
 
-Returns a `ProgressBarWithLabel` record struct `(TProgressBar ProgressBar, Label Label)` that keeps bar and label in sync:
+Returns a `ProgressBarWithLabel` record struct `(ProgressBar ProgressBar, Label Label)` that keeps bar and label in sync:
 
 ```cs
 ProgressBarWithLabel pgb = parent.AddProgressBarWithLabel(
@@ -505,7 +508,7 @@ element.SetHeightPercent(100f);
 element.SetMaxWidth(400f);
 element.SetMaxHeight(200f);
 element.SetMinSize(100f, 30f);   // min-width, min-height
-element.SetMinMaxSize(120f, 30f); // clamps min = max = exact size
+element.SetMinMaxSize(120f, 30f); // (width, height) — pins each to min = max = value
 ```
 
 ### Flex layout
@@ -698,7 +701,7 @@ element.Initialize(visualElementLoader);
 
 | Method | Returns | Notes |
 |---|---|---|
-| `AddProgressBar(name?, additionalClasses?)` | `TProgressBar` | |
+| `AddProgressBar(name?, additionalClasses?)` | `ProgressBar` | `Timberborn.CoreUI.ProgressBar` (aliased `TProgressBar` internally) |
 | `AddProgressBarWithLabel(color?, text?, name?, additionalClasses?)` | `ProgressBarWithLabel` | |
 | `SetColor(color, removeColor?)` | same bar | Add or remove a color class |
 | `SetProgress(progress, label?, text?, oldColor?, newColor?)` | same bar | |
@@ -741,8 +744,8 @@ element.Initialize(visualElementLoader);
 | `SliderValues<TValue>` | `(Low, High, Default)` range record | [`CommonUi/GameSlider.cs`](../../TimberUi/TimberUi/CommonUi/GameSlider.cs) |
 | `MinMaxSliderValues` | `(Value, Min, Max)` for range sliders | [`Extensions/Sliders.cs`](../../TimberUi/TimberUi/Extensions/Sliders.cs) |
 | `DropdownRow<TValue>` | Typed label + dropdown | [`CommonUi/DropdownRow.cs`](../../TimberUi/TimberUi/CommonUi/) |
-| `DropdownRowItem<TValue>` | `(Text, Value)` item record | [`CommonUi/DropdownRow.cs`](../../TimberUi/TimberUi/CommonUi/) |
-| `IndexedDropdownRowItem<TValue>` | `(Text, Value, Index)` in change events | [`CommonUi/DropdownRow.cs`](../../TimberUi/TimberUi/CommonUi/) |
+| `DropdownRowItem<TValue>` | `(TValue Value, string Text)` item record | [`CommonUi/DropdownRow.cs`](../../TimberUi/TimberUi/CommonUi/) |
+| `IndexedDropdownRowItem<TValue>` | `(int Index, DropdownRowItem<TValue> Item)` in change events | [`CommonUi/DropdownRow.cs`](../../TimberUi/TimberUi/CommonUi/) |
 | `IconSpan` | Image + optional label row | [`CommonUi/IconSpan.cs`](../../TimberUi/TimberUi/CommonUi/) |
 | `ImageSource` | `Sprite` / `Texture` / `VectorImage` union | [`CommonUi/IconSpan.cs`](../../TimberUi/TimberUi/CommonUi/) |
 | `ProgressBarWithLabel` | `(TProgressBar, Label)` record | [`CommonUi/`](../../TimberUi/TimberUi/CommonUi/) |

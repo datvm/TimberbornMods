@@ -46,7 +46,7 @@ Inside a fragment or dialog, assemble the visual tree with chainable `Add…`/`S
 ```cs
 var row = root.AddRow();
 row.AddLabel("Name").SetMarginRight();
-row.AddTextField(onValueChanged: OnNameChanged).SetFlexGrow();
+row.AddTextField(changeCallback: OnNameChanged).SetFlexGrow();
 row.AddButton("Save", onClick: Save, style: GameButtonStyle.Menu);
 ```
 

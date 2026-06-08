@@ -191,7 +191,7 @@ public class MyModGameConfig : GameAttributeConfigurator
 
 The helper selects the correct implementation at runtime based on the operating system (Windows uses a P/Invoke against `comdlg32.dll`; Linux tries `zenity` then `kdialog`; macOS uses `osascript`). If you have already bound your own `ISystemFileDialogService` before this call, the call is a no-op and your implementation wins.
 
-> **Platform caveat:** Only the Windows implementation is tested. The Linux and macOS implementations are AI-generated and are explicitly marked untested in source. Both swallow internal errors — a failure at the OS dialog level will look like a user cancel (returning `null`) rather than throwing. On an unsupported platform, `TryBindingSystemFileDialogService` binds nothing and logs an error, so any attempt to inject `ISystemFileDialogService` will fail to resolve there.
+> **Platform caveat:** Only the Windows implementation is verified. The Linux and macOS implementations are marked untested in source — verify them before relying on file dialogs on those platforms. Both swallow internal errors, so an OS-level failure surfaces as a user cancel (returning `null`) rather than an exception. On an unsupported platform, `TryBindingSystemFileDialogService` binds nothing and logs an error, so any attempt to inject `ISystemFileDialogService` will fail to resolve there.
 
 ### Use — `ISystemFileDialogService`
 
