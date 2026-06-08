@@ -12,6 +12,7 @@ public class SpecChronicleEventHelperFactory(
         = handlers.ToFrozenDictionary(h => h.ForType);
     public bool CanHandle(string nodeType) => handlers.ContainsKey(nodeType);
 
-    public SpecChronicleEventHelper Create(SpecChronicleEvent ev)  => new(ev, handlers, evaluationCache, conditionService);
+    public SpecChronicleEventHelper Create(SpecChronicleEvent ev, ChronicleEventContext context)
+        => new(ev, context, handlers, evaluationCache, conditionService);
 
 }

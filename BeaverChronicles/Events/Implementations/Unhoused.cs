@@ -27,7 +27,7 @@ public class Unhoused(
 
     public override IReadOnlyCollection<EventTriggerSource> TriggerSources { get; } = [EventTriggerSource.NewDay];
 
-    public override int GetTriggerWeight(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService)
+    public override int GetTriggerWeight(ChronicleEventContext context)
     {
         var day = dayNightCycle.DayNumber;
         if (day > MaxDay || AreAllBeaversSheltered())

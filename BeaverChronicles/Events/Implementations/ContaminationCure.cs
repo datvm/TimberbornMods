@@ -51,7 +51,7 @@ public class ContaminationCure(
 
     public override IReadOnlyCollection<EventTriggerSource> TriggerSources => [EventTriggerSource.Contaminated];
 
-    public override int GetTriggerWeight(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService)
+    public override int GetTriggerWeight(ChronicleEventContext context)
     {
         if (!checkedForGoods) // Only trigger for FT or any modded faction that has the required goods
         {
@@ -65,7 +65,7 @@ public class ContaminationCure(
             checkedForGoods = true;
         }
 
-        var p = parameters.GetParameterOrDefault<CharacterParameters>();
+        var p = context.Parameters.GetParameterOrDefault<CharacterParameters>();
         return p is not null && p.IsBeaver && BeaverChroniclesUtils.Chance(TriggerChance) ? 100 : 0;
     }
 

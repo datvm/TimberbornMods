@@ -35,12 +35,12 @@ public class CampfireMystery4(
 
     public override IReadOnlyCollection<EventTriggerSource> TriggerSources => [EventTriggerSource.NewDay];
 
-    public override int GetTriggerWeight(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService)
-        => chronicleEventService.GetCampfireTriggerWeight(3);
+    public override int GetTriggerWeight(ChronicleEventContext context)
+        => context.GetCampfireTriggerWeight(3);
 
     protected override async void OnNewlyTriggered(IEventTriggerParameters parameters, EventHistoryRecord record)
     {
-        var ch3Choice = chronicleEventService!.GetCampfireRecord(2).GetChoice(1);
+        var ch3Choice = context!.GetCampfireRecord(2).GetChoice(1);
         historyRecord!.RecordChoice(0, ch3Choice);
 
         var ch3Key = GetChapter3ChoiceKey(ch3Choice);

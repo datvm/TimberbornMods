@@ -8,10 +8,10 @@ public abstract class ChronicleEventBase : IChronicleEvent
     public abstract IReadOnlyCollection<EventTriggerSource> TriggerSources { get; }
     protected abstract void OnTriggered(IEventTriggerParameters parameters, EventHistoryRecord record);
 
-    public bool Active => chronicleEventService is not null && triggerParameters is not null;
+    public bool Active => context is not null && triggerParameters is not null;
     public virtual float? DelayAfterConclusion => 0f;
 
-    protected ChronicleEventService? chronicleEventService;
+    protected ChronicleEventContext? context;
     protected IEventTriggerParameters? triggerParameters;
     protected EventHistoryRecord? historyRecord;
 
@@ -20,15 +20,15 @@ public abstract class ChronicleEventBase : IChronicleEvent
         Id = GetType().Name;
     }
 
-    public abstract int GetTriggerWeight(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService);
+    public abstract int GetTriggerWeight(ChronicleEventContext context);
 
-    public void Trigger(IEventTriggerParameters parameters, ChronicleEventService chronicleEventService)
+    public void Trigger(ChronicleEventContext context)
     {
-        this.chronicleEventService = chronicleEventService;
-        triggerParameters = parameters;
-        historyRecord = chronicleEventService.ActiveRecord;
+        this.context = context;
+        triggerParameters = context.Parameters;
+        historyRecord = context.ActiveRecord;
 
-        OnTriggered(parameters, historyRecord!);
+        OnTriggered(context.Parameters, historyRecord!);
     }
 
     protected virtual void Conclude()
@@ -41,11 +41,11 @@ public abstract class ChronicleEventBase : IChronicleEvent
         var delay = DelayAfterConclusion;
         if (delay.HasValue)
         {
-            chronicleEventService!.RequestNextEventDelay(delay.Value);
+            context!.RequestNextEventDelay(delay.Value);
         }
 
         OnConcluded();
-        chronicleEventService!.ConcludeEvent();
+        context!.ConcludeEvent();
 
         Clear();
     }
@@ -55,7 +55,7 @@ public abstract class ChronicleEventBase : IChronicleEvent
     void Clear()
     {
         triggerParameters = null;
-        chronicleEventService = null;
+        context = null;
         historyRecord = null;
     }
 
