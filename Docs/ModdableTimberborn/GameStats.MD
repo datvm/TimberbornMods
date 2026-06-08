@@ -18,19 +18,19 @@ Inject `GameStatService` and call one of its lookup methods:
 
 ```cs
 // Untyped — returns object?
-object? raw = statService.GetStat("TotalPopulation");
+object? raw = statService.GetStat(GameStats.PopulationTotal);
 
 // Typed — throws InvalidCastException on type mismatch
-int pop = statService.GetStat<int>("TotalPopulation");
+int pop = statService.GetStat<int>(GameStats.PopulationTotal);
 
 // Safe typed — returns false if the key is missing or the type doesn't match
-if (statService.TryGetStat<int>("TotalPopulation", out var pop))
+if (statService.TryGetStat<int>(GameStats.PopulationTotal, out var pop))
 {
     // use pop
 }
 
 // Pre-formatted string (e.g. "42 %" for percent stats)
-string display = statService.GetStatFormatted("BeaverPercent");
+string display = statService.GetStatFormatted(GameStats.PopulationBeaverPercent);
 ```
 
 Duplicate stat IDs across providers throw immediately at load — this is intentional. Unknown keys throw `KeyNotFoundException` on all methods except `TryGetStat`, which returns `false`.
@@ -42,51 +42,69 @@ Duplicate stat IDs across providers throw immediately at load — this is intent
 
 ## Built-in stat keys
 
+Use the constants on [`GameStats`](../../ModdableTimberborn/GameStats/GameStats.cs) instead of duplicating string literals where possible. The key column below shows the actual string value registered by the providers.
+
+### Time values
+
+Provided by [`TimeStatsProvider`](../../ModdableTimberborn/GameStats/Implementations/TimeStatsProvider.cs).
+
+| Constant | Key | Type | Description |
+|---|---|---|---|
+| `GameStats.TimePartialDay` | `GameDayHours` | `float` | Current day number including partial day progress |
+| `GameStats.TimePartialCycleDay` | `GameCycleDayHours` | `float` | Current cycle day including partial day progress |
+| `GameStats.TimeTodayHours` | `GameTodayHours24` | `float` | Hours passed today |
+| `GameStats.TimeDayNumber` | `GameDayNumber` | `int` | Current game day number |
+| `GameStats.TimeCycle` | `GameCycle` | `int` | Current cycle number |
+| `GameStats.TimeCycleDay` | `GameCycleDay` | `int` | Current day within the cycle |
+| `GameStats.TimeCycleDuration` | `GameCycleDuration` | `int` | Current cycle duration in days |
+| `GameStats.TimeDayProgress` | `GameDayProgress` | `float` | Current day progress from 0–1 |
+| `GameStats.TimeCycleProgress` | `GameCycleProgress` | `float` | Current cycle progress from 0–1 |
+
 ### Population counts (`int`)
 
 Provided by [`GlobalPopulationStatsProvider`](../../ModdableTimberborn/GameStats/Implementations/GlobalPopulationStatsProvider.cs).
 
-| Key | Description |
-|---|---|
-| `NumberOfAdults` | Adult beavers |
-| `NumberOfChildren` | Beaver children |
-| `NumberOfBots` | Bots |
-| `NumberOfBeavers` | All beavers (adults + children) |
-| `NumberOfHealthyAdults` | Healthy adult beavers |
-| `NumberOfHealthyChildren` | Healthy beaver children |
-| `TotalPopulation` | All beavers and bots combined |
-| `OccupiedBeds` | Beds currently occupied |
-| `FreeBeds` | Unoccupied beds |
-| `TotalBeds` | Occupied + free beds |
-| `Homeless` | Beavers without a bed |
-| `ContaminatedAdults` | Contaminated adult beavers |
-| `ContaminatedChildren` | Contaminated beaver children |
-| `ContaminatedTotal` | All contaminated beavers |
+| Constant | Key | Description |
+|---|---|---|
+| `GameStats.PopulationNumberOfAdult` | `NumberOfAdults` | Adult beavers |
+| `GameStats.PopulationNumberOfChild` | `NumberOfChildren` | Beaver children |
+| `GameStats.PopulationNumberOfBot` | `NumberOfBots` | Bots |
+| `GameStats.PopulationNumberOfBeaver` | `NumberOfBeavers` | All beavers (adults + children) |
+| `GameStats.PopulationNumberOfHealthyAdult` | `NumberOfHealthyAdults` | Healthy adult beavers |
+| `GameStats.PopulationNumberOfHealthyChild` | `NumberOfHealthyChildren` | Healthy beaver children |
+| `GameStats.PopulationTotal` | `TotalPopulation` | All beavers and bots combined |
+| `GameStats.BedOccupied` | `OccupiedBeds` | Beds currently occupied |
+| `GameStats.BedFree` | `FreeBeds` | Unoccupied beds |
+| `GameStats.BedTotal` | `TotalBeds` | Occupied + free beds |
+| `GameStats.BedHomeless` | `Homeless` | Beavers without a bed |
+| `GameStats.ContaminationAdult` | `ContaminatedAdults` | Contaminated adult beavers |
+| `GameStats.ContaminationChild` | `ContaminatedChildren` | Contaminated beaver children |
+| `GameStats.ContaminationTotal` | `ContaminatedTotal` | All contaminated beavers |
 
 #### Workforce counts (`int`)
 
-Unprefixed keys return the combined beaver + bot total. Prefix with `Beavers` or `Bot` for per-type values.
+Unprefixed keys return the combined beaver + bot total. Use the beaver or bot constants for per-type values.
 
-| Key | `Beavers` variant | `Bot` variant |
-|---|---|---|
-| `Employable` | `BeaversEmployable` | `BotEmployable` |
-| `Unemployable` | `BeaversUnemployable` | `BotUnemployable` |
-| `Total` | `BeaversTotal` | `BotTotal` |
+| Total constant | Total key | Beaver constant | Beaver key | Bot constant | Bot key |
+|---|---|---|---|---|---|
+| `GameStats.WorkforceEmployable` | `Employable` | `GameStats.WorkforceBeaverEmployable` | `BeaversEmployable` | `GameStats.WorkforceBotEmployable` | `BotEmployable` |
+| `GameStats.WorkforceUnemployable` | `Unemployable` | `GameStats.WorkforceBeaverUnemployable` | `BeaversUnemployable` | `GameStats.WorkforceBotUnemployable` | `BotUnemployable` |
+| `GameStats.WorkforceTotal` | `Total` | `GameStats.WorkforceBeaverTotal` | `BeaversTotal` | `GameStats.WorkforceBotTotal` | `BotTotal` |
 
 ### Population ratios (`float`, formatted as percentage)
 
 Provided by [`GlobalPopulationPercentStatsProvider`](../../ModdableTimberborn/GameStats/Implementations/GlobalPopulationPercentStatsProvider.cs). All values are floats in the range 0–1; `GetStatFormatted` renders them as `"P0"` strings (e.g. `"42 %"`), or `"N/A"` for negative values.
 
-| Key | Ratio |
-|---|---|
-| `BeaverPercent` | Beavers as a share of total population |
-| `BotPercent` | Bots as a share of total population |
-| `AdultPercent` | Adults as a share of beavers |
-| `ChildPercent` | Children as a share of beavers |
-| `HomelessPercent` | Homeless as a share of beavers |
-| `AdultContaminatedPercent` | Contaminated adults as a share of beavers |
-| `ChildContaminatedPercent` | Contaminated children as a share of beavers |
-| `ContaminatedPercent` | All contaminated as a share of beavers |
+| Constant | Key | Ratio |
+|---|---|---|
+| `GameStats.PopulationBeaverPercent` | `BeaverPercent` | Beavers as a share of total population |
+| `GameStats.PopulationBotPercent` | `BotPercent` | Bots as a share of total population |
+| `GameStats.PopulationAdultPercent` | `AdultPercent` | Adults as a share of beavers |
+| `GameStats.PopulationChildPercent` | `ChildPercent` | Children as a share of beavers |
+| `GameStats.BedHomelessPercent` | `HomelessPercent` | Homeless as a share of beavers |
+| `GameStats.ContaminationAdultPercent` | `AdultContaminatedPercent` | Contaminated adults as a share of beavers |
+| `GameStats.ContaminationChildPercent` | `ChildContaminatedPercent` | Contaminated children as a share of beavers |
+| `GameStats.ContaminationPercent` | `ContaminatedPercent` | All contaminated as a share of beavers |
 
 ### Per-good stats
 
@@ -96,22 +114,22 @@ Good IDs match the Timberborn good identifier strings (e.g. `Wood`, `Water`, `Pl
 
 Provided by [`GoodStatsProvider`](../../ModdableTimberborn/GameStats/Implementations/GoodStatsProvider.cs).
 
-| Key pattern | Description |
-|---|---|
-| `GoodAmount.<goodId>` | Global available stock of the good |
-| `GoodCapacity.<goodId>` | Global input/output storage capacity |
+| Helper | Key pattern | Description |
+|---|---|---|
+| `GameStats.GoodAmount(goodId)` | `GoodAmount.<goodId>` | Global available stock of the good |
+| `GameStats.GoodCapacity(goodId)` | `GoodCapacity.<goodId>` | Global input/output storage capacity |
 
-Example: `"GoodAmount.Wood"`, `"GoodCapacity.Water"`.
+Example: `GameStats.GoodAmount("Wood")`, `GameStats.GoodCapacity("Water")`.
 
 #### Fill rate (`float`, formatted as percentage)
 
 Provided by [`GoodPercentStatsProvider`](../../ModdableTimberborn/GameStats/Implementations/GoodPercentStatsProvider.cs).
 
-| Key pattern | Description |
-|---|---|
-| `GoodFill.<goodId>` | Storage fill rate (0–1) |
+| Helper | Key pattern | Description |
+|---|---|---|
+| `GameStats.GoodFill(goodId)` | `GoodFill.<goodId>` | Storage fill rate (0–1) |
 
-Example: `"GoodFill.Plank"`.
+Example: `GameStats.GoodFill("Plank")`.
 
 The good-keyed stats are snapshotted at load time from `IGoodService.Goods`. Goods introduced after load will not be present.
 

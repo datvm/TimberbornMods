@@ -2,15 +2,13 @@
 
 public class GoodPercentStatsProvider(IGoodService goods, ResourceCountingService resourceCountingService) : IPercentGameStatProvider
 {
-    const string FillRatePrefix = "GoodFill.";
-
-    public IEnumerable<string> AvailableStats => goods.Goods.Select(g => FillRatePrefix + g);
+    public IEnumerable<string> AvailableStats => goods.Goods.Select(GameStats.GoodFill);
 
     public float GetStat(string statId)
     {
-        if (statId .StartsWith(FillRatePrefix))
+        if (statId.StartsWith(GameStats.GoodFillPrefix))
         {
-            var stat = resourceCountingService.GetGlobalResourceCount(statId[FillRatePrefix.Length..]);
+            var stat = resourceCountingService.GetGlobalResourceCount(statId[GameStats.GoodFillPrefix.Length..]);
             return stat.FillRate;
         }
 
