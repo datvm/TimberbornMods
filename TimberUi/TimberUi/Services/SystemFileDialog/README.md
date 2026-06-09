@@ -21,7 +21,7 @@ The Windows implementation uses P/Invoke against `comdlg32.dll`; Linux shells ou
   - Windows: `ParseFilter` produces `"{input}\0*ext;*ext...\0\0"` — the raw input as the description and a `*`-prefixed pattern list as the pattern, both null-terminated (Win32 OPENFILENAME format). `null` → `DefaultFilter` = `"All Files\0*.*\0\0"`.
   - Linux/zenity: `--file-filter="Supported files | *.ext *.ext2"`.
   - Linux/kdialog: `"*.ext *.ext2|Supported files"`.
-  - macOS: an AppleScript list `{"ext","ext2"}` passed as the `of type` clause.
+  - macOS (open only): an AppleScript list `{"ext","ext2"}` passed as the `choose file of type ...` clause; the save dialog currently ignores the filter.
 - **Invocation per platform**:
   - **Windows**: populates an `OpenFileName` managed class (marshaled as the OPENFILENAME struct), pre-allocates an `lpstrFile` buffer, sets `nFilterIndex = 1`, and flags. Open uses `OFN_NOCHANGEDIR | OFN_EXPLORER`; Save uses `OFN_OVERWRITEPROMPT | OFN_EXPLORER`. Returns `lpstrFile` on success, `null` on cancel.
   - **Linux**: `RunProcess` starts the tool with `RedirectStandardOutput`, `UseShellExecute = false`, `CreateNoWindow = true`, reads a single line of stdout, waits for exit, and returns the line only if exit code == 0 (zenity returns 1 on cancel).

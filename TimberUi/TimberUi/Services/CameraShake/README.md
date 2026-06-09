@@ -17,4 +17,4 @@ A small two-class subsystem that lets mods shake the game camera (e.g. for impac
 - `StopShaking` is also reachable publicly; it restores the original camera transform and clears the active-shake state.
 
 ## Usage notes
-- Calling `Shake` again before the previous shake finishes extends the duration without resetting the baseline origin — the camera will restore to the position captured at the start of the first shake. This is the expected behavior when chaining rapid shakes.
+- Calling `Shake` again before the previous shake finishes overwrites the remaining duration without resetting the baseline origin — the camera will restore to the position captured at the start of the first shake. This is the expected behavior when chaining rapid shakes.
