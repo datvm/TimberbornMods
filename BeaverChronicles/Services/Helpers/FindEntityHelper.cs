@@ -1,4 +1,4 @@
-﻿namespace BeaverChronicles.Services;
+﻿namespace BeaverChronicles.Services.Helpers;
 
 [BindSingleton]
 public class FindEntityHelper(
@@ -6,13 +6,14 @@ public class FindEntityHelper(
     BeaverPopulation beaverPopulation,
     DefaultEntityTracker<Stockpile> stockpileTracker,
     DefaultEntityTracker<BlockObject> blockObjectTracker,
-    DefaultEntityTracker<Bot> bots
+    DefaultEntityTracker<Bot> bots,
+    EntityRegistry entities
 )
 {
 
     public ReadOnlyList<DistrictCenter> AllDistrictCenters => districtCenterRegistry.AllDistrictCenters;
 
-    public bool FindDistrictCenter([NotNullWhen(true)]out DistrictCenter? dc, DistrictCenter? preferred = null)
+    public bool FindDistrictCenter([NotNullWhen(true)] out DistrictCenter? dc, DistrictCenter? preferred = null)
     {
         if (preferred)
         {
@@ -100,6 +101,15 @@ public class FindEntityHelper(
         }
     }
 
+    public DistrictCenter? FindDistrictCenter(string? guid)
+    {
+        if (!Guid.TryParse(guid, out var g)) { return null; }
+
+        var entity = entities.GetEntity(g);
+        if (!entity) { return null; }
+
+        return entity.GetComponentOrNull<DistrictCenter>();
+    }
 
     public int FindInAreas(IReadOnlyList<Bounds> areas, CharacterType characterTypes = BeaverChroniclesUtils.AllCharactersEnum, int stopAt = 1)
     {

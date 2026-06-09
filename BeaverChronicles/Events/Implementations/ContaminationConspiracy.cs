@@ -36,7 +36,7 @@ public class ContaminationConspiracy(
 
     public override IReadOnlyCollection<EventTriggerSource> TriggerSources => [EventTriggerSource.Contaminated];
 
-    public override int GetTriggerWeight(ChronicleEventContext context)
+    public override int GetTriggerWeight(ChronicleTriggerContext context)
     {
         var p = context.Parameters.GetParameterOrDefault<CharacterParameters>();
         return p is not null && p.IsBeaver ? 100 : 0;

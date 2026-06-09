@@ -1,57 +1,56 @@
-namespace ModdableTimberborn.GameStats;
+﻿namespace ModdableTimberborn.GameStats;
 
 public static class GameStats
 {
-    public const string TimePartialDay = "GameDayHours";
-    public const string TimePartialCycleDay = "GameCycleDayHours";
-    public const string TimeTodayHours = "GameTodayHours24";
-    public const string TimeDayNumber = "GameDayNumber";
-    public const string TimeCycle = "GameCycle";
-    public const string TimeCycleDay = "GameCycleDay";
-    public const string TimeCycleDuration = "GameCycleDuration";
-    public const string TimeDayProgress = "GameDayProgress";
-    public const string TimeCycleProgress = "GameCycleProgress";
+    public const string TimePartialDay = nameof(TimePartialDay);
+    public const string TimePartialCycleDay = nameof(TimePartialCycleDay);
+    public const string TimeTodayHours = nameof(TimeTodayHours);
+    public const string TimeDayNumber = nameof(TimeDayNumber);
+    public const string TimeCycle = nameof(TimeCycle);
+    public const string TimeCycleDay = nameof(TimeCycleDay);
+    public const string TimeCycleDuration = nameof(TimeCycleDuration);
+    public const string TimeDayProgress = nameof(TimeDayProgress);
+    public const string TimeCycleProgress = nameof(TimeCycleProgress);
 
     public const string GoodAmountPrefix = "GoodAmount.";
     public const string GoodCapacityPrefix = "GoodCapacity.";
     public const string GoodFillPrefix = "GoodFill.";
 
-    public const string PopulationNumberOfAdult = nameof(PopulationData.NumberOfAdults);
-    public const string PopulationNumberOfChild = nameof(PopulationData.NumberOfChildren);
-    public const string PopulationNumberOfBot = nameof(PopulationData.NumberOfBots);
-    public const string PopulationNumberOfBeaver = nameof(PopulationData.NumberOfBeavers);
-    public const string PopulationNumberOfHealthyAdult = nameof(PopulationData.NumberOfHealthyAdults);
-    public const string PopulationNumberOfHealthyChild = nameof(PopulationData.NumberOfHealthyChildren);
-    public const string PopulationTotal = nameof(PopulationData.TotalPopulation);
-    public const string PopulationBeaverPercent = "BeaverPercent";
-    public const string PopulationBotPercent = "BotPercent";
-    public const string PopulationAdultPercent = "AdultPercent";
-    public const string PopulationChildPercent = "ChildPercent";
+    public const string PopulationNumberOfAdult = nameof(PopulationNumberOfAdult);
+    public const string PopulationNumberOfChild = nameof(PopulationNumberOfChild);
+    public const string PopulationNumberOfBot = nameof(PopulationNumberOfBot);
+    public const string PopulationNumberOfBeaver = nameof(PopulationNumberOfBeaver);
+    public const string PopulationNumberOfHealthyAdult = nameof(PopulationNumberOfHealthyAdult);
+    public const string PopulationNumberOfHealthyChild = nameof(PopulationNumberOfHealthyChild);
+    public const string PopulationTotal = nameof(PopulationTotal);
+    public const string PopulationBeaverPercent = nameof(PopulationBeaverPercent);
+    public const string PopulationBotPercent = nameof(PopulationBotPercent);
+    public const string PopulationAdultPercent = nameof(PopulationAdultPercent);
+    public const string PopulationChildPercent = nameof(PopulationChildPercent);
 
-    public const string BedOccupied = nameof(BedData.OccupiedBeds);
-    public const string BedFree = nameof(BedData.FreeBeds);
-    public const string BedHomeless = nameof(BedData.Homeless);
-    public const string BedTotal = "TotalBeds";
-    public const string BedHomelessPercent = "HomelessPercent";
+    public const string BedOccupied = nameof(BedOccupied);
+    public const string BedFree = nameof(BedFree);
+    public const string BedHomeless = nameof(BedHomeless);
+    public const string BedTotal = nameof(BedTotal);
+    public const string BedHomelessPercent = nameof(BedHomelessPercent);
+    public const string BedHousedPercent = nameof(BedHousedPercent);
 
-    public const string WorkforceEmployable = nameof(WorkforceData.Employable);
-    public const string WorkforceUnemployable = nameof(WorkforceData.Unemployable);
-    public const string WorkforceTotal = nameof(WorkforceData.Total);
-    public const string WorkforceBeaverPrefix = nameof(CharacterType.Beavers);
-    public const string WorkforceBotPrefix = nameof(CharacterType.Bot);
-    public const string WorkforceBeaverEmployable = WorkforceBeaverPrefix + WorkforceEmployable;
-    public const string WorkforceBeaverUnemployable = WorkforceBeaverPrefix + WorkforceUnemployable;
-    public const string WorkforceBeaverTotal = WorkforceBeaverPrefix + WorkforceTotal;
-    public const string WorkforceBotEmployable = WorkforceBotPrefix + WorkforceEmployable;
-    public const string WorkforceBotUnemployable = WorkforceBotPrefix + WorkforceUnemployable;
-    public const string WorkforceBotTotal = WorkforceBotPrefix + WorkforceTotal;
+    public const string WorkforceEmployable = nameof(WorkforceEmployable);
+    public const string WorkforceUnemployable = nameof(WorkforceUnemployable);
+    public const string WorkforceTotal = nameof(WorkforceTotal);
+    public const string WorkforceBeaverEmployable = nameof(WorkforceBeaverEmployable);
+    public const string WorkforceBeaverUnemployable = nameof(WorkforceBeaverUnemployable);
+    public const string WorkforceBeaverTotal = nameof(WorkforceBeaverTotal);
+    public const string WorkforceBotEmployable = nameof(WorkforceBotEmployable);
+    public const string WorkforceBotUnemployable = nameof(WorkforceBotUnemployable);
+    public const string WorkforceBotTotal = nameof(WorkforceBotTotal);
 
-    public const string ContaminationAdult = nameof(ContaminationData.ContaminatedAdults);
-    public const string ContaminationChild = nameof(ContaminationData.ContaminatedChildren);
-    public const string ContaminationTotal = nameof(ContaminationData.ContaminatedTotal);
-    public const string ContaminationAdultPercent = "AdultContaminatedPercent";
-    public const string ContaminationChildPercent = "ChildContaminatedPercent";
-    public const string ContaminationPercent = "ContaminatedPercent";
+    public const string ContaminationAdult = nameof(ContaminationAdult);
+    public const string ContaminationChild = nameof(ContaminationChild);
+    public const string ContaminationTotal = nameof(ContaminationTotal);
+    public const string ContaminationAdultPercent = nameof(ContaminationAdultPercent);
+    public const string ContaminationChildPercent = nameof(ContaminationChildPercent);
+    public const string ContaminationPercent = nameof(ContaminationPercent);
 
     public static string GoodAmount(string goodId) => GoodAmountPrefix + goodId;
     public static string GoodCapacity(string goodId) => GoodCapacityPrefix + goodId;

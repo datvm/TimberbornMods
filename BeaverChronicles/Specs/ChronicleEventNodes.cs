@@ -14,8 +14,19 @@ public record class ChronicleEventNodeSpec
     [Serialize]
     public string? NextNodeId { get; init; }
 
+    object? cachedData;
     public T GetData<T>()
-        => Data.DeserializeTo<T>() ?? throw new InvalidDataException($"Node {Id} is missing data.");
+    {
+        if (cachedData is not null)
+        {
+            return cachedData is T c
+                ? c
+                : throw new InvalidDataException($"A previous attempt to deserialize data for node {Id} resulted in a different type. Expected {typeof(T)}, got {cachedData.GetType()}.");
+        }
+
+        cachedData = Data.DeserializeTo<T>() ?? throw new InvalidDataException($"Node {Id} is missing data.");
+        return (T)cachedData;
+    }
 
     [JsonIgnore]
     public bool IsConditionNode => Type == ConditionNodeHandler.NodeType;
@@ -38,7 +49,7 @@ public record ChronicleEventNodes
     public bool TryGetNode(string id, [NotNullWhen(true)] out ChronicleEventNodeSpec? node)
         => nodesById.TryGetValue(id, out node);
 
-    public void Initialize()
+    internal void Initialize()
     {
         nodesById = Items.ToFrozenDictionary(c => c.Id);
     }

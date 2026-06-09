@@ -2,9 +2,11 @@
     "ChronicleEventSpec": {
         "Id": "StartBonus",
         "TitleLoc": "LV.BCEv.StartBonus",
+        "IsMini": true,
         "Conditions": {
             "Sources": [ "NewHour" ],
-            "Weight": 2147483647
+            "Weight": 2147483647,
+            "MinDay": 1.25
         },
         "Parameters": {
             "Strings": [ "Berries", "Water", "Log", "ChildBeaver" ],
@@ -24,17 +26,23 @@
                             {
                                 "TextLoc": "LV.BCEv.StartBonus.C1",
                                 "NoteLoc": "LV.BCEv.StartBonus.C1N",
-                                "NextNodeId": "C1"
+                                "NextNodeId": "C1",
+                                "EnabledConditionNodeId": "HasDistrictCenter",
+                                "DisabledTextLoc": "LV.BCEv.DisabledNoDc"
                             },
                             {
                                 "TextLoc": "LV.BCEv.StartBonus.C2",
                                 "NoteLoc": "LV.BCEv.StartBonus.C2N",
-                                "NextNodeId": "C2"
+                                "NextNodeId": "C2",
+                                "EnabledConditionNodeId": "HasDistrictCenter",
+                                "DisabledTextLoc": "LV.BCEv.DisabledNoDc"
                             },
                             {
                                 "TextLoc": "LV.BCEv.StartBonus.C3",
                                 "NoteLoc": "LV.BCEv.StartBonus.C3N",
-                                "NextNodeId": "C3"
+                                "NextNodeId": "C3",
+                                "EnabledConditionNodeId": "HasDistrictCenter",
+                                "DisabledTextLoc": "LV.BCEv.DisabledNoDc"
                             },
                             {
                                 "TextLoc": "LV.BCEv.StartBonus.C4",
@@ -84,10 +92,24 @@
                     "Id": "C4",
                     "Type": "Give",
                     "Data": {
-                        "Items": [
+                        "Spawns": [
                             {
                                 "Id": "{S4}",
                                 "Amount": "{I4}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "HasDistrictCenter",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "HasBuilding",
+                                "Parameters": {
+                                    "TemplateNamePrefixes": [ "DistrictCenter." ]
+                                }
                             }
                         ]
                     }

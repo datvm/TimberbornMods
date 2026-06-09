@@ -1,49 +1,40 @@
 ﻿namespace BeaverChronicles.Events;
 
-[NonBindingEvent]
 public class SpecChronicleEvent(
     ChronicleEventSpec spec,
     ISpecChronicleEventCustomCode? customCode,
-    SpecChronicleEventHelperFactory helperFac
+    SpecChronicleEventControllerFactory helperFac
 ) : IChronicleEvent
 {
     public ChronicleEventSpec Spec => spec;
     public string Id => spec.Id;
     public string NameLoc => spec.TitleLoc;
     public IReadOnlyCollection<EventTriggerSource> TriggerSources => spec.Conditions.Sources;
-    public bool Active { get; private set; }
+    public bool Active => Controller.IsActive;
     public bool CanRepeat => spec.Repeat;
 
-    ChronicleEventContext? context;
-    IEventTriggerParameters? parameters;
-    SpecChronicleEventHelper? helper;
-
-    public ChronicleEventContext Context => context ?? throw Throw();
-    public IEventTriggerParameters Parameters => parameters ?? throw Throw();
-    public SpecChronicleEventHelper Helper => helper ?? throw Throw();
+    public SpecChronicleEventController Controller { get; private set; } = null!;
     public ISpecChronicleEventCustomCode? CustomCode => customCode;
-    static InvalidOperationException Throw() => new("Event is not active");
 
-    public int GetTriggerWeight(ChronicleEventContext context)
+    internal void Initialize()
     {
-        SetContext(context);
-
-        return helper!.CheckFlags() switch
+        if (Spec.Conditions.NeedCustomCode && customCode is null)
         {
-            SpecChronicleEventHelper.FlagCheckResult.Block => -1,
-            SpecChronicleEventHelper.FlagCheckResult.CannotTrigger => 0,
-            _ => spec.Conditions.CustomWeightCode ? customCode!.GetWeight(this) : spec.Conditions.Weight,
-        };
+            throw new InvalidOperationException($"Event {Id} requires custom code, but none was provided.");
+        }
+
+        Controller = helperFac.Create(this);
     }
+
+    public int GetTriggerWeight(ChronicleTriggerContext context) 
+        => Controller.GetTriggerWeight(context);
 
     public void Trigger(ChronicleEventContext context)
     {
-        SetContext(context);
-        Active = true;
-
+        Controller.SetContext(context);        
         if (context.Parameters.Source == EventTriggerSource.GameLoad)
         {
-            helper!.RestoreGameState();
+            Controller.RestoreGameState();
             return;
         }
 
@@ -79,24 +70,12 @@ public class SpecChronicleEvent(
     {
         if (customCode?.OnTriggerNode(this, node) == true) { return; }
 
-        helper!.TriggerNode(node);
-    }
-
-    void SetContext(ChronicleEventContext context)
-    {
-        this.context = context;
-        parameters = context.Parameters;
-        helper = helperFac.Create(this, context);
+        Controller.TriggerNode(node);
     }
 
     void Conclude()
     {
-        context!.ConcludeEvent();
-        Active = false;
-
-        context = null;
-        parameters = null;
-        helper = null;
+        Controller.ConcludeEvent();
     }
 
 }

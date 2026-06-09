@@ -1,0 +1,258 @@
+﻿{
+    "ChronicleEventSpec": {
+        "Id": "Unhoused",
+        "TitleLoc": "LV.BCEv.Unhoused",
+        "Conditions": {
+            "Sources": [ "NewDay" ],
+            "Weight": 200,
+            "MinDay": 5,
+            "MaxDay": 60
+        },
+        "Parameters": {
+            "Floats": [
+                0.75, // %1: Most sheltered threshold
+                3.0, // F2: Most sheltered deadline
+                5.0, // F3: All sheltered deadline
+                5.0, // F4: Buff days
+                3.0, // F5: Debuff days
+                0.075, // %6: Minor bonus
+                0.10, // %7: Major bonus
+                -0.15, // %8: Failure penalty
+                10 // F9: Already sheltered duration
+            ],
+            "Strings": [
+                "WorkingSpeed",
+                "MovementSpeed"
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "InitialCheck",
+            "Items": [
+                // Initial check
+                {
+                    "Id": "InitialCheck",
+                    "Type": "Condition",
+                    "Data": {
+                        "FulfilledNodeId": "InitialAlreadyHousedBuff",
+                        "FailedNodeId": "Choice",
+                        "Conditions": [
+                            {
+                                "Type": "GameStat",
+                                "Parameters": {
+                                    "Stat": "BedHomelessPercent",
+                                    "Value": "0",
+                                    "Comparison": "LessOrEqual"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "InitialAlreadyHousedBuff",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "ChronicleEvent_Unhoused",
+                        "TitleLoc": "LV.BCEv.Unhoused.BuffName",
+                        "DescLoc": "LV.BCEv.Unhoused.BuffMajorDesc",
+                        "CharacterTypes": "AdultBeaver, ChildBeaver",
+                        "Days": "{F9}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{F7}"
+                            },
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{F7}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "InitialAlreadyHousedMessage"
+                },
+                {
+                    "Id": "InitialAlreadyHousedMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.Unhoused.AlreadyHoused.Content",
+                        "TopImagePath": "Resources/Chronicles/Unhoused_O1_Top"
+                    }
+                },
+
+                // Choices
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.Unhoused.Content",
+                        "TopImage": true,
+                        "DefaultOption": 3,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCEv.Unhoused.C1",
+                                "NoteLoc": "LV.BCEv.Unhoused.C1N",
+                                "NextNodeId": "SetTimer1",
+                                "EnabledConditionNodeId": "NotMostSheltered"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.Unhoused.C2",
+                                "NoteLoc": "LV.BCEv.Unhoused.C2N",
+                                "NextNodeId": "SetTimer2"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.Unhoused.C3",
+                                "NoteLoc": "LV.BCEv.Unhoused.C3N",
+                                "NextNodeId": "FailureBuff"
+                            }
+                        ]
+                    }
+                },
+
+                // Failure
+                {
+                    "Id": "FailureBuff",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "ChronicleEvent_Unhoused",
+                        "TitleLoc": "LV.BCEv.Unhoused.DebuffName",
+                        "DescLoc": "LV.BCEv.Unhoused.DebuffDesc",
+                        "CharacterTypes": "AdultBeaver, ChildBeaver",
+                        "Days": "{F5}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{F8}"
+                            },
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{F8}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "Failure"
+                },
+                {
+                    "Id": "Failure",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImage": true,
+                        "TextLoc": "LV.BCEv.Unhoused.O3"
+                    }
+                },
+
+                // Choice 1: shelter 75%
+                {
+                    "Id": "SetTimer1",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F2}",
+                        "PanelTextLoc": "LV.BCEv.Unhoused.C1N"
+                    },
+                    "NextNodeId": "NotMostSheltered"
+                },
+                {
+                    "Id": "NotMostSheltered", // Reuse this for both option check & promise check
+                    "Type": "Condition",
+                    "Data": {
+                        "FulfilledNodeId": "FailureBuff",
+                        "FailedNodeId": "Promise1Buff",
+                        "Conditions": [
+                            {
+                                "Type": "GameStat",
+                                "Parameters": {
+                                    "Stat": "BedHousedPercent",
+                                    "Value": "{F1}",
+                                    "Comparison": "Less"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "Promise1Buff",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "ChronicleEvent_Unhoused",
+                        "TitleLoc": "LV.BCEv.Unhoused.BuffName",
+                        "DescLoc": "LV.BCEv.Unhoused.BuffMinorDesc",
+                        "CharacterTypes": "AdultBeaver, ChildBeaver",
+                        "Days": "{F4}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{F6}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "Promise1Message"
+                },
+                {
+                    "Id": "Promise1Message",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImagePath": "Resources/Chronicles/Unhoused_O1_Top",
+                        "TextLoc": "LV.BCEv.Unhoused.O1"
+                    }
+                },
+
+                // Choice 2: all sheltered
+                {
+                    "Id": "SetTimer2",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F3}",
+                        "PanelTextLoc": "LV.BCEv.Unhoused.C2N"
+                    },
+                    "NextNodeId": "CheckPromise2"
+                },
+                {
+                    "Id": "CheckPromise2",
+                    "Type": "Condition",
+                    "Data": {
+                        "FulfilledNodeId": "Promise2Buff",
+                        "FailedNodeId": "FailureBuff",
+                        "Conditions": [
+                            {
+                                "Type": "GameStat",
+                                "Parameters": {
+                                    "Stat": "BedHomelessPercent",
+                                    "Value": "0",
+                                    "Comparison": "LessOrEqual"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "Promise2Buff",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "ChronicleEvent_Unhoused",
+                        "TitleLoc": "LV.BCEv.Unhoused.BuffName",
+                        "DescLoc": "LV.BCEv.Unhoused.BuffMajorDesc",
+                        "CharacterTypes": "AdultBeaver, ChildBeaver",
+                        "Days": "{F4}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{F7}"
+                            },
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{F7}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "Promise2Message"
+                },
+                {
+                    "Id": "Promise2Message",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImagePath": "Resources/Chronicles/Unhoused_O1_Top",
+                        "TextLoc": "LV.BCEv.Unhoused.O2"
+                    }
+                }
+            ]
+        }
+    }
+}

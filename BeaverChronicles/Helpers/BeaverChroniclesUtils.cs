@@ -1,14 +1,15 @@
-﻿
-namespace BeaverChronicles.Helpers;
+﻿namespace BeaverChronicles.Helpers;
 
 public static class BeaverChroniclesUtils
 {
+    public const string Science = "Science";
+
     public const CharacterType AllCharactersEnum = CharacterType.AdultBeaver | CharacterType.ChildBeaver | CharacterType.Bot;
     public static readonly ImmutableArray<CharacterType> AllCharacters = [ CharacterType.AdultBeaver, CharacterType.ChildBeaver, CharacterType.Bot, ];
 
     public static readonly ImmutableArray<EventTriggerSource> AllTriggerSources
         = [.. Enum.GetValues(typeof(EventTriggerSource)).Cast<EventTriggerSource>()];
-    
+
     public static void Log(string msg) => Debug.Log($"[{nameof(BeaverChronicles)}] {msg}");
 
     public static void LogVerbose(Func<string> msgFunc) => TimberUiUtils.LogVerbose(() => $"[{nameof(BeaverChronicles)}] {msgFunc()}");
@@ -22,31 +23,15 @@ public static class BeaverChroniclesUtils
         return result;
     }
 
-    extension<T>(IReadOnlyCollection<T> collections)
+    extension(IChronicleEvent ev)
     {
-        public bool EmptyOrContains(T item) => collections.Count == 0 || collections.Contains(item);
+        public bool IsMiniEvent => ev is IMiniChronicleEvent;
     }
 
-    extension(Configurator config)
+    extension<T>(IReadOnlyCollection<T> collections)
     {
-
-        public Configurator BindAllEvents(Assembly? assembly = default)
-        {
-            assembly ??= Assembly.GetCallingAssembly();
-
-            foreach (var t in assembly.GetTypes())
-            {
-                if (typeof(IChronicleEvent).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract && t.IsClass
-                    && t.GetCustomAttribute<NonBindingEventAttribute>() is null)
-                {
-                    config.BindSingleton(t);
-                    config.MultiBind(typeof(IChronicleEvent), t, true);
-                }
-            }
-
-            return config;
-        }
-
+        public bool EmptyOrAny(Predicate<T> fn) => collections.Count == 0 || collections.Any(c => fn(c));
+        public bool EmptyOrContains(T item) => collections.Count == 0 || collections.Contains(item);
     }
 
     extension<T>(T el) where T : VisualElement
@@ -101,14 +86,21 @@ public static class BeaverChroniclesUtils
     extension(IEventTriggerParameters p)
     {
 
-        public bool IsParameter<T>() => p is IEventTriggerParameters<T>;
-        public int GetParameterWeight<T>() => p is IEventTriggerParameters<T> ? int.MaxValue : 0;
+        public bool IsParameter<T>() => p is IEventTriggerParameters<T>
+            || p.DataObject is ITriggerParameterWith<T>;
+        public int GetParameterWeight<T>() => p.IsParameter<T>() ? int.MaxValue : 0;
 
         public T GetParameter<T>() => p is IEventTriggerParameters<T> tp
             ? tp.Data
-            : throw new InvalidOperationException($"Unexpected parameters type: {p.GetType().FullName}, instead of {typeof(EventTriggerParameter<T>)}");
+            : p.DataObject is ITriggerParameterWith<T> provider
+                ? provider.Parameter
+                : throw new InvalidOperationException($"Unexpected parameters type: {p.GetType().FullName}, instead of {typeof(EventTriggerParameter<T>)} or {typeof(ITriggerParameterWith<T>)}");
 
-        public T? GetParameterOrDefault<T>() => p is IEventTriggerParameters<T> tp ? tp.Data : default;
+        public T? GetParameterOrDefault<T>() => p is IEventTriggerParameters<T> tp
+            ? tp.Data
+            : p.DataObject is ITriggerParameterWith<T> provider
+                ? provider.Parameter
+                : default;
 
     }
 
@@ -169,6 +161,11 @@ public static class BeaverChroniclesUtils
                 _ => throw new InvalidOperationException($"Unexpected condition type: {c}"),
             };
         }
+    }
+
+    extension(string str)
+    {
+        public bool IsScience => str == Science;
     }
 
 }

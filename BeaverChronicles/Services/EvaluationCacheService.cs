@@ -9,7 +9,7 @@ public class EvaluationCacheService
 
     public T GetOrEvaluate<T>(string key, Func<T> evaluate, bool force = false)
     {
-        if (Time.frameCount != lastFrame)
+        if (UnityEngine.Time.frameCount != lastFrame)
         {
             caches.Clear();
         }
@@ -20,7 +20,7 @@ public class EvaluationCacheService
 
         var value = evaluate();
         caches[key] = value!;
-        lastFrame = Time.frameCount;
+        lastFrame = UnityEngine.Time.frameCount;
         return value;
     }
 

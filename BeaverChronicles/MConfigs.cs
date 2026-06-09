@@ -13,19 +13,13 @@ public class MBeaverChroniclesConfigs : BaseModdableTimberbornAttributeConfigura
             .UseBonusTracker()
             .UseEntityTracker()
             .UseGameStats()
+            .UseAreaApis()
             .TryTrack<Stockpile>()
             .TryTrack<BlockObject>()
             .TryTrack<BlockObjectBound>()
             .TryTrack<Bot>()
             .TryTrack<Beaver>()
         ;
-    }
-
-    public override void Configure(Configurator configurator, ConfigurationContext context)
-    {
-        base.Configure(configurator, context);
-
-        configurator.BindAllEvents();
     }
 
 }

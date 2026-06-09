@@ -8,6 +8,7 @@ LV.BCEv.Pages,"Pages:",
 LV.BCEv.Unknown,"<RedHighlight>Unknown</RedHighlight>",
 LV.BCEv.WorkingSpeedDesc,"{0:+0%;-0%;0%} Working Speed",
 LV.BCEv.MovementSpeedDesc,"{0:+0%;-0%;0%} Movement Speed",
+LV.BCEv.WorkingMovementSpeedDesc,"{0:+0%;-0%;0%} Working and Movement Speed",
 LV.BCEv.ListText,"AC{0:0} - {1}",
 LV.BCEv.EntryTitle,"{0} (from AC{1:0} to AC{2:0})",
 LV.BCEv.EntryTitleActive,"{0} (started AC{1:0})",
@@ -15,6 +16,7 @@ LV.BCEv.Remaining,"Remaining:",
 LV.BCEv.Amount,"Amount:",
 LV.BCEv.Max,"Max",
 LV.BCEv.Pay,"Pay",
+LV.BCEv.Science,"Science",
 LV.BCEv.PayGuide.Title,"Event Payments",
 LV.BCEv.PayGuide.Content,"Some events need resources to complete.
 Select a storage building with the required item, then use Event Payment to pay. This works with <YellowHighlight>Piles, Warehouses, and Tanks</YellowHighlight>.
@@ -30,57 +32,63 @@ LV.BCEv.StartBonus.Content,"The last bend of the river opens into a quiet stretc
 It is not much yet, but it is enough.
 The beavers gather around the camp, tired but hopeful. Before the work begins, the scouts report one small blessing found nearby.",
 LV.BCEv.StartBonus.C1,"Gather the berries",
-LV.BCEv.StartBonus.C1N,"[[C]]A hidden patch of ripe berries is found nearby. [[+]][[good:{S1}:{I1}]]",
+LV.BCEv.StartBonus.C1N,"[[C]]A hidden patch of ripe berries is found nearby. [[+]]+[[good:{S1}:{I1}]]",
 LV.BCEv.StartBonus.C2,"Fill the barrels",
-LV.BCEv.StartBonus.C2N,"[[C]]Clean water collects in a shallow pool. [[+]][[good:{S2}:{I2}]]",
+LV.BCEv.StartBonus.C2N,"[[C]]Clean water collects in a shallow pool. [[+]]+[[good:{S2}:{I2}]]",
 LV.BCEv.StartBonus.C3,"Claim the fallen logs",
-LV.BCEv.StartBonus.C3N,"[[C]]Dry fallen trunks lie near the treeline. [[+]][[good:{S3}:{I3}]]",
+LV.BCEv.StartBonus.C3N,"[[C]]Dry fallen trunks lie near the treeline. [[+]]+[[good:{S3}:{I3}]]",
 LV.BCEv.StartBonus.C4,"Rescue the youngling",
-LV.BCEv.StartBonus.C4N,"[[C]]A young kit is found near the river, barely alive. [[+]]{I4} [[icon:UI/images/game/ico-child]] Child Beaver",
+LV.BCEv.StartBonus.C4N,"[[C]]A young kit is found near the river, barely alive. [[+]]+{I4} [[icon:UI/images/game/ico-child]] Child Beaver",
 LV.BCEv.FirstDeath,"First Passing",
-LV.BCEv.FirstDeath.Content,"{0} has passed away.
+LV.BCEv.FirstDeath.Content,"{CP_TriggerCharacterName} has passed away.
 
 The colony grows quiet. For the first time, the beavers are not only thinking about survival, but about memory. A few gather nearby, unsure what to do next. Work still needs doing, but so does grief.",
 LV.BCEv.FirstDeath.C1,"Send them downriver",
-LV.BCEv.FirstDeath.C1N,"[[C]][[-]][[good:{1}:{2}]] within [[time:{0}d]]",
+LV.BCEv.FirstDeath.C1N,"[[C]][[-]]Pay [[good:{S1}:{I1}]] within [[time:{F1}d]]",
 LV.BCEv.FirstDeath.C2,"Build a cemetery",
-LV.BCEv.FirstDeath.C2N,"[[C]][[-]][[good:{1}:{2}]] [[good:{3}:{4}]] within [[time:{0}d]]",
+LV.BCEv.FirstDeath.C2N,"[[C]][[-]]Pay [[good:{S2}:{I2}]] [[good:{S3}:{I3}]] within [[time:{F2}d]]",
 LV.BCEv.FirstDeath.C3,"Keep working",
 LV.BCEv.FirstDeath.C3N,"[[C]]There is no time for this. The colony must move on. <YellowHighlight>Unknown consequences.</YellowHighlight>",
-LV.BCEv.FirstDeath.O1,"The logs are lashed together into a small raft, just large enough to carry {0} downriver.
+LV.BCEv.FirstDeath.O1,"The logs are lashed together into a small raft, just large enough to carry {CP_TriggerCharacterName} downriver.
 The colony watches in silence as the current takes them away. It is a simple farewell, but it gives the beavers a little peace.
 [[C]][[+]]All beavers gain the <GreenHighlight>+Remembrance</GreenHighlight> Wellbeing bonus for some time.",
-LV.BCEv.FirstDeath.O2,"The planks are shaped into a small cemetery marker for {0}.
+LV.BCEv.FirstDeath.O2,"The planks are shaped into a small cemetery marker for {CP_TriggerCharacterName}.
 It is not much, but it gives the colony a place to pause, remember, and honor those who came before them.
 [[C]][[+]]All beavers permanently gain the <GreenHighlight>+Remembrance</GreenHighlight> Wellbeing bonus.",
-LV.BCEv.FirstDeath.O3,"No farewell is given for {0}. No marker is built. The colony simply returns to work.
-Some beavers try not to think about it, but the silence settles heavily over the settlement. To them, it feels as if {0} was simply ignored.
-[[C]][[-]]All beavers suffer Heavy Hearts effect for {1}d.",
+LV.BCEv.FirstDeath.O3,"No farewell is given for {CP_TriggerCharacterName}. No marker is built. The colony simply returns to work.
+Some beavers try not to think about it, but the silence settles heavily over the settlement. To them, it feels as if {CP_TriggerCharacterName} was simply ignored.
+[[C]][[-]]All beavers suffer Heavy Hearts effect for {F5}d.",
 LV.BCEv.FirstDeath.O4,"The colony returns to work.
 There is sadness, but also understanding. Food must be gathered, water must be stored, and the settlement must survive. For now, the beavers carry the loss quietly and move on.",
 LV.BCEv.FirstDeath.BonusName,"Remembrance",
 LV.BCEv.FirstDeath.MalusName,"Heavy Hearts",
+LV.BCEv.FirstDeath.MalusDesc,"{%4} Working Speed",
 LV.BCEv.Unhoused,"Still Under the Open Sky",
 LV.BCEv.Unhoused.Content,"Some time has passed since the colony began, but not every beaver has a roof to sleep under.
 At dusk, the unhoused gather near the paths, wrapping their tails close against the cold ground. No one complains loudly. They only glance toward the finished lodges, then back at the empty spaces where more homes should have stood.
 The colony looks to you for an answer.",
 LV.BCEv.Unhoused.C1,"Promise shelter for most",
-LV.BCEv.Unhoused.C1N,"[[C]]Ensure at least {1:0%} of beavers remain sheltered after [[time:{0}d]]",
+LV.BCEv.Unhoused.C1N,"[[C]]Ensure at least {%1} of beavers remain sheltered after [[time:{F2}d]]",
 LV.BCEv.Unhoused.C2,"Promise shelter for all",
-LV.BCEv.Unhoused.C2N,"[[C]]Ensure all beavers remain sheltered after [[time:{0}d]]",
+LV.BCEv.Unhoused.C2N,"[[C]]Ensure all beavers remain sheltered after [[time:{F3}d]]",
 LV.BCEv.Unhoused.C3,"Make no promise",
 LV.BCEv.Unhoused.C3N,"[[C]]The colony is too busy to make any promises. <YellowHighlight>Unknown consequences.</YellowHighlight>",
 LV.BCEv.Unhoused.BuffName,"Sheltered",
-LV.BCEv.Unhoused.Buff1Desc,"{0:+0%} Working Speed",
-LV.BCEv.Unhoused.Buff2Desc,"{0:+0%} Working and Movement Speed",
+LV.BCEv.Unhoused.BuffMinorDesc,"+{%6} Working Speed",
+LV.BCEv.Unhoused.BuffMajorDesc,"+{%7} Working and Movement Speed",
 LV.BCEv.Unhoused.DebuffName,"Unhoused",
+LV.BCEv.Unhoused.DebuffDesc,"{%8} Working and Movement Speed",
 LV.BCEv.Unhoused.O1,"By the promised day, most of the unhoused beavers have found a place indoors. It is not perfect, but it is enough to prove that the colony remembers those sleeping under the open sky. The mood lifts. Work resumes with steadier paws.
-[[C]][[+]]All beavers gain {0} for [[time:{1}d]]",
+[[C]][[+]]All beavers gain +{%6} Working Speed for [[time:{F4}d]]",
 LV.BCEv.Unhoused.O2,"By the promised day, every beaver has a roof overhead. The last bed is claimed before nightfall, and for the first time in days, no one has to choose between sleep and the cold ground. The colony rests easier, and rises stronger.
-[[C]][[+]]All beavers gain {0} for [[time:{1}d]]",
+[[C]][[+]]All beavers gain +{%7} Working and Movement Speed for [[time:{F4}d]]",
 LV.BCEv.Unhoused.O3,"Too many beavers are still sleeping outside. Whatever was said before, the colony has not given them shelter.
 They rise tired, work slower, and keep their doubts mostly to themselves.
-[[C]][[-]]All beavers suffer {0} for [[time:{1}d]]",
+[[C]][[-]]All beavers suffer {%8} Working and Movement Speed for [[time:{F5}d]]",
+LV.BCEv.Unhoused.AlreadyHoused.Content,"A few beavers begin counting beds and lodges, worried that some among them may still be sleeping outside.
+[[+]]But the count brings good news.
+Every beaver already has a roof overhead. No one has been forgotten. No one has been left to curl up beside the paths at dusk. The colony is quietly pleased. It is one thing to build shelter after complaints begin. It is another to prepare it before anyone has to ask. The beavers take the news with warm satisfaction. Their homes were ready before hardship forced the issue, and that care is not forgotten. The colony rests easier, trusts deeper, and rises with renewed strength.
+[[C]][[+]]All beavers gain +{%7} Working and Movement Speed for [[time:{F9}d]]",
 LV.BCEv.FirstChildGrowth,"First Furrows",
 LV.BCEv.FirstChildGrowth.Content,"{0} has come of age. Yesterday, they chased dragonflies along the bank. Today, they stand ready to take their place among the builders, haulers, growers, and dreamers.
 Some beavers suggest marking the moment with a small feast. It would cost precious resources, but a colony that celebrates its young may find its spirits lifted.",

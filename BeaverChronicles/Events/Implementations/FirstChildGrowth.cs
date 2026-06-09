@@ -23,7 +23,7 @@ public class FirstChildGrowth(
         set => historyRecord!.CustomParameters["Name"] = value;
     }
 
-    public override int GetTriggerWeight(ChronicleEventContext context)
+    public override int GetTriggerWeight(ChronicleTriggerContext context)
         => context.Parameters.GetParameterWeight<BeaverGrownUpParameters>();
 
     int GetAmountToPay(int perBeaver)

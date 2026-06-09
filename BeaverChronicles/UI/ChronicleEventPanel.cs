@@ -86,7 +86,7 @@ public class ChronicleEventPanel(
             var amountText = $"{item.PaidAmount}/{item.Amount}";
             if (item.IsScience)
             {
-                ico.SetScience(namedIconProvider);
+                ico.SetScience(namedIconProvider).SetVertical(false).SetPostfixText(t.T("LV.BCEv.Science"));
             }
             else
             {

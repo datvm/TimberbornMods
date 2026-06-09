@@ -5,7 +5,7 @@ public class ChronicleEventsDialog(
     VisualElementInitializer veInit,
     PanelStack panelStack,
     ILoc t,
-    ChronicleEventHistoryService history,
+    ChronicleEventRecords history,
     ChronicleEventRegistry registry,
     IAssetLoader assets,
     ChronicleEventUIHelper uiHelper

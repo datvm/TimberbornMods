@@ -15,6 +15,9 @@ public record ChronicleEventSpec : ComponentSpec
     public bool Repeat { get; init; }
 
     [Serialize]
+    public bool IsMini { get; init; }
+
+    [Serialize]
     public ChronicleEventConditions Conditions { get; init; } = null!;
 
     [Serialize]

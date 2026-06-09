@@ -2,8 +2,9 @@
 
 public record TimeLimitData
 {
-    public float Hours { get; init; }
-    public ImmutableArray<GoodAmountSpec> Payments { get; init; } = [];
+    public string? Days { get; init; }
+    public string? Hours { get; init; }
+    public ImmutableArray<FormattableGoodItem> Payments { get; init; } = [];
     public string? PanelTextLoc { get; init; }
     public string? PaidNodeId { get; init; }
 }

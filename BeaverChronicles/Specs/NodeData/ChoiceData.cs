@@ -17,6 +17,8 @@ public record ChoiceOptionData
 {
     public string TextLoc { get; init; } = null!;
     public string? NoteLoc { get; init; }
-    public string? EnabledConditionNodeId { get; init; }
     public string? NextNodeId { get; init; }
+
+    public string? EnabledConditionNodeId { get; init; }
+    public string? DisabledTextLoc { get; init; }
 }

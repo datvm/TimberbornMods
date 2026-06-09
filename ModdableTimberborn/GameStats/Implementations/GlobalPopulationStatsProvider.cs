@@ -84,12 +84,24 @@ public class GlobalPopulationStatsProvider(PopulationService populationService) 
 
         if (BeaverWorkforceStats.Contains(statId))
         {
-            return GetWorkforceData(data.BeaverWorkforceData, statId[GameStats.WorkforceBeaverPrefix.Length..]);
+            return statId switch
+            {
+                GameStats.WorkforceBeaverEmployable => data.BeaverWorkforceData.Employable,
+                GameStats.WorkforceBeaverUnemployable => data.BeaverWorkforceData.Unemployable,
+                GameStats.WorkforceBeaverTotal => data.BeaverWorkforceData.Total,
+                _ => throw new ArgumentOutOfRangeException(),
+            };
         }
 
         if (BotWorkforceStats.Contains(statId))
         {
-            return GetWorkforceData(data.BotWorkforceData, statId[GameStats.WorkforceBotPrefix.Length..]);
+            return statId switch
+            {
+                GameStats.WorkforceBotEmployable => data.BotWorkforceData.Employable,
+                GameStats.WorkforceBotUnemployable => data.BotWorkforceData.Unemployable,
+                GameStats.WorkforceBotTotal => data.BotWorkforceData.Total,
+                _ => throw new ArgumentOutOfRangeException(),
+            };
         }
 
         if (WorkforceStats.Contains(statId))
