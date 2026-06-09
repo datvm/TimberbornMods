@@ -11,7 +11,7 @@ Neither approach requires a UXML asset or a custom `VisualTreeAsset`. Both injec
 
 ## 1. Adding a top-right HUD item
 
-The top-right HUD is a row of clickable icon-buttons. `UILayout.AddTopRight(element, order)` appends any `VisualElement` to that row; the `order` parameter controls its position relative to other items (lower numbers appear earlier in the row).
+The top-right HUD is a row of clickable icon-buttons. `UILayout.AddTopRight(element, order)` appends any `VisualElement` to that row; the `order` parameter controls its position relative to other items (the exact left/right meaning is defined by the game's `UILayout`).
 
 The standard pattern from the demo is:
 
@@ -55,7 +55,7 @@ public class GameService(UILayout layout) : ILoadableSingleton
         _topBarLabel = item.AddLabel("Hello TimberUi")
             .AddLabelClasses(GameLabelStyle.Game, color: GameLabelColor.Yellow);
 
-        // order 7 — adjust to taste; lower numbers sit closer to the left of the row.
+        // order 7 — adjust to taste; sets this item's position among other top-right items.
         layout.AddTopRight(item, 7);
     }
 
@@ -75,7 +75,7 @@ Key CSS constants (all on `UiCssClasses`):
 | `Green` | `"green"` | Produces `"square-large--green"`, the green nine-slice background. |
 | `Brown` | `"brown"` | Produces `"square-large--brown"`, the brown nine-slice background. |
 
-`AddLabel` and `AddLabelClasses` come from the TimberUi `UiBuilderExtensions` (see [Building UI with the UiBuilder DSL](./BuildingUi.MD)).
+`AddLabel` and `AddLabelClasses` are TimberUi extension methods declared in the `UnityEngine.UIElements` namespace — that is why `using UnityEngine.UIElements;` brings them into scope (`using TimberUi;` does not). See [Building UI with the UiBuilder DSL](./BuildingUi.MD).
 
 ### Binding
 
@@ -129,7 +129,7 @@ public class MenuService(MainMenuPanel menu) : ILoadableSingleton
 }
 ```
 
-`GetExitGameButton()` returns the `LocalizableButton` named `"ExitButton"` inside the menu's root. `AddMenuButton` builds the new button (initially as a child of the exit button), and `InsertSelfAfter(exitButton)` moves it into the column immediately after the exit button. TimberUi also provides `GetMainMenuPanel()`, which returns the `NineSliceVisualElement` named `"MainMenuPanel"` — the column container itself — if you prefer to add buttons to the column directly.
+`GetExitGameButton()` returns the `LocalizableButton` named `"ExitButton"` inside the menu's root. `AddMenuButton` builds the new button (initially as a child of the exit button), and `InsertSelfAfter(exitButton)` moves it into the column immediately after the exit button. TimberUi also provides `GetMainMenuPanel()`, which returns the panel's root container (the `NineSliceVisualElement` named `"MainMenuPanel"`) — handy as a query root, though the demo's sibling-insert against the exit button is the proven way to land a button in the column.
 
 `AddMenuButton` is a `VisualElement` extension that creates a `NineSliceButton` with `menu-button` styling. The `stretched: true` parameter adds the `menu-button--stretched` modifier, which makes the button fill the full column width, matching the style of the built-in main-menu buttons.
 

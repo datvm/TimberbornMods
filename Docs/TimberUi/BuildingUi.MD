@@ -190,7 +190,7 @@ parent.AddGameButtonPadded("Reset", onClick: Reset, paddingX: 8, paddingY: 4);
 | `Game` | In-game panels and fragments |
 | `EntityFragment` | Inside entity-panel fragments |
 
-`GameButtonSize` values are `Medium` (default), `Small`, and `Large`. Not all style/size combinations produce a visible size difference — `Game` style has no size modifier.
+`GameButtonSize` has three values: `Medium`, `Small`, and `Large`. **On `AddButton` / `AddMenuButton` / `AddGameButton`, only `Medium` and `Large` are supported — passing `Small` throws `NotImplementedException`.** (`Small` is meant for the square icon buttons: `AddSquareButton` / `AddPlusButton` / `AddMinusButton`.) When you omit `size` entirely, no size-modifier class is applied. Not all style/size combinations produce a visible difference — `Game` style has no size modifier.
 
 ### Entity-fragment buttons
 
@@ -205,6 +205,10 @@ NineSliceButton btn = parent.AddEntityFragmentButton(
 
 // Add an inventory icon inside the button's content area
 btn.Q("Content").AddInventoryOutputImage();
+
+// Stretched variant — fills the available column width
+NineSliceButton wide = parent.AddStretchedEntityFragmentButton(
+    text: "Fill All", onClick: FillAll, color: EntityFragmentButtonColor.Green);
 ```
 
 ### Close, plus, and minus buttons
@@ -380,8 +384,11 @@ Image img3 = parent.AddImage(myTexture2D);
 // Load from mod asset path via IAssetLoader
 Image img4 = parent.AddImage("Assets/MyMod/Textures/icon.png", assetLoader);
 
-// By named-icon key via NamedIconProvider
-Image img5 = parent.AddImage("ScienceIcon", namedIconProvider);
+// Via NamedIconProvider. The (iconName, provider) overload resolves the name
+// through the provider's indexer, which throws KeyNotFoundException if that name
+// has not been loaded yet. Prefer one of the provider's named properties (which
+// lazy-load), passing the sprite to the AddImage(Sprite) overload:
+Image img5 = parent.AddImage(namedIconProvider.Science);
 ```
 
 ### `AddIconSpan`
@@ -561,6 +568,50 @@ Toggle t = parent.AddToggle(
 
 ---
 
+## Composite widgets
+
+Two higher-level widgets save you from assembling common patterns by hand.
+
+### `ToggleGroup<TValue>` — mutually-exclusive toggles (radio buttons)
+
+`ToggleGroup<TValue>` turns a set of `Toggle`s into a radio group: exactly one is selected at a time, and selecting one deselects the rest. It is a *controller*, not a `VisualElement` — you create the toggles (which are added to your tree as usual) and hand them to the group, which wires the exclusivity and exposes the selected value.
+
+```cs
+using TimberUi.CommonUi;
+
+// One toggle per value (each AddToggle adds a child to `parent`);
+// the group manages exclusivity over them.
+var group = new ToggleGroup<Difficulty>(
+    [Difficulty.Easy, Difficulty.Normal, Difficulty.Hard],
+    value => parent.AddToggle(value.ToString(), style: ToggleStyle.Settings));
+
+group.OnValueChanged += (_, value) => ApplyDifficulty(value);
+
+// Read or set the selection
+Difficulty current = group.Value;
+group.SetValue(Difficulty.Normal);              // fires OnValueChanged
+group.SetValueWithoutNotify(Difficulty.Hard);   // silent
+```
+
+The first option is selected automatically when the group is built. Other members: `Options` (the `ToggleGroupOption<TValue>` list), `SelectedOption`, `FindOption(value)`, and `ClearSelection()`. A second constructor takes a ready-made `IEnumerable<ToggleGroupOption<TValue>>` if you already hold the toggles.
+
+> Give each value a distinct, non-`default` `TValue` — the group compares against `default(TValue)` internally to track the "nothing selected" state.
+
+### `RecipeRow` — a ready-made recipe display
+
+`RecipeRow` renders a full crafting recipe — ingredients (plus optional fuel), an arrow, the cycle time, and products (plus optional science) — as a single row of `IconSpan`s. It **is** a `VisualElement`, built for you from a Timberborn `RecipeSpec` by the injectable **`RecipeRowFactory`** (`[BindSingleton]`).
+
+```cs
+// Inject RecipeRowFactory recipeRowFactory.
+// recipeSpec is Timberborn's RecipeSpec describing the recipe.
+RecipeRow row = recipeRowFactory.Create(recipeSpec);
+parent.Add(row);
+```
+
+After construction you can reach the individual icons: `row.Ingredients` and `row.Products` (each an `ImmutableArray<IconSpan>`), `row.Time`, and the nullable `row.Fuel` / `row.Science`. Note the fuel icon is exposed only through `Fuel` (it is **not** part of `Ingredients`), and science only through `Science` (not part of `Products`).
+
+---
+
 ## Scroll views and list views
 
 ```cs
@@ -650,6 +701,7 @@ element.Initialize(visualElementLoader);
 | `AddGameButton(text?, onClick?, ...)` | `NineSliceButton` | `GameButtonStyle.Game` |
 | `AddGameButtonPadded(text?, onClick?, ..., paddingX?, paddingY?)` | `NineSliceButton` | Game + explicit padding |
 | `AddEntityFragmentButton(text?, onClick?, name?, additionalClasses?, color?)` | `NineSliceButton` | Green or Red border |
+| `AddStretchedEntityFragmentButton(text?, onClick?, name?, additionalClasses?, color?, stretched?)` | `NineSliceButton` | Stretched entity-fragment button |
 | `AddCloseButton(name?)` | `Button` | Standard close `×` button |
 | `AddPlusButton(name?, size?)` | `NineSliceButton` | |
 | `AddMinusButton(name?, size?)` | `NineSliceButton` | |
@@ -750,6 +802,9 @@ element.Initialize(visualElementLoader);
 | `ImageSource` | `Sprite` / `Texture` / `VectorImage` union | [`CommonUi/IconSpan.cs`](../../TimberUi/TimberUi/CommonUi/) |
 | `ProgressBarWithLabel` | `(TProgressBar, Label)` record | [`CommonUi/`](../../TimberUi/TimberUi/CommonUi/) |
 | `CollapsiblePanel` | Collapsible header + body | [`CommonUi/`](../../TimberUi/TimberUi/CommonUi/) |
+| `ToggleGroup<TValue>` | Radio-style mutually-exclusive toggle controller | [`CommonUi/ToggleGroup.cs`](../../TimberUi/TimberUi/CommonUi/ToggleGroup.cs) |
+| `ToggleGroupOption<TValue>` | `(Toggle Toggle, TValue Value)` group member | [`CommonUi/ToggleGroup.cs`](../../TimberUi/TimberUi/CommonUi/ToggleGroup.cs) |
+| `RecipeRow` / `RecipeRowFactory` | Ready-made recipe display row; factory is `[BindSingleton]` | [`CommonUi/RecipeRow.cs`](../../TimberUi/TimberUi/CommonUi/RecipeRow.cs) |
 | `EntityPanelFragmentElement` | Styled fragment root container | [`CommonUi/`](../../TimberUi/TimberUi/CommonUi/) |
 | `EntityPanelFragmentBackground` | Background color enum | [`CommonUi/`](../../TimberUi/TimberUi/CommonUi/) |
 | `UiCssClasses` | USS class name constants | [`UiCssClasses.cs`](../../TimberUi/TimberUi/UiCssClasses.cs) |

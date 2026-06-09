@@ -52,7 +52,7 @@ Key points:
 - The class receives its dependencies through constructor injection. `PanelStack` is a Timberborn game singleton; inject whatever services your debug action needs.
 - `DevModuleDefinition.Builder.AddMethod` accepts a `DevMethod` returned by `DevMethod.Create(label, action)`. Call `AddMethod` once per button you want in the card.
 - `.Build()` finalises the definition and returns it.
-- Your action method can be `void` or `async void`. If it performs async work (e.g. opening a dialog, see `BvmDevModule` in the same repo) it should be `async void` and awaited internally.
+- Your action method can be `void` or `async void`. If it performs async work (e.g. opening a dialog — see `BvmDevModule` at `BeavVsMachine/Services/BvmDevModule.cs`, a different mod in this repo), make it `async void` and `await` internally.
 
 ### Adding multiple buttons
 

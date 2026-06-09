@@ -229,7 +229,7 @@ byte[] encoded = WavUtility.FromAudioClip(clip, out string? savedPath, saveAsFil
 
 `SelectEntityTool` is an injectable singleton tool that lets a player click on an entity in the game world and returns the result asynchronously. It handles cursor switching, raycasting, rollover highlighting, and re-selecting the original entity when the tool exits — you just `await` the result.
 
-It is registered automatically for the Game context via `[BindSingleton(Contexts = BindAttributeContext.NonMenu)]`. Inject it wherever you need it.
+It is registered automatically in the **Game and Map Editor** contexts via `[BindSingleton(Contexts = BindAttributeContext.NonMenu)]` (`NonMenu` = `Game | MapEditor`). Inject it wherever you need it.
 
 ### Basic usage
 

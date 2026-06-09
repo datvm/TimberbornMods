@@ -145,6 +145,16 @@ this.BindTemplateModule(h => h
 this.BindSingleton<WorkQuotaTracker>(); // bound separately as singleton
 ```
 
+When the subject or decorator type is only known at runtime, use the non-generic overload that takes `Type` arguments instead:
+
+```cs
+public TemplateModuleHelper AddDecorator(Type subject, Type decorator, bool addTransient = true)
+```
+
+```cs
+this.BindTemplateModule(h => h.AddDecorator(typeof(Workplace), myDecoratorType));
+```
+
 ### Two-call form
 
 When you need to conditionally add decorators before committing, obtain the helper explicitly and call `Bind()` yourself:
@@ -166,7 +176,7 @@ public override void Configure()
 }
 ```
 
-> **Call `Bind()` exactly once.** Each `Bind()` call registers a new `TemplateModule` provider. Calling it multiple times on the same helper — or calling `Bind()` on a helper obtained via the lambda form — would register duplicate modules. Prefer the lambda form to make it impossible to forget.
+> **Call `Bind()` exactly once.** Each `Bind()` call registers a new `TemplateModule` provider, so calling it twice on the same helper registers duplicate modules. The lambda form of `BindTemplateModule` calls `Bind()` for you (and never hands you the helper), so prefer it whenever you don't need the two-call form — it makes the mistake impossible.
 
 ### When to prefer the imperative path
 
