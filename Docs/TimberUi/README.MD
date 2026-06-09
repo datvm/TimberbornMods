@@ -55,9 +55,12 @@ See [Building UI](./BuildingUi.MD) for the full builder catalog.
 ## Guides
 
 - [Dependency Injection](./DependencyInjection.MD) — the `[Bind…]` attribute family, context filtering, and the imperative `Configurator` helpers for binding, multibinding, template modules, and rebinding game services.
+- [Decorating Game Prefabs](./PrefabDecorators.MD) — attach your own components to existing buildings/characters at template-build time via `[AddTemplateModule2]` and `BindTemplateModule`.
 - [Building UI](./BuildingUi.MD) — the fluent UiBuilder DSL: rows, labels, buttons, text/number fields, sliders, dropdowns, images, progress bars, rich text, and inline styling.
 - [Entity Panel Fragments](./EntityPanelFragments.MD) — add inspector panels to buildings and characters with `BaseEntityPanelFragment<T>`, choose their position, and control their order.
 - [Dialogs & Prompts](./DialogsAndPrompts.MD) — show alerts, confirmations, and text/number input dialogs with `DialogService` and the `DialogBoxElement` family.
 - [Alerts & Bars](./AlertsAndBars.MD) — register alert-panel fragments, bottom-bar modules, and top-bar buttons.
+- [HUD & Main-Menu Injection](./HudAndMenus.MD) — add a persistent item to the top-right HUD and splice a button into the main-menu column.
 - [Optional Services](./OptionalServices.MD) — opt-in services: camera shake, mod audio clips, native file dialogs, sprite operations, achievements, update notifications, and named icons.
 - [Utilities](./Utilities.MD) — WAV loading, serializable collections, localization and persistence helpers, text-to-texture rendering, the entity-select tool, and USS/UXML export.
+- [Developer Panel Tools](./DevTools.MD) — add a section to the in-game dev panel with `IDevModule`, dump the live UI tree, and wire a dev-mode toggle.
