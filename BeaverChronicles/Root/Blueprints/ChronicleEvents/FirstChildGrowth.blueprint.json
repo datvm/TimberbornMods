@@ -1,0 +1,145 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "FirstChildGrowth",
+        "TitleLoc": "LV.BCEv.FirstChildGrowth",
+        "Conditions": {
+            "Sources": [ "BeaverGrownUp" ],
+            "Weight": 2147483647
+        },
+        "Parameters": {
+            "Floats": [
+                1.0, // F1: Party payment deadline
+                3.0, // F2: Buff days
+                0.10 // %3: Buff amount
+            ],
+            "Strings": [
+                "Berries",
+                "Water",
+                "WorkingSpeed"
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "ComputeChildPlusOne",
+            "Items": [
+                // Compute PartyCost = adults + floor((children + 1) / 2)
+                {
+                    "Id": "ComputeChildPlusOne",
+                    "Type": "SetCustomParameter",
+                    "Data": {
+                        "Name": "ChildPlusOne",
+                        "Type": "Int",
+                        "Value1": "{GS_PopulationNumberOfChild}",
+                        "Value2": "1",
+                        "Operation": "Add"
+                    },
+                    "NextNodeId": "ComputeHalfChildren"
+                },
+                {
+                    "Id": "ComputeHalfChildren",
+                    "Type": "SetCustomParameter",
+                    "Data": {
+                        "Name": "HalfChildren",
+                        "Type": "Int",
+                        "Value1": "{CP_ChildPlusOne}",
+                        "Value2": "2",
+                        "Operation": "Div"
+                    },
+                    "NextNodeId": "ComputePartyCost"
+                },
+                {
+                    "Id": "ComputePartyCost",
+                    "Type": "SetCustomParameter",
+                    "Data": {
+                        "Name": "PartyCost",
+                        "Type": "Int",
+                        "Value1": "{GS_PopulationNumberOfAdult}",
+                        "Value2": "{CP_HalfChildren}",
+                        "Operation": "Add"
+                    },
+                    "NextNodeId": "Choice"
+                },
+
+                // Choices
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.FirstChildGrowth.Content",
+                        "SideImage": true,
+                        "DefaultOption": 2,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCEv.FirstChildGrowth.C1",
+                                "NoteLoc": "LV.BCEv.FirstChildGrowth.C1N",
+                                "NextNodeId": "SetTimer"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.FirstChildGrowth.C2",
+                                "NoteLoc": "LV.BCEv.FirstChildGrowth.C2N",
+                                "NextNodeId": "NoPartyMessage"
+                            }
+                        ]
+                    }
+                },
+
+                // Party payment
+                {
+                    "Id": "SetTimer",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F1}",
+                        "PanelTextLoc": "LV.BCEv.FirstChildGrowth.C1",
+                        "PaidNodeId": "PartyBuff",
+                        "Payments": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{CP_PartyCost}"
+                            },
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{CP_PartyCost}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "NoPartyMessage"
+                },
+                {
+                    "Id": "PartyBuff",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "FirstChildGrowth_Party",
+                        "TitleLoc": "LV.BCEv.FirstChildGrowth.BuffName",
+                        "DescLoc": "LV.BCEv.FirstChildGrowth.BuffDesc",
+                        "CharacterTypes": "AdultBeaver, ChildBeaver",
+                        "Days": "{F2}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S3}",
+                                "Amount": "{F3}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "PartyMessage"
+                },
+                {
+                    "Id": "PartyMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "SideImage": true,
+                        "TextLoc": "LV.BCEv.FirstChildGrowth.O1"
+                    }
+                },
+
+                // No party
+                {
+                    "Id": "NoPartyMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "SideImage": true,
+                        "TextLoc": "LV.BCEv.FirstChildGrowth.O2"
+                    }
+                }
+            ]
+        }
+    }
+}

@@ -1,4 +1,4 @@
-﻿namespace ModdableTimberborn.GameStats;
+namespace ModdableTimberborn.GameStats;
 
 public static class GameStats
 {
@@ -11,6 +11,11 @@ public static class GameStats
     public const string TimeCycleDuration = nameof(TimeCycleDuration);
     public const string TimeDayProgress = nameof(TimeDayProgress);
     public const string TimeCycleProgress = nameof(TimeCycleProgress);
+
+    public const string WeatherCurrent = nameof(WeatherCurrent);
+    public const string WeatherWarningStage = nameof(WeatherWarningStage);
+    public const string WeatherWarningNextWeather = nameof(WeatherWarningNextWeather);
+    public const string WeatherWarningDaysToHazardous = nameof(WeatherWarningDaysToHazardous);
 
     public const string GoodAmountPrefix = "GoodAmount.";
     public const string GoodCapacityPrefix = "GoodCapacity.";

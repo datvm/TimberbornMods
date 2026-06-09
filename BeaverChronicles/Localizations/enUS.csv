@@ -90,17 +90,18 @@ LV.BCEv.Unhoused.AlreadyHoused.Content,"A few beavers begin counting beds and lo
 Every beaver already has a roof overhead. No one has been forgotten. No one has been left to curl up beside the paths at dusk. The colony is quietly pleased. It is one thing to build shelter after complaints begin. It is another to prepare it before anyone has to ask. The beavers take the news with warm satisfaction. Their homes were ready before hardship forced the issue, and that care is not forgotten. The colony rests easier, trusts deeper, and rises with renewed strength.
 [[C]][[+]]All beavers gain +{%7} Working and Movement Speed for [[time:{F9}d]]",
 LV.BCEv.FirstChildGrowth,"First Furrows",
-LV.BCEv.FirstChildGrowth.Content,"{0} has come of age. Yesterday, they chased dragonflies along the bank. Today, they stand ready to take their place among the builders, haulers, growers, and dreamers.
+LV.BCEv.FirstChildGrowth.Content,"{CP_TriggerAdultName} has come of age. Yesterday, they chased dragonflies along the bank. Today, they stand ready to take their place among the builders, haulers, growers, and dreamers.
 Some beavers suggest marking the moment with a small feast. It would cost precious resources, but a colony that celebrates its young may find its spirits lifted.",
 LV.BCEv.FirstChildGrowth.C1,"Hold a party",
-LV.BCEv.FirstChildGrowth.C1N,"[[C]]Pay [[good:{1}:{2}]] and [[good:{3}:{4}]] in [[time:{0}d]].",
+LV.BCEv.FirstChildGrowth.C1N,"[[C]]Pay [[good:{S1}:{CP_PartyCost}]] and [[good:{S2}:{CP_PartyCost}]] in [[time:{F1}d]].",
 LV.BCEv.FirstChildGrowth.C2,"Let the day pass",
 LV.BCEv.FirstChildGrowth.C2N,"[[C]]Nothing happens",
-LV.BCEv.FirstChildGrowth.O1,"The feast is simple, but joyful. Food is shared, cups are raised, and {0} is welcomed into adulthood with cheers, jokes, and proud tail-slaps.
+LV.BCEv.FirstChildGrowth.O1,"The feast is simple, but joyful. Food is shared, cups are raised, and {CP_TriggerAdultName} is welcomed into adulthood with cheers, jokes, and proud tail-slaps.
 For a moment, the colony feels less like a settlement and more like a family.
-[[C]][[+]]All beavers gain {1} for [[time:{2}d]]",
+[[C]][[+]]All beavers gain +{%3} Working Speed for [[time:{F2}d]]",
 LV.BCEv.FirstChildGrowth.O2,"The planned celebration never quite comes together. Supplies are needed elsewhere, and the colony quietly returns to its routines.",
 LV.BCEv.FirstChildGrowth.BuffName,"Celebration",
+LV.BCEv.FirstChildGrowth.BuffDesc,"+{%3} Working Speed",
 LV.BCEv.DroughtPrep,"Dry Days Ahead",
 LV.BCEv.DroughtPrep.Content,"The air has turned brittle, and the river runs lower than it should. Old paws sniff the wind and mutter that a drought is coming.
 A group of volunteers gathers before dawn, packs ready and tails high. They want to make one last trip before the dry days arrive, but the colony must decide where their effort is best spent.",
@@ -108,13 +109,13 @@ LV.BCEv.DroughtPrep.C1,"Search the spring",
 LV.BCEv.DroughtPrep.C2,"Search the woods",
 LV.BCEv.DroughtPrep.C3,"Search the meadow",
 LV.BCEv.DroughtPrep.O1,"The volunteers return with muddy paws and full barrels. The spring was weak, but not empty.
-[[C]][[+]]Gain [[good:{0}:{1}]]",
+[[C]][[+]]Gain [[good:{S2}:{I1}]]",
 LV.BCEv.DroughtPrep.O4,"The volunteers find only damp stones and cracked reeds. Whatever water once pooled there has already sunk away.",
 LV.BCEv.DroughtPrep.O2,"The volunteers return dragging branches, cuttings, and dry timber. The woods offered more than expected.
-[[C]][[+]]Gain [[good:{0}:{1}]]",
+[[C]][[+]]Gain [[good:{S3}:{I2}]]",
 LV.BCEv.DroughtPrep.O5,"The woods are quiet and picked clean. The volunteers return tired, with little more than scratches and burrs.",
 LV.BCEv.DroughtPrep.O3,"The volunteers come back with baskets of gathered food, enough to make the coming days feel a little less sharp.
-[[C]][[+]]Gain [[good:{0}:{1}]]",
+[[C]][[+]]Gain [[good:{S4}:{I3}]]",
 LV.BCEv.DroughtPrep.O6,"The meadow has already withered under the heat. The volunteers find only dry stalks and empty roots.",
 LV.BCEv.FoodWoodDispute1,"Axes and Plows",
 LV.BCEv.FoodWoodDispute1.Content,"A quarrel has grown between the farmers and the lumberjacks. At first, it was only boasting over whose work mattered more. Then the jokes sharpened, the grumbling spread, and soon both sides were loudly claiming that the colony would fall apart without them.
