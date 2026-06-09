@@ -2,10 +2,6 @@
 	<PropertyGroup>
 		<OutputModFolderName>BeaverChronicles</OutputModFolderName>
 	</PropertyGroup>
-	<ItemGroup>
-	  <Compile Remove="Events\Implementations\**" />
-	  <None Include="Events\Implementations\**" />
-	</ItemGroup>
 
 	<Import Project="../Targets/Common.targets" />
 	<Import Project="../Targets/CommonModdableTimberborn.targets" />
