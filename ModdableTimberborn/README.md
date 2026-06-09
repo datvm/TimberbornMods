@@ -35,7 +35,7 @@ A single `Harmony` instance named `"ModdableTimberborn"` is created in the stati
 
 ## Subsystems (Table of Contents)
 
-Each subsystem has its own README under `.notes/ModdableTimberborn/<FolderName>/README.md`.
+Each subsystem has its own README under `ModdableTimberborn/<FolderName>/README.md`.
 
 - **Areas** — geographic/zone area definitions and helpers used by other subsystems.
 - **BonusSystem** — generic value-bonus/modifier pipeline; provides typed modifier collections consumed by mechanical, entity-stat, and other systems.
