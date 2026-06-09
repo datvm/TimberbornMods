@@ -1,11 +1,12 @@
-﻿
-namespace BeaverChronicles.Services.Conditions;
+﻿namespace BeaverChronicles.Services.Conditions;
 
 public record HasBuildingData
 {
     public static readonly HasBuildingData Default = new();
 
     public FrozenSet<string> TemplateNames { get; init; } = [];
+    public ImmutableArray<string> TemplateNamePrefixes { get; init; } = [];
+
     public MinMaxInt Amount { get; init; } = MinMax.Min1;
     public bool IncludeUnderConstruction { get; init; }
     public ImmutableArray<SerializableBoundsInts> Areas { get; init; } = [];
@@ -15,28 +16,36 @@ public record HasBuildingData
 [MultiBind(typeof(IConditionEvaluator))]
 public class HasBuilding(
     DefaultEntityTracker<BlockObjectBound> blockObjects
-) : IConditionEvaluator
+) : ConditionEvaluatorBase<HasBuildingData>
 {
-    public string ForType => nameof(HasBuilding);
+    public override string ForType => nameof(HasBuilding);
 
-    public bool Evaluate(ConditionItem c, SpecChronicleEvent ev, ChronicleEventNodeSpec node, ConditionData conditionData)
+    protected override bool Evaluate(HasBuildingData? p, ConditionItem c, SpecChronicleEvent ev, ChronicleEventNodeSpec node, ConditionData conditionData)
     {
-        var data = c.GetParameters<HasBuildingData>() ?? HasBuildingData.Default;
-        return data.Amount.Evaluate(Count());
+        p ??= HasBuildingData.Default;
+        return p.Amount.Evaluate(Count());
 
         IEnumerable<bool> Count()
         {
-            var mustFinish = !data.IncludeUnderConstruction;
-            var templates = data.TemplateNames;
+            var mustFinish = !p.IncludeUnderConstruction;
+            var templates = p.TemplateNames;
+            var templatePrefixes = p.TemplateNamePrefixes;
 
-            var hasAreas = data.Areas.Length > 0;
-            var areas = hasAreas ? data.Areas.Select(a => (BoundsInt)a).ToArray() : null;
-            var areaCond = data.AreaCondition;
+            var hasAreas = p.Areas.Length > 0;
+            var areas = hasAreas ? p.Areas.Select(a => (BoundsInt)a).ToArray() : null;
+            var areaCond = p.AreaCondition;
 
             foreach (var bound in blockObjects.Entities)
             {
                 if (mustFinish && !bound.BlockObject.IsFinished) { continue; }
-                if (!templates.EmptyOrContains(bound.GetTemplateName())) { continue; }
+
+                if (templates.Count > 0 || templatePrefixes.Length > 0)
+                {
+                    var templateName = bound.GetTemplateName();
+
+                    if (!templates.EmptyOrContains(templateName)) { continue; }
+                    if (!templatePrefixes.EmptyOrAny(p => templateName.StartsWith(p))) { continue; }
+                }
 
                 if (hasAreas)
                 {

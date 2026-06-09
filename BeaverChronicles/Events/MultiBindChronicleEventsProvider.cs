@@ -1,4 +1,4 @@
-﻿namespace BeaverChronicles.Services;
+﻿namespace BeaverChronicles.Events;
 
 [MultiBind(typeof(IChronicleEventsProvider))]
 public class MultiBindChronicleEventsProvider(IEnumerable<IChronicleEvent> events) : IChronicleEventsProvider

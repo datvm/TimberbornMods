@@ -1,25 +1,21 @@
 ﻿namespace BeaverChronicles.Services;
 
 [BindSingleton]
-public class ChronicleEventService(
+public class ChronicleEventOrchestrator(
     ChronicleEventRegistry registry,
-    ChronicleEventHistoryService history,
+    ChronicleEventRecords history,
     ChronicleGameEventHandler gameEventHandler,
     IDayNightCycle dayNightCycle,
     ActiveChronicleEventService activeEventService,
-    ChronicleEventFlagHelper flagHelper
+    HelperCollection helperCollection
 ) : ILoadableSingleton, IPostLoadableSingleton, ITickableSingleton
 {
-    public readonly ChronicleEventRegistry Registry = registry;
-    public readonly ChronicleEventHistoryService History = history;
-    public readonly ChronicleEventFlagHelper FlagHelper = flagHelper;
 
     public IChronicleEvent? ActiveEvent { get; private set; }
-    public EventHistoryRecord? ActiveRecord => History.ActiveRecord;
     public bool HasActiveEvent => ActiveEvent is not null;
 
     public event EventHandler<IChronicleEvent>? BeforeEventTriggered;
-    public event EventHandler<IChronicleEvent>? OnEventEnded;
+    public event EventHandler<IChronicleEvent>? EventEnded;
     public event EventHandler<IChronicleEvent?> ActiveEventChanged = null!;
 
     public void Load()
@@ -37,63 +33,58 @@ public class ChronicleEventService(
 
     public void PostLoad()
     {
-        if (!HasActiveEvent)
-        {
-            gameEventHandler.StartListening();
-        }
-    }
-
-    public void ConcludeEvent(bool? doNotRepeat = null)
-    {
-        if (!HasActiveEvent)
-        {
-            throw new InvalidOperationException("No active event to conclude.");
-        }
-
-        var e = ActiveEvent!;
-        BeaverChroniclesUtils.Log($"Concluding event {e.Id}");
-
-        History.EndEvent();
-
-        OnEventEnded?.Invoke(this, e);
-
-        doNotRepeat ??= (!e.CanRepeat);
-        if (doNotRepeat == true)
-        {
-            History.MarkFinished(e.Id);
-        }
-
-        ActiveEvent = null;
-        ActiveEventChanged?.Invoke(this, null);
-
         if (MetMinimumEventDay)
         {
             gameEventHandler.StartListening();
         }
     }
 
+    public void ConcludeEvent(ChronicleEventContext context, bool? doNotRepeat = null)
+    {
+        ConcludeEvent(context.Event, context.Record, doNotRepeat);
+    }
+
+    void ConcludeEvent(IChronicleEvent e, EventHistoryRecord record, bool? doNotRepeat = null)
+    {
+        BeaverChroniclesUtils.Log($"Concluding event {e.Id}");
+
+        history.EndEvent(record);
+        EventEnded?.Invoke(this, e);
+
+        if (ActiveEvent == e)
+        {
+            ActiveEvent = null;
+            ActiveEventChanged?.Invoke(this, null);
+        }
+
+        doNotRepeat ??= (!e.CanRepeat);
+        if (doNotRepeat.Value)
+        {
+            history.MarkFinished(e.Id);
+        }
+    }
+
     public void RequestNextEvent(string? id)
     {
-        if (id is not null && !Registry.Has(id))
+        if (id is not null && !registry.Has(id))
         {
             throw new ArgumentException($"Event ID '{id}' not found in registry.", nameof(id));
         }
 
-        History.NextEventIdRequested = id;
+        history.NextEventIdRequested = id;
     }
 
-    public void RequestNextEventDelay(float delayDays) => History.RequestNextEventDelay(delayDays);
+    public void RequestNextEventDelay(float delayDays) => history.RequestNextEventDelay(delayDays);
 
-    public bool HasCompletedEvent(string id) => History.HasFinished(id);
-
-    ChronicleEventContext CreateContext(IEventTriggerParameters parameters) => new(parameters, History, FlagHelper, this);
+    public bool HasCompletedEvent(string id) => history.HasFinished(id);
 
     void OnGameEvent(object sender, IEventTriggerParameters p)
     {
         var e = ChooseEvent(p);
         if (e is null) { return; }
 
-        PerformTrigger(e, p);
+        var record = history.StartEvent(e.Id, e is IMiniChronicleEvent);
+        PerformTrigger(e, p, record);
     }
 
     IChronicleEvent? ChooseEvent(IEventTriggerParameters p)
@@ -105,8 +96,12 @@ public class ChronicleEventService(
         }
 
         var specific = p is IEventSpecificTriggerParameters specificParams ? specificParams.Event : null;
+        if (HasActiveEvent && specific is not IMiniChronicleEvent)
+        {
+            return null;
+        }
 
-        var requestedNextEventId = History.NextEventIdRequested;
+        var requestedNextEventId = history.NextEventIdRequested;
         if (requestedNextEventId is not null)
         {
             // If a specific event is being requested but it doesn't match the requested next event ID, skip.
@@ -120,7 +115,7 @@ public class ChronicleEventService(
             return ChooseRequestedEvent(p, specific.Id);
         }
 
-        var events = Registry.EventsByTrigger[p.Source];
+        var events = registry.EventsByTrigger[p.Source];
         if (events.Length == 0) { return null; }
 
         var totalWeight = 0;
@@ -129,14 +124,16 @@ public class ChronicleEventService(
 
         foreach (var e in events)
         {
-            if (History.HasFinished(e.Id)) { continue; }
+            if (HasActiveEvent && e is not IMiniChronicleEvent) { continue; }
+
+            if (history.HasFinished(e.Id)) { continue; }
 
             var weight = e.GetTriggerWeight(CreateContext(p));
             if (weight <= 0)
             {
                 if (weight == -1)
                 {
-                    History.MarkFinished(e.Id);
+                    history.MarkFinished(e.Id);
                 }
 
                 continue;
@@ -179,19 +176,20 @@ public class ChronicleEventService(
 
     IChronicleEvent? ChooseRequestedEvent(IEventTriggerParameters p, string id)
     {
-        if (History.HasFinished(id) || !Registry.TryGet(id, out var e))
+        if (history.HasFinished(id) || !registry.TryGet(id, out var e))
         {
-            History.NextEventIdRequested = null;
+            history.NextEventIdRequested = null;
             return null;
         }
 
         if (!e.TriggerSources.Contains(p.Source)) { return null; }
+        if (HasActiveEvent && e is not IMiniChronicleEvent) { return null; }
 
         var weight = e.GetTriggerWeight(CreateContext(p));
         if (weight == -1)
         {
-            History.NextEventIdRequested = null;
-            History.MarkFinished(e.Id);
+            history.NextEventIdRequested = null;
+            history.MarkFinished(e.Id);
             return null;
         }
 
@@ -200,45 +198,58 @@ public class ChronicleEventService(
 
     void TriggerSavedEvent()
     {
-        var activeId = History.ActiveEventId;
+        var activeId = history.ActiveEventId;
         if (activeId is null) { return; }
 
-        if (Registry.TryGet(activeId, out var e))
+        if (registry.TryGet(activeId, out var e))
         {
-            PerformTrigger(e, IEventTriggerParameters.GameLoad);
+            PerformTrigger(e, IEventTriggerParameters.GameLoad, history.ActiveRecord!);
         }
         else
         {
             Debug.LogWarning($"Active event ID '{activeId}' not found in registry. Clearing active event.");
-            History.EndEvent();
+            history.EndEvent();
         }
     }
 
-    void PerformTrigger(IChronicleEvent e, IEventTriggerParameters parameters)
+    void PerformTrigger(IChronicleEvent e, IEventTriggerParameters parameters, EventHistoryRecord record)
     {
-        gameEventHandler.StopListening();
-
-        if (parameters.Source != EventTriggerSource.GameLoad)
+        var isMiniEvent = e is IMiniChronicleEvent;
+        if (!isMiniEvent)
         {
-            History.StartEvent(e.Id);
+            if (HasActiveEvent)
+            {
+                throw new InvalidOperationException($"Only mini event can be triggered when there is already an active event. Active event: {ActiveEvent}, attempted to trigger: {e}");
+            }
         }
-
+        else
+        {
+            if (parameters.Source == EventTriggerSource.GameLoad)
+            {
+                throw new InvalidOperationException("Mini events cannot be triggered from game load.");
+            }
+        }
+        
         BeaverChroniclesUtils.Log($"Triggering event {e.Id}");
         TimberUiUtils.LogVerbose(() => "- Parameters: " + parameters);
 
         // Clear the requested next event parameters since we're triggering an event (whether it's the requested one or not)
-        History.NextEventIdRequested = null;
-        History.RequestNextEventDelay(0);
+        history.NextEventIdRequested = null;
+        history.RequestNextEventDelay(0);
 
-        ActiveEvent = e;
         BeforeEventTriggered?.Invoke(this, e);
-        ActiveEventChanged?.Invoke(this, e);
-        e.Trigger(CreateContext(parameters));
+        if (!isMiniEvent)
+        {
+            ActiveEvent = e;
+            ActiveEventChanged?.Invoke(this, e);
+        }
+
+        e.Trigger(CreateContext(parameters, e, record));
     }
 
     public void Tick()
     {
-        if (gameEventHandler.Listening || HasActiveEvent) { return; }
+        if (gameEventHandler.Listening) { return; }
 
         if (MetMinimumEventDay)
         {
@@ -246,6 +257,16 @@ public class ChronicleEventService(
         }
     }
 
-    public bool MetMinimumEventDay => dayNightCycle.PartialDayNumber >= History.NextEventMinimumDay;
+    public bool MetMinimumEventDay => dayNightCycle.PartialDayNumber >= history.NextEventMinimumDay;
 
+    ChronicleTriggerContext CreateContext(IEventTriggerParameters p) => new(p, history, helperCollection);
+
+    ChronicleEventContext CreateContext(IEventTriggerParameters p, IChronicleEvent ev, EventHistoryRecord record)
+    {
+        var occurrence = history.GetOccurrence(record);
+        var context = new ChronicleEventContext(ev, record, occurrence, p, history, helperCollection, this);
+        context.Initialize();
+        helperCollection.Flags.MarkEvent(ev.Id, occurrence);
+        return context;
+    }
 }

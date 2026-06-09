@@ -1,10 +1,10 @@
-﻿namespace BeaverChronicles.Services;
+﻿namespace BeaverChronicles.Events;
 
 [MultiBind(typeof(IChronicleEventsProvider))]
 public class SpecChronicleEventProvider(
     ISpecService specs,
     IEnumerable<ISpecChronicleEventCustomCode> customCodes,
-    SpecChronicleEventHelperFactory helperFac,
+    SpecChronicleEventControllerFactory helperFac,
     ChronicleEventConditionService conditions
 ) : IChronicleEventsProvider
 {
@@ -12,11 +12,12 @@ public class SpecChronicleEventProvider(
     public IEnumerable<IChronicleEvent> GetEvents()
     {
         var codeById = customCodes.ToDictionary(c => c.Id);
-        
+
         var evSpecs = specs.GetSpecs<ChronicleEventSpec>();
 
         foreach (var spec in evSpecs)
         {
+            spec.Nodes.Initialize();
             ValidateSpec(spec);
 
             if (!codeById.Remove(spec.Id, out var customCode) && spec.NeedCustomCode)
@@ -24,7 +25,12 @@ public class SpecChronicleEventProvider(
                 throw new InvalidOperationException($"Spec {spec.Id} requires custom code, but none was found.");
             }
 
-            yield return new SpecChronicleEvent(spec, customCode, helperFac);
+
+            var ev = spec.IsMini
+                ? new MiniSpecChronicleEvent(spec, customCode, helperFac)
+                : new SpecChronicleEvent(spec, customCode, helperFac);
+            ev.Initialize();
+            yield return ev;
         }
 
         if (codeById.Count > 0)
@@ -41,11 +47,13 @@ public class SpecChronicleEventProvider(
             throw new InvalidDataException("Spec Id cannot be null or empty. Blueprint name: " + spec.Blueprint.Name);
         }
 
+        var isMini = spec.IsMini;
+
         foreach (var n in spec.Nodes.Items)
         {
             if (!helperFac.CanHandle(n.Type))
             {
-                throw new InvalidDataException($"Spec {spec.Id} contains node with unsupported type: {n.Type}");
+                throw new InvalidDataException($"{GetErrPrefix(n)}Node type {n.Type} is not supported.");
             }
 
             if (n.Type == ConditionNodeHandler.NodeType)
@@ -54,19 +62,41 @@ public class SpecChronicleEventProvider(
 
                 if (data.Conditions.Length == 0)
                 {
-                    throw new InvalidDataException($"Spec {spec.Id}, Node {n.Id}: empty conditions array is not allowed.");
+                    throw new InvalidDataException($"{GetErrPrefix(n)}Empty conditions array is not allowed.");
                 }
 
                 foreach (var c in data.Conditions)
                 {
                     if (!conditions.HasEvaluator(c.Type))
                     {
-                        throw new InvalidDataException($"Spec {spec.Id}, Node {n.Id}: condition type {c.Type} is not supported.");
+                        throw new InvalidDataException($"{GetErrPrefix(n)}Condition type {c.Type} is not supported.");
                     }
+                }
+            }
+
+            if (n.Type == TimeLimitNodeHandler.NodeType)
+            {
+                if (isMini)
+                {
+                    throw new InvalidDataException($"{GetErrPrefix(n)}Mini events cannot contain a TimeLimit node.");
+                }
+
+                var data = n.GetData<TimeLimitData>();
+                var days = data.Days;
+                var hours = data.Hours;
+                if (days is not null && hours is not null)
+                {
+                    throw new InvalidDataException($"{GetErrPrefix(n)}TimeLimit node cannot have both days and hours set. Set one or the other only.");
+                }
+
+                if (days is null && hours is null)
+                {
+                    throw new InvalidDataException($"{GetErrPrefix(n)}TimeLimit node must have either days or hours set.");
                 }
             }
         }
 
+        string GetErrPrefix(ChronicleEventNodeSpec n) => $"Spec {spec.Id}, Node {n.Id}: ";
     }
 
 }

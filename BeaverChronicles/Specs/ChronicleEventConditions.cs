@@ -7,6 +7,18 @@ public record ChronicleEventConditions
     public ImmutableArray<EventTriggerSource> Sources { get; init; } = [];
 
     [Serialize]
+    public float MinDay { get; init; }
+
+    [Serialize]
+    public float MaxDay { get; init; }
+
+    [Serialize]
+    public int MinCycle { get; init; }
+
+    [Serialize]
+    public int MaxCycle { get; init; }
+
+    [Serialize]
     public ImmutableArray<string> RequiredFlags { get; init; } = [];
     [Serialize]
     public ConditionType RequiredFlagsCondition { get; init; } = ConditionType.Any;
@@ -20,6 +32,9 @@ public record ChronicleEventConditions
     public ImmutableArray<string> BlockedFlags { get; init; } = [];
     [Serialize]
     public ConditionType BlockedFlagsCondition { get; init; } = ConditionType.Any;
+
+    [Serialize]
+    public string? ConditionNodeId { get; init; }
 
     [Serialize]
     public int Weight { get; init; }

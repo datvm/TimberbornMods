@@ -13,6 +13,7 @@ public class ChronicleEventUIHelper(
     public static string GetDefaultContentLoc(string eventId) => $"LV.BCEv.{eventId}.Content";
     public static string GetTopImagePath(string id) => RecommendedImagePath + id + "_Top";
     public static string GetSideImagePath(string id) => RecommendedImagePath + id + "_Side";
+    public static string GetImagePath(string name) => RecommendedImagePath + name;
 
     public async Task<int> ShowChoiceDialogAsync(IChronicleEvent ev, Action<ChronicleEventChoiceDialogBuilder> buildFn)
     {

@@ -1,16 +1,16 @@
-﻿namespace BeaverChronicles.Services;
+﻿namespace BeaverChronicles.Services.Helpers;
 
 [BindSingleton]
-public class ChronicleEventFlagHelper(
+public class FlagHelper(
     ChronicleEventFlagService persistence,
     MapNameService mapNameService,
     ISingletonLoader loader,
-    ChronicleEventHistoryService history
+    ChronicleEventRecords history
 ) : ILoadableSingleton, ISaveableSingleton
 {
     public const char FlagSeparator = '.';
 
-    static readonly SingletonKey SaveKey = new(nameof(ChronicleEventFlagHelper));
+    static readonly SingletonKey SaveKey = new(nameof(FlagHelper));
     static readonly PropertyKey<bool> Initialized = new("Initialized");
 
     public void Load()

@@ -42,69 +42,69 @@ Duplicate stat IDs across providers throw immediately at load — this is intent
 
 ## Built-in stat keys
 
-Use the constants on [`GameStats`](../../ModdableTimberborn/GameStats/GameStats.cs) instead of duplicating string literals where possible. The key column below shows the actual string value registered by the providers.
+Use the constants on [`GameStats`](../../ModdableTimberborn/GameStats/GameStats.cs) instead of duplicating string literals where possible. Fixed built-in stat IDs use the same string value as their constant name.
 
 ### Time values
 
 Provided by [`TimeStatsProvider`](../../ModdableTimberborn/GameStats/Implementations/TimeStatsProvider.cs).
 
-| Constant | Key | Type | Description |
-|---|---|---|---|
-| `GameStats.TimePartialDay` | `GameDayHours` | `float` | Current day number including partial day progress |
-| `GameStats.TimePartialCycleDay` | `GameCycleDayHours` | `float` | Current cycle day including partial day progress |
-| `GameStats.TimeTodayHours` | `GameTodayHours24` | `float` | Hours passed today |
-| `GameStats.TimeDayNumber` | `GameDayNumber` | `int` | Current game day number |
-| `GameStats.TimeCycle` | `GameCycle` | `int` | Current cycle number |
-| `GameStats.TimeCycleDay` | `GameCycleDay` | `int` | Current day within the cycle |
-| `GameStats.TimeCycleDuration` | `GameCycleDuration` | `int` | Current cycle duration in days |
-| `GameStats.TimeDayProgress` | `GameDayProgress` | `float` | Current day progress from 0–1 |
-| `GameStats.TimeCycleProgress` | `GameCycleProgress` | `float` | Current cycle progress from 0–1 |
+| Constant | Type | Description |
+|---|---|---|
+| `GameStats.TimePartialDay` | `float` | Current day number including partial day progress |
+| `GameStats.TimePartialCycleDay` | `float` | Current cycle day including partial day progress |
+| `GameStats.TimeTodayHours` | `float` | Hours passed today |
+| `GameStats.TimeDayNumber` | `int` | Current game day number |
+| `GameStats.TimeCycle` | `int` | Current cycle number |
+| `GameStats.TimeCycleDay` | `int` | Current day within the cycle |
+| `GameStats.TimeCycleDuration` | `int` | Current cycle duration in days |
+| `GameStats.TimeDayProgress` | `float` | Current day progress from 0–1 |
+| `GameStats.TimeCycleProgress` | `float` | Current cycle progress from 0–1 |
 
 ### Population counts (`int`)
 
 Provided by [`GlobalPopulationStatsProvider`](../../ModdableTimberborn/GameStats/Implementations/GlobalPopulationStatsProvider.cs).
 
-| Constant | Key | Description |
-|---|---|---|
-| `GameStats.PopulationNumberOfAdult` | `NumberOfAdults` | Adult beavers |
-| `GameStats.PopulationNumberOfChild` | `NumberOfChildren` | Beaver children |
-| `GameStats.PopulationNumberOfBot` | `NumberOfBots` | Bots |
-| `GameStats.PopulationNumberOfBeaver` | `NumberOfBeavers` | All beavers (adults + children) |
-| `GameStats.PopulationNumberOfHealthyAdult` | `NumberOfHealthyAdults` | Healthy adult beavers |
-| `GameStats.PopulationNumberOfHealthyChild` | `NumberOfHealthyChildren` | Healthy beaver children |
-| `GameStats.PopulationTotal` | `TotalPopulation` | All beavers and bots combined |
-| `GameStats.BedOccupied` | `OccupiedBeds` | Beds currently occupied |
-| `GameStats.BedFree` | `FreeBeds` | Unoccupied beds |
-| `GameStats.BedTotal` | `TotalBeds` | Occupied + free beds |
-| `GameStats.BedHomeless` | `Homeless` | Beavers without a bed |
-| `GameStats.ContaminationAdult` | `ContaminatedAdults` | Contaminated adult beavers |
-| `GameStats.ContaminationChild` | `ContaminatedChildren` | Contaminated beaver children |
-| `GameStats.ContaminationTotal` | `ContaminatedTotal` | All contaminated beavers |
+| Constant | Description |
+|---|---|
+| `GameStats.PopulationNumberOfAdult` | Adult beavers |
+| `GameStats.PopulationNumberOfChild` | Beaver children |
+| `GameStats.PopulationNumberOfBot` | Bots |
+| `GameStats.PopulationNumberOfBeaver` | All beavers (adults + children) |
+| `GameStats.PopulationNumberOfHealthyAdult` | Healthy adult beavers |
+| `GameStats.PopulationNumberOfHealthyChild` | Healthy beaver children |
+| `GameStats.PopulationTotal` | All beavers and bots combined |
+| `GameStats.BedOccupied` | Beds currently occupied |
+| `GameStats.BedFree` | Unoccupied beds |
+| `GameStats.BedTotal` | Occupied + free beds |
+| `GameStats.BedHomeless` | Beavers without a bed |
+| `GameStats.ContaminationAdult` | Contaminated adult beavers |
+| `GameStats.ContaminationChild` | Contaminated beaver children |
+| `GameStats.ContaminationTotal` | All contaminated beavers |
 
 #### Workforce counts (`int`)
 
-Unprefixed keys return the combined beaver + bot total. Use the beaver or bot constants for per-type values.
+The base constants return the combined beaver + bot total. Use the beaver or bot constants for per-type values.
 
-| Total constant | Total key | Beaver constant | Beaver key | Bot constant | Bot key |
-|---|---|---|---|---|---|
-| `GameStats.WorkforceEmployable` | `Employable` | `GameStats.WorkforceBeaverEmployable` | `BeaversEmployable` | `GameStats.WorkforceBotEmployable` | `BotEmployable` |
-| `GameStats.WorkforceUnemployable` | `Unemployable` | `GameStats.WorkforceBeaverUnemployable` | `BeaversUnemployable` | `GameStats.WorkforceBotUnemployable` | `BotUnemployable` |
-| `GameStats.WorkforceTotal` | `Total` | `GameStats.WorkforceBeaverTotal` | `BeaversTotal` | `GameStats.WorkforceBotTotal` | `BotTotal` |
+| Total constant | Beaver constant | Bot constant |
+|---|---|---|
+| `GameStats.WorkforceEmployable` | `GameStats.WorkforceBeaverEmployable` | `GameStats.WorkforceBotEmployable` |
+| `GameStats.WorkforceUnemployable` | `GameStats.WorkforceBeaverUnemployable` | `GameStats.WorkforceBotUnemployable` |
+| `GameStats.WorkforceTotal` | `GameStats.WorkforceBeaverTotal` | `GameStats.WorkforceBotTotal` |
 
 ### Population ratios (`float`, formatted as percentage)
 
 Provided by [`GlobalPopulationPercentStatsProvider`](../../ModdableTimberborn/GameStats/Implementations/GlobalPopulationPercentStatsProvider.cs). All values are floats in the range 0–1; `GetStatFormatted` renders them as `"P0"` strings (e.g. `"42 %"`), or `"N/A"` for negative values.
 
-| Constant | Key | Ratio |
-|---|---|---|
-| `GameStats.PopulationBeaverPercent` | `BeaverPercent` | Beavers as a share of total population |
-| `GameStats.PopulationBotPercent` | `BotPercent` | Bots as a share of total population |
-| `GameStats.PopulationAdultPercent` | `AdultPercent` | Adults as a share of beavers |
-| `GameStats.PopulationChildPercent` | `ChildPercent` | Children as a share of beavers |
-| `GameStats.BedHomelessPercent` | `HomelessPercent` | Homeless as a share of beavers |
-| `GameStats.ContaminationAdultPercent` | `AdultContaminatedPercent` | Contaminated adults as a share of beavers |
-| `GameStats.ContaminationChildPercent` | `ChildContaminatedPercent` | Contaminated children as a share of beavers |
-| `GameStats.ContaminationPercent` | `ContaminatedPercent` | All contaminated as a share of beavers |
+| Constant | Ratio |
+|---|---|
+| `GameStats.PopulationBeaverPercent` | Beavers as a share of total population |
+| `GameStats.PopulationBotPercent` | Bots as a share of total population |
+| `GameStats.PopulationAdultPercent` | Adults as a share of beavers |
+| `GameStats.PopulationChildPercent` | Children as a share of beavers |
+| `GameStats.BedHomelessPercent` | Homeless as a share of beavers |
+| `GameStats.ContaminationAdultPercent` | Contaminated adults as a share of beavers |
+| `GameStats.ContaminationChildPercent` | Contaminated children as a share of beavers |
+| `GameStats.ContaminationPercent` | All contaminated as a share of beavers |
 
 ### Per-good stats
 

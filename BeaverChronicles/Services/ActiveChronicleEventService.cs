@@ -14,6 +14,7 @@ public class ActiveChronicleEventService(
 
     public float? SavedProgress { get; private set; }
     public ActiveEventPayment? SavedPayment { get; private set; }
+    public bool HasSavedPayment => SavedPayment is not null;
 
     IChronicleEvent? ev;
     public IChronicleEvent? ActiveEvent => ev;

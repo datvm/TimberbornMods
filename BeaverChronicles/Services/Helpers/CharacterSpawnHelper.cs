@@ -1,4 +1,4 @@
-﻿namespace BeaverChronicles.Services;
+﻿namespace BeaverChronicles.Services.Helpers;
 
 [BindSingleton]
 public class CharacterSpawnHelper(

@@ -3,7 +3,8 @@
 		<OutputModFolderName>BeaverChronicles</OutputModFolderName>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Folder Include="Root\Blueprints\ChronicleEvents\" />
+	  <Compile Remove="Events\Implementations\**" />
+	  <None Include="Events\Implementations\**" />
 	</ItemGroup>
 
 	<Import Project="../Targets/Common.targets" />

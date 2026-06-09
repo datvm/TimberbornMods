@@ -1,0 +1,200 @@
+﻿{
+    "ChronicleEventSpec": {
+        "Id": "FirstDeath",
+        "TitleLoc": "LV.BCEv.FirstDeath",
+        "Conditions": {
+            "Sources": [ "CharacterDeath" ],
+            "Weight": 2147483647,
+            "ConditionNodeId": "IsBeaverDeath"
+        },
+        "Parameters": {
+            "Floats": [
+                2.0, // F1: Raft payment deadline
+                5.0, // F2: Cemetery payment deadline
+                0.70, // F3: No consequence chance
+                -0.15, // %4: Failure penalty
+                3.0 // F5: Failure penalty days
+            ],
+            "Strings": [
+                "Log", // S1: Raft item
+                "Science", // S2: Cemetery science item
+                "Plank", // S3: Cemetery plank item
+                "Remembrance", // S4: Buff applied for both choices
+                "WorkingSpeed" // S5: Failure penalty stat
+            ],
+            "Ints": [
+                3, // I1: Raft log cost
+                10, // I2: Cemetery science cost
+                20 // I3: Cemetery plank cost
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                // Trigger eligibility
+                {
+                    "Id": "IsBeaverDeath",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "TriggerCharacter",
+                                "Parameters": {
+                                    "IsBeaver": true
+                                }
+                            }
+                        ]
+                    }
+                },
+
+                // Choices
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.FirstDeath.Content",
+                        "TopImage": true,
+                        "DefaultOption": 3,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCEv.FirstDeath.C1",
+                                "NoteLoc": "LV.BCEv.FirstDeath.C1N",
+                                "NextNodeId": "SetTimer1"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.FirstDeath.C2",
+                                "NoteLoc": "LV.BCEv.FirstDeath.C2N",
+                                "NextNodeId": "SetTimer2"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.FirstDeath.C3",
+                                "NoteLoc": "LV.BCEv.FirstDeath.C3N",
+                                "NextNodeId": "IgnoreChance"
+                            }
+                        ]
+                    }
+                },
+
+                // Choice 1: send downriver
+                {
+                    "Id": "SetTimer1",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F1}",
+                        "PanelTextLoc": "LV.BCEv.FirstDeath.C1",
+                        "PaidNodeId": "RaftNeedBuff",
+                        "Payments": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{I1}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "FailureBuff"
+                },
+                {
+                    "Id": "RaftNeedBuff",
+                    "Type": "BuffCharacterNeeds",
+                    "Data": {
+                        "Id": "{S4}"
+                    },
+                    "NextNodeId": "RaftMessage"
+                },
+                {
+                    "Id": "RaftMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImagePath": "Resources/Chronicles/FirstDeath_O1_Top",
+                        "TextLoc": "LV.BCEv.FirstDeath.O1"
+                    }
+                },
+
+                // Choice 2: build cemetery
+                {
+                    "Id": "SetTimer2",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F2}",
+                        "PanelTextLoc": "LV.BCEv.FirstDeath.C2",
+                        "PaidNodeId": "CemeteryNeedBuff",
+                        "Payments": [
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{I2}"
+                            },
+                            {
+                                "Id": "{S3}",
+                                "Amount": "{I3}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "FailureBuff"
+                },
+                {
+                    "Id": "CemeteryNeedBuff",
+                    "Type": "BuffCharacterNeeds",
+                    "Data": {
+                        "Id": "{S4}",
+                        "Permanent": true
+                    },
+                    "NextNodeId": "CemeteryMessage"
+                },
+                {
+                    "Id": "CemeteryMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImagePath": "Resources/Chronicles/FirstDeath_O2_Top",
+                        "TextLoc": "LV.BCEv.FirstDeath.O2"
+                    }
+                },
+
+                // Choice 3: keep working
+                {
+                    "Id": "IgnoreChance",
+                    "Type": "Chance",
+                    "Data": {
+                        "Value": "{F3}",
+                        "SuccessNodeId": "IgnoredNoConsequence",
+                        "FailNodeId": "FailureBuff"
+                    }
+                },
+                {
+                    "Id": "IgnoredNoConsequence",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImage": true,
+                        "TextLoc": "LV.BCEv.FirstDeath.O4"
+                    }
+                },
+
+                // Failure
+                {
+                    "Id": "FailureBuff",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "FirstDeath_FailedPenalty",
+                        "TitleLoc": "LV.BCEv.FirstDeath.MalusName",
+                        "DescLoc": "LV.BCEv.FirstDeath.MalusDesc",
+                        "CharacterTypes": "AdultBeaver",
+                        "Days": "{F5}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S5}",
+                                "Amount": "{F4}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "FailureMessage"
+                },
+                {
+                    "Id": "FailureMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImage": true,
+                        "TextLoc": "LV.BCEv.FirstDeath.O3"
+                    }
+                }
+            ]
+        }
+    }
+}

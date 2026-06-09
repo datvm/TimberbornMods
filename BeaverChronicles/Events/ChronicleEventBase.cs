@@ -20,13 +20,13 @@ public abstract class ChronicleEventBase : IChronicleEvent
         Id = GetType().Name;
     }
 
-    public abstract int GetTriggerWeight(ChronicleEventContext context);
+    public abstract int GetTriggerWeight(ChronicleTriggerContext context);
 
     public void Trigger(ChronicleEventContext context)
     {
         this.context = context;
         triggerParameters = context.Parameters;
-        historyRecord = context.ActiveRecord;
+        historyRecord = context.Record;
 
         OnTriggered(context.Parameters, historyRecord!);
     }

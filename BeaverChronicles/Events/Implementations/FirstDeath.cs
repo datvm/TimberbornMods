@@ -21,7 +21,7 @@ public class FirstDeath(
 
     public override IReadOnlyCollection<EventTriggerSource> TriggerSources { get; } = [EventTriggerSource.CharacterDeath,];
 
-    public override int GetTriggerWeight(ChronicleEventContext context)
+    public override int GetTriggerWeight(ChronicleTriggerContext context)
     {
         var p = context.Parameters.GetParameterOrDefault<CharacterParameters>();
         return (p is null || !p.IsBeaver) ? 0 : int.MaxValue;

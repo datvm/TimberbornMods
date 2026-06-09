@@ -1,19 +1,41 @@
-namespace BeaverChronicles.Services;
+﻿namespace BeaverChronicles.Services;
 
-public class ChronicleEventContext(
+public class ChronicleTriggerContext(
     IEventTriggerParameters parameters,
-    ChronicleEventHistoryService history,
-    ChronicleEventFlagHelper flagHelper,
-    ChronicleEventService service
+    ChronicleEventRecords history,
+    HelperCollection helperCollection
 )
 {
-    public IEventTriggerParameters Parameters { get; } = parameters;
-    public ChronicleEventHistoryService History { get; } = history;
-    public ChronicleEventFlagHelper FlagHelper { get; } = flagHelper;
-    public EventHistoryRecord? ActiveRecord => History.ActiveRecord;
-
+    public IEventTriggerParameters Parameters => parameters;
+    public ChronicleEventRecords History => history;
+    public HelperCollection Helpers => helperCollection;
     public bool HasCompletedEvent(string id) => History.HasFinished(id);
+}
+
+public class ChronicleEventContext(
+    IChronicleEvent ev,
+    EventHistoryRecord record,
+    int occurrence,
+    IEventTriggerParameters parameters,
+    ChronicleEventRecords history,
+    HelperCollection helperCollection,
+    ChronicleEventOrchestrator service
+) : ChronicleTriggerContext(parameters, history, helperCollection)
+{
+    const string OccurrenceParameterKey = "Occurrence";
+
+    public IChronicleEvent Event => ev;
+    public EventHistoryRecord Record => record;
+    public int Occurrence => occurrence;
+
+    public bool IsMiniEvent { get; } = ev is IMiniChronicleEvent;
+
+    public void Initialize()
+    {
+        record.CustomParameters.TryAdd(OccurrenceParameterKey, occurrence.ToString());
+    }
+
     public void RequestNextEvent(string? id) => service.RequestNextEvent(id);
     public void RequestNextEventDelay(float delayDays) => History.RequestNextEventDelay(delayDays);
-    public void ConcludeEvent(bool? doNotRepeat = null) => service.ConcludeEvent(doNotRepeat);
+    public void ConcludeEvent(bool? doNotRepeat = null) => service.ConcludeEvent(this, doNotRepeat);
 }

@@ -51,7 +51,7 @@ public class ContaminationCure(
 
     public override IReadOnlyCollection<EventTriggerSource> TriggerSources => [EventTriggerSource.Contaminated];
 
-    public override int GetTriggerWeight(ChronicleEventContext context)
+    public override int GetTriggerWeight(ChronicleTriggerContext context)
     {
         if (!checkedForGoods) // Only trigger for FT or any modded faction that has the required goods
         {

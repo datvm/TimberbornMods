@@ -1,16 +1,19 @@
 ﻿namespace BeaverChronicles.Services;
 
 [BindSingleton]
-public class ChronicleEventHistoryService(
+public class ChronicleEventRecords(
     ISingletonLoader loader,
     IDayNightCycle dayNightCycle
 ) : ISaveableSingleton, ILoadableSingleton
 {
-    static readonly SingletonKey SaveKey = new(nameof(ChronicleEventHistoryService));
+    static readonly SingletonKey SaveKeyCompat = new("ChronicleEventHistoryService"); // Compatibility
+    static readonly SingletonKey SaveKey = new(nameof(ChronicleEventRecords));
+
     static readonly ListKey<string> RecordsKey = new("Records");
     static readonly PropertyKey<float> NextEventMinimumDayKey = new("NextEventMinimumDay");
     static readonly ListKey<string> FinishedEventIdsKey = new("FinishedEventIds");
     static readonly PropertyKey<string> NextEventIdRequestedKey = new("NextEventIdRequested");
+    static readonly PropertyKey<string> ActiveEventIdKey = new("ActiveEventId");
 
     readonly List<EventHistoryRecord> records = [];
     readonly Dictionary<string, List<EventHistoryRecord>> recordsById = [];
@@ -19,21 +22,17 @@ public class ChronicleEventHistoryService(
     public event EventHandler<string>? EventRestored;
 
     public IReadOnlyList<EventHistoryRecord> Records => records;
-    
+
     readonly HashSet<string> finishedEventIds = [];
     public IReadOnlyCollection<string> FinishedEventIds => finishedEventIds;
 
     public string? NextEventIdRequested { get; set; }
 
+    string activeEventId = "";
+    public string? ActiveEventId => string.IsNullOrEmpty(activeEventId) ? null : activeEventId;
+
     public EventHistoryRecord? ActiveRecord
-    {
-        get
-        {
-            var lastEv = records.LastOrDefault();
-            return (lastEv is not null && lastEv.EndDay is null) ? lastEv : null;
-        }
-    }
-    public string? ActiveEventId => ActiveRecord?.Id;
+        => ActiveEventId is { } id ? records.LastOrDefault(r => r.Id == id && r.EndDay is null) : null;
 
     public float NextEventMinimumDay { get; private set; }
 
@@ -60,55 +59,92 @@ public class ChronicleEventHistoryService(
         EventRestored?.Invoke(this, id);
     }
 
-    public IReadOnlyList<EventHistoryRecord> Get(string id) 
+    public IReadOnlyList<EventHistoryRecord> Get(string id)
         => recordsById.TryGetValue(id, out var list) ? list : [];
 
-    public void StartEvent(string id)
+    public int GetOccurrence(EventHistoryRecord record)
     {
-        var lastEv = records.LastOrDefault();
-        if (lastEv is not null && lastEv.EndDay is null)
+        if (!recordsById.TryGetValue(record.Id, out var list))
         {
-            throw new InvalidOperationException("The last recorded event has not ended yet.");
+            throw new InvalidOperationException($"No records found for event {record.Id}.");
+        }
+
+        var index = list.IndexOf(record);
+        if (index == -1)
+        {
+            throw new InvalidOperationException($"Record for event {record.Id} was not found in the history lookup.");
+        }
+
+        return index + 1;
+    }
+
+    public EventHistoryRecord StartEvent(string id, bool isMini)
+    {
+        if (!isMini && ActiveRecord is not null)
+        {
+            throw new InvalidOperationException("There is already an active event. Only mini event are allowed.");
         }
 
         EventHistoryRecord newRecord = new(id, dayNightCycle.PartialDayNumber, null);
         records.Add(newRecord);
         recordsById.GetOrAdd(id, () => []).Add(newRecord);
+        if (!isMini)
+        {
+            activeEventId = id;
+        }
+
+        return newRecord;
     }
 
-    public void EndEvent()
+    public void EndEvent() => EndEvent(ActiveRecord ?? throw new InvalidOperationException("There is no active event."));
+
+    public void EndEvent(EventHistoryRecord record)
     {
-        if (records.Count == 0)
+        if (record.EndDay is not null)
         {
-            throw new InvalidOperationException("There is no recorded event yet.");
+            throw new InvalidOperationException("The event record has already ended.");
         }
 
-        var r = records[^1];
-        if (r.EndDay is not null)
-        {
-            throw new InvalidOperationException("The last recorded event has already ended.");
-        }
+        var activeRecord = ActiveRecord;
+        var updatedRecord = record with { EndDay = dayNightCycle.PartialDayNumber, };
+        records[records.LastIndexOf(record)] = updatedRecord;
 
-        var updatedRecord = r with { EndDay = dayNightCycle.PartialDayNumber, };
-        recordsById[r.Id][^1] = records[^1] = updatedRecord;
+        var recordsForId = recordsById[record.Id];
+        recordsForId[recordsForId.LastIndexOf(record)] = updatedRecord;
+
+        if (activeRecord == record)
+        {
+            activeEventId = "";
+        }
     }
 
-    public void RequestNextEventDelay(float days = 0) 
+    public void RequestNextEventDelay(float days = 0)
         => NextEventMinimumDay = days <= 0 ? 0 : dayNightCycle.PartialDayNumber + days;
 
     void LoadSavedData()
     {
-        if (!loader.TryGetSingleton(SaveKey, out var s)) { return; }
+        if (!loader.TryGetSingleton(SaveKey, out var s)
+            && !loader.TryGetSingleton(SaveKeyCompat, out s))
+        {
+            return;
+        }
 
         records.AddRange(s.Get(RecordsKey).Select(EventHistoryRecord.Deserialize));
         NextEventMinimumDay = s.Get(NextEventMinimumDayKey);
         finishedEventIds.UnionWith(s.Get(FinishedEventIdsKey));
+
+        activeEventId = s.Has(ActiveEventIdKey)
+            ? s.Get(ActiveEventIdKey)
+            : FindLegacyActiveEventId();
 
         if (s.Has(NextEventIdRequestedKey))
         {
             NextEventIdRequested = s.Get(NextEventIdRequestedKey);
         }
     }
+
+    string FindLegacyActiveEventId()
+        => records.LastOrDefault(r => r.EndDay is null)?.Id ?? "";
 
     void PopulateLookupData()
     {
@@ -124,6 +160,7 @@ public class ChronicleEventHistoryService(
         s.Set(RecordsKey, [.. records.Select(r => r.Serialize())]);
         s.Set(NextEventMinimumDayKey, NextEventMinimumDay);
         s.Set(FinishedEventIdsKey, finishedEventIds);
+        s.Set(ActiveEventIdKey, activeEventId);
 
         if (NextEventIdRequested is not null)
         {

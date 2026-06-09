@@ -1,18 +1,14 @@
 ﻿namespace BeaverChronicles.Services.SpecNodes;
 
 [MultiBind(typeof(ISpecNodeHandler))]
-public class ConditionNodeHandler : ISpecNodeHandler
+public class ConditionNodeHandler : NodeHandlerBase<ConditionData>
 {
     public const string NodeType = "Condition";
-    public string ForType => NodeType;
+    public override string ForType => NodeType;
 
-    public void HandleNode(ChronicleEventNodeSpec node, SpecChronicleEventHelper helper)
-    {
-        throw new NotImplementedException();
-    }
+    protected override string? InternalHandleNode(ConditionData data, ChronicleEventNodeSpec node, SpecChronicleEventController controller) 
+        => controller.EvaluateConditionNode(node.Id)
+            ? data.FulfilledNodeId
+            : data.FailedNodeId;
 
-    public void RestoreGameState(ChronicleEventNodeSpec node, SpecChronicleEventHelper helper)
-    {
-        throw new NotSupportedException("The game should not be saved during a condition node");
-    }
 }

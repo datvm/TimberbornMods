@@ -2,6 +2,8 @@
 
 public record EventHistoryRecord(string Id, float StartDay, float? EndDay)
 {
+    public static string GetChoiceParameterKey(int pos) => $"Choice{pos}";
+
     public List<EventHistoryPage> Pages { get; } = [];
 
     [JsonIgnore]
@@ -9,9 +11,21 @@ public record EventHistoryRecord(string Id, float StartDay, float? EndDay)
 
     public Dictionary<string, string> CustomParameters { get; } = [];
 
+    public int RecordNextChoice(int choiceIndex)
+    {
+        for (int i = 0; ; i++)
+        {
+            if (!CustomParameters.ContainsKey(GetChoiceParameterKey(i)))
+            {
+                RecordChoice(i, choiceIndex);
+                return i;
+            }
+        }
+    }
+
     public void RecordChoice(int pos, int choiceIndex)
     {
-        CustomParameters[$"Choice{pos}"] = choiceIndex.ToString();
+        CustomParameters[GetChoiceParameterKey(pos)] = choiceIndex.ToString();
     }
 
     public int[] GetRecordedChoices()
@@ -33,7 +47,7 @@ public record EventHistoryRecord(string Id, float StartDay, float? EndDay)
 
     public bool TryGetChoice(int pos, out int choiceIndex)
     {
-        if (CustomParameters.TryGetValue($"Choice{pos}", out var s) && int.TryParse(s, out var index))
+        if (CustomParameters.TryGetValue(GetChoiceParameterKey(pos), out var s) && int.TryParse(s, out var index))
         {
             choiceIndex = index;
             return true;

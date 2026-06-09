@@ -49,7 +49,7 @@ public class FoodWoodDispute2(
 
     public override IReadOnlyCollection<EventTriggerSource> TriggerSources => [ EventTriggerSource.NewDay, ];
 
-    public override int GetTriggerWeight(ChronicleEventContext context)
+    public override int GetTriggerWeight(ChronicleTriggerContext context)
     {
         // Check for the first event
         var firstRecord = GetFirstRecord(context);

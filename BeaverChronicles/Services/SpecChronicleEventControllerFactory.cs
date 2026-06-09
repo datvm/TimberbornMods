@@ -1,10 +1,11 @@
 ﻿namespace BeaverChronicles.Services;
 
 [BindSingleton]
-public class SpecChronicleEventHelperFactory(
+public class SpecChronicleEventControllerFactory(
     IEnumerable<ISpecNodeHandler> handlers,
     EvaluationCacheService evaluationCache,
-    ChronicleEventConditionService conditionService
+    ChronicleEventConditionService conditionService,
+    HelperCollection helperCollection
 )
 {
 
@@ -12,7 +13,7 @@ public class SpecChronicleEventHelperFactory(
         = handlers.ToFrozenDictionary(h => h.ForType);
     public bool CanHandle(string nodeType) => handlers.ContainsKey(nodeType);
 
-    public SpecChronicleEventHelper Create(SpecChronicleEvent ev, ChronicleEventContext context)
-        => new(ev, context, handlers, evaluationCache, conditionService);
+    public SpecChronicleEventController Create(SpecChronicleEvent ev)
+        => new(ev, handlers, evaluationCache, helperCollection, conditionService);
 
 }

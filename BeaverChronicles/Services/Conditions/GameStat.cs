@@ -1,31 +1,30 @@
 ﻿
 namespace BeaverChronicles.Services.Conditions;
 
-public class GameStatData
-{
-    public string Stat { get; init; } = "";
-    public float Value { get; init; }
-    public NumericComparisonMode Comparison { get; init; } = NumericComparisonMode.Equal;
-}
+public record GameStatData(
+    string Stat,
+    string Value,
+    NumericComparisonMode Comparison = NumericComparisonMode.Equal
+);
 
 [MultiBind(typeof(IConditionEvaluator))]
-public class GameStat(GameStatService gameStatService, EvaluationCacheService caches) : IConditionEvaluator
+public class GameStat(GameStatHelper helper) : ConditionEvaluatorBase<GameStatData>
 {
-    public string ForType => "GameStat";
+    public override string ForType => "GameStat";
 
-    public bool Evaluate(ConditionItem c, SpecChronicleEvent ev, ChronicleEventNodeSpec node, ConditionData conditionData)
+    protected override bool Evaluate(GameStatData? p, ConditionItem c, SpecChronicleEvent ev, ChronicleEventNodeSpec node, ConditionData conditionData)
     {
-        var data = c.GetParameters<GameStatData>() ?? throw new InvalidDataException("No parameters provided for GameStat condition.");
+        if (p is null) { throw ThrowMissingData(ForType); }
 
-        var cacheKey = $"{nameof(GameStat)}.{data.Stat}";
-        var value = caches.GetOrEvaluate(cacheKey, () => gameStatService.GetStat(data.Stat));
+        var actualValue = helper.GetStat(p.Stat);
+        var requestedValue = ev.Controller.FormatTextFloat(p.Value);
 
-        return value switch
+        return actualValue switch
         {
-            int i => data.Comparison.Evaluate(i, (int)data.Value),
-            float f => data.Comparison.Evaluate(f, data.Value),
-            _ => throw new InvalidDataException("Only number stats are supported in GameStat condition."),
+            int i => p.Comparison.Evaluate(i, (int)requestedValue),
+            float f => p.Comparison.Evaluate(f, requestedValue),
+            null => false,
+            _ => throw new InvalidDataException("Only number stats are supported in GameStat condition. Received: " + actualValue.GetType().FullName),
         };
     }
-
 }

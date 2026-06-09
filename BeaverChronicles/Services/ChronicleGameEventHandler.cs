@@ -1,6 +1,4 @@
-﻿using static UnityEngine.GridBrushBase;
-
-namespace BeaverChronicles.Services;
+﻿namespace BeaverChronicles.Services;
 
 [BindSingleton]
 public class ChronicleGameEventHandler(

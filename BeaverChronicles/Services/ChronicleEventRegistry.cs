@@ -4,14 +4,21 @@
 public class ChronicleEventRegistry(IEnumerable<IChronicleEventsProvider> eventsProviders) : ILoadableSingleton
 {
 
-#nullable disable
-    public FrozenDictionary<EventTriggerSource, ImmutableArray<IChronicleEvent>> EventsByTrigger { get; private set; }
-    public FrozenDictionary<string, IChronicleEvent> EventById { get; private set; }
-#nullable enable
+    public FrozenDictionary<EventTriggerSource, ImmutableArray<IChronicleEvent>> EventsByTrigger { get; private set; } = null!;
+    public FrozenDictionary<string, IChronicleEvent> EventById { get; private set; } = null!;
+    public FrozenDictionary<string, IMiniChronicleEvent> MiniEventById { get; private set; } = null!;
 
     public void Load()
     {
+        PopulateEvents();
+        PopulateEventTriggers();
+    }
+
+    void PopulateEvents()
+    {
         Dictionary<string, IChronicleEvent> eventById = [];
+        Dictionary<string, IMiniChronicleEvent> miniEventById = [];
+
         foreach (var p in eventsProviders)
         {
             foreach (var e in p.GetEvents())
@@ -23,11 +30,20 @@ public class ChronicleEventRegistry(IEnumerable<IChronicleEventsProvider> events
                 }
 
                 eventById[e.Id] = e;
+
+                if (e is IMiniChronicleEvent mini)
+                {
+                    miniEventById[mini.Id] = mini;
+                }
             }
         }
-        
-        EventById = eventById.ToFrozenDictionary();
 
+        EventById = eventById.ToFrozenDictionary();
+        MiniEventById = miniEventById.ToFrozenDictionary();
+    }
+
+    void PopulateEventTriggers()
+    {
         Dictionary<EventTriggerSource, HashSet<IChronicleEvent>> eventByTrigger = [];
         foreach (var src in BeaverChroniclesUtils.AllTriggerSources)
         {

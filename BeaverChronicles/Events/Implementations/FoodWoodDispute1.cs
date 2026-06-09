@@ -48,7 +48,7 @@ public class FoodWoodDispute1(
 
     public override IReadOnlyCollection<EventTriggerSource> TriggerSources => [EventTriggerSource.NewDay];
 
-    public override int GetTriggerWeight(ChronicleEventContext context)
+    public override int GetTriggerWeight(ChronicleTriggerContext context)
     {
         if (gameCycleService.Cycle < MinCycle) { return 0; }
 
