@@ -51,6 +51,7 @@ Every `[Bind…]` attribute carries a `Contexts` flag that controls in which DI 
 
 | Value | Numeric | Meaning |
 |---|---|---|
+| `None` | 0 | No contexts (the empty/default value) |
 | `MainMenu` | 1 | Main-menu scene only |
 | `Game` | 2 | In-game session only |
 | `MapEditor` | 4 | Map-editor scene only |

@@ -36,7 +36,7 @@ The base class creates a `panel` field (an `EntityPanelFragmentElement`) before 
 
 | Method | When called | Responsibility |
 |---|---|---|
-| `InitializeFragment()` | Once, when the entity-panel UI is built | Sealed base implementation: creates `panel`, calls `InitializePanel()`, returns `panel`. Do **not** override this. |
+| `InitializeFragment()` | Once, when the entity-panel UI is built | Base implementation (not `virtual` — don't hide it): creates `panel`, calls `InitializePanel()`, returns `panel`. Do **not** override this. |
 | `InitializePanel()` | Once, when the entity-panel UI is built (called by `InitializeFragment`) | **Override this** to build the visual tree inside `panel`. Add labels, buttons, sliders, etc. |
 | `ShowFragment(BaseComponent entity)` | Each time the player selects an entity | Base resolves `T` via `entity.GetComponent<T>()`. If the entity has no `T`, returns early — panel visibility is unchanged. Sets `panel.Visible = true` when the component is found. Call `base.ShowFragment(entity)` if you override. |
 | `UpdateFragment()` | Called periodically by the game while a compatible entity is selected | Virtual no-op by default. Override to read the current state from `component` and update labels/controls. Guard with `if (component is null) return;`. |
