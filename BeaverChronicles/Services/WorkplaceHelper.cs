@@ -46,6 +46,27 @@ public class WorkplaceHelper(
         return false;
     }
 
+    public int CountAssignedWorkers(WorkplaceFilter workplaceFilter)
+        => GetWorkplaces(workplaceFilter).Sum(workplace => workplace.AssignedWorkers.Count);
+
+    public static WorkplaceFilter MatchTemplates(WorkplaceTargetData target)
+    {
+        var templates = target.TemplateNames;
+        var templatePrefixes = target.TemplateNamePrefixes;
+
+        return workplace =>
+        {
+            if (templates.Count == 0 && templatePrefixes.Length == 0)
+            {
+                return true;
+            }
+
+            var templateName = workplace.GetTemplateName();
+            return templates.EmptyOrContains(templateName)
+                && templatePrefixes.EmptyOrAny(prefix => templateName.StartsWith(prefix));
+        };
+    }
+
     public void AddOrUpdateWorkplaceBonus(WorkplaceLimitedTimeStatus bonus, float? days)
     {
         if (days.HasValue)

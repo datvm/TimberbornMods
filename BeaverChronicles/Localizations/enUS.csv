@@ -126,40 +126,54 @@ LV.BCEv.FoodWoodDispute1.C2,"""Logs build the colony!""",
 LV.BCEv.FoodWoodDispute1.C3,"""Settle it yourselves.""",
 LV.BCEv.FoodWoodDispute1.O1,"The farmers cheer your judgment and return to the fields with renewed pride. If food is the heart of the colony, they intend to keep it beating.
 The lumberjacks return to the forest in bitter silence.
-[[C]][[-]]Lumberjack Flags' workers lose {1:0%} Working Speed for [[time:{0}d]]
-[[C]][[+]]Farmhouses' workers gain {2:+0%} Working Speed for [[time:{0}d]]",
+[[C]][[-]]Lumberjack Flags' workers lose {%4} Working Speed for [[time:{F1}d]]
+[[C]][[+]]Farmhouses' workers gain +{%3} Working Speed for [[time:{F1}d]]",
 LV.BCEv.FoodWoodDispute1.O2,"The lumberjacks thump their tails in approval and march back toward the trees. Every raised roof and sturdy dam will prove their worth.
 The farmers return to their fields with sour looks and sharper words.
-[[C]][[+]]Lumberjack Flags' workers gain {1:+0%} Working Speed for [[time:{0}d]]
-[[C]][[-]]Farmhouses' workers lose {2:0%} Working Speed for [[time:{0}d]]",
+[[C]][[+]]Lumberjack Flags' workers gain +{%3} Working Speed for [[time:{F1}d]]
+[[C]][[-]]Farmhouses' workers lose {%4} Working Speed for [[time:{F1}d]]",
 LV.BCEv.FoodWoodDispute1.O3,"To everyone's surprise, your refusal to choose sides works. The two groups argue a little longer, then begin laughing at how foolish the quarrel has become.
 Both return to work determined to prove their worth without tearing the colony apart.
-[[C]][[+]]Lumberjack Flags' workers gain {1:+0%} Working Speed for [[time:{0}d]]
-[[C]][[+]]Farmhouses' workers gain {2:+0%} Working Speed for [[time:{0}d]]",
+[[C]][[+]]Lumberjack Flags' workers gain +{%3} Working Speed for [[time:{F1}d]]
+[[C]][[+]]Farmhouses' workers gain +{%3} Working Speed for [[time:{F1}d]]",
 LV.BCEv.FoodWoodDispute1.O4,"Your refusal to choose sides satisfies nobody. The farmers feel ignored, the lumberjacks feel dismissed, and both groups return to work with their tails low and tempers high.
 The quarrel is not over.
-[[C]][[-]]Lumberjack Flags' workers lose {1:0%} Working Speed for [[time:{0}d]]
-[[C]][[-]]Farmhouses' workers lose {2:0%} Working Speed for [[time:{0}d]]",
+[[C]][[-]]Lumberjack Flags' workers lose {%4} Working Speed for [[time:{F1}d]]
+[[C]][[-]]Farmhouses' workers lose {%4} Working Speed for [[time:{F1}d]]",
+LV.BCEv.FoodWoodDispute.Ch1BonusDesc,"+{%3} Working Speed",
+LV.BCEv.FoodWoodDispute.Ch1MalusDesc,"{%4} Working Speed",
 LV.BCEv.FoodWoodDispute2,"Axes and Plows: Escalation",
 LV.BCEv.FoodWoodDispute2.Content,"The quarrel has not faded. Days later, the arguments flare up once again, louder and harsher than before. Workers accuse each other of arrogance, laziness, and draining the colony's labor for their own needs.
-Now the entire district waits to see whether you will stand firm, change course, or refuse to take part in the dispute at all.",
+Now the entire colony waits to see whether you will stand firm, change course, or refuse to take part in the dispute at all.",
 LV.BCEv.FoodWoodDispute2.C1,"""Food comes first.""",
 LV.BCEv.FoodWoodDispute2.C2,"""Wood keeps us alive.""",
 LV.BCEv.FoodWoodDispute2.C3,"""I will not choose sides.""",
-LV.BCEv.FoodWoodDispute2.O1,"Your repeated support leaves no doubt where the colony leadership stands. The favored workers grow proud and energetic, while the others lose heart entirely.
-[[C]][[+]]{3} workers gain {1:0%} Working Speed for [[time:{0}d]]
-[[C]][[-]]{4} workers lose {2:0%} Working Speed for [[time:{0}d]]",
-LV.BCEv.FoodWoodDispute2.O2,"The sudden shift catches the colony off guard, but over time the workers begin accepting the new balance. Tempers cool, though some resentment remains.
-[[C]][[+]]{3} workers gain {1:0%} Working Speed for [[time:{0}d]]
-[[C]][[-]]{4} workers lose {2:0%} Working Speed for [[time:{0}d]]",
+LV.BCEv.FoodWoodDispute2.CrisisPanel,"The dispute worsens",
+LV.BCEv.FoodWoodDispute2.O1F,"Your repeated support leaves no doubt where the colony leadership stands. The favored workers grow proud and energetic, while the others lose heart entirely.
+[[C]][[+]]{S5} workers gain +{%2} Working Speed for [[time:{F1}d]]
+[[C]][[-]]{S6} workers lose {%3} Working Speed for [[time:{F1}d]]",
+LV.BCEv.FoodWoodDispute2.O1L,"Your repeated support leaves no doubt where the colony leadership stands. The favored workers grow proud and energetic, while the others lose heart entirely.
+[[C]][[+]]{S6} workers gain +{%2} Working Speed for [[time:{F1}d]]
+[[C]][[-]]{S5} workers lose {%3} Working Speed for [[time:{F1}d]]",
+LV.BCEv.FoodWoodDispute2.O2F,"The sudden shift catches the colony off guard, but over time the workers begin accepting the new balance. Tempers cool, though some resentment remains.
+[[C]][[+]]{S5} workers gain +{%5} Working Speed for [[time:{F1}d]]
+[[C]][[-]]{S6} workers lose {%6} Working Speed for [[time:{F1}d]]",
+LV.BCEv.FoodWoodDispute2.O2L,"The sudden shift catches the colony off guard, but over time the workers begin accepting the new balance. Tempers cool, though some resentment remains.
+[[C]][[+]]{S6} workers gain +{%5} Working Speed for [[time:{F1}d]]
+[[C]][[-]]{S5} workers lose {%6} Working Speed for [[time:{F1}d]]",
 LV.BCEv.FoodWoodDispute2.O3,"Your attempt to reverse course pleases nobody. One side feels abandoned while the other doubts your sincerity. The arguments only grow louder.
-[[C]][[-]]Both {3} and {4} workers lose {1:0%} Working Speed for [[time:{0}d]]",
+[[C]][[-]]Both {S6} and {S5} workers lose {%7} Working Speed for [[time:{F1}d]]",
 LV.BCEv.FoodWoodDispute2.O4,"At last, exhaustion overcomes anger. The workers slowly realize the quarrel is hurting the colony more than helping it, and cooperation gradually returns.
-[[C]][[+]]Both groups' workers gain {1:0%} Working Speed for [[time:{0}d]]",
+[[C]][[+]]Both groups' workers gain +{%9} Working Speed for [[time:{F1}d]]",
 LV.BCEv.FoodWoodDispute2.O5,"Without guidance, resentment festers unchecked. Workers from both sides leave the meeting more frustrated than before, blaming the colony leadership for failing to settle the matter.
-[[C]][[-]]Both groups' workers lose {1:0%} Working Speed for [[time:{0}d]]",
-LV.BCEv.FoodWoodDispute2.Lumberjack,"Lumberjack Flags'",
-LV.BCEv.FoodWoodDispute2.Farmer,"Farmhouses'",
+[[C]][[-]]Both groups' workers lose {%10} Working Speed for [[time:{F1}d]]",
+LV.BCEv.FoodWoodDispute.Ch2LoyalBonusDesc,"+{%2} Working Speed",
+LV.BCEv.FoodWoodDispute.Ch2LoyalMalusDesc,"{%3} Working Speed",
+LV.BCEv.FoodWoodDispute.Ch2SwitchBonusDesc,"+{%5} Working Speed",
+LV.BCEv.FoodWoodDispute.Ch2SwitchMalusDesc,"{%6} Working Speed",
+LV.BCEv.FoodWoodDispute.Ch2SwitchCrisisDesc,"{%7} Working Speed",
+LV.BCEv.FoodWoodDispute.Ch2NeutralBonusDesc,"+{%9} Working Speed",
+LV.BCEv.FoodWoodDispute.Ch2NeutralMalusDesc,"{%10} Working Speed",
 LV.BCEv.ContaminationCure,"Pasteur's Gamble",
 LV.BCEv.ContaminationCure.Content,"{0} has been contaminated, lying still with damp fur, dull eyes, and a tail too weak to slap the ground. Most of the colony keeps a careful distance.
 Then a self-declared doctor steps forward with stained notes and a theory called Pasteur's Gamble. The treatment is untested. Water may flush the poison. Sunflowers may strengthen the body. More careful aid may improve the odds, though no one can say what failure might bring.",

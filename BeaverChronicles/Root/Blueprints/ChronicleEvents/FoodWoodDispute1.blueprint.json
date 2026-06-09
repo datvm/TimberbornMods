@@ -1,0 +1,405 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "FoodWoodDispute1",
+        "TitleLoc": "LV.BCEv.FoodWoodDispute1",
+        "Conditions": {
+            "Sources": [ "NewDay" ],
+            "Weight": 100,
+            "MinCycle": 2,
+            "ConditionNodeId": "HasEnoughWorkers"
+        },
+        "Parameters": {
+            "Floats": [
+                2.0, // F1: Chapter duration
+                0.30, // F2: Neutral success chance
+                0.20, // %3: Bonus
+                -0.20 // %4: Malus
+            ],
+            "Strings": [
+                "WorkingSpeed", // S1: Bonus stat
+                "BCEv.FoodWoodDispute.Continue", // S2: Continuation flag
+                "EVENT.FoodWoodDispute1.C1.SY", // S3: Successful neutral status flag
+                "EVENT.FoodWoodDispute1.C1.SN" // S4: Failed neutral status flag
+            ],
+            "Ints": [
+                3, // I1: Minimum lumberjack workers
+                5 // I2: Minimum farmhouse workers
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                // Trigger eligibility
+                {
+                    "Id": "HasEnoughWorkers",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "WorkplaceWorkerCount",
+                                "Parameters": {
+                                    "TemplateNamePrefixes": [ "LumberjackFlag." ],
+                                    "Amount": {
+                                        "Min": 3
+                                    }
+                                }
+                            },
+                            {
+                                "Type": "WorkplaceWorkerCount",
+                                "Parameters": {
+                                    "TemplateNamePrefixes": [ "FarmHouse.", "EfficientFarmHouse.", "AquaticFarmhouse." ],
+                                    "Amount": {
+                                        "Min": 5
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+
+                // Choices
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.FoodWoodDispute1.Content",
+                        "TopImagePath": "Resources/Chronicles/FoodWoodDispute_Top",
+                        "DefaultOption": 2,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCEv.FoodWoodDispute1.C1",
+                                "NoteLoc": "LV.BCEv.UnknownConsequences",
+                                "NextNodeId": "MarkContinueFromFarmers"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.FoodWoodDispute1.C2",
+                                "NoteLoc": "LV.BCEv.UnknownConsequences",
+                                "NextNodeId": "MarkContinueFromLumberjacks"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.FoodWoodDispute1.C3",
+                                "NoteLoc": "LV.BCEv.UnknownConsequences",
+                                "NextNodeId": "NeutralChance"
+                            }
+                        ]
+                    }
+                },
+
+                // Choice 1: side with farmers
+                {
+                    "Id": "MarkContinueFromFarmers",
+                    "Type": "SetFlag",
+                    "Data": {
+                        "Name": "{S2}"
+                    },
+                    "NextNodeId": "BuffLumberjacksFarmers"
+                },
+                {
+                    "Id": "BuffLumberjacksFarmers",
+                    "Type": "BuffWorkplaces",
+                    "Data": {
+                        "BuffId": "FoodWoodDispute1_Lumberjack",
+                        "TitleLoc": "LV.BCEv.FoodWoodDispute1",
+                        "DescLoc": "LV.BCEv.FoodWoodDispute.Ch1MalusDesc",
+                        "TemplateNamePrefixes": [ "LumberjackFlag." ],
+                        "Days": "{F1}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{F4}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "BuffFarmhousesFarmers"
+                },
+                {
+                    "Id": "BuffFarmhousesFarmers",
+                    "Type": "BuffWorkplaces",
+                    "Data": {
+                        "BuffId": "FoodWoodDispute1_Farmhouse",
+                        "TitleLoc": "LV.BCEv.FoodWoodDispute1",
+                        "DescLoc": "LV.BCEv.FoodWoodDispute.Ch1BonusDesc",
+                        "TemplateNamePrefixes": [ "FarmHouse.", "EfficientFarmHouse.", "AquaticFarmhouse." ],
+                        "Days": "{F1}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{F3}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "FarmersOutcome"
+                },
+                {
+                    "Id": "FarmersOutcome",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImagePath": "Resources/Chronicles/FoodWoodDispute_Top",
+                        "TextLoc": "LV.BCEv.FoodWoodDispute1.O1"
+                    },
+                    "NextNodeId": "WaitFarmers"
+                },
+                {
+                    "Id": "WaitFarmers",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F1}",
+                        "PanelTextLoc": "LV.BCEv.FoodWoodDispute1.C1"
+                    },
+                    "NextNodeId": "CleanupAndRequestNext"
+                },
+
+                // Choice 2: side with lumberjacks
+                {
+                    "Id": "MarkContinueFromLumberjacks",
+                    "Type": "SetFlag",
+                    "Data": {
+                        "Name": "{S2}"
+                    },
+                    "NextNodeId": "BuffLumberjacksLumberjacks"
+                },
+                {
+                    "Id": "BuffLumberjacksLumberjacks",
+                    "Type": "BuffWorkplaces",
+                    "Data": {
+                        "BuffId": "FoodWoodDispute1_Lumberjack",
+                        "TitleLoc": "LV.BCEv.FoodWoodDispute1",
+                        "DescLoc": "LV.BCEv.FoodWoodDispute.Ch1BonusDesc",
+                        "TemplateNamePrefixes": [ "LumberjackFlag." ],
+                        "Days": "{F1}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{F3}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "BuffFarmhousesLumberjacks"
+                },
+                {
+                    "Id": "BuffFarmhousesLumberjacks",
+                    "Type": "BuffWorkplaces",
+                    "Data": {
+                        "BuffId": "FoodWoodDispute1_Farmhouse",
+                        "TitleLoc": "LV.BCEv.FoodWoodDispute1",
+                        "DescLoc": "LV.BCEv.FoodWoodDispute.Ch1MalusDesc",
+                        "TemplateNamePrefixes": [ "FarmHouse.", "EfficientFarmHouse.", "AquaticFarmhouse." ],
+                        "Days": "{F1}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{F4}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "LumberjacksOutcome"
+                },
+                {
+                    "Id": "LumberjacksOutcome",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImagePath": "Resources/Chronicles/FoodWoodDispute_Top",
+                        "TextLoc": "LV.BCEv.FoodWoodDispute1.O2"
+                    },
+                    "NextNodeId": "WaitLumberjacks"
+                },
+                {
+                    "Id": "WaitLumberjacks",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F1}",
+                        "PanelTextLoc": "LV.BCEv.FoodWoodDispute1.C2"
+                    },
+                    "NextNodeId": "CleanupAndRequestNext"
+                },
+
+                // Choice 3: neutral
+                {
+                    "Id": "NeutralChance",
+                    "Type": "Chance",
+                    "Data": {
+                        "Value": "{F2}",
+                        "SuccessNodeId": "MarkNeutralSuccess",
+                        "FailNodeId": "MarkNeutralFailure"
+                    }
+                },
+                {
+                    "Id": "MarkNeutralSuccess",
+                    "Type": "SetFlag",
+                    "Data": {
+                        "Name": "{S3}"
+                    },
+                    "NextNodeId": "BuffLumberjacksNeutralSuccess"
+                },
+                {
+                    "Id": "BuffLumberjacksNeutralSuccess",
+                    "Type": "BuffWorkplaces",
+                    "Data": {
+                        "BuffId": "FoodWoodDispute1_Lumberjack",
+                        "TitleLoc": "LV.BCEv.FoodWoodDispute1",
+                        "DescLoc": "LV.BCEv.FoodWoodDispute.Ch1BonusDesc",
+                        "TemplateNamePrefixes": [ "LumberjackFlag." ],
+                        "Days": "{F1}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{F3}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "BuffFarmhousesNeutralSuccess"
+                },
+                {
+                    "Id": "BuffFarmhousesNeutralSuccess",
+                    "Type": "BuffWorkplaces",
+                    "Data": {
+                        "BuffId": "FoodWoodDispute1_Farmhouse",
+                        "TitleLoc": "LV.BCEv.FoodWoodDispute1",
+                        "DescLoc": "LV.BCEv.FoodWoodDispute.Ch1BonusDesc",
+                        "TemplateNamePrefixes": [ "FarmHouse.", "EfficientFarmHouse.", "AquaticFarmhouse." ],
+                        "Days": "{F1}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{F3}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "NeutralSuccessOutcome"
+                },
+                {
+                    "Id": "NeutralSuccessOutcome",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImagePath": "Resources/Chronicles/FoodWoodDispute_Top",
+                        "TextLoc": "LV.BCEv.FoodWoodDispute1.O3"
+                    },
+                    "NextNodeId": "WaitNeutralSuccess"
+                },
+                {
+                    "Id": "WaitNeutralSuccess",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F1}",
+                        "PanelTextLoc": "LV.BCEv.FoodWoodDispute1.C3"
+                    },
+                    "NextNodeId": "CleanupOnly"
+                },
+                {
+                    "Id": "MarkNeutralFailure",
+                    "Type": "SetFlag",
+                    "Data": {
+                        "Name": "{S4}"
+                    },
+                    "NextNodeId": "MarkContinueFromNeutralFailure"
+                },
+                {
+                    "Id": "MarkContinueFromNeutralFailure",
+                    "Type": "SetFlag",
+                    "Data": {
+                        "Name": "{S2}"
+                    },
+                    "NextNodeId": "BuffLumberjacksNeutralFailure"
+                },
+                {
+                    "Id": "BuffLumberjacksNeutralFailure",
+                    "Type": "BuffWorkplaces",
+                    "Data": {
+                        "BuffId": "FoodWoodDispute1_Lumberjack",
+                        "TitleLoc": "LV.BCEv.FoodWoodDispute1",
+                        "DescLoc": "LV.BCEv.FoodWoodDispute.Ch1MalusDesc",
+                        "TemplateNamePrefixes": [ "LumberjackFlag." ],
+                        "Days": "{F1}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{F4}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "BuffFarmhousesNeutralFailure"
+                },
+                {
+                    "Id": "BuffFarmhousesNeutralFailure",
+                    "Type": "BuffWorkplaces",
+                    "Data": {
+                        "BuffId": "FoodWoodDispute1_Farmhouse",
+                        "TitleLoc": "LV.BCEv.FoodWoodDispute1",
+                        "DescLoc": "LV.BCEv.FoodWoodDispute.Ch1MalusDesc",
+                        "TemplateNamePrefixes": [ "FarmHouse.", "EfficientFarmHouse.", "AquaticFarmhouse." ],
+                        "Days": "{F1}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{F4}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "NeutralFailureOutcome"
+                },
+                {
+                    "Id": "NeutralFailureOutcome",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImagePath": "Resources/Chronicles/FoodWoodDispute_Top",
+                        "TextLoc": "LV.BCEv.FoodWoodDispute1.O4"
+                    },
+                    "NextNodeId": "WaitNeutralFailure"
+                },
+                {
+                    "Id": "WaitNeutralFailure",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F1}",
+                        "PanelTextLoc": "LV.BCEv.FoodWoodDispute1.C3"
+                    },
+                    "NextNodeId": "CleanupAndRequestNext"
+                },
+
+                // Cleanup
+                {
+                    "Id": "CleanupOnly",
+                    "Type": "BuffWorkplaces",
+                    "Data": {
+                        "BuffId": "FoodWoodDispute1_Lumberjack",
+                        "Days": "0"
+                    },
+                    "NextNodeId": "CleanupFarmhousesOnly"
+                },
+                {
+                    "Id": "CleanupFarmhousesOnly",
+                    "Type": "BuffWorkplaces",
+                    "Data": {
+                        "BuffId": "FoodWoodDispute1_Farmhouse",
+                        "Days": "0"
+                    }
+                },
+                {
+                    "Id": "CleanupAndRequestNext",
+                    "Type": "BuffWorkplaces",
+                    "Data": {
+                        "BuffId": "FoodWoodDispute1_Lumberjack",
+                        "Days": "0"
+                    },
+                    "NextNodeId": "CleanupFarmhousesAndRequestNext"
+                },
+                {
+                    "Id": "CleanupFarmhousesAndRequestNext",
+                    "Type": "BuffWorkplaces",
+                    "Data": {
+                        "BuffId": "FoodWoodDispute1_Farmhouse",
+                        "Days": "0"
+                    },
+                    "NextNodeId": "RequestEscalation"
+                },
+                {
+                    "Id": "RequestEscalation",
+                    "Type": "RequestNextEvent",
+                    "Data": {
+                        "Id": "FoodWoodDispute2"
+                    }
+                }
+            ]
+        }
+    }
+}
