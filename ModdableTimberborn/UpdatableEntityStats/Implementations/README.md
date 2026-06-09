@@ -6,7 +6,7 @@ Contains the concrete `IUpdatableEntityStat` factory classes and their paired `S
 
 ## Key types
 
-### Base classes (re-exported from this namespace)
+### Base classes (in `ModdableTimberborn.UpdatableEntityStats`)
 
 - **`StatTrackerBase<T>`** — Abstract base for all entity-bound trackers. Handles `Start`/`Pause` lifecycle, value diffing, event firing, and self-registration with `UpdatableEntityStatComponent`. Subclasses implement `OnStart()`, `OnPause()`, and `CalculateValue()`.
 - **`StatPercentTrackerBase`** — `StatTrackerBase<float>` that also implements `IPercentStatTracker`; formats `ValueFormatted` as `"P0"`.
@@ -36,7 +36,7 @@ All concrete stat classes in this folder are picked up automatically by the refl
 
 `AvatarStat` is slightly special: `CanTrack` delegates to `EntityBadgeService` rather than checking for a specific component, but the tracker is always created (returns `true`) for any non-null entity — avatar display is considered universally available.
 
-`PopulationStat` lives at the root namespace level (not in `Implementations/`) because it is directly exposed through `UpdatableEntityStatService.PopulationStat`; it also provides a `GetGlobalTracker(options)` factory method for non-entity-bound global population tracking.
+`PopulationStat` is in the root namespace (`ModdableTimberborn.UpdatableEntityStats`) because it is directly exposed through `UpdatableEntityStatService.PopulationStat`; it also provides a `GetGlobalTracker(options)` factory method for non-entity-bound global population tracking.
 
 ## Dependencies & patterns
 
