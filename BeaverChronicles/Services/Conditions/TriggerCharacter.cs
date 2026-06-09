@@ -6,6 +6,7 @@ public record TriggerCharacterData
     public bool? IsAdult { get; init; }
     public CharacterType? CharacterType { get; init; }
     public string? Name { get; init; }
+    public string? EntityId { get; init; }
     public bool Expected { get; init; } = true;
 }
 
@@ -41,6 +42,12 @@ public class TriggerCharacter : ConditionEvaluatorBase<TriggerCharacterData>
 
             if (p.Name is { } name
                 && !string.Equals(characterParameters.Character.FirstName, ev.Controller.FormatText(name), StringComparison.InvariantCultureIgnoreCase))
+            {
+                return false;
+            }
+
+            if (p.EntityId is { } entityId && Guid.TryParse(entityId, out var guid)
+                && characterParameters.Character.GetEntityId() != guid)
             {
                 return false;
             }

@@ -195,19 +195,22 @@ LV.BCEv.ContaminationCure.O3,"The treatment fails. {0} remains weak, and the pre
 The careful notes, however, prove useful for something else. The doctor cannot save the cure, but the colony recovers the lesson.
 [[C]][[+]]Refund {1} Science.",
 LV.BCEv.ContaminationConspiracy,"A Quiet Place",
-LV.BCEv.ContaminationConspiracy.Content,"{0} is contaminated.
+LV.BCEv.ContaminationConspiracy.Content,"{CP_TriggerCharacterName} is contaminated.
 By dusk, whispers crawl through the colony like mist over badwater. Some say the contaminated are not merely sent away for safety. Some say a far district waits for them, quiet and empty, with no warm beds, no full tanks, and no one to hear the last tail-slap.
 No one says it loudly. No one admits they believe it. But every beaver has seen how quickly a sick worker can become a problem to solve.
-Now {0} watches the others from a distance, and the colony watches itself.",
+Now {CP_TriggerCharacterName} watches the others from a distance, and the colony watches itself.",
 LV.BCEv.ContaminationConspiracy.C1,"We will dispel this conspiracy theory",
-LV.BCEv.ContaminationConspiracy.C1N,"[[C]]Cure {0} within [[time:{1}d]]",
-LV.BCEv.ContaminationConspiracy.O1,"{0} returns clean, living, and loudly welcomed.
+LV.BCEv.ContaminationConspiracy.C1N,"[[C]]Cure {CP_TriggerCharacterName} within [[time:{F1}d]]",
+LV.BCEv.ContaminationConspiracy.Panel,"Cure {CP_TriggerCharacterName} within [[time:{F1}d]]",
+LV.BCEv.ContaminationConspiracy.O1,"{CP_TriggerCharacterName} returns clean, living, and loudly welcomed.
 The rumor does not vanish all at once, but it loses its teeth. A beaver can be contaminated and still be counted among the colony. A beaver can be isolated without being abandoned.
 That matters.
-[[C]][[+]]All beavers gain {1} for [[time:{2}d]]",
-LV.BCEv.ContaminationConspiracy.O2,"The quiet district remains quiet. There is no sound of {0} returning, no sign of recovery, and no end to the whispers.
+[[C]][[+]]All beavers gain Reassured for [[time:{F2}d]]",
+LV.BCEv.ContaminationConspiracy.O2,"The quiet district remains quiet. There is no sound of {CP_TriggerCharacterName} returning, no sign of recovery, and no end to the whispers.
 Whether by neglect, fear, or cruel necessity, the rumor now has a name and a shape. Beavers lower their voices when a contaminated worker passes. Some glance toward the far paths and wonder who will be sent there next.
 The colony keeps working, but not without looking over its shoulder.
-[[C]][[-]]All beavers get {1} for [[time:{2}d]]",
+[[C]][[-]]All beavers get Quiet Dread for [[time:{F3}d]]",
 LV.BCEv.ContaminationConspiracy.BuffName,"Reassured",
 LV.BCEv.ContaminationConspiracy.DebuffName,"Quiet Dread",
+LV.BCEv.ContaminationConspiracy.BuffDesc,"+{%4} Working and Movement Speed",
+LV.BCEv.ContaminationConspiracy.DebuffDesc,"{%5} Working and Movement Speed",
