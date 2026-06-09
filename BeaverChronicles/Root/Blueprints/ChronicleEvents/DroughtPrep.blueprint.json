@@ -10,7 +10,7 @@
         },
         "Parameters": {
             "Floats": [
-                0.99, // F1: Trigger chance
+                0.50, // F1: Trigger chance
                 1.0, // F2: Search duration
                 0.60 // F3: Search success chance
             ],

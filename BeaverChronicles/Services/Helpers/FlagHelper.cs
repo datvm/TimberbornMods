@@ -35,6 +35,8 @@ public class FlagHelper(
     public bool HasFlags(IReadOnlyList<string> flags, ConditionType condition) => condition.Evaluate(flags, persistence.HasFlag);
     public bool HasAnyFlags(IReadOnlyList<string> flags) => flags.FastAny(persistence.HasFlag);
     public bool HasAllFlags(IReadOnlyList<string> flags) => flags.FastAll(persistence.HasFlag);
+    public void AddFlag(string flag) => persistence.AddFlag(flag);
+    public void RemoveFlag(string flag) => persistence.RemoveFlag(flag);
 
     public void MarkEvent(string eventId, int occurence)
     {
