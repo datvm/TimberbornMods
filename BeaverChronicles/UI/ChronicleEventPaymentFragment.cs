@@ -77,7 +77,17 @@ public class ChronicleEventPaymentFragment(
 
     public void UpdateFragment()
     {
-        if (!showing || !ShowRemainingGoods(out var remaining)) { return; }
+        var wasShowing = showing;
+        if (!ShowRemainingGoods(out var remaining))
+        {
+            HidePanel();
+            return;
+        }
+
+        if (!wasShowing)
+        {
+            SetToMax();
+        }
 
         var min = Math.Min(remaining, GetPossessingAmount());
 
@@ -87,14 +97,14 @@ public class ChronicleEventPaymentFragment(
         }
 
         btnPay.enabledSelf = CanPay();
+        panel.Visible = showing = true;
     }
 
     bool ShowRemainingGoods(out int remaining)
     {
         if (inventory is not null)
         {
-            currGoodId = inventory.UnreservedStock().FirstOrDefault().GoodId;
-
+            currGoodId = GetPaymentGoodForInventory();
             if (currGoodId is not null && activeService.NeedToPay(currGoodId, out remaining))
             {
                 SetDisplayedGood(currGoodId, remaining);
@@ -109,8 +119,31 @@ public class ChronicleEventPaymentFragment(
         }
 
         remaining = 0;
-        ClearFragment();
         return false;
+    }
+
+    void HidePanel()
+    {
+        panel.Visible = showing = false;
+        showingGood = default;
+    }
+
+    string? GetPaymentGoodForInventory()
+    {
+        var stockpileGood = inventory!.UnreservedStock().FirstOrDefault().GoodId ?? GetAllowedGoodId();
+        if (stockpileGood is null || !activeService.NeedToPay(stockpileGood, out _))
+        {
+            return null;
+        }
+
+        return stockpileGood;
+
+        string? GetAllowedGoodId()
+        {
+            return inventory!._goodDisallower is SingleGoodAllower { HasAllowedGood: true } allower
+                ? allower.AllowedGood
+                : null;
+        }
     }
 
     void SetDisplayedGood(string id, int amount)

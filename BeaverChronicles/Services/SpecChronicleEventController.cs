@@ -284,6 +284,12 @@ public class SpecChronicleEventController(
             return CurrentRecord.CustomParameters.TryGetValue(key, out var value) ? value : null;
         }
 
+        if (placeholder.StartsWith("GS_"))
+        {
+            var stat = placeholder[3..];
+            return HelperCollection.GameStats.GetStat(stat)?.ToString();
+        }
+
         if (TryGetPrefix("S", Spec.Parameters.Strings, x => x, out var flagValue)) { return flagValue; }
         if (TryGetPrefix("I", Spec.Parameters.Ints, x => x.ToString(), out flagValue)) { return flagValue; }
         if (TryGetPrefix("F", Spec.Parameters.Floats, x => x.ToString("F2"), out flagValue)) { return flagValue; }

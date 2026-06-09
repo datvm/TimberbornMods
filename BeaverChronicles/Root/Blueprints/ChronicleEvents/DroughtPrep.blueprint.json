@@ -1,0 +1,228 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "DroughtPrep",
+        "TitleLoc": "LV.BCEv.DroughtPrep",
+        "Repeat": true,
+        "Conditions": {
+            "Sources": [ "WeatherWarning" ],
+            "Weight": 2147483647,
+            "ConditionNodeId": "IsDroughtWarning"
+        },
+        "Parameters": {
+            "Floats": [
+                0.99, // F1: Trigger chance
+                1.0, // F2: Search duration
+                0.60 // F3: Search success chance
+            ],
+            "Strings": [
+                "DroughtWeather", // S1: Drought weather id
+                "Water", // S2: Spring reward
+                "Log", // S3: Woods reward
+                "Berries" // S4: Meadow reward
+            ],
+            "Ints": [
+                20, // I1: Spring reward amount
+                10, // I2: Woods reward amount
+                20 // I3: Meadow reward amount
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                // Trigger eligibility
+                {
+                    "Id": "IsDroughtWarning",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "Chance",
+                                "Parameters": {
+                                    "Value": "{F1}"
+                                }
+                            },
+                            {
+                                "Type": "Weather",
+                                "Parameters": {
+                                    "HazardousWeatherId": "{S1}"
+                                }
+                            }
+                        ]
+                    }
+                },
+
+                // Choices
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.DroughtPrep.Content",
+                        "TopImage": true,
+                        "DefaultOption": 3,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCEv.DroughtPrep.C1",
+                                "NextNodeId": "SearchSpring"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.DroughtPrep.C2",
+                                "NextNodeId": "SearchWoods"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.DroughtPrep.C3",
+                                "NextNodeId": "SearchMeadow"
+                            }
+                        ]
+                    }
+                },
+
+                // Choice 1: spring
+                {
+                    "Id": "SearchSpring",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F2}",
+                        "PanelTextLoc": "LV.BCEv.DroughtPrep.C1"
+                    },
+                    "NextNodeId": "SpringChance"
+                },
+                {
+                    "Id": "SpringChance",
+                    "Type": "Chance",
+                    "Data": {
+                        "Value": "{F3}",
+                        "SuccessNodeId": "GiveSpringReward",
+                        "FailNodeId": "SpringFailure"
+                    }
+                },
+                {
+                    "Id": "GiveSpringReward",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{I1}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "SpringSuccess"
+                },
+                {
+                    "Id": "SpringSuccess",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImage": true,
+                        "TextLoc": "LV.BCEv.DroughtPrep.O1"
+                    }
+                },
+                {
+                    "Id": "SpringFailure",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImage": true,
+                        "TextLoc": "LV.BCEv.DroughtPrep.O4"
+                    }
+                },
+
+                // Choice 2: woods
+                {
+                    "Id": "SearchWoods",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F2}",
+                        "PanelTextLoc": "LV.BCEv.DroughtPrep.C2"
+                    },
+                    "NextNodeId": "WoodsChance"
+                },
+                {
+                    "Id": "WoodsChance",
+                    "Type": "Chance",
+                    "Data": {
+                        "Value": "{F3}",
+                        "SuccessNodeId": "GiveWoodsReward",
+                        "FailNodeId": "WoodsFailure"
+                    }
+                },
+                {
+                    "Id": "GiveWoodsReward",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [
+                            {
+                                "Id": "{S3}",
+                                "Amount": "{I2}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "WoodsSuccess"
+                },
+                {
+                    "Id": "WoodsSuccess",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImage": true,
+                        "TextLoc": "LV.BCEv.DroughtPrep.O2"
+                    }
+                },
+                {
+                    "Id": "WoodsFailure",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImage": true,
+                        "TextLoc": "LV.BCEv.DroughtPrep.O5"
+                    }
+                },
+
+                // Choice 3: meadow
+                {
+                    "Id": "SearchMeadow",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F2}",
+                        "PanelTextLoc": "LV.BCEv.DroughtPrep.C3"
+                    },
+                    "NextNodeId": "MeadowChance"
+                },
+                {
+                    "Id": "MeadowChance",
+                    "Type": "Chance",
+                    "Data": {
+                        "Value": "{F3}",
+                        "SuccessNodeId": "GiveMeadowReward",
+                        "FailNodeId": "MeadowFailure"
+                    }
+                },
+                {
+                    "Id": "GiveMeadowReward",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [
+                            {
+                                "Id": "{S4}",
+                                "Amount": "{I3}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "MeadowSuccess"
+                },
+                {
+                    "Id": "MeadowSuccess",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImage": true,
+                        "TextLoc": "LV.BCEv.DroughtPrep.O3"
+                    }
+                },
+                {
+                    "Id": "MeadowFailure",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImage": true,
+                        "TextLoc": "LV.BCEv.DroughtPrep.O6"
+                    }
+                }
+            ]
+        }
+    }
+}

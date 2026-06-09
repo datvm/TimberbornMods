@@ -11,7 +11,7 @@
             "Floats": [
                 2.0, // F1: Raft payment deadline
                 5.0, // F2: Cemetery payment deadline
-                0.70, // F3: No consequence chance
+                0.30, // F3: No consequence chance
                 -0.15, // %4: Failure penalty
                 3.0 // F5: Failure penalty days
             ],
