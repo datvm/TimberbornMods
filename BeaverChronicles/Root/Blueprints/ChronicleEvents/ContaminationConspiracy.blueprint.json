@@ -1,0 +1,145 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "ContaminationConspiracy",
+        "TitleLoc": "LV.BCEv.ContaminationConspiracy",
+        "Conditions": {
+            "Sources": [ "Contaminated" ],
+            "Weight": 100,
+            "ConditionNodeId": "IsBeaver"
+        },
+        "Parameters": {
+            "Floats": [
+                15.0, // F1: Cure deadline
+                5.0, // F2: Buff days
+                5.0, // F3: Debuff days
+                0.15, // %4: Buff amount
+                -0.40 // %5: Debuff amount
+            ],
+            "Strings": [
+                "WorkingSpeed",
+                "MovementSpeed"
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                // Trigger eligibility
+                {
+                    "Id": "IsBeaver",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "TriggerCharacter",
+                                "Parameters": {
+                                    "IsBeaver": true
+                                }
+                            }
+                        ]
+                    }
+                },
+
+                // Promise
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.ContaminationConspiracy.Content",
+                        "SideImage": true,
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCEv.ContaminationConspiracy.C1",
+                                "NoteLoc": "LV.BCEv.ContaminationConspiracy.C1N",
+                                "NextNodeId": "WaitForCure"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "WaitForCure",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F1}",
+                        "PanelTextLoc": "LV.BCEv.ContaminationConspiracy.Panel",
+                        "Subscriptions": [
+                            {
+                                "EventName": "CharacterDecontaminated",
+                                "NextNodeId": "SuccessBuff"
+                            },
+                            {
+                                "EventName": "CharacterDied",
+                                "NextNodeId": "FailureBuff"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "FailureBuff"
+                },
+
+                // Success
+                {
+                    "Id": "SuccessBuff",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "ContaminationConspiracy_Reassured",
+                        "TitleLoc": "LV.BCEv.ContaminationConspiracy.BuffName",
+                        "DescLoc": "LV.BCEv.ContaminationConspiracy.BuffDesc",
+                        "CharacterTypes": "AdultBeaver, ChildBeaver",
+                        "Days": "{F2}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{F4}"
+                            },
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{F4}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "SuccessMessage"
+                },
+                {
+                    "Id": "SuccessMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImagePath": "Resources/Chronicles/ContaminationConspiracy_O1_Top",
+                        "TextLoc": "LV.BCEv.ContaminationConspiracy.O1"
+                    }
+                },
+
+                // Failure
+                {
+                    "Id": "FailureBuff",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "ContaminationConspiracy_QuietDread",
+                        "TitleLoc": "LV.BCEv.ContaminationConspiracy.DebuffName",
+                        "DescLoc": "LV.BCEv.ContaminationConspiracy.DebuffDesc",
+                        "CharacterTypes": "AdultBeaver, ChildBeaver",
+                        "Days": "{F3}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{F5}"
+                            },
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{F5}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "FailureMessage"
+                },
+                {
+                    "Id": "FailureMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImagePath": "Resources/Chronicles/ContaminationConspiracy_O2_Top",
+                        "TextLoc": "LV.BCEv.ContaminationConspiracy.O2"
+                    }
+                }
+            ]
+        }
+    }
+}

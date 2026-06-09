@@ -162,6 +162,14 @@ public class SpecChronicleEventController(
         handlers[node.Type].RestoreGameState(node, this);
     }
 
+    public void PostLoadGameState()
+    {
+        var id = CurrentNodeId;
+
+        var node = Spec.Nodes[id];
+        handlers[node.Type].PostLoadGameState(node, this);
+    }
+
     public void TriggerNode(string? id) => Event.TriggerNode(id);
 
     public void TriggerNode(ChronicleEventNodeSpec node)
@@ -198,6 +206,7 @@ public class SpecChronicleEventController(
 
         void RecordCharacter(string prefix, CharacterParameters character)
         {
+            record.CustomParameters.TryAdd(prefix + "Id", character.Character.GetEntityId().ToString());
             record.CustomParameters.TryAdd(prefix + "Name", character.Character.FirstName);
             record.CustomParameters.TryAdd(prefix + "IsBeaver", character.IsBeaver.ToString());
             record.CustomParameters.TryAdd(prefix + "IsAdult", character.IsAdult.ToString());
@@ -206,6 +215,7 @@ public class SpecChronicleEventController(
 
         void RecordRawCharacter(string prefix, Character character, CharacterType characterType)
         {
+            record.CustomParameters.TryAdd(prefix + "Id", character.GetEntityId().ToString());
             record.CustomParameters.TryAdd(prefix + "Name", character.FirstName);
             record.CustomParameters.TryAdd(prefix + "IsBeaver", true.ToString());
             record.CustomParameters.TryAdd(prefix + "IsAdult", (characterType == CharacterType.AdultBeaver).ToString());

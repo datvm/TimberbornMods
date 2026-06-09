@@ -8,7 +8,8 @@ public class HelperCollection(
     CharacterSpawnHelper characterSpawnHelper,
     CharacterStatusHelper characterStatusHelper,
     GameStatHelper gameStatHelper,
-    ILoc t
+    ILoc t,
+    TimeLimitEventService timeLimitEventService
 )
 {
     public readonly ILoc t = t;
@@ -19,4 +20,5 @@ public class HelperCollection(
     public CharacterSpawnHelper CharacterSpawn => characterSpawnHelper;
     public CharacterStatusHelper CharacterStatus => characterStatusHelper;
     public GameStatHelper GameStats => gameStatHelper;
+    public TimeLimitEventService TimeLimitEvents => timeLimitEventService;
 }

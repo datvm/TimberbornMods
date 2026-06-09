@@ -91,7 +91,10 @@ public class SpecChronicleEventProvider(
 
                 if (days is null && hours is null)
                 {
-                    throw new InvalidDataException($"{GetErrPrefix(n)}TimeLimit node must have either days or hours set.");
+                    if (data.Payments.Length == 0 && data.Subscriptions.Length == 0)
+                    {
+                        throw new InvalidDataException($"{GetErrPrefix(n)}Indefinite TimeLimit node must have at least one payment or subscription.");
+                    }
                 }
             }
         }

@@ -6,4 +6,5 @@ public interface ISpecNodeHandler
 
     void HandleNode(ChronicleEventNodeSpec node, SpecChronicleEventController controller);
     void RestoreGameState(ChronicleEventNodeSpec node, SpecChronicleEventController controller);
+    void PostLoadGameState(ChronicleEventNodeSpec node, SpecChronicleEventController controller) { }
 }

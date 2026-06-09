@@ -33,6 +33,11 @@ public class ChronicleEventOrchestrator(
 
     public void PostLoad()
     {
+        if (ActiveEvent is SpecChronicleEvent specEvent)
+        {
+            specEvent.Controller.PostLoadGameState();
+        }
+
         if (MetMinimumEventDay)
         {
             gameEventHandler.StartListening();
