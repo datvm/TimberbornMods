@@ -19,7 +19,7 @@ These are standalone, leaf debugging utilities — nothing else in the folder co
 - `System.Xml`/`System.Xml.Linq` (`XDocument`, `XElement`, `XmlWriter`) for UXML; `StringBuilder` + `CultureInfo.InvariantCulture` for USS.
 
 ## Notes
-- USS color emission rounds float components to bytes with `MidpointRounding.AwayFromZero`; alpha is formatted to 2 decimals only when not exactly `"1"`. Hex output requires `useColorCode = true`.
+- USS color emission rounds float components to bytes with `MidpointRounding.AwayFromZero`. The exporter intends to emit `rgba(...)` when `a != 1` (alpha to 2 decimals), but `StyleSheetToUss.ToUssString(Color)` currently throws for non-1 alpha due to a formatting bug (string alpha passed to a `{3:F2}` format specifier). Hex output requires `useColorCode = true`.
 - `UxmlExporter.Recurse` skips element names beginning with `'_'` (treated as internal/auto-generated) unless `AutoNameElements` is set.
 - `ToUssString(StyleValueHandle)` throws `ArgumentException` on an unhandled `StyleValueType`, so USS export will surface loudly if an unsupported value type is encountered.
 - These utilities assume a well-formed UIElements hierarchy; no error handling is provided for malformed or cyclic trees.
