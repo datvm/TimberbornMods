@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Provides a unified, string-keyed lookup service for game-wide statistics (population counts, good amounts, fill rates, etc.). It exists so that other subsystems — e.g. UI, condition checkers, or dynamic text — can query any stat by name without hard-coding calls to Timberborn's individual services. The design is intentionally extensible: new stat providers can be dropped in without touching the core service.
+Provides a unified, string-keyed lookup service for game-wide statistics (population counts, good amounts, fill rates, map metadata, etc.). It exists so that other subsystems — e.g. UI, condition checkers, or dynamic text — can query any stat by name without hard-coding calls to Timberborn's individual services. The design is intentionally extensible: new stat providers can be dropped in without touching the core service.
 
 ## Key types
 

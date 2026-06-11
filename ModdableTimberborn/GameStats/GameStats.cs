@@ -1,4 +1,4 @@
-namespace ModdableTimberborn.GameStats;
+﻿namespace ModdableTimberborn.GameStats;
 
 public static class GameStats
 {
@@ -56,6 +56,12 @@ public static class GameStats
     public const string ContaminationAdultPercent = nameof(ContaminationAdultPercent);
     public const string ContaminationChildPercent = nameof(ContaminationChildPercent);
     public const string ContaminationPercent = nameof(ContaminationPercent);
+
+    public const string MapName = nameof(MapName);
+    public const string MapSizeX = nameof(MapSizeX);
+    public const string MapSizeY = nameof(MapSizeY);
+    public const string MapSizeTerrainZ = nameof(MapSizeTerrainZ);
+    public const string MapSizeTotalZ = nameof(MapSizeTotalZ);
 
     public static string GoodAmount(string goodId) => GoodAmountPrefix + goodId;
     public static string GoodCapacity(string goodId) => GoodCapacityPrefix + goodId;

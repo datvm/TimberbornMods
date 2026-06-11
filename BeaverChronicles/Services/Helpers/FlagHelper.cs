@@ -5,7 +5,8 @@ public class FlagHelper(
     ChronicleEventFlagService persistence,
     MapNameService mapNameService,
     ISingletonLoader loader,
-    ChronicleEventRecords history
+    ChronicleEventRecords history,
+    FactionService factionService
 ) : ILoadableSingleton, ISaveableSingleton
 {
     public const char FlagSeparator = '.';
@@ -22,6 +23,7 @@ public class FlagHelper(
         }
 
         MarkMapName();
+        MarkFactionName();
         MarkBackwardCompatibilityFlags();
     }
 
@@ -55,6 +57,8 @@ public class FlagHelper(
     }
 
     void MarkMapName() => persistence.AddFlag(GetMapFlag());
+
+    void MarkFactionName() => persistence.AddFlag("FACTION." + factionService.Current.Id);
 
     void MarkBackwardCompatibilityFlags()
     {
