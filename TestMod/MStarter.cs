@@ -16,4 +16,10 @@ public class MStarter : IModStarter
 public static class TestPatch
 {
 
+    [HarmonyPostfix, HarmonyPatch(typeof(ModAssetBundleProvider), nameof(ModAssetBundleProvider.Load))]
+    public static void OnLoad(ModAssetBundleProvider __instance)
+    {
+        Utils.PrintAssetsPaths(__instance);
+    }
+
 }
