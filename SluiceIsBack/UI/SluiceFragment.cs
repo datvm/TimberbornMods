@@ -77,7 +77,9 @@ public class SluiceFragment : IEntityPanelFragment
 
     public VisualElement InitializeFragment()
     {
-        _root = _visualElementLoader.LoadVisualElement("Game/EntityPanel/SluiceFragment");
+        var tree = _visualElementLoader._assetLoader.Load<VisualTreeAsset>("mods/sluiceisback/assetbundles/ui/views/game/entitypanel/lvsluicefragment");
+        _root = _visualElementLoader.LoadVisualElement(tree);
+
         _modeToggle = _sluiceToggleFactory.Create(_root.Q<VisualElement>("ModeToggle"));
         _modeLabel = _root.Q<Label>("Mode");
         _waterLevelToggle = _root.Q<Toggle>("WaterLevelToggle");
