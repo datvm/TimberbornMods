@@ -1,0 +1,7 @@
+﻿ID,Text,Comment
+LV.WYLATL.Title,"Wood You Look At The Log",
+LV.WYLATL.PickMinutes,"How many minutes are you going to play this time?",
+LV.WYLATL.ImGood,"Nah, I'm good.",
+LV.WYLATL.GameClosesIn,"Remaining minutes: ",
+LV.WYLATL.CloseWarning,"The game will close in {0} minutes. Please save your progress.",
+LV.WYLATL.SaveError,"Time is up but the mod couldn't save your progress. The game will not close.",

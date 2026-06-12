@@ -1,0 +1,14 @@
+﻿"Just one more cycle" and the sun is already up? This mod is for you! After setting a time limit, the mod will automatically save your game and close the game when the timer runs out.
+
+[h1]How It Works[/h1]
+
+When you load a game, you will be asked how many minutes you want this session to last. A timer will then appear in the lower-right corner of the screen.
+[img]https://files.catbox.moe/93mcej.jpg[/img]
+
+You will receive notifications when there are 5 minutes and 1 minute remaining. When the timer runs out, the mod will save your game and then close Timberborn.
+[img]https://files.catbox.moe/6hz1bb.jpg[/img]
+
+If the save fails for any reason, the game will not close. Instead, you will receive a message letting you know that the save failed, so you do not lose progress.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
