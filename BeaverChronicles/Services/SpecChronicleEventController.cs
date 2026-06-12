@@ -286,6 +286,20 @@ public class SpecChronicleEventController(
     public float FormatTextFloat(string? input)
         => float.TryParse(FormatText(input), out var result) ? result : 0;
 
+    public T FormatTextEnum<T>(string? input) where T : struct, Enum
+    {
+        var text = FormatText(input);
+        return Enum.TryParse<T>(text, true, out var result) ? result : throw new InvalidOperationException($"Failed to parse '{text}' as {typeof(T).Name}.");
+    }
+
+    static readonly FrozenSet<string> TrueValues = FrozenSet.Create(StringComparer.InvariantCultureIgnoreCase, "1", "true", "yes");
+    public bool FormatTextBool(string? input)
+    {
+        var text = FormatText(input);
+        return !string.IsNullOrEmpty(text) && (TrueValues.Contains(text) 
+            || float.TryParse(text, out var number) && number > 0);
+    }
+
     string? GetPlaceholderValue(string placeholder)
     {
         if (placeholder.StartsWith("CP_"))

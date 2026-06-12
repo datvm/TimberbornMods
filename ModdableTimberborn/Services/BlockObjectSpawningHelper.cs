@@ -38,6 +38,19 @@ public class BlockObjectSpawningHelper(
         return false;
     }
 
+    public bool TryGetBlockObjectSpec(IEnumerable<string> templateNames, [NotNullWhen(true)] out BlockObjectSpec? spec, bool throwOnInvalidFoundTemplate = false)
+    {
+        foreach (var name in templateNames)
+        {
+            if (TryGetBlockObjectSpec(name, out spec, throwOnInvalidFoundTemplate))
+            {
+                return true;
+            }
+        }
+        spec = null;
+        return false;
+    }
+
     public bool IsPlacementValid(BlockObjectSpec template, Placement placement)
         => blockValidator.BlocksValid(template, placement);
 
