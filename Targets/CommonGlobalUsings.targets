@@ -29,6 +29,7 @@
 		<Using Alias="Object" Include="UnityEngine.Object" />
 		<Using Alias="Label" Include="UnityEngine.UIElements.Label" />
 		<Using Alias="Priority" Include="Timberborn.PrioritySystem.Priority" />
+		<Using Alias="Random" Include="UnityEngine.Random" />
 
 		<Using Include="Timberborn.AccessibilitySettingsSystem"/>
 		<Using Include="Timberborn.AccessibleNavigation"/>

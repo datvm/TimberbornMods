@@ -14,4 +14,5 @@ global using ModdableTimberborn.Services;
 global using ModdableTimberborn.SoakEffect;
 global using ModdableTimberborn.UpdatableEntityStats;
 global using System.Linq.Expressions;
+global using ModdableTimberborn.ModdableWaterSource;
 global using MechanicalNodeModifierCollection = ModdableTimberborn.Common.ValueModifierCollection<ModdableTimberborn.MechanicalSystem.IModdableMechanicalNodeModifier, ModdableTimberborn.MechanicalSystem.ModdableMechanicalNodeValues, ModdableTimberborn.MechanicalSystem.MechanicalNodeValues>;
