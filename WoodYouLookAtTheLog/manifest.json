@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Wood You Look At The Log",
+    "Version": "10.0.0",
+    "Id": "WoodYouLookAtTheLog",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "Close the game after a certain time",
+    "RequiredMods": [
+        { "Id": "TimberUi" }
+    ]
+}
