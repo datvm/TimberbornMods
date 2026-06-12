@@ -16,4 +16,3 @@ global using ModdableTimberborn.CompatWeatherService;
 global using ModdableTimberborn.EntityTracker;
 global using ModdableTimberborn.GameStats;
 global using Newtonsoft.Json.Linq;
-global using Random = UnityEngine.Random;

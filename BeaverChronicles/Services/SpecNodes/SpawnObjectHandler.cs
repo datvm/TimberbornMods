@@ -2,38 +2,46 @@
 
 [MultiBind(typeof(ISpecNodeHandler))]
 public class SpawnObjectHandler(
-    TemplateNameMapper templateMapper
+    BlockObjectSpawningHelper helper
 ) : NodeHandlerBase<SpawnObjectData>
 {
     public override string ForType => "SpawnObject";
 
     protected override string? InternalHandleNode(SpawnObjectData data, ChronicleEventNodeSpec node, SpecChronicleEventController controller)
     {
-        if (data.TemplateNames.Length == 0)
+        if (!helper.TryGetBlockObjectSpec(data.TemplateNames, out var template, true))
         {
-            throw new ArgumentException("SpawnObject node must have at least one template name.");
+            return data.FailedNodeId;
         }
 
-        var template = GetTemplate(data);
-        if (template is null) { return data.FailedNodeId; }
+        var x = controller.FormatTextInt(data.X);
+        var y = controller.FormatTextInt(data.Y);
+        var z = controller.FormatTextInt(data.Z);
+        var orientation = controller.FormatTextEnum<Orientation>(data.Orientation);
+        var flip = controller.FormatTextBool(data.Flipped);
 
-        
+        var placement = new Placement(new(x, y, z), orientation, flip ? FlipMode.Flipped : FlipMode.Unflipped);
+        var conflictMode = controller.FormatTextEnum<SpawnObjectConflictMode>(data.ConflictMode);
 
-        return node.NextNodeId;
-    }
-
-    PlaceableBlockObjectSpec? GetTemplate(SpawnObjectData data)
-    {
-        foreach (var n in data.TemplateNames)
+        bool successful = false;
+        switch (conflictMode)
         {
-            if (templateMapper.TryGetTemplate(n, out var spec))
-            {
-                return spec.GetSpec<PlaceableBlockObjectSpec>()
-                    ?? throw new InvalidDataException($"Template '{n}' is not a placeable block object.");
-            }
+            case SpawnObjectConflictMode.Ignore:
+                successful = helper.IsPlacementValid(template, placement);
+                if (successful)
+                {
+                    helper.PlaceObject(template, placement);
+                }
+                break;
+            case SpawnObjectConflictMode.Destructive:
+                successful = helper.TryPlacingWithDestruction(template, placement).Result;
+                break;
+            default:
+                throw new InvalidOperationException($"Unsupported conflict mode: {conflictMode}");
         }
 
-        return null;
+        return successful ? node.NextNodeId : data.FailedNodeId;
     }
+
 
 }
