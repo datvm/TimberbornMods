@@ -5,6 +5,9 @@ This file is a living handoff note for AI agents working in this `BeaverChronicl
 ## Project Shape
 
 - This is a Timberborn mod project under `BeaverChronicles`.
+- Project docs live in `Docs`; the shared repo-root `../Docs/README.MD` links back to them.
+- `Docs/README.MD` is a non-technical JSON event authoring guide; `Docs/References.MD` is intended to catalog conditions and handler nodes.
+- Docs may use GitHub-style callout boxes such as `> [!INFO]` when a note is helpful.
 - `dotnet build` from this folder is the quickest verification command and currently works for normal code checks.
 - JSON event blueprints live under `Root/Blueprints/ChronicleEvents`.
 - English localization strings live in `Localizations/enUS.csv`.

@@ -1,7 +1,8 @@
-﻿# Documentations
+# Documentations
 
 Documentations for various Moddable projects.
 
+- [Beaver Chronicles](../BeaverChronicles/Docs/README.MD)
 - [Moddable Timberborn](./ModdableTimberborn#README)
 - [TimberUi](./TimberUi#README)
 - [Moddable Tool Groups](./ModdableToolGroups#README)
