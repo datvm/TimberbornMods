@@ -6,6 +6,7 @@ global using BeaverChronicles.Services;
 global using BeaverChronicles.Services.Conditions;
 global using BeaverChronicles.Services.Helpers;
 global using BeaverChronicles.Services.SpecNodes;
+global using BeaverChronicles.Services.Buffs;
 global using BeaverChronicles.Services.TimeLimitEvents;
 global using BeaverChronicles.Specs;
 global using BeaverChronicles.Specs.NodeData;

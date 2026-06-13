@@ -1,7 +1,10 @@
 namespace BeaverChronicles.Services.SpecNodes;
 
 [MultiBind(typeof(ISpecNodeHandler))]
-public class BuffCharacterNeedsHandler(CharacterStatusHelper characterStatusHelper) : NodeHandlerBase<BuffCharacterNeedsData>
+public class BuffCharacterNeedsHandler(
+    CharacterStatusHelper characterStatusHelper,
+    PermanentNeedBoostService permanentNeedBoostService
+) : NodeHandlerBase<BuffCharacterNeedsData>
 {
     public override string ForType => "BuffCharacterNeeds";
 
@@ -12,7 +15,7 @@ public class BuffCharacterNeedsHandler(CharacterStatusHelper characterStatusHelp
 
         if (data.Permanent)
         {
-            characterStatusHelper.PermanentNeedBoost.UnionWith(ids);
+            permanentNeedBoostService.AddNeedBoosts(ids);
         }
 
         characterStatusHelper.BoostAllBeaversNeed(ids, amount);

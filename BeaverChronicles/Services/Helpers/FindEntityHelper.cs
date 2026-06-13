@@ -14,6 +14,21 @@ public class FindEntityHelper(
 
     public ReadOnlyList<DistrictCenter> AllDistrictCenters => districtCenterRegistry.AllDistrictCenters;
 
+    public bool TryFindEntity(string id, [NotNullWhen(true)] out EntityComponent? entity)
+    {
+        entity = null;
+        if (!Guid.TryParse(id, out var g)) { return false; }
+
+        entity = entities.GetEntity(g);
+        if (!entity)
+        {
+            entity = null;
+            return false;
+        }
+
+        return true;
+    }
+
     public bool FindDistrictCenter([NotNullWhen(true)] out DistrictCenter? dc, DistrictCenter? preferred = null)
     {
         if (preferred)
@@ -157,7 +172,7 @@ public class FindEntityHelper(
         }
     }
 
-    public IEnumerable<BaseComponent> FindEntitiesByTemplates(
+    public IEnumerable<TemplateTrackerComponent> FindEntitiesByTemplates(
         IReadOnlyList<string>? templateNames = null,
         IReadOnlyList<string>? templatePrefixes = null)
     {
@@ -169,6 +184,20 @@ public class FindEntityHelper(
             foreach (var e in entityByTemplateTracker.GetEntitiesByTemplate(template))
             {
                 yield return e;
+            }
+        }
+    }
+
+    public IEnumerable<T> FindEntitiesByTemplates<T>(
+        IReadOnlyList<string>? templateNames = null,
+        IReadOnlyList<string>? templatePrefixes = null)
+    {
+        foreach (var entity in FindEntitiesByTemplates(templateNames, templatePrefixes))
+        {
+            var component = entity.GetComponent<T>();
+            if (component is not null)
+            {
+                yield return component;
             }
         }
     }

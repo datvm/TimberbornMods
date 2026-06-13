@@ -1,8 +1,8 @@
-namespace BeaverChronicles.Services.SpecNodes;
+﻿namespace BeaverChronicles.Services.SpecNodes;
 
 [MultiBind(typeof(ISpecNodeHandler))]
 public class BuffWorkplacesHandler(
-    WorkplaceHelper workplaceHelper
+    WorkplaceEntityBuffService workplaceBuffService
 ) : NodeHandlerBase<BuffWorkplacesData>
 {
     public override string ForType => "BuffWorkplaces";
@@ -11,19 +11,25 @@ public class BuffWorkplacesHandler(
     {
         var days = controller.FormatTextFloat(data.Days);
 
-        if (days <= 0)
+        if (data.Category != EntityBuffCategory.Permanent && days <= 0)
         {
-            workplaceHelper.RemoveWorkplaceBonus(data.BuffId);
+            workplaceBuffService.RemoveWorkplaceBuff(data.BuffId);
         }
         else
         {
-            workplaceHelper.AddOrUpdateWorkplaceBonus(new(
-                data.BuffId,
-                WorkplaceHelper.MatchTemplates(data),
-                [.. controller.FormatBonuses(data.Bonuses)],
-                controller.FormatTextLoc(data.TitleLoc),
-                controller.FormatTextLoc(data.DescLoc)
-            ), days);
+            workplaceBuffService.AddOrUpdateWorkplaceBuff(new()
+            {
+                Id = data.BuffId,
+                Target = new()
+                {
+                    TemplateNames = [.. data.TemplateNames],
+                    TemplateNamePrefixes = [.. data.TemplateNamePrefixes],
+                },
+                Effects = [.. controller.FormatBonuses(data.Bonuses)],
+                Title = controller.FormatTextLoc(data.TitleLoc),
+                Description = controller.FormatTextLoc(data.DescLoc),
+                Category = data.Category,
+            }, days);
         }
 
         return node.NextNodeId;

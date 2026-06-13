@@ -1,7 +1,7 @@
 ﻿namespace BeaverChronicles.Services.SpecNodes;
 
 [MultiBind(typeof(ISpecNodeHandler))]
-public class BuffCharactersHandler(CharacterStatusHelper characterStatusHelper) : NodeHandlerBase<BuffCharactersData>
+public class BuffCharactersHandler(CharacterEntityBuffService characterBuffService) : NodeHandlerBase<BuffCharactersData>
 {
     public override string ForType => "BuffCharacters";
 
@@ -9,19 +9,21 @@ public class BuffCharactersHandler(CharacterStatusHelper characterStatusHelper) 
     {
         var days = controller.FormatTextFloat(data.Days);
 
-        if (days <= 0)
+        if (data.Category != EntityBuffCategory.Permanent && days <= 0)
         {
-            characterStatusHelper.RemoveLimitedTimeStatus(data.BuffId);
+            characterBuffService.RemoveCharacterBuff(data.BuffId);
         }
         else
         {
-            characterStatusHelper.AddOrUpdateLimitedTimeBonus(new(
-                data.BuffId,
-                data.CharacterTypes,
-                [.. controller.FormatBonuses(data.Bonuses)],
-                controller.FormatTextLoc(data.TitleLoc),
-                controller.FormatTextLoc(data.DescLoc)
-            ), days);
+            characterBuffService.AddOrUpdateCharacterBuff(new()
+            {
+                Id = data.BuffId,
+                CharacterType = data.CharacterTypes,
+                Effects = [.. controller.FormatBonuses(data.Bonuses)],
+                Title = controller.FormatTextLoc(data.TitleLoc),
+                Description = controller.FormatTextLoc(data.DescLoc),
+                Category = data.Category,
+            }, days);
         }
 
         return node.NextNodeId;
