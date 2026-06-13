@@ -6,5 +6,6 @@ public record BuffCharactersData(
     string DescLoc,
     CharacterType CharacterTypes,
     ImmutableArray<FormattableGoodItem> Bonuses,
-    string? Days
+    string? Days,
+    EntityBuffCategory Category = EntityBuffCategory.LimitedTime
 );

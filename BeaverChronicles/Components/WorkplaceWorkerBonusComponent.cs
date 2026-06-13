@@ -3,7 +3,7 @@
 [AddTemplateModule2(typeof(Workplace))]
 public class WorkplaceWorkerBonusComponent : BaseComponent, IAwakableComponent, IDeletableEntity
 {
-    readonly record struct StatusBonusPair(WorkplaceLimitedTimeStatus Status, BonusTrackerItem Bonus);
+    readonly record struct StatusBonusPair(WorkplaceBuffStatus Status, BonusTrackerItem Bonus);
 
     readonly Dictionary<string, StatusBonusPair> activeBonuses = [];
     readonly HashSet<BonusTrackerComponent> workers = [];
@@ -58,14 +58,14 @@ public class WorkplaceWorkerBonusComponent : BaseComponent, IAwakableComponent, 
         }
     }
 
-    public void AddOrUpdateBonus(WorkplaceLimitedTimeStatus status)
+    public void AddOrUpdateBonus(WorkplaceBuffStatus status)
     {
         if (activeBonuses.ContainsKey(status.Id))
         {
             RemoveBonus(status.Id);
         }
 
-        StatusBonusPair pair = new(status, new(status.Id, [.. status.Bonuses.Select(b => b.ToBonusSpec())]));
+        StatusBonusPair pair = new(status, new(status.Id, [.. status.Effects.Select(b => b.ToBonusSpec())]));
         activeBonuses[status.Id] = pair;
         statusDescriptionComponent.AddStatus(status);
 

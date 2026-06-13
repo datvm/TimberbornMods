@@ -296,8 +296,53 @@ public class SpecChronicleEventController(
     public bool FormatTextBool(string? input)
     {
         var text = FormatText(input);
-        return !string.IsNullOrEmpty(text) && (TrueValues.Contains(text) 
+        return !string.IsNullOrEmpty(text) && (TrueValues.Contains(text)
             || float.TryParse(text, out var number) && number > 0);
+    }
+
+    public IEnumerable<EntityComponent> GetEntities(IEnumerable<string> entitiesIds)
+    {
+        var cp = CurrentRecord.CustomParameters;
+        var entities = HelperCollection.FindEntity;
+
+        foreach (var id in entitiesIds)
+        {
+            // 1. Check if it's an array
+            if (cp.TryGetValue(id + "_Count", out var countStr) && int.TryParse(countStr, out var count))
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    if (cp.TryGetValue($"{id}_{i + 1}", out var elementId) && entities.TryFindEntity(elementId, out var e))
+                    {
+                        yield return e;
+                    }
+                }
+            }
+
+            // 2. Check if the CP itself is an entity
+            else if (cp.TryGetValue(id, out var entityId) && entities.TryFindEntity(entityId, out var e))
+            {
+                yield return e;
+            }
+
+            // 3. Check if the string itself is a GUID
+            else if (entities.TryFindEntity(id, out e))
+            {
+                yield return e;
+            }
+        }
+    }
+
+    public IEnumerable<T> GetEntities<T>(IEnumerable<string> entitiesIds)
+    {
+        foreach (var e in GetEntities(entitiesIds))
+        {
+            var comp = e.GetComponent<T>();
+            if (comp is not null)
+            {
+                yield return comp;
+            }
+        }
     }
 
     string? GetPlaceholderValue(string placeholder)
@@ -338,12 +383,11 @@ public class SpecChronicleEventController(
     public IEnumerable<GoodAmount> FormatItems(IEnumerable<FormattableGoodItem> items) => items.Select(FormatItem);
     public BonusStat FormatBonus(FormattableGoodItem item) => new(FormatText(item.Id), FormatTextFloat(item.Amount));
     public IEnumerable<BonusStat> FormatBonuses(IEnumerable<FormattableGoodItem> items) => items.Select(FormatBonus);
+}
 
-    public enum FlagCheckResult
-    {
-        Block,
-        CanTrigger,
-        CannotTrigger
-    }
-
+public enum FlagCheckResult
+{
+    Block,
+    CanTrigger,
+    CannotTrigger
 }

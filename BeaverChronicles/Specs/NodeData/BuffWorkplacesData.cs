@@ -7,4 +7,5 @@ public record BuffWorkplacesData : WorkplaceTargetData
     public string DescLoc { get; init; } = "";
     public ImmutableArray<FormattableGoodItem> Bonuses { get; init; } = [];
     public string? Days { get; init; }
+    public EntityBuffCategory Category { get; init; } = EntityBuffCategory.LimitedTime;
 }

@@ -16,7 +16,8 @@ public class StatusDescriptionComponent : BaseComponent, IEntityMultiEffectsDesc
 
         foreach (var s in statuses.Values)
         {
-            yield return new(s.Title, s.Description, s.UntilDay - day);
+            var remainingDays = s.Category == EntityBuffCategory.Permanent ? null : (float?)(s.UntilDay - day);
+            yield return new(s.Title, s.Description, remainingDays);
         }
     }
 

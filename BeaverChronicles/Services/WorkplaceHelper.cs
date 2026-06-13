@@ -2,30 +2,10 @@
 
 [BindSingleton]
 public class WorkplaceHelper(
-    WorkplaceTracker workplaces,
-    IDayNightCycle dayNightCycle
-) : ITickableSingleton, ILoadableSingleton
+    WorkplaceTracker workplaces
+)
 {
     public delegate bool WorkplaceFilter(Workplace workplace);
-
-    readonly Dictionary<string, WorkplaceLimitedTimeStatus> activeBonuses = [];
-
-    public void Load()
-    {
-        workplaces.OnEntityRegistered += OnEntityAdded;
-    }
-
-    void OnEntityAdded(WorkplaceTrackerComponent obj)
-    {
-        var comp = GetWorkplaceBonusComp(obj);
-        foreach (var bonus in activeBonuses.Values)
-        {
-            if (bonus.WorkplaceFilter(obj.Workplace))
-            {
-                comp.AddOrUpdateBonus(bonus);
-            }
-        }
-    }
 
     public bool HasMinimumWorkers(int expected, WorkplaceFilter workplaceFilter)
     {
@@ -50,13 +30,16 @@ public class WorkplaceHelper(
         => GetWorkplaces(workplaceFilter).Sum(workplace => workplace.AssignedWorkers.Count);
 
     public static WorkplaceFilter MatchTemplates(WorkplaceTargetData target)
-    {
-        var templates = target.TemplateNames;
-        var templatePrefixes = target.TemplateNamePrefixes;
+        => MatchTemplates([.. target.TemplateNames], [.. target.TemplateNamePrefixes]);
 
+    public static WorkplaceFilter MatchTemplates(WorkplaceBuffTarget target)
+        => MatchTemplates(target.TemplateNames, target.TemplateNamePrefixes);
+
+    static WorkplaceFilter MatchTemplates(IReadOnlyCollection<string> templates, IReadOnlyCollection<string> templatePrefixes)
+    {
         return workplace =>
         {
-            if (templates.Count == 0 && templatePrefixes.Length == 0)
+            if (templates.Count == 0 && templatePrefixes.Count == 0)
             {
                 return true;
             }
@@ -65,37 +48,6 @@ public class WorkplaceHelper(
             return templates.EmptyOrContains(templateName)
                 && templatePrefixes.EmptyOrAny(prefix => templateName.StartsWith(prefix));
         };
-    }
-
-    public void AddOrUpdateWorkplaceBonus(WorkplaceLimitedTimeStatus bonus, float? days)
-    {
-        if (days.HasValue)
-        {
-            bonus = bonus with { UntilDay = dayNightCycle.PartialDayNumber + days.Value };
-        }
-
-        if (activeBonuses.ContainsKey(bonus.Id))
-        {
-            RemoveWorkplaceBonus(bonus.Id);
-        }
-
-        activeBonuses[bonus.Id] = bonus;
-        foreach (var workplace in GetWorkplaces(bonus.WorkplaceFilter))
-        {
-            GetWorkplaceBonusComp(workplace).AddOrUpdateBonus(bonus);
-        }
-    }
-
-    public void RemoveWorkplaceBonus(string bonusId)
-    {
-        if (!activeBonuses.TryGetValue(bonusId, out var bonus)) { return; }
-
-        foreach (var workplace in GetWorkplaces(bonus.WorkplaceFilter))
-        {
-            GetWorkplaceBonusComp(workplace).RemoveBonus(bonusId);
-        }
-
-        activeBonuses.Remove(bonusId);
     }
 
     public static bool IsFarmhouse(Workplace workplace)
@@ -112,18 +64,6 @@ public class WorkplaceHelper(
 
     public static bool AllWorkplaces(Workplace _) => true;
 
-    public void Tick()
-    {
-        if (activeBonuses.Count == 0) { return; }
-
-        var day = dayNightCycle.PartialDayNumber;
-        var expiredBonuses = activeBonuses.Values.Where(b => b.UntilDay <= day).ToArray();
-        foreach (var b in expiredBonuses)
-        {
-            RemoveWorkplaceBonus(b.Id);
-        }
-    }
-
     public IEnumerable<Workplace> GetWorkplaces(WorkplaceFilter workplaceFilter)
     {
         foreach (var e in workplaces.Entities)
@@ -135,7 +75,5 @@ public class WorkplaceHelper(
             }
         }
     }
-
-    static WorkplaceWorkerBonusComponent GetWorkplaceBonusComp(BaseComponent comp) => comp.GetComponent<WorkplaceWorkerBonusComponent>();
 
 }

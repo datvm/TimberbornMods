@@ -1,30 +1,68 @@
 ﻿namespace BeaverChronicles.Models;
 
+public enum EntityBuffCategory
+{
+    LimitedTime,
+    Permanent
+}
+
 public interface IEntityStatus
 {
     string Id { get; }
     string Title { get; }
     string Description { get; }
+    EntityBuffCategory Category { get; }
     float UntilDay { get; }
 }
 
-public readonly record struct LimitedTimeCharacterStatus(
-    string Id,
-    CharacterType CharacterType,
-    BonusStat[] Bonuses,
-    string Title,
-    string Description,
-    float UntilDay = 0
-) : IEntityStatus;
+public interface IEntityStatus<out TEffect> : IEntityStatus
+{
+    TEffect Effects { get; }
+}
 
-public readonly record struct WorkplaceLimitedTimeStatus(
-    string Id,
-    WorkplaceHelper.WorkplaceFilter WorkplaceFilter,
-    BonusStat[] Bonuses,
-    string Title,
-    string Description,
-    float UntilDay = 0
-) : IEntityStatus;
+public abstract record EntityStatus : IEntityStatus
+{
+    public string Id { get; init; } = "";
+    public string Title { get; init; } = "";
+    public string Description { get; init; } = "";
+    public EntityBuffCategory Category { get; init; } = EntityBuffCategory.LimitedTime;
+    public float UntilDay { get; init; }
+
+    public EntityStatus WithUntilDay(float untilDay) => this with { UntilDay = untilDay };
+}
+
+public abstract record EntityStatus<TEffect> : EntityStatus, IEntityStatus<TEffect>
+{
+    public TEffect Effects { get; init; } = default!;
+}
+
+public record CharacterBuffStatus : EntityStatus<BonusStat[]>
+{
+    public CharacterType CharacterType { get; init; }
+}
+
+public record WorkplaceBuffStatus : EntityStatus<BonusStat[]>
+{
+    public WorkplaceBuffTarget Target { get; init; } = new();
+}
+
+public record WorkplaceBuffTarget
+{
+    public string[] TemplateNames { get; init; } = [];
+    public string[] TemplateNamePrefixes { get; init; } = [];
+}
+
+public record WaterSourceBuffStatus : EntityStatus<WaterSourceBuffEffects>
+{
+    public Guid[]? EntityIds { get; init; }
+}
+
+public readonly record struct WaterSourceBuffEffects(
+    bool? ImmuneToDrought,
+    bool? ImmuneToBadtide,
+    float? StrengthMultiplier,
+    float? ContaminationDelta
+);
 
 public readonly record struct BonusStat(string Bonus, float Amount)
 {
