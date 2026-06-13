@@ -6,6 +6,7 @@ public class FindEntityHelper(
     BeaverPopulation beaverPopulation,
     DefaultEntityTracker<Stockpile> stockpileTracker,
     DefaultEntityTracker<BlockObject> blockObjectTracker,
+    DefaultEntityTracker<BlockObjectBound> blockObjectBoundTracker,
     DefaultEntityTracker<Bot> bots,
     EntityRegistry entities,
     EntityByTemplateTracker entityByTemplateTracker
@@ -172,8 +173,35 @@ public class FindEntityHelper(
         }
     }
 
+    public IEnumerable<BaseComponent> GetCharacters(
+        CharacterType types,
+        IReadOnlyList<BoundsInt> areas)
+    {
+        if (areas.Count == 0)
+        {
+            return GetCharacters(types);
+        }
+
+        return GetCharacters(types).Where(c => areas.FastAny(a => a.Contains(c.Transform.position.FloorToInt())));
+    }
+
+    public IEnumerable<BlockObjectBound> FindBuildings(
+        IReadOnlyCollection<string>? templateNames = null,
+        IReadOnlyList<string>? templatePrefixes = null,
+        IReadOnlyList<BoundsInt>? areas = null,
+        AreaCondition areaCondition = AreaCondition.Intersects)
+    {
+        foreach (var bound in blockObjectBoundTracker.Entities)
+        {
+            if (!MatchesTemplate(bound, templateNames, templatePrefixes)) { continue; }
+            if (!MatchesAreas(bound, areas, areaCondition)) { continue; }
+
+            yield return bound;
+        }
+    }
+
     public IEnumerable<TemplateTrackerComponent> FindEntitiesByTemplates(
-        IReadOnlyList<string>? templateNames = null,
+        IReadOnlyCollection<string>? templateNames = null,
         IReadOnlyList<string>? templatePrefixes = null)
     {
         var templates = GetTrackedTemplateNames(templateNames, templatePrefixes);
@@ -188,8 +216,24 @@ public class FindEntityHelper(
         }
     }
 
+    public IEnumerable<TemplateTrackerComponent> FindEntitiesByTemplates(
+        IReadOnlyCollection<string>? templateNames,
+        IReadOnlyList<string>? templatePrefixes,
+        IReadOnlyList<BoundsInt>? areas,
+        AreaCondition areaCondition = AreaCondition.Intersects)
+    {
+        if (areas is not { Count: > 0 })
+        {
+            return FindEntitiesByTemplates(templateNames, templatePrefixes);
+        }
+
+        return FindEntitiesByTemplates(templateNames, templatePrefixes)
+            .Where(e => e.GetComponent<BlockObjectBound>() is { } bound
+                && MatchesAreas(bound, areas, areaCondition));
+    }
+
     public IEnumerable<T> FindEntitiesByTemplates<T>(
-        IReadOnlyList<string>? templateNames = null,
+        IReadOnlyCollection<string>? templateNames = null,
         IReadOnlyList<string>? templatePrefixes = null)
     {
         foreach (var entity in FindEntitiesByTemplates(templateNames, templatePrefixes))
@@ -203,7 +247,7 @@ public class FindEntityHelper(
     }
 
     public HashSet<string> GetTrackedTemplateNames(
-        IReadOnlyList<string>? templateNames = null,
+        IReadOnlyCollection<string>? templateNames = null,
         IReadOnlyList<string>? templatePrefixes = null)
     {
         var hasPrefix = templatePrefixes is { Count: > 0 };
@@ -237,6 +281,33 @@ public class FindEntityHelper(
         }
 
         return result;
+    }
+
+    static bool MatchesTemplate(
+        BlockObjectBound bound,
+        IReadOnlyCollection<string>? templateNames,
+        IReadOnlyList<string>? templatePrefixes)
+    {
+        var hasNames = templateNames is { Count: > 0 };
+        var hasPrefixes = templatePrefixes is { Count: > 0 };
+        if (!hasNames && !hasPrefixes) { return true; }
+
+        var templateName = bound.GetTemplateName();
+        if (hasNames && !templateNames!.Contains(templateName)) { return false; }
+        if (hasPrefixes && !templatePrefixes!.FastAny(p => templateName.StartsWith(p))) { return false; }
+
+        return true;
+    }
+
+    static bool MatchesAreas(
+        BlockObjectBound bound,
+        IReadOnlyList<BoundsInt>? areas,
+        AreaCondition areaCondition)
+    {
+        if (areas is not { Count: > 0 }) { return true; }
+
+        var buildingBounds = bound.Bounds;
+        return ConditionType.Any.Evaluate(areas, a => areaCondition.Evaluate(buildingBounds, a));
     }
 
 }

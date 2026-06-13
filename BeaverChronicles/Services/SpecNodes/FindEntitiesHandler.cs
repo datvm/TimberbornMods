@@ -37,45 +37,18 @@ public class FindEntitiesHandler(
     IEnumerable<string> FindEntities(FindEntitiesData data)
     {
         var areas = data.AreasBounds;
-        var hasAreas = areas.Length > 0;
-        var areaCond = data.AreaCondition;
 
         if (data.CharacterType != CharacterType.Unknown)
         {
-            foreach (var c in findEntityHelper.GetCharacters(data.CharacterType))
-            {
-                if (!hasAreas)
-                {
-                    yield return c.GetEntityId().ToString();
-                }
-                else
-                {
-                    var pos = c.Transform.position.FloorToInt();
-                    if (areas.FastAny(a => a.Contains(pos)))
-                    {
-                        yield return c.GetEntityId().ToString();
-                    }
-                }
-            }
-        }
-
-        foreach (var c in findEntityHelper.FindEntitiesByTemplates(data.TemplateNames, data.TemplatePrefixes))
-        {
-            if (!hasAreas)
+            foreach (var c in findEntityHelper.GetCharacters(data.CharacterType, areas))
             {
                 yield return c.GetEntityId().ToString();
             }
-            else
-            {
-                var boundComp = c.GetComponent<BlockObjectBound>();
-                if (!boundComp) { continue; }
+        }
 
-                var bounds = boundComp.Bounds;
-                if (ConditionType.Any.Evaluate(areas, a => areaCond.Evaluate(bounds, a)))
-                {
-                    yield return c.GetEntityId().ToString();
-                }
-            }
+        foreach (var c in findEntityHelper.FindEntitiesByTemplates(data.TemplateNames, data.TemplatePrefixes, areas, data.AreaCondition))
+        {
+            yield return c.GetEntityId().ToString();
         }
     }
 }
