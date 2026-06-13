@@ -8,13 +8,14 @@
         {
             configurator
                 .BindSingleton<EntityTrackerController>()
-
+                .MultiBindAndBindSingleton<IEntityTracker, EntityByTemplateTracker>()
                 .MultiBindAndBindSingleton<IEntityTracker, CharacterTracker>()
                 .MultiBindAndBindSingleton<IEntityTracker, WorkplaceTracker>()
 
                 .BindTemplateModule(h => h
                     .AddDecorator<Character, CharacterTrackerComponent>()
                     .AddDecorator<WorkplaceSpec, WorkplaceTrackerComponent>()
+                    .AddDecorator<TemplateSpec, TemplateTrackerComponent>()
                 )
             ;
 
@@ -59,6 +60,10 @@ namespace ModdableTimberborn.Registry
             else if (t == typeof(WorkplaceTrackerComponent) || t == typeof(WorkplaceSpec) || t == typeof(Workplace))
             {
                 throw new InvalidOperationException(string.Format(ErrorMessage, nameof(WorkplaceTracker)));
+            }
+            else if (t == typeof(TemplateSpec) || t == typeof(TemplateTrackerComponent))
+            {
+                throw new InvalidOperationException(string.Format(ErrorMessage, nameof(EntityByTemplateTracker)));
             }
 
             trackedEntityTypes.Add(typeof(TComp));
