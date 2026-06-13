@@ -7,7 +7,8 @@ public class FindEntityHelper(
     DefaultEntityTracker<Stockpile> stockpileTracker,
     DefaultEntityTracker<BlockObject> blockObjectTracker,
     DefaultEntityTracker<Bot> bots,
-    EntityRegistry entities
+    EntityRegistry entities,
+    EntityByTemplateTracker entityByTemplateTracker
 )
 {
 
@@ -154,6 +155,59 @@ public class FindEntityHelper(
                 yield return b;
             }
         }
+    }
+
+    public IEnumerable<BaseComponent> FindEntitiesByTemplates(
+        IReadOnlyList<string>? templateNames = null,
+        IReadOnlyList<string>? templatePrefixes = null)
+    {
+        var templates = GetTrackedTemplateNames(templateNames, templatePrefixes);
+        if (templates.Count == 0) { yield break; }
+
+        foreach (var template in templates)
+        {
+            foreach (var e in entityByTemplateTracker.GetEntitiesByTemplate(template))
+            {
+                yield return e;
+            }
+        }
+    }
+
+    public HashSet<string> GetTrackedTemplateNames(
+        IReadOnlyList<string>? templateNames = null,
+        IReadOnlyList<string>? templatePrefixes = null)
+    {
+        var hasPrefix = templatePrefixes is { Count: > 0 };
+        var hasNames = templateNames is { Count: > 0 };
+
+        if (!hasPrefix && !hasNames) { return []; }
+
+        HashSet<string> result = [];
+        var keys = entityByTemplateTracker.TrackedTemplates;
+
+        if (hasNames)
+        {
+            foreach (var n in templateNames!)
+            {
+                if (keys.Contains(n))
+                {
+                    result.Add(n);
+                }
+            }
+        }
+
+        if (hasPrefix)
+        {
+            foreach (var k in keys)
+            {
+                if (templatePrefixes!.FastAny(p => k.StartsWith(p)))
+                {
+                    result.Add(k);
+                }
+            }
+        }
+
+        return result;
     }
 
 }

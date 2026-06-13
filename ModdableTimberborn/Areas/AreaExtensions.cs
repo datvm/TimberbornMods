@@ -16,17 +16,17 @@ public static class AreaExtensions
     extension(AreaCondition condition)
     {
 
-        public bool Evaluate(BoundsInt a, BoundsInt b) => condition switch
+        public bool Evaluate(BoundsInt obj, BoundsInt area) => condition switch
         {
-            AreaCondition.Intersects => a.Intersects(b),
-            AreaCondition.Contains => a.Contains(b),
+            AreaCondition.Intersects => obj.Intersects(area),
+            AreaCondition.Contains => area.Contains(obj),
             _ => throw new NotImplementedException($"Unknown area condition: {condition}")
         };
 
-        public bool Evaluate(Bounds a, Bounds b) => condition switch
+        public bool Evaluate(Bounds obj, Bounds area) => condition switch
         {
-            AreaCondition.Intersects => a.Intersects(b),
-            AreaCondition.Contains => a.Contains(b),
+            AreaCondition.Intersects => obj.Intersects(area),
+            AreaCondition.Contains => area.Contains(obj),
             _ => throw new NotImplementedException($"Unknown area condition: {condition}")
         };
 

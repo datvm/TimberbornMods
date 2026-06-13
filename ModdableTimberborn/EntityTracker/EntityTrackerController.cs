@@ -6,6 +6,8 @@ public class EntityTrackerController(
 ) : ILoadableSingleton
 {
 
+    readonly ImmutableArray<IEntityTracker> trackers = [.. trackers];
+
     public virtual void Load()
     {
         eb.Register(this);
