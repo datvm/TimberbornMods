@@ -15,7 +15,7 @@ public record HasBuildingData
 
 [MultiBind(typeof(IConditionEvaluator))]
 public class HasBuilding(
-    DefaultEntityTracker<BlockObjectBound> blockObjects
+    FindEntityHelper findEntityHelper
 ) : ConditionEvaluatorBase<HasBuildingData>
 {
     public override string ForType => nameof(HasBuilding);
@@ -28,30 +28,10 @@ public class HasBuilding(
         IEnumerable<bool> Count()
         {
             var mustFinish = !p.IncludeUnderConstruction;
-            var templates = p.TemplateNames;
-            var templatePrefixes = p.TemplateNamePrefixes;
-
-            var hasAreas = p.Areas.Length > 0;
-            var areas = hasAreas ? p.Areas.Select(a => (BoundsInt)a).ToArray() : null;
-            var areaCond = p.AreaCondition;
-
-            foreach (var bound in blockObjects.Entities)
+            var areas = p.Areas.Select(a => (BoundsInt)a).ToArray();
+            foreach (var bound in findEntityHelper.FindBuildings(p.TemplateNames, p.TemplateNamePrefixes, areas, p.AreaCondition))
             {
                 if (mustFinish && !bound.BlockObject.IsFinished) { continue; }
-
-                if (templates.Count > 0 || templatePrefixes.Length > 0)
-                {
-                    var templateName = bound.GetTemplateName();
-
-                    if (!templates.EmptyOrContains(templateName)) { continue; }
-                    if (!templatePrefixes.EmptyOrAny(p => templateName.StartsWith(p))) { continue; }
-                }
-
-                if (hasAreas)
-                {
-                    var buildingBounds = bound.Bounds;
-                    if (!areas.FastAny(a => areaCond.Evaluate(a, buildingBounds))) { continue; }
-                }
 
                 yield return true;
             }

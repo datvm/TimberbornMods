@@ -30,8 +30,9 @@
                     "Data": {
                         "Conditions": [
                             {
-                                "Type": "TriggerCharacter",
+                                "Type": "Character",
                                 "Parameters": {
+                                    "EntityIds": [ "TriggerCharacterId" ],
                                     "IsBeaver": true
                                 }
                             }
