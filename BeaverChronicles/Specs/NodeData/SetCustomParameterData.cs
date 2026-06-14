@@ -24,5 +24,6 @@ public enum CustomParameterOperation
     Div,
     Round,
     Ceil,
-    Floor
+    Floor,
+    Not
 }

@@ -16,7 +16,10 @@ public class FindEntitiesHandler(
         }
 
         var maxCount = Math.Max(0, data.MaxCount);
-        var entities = FindEntities(data).Take(maxCount).ToArray();
+        var foundEntities = FindEntities(data);
+        var entities = data.ChooseRandom
+            ? foundEntities.OrderBy(_ => Random.value).Take(maxCount).ToArray()
+            : foundEntities.Take(maxCount).ToArray();
         var customParameters = controller.CurrentRecord.CustomParameters;
 
         customParameters[$"{prefix}_Count"] = entities.Length.ToString();

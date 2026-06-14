@@ -300,8 +300,36 @@ public class SpecChronicleEventController(
             || float.TryParse(text, out var number) && number > 0);
     }
 
-    public IEnumerable<EntityComponent> GetEntities(IEnumerable<string> entitiesIds)
+    BaseComponent? GetTriggeringEntity()
     {
+        var parameters = TriggerContext?.Parameters;
+        if (parameters is null) { return null; }
+
+        if (parameters.TryGetParameter<CharacterParameters>(out var c))
+        {
+            return c.Character;
+        }
+        else if (parameters.TryGetParameter<BuildingInstanceParameters>(out var b))
+        {
+            return b.BlockObject;
+        }
+
+        return null;
+    }
+
+    public IEnumerable<BaseComponent> GetEntities(IEnumerable<string> entitiesIds)
+    {
+        if (!IsActive)
+        {
+            var entity = GetTriggeringEntity();
+            if (entity)
+            {
+                yield return entity!;
+            }
+
+            yield break;
+        }
+
         var cp = CurrentRecord.CustomParameters;
         var entities = HelperCollection.FindEntity;
 
@@ -350,6 +378,8 @@ public class SpecChronicleEventController(
         if (placeholder.StartsWith("CP_"))
         {
             var key = placeholder[3..];
+
+            if (!IsActive) { return null; }
             return CurrentRecord.CustomParameters.TryGetValue(key, out var value) ? value : null;
         }
 

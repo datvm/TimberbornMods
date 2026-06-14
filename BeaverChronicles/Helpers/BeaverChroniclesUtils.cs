@@ -102,6 +102,24 @@ public static class BeaverChroniclesUtils
                 ? provider.Parameter
                 : default;
 
+        public bool TryGetParameter<T>([NotNullWhen(true)] out T? parameter)
+        {
+            if (p is IEventTriggerParameters<T> tp)
+            {
+                parameter = tp.Data!;
+                return true;
+            }
+
+            if (p.DataObject is ITriggerParameterWith<T> provider)
+            {
+                parameter = provider.Parameter!;
+                return true;
+            }
+
+            parameter = default;
+            return false;
+        }
+
     }
 
     extension(string? str)

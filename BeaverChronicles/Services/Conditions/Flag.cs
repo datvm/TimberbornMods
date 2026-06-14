@@ -5,7 +5,6 @@ public record FlagData
     public string? Flag { get; init; }
     public ImmutableArray<string> Flags { get; init; } = [];
     public ConditionType ConditionType { get; init; } = ConditionType.All;
-    public bool Expected { get; init; } = true;
 }
 
 [MultiBind(typeof(IConditionEvaluator))]
@@ -20,11 +19,10 @@ public class Flag : ConditionEvaluatorBase<FlagData>
         var flags = GetFlags();
         if (flags.Count == 0)
         {
-            return !p.Expected;
+            return false;
         }
 
-        var result = p.ConditionType.Evaluate(flags, ev.Controller.HelperCollection.Flags.HasFlag);
-        return p.Expected ? result : !result;
+        return p.ConditionType.Evaluate(flags, ev.Controller.HelperCollection.Flags.HasFlag);
 
         List<string> GetFlags()
         {

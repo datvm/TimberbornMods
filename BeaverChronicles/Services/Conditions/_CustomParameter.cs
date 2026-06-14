@@ -5,7 +5,6 @@ public record CustomParameterData
     public string Key { get; init; } = "";
     public string? Value { get; init; }
     public NumericComparisonMode Comparison { get; init; } = NumericComparisonMode.Equal;
-    public bool Expected { get; init; } = true;
 }
 
 [MultiBind(typeof(IConditionEvaluator))]
@@ -20,11 +19,9 @@ public class _CustomParameter : ConditionEvaluatorBase<CustomParameterData>
         var key = ev.Controller.FormatText(p.Key);
         var exists = ev.Controller.CurrentRecord.CustomParameters.TryGetValue(key, out var actualValue);
 
-        var result = p.Value is null
+        return p.Value is null
             ? exists
             : exists && Compare(actualValue!, ev.Controller.FormatText(p.Value), p.Comparison);
-
-        return p.Expected ? result : !result;
     }
 
     static bool Compare(string actualValue, string? requestedValue, NumericComparisonMode comparison)

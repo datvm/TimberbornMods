@@ -19,6 +19,11 @@ public class SetCustomParameterHandler : NodeHandlerBase<SetCustomParameterData>
 
     static string Compute(SetCustomParameterData data, ChronicleEventNodeSpec node, SpecChronicleEventController controller)
     {
+        if (data.Operation == CustomParameterOperation.Not)
+        {
+            return ComputeNot(data, node, controller);
+        }
+
         return data.Type switch
         {
             CustomParameterValueType.String => ComputeString(data, node, controller),
@@ -26,6 +31,12 @@ public class SetCustomParameterHandler : NodeHandlerBase<SetCustomParameterData>
             CustomParameterValueType.Float => FormatFloat(ComputeNumber(data, node, controller)),
             _ => throw InvalidType(data, node, controller),
         };
+    }
+
+    static string ComputeNot(SetCustomParameterData data, ChronicleEventNodeSpec node, SpecChronicleEventController controller)
+    {
+        ValidateNoValue2(data, node, controller);
+        return controller.FormatTextBool(data.Value1) ? "0" : "1";
     }
 
     static string ComputeString(SetCustomParameterData data, ChronicleEventNodeSpec node, SpecChronicleEventController controller)

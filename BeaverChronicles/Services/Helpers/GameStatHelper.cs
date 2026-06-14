@@ -4,6 +4,10 @@
 public class GameStatHelper(GameStatService service, EvaluationCacheService caches)
 {
 
+    public bool HasStat(string id) => caches.GetOrEvaluate(
+        GetCacheKey(id),
+        () => service.HasStat(id));
+
     public object? GetStat(string id) => caches.GetOrEvaluate(
         GetCacheKey(id),
         () => service.GetStat(id));
