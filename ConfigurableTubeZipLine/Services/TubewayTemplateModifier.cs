@@ -11,7 +11,7 @@ public class TubewayTemplateModifier : ITemplateModifier
                 case MovementSpeedBoostingBuildingSpec speedSpec:
                     template.Specs[i] = speedSpec with
                     {
-                        BoostPercentage = MSettings.ZiplineSpeed,
+                        BoostPercentage = MSettings.TubewaySpeed,
                     };
                     break;
                 case BlockObjectNavMeshSettingsSpec navMeshSpec:
