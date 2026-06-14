@@ -62,6 +62,18 @@ public class CharacterStatusHelper(
 
     public void CureContamination(Guid characterId) => RemoveNeed(characterId, ChronicleGameEventHandler.ContaminationId);
 
+    public void InflictNeed(Character character, string needId) => InflictNeed(character.GetNeedManager(), needId);
+
+    public void InflictNeed(NeedManager needMan, string needId)
+    {
+        var n = needMan.GetNeed(needId);
+        if (n is null) { return; }
+
+        needMan.ApplyEffect(new(needId, -n.PointToMin, 1));
+    }
+
+    public void RemoveNeed(Character character, string needId) => RemoveNeed(character.GetNeedManager(), needId);
+
     public bool CharacterExists(Guid characterId) => entityRegistry.GetEntity(characterId);
 
     public bool IsContaminated(Guid characterId) => IsNeedActive(characterId, ChronicleGameEventHandler.ContaminationId);
@@ -86,10 +98,15 @@ public class CharacterStatusHelper(
         var man = e.GetNeedManager();
         if (!man) { return; }
 
-        var n = man.GetNeed(needId);
+        RemoveNeed(man, needId);
+    }
+
+    public void RemoveNeed(NeedManager needMan, string needId)
+    {
+        var n = needMan.GetNeed(needId);
         if (n is null) { return; }
 
-        man.ApplyEffect(new(needId, -n.Points, 1));
+        needMan.ApplyEffect(new(needId, -n.Points, 1));
     }
 
 }

@@ -12,7 +12,8 @@ The examples are ordered so each one introduces only a few new ideas:
 4. [Drought Prep](#example-drought-prep) introduces repeatable weather-triggered events.
 5. [Unhoused](#example-unhoused) shows promise-style events that check game stats after a delay.
 6. [Contamination Conspiracy](#example-contamination-conspiracy) shows time limit subscriptions that can react to another event before the timer expires.
-7. [Food Wood Dispute](#example-food-wood-dispute-1) shows multi-chapter events, flags, workplace buffs, cleanup nodes, and follow-up events.
+7. [Pasteur's Gamble](#example-pasteurs-gamble) shows checking for faction goods, random entity selection, and direct character status changes.
+8. [Food Wood Dispute](#example-food-wood-dispute-1) shows multi-chapter events, flags, workplace buffs, cleanup nodes, and follow-up events.
 
 ## Example: First Death
 
@@ -63,7 +64,7 @@ When an event starts from a character-related trigger, Beaver Chronicles records
 
 The result is simple: if the dead character was a beaver, the event is allowed to appear. If it was a bot or something else, it is not.
 
-The `Character` condition also supports `IsAdult`, `CharacterType`, `Name`, `ConditionType`, and `Expected`. For example, `IsAdult: true` would require an adult beaver, and `Expected: false` would invert the result.
+The `Character` condition also supports `IsAdult`, `CharacterType`, `Name`, and `ConditionType`. For example, `IsAdult: true` would require an adult beaver, and `ConditionType: All` would require every resolved character to match.
 
 ### The Choice Node
 
@@ -163,7 +164,7 @@ The event starts at `ComputeChildPlusOne`, not at a visible `Choice` node. It ru
 
 The final result is available as `{CP_PartyCost}`. The choice note uses it to show the required goods, and the `TimeLimit` payment uses it as the amount for both berries and water.
 
-`SetCustomParameter` supports `String`, `Int`, and `Float` values. String parameters can only use `Add`, which joins `Value1` and `Value2`. Number parameters support `Add`, `Sub`, `Mul`, `Div`, `Round`, `Ceil`, and `Floor`. `Int` values are saved as whole numbers, while `Float` values are saved with two decimal places.
+`SetCustomParameter` supports `String`, `Int`, and `Float` values. String parameters can only use `Add`, which joins `Value1` and `Value2`. Number parameters support `Add`, `Sub`, `Mul`, `Div`, `Round`, `Ceil`, and `Floor`. The `Not` operation treats `Value1` as a boolean-like value and saves `1` when it is false, or `0` when it is true. `Int` values are saved as whole numbers, while `Float` values are saved with two decimal places.
 
 > [!INFO]  
 > `{GS_...}` reads a game stat. `{CP_...}` reads a custom parameter already stored on the current event record. This is why the calculation nodes must run in order: `HalfChildren` cannot use `{CP_ChildPlusOne}` until the previous node creates it. For the list of available game stats, see [ModdableTimberborn Game Stats](../../Docs/ModdableTimberborn/GameStats.MD#built-in-stat-quick-reference).
@@ -231,7 +232,7 @@ This is a useful pattern when an event has a special "you already solved it" pat
 
 `InitialCheck`, `NotMostSheltered`, and `CheckPromise2` use the `GameStat` condition type.
 
-`GameStat` compares a named game stat to a value. `Unhoused` checks stats such as `BedHomelessPercent` and `BedHousedPercent`. For the full stat list, see [ModdableTimberborn Game Stats](../../Docs/ModdableTimberborn/GameStats.MD#built-in-stat-quick-reference).
+`GameStat` compares a named game stat to a value. `Unhoused` checks stats such as `BedHomelessPercent` and `BedHousedPercent`. It can also use `CheckExistsOnly: true` when you only need to know whether a stat exists, such as checking whether a faction has a good stat like `GoodAmount.Water`. For the full stat list, see [ModdableTimberborn Game Stats](../../Docs/ModdableTimberborn/GameStats.MD#built-in-stat-quick-reference).
 
 `Comparison` defaults to `Equal`, but the event uses comparisons such as `Less` and `LessOrEqual`. The value can be a literal number or a placeholder such as `{F1}`.
 
@@ -281,6 +282,90 @@ Subscriptions are useful when the success condition is not a payment. In this ca
 The success path applies a positive `BuffCharacters` status to adult and child beavers. The failure path applies a stronger negative status to the same character types.
 
 This is the same buff pattern you already saw, but attached to a live event subscription instead of a payment or end-of-timer check.
+
+## Example: Pasteur's Gamble
+
+[ContaminationCure.blueprint.json](../Root/Blueprints/ChronicleEvents/ContaminationCure.blueprint.json) appears when a beaver becomes contaminated. A self-declared doctor proposes an untested cure: the player can give water, give sunflower seeds, provide a more careful assisted treatment, or dismiss the doctor.
+
+This event is useful because it combines familiar payment and chance patterns with three new practical ideas: checking whether goods exist for the current faction, choosing random characters, and directly changing a character's active needs.
+
+### Faction Good Checks
+
+The event uses `Contaminated` as its trigger source and points `ConditionNodeId` to `CanUseCure`.
+
+`CanUseCure` first rolls a `Chance` condition using `{F1}`, then checks three `GameStat` conditions:
+
+- `GoodAmount.{S1}` for water.
+- `GoodAmount.{S2}` for sunflower seeds.
+- `GoodAmount.{S3}` for antidote.
+
+Each `GameStat` condition uses `CheckExistsOnly: true`. That means the condition only asks whether the stat exists; it does not compare the stock amount. This is useful for faction-specific content because ModdableTimberborn only exposes `GoodAmount.<goodId>` stats for available goods.
+
+> [!INFO]  
+> `GameStat.Stat` can use normal event placeholders. In this event, `GoodAmount.{S1}` becomes `GoodAmount.Water`, and the same pattern checks sunflower seeds and antidote.
+
+### Choice Payments
+
+The visible `Choice` node offers four responses:
+
+- Give water.
+- Give sunflowers.
+- Aid the treatment.
+- Dismiss the doctor.
+
+The first two choices go to short `TimeLimit` payment nodes. Each asks for one good and then sends the event to `SingleTreatmentChance` when paid.
+
+The assisted treatment goes to a longer `TimeLimit` node. It asks for water, sunflower seeds, and science, then sends the event to `AssistedTreatmentChance` when paid.
+
+The fourth option has no `NextNodeId`, so choosing it simply records the choice and ends the event.
+
+### Different Success Chances
+
+`SingleTreatmentChance` rolls `{F4}`, the lower success chance used by the water-only and sunflower-only paths.
+
+`AssistedTreatmentChance` rolls `{F5}`, the higher success chance used by the assisted treatment path.
+
+Both chance nodes go to `CureCharacter` on success. Their failure paths are different:
+
+- Single-treatment failure goes to `FindFailureVictims`.
+- Assisted-treatment failure goes to `RefundScience`.
+
+This lets the event give the assisted treatment a better chance and a gentler failure consequence without needing custom C# code.
+
+### CharacterStatus
+
+`CureCharacter` is a `CharacterStatus` node. It uses:
+
+- `EntityIds`: `[ "TriggerCharacterId" ]`
+- `RemoveNeed`: `{S4}`
+
+`{S4}` is `BadwaterContamination`, so this node removes contamination from the beaver who triggered the event.
+
+After that, `GiveAntidote` grants `{I4}` antidote using a normal `Give` node, and `SuccessMessage` shows the result.
+
+`CharacterStatus` can also use `InflictNeed`. The failure path uses that to apply contamination to other beavers.
+
+### Random Failure Victims
+
+On a bad failure, `FindFailureVictims` uses `FindEntities` with:
+
+- `CharacterType`: `AdultBeaver, ChildBeaver`
+- `MaxCount`: `3`
+- `ChooseRandom`: `true`
+- `ResultName`: `FailureVictims`
+
+`ChooseRandom: true` randomizes the matching beavers before `MaxCount` is applied. The node stores the selected entity IDs as custom parameters named `FailureVictims_Count`, `FailureVictims_1`, `FailureVictims_2`, and so on.
+
+Then `ContaminateVictims` reads `EntityIds: [ "FailureVictims" ]` and applies `InflictNeed: "{S4}"` to those characters.
+
+> [!INFO]  
+> `FindEntities` stores entity arrays in a format that `EntityIds` can read directly. If a node writes `ResultName: "FailureVictims"`, another node can use `EntityIds: [ "FailureVictims" ]` without listing each stored ID.
+
+### Science Refund Path
+
+If the assisted treatment fails, the event goes to `RefundScience` instead of contaminating random beavers. This is a normal `Give` node with `Science: "{I3}"`.
+
+That path shows how a branch can return only one part of a payment. The player loses the water and sunflower seeds, but the science is refunded before the failure message appears.
 
 ## Example: Food Wood Dispute 1
 
@@ -344,7 +429,7 @@ Choice nodes automatically record flags like `EVENT.FoodWoodDispute1.C1.1` and `
 
 For example, `FarmersWasPreviousChoice` checks whether the player previously sided with farmers. If yes, the event treats siding with farmers again as loyalty. If not, it becomes a switch-side chance.
 
-The `Flag` condition supports one `Flag`, multiple `Flags`, `ConditionType`, and `Expected`. Use `Expected: false` when you want a condition to pass only if the flag is missing.
+The `Flag` condition supports one `Flag`, multiple `Flags`, and `ConditionType`. It checks whether the named flags are currently set.
 
 ### Larger Branching Graphs
 
@@ -362,4 +447,4 @@ All paths eventually wait for the chapter duration, remove the workplace buffs, 
 
 That last cleanup matters. Without clearing the continuation flag, the follow-up event could remain eligible when it should be finished.
 
-At this point, you have seen the core patterns used by the base JSON events: immediate rewards, active timers, payments, chance branches, custom parameters, game stat promises, subscriptions, flags, follow-up chapters, and cleanup.
+At this point, you have seen the core patterns used by the base JSON events: immediate rewards, active timers, payments, chance branches, custom parameters, game stat promises, subscriptions, flags, follow-up chapters, random entity selection, character status changes, and cleanup.

@@ -14,6 +14,7 @@ public class MBeaverChroniclesConfigs : BaseModdableTimberbornAttributeConfigura
             .UseEntityTracker()
             .UseGameStats()
             .UseAreaApis()
+            .UseWaterSource()
             .TryTrack<Stockpile>()
             .TryTrack<BlockObject>()
             .TryTrack<BlockObjectBound>()

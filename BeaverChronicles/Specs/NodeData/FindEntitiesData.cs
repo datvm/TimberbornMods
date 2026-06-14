@@ -8,6 +8,7 @@ public record FindEntitiesData
     public ImmutableArray<SerializableBoundsInts> Areas { get; init; } = [];
     public AreaCondition AreaCondition { get; init; } = AreaCondition.Intersects;
     public int MaxCount { get; init; } = 1;
+    public bool ChooseRandom { get; init; }
     public string ResultName { get; init; } = null!;
     public string? NoneFoundNodeId { get; init; }
 

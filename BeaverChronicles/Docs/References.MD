@@ -34,9 +34,17 @@ Trigger sources are the game moments that can cause Beaver Chronicles to check w
 
 This section will list the available event node types.
 
+- `SetCustomParameter`: stores a value on the current event record. Supports `String`, `Int`, and `Float` values. Operations include `Add`, `Sub`, `Mul`, `Div`, `Round`, `Ceil`, `Floor`, and `Not`. `Not` treats `Value1` as true when it is a positive number or a true-like string, then stores `0`; otherwise it stores `1`.
+- `FindEntities`: finds characters or template-tracked entities and stores their IDs as custom parameters. Use `ChooseRandom: true` to randomize matches before `MaxCount` is applied.
+- `CharacterStatus`: removes or inflicts a need on characters resolved from `EntityIds`.
+
 ## Conditions
 
 This section will list the available condition types.
+
+- `Flag`: checks whether one or more flags are set.
+- `_CustomParameter`: checks whether a custom parameter exists, or compares its value.
+- `GameStat`: compares a ModdableTimberborn game stat. Use `CheckExistsOnly: true` to check whether a stat exists without comparing its value.
 
 ### Game Stats
 

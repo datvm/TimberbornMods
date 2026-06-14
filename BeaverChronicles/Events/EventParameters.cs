@@ -12,7 +12,10 @@ public record CharacterParameters(Character Character, bool IsBeaver, bool IsAdu
         ? (IsAdult ? CharacterType.AdultBeaver : CharacterType.ChildBeaver)
         : CharacterType.Bot;
 }
-public record BeaverGrownUpParameters(Character Adult, Character Child);
+public record BeaverGrownUpParameters(Character Adult, Character Child) : ITriggerParameterWith<CharacterParameters>
+{
+    public CharacterParameters Parameter { get; } = new(Adult, true, true);
+}
 public record NeedChangedParameters(NeedSpec Need, bool IsActive, CharacterParameters Character)
     : ITriggerParameterWith<CharacterParameters>
 {

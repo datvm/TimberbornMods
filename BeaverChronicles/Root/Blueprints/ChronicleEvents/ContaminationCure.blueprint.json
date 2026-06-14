@@ -1,0 +1,272 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "ContaminationCure",
+        "TitleLoc": "LV.BCEv.ContaminationCure",
+        "Conditions": {
+            "Sources": [ "Contaminated" ],
+            "Weight": 100,
+            "ConditionNodeId": "CanUseCure"
+        },
+        "Parameters": {
+            "Floats": [
+                0.75, // F1: Trigger chance
+                0.5, // F2: Short treatment deadline
+                1.0, // F3: Assisted treatment deadline
+                0.40, // F4: Single treatment success chance
+                0.70 // F5: Assisted treatment success chance
+            ],
+            "Strings": [
+                "Water",
+                "SunflowerSeeds",
+                "Antidote",
+                "BadwaterContamination",
+                "Science"
+            ],
+            "Ints": [
+                20, // I1: Water cost
+                20, // I2: Sunflower seed cost
+                50, // I3: Science cost
+                100, // I4: Antidote reward
+                3 // I5: Failure contamination count
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                // Trigger eligibility
+                {
+                    "Id": "CanUseCure",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "Chance",
+                                "Parameters": {
+                                    "Value": "{F1}"
+                                }
+                            },
+                            {
+                                "Type": "GameStat",
+                                "Parameters": {
+                                    "Stat": "GoodAmount.{S1}",
+                                    "Value": "0",
+                                    "CheckExistsOnly": true
+                                }
+                            },
+                            {
+                                "Type": "GameStat",
+                                "Parameters": {
+                                    "Stat": "GoodAmount.{S2}",
+                                    "Value": "0",
+                                    "CheckExistsOnly": true
+                                }
+                            },
+                            {
+                                "Type": "GameStat",
+                                "Parameters": {
+                                    "Stat": "GoodAmount.{S3}",
+                                    "Value": "0",
+                                    "CheckExistsOnly": true
+                                }
+                            }
+                        ]
+                    }
+                },
+
+                // Choices
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.ContaminationCure.Content",
+                        "TopImage": true,
+                        "DefaultOption": 4,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCEv.ContaminationCure.C1",
+                                "NoteLoc": "LV.BCEv.ContaminationCure.C1N",
+                                "NextNodeId": "WaterPayment"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.ContaminationCure.C2",
+                                "NoteLoc": "LV.BCEv.ContaminationCure.C2N",
+                                "NextNodeId": "SunflowerPayment"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.ContaminationCure.C3",
+                                "NoteLoc": "LV.BCEv.ContaminationCure.C3N",
+                                "NextNodeId": "AssistedPayment"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.ContaminationCure.C4",
+                                "NoteLoc": "LV.BCEv.ContaminationCure.C4N"
+                            }
+                        ]
+                    }
+                },
+
+                // Water treatment
+                {
+                    "Id": "WaterPayment",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F2}",
+                        "PanelTextLoc": "LV.BCEv.ContaminationCure.C1",
+                        "PaidNodeId": "SingleTreatmentChance",
+                        "Payments": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{I1}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "FindFailureVictims"
+                },
+
+                // Sunflower treatment
+                {
+                    "Id": "SunflowerPayment",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F2}",
+                        "PanelTextLoc": "LV.BCEv.ContaminationCure.C2",
+                        "PaidNodeId": "SingleTreatmentChance",
+                        "Payments": [
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{I2}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "FindFailureVictims"
+                },
+
+                // Assisted treatment
+                {
+                    "Id": "AssistedPayment",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F3}",
+                        "PanelTextLoc": "LV.BCEv.ContaminationCure.C3",
+                        "PaidNodeId": "AssistedTreatmentChance",
+                        "Payments": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{I1}"
+                            },
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{I2}"
+                            },
+                            {
+                                "Id": "{S5}",
+                                "Amount": "{I3}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "FindFailureVictims"
+                },
+
+                // Treatment results
+                {
+                    "Id": "SingleTreatmentChance",
+                    "Type": "Chance",
+                    "Data": {
+                        "Value": "{F4}",
+                        "SuccessNodeId": "CureCharacter",
+                        "FailNodeId": "FindFailureVictims"
+                    }
+                },
+                {
+                    "Id": "AssistedTreatmentChance",
+                    "Type": "Chance",
+                    "Data": {
+                        "Value": "{F5}",
+                        "SuccessNodeId": "CureCharacter",
+                        "FailNodeId": "RefundScience"
+                    }
+                },
+
+                // Success
+                {
+                    "Id": "CureCharacter",
+                    "Type": "CharacterStatus",
+                    "Data": {
+                        "EntityIds": [ "TriggerCharacterId" ],
+                        "RemoveNeed": "{S4}"
+                    },
+                    "NextNodeId": "GiveAntidote"
+                },
+                {
+                    "Id": "GiveAntidote",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [
+                            {
+                                "Id": "{S3}",
+                                "Amount": "{I4}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "SuccessMessage"
+                },
+                {
+                    "Id": "SuccessMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "SideImagePath": "Resources/Chronicles/ContaminationCure_O1_Side",
+                        "TextLoc": "LV.BCEv.ContaminationCure.O1"
+                    }
+                },
+
+                // Failure without science
+                {
+                    "Id": "FindFailureVictims",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver, ChildBeaver",
+                        "MaxCount": 3,
+                        "ChooseRandom": true,
+                        "ResultName": "FailureVictims"
+                    },
+                    "NextNodeId": "ContaminateVictims"
+                },
+                {
+                    "Id": "ContaminateVictims",
+                    "Type": "CharacterStatus",
+                    "Data": {
+                        "EntityIds": [ "FailureVictims" ],
+                        "InflictNeed": "{S4}"
+                    },
+                    "NextNodeId": "FailureMessage"
+                },
+                {
+                    "Id": "FailureMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImage": true,
+                        "TextLoc": "LV.BCEv.ContaminationCure.O2"
+                    }
+                },
+
+                // Failure with science
+                {
+                    "Id": "RefundScience",
+                    "Type": "Give",
+                    "Data": {
+                        "Science": "{I3}"
+                    },
+                    "NextNodeId": "ScienceFailureMessage"
+                },
+                {
+                    "Id": "ScienceFailureMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "TopImage": true,
+                        "TextLoc": "LV.BCEv.ContaminationCure.O3"
+                    }
+                }
+            ]
+        }
+    }
+}

@@ -24,7 +24,10 @@ public class GameStatService(IEnumerable<IGameStatProvider> providers) : ILoadab
         providerByType = dict.ToFrozenDictionary();
     }
 
-    public IGameStatProvider GetProvider(string stat) => providerByType[stat];
+    public bool HasStat(string stat) => providerByType.ContainsKey(stat);
+    public IGameStatProvider GetProvider(string stat) => providerByType.TryGetValue(stat, out var existing)
+        ? existing
+        : throw new Exception($"Stat '{stat}' does not exist.");
     public T GetProvider<T>(string stat) where T : IGameStatProvider => (T)GetProvider(stat);
 
     public object? GetStat(string stat) => GetProvider(stat).GetStat(stat);

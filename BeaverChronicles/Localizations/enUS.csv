@@ -175,25 +175,25 @@ LV.BCEv.FoodWoodDispute.Ch2SwitchCrisisDesc,"{%7} Working Speed",
 LV.BCEv.FoodWoodDispute.Ch2NeutralBonusDesc,"+{%9} Working Speed",
 LV.BCEv.FoodWoodDispute.Ch2NeutralMalusDesc,"{%10} Working Speed",
 LV.BCEv.ContaminationCure,"Pasteur's Gamble",
-LV.BCEv.ContaminationCure.Content,"{0} has been contaminated, lying still with damp fur, dull eyes, and a tail too weak to slap the ground. Most of the colony keeps a careful distance.
+LV.BCEv.ContaminationCure.Content,"{CP_TriggerCharacterName} has been contaminated, lying still with damp fur, dull eyes, and a tail too weak to slap the ground. Most of the colony keeps a careful distance.
 Then a self-declared doctor steps forward with stained notes and a theory called Pasteur's Gamble. The treatment is untested. Water may flush the poison. Sunflowers may strengthen the body. More careful aid may improve the odds, though no one can say what failure might bring.",
 LV.BCEv.ContaminationCure.C1,"Give water",
-LV.BCEv.ContaminationCure.C1N,"[[C]]Pay [[good:{1}:{2}]] in [[time:{0}d]]. <YellowHighlight>Unknown consequences.</YellowHighlight>",
+LV.BCEv.ContaminationCure.C1N,"[[C]]Pay [[good:{S1}:{I1}]] in [[time:{F2}d]]. <YellowHighlight>Unknown consequences.</YellowHighlight>",
 LV.BCEv.ContaminationCure.C2,"Give sunflowers",
-LV.BCEv.ContaminationCure.C2N,"[[C]]Pay [[good:{1}:{2}]] in [[time:{0}d]]. <YellowHighlight>Unknown consequences.</YellowHighlight>",
+LV.BCEv.ContaminationCure.C2N,"[[C]]Pay [[good:{S2}:{I2}]] in [[time:{F2}d]]. <YellowHighlight>Unknown consequences.</YellowHighlight>",
 LV.BCEv.ContaminationCure.C3,"Aid the treatment",
-LV.BCEv.ContaminationCure.C3N,"[[C]]Pay [[good:{1}:{2}]], [[good:{3}:{4}]], and [[good:{5}:{6}]] in [[time:{0}d]]. <YellowHighlight>Unknown consequences.</YellowHighlight>",
+LV.BCEv.ContaminationCure.C3N,"[[C]]Pay [[good:{S1}:{I1}]], [[good:{S2}:{I2}]], and [[good:{S5}:{I3}]] in [[time:{F3}d]]. <YellowHighlight>Unknown consequences.</YellowHighlight>",
 LV.BCEv.ContaminationCure.C4,"Dismiss the doctor",
 LV.BCEv.ContaminationCure.C4N,"[[C]]Nothing happens.",
-LV.BCEv.ContaminationCure.O1,"Against every doubtful stare, the treatment works. {0}'s breathing steadies, their eyes clear, and before long they are sitting upright again.
+LV.BCEv.ContaminationCure.O1,"Against every doubtful stare, the treatment works. {CP_TriggerCharacterName}'s breathing steadies, their eyes clear, and before long they are sitting upright again.
 Better still, the remaining mixture proves stable enough to store. Pasteur's Gamble may be crude, but it has given the colony something useful.
-[[C]][[+]]{0} is cured.
-[[C]][[+]]Gain [[good:{1}:{2}]].",
-LV.BCEv.ContaminationCure.O2,"The treatment fails. {0} remains weak, and the hopeful mixture turns bitter and useless. By morning, several helpers begin showing the same signs of contamination.
-[[C]][[-]]{1} random beavers become contaminated.",
-LV.BCEv.ContaminationCure.O3,"The treatment fails. {0} remains weak, and the prepared goods are spent with nothing to show for them.
+[[C]][[+]]{CP_TriggerCharacterName} is cured.
+[[C]][[+]]Gain [[good:{S3}:{I4}]].",
+LV.BCEv.ContaminationCure.O2,"The treatment fails. {CP_TriggerCharacterName} remains weak, and the hopeful mixture turns bitter and useless. By morning, several helpers begin showing the same signs of contamination.
+[[C]][[-]]{I5} random beavers become contaminated.",
+LV.BCEv.ContaminationCure.O3,"The treatment fails. {CP_TriggerCharacterName} remains weak, and the prepared goods are spent with nothing to show for them.
 The careful notes, however, prove useful for something else. The doctor cannot save the cure, but the colony recovers the lesson.
-[[C]][[+]]Refund {1} Science.",
+[[C]][[+]]Refund {I3} Science.",
 LV.BCEv.ContaminationConspiracy,"A Quiet Place",
 LV.BCEv.ContaminationConspiracy.Content,"{CP_TriggerCharacterName} is contaminated.
 By dusk, whispers crawl through the colony like mist over badwater. Some say the contaminated are not merely sent away for safety. Some say a far district waits for them, quiet and empty, with no warm beds, no full tanks, and no one to hear the last tail-slap.

@@ -1,4 +1,4 @@
-namespace BeaverChronicles.Services.Conditions;
+﻿namespace BeaverChronicles.Services.Conditions;
 
 public record CharacterConditionData
 {
@@ -8,7 +8,6 @@ public record CharacterConditionData
     public bool? IsAdult { get; init; }
     public CharacterType? CharacterType { get; init; }
     public string? Name { get; init; }
-    public bool Expected { get; init; } = true;
 }
 
 [MultiBind(typeof(IConditionEvaluator))]
@@ -26,8 +25,7 @@ public class CharacterCondition : ConditionEvaluatorBase<CharacterConditionData>
             return false;
         }
 
-        var result = p.ConditionType.Evaluate(characters, Matches);
-        return p.Expected ? result : !result;
+        return p.ConditionType.Evaluate(characters, Matches);
 
         string FormatEntityId(string entityId) => ev.Controller.FormatText(entityId);
 
