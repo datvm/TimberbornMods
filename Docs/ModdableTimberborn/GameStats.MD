@@ -2,6 +2,77 @@
 
 Game Stats is a string-keyed registry of global game statistics. It decouples consumers — UI, condition checks, dynamic text — from Timberborn's individual data services. Any stat can be queried by name without a direct code dependency on the provider that supplies it.
 
+## Built-in Stat Quick Reference
+
+Use these stat IDs with `GameStatService` or any system that reads game stats.
+
+| Stat ID | Type | Description |
+|---|---|---|
+| **Time** | | Current game time and cycle progress. |
+| `TimePartialDay` | `float` | Current day number including partial day progress. |
+| `TimePartialCycleDay` | `float` | Current cycle day including partial day progress. |
+| `TimeTodayHours` | `float` | Hours passed today. |
+| `TimeDayNumber` | `int` | Current game day number. |
+| `TimeCycle` | `int` | Current cycle number. |
+| `TimeCycleDay` | `int` | Current day within the cycle. |
+| `TimeCycleDuration` | `int` | Current cycle duration in days. |
+| `TimeDayProgress` | `percent` | Current day progress from 0 to 1. |
+| `TimeCycleProgress` | `percent` | Current cycle progress from 0 to 1. |
+| **Weather** | | Current weather and warning information. |
+| `WeatherCurrent` | `string` | Current weather ID. |
+| `WeatherWarningStage` | `string` | Current weather warning stage. |
+| `WeatherWarningNextWeather` | `string` | Weather ID for the next warned hazardous weather. |
+| `WeatherWarningDaysToHazardous` | `float` | Days until the warned hazardous weather, or `-1` when unavailable. |
+| **Population** | | Population of beavers and bots. |
+| `PopulationNumberOfAdult` | `int` | Number of adult beavers. |
+| `PopulationNumberOfChild` | `int` | Number of child beavers. |
+| `PopulationNumberOfBot` | `int` | Number of bots. |
+| `PopulationNumberOfBeaver` | `int` | Number of all beavers, adult and child. |
+| `PopulationNumberOfHealthyAdult` | `int` | Number of healthy adult beavers. |
+| `PopulationNumberOfHealthyChild` | `int` | Number of healthy child beavers. |
+| `PopulationTotal` | `int` | Total number of beavers and bots. |
+| `PopulationBeaverPercent` | `percent` | Beavers as a share of total population. |
+| `PopulationBotPercent` | `percent` | Bots as a share of total population. |
+| `PopulationAdultPercent` | `percent` | Adults as a share of beavers. |
+| `PopulationChildPercent` | `percent` | Children as a share of beavers. |
+| **Beds** | | Settlement bed availability and homelessness. |
+| `BedOccupied` | `int` | Number of occupied beds. |
+| `BedFree` | `int` | Number of free beds. |
+| `BedHomeless` | `int` | Number of beavers without a bed. |
+| `BedTotal` | `int` | Number of occupied and free beds. |
+| `BedHomelessPercent` | `percent` | Homeless beavers as a share of beavers. |
+| `BedHousedPercent` | `percent` | Housed beavers as a share of beavers. |
+| **Workforce** | | Employable and unemployable workers. |
+| `WorkforceEmployable` | `int` | Total employable beavers and bots. |
+| `WorkforceUnemployable` | `int` | Total unemployable beavers and bots. |
+| `WorkforceTotal` | `int` | Total beaver and bot workforce. |
+| `WorkforceBeaverEmployable` | `int` | Employable beavers. |
+| `WorkforceBeaverUnemployable` | `int` | Unemployable beavers. |
+| `WorkforceBeaverTotal` | `int` | Total beaver workforce. |
+| `WorkforceBotEmployable` | `int` | Employable bots. |
+| `WorkforceBotUnemployable` | `int` | Unemployable bots. |
+| `WorkforceBotTotal` | `int` | Total bot workforce. |
+| **Contamination** | | Contaminated beaver counts and ratios. |
+| `ContaminationAdult` | `int` | Number of contaminated adult beavers. |
+| `ContaminationChild` | `int` | Number of contaminated child beavers. |
+| `ContaminationTotal` | `int` | Number of all contaminated beavers. |
+| `ContaminationAdultPercent` | `percent` | Contaminated adults as a share of beavers. |
+| `ContaminationChildPercent` | `percent` | Contaminated children as a share of beavers. |
+| `ContaminationPercent` | `percent` | All contaminated beavers as a share of beavers. |
+| **Map** | | Current map identity and dimensions. |
+| `MapName` | `string` | Current map name, when available. |
+| `MapSizeX` | `int` | Map size on the X axis. |
+| `MapSizeY` | `int` | Map size on the Y axis. |
+| `MapSizeTerrainZ` | `int` | Terrain height. |
+| `MapSizeTotalZ` | `int` | Total map height. |
+| **Goods** | | Per-good stock, capacity, and fill. Replace `<goodId>` with a Timberborn good ID such as `Water` or `Plank`. |
+| `GoodAmount.<goodId>` | `int` | Global available stock of the good. |
+| `GoodCapacity.<goodId>` | `int` | Global input/output storage capacity for the good. |
+| `GoodFill.<goodId>` | `percent` | Storage fill rate from 0 to 1. |
+
+> [!INFO]  
+> A `percent` stat is stored as a `float` from 0 to 1 internally. When formatted as text, it is automatically displayed as a percentage.
+
 ## Enabling Game Stats
 
 Call `UseGameStats()` on your `ModdableTimberbornRegistry` instance during plugin setup:
@@ -39,99 +110,6 @@ Duplicate stat IDs across providers throw immediately at load — this is intent
 
 - `GetProvider(string stat)` — returns the `IGameStatProvider` registered for that key; throws `KeyNotFoundException` if the key is unknown.
 - `GetProvider<T>(string stat)` — same, but casts the provider to `T`; throws `KeyNotFoundException` on an unknown key and `InvalidCastException` if the provider does not implement `T`.
-
-## Built-in stat keys
-
-Use the constants on [`GameStats`](../../ModdableTimberborn/GameStats/GameStats.cs) instead of duplicating string literals where possible. Fixed built-in stat IDs use the same string value as their constant name.
-
-### Time values
-
-Provided by [`TimeStatsProvider`](../../ModdableTimberborn/GameStats/Implementations/TimeStatsProvider.cs).
-
-| Constant | Type | Description |
-|---|---|---|
-| `GameStats.TimePartialDay` | `float` | Current day number including partial day progress |
-| `GameStats.TimePartialCycleDay` | `float` | Current cycle day including partial day progress |
-| `GameStats.TimeTodayHours` | `float` | Hours passed today |
-| `GameStats.TimeDayNumber` | `int` | Current game day number |
-| `GameStats.TimeCycle` | `int` | Current cycle number |
-| `GameStats.TimeCycleDay` | `int` | Current day within the cycle |
-| `GameStats.TimeCycleDuration` | `int` | Current cycle duration in days |
-| `GameStats.TimeDayProgress` | `float` | Current day progress from 0–1 |
-| `GameStats.TimeCycleProgress` | `float` | Current cycle progress from 0–1 |
-
-### Population counts (`int`)
-
-Provided by [`GlobalPopulationStatsProvider`](../../ModdableTimberborn/GameStats/Implementations/GlobalPopulationStatsProvider.cs).
-
-| Constant | Description |
-|---|---|
-| `GameStats.PopulationNumberOfAdult` | Adult beavers |
-| `GameStats.PopulationNumberOfChild` | Beaver children |
-| `GameStats.PopulationNumberOfBot` | Bots |
-| `GameStats.PopulationNumberOfBeaver` | All beavers (adults + children) |
-| `GameStats.PopulationNumberOfHealthyAdult` | Healthy adult beavers |
-| `GameStats.PopulationNumberOfHealthyChild` | Healthy beaver children |
-| `GameStats.PopulationTotal` | All beavers and bots combined |
-| `GameStats.BedOccupied` | Beds currently occupied |
-| `GameStats.BedFree` | Unoccupied beds |
-| `GameStats.BedTotal` | Occupied + free beds |
-| `GameStats.BedHomeless` | Beavers without a bed |
-| `GameStats.ContaminationAdult` | Contaminated adult beavers |
-| `GameStats.ContaminationChild` | Contaminated beaver children |
-| `GameStats.ContaminationTotal` | All contaminated beavers |
-
-#### Workforce counts (`int`)
-
-The base constants return the combined beaver + bot total. Use the beaver or bot constants for per-type values.
-
-| Total constant | Beaver constant | Bot constant |
-|---|---|---|
-| `GameStats.WorkforceEmployable` | `GameStats.WorkforceBeaverEmployable` | `GameStats.WorkforceBotEmployable` |
-| `GameStats.WorkforceUnemployable` | `GameStats.WorkforceBeaverUnemployable` | `GameStats.WorkforceBotUnemployable` |
-| `GameStats.WorkforceTotal` | `GameStats.WorkforceBeaverTotal` | `GameStats.WorkforceBotTotal` |
-
-### Population ratios (`float`, formatted as percentage)
-
-Provided by [`GlobalPopulationPercentStatsProvider`](../../ModdableTimberborn/GameStats/Implementations/GlobalPopulationPercentStatsProvider.cs). All values are floats in the range 0–1; `GetStatFormatted` renders them as `"P0"` strings (e.g. `"42 %"`), or `"N/A"` for negative values.
-
-| Constant | Ratio |
-|---|---|
-| `GameStats.PopulationBeaverPercent` | Beavers as a share of total population |
-| `GameStats.PopulationBotPercent` | Bots as a share of total population |
-| `GameStats.PopulationAdultPercent` | Adults as a share of beavers |
-| `GameStats.PopulationChildPercent` | Children as a share of beavers |
-| `GameStats.BedHomelessPercent` | Homeless as a share of beavers |
-| `GameStats.ContaminationAdultPercent` | Contaminated adults as a share of beavers |
-| `GameStats.ContaminationChildPercent` | Contaminated children as a share of beavers |
-| `GameStats.ContaminationPercent` | All contaminated as a share of beavers |
-
-### Per-good stats
-
-Good IDs match the Timberborn good identifier strings (e.g. `Wood`, `Water`, `Plank`).
-
-#### Amounts and capacity (`int`)
-
-Provided by [`GoodStatsProvider`](../../ModdableTimberborn/GameStats/Implementations/GoodStatsProvider.cs).
-
-| Helper | Key pattern | Description |
-|---|---|---|
-| `GameStats.GoodAmount(goodId)` | `GoodAmount.<goodId>` | Global available stock of the good |
-| `GameStats.GoodCapacity(goodId)` | `GoodCapacity.<goodId>` | Global input/output storage capacity |
-
-Example: `GameStats.GoodAmount("Wood")`, `GameStats.GoodCapacity("Water")`.
-
-#### Fill rate (`float`, formatted as percentage)
-
-Provided by [`GoodPercentStatsProvider`](../../ModdableTimberborn/GameStats/Implementations/GoodPercentStatsProvider.cs).
-
-| Helper | Key pattern | Description |
-|---|---|---|
-| `GameStats.GoodFill(goodId)` | `GoodFill.<goodId>` | Storage fill rate (0–1) |
-
-Example: `GameStats.GoodFill("Plank")`.
-
-The good-keyed stats are snapshotted at load time from `IGoodService.Goods`. Goods introduced after load will not be present.
 
 ## Providing a custom stat
 
@@ -181,3 +159,6 @@ public class MyGameConfig : Configurator
     }
 }
 ```
+
+
+

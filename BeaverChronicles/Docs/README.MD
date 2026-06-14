@@ -62,6 +62,30 @@ Inside nodes, placeholders such as `{S1}` and `{I1}` pull from these parameter l
 > [!IMPORTANT]  
 > Unlike most programming languages, I intentionally made most indexes 1-based instead of 0-based. This is because the placeholders are meant to be human-friendly, and 1-based numbering is more intuitive for non-programmers.
 
+### Text Placeholders
+
+Event text can use two kinds of placeholders.
+
+Beaver Chronicles placeholders use curly braces. They are replaced before the text is shown:
+
+- `{S1}`, `{S2}`, etc. use values from `Parameters.Strings`.
+- `{I1}`, `{I2}`, etc. use values from `Parameters.Ints`.
+- `{F1}`, `{F2}`, etc. use values from `Parameters.Floats` as decimal numbers.
+- `{%1}`, `{%2}`, etc. use values from `Parameters.Floats` as percentages, so `0.15` becomes `15%`.
+- `{CP_Name}` uses a custom parameter from the current event record.
+- `{GS_StatName}` uses a game stat value. For available stats, see [ModdableTimberborn Game Stats](../../Docs/ModdableTimberborn/GameStats.MD#built-in-stat-quick-reference).
+
+Timberborn mixed-text tags use double square brackets. They control formatting or insert game UI elements:
+
+- `[[C]]` centers the text that follows.
+- `[[+]]` marks a positive line.
+- `[[-]]` marks a negative line.
+- `[[good:{S1}:{I1}]]` shows a good icon and amount, after `{S1}` and `{I1}` are replaced.
+- `[[time:{F1}d]]` shows a duration.
+- `[[icon:UI/images/game/ico-child]]` shows an icon.
+
+You can combine both systems. For example, `[[+]]Gain [[good:{S1}:{I1}]]` first replaces `{S1}` and `{I1}`, then Timberborn displays the formatted reward line.
+
 ### Nodes
 
 `Nodes` is the event flow. Think of it as a small map: each node does one thing, and some nodes point to another node. Nodes are identified by their `Id`, which must be unique within the event. They don't have to be in any particular order in the JSON, because the flow is determined by the `NextNodeId` fields that point to other nodes by their `Id`.
@@ -122,3 +146,7 @@ The nodes named `C1`, `C2`, `C3`, and `C4` are all `Give` nodes.
 `C4` uses `Spawns` instead of `Items`, so it creates a child beaver rather than adding a stored good.
 
 These reward nodes do not need `NextNodeId` because the event ends after the reward is given.
+
+## Next Guide
+
+Continue with [EventGuides.MD](./EventGuides.MD) for more event explanations and JSON authoring guides.
