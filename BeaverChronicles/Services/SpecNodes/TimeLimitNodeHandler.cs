@@ -70,11 +70,11 @@ public class TimeLimitNodeHandler(
         eb.Unregister(this);
     }
 
-    void OnPaymentPaid() => OnTimeLimitConcluded(d => d.GetData<TimeLimitData>().PaidNodeId);
-    void OnTimeLimitReached() => OnTimeLimitConcluded(d => d.NextNodeId);
-    void OnEventTriggered(string? nodeId) => OnTimeLimitConcluded(_ => nodeId);
+    void OnPaymentPaid() => OnTimeLimitConcluded("Payment paid", d => d.GetData<TimeLimitData>().PaidNodeId);
+    void OnTimeLimitReached() => OnTimeLimitConcluded("Time limit reached", d => d.NextNodeId);
+    void OnEventTriggered(string? nodeId) => OnTimeLimitConcluded(null, _ => nodeId);
 
-    void OnTimeLimitConcluded(Func<ChronicleEventNodeSpec, string?> getNodeId)
+    void OnTimeLimitConcluded(string? evName, Func<ChronicleEventNodeSpec, string?> getNodeId)
     {
         activeEvent.Clear();
 
@@ -88,7 +88,14 @@ public class TimeLimitNodeHandler(
         activeRef = null;
 
         ClearEventSubscriptions(node.GetData<TimeLimitData>().Subscriptions, controller);
-        controller.TriggerNode(getNodeId(node));
+        var nextNodeId = getNodeId(node);
+
+        if (evName is not null)
+        {
+            node.LogVerbose(() => $"{evName}. Going to node: {nextNodeId}.");
+        }
+
+        controller.TriggerNode(nextNodeId);
     }
 
     public void RestoreGameState(ChronicleEventNodeSpec node, SpecChronicleEventController controller)
@@ -138,8 +145,11 @@ public class TimeLimitNodeHandler(
     {
         if (activeRef is null) { return; } // Should not happen
 
-        var data = activeRef.Value.node.GetData<TimeLimitData>();
+        var node = activeRef.Value.node;
+        var data = node.GetData<TimeLimitData>();
+
         var nextNote = data.Subscriptions.FirstOrDefault(s => s.EventName == e.Name)?.NextNodeId;
+        node.LogVerbose(() => $"Event triggered: {e.Name}, going to node: {nextNote}.");
 
         OnEventTriggered(nextNote);
     }

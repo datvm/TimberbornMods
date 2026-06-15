@@ -16,13 +16,15 @@ public class FindEntitiesHandler(
         }
 
         var maxCount = Math.Max(0, data.MaxCount);
-        var foundEntities = FindEntities(data);
-        var entities = data.ChooseRandom
-            ? foundEntities.OrderBy(_ => Random.value).Take(maxCount).ToArray()
-            : foundEntities.Take(maxCount).ToArray();
+        var foundEntities = FindEntities(data, controller);
+        string[] entities = [..data.ChooseRandom
+            ? foundEntities.OrderBy(_ => Random.value).Take(maxCount)
+            : foundEntities.Take(maxCount)];
         var customParameters = controller.CurrentRecord.CustomParameters;
 
         customParameters[$"{prefix}_Count"] = entities.Length.ToString();
+        var nextNodeId = entities.Length == 0 ? data.NoneFoundNodeId : node.NextNodeId;
+        node.LogVerbose(() => $"Found {entities.Length} entities. Going to {nextNodeId}");
 
         for (int i = 0; i < entities.Length; i++)
         {
@@ -34,10 +36,10 @@ public class FindEntitiesHandler(
             customParameters[prefix] = entities[0];
         }
 
-        return entities.Length == 0 ? data.NoneFoundNodeId : node.NextNodeId;
+        return nextNodeId;
     }
 
-    IEnumerable<string> FindEntities(FindEntitiesData data)
+    IEnumerable<string> FindEntities(FindEntitiesData data, SpecChronicleEventController controller)
     {
         var areas = data.AreasBounds;
 
@@ -49,7 +51,10 @@ public class FindEntitiesHandler(
             }
         }
 
-        foreach (var c in findEntityHelper.FindEntitiesByTemplates(data.TemplateNames, data.TemplatePrefixes, areas, data.AreaCondition))
+        var templateNames = controller.FormatTextsRemoveEmpty(data.TemplateNames).ToArray();
+        var templatePrefixes = controller.FormatTextsRemoveEmpty(data.TemplatePrefixes).ToArray();
+
+        foreach (var c in findEntityHelper.FindEntitiesByTemplates(templateNames, templatePrefixes, areas, data.AreaCondition))
         {
             yield return c.GetEntityId().ToString();
         }

@@ -1,4 +1,4 @@
-namespace BeaverChronicles.Services.SpecNodes;
+﻿namespace BeaverChronicles.Services.SpecNodes;
 
 [MultiBind(typeof(ISpecNodeHandler))]
 public class CharacterStatusHandler(
@@ -13,6 +13,8 @@ public class CharacterStatusHandler(
             .Select(controller.FormatText)
             .Where(id => id is not null)
             .Select(id => id!);
+
+        var counter = 0;
         foreach (var character in controller.GetEntities<Character>(entityIds))
         {
             if (controller.FormatText(data.RemoveNeed) is { } removeNeed)
@@ -24,8 +26,11 @@ public class CharacterStatusHandler(
             {
                 statusHelper.InflictNeed(character, inflictNeed);
             }
+
+            counter++;
         }
 
+        node.LogVerbose(() => $"Updated status for {counter} characters.");
         return node.NextNodeId;
     }
 }

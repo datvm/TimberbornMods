@@ -8,9 +8,9 @@ public record CustomParameterData
 }
 
 [MultiBind(typeof(IConditionEvaluator))]
-public class _CustomParameter : ConditionEvaluatorBase<CustomParameterData>
+public class CustomParameter : ConditionEvaluatorBase<CustomParameterData>
 {
-    public override string ForType => nameof(_CustomParameter);
+    public override string ForType => nameof(CustomParameter);
 
     protected override bool Evaluate(CustomParameterData? p, ConditionItem c, SpecChronicleEvent ev, ChronicleEventNodeSpec node, ConditionData conditionData)
     {

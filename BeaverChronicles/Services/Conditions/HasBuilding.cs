@@ -33,6 +33,7 @@ public class HasBuilding(
             {
                 if (mustFinish && !bound.BlockObject.IsFinished) { continue; }
 
+                this.LogVerbose(node, () => $"- Found matching building: {bound.GetEntityId()}");
                 yield return true;
             }
         }

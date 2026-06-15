@@ -1,4 +1,4 @@
-{
+﻿{
     "ChronicleEventSpec": {
         "Id": "FirstDroughtWaterfall",
         "TitleLoc": "LV.BCEv.FirstDroughtWaterfall",
@@ -36,7 +36,7 @@
                     "Id": "FindWaterSource",
                     "Type": "FindEntities",
                     "Data": {
-                        "Templates": [ "{S2}" ],
+                        "TemplateNames": [ "{S2}" ],
                         "MaxCount": 1,
                         "ChooseRandom": true,
                         "ResultName": "WaterSource",

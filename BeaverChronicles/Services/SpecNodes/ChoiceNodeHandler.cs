@@ -95,7 +95,10 @@ public class ChoiceNodeHandler(
                 choiceNo,
                 choiceIndex + 1);
 
-            controller.TriggerNode(data.Options[choiceIndex].NextNodeId);
+            var nextNodeId = data.Options[choiceIndex].NextNodeId;
+            node.LogVerbose(() => $"Choice made: {choiceIndex + 1}. Going to {nextNodeId}");
+
+            controller.TriggerNode(nextNodeId);
         }
 
     }

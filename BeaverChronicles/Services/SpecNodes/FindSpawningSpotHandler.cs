@@ -11,6 +11,7 @@ public class FindSpawningSpotHandler(
     {
         if (!helper.TryGetBlockObjectSpec(data.TemplateNames, out var spec, true))
         {
+            node.LogVerbose(() => $"No matching template found. Going to {data.FailedNodeId}");
             return data.FailedNodeId;
         }
 
@@ -22,6 +23,7 @@ public class FindSpawningSpotHandler(
 
         if (!helper.TryFindPlacement(spec, out var placement, new(data.NearBuildingRadius, data.LimitArea)))
         {
+            node.LogVerbose(() => $"No valid spawning spot found. Going to {data.FailedNodeId}");
             return data.FailedNodeId;
         }
 
@@ -33,6 +35,7 @@ public class FindSpawningSpotHandler(
         customParameters[$"{prefix}_Y"] = y.ToString();
         customParameters[$"{prefix}_Z"] = z.ToString();
         customParameters[$"{prefix}_Orientation"] = p.Orientation.ToString();
+        node.LogVerbose(() => $"Found spawning spot at ({x}, {y}, {z}), orientation {p.Orientation}. Going to {node.NextNodeId}");
 
         return node.NextNodeId;
     }

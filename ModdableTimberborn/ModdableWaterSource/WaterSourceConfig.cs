@@ -3,7 +3,7 @@
     public class WaterSourceConfig : IModdableTimberbornRegistryWithPatchConfig
     {
         public static readonly WaterSourceConfig Instance = new();
-        public const string PatchCategoryName = $"{nameof(ModdableTimberborn)}.{nameof(WaterSource)}";
+        public const string PatchCategoryName = $"{nameof(ModdableTimberborn)}.{nameof(ModdableWaterSource)}";
 
         public string? PatchCategory => PatchCategoryName;
         public ConfigurationContext AvailableContexts => ConfigurationContext.Game;

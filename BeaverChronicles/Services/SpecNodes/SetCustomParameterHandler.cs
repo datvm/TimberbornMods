@@ -1,4 +1,4 @@
-namespace BeaverChronicles.Services.SpecNodes;
+﻿namespace BeaverChronicles.Services.SpecNodes;
 
 [MultiBind(typeof(ISpecNodeHandler))]
 public class SetCustomParameterHandler : NodeHandlerBase<SetCustomParameterData>
@@ -13,7 +13,9 @@ public class SetCustomParameterHandler : NodeHandlerBase<SetCustomParameterData>
             throw new InvalidOperationException($"Event {controller.Event.Id}, node {node.Id}: custom parameter name cannot be empty.");
         }
 
-        controller.CurrentRecord.CustomParameters[name] = Compute(data, node, controller);
+        var value = Compute(data, node, controller);
+        node.LogVerbose(() => $"Setting custom parameter '{name}' to '{value}'.");
+        controller.CurrentRecord.CustomParameters[name] = value;
         return node.NextNodeId;
     }
 

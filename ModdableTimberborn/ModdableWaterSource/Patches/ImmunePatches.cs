@@ -4,7 +4,7 @@
 public static class ImmunePatches
 {
 
-    [HarmonyPrefix, HarmonyPatch(typeof(DroughtWaterStrengthModifier), nameof(DroughtWaterStrengthModifier.GetModifier))]
+    [HarmonyPrefix, HarmonyPatch(typeof(DroughtWaterStrengthModifier), nameof(DroughtWaterStrengthModifier.GetStrengthModifier))]
     public static bool RemoveDroughtStrengthModifier(DroughtWaterStrengthModifier __instance, ref float __result)
     {
         if (__instance.GetComponent<ModdableWaterSourceComponent>().ImmuneToDrought.CalculateThisFrame())

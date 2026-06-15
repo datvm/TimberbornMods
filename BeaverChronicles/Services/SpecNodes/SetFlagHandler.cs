@@ -1,4 +1,4 @@
-namespace BeaverChronicles.Services.SpecNodes;
+﻿namespace BeaverChronicles.Services.SpecNodes;
 
 [MultiBind(typeof(ISpecNodeHandler))]
 public class SetFlagHandler : NodeHandlerBase<SetFlagData>
@@ -15,10 +15,12 @@ public class SetFlagHandler : NodeHandlerBase<SetFlagData>
 
         if (data.State)
         {
+            node.LogVerbose(() => $"Setting flag '{name}'.");
             controller.HelperCollection.Flags.AddFlag(name);
         }
         else
         {
+            node.LogVerbose(() => $"Removing flag '{name}'.");
             controller.HelperCollection.Flags.RemoveFlag(name);
         }
 
