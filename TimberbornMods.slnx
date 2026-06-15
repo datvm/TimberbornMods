@@ -15,6 +15,7 @@
   <Folder Name="/BChronicles/">
     <Project Path="BeaverChronicles/BeaverChronicles.csproj" Id="c21248d9-cac1-4194-b0f9-aae8a889e8ad" />
     <Project Path="BeaverChroniclesCampfire/BeaverChroniclesCampfire.csproj" Id="8cf1e96a-1dae-40b6-9c7d-410f406bea43" />
+    <Project Path="BeaverChroniclesWaterfallEventPack/BeaverChroniclesWaterfallEventPack.csproj" />
   </Folder>
   <Folder Name="/Configurables/">
     <Project Path="ConfigurableAutoSave/ConfigurableAutoSave.csproj" />

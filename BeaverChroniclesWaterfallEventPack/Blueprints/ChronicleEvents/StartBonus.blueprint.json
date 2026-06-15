@@ -1,0 +1,8 @@
+﻿{
+    "ChronicleEventSpec": {
+        "Conditions": {
+            // Prevents the event from triggering if the player is playing on the Waterfall map
+            "BlockedFlags": [ "MAP.WATERFALLS" ] 
+        }
+    }
+}

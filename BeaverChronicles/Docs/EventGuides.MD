@@ -167,7 +167,7 @@ The final result is available as `{CP_PartyCost}`. The choice note uses it to sh
 `SetCustomParameter` supports `String`, `Int`, and `Float` values. String parameters can only use `Add`, which joins `Value1` and `Value2`. Number parameters support `Add`, `Sub`, `Mul`, `Div`, `Round`, `Ceil`, and `Floor`. The `Not` operation treats `Value1` as a boolean-like value and saves `1` when it is false, or `0` when it is true. `Int` values are saved as whole numbers, while `Float` values are saved with two decimal places.
 
 > [!INFO]  
-> `{GS_...}` reads a game stat. `{CP_...}` reads a custom parameter already stored on the current event record. This is why the calculation nodes must run in order: `HalfChildren` cannot use `{CP_ChildPlusOne}` until the previous node creates it. For the list of available game stats, see [ModdableTimberborn Game Stats](../../Docs/ModdableTimberborn/GameStats.MD#built-in-stat-quick-reference).
+> `{GS_...}` reads a game stat. `{CP_...}` reads a custom parameter already stored on the current event record. This is why the calculation nodes must run in order: `HalfChildren` cannot use `{CP_ChildPlusOne}` until the previous node creates it. For the list of available game stats, see [ModdableTimberborn Game Stats](../../ModdableTimberborn/Docs/GameStats.MD#built-in-stat-quick-reference).
 
 ### Party Payment
 
@@ -232,7 +232,7 @@ This is a useful pattern when an event has a special "you already solved it" pat
 
 `InitialCheck`, `NotMostSheltered`, and `CheckPromise2` use the `GameStat` condition type.
 
-`GameStat` compares a named game stat to a value. `Unhoused` checks stats such as `BedHomelessPercent` and `BedHousedPercent`. It can also use `CheckExistsOnly: true` when you only need to know whether a stat exists, such as checking whether a faction has a good stat like `GoodAmount.Water`. For the full stat list, see [ModdableTimberborn Game Stats](../../Docs/ModdableTimberborn/GameStats.MD#built-in-stat-quick-reference).
+`GameStat` compares a named game stat to a value. `Unhoused` checks stats such as `BedHomelessPercent` and `BedHousedPercent`. It can also use `CheckExistsOnly: true` when you only need to know whether a stat exists, such as checking whether a faction has a good stat like `GoodAmount.Water`. For the full stat list, see [ModdableTimberborn Game Stats](../../ModdableTimberborn/Docs/GameStats.MD#built-in-stat-quick-reference).
 
 `Comparison` defaults to `Equal`, but the event uses comparisons such as `Less` and `LessOrEqual`. The value can be a literal number or a placeholder such as `{F1}`.
 
@@ -448,3 +448,4 @@ All paths eventually wait for the chapter duration, remove the workplace buffs, 
 That last cleanup matters. Without clearing the continuation flag, the follow-up event could remain eligible when it should be finished.
 
 At this point, you have seen the core patterns used by the base JSON events: immediate rewards, active timers, payments, chance branches, custom parameters, game stat promises, subscriptions, flags, follow-up chapters, random entity selection, character status changes, and cleanup.
+

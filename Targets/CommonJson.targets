@@ -1,0 +1,45 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="ValidateJsonMod">
+
+	<Import Project=".\CommonProperties.targets" />
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+		<EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<SkipCompilerExecution>true</SkipCompilerExecution>
+		<SkipCopyBuildProduct>true</SkipCopyBuildProduct>
+		<CopyBuildOutputToOutputDirectory>false</CopyBuildOutputToOutputDirectory>
+		<DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="**\*.cs" />
+		<None Include="**\*.cs" />
+		<Content Include="manifest.json" />
+	</ItemGroup>
+
+	<Target Name="ValidateJsonMod">
+		<Error Condition="'$(OutputModFolderName)'==''" Text="OutputModFolderName was not specified" />
+		<Error Condition="!Exists('$(MSBuildProjectDirectory)\manifest.json')" Text="manifest.json is required for JSON-only mods" />
+	</Target>
+
+	<Target Name="CopyJsonModFiles" AfterTargets="Build">
+		<ItemGroup>
+			<JsonModFiles Include="$(MSBuildProjectDirectory)\**\*"
+				Exclude="$(MSBuildProjectDirectory)\bin\**\*;$(MSBuildProjectDirectory)\obj\**\*;$(MSBuildProjectDirectory)\out\**\*;$(MSBuildProjectDirectory)\*.csproj;$(MSBuildProjectDirectory)\*.csproj.user;$(MSBuildProjectDirectory)\**\*.cs" />
+			<JsonBuildArtifacts Include="$(OutputPath)$(AssemblyName).*" />
+		</ItemGroup>
+
+		<Message Text="Deleting..." />
+		<RemoveDir Directories="$(ModFolder)" />
+
+		<Delete Files="@(JsonBuildArtifacts)" />
+
+		<Message Text="Copying JSON-only mod files..." />
+		<Copy SourceFiles="@(JsonModFiles)" DestinationFiles="@(JsonModFiles->'$(ModFolder)%(RecursiveDir)%(Filename)%(Extension)')" />
+	</Target>
+
+</Project>

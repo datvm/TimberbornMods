@@ -16,6 +16,9 @@ public static class GameStats
     public const string WeatherWarningStage = nameof(WeatherWarningStage);
     public const string WeatherWarningNextWeather = nameof(WeatherWarningNextWeather);
     public const string WeatherWarningDaysToHazardous = nameof(WeatherWarningDaysToHazardous);
+    public const string WeatherCurrentDuration = nameof(WeatherCurrentDuration);
+    public const string WeatherCurrentBenignDuration = nameof(WeatherCurrentBenignDuration);
+    public const string WeatherCurrentHazardousDuration = nameof(WeatherCurrentHazardousDuration);
 
     public const string GoodAmountPrefix = "GoodAmount.";
     public const string GoodCapacityPrefix = "GoodCapacity.";

@@ -17,19 +17,29 @@ public class SpecChronicleEventProvider(
 
         foreach (var spec in evSpecs)
         {
-            spec.Nodes.Initialize();
-            ValidateSpec(spec);
-
-            if (!codeById.Remove(spec.Id, out var customCode) && spec.NeedCustomCode)
+            SpecChronicleEvent ev;
+            try
             {
-                throw new InvalidOperationException($"Spec {spec.Id} requires custom code, but none was found.");
+                spec.Nodes.Initialize();
+                ValidateSpec(spec);
+
+                if (!codeById.Remove(spec.Id, out var customCode) && spec.NeedCustomCode)
+                {
+                    throw new InvalidOperationException($"Spec {spec.Id} requires custom code, but none was found.");
+                }
+
+
+                ev = spec.IsMini
+                    ? new MiniSpecChronicleEvent(spec, customCode, helperFac)
+                    : new SpecChronicleEvent(spec, customCode, helperFac);
+                ev.Initialize();
+                
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException($"Error processing spec Id = {spec.Id} (Blueprint name: {spec.Blueprint.Name}): {ex.Message}", ex);
             }
 
-
-            var ev = spec.IsMini
-                ? new MiniSpecChronicleEvent(spec, customCode, helperFac)
-                : new SpecChronicleEvent(spec, customCode, helperFac);
-            ev.Initialize();
             yield return ev;
         }
 
