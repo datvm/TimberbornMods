@@ -9,8 +9,10 @@ public class SpawnObjectHandler(
 
     protected override string? InternalHandleNode(SpawnObjectData data, ChronicleEventNodeSpec node, SpecChronicleEventController controller)
     {
-        if (!helper.TryGetBlockObjectSpec(data.TemplateNames, out var template, true))
+        var templateNames = controller.FormatTextsRemoveEmpty(data.TemplateNames).ToArray();
+        if (!helper.TryGetBlockObjectSpec(templateNames, out var template, true))
         {
+            node.LogVerbose(() => $"No matching template found. Going to {data.FailedNodeId}");
             return data.FailedNodeId;
         }
 

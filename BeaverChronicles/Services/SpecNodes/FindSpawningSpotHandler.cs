@@ -9,7 +9,8 @@ public class FindSpawningSpotHandler(
 
     protected override string? InternalHandleNode(FindSpawningSpotData data, ChronicleEventNodeSpec node, SpecChronicleEventController controller)
     {
-        if (!helper.TryGetBlockObjectSpec(data.TemplateNames, out var spec, true))
+        var templateNames = controller.FormatTextsRemoveEmpty(data.TemplateNames).ToArray();
+        if (!helper.TryGetBlockObjectSpec(templateNames, out var spec, true))
         {
             node.LogVerbose(() => $"No matching template found. Going to {data.FailedNodeId}");
             return data.FailedNodeId;

@@ -1,0 +1,210 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "BadtideDrainExcavation",
+        "TitleLoc": "LV.BCEv.BadtideDrainExcavation",
+        "Conditions": {
+            "Sources": [ "NewDay" ],
+            "Weight": 2147483647,
+            "RequiredFlags": [ "MAP.WATERFALLS", "EVENT.BadtideDrainStudy" ],
+            "RequiredFlagsCondition": "All",
+            "BlockedFlags": [ "EVENT.BadtideDrainStudy.C1.3" ]
+        },
+        "Parameters": {
+            "Floats": [
+                2.0 // F1: Excavation duration
+            ],
+            "Strings": [
+                "MetalBlock", // S1: Metal block cost
+                "Explosives", // S2: Explosives cost
+                "Water", // S3: Water cost
+                "TreatedPlank", // S4: Treated plank safety cost
+                "UnstableCore", // S5: Unstable Core template
+                "Injury" // S6: Injury need id
+            ],
+            "Ints": [
+                300, // I1: Metal block cost
+                300, // I2: Explosives cost
+                500, // I3: Water cost
+                100, // I4: Treated plank safety cost
+                15, // I5: Normal excavation injuries
+                5 // I6: Careful excavation injuries
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.BadtideDrainExcavation.Content",
+                        "DefaultOption": 3,
+                        "TopImage": true,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCEv.BadtideDrainExcavation.C1",
+                                "NoteLoc": "LV.BCEv.BadtideDrainExcavation.C1N",
+                                "NextNodeId": "ExcavationPayment"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.BadtideDrainExcavation.C2",
+                                "NoteLoc": "LV.BCEv.BadtideDrainExcavation.C2N",
+                                "NextNodeId": "CarefulExcavationPayment"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.BadtideDrainExcavation.C3",
+                                "NoteLoc": "LV.BCEv.BadtideDrainExcavation.C3N",
+                                "NextNodeId": "Dismissed"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "ExcavationPayment",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "PanelTextLoc": "LV.BCEv.BadtideDrainExcavation.C1",
+                        "PaidNodeId": "Excavating",
+                        "Payments": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{I1}"
+                            },
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{I2}"
+                            },
+                            {
+                                "Id": "{S3}",
+                                "Amount": "{I3}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "CarefulExcavationPayment",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "PanelTextLoc": "LV.BCEv.BadtideDrainExcavation.C2",
+                        "PaidNodeId": "CarefulExcavating",
+                        "Payments": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{I1}"
+                            },
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{I2}"
+                            },
+                            {
+                                "Id": "{S3}",
+                                "Amount": "{I3}"
+                            },
+                            {
+                                "Id": "{S4}",
+                                "Amount": "{I4}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "Excavating",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F1}",
+                        "PanelTextLoc": "LV.BCEv.BadtideDrainExcavation.Panel"
+                    },
+                    "NextNodeId": "FindInjuryVictims"
+                },
+                {
+                    "Id": "CarefulExcavating",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F1}",
+                        "PanelTextLoc": "LV.BCEv.BadtideDrainExcavation.Panel"
+                    },
+                    "NextNodeId": "FindCarefulInjuryVictims"
+                },
+                {
+                    "Id": "FindInjuryVictims",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver, ChildBeaver",
+                        "MaxCount": 15,
+                        "ChooseRandom": true,
+                        "ResultName": "InjuryVictims",
+                        "NoneFoundNodeId": "InjureVictims"
+                    },
+                    "NextNodeId": "InjureVictims"
+                },
+                {
+                    "Id": "FindCarefulInjuryVictims",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver, ChildBeaver",
+                        "MaxCount": 5,
+                        "ChooseRandom": true,
+                        "ResultName": "InjuryVictims",
+                        "NoneFoundNodeId": "InjureVictims"
+                    },
+                    "NextNodeId": "InjureVictims"
+                },
+                {
+                    "Id": "InjureVictims",
+                    "Type": "CharacterStatus",
+                    "Data": {
+                        "EntityIds": [ "InjuryVictims" ],
+                        "InflictNeed": "{S6}"
+                    },
+                    "NextNodeId": "FindCoreSpot"
+                },
+                {
+                    "Id": "FindCoreSpot",
+                    "Type": "FindSpawningSpot",
+                    "Data": {
+                        "TemplateNames": [ "{S5}" ],
+                        "ResultName": "UnstableCoreSpot",
+                        "LimitArea": {
+                            "X": 15,
+                            "Y": 120,
+                            "Z": 5,
+                            "W": 5
+                        },
+                        "FailedNodeId": "Message"
+                    },
+                    "NextNodeId": "SpawnUnstableCore"
+                },
+                {
+                    "Id": "SpawnUnstableCore",
+                    "Type": "SpawnObject",
+                    "Data": {
+                        "TemplateNames": [ "{S5}" ],
+                        "X": "{CP_UnstableCoreSpot_X}",
+                        "Y": "{CP_UnstableCoreSpot_Y}",
+                        "Z": "{CP_UnstableCoreSpot_Z}",
+                        "Orientation": "{CP_UnstableCoreSpot_Orientation}",
+                        "ConflictMode": "Destructive",
+                        "FailedNodeId": "Message"
+                    },
+                    "NextNodeId": "Message"
+                },
+                {
+                    "Id": "Message",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.BadtideDrainExcavation.O1",
+                        "SideImagePath": "Resources/Chronicles/BadtideDrainExcavation_Core"
+                    }
+                },
+                {
+                    "Id": "Dismissed",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.BadtideDrainExcavation.O2",
+                        "TopImage": true
+                    }
+                }
+            ]
+        }
+    }
+}

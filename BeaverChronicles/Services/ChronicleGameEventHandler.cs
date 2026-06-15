@@ -9,7 +9,8 @@ public class ChronicleGameEventHandler(
     ITimeTriggerFactory timeTriggerFactory,
     DefaultEntityTracker<Beaver> beavers,
     DefaultEntityTracker<Bot> bots,
-    CompatWeatherService compatWeatherService
+    CompatWeatherService compatWeatherService,
+    WonderActivationTracker wonderActivationTracker
 ) : ITickableSingleton, ISaveableSingleton, ILoadableSingleton
 {
     const float NewDayDelay = .5f / 24f; // Delay half an hour so it's not conflict with other events.
@@ -45,6 +46,12 @@ public class ChronicleGameEventHandler(
 
         beavers.OnEntityRegistered += OnCharacterRegistered;
         bots.OnEntityRegistered += OnCharacterRegistered;
+        wonderActivationTracker.WonderActivated += OnWonderActivated;
+    }
+
+    void OnWonderActivated(object sender, Wonder e)
+    {
+        Trigger(Create(EventTriggerSource.WonderActivated, CreateBuilding(e)));
     }
 
     void OnCharacterRegistered(BaseComponent c)

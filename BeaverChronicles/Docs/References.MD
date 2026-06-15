@@ -31,6 +31,7 @@ Trigger sources are game moments that can cause Beaver Chronicles to check wheth
 | `Decontaminated` | A character is decontaminated. | [CharacterParameters](#characterparameters) |
 | `Custom` | Fired by a custom Chronicle event message. | [CustomEventParameters](#customeventparameters) |
 | `CharacterEnteredArea` | A character enters a tracked area. | [CharacterInAreaParameters](#characterinareaparameters) |
+| `WonderActivated` | A wonder is activated. | [BuildingInstanceParameters](#buildinginstanceparameters) |
 
 # Node Types
 
@@ -188,7 +189,7 @@ Provided parameters:
 
 ## BuildingInstanceParameters
 
-Used when a building is placed or finishes construction.
+Used when a building is placed, finishes construction, or a wonder is activated.
 
 Custom parameters written:
 
