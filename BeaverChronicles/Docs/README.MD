@@ -73,7 +73,7 @@ Beaver Chronicles placeholders use curly braces. They are replaced before the te
 - `{F1}`, `{F2}`, etc. use values from `Parameters.Floats` as decimal numbers.
 - `{%1}`, `{%2}`, etc. use values from `Parameters.Floats` as percentages, so `0.15` becomes `15%`.
 - `{CP_Name}` uses a custom parameter from the current event record.
-- `{GS_StatName}` uses a game stat value. For available stats, see [ModdableTimberborn Game Stats](../../Docs/ModdableTimberborn/GameStats.MD#built-in-stat-quick-reference).
+- `{GS_StatName}` uses a game stat value. For available stats, see [ModdableTimberborn Game Stats](../../ModdableTimberborn/Docs/GameStats.MD#built-in-stat-quick-reference).
 
 Timberborn mixed-text tags use double square brackets. They control formatting or insert game UI elements:
 
@@ -150,3 +150,4 @@ These reward nodes do not need `NextNodeId` because the event ends after the rew
 ## Next Guide
 
 Continue with [EventGuides.MD](./EventGuides.MD) for more event explanations and JSON authoring guides.
+

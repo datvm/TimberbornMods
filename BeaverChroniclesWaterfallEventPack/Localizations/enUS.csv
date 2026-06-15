@@ -1,0 +1,20 @@
+ID,Text,Comment
+LV.BCEv.StartBonusWaterfall,"A Clear Fall",
+LV.BCEv.StartBonusWaterfall.Content,"The colony reaches the foot of the great waterfall, where clean water crashes down from the heights and gathers in bright, restless pools.
+The air is cool with mist. Moss clings to the stone, and every beaver can hear the steady promise of the stream before the first path is even marked.
+The scouts find a narrow basin where fresh water has collected, untouched and easy to draw. It could fill the colony's barrels at once.
+Or it could be left undisturbed, for reasons no one fully understands yet.",
+LV.BCEv.StartBonusWaterfall.C1,"Fill the barrels",
+LV.BCEv.StartBonusWaterfall.C1N,"[[C]]Fresh waterfall water is gathered before work begins. [[+]]+[[good:{S1}:{I1}]]",
+LV.BCEv.StartBonusWaterfall.C2,"Leave the spring untouched",
+LV.BCEv.StartBonusWaterfall.C2N,"[[C]]The colony leaves the clear basin as it was.",
+LV.BCEv.FirstDroughtWaterfall,"The Spring Beneath the Stone",
+LV.BCEv.FirstDroughtWaterfall.Content,"The first drought arrives with a dry wind.
+Across the colony, the river weakens. Channels shrink, mud cracks along the banks, and beavers gather near the gauges with worried tails.
+But near the waterfall, one clear basin does not fail.
+The pool left untouched at the colony's founding still seeps from beneath the stone. No one knows whether it is fed by hidden pressure, old roots, or some deep pocket of water the drought has not reached.
+The scouts lower their paws into the cool stream and stare at one another in silence.
+What was spared before now spares the colony.
+[[C]][[+]]One water source remains active during the first drought",
+LV.BCEv.FirstDroughtWaterfall.BuffTitle,"Spring Beneath the Stone",
+LV.BCEv.FirstDroughtWaterfall.BuffDesc,"This water source keeps flowing through this drought.",

@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputModFolderName>BeaverChroniclesWaterfallEventPack</OutputModFolderName>
+	</PropertyGroup>
+
+	<Import Project="../Targets/CommonJson.targets" />
+
+</Project>

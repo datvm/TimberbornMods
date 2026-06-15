@@ -1,0 +1,75 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "FirstDroughtWaterfall",
+        "TitleLoc": "LV.BCEv.FirstDroughtWaterfall",
+        "Conditions": {
+            "Sources": [ "NewWeather" ],
+            "Weight": 2147483647,
+            "RequiredFlags": [ "MAP.WATERFALLS", "EVENT.StartBonusWaterfall.C1.2" ],
+            "BlockedFlags": [ "EVENT.StartBonusWaterfall.C1.1" ],
+            "ConditionNodeId": "IsDrought"
+        },
+        "Parameters": {
+            "Strings": [
+                "DroughtWeather", // S1: Drought weather id
+                "WaterSource" // S2: Water source template
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "FindWaterSource",
+            "Items": [
+                {
+                    "Id": "IsDrought",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "Weather",
+                                "Parameters": {
+                                    "CurrentWeatherId": "{S1}"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "FindWaterSource",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "Templates": [ "{S2}" ],
+                        "MaxCount": 1,
+                        "ChooseRandom": true,
+                        "ResultName": "WaterSource",
+                        "NoneFoundNodeId": "Message"
+                    },
+                    "NextNodeId": "KeepWaterSourceActive"
+                },
+                {
+                    "Id": "KeepWaterSourceActive",
+                    "Type": "BuffWaterSource",
+                    "Data": {
+                        "EntityIds": [ "WaterSource" ],
+                        "BuffInfo": {
+                            "BuffId": "FirstDroughtWaterfall_WaterSource",
+                            "TitleLoc": "LV.BCEv.FirstDroughtWaterfall.BuffTitle",
+                            "DescLoc": "LV.BCEv.FirstDroughtWaterfall.BuffDesc",
+                            "Days": "{GS_WeatherCurrentHazardousDuration}"
+                        },
+                        "Effects": {
+                            "ImmuneToDrought": "true"
+                        }
+                    },
+                    "NextNodeId": "Message"
+                },
+                {
+                    "Id": "Message",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.FirstDroughtWaterfall.Content",
+                        "TopImagePath": "Resources/Chronicles/StartBonusWaterfall_Top"
+                    }
+                }
+            ]
+        }
+    }
+}

@@ -27,3 +27,20 @@ public class FloatWeatherStatsProvider(CompatWeatherService.CompatWeatherService
         _ => throw new ArgumentOutOfRangeException(),
     };
 }
+
+public class IntWeatherStatsProvider(CompatWeatherService.CompatWeatherService weatherService) : IIntGameStatProvider
+{
+    public IEnumerable<string> AvailableStats => [
+        GameStats.WeatherCurrentDuration,
+        GameStats.WeatherCurrentBenignDuration,
+        GameStats.WeatherCurrentHazardousDuration,
+    ];
+
+    public int GetStat(string statId) => statId switch
+    {
+        GameStats.WeatherCurrentDuration => weatherService.Provider.GetCurrentCycleStage().Length,
+        GameStats.WeatherCurrentBenignDuration => weatherService.Provider.GetCurrentCycleBenignStage()?.Length ?? 0,
+        GameStats.WeatherCurrentHazardousDuration => weatherService.Provider.GetCurrentCycleHazardousStage()?.Length ?? 0,
+        _ => throw new ArgumentOutOfRangeException(),
+    };
+}

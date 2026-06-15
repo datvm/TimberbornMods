@@ -23,6 +23,9 @@ Use these stat IDs with `GameStatService` or any system that reads game stats.
 | `WeatherWarningStage` | `string` | Current weather warning stage. |
 | `WeatherWarningNextWeather` | `string` | Weather ID for the next warned hazardous weather. |
 | `WeatherWarningDaysToHazardous` | `float` | Days until the warned hazardous weather, or `-1` when unavailable. |
+| `WeatherCurrentDuration` | `int` | Duration of the current weather stage in days. |
+| `WeatherCurrentBenignDuration` | `int` | Duration of the current cycle's benign weather stage in days. |
+| `WeatherCurrentHazardousDuration` | `int` | Duration of the current cycle's hazardous weather stage in days, or `0` when none is scheduled. |
 | **Population** | | Population of beavers and bots. |
 | `PopulationNumberOfAdult` | `int` | Number of adult beavers. |
 | `PopulationNumberOfChild` | `int` | Number of child beavers. |

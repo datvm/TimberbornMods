@@ -1,0 +1,13 @@
+﻿{
+    "Name": "Beaver Chronicles Waterfall Event Pack",
+    "Version": "10.0.0",
+    "Id": "BeaverChroniclesWaterfallEventPack",
+    "MinimumGameVersion": "1.0.0",
+    "Description": "More events for the Beaver Chronicles mod.",
+    "RequiredMods": [
+        {
+            "Id": "BeaverChronicles",
+            "MinimumVersion": "10.1.0"
+        }
+    ]
+}

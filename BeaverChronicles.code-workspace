@@ -5,6 +5,12 @@
 		},
 		{
 			"path": "BeaverChronicles"
+		},
+		{
+			"path": "BeaverChroniclesWaterfallEventPack"
+		},
+		{
+			"path": "ModdableTimberborn"
 		}
 	],
 	"settings": {}

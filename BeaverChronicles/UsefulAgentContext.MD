@@ -18,7 +18,7 @@ This file is a living handoff note for AI agents working in this `BeaverChronicl
 - `Docs/EventGuides.MD` is the continuation page for more event examples and JSON authoring guides.
 - `Docs/EventGuides.MD` covers all base JSON events in teaching order: FirstDeath, FirstChildGrowth, DroughtPrep, Unhoused, ContaminationConspiracy, ContaminationCure/Pasteur's Gamble, FoodWoodDispute1, and FoodWoodDispute2.
 - `Docs/README.MD` includes a "Text Placeholders" section covering Beaver Chronicles `{S1}`/`{CP_Name}`/`{%1}` placeholders and Timberborn mixed-text tags like `[[C]]`, `[[+]]`, `[[good:...]]`, `[[time:...]]`, and `[[icon:...]]`.
-- Beaver Chronicles docs link to the shared ModdableTimberborn game stat list at `../Docs/ModdableTimberborn/GameStats.MD#built-in-stat-quick-reference` instead of duplicating stat IDs.
+- Beaver Chronicles docs link to the shared ModdableTimberborn game stat list at `../ModdableTimberborn/Docs/GameStats.MD#built-in-stat-quick-reference` instead of duplicating stat IDs.
 - Docs may use GitHub-style callout boxes such as `> [!INFO]` when a note is helpful.
 
 ## Verification
@@ -35,6 +35,10 @@ This file is a living handoff note for AI agents working in this `BeaverChronicl
 - Use `apply_patch` for manual edits.
 
 ## Event Data Notes
+
+- When unsure whether event engine support, stats, nodes, or conditions exist, make a reasonable blueprint-level guess only if it uses existing patterns. If the support appears missing and would require adding code or new infrastructure, ask before adding it.
+
+- Choice node handling automatically writes choice flags for selected options. Follow-up events can require or block those generated flags instead of adding explicit `SetFlag` nodes just to remember which choice was picked.
 
 - `SpecChronicleEventController.GetEntities(IEnumerable<string>)` can resolve:
   - A custom-parameter array prefix using `<Name>_Count` and `<Name>_1`, `<Name>_2`, etc.
@@ -62,3 +66,4 @@ This file is a living handoff note for AI agents working in this `BeaverChronicl
 - Character, workplace, and water source buff services are separate concrete services.
 - Status models are in `Models/StatusModels.cs` and use init-only record-style properties.
 - Water source buffs support nullable effect fields and nullable `EntityIds` for global application.
+

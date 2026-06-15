@@ -1,0 +1,76 @@
+﻿{
+    "ChronicleEventSpec": {
+        "Id": "StartBonusWaterfall",
+        "TitleLoc": "LV.BCEv.StartBonusWaterfall",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewHour" ],
+            "Weight": 2147483647,
+            "MinDay": 1.25,
+            "RequiredFlags": [ "MAP.WATERFALLS" ]
+        },
+        "Parameters": {
+            "Strings": [
+                "Water" // S1: Bonus item
+            ],
+            "Ints": [
+                40 // I1: Double the default StartBonus water amount
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.StartBonusWaterfall.Content",
+                        "TopImage": true,
+                        "DefaultOption": 2,
+                        "Options": [
+                            {
+                                // Will log EVENT.StartBonusWaterfall.C1.1 flag when chosen, to block the follow up event
+                                "TextLoc": "LV.BCEv.StartBonusWaterfall.C1",
+                                "NoteLoc": "LV.BCEv.StartBonusWaterfall.C1N",
+                                "NextNodeId": "CollectWater",
+                                "EnabledConditionNodeId": "HasDistrictCenter",
+                                "DisabledTextLoc": "LV.BCEv.DisabledNoDc"
+                            },
+                            {
+                                // Will log EVENT.StartBonusWaterfall.C1.2 flag when chosen, for another event.
+                                "TextLoc": "LV.BCEv.StartBonusWaterfall.C2",
+                                "NoteLoc": "LV.BCEv.StartBonusWaterfall.C2N"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "CollectWater",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{I1}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "HasDistrictCenter",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "HasBuilding",
+                                "Parameters": {
+                                    "TemplateNamePrefixes": [ "DistrictCenter." ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}
