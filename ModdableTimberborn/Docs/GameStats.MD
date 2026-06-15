@@ -69,7 +69,9 @@ Use these stat IDs with `GameStatService` or any system that reads game stats.
 | `MapSizeTerrainZ` | `int` | Terrain height. |
 | `MapSizeTotalZ` | `int` | Total map height. |
 | **Goods** | | Per-good stock, capacity, and fill. Replace `<goodId>` with a Timberborn good ID such as `Water` or `Plank`. |
+| `Science` | `int` | Current science points. |
 | `GoodAmount.<goodId>` | `int` | Global available stock of the good. |
+| `GoodAmount.Science` | `int` | Current science points. Prefer `Science` for new usages. |
 | `GoodCapacity.<goodId>` | `int` | Global input/output storage capacity for the good. |
 | `GoodFill.<goodId>` | `percent` | Storage fill rate from 0 to 1. |
 

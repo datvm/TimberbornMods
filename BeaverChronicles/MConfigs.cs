@@ -20,6 +20,7 @@ public class MBeaverChroniclesConfigs : BaseModdableTimberbornAttributeConfigura
             .TryTrack<BlockObjectBound>()
             .TryTrack<Bot>()
             .TryTrack<Beaver>()
+            .TryTrack<Wonder>()
         ;
     }
 

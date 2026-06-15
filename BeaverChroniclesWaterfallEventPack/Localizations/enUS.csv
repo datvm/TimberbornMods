@@ -1,4 +1,4 @@
-ID,Text,Comment
+﻿ID,Text,Comment
 LV.BCEv.StartBonusWaterfall,"A Clear Fall",
 LV.BCEv.StartBonusWaterfall.Content,"The colony reaches the foot of the great waterfall, where clean water crashes down from the heights and gathers in bright, restless pools.
 The air is cool with mist. Moss clings to the stone, and every beaver can hear the steady promise of the stream before the first path is even marked.
@@ -18,3 +18,45 @@ What was spared before now spares the colony.
 [[C]][[+]]One water source remains active during the first drought",
 LV.BCEv.FirstDroughtWaterfall.BuffTitle,"Spring Beneath the Stone",
 LV.BCEv.FirstDroughtWaterfall.BuffDesc,"This water source keeps flowing through this drought.",
+LV.BCEv.DisabledNoResource," <RedHighlight>Not enough resources.</RedHighlight>",
+LV.BCEv.BadtideDrainStudy,"The Drain Beneath the Drain",
+LV.BCEv.BadtideDrainStudy.Content,"Every Badtide, the corner drain wakes again.
+It rumbles beneath the stone, then spills badwater into the land as if the earth itself has learned to poison the colony.
+Most beavers keep their distance.
+One scientist does not.
+After many measurements, sketches, and sleepless nights, the scientist returns with a strange claim: the drain is not only a drain. Something hooman-made is buried beneath it, connected to the old structure in ways no one fully understands.
+The markings are damaged, but one meaning seems clear.
+Whatever is buried there was built to stop the drain forever.",
+LV.BCEv.BadtideDrainStudy.C1,"Look into it",
+LV.BCEv.BadtideDrainStudy.C1N,"[[C]]Investigate the structure. [[time:{F1}d]].",
+LV.BCEv.BadtideDrainStudy.C2,"Spend science",
+LV.BCEv.BadtideDrainStudy.C2N,"[[C]]Investigate the structure faster. [[time:{F2}d]]. [[-]]-[[good:{S2}:{I1}]] immediately.",
+LV.BCEv.BadtideDrainStudy.C3,"Dismiss the scientist",
+LV.BCEv.BadtideDrainStudy.C3N,"[[C]]Nothing happens.",
+LV.BCEv.BadtideDrainStudy.O1,"At last, the scientist returns with a finished report. The buried hooman structure is real. It may be reachable. By tomorrow morning, the colony must decide whether to dig.",
+LV.BCEv.BadtideDrainStudy.O2,"The scientist lowers the notebook. The Badtide Drain remains as it has always been: dangerous, familiar, and unanswered.",
+LV.BCEv.BadtideDrainExcavation,"What Lies Below",
+LV.BCEv.BadtideDrainExcavation.Content,"Morning comes with the scientist waiting beside the poisoned corner.
+The report is clear enough to be troubling. Beneath the Badtide Drain lies a sealed hooman structure, built directly into the old system.
+No one can say exactly how it works. The markings are too broken, the warnings too faded, and the mechanisms too strange.
+But the design points toward one purpose: <b>stopping the drain permanently.</b>
+Reaching it will not be simple. Stone must be cut. Metal must be braced. Tools will break. Supplies will vanish into the work.
+The colony can commit the goods and dig. Or it can leave the hooman secret buried.",
+LV.BCEv.BadtideDrainExcavation.C1,"Dig it up",
+LV.BCEv.BadtideDrainExcavation.C1N,"[[C]]Excavate the buried structure.
+[[C]][[-]]-[[good:{S1}:{I1}]], -[[good:{S2}:{I2}]], -[[good:{S3}:{I3}]]",
+LV.BCEv.BadtideDrainExcavation.C2,"Dig it up carefully",
+LV.BCEv.BadtideDrainExcavation.C2N,"[[C]]Provide extra protective measures.
+[[C]][[-]]-[[good:{S1}:{I1}]], -[[good:{S2}:{I2}]], -[[good:{S3}:{I3}]], -[[good:{S4}:{I4}]]",
+LV.BCEv.BadtideDrainExcavation.C3,"Leave it buried",
+LV.BCEv.BadtideDrainExcavation.C3N,"[[C]]Some hooman answers are not worth the cost. End the investigation.",
+LV.BCEv.BadtideDrainExcavation.Panel,"Excavating",
+LV.BCEv.BadtideDrainExcavation.O1,"The colony commits the goods. For days, beavers cut, brace, haul, and dig at the edge of the poisoned corner until the sealed hooman chamber finally cracks open.
+Inside is not a valve. It is not a pump. It is a dormant <RedHighlight>Unstable Core</RedHighlight>.
+The moment the final seal breaks, the core wakes with a violent hum. Sickly light pulses through the chamber, and the scientist realizes the truth too late. The core was built to destroy the Badtide Drain by tearing the system apart from within. Now it has begun.
+The core will detonate in a few days. The drain may be destroyed forever, but everything nearby will be destroyed with it.
+<RedHighlight>Prepare the colony!</RedHighlight>
+[[-]]{CP_InjuryVictims_Count} beavers were injured during the excavation.",
+LV.BCEv.BadtideDrainExcavation.O2,"The order is given to stop.
+The scientist argues for one more day, one more test, one more look beneath the stone. But the decision holds.
+The notes are stored away, the tools are carried home, and the Badtide Drain remains untouched.",

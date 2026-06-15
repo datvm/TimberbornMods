@@ -66,6 +66,7 @@
                     "Type": "Choice",
                     "Data": {
                         "TextLoc": "LV.BCEv.FirstDroughtWaterfall.Content",
+                        "TopImage": true,
                         "TopImagePath": "Resources/Chronicles/StartBonusWaterfall_Top"
                     }
                 }

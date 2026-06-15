@@ -25,4 +25,5 @@ public enum EventTriggerSource
     Decontaminated,
     Custom,
     CharacterEnteredArea,
+    WonderActivated,
 }

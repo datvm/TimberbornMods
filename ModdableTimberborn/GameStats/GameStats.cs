@@ -23,6 +23,8 @@ public static class GameStats
     public const string GoodAmountPrefix = "GoodAmount.";
     public const string GoodCapacityPrefix = "GoodCapacity.";
     public const string GoodFillPrefix = "GoodFill.";
+    public const string GoodAmountScience = GoodAmountPrefix + Science;
+    public const string Science = nameof(Science);
 
     public const string PopulationNumberOfAdult = nameof(PopulationNumberOfAdult);
     public const string PopulationNumberOfChild = nameof(PopulationNumberOfChild);

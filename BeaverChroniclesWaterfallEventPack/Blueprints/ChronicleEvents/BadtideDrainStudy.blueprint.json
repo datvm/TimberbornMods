@@ -1,0 +1,140 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "BadtideDrainStudy",
+        "TitleLoc": "LV.BCEv.BadtideDrainStudy",
+        "Conditions": {
+            "Sources": [ "NewWeather" ],
+            "Weight": 100,
+            "MinCycle": 13,
+            "RequiredFlags": [ "MAP.WATERFALLS" ],
+            "ConditionNodeId": "IsBadtide"
+        },
+        "Parameters": {
+            "Floats": [
+                30.0, // F1: Normal study duration
+                10.0 // F2: Science-assisted study duration
+            ],
+            "Strings": [
+                "BadtideWeather", // S1: Badtide weather id
+                "Science", // S2: Science payment id
+                "BadtideDrainExcavation" // S3: Follow-up event id
+            ],
+            "Ints": [
+                1500 // I1: Required science amount
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "IsBadtide",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "Weather",
+                                "Parameters": {
+                                    "CurrentWeatherId": "{S1}"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "HasScience",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "GameStat",
+                                "Parameters": {
+                                    "Stat": "{S2}",
+                                    "Value": "{I1}",
+                                    "Comparison": "GreaterOrEqual"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.BadtideDrainStudy.Content",
+                        "DefaultOption": 3,
+                        "TopImage": true,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCEv.BadtideDrainStudy.C1",
+                                "NoteLoc": "LV.BCEv.BadtideDrainStudy.C1N",
+                                "NextNodeId": "NormalStudy"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.BadtideDrainStudy.C2",
+                                "NoteLoc": "LV.BCEv.BadtideDrainStudy.C2N",
+                                "NextNodeId": "PayScience",
+                                "EnabledConditionNodeId": "HasScience",
+                                "DisabledTextLoc": "LV.BCEv.DisabledNoResource"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.BadtideDrainStudy.C3",
+                                "NoteLoc": "LV.BCEv.BadtideDrainStudy.C3N",
+                                "NextNodeId": "Dismissed"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "NormalStudy",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F1}",
+                        "PanelTextLoc": "LV.BCEv.BadtideDrainStudy.C1"
+                    },
+                    "NextNodeId": "StudyComplete"
+                },
+                {
+                    "Id": "PayScience",
+                    "Type": "Give",
+                    "Data": {
+                        "Science": "-{I1}"
+                    },
+                    "NextNodeId": "FastStudy"
+                },
+                {
+                    "Id": "FastStudy",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F2}",
+                        "PanelTextLoc": "LV.BCEv.BadtideDrainStudy.C2"
+                    },
+                    "NextNodeId": "StudyComplete"
+                },
+                {
+                    "Id": "StudyComplete",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.BadtideDrainStudy.O1",
+                        "TopImage": true
+                    },
+                    "NextNodeId": "RequestExcavation"
+                },
+                {
+                    "Id": "RequestExcavation",
+                    "Type": "RequestNextEvent",
+                    "Data": {
+                        "Id": "{S3}"
+                    }
+                },
+                {
+                    "Id": "Dismissed",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.BadtideDrainStudy.O2",
+                        "TopImage": true
+                    }
+                }
+            ]
+        }
+    }
+}
