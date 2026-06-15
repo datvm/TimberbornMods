@@ -27,6 +27,7 @@ LV.BCEv.DisabledNoDc," <RedHighlight>There is no District Center.</RedHighlight>
 LV.BCEv.DisabledNoSpawnLocation," <RedHighlight>There is no suitable spawn location.</RedHighlight>",
 LV.BCEv.UnknownConsequences,"[[C]]<YellowHighlight>Unknown consequences.</YellowHighlight>",
 LV.BCEv.GenericOk,"I see",
+LV.BCEv.BeaverDeath,"{0} died an eventful death.",
 LV.BCEv.StartBonus,"A new start",
 LV.BCEv.StartBonus.Content,"The last bend of the river opens into a quiet stretch of land. The water runs clear, berry bushes cling to the bank, and a stand of young trees waits just beyond the shore.
 It is not much yet, but it is enough.

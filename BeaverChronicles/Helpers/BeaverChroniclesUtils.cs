@@ -13,7 +13,7 @@ public static class BeaverChroniclesUtils
     public static void Log(string msg) => Debug.Log($"[{nameof(BeaverChronicles)}] {msg}");
 
     public static void LogVerbose(Func<string> msgFunc) => TimberUiUtils.LogVerbose(() => $"[{nameof(BeaverChronicles)}] {msgFunc()}");
-
+    
     public static bool Chance(float chance)
     {
         var value = Random.value;
@@ -21,6 +21,16 @@ public static class BeaverChroniclesUtils
 
         LogVerbose(() => $"Chance check: {chance:P2} vs {value:P2} => {(result ? "Success" : "Failure")}");
         return result;
+    }
+
+    extension(IConditionEvaluator cond)
+    {
+        public void LogVerbose(ChronicleEventNodeSpec node, Func<string> msg) => LogVerbose(() => $"[{node.Id}: Condition {cond.ForType}] {msg()}");
+    }
+
+    extension(ChronicleEventNodeSpec node)
+    {
+        public void LogVerbose(Func<string> msg) => LogVerbose(() => $"[{node.Id} - {node.Type}] {msg()}");
     }
 
     extension(IChronicleEvent ev)

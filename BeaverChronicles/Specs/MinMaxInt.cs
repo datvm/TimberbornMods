@@ -37,4 +37,24 @@ public record MinMaxInt(int? Min = null, int? Max = null)
         return Evaluate(counter);
     }
 
+    public override string ToString()
+    {
+        if (Max is not null && Min is not null)
+        {
+            return $"[{Min}, {Max}]";
+        }
+        else if (Min is not null)
+        {
+            return $"[≥{Min}]";
+        }
+        else if (Max is not null)
+        {
+            return $"[≤{Max}]";
+        }
+        else
+        {
+            return "[-∞, +∞]";
+        }
+    }
+
 }

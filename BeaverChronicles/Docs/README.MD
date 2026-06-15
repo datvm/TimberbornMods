@@ -18,6 +18,10 @@ We will build up the concepts using examples from the current events included in
 
 For the full catalog of available condition types and handler nodes, see [References.MD](References.MD).
 
+## Debugging Blueprints
+
+If a blueprint does not trigger or a node does not behave as expected, subscribe to the `More Mod Logs` mod and check Timberborn's game log. Beaver Chronicles writes verbose event, condition, node, and choice-flow details there, which can show why a condition failed, which branch ran, or which follow-up node was selected.
+
 ## Example: Start Bonus
 
 The first example is [StartBonus.blueprint.json](../Root/Blueprints/ChronicleEvents/StartBonus.blueprint.json). This event appears near the beginning of a game and asks the player to choose one starting benefit: berries, water, logs, or an extra child beaver.

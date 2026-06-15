@@ -71,6 +71,9 @@ public class DestructionService(
         return ReturnQuery();
     }
 
+    public DestroyingEntities QueryDestructingEntities(IEnumerable<BlockObject> blockObjects, IEnumerable<Vector3Int> terrains)
+        => QueryDestructingEntities(blockObjects).Concat(QueryDestructingEntities(terrains));
+
     /// <summary>
     /// Destroys the given block objects and terrains.
     /// </summary>
@@ -128,4 +131,10 @@ public class DestructionService(
 public readonly record struct DestroyingEntities(
     ImmutableArray<BlockObject> BlockObjects,
     ImmutableArray<Vector3Int> Terrains
-);
+)
+{
+    public DestroyingEntities Concat(DestroyingEntities other) => new(
+        [.. BlockObjects.Concat(other.BlockObjects).Distinct()],
+        [.. Terrains.Concat(other.Terrains).Distinct()]
+    );
+}

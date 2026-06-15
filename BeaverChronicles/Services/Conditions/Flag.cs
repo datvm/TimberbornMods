@@ -19,10 +19,16 @@ public class Flag : ConditionEvaluatorBase<FlagData>
         var flags = GetFlags();
         if (flags.Count == 0)
         {
+            this.LogVerbose(node, () => "- No flags specified, condition automatically fails.");
             return false;
         }
 
-        return p.ConditionType.Evaluate(flags, ev.Controller.HelperCollection.Flags.HasFlag);
+        var result = p.ConditionType.Evaluate(flags, f => {
+            var hasFlag = ev.Controller.HelperCollection.Flags.HasFlag(f);
+            this.LogVerbose(node, () => $"- Flag {f}: {hasFlag}");
+            return hasFlag;
+        });
+        return result;
 
         List<string> GetFlags()
         {

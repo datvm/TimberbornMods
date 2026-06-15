@@ -15,6 +15,7 @@ public class GiveNodeHandler(
 
         if (data.Items.Length > 0)
         {
+            node.LogVerbose(() => $"Giving items: {string.Join(", ", data.Items.Select(i => $"{i.Id} x{i.Amount}"))}.");
             goodsHelper.GiveGoodsAndScience(controller.FormatItems(data.Items), dc);
         }
 
@@ -24,6 +25,7 @@ public class GiveNodeHandler(
 
             if (science != 0)
             {
+                node.LogVerbose(() => $"Giving science: {science}.");
                 goodsHelper.ModifyScience(science);
             }
         }
@@ -48,12 +50,15 @@ public class GiveNodeHandler(
                 switch (s.GoodId)
                 {
                     case nameof(CharacterType.AdultBeaver):
+                        node.LogVerbose(() => $"Spawning {s.Amount} Adult Beavers at {location}.");
                         characterSpawnHelper.Spawn(s.Amount, location, CharacterType.AdultBeaver);
                         break;
                     case nameof(CharacterType.ChildBeaver):
+                        node.LogVerbose(() => $"Spawning {s.Amount} Child Beavers at {location}.");
                         characterSpawnHelper.Spawn(s.Amount, location, CharacterType.ChildBeaver);
                         break;
                     case nameof(CharacterType.Bot):
+                        node.LogVerbose(() => $"Spawning {s.Amount} Bots at {location}.");
                         characterSpawnHelper.Spawn(s.Amount, location, CharacterType.Bot);
                         break;
                     default:

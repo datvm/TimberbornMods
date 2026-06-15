@@ -1,4 +1,4 @@
-namespace BeaverChronicles.Services.Conditions;
+﻿namespace BeaverChronicles.Services.Conditions;
 
 public record WorkplaceWorkerCountData : WorkplaceTargetData
 {
@@ -17,6 +17,10 @@ public class WorkplaceWorkerCount(
         p ??= new();
 
         var count = workplaceHelper.CountAssignedWorkers(WorkplaceHelper.MatchTemplates(p));
-        return p.Amount.Evaluate(count);
+        var match = p.Amount.Evaluate(count);
+
+        this.LogVerbose(node, () => $"- Found {count} assigned workers, compare with {p.Amount} -> Evaluated to {match}");
+
+        return match;
     }
 }

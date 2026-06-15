@@ -26,7 +26,7 @@ public class GameStat(GameStatHelper helper) : ConditionEvaluatorBase<GameStatDa
         var actualValue = helper.GetStat(stat);
         var requestedValue = ev.Controller.FormatTextFloat(p.Value);
 
-        return actualValue switch
+        var result = actualValue switch
         {
             int i => p.Comparison.Evaluate(i, (int)requestedValue),
             float f => p.Comparison.Evaluate(f, requestedValue),
@@ -34,5 +34,9 @@ public class GameStat(GameStatHelper helper) : ConditionEvaluatorBase<GameStatDa
             null => false,
             _ => throw new InvalidDataException("Only number and boolean stats are supported in GameStat condition. Received: " + actualValue.GetType().FullName),
         };
+
+        this.LogVerbose(node, () => $"Stat '{stat}' has value {actualValue}, compare {p.Comparison} with {requestedValue} -> Evaluated to {result}");
+
+        return result;
     }
 }

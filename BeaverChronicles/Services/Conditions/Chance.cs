@@ -1,4 +1,4 @@
-namespace BeaverChronicles.Services.Conditions;
+﻿namespace BeaverChronicles.Services.Conditions;
 
 public record ChanceConditionData
 {
@@ -14,6 +14,8 @@ public class Chance : ConditionEvaluatorBase<ChanceConditionData>
     {
         if (p is null) { throw ThrowMissingData(ForType); }
 
-        return BeaverChroniclesUtils.Chance(ev.Controller.FormatTextFloat(p.Value));
+        var result = BeaverChroniclesUtils.Chance(ev.Controller.FormatTextFloat(p.Value));
+        this.LogVerbose(node, () => $"Evaluated to {result}");
+        return result;
     }
 }

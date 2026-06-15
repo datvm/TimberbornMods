@@ -22,6 +22,7 @@ public class CharacterCondition : ConditionEvaluatorBase<CharacterConditionData>
         var characters = ev.Controller.GetEntities<Character>(p.EntityIds.Select(FormatEntityId)).ToArray();
         if (characters.Length == 0)
         {
+            this.LogVerbose(node, () => $"No characters found. Evaluated to false.");
             return false;
         }
 
@@ -31,18 +32,38 @@ public class CharacterCondition : ConditionEvaluatorBase<CharacterConditionData>
 
         bool Matches(Character character)
         {
-            var characterType = character.GetCharacterType();
-            if (characterType == CharacterType.Unknown) { return false; }
+            string log = $"- Character {character.FirstName}: ";
 
-            if (p.IsBeaver is { } isBeaver && characterType.IsBeaver() != isBeaver) { return false; }
-            if (p.IsAdult is { } isAdult && (characterType == CharacterType.AdultBeaver) != isAdult) { return false; }
-            if (p.CharacterType is { } expectedType && !expectedType.HasFlag(characterType)) { return false; }
-            if (p.Name is { } name
-                && !string.Equals(character.FirstName, ev.Controller.FormatText(name), StringComparison.InvariantCultureIgnoreCase))
+            var characterType = character.GetCharacterType();
+            if (characterType == CharacterType.Unknown)
             {
+                this.LogVerbose(node, () => $"{log} Unknown character type -> False");
                 return false;
             }
 
+            if (p.IsBeaver is { } isBeaver && characterType.IsBeaver() != isBeaver)
+            {
+                this.LogVerbose(node, () => $"{log} IsBeaver={isBeaver} does not match character type -> False");
+                return false;
+            }
+            if (p.IsAdult is { } isAdult && (characterType == CharacterType.AdultBeaver) != isAdult)
+            {
+                this.LogVerbose(node, () => $"{log} IsAdult={isAdult} does not match character type -> False");
+                return false;
+            }
+            if (p.CharacterType is { } expectedType && !expectedType.HasFlag(characterType))
+            {
+                this.LogVerbose(node, () => $"{log} CharacterType={expectedType} does not match character type -> False");
+                return false;
+            }
+            if (p.Name is { } name
+                && !string.Equals(character.FirstName, ev.Controller.FormatText(name), StringComparison.InvariantCultureIgnoreCase))
+            {
+                this.LogVerbose(node, () => $"{log} Name={name} does not match character name -> False");
+                return false;
+            }
+
+            this.LogVerbose(node, () => $"{log} Matches -> True");
             return true;
         }
     }

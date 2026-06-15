@@ -20,7 +20,7 @@ public class Weather : ConditionEvaluatorBase<WeatherData>
 
         if (p.HazardousWeatherId is { } hazardousWeatherId)
         {
-            if (!Matches(stats.GetStat<string>(GameStats.WeatherWarningNextWeather), hazardousWeatherId))
+            if (!Matches(stats.GetStat<string>(GameStats.WeatherWarningNextWeather), hazardousWeatherId, nameof(p.HazardousWeatherId)))
             {
                 return false;
             }
@@ -28,7 +28,7 @@ public class Weather : ConditionEvaluatorBase<WeatherData>
 
         if (p.CurrentWeatherId is { } currentWeatherId)
         {
-            if (!Matches(stats.GetStat<string>(GameStats.WeatherCurrent), currentWeatherId))
+            if (!Matches(stats.GetStat<string>(GameStats.WeatherCurrent), currentWeatherId, nameof(p.CurrentWeatherId)))
             {
                 return false;
             }
@@ -36,7 +36,7 @@ public class Weather : ConditionEvaluatorBase<WeatherData>
 
         if (p.WarningStage is { } warningStage)
         {
-            if (!Matches(stats.GetStat<string>(GameStats.WeatherWarningStage), warningStage))
+            if (!Matches(stats.GetStat<string>(GameStats.WeatherWarningStage), warningStage, nameof(p.WarningStage)))
             {
                 return false;
             }
@@ -44,7 +44,14 @@ public class Weather : ConditionEvaluatorBase<WeatherData>
 
         return p.HazardousWeatherId is not null || p.CurrentWeatherId is not null || p.WarningStage is not null;
 
-        bool Matches(string? actual, string expected)
-            => string.Equals(actual, ev.Controller.FormatText(expected), StringComparison.InvariantCultureIgnoreCase);
+        bool Matches(string? actual, string expected, string name)
+        {
+            var expectedValue = ev.Controller.FormatText(expected);
+            var match = string.Equals(actual, expectedValue, StringComparison.InvariantCultureIgnoreCase);
+
+            this.LogVerbose(node, () => $"- {name}: expected {expectedValue}, actual {actual} -> Evaluated to {match}");
+
+            return match;
+        }
     }
 }

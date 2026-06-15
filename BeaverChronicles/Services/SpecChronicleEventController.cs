@@ -276,6 +276,26 @@ public class SpecChronicleEventController(
         return output.ToString();
     }
 
+    public IEnumerable<string?> FormatTexts(IEnumerable<string?> inputs)
+    {
+        foreach (var input in inputs)
+        {
+            yield return FormatText(input);
+        }
+    }
+
+    public IEnumerable<string> FormatTextsRemoveEmpty(IEnumerable<string?> inputs)
+    {
+        foreach (var input in inputs)
+        {
+            var formatted = FormatText(input);
+            if (!string.IsNullOrEmpty(formatted))
+            {
+                yield return formatted;
+            }
+        }
+    }
+
     [return: NotNullIfNotNull(nameof(input))]
     public string? FormatTextLoc(string? input)
         => input is null ? null : FormatText(HelperCollection.t.T(input));

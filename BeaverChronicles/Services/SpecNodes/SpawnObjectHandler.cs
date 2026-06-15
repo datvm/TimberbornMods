@@ -23,7 +23,7 @@ public class SpawnObjectHandler(
         var placement = new Placement(new(x, y, z), orientation, flip ? FlipMode.Flipped : FlipMode.Unflipped);
         var conflictMode = controller.FormatTextEnum<SpawnObjectConflictMode>(data.ConflictMode);
 
-        bool successful = false;
+        bool successful;
         switch (conflictMode)
         {
             case SpawnObjectConflictMode.Ignore:
@@ -40,7 +40,16 @@ public class SpawnObjectHandler(
                 throw new InvalidOperationException($"Unsupported conflict mode: {conflictMode}");
         }
 
-        return successful ? node.NextNodeId : data.FailedNodeId;
+        if (successful)
+        {
+            node.LogVerbose(() => $"Spawned object '{template.GetTemplateName()}' at ({x}, {y}, {z}) with orientation {orientation} and flip {flip}.");
+            return node.NextNodeId;
+        }
+        else
+        {
+            node.LogVerbose(() => $"Failed to spawn object '{template.GetTemplateName()}' at ({x}, {y}, {z}) with orientation {orientation} and flip {flip}.");
+            return data.FailedNodeId;
+        }
     }
 
 
