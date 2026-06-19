@@ -1,6 +1,14 @@
 ﻿namespace ModdableTimberborn.BonusSystem;
 
-public class PersistentBonusTrackerComponent : BaseComponent, IPersistentEntity, IBonusTrackerComponent, IAwakableComponent, IStartableComponent
+// 1.1 removed IStartableComponent. This component's only start-time work is replaying bonuses loaded from
+// the save (the 1.0 Start() early-returned when nothing was loaded), so the precise 1.1 hook is
+// IPostLoadableEntity.PostLoadEntity() — guaranteed to run after Load(), unlike the init phases.
+public class PersistentBonusTrackerComponent : BaseComponent, IPersistentEntity, IBonusTrackerComponent, IAwakableComponent,
+#if TIMBERV11
+    IPostLoadableEntity
+#else
+    IStartableComponent
+#endif
 {
     static readonly ComponentKey SaveKey = new(nameof(PersistentBonusTrackerComponent));
     static readonly ListKey<BonusTrackerItem> CurrentBonusesKey = new("CurrentBonuses");
@@ -14,7 +22,11 @@ public class PersistentBonusTrackerComponent : BaseComponent, IPersistentEntity,
         BonusTracker = new(bm);
     }
 
+#if TIMBERV11
+    public void PostLoadEntity()
+#else
     public void Start()
+#endif
     {
         if (pending is null) { return; }
 

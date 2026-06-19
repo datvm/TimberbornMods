@@ -2,7 +2,9 @@
 using System.Collections.Immutable;
 
 ImmutableArray<string> Prefixes = ["Bindito.", "Timberborn.", "Unity"];
-const string GameAssembliesPath = @"D:\Software\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed";
+// Container/CI-friendly: override via GAME_MANAGED_PATH; falls back to the original local-dev Windows path.
+string GameAssembliesPath = Environment.GetEnvironmentVariable("GAME_MANAGED_PATH")
+    ?? @"D:\Software\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed";
 ImmutableArray<string> SpecialFolders = [
     @"D:\Software\SteamLibrary\steamapps\workshop\content\1062090\3283831040\version-1.0\Scripts", // Mod Settings
 ];
@@ -31,8 +33,18 @@ foreach (var prefix in Prefixes)
     }
 }
 
-foreach (var folder in SpecialFolders)
+// Extra special folders from env (container/CI), PathSeparator-delimited — e.g. the Mod Settings 1.1 Scripts dir.
+var extraDirs = (Environment.GetEnvironmentVariable("EXTRA_PUBLICIZE_DIRS") ?? "")
+    .Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+foreach (var folder in SpecialFolders.Concat(extraDirs))
 {
+    // Skip missing folders so cross-platform / container runs don't crash on local-dev-only paths.
+    if (!Directory.Exists(folder))
+    {
+        Console.WriteLine($"Skipping missing special folder: {folder}");
+        continue;
+    }
     foreach (var file in Directory.EnumerateFiles(folder, "*.dll", SearchOption.AllDirectories))
     {
         PublicizeFile(file, commonOutput);

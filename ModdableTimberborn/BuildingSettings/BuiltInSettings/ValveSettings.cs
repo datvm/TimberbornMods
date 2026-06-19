@@ -1,5 +1,10 @@
 ﻿namespace ModdableTimberborn.BuildingSettings.BuiltInSettings;
 
+#if TIMBERV11
+// 1.1 renamed the throttle-style Valve to ThrottlingValve (water rework). Alias keeps the body version-agnostic.
+using Valve = Timberborn.WaterBuildings.ThrottlingValve;
+#endif
+
 public record ValveSettingsModel(
     bool IsSynchronized,
     float OutflowLimit,

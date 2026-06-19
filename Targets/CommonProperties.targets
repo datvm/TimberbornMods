@@ -6,14 +6,22 @@
 		<TimberbornVersion>version-1.0</TimberbornVersion>
 		<IsU7>false</IsU7>
 		<IsV1>false</IsV1>
+		<IsV11>false</IsV11>
 
 		<IsU7 Condition="$(TimberbornVersion)=='version-0.7'">true</IsU7>
 		<IsV1 Condition="$(TimberbornVersion)=='version-1.0'">true</IsV1>
+		<IsV11 Condition="$(TimberbornVersion)=='version-1.1'">true</IsV11>
+
+		<!-- 1.1 (experimental) is an incremental update over 1.0: it reuses the V1 source
+		     lineage (shared files, global usings, ModAnalyzers). IsV1 therefore stays true
+		     for 1.1; TIMBERV11 marks the few spots that need 1.1-specific code via #if. -->
+		<IsV1 Condition="$(IsV11)">true</IsV1>
 
 		<AssemblyPath>D:\Software\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed</AssemblyPath>
 
 		<DefineConstants Condition="$(IsU7)">$(DefineConstants);TIMBER7</DefineConstants>
 		<DefineConstants Condition="$(IsV1)">$(DefineConstants);TIMBERV1</DefineConstants>
+		<DefineConstants Condition="$(IsV11)">$(DefineConstants);TIMBERV11</DefineConstants>
 
 		<GameSolutionFolder Condition="'$(GameSolutionFolder)'==''">..\</GameSolutionFolder>
 		<GameModsFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\</GameModsFolder>

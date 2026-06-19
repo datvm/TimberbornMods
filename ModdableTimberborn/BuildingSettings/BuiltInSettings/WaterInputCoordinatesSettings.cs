@@ -1,5 +1,10 @@
 ﻿namespace ModdableTimberborn.BuildingSettings.BuiltInSettings;
 
+#if TIMBERV11
+// 1.1 moved the depth-limit fields onto WaterInputPipeCoordinates (water rework). Alias keeps the body version-agnostic.
+using WaterInputCoordinates = Timberborn.WaterBuildings.WaterInputPipeCoordinates;
+#endif
+
 public record WaterInputCoordinatesSettingsModel(
     bool UseDepthLimit,
     int DepthLimit
@@ -13,7 +18,11 @@ public class WaterInputCoordinatesSettings(ILoc t) : BuildingSettingsBase<WaterI
     protected override bool ApplyModel(WaterInputCoordinatesSettingsModel model, WaterInputCoordinates target)
     {
         target.UseDepthLimit = model.UseDepthLimit;
+#if TIMBERV11
+        target.DepthLimit = Math.Min(model.DepthLimit, target._waterInputPipeSpec.MaxDepth);
+#else
         target.DepthLimit = Math.Min(model.DepthLimit, target._waterInputSpec.MaxDepth);
+#endif
         target.UpdateCoordinatesAndDepth();
 
         return true;

@@ -1,13 +1,23 @@
 ﻿namespace BuildingBlueprints.Services;
 
+#if TIMBERV11
+using Timberborn.ConstructionSites;
+#endif
+
 [BindSingleton]
 public class BlueprintPlacementValidator(
     IEnumerable<IBlockObjectPlacer> placers,
     EntityService entityService,
     IBlockService blockService
+#if TIMBERV11
+    // 1.1: BuildingPlacer.Place lost its result callback; place finished buildings via the factory instead.
+    , ConstructionFactory constructionFactory
+#endif
 )
 {
+#if !TIMBERV11
     readonly BuildingPlacer buildingPlacer = (BuildingPlacer)placers.First(p => p is BuildingPlacer);
+#endif
 
     public async Task<HashSet<Preview>> ValidatePreviewsAsync(ImmutableArray<Preview> previews) 
         => (await ValidatePreviews(previews, true)).ValidPreviews;
@@ -88,9 +98,20 @@ public class BlueprintPlacementValidator(
 
     Task<BaseComponent> PlaceAsync(BlockObjectSpec bos, Placement placement)
     {
+#if TIMBERV11
+        // Mirror BuildingPlacer's ShouldBePlacedFinished: a normal building is placed UNFINISHED (a
+        // construction site beavers build); only specs flagged PlaceFinished spawn already-built.
+        // (Forcing CreateAsFinished here made every pasted blueprint instantly complete — wrong.)
+        var builder = new EntitySetup.Builder(bos.Blueprint);
+        var placed = bos.Blueprint.GetSpec<BuildingSpec>().PlaceFinished
+            ? constructionFactory.CreateAsFinished(builder, placement)
+            : constructionFactory.CreateAsUnfinished(builder, placement);
+        return Task.FromResult<BaseComponent>(placed);
+#else
         TaskCompletionSource<BaseComponent> tcs = new();
         buildingPlacer.Place(bos, placement, result => tcs.SetResult(result));
         return tcs.Task;
+#endif
     }
 
     bool AlreadyHasPath(Vector3Int position) =>

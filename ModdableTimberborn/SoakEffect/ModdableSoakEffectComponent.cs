@@ -4,6 +4,10 @@
 /// Component that tracks if a character is in water and raises events accordingly.
 /// </summary>
 public class ModdableSoakEffectComponent : TickableComponent, IAwakableComponent
+#if TIMBERV11
+    // 1.1 removed TickableComponent.StartTickable(); pre-tick init moves to IPostInitializableEntity.
+    , IPostInitializableEntity
+#endif
 {
 
     /// <summary>
@@ -38,7 +42,11 @@ public class ModdableSoakEffectComponent : TickableComponent, IAwakableComponent
         GetComponents(waterResistors);
     }
 
+#if TIMBERV11
+    public void PostInitializeEntity()
+#else
     public override void StartTickable()
+#endif
     {
         UpdateState();
     }

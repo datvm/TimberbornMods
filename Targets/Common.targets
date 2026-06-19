@@ -17,7 +17,23 @@
 		<None Include="**\V1\**" />
 		<None Include="**\*.V1.cs" />
 	</ItemGroup>
-	
+
+	<!-- 1.1 reuses the V1 lineage but overrides the few files that diverge via *.V11.cs / V11\.
+	     Drop V11 sources on every stream except 1.1; on 1.1 drop the *.V1.cs they replace. -->
+	<ItemGroup Condition="!$(IsV11)">
+		<Compile Remove="**\V11\**" />
+		<Compile Remove="**\*.V11.cs" />
+		<None Include="**\V11\**" />
+		<None Include="**\*.V11.cs" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(IsV11)">
+		<Compile Remove="**\V1\**" />
+		<Compile Remove="**\*.V1.cs" />
+		<None Include="**\V1\**" />
+		<None Include="**\*.V1.cs" />
+	</ItemGroup>
+
 	<Target Name="Validate" Condition="!$(IsTestProject)">
 		<Error Condition="'$(OutputModFolderName)'==''" Text="OutputModFolderName was not specified" />
 	</Target>

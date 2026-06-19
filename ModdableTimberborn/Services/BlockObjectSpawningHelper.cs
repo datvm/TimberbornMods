@@ -1,5 +1,9 @@
 ﻿namespace ModdableTimberborn.Services;
 
+#if TIMBERV11
+using Timberborn.ConstructionSites;
+#endif
+
 [BindSingleton(Contexts = BindAttributeContext.NonMenu)]
 public class BlockObjectSpawningHelper(
     BlockValidator blockValidator,
@@ -11,6 +15,12 @@ public class BlockObjectSpawningHelper(
     TemplateNameMapper templateNameMapper,
     EntityRegistry entityRegistry,
     MapIndexService mapIndexService
+#if TIMBERV11
+    // 1.1: placement returns the entity via the factories instead of the removed Place(..., callback) overload.
+    // Buildings go through ConstructionFactory (building-aware finished wiring); other block objects through BlockObjectFactory.
+    , BlockObjectFactory blockObjectFactory
+    , ConstructionFactory constructionFactory
+#endif
 )
 {
     static readonly ImmutableArray<Orientation> Orientations = TimberUiUtils.GetSortedEnumValues<Orientation>();
@@ -54,8 +64,27 @@ public class BlockObjectSpawningHelper(
     public bool IsPlacementValid(BlockObjectSpec template, Placement placement)
         => blockValidator.BlocksValid(template, placement);
 
-    public async Task<BaseComponent> PlaceObject(BlockObjectSpec template, Placement placement)
+    public Task<BaseComponent> PlaceObject(BlockObjectSpec template, Placement placement)
     {
+#if TIMBERV11
+        // 1.1 reworked placement: the placer's Place() lost its result callback and now takes an
+        // EntitySetup.Builder. Mirror what GetMatchingPlacer did: buildings go through ConstructionFactory
+        // following the spec's PlaceFinished flag (normal buildings → unfinished construction site, not
+        // instantly built); non-building block objects are placed finished. All paths return the BlockObject.
+        var builder = new EntitySetup.Builder(template.Blueprint);
+        BaseComponent placed;
+        if (template.Blueprint.HasSpec<BuildingSpec>())
+        {
+            placed = template.Blueprint.GetSpec<BuildingSpec>().PlaceFinished
+                ? constructionFactory.CreateAsFinished(builder, placement)
+                : constructionFactory.CreateAsUnfinished(builder, placement);
+        }
+        else
+        {
+            placed = blockObjectFactory.CreateFinished(builder, placement);
+        }
+        return Task.FromResult(placed);
+#else
         var placer = blockObjectPlacerService.GetMatchingPlacer(template);
 
         TaskCompletionSource<BaseComponent> tcs = new();
@@ -69,7 +98,8 @@ public class BlockObjectSpawningHelper(
             tcs.TrySetException(ex);
         }
 
-        return await tcs.Task;
+        return tcs.Task;
+#endif
     }
 
     public async Task<BaseComponent?> TryPlacingWithDestruction(BlockObjectSpec template, Placement placement)
