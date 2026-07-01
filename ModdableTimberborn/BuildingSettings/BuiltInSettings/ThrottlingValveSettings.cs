@@ -1,6 +1,6 @@
 ﻿namespace ModdableTimberborn.BuildingSettings.BuiltInSettings;
 
-public record ValveSettingsModel(
+public record ThrottlingValveSettingsModel(
     bool IsSynchronized,
     float OutflowLimit,
     bool OutflowLimitEnabled,
@@ -9,11 +9,11 @@ public record ValveSettingsModel(
     float ReactionSpeed
 );
 
-public class ValveSettings(ILoc t) : BuildingSettingsBase<Valve, ValveSettingsModel>(t)
+public class ThrottlingValveSettings(ILoc t) : BuildingSettingsBase<ThrottlingValve, ThrottlingValveSettingsModel>(t)
 {
-    public override string DescribeModel(ValveSettingsModel model) => "";
+    public override string DescribeModel(ThrottlingValveSettingsModel model) => "";
 
-    protected override bool ApplyModel(ValveSettingsModel model, Valve target)
+    protected override bool ApplyModel(ThrottlingValveSettingsModel model, ThrottlingValve target)
     {
         target.IsSynchronized = model.IsSynchronized;
         target.SetOutflowLimit(model.OutflowLimit);
@@ -27,6 +27,6 @@ public class ValveSettings(ILoc t) : BuildingSettingsBase<Valve, ValveSettingsMo
         return true;
     }
 
-    protected override ValveSettingsModel GetModel(Valve target)
+    protected override ThrottlingValveSettingsModel GetModel(ThrottlingValve target)
         => new(target.IsSynchronized, target.OutflowLimit, target.OutflowLimitEnabled, target.AutomationOutflowLimit, target.AutomationOutflowLimitEnabled, target.ReactionSpeed);
 }

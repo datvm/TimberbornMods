@@ -68,6 +68,7 @@
 		<Using Include="Timberborn.BlockAndTerrainLoadValidation"/>
 		<Using Include="Timberborn.BlockingSystem"/>
 		<Using Include="Timberborn.BlockObjectAccesses"/>
+		<Using Include="Timberborn.BlockObjectIllumination"/>
 		<Using Include="Timberborn.BlockObjectModelSystem"/>
 		<Using Include="Timberborn.BlockObjectPickingSystem"/>
 		<Using Include="Timberborn.BlockObjectTools"/>
@@ -210,8 +211,11 @@
 		<Using Include="Timberborn.GoodConsumingBuildingSystemUI"/>
 		<Using Include="Timberborn.Goods"/>
 		<Using Include="Timberborn.GoodsMapEditor"/>
+		<Using Include="Timberborn.GoodsSampling"/>
 		<Using Include="Timberborn.GoodStackSystem"/>
 		<Using Include="Timberborn.GoodStackSystemUI"/>
+		<Using Include="Timberborn.GoodStatisticsBatchControl"/>
+		<Using Include="Timberborn.GoodStatisticsUI"/>
 		<Using Include="Timberborn.GoodsUI"/>
 		<Using Include="Timberborn.GraphicsQualitySystem"/>
 		<Using Include="Timberborn.GridTraversing"/>
@@ -327,6 +331,7 @@
 		<Using Include="Timberborn.NotificationSystemUI"/>
 		<Using Include="Timberborn.Options"/>
 		<Using Include="Timberborn.OptionsGame"/>
+		<Using Include="Timberborn.PackedListSystem"/>
 		<Using Include="Timberborn.Particles"/>
 		<Using Include="Timberborn.PathSystem"/>
 		<Using Include="Timberborn.PathSystemUI"/>
@@ -339,6 +344,8 @@
 		<Using Include="Timberborn.PlayerDataSystem"/>
 		<Using Include="Timberborn.Pollination"/>
 		<Using Include="Timberborn.Population"/>
+		<Using Include="Timberborn.PopulationStatisticsBatchControl"/>
+		<Using Include="Timberborn.PopulationStatisticsSampling"/>
 		<Using Include="Timberborn.PopulationStatisticsSystem"/>
 		<Using Include="Timberborn.PopulationUI"/>
 		<Using Include="Timberborn.PopulationWorkStatistics"/>
@@ -521,6 +528,7 @@
 		<Using Include="Timberborn.ZiplineMovementSystem"/>
 		<Using Include="Timberborn.ZiplineSystem"/>
 		<Using Include="Timberborn.ZiplineSystemUI"/>
+
 
 
 	</ItemGroup>

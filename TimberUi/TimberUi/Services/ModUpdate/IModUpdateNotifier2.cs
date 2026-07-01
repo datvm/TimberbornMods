@@ -1,11 +1,11 @@
 ﻿namespace TimberUi.Services;
 
-[Obsolete($"Use {nameof(IModUpdateNotifier2)} instead. This interface does nothing.")]
-public interface IModUpdateNotifier
+public interface IModUpdateNotifier2
 {
 
     string ModId { get; }
     string Version { get; }
+    int VersionNumber { get; }
     string MessageLocKey { get; }
 
 }
