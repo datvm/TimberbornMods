@@ -3,24 +3,15 @@
 	<PropertyGroup>
 		<ModPath>D:\Software\SteamLibrary\steamapps\workshop\content\1062090\</ModPath>
 
-		<TimberbornVersion>version-1.0</TimberbornVersion>
-		<IsU7>false</IsU7>
-		<IsV1>false</IsV1>
-
-		<IsU7 Condition="$(TimberbornVersion)=='version-0.7'">true</IsU7>
-		<IsV1 Condition="$(TimberbornVersion)=='version-1.0'">true</IsV1>
+		<TimberbornVersion Condition="'$(TimberbornVersion)'==''">version-1.1</TimberbornVersion>
 
 		<AssemblyPath>D:\Software\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed</AssemblyPath>
-
-		<DefineConstants Condition="$(IsU7)">$(DefineConstants);TIMBER7</DefineConstants>
-		<DefineConstants Condition="$(IsV1)">$(DefineConstants);TIMBERV1</DefineConstants>
 
 		<GameSolutionFolder Condition="'$(GameSolutionFolder)'==''">..\</GameSolutionFolder>
 		<GameModsFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\</GameModsFolder>
 		<ModFolder>$(GameModsFolder)$(OutputModFolderName)\$(TimberbornVersion)\</ModFolder>
 
 		<IsTestProject Condition="'$(IsTestProject)'==''">false</IsTestProject>
-
 
 		<IsOptionalDll>false</IsOptionalDll>
 		<IsOptionalDll Condition="'$(OptionalForModId)'!=''">true</IsOptionalDll>
@@ -43,11 +34,8 @@
 			<ModWorkshopDataFile Include="$(OutputPath)\**\workshop_data.json" />
 			<RootCopyFile Include="$(OutputPath)Root\**\*" />
 
-			<Blueprints Condition="$(IsV1)" Include="$(OutputPath)\Blueprints\**\*.blueprint.json" />
-			<Blueprints Condition="$(IsU7)" Include="$(OutputPath)\Blueprints\**\*"
-				Exclude="$(OutputPath)\Blueprints\**\*.blueprint.json" />
-			<Blueprints Condition="$(IsU7)"
-				Include="$(OutputPath)\Blueprints\**\*.U7.blueprint.json" />
+			<Blueprints Include="$(OutputPath)\Blueprints\**\*.blueprint.json"
+				Exclude="$(OutputPath)\Blueprints\**\*.U7.blueprint.json" />
 		</ItemGroup>
 	</Target>
 

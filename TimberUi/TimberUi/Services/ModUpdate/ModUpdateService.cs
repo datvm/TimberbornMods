@@ -2,14 +2,14 @@
 
 [BindSingleton(Contexts = BindAttributeContext.MainMenu)]
 public class ModUpdateService(
-    IEnumerable<IModUpdateNotifier> notifiers,
+    IEnumerable<IModUpdateNotifier2> notifiers,
     ModRepository modRepo,
     ILoc t,
-    DialogBoxShower diag
+    DialogService dialogService
 ) : IPostLoadableSingleton
 {
     static bool showed = false;
-    const string PrefId = "TimberUi.ModUpdate.{0}.{1}";
+    const string PrefId = "TimberUi.ModUpdate.{0}";
 
     public async void PostLoad()
     {
@@ -33,8 +33,16 @@ public class ModUpdateService(
             var id = notifier.ModId;
             if (!mods.TryGetValue(id, out var manifest)) { continue; }
 
-            var prefId = GetPrefId(id, notifier.Version);
-            if (PlayerPrefs.HasKey(prefId)) { continue; }
+            var storedVersion = GetStoredNumberVersion(id);
+            if (storedVersion == -1) // New install, simply mark
+            {
+                SetStoredNumberVersion(id, notifier.VersionNumber);
+                continue;
+            }
+            else if (storedVersion >= notifier.VersionNumber) // Already seen this version or newer
+            {
+                continue;
+            }
 
             messages.Push(new(notifier, manifest));
         }
@@ -48,24 +56,26 @@ public class ModUpdateService(
         {
             var (notifier, manifest) = messages.Pop();
 
-            var result = await diag.ShowAsync(
+            var result = await dialogService.ConfirmAsync(
                 t.T("LV.TimberUi.UpdateMessage",
                     manifest.Name, notifier.Version,
                     t.T(notifier.MessageLocKey)),
-                [t.T("LV.TimberUi.UpdateDismiss"), t.T("LV.TimberUi.UpdateRemind")],
-                false);
+                localizedOkText: "LV.TimberUi.UpdateDismiss",
+                localizedCancelText: "LV.TimberUi.UpdateRemind");
 
             if (result == true)
             {
-                var prefId = GetPrefId(notifier.ModId, notifier.Version);
-                PlayerPrefs.SetInt(prefId, 1);
+                SetStoredNumberVersion(notifier.ModId, notifier.VersionNumber);
             }
         }
     }
 
-    static string GetPrefId(string modId, string version) => string.Format(PrefId, modId, version);
+    public int GetStoredNumberVersion(string modId) => PlayerPrefs.GetInt(GetPrefId(modId), -1);
+    public void SetStoredNumberVersion(string modId, int version) => PlayerPrefs.SetInt(GetPrefId(modId), version);
 
-    readonly record struct ModNotifierPair(IModUpdateNotifier Notifier, ModManifest Manifest);
+    static string GetPrefId(string modId) => string.Format(PrefId, modId);
+
+    readonly record struct ModNotifierPair(IModUpdateNotifier2 Notifier, ModManifest Manifest);
 
 }
 

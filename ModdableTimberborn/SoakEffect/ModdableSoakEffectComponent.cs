@@ -3,7 +3,7 @@
 /// <summary>
 /// Component that tracks if a character is in water and raises events accordingly.
 /// </summary>
-public class ModdableSoakEffectComponent : TickableComponent, IAwakableComponent
+public class ModdableSoakEffectComponent : TickableComponent, IAwakableComponent, IInitializableEntity
 {
 
     /// <summary>
@@ -38,7 +38,7 @@ public class ModdableSoakEffectComponent : TickableComponent, IAwakableComponent
         GetComponents(waterResistors);
     }
 
-    public override void StartTickable()
+    public void InitializeEntity()
     {
         UpdateState();
     }

@@ -54,33 +54,47 @@ public class BlockObjectSpawningHelper(
     public bool IsPlacementValid(BlockObjectSpec template, Placement placement)
         => blockValidator.BlocksValid(template, placement);
 
-    public async Task<BaseComponent> PlaceObject(BlockObjectSpec template, Placement placement)
+    public void PlaceObject(BlockObjectSpec template, Placement placement)
     {
         var placer = blockObjectPlacerService.GetMatchingPlacer(template);
 
-        TaskCompletionSource<BaseComponent> tcs = new();
-
-        try
-        {
-            placer.Place(template, placement, c => tcs.TrySetResult(c));
-        }
-        catch (Exception ex)
-        {
-            tcs.TrySetException(ex);
-        }
-
-        return await tcs.Task;
+        var builder = new EntitySetup.Builder(template.Blueprint);
+        placer.Place(builder, placement);
     }
 
-    public async Task<BaseComponent?> TryPlacingWithDestruction(BlockObjectSpec template, Placement placement)
+    public void PlaceObject(BlockObjectSpec template, Placement placement, out BlockObject blockObject)
+    {
+        PlaceObject(template, placement);
+
+        foreach (var obj in blockService.GetObjectsAt(placement.Coordinates))
+        {
+            if (obj.GetComponent<BlockObjectSpec>() == template)
+            {
+                blockObject = obj;
+                return;
+            }
+        }
+
+        throw new InvalidOperationException($"Failed to find placed block object of template.");
+    }
+
+    public bool TryPlacingWithDestruction(BlockObjectSpec template, Placement placement, [NotNullWhen(true)] out BlockObject? placedObject)
     {
         if (IsPlacementValid(template, placement))
         {
-            return await PlaceObject(template, placement);
+            PlaceObject(template, placement, out placedObject);
+            return true;
         }
 
         DestroyOccupyingObjects(template, placement);
-        return IsPlacementValid(template, placement) ? await PlaceObject(template, placement) : null;
+        if (IsPlacementValid(template, placement))
+        {
+            PlaceObject(template, placement, out placedObject);
+            return true;
+        }
+
+        placedObject = null;
+        return false;
     }
 
     public bool TryFindPlacement(BlockObjectSpec template, [NotNullWhen(true)] out Placement? placement, PlacementFindingLimits limits = default)

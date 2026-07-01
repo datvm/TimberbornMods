@@ -1,22 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="Validate">
 
 	<Import Project=".\CommonProperties.targets" />
-	<Import Condition="$(IsU7)" Project=".\CommonGlobalUsings.U7.targets" />
-	<Import Condition="$(IsV1)" Project=".\CommonGlobalUsings.targets" />
-
-	<ItemGroup Condition="$(IsV1)">
-		<Compile Remove="**\U7\**" />
-		<Compile Remove="**\*.U7.cs" />
-		<None Include="**\U7\**" />
-		<None Include="**\*.U7.cs" />
-	</ItemGroup>
-
-	<ItemGroup Condition="$(IsU7)">
-		<Compile Remove="**\V1\**" />
-		<Compile Remove="**\*.V1.cs" />
-		<None Include="**\V1\**" />
-		<None Include="**\*.V1.cs" />
-	</ItemGroup>
+	<Import Project=".\CommonGlobalUsings.targets" />
 	
 	<Target Name="Validate" Condition="!$(IsTestProject)">
 		<Error Condition="'$(OutputModFolderName)'==''" Text="OutputModFolderName was not specified" />
@@ -102,7 +87,7 @@
 
 	<ItemGroup>
 		<!--<ProjectReference Include="$(GameSolutionFolder)ModAnalyzers\ModAnalyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />-->
-		<Analyzer Condition="$(IsV1)" Include="$(GameSolutionFolder)ModAnalyzers\out\netstandard2.0\ModAnalyzers.dll"/>
+		<Analyzer Include="$(GameSolutionFolder)ModAnalyzers\out\netstandard2.0\ModAnalyzers.dll"/>
 
 		<Compile Include="$(GameSolutionFolder)GameAssemblyPublicizer\IgnoresAccessChecks.cs" Link="IgnoresAccessChecks.cs" />
 

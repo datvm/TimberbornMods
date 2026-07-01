@@ -169,7 +169,6 @@
     <File Path="Targets/CommonBuildingHP.targets" />
     <File Path="Targets/CommonDebug.targets" />
     <File Path="Targets/CommonGlobalUsings.targets" />
-    <File Path="Targets/CommonGlobalUsings.U7.targets" />
     <File Path="Targets/CommonHarmony.targets" />
     <File Path="Targets/CommonMM.targets" />
     <File Path="Targets/CommonModBuilder.targets" />
