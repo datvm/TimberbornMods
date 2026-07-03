@@ -6,7 +6,7 @@
 public interface IModdableTimberbornRegistryConfig
 {
 
-    ConfigurationContext AvailableContexts => ConfigurationContext.All;
+    ConfigurationContext AvailableContexts => ConfigurationContext.NonBootstrapper;
 
     void Configure(Configurator configurator, ConfigurationContext context);
 

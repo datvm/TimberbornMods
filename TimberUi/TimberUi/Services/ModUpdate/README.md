@@ -1,4 +1,4 @@
-# ModUpdate
+﻿# ModUpdate
 
 ## Purpose
 Shows a one-time main-menu dialog when an enabled mod advertises a new version. A mod implements `IModUpdateNotifier2` to declare its id, the version being announced, a numeric version, and a localization key for the changelog/message; `ModUpdateService` collects all such notifiers, filters to enabled mods and versions the player hasn't already dismissed, and presents per-mod update dialogs.
@@ -12,8 +12,9 @@ Pure registration + main-menu lifecycle. All bound `IModUpdateNotifier2`s are ga
 
 ## Dependencies & patterns
 - `IEnumerable<IModUpdateNotifier2>` multi-injection; `ModRepository` for enabled-mod manifests; `ILoc` for text; `DialogService` for the modal.
-- Per-mod numeric version persistence via Unity `PlayerPrefs`. `ModNotifierPair` is a private `readonly record struct`.
+- Per-mod numeric version persistence via Unity `PlayerPrefs` with key format `TimberUi.ModUpdate.{modId}`. `ModNotifierPair` is a private `readonly record struct`.
 - `Stack` is used so messages display in reverse registration/iteration order (LIFO).
+- Static `showed` flag ensures notifications display only once per process session, preventing re-display when returning to main menu.
 
 ## Usage notes
 - The update dialog shows once per process launch per mod version. Returning to the main menu within the same session will not re-show the dialog.
