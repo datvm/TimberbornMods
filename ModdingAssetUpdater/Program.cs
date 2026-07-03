@@ -1,10 +1,15 @@
 ﻿global using System.Collections.Frozen;
+global using System.Diagnostics;
 global using System.IO.Compression;
 
 const string OutputFolder = @"D:\Personal\Mods\Timberborn\V1Data\ExportedProject\Assets\Resources";
 
 const string InputFolder = @"D:\Software\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\StreamingAssets\Modding";
 const string AssetRipperFolder = @"D:\Personal\Mods\Timberborn\V1DataRipping\ExportedProject\Assets\Resources";
+const string GameAssembliesPath = @"D:\Software\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed";
+const string DecompileOutputFolder = "out";
+string[] GameAssemblyPrefixes = ["Bindito.", "Timberborn."];
+var maxParallelDecompilers = Math.Max(1, Environment.ProcessorCount);
 
 // 1. Delete the existing output, but not the folder itself
 if (Directory.Exists(OutputFolder))
@@ -88,4 +93,82 @@ foreach (var path in Directory.EnumerateFiles(rippedShaderFolder))
     await File.WriteAllLinesAsync(dst, lines);
 }
 
+// 5. Decompile game DLLs
+var decompileOutputFolder = Path.Combine(FindCsProjFolder(Environment.CurrentDirectory), DecompileOutputFolder);
+
+if (Directory.Exists(decompileOutputFolder))
+{
+    Directory.Delete(decompileOutputFolder, true);
+    await Task.Delay(500);
+}
+
+Directory.CreateDirectory(decompileOutputFolder);
+
+ParallelOptions decompileOptions = new()
+{
+    MaxDegreeOfParallelism = maxParallelDecompilers,
+};
+
+await Parallel.ForEachAsync(GetGameAssemblyPaths(), decompileOptions, async (dll, _) =>
+{
+    var assemblyName = Path.GetFileNameWithoutExtension(dll);
+    var assemblyOutputFolder = Path.Combine(decompileOutputFolder, assemblyName);
+
+    Console.WriteLine($"Decompiling {assemblyName} to {assemblyOutputFolder}");
+    await RunIlSpyAsync(dll, assemblyOutputFolder);
+});
+
 Console.WriteLine("Done");
+
+IEnumerable<string> GetGameAssemblyPaths()
+{
+    foreach (var prefix in GameAssemblyPrefixes)
+    {
+        foreach (var dll in Directory.EnumerateFiles(GameAssembliesPath, $"{prefix}*.dll", SearchOption.AllDirectories))
+        {
+            yield return dll;
+        }
+    }
+}
+
+static async Task RunIlSpyAsync(string dll, string outputFolder)
+{
+    Directory.CreateDirectory(outputFolder);
+
+    ProcessStartInfo startInfo = new()
+    {
+        FileName = "ilspycmd",
+        UseShellExecute = false,
+    };
+
+    startInfo.ArgumentList.Add("-p");
+    startInfo.ArgumentList.Add("-o");
+    startInfo.ArgumentList.Add(outputFolder);
+    startInfo.ArgumentList.Add(dll);
+
+    using var process = Process.Start(startInfo)
+        ?? throw new InvalidOperationException("Failed to start ilspycmd.");
+
+    await process.WaitForExitAsync();
+
+    if (process.ExitCode != 0)
+    {
+        throw new InvalidOperationException($"ilspycmd failed for '{dll}' with exit code {process.ExitCode}.");
+    }
+}
+
+// Look for csproj file here or in parent directories
+static string FindCsProjFolder(string folder)
+{
+    while (true)
+    {
+        var csproj = Directory.EnumerateFiles(folder, "*.csproj").FirstOrDefault();
+        if (csproj != null)
+        {
+            return Path.GetDirectoryName(csproj)!;
+        }
+
+        var parent = Path.GetDirectoryName(folder) ?? throw new InvalidOperationException("Could not find csproj file");
+        folder = parent;
+    }
+}

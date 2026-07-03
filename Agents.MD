@@ -43,4 +43,6 @@ Prefer focused tests with clear arrange/act/assert spacing. Use helpers or facto
 
 # Tools
 
-`ilspycmd` is available globally and can decompile Timberborn game assemblies when needed. Only use it when explicitly asked by the user; if decompiling would be better than guessing, suggest asking for permission first.
+Timberborn game source should be read from `ModdingAssetUpdater/out`, which contains decompiled game DLLs. When investigating game behavior, search and read that folder instead of decompiling assemblies on demand.
+
+If `ModdingAssetUpdater/out` does not exist or is empty, ask the user to decompile the game source there first.
