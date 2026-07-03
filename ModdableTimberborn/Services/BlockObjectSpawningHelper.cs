@@ -54,42 +54,41 @@ public class BlockObjectSpawningHelper(
     public bool IsPlacementValid(BlockObjectSpec template, Placement placement)
         => blockValidator.BlocksValid(template, placement);
 
-    public void PlaceObject(BlockObjectSpec template, Placement placement)
+    public BlockObject PlaceObject(BlockObjectSpec template, Placement placement)
     {
         var placer = blockObjectPlacerService.GetMatchingPlacer(template);
 
+        PlaceMarker placeMarker = new();
         var builder = new EntitySetup.Builder(template.Blueprint);
+        builder.AddInitComponent(placeMarker);
+
         placer.Place(builder, placement);
-    }
 
-    public void PlaceObject(BlockObjectSpec template, Placement placement, out BlockObject blockObject)
-    {
-        PlaceObject(template, placement);
-
-        foreach (var obj in blockService.GetObjectsAt(placement.Coordinates))
+        var entities = entityRegistry._entitiesInInstantiationOrder;
+        for (int i = entities.Count - 1; i >= 0; i--)
         {
-            if (obj.GetComponent<BlockObjectSpec>() == template)
+            var e = entities[i];
+            if (e.GetComponent<PlaceMarker>() == placeMarker)
             {
-                blockObject = obj;
-                return;
+                return e.GetComponent<BlockObject>();
             }
         }
 
-        throw new InvalidOperationException($"Failed to find placed block object of template.");
+        throw new InvalidOperationException("Failed to find the placed BlockObject after placement.");
     }
 
     public bool TryPlacingWithDestruction(BlockObjectSpec template, Placement placement, [NotNullWhen(true)] out BlockObject? placedObject)
     {
         if (IsPlacementValid(template, placement))
         {
-            PlaceObject(template, placement, out placedObject);
+            placedObject = PlaceObject(template, placement);
             return true;
         }
 
         DestroyOccupyingObjects(template, placement);
         if (IsPlacementValid(template, placement))
         {
-            PlaceObject(template, placement, out placedObject);
+            placedObject = PlaceObject(template, placement);
             return true;
         }
 
@@ -236,6 +235,8 @@ public class BlockObjectSpawningHelper(
 
         return null;
     }
+
+    class PlaceMarker;
 
 }
 

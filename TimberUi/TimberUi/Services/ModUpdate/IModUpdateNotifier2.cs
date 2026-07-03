@@ -9,3 +9,14 @@ public interface IModUpdateNotifier2
     string MessageLocKey { get; }
 
 }
+
+public class BindModUpdateNotifierAttribute : MultiBindAttribute
+{
+    
+    public BindModUpdateNotifierAttribute() : base(typeof(IModUpdateNotifier2))
+    {
+        Contexts = BindAttributeContext.MainMenu;
+        Scope = Bindito.Core.Internal.Scope.Singleton;
+    }
+
+}

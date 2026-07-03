@@ -3,7 +3,7 @@ namespace ModdableTimberborn;
 
 public class ModdableTimberbornConfigurator : IModdableTimberbornRegistryConfig
 {
-    ConfigurationContext IModdableTimberbornRegistryConfig.AvailableContexts { get; } = ConfigurationContext.Game | ConfigurationContext.MapEditor;
+    ConfigurationContext IModdableTimberbornRegistryConfig.AvailableContexts => ConfigurationContext.NonBootstrapper;
 
     public void Configure(Configurator configurator, ConfigurationContext context)
     {
