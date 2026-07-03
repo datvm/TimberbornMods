@@ -1,5 +1,6 @@
 ﻿namespace RealLights.UI;
 
+[BindFragment]
 public class RealLightsFragment(
     VisualElementInitializer initializer,
     ILoc t,

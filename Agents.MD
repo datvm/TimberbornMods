@@ -40,3 +40,7 @@ When searching for references, check all the `*.code-workspace` files in the rep
 Keep test method names short and descriptive. Prefer names like `InitializeWithCorrectCharacterType`, `IgnoreWrongCharacterType`, or `ComputeSegments` over long Given/When/Then-style names.
 
 Prefer focused tests with clear arrange/act/assert spacing. Use helpers or factories for repeated setup when Unity or Timberborn types require reflection or publicized DLL setup.
+
+# Tools
+
+`ilspycmd` is available globally and can decompile Timberborn game assemblies when needed. Only use it when explicitly asked by the user; if decompiling would be better than guessing, suggest asking for permission first.

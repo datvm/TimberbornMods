@@ -1,6 +1,7 @@
 ﻿namespace RealLights.Components;
 
-public class RealLightsComponent : BaseComponent, IPersistentEntity, IStartableComponent, IDuplicable<RealLightsComponent>
+[AddTemplateModule2(typeof(BuildingSpec))]
+public class RealLightsComponent : BaseComponent, IPersistentEntity, IInitializableEntity, IDuplicable<RealLightsComponent>
 {
     static readonly ComponentKey SaveKey = new("BuildingRealLights");
     static readonly PropertyKey<bool> ForceOffKey = new("ForceOff");
@@ -38,7 +39,7 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity, IStartableC
         this.dayNightCycle = dayNightCycle;
     }
 
-    public void Start()
+    public void InitializeEntity()
     {
         var prefabSpec = GetComponent<TemplateSpec>();
 
