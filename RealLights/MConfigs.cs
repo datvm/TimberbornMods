@@ -1,7 +1,9 @@
-﻿namespace RealLights;
+﻿using RealLights.Services;
+
+namespace RealLights;
 
 [Context("Game")]
-public class GameModConfig : Configurator
+public class GameModConfig : GameAttributeConfigurator
 {
 
     public override void Configure()

@@ -1,5 +1,6 @@
-﻿namespace RealLights.Specs;
+﻿namespace RealLights.Services;
 
+[BindSingleton]
 public class RealLightsManager(
     ISpecService specs,
     EventBus eb,
