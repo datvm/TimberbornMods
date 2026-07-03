@@ -1,14 +1,16 @@
-{
+﻿{
   "ItemId": "3578009707",
   "Name": "Moddable Timberborn",
   "Visibility": "Public",
   "UpdateDescription": false,
   "UpdateVisibility": false,
   "UpdatePreview": false,
-  "Tags": [
-    "Update 1.0",
-    "Update 0.7",
-    "Modding tools",
-    "Miscellaneous"
-  ]
+  "UpdateTags": false,
+    "Tags": [
+        "Update 1.1",
+        "Update 1.0",
+        "Update 0.7",
+        "Modding tools",
+        "Miscellaneous"
+    ]
 }
