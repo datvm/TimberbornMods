@@ -57,8 +57,8 @@ public class RubbleCleanupService(
 
                     var toMove = Math.Min(amount, capacity);
                     var gAmount = new GoodAmount(id, toMove);
-                    sp.Inventory.Give(gAmount);
-                    inv.Take(gAmount);
+                    sp.Inventory.GiveExisting(gAmount);
+                    inv.TakeExisting(gAmount);
                     amount -= toMove;
                 }
 
