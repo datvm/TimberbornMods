@@ -14,14 +14,16 @@ public class ModdableGameMusicPlayer(ISoundSystem soundSystem, IRandomNumberGene
     {
         var isHazardous = e.To.Weather.IsHazardous;
 
+        // Stop everything before start
+        StopStandardMusic();
+        StopDroughtMusic();
+
         if (isHazardous)
         {
-            StopStandardMusic();
             StartDroughtMusic();
         }
         else
         {
-            StopDroughtMusic();
             StartStandardMusic();
         }
     }

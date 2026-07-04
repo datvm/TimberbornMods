@@ -24,6 +24,4 @@ global using System.ComponentModel;
 global using Newtonsoft.Json.Linq;
 global using System.Reflection.Emit;
 
-global using Random = UnityEngine.Random;
 global using IContainer = Bindito.Core.IContainer;
-global using Label = UnityEngine.UIElements.Label;
