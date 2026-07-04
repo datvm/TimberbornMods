@@ -1,4 +1,7 @@
-﻿v10.1.1:
+﻿v11.0.0:
+- Fixed music playing more than once when changing weathers.
+- Saves made with this mod can now be played without the mod activated. However, the duration may be reset.
+v10.1.1:
 - The Settings for Weathers and Weather Modifiers now show which modifiers/weathers they are selected with.
 - Fixed Weather Modifier settings (like Monsoon's) not being saved.
 v10.1.0:
