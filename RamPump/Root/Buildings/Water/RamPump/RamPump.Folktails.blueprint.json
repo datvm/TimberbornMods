@@ -1,6 +1,6 @@
 ﻿{
     "BuildingSpec": {
-        "SelectionSoundName": "MechanicalFluidPump",
+        "SelectionSoundName": "MechanicalPump",
         "LoopingSoundName": "",
         "BuildingCost": [
             {
