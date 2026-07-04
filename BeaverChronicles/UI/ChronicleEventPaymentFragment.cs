@@ -203,7 +203,7 @@ public class ChronicleEventPaymentFragment(
         }
         else
         {
-            inventory!.Take(new(currGoodId!, amount));
+            inventory!.TakeConsumed(new(currGoodId!, amount));
         }
     }
 

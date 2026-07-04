@@ -6,6 +6,7 @@ public class SpawnObjectHandler(
 ) : NodeHandlerBase<SpawnObjectData>
 {
     public override string ForType => "SpawnObject";
+    public const string DefaultSpawnObjectParameterName = "SpawnedObject";
 
     protected override string? InternalHandleNode(SpawnObjectData data, ChronicleEventNodeSpec node, SpecChronicleEventController controller)
     {
@@ -26,24 +27,28 @@ public class SpawnObjectHandler(
         var conflictMode = controller.FormatTextEnum<SpawnObjectConflictMode>(data.ConflictMode);
 
         bool successful;
+        BlockObject? bo = null;
         switch (conflictMode)
         {
             case SpawnObjectConflictMode.Ignore:
                 successful = helper.IsPlacementValid(template, placement);
                 if (successful)
                 {
-                    helper.PlaceObject(template, placement);
+                    bo = helper.PlaceObject(template, placement);
                 }
                 break;
             case SpawnObjectConflictMode.Destructive:
-                successful = helper.TryPlacingWithDestruction(template, placement).Result;
+                successful = helper.TryPlacingWithDestruction(template, placement, out bo);
                 break;
             default:
                 throw new InvalidOperationException($"Unsupported conflict mode: {conflictMode}");
         }
 
-        if (successful)
+        if (successful && bo)
         {
+            var paramName = data.SpawnedObjectParameterName ?? DefaultSpawnObjectParameterName;
+            controller.CurrentRecord.CustomParameters[paramName] = bo!.GetEntityId().ToString();
+
             node.LogVerbose(() => $"Spawned object '{template.GetTemplateName()}' at ({x}, {y}, {z}) with orientation {orientation} and flip {flip}.");
             return node.NextNodeId;
         }

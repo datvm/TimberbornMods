@@ -8,29 +8,35 @@ public class CharacterSpawnHelper(
 )
 {
 
-    public Bot SpawnBot(Vector3 position) => botFactory.Create(position, Quaternion.identity);
-    public Beaver SpawnAdult(Vector3 position) => beaverFactory.CreateNewbornAdult(position);
-    public Beaver SpawnChild(Vector3 position) => beaverFactory.CreateNewbornChild(position);
+    public void SpawnBot(Vector3 position) => botFactory.Create(position);
+    public void SpawnAdult(Vector3 position) => beaverFactory.CreateAdult(position, 0f);
+    public void SpawnChild(Vector3 position) => beaverFactory.CreateChild(position, 0f);
 
-    public IReadOnlyList<BaseComponent> Spawn(int count, Vector3 position, CharacterType characterType)
+    public void Spawn(int count, Vector3 position, CharacterType characterType)
     {
-        List<BaseComponent> result = [];
-
         for (int i = 0; i < count; i++)
         {
-            result.Add(Spawn(position, characterType));
+            Spawn(position, characterType);
         }
-
-        return result;
     }
 
-    public BaseComponent Spawn(Vector3 position, CharacterType characterType) => characterType switch
+    public void Spawn(Vector3 position, CharacterType characterType)
     {
-        CharacterType.Bot => SpawnBot(position),
-        CharacterType.AdultBeaver => SpawnAdult(position),
-        CharacterType.ChildBeaver => SpawnChild(position),
-        _ => throw new ArgumentOutOfRangeException(nameof(characterType), characterType, null),
-    };
+        switch (characterType)
+        {
+            case CharacterType.Bot:
+                SpawnBot(position);
+                break;
+            case CharacterType.AdultBeaver:
+                SpawnAdult(position);
+                break;
+            case CharacterType.ChildBeaver:
+                SpawnChild(position);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(characterType), characterType, null);
+        }
+    }
 
     public bool FindAnySpawnSpot(out Vector3 result, DistrictCenter? preferredDistrict = null)
     {

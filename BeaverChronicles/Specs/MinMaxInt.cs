@@ -2,12 +2,12 @@
 
 public static class MinMax
 {
-    public static readonly MinMaxInt Min1 = new(1);
-    public static readonly MinMaxInt Zero = new(0, 0);
-    public static readonly MinMaxInt Exact1 = new(1, 1);
+    public static MinMaxInt Min1 => new(1);
+    public static MinMaxInt Zero => new(0, 0);
+    public static MinMaxInt Exact1 => new(1, 1);
 }
 
-public record MinMaxInt(int? Min = null, int? Max = null)
+public readonly record struct MinMaxInt(int? Min = null, int? Max = null)
 {
 
     public bool Evaluate(int value)

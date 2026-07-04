@@ -8,6 +8,9 @@ public record CharacterConditionData
     public bool? IsAdult { get; init; }
     public CharacterType? CharacterType { get; init; }
     public string? Name { get; init; }
+    public bool? Alive { get; init; }
+    public ImmutableArray<string> ActiveNeedIds { get; init; } = [];
+    public ImmutableArray<string> InactiveNeedIds { get; init; } = [];
 }
 
 [MultiBind(typeof(IConditionEvaluator))]
@@ -62,9 +65,41 @@ public class CharacterCondition : ConditionEvaluatorBase<CharacterConditionData>
                 this.LogVerbose(node, () => $"{log} Name={name} does not match character name -> False");
                 return false;
             }
+            if (p.Alive is { } alive && character.Alive != alive)
+            {
+                this.LogVerbose(node, () => $"{log} Alive={alive} does not match character state -> False");
+                return false;
+            }
+            if (!NeedsMatch(p.ActiveNeedIds, true))
+            {
+                return false;
+            }
+            if (!NeedsMatch(p.InactiveNeedIds, false))
+            {
+                return false;
+            }
 
             this.LogVerbose(node, () => $"{log} Matches -> True");
             return true;
+
+            bool NeedsMatch(ImmutableArray<string> needIds, bool expectedActive)
+            {
+                if (needIds.Length == 0) { return true; }
+
+                var needMan = character.GetNeedManager();
+                foreach (var needId in needIds)
+                {
+                    var formattedNeedId = ev.Controller.FormatText(needId);
+                    var actualNeedActive = needMan.NeedIsActive(formattedNeedId);
+                    if (actualNeedActive != expectedActive)
+                    {
+                        this.LogVerbose(node, () => $"{log} Need {formattedNeedId} active state was {actualNeedActive}, expected {expectedActive} -> False");
+                        return false;
+                    }
+                }
+
+                return true;
+            }
         }
     }
 }

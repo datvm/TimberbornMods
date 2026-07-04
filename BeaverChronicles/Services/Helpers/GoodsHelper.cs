@@ -41,7 +41,7 @@ public class GoodsHelper(
             }
             else if (goodsService.HasGood(g.GoodId))
             {
-                inv.GiveIgnoringCapacity(g);
+                inv.GiveExistingIgnoringCapacity(g);
             }
             else
             {

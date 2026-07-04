@@ -63,18 +63,50 @@
                     "Data": {
                         "Days": "{F1}",
                         "PanelTextLoc": "LV.BCEv.ContaminationConspiracy.Panel",
-                        "Subscriptions": [
+                        "CustomTriggers": [
                             {
-                                "EventName": "CharacterDecontaminated",
-                                "NextNodeId": "SuccessBuff"
+                                "Interval": "Hour",
+                                "ConditionNodeId": "TriggerCharacterDecontaminated",
+                                "TriggerNodeId": "SuccessBuff"
                             },
                             {
-                                "EventName": "CharacterDied",
-                                "NextNodeId": "FailureBuff"
+                                "Interval": "Hour",
+                                "ConditionNodeId": "TriggerCharacterDied",
+                                "TriggerNodeId": "FailureBuff"
                             }
                         ]
                     },
                     "NextNodeId": "FailureBuff"
+                },
+                {
+                    "Id": "TriggerCharacterDecontaminated",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "Character",
+                                "Parameters": {
+                                    "EntityIds": [ "TriggerCharacterId" ],
+                                    "InactiveNeedIds": [ "BadwaterContamination" ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "TriggerCharacterDied",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "Character",
+                                "Parameters": {
+                                    "EntityIds": [ "TriggerCharacterId" ],
+                                    "Alive": false
+                                }
+                            }
+                        ]
+                    }
                 },
 
                 // Success
