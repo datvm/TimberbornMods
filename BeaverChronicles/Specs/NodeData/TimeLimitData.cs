@@ -5,13 +5,21 @@ public record TimeLimitData
     public string? Days { get; init; }
     public string? Hours { get; init; }
     public ImmutableArray<FormattableGoodItem> Payments { get; init; } = [];
-    public ImmutableArray<TimeLimitSubscriptionData> Subscriptions { get; init; } = [];
+    public ImmutableArray<TimeLimitCustomTriggerData> CustomTriggers { get; init; } = [];
     public string? PanelTextLoc { get; init; }
     public string? PaidNodeId { get; init; }
 }
 
-public record TimeLimitSubscriptionData
+public record TimeLimitCustomTriggerData
 {
-    public string EventName { get; init; } = "";
-    public string? NextNodeId { get; init; }
+    public TimeLimitCustomTriggerInterval Interval { get; init; } = TimeLimitCustomTriggerInterval.Day;
+    public string ConditionNodeId { get; init; } = "";
+    public string? TriggerNodeId { get; init; }
+}
+
+public enum TimeLimitCustomTriggerInterval
+{
+    Tick,
+    Hour,
+    Day
 }

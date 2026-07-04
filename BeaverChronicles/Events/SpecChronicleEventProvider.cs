@@ -101,9 +101,27 @@ public class SpecChronicleEventProvider(
 
                 if (days is null && hours is null)
                 {
-                    if (data.Payments.Length == 0 && data.Subscriptions.Length == 0)
+                    if (data.Payments.Length == 0 && data.CustomTriggers.Length == 0)
                     {
-                        throw new InvalidDataException($"{GetErrPrefix(n)}Indefinite TimeLimit node must have at least one payment or subscription.");
+                        throw new InvalidDataException($"{GetErrPrefix(n)}Indefinite TimeLimit node must have at least one payment or custom trigger.");
+                    }
+                }
+
+                foreach (var trigger in data.CustomTriggers)
+                {
+                    if (string.IsNullOrEmpty(trigger.ConditionNodeId))
+                    {
+                        throw new InvalidDataException($"{GetErrPrefix(n)}TimeLimit custom trigger must have a condition node.");
+                    }
+
+                    if (!spec.Nodes.TryGetNode(trigger.ConditionNodeId, out var conditionNode))
+                    {
+                        throw new InvalidDataException($"{GetErrPrefix(n)}TimeLimit custom trigger condition node {trigger.ConditionNodeId} does not exist.");
+                    }
+
+                    if (!conditionNode.IsConditionNode)
+                    {
+                        throw new InvalidDataException($"{GetErrPrefix(n)}TimeLimit custom trigger node {trigger.ConditionNodeId} is not a condition node.");
                     }
                 }
             }

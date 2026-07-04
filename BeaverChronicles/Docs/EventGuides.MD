@@ -11,7 +11,7 @@ The examples are ordered so each one introduces only a few new ideas:
 3. [First Child Growth](#example-first-child-growth) is a good next step for custom parameters, game stat placeholders, and calculated payment costs.
 4. [Drought Prep](#example-drought-prep) introduces repeatable weather-triggered events.
 5. [Unhoused](#example-unhoused) shows promise-style events that check game stats after a delay.
-6. [Contamination Conspiracy](#example-contamination-conspiracy) shows time limit subscriptions that can react to another event before the timer expires.
+6. [Contamination Conspiracy](#example-contamination-conspiracy) shows time limit custom triggers that can react to changing conditions before the timer expires.
 7. [Pasteur's Gamble](#example-pasteurs-gamble) shows checking for faction goods, random entity selection, and direct character status changes.
 8. [Food Wood Dispute](#example-food-wood-dispute-1) shows multi-chapter events, flags, workplace buffs, cleanup nodes, and follow-up events.
 
@@ -96,7 +96,7 @@ A `TimeLimit` node can keep a normal event active while the player completes a t
 
 `SetTimer2` works the same way, but with a longer deadline and two payments: science and planks.
 
-`TimeLimit` also supports `Hours` instead of `Days`, and `Subscriptions` for listening to other time-limit events. If neither `Days` nor `Hours` is set, the node can still wait for a payment or subscription, but it will not have a countdown timer. Mini events cannot use `TimeLimit`.
+`TimeLimit` also supports `Hours` instead of `Days`, and `CustomTriggers` for checking condition nodes while the timer is active. If neither `Days` nor `Hours` is set, the node can still wait for a payment or custom trigger, but it will not have a countdown timer. Mini events cannot use `TimeLimit`.
 
 > [!INFO]  
 > In a `TimeLimit` node, `PaidNodeId` is used when all registered payments are completed. The node's normal `NextNodeId` is used when the timer runs out.
@@ -255,7 +255,7 @@ It also shows a common cleanup trick indirectly: all variants use the same `Buff
 
 [ContaminationConspiracy.blueprint.json](../Root/Blueprints/ChronicleEvents/ContaminationConspiracy.blueprint.json) appears when a beaver becomes contaminated. It asks the colony to cure that specific beaver before time runs out.
 
-This event introduces `TimeLimit` subscriptions: the event can end early when something happens to the trigger character.
+This event introduces `TimeLimit` custom triggers: the event can end early when a condition about the trigger character becomes true.
 
 ### Character Trigger Gate
 
@@ -263,25 +263,25 @@ Like `FirstDeath`, the event uses a `Character` condition on `TriggerCharacterId
 
 The localization uses `{CP_TriggerCharacterName}` so the active event panel can say exactly who needs help.
 
-### TimeLimit Subscriptions
+### TimeLimit Custom Triggers
 
-`WaitForCure` is a `TimeLimit` node with two subscriptions:
+`WaitForCure` is a `TimeLimit` node with two custom triggers:
 
-- `CharacterDecontaminated` goes to `SuccessBuff`.
-- `CharacterDied` goes to `FailureBuff`.
+- `TriggerCharacterDecontaminated` is checked hourly and goes to `SuccessBuff`.
+- `TriggerCharacterDied` is checked hourly and goes to `FailureBuff`.
 
-If neither subscription fires before the deadline, the normal `NextNodeId` sends the event to failure.
+If neither condition matches before the deadline, the normal `NextNodeId` sends the event to failure.
 
-Subscriptions are useful when the success condition is not a payment. In this case, the player succeeds by curing the same beaver that triggered the event.
+Custom triggers are useful when the success condition is not a payment. In this case, the player succeeds by curing the same beaver that triggered the event.
 
 > [!INFO]  
-> The currently supported subscription event names in this project are `CharacterDecontaminated` and `CharacterDied`. Both are tied to the event's `TriggerCharacterId`.
+> `CustomTriggers.Interval` defaults to `Day`, but this event uses `Hour` so cure/death checks respond sooner.
 
 ### Success And Failure Effects
 
 The success path applies a positive `BuffCharacters` status to adult and child beavers. The failure path applies a stronger negative status to the same character types.
 
-This is the same buff pattern you already saw, but attached to a live event subscription instead of a payment or end-of-timer check.
+This is the same buff pattern you already saw, but attached to a live custom trigger instead of a payment or end-of-timer check.
 
 ## Example: Pasteur's Gamble
 
@@ -447,5 +447,5 @@ All paths eventually wait for the chapter duration, remove the workplace buffs, 
 
 That last cleanup matters. Without clearing the continuation flag, the follow-up event could remain eligible when it should be finished.
 
-At this point, you have seen the core patterns used by the base JSON events: immediate rewards, active timers, payments, chance branches, custom parameters, game stat promises, subscriptions, flags, follow-up chapters, random entity selection, character status changes, and cleanup.
+At this point, you have seen the core patterns used by the base JSON events: immediate rewards, active timers, payments, chance branches, custom parameters, game stat promises, custom triggers, flags, follow-up chapters, random entity selection, character status changes, and cleanup.
 

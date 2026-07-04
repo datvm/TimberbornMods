@@ -569,7 +569,7 @@ Fields:
 
 ## TimeLimitData
 
-Registers an active timed event state, optional payment, and optional event subscriptions.
+Registers an active timed event state, optional payment, and optional condition-based triggers.
 
 Fields:
 
@@ -578,16 +578,23 @@ Fields:
 | `Days` | `string?` | Time limit in days. |
 | `Hours` | `string?` | Time limit in hours when `Days` is not set. |
 | `Payments` | `FormattableGoodItem[]` | Payment requirements for resolving the active event. |
-| `Subscriptions` | `TimeLimitSubscriptionData[]` | Time-limit event subscriptions that can resolve the active event. |
+| `CustomTriggers` | `TimeLimitCustomTriggerData[]` | Condition-based triggers that can resolve the active event. |
 | `PanelTextLoc` | `string?` | Localization key for active-event panel text. |
 | `PaidNodeId` | `string?` | Node to run when the payment is completed. |
 
-`TimeLimitSubscriptionData` fields:
+`TimeLimitCustomTriggerData` fields:
 
 | Name | Type | Description |
 |---|---|---|
-| `EventName` | `string` | Time-limit event name to subscribe to. |
-| `NextNodeId` | `string?` | Node to run when this subscription fires. |
+| `Interval` | `TimeLimitCustomTriggerInterval` | How often to check the condition. Defaults to `Day`; can be `Tick`, `Hour`, or `Day`. |
+| `ConditionNodeId` | `string` | Condition node to evaluate. |
+| `TriggerNodeId` | `string?` | Node to run when the condition matches. |
+
+Custom parameters written:
+
+| Name | Description |
+|---|---|
+| `TimeLimitRemainingDays` | Remaining time in days when a payment or custom trigger resolves the time limit. |
 
 # Condition Details
 
@@ -691,6 +698,9 @@ Fields:
 | `IsAdult` | `bool?` | Optional adult-beaver filter. |
 | `CharacterType` | `CharacterType?` | Optional character type flag filter. |
 | `Name` | `string?` | Optional case-insensitive first-name filter. |
+| `Alive` | `bool?` | Optional alive/dead state filter. |
+| `ActiveNeedIds` | `string[]` | Needs that must be active. Supports text placeholders. |
+| `InactiveNeedIds` | `string[]` | Needs that must be inactive. Supports text placeholders. |
 
 # Game Stats
 

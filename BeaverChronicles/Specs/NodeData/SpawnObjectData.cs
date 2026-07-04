@@ -9,6 +9,7 @@ public record SpawnObjectData
     public string Orientation { get; init; } = nameof(Timberborn.Coordinates.Orientation.Cw0);
     public string Flipped { get; init; } = "";
     public string ConflictMode { get; init; } = nameof(SpawnObjectConflictMode.Ignore);
+    public string? SpawnedObjectParameterName { get; init; }
     public string? FailedNodeId { get; init; }
 }
 

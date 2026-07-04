@@ -3,15 +3,40 @@
 [MultiBind(typeof(ISpecNodeHandler))]
 public class TimeLimitNodeHandler(
     ActiveChronicleEventService activeEvent,
-    ILoc t,
-    EventBus eb
-) : ISpecNodeHandler
+    ILoc t
+) : ISpecNodeHandler, ITickableSingleton
 {
     public const string NodeType = "TimeLimit";
+    const string RemainingDaysParameter = "TimeLimitRemainingDays";
     public string ForType => NodeType;
 
-    (ChronicleEventNodeSpec node, SpecChronicleEventController controller)? activeRef;
-    bool restoreSubscriptionsInPostLoad;
+    bool hasCustomTrigger;
+    (ChronicleEventNodeSpec node, SpecChronicleEventController controller, TimeLimitData data)? activeRef;
+
+    int lastCustomTriggerHour;
+    int lastCustomTriggerDay;
+
+    TimeLimitData SetActiveNode(ChronicleEventNodeSpec node, SpecChronicleEventController controller)
+    {
+        var data = node.GetData<TimeLimitData>();
+        if (data.CustomTriggers.Length > 0)
+        {
+            hasCustomTrigger = true;
+        }
+
+        activeRef = (node, controller, data);
+
+        lastCustomTriggerHour = GetCurrentHour(controller);
+        lastCustomTriggerDay = GetCurrentDay(controller);
+
+        return data;
+    }
+
+    void ClearActiveNode()
+    {
+        activeRef = null;
+        hasCustomTrigger = false;
+    }
 
     public void HandleNode(ChronicleEventNodeSpec node, SpecChronicleEventController controller)
     {
@@ -21,10 +46,7 @@ public class TimeLimitNodeHandler(
             throw new InvalidOperationException();
         }
 
-        activeRef = (node, controller);
-
-        var data = node.GetData<TimeLimitData>();
-
+        var data = SetActiveNode(node, controller);
         if (GetDays(data, controller) is { } days)
         {
             activeEvent.RegisterTimeLimit(days, OnTimeLimitReached);
@@ -35,47 +57,19 @@ public class TimeLimitNodeHandler(
             activeEvent.SetActiveDescription(controller.FormatText(t.T(textLoc)));
         }
 
-        if (data.Subscriptions.Length > 0)
-        {
-            SubscribeEvents(data.Subscriptions, controller);
-        }
-
         if (data.Payments.Length > 0)
         {
             activeEvent.RegisterPayment(OnPaymentPaid, controller.FormatItems(data.Payments));
         }
     }
 
-    void SubscribeEvents(ImmutableArray<TimeLimitSubscriptionData> subscriptions, SpecChronicleEventController controller)
-    {
-        var service = controller.HelperCollection.TimeLimitEvents;
-
-        foreach (var s in subscriptions)
-        {
-            service.Subscribe(s.EventName, controller);
-        }
-
-        eb.Register(this);
-    }
-
-    void ClearEventSubscriptions(ImmutableArray<TimeLimitSubscriptionData> subscriptions, SpecChronicleEventController controller)
-    {
-        var service = controller.HelperCollection.TimeLimitEvents;
-
-        foreach (var s in subscriptions)
-        {
-            service.Unsubscribe(s.EventName, controller);
-        }
-
-        eb.Unregister(this);
-    }
-
     void OnPaymentPaid() => OnTimeLimitConcluded("Payment paid", d => d.GetData<TimeLimitData>().PaidNodeId);
     void OnTimeLimitReached() => OnTimeLimitConcluded("Time limit reached", d => d.NextNodeId);
-    void OnEventTriggered(string? nodeId) => OnTimeLimitConcluded(null, _ => nodeId);
+    void OnCustomTrigger(TimeLimitCustomTriggerData trigger) => OnTimeLimitConcluded("Custom trigger matched", _ => trigger.TriggerNodeId);
 
     void OnTimeLimitConcluded(string? evName, Func<ChronicleEventNodeSpec, string?> getNodeId)
     {
+
         activeEvent.Clear();
 
         if (activeRef is null)
@@ -84,11 +78,13 @@ public class TimeLimitNodeHandler(
             return;
         }
 
-        var (node, controller) = activeRef.Value;
-        activeRef = null;
+        var (node, controller, _) = activeRef.Value;
+        ClearActiveNode();
 
-        ClearEventSubscriptions(node.GetData<TimeLimitData>().Subscriptions, controller);
         var nextNodeId = getNodeId(node);
+
+        var remainingDays = activeEvent.RemainingDays;
+        controller.CurrentRecord.CustomParameters[RemainingDaysParameter] = remainingDays.ToString("F2");
 
         if (evName is not null)
         {
@@ -100,8 +96,7 @@ public class TimeLimitNodeHandler(
 
     public void RestoreGameState(ChronicleEventNodeSpec node, SpecChronicleEventController controller)
     {
-        var data = node.GetData<TimeLimitData>();
-        activeRef = (node, controller);
+        var data = SetActiveNode(node, controller);
 
         if (GetDays(data, controller) is { } days)
         {
@@ -112,47 +107,45 @@ public class TimeLimitNodeHandler(
         {
             activeEvent.RegisterSavedPayment(OnPaymentPaid);
         }
-
-        if (data.Subscriptions.Length > 0)
-        {
-            restoreSubscriptionsInPostLoad = true;
-        }
     }
 
-    public void PostLoadGameState(ChronicleEventNodeSpec node, SpecChronicleEventController controller)
+    public void Tick()
     {
-        if (!restoreSubscriptionsInPostLoad)
+        if (!hasCustomTrigger || activeRef is null)
         {
             return;
         }
 
-        restoreSubscriptionsInPostLoad = false;
-
-        if (activeRef is null || activeRef.Value.node != node || activeRef.Value.controller != controller)
+        var (node, controller, data) = activeRef.Value;
+        if (data.CustomTriggers.Length == 0) // Should not happen
         {
+            hasCustomTrigger = false;
             return;
         }
 
-        var data = node.GetData<TimeLimitData>();
-        if (data.Subscriptions.Length > 0)
+        var currentHour = GetCurrentHour(controller);
+        var currentDay = GetCurrentDay(controller);
+
+        foreach (var trigger in data.CustomTriggers)
         {
-            SubscribeEvents(data.Subscriptions, controller);
+            if (!ShouldCheck(trigger, currentHour, currentDay))
+            {
+                continue;
+            }
+
+            if (controller.EvaluateConditionNode(trigger.ConditionNodeId))
+            {
+                node.LogVerbose(() => $"Custom trigger condition {trigger.ConditionNodeId} matched, going to node: {trigger.TriggerNodeId}.");
+                OnCustomTrigger(trigger);
+                break;
+            }
         }
+
+        lastCustomTriggerHour = currentHour;
+        lastCustomTriggerDay = currentDay;
     }
 
-    [OnEvent]
-    public void OnTimeLimitEvent(OnTimeLimitEvent e)
-    {
-        if (activeRef is null) { return; } // Should not happen
-
-        var node = activeRef.Value.node;
-        var data = node.GetData<TimeLimitData>();
-
-        var nextNote = data.Subscriptions.FirstOrDefault(s => s.EventName == e.Name)?.NextNodeId;
-        node.LogVerbose(() => $"Event triggered: {e.Name}, going to node: {nextNote}.");
-
-        OnEventTriggered(nextNote);
-    }
+    public void PostLoadGameState(ChronicleEventNodeSpec node, SpecChronicleEventController controller) { }
 
     static float? GetDays(TimeLimitData data, SpecChronicleEventController controller)
     {
@@ -172,4 +165,18 @@ public class TimeLimitNodeHandler(
 
         return result;
     }
+
+    bool ShouldCheck(TimeLimitCustomTriggerData trigger, int currentHour, int currentDay)
+        => trigger.Interval switch
+        {
+            TimeLimitCustomTriggerInterval.Tick => true,
+            TimeLimitCustomTriggerInterval.Hour => currentHour != lastCustomTriggerHour,
+            TimeLimitCustomTriggerInterval.Day => currentDay != lastCustomTriggerDay,
+            _ => throw new InvalidOperationException($"Unknown time limit custom trigger interval: {trigger.Interval}."),
+        };
+
+    static int GetCurrentHour(SpecChronicleEventController controller)
+        => (int)controller.HelperCollection.GameStats.GetFloatStat(GameStats.TimeTodayHours);
+    static int GetCurrentDay(SpecChronicleEventController controller)
+        => controller.HelperCollection.GameStats.GameDayNumber;
 }
