@@ -1,0 +1,22 @@
+Beaver Chronicles Waterfall Event Pack adds map-specific story events for the Waterfalls map.
+
+This is an expansion pack for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3725316854]Beaver Chronicles[/url]. It requires Beaver Chronicles v11.0 or newer.
+
+[h1]Waterfall Stories[/h1]
+
+The Waterfalls map now has its own Chronicle Events:
+- A different starting choice
+- A suspiciously spicy hooman recipe
+- Strange discoveries beneath the Badtide Drain and a dramatic sinkhole event can permanently reshape part of the map.
+
+These events are designed around the Waterfalls terrain and will only appear on that map.
+
+[h1]For Mod Developers[/h1]
+
+This pack is also a JSON-event example pack. The events are written without custom C# event code and demonstrate map-specific events, follow-up chains, water-source buffs, entity searches, spawning, camera effects, and terrain-changing events.
+
+Guide:
+[url=https://github.com/datvm/TimberbornMods/blob/master/BeaverChronicles/Docs/EventGuidesWaterfalls.MD]Waterfall Event Guides[/url]
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
