@@ -1,11 +1,11 @@
-{
+﻿{
     "ChronicleEventSpec": {
         "Id": "WaterfallSinkhole",
         "TitleLoc": "LV.BCEv.WaterfallSinkhole.Pref",
         "Repeat": true,
         "Conditions": {
             "Sources": [ "BuildingFinished" ],
-            "Weight": 2147483647,
+            "Weight": 100,
             "RequiredFlags": [ "MAP.WATERFALLS" ],
             "BlockedFlags": [
                 "BCEv.WaterfallSinkhole.Disabled",
@@ -38,13 +38,13 @@
                                     "Areas": [
                                         {
                                             "Position": {
-                                                "X": 37,
-                                                "Y": 66,
+                                                "X": 38,
+                                                "Y": 67,
                                                 "Z": 0
                                             },
                                             "Size": {
-                                                "X": 13,
-                                                "Y": 8,
+                                                "X": 7,
+                                                "Y": 7,
                                                 "Z": 256
                                             }
                                         }
@@ -85,12 +85,29 @@
                             {
                                 "TextLoc": "LV.BCEv.WaterfallSinkhole.Pref.C2",
                                 "NoteLoc": "LV.BCEv.WaterfallSinkhole.Pref.C2N",
+                                "EnabledConditionNodeId": "BeforeDelayedCycle",
                                 "NextNodeId": "SetDelayedFlag"
                             },
                             {
                                 "TextLoc": "LV.BCEv.WaterfallSinkhole.Pref.C3",
                                 "NoteLoc": "LV.BCEv.WaterfallSinkhole.Pref.C3N",
                                 "NextNodeId": "SetDisabledFlag"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "BeforeDelayedCycle",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "GameStat",
+                                "Parameters": {
+                                    "Stat": "TimeCycle",
+                                    "Value": "{I1}",
+                                    "Comparison": "Less"
+                                }
                             }
                         ]
                     }
@@ -132,6 +149,16 @@
                     "Data": {
                         "Name": "{S3}"
                     },
+                    "NextNodeId": "DelaySinkholeCollapse"
+                },
+                {
+                    // Insert one or two ticks to prevent crash when
+                    // deleting entities in the same tick as the building is finished
+                    "Id": "DelaySinkholeCollapse",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Hours": "0.01"
+                    },
                     "NextNodeId": "FindVictims"
                 },
                 {
@@ -139,42 +166,167 @@
                     "Type": "FindEntities",
                     "Data": {
                         "CharacterType": "AdultBeaver, ChildBeaver, Bot",
+                        "AllBuildings": true,
                         "MaxCount": 2147483647,
                         "ResultName": "SinkholeVictims",
-                        "NoneFoundNodeId": "CollapseTerrain",
+                        "NoneFoundNodeId": "CollapseTerrainZ4",
                         "Areas": [
                             {
                                 "Position": {
-                                    "X": 37,
-                                    "Y": 66,
+                                    "X": 31,
+                                    "Y": 60,
                                     "Z": 0
                                 },
                                 "Size": {
-                                    "X": 13,
-                                    "Y": 8,
+                                    "X": 21,
+                                    "Y": 21,
                                     "Z": 256
                                 }
                             }
                         ]
                     },
-                    "NextNodeId": "CollapseTerrain"
+                    "NextNodeId": "RemoveVictims"
                 },
                 {
-                    "Id": "CollapseTerrain",
+                    "Id": "RemoveVictims",
                     "Type": "DeleteEntity",
                     "Data": {
-                        "EntityIds": [ "SinkholeVictims" ],
+                        "EntityIds": [ "SinkholeVictims" ]
+                    },
+                    "NextNodeId": "CollapseTerrainZ4"
+                },
+                {
+                    "Id": "CollapseTerrainZ4",
+                    "Type": "DeleteEntity",
+                    "Data": {
                         "TerrainBounds": {
                             "Position": {
-                                "X": 37,
-                                "Y": 66,
+                                "X": 31,
+                                "Y": 60,
+                                "Z": 4
+                            },
+                            "Size": {
+                                "X": 21,
+                                "Y": 21,
+                                "Z": 252
+                            }
+                        }
+                    },
+                    "NextNodeId": "CollapseTerrainZ3"
+                },
+                {
+                    "Id": "CollapseTerrainZ3",
+                    "Type": "DeleteEntity",
+                    "Data": {
+                        "TerrainBounds": {
+                            "Position": {
+                                "X": 32,
+                                "Y": 61,
+                                "Z": 3
+                            },
+                            "Size": {
+                                "X": 19,
+                                "Y": 19,
+                                "Z": 253
+                            }
+                        }
+                    },
+                    "NextNodeId": "CollapseTerrainZ2"
+                },
+                {
+                    "Id": "CollapseTerrainZ2",
+                    "Type": "DeleteEntity",
+                    "Data": {
+                        "TerrainBounds": {
+                            "Position": {
+                                "X": 33,
+                                "Y": 62,
+                                "Z": 2
+                            },
+                            "Size": {
+                                "X": 17,
+                                "Y": 17,
+                                "Z": 254
+                            }
+                        }
+                    },
+                    "NextNodeId": "CollapseTerrainZ1"
+                },
+                {
+                    "Id": "CollapseTerrainZ1",
+                    "Type": "DeleteEntity",
+                    "Data": {
+                        "TerrainBounds": {
+                            "Position": {
+                                "X": 34,
+                                "Y": 63,
+                                "Z": 1
+                            },
+                            "Size": {
+                                "X": 15,
+                                "Y": 15,
+                                "Z": 255
+                            }
+                        }
+                    },
+                    "NextNodeId": "CollapseTerrainZ0"
+                },
+                {
+                    "Id": "CollapseTerrainZ0",
+                    "Type": "DeleteEntity",
+                    "Data": {
+                        "TerrainBounds": {
+                            "Position": {
+                                "X": 35,
+                                "Y": 64,
                                 "Z": 0
                             },
                             "Size": {
                                 "X": 13,
-                                "Y": 8,
+                                "Y": 13,
                                 "Z": 256
                             }
+                        }
+                    },
+                    "NextNodeId": "SpawnSinkholeWaterSource"
+                },
+                {
+                    "Id": "SpawnSinkholeWaterSource",
+                    "Type": "SpawnObject",
+                    "Data": {
+                        "TemplateNames": [ "WaterSource" ],
+                        "X": "43",
+                        "Y": "70",
+                        "Z": "0",
+                        "SpawnedObjectParameterName": "SinkholeWaterSource"
+                    },
+                    "NextNodeId": "BuffSinkholeWaterSource"
+                },
+                {
+                    "Id": "BuffSinkholeWaterSource",
+                    "Type": "BuffWaterSource",
+                    "Data": {
+                        "EntityIds": [ "SinkholeWaterSource" ],
+                        "BuffInfo": {
+                            "BuffId": "WaterfallSinkhole_WaterSource",
+                            "TitleLoc": "LV.BCEv.WaterfallSinkhole.WaterBuffTitle",
+                            "DescLoc": "LV.BCEv.WaterfallSinkhole.WaterBuffDesc",
+                            "Category": "Permanent"
+                        },
+                        "Effects": {
+                            "ImmuneToDrought": "true"
+                        }
+                    },
+                    "NextNodeId": "FocusSinkholeWaterSource"
+                },
+                {
+                    "Id": "FocusSinkholeWaterSource",
+                    "Type": "Camera",
+                    "Data": {
+                        "FocusOnEntityIds": [ "SinkholeWaterSource" ],
+                        "CameraShake": {
+                            "Duration": 3,
+                            "Strength": 1
                         }
                     },
                     "NextNodeId": "SinkholeMessage"
@@ -183,7 +335,8 @@
                     "Id": "SinkholeMessage",
                     "Type": "Choice",
                     "Data": {
-                        "TextLoc": "LV.BCEv.WaterfallSinkhole.Content"
+                        "TextLoc": "LV.BCEv.WaterfallSinkhole.Content",
+                        "SideImage": true
                     }
                 }
             ]

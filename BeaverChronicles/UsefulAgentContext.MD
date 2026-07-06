@@ -50,6 +50,8 @@ This file is a living handoff note for AI agents working in this `BeaverChronicl
   - `<ResultName>_1`, `<ResultName>_2`, ...
   - `<ResultName>` as the first ID only when exactly one entity is found.
 - `FindEntities.ChooseRandom` randomizes matching entities before applying `MaxCount`.
+- `FindEntities.AllBuildings` finds all buildings in the requested areas and ignores `TemplateNames`/`TemplatePrefixes`; without it, empty template filters mean no building search.
+- `Camera` node supports `FocusOnEntityIds`, `Position`, `VerticalAngle`, `HorizontalAngle`, `ZoomLevel`, and `CameraShake`.
 - `CharacterStatus` node can remove or inflict a need on characters resolved from `EntityIds`; Pasteur's Gamble uses it for `BadwaterContamination`.
 - `SetCustomParameter` has a `Not` operation that treats true-like values as true and stores `"0"`; other values store `"1"`.
 - `Building` is a condition evaluator for explicit or trigger building entities. Use `EntityIds` such as `[ "TriggerBuildingId" ]` to inspect a building from `BuildingPlaced`, `BuildingFinished`, or `WonderActivated`; it supports template, finished-state, and area filters. Unless `ConsiderFreeBuildings` is true, free/place-finished buildings are filtered out before `ConditionType` is evaluated. This is different from `HasBuilding`, which scans any matching building in the colony.
