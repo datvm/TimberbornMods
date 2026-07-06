@@ -151,7 +151,8 @@ The nodes named `C1`, `C2`, `C3`, and `C4` are all `Give` nodes.
 
 These reward nodes do not need `NextNodeId` because the event ends after the reward is given.
 
-## Next Guide
+## Next Guides
 
 Continue with [EventGuides.MD](./EventGuides.MD) for more event explanations and JSON authoring guides.
 
+For map-pack examples, see [EventGuidesWaterfalls.MD](./EventGuidesWaterfalls.MD), which covers the events from `BeaverChroniclesWaterfallEventPack`.
