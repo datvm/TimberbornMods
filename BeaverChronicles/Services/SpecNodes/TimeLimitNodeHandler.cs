@@ -70,6 +70,7 @@ public class TimeLimitNodeHandler(
     void OnTimeLimitConcluded(string? evName, Func<ChronicleEventNodeSpec, string?> getNodeId)
     {
 
+        var remainingDays = activeEvent.RemainingDays;
         activeEvent.Clear();
 
         if (activeRef is null)
@@ -83,7 +84,6 @@ public class TimeLimitNodeHandler(
 
         var nextNodeId = getNodeId(node);
 
-        var remainingDays = activeEvent.RemainingDays;
         controller.CurrentRecord.CustomParameters[RemainingDaysParameter] = remainingDays.ToString("F2");
 
         if (evName is not null)

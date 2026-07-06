@@ -1,0 +1,270 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "Taco2",
+        "TitleLoc": "LV.BCEv.Taco2",
+        "Conditions": {
+            "Sources": [ "NewDay" ],
+            "Weight": 2147483647,
+            "RequiredFlags": [ "MAP.WATERFALLS", "EVENT.Taco" ],
+            "RequiredFlagsCondition": "All",
+            "BlockedFlags": [ "EVENT.Taco.C1.2" ]
+        },
+        "Parameters": {
+            "Floats": [
+                0.15, // %1: Powerful working/movement speed bonus
+                0.05, // %2: Safe working speed bonus
+                5.0, // F3: Buff duration
+                1.0 // F4: Powerful aftermath delay, cure deadline, and contamination duration
+            ],
+            "Strings": [
+                "Plank", // S1: Plank cost
+                "PineResin", // S2: Pine resin cost
+                "Science", // S3: Science cost
+                "WorkingSpeed", // S4: Working speed stat
+                "MovementSpeed", // S5: Movement speed stat
+                "Water", // S6: Cure water cost
+                "Berries" // S7: Cure berries cost
+            ],
+            "Ints": [
+                5, // I1: Powerful plank cost
+                5, // I2: Powerful pine resin cost
+                200, // I3: Powerful science cost
+                5 // I4: Safe plank cost
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.Taco2.Content",
+                        "TopImage": true,
+                        "DefaultOption": 3,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCEv.Taco2.C1",
+                                "NoteLoc": "LV.BCEv.Taco2.C1N",
+                                "NextNodeId": "PowerfulPayment"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.Taco2.C2",
+                                "NoteLoc": "LV.BCEv.Taco2.C2N",
+                                "NextNodeId": "SafePayment"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.Taco2.C3",
+                                "NoteLoc": "LV.BCEv.Taco2.C3N",
+                                "NextNodeId": "NoMoreRecipesMessage"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "PowerfulPayment",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "PanelTextLoc": "LV.BCEv.Taco2.C1N",
+                        "PaidNodeId": "PowerfulBuff",
+                        "Payments": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{I1}"
+                            },
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{I2}"
+                            },
+                            {
+                                "Id": "{S3}",
+                                "Amount": "{I3}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "PowerfulBuff",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "Taco2_Powerful",
+                        "TitleLoc": "LV.BCEv.Taco2.BuffTitle",
+                        "DescLoc": "LV.BCEv.Taco2.BuffDesc",
+                        "CharacterTypes": "AdultBeaver, ChildBeaver",
+                        "Days": "{F3}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S4}",
+                                "Amount": "{F1}"
+                            },
+                            {
+                                "Id": "{S5}",
+                                "Amount": "{F1}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "PowerfulMessage"
+                },
+                {
+                    "Id": "PowerfulMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.Taco2.O1",
+                        "TopImage": true
+                    },
+                    "NextNodeId": "PowerfulAftermathTimer"
+                },
+                {
+                    "Id": "PowerfulAftermathTimer",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F4}",
+                        "PanelTextLoc": "LV.BCEv.Taco2.PowerfulPanel"
+                    },
+                    "NextNodeId": "ComputeBeaverCount"
+                },
+                {
+                    "Id": "ComputeBeaverCount",
+                    "Type": "SetCustomParameter",
+                    "Data": {
+                        "Name": "BeaverCount",
+                        "Type": "Int",
+                        "Value1": "{GS_PopulationNumberOfAdult}",
+                        "Value2": "{GS_PopulationNumberOfChild}",
+                        "Operation": "Add"
+                    },
+                    "NextNodeId": "CureChoice"
+                },
+                {
+                    "Id": "CureChoice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.Taco2.Cure.Content",
+                        "TopImage": true,
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCEv.Taco2.Cure.C1",
+                                "NoteLoc": "LV.BCEv.Taco2.Cure.C1N",
+                                "NextNodeId": "CurePayment"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "CurePayment",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F4}",
+                        "PanelTextLoc": "LV.BCEv.Taco2.Cure.C1N",
+                        "PaidNodeId": "CureSuccessMessage",
+                        "Payments": [
+                            {
+                                "Id": "{S6}",
+                                "Amount": "{CP_BeaverCount}"
+                            },
+                            {
+                                "Id": "{S7}",
+                                "Amount": "{CP_BeaverCount}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "FindContaminatedWaterSource"
+                },
+                {
+                    "Id": "CureSuccessMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.Taco2.Cure.O1",
+                        "TopImage": true
+                    }
+                },
+                {
+                    "Id": "FindContaminatedWaterSource",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "TemplateNames": [ "WaterSource" ],
+                        "MaxCount": 1,
+                        "ChooseRandom": true,
+                        "ResultName": "ContaminatedWaterSource",
+                        "NoneFoundNodeId": "CureFailureMessage"
+                    },
+                    "NextNodeId": "ContaminateWaterSource"
+                },
+                {
+                    "Id": "ContaminateWaterSource",
+                    "Type": "BuffWaterSource",
+                    "Data": {
+                        "EntityIds": [ "ContaminatedWaterSource" ],
+                        "BuffInfo": {
+                            "BuffId": "Taco2_ContaminatedWaterSource",
+                            "TitleLoc": "LV.BCEv.Taco2.Cure.WaterBuffTitle",
+                            "DescLoc": "LV.BCEv.Taco2.Cure.WaterBuffDesc",
+                            "Days": "{F4}"
+                        },
+                        "Effects": {
+                            "ContaminationDelta": "1"
+                        }
+                    },
+                    "NextNodeId": "CureFailureMessage"
+                },
+                {
+                    "Id": "CureFailureMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.Taco2.Cure.O2",
+                        "TopImage": true
+                    }
+                },
+                {
+                    "Id": "SafePayment",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "PanelTextLoc": "LV.BCEv.Taco2.C2N",
+                        "PaidNodeId": "SafeBuff",
+                        "Payments": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{I4}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "SafeBuff",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "Taco2_Safe",
+                        "TitleLoc": "LV.BCEv.Taco2.SafeBuffTitle",
+                        "DescLoc": "LV.BCEv.Taco2.SafeBuffDesc",
+                        "CharacterTypes": "AdultBeaver, ChildBeaver",
+                        "Days": "{F3}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S4}",
+                                "Amount": "{F2}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "SafeMessage"
+                },
+                {
+                    "Id": "SafeMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.Taco2.O2",
+                        "TopImage": true
+                    }
+                },
+                {
+                    "Id": "NoMoreRecipesMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.Taco2.O3",
+                        "TopImage": true
+                    }
+                }
+            ]
+        }
+    }
+}

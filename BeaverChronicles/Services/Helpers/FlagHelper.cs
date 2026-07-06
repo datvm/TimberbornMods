@@ -9,6 +9,7 @@ public class FlagHelper(
     FactionService factionService
 ) : ILoadableSingleton, ISaveableSingleton
 {
+    public const string WonderActivatedFlag = "WONDER_ACTIVATED";
     public const char FlagSeparator = '.';
 
     static readonly SingletonKey SaveKey = new(nameof(FlagHelper));
@@ -32,6 +33,9 @@ public class FlagHelper(
         var s = singletonSaver.GetSingleton(SaveKey);
         s.Set(Initialized, true);
     }
+
+    public bool IsWonderActivated => persistence.HasFlag(WonderActivatedFlag);
+    public void MarkWonderActivated() => persistence.AddFlag(WonderActivatedFlag);
 
     public bool HasFlag(string flag) => persistence.HasFlag(flag);
     public bool HasFlags(IReadOnlyList<string> flags, ConditionType condition) => condition.Evaluate(flags, persistence.HasFlag);

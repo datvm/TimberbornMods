@@ -26,11 +26,13 @@ Most beavers keep their distance.
 One scientist does not.
 After many measurements, sketches, and sleepless nights, the scientist returns with a strange claim: the drain is not only a drain. Something hooman-made is buried beneath it, connected to the old structure in ways no one fully understands.
 The markings are damaged, but one meaning seems clear.
-Whatever is buried there was built to stop the drain forever.",
+Whatever is buried there was built to stop the drain forever.
+The first survey will take time, but the scientist says better instruments and old calculations could shorten whatever work remains.",
 LV.BCEv.BadtideDrainStudy.C1,"Look into it",
-LV.BCEv.BadtideDrainStudy.C1N,"[[C]]Investigate the structure. [[time:{F1}d]].",
-LV.BCEv.BadtideDrainStudy.C2,"Spend science",
-LV.BCEv.BadtideDrainStudy.C2N,"[[C]]Investigate the structure faster. [[time:{F2}d]]. [[-]]-[[good:{S2}:{I1}]] immediately.",
+LV.BCEv.BadtideDrainStudy.C1N,"[[C]]Begin the study. [[time:{F1}d]].
+During the study, pay [[good:{S2}:{I1}]] to reduce the remaining time by two thirds.",
+LV.BCEv.BadtideDrainStudy.Panel,"The drain study is underway. Pay [[good:{S2}:{I1}]] at any time to reduce the remaining study time by two thirds.",
+LV.BCEv.BadtideDrainStudy.PanelAssisted,"The extra science has narrowed the search. The remaining study time has been reduced by two thirds.",
 LV.BCEv.BadtideDrainStudy.C3,"Dismiss the scientist",
 LV.BCEv.BadtideDrainStudy.C3N,"[[C]]Nothing happens.",
 LV.BCEv.BadtideDrainStudy.O1,"At last, the scientist returns with a finished report. The buried hooman structure is real. It may be reachable. By tomorrow morning, the colony must decide whether to dig.",
@@ -60,3 +62,74 @@ The core will detonate in a few days. The drain may be destroyed forever, but ev
 LV.BCEv.BadtideDrainExcavation.O2,"The order is given to stop.
 The scientist argues for one more day, one more test, one more look beneath the stone. But the decision holds.
 The notes are stored away, the tools are carried home, and the Badtide Drain remains untouched.",
+LV.BCEv.Taco,"The Folded Feast",
+LV.BCEv.Taco.Content,"A scavenger returns from the old hooman ruins carrying a brittle scrap of stained paper. Most of the words have faded, but one remains clear: <YellowHighlight>Taco</YellowHighlight>. No one knows what it means.
+A crude drawing appears to show food folded inside another kind of food. The cooks believe they could reproduce it, but no one can agree whether the colony needs inspiration or discipline today.",
+LV.BCEv.Taco.C1,"Try to recreate it",
+LV.BCEv.Taco.C1N,"[[C]][[-]]Pay [[good:{S1}:{I1}]] and [[good:{S2}:{I2}]].
+[[C]]<YellowHighlight>Unknown consequences.</YellowHighlight>",
+LV.BCEv.Taco.C2,"Reject the idea",
+LV.BCEv.Taco.C2N,"[[C]]The colony has better uses for its knowledge and planks.
+[[C]]<YellowHighlight>Unknown consequences.</YellowHighlight>",
+LV.BCEv.Taco.BuffTitle,"Folded Feast",
+LV.BCEv.Taco.BuffDesc,"+{%1} Working Speed",
+LV.BCEv.Taco.DebuffTitle,"Denied Feast",
+LV.BCEv.Taco.DebuffDesc,"{%3} Working Speed",
+LV.BCEv.Taco.O1,"After much debate, several failed experiments, and one flatbread nailed to a workbench, the cooks finally understand the recipe.
+Vegetables, grilled roots, and sauce are wrapped inside a warm folded shell. The first bite silences the whole kitchen. Then the cheering begins.
+[[C]][[+]]All beavers gain +{%1} Working Speed for [[time:{F2}d]]",
+LV.BCEv.Taco.O2,"The scrap is discarded, but word of the supposed hooman delicacy has already spread through the colony.
+Beavers grumble that the administration denied them the greatest meal ever invented, despite none of them knowing what it was supposed to taste like.
+[[C]][[-]]All beavers lose {%3} Working Speed for [[time:{F2}d]]",
+LV.BCEv.Taco2,"The Folded Feast: Unleashed",
+LV.BCEv.Taco2.Content,"The cooks have deciphered the remaining marks on the hooman recipe. Apparently, the first taco was only the mild version.
+The newly translated instructions describe stronger spices, a sharper sauce, and something repeatedly labelled <YellowHighlight>extra powerful</YellowHighlight>. Several cooks insist this must mean extra delicious. Others point out that the page is singed around the edges.
+The colony already knows the original taco works. Now the cooks want to attempt the improved version.",
+LV.BCEv.Taco2.C1,"Prepare the powerful version",
+LV.BCEv.Taco2.C1N,"[[C]][[-]]Pay [[good:{S1}:{I1}]], [[good:{S2}:{I2}]], and [[good:{S3}:{I3}]].
+[[C]]<YellowHighlight>Unknown consequences.</YellowHighlight>",
+LV.BCEv.Taco2.C2,"Keep it tame",
+LV.BCEv.Taco2.C2N,"[[C]][[-]]Pay [[good:{S1}:{I4}]].
+[[C]]<YellowHighlight>Unknown consequences.</YellowHighlight>",
+LV.BCEv.Taco2.C3,"No more hooman recipes",
+LV.BCEv.Taco2.C3N,"[[C]]End the experiment before the cooks decipher anything worse. <YellowHighlight>Unknown consequences.</YellowHighlight>",
+LV.BCEv.Taco2.BuffTitle,"Unleashed Power",
+LV.BCEv.Taco2.BuffDesc,"+{%1} Working Speed and Movement Speed",
+LV.BCEv.Taco2.SafeBuffTitle,"Familiar Feast",
+LV.BCEv.Taco2.SafeBuffDesc,"+{%2} Working Speed",
+LV.BCEv.Taco2.O1,"The new taco burns the tongue, clears the nose, and makes every beaver feel capable of constructing a dam with their bare paws.
+The colony surges into action with alarming enthusiasm.
+[[C]][[+]]All beavers gain +{%1} Working Speed and Movement Speed for [[time:{F3}d]]",
+LV.BCEv.Taco2.PowerfulPanel,"Something powerful has been unleashed. The cooks are watching the colony very closely.",
+LV.BCEv.Taco2.O2,"The cooks return to the original recipe. It lacks the promised hooman power, but it remains delicious, dependable, and unlikely to cause any trouble.
+[[C]][[+]]All beavers gain +{%2} Working Speed for [[time:{F3}d]]",
+LV.BCEv.Taco2.O3,"After examining the increasingly suspicious recipe, the cooks agree that some hooman knowledge is best left untranslated.
+The remaining scraps are locked away, and everyone quietly returns to eating sensible food.",
+LV.BCEv.Taco2.Cure.Content,"The powerful taco has completed its journey through the colony.
+The cooks now understand why the hoomans called it <YellowHighlight>extra powerful</YellowHighlight>. The entrance was painful. The exit threatens to become a historical event.
+A hurriedly designed concoction of water and berries may settle every stomach before the consequences reach the waterways.",
+LV.BCEv.Taco2.Cure.C1,"Prepare the soothing concoction",
+LV.BCEv.Taco2.Cure.C1N,"[[C]][[-]]Deliver [[good:{S6}:{CP_BeaverCount}]] and [[good:{S7}:{CP_BeaverCount}]] within [[time:{F4}d]].
+[[C]][[-]]Failure may have dire consequences.",
+LV.BCEv.Taco2.Cure.O1,"The final barrel arrives just in time.
+After several long hours and a colony-wide agreement never to discuss the details, the crisis passes without contaminating the water supply.
+The cooks burn the extra-powerful recipe.",
+LV.BCEv.Taco2.Cure.O2,"The concoction is not completed in time.
+Soon afterward, the water watchers notice a foul reddish current seeping into the basin. No one officially identifies the source, but every beaver involved in the taco experiment suddenly becomes very interested in leaving town.
+The powerful recipe has produced one final, deeply regrettable effect.
+[[C]][[-]]A random water source becomes contaminated for [[time:{F4}d]]",
+LV.BCEv.Taco2.Cure.WaterBuffTitle,"Regrettable Current",
+LV.BCEv.Taco2.Cure.WaterBuffDesc,"This water source is contaminated by the extra-powerful taco aftermath.",
+LV.BCEv.WaterfallSinkhole.Pref,"Sinkhole of the Waterfall",
+LV.BCEv.WaterfallSinkhole.Pref.Content,"[[-]]This event will dramatically alter the map. Buildings within the affected area may be destroyed, and any beavers caught there may be killed.
+Do you want to enable this event?",
+LV.BCEv.WaterfallSinkhole.Pref.C1,"Proceed now",
+LV.BCEv.WaterfallSinkhole.Pref.C1N,"[[C]]Trigger the Sinkhole of the Waterfall immediately.
+[[C]][[-]]This may destroy buildings and kill beavers in an area.",
+LV.BCEv.WaterfallSinkhole.Pref.C2,"Wait until Cycle {I1}",
+LV.BCEv.WaterfallSinkhole.Pref.C2N,"[[C]]The event will not trigger before Cycle {I1}.",
+LV.BCEv.WaterfallSinkhole.Pref.C3,"Skip this event",
+LV.BCEv.WaterfallSinkhole.Pref.C3N,"[[C]]Permanently disable the Sinkhole of the Waterfall event for this settlement.",
+LV.BCEv.WaterfallSinkhole.Content,"As the final beam is secured, a low rumble rises from beneath the construction. Tools rattle, supports groan, and the ground begins to heave under the beavers' paws.
+
+Then, without warning, a deep crack tears across the earth. Soil and stone collapse inward as the fissure widens into a vast sinkhole, dragging buildings, debris, and anything unable to escape into the darkness below. Beavers scatter in panic while the land around the waterfall shifts, fractures, and gives way.",
