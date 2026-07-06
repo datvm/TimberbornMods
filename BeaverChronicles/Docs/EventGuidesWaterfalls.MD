@@ -194,7 +194,7 @@ The event inserts a tiny delay before destructive work:
 }
 ```
 
-This avoids deleting a building in the same tick it finished construction.
+This avoids deleting a building in the same tick it finished construction, which could cause a crash.
 
 ### Area Victims
 

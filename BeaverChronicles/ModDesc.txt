@@ -4,6 +4,15 @@ Instead of only reacting to numbers, alerts, and shortages, your settlement can 
 
 [img]https://files.catbox.moe/b8azee.jpg[/img]
 
+[h1]v11.0 update[/h1]
+
+The new v11.0 update (only affects Timberborn v1.1 and above) completely revamps the Beaver Chronicles event system.
+
+[b]Important save note:[/b] Old Beaver Chronicles story progress will not be moved over. Existing Timberborn saves should still load, but Chronicle stories will have to start again.
+As a player, you should not see many changes to the core experience besides new events, cleaner event behavior, and better support for event packs.
+
+For developers, this is a huge system revamp. You can now write complete Chronicle events in JSON without any C# code, including map-specific events, follow-up chains, timers, payments, buffs, entity searches, spawning, camera effects, and terrain-changing events. Documentation and examples are available here: [url=https://github.com/datvm/TimberbornMods/tree/master/BeaverChronicles/Docs]Modding Guide[/url] and [url=https://github.com/datvm/TimberbornMods/blob/master/BeaverChronicles/Docs/EventGuidesWaterfalls.MD]Waterfall Event Guides[/url]. Old C# events are still supported. All existing events in the base mods are also rewritten in JSON for reference.
+
 [h1]Story Events[/h1]
 
 Events can appear as your colony reaches certain conditions. Some are simple one-time moments, while others may ask you to make a choice, commit resources, meet an objective, or accept unknown consequences.
@@ -32,8 +41,6 @@ Beaver Chronicles is also built to support expansion packs. Add-ons can introduc
 Beaver Chronicles provides a framework for creating narrative Timberborn events without rebuilding the whole event pipeline yourself.
 
 It handles event registration, trigger handling, saved active events, choice dialogs, payment objectives, history pages, mixed resource text, temporary character bonuses, follow-up events, helper services, and localization patterns for writing Chronicle scenarios.
-
-Until full documentation is ready, Campfire Mystery is a good example of how to build a story event or scenario.
 
 Feel free to contact me on the official Timberborn Discord.
 
