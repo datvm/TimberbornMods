@@ -17,6 +17,7 @@ This file is a living handoff note for AI agents working in this `BeaverChronicl
 - `Docs/README.MD` is a non-technical JSON event authoring guide; `Docs/References.MD` is intended to catalog conditions and handler nodes.
 - `Docs/EventGuides.MD` is the continuation page for more event examples and JSON authoring guides.
 - `Docs/EventGuides.MD` covers all base JSON events in teaching order: FirstDeath, FirstChildGrowth, DroughtPrep, Unhoused, ContaminationConspiracy, ContaminationCure/Pasteur's Gamble, FoodWoodDispute1, and FoodWoodDispute2.
+- `Docs/EventGuidesWaterfalls.MD` covers JSON examples from `../BeaverChroniclesWaterfallEventPack`, including map flags, water-source buffs, follow-up chains, spawning, terrain deletion, and camera effects.
 - `Docs/README.MD` includes a "Text Placeholders" section covering Beaver Chronicles `{S1}`/`{CP_Name}`/`{%1}` placeholders and Timberborn mixed-text tags like `[[C]]`, `[[+]]`, `[[good:...]]`, `[[time:...]]`, and `[[icon:...]]`.
 - Beaver Chronicles docs link to the shared ModdableTimberborn game stat list at `../ModdableTimberborn/Docs/GameStats.MD#built-in-stat-quick-reference` instead of duplicating stat IDs.
 - Docs may use GitHub-style callout boxes such as `> [!INFO]` when a note is helpful.
