@@ -182,7 +182,8 @@ public class FindEntityHelper(
             return GetCharacters(types);
         }
 
-        return GetCharacters(types).Where(c => areas.FastAny(a => a.Contains(c.Transform.position.FloorToInt())));
+        return GetCharacters(types).Where(c => areas
+            .FastAny(a => a.Contains(NavigationCoordinateSystem.WorldToGridInt(c.Transform.position))));
     }
 
     public IEnumerable<BlockObjectBound> FindBuildings(

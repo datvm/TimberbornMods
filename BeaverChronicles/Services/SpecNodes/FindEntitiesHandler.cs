@@ -42,7 +42,7 @@ public class FindEntitiesHandler(
     IEnumerable<string> FindEntities(FindEntitiesData data, SpecChronicleEventController controller)
     {
         var areas = data.AreasBounds;
-
+            
         if (data.CharacterType != CharacterType.Unknown)
         {
             foreach (var c in findEntityHelper.GetCharacters(data.CharacterType, areas))
@@ -51,12 +51,25 @@ public class FindEntitiesHandler(
             }
         }
 
-        var templateNames = controller.FormatTextsRemoveEmpty(data.TemplateNames).ToArray();
-        var templatePrefixes = controller.FormatTextsRemoveEmpty(data.TemplatePrefixes).ToArray();
-
-        foreach (var c in findEntityHelper.FindEntitiesByTemplates(templateNames, templatePrefixes, areas, data.AreaCondition))
+        if (data.AllBuildings)
         {
-            yield return c.GetEntityId().ToString();
+            foreach (var c in findEntityHelper.FindBuildings(areas: areas, areaCondition: data.AreaCondition))
+            {
+                yield return c.GetEntityId().ToString();
+            }
+        }
+        else
+        {
+            var templateNames = controller.FormatTextsRemoveEmpty(data.TemplateNames).ToArray();
+            var templatePrefixes = controller.FormatTextsRemoveEmpty(data.TemplatePrefixes).ToArray();
+
+            if (templateNames.Length != 0 || templatePrefixes.Length != 0)
+            {
+                foreach (var c in findEntityHelper.FindEntitiesByTemplates(templateNames, templatePrefixes, areas, data.AreaCondition))
+                {
+                    yield return c.GetEntityId().ToString();
+                }
+            }
         }
     }
 }

@@ -24,4 +24,11 @@ public class MBeaverChroniclesConfigs : BaseModdableTimberbornAttributeConfigura
         ;
     }
 
+    public override void Configure(Configurator configurator, ConfigurationContext context)
+    {
+        base.Configure(configurator, context);
+
+        configurator.TryBindingCameraShake(context == ConfigurationContext.MainMenu);
+    }
+
 }

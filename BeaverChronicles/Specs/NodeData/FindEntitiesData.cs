@@ -2,6 +2,7 @@
 
 public record FindEntitiesData
 {
+    public bool AllBuildings { get; init; }
     public string[] TemplateNames { get; init; } = [];
     public string[] TemplatePrefixes { get; init; } = [];
     public CharacterType CharacterType { get; init; } = CharacterType.Unknown;

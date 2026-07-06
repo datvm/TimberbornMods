@@ -30,7 +30,7 @@ Whatever is buried there was built to stop the drain forever.
 The first survey will take time, but the scientist says better instruments and old calculations could shorten whatever work remains.",
 LV.BCEv.BadtideDrainStudy.C1,"Look into it",
 LV.BCEv.BadtideDrainStudy.C1N,"[[C]]Begin the study. [[time:{F1}d]].
-During the study, pay [[good:{S2}:{I1}]] to reduce the remaining time by two thirds.",
+[[C]]During the study, pay [[good:{S2}:{I1}]] to reduce the remaining time by two thirds.",
 LV.BCEv.BadtideDrainStudy.Panel,"The drain study is underway. Pay [[good:{S2}:{I1}]] at any time to reduce the remaining study time by two thirds.",
 LV.BCEv.BadtideDrainStudy.PanelAssisted,"The extra science has narrowed the search. The remaining study time has been reduced by two thirds.",
 LV.BCEv.BadtideDrainStudy.C3,"Dismiss the scientist",
@@ -132,4 +132,10 @@ LV.BCEv.WaterfallSinkhole.Pref.C3,"Skip this event",
 LV.BCEv.WaterfallSinkhole.Pref.C3N,"[[C]]Permanently disable the Sinkhole of the Waterfall event for this settlement.",
 LV.BCEv.WaterfallSinkhole.Content,"As the final beam is secured, a low rumble rises from beneath the construction. Tools rattle, supports groan, and the ground begins to heave under the beavers' paws.
 
-Then, without warning, a deep crack tears across the earth. Soil and stone collapse inward as the fissure widens into a vast sinkhole, dragging buildings, debris, and anything unable to escape into the darkness below. Beavers scatter in panic while the land around the waterfall shifts, fractures, and gives way.",
+Then, without warning, a deep crack tears across the earth. Soil and stone collapse inward as the fissure widens into a vast sinkhole, dragging buildings, debris, and anything unable to escape into the darkness below. Beavers scatter in panic while the land around the waterfall shifts, fractures, and gives way.
+
+However, from the deepest broken stone, clear water begins to rise. It does not gush like the waterfall above. It seeps upward with steady pressure, cold and stubborn, as if the collapse has opened a hidden spring that drought cannot silence.
+[[C]][[-]]{CP_SinkholeVictims_Count} characters killed and buildings destroyed
+[[C]][[+]]A new water source emerges, permanently immune to drought.",
+LV.BCEv.WaterfallSinkhole.WaterBuffTitle,"Sinkhole Spring",
+LV.BCEv.WaterfallSinkhole.WaterBuffDesc,"This water source keeps flowing through droughts.",

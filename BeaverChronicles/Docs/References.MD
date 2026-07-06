@@ -40,6 +40,7 @@ Node types are the executable steps inside a Chronicle event graph.
 | Name | Parameters | Description |
 |---|---|---|
 | [Chance](#chancedata) | [ChanceData](#chancedata) | Randomly routes to a success or failure node. |
+| [Camera](#cameradata) | [CameraData](#cameradata) | Moves or shakes the camera. |
 | [BuffWorkplaces](#buffworkplacesdata) | [BuffWorkplacesData](#buffworkplacesdata) | Applies a workplace buff to matching workplaces. |
 | [BuffWaterSource](#buffwatersourcedata) | [BuffWaterSourceData](#buffwatersourcedata) | Applies a buff to water-source entities. |
 | [BuffCharacters](#buffcharactersdata) | [BuffCharactersData](#buffcharactersdata) | Applies a buff to selected characters. |
@@ -303,6 +304,29 @@ Fields:
 | `SuccessNodeId` | `string?` | Node to run when the roll succeeds. |
 | `FailNodeId` | `string?` | Node to run when the roll fails. |
 
+## CameraData
+
+Requests camera changes. Processing is currently stubbed.
+
+Fields:
+
+| Name | Type | Description |
+|---|---|---|
+| `FocusOnEntityIds` | `string[]` | Optional entity IDs or custom-parameter keys to focus. |
+| `Position` | `SerializableFloats?` | Optional target camera position. |
+| `VerticalAngle` | `float?` | Optional vertical camera angle. |
+| `HorizontalAngle` | `float?` | Optional horizontal camera angle. |
+| `HorizontalAngel` | `float?` | Typo-compatible alias for `HorizontalAngle`. |
+| `ZoomLevel` | `float?` | Optional camera zoom level. |
+| `CameraShake` | `CameraShakeData?` | Optional camera shake request. |
+
+`CameraShakeData` fields:
+
+| Name | Type | Description |
+|---|---|---|
+| `Duration` | `float` | Shake duration. Defaults to `3`. |
+| `Strength` | `float` | Shake strength. Defaults to `1`. |
+
 ## BuffWorkplacesData
 
 Applies or removes a workplace buff for matching workplace templates.
@@ -439,6 +463,7 @@ Fields:
 
 | Name | Type | Description |
 |---|---|---|
+| `AllBuildings` | `bool` | When true, finds all buildings and ignores `TemplateNames`/`TemplatePrefixes`. |
 | `TemplateNames` | `string[]` | Exact template names to match. |
 | `TemplatePrefixes` | `string[]` | Template-name prefixes to match. |
 | `CharacterType` | `CharacterType` | Character filter. `Unknown` disables character search. |
