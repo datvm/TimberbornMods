@@ -204,6 +204,15 @@ public class SpecChronicleEventController(
             RecordRawCharacter("TriggerChild", grownUp.Child, CharacterType.ChildBeaver);
         }
 
+        if (parameters.GetParameterOrDefault<BuildingInstanceParameters>() is { } building)
+        {
+            RecordBuilding("TriggerBuilding", building);
+        }
+        else if (parameters.GetParameterOrDefault<BuildingParameters>() is { } buildingParameters)
+        {
+            RecordBuilding("TriggerBuilding", buildingParameters);
+        }
+
         void RecordCharacter(string prefix, CharacterParameters character)
         {
             record.CustomParameters.TryAdd(prefix + "Id", character.Character.GetEntityId().ToString());
@@ -220,6 +229,17 @@ public class SpecChronicleEventController(
             record.CustomParameters.TryAdd(prefix + "IsBeaver", true.ToString());
             record.CustomParameters.TryAdd(prefix + "IsAdult", (characterType == CharacterType.AdultBeaver).ToString());
             record.CustomParameters.TryAdd(prefix + "Type", characterType.ToString());
+        }
+
+        void RecordBuilding(string prefix, BuildingParameters building)
+        {
+            record.CustomParameters.TryAdd(prefix + "TemplateName", building.TemplateName);
+            if (building is BuildingInstanceParameters instance)
+            {
+                var bo = instance.BlockObject;
+                record.CustomParameters.TryAdd(prefix + "Id", bo.GetEntityId().ToString());
+                record.CustomParameters.TryAdd(prefix + "IsFinished", bo.IsFinished.ToString());
+            }
         }
     }
 

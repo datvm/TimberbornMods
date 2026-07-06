@@ -1,0 +1,158 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "Taco",
+        "TitleLoc": "LV.BCEv.Taco",
+        "Conditions": {
+            "Sources": [ "NewDay" ],
+            "Weight": 100,
+            "MinCycle": 3,
+            "ConditionNodeId": "IsTemperate",
+            "RequiredFlags": [ "MAP.WATERFALLS" ]
+        },
+        "Parameters": {
+            "Floats": [
+                0.05, // %1: Working speed bonus
+                3.0, // F2: Buff duration
+                -0.05 // %3: Working speed penalty
+            ],
+            "Strings": [
+                "Plank", // S1: Plank cost
+                "Science", // S2: Science cost
+                "TemperateWeather", // S3: Required weather id
+                "WorkingSpeed", // S4: Bonus stat
+                "Taco2" // S5: Follow-up event id
+            ],
+            "Ints": [
+                15, // I1: Plank cost
+                200 // I2: Science cost
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "IsTemperate",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "Weather",
+                                "Parameters": {
+                                    "CurrentWeatherId": "{S3}"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.Taco.Content",
+                        "TopImage": true,
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCEv.Taco.C1",
+                                "NoteLoc": "LV.BCEv.Taco.C1N",
+                                "NextNodeId": "TacoPayment"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.Taco.C2",
+                                "NoteLoc": "LV.BCEv.Taco.C2N",
+                                "NextNodeId": "TacoDebuff"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "TacoPayment",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "PanelTextLoc": "LV.BCEv.Taco.C1N",
+                        "PaidNodeId": "TacoBuff",
+                        "Payments": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{I1}"
+                            },
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{I2}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "TacoBuff",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "Taco_WorkingSpeed",
+                        "TitleLoc": "LV.BCEv.Taco.BuffTitle",
+                        "DescLoc": "LV.BCEv.Taco.BuffDesc",
+                        "CharacterTypes": "AdultBeaver, ChildBeaver",
+                        "Days": "{F2}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S4}",
+                                "Amount": "{F1}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "TacoSuccessMessage"
+                },
+                {
+                    "Id": "TacoSuccessMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.Taco.O1",
+                        "TopImage": true
+                    },
+                    "NextNodeId": "TacoBuffTimer"
+                },
+                {
+                    "Id": "TacoBuffTimer",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F2}",
+                        "PanelTextLoc": "LV.BCEv.Taco.BuffTitle"
+                    },
+                    "NextNodeId": "RequestTaco2"
+                },
+                {
+                    "Id": "RequestTaco2",
+                    "Type": "RequestNextEvent",
+                    "Data": {
+                        "Id": "{S5}"
+                    }
+                },
+                {
+                    "Id": "TacoDebuff",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "Taco_WorkingSpeed",
+                        "TitleLoc": "LV.BCEv.Taco.DebuffTitle",
+                        "DescLoc": "LV.BCEv.Taco.DebuffDesc",
+                        "CharacterTypes": "AdultBeaver, ChildBeaver",
+                        "Days": "{F2}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S4}",
+                                "Amount": "{F3}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "TacoFailureMessage"
+                },
+                {
+                    "Id": "TacoFailureMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.Taco.O2",
+                        "TopImage": true
+                    }
+                }
+            ]
+        }
+    }
+}

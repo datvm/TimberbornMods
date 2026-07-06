@@ -7,7 +7,7 @@
             "Weight": 2147483647,
             "RequiredFlags": [ "MAP.WATERFALLS", "EVENT.BadtideDrainStudy" ],
             "RequiredFlagsCondition": "All",
-            "BlockedFlags": [ "EVENT.BadtideDrainStudy.C1.3" ]
+            "BlockedFlags": [ "EVENT.BadtideDrainStudy.C1.2" ]
         },
         "Parameters": {
             "Floats": [

@@ -52,6 +52,8 @@ This file is a living handoff note for AI agents working in this `BeaverChronicl
 - `FindEntities.ChooseRandom` randomizes matching entities before applying `MaxCount`.
 - `CharacterStatus` node can remove or inflict a need on characters resolved from `EntityIds`; Pasteur's Gamble uses it for `BadwaterContamination`.
 - `SetCustomParameter` has a `Not` operation that treats true-like values as true and stores `"0"`; other values store `"1"`.
+- `Building` is a condition evaluator for explicit or trigger building entities. Use `EntityIds` such as `[ "TriggerBuildingId" ]` to inspect a building from `BuildingPlaced`, `BuildingFinished`, or `WonderActivated`; it supports template, finished-state, and area filters. Unless `ConsiderFreeBuildings` is true, free/place-finished buildings are filtered out before `ConditionType` is evaluated. This is different from `HasBuilding`, which scans any matching building in the colony.
+- `BuildingFinished` is fired from Timberborn's `EnteredFinishedStateEvent`; use `BuildingPlaced` only for initial entity placement.
 
 ## Helper Notes
 

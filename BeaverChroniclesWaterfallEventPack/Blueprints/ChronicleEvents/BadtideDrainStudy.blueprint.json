@@ -12,7 +12,7 @@
         "Parameters": {
             "Floats": [
                 30.0, // F1: Normal study duration
-                10.0 // F2: Science-assisted study duration
+                3.0 // F2: Remaining-time divisor after science assistance
             ],
             "Strings": [
                 "BadtideWeather", // S1: Badtide weather id
@@ -41,40 +41,17 @@
                     }
                 },
                 {
-                    "Id": "HasScience",
-                    "Type": "Condition",
-                    "Data": {
-                        "Conditions": [
-                            {
-                                "Type": "GameStat",
-                                "Parameters": {
-                                    "Stat": "{S2}",
-                                    "Value": "{I1}",
-                                    "Comparison": "GreaterOrEqual"
-                                }
-                            }
-                        ]
-                    }
-                },
-                {
                     "Id": "Choice",
                     "Type": "Choice",
                     "Data": {
                         "TextLoc": "LV.BCEv.BadtideDrainStudy.Content",
-                        "DefaultOption": 3,
+                        "DefaultOption": 2,
                         "TopImage": true,
                         "Options": [
                             {
                                 "TextLoc": "LV.BCEv.BadtideDrainStudy.C1",
                                 "NoteLoc": "LV.BCEv.BadtideDrainStudy.C1N",
                                 "NextNodeId": "NormalStudy"
-                            },
-                            {
-                                "TextLoc": "LV.BCEv.BadtideDrainStudy.C2",
-                                "NoteLoc": "LV.BCEv.BadtideDrainStudy.C2N",
-                                "NextNodeId": "PayScience",
-                                "EnabledConditionNodeId": "HasScience",
-                                "DisabledTextLoc": "LV.BCEv.DisabledNoResource"
                             },
                             {
                                 "TextLoc": "LV.BCEv.BadtideDrainStudy.C3",
@@ -89,24 +66,35 @@
                     "Type": "TimeLimit",
                     "Data": {
                         "Days": "{F1}",
-                        "PanelTextLoc": "LV.BCEv.BadtideDrainStudy.C1"
+                        "PanelTextLoc": "LV.BCEv.BadtideDrainStudy.Panel",
+                        "PaidNodeId": "ReduceRemainingStudyTime",
+                        "Payments": [
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{I1}"
+                            }
+                        ]
                     },
                     "NextNodeId": "StudyComplete"
                 },
                 {
-                    "Id": "PayScience",
-                    "Type": "Give",
+                    "Id": "ReduceRemainingStudyTime",
+                    "Type": "SetCustomParameter",
                     "Data": {
-                        "Science": "-{I1}"
+                        "Name": "ReducedStudyDays",
+                        "Type": "Float",
+                        "Value1": "{CP_TimeLimitRemainingDays}",
+                        "Value2": "{F2}",
+                        "Operation": "Div"
                     },
-                    "NextNodeId": "FastStudy"
+                    "NextNodeId": "AssistedStudy"
                 },
                 {
-                    "Id": "FastStudy",
+                    "Id": "AssistedStudy",
                     "Type": "TimeLimit",
                     "Data": {
-                        "Days": "{F2}",
-                        "PanelTextLoc": "LV.BCEv.BadtideDrainStudy.C2"
+                        "Days": "{CP_ReducedStudyDays}",
+                        "PanelTextLoc": "LV.BCEv.BadtideDrainStudy.PanelAssisted"
                     },
                     "NextNodeId": "StudyComplete"
                 },

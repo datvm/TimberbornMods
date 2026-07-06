@@ -1,0 +1,192 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "WaterfallSinkhole",
+        "TitleLoc": "LV.BCEv.WaterfallSinkhole.Pref",
+        "Repeat": true,
+        "Conditions": {
+            "Sources": [ "BuildingFinished" ],
+            "Weight": 2147483647,
+            "RequiredFlags": [ "MAP.WATERFALLS" ],
+            "BlockedFlags": [
+                "BCEv.WaterfallSinkhole.Disabled",
+                "BCEv.WaterfallSinkhole.Triggered"
+            ],
+            "ConditionNodeId": "IsTriggerBuildingInSinkholeArea"
+        },
+        "Parameters": {
+            "Ints": [
+                10 // I1: Minimum cycle for delayed trigger
+            ],
+            "Strings": [
+                "BCEv.WaterfallSinkhole.Disabled", // S1: Permanent disable flag
+                "BCEv.WaterfallSinkhole.WaitCycle", // S2: Delayed trigger flag
+                "BCEv.WaterfallSinkhole.Triggered" // S3: Already triggered flag
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "HasPreference",
+            "Items": [
+                {
+                    "Id": "IsTriggerBuildingInSinkholeArea",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "Building",
+                                "Parameters": {
+                                    "EntityIds": [ "TriggerBuildingId" ],
+                                    "Areas": [
+                                        {
+                                            "Position": {
+                                                "X": 37,
+                                                "Y": 66,
+                                                "Z": 0
+                                            },
+                                            "Size": {
+                                                "X": 13,
+                                                "Y": 8,
+                                                "Z": 256
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "HasPreference",
+                    "Type": "Condition",
+                    "Data": {
+                        "FulfilledNodeId": "CheckDelayedCycle",
+                        "FailedNodeId": "PreferenceChoice",
+                        "Conditions": [
+                            {
+                                "Type": "Flag",
+                                "Parameters": {
+                                    "Flag": "{S2}"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "PreferenceChoice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.WaterfallSinkhole.Pref.Content",
+                        "DefaultOption": 2,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCEv.WaterfallSinkhole.Pref.C1",
+                                "NoteLoc": "LV.BCEv.WaterfallSinkhole.Pref.C1N",
+                                "NextNodeId": "MarkTriggered"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.WaterfallSinkhole.Pref.C2",
+                                "NoteLoc": "LV.BCEv.WaterfallSinkhole.Pref.C2N",
+                                "NextNodeId": "SetDelayedFlag"
+                            },
+                            {
+                                "TextLoc": "LV.BCEv.WaterfallSinkhole.Pref.C3",
+                                "NoteLoc": "LV.BCEv.WaterfallSinkhole.Pref.C3N",
+                                "NextNodeId": "SetDisabledFlag"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "SetDelayedFlag",
+                    "Type": "SetFlag",
+                    "Data": {
+                        "Name": "{S2}"
+                    }
+                },
+                {
+                    "Id": "SetDisabledFlag",
+                    "Type": "SetFlag",
+                    "Data": {
+                        "Name": "{S1}"
+                    }
+                },
+                {
+                    "Id": "CheckDelayedCycle",
+                    "Type": "Condition",
+                    "Data": {
+                        "FulfilledNodeId": "MarkTriggered",
+                        "Conditions": [
+                            {
+                                "Type": "GameStat",
+                                "Parameters": {
+                                    "Stat": "TimeCycle",
+                                    "Value": "{I1}",
+                                    "Comparison": "GreaterOrEqual"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "MarkTriggered",
+                    "Type": "SetFlag",
+                    "Data": {
+                        "Name": "{S3}"
+                    },
+                    "NextNodeId": "FindVictims"
+                },
+                {
+                    "Id": "FindVictims",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver, ChildBeaver, Bot",
+                        "MaxCount": 2147483647,
+                        "ResultName": "SinkholeVictims",
+                        "NoneFoundNodeId": "CollapseTerrain",
+                        "Areas": [
+                            {
+                                "Position": {
+                                    "X": 37,
+                                    "Y": 66,
+                                    "Z": 0
+                                },
+                                "Size": {
+                                    "X": 13,
+                                    "Y": 8,
+                                    "Z": 256
+                                }
+                            }
+                        ]
+                    },
+                    "NextNodeId": "CollapseTerrain"
+                },
+                {
+                    "Id": "CollapseTerrain",
+                    "Type": "DeleteEntity",
+                    "Data": {
+                        "EntityIds": [ "SinkholeVictims" ],
+                        "TerrainBounds": {
+                            "Position": {
+                                "X": 37,
+                                "Y": 66,
+                                "Z": 0
+                            },
+                            "Size": {
+                                "X": 13,
+                                "Y": 8,
+                                "Z": 256
+                            }
+                        }
+                    },
+                    "NextNodeId": "SinkholeMessage"
+                },
+                {
+                    "Id": "SinkholeMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCEv.WaterfallSinkhole.Content"
+                    }
+                }
+            ]
+        }
+    }
+}

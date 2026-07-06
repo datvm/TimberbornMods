@@ -65,6 +65,7 @@ Conditions are boolean checks used by event availability, node branching, and op
 |---|---|---|
 | [Chance](#chanceconditiondata) | [ChanceConditionData](#chanceconditiondata) | Passes randomly based on a configured chance. |
 | [HasBuilding](#hasbuildingdata) | [HasBuildingData](#hasbuildingdata) | Checks for buildings matching template and state filters. |
+| [Building](#buildingconditiondata) | [BuildingConditionData](#buildingconditiondata) | Checks explicit building IDs or building filters. |
 | [CustomParameter](#customparameterdata) | [CustomParameterData](#customparameterdata) | Checks whether a custom parameter exists or compares its value. |
 | [WorkplaceWorkerCount](#workplaceworkercountdata) | [WorkplaceWorkerCountData](#workplaceworkercountdata) | Checks worker counts for matching workplaces. |
 | [GameStat](#gamestatdata) | [GameStatData](#gamestatdata) | Compares a ModdableTimberborn game stat. |
@@ -178,6 +179,7 @@ Custom parameters written:
 | Name | Description |
 |---|---|
 | `TriggerSource` | Source name that triggered the event check. |
+| `TriggerBuildingTemplateName` | Trigger building template name. |
 
 Provided parameters:
 
@@ -196,6 +198,9 @@ Custom parameters written:
 | Name | Description |
 |---|---|
 | `TriggerSource` | Source name that triggered the event check. |
+| `TriggerBuildingId` | Trigger building entity ID. |
+| `TriggerBuildingTemplateName` | Trigger building template name. |
+| `TriggerBuildingIsFinished` | Whether the trigger building is finished. |
 
 Provided parameters:
 
@@ -620,6 +625,23 @@ Fields:
 | `TemplateNamePrefixes` | `string[]` | Building template-name prefixes to count. |
 | `Amount` | `MinMaxInt` | Required count range. Defaults to at least 1. |
 | `IncludeUnderConstruction` | `bool` | Whether unfinished buildings count. |
+| `Areas` | `SerializableBoundsInts[]` | Optional map-area filters. |
+| `AreaCondition` | `AreaCondition` | How building bounds are compared with `Areas`. |
+
+## BuildingConditionData
+
+Checks building entity IDs or filters. Use `EntityIds: [ "TriggerBuildingId" ]` to inspect the building supplied by building-related trigger sources.
+
+Fields:
+
+| Name | Type | Description |
+|---|---|---|
+| `EntityIds` | `string[]` | Building entity IDs. Supports text placeholders and custom-parameter keys. |
+| `ConditionType` | `ConditionType` | Combines matched buildings. Defaults to `Any`. |
+| `TemplateNames` | `FrozenSet<string>` | Exact building template names to match. |
+| `TemplateNamePrefixes` | `string[]` | Building template-name prefixes to match. |
+| `IsFinished` | `bool?` | Optional finished/under-construction filter. |
+| `ConsiderFreeBuildings` | `bool` | When false, free/place-finished buildings are ignored before `ConditionType` is evaluated. |
 | `Areas` | `SerializableBoundsInts[]` | Optional map-area filters. |
 | `AreaCondition` | `AreaCondition` | How building bounds are compared with `Areas`. |
 

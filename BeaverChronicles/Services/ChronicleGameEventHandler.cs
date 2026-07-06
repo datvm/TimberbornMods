@@ -171,7 +171,7 @@ public class ChronicleGameEventHandler(
     {
         if (CreateBuilding(e.BlockObject) is { } p)
         {
-            Trigger(Create(EventTriggerSource.BuildingPlaced, p));
+            Trigger(Create(EventTriggerSource.BuildingFinished, p));
         }
     }
 
