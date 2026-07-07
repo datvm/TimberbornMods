@@ -1,6 +1,6 @@
 ﻿namespace Pin.Components;
 
-public class PinComponent(PinService pinService) : BaseComponent, IDuplicable<PinComponent>, IPersistentEntity, IFinishedStateListener, IAwakableComponent, IStartableComponent
+public class PinComponent(PinService pinService) : BaseComponent, IDuplicable<PinComponent>, IPersistentEntity, IFinishedStateListener, IAwakableComponent, IInitializableEntity
 {
     static readonly ComponentKey SaveKey = new(nameof(PinComponent));
     static readonly PropertyKey<Color> ColorKey = new("Color");
@@ -38,12 +38,13 @@ public class PinComponent(PinService pinService) : BaseComponent, IDuplicable<Pi
 
         namedEntity = GetComponent<NamedEntity>();
         InitializePole();
+        InitializePin();
     }
 
-    public void Start()
+    public void InitializeEntity()
     {
-        InitializePin();
         namedEntity.EntityNameChanged += (_, _) => UpdatePin();
+        UpdatePin();
     }
 
     public void Load(IEntityLoader entityLoader)
