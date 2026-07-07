@@ -6,7 +6,8 @@
             "Sources": [ "NewDay" ],
             "Weight": 200,
             "MinDay": 5,
-            "MaxDay": 60
+            "MaxDay": 60,
+            "ConditionNodeId": "CanTriggerForFaction"
         },
         "Parameters": {
             "Floats": [
@@ -28,6 +29,32 @@
         "Nodes": {
             "StartNodeId": "InitialCheck",
             "Items": [
+                // Trigger condition
+                {
+                    "Id": "CanTriggerForFaction",
+                    "Type": "Condition",
+                    "Data": {
+                        "ConditionType": "Any",
+                        "Conditions": [
+                            {
+                                "Type": "Flag",
+                                "Parameters": {
+                                    "Flag": "FACTION.IronTeeth",
+                                    "State": false
+                                }
+                            },
+                            {
+                                "Type": "GameStat",
+                                "Parameters": {
+                                    "Stat": "TimeDayNumber",
+                                    "Value": "20",
+                                    "Comparison": "GreaterOrEqual"
+                                }
+                            }
+                        ]
+                    }
+                },
+
                 // Initial check
                 {
                     "Id": "InitialCheck",

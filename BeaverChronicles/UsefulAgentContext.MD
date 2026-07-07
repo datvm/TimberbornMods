@@ -38,6 +38,7 @@ This file is a living handoff note for AI agents working in this `BeaverChronicl
 ## Event Data Notes
 
 - When unsure whether event engine support, stats, nodes, or conditions exist, make a reasonable blueprint-level guess only if it uses existing patterns. If the support appears missing and would require adding code or new infrastructure, ask before adding it.
+- Timberborn child growth creates a new adult from the child, then `Adult.ReplaceChild` calls `child.DestroyCharacter()`, which posts `CharacterKilledEvent`. Beaver Chronicles suppresses that synthetic child-kill in `ChronicleGameEventHandler` after receiving `BeaverGrowTracker.BeaverGrownUpEvent`.
 
 - Choice node handling automatically writes choice flags for selected options. Follow-up events can require or block those generated flags instead of adding explicit `SetFlag` nodes just to remember which choice was picked.
 

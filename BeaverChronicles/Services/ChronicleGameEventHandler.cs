@@ -30,6 +30,7 @@ public class ChronicleGameEventHandler(
     string currWeather = "";
 
     readonly Dictionary<EventTriggerSource, int> triggerCount = [];
+    readonly HashSet<Character> grownUpChildrenPendingDeath = [];
     public int GetTriggerCount(EventTriggerSource source) => triggerCount.TryGetValue(source, out var c) ? c : 0;
     int GetAndIncreaseTriggerCount(EventTriggerSource source)
     {
@@ -140,11 +141,21 @@ public class ChronicleGameEventHandler(
     
     [OnEvent]
     public void OnBeaverGrownUp(BeaverGrowTracker.BeaverGrownUpEvent e)
-        => Trigger(Create(EventTriggerSource.BeaverGrownUp, new BeaverGrownUpParameters(e.Character, e.Child)));
+    {
+        grownUpChildrenPendingDeath.Add(e.Child);
+        Trigger(Create(EventTriggerSource.BeaverGrownUp, new BeaverGrownUpParameters(e.Character, e.Child)));
+    }
 
     [OnEvent]
     public void OnCharacterDeath(CharacterKilledEvent e)
-        => Trigger(Create(EventTriggerSource.CharacterDeath, Create(e.Character)));
+    {
+        if (grownUpChildrenPendingDeath.Remove(e.Character))
+        {
+            return;
+        }
+
+        Trigger(Create(EventTriggerSource.CharacterDeath, Create(e.Character)));
+    }
 
     [OnEvent]
     public void OnToolUnlocked(ToolUnlockedEvent e)
