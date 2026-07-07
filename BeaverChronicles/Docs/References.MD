@@ -705,6 +705,7 @@ Fields:
 | `Flag` | `string?` | Single flag to check. Supports text placeholders. |
 | `Flags` | `string[]` | Additional flags to check. Supports text placeholders. |
 | `ConditionType` | `ConditionType` | Combines flags. Valid values are `Never`, `Any`, and `All`. |
+| `State` | `bool` | Expected flag state. Defaults to `true`; set to `false` to require the flag to be absent. |
 
 ## GameStatData
 

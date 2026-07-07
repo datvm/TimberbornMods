@@ -1,1 +1,5 @@
-﻿v10.0.1: Fixed Weather-related events for players with Moddable Weather. Everyone please updates Moddable Timberborn to the latest version.
+﻿v11.0.1:
+- Fixed Beaver growing up counts as death
+- Delay IronTeeth's Unhouse event to 30 days instead of 5.
+Thanks piisfun for reporting.
+v10.0.1: Fixed Weather-related events for players with Moddable Weather. Everyone please updates Moddable Timberborn to the latest version.

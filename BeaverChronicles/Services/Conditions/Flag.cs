@@ -5,6 +5,7 @@ public record FlagData
     public string? Flag { get; init; }
     public ImmutableArray<string> Flags { get; init; } = [];
     public ConditionType ConditionType { get; init; } = ConditionType.All;
+    public bool State { get; init; } = true;
 }
 
 [MultiBind(typeof(IConditionEvaluator))]
@@ -25,8 +26,9 @@ public class Flag : ConditionEvaluatorBase<FlagData>
 
         var result = p.ConditionType.Evaluate(flags, f => {
             var hasFlag = ev.Controller.HelperCollection.Flags.HasFlag(f);
-            this.LogVerbose(node, () => $"- Flag {f}: {hasFlag}");
-            return hasFlag;
+            var matches = hasFlag == p.State;
+            this.LogVerbose(node, () => $"- Flag {f}: {hasFlag}, expected {p.State} -> {matches}");
+            return matches;
         });
         return result;
 
