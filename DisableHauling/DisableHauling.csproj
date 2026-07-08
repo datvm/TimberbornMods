@@ -1,7 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<OutputModFolderName>ConveyorBelt</OutputModFolderName>
+		<OutputModFolderName>DisableHauling</OutputModFolderName>
 	</PropertyGroup>
 	<Import Project="../Targets/Common.targets" />
 	<Import Project="../Targets/CommonModdableTimberborn.targets" />
+
+	<ItemGroup>
+		<Using Include="DisableHauling.Components"/>
+		<Using Include="DisableHauling.UI"/>
+	</ItemGroup>
 </Project>

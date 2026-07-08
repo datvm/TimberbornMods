@@ -1,9 +1,9 @@
 ﻿{
-    "Name": "Conveyor Belts",
+    "Name": "Disable Hauling",
     "Version": "11.0.0",
-    "Id": "ConveyorBelt",
+    "Id": "DisableHauling",
     "MinimumGameVersion": "1.1.0",
-    "Description": "Add conveyor belts",
+    "Description": "Add an option to disable hauling",
     "RequiredMods": [
         { "Id": "ModdableTimberborn" }
     ]

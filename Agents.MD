@@ -45,4 +45,10 @@ Prefer focused tests with clear arrange/act/assert spacing. Use helpers or facto
 
 Timberborn game source should be read from `ModdingAssetUpdater/out`, which contains decompiled game DLLs. When investigating game behavior, search and read that folder instead of decompiling assemblies on demand.
 
+More exported Timberborn game data is stored at `D:\Personal\Mods\Timberborn\V1Data\ExportedProject\Assets\Resources`. For example, the `Buildings` folder there contains game building blueprints that may be useful when comparing mod blueprints to vanilla behavior.
+
 If `ModdingAssetUpdater/out` does not exist or is empty, ask the user to decompile the game source there first.
+
+Game assemblies are publicized for mod projects. It is okay to reference publicized Timberborn types and members directly in code and Harmony patches instead of avoiding `internal` or private members with reflection-only approaches.
+
+When converting grid coordinates or directions into Unity/world vectors, check `CoordinateSystem` and its namespace code first. It likely already has the conversion needed, so avoid adding local helpers like `ToUnityDirection` unless the built-in conversion does not fit.
