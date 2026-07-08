@@ -1,0 +1,232 @@
+﻿{
+    "BuildingSpec": {
+        "SelectionSoundName": "Tubeway",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            {
+                "Id": "Plank",
+                "Amount": 4
+            },
+            {
+                "Id": "Gear",
+                "Amount": 8
+            }
+        ],
+        "ScienceCost": 600,
+        "PlaceFinished": false,
+        "FinishableWithBeaversOnSite": true,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "ConveyorLiftUp.Folktails",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BlockObjectNavMeshSettingsSpec": {
+        "NoAutoWalls": false,
+        "GenerateFloorsOnStackable": true,
+        "EdgeGroups": [],
+        "UnblockedCoordinates": [],
+        "BlockedEdges": []
+    },
+    "BlockObjectSpec": {
+        "Size": {
+            "X": 1,
+            "Y": 1,
+            "Z": 1
+        },
+        "Blocks": [
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Bottom, Top, Corners, Path, Middle",
+                "Stackable": "BlockObject",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
+        "Entrance": {
+            "HasEntrance": false,
+            "Coordinates": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": false
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "Storage",
+        "ToolOrder": 400,
+        "ToolShape": "Square",
+        "Layout": "Line",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": false
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.CBlt.ConveyorLiftUpName",
+        "DescriptionLocKey": "LV.CBlt.ConveyorLiftUpDescription",
+        "FlavorDescriptionLocKey": "LV.CBlt.ConveyorLiftUpFlavor",
+        "Icon": "Buildings/Storages/ConveyorBelt/ConveyorLiftUpIcon"
+    },
+    "ConveyorBeltSpec": {
+        "InputCoordinates": {
+            "X": 0,
+            "Y": 0,
+            "Z": -1
+        },
+        "OutputCoordinates": {
+            "X": 0,
+            "Y": 0,
+            "Z": 1
+        },
+        "ArrowDirection": {
+            "X": 0,
+            "Y": 0,
+            "Z": 1
+        },
+        "ForbiddenGoodTypes": [],
+        "TravelTimeHours": 0.5,
+        "Capacity": 5
+    },
+    "ConveyorBeltModelSpec": {},
+    "ConstructionSiteProgressVisualizerSpec": {
+        "ProgressThresholds": [
+            0.0
+        ]
+    },
+    "MechanicalBuildingSpec": {},
+    "MechanicalNodeSpec": {
+        "PowerOutput": 0,
+        "PowerInput": 50,
+        "IsShaft": false
+    },
+    "TransputProviderSpec": {
+        "Transputs": [
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "All",
+                "ReverseRotation": false
+            }
+        ],
+        "IgnoreRotation": false
+    },
+    "MechanicalConnectorTargetSpec": {},
+    "Children": {
+        "#Arrows": {},
+        "#Finished": {
+            "Children": {
+                "#Platform": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Storages/ConveyorBelt/Models/ConveyorBeltCover.Folktails.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.95,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.1,
+                                    "Z": 1.0
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                },
+                "Variant_000011": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Storages/ConveyorBelt/Models/ConveyorBelt000011.Folktails.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.02,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.04,
+                                    "Z": 1.0
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.5636263,
+                                    "Z": 0.5026854
+                                },
+                                "Size": {
+                                    "X": 0.361290455,
+                                    "Y": 0.863144636,
+                                    "Z": 0.3704958
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase1x1#nested": {
+                    "BlueprintPath": "ConstructionBases/ConstructionBase1x1/ConstructionBase1x1.blueprint"
+                },
+                "ConstructionStage0": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Storages/ConveyorBelt/Models/ConveyorBelt.Folktails.ConstructionStage0.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.05,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.1,
+                                    "Z": 1.0
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        }
+    }
+}

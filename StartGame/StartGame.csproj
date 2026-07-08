@@ -15,7 +15,7 @@
 
 		<!--<ProjectReference Include="..\ScientificProjects\AlternativeRecipesSPs\AlternativeRecipesSPs.csproj" />-->
 
-		<ProjectReference Include="..\Pin\Pin.csproj" />
+		<ProjectReference Include="..\ConveyorBelt\ConveyorBelt.csproj" />
 		<!--<ProjectReference Include="..\ModdableTimberborn.ModdableWeather\ModdableTimberborn.ModdableWeather.csproj" />-->
 
 

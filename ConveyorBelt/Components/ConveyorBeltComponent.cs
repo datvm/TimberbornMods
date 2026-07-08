@@ -1,109 +1,138 @@
 ﻿namespace ConveyorBelt.Components;
 
-public class ConveyorBeltComponent : BaseComponent, ISelectionListener, IFinishedStateListener
+[AddTemplateModule2(typeof(ConveyorBeltSpec))]
+public class ConveyorBeltComponent(ConveyorBeltService service)
+    : BaseComponent, IAwakableComponent, IFinishedStateListener, IEntityDescriber, IInitializableEntity, IPersistentEntity
 {
+    static readonly ComponentKey SaveKey = new(nameof(ConveyorBeltComponent));
+    static readonly ListKey<string> ItemsKey = new("Items");
 
-#nullable disable
-    ConveyorBeltService service;
-    ConveyorBeltSpec spec;
-    BlockableBuilding blockableBuilding;
-#nullable enable
+    public ConveyorBeltSpec Spec { get; private set; } = null!;
+    BlockObject bo = null!;
+    MechanicalBuilding mechanicalBuilding = null!;
 
-    public bool IsLift => spec.IsLift;
-    public ConveyorBeltConnection Connection { get; private set; } = new();
-    public ConveyorBeltCluster Cluster { get; private set; }
-    public bool Finished { get; private set; }
-    public bool Active => Finished && blockableBuilding.IsUnblocked;
+    public Vector3Int Coordinates => bo.Coordinates;
 
-    [Inject]
-    public void Inject(ConveyorBeltService service)
+    readonly List<ConveyorBeltItem> items = [];
+    public IReadOnlyList<ConveyorBeltItem> Items => items;
+
+    public Vector3Int InputCoordinates { get; private set; }
+    public Vector3Int OutputCoordinates { get; private set; }
+    
+    public ConveyorBeltItem? Head => items.Count > 0 ? items[0] : null;
+    public ConveyorBeltItem? Tail => items.Count > 0 ? items[^1] : null;
+    public float EndPosition => 1f;
+    public float ItemSpace => 1f / Spec.Capacity;
+
+    public bool CanAcceptItem
     {
-        this.service = service;
+        get
+        {
+            if (!mechanicalBuilding.CanUse) { return false; }
+            if (Tail is not { } t) { return true; }
+            return items.Count < Spec.Capacity && t.Position >= ItemSpace;
+        }
     }
+
+    public bool HasItemAtTheEnd
+    {
+        get
+        {
+            if (Head is not { } h) { return false; }
+            return h.Position >= EndPosition;
+        }
+    }
+
+    public bool IsInputCoordinates(Vector3Int coords) => InputCoordinates == coords;
+    public bool IsOutputCoordinates(Vector3Int coords) => OutputCoordinates == coords;
 
     public void Awake()
     {
-        spec = GetComponentFast<ConveyorBeltSpec>();
-        blockableBuilding = GetComponentFast<BlockableBuilding>();
-
-        blockableBuilding.BuildingBlocked += OnBlocked;
-        blockableBuilding.BuildingUnblocked += OnUnblocked;
+        Spec = GetComponent<ConveyorBeltSpec>();
+        bo = GetComponent<BlockObject>();
+        mechanicalBuilding = GetComponent<MechanicalBuilding>();
     }
 
-    internal void SetCluster(ConveyorBeltCluster cluster)
+    public void InitializeEntity()
     {
-        Cluster = cluster;
-    }
-
-    void OnUnblocked(object sender, EventArgs e)
-    {
-        TryToRegister();
-    }
-
-    void OnBlocked(object sender, EventArgs e)
-    {
-        service.Unregister(this);
+        InputCoordinates = bo.TransformCoordinates(Spec.InputCoordinates);
+        OutputCoordinates = bo.TransformCoordinates(Spec.OutputCoordinates);
     }
 
     public void OnEnterFinishedState()
     {
-        SetCoordinates();
-        Finished = true;
-
-        TryToRegister();
+        service.RegisterBelt(this);
     }
 
     public void OnExitFinishedState()
     {
-        Finished = false;
-        service.Unregister(this);
+        service.UnregisterBelt(this);
+        EjectContent();
     }
 
-    void TryToRegister()
+    public void EjectContent()
     {
-        if (Active)
-        {
-            service.Register(this);
-        }
+        if (items.Count == 0) { return; }
+
+        service.SpawnGoods(Coordinates, items.Select(i => new GoodAmount(i.GoodId, 1)));
+        items.Clear();
     }
 
-    void SetCoordinates()
+    public void Push(string goodId)
     {
-        var blockObject = GetComponentFast<BlockObject>();
-        var placement = blockObject.Placement;
-        var coord = placement.Coordinates;
-
-        Vector3Int prev, next;
-
-        if (IsLift)
+        if (!CanAcceptItem)
         {
-            prev = coord + ConveyorBeltService.Below;
-            next = coord + ConveyorBeltService.Above;
-        }
-        else
-        {
-            var orientationIndex = (int)placement.Orientation;
-            prev = coord + ConveyorBeltService.BeltOrientationPrevious[orientationIndex];
-            next = coord + ConveyorBeltService.BeltOrientationNext[orientationIndex];
+            throw new InvalidOperationException("Cannot accept item at this time.");
         }
 
-        Connection = new()
+        items.Add(new(goodId));
+    }
+
+    public ConveyorBeltItem Pop(bool ignoreTravelTime = false)
+    {
+        if (Head is not { } h)
         {
-            Coordinates = coord,
-            PreviousCoords = prev,
-            NextCoords = next,
-        };
+            throw new InvalidOperationException("No item to pop.");
+        }
+
+        if (!ignoreTravelTime && h.Position < EndPosition)
+        {
+            throw new InvalidOperationException("Item is not ready to be popped.");
+        }
+
+        items.RemoveAt(0);
+        return h;
     }
 
-    public void OnSelect()
+    public IEnumerable<EntityDescription> DescribeEntity()
     {
-        if (!Active) { return; }
-        service.HighlighCluster(this);
+        var t = service.t;
+        var spec = Spec;
+
+        var throughput = spec.Capacity / spec.TravelTimeHours;
+
+        return [ EntityDescription.CreateTextSection($"""
+            {SpecialStrings.RowStarter} {t.T("LV.CBlt.TravelTime", spec.TravelTimeHours, throughput)}
+            {SpecialStrings.RowStarter} {t.T("LV.CBlt.Capacity", spec.Capacity)}
+            """, 2001)
+        ];
     }
 
-    public void OnUnselect()
+    public void Save(IEntitySaver entitySaver)
     {
-        if (!Active) { return; }
-        service.UnhighlightCluster();
+        var s = entitySaver.GetComponent(SaveKey);
+        s.Set(ItemsKey, [.. items.Select(i => i.Serialize())]);
+    }
+
+    public void Load(IEntityLoader entityLoader)
+    {
+        if (!entityLoader.TryGetComponent(SaveKey, out var s)) { return; }
+
+        if (s.Has(ItemsKey))
+        {
+            var serializedItems = s.Get(ItemsKey);
+            items.Clear();
+            items.AddRange(serializedItems.Select(ConveyorBeltItem.Deserialize));
+        }
     }
 }

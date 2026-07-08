@@ -2,9 +2,6 @@
 	<PropertyGroup>
 		<OutputModFolderName>ConveyorBelt</OutputModFolderName>
 	</PropertyGroup>
-	<ItemGroup>
-	  <Folder Include="Patches\" />
-	</ItemGroup>
 	<Import Project="../Targets/Common.targets" />
 	<Import Project="../Targets/CommonModdableTimberborn.targets" />
 </Project>

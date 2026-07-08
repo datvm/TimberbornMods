@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Disable Hauling",
+    "Version": "11.0.0",
+    "Id": "DisableHauling",
+    "MinimumGameVersion": "1.1.0",
+    "Description": "Add an option to disable hauling",
+    "RequiredMods": [
+        { "Id": "ModdableTimberborn" }
+    ]
+}

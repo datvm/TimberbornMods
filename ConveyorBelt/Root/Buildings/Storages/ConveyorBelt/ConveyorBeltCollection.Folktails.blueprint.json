@@ -1,0 +1,10 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.Folktails",
+        "Blueprints": [
+            "Buildings/Storages/ConveyorBelt/ConveyorBelt.Folktails.blueprint",
+            "Buildings/Storages/ConveyorBelt/ConveyorLiftUp.Folktails.blueprint",
+            "Buildings/Storages/ConveyorBelt/ConveyorLiftDown.Folktails.blueprint"
+        ]
+    }
+}
