@@ -12,7 +12,7 @@
                 "Amount": 8
             }
         ],
-        "ScienceCost": 600,
+        "ScienceCost": 300,
         "PlaceFinished": false,
         "FinishableWithBeaversOnSite": true,
         "DrawRangeBoundsOnIt": false
@@ -67,9 +67,9 @@
     },
     "PlaceableBlockObjectSpec": {
         "ToolGroupId": "Storage",
-        "ToolOrder": 400,
+        "ToolOrder": 430,
         "ToolShape": "Square",
-        "Layout": "Line",
+        "Layout": "Single",
         "CustomPivot": {
             "HasCustomPivot": false,
             "Coordinates": {
@@ -98,16 +98,17 @@
             "Y": 0,
             "Z": -1
         },
-        "ArrowDirection": {
-            "X": 0,
-            "Y": 0,
-            "Z": -1
-        },
         "ForbiddenGoodTypes": [],
         "TravelTimeHours": 0.5,
         "Capacity": 5
     },
-    "ConveyorBeltModelSpec": {},
+    "ConveyorBeltModelSpec": {
+        "ArrowDirection": {
+            "X": 0,
+            "Y": 0,
+            "Z": -1
+        }
+    },
     "ConstructionSiteProgressVisualizerSpec": {
         "ProgressThresholds": [
             0.0

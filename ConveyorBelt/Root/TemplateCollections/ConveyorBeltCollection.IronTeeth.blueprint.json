@@ -1,0 +1,13 @@
+{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.IronTeeth",
+        "Blueprints": [
+            "Buildings/Storages/ConveyorBelt/ConveyorBelt.IronTeeth.blueprint",
+            "Buildings/Storages/ConveyorBelt/ConveyorBeltMerger.IronTeeth.blueprint",
+            "Buildings/Storages/ConveyorBelt/ConveyorLiftUp.IronTeeth.blueprint",
+            "Buildings/Storages/ConveyorBelt/ConveyorLiftDown.IronTeeth.blueprint",
+            "Buildings/Storages/ConveyorBelt/SmartConveyorBelt.IronTeeth.blueprint"
+        ]
+    }
+}
+

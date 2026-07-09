@@ -9,7 +9,7 @@ public record ConveyorBeltSpec : ComponentSpec
     public Vector3Int OutputCoordinates { get; init; }
 
     [Serialize]
-    public Vector3Int ArrowDirection { get; init; }
+    public bool CanFilterItem { get; init; }
 
     [Serialize]
     public ImmutableArray<string> ForbiddenGoodTypes { get; init; } = [];
@@ -19,5 +19,4 @@ public record ConveyorBeltSpec : ComponentSpec
 
     [Serialize]
     public int Capacity { get; init; }
-
 }

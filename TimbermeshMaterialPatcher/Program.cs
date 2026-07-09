@@ -31,10 +31,10 @@ string[] filePaths = [
 
 var materialMaps = new KeyValuePair<string, string>[]
 {
-    new("WindowsAtlas.IronTeeth", "WindowsAtlas.Folktails"),
-    new("BaseWood_Indigo.IronTeeth", "BaseWood_LightBrown.Folktails"),
-    new("BaseMetal.IronTeeth", "BaseWood_White.Folktails"),
-    new("BaseWood_DarkBrown.IronTeeth", "BaseWood_Brown.Folktails"),
+    new("WindowsAtlas.IronTeeth", "WindowsAtlas.IronTeeth"),
+    new("BaseWood_Indigo.IronTeeth", "BaseWood_Grey.IronTeeth"),
+    new("BaseMetal.IronTeeth", "IrregularPlanks_Grey.IronTeeth"),
+    new("BaseWood_DarkBrown.IronTeeth", "BaseWood_Grey.IronTeeth"),
 }.ToFrozenDictionary();
 
 const string OutputFolder = @"D:\Temp\Models";
@@ -65,8 +65,8 @@ foreach (var path in filePaths)
     }
 
     var outputName = Path.GetFileNameWithoutExtension(path)
-        .Replace("VerticalTubeway", "ConveyorBelt")
-        .Replace("IronTeeth", "Folktails");
+        .Replace("VerticalTubeway", "ConveyorBelt");
+        //.Replace("IronTeeth", "Folktails");
     var outputFilePath = Path.Combine(OutputFolder, $"{outputName}.timbermesh");
 
     await using var stream = File.Create(outputFilePath);

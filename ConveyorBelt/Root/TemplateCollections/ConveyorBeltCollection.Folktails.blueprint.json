@@ -3,8 +3,10 @@
         "CollectionId": "Buildings.Folktails",
         "Blueprints": [
             "Buildings/Storages/ConveyorBelt/ConveyorBelt.Folktails.blueprint",
+            "Buildings/Storages/ConveyorBelt/ConveyorBeltMerger.Folktails.blueprint",
             "Buildings/Storages/ConveyorBelt/ConveyorLiftUp.Folktails.blueprint",
-            "Buildings/Storages/ConveyorBelt/ConveyorLiftDown.Folktails.blueprint"
+            "Buildings/Storages/ConveyorBelt/ConveyorLiftDown.Folktails.blueprint",
+            "Buildings/Storages/ConveyorBelt/SmartConveyorBelt.Folktails.blueprint"
         ]
     }
 }
