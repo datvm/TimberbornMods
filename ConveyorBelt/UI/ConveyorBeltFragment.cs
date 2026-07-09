@@ -4,7 +4,10 @@
 public class ConveyorBeltFragment(
     IGoodService goods,
     NamedIconProvider namedIconProvider,
-    ILoc t
+    ILoc t,
+    VisualElementInitializer veInit,
+    DropdownItemsSetter dropdownItemsSetter,
+    ConveyorBeltService service
 ) : BaseEntityPanelFragment<ConveyorBeltComponent>
 {
     public const int IconSize = 30;
@@ -14,6 +17,7 @@ public class ConveyorBeltFragment(
 
     VisualElement container = null!;
     Button btnEject = null!;
+    DropdownRow<string> cboFilteredItem = null!;
 
     protected override void InitializePanel()
     {
@@ -23,6 +27,13 @@ public class ConveyorBeltFragment(
         s.backgroundColor = TimberUiUtils.WarningColor;
 
         btnEject = panel.AddGameButtonPadded(t.T("LV.CBlt.EjectContent"), EjectContent);
+
+        cboFilteredItem = panel.AddDropdownRow<string>(
+            t.T("LV.CBlt.FilteredItem"),
+            OnFilteredItemChanged,
+            veInit, dropdownItemsSetter)
+            .SetMargin(top: 10)
+            .SetDisplay(false);
     }
 
     void EnsureImages(int count)
@@ -42,6 +53,38 @@ public class ConveyorBeltFragment(
         for (int i = count; i < icons.Count; i++)
         {
             icons[i].SetDisplay(false);
+        }
+    }
+
+    void OnFilteredItemChanged(IndexedDropdownRowItem<string> goodId)
+    {
+        if (!component) { return; }
+
+        var id = goodId.Item.Value;
+        component!.FilteredGoodId = id.Length == 0 ? null : id;
+    }
+
+    public override void ShowFragment(BaseComponent entity)
+    {
+        base.ShowFragment(entity);
+        if (!component) { return; }
+
+        if (component!.CanFilterItems)
+        {
+            var qualifiedGoods = service.GetQualifiedGoods(component!);
+
+            cboFilteredItem.SetItems([
+                new DropdownRowItem<string>("", t.TNone()),
+                ..qualifiedGoods
+                    .Select(g => new DropdownRowItem<string>(g.Id, g.DisplayName.Value))
+                    .OrderBy(g => g.Text)
+            ]);
+            cboFilteredItem.SetSelectedValueWithoutNotifying(component.FilteredGoodId ?? "");
+            cboFilteredItem.SetDisplay(true);
+        }
+        else
+        {
+            cboFilteredItem.SetDisplay(false);
         }
     }
 
@@ -73,6 +116,13 @@ public class ConveyorBeltFragment(
 
             img.IsStuck = item.Stuck;
         }
+    }
+
+    public override void ClearFragment()
+    {
+        base.ClearFragment();
+
+        cboFilteredItem.SetDisplay(false);
     }
 
     void EjectContent()

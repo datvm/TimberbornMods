@@ -98,16 +98,17 @@
             "Y": -1,
             "Z": 0
         },
-        "ArrowDirection": {
-            "X": 0,
-            "Y": -1,
-            "Z": 0
-        },
         "ForbiddenGoodTypes": [],
         "TravelTimeHours": 1,
         "Capacity": 5
     },
-    "ConveyorBeltModelSpec": {},
+    "ConveyorBeltModelSpec": {
+        "ArrowDirection": {
+            "X": 0,
+            "Y": -1,
+            "Z": 0
+        }
+    },
     "ConstructionSiteProgressVisualizerSpec": {
         "ProgressThresholds": [
             0.0

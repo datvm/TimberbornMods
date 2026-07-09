@@ -46,7 +46,7 @@ public class ConveyorBeltProcessor(ConveyorBeltService service) : TickableCompon
             stuckStatusToggle.Deactivate();
         }
 
-        if (belt.CanAcceptItem)
+        if (belt.CanAcceptPotentialItem())
         {
             service.TryGrabContentIntoBelt(belt);
         }

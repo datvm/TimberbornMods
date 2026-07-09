@@ -1,6 +1,6 @@
 ﻿namespace ConveyorBelt.UI;
 
-[BindFragment]
+[BindSingleton] // Not Fragment, it's registered manually
 public class ConveyorBeltDebugFragment(
     DebugFragmentFactory fragmentFac,
     DialogService diag
@@ -42,7 +42,7 @@ public class ConveyorBeltDebugFragment(
     {
         if (!comp) { return; }
 
-        if (comp!.CanAcceptItem)
+        if (comp!.CanAcceptItem("Log"))
         {
             comp.Push("Log");
         }
