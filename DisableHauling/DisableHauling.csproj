@@ -6,7 +6,7 @@
 	<Import Project="../Targets/CommonModdableTimberborn.targets" />
 
 	<ItemGroup>
-		<Using Include="DisableHauling.Components"/>
-		<Using Include="DisableHauling.UI"/>
+		<Using Include="DisableHauling.Components" />
+		<Using Include="DisableHauling.UI" />
 	</ItemGroup>
 </Project>

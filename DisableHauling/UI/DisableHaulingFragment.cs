@@ -13,18 +13,24 @@ public class DisableHaulingFragment(
     internal static HaulCandidateFragment? fragment;
     DisableHaulingComponent? comp;
 
-    Toggle chkDisable = null!;
+    Toggle chkDisableHauling = null!;
 
     public void Load()
     {
         instance = this;
         var other = fragment!._root.Q("Toggle");
 
-        chkDisable = other.parent.AddChild<Toggle>(classes: ["game-toggle", "entity-panel__text", "entity-panel__toggle"])
-            .SetMargin(top: 10);
-        chkDisable.text = t.T("LV.DH.ToggleLabel");
-        chkDisable.RegisterValueChangedCallback(OnDisablingChanged);
-        chkDisable.InsertSelfAfter(other);
+        chkDisableHauling = AddCheckBox("LV.DH.ToggleHaulingLabel", OnDisablingChanged);
+
+        Toggle AddCheckBox(string textKey, Action<bool> onValueChanged)
+        {
+            var toggle = other.parent.AddChild<Toggle>(classes: ["game-toggle", "entity-panel__text", "entity-panel__toggle"])
+                .SetMargin(top: 10);
+            toggle.text = t.T(textKey);
+            toggle.RegisterValueChangedCallback(e => onValueChanged(e.newValue));
+            toggle.InsertSelfAfter(other);
+            return toggle;
+        }
     }
 
     internal void ShowFragment(BaseComponent entity)
@@ -36,7 +42,7 @@ public class DisableHaulingFragment(
             return;
         }
 
-        chkDisable.SetValueWithoutNotify(comp.DisableHauling);
+        chkDisableHauling.SetValueWithoutNotify(comp.DisableHauling);
     }
 
     internal void ClearFragment()
@@ -44,10 +50,10 @@ public class DisableHaulingFragment(
         comp = null;
     }
 
-    void OnDisablingChanged(ChangeEvent<bool> e)
+    void OnDisablingChanged(bool e)
     {
         if (!comp) { return; }
-        comp!.DisableHauling = e.newValue;
+        comp!.DisableHauling = e;
     }
 
     public void Unload()

@@ -1,0 +1,11 @@
+﻿A simple mod that adds an option to disable hauling to all buildings with an inventory in the game. This will prevent any goods from leaving or entering the building.
+
+[b]For Timberborn v1.1 only (currently in Exp branch).[/b]
+
+Exceptions:
+- Food and water are still consumed.
+- District Center still receives goods from rubbles (but won't send those goods out).
+- Workers at buildings like Lumberjack Flags and Farmhouses can still bring goods into the building. Similarly, Manufactories like the Lumbermill can still produce Plank if Logs are available in the building's inventory.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
