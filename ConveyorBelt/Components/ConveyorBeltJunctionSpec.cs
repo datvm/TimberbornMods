@@ -6,5 +6,5 @@ public record ConveyorBeltJunctionSpec : ComponentSpec
     public ImmutableArray<Vector3Int> InputCoordinates { get; init; } = [];
 
     [Serialize]
-    public Vector3Int OutputCoordinates { get; init; }
+    public ImmutableArray<Vector3Int> OutputCoordinates { get; init; } = [];
 }

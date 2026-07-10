@@ -2,16 +2,19 @@
 LV.CBlt.ConveyorBeltName,"Conveyor Belt",
 LV.CBlt.SmartConveyorBeltName,"Smart Conveyor Belt",
 LV.CBlt.ConveyorBeltMergerName,"Conveyor Belt Merger",
+LV.CBlt.ConveyorBeltSplitterName,"Conveyor Belt Splitter",
 LV.CBlt.ConveyorLiftUpName,"Conveyor Lift Up",
 LV.CBlt.ConveyorLiftDownName,"Conveyor Lift Down",
 LV.CBlt.ConveyorBeltDescription,"Transports items horizontally between two buildings."
 LV.CBlt.SmartConveyorBeltDescription,"Transports items horizontally between two buildings and filters which goods are accepted."
 LV.CBlt.ConveyorBeltMergerDescription,"Merges items from multiple input conveyor belts into one output conveyor belt."
+LV.CBlt.ConveyorBeltSplitterDescription,"Splits items from one input conveyor belt into multiple output conveyor belts."
 LV.CBlt.ConveyorLiftUpDescription,"Lifts items to the building above."
 LV.CBlt.ConveyorLiftDownDescription,"Lowers items to the building below."
 LV.CBlt.ConveyorBeltFlavor,"Folktail engineers say it was inspired by watching logs roll downhill.",
 LV.CBlt.SmartConveyorBeltFlavor,"The belt knows what it wants. The rejected goods take it personally.",
-LV.CBlt.ConveyorBeltMergerFlavor,"Three belts enter. One belt leaves.",
+LV.CBlt.ConveyorBeltMergerFlavor,"A peaceful solution to having too many directions.",
+LV.CBlt.ConveyorBeltSplitterFlavor,"It creates options. Choosing well is someone else's job.",
 LV.CBlt.ConveyorLiftUpFlavor,"For an Iron Teeth invention, it's surprisingly <i>uplifting</i>.",
 LV.CBlt.ConveyorLiftDownFlavor,"'Shouldn't this thing produce power instead of consuming it?'",
 LV.CBlt.TravelTime,"<YellowHighlight>Travel time:</YellowHighlight> {0:F1}h (Throughput: {1:F1} items/h)",
@@ -24,5 +27,8 @@ LV.CBlt.CannotCarry,"<RedHighlight>Cannot transport:</RedHighlight> {0}",
 LV.CBlt.GoodType_Pileable,"Piles",
 LV.CBlt.GoodType_Box,"Boxes",
 LV.CBlt.GoodType_Liquid,"Liquid",
+LV.CBlt.NoPower,"No power",
+LV.CBlt.NoPowerDesc,"Conveyor belts no longer require power to operate.",
+LV.CBlt.Update110,"Added Splitter. Added No Power option in the mod settings.",
 Name_ConveyorBeltDebugFragment,"Conveyor Belt Debug",
 Name_ConveyorBeltFragment,"Conveyor Belt",

@@ -16,23 +16,26 @@ public class ConveyorJunctionProcessor(ConveyorBeltService beltService) : ITicka
         {
             if (!j.CanUse) { continue; }
 
-            // Check for output
-            if (!belts.TryGetValue(j.OutputCoordinates, out var receiver)
-                || receiver.InputCoordinates != c
-                || !receiver.CanAcceptPotentialItem()) { continue; }
-
-            foreach (var input in j.GetInputCoordinates())
+            foreach (var outCoords in j.GetOutputCoordinates())
             {
-                if (!belts.TryGetValue(input, out var giver)
-                    || giver.OutputCoordinates != c
-                    || !giver.CanGiveItem) { continue; }
+                // Check for output
+                if (!belts.TryGetValue(outCoords, out var receiver)
+                    || receiver.InputCoordinates != c
+                    || !receiver.CanAcceptPotentialItem()) { continue; }
 
-                var goodId = giver.Head!.GoodId;
-                if (!receiver.IsValidGood(goodId)) { continue; }
+                foreach (var inCoords in j.GetInputCoordinates())
+                {
+                    if (!belts.TryGetValue(inCoords, out var giver)
+                        || giver.OutputCoordinates != c
+                        || !giver.CanGiveItem) { continue; }
 
-                var item = giver.Pop();
-                receiver.Push(item.GoodId);
-                break;
+                    var goodId = giver.Head!.GoodId;
+                    if (!receiver.IsValidGood(goodId)) { continue; }
+
+                    var item = giver.Pop();
+                    receiver.Push(item.GoodId);
+                    return;
+                }
             }
         }
     }

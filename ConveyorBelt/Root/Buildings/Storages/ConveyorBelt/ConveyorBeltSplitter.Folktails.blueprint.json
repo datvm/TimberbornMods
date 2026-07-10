@@ -26,7 +26,7 @@
         "UndergroundModelDepth": 0
     },
     "TemplateSpec": {
-        "TemplateName": "ConveyorBeltMerger.Folktails",
+        "TemplateName": "ConveyorBeltSplitter.Folktails",
         "BackwardCompatibleTemplateNames": [],
         "RequiredFeatureToggle": "",
         "DisablingFeatureToggle": ""
@@ -67,7 +67,7 @@
     },
     "PlaceableBlockObjectSpec": {
         "ToolGroupId": "Storage",
-        "ToolOrder": 410,
+        "ToolOrder": 420,
         "ToolShape": "Square",
         "Layout": "Single",
         "CustomPivot": {
@@ -82,10 +82,10 @@
         "DevModeTool": false
     },
     "LabeledEntitySpec": {
-        "DisplayNameLocKey": "LV.CBlt.ConveyorBeltMergerName",
-        "DescriptionLocKey": "LV.CBlt.ConveyorBeltMergerDescription",
-        "FlavorDescriptionLocKey": "LV.CBlt.ConveyorBeltMergerFlavor",
-        "Icon": "Buildings/Storages/ConveyorBelt/ConveyorBeltMergerIcon"
+        "DisplayNameLocKey": "LV.CBlt.ConveyorBeltSplitterName",
+        "DescriptionLocKey": "LV.CBlt.ConveyorBeltSplitterDescription",
+        "FlavorDescriptionLocKey": "LV.CBlt.ConveyorBeltSplitterFlavor",
+        "Icon": "Buildings/Storages/ConveyorBelt/ConveyorBeltSplitterIcon"
     },
     "ConveyorBeltJunctionSpec": {
         "InputCoordinates": [
@@ -93,10 +93,12 @@
                 "X": 0,
                 "Y": 1,
                 "Z": 0
-            },
+            }
+        ],
+        "OutputCoordinates": [
             {
-                "X": -1,
-                "Y": 0,
+                "X": 0,
+                "Y": -1,
                 "Z": 0
             },
             {
@@ -105,20 +107,8 @@
                 "Z": 0
             },
             {
-                "X": 0,
+                "X": -1,
                 "Y": 0,
-                "Z": 1
-            },
-            {
-                "X": 0,
-                "Y": 0,
-                "Z": -1
-            }
-        ],
-        "OutputCoordinates": [
-            {
-                "X": 0,
-                "Y": -1,
                 "Z": 0
             }
         ]
@@ -183,9 +173,9 @@
                         "CapsuleColliders": []
                     }
                 },
-                "Variant_111111": {
+                "Variant_111100": {
                     "TimbermeshSpec": {
-                        "Model": "Buildings/Storages/ConveyorBelt/Models/ConveyorBelt111111.Folktails.Model"
+                        "Model": "Buildings/Storages/ConveyorBelt/Models/ConveyorBelt111100.Folktails.Model"
                     },
                     "CollidersSpec": {
                         "BoxColliders": [

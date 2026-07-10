@@ -4,13 +4,11 @@
 public class ConveyorBeltProcessor(ConveyorBeltService service) : TickableComponent, IAwakableComponent, IFinishedStateListener
 {
     ConveyorBeltComponent belt = null!;
-    MechanicalBuilding mechanicalBuilding = null!;
     StatusToggle stuckStatusToggle = null!;
 
     public void Awake()
     {
         belt = GetComponent<ConveyorBeltComponent>();
-        mechanicalBuilding = GetComponent<MechanicalBuilding>();
         DisableComponent();
 
         var t = service.t;
@@ -31,7 +29,7 @@ public class ConveyorBeltProcessor(ConveyorBeltService service) : TickableCompon
 
     public override void Tick()
     {
-        if (!mechanicalBuilding.CanUse)
+        if (!belt.CanUse)
         {
             stuckStatusToggle.Deactivate();
             return;
@@ -54,7 +52,7 @@ public class ConveyorBeltProcessor(ConveyorBeltService service) : TickableCompon
 
     void MoveItems()
     {
-        var positionDelta = service.HoursPerTick / belt.Spec.TravelTimeHours;
+        var positionDelta = service.HoursPerTick / belt.Spec.TravelTimeHours * belt.Efficiency;
         var itemSpace = belt.ItemSpace;
         var prev = belt.EndPosition;
         var hasStuck = false;

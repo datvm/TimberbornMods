@@ -115,11 +115,13 @@
                 "Z": -1
             }
         ],
-        "OutputCoordinates": {
-            "X": 0,
-            "Y": -1,
-            "Z": 0
-        }
+        "OutputCoordinates": [
+            {
+                "X": 0,
+                "Y": -1,
+                "Z": 0
+            }
+        ]
     },
     "ConveyorBeltModelSpec": {
         "ArrowDirection": {

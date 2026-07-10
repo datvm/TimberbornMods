@@ -10,11 +10,14 @@ public class ConveyorBeltComponent(ConveyorBeltService service)
 
     public ConveyorBeltSpec Spec { get; private set; } = null!;
     BlockObject bo = null!;
-    MechanicalBuilding mechanicalBuilding = null!;
+    MechanicalNode mechanicalNode = null!;
     string forbiddenText = "";
 
     public Vector3Int Coordinates => bo.Coordinates;
     public bool CanFilterItems => Spec.CanFilterItem;
+    public bool NeedsPower => mechanicalNode.IsConsumer;
+    public bool CanUse => !NeedsPower || mechanicalNode.ActiveAndPowered;
+    public float Efficiency => NeedsPower ? mechanicalNode.PowerEfficiency : 1f;
 
     readonly List<ConveyorBeltItem> items = [];
     public IReadOnlyList<ConveyorBeltItem> Items => items;
@@ -35,7 +38,7 @@ public class ConveyorBeltComponent(ConveyorBeltService service)
     public bool CanAcceptPotentialItem()
     {
         // Power
-        if (!mechanicalBuilding.CanUse) { return false; }
+        if (!CanUse) { return false; }
 
         // Capacity
         if (Tail is { } t)
@@ -69,7 +72,7 @@ public class ConveyorBeltComponent(ConveyorBeltService service)
     {
         Spec = GetComponent<ConveyorBeltSpec>();
         bo = GetComponent<BlockObject>();
-        mechanicalBuilding = GetComponent<MechanicalBuilding>();
+        mechanicalNode = GetComponent<MechanicalNode>();
 
         if (Spec.ForbiddenGoodTypes.Length > 0)
         {
