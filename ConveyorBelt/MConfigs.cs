@@ -1,13 +1,15 @@
 ﻿namespace ConveyorBelt;
 
-public class MConveyorBeltConfigs : BaseModdableTimberbornAttributeConfiguration
+public class MConveyorBeltConfigs : BaseModdableTimberbornAttributeConfiguration, IWithDIConfig
 {
 
-    public override ConfigurationContext AvailableContexts => ConfigurationContext.Game;
+    public override ConfigurationContext AvailableContexts => ConfigurationContext.Game | ConfigurationContext.MainMenu;
 
     public override void Configure(Configurator configurator, ConfigurationContext context)
     {
         base.Configure(configurator, context);
+
+        if (context != ConfigurationContext.Game) { return; }
 
         configurator.MultiBind<EntityPanelModule>().ToProvider<DebugFragmentProvider>().AsSingleton();
     }

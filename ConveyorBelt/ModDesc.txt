@@ -9,30 +9,31 @@ The buildings are located in the Storages group.
 [tr][th]Name[/th][th]Cost[/th][th]Power Usage[/th][th]Description[/th][/tr]
 [tr][td]Conveyor Belt[/td][td]600 Science; 4 Planks, 4 Gears[/td][td]15 HP[/td][td]Transports items horizontally between two buildings.[/td][/tr]
 [tr][td]Conveyor Belt Merger[/td][td]100 Science; 12 Planks, 12 Gears[/td][td]15 HP[/td][td]Merges items from multiple input conveyor belts into one output conveyor belt.[/td][/tr]
+[tr][td]Conveyor Belt Splitter[/td][td]100 Science; 12 Planks, 12 Gears[/td][td]15 HP[/td][td]Splits items from one input conveyor belt into multiple output conveyor belts.[/td][/tr]
 [tr][td]Conveyor Lift Up[/td][td]300 Science; 4 Planks, 8 Gears[/td][td]50 HP[/td][td]Lifts items to the building above.[/td][/tr]
 [tr][td]Conveyor Lift Down[/td][td]300 Science; 4 Planks, 8 Gears[/td][td]5 HP[/td][td]Lowers items to the building below.[/td][/tr]
 [tr][td]Smart Conveyor Belt[/td][td]750 Science; 4 Planks, 4 Gears, 2 Metal Blocks[/td][td]30 HP[/td][td]Transports items horizontally between two buildings and filters which goods are accepted.[/td][/tr]
 [/table]
 
-Belts and Lifts can grab items from buildings or other belts in the arrow directions, then drop them onto the next belt or building. Because you cannot build Lift Up above [b]Folktails[/b]' Piles, they cannot use lifts to bring Pile items upward, though they can still drop them downward with Lift Down built below the Pile. Iron Teeth belts, however, cannot transport [b]Liquids[/b] like Water, mostly for balance reasons.
+Belts and Lifts can grab items from buildings or other belts in the arrow directions, then drop them onto the next belt or building. Conveyor speed now follows mechanical power efficiency, so underpowered belt networks still run, but slower. Because you cannot build Lift Up above [b]Folktails[/b]' Piles, they cannot use lifts to bring Pile items upward, though they can still drop them downward with Lift Down built below the Pile. Iron Teeth belts, however, cannot transport [b]Liquids[/b] like Water, mostly for balance reasons.
 
 [i]Example: A Centrifuge setup that is only possible with Folktails[/i]
 [img]https://files.catbox.moe/hn2mc6.jpg[/img]
 
-Conveyor Belt Mergers are special buildings. Technically, they are not even considered belts. They only work with other belts and lifts. A Merger has 5 inputs, so it can accept items from Lifts as well, but its only output direction is horizontal.
+Conveyor Belt Mergers and Splitters are special buildings. Technically, they are not even considered belts. They only work with other belts and lifts. A Merger has 5 inputs, so it can accept items from Lifts as well, but its only output direction is horizontal. A Splitter has 1 input and sends items across its available outputs in turn.
+
+[i]Example: Merger and Splitter + Smart Conveyor Belt[/i]
+[img]https://files.catbox.moe/4fz4vb.jpg[/img]
+
+Some may find dealing with power annoying. You can disable power requirements in the mod settings (Main Menu -> Mods -> Settings button next to the mod name).
+[img]https://files.catbox.moe/cypumt.jpg[/img]
 
 [h1]FAQS[/h1]
 Q: Corner belt?
-A: Build a small storage building or use Mergers.
+A: Build a small storage building or use Mergers or Splitters.
 
 Q: How do I lift Logs [or items stored in Pile]?
 A: Folktails do not have any non-modded Solid building that can contain Logs, so you cannot. For Iron Teeth, simply build a Conveyor Lift Up above an Industrial Pile.
-
-Q: Where's the splitter?
-A: Build a storage building. Any side of a building can be used as a source.
-
-Q: I still want a splitter!
-A: Not for now. If there is enough outrage, I [b]may[/b] consider it.
 
 Q: The warnings are annoying!
 A: Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3635342825]Warnings Be Gone[/url] to hide certain warnings, such as no entrance, since you will probably have a lot of inaccessible storage buildings now.
@@ -44,7 +45,7 @@ Q: My belt system is nice but Haulers and Workers still carry stuff manually.
 A: Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3760937316]Disable Hauling[/url] if you prefer belts to do all the work.
 
 Q: Power is annoying!
-A: All belt buildings transmit power. You will figure it out! Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3414359638]Always Connected[/url] if you prefer not to deal with power connections. [spoiler]There may be a cheat coming later to disable Power for Belts completely.[/spoiler]
+A: All belt buildings transmit power. You will figure it out! You can now use the mod's No Power option if you prefer not to power belts. Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3414359638]Always Connected[/url] if you still want power requirements but prefer not to deal with power connections.
 
 [b]Q: The mod does not show up?[/b]
 A: This mod only works with Timberborn v1.1 (currently in the Exp branch).

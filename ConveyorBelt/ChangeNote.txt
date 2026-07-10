@@ -1,0 +1,4 @@
+﻿v11.1.0:
+- Added Splitter.
+- Added No Power option.
+- Belt speed is now slowed down when underpowered.
