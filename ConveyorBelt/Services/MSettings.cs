@@ -10,4 +10,11 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         .CreateLocalized("LV.CBlt.NoPower")
         .SetLocalizedTooltip("LV.CBlt.NoPowerDesc"));
 
+    public ModSetting<bool> EarlierAvailability { get; } = new(false, ModSettingDescriptor
+        .CreateLocalized("LV.CBlt.EarlierAvailability")
+        .SetLocalizedTooltip("LV.CBlt.EarlierAvailabilityDesc"));
+
+    bool? shouldModifyTemplates;
+    public bool ShouldModifyTemplates => shouldModifyTemplates ??= NoPower.Value || EarlierAvailability.Value;
+
 }

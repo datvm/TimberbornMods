@@ -1,4 +1,7 @@
-﻿v11.1.0:
+﻿v11.1.1:
+- Added Earlier Availability option in the mod settings.
+
+v11.1.0:
 - Added Splitter.
 - Added No Power option.
 - Belt speed is now slowed down when underpowered.

@@ -1,6 +1,6 @@
 ﻿{
     "Name": "Conveyor Belts",
-    "Version": "11.1.0",
+    "Version": "11.1.1",
     "Id": "ConveyorBelt",
     "MinimumGameVersion": "1.1.0",
     "Description": "Add conveyor belts",
