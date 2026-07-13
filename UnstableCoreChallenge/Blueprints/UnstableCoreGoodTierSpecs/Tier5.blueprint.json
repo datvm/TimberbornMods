@@ -1,0 +1,18 @@
+﻿{
+    "UnstableCoreGoodTierSpec": {
+        "Tier": 5,
+        "GoodIds": [
+            "BotChassis",
+            "BotHead",
+            "BotLimb",
+            "Dirt",
+
+            "PunchCard",
+            "Catalyst",
+            "MaplePastry",
+
+            "Grease",
+            "Coffee"
+        ]
+    }
+}

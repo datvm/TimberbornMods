@@ -1,38 +1,17 @@
-﻿
-namespace UnstableCoreChallenge;
+﻿namespace UnstableCoreChallenge;
 
-public class MConfigs : BaseModdableTimberbornConfiguration
+public class MConfigs : BaseModdableTimberbornAttributeConfiguration
 {
-    public override ConfigurationContext AvailableContexts { get; } = ConfigurationContext.MainMenu | ConfigurationContext.Game;
+    public override ConfigurationContext AvailableContexts => ConfigurationContext.MainMenu | ConfigurationContext.Game;
 
     public override void StartMod(IModEnvironment modEnvironment)
     {
         base.StartMod(modEnvironment);
 
         ModdableTimberbornRegistry.Instance
+            .UseGameStats()
             .UseEntityTracker()
-            .TryTrack<UnstableCoreStabilizer>()
-            .TryTrack<Building>();
+            .TryTrack<UnstableCoreStabilizer>();
     }
 
-    public override void Configure(Configurator configurator, ConfigurationContext context)
-    {
-        configurator.BindSingleton<MSettings>();
-
-        if (!context.IsGameContext()) { return; }
-
-        configurator
-            .BindSingleton<CoreDisarmService>()
-            .BindSingleton<UnstableCoreSpawner>()
-            .BindSingleton<UnstableCoreService>()
-            
-            .BindFragment<StablizerFragment>()
-
-            .MultiBindSingleton<IDevModule, UnstableCoreChallengeDevModule>()
-
-            .BindTemplateModule(h => h
-                .AddDecorator<UnstableCoreSpec, UnstableCoreStabilizer>()
-            )
-        ;
-    }
 }

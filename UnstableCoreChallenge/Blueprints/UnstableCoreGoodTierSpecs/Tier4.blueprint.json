@@ -1,0 +1,20 @@
+﻿{
+    "UnstableCoreGoodTierSpec": {
+        "Tier": 4,
+        "GoodIds": [
+            "TreatedPlank",
+            "MetalBlock",
+            "Extract",
+            "Explosives",
+
+            "Biofuel",
+            "Bread",
+            "CattailCracker",
+
+            "CornRation",
+            "EggplantRation",
+            "AlgaeRation",
+            "MetalPart"
+        ]
+    }
+}

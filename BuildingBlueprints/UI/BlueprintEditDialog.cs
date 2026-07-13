@@ -111,12 +111,12 @@ public class BlueprintEditDialog(
         lblRenameDuplicate.SetDisplay(!valid);
     }
 
-    async void OnDeleteClicked(SerializableBuildingBlueprint original)
+    void OnDeleteClicked(SerializableBuildingBlueprint original) => UIHelpers.RunAsyncVoid(async () =>
     {
         if (!await diag.ConfirmAsync(t.T("LV.BB.DeleteConfirm"))) { return; }
 
         BuildingBlueprintPersistentService.DeleteBlueprintFile(original.Source.FilePath);
         OnUICancelled();
-    }
+    });
 
 }

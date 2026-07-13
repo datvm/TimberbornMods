@@ -1,0 +1,6 @@
+﻿{
+    "UnstableCoreGoodTierSpec": {
+        "Tier": 1,
+        "GoodIds": [ "Plank", "Carrot", "SunflowerSeeds", "Kohlrabi" ]
+    }
+}

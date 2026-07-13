@@ -50,7 +50,7 @@ public class DemolishBlueprintTool(
 
         var destroying = destructionService.QueryDestructingEntities(buildings.Select(b => b.GetComponent<BlockObject>()));
         destructionService.HighlightDestructionEntities(destroying);
-        
+
         if (inputService.MainMouseButtonDown)
         {
             AttemptDelete(destroying);
@@ -64,10 +64,11 @@ public class DemolishBlueprintTool(
         return false;
     }
 
-    async void AttemptDelete(DestroyingEntities destroying)
-    {
-        if (!await diag.ConfirmAsync(t.T("LV.BB.DemolishConfirm", destroying.BlockObjects.Length))) { return; }
-        destructionService.DestroyEntities(destroying);
-    }
+    void AttemptDelete(DestroyingEntities destroying) =>
+        UIHelpers.RunAsyncVoid(async () =>
+        {
+            if (!await diag.ConfirmAsync(t.T("LV.BB.DemolishConfirm", destroying.BlockObjects.Length))) { return; }
+            destructionService.DestroyEntities(destroying);
+        });
 
 }

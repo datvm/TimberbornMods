@@ -1,0 +1,19 @@
+﻿{
+    "UnstableCoreGoodTierSpec": {
+        "Tier": 3,
+        "GoodIds": [
+            "PineResin",
+            "ScrapMetal",
+            "Badwater",
+
+            "Antidotes",
+            "GrilledChestnut",
+            "GrilledSpadderdock",
+
+            "MangroveFruit",
+            "FermentedMushroom",
+            "FermentedSoybean",
+            "CanolaOil"
+        ]
+    }
+}

@@ -103,7 +103,7 @@ public class BlueprintPlacementService(
 
             if (shouldShow)
             {
-                _ = ValidatePreviewsAsync(false);
+                ValidatePreviews(false);
             }
         }
 
@@ -131,21 +131,21 @@ public class BlueprintPlacementService(
         {
             if (HighPerformanceMode)
             {
-                _ = ValidatePreviewsAsync(true);
+                ValidatePreviews(true);
             }
 
             uiSoundController.PlayCantDoSound();
             return true;
         }
 
-        _ = PlaceAsync();
+        Place();
         tcs!.TrySetResult(new(coordinates, BlueprintOrientation));
         return true;
     }
 
-    async Task PlaceAsync()
+    void Place()
     {
-        var buildings = await placementValidator.BuildPreviewsAsync(enumerator!.AllPreviews);
+        var buildings = placementValidator.BuildPreviews(enumerator!.AllPreviews);
 
         var groupId = blueprintGroupService.GetNextGroup();
         var copy = !IgnoreSettings;
@@ -382,12 +382,12 @@ public class BlueprintPlacementService(
         previewShower.ShowBuildablePreviews(enumerator.AllPreviews, out _);
     }
 
-    async Task ValidatePreviewsAsync(bool force)
+    void ValidatePreviews(bool force)
     {
         if (enumerator is null) { return; }
 
         var previews = enumerator.AllPreviews;
-        var validated = await GetPreviewValidationAsync(previews, force);
+        var validated = GetPreviewValidation(previews, force);
         lastPositionValid = validated.Count == previews.Length;
         highlighter.UnhighlightAllPrimary();
 
@@ -400,9 +400,9 @@ public class BlueprintPlacementService(
         }
     }
 
-    async Task<HashSet<Preview>> GetPreviewValidationAsync(ImmutableArray<Preview> previews, bool force) => !force && HighPerformanceMode
+    HashSet<Preview> GetPreviewValidation(ImmutableArray<Preview> previews, bool force) => !force && HighPerformanceMode
         ? []
-        : await placementValidator.ValidatePreviewsAsync(previews);
+        : placementValidator.ValidatePreviews(previews);
 
     Placement GetBuildingPlacement(in ParsedBlueprintBuildingPlacement buildingPlacement)
     {

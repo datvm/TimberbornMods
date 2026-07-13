@@ -30,7 +30,7 @@ public class DistroStorageFragment(
         {
             DistroPanel<T> r = new(t, goods, priorityFac);
             r.OnSelectRequested += OnSelectRequested;
-            return r;
+            return r.SetDisplay(false);
         }
     }
 

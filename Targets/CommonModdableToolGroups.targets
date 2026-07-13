@@ -7,7 +7,7 @@
 		<Using Include="ConfigurableToolGroups.Models" />
 		<Using Include="ConfigurableToolGroups.UI" />
 
-		<Reference Include="$(GameModsFolder)ModdableToolGroups\$(TimberbornVersion)\**\*.dll" Private="false" />	
+		<Reference Include="$(GameModsFolder)ModdableToolGroups\version-1.0\**\*.dll" Private="false" />	
 	</ItemGroup>
 
 </Project>
