@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Tech Tree",
+    "Version": "11.0.0",
+    "Id": "TechTree",
+    "MinimumGameVersion": "1.1.0",
+    "Description": "Tech Tree",
+    "RequiredMods": [
+        { "Id": "TimberUi" }
+    ]
+}

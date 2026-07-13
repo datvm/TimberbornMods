@@ -5,17 +5,21 @@ public class DistroStorageFragment(
     ILoc t,
     EntitySelectionService selectionService,
     IGoodService goods,
-    BuilderPriorityToggleGroupFactory priorityFac
+    BuilderPriorityToggleGroupFactory priorityFac,
+    DistroLinkRenderer renderer
 ) : BaseEntityPanelFragment<DistroStorageComponent>
 {
 
 #nullable disable
     DistroPanel<IDistroSender> pnlSender;
     DistroPanel<IDistroReceiver> pnlReceiver;
+    Toggle chkDisableArrows;
 #nullable enable
 
     protected override void InitializePanel()
     {
+        chkDisableArrows = panel.AddToggle(t.T("LV.DS.DisableArrows"), onValueChanged: OnDisableArrowsChanged);
+
         pnlSender = Create<IDistroSender>();
         pnlReceiver = Create<IDistroReceiver>();
 
@@ -31,6 +35,13 @@ public class DistroStorageFragment(
     }
 
     void OnSelectRequested(BaseComponent obj) => selectionService.SelectAndFocusOn(obj);
+
+    public override void ShowFragment(BaseComponent entity)
+    {
+        base.ShowFragment(entity);
+
+        chkDisableArrows.SetValueWithoutNotify(renderer.DisableArrows);
+    }
 
     public override void UpdateFragment()
     {
@@ -52,6 +63,11 @@ public class DistroStorageFragment(
         pnlSender.ClearInfo();
         pnlReceiver.ClearInfo();
         base.ClearFragment();
+    }
+
+    void OnDisableArrowsChanged(bool value)
+    {
+        renderer.SetDisableArrows(value);
     }
 
 }

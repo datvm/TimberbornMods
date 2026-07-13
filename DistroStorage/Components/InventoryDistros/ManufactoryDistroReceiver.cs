@@ -9,7 +9,7 @@ public class ManufactoryDistroReceiver(DistroService service) : InventoryDistroR
 #nullable enable
 
     public override Inventory Inventory => manufactory.Inventory;
-    public override bool SystemDisabled => base.SystemDisabled || service.DisableManufactory;
+    public override bool SystemDisabled => base.SystemDisabled || service.DisableManufactory || Inventory is not { IsInput: true };
     public override bool EnabledByDefault => service.ManufactoryEnableDefault;
 
     public override void Awake()

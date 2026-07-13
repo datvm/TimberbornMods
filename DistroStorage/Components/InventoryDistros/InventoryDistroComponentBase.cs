@@ -1,12 +1,14 @@
 ﻿namespace DistroStorage.Components.InventoryDistros;
 
-public abstract class InventoryDistroComponentBase(DistroService service) : DistroComponentBase(service), IStartableComponent
+public abstract class InventoryDistroComponentBase(DistroService service) : DistroComponentBase(service)
 {
 
     public abstract Inventory Inventory { get; }
 
-    public virtual void Start()
+    public override void InitializeEntity()
     {
+        base.InitializeEntity();
+
         Inventory.InventoryChanged += (_, _) => MarkActiveDirty();
         Inventory.InventoryStockChanged += (_, _) => MarkActiveDirty();
         Inventory.InventoryEnabled += (_, _) => MarkActiveDirty();

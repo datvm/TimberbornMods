@@ -5,11 +5,15 @@ namespace DistroStorage.UI;
 [BindSingleton]
 public class DistroLinkRenderer : ILoadableSingleton, IUnloadableSingleton
 {
+    const string SettingsKey = $"{nameof(DistroStorage)}.Settings.DisableArrows";
+
     public static readonly Color OutputColor = new(1f, 106f / 255, 0);
     public static readonly Color InputColor = new(0, .5f, 14 / 255f);
 
     readonly GameObject lineContainer = new();
     Material lineMaterial = null!;
+
+    public bool DisableArrows { get; private set; }
 
     const float ArcHeight = 1f;
     const float LineWidth = 0.05f;
@@ -96,6 +100,8 @@ public class DistroLinkRenderer : ILoadableSingleton, IUnloadableSingleton
 
     public void Load()
     {
+        DisableArrows = PlayerPrefs.GetInt(SettingsKey, 0) == 1;
+
         var shader = Shader.Find("Sprites/Default");
         if (shader == null)
         {
@@ -110,6 +116,14 @@ public class DistroLinkRenderer : ILoadableSingleton, IUnloadableSingleton
     {
         UnityEngine.Object.Destroy(lineContainer);
         UnityEngine.Object.Destroy(lineMaterial);
+    }
+
+    public void SetDisableArrows(bool disable)
+    {
+        DisableArrows = disable;
+        lineContainer.SetActive(!disable);
+
+        PlayerPrefs.SetInt(SettingsKey, disable ? 1 : 0);
     }
 
     GameObject CreateArrowHead(

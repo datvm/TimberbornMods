@@ -1,6 +1,6 @@
 ﻿namespace DistroStorage.Components;
 
-public abstract class DistroComponentBase : BaseComponent, IDistroComponent, IPreviewStateListener, IPersistentEntity, IAwakableComponent, IFinishedStateListener, IInitializableEntity, IDeletableEntity
+public abstract class DistroComponentBase : BaseComponent, IDistroComponent, IInitializablePreview, IPersistentEntity, IAwakableComponent, IFinishedStateListener, IInitializableEntity, IDeletableEntity
 {
     static readonly ComponentKey SaveKey = new(nameof(DistroComponentBase));
     static readonly PropertyKey<bool> EnabledKey = new(nameof(Enabled));
@@ -117,7 +117,7 @@ public abstract class DistroComponentBase : BaseComponent, IDistroComponent, IPr
         connectedComponents.Clear();
     }
 
-    public void OnEnterPreviewState()
+    public void InitializePreview()
     {
         disabledByPreview = true;
         DisableComponent();
