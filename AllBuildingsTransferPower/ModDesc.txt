@@ -1,0 +1,10 @@
+﻿This mod simply makes all buildings, and all parts of a building, be able to transfer power.
+
+Instant buildings (like Roads) are excluded, except the District Center. Power Shafts are also excluded because they are special buildings that would crash if modified.
+
+[img]https://files.catbox.moe/o9cwm9.jpg[/img]
+
+Intended to be for my Conveyor Belts mod to make power transfer less of a chore but it is not required.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

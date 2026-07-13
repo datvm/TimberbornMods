@@ -185,6 +185,7 @@
     <File Path="Targets/CommonTransparentShaders.targets" />
     <File Path="Targets/CommonUI.targets" />
   </Folder>
+  <Project Path="AllBuildingsTransferPower/AllBuildingsTransferPower.csproj" Id="cf6384c2-6cc8-4ba3-8de9-ecb4cbc7f0e6" />
   <Project Path="AllGoodsInWarehouses/AllGoodsInWarehouses.csproj" />
   <Project Path="AlwaysConnected/AlwaysConnected.csproj" />
   <Project Path="AlwaysFlexibleStart/AlwaysFlexibleStart.csproj" />
