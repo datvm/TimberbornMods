@@ -42,7 +42,7 @@ public abstract class InventoryDistroReceiverBase(DistroService service) : Inven
         base.Awake();
     }
 
-    public void TransferIn(GoodAmount good) => Inventory.Give(good);
+    public void TransferIn(GoodAmount good) => Inventory.GiveExisting(good);
     public void SetPriority(Priority priority) => Priority = priority;
 
     public string? CanReceiveGood(HashSet<string> goodIds)

@@ -1,2 +1,7 @@
-﻿v10.0.1: Added arrow indicators for senders and receivers
+﻿v11.0.0:
+- Updated for Timberborn v1.1.
+- Arrows can now be disabled.
+- Buildings with no input (like Water Pump) will no longer be a receiver.
+
+v10.0.1: Added arrow indicators for senders and receivers
 [img]https://files.catbox.moe/1urm1a.jpg[/img]

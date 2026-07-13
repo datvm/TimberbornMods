@@ -14,7 +14,7 @@ public abstract class InventoryDistroSenderBase(DistroService service) : Invento
         .Cast<IDistroReceiver>()
         .OrderByDescending(r => r.Priority);
 
-    public void TransferOut(GoodAmount good) => Inventory.Take(good);
+    public void TransferOut(GoodAmount good) => Inventory.TakeExisting(good);
 
     public override void Save(IEntitySaver entitySaver)
     {

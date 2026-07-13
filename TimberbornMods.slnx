@@ -223,6 +223,7 @@
   <Project Path="SluiceIsBack/SluiceIsBack.csproj" Id="42067f99-093b-4d62-a4b1-afdad82f6218" />
   <Project Path="StableCore/StableCore.csproj" />
   <Project Path="StreamGaugeTracker/StreamGaugeTracker.csproj" />
+  <Project Path="TechTree/TechTree.csproj" Id="ecd2a1b6-db7f-4076-9764-fa6195882a61" />
   <Project Path="TestMod/TestMod.csproj" />
   <Project Path="TheArchitectsToolkit/TheArchitectsToolkit.csproj" />
   <Project Path="TimberDump/TimberDump.csproj" />

@@ -1,8 +1,8 @@
 ﻿{
     "Name": "Distro Storages",
-    "Version": "10.0.1",
+    "Version": "11.0.0",
     "Id": "DistroStorage",
-    "MinimumGameVersion": "1.0.0",
+    "MinimumGameVersion": "1.1.0",
     "Description": "A short distance distro storage option.",
     "RequiredMods": [
         { "Id": "eMka.ModSettings" },
