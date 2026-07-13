@@ -1,0 +1,2 @@
+﻿v11.0.0:
+- Allow Dynamites to be placed at the bottom of the map.

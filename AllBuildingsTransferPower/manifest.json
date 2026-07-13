@@ -1,0 +1,10 @@
+﻿{
+    "Name": "All Buildings Transfer Power",
+    "Version": "11.0.0",
+    "Id": "AllBuildingsTransferPower",
+    "MinimumGameVersion": "1.1.0",
+    "Description": "All parts of buildings can transfer power.",
+    "RequiredMods": [
+        { "Id": "ModdableTimberborn" }
+    ]
+}
