@@ -131,7 +131,7 @@ public class BlueprintSelectionDialog(
         OnUIConfirmed();
     }
 
-    async void ProcessUnlockRequest(BlueprintWithValidation bp)
+    void ProcessUnlockRequest(BlueprintWithValidation bp) => UIHelpers.RunAsyncVoid(async () =>
     {
         var cost = bp.ScienceCost;
         if (cost > 0)
@@ -152,14 +152,14 @@ public class BlueprintSelectionDialog(
 
         blueprintService.UnlockToolsForBlueprint(bp);
         ReloadContent();
-    }
+    });
 
-    async void ShowEditAsync(BlueprintWithValidation bp)
+    void ShowEditAsync(BlueprintWithValidation bp) => UIHelpers.RunAsyncVoid(async () =>
     {
         var diag = container.GetInstance<BlueprintEditDialog>();
         await diag.ShowEditAsync(bp.Blueprint);
 
         RefreshCache();
-    }
+    });
 
 }

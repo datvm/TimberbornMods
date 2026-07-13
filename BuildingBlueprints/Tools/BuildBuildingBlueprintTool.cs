@@ -66,7 +66,7 @@ public class BuildBuildingBlueprintTool(
 
     public ToolDescription DescribeTool() => toolDescription;
 
-    public async void Enter()
+    public void Enter() => UIHelpers.RunAsyncVoid(async () =>
     {
         var diag = container.GetInstance<BlueprintSelectionDialog>();
         var blueprint = await diag.PickAsync();
@@ -78,7 +78,7 @@ public class BuildBuildingBlueprintTool(
         }
 
         while (await blueprintPlacementService.PlaceAsync(blueprint) is not null) { }
-    }
+    });
 
     public void Exit()
     {

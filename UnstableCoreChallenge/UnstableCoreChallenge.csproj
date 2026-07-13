@@ -5,4 +5,17 @@
 
 	<Import Project="../Targets/Common.targets" />
 	<Import Project="../Targets/CommonModdableTimberborn.targets" />
+
+	<ItemGroup>
+		<Using Include="UnstableCoreChallenge.Specs" />
+		<Using Include="UnstableCoreChallenge.Services" />
+		<Using Include="UnstableCoreChallenge.Components" />
+		<Using Include="UnstableCoreChallenge.UI" />
+		<Using Include="ModdableTimberborn.EntityTracker" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Blueprints\UnstableCoreChallengeDifficultySpecs\" />
+	</ItemGroup>
+
 </Project>

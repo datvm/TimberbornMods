@@ -84,7 +84,7 @@ public class BlueprintCreationDialog(
         }
     }
 
-    async void OnSaveRequested()
+    void OnSaveRequested() => UIHelpers.RunAsyncVoid(async () =>
     {
         var name = txtName.value;
 
@@ -92,7 +92,7 @@ public class BlueprintCreationDialog(
         switch (validation)
         {
             case BuildingBlueprintPersistentService.ValidationResult.Valid:
-                break;            
+                break;
             case BuildingBlueprintPersistentService.ValidationResult.AlreadyExists:
                 if (!await diag.ConfirmAsync("LV.BB.FileDuplicateWarning", localized: true)) { return; }
                 break;
@@ -103,6 +103,6 @@ public class BlueprintCreationDialog(
 
         buildingBlueprintsService.ProcessAndSaveBlueprint(name, selection);
         OnUIConfirmed();
-    }
+    });
 
 }

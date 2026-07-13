@@ -1,4 +1,7 @@
-﻿v10.6.0:
+﻿v11.0.0:
+- Updated for Timberborn v1.1.0.
+
+v10.6.0:
 - Added High-performance mode.
 - Removed 30 tiles limit.
 [img]https://files.catbox.moe/pd0z56.jpg[/img]

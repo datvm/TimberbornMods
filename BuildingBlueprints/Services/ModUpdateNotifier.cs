@@ -1,9 +1,10 @@
 ﻿namespace BuildingBlueprints.Services;
 
-//[MultiBind(typeof(IModUpdateNotifier), Contexts = BindAttributeContext.MainMenu)]
-public class ModUpdateNotifier : IModUpdateNotifier
+[BindModUpdateNotifier]
+public class ModUpdateNotifier : IModUpdateNotifier2
 {
-    public string ModId => nameof(BuildingBlueprints);
-    public string Version => "10.2.0";
-    public string MessageLocKey => "LV.BB.Update1020";
+    public string ModId => nameof(BuildingBlueprints);    
+    public string Version => "11.0.0";
+    public int VersionNumber => 110000;
+    public string MessageLocKey => "";    
 }
