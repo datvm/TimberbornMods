@@ -1,0 +1,15 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<DistroStoragePath>$(GameModsFolder)DistroStorage\$(TimberbornVersion)\**\*.dll</DistroStoragePath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Include="DistroStorage" />
+		<Using Include="DistroStorage.Components" />
+		<Using Include="DistroStorage.Services" />
+
+		<Reference Include="$(DistroStoragePath)" Private="False" />
+	</ItemGroup>
+
+</Project>

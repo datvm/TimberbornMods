@@ -168,6 +168,7 @@
     <File Path="Targets/CommonBeaverChronicles.targets" />
     <File Path="Targets/CommonBuildingHP.targets" />
     <File Path="Targets/CommonDebug.targets" />
+    <File Path="Targets/CommonDistroStorage.targets" />
     <File Path="Targets/CommonGlobalUsings.targets" />
     <File Path="Targets/CommonHarmony.targets" />
     <File Path="Targets/CommonMM.targets" />

@@ -1,0 +1,444 @@
+{
+    "SpecsDirectory": "Blueprints/UnstableCoreChallengeDifficultySpecs",
+    "Score": {
+        "BombWeight": 100,
+        "ScienceWeight": 0.25,
+        "TimeWeight": 1000
+    },
+    "TierRules": [
+        {
+            "Tier": 0,
+            "MinCycle": 0,
+            "ScoreWeight": 1,
+            "FavorMultiplier": 1
+        },
+        {
+            "Tier": 1,
+            "MinCycle": 2,
+            "ScoreWeight": 1.25,
+            "FavorMultiplier": 1.15
+        },
+        {
+            "Tier": 2,
+            "MinCycle": 3,
+            "ScoreWeight": 1.5,
+            "FavorMultiplier": 1.1
+        },
+        {
+            "Tier": 3,
+            "MinCycle": 5,
+            "ScoreWeight": 1.75,
+            "FavorMultiplier": 1
+        },
+        {
+            "Tier": 4,
+            "MinCycle": 6,
+            "ScoreWeight": 2,
+            "FavorMultiplier": 1.1
+        },
+        {
+            "Tier": 5,
+            "MinCycle": 8,
+            "ScoreWeight": 2.5,
+            "FavorMultiplier": 1
+        }
+    ],
+    "Difficulties": [
+        {
+            "Id": "Easy",
+            "Order": 10,
+            "NameLoc": "LV.USC.DiffEasy",
+            "TargetScoreMultiplier": 0.67,
+            "AmountMultiplier": 0.67,
+            "PaymentEntryOffset": -1,
+            "DaysMultiplier": 1.25,
+            "BombOffset": -1,
+            "BombOffsetMinCycle": 3,
+            "ScienceChanceMultiplier": 0.85,
+            "SciencePaymentMultiplier": 0.85,
+            "TierGraceCycles": 1
+        },
+        {
+            "Id": "Normal",
+            "Order": 20,
+            "NameLoc": "LV.USC.DiffNormal",
+            "TargetScoreMultiplier": 1,
+            "AmountMultiplier": 1,
+            "PaymentEntryOffset": 0,
+            "DaysMultiplier": 1,
+            "BombOffset": 0,
+            "BombOffsetMinCycle": 0,
+            "ScienceChanceMultiplier": 1,
+            "SciencePaymentMultiplier": 1,
+            "TierGraceCycles": 0
+        },
+        {
+            "Id": "Hard",
+            "Order": 30,
+            "NameLoc": "LV.USC.DiffHard",
+            "TargetScoreMultiplier": 1.5,
+            "MinCycleOffset": -1,
+            "AmountMultiplier": 1.5,
+            "PaymentEntryOffset": 1,
+            "DaysMultiplier": 0.7,
+            "BombOffset": 1,
+            "BombOffsetMinCycle": 4,
+            "ScienceChanceMultiplier": 1.1,
+            "SciencePaymentMultiplier": 1.1,
+            "TierGraceCycles": 0
+        },
+        {
+            "Id": "Endless",
+            "Order": 40,
+            "NameLoc": "LV.USC.DiffEndless",
+            "TargetScoreMultiplier": 1.5,
+            "MinCycleOffset": -1,
+            "AmountMultiplier": 1.5,
+            "PaymentEntryOffset": 1,
+            "DaysMultiplier": 0.7,
+            "BombOffset": 1,
+            "BombOffsetMinCycle": 4,
+            "ScienceChanceMultiplier": 1.1,
+            "SciencePaymentMultiplier": 1.1,
+            "TierGraceCycles": 0,
+            "EndlessBombs": {
+                "EveryCycles": 2,
+                "MaxBombs": 20
+            }
+        }
+    ],
+    "NormalStages": [
+        {
+            "MinCycle": 0,
+            "MaxBombs": 0
+        },
+        {
+            "MinCycle": 2,
+            "MaxBombs": 1,
+            "PaymentEntries": {
+                "Min": 1,
+                "Max": 2
+            },
+            "ScienceChance": 0.25,
+            "SciencePayment": {
+                "Min": 50,
+                "Max": 100
+            },
+            "ChallengeStagePayment": [
+                {
+                    "MinCount": 1,
+                    "MaxCount": 2,
+                    "MinAmount": 10,
+                    "MaxAmount": 20
+                }
+            ],
+            "DaysMin": 20,
+            "DaysMax": 25
+        },
+        {
+            "MinCycle": 3,
+            "MaxBombs": 1,
+            "PaymentEntries": {
+                "Min": 2,
+                "Max": 2
+            },
+            "ScienceChance": 0.45,
+            "SciencePayment": {
+                "Min": 50,
+                "Max": 100
+            },
+            "ChallengeStagePayment": [
+                {
+                    "MinCount": 1,
+                    "MaxCount": 2,
+                    "MinAmount": 20,
+                    "MaxAmount": 30
+                },
+                {
+                    "MinCount": 1,
+                    "MaxCount": 1,
+                    "MinAmount": 10,
+                    "MaxAmount": 15
+                }
+            ],
+            "DaysMin": 18,
+            "DaysMax": 22
+        },
+        {
+            "MinCycle": 4,
+            "MaxBombs": 2,
+            "PaymentEntries": {
+                "Min": 2,
+                "Max": 3
+            },
+            "ScienceChance": 0.6,
+            "SciencePayment": {
+                "Min": 75,
+                "Max": 150
+            },
+            "ChallengeStagePayment": [
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 40,
+                    "MaxAmount": 60
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 20,
+                    "MaxAmount": 35
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 5,
+                    "MaxAmount": 10
+                }
+            ],
+            "DaysMin": 15,
+            "DaysMax": 20
+        },
+        {
+            "MinCycle": 5,
+            "MaxBombs": 2,
+            "PaymentEntries": {
+                "Min": 2,
+                "Max": 4
+            },
+            "ScienceChance": 0.5,
+            "SciencePayment": {
+                "Min": 200,
+                "Max": 350
+            },
+            "ChallengeStagePayment": [
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 60,
+                    "MaxAmount": 70
+                },
+                {
+                    "MinCount": 1,
+                    "MaxCount": 2,
+                    "MinAmount": 40,
+                    "MaxAmount": 60
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 20,
+                    "MaxAmount": 30
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 15,
+                    "MaxAmount": 20
+                }
+            ],
+            "DaysMin": 15,
+            "DaysMax": 18
+        },
+        {
+            "MinCycle": 6,
+            "MaxBombs": 3,
+            "PaymentEntries": {
+                "Min": 2,
+                "Max": 4
+            },
+            "ScienceChance": 0.5,
+            "SciencePayment": {
+                "Min": 300,
+                "Max": 400
+            },
+            "ChallengeStagePayment": [
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 70,
+                    "MaxAmount": 70
+                },
+                {
+                    "MinCount": 1,
+                    "MaxCount": 2,
+                    "MinAmount": 40,
+                    "MaxAmount": 60
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 20,
+                    "MaxAmount": 30
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 15,
+                    "MaxAmount": 20
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 10,
+                    "MaxAmount": 15
+                }
+            ],
+            "DaysMin": 13,
+            "DaysMax": 15
+        },
+        {
+            "MinCycle": 8,
+            "MaxBombs": 3,
+            "PaymentEntries": {
+                "Min": 2,
+                "Max": 4
+            },
+            "ScienceChance": 0.6,
+            "SciencePayment": {
+                "Min": 350,
+                "Max": 450
+            },
+            "ChallengeStagePayment": [
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 100,
+                    "MaxAmount": 100
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 2,
+                    "MinAmount": 60,
+                    "MaxAmount": 70
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 2,
+                    "MinAmount": 30,
+                    "MaxAmount": 50
+                },
+                {
+                    "MinCount": 1,
+                    "MaxCount": 1,
+                    "MinAmount": 20,
+                    "MaxAmount": 30
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 15,
+                    "MaxAmount": 20
+                }
+            ],
+            "DaysMin": 10,
+            "DaysMax": 15
+        },
+        {
+            "MinCycle": 9,
+            "MaxBombs": 3,
+            "PaymentEntries": {
+                "Min": 4,
+                "Max": 5
+            },
+            "ScienceChance": 0.85,
+            "SciencePayment": {
+                "Min": 450,
+                "Max": 600
+            },
+            "ChallengeStagePayment": [
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 100,
+                    "MaxAmount": 130
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 2,
+                    "MinAmount": 80,
+                    "MaxAmount": 100
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 30,
+                    "MaxAmount": 50
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 30,
+                    "MaxAmount": 50
+                },
+                {
+                    "MinCount": 1,
+                    "MaxCount": 2,
+                    "MinAmount": 20,
+                    "MaxAmount": 25
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 10,
+                    "MaxAmount": 15
+                }
+            ],
+            "DaysMin": 10,
+            "DaysMax": 12
+        },
+        {
+            "MinCycle": 11,
+            "MaxBombs": 3,
+            "PaymentEntries": {
+                "Min": 4,
+                "Max": 5
+            },
+            "ScienceChance": 1,
+            "SciencePayment": {
+                "Min": 500,
+                "Max": 750
+            },
+            "ChallengeStagePayment": [
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 120,
+                    "MaxAmount": 150
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 1,
+                    "MinAmount": 100,
+                    "MaxAmount": 130
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 2,
+                    "MinAmount": 35,
+                    "MaxAmount": 75
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 2,
+                    "MinAmount": 30,
+                    "MaxAmount": 75
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 2,
+                    "MinAmount": 20,
+                    "MaxAmount": 40
+                },
+                {
+                    "MinCount": 0,
+                    "MaxCount": 2,
+                    "MinAmount": 10,
+                    "MaxAmount": 25
+                }
+            ],
+            "DaysMin": 8,
+            "DaysMax": 12
+        }
+    ]
+}

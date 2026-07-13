@@ -45,8 +45,13 @@ public class UnstableCoreSpecService(
                 throw new Exception($"Duplicate good tier: {tier}, {spec.Blueprint.Name}");
             }
 
-            tiers[tier] = [.. spec.GoodIds
+            var goods = tiers[tier] = [.. spec.GoodIds
                 .Where(id => id == Science || goodService.HasGood(id))];
+
+            if (goods.Length == 0)
+            {
+                throw new Exception($"No valid goods for tier: {tier}. This is likely due to modded faction without any known goods to this mod.");
+            }
         }
 
         // Here, each tier should already be filled, no extra validation is needed
