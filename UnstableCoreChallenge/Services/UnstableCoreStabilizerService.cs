@@ -6,9 +6,13 @@ public class UnstableCoreStabilizerService(
     UnstableCoreSpecService coreSpec,
     GameCycleService gameCycleService,
     NotificationBus notfBus,
-    ILoc t
+    ILoc t,
+    EventBus eb,
+    GameUISoundController soundController,
+    RecoveredGoodStackSpawner goodStackSpawner
 )
 {
+    public readonly ILoc t = t;
 
     public UnstableCoreChallengeStage GetCurrentSpec() => coreSpec.GetStats(gameCycleService.Cycle);
 
@@ -66,7 +70,20 @@ public class UnstableCoreStabilizerService(
             }
         }
 
-        return new(new(days, [.. payments.Select(p => new GoodAmount(p.Key, p.Value))]));
+        // Rewards
+        List<GoodAmount> rewards = [];
+
+        foreach (var reward in spec.Rewards)
+        {
+            var amount = Random.RandomRangeInt(reward.Amount.Min, reward.Amount.Max + 1);
+
+            if (amount > 0)
+            {
+                rewards.Add(new(reward.GoodId, amount));
+            }
+        }
+
+        return new(new(days, [.. payments.Select(p => new GoodAmount(p.Key, p.Value))], [.. rewards]));
 
         void AddPayment(int tier, ChallengeStagePayment payment)
         {
@@ -76,11 +93,32 @@ public class UnstableCoreStabilizerService(
             AddPaymentAmount(goodId, amount);
         }
 
-        void AddPaymentAmount(string goodId, int amount) 
+        void AddPaymentAmount(string goodId, int amount)
             => payments[goodId] = payments.GetValueOrDefault(goodId, 0) + amount;
     }
 
-    public void AnnounceNewCore(UnstableCoreStabilizer core) => notfBus.Post(t.T("LV.USC.NewCore"), core);
+    public async void AnnounceNewCore(UnstableCoreStabilizer core)
+    {
+        try
+        {
+            notfBus.Post(t.T("LV.USC.NewCore"), core);
+
+            var activationWarningStatus = core.GetComponent<ActivationWarningStatus>();
+            activationWarningStatus._statusToggle.Activate();
+            eb.Post(new NotifyingStatusChangedEvent(activationWarningStatus._statusToggle.StatusSpecification.AlertDescription));
+            soundController.PlaySound2D(activationWarningStatus._activationWarningStatusSpec.WarningSound);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex);
+            throw;
+        }        
+    }
+
+    public void SpawnRewards(Vector3Int coords, IReadOnlyList<GoodAmount> rewards)
+    {
+        goodStackSpawner.AddAwaitingGoods(coords, rewards);
+    }
 
     public void Delete(UnstableCoreStabilizer stabilizer)
     {

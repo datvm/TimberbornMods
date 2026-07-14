@@ -1,4 +1,4 @@
-{
+﻿{
     "SpecsDirectory": "Blueprints/UnstableCoreChallengeDifficultySpecs",
     "Score": {
         "BombWeight": 100,
@@ -133,7 +133,16 @@
                 }
             ],
             "DaysMin": 20,
-            "DaysMax": 25
+            "DaysMax": 25,
+            "Rewards": [
+                {
+                    "GoodId": "ScrapMetal",
+                    "Amount": {
+                        "Min": 3,
+                        "Max": 5
+                    }
+                }
+            ]
         },
         {
             "MinCycle": 3,
@@ -162,7 +171,16 @@
                 }
             ],
             "DaysMin": 18,
-            "DaysMax": 22
+            "DaysMax": 22,
+            "Rewards": [
+                {
+                    "GoodId": "ScrapMetal",
+                    "Amount": {
+                        "Min": 5,
+                        "Max": 8
+                    }
+                }
+            ]
         },
         {
             "MinCycle": 4,
@@ -197,7 +215,16 @@
                 }
             ],
             "DaysMin": 15,
-            "DaysMax": 20
+            "DaysMax": 20,
+            "Rewards": [
+                {
+                    "GoodId": "ScrapMetal",
+                    "Amount": {
+                        "Min": 8,
+                        "Max": 15
+                    }
+                }
+            ]
         },
         {
             "MinCycle": 5,
@@ -238,7 +265,16 @@
                 }
             ],
             "DaysMin": 15,
-            "DaysMax": 18
+            "DaysMax": 18,
+            "Rewards": [
+                {
+                    "GoodId": "ScrapMetal",
+                    "Amount": {
+                        "Min": 15,
+                        "Max": 20
+                    }
+                }
+            ]
         },
         {
             "MinCycle": 6,
@@ -285,7 +321,16 @@
                 }
             ],
             "DaysMin": 13,
-            "DaysMax": 15
+            "DaysMax": 15,
+            "Rewards": [
+                {
+                    "GoodId": "ScrapMetal",
+                    "Amount": {
+                        "Min": 20,
+                        "Max": 30
+                    }
+                }
+            ]
         },
         {
             "MinCycle": 8,
@@ -332,7 +377,23 @@
                 }
             ],
             "DaysMin": 10,
-            "DaysMax": 15
+            "DaysMax": 15,
+            "Rewards": [
+                {
+                    "GoodId": "ScrapMetal",
+                    "Amount": {
+                        "Min": 0,
+                        "Max": 30
+                    }
+                },
+                {
+                    "GoodId": "MetalBlock",
+                    "Amount": {
+                        "Min": 0,
+                        "Max": 10
+                    }
+                }
+            ]
         },
         {
             "MinCycle": 9,
@@ -385,7 +446,23 @@
                 }
             ],
             "DaysMin": 10,
-            "DaysMax": 12
+            "DaysMax": 12,
+            "Rewards": [
+                {
+                    "GoodId": "ScrapMetal",
+                    "Amount": {
+                        "Min": 0,
+                        "Max": 30
+                    }
+                },
+                {
+                    "GoodId": "MetalBlock",
+                    "Amount": {
+                        "Min": 0,
+                        "Max": 15
+                    }
+                }
+            ]
         },
         {
             "MinCycle": 11,
@@ -438,7 +515,30 @@
                 }
             ],
             "DaysMin": 8,
-            "DaysMax": 12
+            "DaysMax": 12,
+            "Rewards": [
+                {
+                    "GoodId": "Plank",
+                    "Amount": {
+                        "Min": 0,
+                        "Max": 10
+                    }
+                },
+                {
+                    "GoodId": "ScrapMetal",
+                    "Amount": {
+                        "Min": 0,
+                        "Max": 30
+                    }
+                },
+                {
+                    "GoodId": "MetalBlock",
+                    "Amount": {
+                        "Min": 0,
+                        "Max": 15
+                    }
+                }
+            ]
         }
     ]
 }

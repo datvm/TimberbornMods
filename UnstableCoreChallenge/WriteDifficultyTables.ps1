@@ -131,6 +131,23 @@ function Format-Days {
         -Max (Get-PropertyValue -Object $Stage -Name "DaysMax")
 }
 
+function Format-Rewards {
+    param(
+        [object] $Stage
+    )
+
+    $rewards = @(Get-PropertyValue -Object $Stage -Name "Rewards")
+
+    if ($null -eq $rewards[0]) {
+        return "-"
+    }
+
+    return ($rewards | ForEach-Object {
+        $amount = Format-RangeObject -Object (Get-PropertyValue -Object $_ -Name "Amount")
+        "$($_.GoodId): $amount"
+    }) -join ", "
+}
+
 function Format-TierPayment {
     param(
         [object] $Payment
@@ -305,7 +322,7 @@ $lines.Add("            h2 { margin: 32px 0 12px; font-size: 22px; }")
 $lines.Add("            .source, .formula { margin: 0 0 12px; color: color-mix(in srgb, CanvasText 70%, Canvas); }")
 $lines.Add("            .formula { max-width: 1120px; line-height: 1.45; }")
 $lines.Add("            .table-wrap { overflow-x: auto; border: 1px solid color-mix(in srgb, CanvasText 18%, Canvas); border-radius: 6px; }")
-$lines.Add("            table { width: 100%; border-collapse: collapse; min-width: 1240px; }")
+$lines.Add("            table { width: 100%; border-collapse: collapse; min-width: 1380px; }")
 $lines.Add("            th, td { padding: 8px 10px; border-bottom: 1px solid color-mix(in srgb, CanvasText 14%, Canvas); vertical-align: top; }")
 $lines.Add("            th { position: sticky; top: 0; background: Canvas; text-align: left; }")
 $lines.Add("            tbody tr:nth-child(even) td { background: color-mix(in srgb, CanvasText 4%, Canvas); }")
@@ -313,6 +330,7 @@ $lines.Add("            .number { text-align: right; white-space: nowrap; }")
 $lines.Add("            .cycle { font-weight: 600; }")
 $lines.Add("            .score { font-weight: 700; }")
 $lines.Add("            .tier { white-space: nowrap; font-family: Consolas, monospace; }")
+$lines.Add("            .reward { white-space: nowrap; }")
 $lines.Add("        </style>")
 $lines.Add("    </head>")
 $lines.Add("    <body>")
@@ -340,6 +358,7 @@ foreach ($difficulty in $difficulties) {
     $lines.Add("                        <th>Science chance</th>")
     $lines.Add("                        <th>Science payment</th>")
     $lines.Add("                        <th>Days</th>")
+    $lines.Add("                        <th>Rewards</th>")
     $lines.Add("                    </tr>")
     $lines.Add("                </thead>")
     $lines.Add("                <tbody>")
@@ -371,6 +390,7 @@ foreach ($difficulty in $difficulties) {
         Add-Cell -Lines $lines -Value (Format-Percent -Value (Get-PropertyValue -Object $stage -Name "ScienceChance")) -Class "number"
         Add-Cell -Lines $lines -Value (Format-SciencePayment -Stage $stage) -Class "number"
         Add-Cell -Lines $lines -Value (Format-Days -Stage $stage) -Class "number"
+        Add-Cell -Lines $lines -Value (Format-Rewards -Stage $stage) -Class "reward"
         $lines.Add("                    </tr>")
     }
 
