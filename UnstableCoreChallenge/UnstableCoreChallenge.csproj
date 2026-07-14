@@ -16,8 +16,4 @@
 		<Using Include="ModdableTimberborn.GameStats" />		
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Blueprints\UnstableCoreChallengeDifficultySpecs\" />
-	</ItemGroup>
-
 </Project>

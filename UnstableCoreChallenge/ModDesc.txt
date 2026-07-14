@@ -1,0 +1,41 @@
+﻿The game gets way too easy after you divert Badwater? Then you need the Unstable Core Challenge!
+
+Eventually, mysterious human explosive devices start showing up and causing chaos for your colony. Luckily, you've figured out how to disarm them… but they keep getting trickier, and the cost keeps climbing!
+[img]https://images.steamusercontent.com/ugc/17810983820873866809/D77304A125E381459689BCFC032F863A9A3F46E0/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+With this mod, Unstable Cores spawn periodically across the map. Each one has a limited time before it explodes and permanently alters the terrain. Spawning is random, but for some reason they love appearing right next to your colony.
+
+Thankfully, you can stabilize them by delivering goods. Use the Distro Storage feature to get resources to the cores in time. Some cores also demand Science. Just rack up enough and hit the Pay button while selecting the core. Once all required goods are delivered, the core is safely disarmed.
+[img]https://images.steamusercontent.com/ugc/17243150698932126599/97630EAC8F7BFCC0521B0D53ACC6FC9921537582/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+You can let the timer run out naturally or have a builder Demolish it if it's blocking something. Either way, once stabilized, it will never explode. You can even salvage a bit of material from it afterward.
+
+[b]Remember to pick the difficulty in the Main Menu's Mods settings before starting a new game![/b] You can change difficulty anytime by saving and returning to the menu, but any existing Unstable Cores will keep their current settings. Difficulty controls how many cores can be active at once, what resources they need, and how many of each.
+For the exact numbers, check here: https://htmlpeek.com/s/n1eyspqt
+(Source: https://github.com/datvm/TimberbornMods/blob/master/UnstableCoreChallenge/Tables.html)
+[img]https://images.steamusercontent.com/ugc/15107123165233648671/A4321A7E88271211CE7BD20074925F81C44BC168/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+[b]Try the Endless difficulty and see how long you can survive![/b] It keeps ramping up the number of cores (up to 20 by cycle 42).
+[img]https://images.steamusercontent.com/ugc/10505340974524107216/0E6173F3AEF630C2122A1CD8307FFE37345150CA/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+[h1]FAQ:[/h1]
+Q: How do I stabilize the core?
+A: Pay the Science cost by selecting the core. For goods, build a Pile, Warehouse, or Tank within 3 tiles of the core and deliver the required materials there.
+
+Q: Some cores require too many materials to deliver in time?
+A: Build multiple storage buildings nearby. Each one has its own delivery cooldown, so they can work in parallel.
+
+Q: I lost my water source. How do I rebuild it?
+A: I'm sorry for your loss.
+
+Q: [Easy/Hard] is too [hard/easy]!
+A: Great! I am not very good at balancing, so I appreciate the feedback. Please let me know what you think the numbers should be on the official Discord.
+
+[b]Q: The mod doesn't show up?[/b]
+A: This mod only works with Timberborn v1.1 (currently in the Experimental branch).
+
+Q: Your FAQ doesn't answer my question!
+A: Come find me on the official Discord. I'm (probably) there.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

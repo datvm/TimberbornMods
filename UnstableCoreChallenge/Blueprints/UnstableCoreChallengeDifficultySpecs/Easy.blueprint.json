@@ -28,6 +28,15 @@
             "MaxAmount": 15
           }
         ],
+        "Rewards": [
+          {
+            "GoodId": "ScrapMetal",
+            "Amount": {
+              "Min": 3,
+              "Max": 5
+            }
+          }
+        ],
         "DaysMin": 25,
         "DaysMax": 31
       },
@@ -55,6 +64,15 @@
             "MaxCount": 1,
             "MinAmount": 10,
             "MaxAmount": 10
+          }
+        ],
+        "Rewards": [
+          {
+            "GoodId": "ScrapMetal",
+            "Amount": {
+              "Min": 5,
+              "Max": 8
+            }
           }
         ],
         "DaysMin": 22,
@@ -92,6 +110,15 @@
             "MaxAmount": 5
           }
         ],
+        "Rewards": [
+          {
+            "GoodId": "ScrapMetal",
+            "Amount": {
+              "Min": 8,
+              "Max": 15
+            }
+          }
+        ],
         "DaysMin": 19,
         "DaysMax": 25
       },
@@ -125,6 +152,15 @@
             "MaxCount": 1,
             "MinAmount": 15,
             "MaxAmount": 20
+          }
+        ],
+        "Rewards": [
+          {
+            "GoodId": "ScrapMetal",
+            "Amount": {
+              "Min": 15,
+              "Max": 20
+            }
           }
         ],
         "DaysMin": 19,
@@ -166,6 +202,15 @@
             "MaxCount": 1,
             "MinAmount": 10,
             "MaxAmount": 15
+          }
+        ],
+        "Rewards": [
+          {
+            "GoodId": "ScrapMetal",
+            "Amount": {
+              "Min": 20,
+              "Max": 30
+            }
           }
         ],
         "DaysMin": 16,
@@ -213,6 +258,22 @@
             "MaxCount": 1,
             "MinAmount": 10,
             "MaxAmount": 15
+          }
+        ],
+        "Rewards": [
+          {
+            "GoodId": "ScrapMetal",
+            "Amount": {
+              "Min": 0,
+              "Max": 30
+            }
+          },
+          {
+            "GoodId": "MetalBlock",
+            "Amount": {
+              "Min": 0,
+              "Max": 10
+            }
           }
         ],
         "DaysMin": 12,
@@ -268,6 +329,22 @@
             "MaxAmount": 10
           }
         ],
+        "Rewards": [
+          {
+            "GoodId": "ScrapMetal",
+            "Amount": {
+              "Min": 0,
+              "Max": 30
+            }
+          },
+          {
+            "GoodId": "MetalBlock",
+            "Amount": {
+              "Min": 0,
+              "Max": 15
+            }
+          }
+        ],
         "DaysMin": 12,
         "DaysMax": 15
       },
@@ -319,6 +396,29 @@
             "MaxCount": 2,
             "MinAmount": 5,
             "MaxAmount": 15
+          }
+        ],
+        "Rewards": [
+          {
+            "GoodId": "Plank",
+            "Amount": {
+              "Min": 0,
+              "Max": 10
+            }
+          },
+          {
+            "GoodId": "ScrapMetal",
+            "Amount": {
+              "Min": 0,
+              "Max": 30
+            }
+          },
+          {
+            "GoodId": "MetalBlock",
+            "Amount": {
+              "Min": 0,
+              "Max": 15
+            }
           }
         ],
         "DaysMin": 10,

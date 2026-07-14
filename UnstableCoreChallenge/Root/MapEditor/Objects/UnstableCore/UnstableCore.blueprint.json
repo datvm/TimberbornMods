@@ -1,0 +1,7 @@
+﻿{
+    "DemolishableSpec": {
+        "DemolishTimeInHours": 5.0,
+        "ShowDemolishButtonInEntityPanel": true
+    },
+    "DemolishableFromTopSpec": {}
+}

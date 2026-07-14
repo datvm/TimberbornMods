@@ -185,6 +185,28 @@ function Get-ScaledScienceChance {
     return [Math]::Min([double] 1, [Math]::Round([double] $scienceChance * [double] $Difficulty.ScienceChanceMultiplier, 2))
 }
 
+function Copy-Rewards {
+    param(
+        [object] $Stage
+    )
+
+    $rewards = @(Get-PropertyValue -Object $Stage -Name "Rewards")
+
+    if ($null -eq $rewards[0]) {
+        return @()
+    }
+
+    return @($rewards | ForEach-Object {
+        [ordered]@{
+            GoodId = [string] $_.GoodId
+            Amount = [ordered]@{
+                Min = [int] $_.Amount.Min
+                Max = [int] $_.Amount.Max
+            }
+        }
+    })
+}
+
 function Get-ScaledStage {
     param(
         [object] $Stage,
@@ -247,6 +269,12 @@ function Get-ScaledStage {
 
     if ($payments.Count -gt 0) {
         $result.Payments = $payments
+    }
+
+    $rewards = @(Copy-Rewards -Stage $Stage)
+
+    if ($rewards.Count -gt 0) {
+        $result.Rewards = $rewards
     }
 
     $daysMin = Get-PropertyValue -Object $Stage -Name "DaysMin"

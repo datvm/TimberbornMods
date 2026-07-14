@@ -22,6 +22,9 @@ public record UnstableCoreChallengeStage
     public ImmutableArray<ChallengeStagePayment?> Payments { get; init; } = [];
 
     [Serialize]
+    public ImmutableArray<ChallengeRewardItem> Rewards { get; init; } = [];
+
+    [Serialize]
     public int DaysMin { get; init; }
 
     [Serialize]
@@ -42,4 +45,13 @@ public record ChallengeStagePayment
 
     [Serialize]
     public int MaxAmount { get; init; }
+}
+
+public record ChallengeRewardItem
+{
+    [Serialize]
+    public string GoodId { get; init; } = null!;
+
+    [Serialize]
+    public MinMaxSpec<int> Amount { get; init; } = null!;
 }

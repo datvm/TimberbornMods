@@ -1,7 +1,9 @@
 ﻿namespace UnstableCoreChallenge.Components;
 
 [AddTemplateModule2(typeof(UnstableCore))]
-public class UnstableCoreStabilizer(UnstableCoreStabilizerService service) : BaseComponent, IPersistentEntity, IAwakableComponent, IInitializableEntity
+public class UnstableCoreStabilizer(
+    UnstableCoreStabilizerService service
+) : BaseComponent, IPersistentEntity, IAwakableComponent, IInitializableEntity, IDeletableEntity
 {
     static readonly ComponentKey SaveKey = new(nameof(UnstableCoreStabilizer));
     static readonly PropertyKey<string> StatsKey = new("Stats");
@@ -9,17 +11,18 @@ public class UnstableCoreStabilizer(UnstableCoreStabilizerService service) : Bas
 
     UnstableCoreStabilizerStat stat;
     readonly Dictionary<string, int> goodsPaid = [];
+    StatusToggle coreStabilizedStatus = null!;
 
     public bool IsFinished => GetCurrentPayments().All(p => p.Finished);
 
     int? sciencePayment;
-    public int SciencePayment 
+    public int SciencePayment
         => sciencePayment ??= stat.Payment.FirstOrDefault(p => p.GoodId == UnstableCoreSpecService.Science).Amount;
 
     bool? sciencePaid;
     public bool SciencePaid
     {
-        get => sciencePaid ??= GetCurrentPayments().FirstOrDefault(p => p.IsScience).Finished; 
+        get => sciencePaid ??= GetCurrentPayments().FirstOrDefault(p => p.IsScience).Finished;
         set => sciencePaid = value;
     }
 
@@ -30,6 +33,11 @@ public class UnstableCoreStabilizer(UnstableCoreStabilizerService service) : Bas
     public void Awake()
     {
         timedComponentActivator = GetComponent<TimedComponentActivator>();
+        timedComponentActivator.Activated += OnTimedActivatorActivated;
+
+        var t = service.t;
+        coreStabilizedStatus = StatusToggle.CreateNormalStatusWithAlertAndFloatingIcon(
+            "CoreStabilized", t.T("LV.USC.CoreStabilized"), t.T("LV.USC.CoreStabilizedShort"));
     }
 
     public IEnumerable<StabilizerPayment> GetCurrentPayments()
@@ -42,7 +50,17 @@ public class UnstableCoreStabilizer(UnstableCoreStabilizerService service) : Bas
 
     public void InitializeEntity()
     {
-        if (stat != default) { return; }
+        GetComponent<StatusSubject>().RegisterStatus(coreStabilizedStatus);
+
+        if (stat != default)
+        {
+            if (IsFinished)
+            {
+                Stabilize();
+            }
+
+            return;
+        }
 
         if (GetComponent<UnstableCoreStabilizerInitializer>() is { } initializer)
         {
@@ -67,9 +85,19 @@ public class UnstableCoreStabilizer(UnstableCoreStabilizerService service) : Bas
 
             if (IsFinished)
             {
-                StabilizeAndDestroy();
+                Stabilize();
             }
         }
+    }
+
+    public void DebugPayAll()
+    {
+        foreach (var payment in stat.Payment)
+        {
+            goodsPaid[payment.GoodId] = payment.Amount;
+        }
+
+        Pay(stat.Payment[0].GoodId, 0); // Trigger the check for stabilization
     }
 
     void InitializeNewChallenge(UnstableCoreStabilizerStat stat)
@@ -81,8 +109,6 @@ public class UnstableCoreStabilizer(UnstableCoreStabilizerService service) : Bas
         timedComponentActivator.ActivateIfItsTime();
 
         GetComponent<UnstableCoreVisualisation>().OnUnselect();
-        GetComponent<ActivationWarningStatus>().ActivateToggleIfPossible();
-
         service.AnnounceNewCore(this);
     }
 
@@ -118,6 +144,8 @@ public class UnstableCoreStabilizer(UnstableCoreStabilizerService service) : Bas
     public void Stabilize()
     {
         GetComponent<UnstableCoreExplosionBlocker>().BlockExplosion();
+        GetComponent<ActivationWarningStatus>()._statusToggle.Deactivate();
+        coreStabilizedStatus.Activate();
     }
 
     public void StabilizeAndDestroy()
@@ -126,6 +154,21 @@ public class UnstableCoreStabilizer(UnstableCoreStabilizerService service) : Bas
         service.Delete(this);
     }
 
+    void OnTimedActivatorActivated(object sender, EventArgs e)
+    {
+        if (IsFinished)
+        {
+            service.Delete(this);
+        }
+    }
+
+    public void DeleteEntity()
+    {
+        if (!IsFinished || !(stat.Rewards?.Count > 0)) { return; }
+
+        var coords = GetComponent<BlockObject>().Coordinates;
+        service.SpawnRewards(coords, stat.Rewards);
+    }
 }
 
 public readonly record struct StabilizerPayment(string GoodId, int Amount, int Paid)

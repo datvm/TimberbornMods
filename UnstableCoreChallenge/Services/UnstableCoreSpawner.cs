@@ -45,7 +45,6 @@ public class UnstableCoreSpawner(
         SpawnCore(placement.Value, coreService.GetChallenge(spec));
     }
 
-
     public void Tick()
     {
         var hours = (int)gameStats.GetStat<float>(GameStats.TimeTodayHours);
