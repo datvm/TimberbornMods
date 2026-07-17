@@ -24,7 +24,7 @@ public abstract class AreaTrackerHandle<T, TRegistration>
             throw new ArgumentException("At least one area must be specified.", nameof(registration));
         }
 
-        Segments = [..areaSegmentService.GetSegments(Areas)];
+        Segments = areaSegmentService.GetSegments(Areas).ToFrozenSet();
     }
 
     public void Initialize(IEnumerable<T> entities)

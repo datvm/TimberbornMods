@@ -21,6 +21,8 @@ public class IconSpan : VisualElement
         return this;
     }
 
+    public IconSpan SetHorizontal(bool horizontal = true) => SetVertical(!horizontal);
+
     public IconSpan SetPrefixText(string text)
     {
         if (PrefixLabel is null)
@@ -32,6 +34,8 @@ public class IconSpan : VisualElement
         PrefixLabel.text = text;
         return this;
     }
+
+    public IconSpan SetImage(ImageSource src) => SetImage(src, (Vector2?)null);
 
     public IconSpan SetImage(ImageSource src, int? size = null)
         => SetImage(src, size is null ? null : new Vector2(size.Value, size.Value));

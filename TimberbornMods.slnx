@@ -229,6 +229,7 @@
   <Project Path="TheArchitectsToolkit/TheArchitectsToolkit.csproj" />
   <Project Path="TimberDump/TimberDump.csproj" />
   <Project Path="TimberMarket/TimberMarket.csproj" />
+  <Project Path="TimberPipes/TimberPipes.csproj" Id="f407af6b-4802-470c-99e6-882ad4b1b9fa" />
   <Project Path="UnlimitedDistrictRange/UnlimitedDistrictRange.csproj" />
   <Project Path="UnstableCoreChallenge/UnstableCoreChallenge.csproj" />
   <Project Path="WaterErosion/WaterErosion.csproj" Id="93573e9b-b1df-4bef-a732-297979de88d5" />

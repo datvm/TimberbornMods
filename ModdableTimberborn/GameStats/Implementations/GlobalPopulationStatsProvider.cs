@@ -2,7 +2,7 @@
 
 public class GlobalPopulationStatsProvider(PopulationService populationService) : IIntGameStatProvider
 {
-    static readonly FrozenSet<string> PopulationStats = [
+    static readonly FrozenSet<string> PopulationStats = ImmutableHelper.CreateFrozenSet([
         GameStats.PopulationNumberOfAdult,
         GameStats.PopulationNumberOfChild,
         GameStats.PopulationNumberOfBot,
@@ -10,38 +10,38 @@ public class GlobalPopulationStatsProvider(PopulationService populationService) 
         GameStats.PopulationNumberOfHealthyAdult,
         GameStats.PopulationNumberOfHealthyChild,
         GameStats.PopulationTotal,
-    ];
+    ]);
 
-    static readonly FrozenSet<string> BedStats = [
+    static readonly FrozenSet<string> BedStats = ImmutableHelper.CreateFrozenSet([
         GameStats.BedOccupied,
         GameStats.BedFree,
         GameStats.BedHomeless,
         GameStats.BedTotal,
-    ];
+    ]);
 
-    static readonly FrozenSet<string> WorkforceStats = [
+    static readonly FrozenSet<string> WorkforceStats = ImmutableHelper.CreateFrozenSet([
         GameStats.WorkforceEmployable,
         GameStats.WorkforceUnemployable,
         GameStats.WorkforceTotal,
-    ];
+    ]);
 
-    static readonly FrozenSet<string> BeaverWorkforceStats = [
+    static readonly FrozenSet<string> BeaverWorkforceStats = ImmutableHelper.CreateFrozenSet([
         GameStats.WorkforceBeaverEmployable,
         GameStats.WorkforceBeaverUnemployable,
         GameStats.WorkforceBeaverTotal,
-    ];
+    ]);
 
-    static readonly FrozenSet<string> BotWorkforceStats = [
+    static readonly FrozenSet<string> BotWorkforceStats = ImmutableHelper.CreateFrozenSet([
         GameStats.WorkforceBotEmployable,
         GameStats.WorkforceBotUnemployable,
         GameStats.WorkforceBotTotal,
-    ];
+    ]);
 
-    static readonly FrozenSet<string> ContaminationStats = [
+    static readonly FrozenSet<string> ContaminationStats = ImmutableHelper.CreateFrozenSet([
         GameStats.ContaminationAdult,
         GameStats.ContaminationChild,
         GameStats.ContaminationTotal,
-    ];
+    ]);
 
     public IEnumerable<string> AvailableStats => [
         .. PopulationStats,

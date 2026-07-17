@@ -35,6 +35,7 @@ public static partial class UiCssClasses
 
     // Toggle
     public static readonly ImmutableArray<string> ToggleSettings = ["settings-element", SettingsText, "settings-toggle"];
+    public static readonly ImmutableArray<string> ToggleGamePanel = ["game-toggle", "entity-panel__text", "entity-panel__toggle"];
 
     // List/Scroll View
     public const string ScrollViewClass = "panel-list-view";

@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Timber Pipes",
+    "Version": "11.0.0",
+    "Id": "TimberPipes",
+    "MinimumGameVersion": "1.1.0",
+    "Description": "Pipes!",
+    "RequiredMods": [
+        { "Id": "ModdableTimberborn" }
+    ]
+}

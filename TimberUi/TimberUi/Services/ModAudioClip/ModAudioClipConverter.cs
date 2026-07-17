@@ -2,7 +2,7 @@
 
 public class ModAudioClipConverter : IModFileConverter<AudioClip>
 {
-    public static readonly FrozenSet<string> ValidExtensions = [".wav"];
+    public static readonly FrozenSet<string> ValidExtensions = ImmutableHelper.CreateFrozenSet([".wav"]);
 
     readonly List<ModAudioClip> audioClips = [];
     public IReadOnlyList<ModAudioClip> AudioClips => audioClips.AsReadOnly();
