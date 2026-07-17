@@ -1,6 +1,6 @@
 ﻿{
     "Name": "Building Blueprints",
-    "Version": "11.0.0",
+    "Version": "11.0.1",
     "Id": "BuildingBlueprints",
     "MinimumGameVersion": "1.1.0",
     "Description": "Save and copy your buildings",

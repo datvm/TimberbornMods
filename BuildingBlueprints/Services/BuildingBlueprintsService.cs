@@ -132,7 +132,7 @@ public class BuildingBlueprintsService(
                 [.. placements],
                 [.. counter],
                 [.. cost.Select(kv => new GoodAmount(kv.Key, kv.Value))],
-                [..tags]
+                tags.ToFrozenSet()
             ));
         }
 
