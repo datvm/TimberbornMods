@@ -1,0 +1,10 @@
+﻿ID,Text,Comment
+LV.PL.Connections,"Connections:",
+LV.PL.AddConnection,"Add Connection",
+LV.PL.RemoveConnection,"Remove Connection",
+LV.PL.PickDestination,"Pick a power line to connect to",
+LV.PL.ShowConnections,"Show Power Connections",
+LV.PL.LaternDescription,"A power pole that can connect more and longer power lines. Also comes with a free decorative lamp.",
+LV.PL.PowerLinesCount,"<YellowHighlight>Power Lines:</YellowHighlight> {0}",
+LV.PL.MaxDistance,"<YellowHighlight>Max Power Line Distance:</YellowHighlight> {0}m",
+Name_PowerLineFragment,"Power Lines",

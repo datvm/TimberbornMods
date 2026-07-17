@@ -1,0 +1,18 @@
+﻿{
+    "PowerLineSpec": {
+        "ConnectionLocations": [
+            {
+                "X": 2.5,
+                "Y": 0,
+                "Z": 2.5
+            },
+            {
+                "X": 2.5,
+                "Y": 3,
+                "Z": 2.5
+            }
+        ],
+        "MaxConnections": 6,
+        "MaxConnectionLength": 10
+    }
+}

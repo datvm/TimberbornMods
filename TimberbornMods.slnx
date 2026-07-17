@@ -217,6 +217,7 @@
   <Project Path="NoBuildRestriction/NoBuildRestriction.csproj" />
   <Project Path="NoWaterCompression/NoWaterCompression.csproj" Id="5e34d978-6930-4245-8b77-68ba334912af" />
   <Project Path="PackagerBuilder/PackagerBuilder.csproj" />
+  <Project Path="PowerLines/PowerLines.csproj" Id="2799b4f0-7fb7-4875-81fc-9154835f4ed7" />
   <Project Path="RamPump/RamPump.csproj" Id="d754f19b-75c3-4bf1-ae12-cfcdc54933ed" />
   <Project Path="RubbleSatisfactidy/RubbleSatisfactidy.csproj" />
   <Project Path="SaveEveryday/SaveEveryday.csproj" />

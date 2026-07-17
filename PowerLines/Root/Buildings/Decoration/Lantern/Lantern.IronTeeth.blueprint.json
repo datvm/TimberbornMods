@@ -1,0 +1,36 @@
+﻿{
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "Power",
+        "ToolOrder": 29
+    },
+    "TransputProviderSpec": {
+        "Transputs": [
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "Down, Left, Up, Right, Bottom",
+                "ReverseRotation": false
+            }
+        ],
+        "IgnoreRotation": false
+    },
+    "PowerLineSpec": {
+        "ConnectionLocations": [
+            {
+                "X": 0.5,
+                "Y": 0.5,
+                "Z": 1.75
+            }
+        ],
+        "MaxConnections": 4,
+        "MaxConnectionLength": 5
+    },
+    "LabeledEntitySpec": {
+        "DescriptionLocKey": "LV.PL.LaternDescription"
+    },
+    "NightTimeLightControllerSpec#delete": {},
+    "PowerLineLightControllerSpec": {}
+}

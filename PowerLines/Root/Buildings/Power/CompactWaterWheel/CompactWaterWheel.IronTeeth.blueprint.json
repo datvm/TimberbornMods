@@ -1,0 +1,16 @@
+﻿{
+    "PowerLineSpec": {
+        "ConnectionLocations": [
+            {
+                "X": 1.5,
+                "Y": 0,
+                "Z": 1.5
+            },
+            {
+                "X": 1.5,
+                "Y": 1,
+                "Z": 1.5
+            }
+        ]
+    }
+}

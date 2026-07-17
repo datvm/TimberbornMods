@@ -1,0 +1,36 @@
+﻿Connect your buildings with invisible [b]Power Lines[/b] instead of bulky Power Shafts! This mod completely adds a new way to distribute power, giving you clean, flexible wiring between any power-using structures.
+
+[img]https://images.steamusercontent.com/ugc/13545636092694228307/A41908096D16904C886897D66D23AFA8388DC8CA/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+[h1]Main Features[/h1]
+Each building can connect to up to 2 other buildings. Use the familiar connection UI (similar to Ziplines) to link and unlink them quickly. Power Lines are completely free to build and take no space. They do have a distance limit. Some buildings have special extended ranges, and the longer range always determines the maximum distance when connecting.
+
+
+[h1]Repurposed Lantern[/h1]
+The Lantern has been moved to the Power category. It is now a cheap, versatile power hub with more connection slots and longer range. Most production buildings are intentionally limited in range/connections so they are best used in daisy-chains, while Lanterns serve as natural relays and junctions.
+
+[i]Some buildings can support custom and multiple connection points. The points are represented by the orange spheres:[/i]
+[img]https://images.steamusercontent.com/ugc/11550511091467030764/01E67778DC8B64FF85B11F5F7011FE0DF707265B/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+- The Clutch still works exactly as before with both Power Lines and Power Shafts.
+- Power Shaft buildings are hidden from the toolbar as it is less useful now. You can still build them by [spoiler]enabling Dev Mode[/spoiler]. Existing Power Shafts will continue to work normally. Base game power transfer continues to work normally: buildings placed next to each other will still share power without needing a Power Line.
+- Lanterns also transfer power at their base position. The Lantern's light now also serves as a visual indicator of your connected power network's efficiency.
+
+[h1]Special Buildings[/h1]
+This mod is designed so any building can further be modified to support custom power line parameters (location, range and number of connections). Within the mod, the following buildings have been modified:
+
+[table]
+[tr][th]Buildings[/th][th]Connection Count[/th][th]Connection Range[/th][/tr]
+[tr][td]All buildings (default)[/td][td]2[/td][td]3[/td][/tr]
+[tr][td]All power generators (default)[/td][td]4[/td][td]5[/td][/tr]
+[tr][td]Lantern[/td][td]4[/td][td]5[/td][/tr]
+[tr][td]Gravity Battery[/td][td]-[/td][td]7.5[/td][/tr]
+[tr][td]Large Power Wheel[/td][td]-[/td][td]7.5[/td][/tr]
+[tr][td]Large Wind Turbine[/td][td]-[/td][td]10[/td][/tr]
+[tr][td]Large Water Wheel[/td][td]6[/td][td]10[/td][/tr]
+[/table]
+
+Some buildings can support custom and multiple connection points. I have only gone through the Power buildings. If you feel a building should have a different connection count or range, please let me know and I will consider adding it in a future update.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
