@@ -4,4 +4,9 @@
 	</PropertyGroup>
 	<Import Project="../Targets/Common.targets" />
 	<Import Project="../Targets/CommonModdableTimberborn.targets" />
+
+	<ItemGroup>
+		<Using Include="ModdableTimberborn.CompatWeatherService"/>
+	</ItemGroup>
+
 </Project>

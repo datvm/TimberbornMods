@@ -16,14 +16,14 @@ public class BetterWeatherStationFragment(
         AddWeathers("LV.BWS.BenignWeathers", service.BenignWeathers);
         AddWeathers("LV.BWS.HazardousWeathers", service.HazardousWeathers);
 
-        void AddWeathers(string titleKey, IReadOnlyList<WeatherDefinition> weathers)
+        void AddWeathers(string titleKey, IEnumerable<CompatWeatherType> weathers)
         {
             var grp = panel.AddChild();
             grp.AddGameLabel((t.T(titleKey) + ":").Bold()).SetMarginBottom(5);
 
             foreach (var w in weathers)
             {
-                var chk = grp.AddToggle(w.Name, onValueChanged: v => OnWeatherChanged(w.Id, v))
+                var chk = grp.AddToggle(t.T(w.DisplayLoc), onValueChanged: v => OnWeatherChanged(w.Id, v))
                     .SetWidthPercent(100);
 
                 chkWeathers.Add(w.Id, chk);

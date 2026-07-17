@@ -13,7 +13,7 @@ public class BetterWeatherStationBuildingSettings(
     public override string DescribeModel(BetterWeatherStationBuildingSettingsModel model)
     {
         if (model.WeatherIds.Length == 0) { return t.TNone(); }
-        return string.Join(", ", model.WeatherIds.Select(id => service.GetOrDefault(id).Name));
+        return string.Join(", ", model.WeatherIds.Select(id => t.T(service.GetOrDefault(id).DisplayLoc)));
     }
 
     protected override bool ApplyModel(BetterWeatherStationBuildingSettingsModel model, BetterWeatherStationComponent target)

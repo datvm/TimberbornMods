@@ -9,7 +9,6 @@
     <Project Path="AutomationArrays/AutomationArrays.csproj" Id="4e7ed989-493f-44ef-82bd-d4de4493f532" />
     <Project Path="AutomationGraph/AutomationGraph.csproj" Id="12e55752-db52-465a-8e8f-d3db9f885856" />
     <Project Path="BetterWeatherStation/BetterWeatherStation.csproj" Id="2a54e76c-8815-4bf0-9312-78be9bcb629b" />
-    <Project Path="BetterWeatherStationModdableWeather/BetterWeatherStationModdableWeather.csproj" Id="2074ab35-6670-410e-b022-c981e834703c" />
     <Project Path="PausableSensors/PausableSensors.csproj" Id="c881a04b-23ee-4d5b-9675-0cf98f128b91" />
   </Folder>
   <Folder Name="/BChronicles/">
