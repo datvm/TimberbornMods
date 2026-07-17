@@ -7,12 +7,12 @@ public abstract class SimpleProjectListener : IScientificProjectUnlockListener, 
     public bool IsUnlocked => ProjectInfo is not null;
     public ScientificProjectInfo? ProjectInfo { get; private set; }
 
-    public FrozenSet<string> UnlockListenerIds { get; private set; } = [];
-    public FrozenSet<string> ListenerIds { get; private set; } = [];
+    public FrozenSet<string> UnlockListenerIds { get; private set; } = null!;
+    public FrozenSet<string> ListenerIds { get; private set; } = null!;
 
     public virtual void Load()
     {
-        UnlockListenerIds = ListenerIds = [ProjectId];
+        UnlockListenerIds = ListenerIds = ImmutableHelper.CreateFrozenSet([ProjectId]);
     }
 
     public void OnListenerLoaded(IReadOnlyList<ScientificProjectInfo> activeProjects)

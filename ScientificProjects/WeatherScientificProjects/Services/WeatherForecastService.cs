@@ -22,7 +22,7 @@ public class WeatherForecastService(
     }
 
     public override FrozenSet<string> UnlockListenerIds { get; } = WeatherProjectsUtils.WeatherForecastUnlockIds;
-    public override FrozenSet<string> DailyListenerIds { get; } = [WeatherProjectsUtils.WeatherForecast3Id];
+    public override FrozenSet<string> DailyListenerIds { get; } = ImmutableHelper.CreateFrozenSet([WeatherProjectsUtils.WeatherForecast3Id]);
 
     public override void Load()
     {

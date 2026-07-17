@@ -23,14 +23,14 @@ public interface IScientificProjectUpgradeListener : IScientificProjectUnlockLis
 
 public abstract class DefaultProjectUpgradeListener : IScientificProjectUpgradeListener, ILoadableSingleton
 {
-    public FrozenSet<string> ListenerIds { get; protected set; } = [];
+    public FrozenSet<string> ListenerIds { get; protected set; } = null!;
 
     public abstract FrozenSet<string> UnlockListenerIds { get; }
     public abstract FrozenSet<string> DailyListenerIds { get; }
 
     public virtual void Load()
     {
-        ListenerIds = [.. UnlockListenerIds, .. DailyListenerIds];
+        ListenerIds = ImmutableHelper.CreateFrozenSet([.. UnlockListenerIds, .. DailyListenerIds]);
     }
 
     protected abstract void ProcessActiveProjects(IReadOnlyList<ScientificProjectInfo> activeProjects, ScientificProjectSpec? newUnlock, ActiveProjectsSource source);

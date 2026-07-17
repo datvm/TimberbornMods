@@ -45,8 +45,8 @@ public class SPGroupElement(
         var originalLabel = HeaderLabel;
 
         var headerContent = originalLabel.AddChild().SetFlexGrow();
-        headerContent.AddGameLabel(GroupSpec.DisplayName.Bold().Color(TimberbornTextColor.Solid), size: UiBuilder.GameLabelSize.Big);
-        headerContent.AddGameLabel(GroupSpec.Description.Color(TimberbornTextColor.Solid)).SetMarginBottom();
+        headerContent.AddGameLabel(GroupSpec.DisplayName.Bold().Color(TimberbornTextColor.Yellow), size: UiBuilder.GameLabelSize.Big);
+        headerContent.AddGameLabel(GroupSpec.Description.Color(TimberbornTextColor.Yellow)).SetMarginBottom();
 
         headerContent.InsertSelfBefore(originalLabel);
         originalLabel.RemoveFromHierarchy();
