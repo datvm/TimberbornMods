@@ -3,10 +3,10 @@
 public class WeatherSPWaterStrengthService(DefaultEntityTracker<WeatherSPWaterStrengthModifier> tracker) : IScientificProjectDailyListener
 {
     public (WeatherSPWaterStrengthInfo Fresh, WeatherSPWaterStrengthInfo Bad) CurrentInfo { get; private set; }
-    public FrozenSet<string> ListenerIds { get; } = [
+    public FrozenSet<string> ListenerIds { get; } = ImmutableHelper.CreateFrozenSet([
         ..WeatherProjectsUtils.FreshWaterStrengthIds,
         ..WeatherProjectsUtils.BadWaterStrengthIds
-    ];
+    ]);
 
     void SetWaterStrength(IReadOnlyList<ScientificProjectInfo> activeProjects)
     {

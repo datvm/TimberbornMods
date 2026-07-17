@@ -1,6 +1,6 @@
 ﻿namespace WeatherScientificProjects.Components;
 
-public class WeatherSPWaterStrengthModifier(WeatherSPWaterStrengthService service) : BaseComponent, IWaterStrengthModifier, IEntityMultiEffectsDescriber, IStartableComponent
+public class WeatherSPWaterStrengthModifier(WeatherSPWaterStrengthService service) : BaseComponent, IWaterStrengthModifier, IEntityMultiEffectsDescriber, IInitializableEntity
 {
     public bool IsBadwaterSource { get; private set; }
     public float CurrentStrength => waterSource.CurrentStrength;
@@ -13,7 +13,7 @@ public class WeatherSPWaterStrengthModifier(WeatherSPWaterStrengthService servic
     WaterSource waterSource;
 #nullable enable
 
-    public void Start()
+    public void InitializeEntity()
     {
         var contamination = GetComponent<WaterSourceContamination>();
         IsBadwaterSource = contamination.Contamination > 0f;

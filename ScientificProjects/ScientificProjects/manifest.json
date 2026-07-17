@@ -1,8 +1,8 @@
 ﻿{
     "Name": "Scientific Projects",
-    "Version": "10.0.2",
+    "Version": "11.0.0",
     "Id": "ScientificProjects",
-    "MinimumGameVersion": "1.0.0",
+    "MinimumGameVersion": "1.1.0",
     "Description": "Scientific ways to spend your Science!",
     "RequiredMods": [
         { "Id": "ModdableTimberborn" }

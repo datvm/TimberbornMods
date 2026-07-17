@@ -18,7 +18,7 @@ public class MConfigs : BaseModdableTimberbornConfigurationWithHarmony, IWithDIC
         if (context.IsMenuContext())
         {
             configurator
-                .MultiBindSingleton<IModUpdateNotifier, ModUpdateNotifier>()
+                .MultiBindSingleton<IModUpdateNotifier2, ModUpdateNotifier>()
             ;
 
             return;

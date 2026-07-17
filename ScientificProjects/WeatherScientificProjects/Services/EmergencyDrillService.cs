@@ -6,7 +6,7 @@ public class EmergencyDrillService(
 ) : IScientificProjectUpgradeListener
 {
     public FrozenSet<string> UnlockListenerIds { get; } = WeatherProjectsUtils.EmergencyDrillIds;
-    public FrozenSet<string> ListenerIds { get; } = []; // Not needed
+    public FrozenSet<string> ListenerIds { get; } = ImmutableHelper.CreateFrozenSet<string>([]); // Not needed
 
     public void OnDailyPaymentResolved(IReadOnlyList<ScientificProjectInfo> activeProjects) { }
 

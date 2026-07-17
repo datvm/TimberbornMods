@@ -7,7 +7,7 @@ public class WeatherSPWarningExtender(
     const string ModifierId = "WeatherSPWarningExtender";
 
     public override FrozenSet<string> UnlockListenerIds { get; } = WeatherProjectsUtils.WeatherWarningExtUnlockIds;
-    public override FrozenSet<string> DailyListenerIds { get; } = [WeatherProjectsUtils.WeatherWarningExt3Id];
+    public override FrozenSet<string> DailyListenerIds { get; } = ImmutableHelper.CreateFrozenSet([WeatherProjectsUtils.WeatherWarningExt3Id]);
     
     protected override void ProcessActiveProjects(IReadOnlyList<ScientificProjectInfo> activeProjects, ScientificProjectSpec? newUnlock, ActiveProjectsSource source)
     {
