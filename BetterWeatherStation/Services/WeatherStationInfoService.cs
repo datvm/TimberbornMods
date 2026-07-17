@@ -1,45 +1,77 @@
 ﻿namespace BetterWeatherStation.Services;
 
 [BindSingleton]
-public class WeatherStationInfoService(IEnumerable<IWeatherStationInfoProvider> providers) : ITickableSingleton, ILoadableSingleton
+public class WeatherStationInfoService(
+    CompatWeatherService compatWeatherService,
+    GameCycleService gameCycleService,
+    IDayNightCycle dayNightCycle
+) : ITickableSingleton, ILoadableSingleton
 {
+    ICompatWeatherServiceProvider ServiceProvider => compatWeatherService.Provider;
 
-    readonly IWeatherStationInfoProvider provider = providers.OrderByDescending(q => q.Order).First();
+    FrozenDictionary<string, CompatWeatherType> weatherTypes = null!;
 
-    public CurrentWeatherStatus CurrentWeatherStatus => provider.Current;
+    readonly CurrentWeatherStatus current = new();
+    public ICurrentWeatherStatus CurrentWeatherStatus => current;
 
-#nullable  disable
-    public IReadOnlyList<WeatherDefinition> Weathers { get; private set; }
-    public IReadOnlyList<WeatherDefinition> BenignWeathers { get; private set; }
-    public IReadOnlyList<WeatherDefinition> HazardousWeathers { get; private set; }
-    public FrozenDictionary<string, WeatherDefinition> WeathersById { get; private set; }
-    public WeatherDefinition DefaultWeather { get; private set; }   
-#nullable enable
+    public IEnumerable<CompatWeatherType> BenignWeathers => ServiceProvider.WeatherTypes.Where(w => w.IsBenign);
+    public IEnumerable<CompatWeatherType> HazardousWeathers => ServiceProvider.WeatherTypes.Where(w => !w.IsBenign);
 
     public void Load()
     {
-        Weathers = provider.GetWeathers();
-        WeathersById = Weathers.ToFrozenDictionary(q => q.Id);
-        BenignWeathers = [.. Weathers.Where(q => !q.Hazardous)];
-        HazardousWeathers = [.. Weathers.Where(q => q.Hazardous)];
-
-        DefaultWeather = provider.GetDefaultWeather();
-
-        provider.Update();
+        weatherTypes = ServiceProvider.WeatherTypes.ToFrozenDictionary(w => w.Id);
+        Tick();
     }
 
-    public WeatherDefinition GetOrDefault(string id) => WeathersById.TryGetValue(id, out var def) ? def : DefaultWeather;
-
-    public WeatherDefinition GetOrDefault(WeatherStationMode mode) => GetOrDefault(mode switch
+    public CompatWeatherType GetOrDefault(string id)
     {
-        WeatherStationMode.Drought => DefaultWeatherStationInfoProvider.DroughtWeatherId,
-        WeatherStationMode.Badtide => DefaultWeatherStationInfoProvider.BadtideWeatherId,
-        _ => DefaultWeatherStationInfoProvider.TemperateWeatherId,
+        if (weatherTypes.TryGetValue(id, out var weather))
+        {
+            return weather;
+        }
+
+        return id == CompatWeatherService.TemperateId
+            ? ServiceProvider.WeatherTypes.First() // If temperate is missing, just return the first weather type
+            : GetOrDefault(CompatWeatherService.TemperateId);
+    }
+
+    public CompatWeatherType GetOrDefault(WeatherStationMode mode) => GetOrDefault(mode switch
+    {
+        WeatherStationMode.Drought => CompatWeatherService.DroughtId,
+        WeatherStationMode.Badtide => CompatWeatherService.BadtideId,
+        _ => CompatWeatherService.TemperateId,
     });
 
     public void Tick()
     {
-        provider.Update();
+        var cycleNum = gameCycleService.Cycle;
+        var cycleDay = gameCycleService.CycleDay;
+
+        if (current.Cycle != cycleNum)
+        {
+            current.WeatherCycleInfo = ServiceProvider.GetCurrentCycle();
+            current.Cycle = cycleNum;
+            current.CycleDay = -1;
+        }
+
+        if (current.CycleDay != cycleDay)
+        {
+            current.CycleDay = cycleDay;
+            
+            var stages = current.WeatherCycleInfo.Stages;
+            var currIndex = current.GetCurrentStageIndex(cycleDay);
+
+            var currStage = current.CurrentStage = stages[currIndex];
+            current.NextStage = currIndex < stages.Length - 1
+                ? stages[currIndex + 1]
+                : ServiceProvider.GetNextCycleStage();
+            
+            current.NextStageCycleDay = currStage.StartDay + currStage.Length;
+        }
+
+        var hoursPassedToday = dayNightCycle.HoursPassedToday;
+        current.HoursToNextStage = (current.NextStageCycleDay - current.CycleDay) * 24 - hoursPassedToday;
     }
 
 }
+
