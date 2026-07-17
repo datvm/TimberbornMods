@@ -7,7 +7,7 @@ public class TextTextureRenderer : IUnloadableSingleton
     public const char Tab = '\t';
     public const char CarriageReturn = '\r';
     public const char Space = ' ';
-    public static readonly FrozenSet<char> IgnoredChars = [NewLine, Tab, CarriageReturn, Space];
+    public static readonly FrozenSet<char> IgnoredChars = ImmutableHelper.CreateFrozenSet([NewLine, Tab, CarriageReturn, Space]);
 
     public static readonly string[] MonospaceFonts = TextTextureFontService.MonospaceFonts;
     public static readonly string[] DefaultFonts = TextTextureFontService.DefaultFonts;

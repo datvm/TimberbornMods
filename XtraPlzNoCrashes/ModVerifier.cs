@@ -7,9 +7,9 @@ public class ModVerifier(
 ) : ILoadableSingleton
 {
 
-    static readonly FrozenSet<string> ReplacementIds = [
+    static readonly FrozenSet<string> ReplacementIds = ((string[])[
         "MaterialPlzNoCrashes", "MultiYieldersPlzNoCrashes"
-    ];
+    ]).ToFrozenSet();
 
     public void Load()
     {

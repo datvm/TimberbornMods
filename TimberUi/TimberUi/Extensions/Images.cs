@@ -41,6 +41,9 @@ public static partial class UiBuilderExtensions
 
         public IconSpan AddIconSpan() => parent.AddChild<IconSpan>();
 
+        public IconSpan AddIconSpan(ImageSource src, string? prefixText = null, string? postfixText = null)
+            => parent.AddIconSpan().SetContent(src, prefixText, postfixText, (int?)null);
+
         public IconSpan AddIconSpan(ImageSource src, string? prefixText = null, string? postfixText = null, int? size = null) 
             => parent.AddIconSpan().SetContent(src, prefixText, postfixText, size);
 

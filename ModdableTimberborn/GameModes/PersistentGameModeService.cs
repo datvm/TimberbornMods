@@ -18,14 +18,14 @@ public class PersistentGameModeService(
     static readonly SingletonKey SaveKey = new(nameof(PersistentGameModeService));
     static readonly PropertyKey<string> StartedModeKey = new("StartedMode");
 
-    public static readonly FrozenSet<string> UnrecoverableProperties = [
+    public static readonly FrozenSet<string> UnrecoverableProperties = ImmutableHelper.CreateFrozenSet([
         nameof(GameModeSpec.StartingAdults),
         nameof(GameModeSpec.AdultAgeProgress),
         nameof(GameModeSpec.StartingChildren),
         nameof(GameModeSpec.ChildAgeProgress),
         nameof(GameModeSpec.StartingFood),
         nameof(GameModeSpec.StartingWater),
-    ];
+    ]);
 
     static readonly FrozenSet<PropertyInfo> RecoverableProperties = typeof(GameModeSpec)
         .GetProperties(BindingFlags.Public | BindingFlags.Instance)

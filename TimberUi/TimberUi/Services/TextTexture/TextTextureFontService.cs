@@ -17,7 +17,7 @@ public class TextTextureFontService
         "Noto Sans", "DejaVu Sans", "Liberation Sans", "Ubuntu", // Linux
     ];
 
-    public FrozenSet<string> InstalledFontSet { get; private set; } = [];
+    public FrozenSet<string> InstalledFontSet { get; private set; } = ImmutableHelper.CreateFrozenSet<string>();
     public ImmutableArray<string> InstalledFonts { get; private set; } = [];
     public bool Initialized => InstalledFonts.Length > 0;
 
@@ -36,7 +36,7 @@ public class TextTextureFontService
     {
         var fontNames = Font.GetOSInstalledFontNames();
         
-        InstalledFontSet = [..fontNames];
+        InstalledFontSet = fontNames.ToFrozenSet();
         InstalledFonts = [.. fontNames];
 
         MonospaceFont = ResolveFont(MonospaceFonts);

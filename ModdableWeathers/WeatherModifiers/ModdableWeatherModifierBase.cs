@@ -7,8 +7,8 @@ public abstract class ModdableWeatherModifierBase<TSettings>(
     where TSettings : ModdableWeatherModifierSettings
 {
 
-    FrozenSet<string> lockedWeathers = [];
-    FrozenSet<string> incompatibleModifierIds = [];
+    FrozenSet<string> lockedWeathers = null!;
+    FrozenSet<string> incompatibleModifierIds = null!;
 
     public abstract string Id { get; }
     public ModdableWeatherModifierSpec Spec { get; protected set; } = null!;
@@ -22,10 +22,11 @@ public abstract class ModdableWeatherModifierBase<TSettings>(
     public void Load()
     {
         Spec = specs.SpecsById[Id];
-        lockedWeathers = [..Spec.CompatibleWeathers
+        lockedWeathers = Spec.CompatibleWeathers
             .Where(q => q.Lock)
-            .Select(q => q.WeatherId)];
-        incompatibleModifierIds = [..Spec.IncompatibleModifierIds];
+            .Select(q => q.WeatherId)
+            .ToFrozenSet();
+        incompatibleModifierIds = Spec.IncompatibleModifierIds.ToFrozenSet();
 
         ReloadSettings();
     }
