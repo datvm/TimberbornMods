@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputModFolderName>PowerLines</OutputModFolderName>
+	</PropertyGroup>
+
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonTimberUI.targets" />
+	<Import Project="../Targets/CommonHarmony.targets" />
+
+	<ItemGroup>
+		<Using Include="PowerLines.Components" />
+		<Using Include="PowerLines.Specs" />
+		<Using Include="PowerLines.UI" />
+		<Using Include="PowerLines.Services" />
+		<Using Include="PowerLines.Patches" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Root\Buildings\Power\CompactWaterWheel\" />
+	  <Folder Include="Root\Buildings\Power\LargePowerWheel\" />
+	  <Folder Include="Root\Buildings\Power\LargeWaterWheel\" />
+	  <Folder Include="Root\Buildings\Power\LargeWindTurbine\" />
+	  <Folder Include="Root\Buildings\Power\SteamEngine\" />
+	  <Folder Include="Root\Buildings\Power\WindTurbine\" />
+	</ItemGroup>
+
+</Project>

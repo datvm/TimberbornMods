@@ -1,0 +1,8 @@
+﻿{
+    "PowerLineSettingsSpec": {
+        "DefaultMaxConnections": 2,
+        "DefaultGeneratorMaxConnections": 4,
+        "DefaultMaxConnectionLength": 3.0,
+        "DefaultMaxGeneratorConnectionLength": 5.0
+    }
+}

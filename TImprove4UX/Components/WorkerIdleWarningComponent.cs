@@ -1,6 +1,6 @@
 ﻿namespace TImprove4UX.Components;
 
-public class WorkerIdleWarningComponent : TickableComponent
+public class WorkerIdleWarningComponent : TickableComponent, IInitializableEntity
 {
 
 #nullable disable
@@ -11,12 +11,12 @@ public class WorkerIdleWarningComponent : TickableComponent
 
     public bool DisableWarning { get; private set; }
 
-    public string PrefabName
+    public string TemplateName
     {
         get
         {
-            var prefab = GetComponentFast<PrefabSpec>();
-            return prefab.PrefabName;
+            var prefab = GetComponent<TemplateSpec>();
+            return prefab.TemplateName;
         }
     }
 
@@ -35,55 +35,53 @@ public class WorkerIdleWarningComponent : TickableComponent
         );
     }
 
-    public override void StartTickable()
+    public void InitializeEntity()
     {
-        base.StartTickable();
-
-        enterable = GetComponentFast<Enterable>();
+        enterable = GetComponent<Enterable>();
         enterable.EntererAdded += Enterable_EntererAdded;
         enterable.EntererRemoved += Enterable_EntererRemoved;
 
-        GetComponentFast<StatusSubject>().RegisterStatus(idleStatus);
+        GetComponent<StatusSubject>().RegisterStatus(idleStatus);
         UpdateStatus(null);
     }
 
     void AddEnterer(Enterer e)
     {
-        var bm = e.GetComponentFast<BehaviorManager>();
+        var bm = e.GetComponent<BehaviorManager>();
         if (!bm) { return; }
         insiders.Add(bm);
     }
 
-    private void Enterable_EntererRemoved(object sender, EntererRemovedEventArgs e)
+    void Enterable_EntererRemoved(object sender, EntererRemovedEventArgs e)
     {
-        var bm = e.Enterer.GetComponentFast<BehaviorManager>();
+        var bm = e.Enterer.GetComponent<BehaviorManager>();
         if (bm is null) { return; } // Just check null here
         insiders.Remove(bm);
     }
-    private void Enterable_EntererAdded(object sender, EntererAddedEventArgs e) => AddEnterer(e.Enterer);
+    void Enterable_EntererAdded(object sender, EntererAddedEventArgs e) => AddEnterer(e.Enterer);
 
     public void ToggleDisableWarning(bool disabled)
     {
         if (disabled == DisableWarning) { return; }
 
-        workerIdleWarningService.ToggleWarningDisabled(PrefabName, disabled);
+        workerIdleWarningService.ToggleWarningDisabled(TemplateName, disabled);
     }
 
     public void UpdateStatus(bool? status)
     {
-        status ??= workerIdleWarningService.IsWarningDisabled(PrefabName);
+        status ??= workerIdleWarningService.IsWarningDisabled(TemplateName);
 
         if (status.Value == DisableWarning) { return; }
         DisableWarning = status.Value;
 
         if (DisableWarning)
         {
-            enabled = false;
+            DisableComponent();
             DisableStatus();            
         }
         else
         {
-            enabled = true;
+            EnableComponent();
             CheckForIdleWorkers();
         }
     }

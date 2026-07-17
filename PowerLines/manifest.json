@@ -1,0 +1,11 @@
+﻿{
+    "Name": "Power Lines",
+    "Version": "11.0.0",
+    "Id": "PowerLines",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "Power Lines",
+    "RequiredMods": [
+        { "Id": "TimberUi" },
+        { "Id": "Harmony" }
+    ]
+}
