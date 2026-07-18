@@ -1,0 +1,10 @@
+﻿{
+    "Name": "House Painter",
+    "Version": "11.0.0",
+    "Id": "HousePainter",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "Paint individual building mesh parts.",
+    "RequiredMods": [
+        { "Id": "ModdableTimberborn" }
+    ]
+}
