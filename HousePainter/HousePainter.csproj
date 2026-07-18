@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputModFolderName>HousePainter</OutputModFolderName>
+	</PropertyGroup>
+
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonModdableTimberborn.targets" />
+
+	<ItemGroup>
+		<Using Include="HousePainter.Helpers" />
+		<Using Include="HousePainter.Models" />
+		<Using Include="HousePainter.Services" />
+		<Using Include="HousePainter.Components" />
+		<Using Include="HousePainter.Patches" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,8 @@
+﻿ID,Text,Comment
+LV.HPt.EnablePainting,"Enable Painting",
+LV.HPt.DisablePainting,"Disable Painting",
+LV.HPt.EnterPartName,"Enter a label for {0}:",
+LV.HPt.PickColor,"Pick Color",
+LV.HPt.ClearColor,"Clear Color",
+LV.HPt.EditLabel,"Edit Label",
+Name_HousePainterFragment,"House Painter",
