@@ -1,0 +1,8 @@
+﻿{
+    "TechTreeCategorySpec": {
+        "Id": "Default",
+        "NameLoc": "LV.TT.Uncategorized",
+        "DescriptionLoc": "LV.TT.UncategorizedDesc",
+        "Order": 999999999
+    }
+}

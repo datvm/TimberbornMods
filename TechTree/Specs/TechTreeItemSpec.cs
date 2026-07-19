@@ -17,6 +17,9 @@ public record TechTreeItemSpec : ComponentSpec
     public LocalizedText? Description { get; init; }
 
     [Serialize]
+    public int Order { get; init; }
+
+    [Serialize]
     public Sprite? Icon { get; init; }
 
     [Serialize]
@@ -30,4 +33,7 @@ public record TechTreeItemSpec : ComponentSpec
 
     [Serialize]
     public ImmutableArray<string> Tags { get; init; } = [];
+
+    public bool ShouldAutoUnlock => Cost == 0;
+
 }
