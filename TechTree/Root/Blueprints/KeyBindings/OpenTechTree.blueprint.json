@@ -1,0 +1,12 @@
+﻿{
+    "KeyBindingSpec": {
+        "Id": "OpenTechTree",
+        "GroupId": "UI",
+        "LocKey": "LV.TT.Open",
+        "Order": 19
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/t",
+        "InputModifiers": "Ctrl"
+    }
+}

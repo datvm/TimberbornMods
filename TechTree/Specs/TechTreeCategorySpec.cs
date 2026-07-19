@@ -16,13 +16,16 @@ public record TechTreeCategorySpec : ComponentSpec
     public LocalizedText? Description { get; init; }
 
     [Serialize]
+    public int Order { get; init; }
+
+    [Serialize]
     public Color BackgroundColor { get; init; } = Color.white;
 
     [Serialize]
-    public Color ItemBackgroundColor { get; init; } = Color.white;
+    public Color ItemBorderColor { get; init; } = Color.black;
 
     [Serialize]
-    public Color ItemBorderColor { get; init; } = Color.black;
+    public Color ItemBackgroundColor { get; init; } = Color.clear;
 
     [Serialize]
     public Color ItemTextColor { get; init; } = Color.black;

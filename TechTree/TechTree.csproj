@@ -5,4 +5,15 @@
 
 	<Import Project="../Targets/Common.targets" />
 	<Import Project="../Targets/CommonTimberUI.targets" />
+
+	<ItemGroup>
+		<Using Include="TechTree.Services" />
+		<Using Include="TechTree.Specs" />
+		<Using Include="TechTree.Models" />		
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Root\Blueprints\KeyBindings\" />
+	  <Folder Include="Root\Blueprints\TechTreeCategorySpecs\" />
+	</ItemGroup>
 </Project>
