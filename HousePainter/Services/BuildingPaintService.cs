@@ -136,6 +136,50 @@ public class BuildingPaintService(
     public bool TryClearPartColor(BuildingModel buildingModel, string materialName) =>
         TrySetPartColor(buildingModel, materialName, color: null);
 
+    /// <summary>
+    /// UI hover highlight for a single part. Restores paint MPB when turned off.
+    /// </summary>
+    public bool TrySetPartHighlight(BuildingModel buildingModel, string materialName, bool highlight)
+    {
+        if (!sessions.TryGetValue(buildingModel, out var session))
+        {
+            return false;
+        }
+
+        var fragmentIndex = IndexOfFragment(session.Layout, materialName);
+        if (fragmentIndex < 0)
+        {
+            return false;
+        }
+
+        if (highlight)
+        {
+            session.Highlighted.Add(fragmentIndex);
+        }
+        else
+        {
+            session.Highlighted.Remove(fragmentIndex);
+        }
+
+        WriteFragmentBlocks(session, fragmentIndex);
+        return true;
+    }
+
+    public void ClearPartHighlights(BuildingModel buildingModel)
+    {
+        if (!sessions.TryGetValue(buildingModel, out var session) || session.Highlighted.Count == 0)
+        {
+            return;
+        }
+
+        var highlighted = session.Highlighted.ToArray();
+        session.Highlighted.Clear();
+        foreach (var fragmentIndex in highlighted)
+        {
+            WriteFragmentBlocks(session, fragmentIndex);
+        }
+    }
+
     public void DisablePainting(BuildingModel buildingModel)
     {
         if (!sessions.Remove(buildingModel, out var session))
@@ -209,7 +253,12 @@ public class BuildingPaintService(
     void WriteFragmentBlocks(PaintSession session, int fragmentIndex)
     {
         var hasColor = session.Colors.TryGetValue(fragmentIndex, out var color);
+        var highlighted = session.Highlighted.Contains(fragmentIndex);
         var tint = hasColor ? PaintTint.Compensate(color) : Color.white;
+        if (highlighted)
+        {
+            tint = PaintTint.WithHover(tint);
+        }
 
         foreach (var binding in session.Bindings)
         {
@@ -225,7 +274,7 @@ public class BuildingPaintService(
                     continue;
                 }
 
-                if (!hasColor)
+                if (!hasColor && !highlighted)
                 {
                     binding.Renderer.SetPropertyBlock(null, s);
                     continue;
@@ -233,6 +282,10 @@ public class BuildingPaintService(
 
                 binding.Renderer.GetPropertyBlock(propertyBlock, s);
                 propertyBlock.SetColor(PaintTint.ColorPropertyId, tint);
+                propertyBlock.SetColor(
+                    PaintTint.EmissionPropertyId,
+                    highlighted ? PaintTint.HoverEmission : Color.clear
+                );
                 binding.Renderer.SetPropertyBlock(propertyBlock, s);
             }
         }
@@ -328,6 +381,7 @@ public class BuildingPaintService(
         public Material BaseMaterial { get; } = baseMaterial;
         public List<RendererBinding> Bindings { get; } = bindings;
         public Dictionary<int, Color> Colors { get; } = [];
+        public HashSet<int> Highlighted { get; } = [];
     }
 
     readonly record struct RendererBinding(

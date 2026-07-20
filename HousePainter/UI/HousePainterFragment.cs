@@ -34,6 +34,11 @@ public class HousePainterFragment(
 
     public override void ClearFragment()
     {
+        if (component)
+        {
+            component!.ClearPartHighlights();
+        }
+
         base.ClearFragment();
         btnEnable.SetDisplay(false);
         pnlPainting.SetDisplay(false);
@@ -58,6 +63,7 @@ public class HousePainterFragment(
 
             el.OnLabelChanged += (_, e) => SetLabel(name, e);
             el.OnColorPicked += (_, e) => SetColor(name, e);
+            el.OnHover += (_, e) => OnPartHover(name, e);
 
             el.SetOriginalLabel(name);
 
@@ -92,6 +98,12 @@ public class HousePainterFragment(
         {
             component!.ClearPaint(name);
         }
+    }
+
+    void OnPartHover(string name, bool hover)
+    {
+        if (!component) { return; }
+        component!.ToggleHighlightPart(name, hover);
     }
 
     void OnEnableRequested()

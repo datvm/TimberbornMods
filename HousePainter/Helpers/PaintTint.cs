@@ -15,6 +15,13 @@ public static class PaintTint
     public const float ColorBoost = 1.45f;
 
     public static int ColorPropertyId => ColorId;
+    public static int EmissionPropertyId => EmissionColorId;
+
+    /// <summary>Warm pulse mixed over base tint for UI hover of a paint part.</summary>
+    public static readonly Color HoverAccent = new(1.35f, 1.2f, 0.35f, 1f);
+
+    /// <summary>Soft emission so hover reads even on already-bright paint.</summary>
+    public static readonly Color HoverEmission = new(0.55f, 0.45f, 0.08f, 1f);
 
     /// <summary>
     /// Normalize max channel to 1 (keep hue, full intensity), then boost.
@@ -39,6 +46,9 @@ public static class PaintTint
             1f
         );
     }
+
+    public static Color WithHover(Color baseTint) =>
+        Color.Lerp(baseTint, HoverAccent, 0.55f);
 
     public static void ResetMaterialBase(Material material)
     {

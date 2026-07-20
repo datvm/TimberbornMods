@@ -3,7 +3,7 @@
 [AddTemplateModule2(typeof(BuildingModelSpec))]
 public class BuildingPartPainter(
     BuildingPaintService paintService
-) : BaseComponent, IInitializableEntity, IPersistentEntity, IDeletableEntity
+) : BaseComponent, IInitializableEntity, IPersistentEntity, IDeletableEntity, IDuplicable<BuildingPartPainter>
 {
     static readonly ComponentKey SaveKey = new(nameof(BuildingPartPainter));
     static readonly PropertyKey<bool> IsPaintingEnabledKey = new("IsPaintingEnabled");
@@ -18,8 +18,12 @@ public class BuildingPartPainter(
     readonly Dictionary<string, PaintedPart> paintedParts = [];
     public IReadOnlyDictionary<string, PaintedPart> PaintedParts => paintedParts;
 
+    public string TemplateName { get; private set; } = "";
+
     public void InitializeEntity()
     {
+        TemplateName = this.GetTemplateName();
+
         Model = GetComponent<BuildingModel>();
         TryApplyPendingLoad();
     }
@@ -123,6 +127,26 @@ public class BuildingPartPainter(
         }
     }
 
+    public void ToggleHighlightPart(string name, bool highlight)
+    {
+        if (!IsPaintingEnabled)
+        {
+            return;
+        }
+
+        paintService.TrySetPartHighlight(Model, name, highlight);
+    }
+
+    public void ClearPartHighlights()
+    {
+        if (!IsPaintingEnabled)
+        {
+            return;
+        }
+
+        paintService.ClearPartHighlights(Model);
+    }
+
     public void Save(IEntitySaver entitySaver)
     {
         if (!IsPaintingEnabled && paintedParts.Count == 0)
@@ -196,6 +220,30 @@ public class BuildingPartPainter(
         }
 
         return builder.MoveToImmutable();
+    }
+
+    public void DuplicateFrom(BuildingPartPainter source)
+    {
+        if (source.TemplateName != TemplateName) { return; }
+
+        paintedParts.Clear();
+        foreach (var (k, v) in source.paintedParts)
+        {
+            paintedParts[k] = v with
+            {
+                Label = v.Label,
+                Color = v.Color,
+            };
+        }
+
+        if (source.IsPaintingEnabled)
+        {
+            RequestPainting();
+        }
+        else
+        {
+            DisablePainting();
+        }
     }
 
 }
