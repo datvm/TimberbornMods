@@ -1,5 +1,6 @@
 ﻿namespace ModdableRecipes.Services;
 
+[BindSingleton]
 public class ModdableRecipeLockService(
     EventBus eb,
     ModdableRecipeLockSpecService specs,
@@ -64,10 +65,12 @@ public class ModdableRecipeLockService(
             var manufactory = e.GetComponent<Manufactory>();
             if (!manufactory) { continue; }
 
-            if (manufactory.CurrentRecipe?.Id == id)
-            {
-                manufactory.SetRecipe(null);
-            }
+            if (manufactory.CurrentRecipe?.Id != id) { continue; }
+
+            var building = e.GetComponent<ModdableRecipeBuilding>();
+            if (building && building.IsLocallyUnlocked(id)) { continue; }
+
+            manufactory.SetRecipe(null);
         }
 
         ReselectManufactory();
@@ -88,15 +91,18 @@ public class ModdableRecipeLockService(
         descriptionPanels._descriptionPanels.Clear();
     }
 
-    public void ReselectManufactory()
+    public async void ReselectManufactory()
     {
-        var selecting = selectionService.SelectedObject;
+        var selectingObj = selectionService.SelectedObject;
+        var manufactory = selectingObj ? selectingObj.GetComponent<Manufactory>() : null;
 
-        if (selecting && selecting.HasComponent<Manufactory>())
-        {
-            selectionService.Unselect();
-            selectionService.Select(selecting);
-        }
+        if (!manufactory) { return; }
+
+        await Awaitable.NextFrameAsync();
+        selectionService.Unselect();
+
+        await Awaitable.NextFrameAsync();
+        selectionService.Select(manufactory); // No need to validate, the Select method already validate the object
     }
 
     public void Unlock(string id)
@@ -107,11 +113,55 @@ public class ModdableRecipeLockService(
         OnRecipeStatusChanged();
     }
 
+    public void UnlockLocally(ModdableRecipeBuilding building, string id)
+    {
+        building.Unlock(id);
+        ReselectManufactory();
+        OnRecipeStatusChanged();
+    }
+
+    public void RelockLocally(ModdableRecipeBuilding building, string id)
+    {
+        building.Relock(id);
+
+        var manufactory = building.GetComponent<Manufactory>();
+        if (manufactory && manufactory.CurrentRecipe?.Id == id && IsLocked(id, out _))
+        {
+            manufactory.SetRecipe(null);
+        }
+
+        ReselectManufactory();
+        OnRecipeStatusChanged();
+    }
+
     public bool IsLocked(string id, [NotNullWhen(true)] out string? reason) => lockedRecipes.TryGetValue(id, out reason);
+
+    public bool IsLocked(string id, ModdableRecipeBuilding? building, [NotNullWhen(true)] out string? reason)
+    {
+        if (!lockedRecipes.TryGetValue(id, out reason)) { return false; }
+
+        if (building is not null && building.IsLocallyUnlocked(id))
+        {
+            reason = null;
+            return false;
+        }
+
+        return true;
+    }
 
     public ModdableRecipeLockStatus GetLockStatus(string id) => lockedRecipes.ContainsKey(id)
         ? (ModdableRecipeLockStatus)(int)(specs.GetTitleVisibility(id) + 1)
         : ModdableRecipeLockStatus.Unlocked;
+
+    public ModdableRecipeLockStatus GetLockStatus(string id, ModdableRecipeBuilding? building)
+    {
+        if (building is not null && building.IsLocallyUnlocked(id))
+        {
+            return ModdableRecipeLockStatus.Unlocked;
+        }
+
+        return GetLockStatus(id);
+    }
 
     public void Unload()
     {

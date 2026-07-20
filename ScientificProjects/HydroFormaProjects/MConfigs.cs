@@ -20,7 +20,6 @@ public class MGameConfigs : BaseModdableTimberbornConfigurationWithHarmony, IWit
         configurator
             .BindScientificProjectListener<DamGateService>(true)
             .BindScientificProjectListener<FloodgateAutoService>(true)
-            .BindScientificProjectListener<SluiceUpstreamService>(true)
             .BindScientificProjectListener<StreamGaugeSensorService>(true)
 
             .BindTemplateModifier<HFSPTemplateModifier>()
@@ -28,15 +27,11 @@ public class MGameConfigs : BaseModdableTimberbornConfigurationWithHarmony, IWit
 
             .BindFragment<DamGateFragment>()
             .BindFragment<FloodgateAutoFragment>()
-            .BindSingleton<SluiceUpstreamFragment>() // This is not a fragment
             .BindFragment<StreamGaugeUpgradeFragment>()
 
             .BindTemplateModule(h => h
                 .AddDecorator<DamGateComponentSpec, DamGateComponent>()
                 .AddDecorator<FloodgateSpec, FloodgateAutoComponent>()
-
-                .AddDecorator<Sluice, SluiceUpstreamComponent>()
-                .AddDecorator<Sluice, SluiceUpstreamMarker>()
 
                 .AddDecorator<RecipeTimeMultiplierSpec, RecipeTimeMultiplier>()
 

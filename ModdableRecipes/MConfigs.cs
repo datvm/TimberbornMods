@@ -6,25 +6,5 @@ global using ModdableRecipes.UI;
 namespace ModdableRecipes;
 
 [Context("Game")]
-public class MGameConfig : Configurator
-{
-    public override void Configure()
-    {
-        this
-            .BindSingleton<ModdableRecipeLockSpecService>()
-            .BindSingleton<ModdableRecipePersistentUnlocker>()
-            .BindSingleton<ModdableRecipeLockService>()
-            .BindSingleton<LiveRecipeModifierService>()
-            .BindSingleton<RecipeGoodsProcessorReference>()
-
-            .MultiBindSingleton<IRecipeLockProvider, ModdableSpecLockProvider>()
-
-            .BindSingleton<ModdableRecipeUIController>()
-
-            .BindTemplateModule(h => h
-                .AddDecorator<Manufactory, ModdableManufactoryDropdownProvider>()
-            )
-        ;
-    }
-}
+public class MGameConfig : GameAttributeConfigurator;
 

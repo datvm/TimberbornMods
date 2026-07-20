@@ -5,6 +5,7 @@ public readonly record struct ModdableRecipeLockSpecPair(RecipeSpec Recipe, Modd
     public string Id => Recipe.Id;
 }
 
+[BindSingleton]
 public class ModdableRecipeLockSpecService(RecipeSpecService specs, FactionService factions) : ILoadableSingleton
 {
 

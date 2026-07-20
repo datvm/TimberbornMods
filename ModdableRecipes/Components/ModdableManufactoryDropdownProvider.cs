@@ -2,11 +2,13 @@
 
 public readonly record struct RecipeDropdownItemUIInfo(RecipeSpec? Spec, string DisplayName, Sprite? Icon, ModdableRecipeLockStatus Status);
 
+[AddTemplateModule2(typeof(Manufactory))]
 public class ModdableManufactoryDropdownProvider(ModdableRecipeUIController controller) : BaseComponent, IAwakableComponent, IExtendedDropdownProvider, IDropdownProvider
 {
 
 #nullable disable
     ManufactoryDropdownProvider provider;
+    ModdableRecipeBuilding buildingRecipes;
 #nullable enable
 
     readonly List<RecipeDropdownItemUIInfo> items = [];
@@ -15,6 +17,7 @@ public class ModdableManufactoryDropdownProvider(ModdableRecipeUIController cont
     public void Awake()
     {
         provider = GetComponent<ManufactoryDropdownProvider>();
+        buildingRecipes = GetComponent<ModdableRecipeBuilding>();
     }
 
     public string FormatDisplayText(string value, bool selected) => GetItem(value).DisplayName;
@@ -35,7 +38,7 @@ public class ModdableManufactoryDropdownProvider(ModdableRecipeUIController cont
     {
         var item = GetItem(value);
         if (item.Status != ModdableRecipeLockStatus.Unlocked
-            && controller.OnLockedRecipeSelected(item)) // Recheck again and show UI
+            && controller.OnLockedRecipeSelected(item, buildingRecipes)) // Recheck again and show UI
         {
             // Don't do anything
         }
@@ -56,7 +59,7 @@ public class ModdableManufactoryDropdownProvider(ModdableRecipeUIController cont
         items.Add(controller.None);
         foreach (var r in provider._manufactory.ProductionRecipes)
         {
-            var info = controller.GetRecipeInfo(r);
+            var info = controller.GetRecipeInfo(r, buildingRecipes);
             if (info is not null)
             {
                 items.Add(info.Value);

@@ -1,9 +1,7 @@
 ﻿namespace BrainPowerSPs.Components;
 
-public class WindPowerSPComponent : BaseComponent, IEntityEffectDescriber, IStartableComponent, IModdableMechanicalNodeModifier
+public class WindPowerSPComponent(WindPowerSPService service) : BaseComponent, IEntityEffectDescriber, IInitializableEntity, IModdableMechanicalNodeModifier
 {
-
-    WindPowerSPService service = null!;
 
     public event Action? OnChanged;
 
@@ -13,13 +11,7 @@ public class WindPowerSPComponent : BaseComponent, IEntityEffectDescriber, IStar
     public int Priority { get; } = (int)ModifierPriority.Multiplicative;
     public bool Disabled { get; private set; } = true;
 
-    [Inject]
-    public void Inject(WindPowerSPService service)
-    {
-        this.service = service;
-    }
-
-    public void Start()
+    public void InitializeEntity()
     {
         var blockObj = GetComponent<BlockObject>();
         HighestZ = blockObj.Coordinates.z + blockObj.Blocks.Size.z;

@@ -6,11 +6,11 @@ public record RecipeTimeMultiplierSpec : ComponentSpec
     public float Multiplier { get; init; }
 }
 
-public class RecipeTimeMultiplier : BaseComponent, IStartableComponent
+public class RecipeTimeMultiplier : BaseComponent, IInitializableEntity
 {
     static readonly ConditionalWeakTable<RecipeSpec, RecipeTimeMultiplierApplier> appliers = [];
 
-    public void Start()
+    public void InitializeEntity()
     {
         var manufactory = GetComponent<Manufactory>();
         if (!manufactory)
