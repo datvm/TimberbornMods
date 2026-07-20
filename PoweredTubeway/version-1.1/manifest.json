@@ -1,0 +1,8 @@
+{
+    "Name": "Powered Tubeway",
+    "Version": "11.0.0",
+    "Id": "PoweredTubeway",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "Tubeway now transmit power",
+    "RequiredMods": []
+}

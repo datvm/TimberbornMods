@@ -1,8 +1,8 @@
 ﻿{
     "Name": "TImprove 4 UX",
-    "Version": "10.2.0",
+    "Version": "11.0.0",
     "Id": "TImprove4UX",
-    "MinimumGameVersion": "1.0.1",
+    "MinimumGameVersion": "1.1.1",
     "Description": "Improve your Timberborn UX!",
     "RequiredMods": [
         { "Id": "eMka.ModSettings" },

@@ -5,12 +5,12 @@ LV.CBlt.ConveyorBeltMergerName,"Conveyor Belt Merger",
 LV.CBlt.ConveyorBeltSplitterName,"Conveyor Belt Splitter",
 LV.CBlt.ConveyorLiftUpName,"Conveyor Lift Up",
 LV.CBlt.ConveyorLiftDownName,"Conveyor Lift Down",
-LV.CBlt.ConveyorBeltDescription,"Transports items horizontally between two buildings."
-LV.CBlt.SmartConveyorBeltDescription,"Transports items horizontally between two buildings and filters which goods are accepted."
-LV.CBlt.ConveyorBeltMergerDescription,"Merges items from multiple input conveyor belts into one output conveyor belt."
-LV.CBlt.ConveyorBeltSplitterDescription,"Splits items from one input conveyor belt into multiple output conveyor belts."
-LV.CBlt.ConveyorLiftUpDescription,"Lifts items to the building above."
-LV.CBlt.ConveyorLiftDownDescription,"Lowers items to the building below."
+LV.CBlt.ConveyorBeltDescription,"Transports items horizontally between two buildings.",
+LV.CBlt.SmartConveyorBeltDescription,"Transports items horizontally between two buildings and filters which goods are accepted.",
+LV.CBlt.ConveyorBeltMergerDescription,"Merges items from multiple input conveyor belts into one output conveyor belt.",
+LV.CBlt.ConveyorBeltSplitterDescription,"Splits items from one input conveyor belt into multiple output conveyor belts.",
+LV.CBlt.ConveyorLiftUpDescription,"Lifts items to the building above.",
+LV.CBlt.ConveyorLiftDownDescription,"Lowers items to the building below.",
 LV.CBlt.ConveyorBeltFlavor,"Folktail engineers say it was inspired by watching logs roll downhill.",
 LV.CBlt.SmartConveyorBeltFlavor,"The belt knows what it wants. The rejected goods take it personally.",
 LV.CBlt.ConveyorBeltMergerFlavor,"A peaceful solution to having too many directions.",
