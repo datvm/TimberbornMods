@@ -5,10 +5,10 @@
 		<Using Include="Bindito.Unity"/>
 		<Using Include="Bindito.Core.Internal"/>
 
-		<!--<Using Include="ModSettings.Common"/>
+		<Using Include="ModSettings.Common"/>
 		<Using Include="ModSettings.Core"/>
 		<Using Include="ModSettings.CoreUI"/>
-		<Using Include="ModSettings.CommonUI"/>-->
+		<Using Include="ModSettings.CommonUI"/>
 
 		<Using Include="Newtonsoft.Json"/>
 

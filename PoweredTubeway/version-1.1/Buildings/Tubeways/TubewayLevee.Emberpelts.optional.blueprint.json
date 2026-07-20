@@ -1,0 +1,21 @@
+{
+  "TransputProviderSpec": {
+    "Transputs": [
+      {
+        "Coordinates": {
+          "X": 0,
+          "Y": 0,
+          "Z": 0
+        },
+        "Directions": "All",
+        "ReverseRotation": false
+      }
+    ],
+    "IgnoreRotation": false
+  },
+  "MechanicalNodeSpec": {
+    "PowerOutput": 0,
+    "PowerInput": 0,
+    "IsShaft": false
+  }
+}

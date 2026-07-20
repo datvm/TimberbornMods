@@ -7,14 +7,11 @@ public class CollapsibleEntityPanelService : ISaveableSingleton, ILoadableSingle
     public const string DoNotCollapseLocValue = "[DO_NOT_COLLAPSE]";
 
     #region Ignored list
-    public static readonly FrozenSet<Type> IgnoredPanels = [
+    public static readonly FrozenSet<Type> IgnoredPanels = ImmutableHelper.CreateFrozenSet([
         typeof(StatusListFragment),
         typeof(GoodCarrierFragment),
         typeof(FloodgateFragment),
         typeof(DynamiteFragment),
-#if TIMBERU7
-        typeof(DemolishablePriorityFragment),
-#endif
         typeof(GrowableFragment),
         typeof(GatherableFragment),
         typeof(GatherablePrioritizerFragment),
@@ -31,12 +28,12 @@ public class CollapsibleEntityPanelService : ISaveableSingleton, ILoadableSingle
         typeof(WaterMoverFragment),
         typeof(WaterSourceRegulatorFragment),
         typeof(RuinModelShufflingFragment),
-#if TIMBERV1
         typeof(UnstableCoreFragment),
         typeof(TimedComponentActivatorFragment),
         typeof(BlueprintDebugFragment),
-#endif
-    ];
+        typeof(ThrottlingValveFragment),
+        typeof(WaterInputPipeDepthFragment),
+    ]);
     #endregion
 
     const string SaveKey = "TImprove4UX.CollapsibleEntityPanelService.CollapsedList";

@@ -4,7 +4,8 @@
 public class TechTreeDialog(
     ILoc t,
     VisualElementInitializer veInit,
-    PanelStack panelStack
+    PanelStack panelStack,
+    IContainer container
 ) : DialogBoxElement, ILoadableSingleton
 {
 
@@ -13,7 +14,7 @@ public class TechTreeDialog(
         SetTitle(t.T("LV.TT.Title"));
         AddCloseButton();
 
-        SetDialogPercentSize(90, 90);
+        SetDialogPercentSize(1f, .9f);
 
         this.Initialize(veInit);
     }
