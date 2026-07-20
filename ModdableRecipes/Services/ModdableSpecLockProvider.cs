@@ -1,5 +1,6 @@
 ﻿namespace ModdableRecipes.Services;
 
+[MultiBind(typeof(IRecipeLockProvider))]
 public class ModdableSpecLockProvider(ModdableRecipeLockSpecService specs) : IRecipeLockProvider
 {
 

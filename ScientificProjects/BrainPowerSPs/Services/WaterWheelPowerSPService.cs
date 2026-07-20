@@ -15,8 +15,8 @@ public class WaterWheelPowerSPService(
     public float CurrentModifier { get; private set; } = 1f;
     public float MinimumModifier { get; private set; } = 0f;
 
-    public override FrozenSet<string> UnlockListenerIds { get; } = [.. PowerProjectsUtils.WaterWheelUpIds, PowerProjectsUtils.WaterWheelFlowUp1Id];
-    public override FrozenSet<string> DailyListenerIds { get; } = [PowerProjectsUtils.WaterWheelFlowUp2Id];
+    public override FrozenSet<string> UnlockListenerIds { get; } = ImmutableHelper.CreateFrozenSet([.. PowerProjectsUtils.WaterWheelUpIds, PowerProjectsUtils.WaterWheelFlowUp1Id]);
+    public override FrozenSet<string> DailyListenerIds { get; } = ImmutableHelper.CreateFrozenSet([PowerProjectsUtils.WaterWheelFlowUp2Id]);
 
     public override void Load()
     {

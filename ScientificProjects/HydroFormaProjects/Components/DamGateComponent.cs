@@ -2,7 +2,7 @@
 
 public record DamGateComponentSpec : ComponentSpec;
 
-public class DamGateComponent : BaseComponent, IFinishedStateListener, IPersistentEntity, IAwakableComponent, IStartableComponent
+public class DamGateComponent : BaseComponent, IFinishedStateListener, IPersistentEntity, IAwakableComponent, IInitializableEntity
 {
     static readonly Shader LockShader = Shader.Find("Shader Graphs/EnvironmentURP");
     static readonly Color LockColor = new(118 / 255f, 107 / 255f, 99 / 255f);
@@ -52,7 +52,7 @@ public class DamGateComponent : BaseComponent, IFinishedStateListener, IPersiste
         waterObstacle = GetComponent<WaterObstacle>();
     }
 
-    public void Start()
+    public void InitializeEntity()
     {
         initialized = true;
         ToggleClosed(Closed);

@@ -2,8 +2,8 @@
 
 public class WindPowerSPService(EntityRegistry entities) : IScientificProjectUnlockListener
 {
-    public FrozenSet<string> UnlockListenerIds { get; } = [PowerProjectsUtils.WindmillHeightUpId];
-    public FrozenSet<string> ListenerIds { get; } = [PowerProjectsUtils.WindmillHeightUpId];
+    public FrozenSet<string> UnlockListenerIds { get; } = ImmutableHelper.CreateFrozenSet([PowerProjectsUtils.WindmillHeightUpId]);
+    public FrozenSet<string> ListenerIds { get; } = ImmutableHelper.CreateFrozenSet([PowerProjectsUtils.WindmillHeightUpId]);
 
     public float BoostPerLevel { get; private set; } = 0;
 

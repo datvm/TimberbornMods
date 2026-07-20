@@ -1,5 +1,6 @@
 ﻿namespace ModdableRecipes.UI;
 
+[BindSingleton]
 public class ModdableRecipeUIController(
     ModdableRecipeLockService locker,
     ILoc t,
@@ -17,14 +18,14 @@ public class ModdableRecipeUIController(
         None = new(null, t.T(ManufactoryDropdownProvider.NoRecipeItemLocKey), null, ModdableRecipeLockStatus.Unlocked);
     }
 
-    public RecipeDropdownItemUIInfo? GetRecipeInfo(RecipeSpec recipe)
+    public RecipeDropdownItemUIInfo? GetRecipeInfo(RecipeSpec recipe, ModdableRecipeBuilding? building = null)
     {
-        var status = locker.GetLockStatus(recipe.Id);
+        var status = locker.GetLockStatus(recipe.Id, building);
 
         if (status == ModdableRecipeLockStatus.Hidden)
         {
             return null;
-        }   
+        }
 
         var title = status switch
         {
@@ -39,16 +40,15 @@ public class ModdableRecipeUIController(
         return new(recipe, title, icon, status);
     }
 
-    public bool OnLockedRecipeSelected(RecipeDropdownItemUIInfo item)
+    public bool OnLockedRecipeSelected(RecipeDropdownItemUIInfo item, ModdableRecipeBuilding? building = null)
     {
-        var isLocked = locker.IsLocked(item.Spec!.Id, out var reason);
+        var isLocked = locker.IsLocked(item.Spec!.Id, building, out var reason);
         if (!isLocked) { return false; }
 
-        diag.AlertAsync(reason!).ContinueWith(_ =>
-        {
-            locker.ReselectManufactory();
-        });
-        
+        locker.ReselectManufactory();
+
+        diag.Alert(reason!);
+
         return true;
     }
 

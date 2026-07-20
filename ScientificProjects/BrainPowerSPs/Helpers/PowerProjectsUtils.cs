@@ -4,12 +4,12 @@ public static class PowerProjectsUtils
 {
 
     public const string WaterWheelUp3Id = "WaterWheelUp3";
-    public static readonly FrozenSet<string> WaterWheelUpIds = ["WaterWheelUp1", "WaterWheelUp2", WaterWheelUp3Id];
+    public static readonly FrozenSet<string> WaterWheelUpIds = ImmutableHelper.CreateFrozenSet(["WaterWheelUp1", "WaterWheelUp2", WaterWheelUp3Id]);
 
     public const string WaterWheelFlowUp1Id = "WaterWheelFlowUp1";
     public const string WaterWheelFlowUp2Id = "WaterWheelFlowUp2";
 
-    public static FrozenSet<string> WaterWheelsPrefabNames = [];
+    public static FrozenSet<string> WaterWheelsPrefabNames = ImmutableHelper.CreateFrozenSet<string>([]);
 
     public const string PowerWheelBotUpId = "WheelBotUp";
     public const string PowerWheelWorkerUpId = "WheelWorkerUp";

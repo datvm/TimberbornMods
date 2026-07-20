@@ -1,5 +1,6 @@
 ﻿namespace ModdableRecipes.Services;
 
+[BindSingleton]
 class RecipeGoodsProcessorReference : IUnloadableSingleton
 {
     static RecipeGoodsProcessorReference? instance;

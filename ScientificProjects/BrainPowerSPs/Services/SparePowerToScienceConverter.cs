@@ -19,8 +19,8 @@ public class SparePowerToScienceConverter(
     float timePassed;
     float conversionRate;
 
-    public FrozenSet<string> UnlockListenerIds { get; } = [PowerProjectsUtils.SparePowerScienceId];
-    public FrozenSet<string> ListenerIds { get; } = [PowerProjectsUtils.SparePowerScienceId];
+    public FrozenSet<string> UnlockListenerIds { get; } = ImmutableHelper.CreateFrozenSet([PowerProjectsUtils.SparePowerScienceId]);
+    public FrozenSet<string> ListenerIds { get; } = ImmutableHelper.CreateFrozenSet([PowerProjectsUtils.SparePowerScienceId]);
 
     public bool Unlocked { get; private set; }
     public long AccumulatedScience => accumulationCount == 0 ? 0 : Mathf.FloorToInt(powerAccumulation / conversionRate / accumulationCount);

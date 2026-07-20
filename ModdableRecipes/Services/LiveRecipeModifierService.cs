@@ -1,5 +1,6 @@
 ﻿namespace ModdableRecipes.Services;
 
+[BindSingleton]
 public class LiveRecipeModifierService(
     RecipeSpecService specs,
     EventBus eb,

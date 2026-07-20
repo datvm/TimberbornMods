@@ -1,8 +1,8 @@
 ﻿{
     "Name": "Moddable Recipes",
-    "Version": "10.0.2",
+    "Version": "11.0.0",
     "Id": "ModdableRecipes",
-    "MinimumGameVersion": "1.0.0",
+    "MinimumGameVersion": "1.1.1",
     "Description": "Mod support for recipes",
     "RequiredMods": [
         { "Id": "Harmony" },

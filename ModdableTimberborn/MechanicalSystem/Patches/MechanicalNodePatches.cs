@@ -13,7 +13,7 @@ public static class MechanicalNodePatches
     [HarmonyPrefix, HarmonyPatch(nameof(MechanicalNode.CanPotentiallyBePowered))]
     public static bool PatchWhenZeroUsage(NoPowerStatus __instance, ref bool __result)
     {
-        if (__instance._mechanicalNode._nominalPowerInput <= 0)
+        if (!__instance._mechanicalNode || __instance._mechanicalNode._nominalPowerInput <= 0)
         {
             __result = true;
             return false;

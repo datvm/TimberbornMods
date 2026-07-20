@@ -6,5 +6,3 @@ global using HydroFormaProjects.Patches;
 
 global using ModdableTimberborn.DependencyInjection;
 global using ModdableTimberborn.EntityTracker;
-
-global using Object = UnityEngine.Object;

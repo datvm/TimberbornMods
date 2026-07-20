@@ -1,5 +1,6 @@
 ﻿namespace ModdableRecipes.Services;
 
+[BindSingleton]
 public class ModdableRecipePersistentUnlocker(ISingletonLoader loader) : ILoadableSingleton, ISaveableSingleton
 {
     static readonly SingletonKey SaveKey = new(nameof(ModdableRecipePersistentUnlocker));

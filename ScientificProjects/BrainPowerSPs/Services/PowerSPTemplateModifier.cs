@@ -9,7 +9,7 @@ public class PowerSPTemplateModifier(
     bool hasWorkerUpgrade;
     bool hasWindmillUpgrade;
 
-    static readonly FrozenSet<string> WindTurbineTemplates = ["WindTurbine.Folktails", "LargeWindTurbine.Folktails"];
+    static readonly FrozenSet<string> WindTurbineTemplates = ImmutableHelper.CreateFrozenSet(["WindTurbine.Folktails", "LargeWindTurbine.Folktails"]);
 
     public void Load()
     {

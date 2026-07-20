@@ -1,22 +1,15 @@
 ﻿namespace BrainPowerSPs.Components;
 
-public class SparePowerDescriber : BaseComponent, IEntityEffectDescriber, IStartableComponent
+public class SparePowerDescriber(SparePowerToScienceConverter service) : BaseComponent, IEntityEffectDescriber, IInitializableEntity
 {
 
 #nullable disable
-    SparePowerToScienceConverter service;
     Manufactory manufactory;
 #nullable enable
 
     bool isProducingScience;
 
-    [Inject]
-    public void Inject(SparePowerToScienceConverter service)
-    {
-        this.service = service;
-    }
-
-    public void Start()
+    public void InitializeEntity()
     {
         manufactory = GetComponent<Manufactory>();
         manufactory.RecipeChanged += OnRecipeChanged;
