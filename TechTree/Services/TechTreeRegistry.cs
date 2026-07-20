@@ -102,9 +102,16 @@ public class TechTreeRegistry(
 
             var templateName = bldSpec.GetTemplateName();
             var nameLoc = NullIfNullOrEmpty(techSpec?.NameLoc) ?? label.DisplayNameLocKey;
-            var descLoc = NullIfNullOrEmpty(techSpec?.DescriptionLoc) ?? label.DescriptionLocKey;
+            var descLoc = NullIfNullOrEmpty(NullIfNullOrEmpty(techSpec?.DescriptionLoc) ?? label.DescriptionLocKey);
             var icon = techSpec?.Icon ?? label.Icon.Asset;
             var cost = bldSpec.ScienceCost;
+
+            if (string.IsNullOrEmpty(nameLoc))
+            {
+                Debug.LogWarning($"Empty nameLoc for building {templateName}");
+            }
+
+            LocalizedText? desc = descLoc is null ? null : new(t.T(descLoc));
 
             if (techSpec is null)
             {
@@ -114,7 +121,7 @@ public class TechTreeRegistry(
                     NameLoc = nameLoc,
                     Name = new(t.T(nameLoc)),
                     DescriptionLoc = descLoc,
-                    Description = new(t.T(descLoc)),
+                    Description = desc,
                     Icon = icon,
                     Cost = cost,
                 };
@@ -126,7 +133,7 @@ public class TechTreeRegistry(
                     NameLoc = nameLoc,
                     Name = new(t.T(nameLoc)),
                     DescriptionLoc = descLoc,
-                    Description = new(t.T(descLoc)),
+                    Description = desc,
                     Icon = icon,
                     Cost = cost,
                 };

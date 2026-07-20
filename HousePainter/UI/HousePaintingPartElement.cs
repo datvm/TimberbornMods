@@ -1,36 +1,53 @@
-﻿namespace HousePainter.UI;
+﻿using ModSettings.ColorPicker;
+
+namespace HousePainter.UI;
 
 [BindTransient]
 public class HousePaintingPartElement : CollapsiblePanel
 {
     readonly ILoc t;
     readonly DialogService diagServ;
+    readonly ColorPickerShower colorPickerShower;
     readonly VisualElement colorDemo;
     readonly Button btnClearColor;
+    readonly Label lblOriginal;
 
+    Color? currColor;
     string originalLabel = "", currLabel = "";
 
     public event EventHandler<string> OnLabelChanged = null!;
     public event EventHandler<Color?> OnColorPicked = null!;
+    public event EventHandler<bool> OnHover = null!;
 
-    public HousePaintingPartElement(ILoc t, DialogService diagServ)
+    public HousePaintingPartElement(ILoc t, DialogService diagServ, ColorPickerShower colorPickerShower)
     {
         this.t = t;
         this.diagServ = diagServ;
+        this.colorPickerShower = colorPickerShower;
+
+        var header = HeaderLabel.parent;
+        header.RegisterCallback<MouseEnterEvent>(_ => OnHover?.Invoke(this, true));
+        header.RegisterCallback<MouseLeaveEvent>(_ => OnHover?.Invoke(this, false));
+
+        colorDemo = this.AddChild().SetWidth(50).SetHeight(20).SetMargin(marginX: 10);
+        colorDemo.InsertSelfAfter(HeaderLabel);
 
         var parent = Container;
-        colorDemo = parent.AddChild().SetWidthPercent(100).SetHeight(20).SetMarginBottom();
-
         var row = parent.AddRow().AlignItems().SetMarginBottom();
         row.AddGameButtonPadded(t.T("LV.HPt.PickColor"), PickColor).SetFlexGrow();
         btnClearColor = row.AddGameButtonPadded(t.T("LV.HPt.ClearColor"), ClearColor).SetDisplay(false);
 
         parent.AddGameButtonPadded(t.T("LV.HPt.EditLabel"), EditName);
+        lblOriginal = parent.AddLabel();
 
         SetExpand(false);
     }
 
-    public void SetOriginalLabel(string label) => originalLabel = label;
+    public void SetOriginalLabel(string label)
+    {
+        originalLabel = label;
+        lblOriginal.text = t.T("LV.HPt.Original", label);
+    }
 
     public void SetLabel(string name)
     {
@@ -40,6 +57,7 @@ public class HousePaintingPartElement : CollapsiblePanel
 
     public void SetColor(Color? color)
     {
+        currColor = color;
         colorDemo.style.backgroundColor = color ?? Color.clear;
         btnClearColor.SetDisplay(color.HasValue);
     }
@@ -50,9 +68,15 @@ public class HousePaintingPartElement : CollapsiblePanel
         {
             var name = await diagServ.PromptAsync(t.T("LV.HPt.EnterPartName", originalLabel), currLabel);
 
-            if (string.IsNullOrWhiteSpace(name) || name == currLabel) return;
+            if (name is null || name == currLabel) { return; }
+            name = name.Trim();
 
-            SetLabel(name.Trim());
+            if (name.Length == 0)
+            {
+                name = originalLabel;
+            }
+
+            SetLabel(name);
             OnLabelChanged(this, currLabel);
         }
         catch (Exception ex)
@@ -62,29 +86,13 @@ public class HousePaintingPartElement : CollapsiblePanel
         }
     }
 
-    async void PickColor()
+    void PickColor()
     {
-        try
+        colorPickerShower.ShowColorPicker(currColor ?? Color.white, true, c =>
         {
-            // while waiting for Mod Settings update, enter manually
-            var rgb = await diagServ.PromptAsync("Enter RGB color by comma:", "255,255,0");
-
-            var parts = (rgb ?? "").Split(',');
-            if (parts.Length != 3) { return; }
-
-            var color = new Color(
-                int.Parse(parts[0].Trim()) / 255f,
-                int.Parse(parts[1].Trim()) / 255f,
-                int.Parse(parts[2].Trim()) / 255f
-            );
-            SetColor(color);
-            OnColorPicked(this, color);
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError(ex);
-            throw;
-        }
+            SetColor(c);
+            OnColorPicked(this, c);
+        });
     }
 
     void ClearColor()
