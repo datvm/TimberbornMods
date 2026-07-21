@@ -1,0 +1,16 @@
+Building Renovations
+
+Renovations for your buildings. Materials are delivered via Distro Storage (no builders/haulers).
+
+Core engine only — individual renovations/upgrades will be added over time.
+
+How materials work:
+- Start a renovation on a finished building.
+- The building becomes a Distro receiver for the required materials.
+- Link Distro-enabled stockpiles in range so goods can be sent.
+- Materials arrive gradually. Work time starts once all materials are collected.
+- Canceling refunds delivered materials as recovered goods on the map.
+- Completing a renovation consumes the materials (no refund).
+- Destroying a building mid-renovation also refunds delivered materials.
+
+Requires: Moddable Timberborn, Distro Storage.

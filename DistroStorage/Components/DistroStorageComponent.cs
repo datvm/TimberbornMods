@@ -13,8 +13,8 @@ public class DistroStorageComponent : BaseComponent, IAwakableComponent
     ImmutableArray<IDistroSender> senders = [];
     ImmutableArray<IDistroReceiver> receivers = [];
 
-    public IDistroSender? Sender => GetSingleActive(senders);
-    public IDistroReceiver? Receiver => GetSingleActive(receivers);
+    public IDistroSender? Sender => GetSingleActiveSender();
+    public IDistroReceiver? Receiver => GetHighestPriority();
 
     public Vector3 AboveCenter
     {
@@ -34,17 +34,34 @@ public class DistroStorageComponent : BaseComponent, IAwakableComponent
         receivers = [.. GetComponentsAllocating<IDistroReceiver>()];
     }
 
-    T? GetSingleActive<T>(ImmutableArray<T> list) where T : IDistroComponent
+    IDistroSender? GetSingleActiveSender()
     {
-        T? found = default;
-
-        foreach (var item in list)
+        IDistroSender? found = null;
+        foreach (var s in senders)
         {
-            if (item.Active)
+            if (s.Active)
             {
                 found = found is null
-                    ? item
-                    : throw new InvalidOperationException($"Multiple active {typeof(T).Name} components found on entity {Name}");
+                    ? s
+                    : throw new InvalidOperationException($"Multiple active {nameof(IDistroSender)} components found on entity {this}");
+            }
+        }
+
+        return found;
+    }
+
+    IDistroReceiver? GetHighestPriority()
+    {
+        IDistroReceiver? found = null;
+        
+        foreach (var item in receivers)
+        {
+            if (!item.Active) { continue; }
+
+            if (found is null || item.Priority > found.Priority)
+            {
+                found = item;
+                continue;
             }
         }
 
