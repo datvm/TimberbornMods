@@ -1,0 +1,10 @@
+{
+    "KeyBindingSpec": {
+        "Id": "RenovationDecreasePriority",
+        "GroupId": "Buildings",
+        "LocKey": "LV.BRe.RenovationDecreasePriorityHotKey",
+        "Order": 701,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    }
+}
