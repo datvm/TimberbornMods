@@ -4,7 +4,7 @@ LV.BRe.SmallBuildingName,"Small Blueprint Relic",
 LV.BRe.MediumBuildingName,"Medium Blueprint Relic",
 LV.BRe.LargeBuildingName,"Large Blueprint Relic",
 LV.BRe.BuildingDesc,"Ancient technology that can be excavated to unlock alternate recipes.",
-LV.BRe.BuildingFlavor,"Apparently, hoomans labeled everything."
+LV.BRe.BuildingFlavor,"Apparently, hoomans labeled everything.",
 LV.BRe.SpawnNotif,"A {0} has been discovered!",
 LV.BRe.ExpiresIn,"Relic expires in {0}d",
 LV.BRe.ConnectPrompt,"Connect this relic to a district path to excavate it.",
