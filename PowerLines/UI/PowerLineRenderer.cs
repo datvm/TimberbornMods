@@ -1,14 +1,15 @@
-﻿using UnityEngine.Rendering;
+using UnityEngine.Rendering;
 
 namespace PowerLines.UI;
 
 [BindSingleton]
 public class PowerLineRenderer(
     PowerLineConnectionService connService,
-    EventBus eb
+    EventBus eb,
+    MSettings settings
 ) : ILoadableSingleton, IUnloadableSingleton
 {
-    public static readonly Color PowerColor = new(1f, 216f / 255f, 0f);
+    static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
 
     const float LineWidth = 0.06f;
     const int SegmentCount = 8;
@@ -26,57 +27,54 @@ public class PowerLineRenderer(
     LineRenderer toolLine;
 #nullable enable
 
+    bool powerLineSelected;
+
     public void Load()
     {
         toolContainer.transform.SetParent(container.transform, false);
         container.SetActive(false);
         toolContainer.SetActive(false);
 
-        neutral = CreateMaterial(PowerColor);
+        neutral = CreateMaterial(settings.CableColor.Color);
         successful = CreateMaterial(TimberUiUtils.SuccessColor);
         failure = CreateMaterial(TimberUiUtils.DangerColor);
         toolLine = CreateLineObject(toolContainer.transform, "ToolLine", neutral);
 
         connService.ConnectionAdded += OnConnectionAdded;
         connService.ConnectionRemoved += OnConnectionRemoved;
+        settings.AlwaysShowCables.ValueChanged += OnAlwaysShowCablesChanged;
+        settings.CableColor.ValueChanged += OnCableColorChanged;
 
         eb.Register(this);
+        UpdateVisibility();
     }
 
     [OnEvent]
     public void OnBuildingSelected(SelectableObjectSelectedEvent e)
     {
-        if (ShouldShow && e.SelectableObject.HasComponent<PowerLineComponent>())
-        {
-            container.SetActive(true);
-        }
+        powerLineSelected = e.SelectableObject.HasComponent<PowerLineComponent>();
+        UpdateVisibility();
     }
 
     [OnEvent]
     public void OnDeselected(SelectableObjectUnselectedEvent _)
     {
-        // Keep visible while the connection tool is actively drawing a preview.
-        if (!toolContainer.activeSelf)
-        {
-            container.SetActive(false);
-        }
+        powerLineSelected = false;
+        UpdateVisibility();
     }
 
     public void StartRenderingConnectionTool()
     {
         toolContainer.SetActive(true);
-        container.SetActive(true);
         toolLine.gameObject.SetActive(false);
+        UpdateVisibility();
     }
 
     public void StopRenderingConnectionTool()
     {
         toolLine.gameObject.SetActive(false);
         toolContainer.SetActive(false);
-        if (!ShouldShow)
-        {
-            container.SetActive(false);
-        }
+        UpdateVisibility();
     }
 
     public void UpdateToolPreview(PowerLineComponent from, PowerLineComponent? to, bool canConnect)
@@ -112,22 +110,27 @@ public class PowerLineRenderer(
         if (ShouldShow == enabled) { return; }
 
         ShouldShow = enabled;
-        // When turning on without a current selection, stay hidden until a power line is selected
-        // (or the connection tool starts). When turning off, hide unless the tool is active.
-        if (!enabled && !toolContainer.activeSelf)
-        {
-            container.SetActive(false);
-        }
-        else if (enabled)
-        {
-            container.SetActive(true);
-        }
+        UpdateVisibility();
+    }
+
+    void OnAlwaysShowCablesChanged(object sender, bool _) => UpdateVisibility();
+
+    void OnCableColorChanged(object sender, string _) => ApplyColor(neutral, settings.CableColor.Color);
+
+    void UpdateVisibility()
+    {
+        var visible = settings.AlwaysShowCables.Value
+            || toolContainer.activeSelf
+            || (ShouldShow && powerLineSelected);
+        container.SetActive(visible);
     }
 
     public void Unload()
     {
         connService.ConnectionAdded -= OnConnectionAdded;
         connService.ConnectionRemoved -= OnConnectionRemoved;
+        settings.AlwaysShowCables.ValueChanged -= OnAlwaysShowCablesChanged;
+        settings.CableColor.ValueChanged -= OnCableColorChanged;
         eb.Unregister(this);
 
         Object.Destroy(container);
@@ -142,11 +145,18 @@ public class PowerLineRenderer(
             ?? Shader.Find("Unlit/Color")
             ?? Shader.Find("Sprites/Default");
 
-        return new Material(shader)
+        var material = new Material(shader)
         {
-            color = color,
             name = $"PowerLineMaterial-{color}",
         };
+        ApplyColor(material, color);
+        return material;
+    }
+
+    static void ApplyColor(Material material, Color color)
+    {
+        material.color = color;
+        material.SetColor(BaseColorId, color);
     }
 
     static LineRenderer CreateLineObject(Transform parent, string name, Material material)
