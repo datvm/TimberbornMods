@@ -1,5 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+	<Import Project="./CommonModdableTimberborn.targets" />
+
 	<PropertyGroup>
 		<DistroStoragePath>$(GameModsFolder)DistroStorage\$(TimberbornVersion)\**\*.dll</DistroStoragePath>
 	</PropertyGroup>

@@ -1,0 +1,7 @@
+﻿{
+    "RenovationGroupSpec": {
+        "Id": "Agriculture",
+        "TitleLoc": "LV.MBR.AgricultureGroup",
+        "Order": 15
+    }
+}

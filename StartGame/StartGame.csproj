@@ -14,5 +14,7 @@
 		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
 
 		<ProjectReference Include="..\BuildingRenovations\BuildingRenovations.csproj" />
+		<ProjectReference Include="..\MoreBuildingRenovations\MoreBuildingRenovations.csproj" />
+		
 	</ItemGroup>
 </Project>

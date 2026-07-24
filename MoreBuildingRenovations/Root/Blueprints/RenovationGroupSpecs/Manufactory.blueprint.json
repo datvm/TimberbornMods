@@ -1,0 +1,7 @@
+﻿{
+    "RenovationGroupSpec": {
+        "Id": "Manufactory",
+        "TitleLoc": "LV.MBR.ManufactoryGroup",
+        "Order": 10
+    }
+}

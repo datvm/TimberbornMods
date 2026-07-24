@@ -5,13 +5,16 @@ public class RenovationDetailPanel(
     ILoc t,
     PriorityToggleGroupFactory priorityToggleGroupFactory,
     BuilderPrioritySpriteLoader builderPrioritySpriteLoader,
-    IGoodService goodService
+    IGoodService goodService,
+    NamedIconProvider namedIconProvider,
+    IContainer container
 ) : VisualElement, IPrioritizable
 {
 #nullable disable
     Label lblTitle, lblDescription, lblExtra, lblFlavor, lblTime, lblUnavailable;
     VisualElement costBox, actionsPanel;
     PriorityToggleGroup priorityToggle;
+    FramedAvatar avatar;
 #nullable enable
 
     BuildingRenovationComponent? building;
@@ -22,14 +25,19 @@ public class RenovationDetailPanel(
 
     public RenovationDetailPanel Init()
     {
-        lblTitle = this.AddLabelHeader("").SetMarginBottom(20);
+        var titleRow = this.AddRow().AlignItems().SetMarginBottom(20);
+        avatar = titleRow.AddChild(container.GetInstance<FramedAvatar>).SetMarginRight();
+        avatar.SetSize(64);
+        lblTitle = titleRow.AddLabelHeader("");
 
         lblDescription = this.AddGameLabel().SetMarginBottom();
         lblExtra = this.AddGameLabel().SetMarginBottom().SetDisplay(false);
 
-        lblFlavor = this.AddGameLabel().SetMarginBottom();
+        lblFlavor = this.AddGameLabel().SetMarginBottom(20);
 
-        costBox = this.AddRow().AlignItems().SetMarginBottom();
+        var costRow = this.AddRow().SetMarginBottom();
+        costRow.AddLabel(t.T("LV.BRe.Cost")).SetMarginRight();
+        costBox = costRow.AddRow().SetWrap().AlignItems();
 
         var timePanel = this.AddRow().SetMarginBottom().AlignItems();
         lblTime = timePanel.AddGameLabel(name: "Time").SetMarginRight(10);
@@ -68,8 +76,9 @@ public class RenovationDetailPanel(
         var spec = renovation.Spec;
         lblTitle.text = spec.Title.Value;
         lblDescription.text = spec.Description;
+        avatar.SetIcon(spec.Icon?.Asset);
 
-        var extra = renovation.GetExtraDescription(building);
+        var extra = unavailableReason is null ? renovation.GetExtraDescription(building) : null;
         if (string.IsNullOrWhiteSpace(extra))
         {
             lblExtra.SetDisplay(false);
@@ -90,7 +99,7 @@ public class RenovationDetailPanel(
             lblFlavor.SetDisplay(true);
         }
 
-        SetMaterials(spec.Cost);
+        SetMaterials(renovation.Cost);
         lblTime.text = t.T("LV.BRe.RenoTime", spec.Days.ToString("0.00"));
 
         if (unavailableReason is null)
@@ -111,14 +120,23 @@ public class RenovationDetailPanel(
         }
     }
 
-    void SetMaterials(IEnumerable<GoodAmountSpec> goods)
+    void SetMaterials(IEnumerable<GoodAmount> goods)
     {
         costBox.Clear();
 
         foreach (var g in goods)
         {
-            costBox.AddIconSpan().SetMarginRight()
-                .SetGood(goodService, g.Id, g.Amount.ToString(), showName: true);
+            var iconSpan = costBox.AddIconSpan().SetMarginRight().SetMarginBottom(5);
+            var amount = g.Amount.ToString();
+
+            if (g.GoodId == RenovationHelpers.ScienceId)
+            {
+                iconSpan.SetScience(namedIconProvider, amount).SetHorizontal();
+            }
+            else
+            {
+                iconSpan.SetGood(goodService, g.GoodId, amount, showName: true);
+            }
         }
     }
 

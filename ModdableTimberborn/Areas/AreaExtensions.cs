@@ -5,11 +5,21 @@ public static class AreaExtensions
 
     extension(BlockObject bo)
     {
+        /// <summary>
+        /// World-space half-open AABB of the block object's local size, accounting for
+        /// orientation and flip. Do not use <c>Coordinates + Size</c> — the placement
+        /// anchor is not always the min corner after rotation.
+        /// </summary>
         public BoundsInt GetBounds()
         {
-            var coords = bo.Coordinates;
             var size = bo._blockObjectSpec.Size;
-            return new(coords, size);
+            // Inclusive local cells [0, size); opposite corners suffice for 90°/flip.
+            var a = bo.TransformCoordinates(Vector3Int.zero);
+            var b = bo.TransformCoordinates(size - Vector3Int.one);
+            var min = Vector3Int.Min(a, b);
+            var max = Vector3Int.Max(a, b);
+            // BoundsInt is half-open [min, max); max above is inclusive.
+            return new(min, max - min + Vector3Int.one);
         }
     }
 

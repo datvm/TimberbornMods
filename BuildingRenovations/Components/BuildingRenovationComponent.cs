@@ -11,7 +11,6 @@ public class BuildingRenovationComponent(BuildingRenovationService service)
     static readonly PropertyKey<int> PriorityKey = new("Priority");
 
 #nullable disable
-    StatusToggle lackOfResourcesStatus;
     BlockObject blockObject;
     RenovationDistroReceiver distro;
     RenovationWorkComponent work;
@@ -30,9 +29,10 @@ public class BuildingRenovationComponent(BuildingRenovationService service)
 
     /// <summary>In-progress job id, or null.</summary>
     public string? CurrentId { get; private set; }
-    public RenovationSpec? CurrentSpec
+
+    public RenovationBase? CurrentRenovation
         => CurrentId is null ? null
-        : service.registry.TryGet(CurrentId, out var r) ? r.Spec : null;
+        : service.registry.TryGet(CurrentId, out var r) ? r : null;
 
     public Priority Priority { get; private set; } = Priority.Normal;
 
@@ -78,13 +78,6 @@ public class BuildingRenovationComponent(BuildingRenovationService service)
         work = GetComponent<RenovationWorkComponent>();
         records = GetComponent<RenovationRecordComponent>();
         expirable = GetComponent<ExpirableRenovationComponent>();
-
-        lackOfResourcesStatus = StatusToggle.CreatePriorityStatusWithAlertAndFloatingIcon(
-            "LackOfResources",
-            service.t.T("LV.BRe.NoMaterialShort"),
-            service.t.T("Status.ConstructionSites.NoMaterials"),
-            1f);
-        GetComponent<StatusSubject>().RegisterStatus(lackOfResourcesStatus);
     }
 
     public void StartRenovation(string renovationId, Priority priority)
@@ -105,11 +98,13 @@ public class BuildingRenovationComponent(BuildingRenovationService service)
             throw new InvalidOperationException(reason);
         }
 
-        StartRenovation(renovation.Spec, priority, materialsAcquired: false, workProgress: 0f, fromSave: false);
+        StartRenovation(renovation, priority, materialsAcquired: false, workProgress: 0f, fromSave: false);
     }
 
-    void StartRenovation(RenovationSpec spec, Priority priority, bool materialsAcquired, float workProgress, bool fromSave)
+    void StartRenovation(RenovationBase renovation, Priority priority, bool materialsAcquired, float workProgress, bool fromSave)
     {
+        var spec = renovation.Spec;
+
         if (!CanRenovate)
         {
             if (!blockObject.IsFinished)
@@ -126,25 +121,17 @@ public class BuildingRenovationComponent(BuildingRenovationService service)
 
         if (materialsAcquired)
         {
-            BeginWork(spec, workProgress);
+            BeginWork(renovation, workProgress);
         }
         else if (fromSave)
         {
-            distro.ResumeCollecting(priority);
             // ResumeCollecting may call OnMaterialsFullyStocked if already stocked.
-            if (distro.IsCollecting)
-            {
-                lackOfResourcesStatus.Activate();
-            }
+            distro.ResumeCollecting(priority);
         }
         else
         {
-            distro.BeginCollecting(spec.Cost, priority);
             // BeginCollecting may call OnMaterialsFullyStocked if cost is empty/already stocked.
-            if (distro.IsCollecting)
-            {
-                lackOfResourcesStatus.Activate();
-            }
+            distro.BeginCollecting(renovation.Cost, priority);
         }
 
         RenovationStarted?.Invoke(spec.Id);
@@ -154,16 +141,15 @@ public class BuildingRenovationComponent(BuildingRenovationService service)
     public void OnMaterialsFullyStocked()
     {
         if (CurrentId is null || !distro.IsCollecting) { return; }
-        if (CurrentSpec is not { } spec) { return; }
+        if (CurrentRenovation is not { } reno) { return; }
 
-        BeginWork(spec, workProgress: 0f);
+        BeginWork(reno, workProgress: 0f);
     }
 
-    void BeginWork(RenovationSpec spec, float workProgress)
+    void BeginWork(RenovationBase reno, float workProgress)
     {
         distro.MarkMaterialsCommitted();
-        lackOfResourcesStatus.Deactivate();
-        work.Start(spec.Id, spec.Days, workProgress);
+        work.Start(reno.Id, reno.Spec.Days, workProgress);
     }
 
     /// <summary>Called by <see cref="RenovationWorkComponent"/> when the work timer completes.</summary>
@@ -176,7 +162,6 @@ public class BuildingRenovationComponent(BuildingRenovationService service)
         ActiveRenovations.Add(renovationId);
 
         CurrentId = null;
-        lackOfResourcesStatus.Deactivate();
 
         ApplyEffect(renovationId, isLoad: false);
         RenovationFinished?.Invoke(renovationId);
@@ -190,7 +175,6 @@ public class BuildingRenovationComponent(BuildingRenovationService service)
         work.Cancel();
         distro.RefundAndClear();
         CurrentId = null;
-        lackOfResourcesStatus.Deactivate();
 
         RenovationCancelled?.Invoke(id);
     }
@@ -235,7 +219,6 @@ public class BuildingRenovationComponent(BuildingRenovationService service)
         if (distro.IsCollecting)
         {
             distro.MarkMaterialsCommitted();
-            lackOfResourcesStatus.Deactivate();
             OnWorkCompleted(CurrentId);
             return;
         }
@@ -308,7 +291,6 @@ public class BuildingRenovationComponent(BuildingRenovationService service)
         {
             CurrentId = idJob;
             Priority = pendingPriority;
-            lackOfResourcesStatus.Deactivate();
             RenovationStarted?.Invoke(idJob);
             return;
         }
@@ -318,12 +300,12 @@ public class BuildingRenovationComponent(BuildingRenovationService service)
             CurrentId = idJob;
             Priority = pendingPriority;
             var progress = 0f;
-            BeginWork(reno.Spec, progress);
+            BeginWork(reno, progress);
             RenovationStarted?.Invoke(idJob);
             return;
         }
 
-        StartRenovation(reno.Spec, pendingPriority, materialsAcquired: false, workProgress: 0f, fromSave: true);
+        StartRenovation(reno, pendingPriority, materialsAcquired: false, workProgress: 0f, fromSave: true);
     }
 
     public void OnEnterFinishedState() { }

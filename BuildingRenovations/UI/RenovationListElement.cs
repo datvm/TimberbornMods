@@ -4,7 +4,7 @@
 public class RenovationListElement(
     ILoc t,
     IDayNightCycle dayNightCycle,
-    RenovationSpecService renovationSpecService
+    RenovationRegistry renoRegistry
 ) : CollapsiblePanel
 {
 #nullable disable
@@ -43,12 +43,19 @@ public class RenovationListElement(
     {
         if (!Component) { return; }
 
-        lblActive.text = Component!.ActiveRenovations.Count == 0
-            ? t.T("LV.BRe.None")
-            : string.Join(Environment.NewLine, Component.ActiveRenovations.Select(r => $"• {GetTitle(r)}"));
-
+        var hasActive = Component!.ActiveRenovations.Count > 0;
         var completed = Component.Records.NewestFirst.ToList();
-        if (completed.Count == 0)
+        var hasCompleted = completed.Count > 0;
+
+        // Empty history is noise — only show when there is something to list.
+        this.SetDisplay(hasActive || hasCompleted);
+        if (!hasActive && !hasCompleted) { return; }
+
+        lblActive.text = hasActive
+            ? string.Join(Environment.NewLine, Component.ActiveRenovations.Select(r => $"• {GetTitle(r)}"))
+            : t.T("LV.BRe.None");
+
+        if (!hasCompleted)
         {
             lblLog.text = t.T("LV.BRe.None");
         }
@@ -63,10 +70,12 @@ public class RenovationListElement(
         }
     }
 
-    string GetTitle(string id) => renovationSpecService.Renovations[id].Title.Value;
+    string GetTitle(string id) => renoRegistry.Renovations[id].Name;
 
     public void Unset()
     {
+        this.SetDisplay(false);
+
         if (!Component) { return; }
 
         Component!.RenovationFinished -= OnChanged;

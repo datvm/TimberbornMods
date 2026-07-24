@@ -1,0 +1,1 @@
+﻿v11.1.0: Add Color and Always Show settings.

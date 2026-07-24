@@ -1,0 +1,16 @@
+﻿ID,Text,Comment
+LV.SBl.DistroBalancer1,"Evenload Protocol",
+LV.SBl.DistroBalancer1Desc,"Balances goods evenly among adjacent storages that also have Balancer.
+<YellowHighlight>Connects only side-by-side on the same level</YellowHighlight> (full shared wall). Does not connect up or down.
+Only for Storage buildings.",
+LV.SBl.DistroBalancer1Flavor,"When two storages stand shoulder to shoulder, the goods flow as one.",
+LV.SBl.DistroBalancer2,"Omnidirectional Protocol",
+LV.SBl.DistroBalancer2Desc,"Upgrades Balancer so storages connect if they <YellowHighlight>share any face</YellowHighlight>, including stacked up/down. Diagonals and corner-only contact do not count.
+Requires Evenload Protocol. Only for Storage buildings.",
+LV.SBl.DistroBalancer2Flavor,"From the lowest floor to the highest shelf, every crate finds its equal place.",
+LV.SBl.DisableBalancer,"Disabled",
+LV.SBl.BalancerGroup,"Balancer Groups:",
+LV.SBl.BalancerGroupNone,"This storage is not connected to any other balancer.",
+LV.SBl.Select,"Select",
+LV.SBl.Balanced,"<GreenHighlight>Balanced!</GreenHighlight>",
+Name_StockpileBalancerFragment,"Storage Balancer",

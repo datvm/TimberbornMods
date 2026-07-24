@@ -26,11 +26,21 @@ public record RenovationSpec : ComponentSpec
     public LocalizedText Flavor { get; init; } = null!;
 
     [Serialize]
+    public AssetRef<Sprite>? Icon { get; init; }
+
+    [Serialize]
     public ImmutableArray<GoodAmountSpec> Cost { get; init; } = [];
+
+    [Serialize]
+    public bool CustomCodeCost { get; init; }
 
     [Serialize]
     public float Days { get; init; }
 
     [Serialize]
     public ImmutableArray<float> Parameters { get; init; } = [];
+
+    ImmutableArray<GoodAmount>? parsedCost;
+    internal ImmutableArray<GoodAmount> ParsedCost => parsedCost ??= [.. Cost.Select(q => new GoodAmount(q.Id, q.Amount))];
+
 }

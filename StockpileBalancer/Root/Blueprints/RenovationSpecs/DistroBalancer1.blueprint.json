@@ -1,0 +1,23 @@
+﻿{
+    "RenovationSpec": {
+        "Id": "DistroBalancer1",
+        "GroupId": "Stockpile",
+        "Order": 30,
+        "TitleLoc": "LV.SBl.DistroBalancer1",
+        "DescLoc": "LV.SBl.DistroBalancer1Desc",
+        "FlavorLoc": "LV.SBl.DistroBalancer1Flavor",
+        "Icon": "UI/Renovations/DistroBalancer1",
+        "Cost": [
+            {
+                "Id": "Plank",
+                "Amount": 5
+            },
+            {
+                "Id": "Gear",
+                "Amount": 5
+            }
+        ],
+        "Days": 1,
+        "Parameters": []
+    }
+}

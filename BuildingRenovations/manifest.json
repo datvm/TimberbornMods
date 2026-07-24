@@ -5,7 +5,7 @@
     "MinimumGameVersion": "1.1.1",
     "Description": "Renovations for your buildings",
     "RequiredMods": [
-        { "Id": "ModdableTimberborn" },
+        { "Id": "ModdableTimberborn", "MinimumVersion": "11.0.5" },
         { "Id": "DistroStorage" }
     ]
 }

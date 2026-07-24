@@ -1,0 +1,31 @@
+﻿{
+    "RenovationSpec": {
+        "Id": "NumbercruncherSubmerge",
+        "GroupId": "Manufactory",
+        "Order": 22,
+        "TitleLoc": "LV.MBR.NumbercruncherSubmerge",
+        "DescLoc": "LV.MBR.NumbercruncherSubmergeDesc",
+        "FlavorLoc": "LV.MBR.NumbercruncherSubmergeFlavor",
+        "Icon": "UI/Renovations/NumbercruncherSubmerge",
+        "Cost": [
+            {
+                "Id": "Science",
+                "Amount": 750
+            },
+            {
+                "Id": "Plank",
+                "Amount": 30
+            },
+            {
+                "Id": "Gear",
+                "Amount": 100
+            },
+            {
+                "Id": "MetalPart",
+                "Amount": 50
+            }
+        ],
+        "Days": 5,
+        "Parameters": [ 0.2 ]
+    }
+}

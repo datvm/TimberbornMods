@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputModFolderName>MoreBuildingRenovations</OutputModFolderName>
+	</PropertyGroup>
+
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonRenovations.targets" />
+
+	<ItemGroup>
+		<Using Include="MoreBuildingRenovations.Components" />
+		<Using Include="MoreBuildingRenovations.Services" />
+		<Using Include="MoreBuildingRenovations.Renovations" />
+		<Using Include="ModdableTimberborn.BonusSystem" />		
+	</ItemGroup>
+
+</Project>

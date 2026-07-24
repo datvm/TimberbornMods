@@ -1,0 +1,19 @@
+﻿{
+    "RenovationSpec": {
+        "Id": "WoodBuildingsImprovement2",
+        "GroupId": "Manufactory",
+        "Order": 11,
+        "TitleLoc": "LV.MBR.WoodBuildingsImprovement2",
+        "DescLoc": "LV.MBR.WoodBuildingsImprovementDesc",
+        "FlavorLoc": "LV.MBR.WoodBuildingsImprovement2Flavor",
+        "Icon": "UI/Renovations/WoodBuildingsImprovement2",
+        "Cost": [
+            {
+                "Id": "Plank",
+                "Amount": 20
+            }
+        ],
+        "Days": 1.5,
+        "Parameters": [ 0.1 ]
+    }
+}

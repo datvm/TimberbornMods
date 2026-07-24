@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputModFolderName>StockpileBalancer</OutputModFolderName>
+	</PropertyGroup>
+
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonRenovations.targets" />
+
+	<ItemGroup>
+		<Using Include="StockpileBalancer.Components" />
+		<Using Include="StockpileBalancer.Services" />
+	</ItemGroup>
+
+</Project>

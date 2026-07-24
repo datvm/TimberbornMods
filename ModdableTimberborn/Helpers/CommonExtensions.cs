@@ -15,11 +15,6 @@ public static partial class CommonExtensions
         public string Percent() => f.ToString("P0");
     }
 
-    extension(ILoc t)
-    {
-        public string THours(float time, string? format = "F1") => t.T(UnitFormatter.HourUnitLocKey, time.ToString(format));
-    }
-
     extension(NumericComparisonMode mode)
     {
         public char ToChar() => mode switch

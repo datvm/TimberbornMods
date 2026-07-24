@@ -50,6 +50,8 @@
   <Folder Name="/DistroLogistics/">
     <Project Path="BuildingRenovations/BuildingRenovations.csproj" Id="ff96ec85-376f-48ac-9d54-5ef2cdd1e7c6" />
     <Project Path="DistroStorage/DistroStorage.csproj" Id="e403d0a7-4b71-4fd1-961d-59e6c15b129e" />
+    <Project Path="MoreBuildingRenovations/MoreBuildingRenovations.csproj" Id="4e33da4c-7cee-4bb9-88ca-a157added875" />
+    <Project Path="StockpileBalancer/StockpileBalancer.csproj" Id="cdf8588f-efdd-40b8-83bb-534a56c44b9a" />
     <Project Path="UnstableCoreChallenge/UnstableCoreChallenge.csproj" />
   </Folder>
   <Folder Name="/Http/">
@@ -166,7 +168,6 @@
   <Folder Name="/_Utils/Targets/">
     <File Path="Targets/Common.targets" />
     <File Path="Targets/CommonBeaverChronicles.targets" />
-    <File Path="Targets/CommonBuildingHP.targets" />
     <File Path="Targets/CommonDebug.targets" />
     <File Path="Targets/CommonDistroStorage.targets" />
     <File Path="Targets/CommonGlobalUsings.targets" />
@@ -180,6 +181,7 @@
     <File Path="Targets/CommonModdableWeathers.targets" />
     <File Path="Targets/CommonMoreHttpApi.targets" />
     <File Path="Targets/CommonProperties.targets" />
+    <File Path="Targets/CommonRenovations.targets" />
     <File Path="Targets/CommonScientificProjects.targets" />
     <File Path="Targets/CommonTests.targets" />
     <File Path="Targets/CommonTimberUI.targets" />
