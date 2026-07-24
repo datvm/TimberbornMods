@@ -1,0 +1,10 @@
+﻿{
+    "Name": "More Building Renovations",
+    "Version": "11.0.0",
+    "Id": "MoreBuildingRenovations",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "More renovations for your buildings",
+    "RequiredMods": [
+        { "Id": "BuildingRenovations" }
+    ]
+}

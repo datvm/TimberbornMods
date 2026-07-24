@@ -1,0 +1,15 @@
+﻿{
+    "RenovationSpec": {
+        "Id": "PlantsSpeed",
+        "GroupId": "Agriculture",
+        "Order": 10,
+        "TitleLoc": "LV.MBR.PlantsSpeedIdle",
+        "DescLoc": "LV.MBR.PlantsSpeedDescCommon",
+        "FlavorLoc": "LV.MBR.PlantsSpeedFlavor",
+        "Icon": "UI/Renovations/PlantsSpeed",
+        "CustomCodeCost": true,
+        "Cost": [],
+        "Days": 3,
+        "Parameters": [ 0.25 ]
+    }
+}

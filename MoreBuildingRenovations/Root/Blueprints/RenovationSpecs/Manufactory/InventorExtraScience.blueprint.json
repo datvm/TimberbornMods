@@ -1,0 +1,23 @@
+﻿{
+    "RenovationSpec": {
+        "Id": "InventorExtraScience",
+        "GroupId": "Manufactory",
+        "Order": 20,
+        "TitleLoc": "LV.MBR.InventorExtraScience",
+        "DescLoc": "LV.MBR.InventorExtraScienceDesc",
+        "FlavorLoc": "LV.MBR.InventorExtraScienceFlavor",
+        "Icon": "UI/Renovations/InventorExtraScience",
+        "Cost": [
+            {
+                "Id": "Science",
+                "Amount": 50
+            },
+            {
+                "Id": "Water",
+                "Amount": 5
+            }
+        ],
+        "Days": 0.5,
+        "Parameters": [ 72, 1 ]
+    }
+}

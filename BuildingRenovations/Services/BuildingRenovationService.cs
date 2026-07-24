@@ -6,7 +6,8 @@ public class BuildingRenovationService(
     IDayNightCycle dayNightCycle,
     RenovationRegistry registry,
     DistroService distroService,
-    RecoveredGoodStackSpawner goodStackSpawner
+    RecoveredGoodStackSpawner goodStackSpawner,
+    ScienceService scienceService
 )
 {
     public readonly ILoc t = t;
@@ -21,5 +22,13 @@ public class BuildingRenovationService(
         => renoId is null || building.HasActive(renoId) 
         ? null
         : t.T("LV.BRe.RenovationRequired", registry.Get(renoId).Name);
+
+    public bool CollectScience(int points)
+    {
+        if (points <= 0 || scienceService.SciencePoints < points) { return false; }
+
+        scienceService.SubtractPoints(points);
+        return true;
+    }
 
 }

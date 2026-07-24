@@ -11,6 +11,7 @@ public class RenovationDistroReceiver(BuildingRenovationService renoService)
     static readonly PropertyKey<string> DemandKey = new("Demand");
 
     BuildingRenovationComponent controller = null!;
+    StatusToggle lackOfResourcesStatus = null!;
 
     readonly Dictionary<string, int> stored = [];
     readonly Dictionary<string, int> demand = [];
@@ -31,7 +32,7 @@ public class RenovationDistroReceiver(BuildingRenovationService renoService)
         {
             foreach (var (id, amount) in demand)
             {
-                if (amount > 0)
+                if (id != RenovationHelpers.ScienceId && amount > 0)
                 {
                     yield return new(id, amount);
                 }
@@ -39,7 +40,7 @@ public class RenovationDistroReceiver(BuildingRenovationService renoService)
         }
     }
 
-    public override IEnumerable<string> GoodIds => demand.Keys;
+    public override IEnumerable<string> GoodIds => demand.Keys.Where(g => g != RenovationHelpers.ScienceId);
 
     protected override bool CalculateActive()
         => base.CalculateActive()
@@ -50,9 +51,17 @@ public class RenovationDistroReceiver(BuildingRenovationService renoService)
     {
         base.Awake();
         controller = GetComponent<BuildingRenovationComponent>();
+
+        var t = renoService.t;
+        lackOfResourcesStatus = StatusToggle.CreatePriorityStatusWithAlertAndFloatingIcon(
+            "LackOfResources",
+            t.T("LV.BRe.NoMaterialShort"),
+            t.T("Status.ConstructionSites.NoMaterials"),
+            1f);
+        GetComponent<StatusSubject>().RegisterStatus(lackOfResourcesStatus);
     }
 
-    public void BeginCollecting(IReadOnlyList<GoodAmountSpec> cost, Priority priority)
+    public void BeginCollecting(IEnumerable<GoodAmount> cost, Priority priority)
     {
         stored.Clear();
         demand.Clear();
@@ -60,7 +69,7 @@ public class RenovationDistroReceiver(BuildingRenovationService renoService)
 
         foreach (var c in cost.Where(q => q.Amount > 0))
         {
-            demand[c.Id] = demand.GetValueOrDefault(c.Id) + c.Amount;
+            demand[c.GoodId] = demand.GetValueOrDefault(c.GoodId) + c.Amount;
         }
 
         Priority = priority;
@@ -69,6 +78,10 @@ public class RenovationDistroReceiver(BuildingRenovationService renoService)
         if (IsFullyStocked)
         {
             controller.OnMaterialsFullyStocked();
+        }
+        else
+        {
+            lackOfResourcesStatus.Activate();
         }
     }
 
@@ -83,6 +96,10 @@ public class RenovationDistroReceiver(BuildingRenovationService renoService)
         {
             controller.OnMaterialsFullyStocked();
         }
+        else
+        {
+            lackOfResourcesStatus.Activate();
+        }
     }
 
     public void MarkMaterialsCommitted()
@@ -90,6 +107,7 @@ public class RenovationDistroReceiver(BuildingRenovationService renoService)
         collecting = false;
         demand.Clear();
         MarkActiveDirty();
+        lackOfResourcesStatus.Deactivate();
     }
 
     public void TransferIn(GoodAmount good)
@@ -118,6 +136,12 @@ public class RenovationDistroReceiver(BuildingRenovationService renoService)
         if (IsFullyStocked)
         {
             controller.OnMaterialsFullyStocked();
+        }
+        else
+        {
+            // Restart alert/icon delay: deliveries are progressing.
+            lackOfResourcesStatus.Deactivate();
+            lackOfResourcesStatus.Activate();
         }
     }
 
@@ -148,6 +172,7 @@ public class RenovationDistroReceiver(BuildingRenovationService renoService)
         demand.Clear();
         collecting = false;
         MarkActiveDirty();
+        lackOfResourcesStatus.Deactivate();
     }
 
     public void RefundAndClear()
@@ -157,6 +182,7 @@ public class RenovationDistroReceiver(BuildingRenovationService renoService)
         demand.Clear();
         collecting = false;
         MarkActiveDirty();
+        lackOfResourcesStatus.Deactivate();
     }
 
     public override void DeleteEntity()
@@ -165,6 +191,7 @@ public class RenovationDistroReceiver(BuildingRenovationService renoService)
         stored.Clear();
         demand.Clear();
         collecting = false;
+        lackOfResourcesStatus.Deactivate();
         base.DeleteEntity();
     }
 
@@ -180,6 +207,17 @@ public class RenovationDistroReceiver(BuildingRenovationService renoService)
         if (goods.Count == 0) { return; }
 
         renoService.goodStackSpawner.AddAwaitingGoods(blockObject.Coordinates, goods);
+    }
+
+    public void CollectSciencePayment()
+    {
+        var scienceCost = demand.GetValueOrDefault(RenovationHelpers.ScienceId);
+        if (scienceCost == 0) { return; }
+
+        if (renoService.CollectScience(scienceCost))
+        {
+            TransferIn(new(RenovationHelpers.ScienceId, scienceCost));
+        }
     }
 
     public override void Save(IEntitySaver entitySaver)

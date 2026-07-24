@@ -32,5 +32,11 @@ This mod is designed so any building can further be modified to support custom p
 
 Some buildings can support custom and multiple connection points. I have only gone through the Power buildings. If you feel a building should have a different connection count or range, please let me know and I will consider adding it in a future update.
 
+[h1]Settings[/h1]
+
+You can change the cable color or always show them in the mod settings (Main menu or in-game Mods -> Settings button).
+
+[img]https://images.steamusercontent.com/ugc/10851972575483287799/95A340D06CFDDA371AABA86200FCC0A9A7DC4CFD/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

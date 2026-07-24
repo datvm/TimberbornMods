@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Storage Balancer",
+    "Version": "11.0.0",
+    "Id": "StockpileBalancer",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "Balance goods between connecting storage buildings",
+    "RequiredMods": [
+        { "Id": "BuildingRenovations" }
+    ]
+}

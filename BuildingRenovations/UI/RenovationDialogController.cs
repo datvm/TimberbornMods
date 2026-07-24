@@ -1,6 +1,6 @@
-namespace BuildingRenovations.UI;
+﻿namespace BuildingRenovations.UI;
 
-[Bind]
+[BindSingleton]
 public class RenovationDialogController(IContainer container)
 {
     RenovationDialog? curr;

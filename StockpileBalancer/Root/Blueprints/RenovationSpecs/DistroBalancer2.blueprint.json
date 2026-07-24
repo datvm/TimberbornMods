@@ -1,0 +1,23 @@
+﻿{
+    "RenovationSpec": {
+        "Id": "DistroBalancer2",
+        "GroupId": "Stockpile",
+        "Order": 31,
+        "TitleLoc": "LV.SBl.DistroBalancer2",
+        "DescLoc": "LV.SBl.DistroBalancer2Desc",
+        "FlavorLoc": "LV.SBl.DistroBalancer2Flavor",
+        "Icon": "UI/Renovations/DistroBalancer2",
+        "Cost": [
+            {
+                "Id": "MetalBlock",
+                "Amount": 5
+            },
+            {
+                "Id": "Gear",
+                "Amount": 15
+            }
+        ],
+        "Days": 2,
+        "Parameters": []
+    }
+}

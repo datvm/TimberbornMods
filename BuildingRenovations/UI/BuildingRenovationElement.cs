@@ -3,20 +3,22 @@
 [BindTransient]
 public class BuildingRenovationElement(
     ILoc t,
-    IGoodService goodService,
     DevModeManager devModeManager,
     PriorityToggleGroupFactory priorityToggleGroupFactory,
     BuilderPrioritySpriteLoader builderPrioritySpriteLoader,
-    DialogBoxShower dialogBoxShower
+    DialogBoxShower dialogBoxShower,
+    IContainer container
 ) : VisualElement, IPrioritizable
 {
 #nullable disable
     Button btnFinishNow;
-    Label lblName, lblProgress, lblMaterials;
+    Label lblName, lblProgress;
     ProgressBar pgbProgress;
     PriorityToggleGroup priorityToggleGroup;
-    VisualElement materialPanel;
+    VisualElement materialPanel, materialRowsContainer;
 #nullable enable
+
+    readonly List<BuildingRenovationMaterialRow> materialRows = [];
 
     public BuildingRenovationComponent? Component { get; private set; }
     public Priority Priority => Component?.Priority ?? Priority.Normal;
@@ -36,7 +38,7 @@ public class BuildingRenovationElement(
             priorityContainer,
             builderPrioritySpriteLoader,
             "LV.BRe.RenoPriorityShort");
-        lblMaterials = materialPanel.AddGameLabel().SetMarginBottom();
+        materialRowsContainer = materialPanel.AddChild();
 
         this.AddStretchedEntityFragmentButton(
             t.T("LV.BRe.CancelReno"),
@@ -66,14 +68,14 @@ public class BuildingRenovationElement(
     {
         if (!Component) { return; }
 
-        var spec = Component!.CurrentSpec;
-        if (spec is null || Component.CurrentId is null)
+        var renovation = Component!.CurrentRenovation;
+        if (renovation is null)
         {
             this.SetDisplay(false);
             return;
         }
 
-        lblName.text = t.T("LV.BRe.CurrentRenovation", spec.Title.Value);
+        lblName.text = t.T("LV.BRe.CurrentRenovation", renovation.Name);
 
         if (Component.IsWorking)
         {
@@ -81,13 +83,13 @@ public class BuildingRenovationElement(
             pgbProgress.SetProgress(
                 work.Progress,
                 lblProgress,
-                t.TDays(work.DaysLeft));
+                t.TDaysOrHours(work.DaysLeft));
             ToggleMaterialPanel(false);
         }
         else
         {
             pgbProgress.SetProgress(0, lblProgress, t.T("LV.BRe.WaitingForMaterial"));
-            lblMaterials.text = GetMaterialProgressText(spec);
+            PopulateMaterials(renovation.Cost);
             ToggleMaterialPanel(true);
             priorityToggleGroup.UpdateGroup();
         }
@@ -95,25 +97,38 @@ public class BuildingRenovationElement(
         this.SetDisplay(true);
     }
 
-    string GetMaterialProgressText(RenovationSpec spec)
+    void PopulateMaterials(IEnumerable<GoodAmount> cost)
     {
         var receiver = Component!.Distro;
         var stored = receiver.StoredGoods;
-        var remaining = receiver.RemainingDemand;
-        StringBuilder str = new();
 
-        foreach (var c in spec.Cost.Where(q => q.Amount > 0))
+        var index = 0;
+        foreach (var item in cost)
         {
-            var have = stored.GetValueOrDefault(c.Id);
-            var left = remaining.GetValueOrDefault(c.Id);
-            var total = have + left;
-            if (total <= 0) { total = c.Amount; }
+            while (index >= materialRows.Count)
+            {
+                var newRow = materialRowsContainer.AddChild(container.GetInstance<BuildingRenovationMaterialRow>);
+                newRow.OnSciencePayClicked += OnSciencePaymentRequested;
+                materialRows.Add(newRow);
+            }
+            var row = materialRows[index];
 
-            var g = goodService.GetGood(c.Id);
-            str.AppendLine($"● {have}/{total} {g.PluralDisplayName.Value}");
+            var paid = stored.GetValueOrDefault(item.GoodId);
+            row.SetContent(item.GoodId, paid, item.Amount);
+
+            index++;
         }
 
-        return str.ToString();
+        for (; index < materialRows.Count; index++)
+        {
+            materialRows[index].Visible = false;
+        }
+    }
+
+    void OnSciencePaymentRequested()
+    {
+        if (!Component) { return; }
+        Component!.Distro.CollectSciencePayment();
     }
 
     public void Unset()
@@ -157,4 +172,5 @@ public class BuildingRenovationElement(
         if (Component is null || !Component.CanChangePriority) { return; }
         Component.ChangePriority(priority);
     }
+
 }

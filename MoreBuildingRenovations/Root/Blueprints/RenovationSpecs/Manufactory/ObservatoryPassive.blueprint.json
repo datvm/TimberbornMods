@@ -1,0 +1,27 @@
+﻿{
+    "RenovationSpec": {
+        "Id": "ObservatoryPassive",
+        "GroupId": "Manufactory",
+        "Order": 21,
+        "TitleLoc": "LV.MBR.ObservatoryPassive",
+        "DescLoc": "LV.MBR.ObservatoryPassiveDesc",
+        "FlavorLoc": "LV.MBR.ObservatoryPassiveFlavor",
+        "Icon": "UI/Renovations/ObservatoryPassive",
+        "Cost": [
+            {
+                "Id": "Science",
+                "Amount": 120
+            },
+            {
+                "Id": "Gear",
+                "Amount": 30
+            },
+            {
+                "Id": "Paper",
+                "Amount": 30
+            }
+        ],
+        "Days": 5,
+        "Parameters": [ 1 ]
+    }
+}

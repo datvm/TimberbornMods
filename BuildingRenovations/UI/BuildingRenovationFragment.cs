@@ -4,7 +4,8 @@
 public class BuildingRenovationFragment(
     ILoc t,
     IContainer container,
-    RenovationDialogController renovationDialogController
+    RenovationDialogController renovationDialogController,
+    RenovationRegistry registry
 ) : BaseEntityPanelFragment<BuildingRenovationComponent>, IEntityFragmentOrder
 {
 #nullable disable
@@ -32,6 +33,15 @@ public class BuildingRenovationFragment(
     {
         base.ShowFragment(entity);
         if (!component) { return; }
+
+        // History already proves this building is renovation-capable; skip hard filters.
+        var hasRenoHistory = component!.ActiveRenovations.Count > 0
+            || component.Records.Records.Count > 0;
+        if (!hasRenoHistory && !registry.Renovations.Values.Any(r => r.CanRenovate(component!)))
+        {
+            ClearFragment();
+            return;
+        }
 
         renoPanel.SetComponent(component);
         renovationListPanel.SetComponent(component!);

@@ -1,0 +1,23 @@
+﻿{
+    "RenovationSpec": {
+        "Id": "IncreaseDistroSpeed1",
+        "GroupId": "Stockpile",
+        "Order": 10,
+        "TitleLoc": "LV.BRe.IncreaseDistroSpeed1",
+        "DescLoc": "LV.BRe.IncreaseDistroSpeedDesc",
+        "FlavorLoc": "LV.BRe.IncreaseDistroSpeed1Flavor",
+        "Icon": "UI/Renovations/IncreaseDistroSpeed1",
+        "Cost": [
+            {
+                "Id": "Gear",
+                "Amount": 10
+            },
+            {
+                "Id": "Plank",
+                "Amount": 10
+            }
+        ],
+        "Days": 1,
+        "Parameters": [ 0.5 ]
+    }
+}

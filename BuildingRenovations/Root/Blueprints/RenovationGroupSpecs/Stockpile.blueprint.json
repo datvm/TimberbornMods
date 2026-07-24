@@ -1,0 +1,7 @@
+﻿{
+    "RenovationGroupSpec": {
+        "Id": "Stockpile",
+        "TitleLoc": "LV.BRe.StockpileGroup",
+        "Order": 20
+    }
+}
