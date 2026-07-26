@@ -1,0 +1,19 @@
+﻿{
+    "RenovationSpec": {
+        "Id": "PlantingSpeed1",
+        "GroupId": "Agriculture",
+        "Order": 20,
+        "TitleLoc": "LV.MBR.PlantingSpeed1",
+        "DescLoc": "LV.MBR.PlantingSpeed1Desc",
+        "FlavorLoc": "LV.MBR.PlantingSpeed1Flavor",
+        "Icon": "UI/Renovations/PlantingSpeed1",
+        "Cost": [
+            {
+                "Id": "Plank",
+                "Amount": 4
+            }
+        ],
+        "Days": 0.5,
+        "Parameters": [ 0.25, 10 ]
+    }
+}

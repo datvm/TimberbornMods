@@ -1,16 +1,16 @@
-Building Renovations
+﻿Building Renovations is back and better than before! Upgrade your buildings with new features, specialization or simply improved stats.
 
-Renovations for your buildings. Materials are delivered via Distro Storage (no builders/haulers).
+This mod is also very easy to extend with other mods, as you probably want to use with these two:
+- More Building Renovations: Add more renovations to your buildings.
+- Storage Balancer: Automatically balance your goods between adjacent storage buildings.
 
-Core engine only — individual renovations/upgrades will be added over time.
+This mod comes with only two base renovations to speed up Distro Storages' transfer speed.
 
-How materials work:
-- Start a renovation on a finished building.
-- The building becomes a Distro receiver for the required materials.
-- Link Distro-enabled stockpiles in range so goods can be sent.
-- Materials arrive gradually. Work time starts once all materials are collected.
-- Canceling refunds delivered materials as recovered goods on the map.
-- Completing a renovation consumes the materials (no refund).
-- Destroying a building mid-renovation also refunds delivered materials.
+[h1]Renovate your buildings[/h1]
+Any building that can be renovate will have a new Renovate button so you can see the list of renovation a building can have.
+<screenshot placeholder>
 
-Requires: Moddable Timberborn, Distro Storage.
+Renovation now collect materials using Distro Storages to remove the confusing collecting from previous version. Some renovation requires science, which you can directly Pay in the same panel. Renovation takes time to build, and the progress only start once all materials are collected. You can also cancel a renovation at any time, and all materials will be refunded. [b]Buildings functionality will not be affected while a renovation is in progress.[/b] Only one renovation can be built at a time.
+<screenshot placeholder>
+
+[h1]Renovate your buildings[/h1]

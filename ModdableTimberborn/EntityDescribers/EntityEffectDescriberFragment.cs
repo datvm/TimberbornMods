@@ -110,13 +110,13 @@ public class EntityEffectDescriberFragment(
         void AddDescription(EntityEffectDescription? desc)
         {
             if (desc is null) { return; }
-            var (title, details, time) = desc.Value;
+            var (title, details, hours) = desc.Value;
 
             str.AppendLine(t.T("LV.MT.ActiveEffect", title, details));
 
-            if (time.HasValue)
+            if (hours.HasValue)
             {
-                str.AppendLine(t.T("LV.MT.ActiveEffectTime", time.Value));
+                str.AppendLine(t.T("LV.MT.ActiveEffectTime", t.TDaysOrHours(hours.Value / 24f)));
             }
         }
     }

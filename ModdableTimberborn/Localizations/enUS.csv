@@ -2,7 +2,7 @@
 LV.MT.ActiveEffects,"Active effects",
 LV.MT.ActiveEffect,"• <b>{0}</b>
 {1}",
-LV.MT.ActiveEffectTime,"{0:0.00}d remaining",
+LV.MT.ActiveEffectTime,"{0} remaining",
 LV.MT.UnknownSettings,"Unknown settings",
 LV.MT.UnknownValue,"Unknown value: {0}",
 LV.MT.UnknownSettingsDescription,"Unknown settings: {0}",

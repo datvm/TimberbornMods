@@ -101,6 +101,9 @@ public class ExpirableRenovationComponent(BuildingRenovationService service)
         return true;
     }
 
+    public float? GetRemainingHoursOrNull(string id)
+        => TryGetRemainingDays(id, out var days) ? days * 24f : null;
+
     public bool TryGetEndTime(string id, out float endTime)
         => endTimes.TryGetValue(id, out endTime);
 
