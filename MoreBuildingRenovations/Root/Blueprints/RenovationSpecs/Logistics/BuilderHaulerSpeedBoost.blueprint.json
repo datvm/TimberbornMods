@@ -1,0 +1,27 @@
+﻿{
+    "RenovationSpec": {
+        "Id": "BuilderHaulerSpeedBoost",
+        "GroupId": "Logistics",
+        "Order": 10,
+        "TitleLoc": "LV.MBR.BuilderHaulerSpeedBoost",
+        "DescLoc": "LV.MBR.BuilderHaulerSpeedBoostDesc",
+        "FlavorLoc": "LV.MBR.BuilderHaulerSpeedBoostFlavor",
+        "Icon": "UI/Renovations/BuilderHaulerSpeedBoost",
+        "Cost": [
+            {
+                "Id": "Science",
+                "Amount": 150
+            },
+            {
+                "Id": "Plank",
+                "Amount": 20
+            },
+            {
+                "Id": "TreatedPlank",
+                "Amount": 10
+            }
+        ],
+        "Days": 10,
+        "Parameters": [ 0.5, 0.1 ]
+    }
+}

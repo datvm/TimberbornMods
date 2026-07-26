@@ -38,8 +38,5 @@ public abstract class ExpirableRenovationBase : RenovationBase
     protected virtual void OnActivated(BuildingRenovationComponent building, bool isLoad) { }
 
     /// <summary>Called when the timed effect ends (active flag already cleared).</summary>
-    public virtual void OnExpired(BuildingRenovationComponent building)
-    {
-        building.DeactivateRenovation(Id);
-    }
+    public virtual void OnExpired(BuildingRenovationComponent building) { }
 }

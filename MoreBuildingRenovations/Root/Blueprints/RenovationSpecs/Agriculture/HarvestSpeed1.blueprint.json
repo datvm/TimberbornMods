@@ -1,0 +1,19 @@
+﻿{
+    "RenovationSpec": {
+        "Id": "HarvestSpeed1",
+        "GroupId": "Agriculture",
+        "Order": 30,
+        "TitleLoc": "LV.MBR.HarvestSpeed1",
+        "DescLoc": "LV.MBR.HarvestSpeed1Desc",
+        "FlavorLoc": "LV.MBR.HarvestSpeed1Flavor",
+        "Icon": "UI/Renovations/HarvestSpeed1",
+        "Cost": [
+            {
+                "Id": "Plank",
+                "Amount": 4
+            }
+        ],
+        "Days": 0.5,
+        "Parameters": [ 0.25, 10 ]
+    }
+}

@@ -8,12 +8,11 @@ LV.BRe.RenoPriorityShort,"Materials",
 LV.BRe.AlreadyActive,"Renovation is already active.",
 LV.BRe.RenovationNote,"- Once started, the building will start gathering materials via Distro Storage. Time only counts down when all materials are collected.
 - Collecting materials and renovating does <b>NOT</b> require Builders or Haulers. Link stockpiles with Distro Storage so materials can be delivered.
-- Materials arrive gradually from connected Distro senders in range.
-- Only one renovation can be active at a time for each building. Cancelling refunds materials already delivered (as recovered goods). Completed renovations consume materials.",
+- Only one renovation can be active at a time for each building. Cancelling refunds materials already delivered (as recovered goods). Completed renovations consume the materials and will not be refunded in any way.",
 LV.BRe.StartRenovation,"Start this renovation",
 Empty,"",
 LV.BRe.CancelReno,"Cancel renovation",
-LV.BRe.CancelRenoConfirm,"Are you sure you want to cancel the renovation? Delivered materials will be refunded as recovered goods.",
+LV.BRe.CancelRenoConfirm,"Are you sure you want to cancel the renovation?",
 LV.BRe.CancelRenoYes,"Yes, cancel renovation",
 LV.BRe.CancelNo,"No, keep renovating",
 LV.BRe.CurrentRenovation,"Current renovation: {0}",

@@ -29,11 +29,14 @@ public static class RenovationHelpers
     extension(ILoc t)
     {
 
+        public string TWorkplaceWorkerBonus(string bonus) => t.T("LV.BRe.Common.WorkerBonus", bonus);
+
         public string TWorkplaceWorkerBonus(IReadOnlyList<BonusSpec> bonuses)
         {
             var bonusText = string.Join(", ", bonuses.Select(b =>
                 $"{b.MultiplierDelta:+0%;-0%;0%} {t.TBonus(b.Id)}"));
-            return t.T("LV.BRe.Common.WorkerBonus", bonusText);
+
+            return t.TWorkplaceWorkerBonus(bonusText);
         }
     }
 

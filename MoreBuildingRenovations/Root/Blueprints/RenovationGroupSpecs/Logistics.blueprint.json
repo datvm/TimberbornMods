@@ -1,0 +1,7 @@
+﻿{
+    "RenovationGroupSpec": {
+        "Id": "Logistics",
+        "TitleLoc": "LV.MBR.LogisticsGroup",
+        "Order": 12
+    }
+}
