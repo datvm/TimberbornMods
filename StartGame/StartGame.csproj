@@ -13,8 +13,7 @@
 		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
 		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
 
-		<ProjectReference Include="..\BuildingRenovations\BuildingRenovations.csproj" />
-		<ProjectReference Include="..\MoreBuildingRenovations\MoreBuildingRenovations.csproj" />
+		<ProjectReference Include="..\ExtendedBuilderReach\ExtendedBuilderReach.csproj" />
 		
 	</ItemGroup>
 </Project>
