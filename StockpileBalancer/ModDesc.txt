@@ -1,0 +1,32 @@
+﻿[b]Storage Balancer[/b] adds renovations that automatically even out goods between connected storage buildings.
+
+[h1]How it works[/h1]
+Renovated storages that store the [b]same good[/b] and [b]touch each other[/b] form a balancer group. Goods then move automatically from fuller piles to emptier ones until the group is even. No haulers are required for balancing itself.
+[img]https://images.steamusercontent.com/ugc/17873795204271526146/A238F81954C54BFD751F0808C2A18C31AD87065F/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+[h1]Renovations and Connection rule[/h1]
+[list]
+[*] [b]Evenload Protocol[/b]: balances among storages that share a full side wall on the [b]same level[/b]. Does not connect up or down.
+[*] [b]Omnidirectional Protocol[/b]: upgrades the connection so storages can also link when stacked (any shared face counts). Diagonals and corner-only contact still do not count. Requires Evenload Protocol first.
+[/list]
+
+With Evenload Protocol, [b]one full side[/b] of the storage building must fully connect to the other building horizontally. Goods generally cannot be moved upwards.
+[img]https://images.steamusercontent.com/ugc/16007144745103412126/C661FCF7A5FEA1039B868AB1F3E2A42D76499F0C/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+[img]https://images.steamusercontent.com/ugc/16806065105899331516/2416D81F2531940C57AC2ECD37EF975E1162D35D/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+[img]https://images.steamusercontent.com/ugc/16363201455713657367/DECDFF8BDC9A6AE64704B196C7E6C0F463EC7FB5/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+With Omnidirectional Protocol, you can stack storage buildings on top of each other. Any touching cell between the two buildings will work, but both buildings must have the Omnidirectional Protocol applied.
+
+[h1]Controls[/h1]
+After renovation, the storage panel shows balancer info:
+[list]
+[*] Which other storages are in the same group (with a quick Select button).
+[*] A [b]Disabled[/b] toggle if you want that pile to stop receiving/sending balance transfers (it can still connect neighbors into one group).
+[*] A [b]Balanced![/b] indicator when the group is even.
+[/list]
+
+[h1]Tips:[/h1]
+Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3635342825]Warnings Be Gone[/url] to hide the warnings now that you may have many storage building without connecting to any road.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

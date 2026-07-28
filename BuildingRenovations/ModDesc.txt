@@ -1,16 +1,27 @@
-﻿Building Renovations is back and better than before! Upgrade your buildings with new features, specialization or simply improved stats.
+﻿[b]Building Renovations[/b] is back and better than before! Upgrade your buildings with new features, specializations, or simply improved stats. Building HP is [b]NOT[/b] going back with this mod so you don't have to worry about it anymore.
 
-This mod is also very easy to extend with other mods, as you probably want to use with these two:
-- More Building Renovations: Add more renovations to your buildings.
-- Storage Balancer: Automatically balance your goods between adjacent storage buildings.
+This mod is designed to be easy to extend. You will most likely want to use it together with these two:
+[list]
+[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3773092092][b]More Building Renovations[/b][/url]: Adds many more renovations for various buildings.
+[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3773092820][b]Storage Balancer[/b][/url]: Automatically balances goods between interconnected storage buildings.
+[/list]
 
-This mod comes with only two base renovations to speed up Distro Storages' transfer speed.
+This core mod currently ships with only two base renovations that increase the transfer speed of Distro Storages.
 
-[h1]Renovate your buildings[/h1]
-Any building that can be renovate will have a new Renovate button so you can see the list of renovation a building can have.
-<screenshot placeholder>
+[h1]How to renovate[/h1]
+Any building that supports renovations will show a new [b]Renovate[/b] button. Click it to see the list of available renovations.
+[img]https://images.steamusercontent.com/ugc/14981737241070293858/6C2AF7336C01052263B3D6C9D51E4D4A7AD06776/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
 
-Renovation now collect materials using Distro Storages to remove the confusing collecting from previous version. Some renovation requires science, which you can directly Pay in the same panel. Renovation takes time to build, and the progress only start once all materials are collected. You can also cancel a renovation at any time, and all materials will be refunded. [b]Buildings functionality will not be affected while a renovation is in progress.[/b] Only one renovation can be built at a time.
-<screenshot placeholder>
+Renovations now collect materials through [b]Distro Storages[/b], which removes the confusing collection behavior from the previous version. Some renovations also require Science points, which you can pay for directly in the same panel.
 
-[h1]Renovate your buildings[/h1]
+Renovation takes time. Progress only starts once all required materials have been delivered. You can cancel a renovation at any time and all delivered materials except Science will be fully refunded. [b]Buildings continue to function normally while a renovation is in progress.[/b] Only one renovation can be active on a building at a time.
+[img]https://images.steamusercontent.com/ugc/13562943756077879854/F5C7D318A061CF5B8E1A6C446E64BC8CA255CF42/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+[h1]Extending this mod[/h1]
+You can easily create another mod that adds new renovations.
+See the documentation and examples here: https://github.com/datvm/TimberbornMods/tree/master/BuildingRenovations/Docs
+
+You can also look at the source code of this mod and of [b]More Building Renovations[/b] for more complete examples.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
