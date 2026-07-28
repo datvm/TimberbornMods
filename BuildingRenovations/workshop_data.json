@@ -1,6 +1,6 @@
 {
-  "ItemId": "3710952757",
-  "Name": "Distro Storages",
+  "ItemId": "3773091182",
+  "Name": "Building Renovations",
   "Visibility": "Public",
   "UpdateDescription": false,
   "UpdateVisibility": false,
@@ -8,9 +8,8 @@
   "UpdateTags": false,
   "Tags": [
     "Update 1.1",
-    "Update 1.0",
     "New content",
-    "Buildings",
-    "Goods"
+    "Modding tools",
+    "Buildings"
   ]
 }

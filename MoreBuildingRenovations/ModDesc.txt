@@ -1,0 +1,25 @@
+﻿[b]More Building Renovations[/b] expands [b]Building Renovations[/b] with many more upgrades across production, agriculture, science, and logistics.
+
+[h1]What you get[/h1]
+This pack adds renovations in several groups:
+
+[list]
+[*] [b]Productions[/b]: Working-speed tiers for wood industry (Lumbermills, Gear Workshops, Wood Workshops), plus science-focused upgrades for Inventors, Observatories, and Numbercrunchers.
+[*] [b]Agriculture[/b]: Faster planting and harvesting (timed buffs, with stronger tiers that replace weaker ones), and a permanent Growth Calendar so idle workers help nearby plants grow faster.
+[*] [b]Logistics[/b]: Stronger haulers and builders: extra carrying capacity and movement speed on Hauling Posts, District Centers, and Builders' Huts.
+[/list]
+[img]https://images.steamusercontent.com/ugc/14339735174758938590/5B9D49393D5ED30E1BC6350B8E2C705E8D49CD4F/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+[list]
+[*] [b]Heartwood Edge → Steadyframe → Harmony Join[/b]: permanent working-speed upgrades for wood workshops, unlocked in tiers.
+[*] [b]Catalyst Infusion[/b]: temporary extra Science from Inventors (repeatable after it expires).
+[*] [b]Lunar Ledger[/b]: Observatories generate Science at night without workers or power.
+[*] [b]Deepcool Core[/b]: Numbercrunchers produce extra Science while fully submerged.
+[*] [b]Growth Calendar[/b]: farmhouses, foresters, lumberjacks, gatherers, and tappers boost plant growth while a worker is idle.
+[*] [b]Wooden / Ironseed Dibbler[/b] and [b]Wooden Flail / Ironleaf Scythe[/b]: short- and long-term planting and harvest speed boosts.
+[*] [b]Fulcrum Rig[/b]: haulers and builders move more goods, faster.
+[/list]
+[img]https://images.steamusercontent.com/ugc/14558202834165626346/6C2AF7336C01052263B3D6C9D51E4D4A7AD06776/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
