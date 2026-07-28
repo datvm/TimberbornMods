@@ -1,0 +1,8 @@
+{
+    "TechTreeItemSpec": {
+        "Tags": [ "Manufactory", "Log", "Plank", "Unique", "IronTeeth" ],
+        "Order": 10,
+
+        "Prerequisites": [ "LumberjackFlag.IronTeeth" ]
+    }
+}

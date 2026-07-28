@@ -19,6 +19,9 @@ public record TechTreeCategorySpec : ComponentSpec
     public int Order { get; init; }
 
     [Serialize]
+    public AssetRef<Sprite>? Icon { get; init; }
+
+    [Serialize]
     public Color BackgroundColor { get; init; } = Color.white;
 
     [Serialize]
