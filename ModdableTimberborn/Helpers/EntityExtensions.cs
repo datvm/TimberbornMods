@@ -23,6 +23,8 @@ public static class EntityExtensions
 
         public Automator? TryGetAutomator(Guid? id)
         {
+            if (id is null) { return null; }
+
             var entity = entityRegistry.TryGetEntity(id);
             if (!entity) { return null;  }
 

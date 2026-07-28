@@ -20,10 +20,8 @@ public class RelaySettings(
         target._inputs.Clear();
         foreach (var input in model.Inputs)
         {
-            if (entityRegistry.TryGetAutomator(input) is { } automator)
-            {
-                target.AddAndConnect(automator);
-            }
+            // No need to check for null, adding a null is now valid for Relay.
+            target.AddAndConnect(entityRegistry.TryGetAutomator(input));
         }
 
         target.Evaluate();
@@ -32,5 +30,5 @@ public class RelaySettings(
     }
 
     protected override RelaySettingsModel GetModel(Relay target)
-        => new(target.Mode, [..target.Inputs.Select(i => i.Transmitter.GetEntityId())]);
+        => new(target.Mode, [..target.Inputs.Select(i => i.Transmitter?.GetEntityId())]);
 }
