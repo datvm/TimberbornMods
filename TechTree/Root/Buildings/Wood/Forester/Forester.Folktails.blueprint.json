@@ -1,0 +1,8 @@
+{
+    "TechTreeItemSpec": {
+        "Tags": [ "Planting", "Log", "Tree" ],
+        "Order": 10,
+
+        "Prerequisites": [ "LumberMill.Folktails" ]
+    }
+}

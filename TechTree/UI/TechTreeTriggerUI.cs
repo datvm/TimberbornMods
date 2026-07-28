@@ -2,60 +2,43 @@
 
 [BindSingleton]
 public class TechTreeTriggerUI(
-    BasicStatisticsPanel panel,
     ILoc t,
     TechTreeDialog diag,
-    VisualElementLoader veLoader,
     ITooltipRegistrar tooltipRegistrar,
-    IAssetLoader assets,
     EventBus eb,
-    BindableToggleFactory bindableToggleFactory,
-    UILayout uiLayout
+    BindableButtonFactory bindableButtonFactory,
+    VisualElementInitializer veInit,
+    PopulationPanel populationPanel
 ) : ILoadableSingleton
 {
     public const string HotkeyId = "OpenTechTree";
 
-#nullable disable
-    VisualElement btnOpen;
-    Toggle chkOpen;
-#nullable enable
-
     public void Load()
     {
-        AddDedicatedButton();
-        AddSciencePanelTrigger();
-
         eb.Register(this);
-    }
-
-    void AddDedicatedButton()
-    {
-        btnOpen = veLoader.LoadVisualElement("Common/SquareToggle");
-        tooltipRegistrar.RegisterWithKeyBinding(btnOpen, t.T("LV.TT.Open"), HotkeyId);
-
-        chkOpen = btnOpen.Q<Toggle>("Toggle");
-        var checkMark = btnOpen.Q(className: "unity-toggle__checkmark");
-        var icon = assets.Load<Texture2D>("UI/Images/Game/science-icon");
-        checkMark.style.backgroundImage = icon;
-    }
-
-    void AddSciencePanelTrigger()
-    {
-        var pnlScience = panel._root.Q("ScienceCountHeader");
-        pnlScience.RegisterCallback<ClickEvent>(_ => OpenTechTree());
     }
 
     [OnEvent]
     public void OnShowPrimaryUI(ShowPrimaryUIEvent _)
     {
-        bindableToggleFactory.CreateAndBind(chkOpen, HotkeyId, OnToggle, () => false);
-        uiLayout.AddTopRightButton(btnOpen, 4);
-    }
+        var container = populationPanel._root.Q("Counters");
 
-    void OnToggle(bool _)
-    {
-        chkOpen.SetValueWithoutNotify(false);
-        OpenTechTree();
+        var btnOpen = container.AddChild<NineSliceButton>(classes: ["population-button", "square-large--green"])
+            .SetHeight(60f)
+            .JustifyContent().AlignItems()
+            .SetMarginBottom(5);
+
+        btnOpen.AddGameLabel(
+            "PLACEHOLDER",
+            size: UiBuilder.GameLabelSize.Big,
+            color: UiBuilder.GameLabelColor.Yellow,
+            bold: true,
+            centered: true);
+
+        btnOpen.Initialize(veInit);
+
+        tooltipRegistrar.RegisterWithKeyBinding(btnOpen, t.T("LV.TT.Open"), HotkeyId);
+        bindableButtonFactory.CreateAndBind(btnOpen, HotkeyId, OpenTechTree);
     }
 
     void OpenTechTree() => _ = OpenTechTreeAsync();
@@ -63,7 +46,6 @@ public class TechTreeTriggerUI(
     async Task OpenTechTreeAsync()
     {
         await diag.ShowAsync();
-        chkOpen.SetValueWithoutNotify(false);
     }
 
 }

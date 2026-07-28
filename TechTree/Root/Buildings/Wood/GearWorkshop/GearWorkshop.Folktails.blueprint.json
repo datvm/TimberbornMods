@@ -1,0 +1,8 @@
+{
+    "TechTreeItemSpec": {
+        "Tags": [ "Manufactory", "Plank", "Gear" ],
+        "Order": 20,
+
+        "Prerequisites": [ "LumberMill.Folktails" ]
+    }
+}

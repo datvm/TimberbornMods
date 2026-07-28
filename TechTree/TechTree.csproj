@@ -14,6 +14,8 @@
 
 	<ItemGroup>
 	  <Folder Include="Root\Blueprints\KeyBindings\" />
-	  <Folder Include="Root\Blueprints\TechTreeCategorySpecs\" />
+	  <Folder Include="Root\Buildings\Wood\Forester\" />
+	  <Folder Include="Root\Buildings\Wood\IndustrialLumberMill\" />
+	  <Folder Include="Root\Buildings\Wood\LumberMill\" />
 	</ItemGroup>
 </Project>
