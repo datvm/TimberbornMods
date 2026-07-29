@@ -1,0 +1,17 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Plank",
+      "Good:Gear",
+      "Good:MetalBlock",
+      "Good:Paper",
+      "Good:Book",
+      "Good:PunchCard"
+    ],
+    "Prerequisites": [
+      "Smelter.Folktails",
+      "PaperMill.Folktails"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Plank",
+      "Good:Gear",
+      "Good:MetalPart",
+      "Good:Badwater",
+      "Good:Explosives",
+      "Good:Fireworks"
+    ],
+    "Prerequisites": []
+  }
+}

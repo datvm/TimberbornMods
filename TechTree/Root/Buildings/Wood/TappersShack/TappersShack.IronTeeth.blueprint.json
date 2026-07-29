@@ -1,0 +1,13 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Gatherer",
+      "Good:Log",
+      "Good:Plank",
+      "Good:Gear"
+    ],
+    "Prerequisites": [
+      "GearWorkshop.IronTeeth"
+    ]
+  }
+}

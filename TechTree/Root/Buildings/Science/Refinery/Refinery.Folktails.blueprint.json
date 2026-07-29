@@ -1,0 +1,26 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Plank",
+      "Good:Gear",
+      "Good:MetalBlock",
+      "Good:Carrot",
+      "Good:Water",
+      "Good:Potato",
+      "Good:Spadderdock",
+      "Good:MapleSyrup",
+      "Good:Extract",
+      "Good:Biofuel",
+      "Good:Catalyst"
+    ],
+    "Prerequisites": [
+      "EfficientFarmHouse.Folktails",
+      "LargeWaterPump.Folktails",
+      "WaterPump.Folktails",
+      "AquaticFarmhouse.Folktails",
+      "TappersShack.Folktails",
+      "Centrifuge.Folktails"
+    ]
+  }
+}

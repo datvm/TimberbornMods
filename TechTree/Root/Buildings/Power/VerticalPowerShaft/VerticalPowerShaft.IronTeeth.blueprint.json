@@ -1,0 +1,12 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Good:Log",
+      "Good:Plank",
+      "Good:Gear"
+    ],
+    "Prerequisites": [
+      "GearWorkshop.IronTeeth"
+    ]
+  }
+}

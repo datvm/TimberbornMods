@@ -1,0 +1,16 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Gatherer",
+      "Role:Planter",
+      "Good:Log",
+      "Good:Carrot",
+      "Good:Potato",
+      "Good:SunflowerSeeds",
+      "Good:Wheat"
+    ],
+    "Prerequisites": [
+      "LumberjackFlag.Folktails"
+    ]
+  }
+}

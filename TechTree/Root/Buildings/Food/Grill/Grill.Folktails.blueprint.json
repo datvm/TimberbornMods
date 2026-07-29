@@ -1,0 +1,19 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Log",
+      "Good:Potato",
+      "Good:Chestnut",
+      "Good:Spadderdock",
+      "Good:GrilledPotato",
+      "Good:GrilledChestnut",
+      "Good:GrilledSpadderdock"
+    ],
+    "Prerequisites": [
+      "EfficientFarmHouse.Folktails",
+      "GathererFlag.Folktails",
+      "AquaticFarmhouse.Folktails"
+    ]
+  }
+}

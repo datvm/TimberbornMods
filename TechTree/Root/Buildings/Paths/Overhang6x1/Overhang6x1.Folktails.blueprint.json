@@ -1,0 +1,13 @@
+{
+    "TechTreeItemSpec": {
+        "Y": 4,
+        "Tags": [
+            "Good:Log",
+            "Good:Plank",
+            "Good:MetalBlock"
+        ],
+        "Prerequisites": [
+            "Overhang5x1.Folktails"
+        ]
+    }
+}

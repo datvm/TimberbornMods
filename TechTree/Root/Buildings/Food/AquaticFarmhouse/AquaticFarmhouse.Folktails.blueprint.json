@@ -1,0 +1,15 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Gatherer",
+      "Role:Planter",
+      "Good:Log",
+      "Good:Plank",
+      "Good:CattailRoot",
+      "Good:Spadderdock"
+    ],
+    "Prerequisites": [
+      "LumberMill.Folktails"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Plank",
+      "Good:ScrapMetal",
+      "Good:Log",
+      "Good:MetalPart"
+    ],
+    "Prerequisites": [
+      "EfficientMine.IronTeeth"
+    ]
+  }
+}

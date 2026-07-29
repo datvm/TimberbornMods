@@ -1,0 +1,16 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Plank",
+      "Good:Gear",
+      "Good:MetalBlock",
+      "Good:BotChassis",
+      "Good:BotLimb",
+      "Good:BotHead"
+    ],
+    "Prerequisites": [
+      "BotPartFactory.Folktails"
+    ]
+  }
+}

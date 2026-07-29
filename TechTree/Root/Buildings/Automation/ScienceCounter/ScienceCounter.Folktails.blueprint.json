@@ -1,0 +1,13 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Good:Gear",
+      "Good:ScrapMetal",
+      "Good:Paper"
+    ],
+    "Prerequisites": [
+      "Mine.Folktails",
+      "PaperMill.Folktails"
+    ]
+  }
+}

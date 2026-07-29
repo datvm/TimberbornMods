@@ -1,8 +1,12 @@
 {
-    "TechTreeItemSpec": {
-        "Tags": [ "Planting", "Log", "Tree" ],
-        "Order": 10,
-
-        "Prerequisites": [ "IndustrialLumberMill.IronTeeth" ]
-    }
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Planter",
+      "Good:Log",
+      "Good:Plank"
+    ],
+    "Prerequisites": [
+      "IndustrialLumberMill.IronTeeth"
+    ]
+  }
 }

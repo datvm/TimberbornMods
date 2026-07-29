@@ -1,0 +1,13 @@
+﻿{
+    "TechTreeItemSpec": {
+        "Y": 2,
+        "Tags": [
+            "Good:Log",
+            "Good:Gear",
+            "Good:MetalBlock"
+        ],
+        "Prerequisites": [
+            "Smelter.Folktails"
+        ]
+    }
+}

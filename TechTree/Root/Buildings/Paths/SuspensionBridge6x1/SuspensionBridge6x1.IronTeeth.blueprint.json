@@ -1,0 +1,11 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Good:Log",
+      "Good:Plank"
+    ],
+    "Prerequisites": [
+      "IndustrialLumberMill.IronTeeth"
+    ]
+  }
+}

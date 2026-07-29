@@ -1,0 +1,14 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Log",
+      "Good:Gear",
+      "Good:TreatedPlank",
+      "Good:ScrapMetal"
+    ],
+    "Prerequisites": [
+      "WoodWorkshop.Folktails"
+    ]
+  }
+}

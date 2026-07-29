@@ -1,8 +1,12 @@
 {
-    "TechTreeItemSpec": {
-        "Tags": [ "Manufactory", "Log", "Plank" ],
-        "Order": 10,
-
-        "Prerequisites": [ "LumberjackFlag.Folktails" ]
-    }
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Log",
+      "Good:Plank"
+    ],
+    "Prerequisites": [
+      "LumberjackFlag.Folktails"
+    ]
+  }
 }

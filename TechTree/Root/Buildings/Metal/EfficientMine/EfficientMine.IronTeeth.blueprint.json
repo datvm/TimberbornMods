@@ -1,0 +1,15 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Log",
+      "Good:Gear",
+      "Good:TreatedPlank",
+      "Good:Extract",
+      "Good:ScrapMetal"
+    ],
+    "Prerequisites": [
+      "Centrifuge.IronTeeth"
+    ]
+  }
+}

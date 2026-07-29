@@ -1,0 +1,10 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Gatherer",
+      "Good:CoffeeBean",
+      "Good:MangroveFruit"
+    ],
+    "Prerequisites": []
+  }
+}

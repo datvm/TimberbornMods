@@ -1,0 +1,17 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Gear",
+      "Good:TreatedPlank",
+      "Good:MetalBlock",
+      "Good:Extract",
+      "Good:CanolaOil",
+      "Good:Grease"
+    ],
+    "Prerequisites": [
+      "WoodWorkshop.IronTeeth",
+      "OilPress.IronTeeth"
+    ]
+  }
+}

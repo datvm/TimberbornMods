@@ -1,0 +1,13 @@
+﻿{
+    "TechTreeItemSpec": {
+        "Y": 1,
+        "Tags": [
+            "Good:Plank",
+            "Good:Gear",
+            "Good:MetalBlock"
+        ],
+        "Prerequisites": [
+            "ZiplineStation.Folktails"
+        ]
+    }
+}

@@ -1,0 +1,12 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Good:Explosives",
+      "Good:Extract"
+    ],
+    "Prerequisites": [
+      "ExplosivesFactory.IronTeeth",
+      "Centrifuge.IronTeeth"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Gatherer",
+      "Good:Log",
+      "Good:Plank",
+      "Good:Gear",
+      "Good:MapleSyrup"
+    ],
+    "Prerequisites": [
+      "GearWorkshop.Folktails"
+    ]
+  }
+}

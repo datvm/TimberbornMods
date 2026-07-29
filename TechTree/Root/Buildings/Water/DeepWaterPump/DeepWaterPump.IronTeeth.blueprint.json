@@ -1,0 +1,12 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Log",
+      "Good:Water"
+    ],
+    "Prerequisites": [
+      "LumberjackFlag.IronTeeth"
+    ]
+  }
+}

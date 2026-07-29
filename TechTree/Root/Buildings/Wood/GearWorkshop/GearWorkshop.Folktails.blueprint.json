@@ -1,8 +1,13 @@
 {
-    "TechTreeItemSpec": {
-        "Tags": [ "Manufactory", "Plank", "Gear" ],
-        "Order": 20,
-
-        "Prerequisites": [ "LumberMill.Folktails" ]
-    }
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Log",
+      "Good:Plank",
+      "Good:Gear"
+    ],
+    "Prerequisites": [
+      "LumberMill.Folktails"
+    ]
+  }
 }

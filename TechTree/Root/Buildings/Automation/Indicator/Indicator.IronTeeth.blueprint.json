@@ -1,0 +1,11 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Good:ScrapMetal",
+      "Good:PineResin"
+    ],
+    "Prerequisites": [
+      "EfficientMine.IronTeeth"
+    ]
+  }
+}

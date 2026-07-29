@@ -1,0 +1,10 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Good:Plank"
+    ],
+    "Prerequisites": [
+      "LumberMill.Folktails"
+    ]
+  }
+}

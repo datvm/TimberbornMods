@@ -1,0 +1,17 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Plank",
+      "Good:Gear",
+      "Good:MetalBlock",
+      "Good:Biofuel",
+      "Good:BotChassis",
+      "Good:BotLimb",
+      "Good:BotHead"
+    ],
+    "Prerequisites": [
+      "Refinery.Folktails"
+    ]
+  }
+}

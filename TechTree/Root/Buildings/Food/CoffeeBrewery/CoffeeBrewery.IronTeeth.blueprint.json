@@ -1,0 +1,19 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Gear",
+      "Good:TreatedPlank",
+      "Good:MetalBlock",
+      "Good:CoffeeBean",
+      "Good:Water",
+      "Good:Log",
+      "Good:Coffee"
+    ],
+    "Prerequisites": [
+      "Smelter.IronTeeth",
+      "GathererFlag.IronTeeth",
+      "DeepWaterPump.IronTeeth"
+    ]
+  }
+}

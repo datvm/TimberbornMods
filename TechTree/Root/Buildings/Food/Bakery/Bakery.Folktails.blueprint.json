@@ -1,0 +1,20 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Log",
+      "Good:Plank",
+      "Good:Gear",
+      "Good:WheatFlour",
+      "Good:CattailFlour",
+      "Good:MapleSyrup",
+      "Good:Bread",
+      "Good:CattailCracker",
+      "Good:MaplePastry"
+    ],
+    "Prerequisites": [
+      "Gristmill.Folktails",
+      "TappersShack.Folktails"
+    ]
+  }
+}
