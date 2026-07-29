@@ -10,6 +10,7 @@
 
 	<ItemGroup>
 		<InternalsVisibleTo Include="ModdableTimberborn.Tests" />
+		<OptionalMod Include="..\ModdableTimberborn.ModdableWeather\ModdableTimberborn.ModdableWeather.csproj" />
 	</ItemGroup>
 
 </Project>

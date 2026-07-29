@@ -2,6 +2,7 @@
 
 	<Import Project=".\CommonProperties.targets" />
 	<Import Project=".\CommonGlobalUsings.targets" />
+	<Import Project=".\CommonOptionalMods.targets" />
 	
 	<Target Name="Validate" Condition="!$(IsTestProject)">
 		<Error Condition="'$(OutputModFolderName)'==''" Text="OutputModFolderName was not specified" />
