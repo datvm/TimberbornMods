@@ -1,0 +1,24 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<!--
+		Declare optional companion projects on a main mod, e.g.:
+
+		<ItemGroup>
+			<OptionalMod Include="..\Path\Project.csproj" />
+		</ItemGroup>
+
+		After the main mod is built and copied (CopyFiles), each OptionalMod is cleaned
+		then built so optional DLLs land next to the main mod without being wiped.
+	-->
+	<Target Name="BuildOptionalMods"
+			AfterTargets="CopyFiles"
+			Condition="'@(OptionalMod)' != '' AND !$(IsTestProject)">
+		<Message Text="Building optional mod project(s): @(OptionalMod->'%(Identity)', ', ')" Importance="high" />
+		<MSBuild
+			Projects="@(OptionalMod)"
+			Targets="Clean;Build"
+			Properties="Configuration=$(Configuration);Platform=$(Platform);TimberbornVersion=$(TimberbornVersion)"
+			BuildInParallel="false" />
+	</Target>
+
+</Project>
