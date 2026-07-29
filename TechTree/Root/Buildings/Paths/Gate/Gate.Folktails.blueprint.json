@@ -1,0 +1,13 @@
+﻿{
+    "TechTreeItemSpec": {
+        "Y": 2,
+        "Tags": [
+            "Good:Plank",
+            "Good:Gear",
+            "Good:ScrapMetal"
+        ],
+        "Prerequisites": [
+            "Mine.Folktails"
+        ]
+    }
+}

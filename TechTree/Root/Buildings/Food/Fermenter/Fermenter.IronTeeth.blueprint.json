@@ -1,0 +1,19 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Log",
+      "Good:Cassava",
+      "Good:Soybean",
+      "Good:CanolaOil",
+      "Good:Mushroom",
+      "Good:FermentedCassava",
+      "Good:FermentedSoybean",
+      "Good:FermentedMushroom"
+    ],
+    "Prerequisites": [
+      "OilPress.IronTeeth",
+      "HydroponicGarden.IronTeeth"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Good:MetalBlock",
+      "Good:Explosives",
+      "Good:Extract"
+    ],
+    "Prerequisites": [
+      "ExplosivesFactory.Folktails",
+      "Centrifuge.Folktails"
+    ]
+  }
+}

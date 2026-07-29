@@ -1,0 +1,17 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Log",
+      "Good:Plank",
+      "Good:Water",
+      "Good:Badwater"
+    ],
+    "Prerequisites": [
+      "LargeWaterPump.Folktails",
+      "WaterPump.Folktails",
+      "BadwaterPump.Folktails",
+      "BadwaterRig.Folktails"
+    ]
+  }
+}

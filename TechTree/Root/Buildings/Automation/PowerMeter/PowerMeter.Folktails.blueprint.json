@@ -1,0 +1,11 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Good:Gear",
+      "Good:MetalBlock"
+    ],
+    "Prerequisites": [
+      "Smelter.Folktails"
+    ]
+  }
+}

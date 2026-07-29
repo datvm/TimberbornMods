@@ -1,0 +1,11 @@
+﻿{
+    "TechTreeItemSpec": {
+        "Y": 5,
+        "Tags": [
+            "Good:MetalBlock"
+        ],
+        "Prerequisites": [
+            "MetalPlatform3x3.Folktails"
+        ]
+    }
+}

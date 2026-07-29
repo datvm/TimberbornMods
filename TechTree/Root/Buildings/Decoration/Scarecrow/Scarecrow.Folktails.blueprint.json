@@ -1,0 +1,11 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Good:Log",
+      "Good:Paper"
+    ],
+    "Prerequisites": [
+      "PaperMill.Folktails"
+    ]
+  }
+}

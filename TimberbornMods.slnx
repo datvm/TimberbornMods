@@ -138,6 +138,10 @@
     <Project Path="ScientificProjects/ScientificProjects/ScientificProjects.csproj" />
     <Project Path="ScientificProjects/WeatherScientificProjects/WeatherScientificProjects.csproj" />
   </Folder>
+  <Folder Name="/TechTrees/">
+    <Project Path="TechTree/TechTree.csproj" Id="ecd2a1b6-db7f-4076-9764-fa6195882a61" />
+    <Project Path="TechTreeBlueprintScript/TechTreeBlueprintScript.csproj" Id="a9125e84-c422-46a5-aedb-bce69ab101b7" />
+  </Folder>
   <Folder Name="/TimberQuests/">
     <Project Path="ScenarioEditor/ScenarioEditor.csproj" />
     <Project Path="TimberQuests/TimberQuests/TimberQuests.csproj" />
@@ -226,7 +230,6 @@
   <Project Path="SluiceIsBack/SluiceIsBack.csproj" Id="42067f99-093b-4d62-a4b1-afdad82f6218" />
   <Project Path="StableCore/StableCore.csproj" />
   <Project Path="StreamGaugeTracker/StreamGaugeTracker.csproj" />
-  <Project Path="TechTree/TechTree.csproj" Id="ecd2a1b6-db7f-4076-9764-fa6195882a61" />
   <Project Path="TestMod/TestMod.csproj" />
   <Project Path="TheArchitectsToolkit/TheArchitectsToolkit.csproj" />
   <Project Path="TimberDump/TimberDump.csproj" />

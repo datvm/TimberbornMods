@@ -1,5 +1,9 @@
 {
-    "TechTreeItemSpec": {
-        "Tags": ["Gather", "Log"]
-    }
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Gatherer",
+      "Good:Log"
+    ],
+    "Prerequisites": []
+  }
 }

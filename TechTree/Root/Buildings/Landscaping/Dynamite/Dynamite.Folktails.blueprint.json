@@ -1,0 +1,10 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Good:Explosives"
+    ],
+    "Prerequisites": [
+      "ExplosivesFactory.Folktails"
+    ]
+  }
+}

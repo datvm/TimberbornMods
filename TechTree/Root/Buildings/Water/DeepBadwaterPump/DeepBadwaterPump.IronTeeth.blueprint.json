@@ -1,0 +1,15 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Log",
+      "Good:Gear",
+      "Good:MetalPart",
+      "Good:Badwater"
+    ],
+    "Prerequisites": [
+      "GearWorkshop.IronTeeth",
+      "Metalsmith.IronTeeth"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+﻿global using Microsoft.Extensions.DependencyInjection;
+global using ServiceSharp;
+global using System.Collections.Frozen;
+global using System.Collections.Immutable;
+global using System.Diagnostics.CodeAnalysis;
+global using System.Reflection;
+global using System.Text.Json;
+global using TechTreeBlueprintScript.Models;
+global using TechTreeBlueprintScript.Providers;
+global using TechTreeBlueprintScript.Services;
+global using TechTreeBlueprintScript.Specs;

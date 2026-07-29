@@ -1,0 +1,11 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Good:Gear",
+      "Good:TreatedPlank"
+    ],
+    "Prerequisites": [
+      "WoodWorkshop.Folktails"
+    ]
+  }
+}

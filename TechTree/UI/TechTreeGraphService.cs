@@ -28,14 +28,17 @@ public class TechTreeGraphService(TechTreeRegistry registry) : ILoadableSingleto
         NodesByTechId = nodesByTechId.ToFrozenDictionary();
     }
 
-    const int UncategorizedRows = 3;
-
     /// <summary>
-    /// Places techs on a unit grid within a category.
-    /// Uncategorized: fixed 3-row columns (no prerequisites allowed).
-    /// Other categories: X = prereq depth, Y = packed row following parents.
+    /// Layout rules (unit grid, not pixels):
+    /// <list type="number">
+    /// <item>Y authored; Y &lt; 0 ⇒ overflow first row.</item>
+    /// <item>Condense each row by Order; <see cref="TechTreeItemSpec.LeftX"/> is applied here only
+    /// (empty columns before the node) so parents are not shifted after children read them.</item>
+    /// <item>Iterate: push right of prerequisites, then fix same-row X collisions (no further LeftX).</item>
+    /// </list>
+    /// Spec.X ≥ 0 forces an initial column before the iterative passes.
     /// </summary>
-    ImmutableArray<TechTreeGraphNode> LayoutCategory(TechCategory category)
+    static ImmutableArray<TechTreeGraphNode> LayoutCategory(TechCategory category)
     {
         var techs = category.Techs;
         if (techs.Length == 0)
@@ -43,67 +46,168 @@ public class TechTreeGraphService(TechTreeRegistry registry) : ILoadableSingleto
             return [];
         }
 
-        if (category.Id == TechTreeRegistry.DefaultCategoryId)
+        List<TechItem> unplaced = [];
+        List<TechItem> placed = [];
+
+        foreach (var tech in techs)
         {
-            return LayoutUncategorized(techs);
+            if (tech.Spec.HasAuthoredRow)
+            {
+                placed.Add(tech);
+            }
+            else
+            {
+                unplaced.Add(tech);
+            }
         }
 
-        return LayoutPrerequisiteTree(techs);
+        int yOffset = unplaced.Count > 0 ? 1 : 0;
+        List<TechTreeGraphNode> nodes = new(techs.Length);
+
+        if (unplaced.Count > 0)
+        {
+            var orderedUnplaced = unplaced
+                .OrderBy(t => t.Spec.Order)
+                .ThenBy(t => t.Id, StringComparer.Ordinal)
+                .ToArray();
+
+            int prevX = -1;
+            foreach (var tech in orderedUnplaced)
+            {
+                int x = NextXWithLeftPad(prevX, tech.Spec.LeftX, forced: null);
+                nodes.Add(new(tech, x, Y: 0));
+                prevX = x;
+            }
+        }
+
+        if (placed.Count == 0)
+        {
+            return [.. nodes];
+        }
+
+        Dictionary<string, TechItem> placedById = placed.ToDictionary(t => t.Id);
+        Dictionary<string, int> depths = [];
+        foreach (var tech in placed)
+        {
+            ComputeDepth(tech, placedById, depths);
+        }
+
+        // 1) Condense per row by Order — LeftX applied once, up front.
+        Dictionary<string, int> xById = [];
+        Dictionary<string, int> yById = [];
+
+        foreach (var rowGroup in placed.GroupBy(t => t.Spec.Y).OrderBy(g => g.Key))
+        {
+            int y = rowGroup.Key + yOffset;
+            var row = rowGroup
+                .OrderBy(t => t.Spec.Order)
+                .ThenBy(t => t.Id, StringComparer.Ordinal)
+                .ToList();
+
+            int prevX = -1;
+            foreach (var tech in row)
+            {
+                int? forced = tech.Spec.HasForcedColumn ? tech.Spec.X : null;
+                int x = NextXWithLeftPad(prevX, tech.Spec.LeftX, forced);
+                xById[tech.Id] = x;
+                yById[tech.Id] = y;
+                prevX = x;
+            }
+        }
+
+        // 2) Prereq push + collision fix until stable.
+        //    LeftX is not reapplied — only "X > parent" and unique cells per row.
+        const int maxPasses = 32;
+        for (int pass = 0; pass < maxPasses; pass++)
+        {
+            bool changed = false;
+
+            foreach (var tech in placed
+                .OrderBy(t => depths[t.Id])
+                .ThenBy(t => t.Spec.Order)
+                .ThenBy(t => t.Id, StringComparer.Ordinal))
+            {
+                int minX = 0;
+                foreach (var prereqId in tech.Spec.Prerequisites)
+                {
+                    if (xById.TryGetValue(prereqId, out var parentX))
+                    {
+                        minX = Math.Max(minX, parentX + 1);
+                    }
+                }
+
+                if (xById[tech.Id] < minX)
+                {
+                    xById[tech.Id] = minX;
+                    changed = true;
+                }
+            }
+
+            foreach (var rowGroup in placed.GroupBy(t => yById[t.Id]).OrderBy(g => g.Key))
+            {
+                var row = rowGroup
+                    .OrderBy(t => xById[t.Id])
+                    .ThenBy(t => t.Spec.Order)
+                    .ThenBy(t => t.Id, StringComparer.Ordinal)
+                    .ToList();
+
+                HashSet<int> usedX = [];
+                foreach (var tech in row)
+                {
+                    int x = xById[tech.Id];
+                    while (usedX.Contains(x))
+                    {
+                        x++;
+                        changed = true;
+                    }
+
+                    if (xById[tech.Id] != x)
+                    {
+                        xById[tech.Id] = x;
+                        changed = true;
+                    }
+
+                    usedX.Add(x);
+                }
+            }
+
+            if (!changed)
+            {
+                break;
+            }
+        }
+
+        foreach (var tech in placed)
+        {
+            nodes.Add(new(tech, xById[tech.Id], yById[tech.Id]));
+        }
+
+        return [.. nodes
+            .OrderBy(n => n.Y)
+            .ThenBy(n => n.X)
+            .ThenBy(n => n.TechItem.Id, StringComparer.Ordinal)];
     }
 
     /// <summary>
-    /// Fills columns top-to-bottom, 3 rows high: (0,0), (0,1), (0,2), (1,0), ...
-    /// Techs are already ordered by Spec.Order then Id from the registry.
+    /// Next column on a row: after <paramref name="prevX"/>, skip <paramref name="leftX"/> empties,
+    /// or at least <paramref name="forced"/> when set.
     /// </summary>
-    static ImmutableArray<TechTreeGraphNode> LayoutUncategorized(ImmutableArray<TechItem> techs)
+    static int NextXWithLeftPad(int prevX, int leftX, int? forced)
     {
-        List<TechTreeGraphNode> nodes = new(techs.Length);
+        int pad = Math.Max(0, leftX);
+        int minFromPrev = prevX < 0 ? pad : prevX + 1 + pad;
 
-        for (int i = 0; i < techs.Length; i++)
+        if (forced is { } f)
         {
-            int x = i / UncategorizedRows;
-            int y = i % UncategorizedRows;
-            nodes.Add(new(techs[i], x, y));
+            return Math.Max(f, minFromPrev);
         }
 
-        return [.. nodes];
+        return minFromPrev;
     }
 
-    ImmutableArray<TechTreeGraphNode> LayoutPrerequisiteTree(ImmutableArray<TechItem> techs)
-    {
-        Dictionary<string, TechItem> techsById = techs.ToDictionary(t => t.Id);
-        Dictionary<string, List<TechItem>> sameCategoryPrereqs = [];
-
-        foreach (var tech in techs)
-        {
-            List<TechItem> prereqs = [];
-            foreach (var prereqId in tech.Spec.Prerequisites)
-            {
-                if (techsById.TryGetValue(prereqId, out var prereq))
-                {
-                    prereqs.Add(prereq);
-                }
-            }
-            sameCategoryPrereqs[tech.Id] = prereqs;
-        }
-
-        Dictionary<string, int> depths = [];
-        foreach (var tech in techs)
-        {
-            ComputeDepth(tech, sameCategoryPrereqs, depths);
-        }
-
-        Dictionary<string, int> yByTechId = AssignRows(techs, sameCategoryPrereqs, depths);
-
-        return [.. techs
-            .OrderBy(t => depths[t.Id])
-            .ThenBy(t => yByTechId[t.Id])
-            .Select(t => new TechTreeGraphNode(t, depths[t.Id], yByTechId[t.Id]))];
-    }
-
-    int ComputeDepth(
+    static int ComputeDepth(
         TechItem tech,
-        Dictionary<string, List<TechItem>> sameCategoryPrereqs,
+        Dictionary<string, TechItem> placedById,
         Dictionary<string, int> depths
     )
     {
@@ -116,68 +220,21 @@ public class TechTreeGraphService(TechTreeRegistry registry) : ILoadableSingleto
             return existing;
         }
 
-        // Mark as visiting so cycles throw instead of stack overflowing.
         depths[tech.Id] = -1;
 
-        var prereqs = sameCategoryPrereqs[tech.Id];
         int depth = 0;
-        if (prereqs.Count > 0)
+        foreach (var prereqId in tech.Spec.Prerequisites)
         {
-            depth = 1;
-            foreach (var prereq in prereqs)
+            if (!placedById.TryGetValue(prereqId, out var prereq))
             {
-                depth = Math.Max(depth, ComputeDepth(prereq, sameCategoryPrereqs, depths) + 1);
+                continue;
             }
+
+            depth = Math.Max(depth, ComputeDepth(prereq, placedById, depths) + 1);
         }
 
         depths[tech.Id] = depth;
         return depth;
-    }
-
-    Dictionary<string, int> AssignRows(
-        ImmutableArray<TechItem> techs,
-        Dictionary<string, List<TechItem>> sameCategoryPrereqs,
-        Dictionary<string, int> depths
-    )
-    {
-        Dictionary<string, int> yByTechId = [];
-
-        foreach (var layer in techs.GroupBy(t => depths[t.Id]).OrderBy(g => g.Key))
-        {
-            var ordered = layer
-                .OrderBy(t => ParentBarycenter(t, sameCategoryPrereqs, yByTechId))
-                .ThenBy(t => t.Spec.Order)
-                .ThenBy(t => t.Id, StringComparer.Ordinal)
-                .ToArray();
-
-            for (int y = 0; y < ordered.Length; y++)
-            {
-                yByTechId[ordered[y].Id] = y;
-            }
-        }
-
-        return yByTechId;
-    }
-
-    static float ParentBarycenter(
-        TechItem tech,
-        Dictionary<string, List<TechItem>> sameCategoryPrereqs,
-        Dictionary<string, int> yByTechId
-    )
-    {
-        var prereqs = sameCategoryPrereqs[tech.Id];
-        if (prereqs.Count == 0)
-        {
-            // Roots have no parents; Spec.Order then breaks ties via ThenBy.
-            return 0f;
-        }
-
-        float sum = 0f;
-        foreach (var prereq in prereqs)
-        {
-            sum += yByTechId[prereq.Id];
-        }
-        return sum / prereqs.Count;
     }
 
 }

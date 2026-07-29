@@ -1,0 +1,15 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Log",
+      "Good:MetalPart",
+      "Good:CanolaSeeds",
+      "Good:CanolaOil"
+    ],
+    "Prerequisites": [
+      "Metalsmith.IronTeeth",
+      "FarmHouse.IronTeeth"
+    ]
+  }
+}

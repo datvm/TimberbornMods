@@ -1,0 +1,22 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Plank",
+      "Good:Gear",
+      "Good:MetalBlock",
+      "Good:Corn",
+      "Good:Log",
+      "Good:Eggplant",
+      "Good:CanolaOil",
+      "Good:Algae",
+      "Good:CornRation",
+      "Good:EggplantRation",
+      "Good:AlgaeRation"
+    ],
+    "Prerequisites": [
+      "OilPress.IronTeeth",
+      "HydroponicGarden.IronTeeth"
+    ]
+  }
+}

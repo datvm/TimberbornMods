@@ -1,0 +1,18 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Gatherer",
+      "Role:Planter",
+      "Good:Log",
+      "Good:CanolaSeeds",
+      "Good:Cassava",
+      "Good:Corn",
+      "Good:Eggplant",
+      "Good:Kohlrabi",
+      "Good:Soybean"
+    ],
+    "Prerequisites": [
+      "LumberjackFlag.IronTeeth"
+    ]
+  }
+}

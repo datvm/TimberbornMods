@@ -1,0 +1,9 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Good:ScrapMetal",
+      "Good:MetalPart"
+    ],
+    "Prerequisites": []
+  }
+}

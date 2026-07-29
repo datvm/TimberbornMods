@@ -1,0 +1,19 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Role:Manufactory",
+      "Good:Log",
+      "Good:Plank",
+      "Good:Gear",
+      "Good:Wheat",
+      "Good:CattailRoot",
+      "Good:WheatFlour",
+      "Good:CattailFlour"
+    ],
+    "Prerequisites": [
+      "GearWorkshop.Folktails",
+      "EfficientFarmHouse.Folktails",
+      "AquaticFarmhouse.Folktails"
+    ]
+  }
+}

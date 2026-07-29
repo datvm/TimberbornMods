@@ -166,6 +166,11 @@ public class TechTreeRegistry(
 
             LocalizedText? desc = descLoc is null ? null : new(t.T(descLoc));
 
+            // Layout Order defaults to toolbar ToolOrder; tech blueprint can override.
+            int order = techSpec is null || techSpec.Order == 0
+                ? placeable.ToolOrder
+                : techSpec.Order;
+
             if (techSpec is null)
             {
                 yield return new()
@@ -178,6 +183,7 @@ public class TechTreeRegistry(
                     Icon = icon,
                     CategoryId = categoryId,
                     Cost = cost,
+                    Order = order,
                 };
             }
             else
@@ -192,6 +198,7 @@ public class TechTreeRegistry(
                     Icon = icon,
                     CategoryId = categoryId,
                     Cost = cost,
+                    Order = order,
                 };
             }
         }

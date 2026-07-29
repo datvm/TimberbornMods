@@ -1,0 +1,13 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Good:Gear",
+      "Good:MetalBlock",
+      "Good:Explosives"
+    ],
+    "Prerequisites": [
+      "Smelter.IronTeeth",
+      "ExplosivesFactory.IronTeeth"
+    ]
+  }
+}

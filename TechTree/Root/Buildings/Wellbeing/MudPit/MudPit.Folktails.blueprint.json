@@ -1,0 +1,13 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Good:Log",
+      "Good:TreatedPlank",
+      "Good:Wheat"
+    ],
+    "Prerequisites": [
+      "WoodWorkshop.Folktails",
+      "EfficientFarmHouse.Folktails"
+    ]
+  }
+}

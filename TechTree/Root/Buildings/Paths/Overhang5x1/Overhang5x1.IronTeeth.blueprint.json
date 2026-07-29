@@ -1,0 +1,12 @@
+{
+  "TechTreeItemSpec": {
+    "Tags": [
+      "Good:Log",
+      "Good:Plank",
+      "Good:MetalBlock"
+    ],
+    "Prerequisites": [
+      "Smelter.IronTeeth"
+    ]
+  }
+}
