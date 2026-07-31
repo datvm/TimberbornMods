@@ -9,4 +9,5 @@ By default this mod does not change anything. You need to confgure it: Menu (Mai
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 
+v11.0.0: Fix MissingFieldException on Timberborn v1.1 (`LifeProgressor._lifeProgressIncreasePerTick` moved to `LifeService.LifeProgressIncreasePerTick`).
 v10.0.0: Should work with Timberborn v1.0.1.
