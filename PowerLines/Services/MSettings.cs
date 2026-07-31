@@ -18,5 +18,14 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         false
     );
 
- 
+    public ModSetting<float> DefaultMaxConnectionLength { get; } = new(3f, ModSettingDescriptor
+        .CreateLocalized("LV.PL.DefaultMaxConnectionLength")
+        .SetLocalizedTooltip("LV.PL.DefaultMaxConnectionLengthDesc")
+    );
+
+    public ModSetting<float> DefaultMaxGeneratorConnectionLength { get; } = new(5f, ModSettingDescriptor
+        .CreateLocalized("LV.PL.DefaultMaxGeneratorConnectionLength")
+        .SetLocalizedTooltip("LV.PL.DefaultMaxGeneratorConnectionLengthDesc")
+    );
+
 }

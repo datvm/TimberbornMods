@@ -68,7 +68,9 @@ public class PowerLineComponent(PowerLinesService services) : BaseComponent, IAw
 
         var spec = GetComponent<PowerLineSpec>();
         MaxConnections = spec?.MaxConnections ?? (isGenerator ? services.DefaultMaxGeneratorConnections : services.DefaultMaxConnections);
-        MaxConnectionLength = spec?.MaxConnectionLength ?? (isGenerator ? services.DefaultMaxGeneratorConnectionLength : services.DefaultMaxConnectionLength);
+        var defaultLength = isGenerator ? services.DefaultMaxGeneratorConnectionLength : services.DefaultMaxConnectionLength;
+        // Building-specific lengths can only extend the configured default, so raising settings also raises special buildings.
+        MaxConnectionLength = Mathf.Max(spec?.MaxConnectionLength ?? 0f, defaultLength);
     }
 
     public void DeleteEntity() => services.OnPowerLineDeleted(this);
