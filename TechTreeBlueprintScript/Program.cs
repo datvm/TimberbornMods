@@ -5,13 +5,15 @@ var services = await CreateServicesAsync();
 await using var scope = services.CreateAsyncScope();
 services = scope.ServiceProvider;
 
-var graphBuilder = services.GetRequiredService<GraphBuilderService>();
+// DO NOT USE: Currently overwriting existing files.
 
-// Smoke-test: print Folktails wood-related dependency roots / children.
-var graph = graphBuilder.BuildGraph("IronTeeth");
+//var graphBuilder = services.GetRequiredService<GraphBuilderService>();
 
-var exporter = services.GetRequiredService<BlueprintExportService>();
-await exporter.WriteGraphAsync(TechTreeFileRootPath, graph);
+//// Smoke-test: print Folktails wood-related dependency roots / children.
+//var graph = graphBuilder.BuildGraph("IronTeeth");
+
+//var exporter = services.GetRequiredService<BlueprintExportService>();
+//await exporter.WriteGraphAsync(TechTreeFileRootPath, graph);
 
 static async Task<IServiceProvider> CreateServicesAsync()
 {

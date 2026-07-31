@@ -2,7 +2,7 @@
     "Name": "Configurable Lifetime",
     "Version": "11.0.0",
     "Id": "ConfigurableLifetime",
-    "MinimumGameVersion": "1.1.0",
+    "MinimumGameVersion": "1.1.1",
     "Description": "Configure lifetime of beavers and bots",
     "RequiredMods": [
         { "Id": "eMka.ModSettings" },
