@@ -15,7 +15,7 @@ public static class LifetimePatches
         }
 
         __instance.LifeProgress +=
-            __instance._lifeProgressIncreasePerTick
+            __instance._lifeService.LifeProgressIncreasePerTick
             * mul.Value
             / __instance._bonusManager.Multiplier(LifeProgressor.LifeExpectancyBonusId);
 
