@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Fourpillars",
+    "Version": "11.0.0",
+    "Id": "Fourpillars",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "Larger buildings only need up to four corner supports (and place from a corner).",
+    "RequiredMods": [
+        { "Id": "ModdableTimberborn" }
+    ]
+}

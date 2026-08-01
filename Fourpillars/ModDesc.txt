@@ -1,0 +1,18 @@
+﻿This simple mod does one thing: larger buildings only need up to four supports, typically the four corners of a rectangular footprint.
+
+[i]Example: stacked Warehouses with Conveyor Belts[/i]
+[img]https://images.steamusercontent.com/ugc/14907843236144311298/BA754134EB28E40B82DA69B8AB1D681C77E4D2EB/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+Any building that is changed also has its placement pivot moved to one of those corners, so you can aim at a pillar or platform and the building snaps onto it instead of requiring a solid center.
+[img]https://images.steamusercontent.com/ugc/9477116090034947345/FBDE8042C33DAA7EA4F56C70F97541931100F554/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+Notes:
+- Buildings that are 2×2 or smaller are left alone (they already need at most four supports).
+- Only cells that actually require ground/stackable support are considered. Empty or decorative overhang cells do not count.
+- Irregular footprints (for example Hall of Abundance) still end up with four supports: the outermost diagonal extremes of the real support set. The pivot is placed on the south-west of those four.
+[img]https://images.steamusercontent.com/ugc/17438026326906312276/65F4E390F231FF38340E22CC62839F883F426BC6/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+Special buildings that must sit on something specific (understructure like Geothermal Engine or underground like Underground Pile) are not modified.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
