@@ -209,6 +209,7 @@
   <Project Path="EditSaveDifficulty/EditSaveDifficulty.csproj" />
   <Project Path="ExtendedBuilderReach/ExtendedBuilderReach.csproj" />
   <Project Path="FiveMoreMins/FiveMoreMins.csproj" />
+  <Project Path="Fourpillars/Fourpillars.csproj" Id="0294456e-8a73-4d8a-90f3-cccb60b589c1" />
   <Project Path="Gate/Gate.csproj" />
   <Project Path="GateV1/GateV1.csproj" Id="1b1c9c90-0300-43d2-aa6c-b92dcdb4ecce" />
   <Project Path="GlobalWellbeing/GlobalWellbeing.csproj" />
