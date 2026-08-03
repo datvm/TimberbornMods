@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Terrace Farm",
+    "Version": "11.0.0",
+    "Id": "TerraceFarm",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "Make terraces",
+    "RequiredMods": [
+        { "Id": "ModdableTimberborn" }
+    ]
+}

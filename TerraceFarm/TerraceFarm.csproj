@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputModFolderName>TerraceFarm</OutputModFolderName>
+  </PropertyGroup>
+  <Import Project="../Targets/Common.targets" />
+  <Import Project="../Targets/CommonModdableTimberborn.targets" />
+  <ItemGroup>
+    <Using Include="ModdableTimberborn.DependencyInjection" />
+    <Using Include="ModdableTimberborn.EntityTracker" />
+    <Using Include="TerraceFarm.Components" />
+    <Using Include="TerraceFarm.Services" />
+  </ItemGroup>
+</Project>
