@@ -1,7 +1,7 @@
 ﻿#if DEBUG
 args = [
     "-i", @"D:\Personal\Mods\Timberborn\V1Data\ExportedProject\Assets\Resources\Buildings\Wood",
-    "-textures", @"D:\Personal\Mods\Timberborn\V1Data\ExportedProject\Assets\Resources",
+    "-r", @"D:\Personal\Mods\Timberborn\V1Data\ExportedProject\Assets\Resources",
     "-o", @"D:\Temp\TimbermeshBlender",
 ];
 #endif
@@ -12,8 +12,11 @@ try
     var input = InputService.GetInput(args);
 
     Console.WriteLine($"Input:    {input.InputFolder}");
-    Console.WriteLine($"Textures: {input.TextureFolder}");
+    Console.WriteLine($"Textures: {input.ResourcesFolder}");
     Console.WriteLine($"Output:   {input.OutputFolder}");
+
+    var bpProvider = await BlueprintProvider.CreateAsync(input.ResourcesFolder);
+    var textureService = new TextureService(bpProvider);
 
     var count = 0;
     await foreach (var timbermeshFile in InputService.GetTimbermeshFilesAsync(input.InputFolder))

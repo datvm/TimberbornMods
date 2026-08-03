@@ -1,4 +1,4 @@
-﻿namespace TechTreeBlueprintScript.Specs;
+namespace BlueprintReader.Specs;
 
 public record FactionSpec(
     string Id,

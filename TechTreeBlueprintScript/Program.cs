@@ -22,7 +22,10 @@ static async Task<IServiceProvider> CreateServicesAsync()
     var col = new ServiceCollection();
     col.AddSingleton(blueprintProvider);
 
-    col.AddServiceSharp();
+    // Scan both this app and BlueprintReader for [BindSingleton] services.
+    col.AddServiceSharp(
+        typeof(BlueprintProvider).Assembly,
+        typeof(Program).Assembly);
 
     return col.BuildServiceProvider();
 }

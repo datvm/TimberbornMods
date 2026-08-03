@@ -1,4 +1,4 @@
-﻿namespace TechTreeBlueprintScript.Specs;
+namespace BlueprintReader.Specs;
 
 public record BuildingSpec(
     ImmutableArray<GoodAmountSpec> BuildingCost,

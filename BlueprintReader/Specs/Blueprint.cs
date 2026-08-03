@@ -1,8 +1,7 @@
-﻿namespace TechTreeBlueprintScript.Specs;
+namespace BlueprintReader.Specs;
 
 public record ScriptBlueprint(string Name, string Path, FrozenDictionary<string, IBlueprintSpec> Specs)
 {
-
     public T? GetNamedSpec<T>() where T : IBlueprintSpec
         => Specs.TryGetValue(typeof(T).Name, out var spec) ? (T)spec : default;
 
@@ -25,5 +24,4 @@ public record ScriptBlueprint(string Name, string Path, FrozenDictionary<string,
 
     public bool IsPlant => HasSpec<PlantableSpec>();
     public bool IsPlayerBuilding => HasSpec<BuildingSpec>() && HasSpec<PlaceableBlockObjectSpec>();
-
 }

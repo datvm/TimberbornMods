@@ -1,4 +1,4 @@
-﻿namespace TechTreeBlueprintScript.Providers;
+namespace BlueprintReader.Providers;
 
 [BindSingleton]
 public class TemplateProvider
@@ -36,5 +36,4 @@ public class TemplateProvider
 
     public ScriptBlueprint GetTemplateByPath(string path) => blueprintProvider.BlueprintByPath[path];
     public ScriptBlueprint GetTemplateByName(string name) => BlueprintByTemplateName[name];
-
 }
