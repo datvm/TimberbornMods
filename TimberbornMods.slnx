@@ -167,7 +167,11 @@
     <Project Path="ModAnalyzers/ModAnalyzers.csproj" />
     <Project Path="ModdingAssetUpdater/ModdingAssetUpdater.csproj" Id="42a47b1d-9de4-43e1-983a-9b338e93a609" />
     <Project Path="StartGame/StartGame.csproj" />
+    <Project Path="Timbermesh2Blender/Timbermesh2Blender.csproj" Id="c15e3c5b-1a88-45f9-8480-7401c0e1a330" />
     <Project Path="TimbermeshMaterialPatcher/TimbermeshMaterialPatcher.csproj" />
+  </Folder>
+  <Folder Name="/_Utils/Libs/">
+    <Project Path="BlueprintReader/BlueprintReader.csproj" Id="09bdf24b-19f8-4f7f-b8f1-2c1b47c9b54b" />
   </Folder>
   <Folder Name="/_Utils/Targets/">
     <File Path="Targets/Common.targets" />

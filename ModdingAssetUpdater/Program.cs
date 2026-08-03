@@ -2,12 +2,17 @@
 global using System.Diagnostics;
 global using System.IO.Compression;
 
+const bool Config_DecompileGameAssemblies = false;
+
 const string OutputFolder = @"D:\Personal\Mods\Timberborn\V1Data\ExportedProject\Assets\Resources";
 
 const string InputFolder = @"D:\Software\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\StreamingAssets\Modding";
 const string AssetRipperFolder = @"D:\Personal\Mods\Timberborn\V1DataRipping\ExportedProject\Assets\Resources";
 const string GameAssembliesPath = @"D:\Software\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed";
 const string DecompileOutputFolder = "out";
+
+var DecompileGameAssemblies = ((Func<bool>)(() => Config_DecompileGameAssemblies))(); // To prevent dead code warning
+
 string[] GameAssemblyPrefixes = ["Bindito.", "Timberborn."];
 var maxParallelDecompilers = Math.Max(1, Environment.ProcessorCount);
 
@@ -51,7 +56,7 @@ if (!Directory.Exists(AssetRipperFolder))
 else
 {
     // 3. Copy the ripped assets
-    FrozenSet<string> CopyingExtensions = ((string[])[".prefab", ".mat", ".png"]).ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+    FrozenSet<string> ExcludingExtensions = ((string[])[".meta"]).ToFrozenSet(StringComparer.OrdinalIgnoreCase);
     Stack<string> rippedPaths = new([""]);
 
     Console.WriteLine("Copying ripped assets...");
@@ -71,11 +76,16 @@ else
         foreach (var file in Directory.EnumerateFiles(fullPath))
         {
             var ext = Path.GetExtension(file);
-            if (!CopyingExtensions.Contains(ext)) { continue; }
+            if (ExcludingExtensions.Contains(ext)) { continue; }
 
             var name = Path.GetFileName(file);
-            Console.WriteLine($"Copying {name} to {outputPath}");
-            File.Copy(file, Path.Combine(outputPath, name));
+
+            var dstFile = Path.Combine(outputPath, name);
+            if (!File.Exists(dstFile)) // Don't overwrite existing files (most likely blueprints/resources)
+            {
+                Console.WriteLine($"Copying to {dstFile}");
+                File.Copy(file, dstFile);
+            }
         }
     }
 
@@ -101,29 +111,36 @@ else
 }
 
 // 5. Decompile game DLLs
-var decompileOutputFolder = Path.Combine(FindCsProjFolder(Environment.CurrentDirectory), DecompileOutputFolder);
-
-if (Directory.Exists(decompileOutputFolder))
+if (DecompileGameAssemblies)
 {
-    Directory.Delete(decompileOutputFolder, true);
-    await Task.Delay(500);
+    var decompileOutputFolder = Path.Combine(FindCsProjFolder(Environment.CurrentDirectory), DecompileOutputFolder);
+
+    if (Directory.Exists(decompileOutputFolder))
+    {
+        Directory.Delete(decompileOutputFolder, true);
+        await Task.Delay(500);
+    }
+
+    Directory.CreateDirectory(decompileOutputFolder);
+
+    ParallelOptions decompileOptions = new()
+    {
+        MaxDegreeOfParallelism = maxParallelDecompilers,
+    };
+
+    await Parallel.ForEachAsync(GetGameAssemblyPaths(), decompileOptions, async (dll, _) =>
+    {
+        var assemblyName = Path.GetFileNameWithoutExtension(dll);
+        var assemblyOutputFolder = Path.Combine(decompileOutputFolder, assemblyName);
+
+        Console.WriteLine($"Decompiling {assemblyName} to {assemblyOutputFolder}");
+        await RunIlSpyAsync(dll, assemblyOutputFolder);
+    });
 }
-
-Directory.CreateDirectory(decompileOutputFolder);
-
-ParallelOptions decompileOptions = new()
+else
 {
-    MaxDegreeOfParallelism = maxParallelDecompilers,
-};
-
-await Parallel.ForEachAsync(GetGameAssemblyPaths(), decompileOptions, async (dll, _) =>
-{
-    var assemblyName = Path.GetFileNameWithoutExtension(dll);
-    var assemblyOutputFolder = Path.Combine(decompileOutputFolder, assemblyName);
-
-    Console.WriteLine($"Decompiling {assemblyName} to {assemblyOutputFolder}");
-    await RunIlSpyAsync(dll, assemblyOutputFolder);
-});
+    Console.WriteLine("Skipping decompilation of game assemblies.");
+}
 
 Console.WriteLine("Done");
 
