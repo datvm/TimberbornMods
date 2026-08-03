@@ -56,7 +56,7 @@ if (!Directory.Exists(AssetRipperFolder))
 else
 {
     // 3. Copy the ripped assets
-    FrozenSet<string> ExcludingExtensions = ((string[])[".meta"]).ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+    FrozenSet<string> ExcludingExtensions = ((string[])[]).ToFrozenSet(StringComparer.OrdinalIgnoreCase);
     Stack<string> rippedPaths = new([""]);
 
     Console.WriteLine("Copying ripped assets...");
