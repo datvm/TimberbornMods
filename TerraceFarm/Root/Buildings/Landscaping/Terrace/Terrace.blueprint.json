@@ -1,0 +1,272 @@
+﻿{
+    "BuildingSpec": {
+        "SelectionSoundName": "Default",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            {
+                "Id": "Dirt",
+                "Amount": 2
+            }
+        ],
+        "ScienceCost": 150,
+        "PlaceFinished": false,
+        "FinishableWithBeaversOnSite": false,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "Terrace",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BlockObjectSpec": {
+        "Size": {
+            "X": 1,
+            "Y": 1,
+            "Z": 2
+        },
+        "Blocks": [
+            {
+                "MatterBelow": "Ground",
+                "Occupations": "Top, Path",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Air",
+                "Occupations": "Floor, Bottom, Path",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
+        "Entrance": {
+            "HasEntrance": false,
+            "Coordinates": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": false
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "Landscaping",
+        "ToolOrder": 25,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": false
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.TF.Terrace",
+        "DescriptionLocKey": "LV.TF.TerraceDesc",
+        "FlavorDescriptionLocKey": "LV.TF.TerraceFlavor",
+        "Icon": "Buildings/Landscaping/Terrace/TerraceIcon"
+    },
+    "BlockObjectNavMeshSettingsSpec": {
+        "NoAutoWalls": false,
+        "GenerateFloorsOnStackable": false,
+        "EdgeGroups": [
+            {
+                "Cost": 1.0,
+                "Group": {
+                    "UseGroup": false,
+                    "GroupName": ""
+                },
+                "IsPath": true,
+                "AddedEdges": [
+                    {
+                        "Start": {
+                            "X": 0,
+                            "Y": 0,
+                            "Z": 0
+                        },
+                        "End": {
+                            "X": 0,
+                            "Y": 1,
+                            "Z": 0
+                        },
+                        "IsTwoWay": false
+                    },
+                    {
+                        "Start": {
+                            "X": 0,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "End": {
+                            "X": 0,
+                            "Y": -1,
+                            "Z": 1
+                        },
+                        "IsTwoWay": false
+                    }
+                ]
+            },
+            {
+                "Cost": 0.4,
+                "Group": {
+                    "UseGroup": false,
+                    "GroupName": ""
+                },
+                "IsPath": true,
+                "AddedEdges": [
+                    {
+                        "Start": {
+                            "X": 0,
+                            "Y": 0,
+                            "Z": 0
+                        },
+                        "End": {
+                            "X": 0,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "IsTwoWay": true
+                    }
+                ]
+            }
+        ],
+        "UnblockedCoordinates": [],
+        "BlockedEdges": []
+    },
+    "PathSpec": {
+        "MainPathCoordinates": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+        }
+    },
+    "TerraceSpec": {},
+    "BlockObjectWithPathRangeSpec": {},
+    "StraightStairsSpec": {},
+    "BlockObjectNavMeshAdderSpec": {},
+    "ConstructionSiteProgressVisualizerSpec": {
+        "ProgressThresholds": [
+            0.0
+        ]
+    },
+    "Children": {
+        "#Finished": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Landscaping/Terrace/Terrace.Model"
+            },
+            "CollidersSpec": {
+                "BoxColliders": [
+                    {
+                        "Center": {
+                            "X": 0.501285553,
+                            "Y": -0.0579071045,
+                            "Z": 0.41267544
+                        },
+                        "Size": {
+                            "X": 1.0,
+                            "Y": 0.369476318,
+                            "Z": 1.1926223
+                        }
+                    },
+                    {
+                        "Center": {
+                            "X": 0.49054718,
+                            "Y": 0.2802887,
+                            "Z": 0.163392484
+                        },
+                        "Size": {
+                            "X": 1.0,
+                            "Y": 0.345977783,
+                            "Z": 0.836966157
+                        }
+                    },
+                    {
+                        "Center": {
+                            "X": 0.4915123,
+                            "Y": 0.661713958,
+                            "Z": -0.07957417
+                        },
+                        "Size": {
+                            "X": 1.0,
+                            "Y": 0.45215106,
+                            "Z": 0.312731147
+                        }
+                    }
+                ],
+                "SphereColliders": [],
+                "CapsuleColliders": []
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase1x1#nested": {
+                    "BlueprintPath": "ConstructionBases/ConstructionBase1x1/ConstructionBase1x1.blueprint"
+                },
+                "ConstructionStage0": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Landscaping/Terrace/Terrace.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 0.501285553,
+                                    "Y": -0.0579071045,
+                                    "Z": 0.41267544
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.369476318,
+                                    "Z": 1.1926223
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.49054718,
+                                    "Y": 0.2802887,
+                                    "Z": 0.163392484
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.345977783,
+                                    "Z": 0.836966157
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.4915123,
+                                    "Y": 0.661713958,
+                                    "Z": -0.07957417
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.45215106,
+                                    "Z": 0.312731147
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        }
+    }
+}

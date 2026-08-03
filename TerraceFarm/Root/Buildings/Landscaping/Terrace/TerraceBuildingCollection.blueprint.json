@@ -1,0 +1,8 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Common",
+        "Blueprints": [
+            "Buildings/Landscaping/Terrace/Terrace.blueprint"
+        ]
+    }
+}
