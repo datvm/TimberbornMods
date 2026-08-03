@@ -1,37 +1,41 @@
-﻿namespace TechTreeBlueprintScript.Providers;
+﻿namespace BlueprintReader.Providers;
 
 public class BlueprintProvider
 {
-    static readonly FrozenDictionary<string, Type> BlueprintSpecTypes = Assembly.GetExecutingAssembly().GetTypes()
-        .Where(t => typeof(IBlueprintSpec).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract)
-        .ToFrozenDictionary(t => t.Name);
-    static readonly FrozenSet<Type> CollectionSpecTypes = [.. BlueprintSpecTypes.Values.Where(t => typeof(ICollectionSpec).IsAssignableFrom(t))];
-
-    const string GameResourcesFolder = @"D:/Personal/Mods/Timberborn/V1Data/ExportedProject/Assets/Resources";
+    public string GameResourcesFolder { get; }
+    readonly FrozenDictionary<string, Type> blueprintSpecTypes;
+    readonly FrozenSet<Type> collectionSpecTypes;
 
     public ImmutableArray<ScriptBlueprint> Blueprints { get; private set; }
     public FrozenDictionary<string, ScriptBlueprint> BlueprintByPath { get; private set; } = null!;
     public FrozenDictionary<Type, ImmutableArray<ScriptBlueprint>> BlueprintsBySpecType { get; private set; } = null!;
     public FrozenDictionary<Type, AggregatedCollectionBlueprint> AggregatedCollections { get; private set; } = null!;
 
-    BlueprintProvider() { }
+    BlueprintProvider(string gameResourcesFolder, FrozenDictionary<string, Type> blueprintSpecTypes)
+    {
+        GameResourcesFolder = gameResourcesFolder;
+        this.blueprintSpecTypes = blueprintSpecTypes;
+        collectionSpecTypes = [.. blueprintSpecTypes.Values.Where(static t => typeof(ICollectionSpec).IsAssignableFrom(t))];
+    }
 
     public IEnumerable<T> GetSpecs<T>() where T : class, IBlueprintSpec => BlueprintsBySpecType[typeof(T)].Select(b => b.GetSpec<T>()!);
 
     public IEnumerable<object> GetSpecs(Type type) => BlueprintsBySpecType[type].Select(b => b.GetSpec(type));
 
-    public static async Task<BlueprintProvider> CreateAsync()
+    public static async Task<BlueprintProvider> CreateAsync(
+        string resourcesFolder,
+        IEnumerable<Assembly>? additionalSpecAssemblies = null)
     {
-        BlueprintProvider p = new();
+        var specTypes = DiscoverSpecTypes(additionalSpecAssemblies);
+        BlueprintProvider p = new(resourcesFolder, specTypes);
 
-        var files = Directory.EnumerateFiles(GameResourcesFolder, "*.blueprint.json", SearchOption.AllDirectories)
-            .Select((p, i) => (p, i))
+        var files = Directory.EnumerateFiles(resourcesFolder, "*.blueprint.json", SearchOption.AllDirectories)
+            .Select((path, i) => (path, i))
             .ToArray();
         var blueprints = new ScriptBlueprint[files.Length];
         await Parallel.ForEachAsync(files, async (file, _) =>
         {
-            var blueprint = await ReadBlueprintAsync(file.p);
-            blueprints[file.i] = blueprint;
+            blueprints[file.i] = await p.ReadBlueprintAsync(file.path);
         });
 
         p.Blueprints = [.. blueprints];
@@ -42,7 +46,31 @@ public class BlueprintProvider
         return p;
     }
 
-    static async Task<ScriptBlueprint> ReadBlueprintAsync(string path)
+    static FrozenDictionary<string, Type> DiscoverSpecTypes(IEnumerable<Assembly>? additionalSpecAssemblies)
+    {
+        HashSet<Assembly> assemblies = [typeof(BlueprintProvider).Assembly];
+
+        if (Assembly.GetEntryAssembly() is { } entryAssembly)
+        {
+            assemblies.Add(entryAssembly);
+        }
+
+        if (additionalSpecAssemblies is not null)
+        {
+            foreach (var assembly in additionalSpecAssemblies)
+            {
+                assemblies.Add(assembly);
+            }
+        }
+
+        return assemblies
+            .SelectMany(static a => a.GetTypes())
+            .Where(static t => typeof(IBlueprintSpec).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract)
+            .GroupBy(static t => t.Name)
+            .ToFrozenDictionary(static g => g.Key, static g => g.First());
+    }
+
+    async Task<ScriptBlueprint> ReadBlueprintAsync(string path)
     {
         var name = Path.GetFileNameWithoutExtension(path)[..^".blueprint".Length];
 
@@ -54,7 +82,10 @@ public class BlueprintProvider
         foreach (var prop in obj.EnumerateObject())
         {
             var propName = prop.Name;
-            if (!BlueprintSpecTypes.TryGetValue(propName, out var type)) { continue; }
+            if (!blueprintSpecTypes.TryGetValue(propName, out var type))
+            {
+                continue;
+            }
 
             specs.Add(propName, prop.Value.Deserialize(type) as IBlueprintSpec
                 ?? throw new InvalidOperationException("Invalid object"));
@@ -89,7 +120,7 @@ public class BlueprintProvider
     {
         Dictionary<Type, AggregatedCollectionBlueprint> collections = [];
 
-        foreach (var t in CollectionSpecTypes)
+        foreach (var t in collectionSpecTypes)
         {
             if (GetSpecs(t).Cast<ICollectionSpec>().ToArray() is var bps && bps.Length == 0)
             {
@@ -114,5 +145,4 @@ public class BlueprintProvider
 
         AggregatedCollections = collections.ToFrozenDictionary();
     }
-
 }

@@ -6,4 +6,19 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="ServiceSharp" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="ServiceSharp" />
+    <Using Include="System.Collections.Frozen" />
+    <Using Include="System.Collections.Immutable" />
+    <Using Include="System.Diagnostics.CodeAnalysis" />
+    <Using Include="System.Reflection" />
+    <Using Include="System.Text.Json" />
+    <Using Include="BlueprintReader.Providers" />
+    <Using Include="BlueprintReader.Specs" />
+  </ItemGroup>
+
 </Project>

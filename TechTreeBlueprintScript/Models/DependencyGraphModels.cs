@@ -1,8 +1,7 @@
-﻿namespace TechTreeBlueprintScript.Models;
+namespace TechTreeBlueprintScript.Models;
 
 public record BlueprintDependencyGraph(ImmutableArray<BlueprintDependencyNode> Roots)
 {
-    
     public void ScanNodes(Action<BlueprintDependencyNode> action)
     {
         HashSet<BlueprintDependencyNode> visited = [];
@@ -46,7 +45,6 @@ public record BlueprintDependencyGraph(ImmutableArray<BlueprintDependencyNode> R
             }
         }
     }
-
 }
 
 public record BlueprintDependencyNode(ParsedBuildingInfo Building)

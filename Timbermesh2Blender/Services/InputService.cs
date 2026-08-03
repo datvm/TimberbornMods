@@ -10,9 +10,9 @@ public static class InputService
         };
         inputOption.AcceptExistingOnly();
 
-        var textureOption = new Option<DirectoryInfo>("-textures", "--textures")
+        var textureOption = new Option<DirectoryInfo>("-r", "--resources")
         {
-            Description = "Folder containing textures / game assets",
+            Description = "Resources folder containing textures / game assets",
         };
         textureOption.AcceptExistingOnly();
 
@@ -138,6 +138,6 @@ public static class InputService
 
 public record ScriptInput(
     string InputFolder,
-    string TextureFolder,
+    string ResourcesFolder,
     string OutputFolder
 );

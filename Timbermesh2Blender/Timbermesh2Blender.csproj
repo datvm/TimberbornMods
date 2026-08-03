@@ -14,9 +14,12 @@
     <ProjectReference Include="..\BlueprintReader\BlueprintReader.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Using Include="BlueprintReader.Providers" />
+    <Using Include="BlueprintReader.Specs" />
     <Using Include="Microsoft.Extensions.DependencyInjection" />
     <Using Include="ProtoBuf" />
     <Using Include="ServiceSharp" />
+    <Using Include="System.Collections.Frozen" />
     <Using Include="System.CommandLine" />
     <Using Include="System.Diagnostics.CodeAnalysis" />
     <Using Include="Timbermesh2Blender.Models" />
