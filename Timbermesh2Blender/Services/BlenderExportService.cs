@@ -22,10 +22,10 @@ public class BlenderExportService(TextureService textureService)
         return Task.CompletedTask;
     }
 
-    public static string GetOutputPath(string inputRoot, string outputRoot, TimbermeshFile file)
+    public static string GetOutputPath(string inputRoot, string outputRoot, TimbermeshFile file, bool flatten = false)
     {
         string relative;
-        if (File.Exists(inputRoot))
+        if (flatten || File.Exists(inputRoot))
         {
             relative = Path.GetFileNameWithoutExtension(file.FilePath) + ".glb";
         }

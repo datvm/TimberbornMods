@@ -21,11 +21,17 @@ public static class InputService
             Description = "Folder to write Blender-friendly output",
         };
 
+        var flattenOption = new Option<bool>("-f", "--flatten")
+        {
+            Description = "Write all .glb files directly into the output folder (do not keep input folder structure)",
+        };
+
         var root = new RootCommand("Convert Timbermesh models to a Blender-friendly format")
         {
             inputOption,
             textureOption,
             outputOption,
+            flattenOption,
         };
 
         var parseResult = root.Parse(args);
@@ -48,8 +54,9 @@ public static class InputService
         var inputPath = RequireExistingPath(parseResult.GetValue(inputOption)?.FullName, "Input path (file or folder)");
         var textureFolder = RequireExistingDirectory(parseResult.GetValue(textureOption)?.FullName, "Texture folder");
         var outputFolder = Require(parseResult.GetValue(outputOption), "Output folder");
+        var flatten = parseResult.GetValue(flattenOption);
 
-        return new(inputPath, textureFolder, outputFolder);
+        return new(inputPath, textureFolder, outputFolder, flatten);
     }
 
     public static async IAsyncEnumerable<TimbermeshFile> GetTimbermeshFilesAsync(string inputPath)
@@ -139,5 +146,6 @@ public static class InputService
 public record ScriptInput(
     string InputFolder,
     string ResourcesFolder,
-    string OutputFolder
+    string OutputFolder,
+    bool Flatten
 );
