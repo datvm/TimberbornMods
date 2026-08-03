@@ -3,6 +3,7 @@ args = [
     "-i", @"D:\Personal\Mods\Timberborn\V1Data\ExportedProject\Assets\Resources\Buildings\Wood",
     "-r", @"D:\Personal\Mods\Timberborn\V1Data\ExportedProject\Assets\Resources",
     "-o", @"D:\Temp\TimbermeshBlender",
+    "-f",
 ];
 #endif
 
@@ -13,6 +14,7 @@ try
     Console.WriteLine($"Input:    {input.InputFolder}");
     Console.WriteLine($"Textures: {input.ResourcesFolder}");
     Console.WriteLine($"Output:   {input.OutputFolder}");
+    Console.WriteLine($"Flatten:  {input.Flatten}");
 
     var bpProvider = await BlueprintProvider.CreateAsync(input.ResourcesFolder);
     var textureService = new TextureService(bpProvider);
@@ -44,7 +46,7 @@ try
             }
         }
 
-        var outputPath = BlenderExportService.GetOutputPath(input.InputFolder, input.OutputFolder, timbermeshFile);
+        var outputPath = BlenderExportService.GetOutputPath(input.InputFolder, input.OutputFolder, timbermeshFile, input.Flatten);
         await exportService.ExportAsync(timbermeshFile, outputPath);
         exported++;
         Console.WriteLine($"    -> {outputPath}");
