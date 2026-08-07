@@ -14,7 +14,11 @@
 
         public void Configure(Configurator configurator, ConfigurationContext context)
         {
-            configurator.BindSingleton<ExtraHaulerTargetService>();
+            // Don't bind HaulingTargetHelper here, it's intentionally bound no matter if this is used or not since it is just a helper.
+
+            configurator
+                .BindSingleton<ExtraHaulerTargetService>()
+            ;
         }
     }
 }

@@ -3,7 +3,7 @@
     "Version": "11.0.0",
     "Id": "ConstructionSiteHauler",
     "MinimumGameVersion": "1.1.1",
-    "Description": "Random relics that unlock alternate recipes",
+    "Description": "Haulers can deliver materials to construction sites. Optional toggles to stop builders fetching materials; priority follows the site's builder priority.",
     "RequiredMods": [
         {
             "Id": "ModdableTimberborn",

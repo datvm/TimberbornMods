@@ -1,0 +1,24 @@
+﻿Let haulers bring construction materials to unfinished buildings.
+[img]https://images.steamusercontent.com/ugc/13339977097508079460/BD4A7E10AC0BC6876F35075B2A5691913B35E290/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+In vanilla, only builders fetch materials for construction sites. This mod registers construction sites as hauler destinations so hauling posts can stock them while builders focus on building (or only hammering, if you prefer).
+
+[h2]Builder hauling toggles[/h2]
+[img]https://images.steamusercontent.com/ugc/14096770261904377931/60721477E90839C0F43F882B71F7B243EDF6A101/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+Two checkboxes to stop builders from carrying materials (they still build when materials are on site): on the construction site and on the builders' workplace (Builders' Hut / District Center). Useful when haulers are feeding sites and you do not want builders wasting trips on planks and logs.
+
+[h2]Priority[/h2]
+
+Hauler job weight follows the construction site's [b]builder priority[/b] (the usual priority arrows):
+
+[list]
+[*] [b]Very Low / Low[/b]: weaker than or similar to normal warehouse/workshop fill; construction can lose haulers to empty factories.
+[*] [b]Normal[/b]: slightly above empty workshop fill (~1.1 vs ~1.0), so haulers keep feeding the site for the whole build instead of abandoning it at 50–75% full.
+[*] [b]High / Very High[/b]: higher still, mainly ordering among construction jobs.
+[/list]
+
+This mod is kinda a trial on a new Moddable Timberborn API I made so haulers can deliver to multi-access/non-entrance buildings. I tested it but please report bugs or odd hauler pathing.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

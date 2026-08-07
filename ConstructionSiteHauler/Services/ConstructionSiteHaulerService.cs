@@ -1,16 +1,15 @@
 ﻿namespace ConstructionSiteHauler.Services;
 
 /// <summary>
-/// Extra-hauler registration logic for construction sites: spill-based district
-/// resolution and global refresh on instant nav / district registry changes.
-/// Per-site registration handles live on <see cref="ConstructionSiteHaulerComponent"/>.
+/// Extra-hauler registration for construction sites and global refresh on instant nav /
+/// district registry changes. District resolution is delegated to
+/// <see cref="HaulingTargetHelper"/>. Weight comes from construction
+/// <see cref="BuilderPrioritizable"/> priority only (fixed while the site needs goods).
 /// </summary>
 [BindSingleton]
 public class ConstructionSiteHaulerService(
     ExtraHaulerTargetService extraHaulerTargets,
-    DistrictCenterRegistry districtCenterRegistry,
-    InstantDistrictMap instantDistrictMap,
-    NodeIdService nodeIdService,
+    HaulingTargetHelper haulingTargetHelper,
     DefaultEntityTracker<ConstructionSiteHaulerComponent> csHaulers,
     EventBus eventBus
 ) : ILoadableSingleton, ISingletonInstantNavMeshListener
@@ -46,23 +45,28 @@ public class ConstructionSiteHaulerService(
             return;
         }
 
-        var districts = ResolveDistricts(site);
-        if (districts.Count == 0)
+        if (!site.ConstructionSiteAccessible)
         {
             return;
         }
 
-        Accessible? accessible = null;
-        if (site.ConstructionSiteAccessible)
+        var accessible = site.ConstructionSiteAccessible!.Accessible;
+        if (!accessible)
         {
-            accessible = site.ConstructionSiteAccessible!.Accessible;
+            return;
+        }
+
+        var districts = haulingTargetHelper.FindDistrictsFor(accessible).ToArray();
+        if (districts.Length == 0)
+        {
+            return;
         }
 
         site.Registration = extraHaulerTargets.AddExtraTarget(new ExtraHaulerTargetRegistration(
             Inventory: inventory,
             Districts: districts,
             Accessible: accessible,
-            Weight: 1f,
+            Weight: ComputeHaulWeight(site.Priority),
             OnlyInputGoods: true));
     }
 
@@ -73,70 +77,18 @@ public class ConstructionSiteHaulerService(
     }
 
     /// <summary>
-    /// Prefer assigned construction/finished district when present; otherwise districts
-    /// whose instant road-spill covers any of the site's construction accesses
-    /// (precomputed maps — same family as builder reachability / district range).
+    /// Fixed weight from construction priority only (not fill %).
+    /// Workshop empty fill ≈ 1.0; Normal+ stays above that for the whole build so haulers
+    /// keep feeding sites instead of abandoning them for empty workshops.
     /// </summary>
-    List<DistrictCenter> ResolveDistricts(ConstructionSiteHaulerComponent site)
-    {
-        if (site.DistrictBuilding)
+    public static float ComputeHaulWeight(Priority priority)
+        => priority switch
         {
-            var assigned = site.DistrictBuilding!.GetDistrictOrConstructionDistrict();
-            if (assigned)
-            {
-                return [assigned];
-            }
-        }
-
-        return FindDistrictsByRoadSpill(site);
-    }
-
-    List<DistrictCenter> FindDistrictsByRoadSpill(ConstructionSiteHaulerComponent site)
-    {
-        if (!site.ConstructionSiteAccessible)
-        {
-            return [];
-        }
-
-        var accessible = site.ConstructionSiteAccessible!.Accessible;
-        if (!accessible || !accessible.Enabled || accessible.Accesses.Count == 0)
-        {
-            return [];
-        }
-
-        List<DistrictCenter> result = [];
-        foreach (var center in districtCenterRegistry.FinishedDistrictCenters)
-        {
-            if (!center || center.District is null)
-            {
-                continue;
-            }
-
-            if (IsAccessibleOnDistrictSpill(center.District, accessible))
-            {
-                result.Add(center);
-            }
-        }
-
-        return result;
-    }
-
-    bool IsAccessibleOnDistrictSpill(District district, Accessible accessible)
-    {
-        foreach (var access in accessible.Accesses)
-        {
-            if (!nodeIdService.Contains(access))
-            {
-                continue;
-            }
-
-            var nodeId = nodeIdService.WorldToId(access);
-            if (instantDistrictMap.TryGetParentRoadNode(district, nodeId, out _))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
+            Priority.VeryLow => 0.25f,
+            Priority.Low => 0.5f,
+            Priority.Normal => 1.1f,
+            Priority.High => 1.5f,
+            Priority.VeryHigh => 2f,
+            _ => 1.1f,
+        };
 }
