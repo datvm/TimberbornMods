@@ -12,6 +12,9 @@ public class ConstructionSiteHaulerComponent(
     public Inventory Inventory { get; private set; } = null!;
     public DistrictBuilding? DistrictBuilding { get; private set; }
     public ConstructionSiteAccessible? ConstructionSiteAccessible { get; private set; }
+    
+    BuilderPrioritizable? builderPrioritizable;
+    public Priority Priority => builderPrioritizable?.Priority ?? Priority.Normal;
 
     /// <summary>Active extra-hauler registration for this site, if any.</summary>
     internal IDisposable? Registration { get; set; }
@@ -21,12 +24,18 @@ public class ConstructionSiteHaulerComponent(
         Inventory = GetComponent<ConstructionSite>().Inventory;
         DistrictBuilding = GetComponent<DistrictBuilding>();
         ConstructionSiteAccessible = GetComponent<ConstructionSiteAccessible>();
+        builderPrioritizable = GetComponent<BuilderPrioritizable>();
 
         Inventory.InventoryChanged += OnInventoryChanged;
         if (DistrictBuilding)
         {
             DistrictBuilding.ReassignedConstructionDistrict += OnDistrictChanged;
             DistrictBuilding.ReassignedDistrict += OnDistrictChanged;
+        }
+
+        if (builderPrioritizable)
+        {
+            builderPrioritizable.PriorityChanged += OnPriorityChanged;
         }
 
         service.Refresh(this);
@@ -58,6 +67,11 @@ public class ConstructionSiteHaulerComponent(
         service.Refresh(this);
     }
 
+    void OnPriorityChanged(object sender, PriorityChangedEventArgs e)
+    {
+        service.Refresh(this);
+    }
+
     void DetachHandlers()
     {
         if (Inventory)
@@ -69,6 +83,11 @@ public class ConstructionSiteHaulerComponent(
         {
             DistrictBuilding!.ReassignedConstructionDistrict -= OnDistrictChanged;
             DistrictBuilding.ReassignedDistrict -= OnDistrictChanged;
+        }
+
+        if (builderPrioritizable)
+        {
+            builderPrioritizable!.PriorityChanged -= OnPriorityChanged;
         }
     }
 }

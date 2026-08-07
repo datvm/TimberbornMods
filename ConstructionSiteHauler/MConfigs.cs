@@ -1,6 +1,6 @@
 ﻿namespace ConstructionSiteHauler;
 
-public class MConfigs : BaseModdableTimberbornAttributeConfiguration
+public class MConfigs : BaseModdableTimberbornAttributeConfiguration, IHarmonyPatchAll
 {
 
     public override ConfigurationContext AvailableContexts => ConfigurationContext.Game;

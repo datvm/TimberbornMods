@@ -399,7 +399,8 @@ On load: unfinished sites re-enter unfinished → consumer re-calls `AddExtraTar
 | Registration type | `readonly record struct ExtraHaulerTargetRegistration` |
 | API shape | Concrete `ExtraHaulerTargetService` (no interface) |
 | Fill behavior | **Vanilla `FillInputWorkplaceBehavior`** on destination — no custom fill class |
-| Stock district patch | **Transpiler**: if inventory is **registered**, stock district = **hauler workplace district**; else vanilla `receiving.District`. Registration `Districts` only gate which posts get the job. |
+| Stock district patch | **Transpiler**: stock district = **hauler workplace district**. Registration `Districts` gate which posts get the job. |
+| Multi-access stock pick | **Prefix** on `ClosestInventoryWithStock(Accessible, …)`: if start has multi-access (construction sites), path warehouse → site instead of site → warehouse (`UnblockedSingleAccess` would throw). |
 | ConstructionSite | Decorated with `FillInputWorkplaceBehavior` when feature enabled |
 | Prioritize | `SetExtraTargetPrioritized(Inventory, bool)` — **no-op if not registered** |
 | Prioritize formula | Same as vanilla: `+0.5` if prioritized and weight ≥ 0.5 |

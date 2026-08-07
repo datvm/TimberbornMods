@@ -1,2 +1,3 @@
 ﻿ID,Text,Comment
-LV.CSH.NoBuilderHaul,"Disable Builder Haul",
+LV.CSH.DisableBuilderHaul,"Disable Builder Hauling",
+Name_BuilderHubHaulingFragment,"[DO_NOT_COLLAPSE]",
