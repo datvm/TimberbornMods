@@ -1,0 +1,13 @@
+﻿{
+    "Name": "Construction Site Hauler",
+    "Version": "11.0.0",
+    "Id": "ConstructionSiteHauler",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "Random relics that unlock alternate recipes",
+    "RequiredMods": [
+        {
+            "Id": "ModdableTimberborn",
+            "MinimumVersion": "11.1.0"
+        }
+    ]
+}

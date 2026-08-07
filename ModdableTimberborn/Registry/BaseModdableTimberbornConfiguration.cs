@@ -14,7 +14,11 @@ public abstract class BaseModdableTimberbornConfiguration : IModdableTimberbornR
         {
             Registry.InternalUseDependencyInjection();
         }
+
+        ConfigureRegistry(Registry);
     }
+
+    protected virtual void ConfigureRegistry(ModdableTimberbornRegistry registry) { }
 
     public abstract void Configure(Configurator configurator, ConfigurationContext context);
 }
