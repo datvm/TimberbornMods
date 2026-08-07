@@ -206,6 +206,7 @@
   <Project Path="BenchmarkAndOptimizer/BenchmarkAndOptimizer.csproj" />
   <Project Path="BlockObjectDebugger/BlockObjectDebugger.csproj" />
   <Project Path="BlueprintRelics/BlueprintRelics.csproj" Id="6fb1bd59-00b6-4e80-a0ae-1d3b1d4b4823" />
+  <Project Path="ConstructionSiteHauler/ConstructionSiteHauler.csproj" Id="00766084-d416-4c0a-ac71-ee8f80b61add" />
   <Project Path="ConveyorBelt/ConveyorBelt.csproj" />
   <Project Path="CutAllTrees/CutAllTrees.csproj" />
   <Project Path="DevButton/DevButton.csproj" Id="00e9d4ec-0de4-48b4-b9c6-c8f034db4d06" />

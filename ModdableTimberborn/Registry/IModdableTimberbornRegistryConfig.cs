@@ -9,7 +9,7 @@ public interface IModdableTimberbornRegistryConfig
     ConfigurationContext AvailableContexts => ConfigurationContext.All;
 
     void Configure(Configurator configurator, ConfigurationContext context);
-
+    
 }
 
 /// <summary>
@@ -22,6 +22,11 @@ public interface IModdableTimberbornRegistryWithPatchConfig : IModdableTimberbor
     /// If null, all patches in the assembly of this type will be applied.
     /// </summary>
     string? PatchCategory { get; }
+}
+
+public interface IHarmonyPatchAll : IModdableTimberbornRegistryWithPatchConfig
+{
+    string? IModdableTimberbornRegistryWithPatchConfig.PatchCategory => null;
 }
 
 public interface IWithDIConfig { }

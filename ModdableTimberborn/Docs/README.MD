@@ -73,6 +73,7 @@ The available enablers:
 | `UseMechanicalSystem()` | Runtime-moddable power input/output | [Mechanical System](./MechanicalSystem.MD) |
 | `UseSoakEffect()` | Per-character water-submersion ticks | [Effect Components](./EffectComponents.MD) |
 | `UseAreaApis()` | Spatial zone (area) tracking | [Areas](./Areas.MD) |
+| `UseExtraHaulerTargets()` | Register extra inventories as hauler destinations (e.g. unfinished construction sites) | `HaulingSystem/Plan.MD` |
 | `IWithDIConfig` (marker interface) | Spec & template (prefab) modifiers — auto-enabled by the base class. (`UseDependencyInjection()` still works but is `[Obsolete]`.) | [Spec & Template Modifiers](./SpecAndTemplateModifiers.MD) |
 
 ## Subsystem guides
