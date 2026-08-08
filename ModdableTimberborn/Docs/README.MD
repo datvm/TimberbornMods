@@ -73,7 +73,7 @@ The available enablers:
 | `UseMechanicalSystem()` | Runtime-moddable power input/output | [Mechanical System](./MechanicalSystem.MD) |
 | `UseSoakEffect()` | Per-character water-submersion ticks | [Effect Components](./EffectComponents.MD) |
 | `UseAreaApis()` | Spatial zone (area) tracking | [Areas](./Areas.MD) |
-| `UseExtraHaulerTargets()` | Register extra inventories as hauler destinations (e.g. unfinished construction sites) | `HaulingSystem/Plan.MD` |
+| `UseExtraHaulerTargets()` | Register extra inventories as hauler destinations (e.g. unfinished construction sites) | [Extra Hauler Targets](./ExtraHaulerTargets.MD) |
 | `IWithDIConfig` (marker interface) | Spec & template (prefab) modifiers — auto-enabled by the base class. (`UseDependencyInjection()` still works but is `[Obsolete]`.) | [Spec & Template Modifiers](./SpecAndTemplateModifiers.MD) |
 
 ## Subsystem guides
@@ -86,4 +86,5 @@ The available enablers:
 - [Spec & Template Modifiers](./SpecAndTemplateModifiers.MD) — rewrite component specs and prefab templates as the game loads them.
 - [Effect Components](./EffectComponents.MD) — togglable buffs applied while a beaver enters a building, works a job, or is soaked.
 - [Areas](./Areas.MD) — track which characters are inside user-defined zones.
+- [Extra Hauler Targets](./ExtraHaulerTargets.MD) — let haulers fill non-haul-candidate inventories (e.g. construction sites).
 - [Utilities](./Utilities.MD) — JSON serialization, optional-mod loading, weather compatibility, and assorted services.
