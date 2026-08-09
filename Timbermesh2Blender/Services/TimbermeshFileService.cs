@@ -1,4 +1,4 @@
-﻿namespace Timbermesh2Blender.Services;
+namespace Timbermesh2Blender.Services;
 
 using System.IO.Compression;
 using ProtoBuf;
@@ -22,6 +22,20 @@ public static class TimbermeshFileService
         }
 
         return null;
+    }
+
+    public static async Task WriteAsync(Model model, string filePath)
+    {
+        var directory = Path.GetDirectoryName(filePath);
+        if (!string.IsNullOrEmpty(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+
+        await using var fileStream = File.Create(filePath);
+        // ZLibStream writes a full zlib wrapper (header + deflate + Adler-32), matching game files.
+        await using var zlibStream = new ZLibStream(fileStream, CompressionLevel.Optimal);
+        Serializer.Serialize(zlibStream, model);
     }
 
     public static async Task<TimbermeshFile?> TryParsePrefabFileAsync(string filePath)
@@ -71,13 +85,40 @@ public static class TimbermeshFileService
 
     static async Task<MemoryStream> GetDecompressedStreamAsync(Stream stream)
     {
+        // Prefer full zlib when the standard header is present; fall back to raw deflate after 78 9C.
+        if (stream.CanSeek)
+        {
+            var first = stream.ReadByte();
+            var second = stream.ReadByte();
+            stream.Position = 0;
+
+            if (first == FirstZLibHeaderByte)
+            {
+                var memoryStream = new MemoryStream();
+                await using (var zlibStream = new ZLibStream(stream, CompressionMode.Decompress, leaveOpen: true))
+                {
+                    await zlibStream.CopyToAsync(memoryStream);
+                }
+
+                memoryStream.Position = 0L;
+                return memoryStream;
+            }
+
+            if (first < 0 || second < 0)
+            {
+                throw new InvalidDataException("Empty timbermesh stream");
+            }
+
+            throw new InvalidDataException("Incorrect Zlib compression file header");
+        }
+
         ValidateFileHeader(stream);
 
-        var memoryStream = new MemoryStream();
+        var fallback = new MemoryStream();
         await using var deflateStream = new DeflateStream(stream, CompressionMode.Decompress, leaveOpen: true);
-        await deflateStream.CopyToAsync(memoryStream);
-        memoryStream.Position = 0L;
-        return memoryStream;
+        await deflateStream.CopyToAsync(fallback);
+        fallback.Position = 0L;
+        return fallback;
     }
 
     static void ValidateFileHeader(Stream stream)
