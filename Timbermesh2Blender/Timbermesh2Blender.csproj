@@ -11,11 +11,11 @@
 		<ToolCommandName>tmesh2glb</ToolCommandName>
 		<PackageId>TMesh2Glb</PackageId>
 		<AssemblyName>TMesh2Glb</AssemblyName>
-		<Version>1.0.0</Version>
+		<Version>1.1.0</Version>
 		<Authors>Luke Vo</Authors>
 		<Company>Luke Vo</Company>
-		<Description>Convert Timberborn Timbermesh models to glTF/GLB for Blender, with materials and textures resolved from game resources.</Description>
-		<PackageTags>timberborn;timbermesh;glb;gltf;blender;dotnet-tool</PackageTags>
+		<Description>Convert Timberborn Timbermesh models to glTF/GLB for Blender, or dump/pack machine-friendly JSON for AI editing.</Description>
+		<PackageTags>timberborn;timbermesh;glb;gltf;blender;json;dotnet-tool</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/datvm/TimberbornMods/tree/master/Timbermesh2Blender</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/datvm/TimberbornMods/tree/master/Timbermesh2Blender</RepositoryUrl>

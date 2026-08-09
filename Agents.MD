@@ -52,3 +52,23 @@ If `ModdingAssetUpdater/out` does not exist or is empty, ask the user to decompi
 Game assemblies are publicized for mod projects. It is okay to reference publicized Timberborn types and members directly in code and Harmony patches instead of avoiding `internal` or private members with reflection-only approaches.
 
 When converting grid coordinates or directions into Unity/world vectors, check `CoordinateSystem` and its namespace code first. It likely already has the conversion needed, so avoid adding local helpers like `ToUnityDirection` unless the built-in conversion does not fit.
+
+## Timbermesh models (read / edit)
+
+When you need to **read or edit** a `.timbermesh` model (node hierarchy, materials, meshes, doors/props, etc.), use the `tmesh2glb` tool from `Timbermesh2Blender` — do **not** try to parse the binary by hand.
+
+Working directory for dumps/packs: **`D:\Temp\TimbermeshModel`**.
+
+```powershell
+# From repo root (or run the built tool / installed global tool `tmesh2glb`)
+dotnet run --project Timbermesh2Blender -- dump -i <model-or-folder> -o D:\Temp\TimbermeshModel -f
+# Edit the produced *.timbermesh.json
+dotnet run --project Timbermesh2Blender -- pack -i D:\Temp\TimbermeshModel\<name>.timbermesh.json -o D:\Temp\TimbermeshModel -f
+```
+
+Notes:
+
+- Default dump keeps vertex attributes as **base64** (lossless). Use `--decode-vertices` only when you need numeric position/normal/uv arrays.
+- Prefer structural edits in JSON (delete/rename/reparent nodes, swap material names). Use **glb** export + Blender for real mesh sculpting.
+- After packing, you can preview with `tmesh2glb glb -i ... -r <Resources> -o D:\Temp\TimbermeshModel -f`.
+- Game Resources path: `D:\Personal\Mods\Timberborn\V1Data\ExportedProject\Assets\Resources`.
