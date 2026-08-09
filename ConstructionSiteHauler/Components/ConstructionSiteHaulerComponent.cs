@@ -10,21 +10,28 @@ public class ConstructionSiteHaulerComponent(
 ) : BaseComponent, IInitializableEntity, IDeletableEntity, IUnfinishedStateListener
 {
     public Inventory Inventory { get; private set; } = null!;
+    public ConstructionSite ConstructionSite { get; private set; } = null!;
     public DistrictBuilding? DistrictBuilding { get; private set; }
     public ConstructionSiteAccessible? ConstructionSiteAccessible { get; private set; }
-    
+    public PausableBuilding? PausableBuilding { get; private set; }
+
     BuilderPrioritizable? builderPrioritizable;
     public Priority Priority => builderPrioritizable?.Priority ?? Priority.Normal;
+
+    /// <summary>True when the unfinished site is paused (no hauler materials).</summary>
+    public bool IsPaused => PausableBuilding && PausableBuilding!.Paused;
 
     /// <summary>Active extra-hauler registration for this site, if any.</summary>
     internal IDisposable? Registration { get; set; }
 
     public void InitializeEntity()
     {
-        Inventory = GetComponent<ConstructionSite>().Inventory;
+        ConstructionSite = GetComponent<ConstructionSite>();
+        Inventory = ConstructionSite.Inventory;
         DistrictBuilding = GetComponent<DistrictBuilding>();
         ConstructionSiteAccessible = GetComponent<ConstructionSiteAccessible>();
         builderPrioritizable = GetComponent<BuilderPrioritizable>();
+        PausableBuilding = GetComponent<PausableBuilding>();
 
         Inventory.InventoryChanged += OnInventoryChanged;
         if (DistrictBuilding)
@@ -36,6 +43,11 @@ public class ConstructionSiteHaulerComponent(
         if (builderPrioritizable)
         {
             builderPrioritizable.PriorityChanged += OnPriorityChanged;
+        }
+
+        if (PausableBuilding)
+        {
+            PausableBuilding!.PausedChanged += OnPausedChanged;
         }
 
         service.Refresh(this);
@@ -72,6 +84,11 @@ public class ConstructionSiteHaulerComponent(
         service.Refresh(this);
     }
 
+    void OnPausedChanged(object sender, EventArgs e)
+    {
+        service.Refresh(this);
+    }
+
     void DetachHandlers()
     {
         if (Inventory)
@@ -88,6 +105,11 @@ public class ConstructionSiteHaulerComponent(
         if (builderPrioritizable)
         {
             builderPrioritizable!.PriorityChanged -= OnPriorityChanged;
+        }
+
+        if (PausableBuilding)
+        {
+            PausableBuilding!.PausedChanged -= OnPausedChanged;
         }
     }
 }

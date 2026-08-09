@@ -2,10 +2,16 @@
 
 /// <summary>
 /// Vanilla <see cref="DistrictInventoryPicker.ClosestInventoryWithStock(Accessible, string, Predicate{Inventory})"/>
-/// paths from <c>start</c> via <see cref="Accessible.UnblockedSingleAccess"/>, which requires exactly
-/// one access point. Construction sites use multi-access <see cref="ConstructionSiteAccessible"/>,
-/// so we reverse the path direction (warehouse single-access → site multi-access), matching how
-/// builders find stock near a construction site.
+/// paths <b>from</b> <c>start</c> via <see cref="Accessible.FindRoadPath(Accessible, out float)"/>, which uses
+/// <c>FindRoadPathCached</c> and requires a road flow-field cache at the start access.
+/// <list type="bullet">
+/// <item>Multi-access starts (platforms etc.) also break on <see cref="Accessible.UnblockedSingleAccess"/> / <c>.Single()</c>.</item>
+/// <item>Unfinished construction sites never run <c>BuildingCachingFlowField</c>, so even single-access sites throw
+/// <c>InvalidOperationException: There's no cached flow field</c>.</item>
+/// </list>
+/// For multi-access starts and registered extra-hauler destinations we reverse the path
+/// (warehouse → site), matching how builders pick stock, and fall back when a warehouse
+/// entrance is not cached.
 /// </summary>
 [HarmonyPatch, HarmonyPatchCategory(ExtraHaulerTargetConfig.PatchCategoryName)]
 public static class DistrictInventoryPickerPatches
@@ -21,12 +27,12 @@ public static class DistrictInventoryPickerPatches
         Predicate<Inventory> inventoryFilter,
         ref Inventory __result)
     {
-        if (!start || start.HasSingleAccess)
+        if (!start || !ShouldReversePathFromStart(start))
         {
             return true;
         }
 
-        // Multi-access start (e.g. construction site): path FROM warehouse TO site accesses.
+        // Path FROM warehouse (finished / may have cache) TO site accesses (no cache needed at end).
         Inventory? best = null;
         var bestDistance = float.MaxValue;
 
@@ -44,25 +50,97 @@ public static class DistrictInventoryPickerPatches
                 continue;
             }
 
-            // Road warehouse → any site access (end supports multi-access).
-            if (warehouseAccessible.FindRoadPath(start, out var roadDistance)
-                && roadDistance < bestDistance)
+            if (TryDistanceWarehouseToSite(warehouseAccessible, start, out var distance)
+                && distance < bestDistance)
             {
                 best = inventory;
-                bestDistance = roadDistance;
-                continue;
-            }
-
-            // Road → terrain to site access (typical for unfinished construction).
-            if (warehouseAccessible.FindRoadToTerrainPath(start, out _, out var terrainDistance)
-                && terrainDistance < bestDistance)
-            {
-                best = inventory;
-                bestDistance = terrainDistance;
+                bestDistance = distance;
             }
         }
 
         __result = best!;
         return false;
+    }
+
+    /// <summary>
+    /// Reverse when vanilla would crash: multi-access, or extra-hauler dest without flow-field cache.
+    /// Finished workshops keep vanilla start→warehouse pathing.
+    /// </summary>
+    static bool ShouldReversePathFromStart(Accessible start)
+    {
+        if (!start.HasSingleAccess)
+        {
+            return true;
+        }
+
+        var inventory = start.GetComponent<Inventory>();
+        return inventory
+            && ExtraHaulerTargetService.Instance is { } service
+            && service.TryGetRegistration(inventory, out _);
+    }
+
+    /// <summary>
+    /// Warehouse → site distance. Cached road first; instant road if entrance has no cache;
+    /// road-to-terrain for unfinished sites off the road mesh.
+    /// </summary>
+    static bool TryDistanceWarehouseToSite(Accessible warehouse, Accessible site, out float distance)
+    {
+        if (TryFindRoadPath(warehouse, site, out distance))
+        {
+            return true;
+        }
+
+        if (TryFindInstantRoadPath(warehouse, site, out distance))
+        {
+            return true;
+        }
+
+        if (TryFindRoadToTerrainPath(warehouse, site, out distance))
+        {
+            return true;
+        }
+
+        distance = 0f;
+        return false;
+    }
+
+    static bool TryFindRoadPath(Accessible from, Accessible to, out float distance)
+    {
+        try
+        {
+            return from.FindRoadPath(to, out distance);
+        }
+        catch (InvalidOperationException)
+        {
+            // No cached road flow field at `from` (stockpile/entrance not caching).
+            distance = 0f;
+            return false;
+        }
+    }
+
+    static bool TryFindInstantRoadPath(Accessible from, Accessible to, out float distance)
+    {
+        try
+        {
+            return from.FindInstantRoadPath(to, out distance);
+        }
+        catch (InvalidOperationException)
+        {
+            distance = 0f;
+            return false;
+        }
+    }
+
+    static bool TryFindRoadToTerrainPath(Accessible from, Accessible to, out float distance)
+    {
+        try
+        {
+            return from.FindRoadToTerrainPath(to, out _, out distance);
+        }
+        catch (InvalidOperationException)
+        {
+            distance = 0f;
+            return false;
+        }
     }
 }

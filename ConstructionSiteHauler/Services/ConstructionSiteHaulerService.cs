@@ -45,6 +45,12 @@ public class ConstructionSiteHaulerService(
             return;
         }
 
+        // Paused unfinished sites block via BlockableObject; do not accept hauler materials.
+        if (site.IsPaused || (site.ConstructionSite && !site.ConstructionSite.IsOn))
+        {
+            return;
+        }
+
         if (!site.ConstructionSiteAccessible)
         {
             return;
