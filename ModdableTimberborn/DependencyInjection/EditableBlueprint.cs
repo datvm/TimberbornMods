@@ -7,6 +7,8 @@ public class EditableBlueprint(string name)
     public List<EditableBlueprint> Children { get; set; } = [];
     public List<ComponentSpec> Specs { get; set; } = [];
 
+    public BlueprintFileBundle? Source { get; set; }
+
     public EditableBlueprint(Blueprint blueprint) : this(blueprint.Name)
     {
         Children = [.. blueprint.Children.Select(static q => new EditableBlueprint(q))];
