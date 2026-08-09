@@ -1,7 +1,8 @@
 ﻿namespace ModdableTimberborn.DependencyInjection;
 
 public class SpecModifierService(
-    IEnumerable<ISpecModifier> modifiers
+    IEnumerable<ISpecModifier> modifiers,
+    BlueprintSourceService blueprintSourceService
 ) : ISpecServiceTailRunner
 {
     readonly FrozenDictionary<Type, ImmutableArray<ISpecModifier>> modifiersByTypes = modifiers.GroupToDictionary(
@@ -33,7 +34,20 @@ public class SpecModifierService(
                 bps = [.. m.Modify(bps)];
             }
 
-            cachedBp[type] = [.. bps.Select(q => new Lazy<Blueprint>(() => q.ToBlueprint()))];
+            const string SourceName = $"{nameof(ModdableTimberborn)}.{nameof(SpecModifierService)}";
+            List<Lazy<Blueprint>> dst = [];
+            foreach (var bp in bps)
+            {
+                var actual = bp.ToBlueprint();
+                dst.Add(new(() => actual));
+
+                var bpFileSrc = bp.Source ??= new(bp.Name, SourceName, ["{}"], [SourceName]);
+                bpFileSrc = bpFileSrc.AddJson("{}", SourceName);
+
+                blueprintSourceService.Add(bp, bpFileSrc);
+            }
+
+            cachedBp[type] = dst;
         }
     }
 
