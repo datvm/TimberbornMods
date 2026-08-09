@@ -65,6 +65,7 @@ public static class DistrictInventoryPickerPatches
     /// <summary>
     /// Reverse when vanilla would crash: multi-access, or extra-hauler dest without flow-field cache.
     /// Finished workshops keep vanilla start→warehouse pathing.
+    /// Do not call <c>GetComponent&lt;Inventory&gt;</c> here — mills/workshops have multiple inventories and throw.
     /// </summary>
     static bool ShouldReversePathFromStart(Accessible start)
     {
@@ -73,10 +74,7 @@ public static class DistrictInventoryPickerPatches
             return true;
         }
 
-        var inventory = start.GetComponent<Inventory>();
-        return inventory
-            && ExtraHaulerTargetService.Instance is { } service
-            && service.TryGetRegistration(inventory, out _);
+        return ExtraHaulerTargetService.Instance?.IsRegisteredAccessible(start) == true;
     }
 
     /// <summary>
