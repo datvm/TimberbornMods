@@ -18,6 +18,8 @@ public class ExtraHaulerTargetService : ILoadableSingleton, IUnloadableSingleton
 
     readonly Dictionary<Inventory, Entry> byInventory = [];
     readonly Dictionary<DistrictCenter, HashSet<Inventory>> byDistrict = [];
+    /// <summary>Registered destination accessibles (for reverse stock pathing; avoids multi-inventory GetComponent).</summary>
+    readonly HashSet<Accessible> registeredAccessibles = [];
 
     public void Load()
     {
@@ -33,6 +35,7 @@ public class ExtraHaulerTargetService : ILoadableSingleton, IUnloadableSingleton
 
         byInventory.Clear();
         byDistrict.Clear();
+        registeredAccessibles.Clear();
     }
 
     public IDisposable AddExtraTarget(ExtraHaulerTargetRegistration registration)
@@ -60,6 +63,10 @@ public class ExtraHaulerTargetService : ILoadableSingleton, IUnloadableSingleton
 
         var entry = new Entry(registration, fill, Prioritized: false);
         byInventory[registration.Inventory] = entry;
+        if (registration.Accessible is { } accessible)
+        {
+            registeredAccessibles.Add(accessible);
+        }
 
         foreach (var district in registration.Districts)
         {
@@ -88,6 +95,10 @@ public class ExtraHaulerTargetService : ILoadableSingleton, IUnloadableSingleton
         }
 
         byInventory.Remove(inventory);
+        if (entry.Registration.Accessible is { } accessible)
+        {
+            registeredAccessibles.Remove(accessible);
+        }
 
         foreach (var district in entry.Registration.Districts)
         {
@@ -103,6 +114,13 @@ public class ExtraHaulerTargetService : ILoadableSingleton, IUnloadableSingleton
             }
         }
     }
+
+    /// <summary>
+    /// True when <paramref name="accessible"/> was registered as an extra haul destination.
+    /// Safe for multi-inventory buildings (do not use <c>GetComponent&lt;Inventory&gt;</c> on those).
+    /// </summary>
+    public bool IsRegisteredAccessible(Accessible accessible)
+        => accessible && registeredAccessibles.Contains(accessible);
 
     /// <summary>
     /// Mirrors vanilla haul prioritizable boost. No-op if not registered.
