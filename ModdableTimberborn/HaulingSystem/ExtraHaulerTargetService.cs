@@ -212,11 +212,6 @@ public class ExtraHaulerTargetService : ILoadableSingleton, IUnloadableSingleton
 
     internal static float ApplyPrioritize(float weight, bool prioritized)
     {
-        if (weight < 0f || weight > 1f)
-        {
-            Debug.LogWarning("Extra hauler target weight should be between 0 and 1!");
-        }
-
         if (prioritized && weight >= 0.5f)
         {
             return weight + PriorityFactor;

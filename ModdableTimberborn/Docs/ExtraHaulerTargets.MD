@@ -175,7 +175,7 @@ Unregister when full so weight does not matter after completion.
 |-------|------|
 | `DistrictHaulCandidates.GetWorkplaceBehaviorsOrdered` | Merges registered fill jobs into the same weighted sort as vanilla haul candidates |
 | `CarrierInventoryFinder.TryCarryFromAnyInventoryInternal` | Stock district = **hauler workplace district** (transpiler replaces district assignment) |
-| `DistrictInventoryPicker.ClosestInventoryWithStock(Accessible, …)` | Multi-access destinations: path **warehouse → site** (avoids `UnblockedSingleAccess` / `.Single()` crash on construction sites) |
+| `DistrictInventoryPicker.ClosestInventoryWithStock(Accessible, …)` | Extra-hauler / multi-access destinations: path **warehouse → site** (avoids multi-access `.Single()` and **missing road flow-field cache** on unfinished sites). Falls back to instant road / road-to-terrain if a warehouse entrance is not cached. |
 
 Do not add a separate workplace behavior on the hauling post for extras — that would run entirely before/after all normal haul jobs and break weight ordering.
 
@@ -205,6 +205,7 @@ Reference implementation: **Construction Site Hauler** (`ConstructionSiteHauler/
 - **Registrations are not saved** — re-register after load.  
 - **`Districts` ≠ stock district** — stock always comes from the **hauler’s** district once the job is taken.  
 - **No entrance** → no `DistrictBuilding` → use spill-based district lists; do not assume `ConstructionDistrict` exists.  
-- **Multi-access** destinations need the inventory-picker patch (enabled with this subsystem).  
+- **Multi-access** and **unfinished single-access** destinations need the inventory-picker patch (enabled with this subsystem). Vanilla paths *from* the receiver with a cached flow field; construction sites never start `BuildingCachingFlowField`, so the patch reverses warehouse → site.  
+
 - **Equal weights** among many sites do not guarantee finish-one-then-next; haulers can feed several in parallel. Prefer fixed Normal+ weights if you want completion over drip-feeding every site equally.  
 - Hot path: prefer `ExtraHaulerTargetService.Instance` over container lookup when patches need the service.
