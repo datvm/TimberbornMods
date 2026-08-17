@@ -1,0 +1,1 @@
+﻿v11.0.1: Fixed an issue where removed support of doorstep causing non-connection district and stuck beavers. A building may need more than 4 supports now if the entrance is not in the corner. Thanks SimKDT for reporting.

@@ -29,9 +29,11 @@ public class FourpillarsBuildingModifier : ITemplateModifier
             if (support.Count <= 4) { return null; }
 
             var (sw, nw, se, ne) = SelectCornerSupports(support);
-            pivot = new(sw.x + 0.5f, sw.y + 0.5f, 0f);
-
             HashSet<Vector2Int> keep = [sw, nw, se, ne];
+            AddRequiredEntranceSupports(keep, support, bos.Entrance, baseZ, sx, sy);
+            if (keep.Count >= support.Count) { return null; }
+
+            pivot = new(sw.x + 0.5f, sw.y + 0.5f, 0f);
             foreach (var cell in support)
             {
                 if (keep.Contains(cell)) { continue; }
@@ -54,6 +56,17 @@ public class FourpillarsBuildingModifier : ITemplateModifier
             },
         });
 
+        var entrance = originalTemplateSpec.GetSpec<BlockObjectSpec>().Entrance;
+        if (entrance.HasEntrance)
+        {
+            var localAccess = CoordinateSystem.GridToWorldCentered(
+                entrance.Coordinates - Direction2D.Down.ToOffset());
+            template.TransformSpec<BuildingAccessibleSpec>(spec => spec with
+            {
+                LocalAccess = localAccess,
+            });
+        }
+
         return template;
     }
 
@@ -67,6 +80,48 @@ public class FourpillarsBuildingModifier : ITemplateModifier
         && bld.Size is var (x, y, _)
         && (x > 2 || y > 2)
         && !bld.Blocks.FastAny(b => b.Underground);
+
+    /// <summary>
+    /// District connection and grab pathing need a real floor on the doorstep
+    /// (entrance - Down). The porch itself is usually at local Y = -1, off the
+    /// footprint; keep it only when it is an actual support cell.
+    /// </summary>
+    static void AddRequiredEntranceSupports(
+        HashSet<Vector2Int> keep,
+        List<Vector2Int> support,
+        EntranceBlockSpec entrance,
+        int baseZ,
+        int sizeX,
+        int sizeY)
+    {
+        if (!entrance.HasEntrance) { return; }
+
+        KeepIfSupport(keep, support, entrance.Coordinates, baseZ, sizeX, sizeY);
+        var doorstep = entrance.Coordinates - Direction2D.Down.ToOffset();
+        KeepIfSupport(keep, support, doorstep, baseZ, sizeX, sizeY);
+    }
+
+    static void KeepIfSupport(
+        HashSet<Vector2Int> keep,
+        List<Vector2Int> support,
+        Vector3Int local,
+        int baseZ,
+        int sizeX,
+        int sizeY)
+    {
+        if (local.z != baseZ
+            || local.x < 0 || local.y < 0
+            || local.x >= sizeX || local.y >= sizeY)
+        {
+            return;
+        }
+
+        Vector2Int cell = new(local.x, local.y);
+        if (support.Contains(cell))
+        {
+            keep.Add(cell);
+        }
+    }
 
     /// <summary>
     /// Four diagonal extremes of the support set (ties broken on the secondary axis).
