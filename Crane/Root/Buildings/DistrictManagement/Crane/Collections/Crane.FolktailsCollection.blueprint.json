@@ -1,0 +1,9 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.Folktails",
+        "Blueprints": [
+            "Buildings/DistrictManagement/Crane/Crane.Folktails.blueprint",
+            "Buildings/DistrictManagement/CraneSection/CraneSection.Folktails.blueprint"
+        ]
+    }
+}
