@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputModFolderName>Crane</OutputModFolderName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Root\Buildings\DistrictManagement\Crane\Collections\" />
+  </ItemGroup>
+  <Import Project="../Targets/Common.targets" />
+  <Import Project="../Targets/CommonModdableTimberborn.targets" />
+  <ItemGroup>
+    <Using Include="Crane" />
+    <Using Include="Crane.Components" />
+    <Using Include="Crane.Components.Behaviors" />
+    <Using Include="Crane.Jobs" />
+    <Using Include="Crane.Models" />
+    <Using Include="Crane.Services" />
+    <Using Include="ModdableTimberborn.EntityTracker" />
+  </ItemGroup>
+</Project>

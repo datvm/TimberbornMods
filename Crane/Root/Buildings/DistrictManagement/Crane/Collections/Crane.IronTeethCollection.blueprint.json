@@ -1,0 +1,9 @@
+{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.IronTeeth",
+        "Blueprints": [
+            "Buildings/DistrictManagement/Crane/Crane.IronTeeth.blueprint",
+            "Buildings/DistrictManagement/CraneSection/CraneSection.IronTeeth.blueprint"
+        ]
+    }
+}
