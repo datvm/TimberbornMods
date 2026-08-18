@@ -2,7 +2,7 @@
 global using System.Diagnostics;
 global using System.IO.Compression;
 
-const bool Config_DecompileGameAssemblies = false;
+const bool Config_DecompileGameAssemblies = true;
 
 const string OutputFolder = @"D:\Personal\Mods\Timberborn\V1Data\ExportedProject\Assets\Resources";
 

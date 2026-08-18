@@ -1,0 +1,152 @@
+﻿{
+    "BuildingSpec": {
+        "SelectionSoundName": "Default",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            {
+                "Id": "Plank",
+                "Amount": 4
+            },
+            {
+                "Id": "Gear",
+                "Amount": 1
+            }
+        ],
+        "ScienceCost": 0,
+        "PlaceFinished": false,
+        "FinishableWithBeaversOnSite": false,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "CraneSection.IronTeeth",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BlockObjectSpec": {
+        "Size": {
+            "X": 1,
+            "Y": 1,
+            "Z": 1
+        },
+        "Blocks": [
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Top, Corners",
+                "Stackable": "BlockObject",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
+        "Entrance": {
+            "HasEntrance": false,
+            "Coordinates": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": false
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "DistrictManagement",
+        "ToolOrder": 36,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": true
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.Cr.CraneSectionName",
+        "DescriptionLocKey": "LV.Cr.CraneSectionDesc",
+        "FlavorDescriptionLocKey": "LV.Cr.CraneSectionFlavor",
+        "Icon": "Buildings/DistrictManagement/CraneSection/CraneSectionIcon"
+    },
+    "ConstructionSiteProgressVisualizerSpec": {
+        "ProgressThresholds": [
+            0.0
+        ]
+    },
+    "CraneSectionSpec": {},
+    "Children": {
+        "#Finished": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/DistrictManagement/CraneSection/CraneSection.IronTeeth.Model"
+            },
+            "CollidersSpec": {
+                "BoxColliders": [
+                    {
+                        "Center": { "X": 0.11, "Y": 0.5, "Z": 0.11 },
+                        "Size": { "X": 0.2, "Y": 1.0, "Z": 0.2 }
+                    },
+                    {
+                        "Center": { "X": 0.89, "Y": 0.5, "Z": 0.11 },
+                        "Size": { "X": 0.2, "Y": 1.0, "Z": 0.2 }
+                    },
+                    {
+                        "Center": { "X": 0.89, "Y": 0.5, "Z": 0.89 },
+                        "Size": { "X": 0.2, "Y": 1.0, "Z": 0.2 }
+                    },
+                    {
+                        "Center": { "X": 0.11, "Y": 0.5, "Z": 0.89 },
+                        "Size": { "X": 0.2, "Y": 1.0, "Z": 0.2 }
+                    }
+                ],
+                "SphereColliders": [],
+                "CapsuleColliders": []
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase1x1#nested": {
+                    "BlueprintPath": "ConstructionBases/ConstructionBase1x1/ConstructionBase1x1.blueprint"
+                },
+                "ConstructionStage0": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/DistrictManagement/CraneSection/CraneSection.IronTeeth.ConstructionStage0.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": { "X": 0.11, "Y": 0.5, "Z": 0.11 },
+                                "Size": { "X": 0.2, "Y": 1.0, "Z": 0.2 }
+                            },
+                            {
+                                "Center": { "X": 0.89, "Y": 0.5, "Z": 0.11 },
+                                "Size": { "X": 0.2, "Y": 1.0, "Z": 0.2 }
+                            },
+                            {
+                                "Center": { "X": 0.89, "Y": 0.5, "Z": 0.89 },
+                                "Size": { "X": 0.2, "Y": 1.0, "Z": 0.2 }
+                            },
+                            {
+                                "Center": { "X": 0.11, "Y": 0.5, "Z": 0.89 },
+                                "Size": { "X": 0.2, "Y": 1.0, "Z": 0.2 }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        }
+    }
+}
