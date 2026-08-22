@@ -1,0 +1,12 @@
+﻿{
+    "BlockObjectToolGroupSpec": {
+        "Id": "CraneHeads",
+        "Order": 10,
+        "NameLocKey": "LV.CrH.GroupName",
+        "Icon": "Sprites/BottomBar/BuildingGroups/CraneHeads",
+        "FallbackGroup": false
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "DistrictManagement" ]
+    }
+}

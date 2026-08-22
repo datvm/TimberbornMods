@@ -1,0 +1,12 @@
+﻿ID,Text,Comment
+LV.CrH.GroupName,"Crane Heads",
+LV.CrH.JibName,"Jib",
+LV.CrH.JibDesc,"A Crane Head that extends a Crane's working area from 3×3 to 5×5. Place it on top of a Crane Section.",
+LV.CrH.JibFlavor,"Whoever designed this insisted the extra reach was for efficiency. The extra spinning was the real fun.",
+LV.CrH.HeadRangeBonus,"● <YellowHighlight>Extra range</YellowHighlight>: {0}"
+LV.CrH.MustPlaceHeadOnCraneSection,"Must be placed on a Crane Section."
+LV.CrH.TrebuchetName,"Trebuchet",
+LV.CrH.TrebuchetDesc,"A Crane Head that launches rubble away from the mast instead of storing it. Place it on top of a Crane Section.",
+LV.CrH.TrebuchetFlavor,"Hooman used it to launch 90 kg projectiles over 300 meters.",
+LV.CrH.TrebuchetLaunch,"● <YellowHighlight>Launches rubble</YellowHighlight> {0} tiles away"
+LV.CrH.HeadLabel,"Crane Head: ",

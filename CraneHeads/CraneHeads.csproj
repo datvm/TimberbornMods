@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputModFolderName>CraneHeads</OutputModFolderName>
+	</PropertyGroup>
+
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonCrane.targets" />
+
+	<ItemGroup>
+		<Using Include="CraneHeads.Components" />
+		<Using Include="CraneHeads.Services" />
+		<Using Include="CraneHeads.UI" />
+		<Using Include="ModdableTimberborn.EntityTracker" />
+	</ItemGroup>
+</Project>

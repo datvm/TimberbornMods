@@ -1,0 +1,9 @@
+{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.IronTeeth",
+        "Blueprints": [
+            "Buildings/CraneHeads/Jib/Jib.IronTeeth.blueprint",
+            "Buildings/CraneHeads/Trebuchet/Trebuchet.IronTeeth.blueprint"
+        ]
+    }
+}

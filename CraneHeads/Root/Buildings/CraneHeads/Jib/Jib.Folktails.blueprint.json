@@ -1,0 +1,332 @@
+﻿{
+    "BuildingSpec": {
+        "SelectionSoundName": "Default",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            {
+                "Id": "MetalBlock",
+                "Amount": 4
+            },
+            {
+                "Id": "Gear",
+                "Amount": 4
+            }
+        ],
+        "ScienceCost": 500,
+        "PlaceFinished": false,
+        "FinishableWithBeaversOnSite": false,
+        "DrawRangeBoundsOnIt": true
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "Jib.Folktails",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BlockObjectSpec": {
+        "Size": {
+            "X": 5,
+            "Y": 5,
+            "Z": 1
+        },
+        "Blocks": [
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Stackable",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
+        "Entrance": {
+            "HasEntrance": false,
+            "Coordinates": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": false
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "CraneHeads",
+        "ToolOrder": 10,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": false
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.CrH.JibName",
+        "DescriptionLocKey": "LV.CrH.JibDesc",
+        "FlavorDescriptionLocKey": "LV.CrH.JibFlavor",
+        "Icon": "Buildings/CraneHeads/Jib/JibIcon"
+    },
+    "ConstructionSiteProgressVisualizerSpec": {
+        "ProgressThresholds": [
+            0.0
+        ]
+    },
+    "CraneHeadSpec": {
+        "AttachmentCoordinates": {
+            "X": 2,
+            "Y": 2,
+            "Z": 0
+        }
+    },
+    "CraneHeadJibSpec": {
+        "ExtraRange": 1
+    },
+    "Children": {
+        "#Finished": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/CraneHeads/Jib/Jib.Folktails.Model"
+            },
+            "CollidersSpec": {
+                "BoxColliders": [
+                    {
+                        "Center": { "X": 2.5, "Y": 0.5, "Z": 2.5 },
+                        "Size": { "X": 5.0, "Y": 1.0, "Z": 1.0 }
+                    },
+                    {
+                        "Center": { "X": 2.5, "Y": 0.5, "Z": 2.5 },
+                        "Size": { "X": 1.0, "Y": 1.0, "Z": 5.0 }
+                    }
+                ],
+                "SphereColliders": [],
+                "CapsuleColliders": []
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase1x1#nested": {
+                    "BlueprintPath": "ConstructionBases/ConstructionBase1x1/ConstructionBase1x1.blueprint",
+                    "Modification": {
+                        "TransformSpec": {
+                            "Position": {
+                                "X": 2.0,
+                                "Y": 0.0,
+                                "Z": 2.0
+                            },
+                            "Rotation": {
+                                "X": 0.0,
+                                "Y": 0.0,
+                                "Z": 0.0
+                            },
+                            "Scale": {
+                                "X": 1.0,
+                                "Y": 1.0,
+                                "Z": 1.0
+                            }
+                        }
+                    }
+                },
+                "ConstructionStage0": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/CraneHeads/Jib/Jib.Folktails.ConstructionStage0.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": { "X": 2.5, "Y": 0.05, "Z": 2.5 },
+                                "Size": { "X": 5.0, "Y": 0.1, "Z": 1.0 }
+                            },
+                            {
+                                "Center": { "X": 2.5, "Y": 0.05, "Z": 2.5 },
+                                "Size": { "X": 1.0, "Y": 0.1, "Z": 5.0 }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        }
+    }
+}

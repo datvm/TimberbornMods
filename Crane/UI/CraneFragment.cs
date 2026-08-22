@@ -7,13 +7,48 @@ public class CraneFragment(
     CraneStructureService structureService
 ) : BaseEntityPanelFragment<CraneComponent>
 {
-    Label height = null!;
-    Button buildHigher = null!;
+#nullable disable
+    Label height, range;
+    Button buildHigher;
+#nullable enable
+
+    public CraneComponent? Crane => component;
+
+    public event EventHandler<CraneComponent>? OnShowFragment;
+    public event EventHandler<CraneComponent>? OnUpdateFragment;
+    public event EventHandler? OnClearFragment;
+
+    bool initialized;
+    readonly List<Action<EntityPanelFragmentElement>> initializationActions = [];
+
+    public void AppendInitializePanel(Action<EntityPanelFragmentElement> action)
+    {
+        if (initialized)
+        {
+            action.Invoke(panel);
+        }
+        else
+        {
+            initializationActions.Add(action);
+        }
+    }
 
     protected override void InitializePanel()
     {
-        height = panel.AddGameLabel().SetMarginBottom();
+        var row = panel.AddRow().AlignItems().SetMarginBottom();
+
+        height = row.AddGameLabel();
+        range = row.AddGameLabel();
+        height.style.flexBasis = range.style.flexBasis = Length.Percent(50f);
+
         buildHigher = panel.AddGameButtonPadded(t.T("LV.Cr.BuildHigher"), BuildHigher).SetFlexGrow();
+
+        initialized = true;
+        foreach (var action in initializationActions)
+        {
+            action.Invoke(panel);
+        }
+        initializationActions.Clear();
     }
 
     public override void ShowFragment(BaseComponent entity)
@@ -26,6 +61,7 @@ public class CraneFragment(
         }
 
         buildHigher.SetEnabled(structureService.CanBuildHigher(component));
+        OnShowFragment?.Invoke(this, component);
     }
 
     public override void UpdateFragment()
@@ -36,15 +72,24 @@ public class CraneFragment(
             return;
         }
 
-        UpdateHeight();
+        UpdateData();
+        OnUpdateFragment?.Invoke(this, component);
     }
 
-    void UpdateHeight()
+    public override void ClearFragment()
+    {
+        OnClearFragment?.Invoke(this, EventArgs.Empty);
+        base.ClearFragment();
+    }
+
+    void UpdateData()
     {
         var tower = component!.Tower;
+
         height.text = tower.TargetHeight > tower.Height
             ? t.T("LV.Cr.HeightPending", tower.Height, tower.TargetHeight)
             : t.T("LV.Cr.Height", tower.Height);
+        range.text = t.T("LV.Cr.Range", tower.HorizontalRange);
     }
 
     void BuildHigher()
@@ -58,7 +103,7 @@ public class CraneFragment(
             return;
         }
 
-        UpdateHeight();
+        UpdateData();
         buildHigher.SetEnabled(structureService.CanBuildHigher(component!));
     }
 

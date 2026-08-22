@@ -4,7 +4,7 @@
 public class CraneSectionComponent(
     CraneStructureService craneStructureService,
     GoodRecoveryRateService goodRecoveryRateService
-) : BaseComponent, IRecoverableGoodMultiplier, IAwakableComponent, IUnfinishedStateListener, IFinishedStateListener, IDeletableEntity
+) : BaseComponent, ICranePartComponent, IRecoverableGoodMultiplier, IAwakableComponent, IUnfinishedStateListener, IFinishedStateListener, IDeletableEntity
 {
 
     BlockObject bo = null!;
@@ -14,6 +14,8 @@ public class CraneSectionComponent(
 
     public CraneTower? Tower { get; internal set; }
     public CraneComponent? Crane => Tower?.Crane;
+
+    public CraneComponent? GetCrane() => Crane ?? craneStructureService.FindCraneOfSection(this);
 
     public void Awake()
     {

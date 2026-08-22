@@ -34,10 +34,16 @@ public class CraneStructureService(
         }
     }
 
+    public void SelectCrane(CraneComponent? crane)
+    {
+        if (!crane) { return; }
+        entitySelectionService.SelectAndFocusOn(crane);
+    }
+
     public void SelectCraneOfSection(CraneSectionComponent? section)
     {
         if (!section || section!.Crane is not { } c) { return; }
-        entitySelectionService.SelectAndFocusOn(c);
+        SelectCrane(c);
     }
 
     public void PostLoad()
@@ -61,7 +67,9 @@ public class CraneStructureService(
         }
     }
 
-    public void RefreshCraneStructure(CraneComponent c, CraneSectionComponent? ignoring = null)
+    public void RefreshCraneStructure(
+        CraneComponent c,
+        CraneSectionComponent? ignoring = null)
     {
         if (!postLoaded) { return; }
 
@@ -110,6 +118,17 @@ public class CraneStructureService(
         OnCraneTowerChanged?.Invoke(this, tower);
     }
 
+    public void NotifyRangeChanged(CraneTower tower)
+    {
+        if (!postLoaded)
+        {
+            return;
+        }
+
+        UpdateWorkingBounds(tower);
+        OnCraneTowerChanged?.Invoke(this, tower);
+    }
+
     /// <summary>
     /// True if a Crane Section can be placed on the current top, including on an unfinished section.
     /// Vanilla <see cref="BlockValidator"/> already accepts unfinished stackable as matter below.
@@ -134,6 +153,40 @@ public class CraneStructureService(
 
         constructionFactory.CreateAsUnfinished(new EntitySetup.Builder(spec.Blueprint), placement);
         return true;
+    }
+
+    public bool HasCraneBelow(CraneSectionComponent section)
+    {
+        if (!section)
+        {
+            return false;
+        }
+
+        var bo = section.GetComponent<BlockObject>();
+        if (!bo || !bo.Positioned)
+        {
+            return false;
+        }
+
+        foreach (var obj in blockService.GetObjectsAt(section.Coordinates.Below()))
+        {
+            if (obj == bo)
+            {
+                continue;
+            }
+
+            if (obj.GetComponent<CraneComponent>() is { } c && c)
+            {
+                return true;
+            }
+
+            if (obj.GetComponent<CraneSectionComponent>() is { } s && s)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public CraneComponent? FindCraneOfSection(CraneSectionComponent s)
@@ -210,7 +263,7 @@ public class CraneStructureService(
         var origin = tower.Bottom;
         var topZ = tower.Top.z;
 
-        var range = TowerRange;
+        var range = tower.HorizontalRange;
         // sizeZ is exclusive; +2 includes one layer above the mast (vanilla ConstructionSiteAccessible MinZ is baseZ - 1).
         tower.WorkingBounds = new(
             origin.x - range,

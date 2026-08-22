@@ -16,6 +16,7 @@ public class CraneTower(CraneComponent Crane)
     public Vector3Int TopIncludingUnfinished => UnderConstructionSections.LastOrDefault()?.Coordinates ?? Top;
     public int Height => Top.z - Bottom.z + 1;
     public int TargetHeight => TopIncludingUnfinished.z - Bottom.z + 1;
+    public int HorizontalRange => Crane.HorizontalRange;
 
     public bool Contains(BlockObject bo)
     {

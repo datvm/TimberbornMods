@@ -1,0 +1,21 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<Import Project="./CommonModdableTimberborn.targets" />
+	
+	<PropertyGroup>
+		<CranePath>$(GameModsFolder)Crane\$(TimberbornVersion)\**\*.dll</CranePath>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<Using Include="Crane" />
+		<Using Include="Crane.Components" />
+		<Using Include="Crane.Components.Behaviors" />
+		<Using Include="Crane.Jobs" />
+		<Using Include="Crane.Models" />
+		<Using Include="Crane.Services" />
+		<Using Include="Crane.UI" />
+
+		<Reference Include="$(CranePath)" Private="False" />
+	</ItemGroup>
+
+</Project>

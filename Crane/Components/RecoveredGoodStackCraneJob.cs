@@ -93,16 +93,21 @@ public class RecoveredGoodStackCraneJob(
             return;
         }
 
-        var dest = crane.GetComponent<CraneInventory>();
-        if (!dest || !dest.Inventory || !dest.Inventory.Enabled)
-        {
-            return;
-        }
-
         leftover += hours * ItemsPerHour;
         var items = (int)leftover;
         leftover -= items;
         if (items <= 0)
+        {
+            return;
+        }
+
+        if (crane.TryProcessRubble(stack, items))
+        {
+            return;
+        }
+
+        var dest = crane.GetComponent<CraneInventory>();
+        if (!dest || !dest.Inventory || !dest.Inventory.Enabled)
         {
             return;
         }

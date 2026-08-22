@@ -47,13 +47,6 @@
     <Project Path="ModdableDecalGroups/ModdableDecalGroups.csproj" Id="ba34c21b-13c2-41a3-81ed-d3c7b6346889" />
     <Project Path="TailsAndBannersModMaker/TailsAndBannersModMaker.csproj" Id="70e35928-508a-4e17-82dc-1b14a24fc814" />
   </Folder>
-  <Folder Name="/DistroLogistics/">
-    <Project Path="BuildingRenovations/BuildingRenovations.csproj" Id="ff96ec85-376f-48ac-9d54-5ef2cdd1e7c6" />
-    <Project Path="DistroStorage/DistroStorage.csproj" Id="e403d0a7-4b71-4fd1-961d-59e6c15b129e" />
-    <Project Path="MoreBuildingRenovations/MoreBuildingRenovations.csproj" Id="4e33da4c-7cee-4bb9-88ca-a157added875" />
-    <Project Path="StockpileBalancer/StockpileBalancer.csproj" Id="cdf8588f-efdd-40b8-83bb-534a56c44b9a" />
-    <Project Path="UnstableCoreChallenge/UnstableCoreChallenge.csproj" />
-  </Folder>
   <Folder Name="/Http/">
     <Project Path="MoreHttpApi.Shared/MoreHttpApi.Shared.csproj" Id="96e529d3-e01f-4ca6-abbf-88ce069f86e2" />
     <Project Path="MoreHttpApi/MoreHttpApi.csproj" Id="b551f07a-1ca3-4398-9bef-b7374f425ff4" />
@@ -66,6 +59,15 @@
     <Project Path="PoweredTubeway/PoweredTubeway.csproj" />
     <Project Path="RubblesPlzNoExpire/RubblesPlzNoExpire.csproj" Id="7ae1b9d7-27f9-4e97-9b54-6ab088ecaf03" />
     <Project Path="TimbitsTimbots/TimbitsTimbots.csproj" />
+  </Folder>
+  <Folder Name="/Logistics/">
+    <Project Path="BuildingRenovations/BuildingRenovations.csproj" Id="ff96ec85-376f-48ac-9d54-5ef2cdd1e7c6" />
+    <Project Path="Crane/Crane.csproj" Id="c15696de-b080-4f84-a112-81c2827ec7b5" />
+    <Project Path="CraneHeads/CraneHeads.csproj" Id="bf44072f-2936-4e12-9a7c-22c01f4702b1" />
+    <Project Path="DistroStorage/DistroStorage.csproj" Id="e403d0a7-4b71-4fd1-961d-59e6c15b129e" />
+    <Project Path="MoreBuildingRenovations/MoreBuildingRenovations.csproj" Id="4e33da4c-7cee-4bb9-88ca-a157added875" />
+    <Project Path="StockpileBalancer/StockpileBalancer.csproj" Id="cdf8588f-efdd-40b8-83bb-534a56c44b9a" />
+    <Project Path="UnstableCoreChallenge/UnstableCoreChallenge.csproj" />
   </Folder>
   <Folder Name="/Moddable/">
     <Project Path="ExtendedOptionalModSupport/ExtendedOptionalModSupport.csproj" Id="b2b9ec26-90c8-4059-bd4d-af07b21fae7d" />
@@ -176,6 +178,7 @@
   <Folder Name="/_Utils/Targets/">
     <File Path="Targets/Common.targets" />
     <File Path="Targets/CommonBeaverChronicles.targets" />
+    <File Path="Targets/CommonCrane.targets" />
     <File Path="Targets/CommonDebug.targets" />
     <File Path="Targets/CommonDistroStorage.targets" />
     <File Path="Targets/CommonGlobalUsings.targets" />
@@ -208,7 +211,6 @@
   <Project Path="BlueprintRelics/BlueprintRelics.csproj" Id="6fb1bd59-00b6-4e80-a0ae-1d3b1d4b4823" />
   <Project Path="ConstructionSiteHauler/ConstructionSiteHauler.csproj" Id="00766084-d416-4c0a-ac71-ee8f80b61add" />
   <Project Path="ConveyorBelt/ConveyorBelt.csproj" />
-  <Project Path="Crane/Crane.csproj" Id="c15696de-b080-4f84-a112-81c2827ec7b5" />
   <Project Path="CutAllTrees/CutAllTrees.csproj" />
   <Project Path="DevButton/DevButton.csproj" Id="00e9d4ec-0de4-48b4-b9c6-c8f034db4d06" />
   <Project Path="DisableHauling/DisableHauling.csproj" Id="c4d376e5-0e0a-47a2-b90a-da1a462d9240" />
