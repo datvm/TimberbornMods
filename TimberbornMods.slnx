@@ -208,7 +208,6 @@
   <Project Path="BlueprintRelics/BlueprintRelics.csproj" Id="6fb1bd59-00b6-4e80-a0ae-1d3b1d4b4823" />
   <Project Path="ConstructionSiteHauler/ConstructionSiteHauler.csproj" Id="00766084-d416-4c0a-ac71-ee8f80b61add" />
   <Project Path="ConveyorBelt/ConveyorBelt.csproj" />
-  <Project Path="Crane/Crane.csproj" Id="c15696de-b080-4f84-a112-81c2827ec7b5" />
   <Project Path="CutAllTrees/CutAllTrees.csproj" />
   <Project Path="DevButton/DevButton.csproj" Id="00e9d4ec-0de4-48b4-b9c6-c8f034db4d06" />
   <Project Path="DisableHauling/DisableHauling.csproj" Id="c4d376e5-0e0a-47a2-b90a-da1a462d9240" />

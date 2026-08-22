@@ -8,12 +8,4 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
-		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
-
-		<ProjectReference Include="..\Crane\Crane.csproj" />
-		
-	</ItemGroup>
 </Project>
