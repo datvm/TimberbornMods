@@ -3,6 +3,9 @@
     <OutputModFolderName>Crane</OutputModFolderName>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\Crane\workshop_data.json" Link="workshop_data.json" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Docs\" />
     <Folder Include="Root\Buildings\DistrictManagement\Crane\Collections\" />
   </ItemGroup>
