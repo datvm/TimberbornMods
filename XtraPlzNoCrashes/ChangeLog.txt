@@ -1,0 +1,2 @@
+﻿v11.1.0:
+- XtraAnimationPlzNoCrashes: Missing animations of a character (beavers, bots) won't crash. It will just perform a default animation instead.

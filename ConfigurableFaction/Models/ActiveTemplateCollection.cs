@@ -5,7 +5,7 @@ public class ActiveTemplateCollection
     readonly ISpecService specs = null!;
     public static readonly ActiveTemplateCollection Empty = new();
 
-    public FrozenSet<string> CollectionIds { get; private set; } = [];
+    public FrozenSet<string> CollectionIds { get; private set; } = FrozenSet<string>.Empty;
 
     ActiveTemplateCollection() { }
     public ActiveTemplateCollection(ISpecService specs)
@@ -22,7 +22,7 @@ public class ActiveTemplateCollection
             ids.AddRange(f.TemplateCollectionIds);
         }
 
-        CollectionIds = [..ids];
+        CollectionIds = ids.ToFrozenSet();
     }
 
 }

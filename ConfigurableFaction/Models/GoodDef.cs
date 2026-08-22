@@ -8,5 +8,5 @@ public class GoodDef(GoodSpec GoodSpec) : IIdDef
 
     public FrozenSet<string> RequiredNeeds { get; } = GoodSpec.HasConsumptionEffects
         ? GoodSpec.ConsumptionEffects.Select(e => e.NeedId).ToFrozenSet()
-        : [];
+        : FrozenSet<string>.Empty;
 }

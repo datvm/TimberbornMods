@@ -5,6 +5,7 @@
 - [b]MultiYieldersPlzNoCrashes[/b]: Duplicate gatherable should not crash the game.
 - [b]Duplicate Blueprint PlzNoCrashes[/b]: Duplicate blueprints from multiple template collections should not crash the game. Implemented by [url=https://github.com/datvm/TimberbornMods/pull/14]normanr[/url].
 - [b]XtraComponentSpecPlzNoCrashes[/b]: Extra undeclared ComponentSpecs in blueprints should not crash the game. This essentially make optional ComponentSpec possible. A warning is still printed.
+- [b]XtraAnimationPlzNoCrashes[/b]: Characters using a building animation they do not have (for example Folktails bots at an Iron Teeth Charging Station) fall back to ForcedIdle instead of crashing.
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

@@ -28,7 +28,7 @@ public class BuildingDef(PlaceableBlockObjectSpec Placeable, Blueprint Blueprint
         // Add from goods
         needs.AddRange(RequiredGoods.SelectMany(g => g.RequiredNeeds));
         
-        RequiredNeeds = [.. needs];
+        RequiredNeeds = needs.ToFrozenSet();
 
         void CheckForBuildingNeed<T>(Func<T, IEnumerable<string>> needsFn) where T : ComponentSpec
         {
@@ -41,10 +41,9 @@ public class BuildingDef(PlaceableBlockObjectSpec Placeable, Blueprint Blueprint
 
     void CheckForBuildingGoods(DataAggregatorService dataAggregator)
     {
-        RequiredGoods = [
-            ..CheckForManufactury(dataAggregator),
-            ..CheckForBuildingCost(dataAggregator),
-        ];
+        RequiredGoods = CheckForManufactury(dataAggregator)
+            .Concat(CheckForBuildingCost(dataAggregator))
+            .ToFrozenSet();
     }
 
     IEnumerable<GoodDef> CheckForManufactury(DataAggregatorService dataAggregator)

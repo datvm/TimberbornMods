@@ -11,10 +11,10 @@ public class PlantDef(PlantableSpec Plantable, Blueprint Blueprint, string path,
 
     protected override void InitializeRequirements(DataAggregatorService dataAggregator)
     {
-        RequiredGoods = [
-            ..CheckForComponent<CuttableSpec>(dataAggregator, c => [c.Yielder.Yield.Id]),
-            ..CheckForComponent<GatherableSpec>(dataAggregator, c => [c.Yielder.Yield.Id]),
-        ];
+        RequiredGoods = 
+            CheckForComponent<CuttableSpec>(dataAggregator, c => [c.Yielder.Yield.Id])
+            .Concat(CheckForComponent<GatherableSpec>(dataAggregator, c => [c.Yielder.Yield.Id]))
+            .ToFrozenSet();
     }
 
     IEnumerable<GoodDef> CheckForComponent<T>(DataAggregatorService dataAggregator, Func<T, IEnumerable<string>> goodsFunc)
