@@ -1,0 +1,56 @@
+﻿This mod adds Crane, a stationary builder. One worker stays inside the Crane and can build, demolish, and gather rubble around the mast without walking out or up to each site.
+[img]https://images.steamusercontent.com/ugc/13577121769914140971/9EF368903D3115C11C5ECD52B5C9A5AE2932B4B5/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+[h1]Crane[/h1]
+A 1×1 workplace in the [b]District Management[/b] group.
+[i]Apparently the hoomans used a giant bird for this job. Ours doesn't need feeding.[/i]
+
+- Unlock: 300 Science (bots: +500 Science).
+- Cost: 8 Logs, 4 Planks, 4 Gears. The Crane base is [b]not[/b] fully refunded when destroyed.
+- Workers: 1. Work speed: the worker's usual speed (from Wellbeing) + 33%.
+- Range: a 3×3 column centered on the Crane, from the ground up to one tile above the top of the mast.
+- Priority: the same builder priority system as normal construction, demolition, and rubble jobs.
+
+The Crane claims nearby construction sites, demolitions, and rubble piles, then works them from inside. It can work alongside normal builders on the same sites. Haulers can stock its inventory. Those goods are dumped onto nearby sites that still need materials. Surplus can be taken back out of the Crane.
+[img]https://images.steamusercontent.com/ugc/14548777778066537216/26576FD4A76E90615F46DFA7FF65BD3D0168ED40/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+[h1]Crane Section[/h1]
+Extends a Crane upward so it can reach higher buildings. Place sections from the Crane itself with the [b]Build higher[/b] button (the section is not meant to be placed from the bottom bar).
+[i]For an Iron Teeth invention, it is really [b]uplifting[/b].[/i]
+
+- Cost: 4 Planks, 1 Gear.
+- [b]Only the sections[/b] are fully refunded when destroyed. The Crane base is not.
+[img]https://images.steamusercontent.com/ugc/17928922561509095986/AC176D15E1F8D823F83DC7D434BC307629D9FC03/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+Taller masts reach higher, not wider.
+
+[b]Tips:[/b]
+[list]
+[*] The Crane can demolish plants and natural overhangs. Beavers do not get injured when demolishing Thorns.
+[*] Multiple Cranes can stack the same work, and they can work together with normal builders. If their ranges overlap, they can all progress the same site, demolition, or rubble pile.
+[*] You can place as many Cranes as you want. That is especially useful for Wonders: extra Cranes add extra workers without using limited builders' slots, and each Crane worker is faster (Wellbeing speed + 33%).
+[*] Stacking many Cranes on the same sites can cause logistics issues (too many materials pulled in). Surplus goods can be brought back out of the Crane inventory.
+[/list]
+
+[h1]Extending this mod[/h1]
+Other mods can add Crane work through [b]ICraneJob[/b]. See the documentation here:
+https://github.com/datvm/TimberbornMods/tree/master/Crane/Docs
+
+[h1]FAQS[/h1]
+Q: How do I build higher?
+A: Select the finished Crane and click [b]Build higher[/b] on its panel. That places a Crane Section on top. Keep stacking sections until the mast is tall enough for the buildings you want to reach.
+
+Q: How do I destroy the sections?
+A: Use the destroy building tool like usual. Only the sections are fully refunded.
+
+Q: The UI is too long!
+A: Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3472334132]TImprove 4 UI[/url] for a scrollbar on the entity panel, and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3547764728]TImprove 4 UX[/url] to make the panel collapsible.
+
+Q: Do I need Haulers?
+A: They are not required, but they speed up logistics. If materials are still needed, the Crane worker will carry them, which is slower than staying on the mast.
+
+[b]Q: The mod does not show up?[/b]
+A: This mod only works with Timberborn v1.1+.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
