@@ -15,8 +15,8 @@ public abstract class TemplateDefBase : IIdDef
     public abstract int Order { get; }
     public abstract string? PlanterGroup { get; }
 
-    public FrozenSet<GoodDef> RequiredGoods { get; protected set; } = [];
-    public FrozenSet<string> RequiredNeeds { get; protected set; } = [];
+    public FrozenSet<GoodDef> RequiredGoods { get; protected set; } = FrozenSet<GoodDef>.Empty;
+    public FrozenSet<string> RequiredNeeds { get; protected set; } = FrozenSet<string>.Empty;
 
     public TemplateDefBase(Blueprint Blueprint, string BlueprintPath, DataAggregatorService dataAggregator, ILoc t)
     {
