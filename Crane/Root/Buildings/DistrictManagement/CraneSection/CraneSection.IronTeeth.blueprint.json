@@ -85,6 +85,10 @@
             0.0
         ]
     },
+    "DemolishableSpec": {
+        "DemolishTimeInHours": 0.25,
+        "ShowDemolishButtonInEntityPanel": false
+    },
     "CraneSectionSpec": {},
     "Children": {
         "#Finished": {

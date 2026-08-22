@@ -1,4 +1,4 @@
-namespace Crane.UI;
+﻿namespace Crane.UI;
 
 [BindFragment]
 public class CraneJobQueueFragment(
@@ -76,18 +76,33 @@ public class CraneJobQueueFragment(
         {
             selectionService.SelectAndFocusOn(subject);
         }
+
+        var name = subject.GetName(t);
+        item.Name.text = job.IsAvailable ? name : name.Color(TimberbornTextColor.Red);
+        item.Priority.UpdateGroup();
+        item.Row.SetDisplay(true);
     }
 
     void OnItemHovered(object sender, bool hovered)
     {
         if (hovered && sender is CraneJobQueueItem { Job: BaseComponent subject } && subject)
-        {
+    {
             highlighter.HighlightPrimary(subject, Color.yellow);
         }
         else
-        {
+            {
             highlighter.UnhighlightAllPrimary();
-        }
+    }
+
+    record JobQueueItem(
+        VisualElement Row,
+        VisualElement Clickable,
+        Image Icon,
+        Label Name,
+        PriorityToggleGroup Priority
+    )
+    {
+        public BaseComponent? Current { get; set; }
     }
 
 }
