@@ -1,20 +1,34 @@
-﻿namespace Crane.UI;
+namespace Crane.UI;
 
 [BindFragment]
 public class CraneSectionFragment(
     ILoc t,
     CraneStructureService craneStructureService
-) : BaseEntityPanelFragment<CraneSectionComponent>
+) : IEntityPanelFragment
 {
-    
-    protected override void InitializePanel()
+    EntityPanelFragmentElement panel = null!;
+    ICranePartComponent? part;
+
+    public VisualElement InitializeFragment()
     {
+        panel = new();
         panel.AddEntityFragmentButton(t.T("LV.Cr.SelectCrane"), SelectCrane, color: EntityFragmentButtonColor.Red);
+        return panel;
     }
 
-    void SelectCrane()
+    public void ShowFragment(BaseComponent entity)
     {
-        craneStructureService.SelectCraneOfSection(component);
+        part = entity.GetComponent<ICranePartComponent>();
+        panel.Visible = part?.GetCrane() is { } crane && crane;
     }
 
+    public void ClearFragment()
+    {
+        panel.Visible = false;
+        part = null;
+    }
+
+    public void UpdateFragment() { }
+
+    void SelectCrane() => craneStructureService.SelectCrane(part?.GetCrane());
 }

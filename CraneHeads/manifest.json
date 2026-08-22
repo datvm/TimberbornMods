@@ -1,0 +1,11 @@
+﻿{
+    "Name": "Crane Heads",
+    "Version": "11.1.1",
+    "Id": "CraneHeads",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "Heads that modify Cranes. Includes a Jib that extends range from 3x3 to 5x5, and a Trebuchet that launches rubble away.",
+    "RequiredMods": [
+        { "Id": "Crane" },
+        { "Id": "ModdableToolGroups" }
+    ]
+}

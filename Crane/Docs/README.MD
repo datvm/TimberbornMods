@@ -26,7 +26,7 @@ Selecting a finished crane enters construction mode, so you can place nearby bui
 
 The crane works in a **3×3** column centered on itself (one tile in each horizontal direction). Vertically it reaches from the ground up to **one tile above the top of the mast**.
 
-Taller masts therefore reach higher buildings, not a wider footprint.
+Taller masts therefore reach higher buildings, not a wider footprint. Horizontal range starts at **1** (3×3) and can be changed by `ICraneRangeModifier`s — for example a **Crane Head** from [Crane Heads](../../CraneHeads/Docs/README.MD).
 
 ### Crane Sections
 
@@ -38,7 +38,7 @@ Use **Build higher** on the crane panel to stack a **Crane Section** on top. Eac
 | Science | 0 |
 | Refund | Fully refunded when destroyed |
 
-Newly placed sections start at Very High builder priority so the crane tends to extend itself first. A section panel has a **Select Crane** button that jumps back to the base.
+Newly placed sections start at Very High builder priority so the crane tends to extend itself first. Crane parts (`ICranePartComponent` — sections, and heads from [Crane Heads](../../CraneHeads/Docs/README.MD)) share a **Select Crane** button that jumps back to the base.
 
 The section tool itself is a hidden/dev tool. Players are meant to place sections from the crane, not from the bottom bar.
 
@@ -112,7 +112,7 @@ Reference the installed `Crane.dll` (same pattern as other companion mods in thi
 Useful namespaces:
 
 - `Crane.Jobs` — `ICraneJob`, `ICraneJobProvider`, `IMaterialCraneJob`
-- `Crane.Components` — `CraneComponent`
+- `Crane.Components` — `CraneComponent`, `ICraneRangeModifier`
 - `Crane.Models` — `CraneTower` (`WorkingBounds`, `Jobs`)
 
 Your configurator should inherit from a TimberUi / Moddable Timberborn attribute configurator so `[MultiBind]` and `[AddTemplateModule2]` are discovered.
@@ -364,6 +364,33 @@ public class MyCraneJob(
 ```
 
 List the job when it becomes real work, and unlist it when the entity is deleted or no longer a candidate. Keep `GetJobForCrane` in sync with that listing.
+
+### Range modifiers
+
+Horizontal radius is `max(1, 1 + sum of RangeDelta)`. Put an `ICraneRangeModifier` on the crane (or call `AddRangeModifier`) and raise `OnRangeChanged` when the delta changes. The crane reclamps, updates `WorkingBounds`, and refreshes the range overlay if it is selected.
+
+```cs
+public interface ICraneRangeModifier
+{
+    int RangeDelta { get; }
+    event EventHandler? OnRangeChanged;
+}
+```
+
+[Crane Heads](../../CraneHeads/Docs/README.MD) uses this for the Jib (`RangeDelta: 1` → 5×5).
+
+### Rubble processors
+
+Gather normally moves recovered goods into the crane inventory. A processor on the crane can take that rubble instead. Register with `AddRubbleProcessor` / `RemoveRubbleProcessor`. Return `true` from `TryProcessRubble` to skip inventory.
+
+```cs
+public interface ICraneRubbleProcessor
+{
+    bool TryProcessRubble(CraneComponent crane, RecoveredGoodStack stack, int items);
+}
+```
+
+[Crane Heads](../../CraneHeads/Docs/README.MD) uses this for the Trebuchet, which launches rubble 10 tiles in the crane's facing direction.
 
 ### Built-in jobs as references
 

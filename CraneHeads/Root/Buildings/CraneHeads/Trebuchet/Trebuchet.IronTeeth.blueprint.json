@@ -1,0 +1,141 @@
+{
+    "BuildingSpec": {
+        "SelectionSoundName": "Default",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            {
+                "Id": "Plank",
+                "Amount": 8
+            },
+            {
+                "Id": "Gear",
+                "Amount": 4
+            }
+        ],
+        "ScienceCost": 400,
+        "PlaceFinished": false,
+        "FinishableWithBeaversOnSite": false,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "Trebuchet.IronTeeth",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BlockObjectSpec": {
+        "Size": {
+            "X": 1,
+            "Y": 1,
+            "Z": 1
+        },
+        "Blocks": [
+            {
+                "MatterBelow": "Stackable",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
+        "Entrance": {
+            "HasEntrance": false,
+            "Coordinates": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": false
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "CraneHeads",
+        "ToolOrder": 20,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": false
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.CrH.TrebuchetName",
+        "DescriptionLocKey": "LV.CrH.TrebuchetDesc",
+        "FlavorDescriptionLocKey": "LV.CrH.TrebuchetFlavor",
+        "Icon": "Buildings/Automation/FireworkLauncher/FireworkLauncherIcon"
+    },
+    "ConstructionSiteProgressVisualizerSpec": {
+        "ProgressThresholds": [
+            0.0
+        ]
+    },
+    "CraneHeadSpec": {
+        "AttachmentCoordinates": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+        }
+    },
+    "CraneHeadTrebuchetSpec": {
+        "LaunchDistance": 10
+    },
+    "Children": {
+        "#Finished": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Automation/FireworkLauncher/FireworkLauncher.IronTeeth.Model"
+            },
+            "CollidersSpec": {
+                "BoxColliders": [
+                    {
+                        "Center": { "X": 0.5, "Y": 0.04, "Z": 0.5 },
+                        "Size": { "X": 1.0, "Y": 0.08, "Z": 1.0 }
+                    },
+                    {
+                        "Center": { "X": 0.5, "Y": 0.38, "Z": 0.5 },
+                        "Size": { "X": 0.62, "Y": 0.58, "Z": 0.64 }
+                    }
+                ],
+                "SphereColliders": [],
+                "CapsuleColliders": []
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase1x1#nested": {
+                    "BlueprintPath": "ConstructionBases/ConstructionBase1x1/ConstructionBase1x1.blueprint"
+                },
+                "ConstructionStage0": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Automation/FireworkLauncher/FireworkLauncher.IronTeeth.ConstructionStage0.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": { "X": 0.5, "Y": 0.05, "Z": 0.5 },
+                                "Size": { "X": 1.0, "Y": 0.1, "Z": 1.0 }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        }
+    }
+}

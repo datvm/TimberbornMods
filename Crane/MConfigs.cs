@@ -2,7 +2,7 @@
 
 public class MConfigs : BaseModdableTimberbornAttributeConfiguration
 {
-    public override ConfigurationContext AvailableContexts => ConfigurationContext.Game;
+    public override ConfigurationContext AvailableContexts => ConfigurationContext.Game | ConfigurationContext.MainMenu;
 
     protected override void ConfigureRegistry(ModdableTimberbornRegistry registry)
         => registry.UseEntityTracker()
@@ -12,6 +12,8 @@ public class MConfigs : BaseModdableTimberbornAttributeConfiguration
     public override void Configure(Configurator configurator, ConfigurationContext context)
     {
         base.Configure(configurator, context);
+
+        if (!context.IsGameContext()) { return; }
 
         configurator.BindTemplateModule(h => h
             .AddDecorator<CraneWorkshop, Emptiable>(false)
