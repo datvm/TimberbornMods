@@ -1,0 +1,2 @@
+﻿v11.1.0:
+- Fixed a crash when cancelling a renovation with science paid.
