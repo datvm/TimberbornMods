@@ -1,4 +1,4 @@
-namespace BuildingRenovations.Components;
+﻿namespace BuildingRenovations.Components;
 
 [AddTemplateModule2(typeof(BuildingRenovationComponent))]
 public class RenovationDistroReceiver(BuildingRenovationService renoService)
@@ -200,7 +200,7 @@ public class RenovationDistroReceiver(BuildingRenovationService renoService)
         if (stored.Count == 0) { return; }
 
         var goods = stored
-            .Where(kv => kv.Value > 0)
+            .Where(kv => kv.Key != RenovationHelpers.ScienceId && kv.Value > 0)
             .Select(kv => new GoodAmount(kv.Key, kv.Value))
             .ToList();
 
