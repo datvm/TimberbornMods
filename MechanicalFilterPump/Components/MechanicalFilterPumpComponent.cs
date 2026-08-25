@@ -1,7 +1,7 @@
 ﻿
 namespace MechanicalFilterPump.Components;
 
-public class MechanicalFilterPumpComponent : BaseComponent, IPersistentEntity, IStartableComponent
+public class MechanicalFilterPumpComponent : BaseComponent, IPersistentEntity, IInitializableEntity
 {
 
     static readonly ComponentKey SaveKey = new("MechanicalFilterPumpComponent");
@@ -16,7 +16,7 @@ public class MechanicalFilterPumpComponent : BaseComponent, IPersistentEntity, I
 
     public bool NoPowerIncrease { get; private set; }
 
-    public void Start()
+    public void InitializeEntity()
     {
         power = GetComponent<MechanicalFilterPumpPower>();
         SetPowerState();

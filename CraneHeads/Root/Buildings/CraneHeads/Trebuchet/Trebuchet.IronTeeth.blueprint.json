@@ -1,4 +1,4 @@
-{
+﻿{
     "BuildingSpec": {
         "SelectionSoundName": "Default",
         "LoopingSoundName": "",
@@ -93,7 +93,17 @@
         }
     },
     "CraneHeadTrebuchetSpec": {
-        "LaunchDistance": 10
+        "WeightLimit": 90,
+        "LaunchCost": [
+            {
+                "Id": "Fireworks",
+                "Amount": 1
+            },
+            {
+                "Id": "Plank",
+                "Amount": 2
+            }
+        ]
     },
     "Children": {
         "#Finished": {
@@ -103,12 +113,28 @@
             "CollidersSpec": {
                 "BoxColliders": [
                     {
-                        "Center": { "X": 0.5, "Y": 0.04, "Z": 0.5 },
-                        "Size": { "X": 1.0, "Y": 0.08, "Z": 1.0 }
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.04,
+                            "Z": 0.5
+                        },
+                        "Size": {
+                            "X": 1.0,
+                            "Y": 0.08,
+                            "Z": 1.0
+                        }
                     },
                     {
-                        "Center": { "X": 0.5, "Y": 0.38, "Z": 0.5 },
-                        "Size": { "X": 0.62, "Y": 0.58, "Z": 0.64 }
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.38,
+                            "Z": 0.5
+                        },
+                        "Size": {
+                            "X": 0.62,
+                            "Y": 0.58,
+                            "Z": 0.64
+                        }
                     }
                 ],
                 "SphereColliders": [],
@@ -127,8 +153,16 @@
                     "CollidersSpec": {
                         "BoxColliders": [
                             {
-                                "Center": { "X": 0.5, "Y": 0.05, "Z": 0.5 },
-                                "Size": { "X": 1.0, "Y": 0.1, "Z": 1.0 }
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.05,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.1,
+                                    "Z": 1.0
+                                }
                             }
                         ],
                         "SphereColliders": [],

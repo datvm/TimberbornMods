@@ -28,7 +28,11 @@ The Folktails model is a hub with four timber arms and inward hanging hooks. Iro
 
 ## Trebuchet
 
-A 1×1 Crane Head that launches rubble away instead of storing it in the Crane. Gathered recovered goods are thrown in the Crane's facing direction and land as a new pile (or leave the map if that landing is off the edge).
+A 1×1 Crane Head that launches goods along a **curve**. Horizontal range equals the number of **Crane Sections** (the Crane base does not count). The top of the arc is the Trebuchet's height plus that same section count, so it can land higher than itself, but only if the shot is short enough.
+
+The path must be unobstructed, like a zipline cable. Cells above the map height cap are treated as clear.
+
+On the Trebuchet panel: pick a payload and amount (weight limit 90), pick a landing tile, then choose one-shot or repeat. Each launch consumes the spec cost (1 Fireworks by default). The Crane hauls those goods into the Trebuchet inventory and fires when it is full.
 
 Place it on top of a Crane Section. Nothing stacks on a Trebuchet. It uses the Firework Launcher model.
 
@@ -37,7 +41,9 @@ Place it on top of a Crane Section. Nothing stacks on a Trebuchet. It uses the F
 | Cost (Folktails) | 8 logs, 4 planks, 4 gears, 400 science |
 | Cost (Iron Teeth) | 8 planks, 4 gears, 400 science |
 | Size | 1×1×1 |
-| Effect | Launches rubble 10 tiles away |
+| Range | 1 tile per Crane Section |
+| Weight limit | 90 |
+| Cost per shot | 1 Fireworks |
 
 ---
 

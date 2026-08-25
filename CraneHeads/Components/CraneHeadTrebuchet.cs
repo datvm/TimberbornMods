@@ -3,103 +3,78 @@ namespace CraneHeads.Components;
 [AddTemplateModule2(typeof(CraneHeadTrebuchetSpec))]
 public class CraneHeadTrebuchet(
     ILoc t,
-    RecoveredGoodStackSpawner spawner,
-    ITerrainService terrain
-) : BaseComponent, IAwakableComponent, IDeletableEntity, ICraneRubbleProcessor, IEntityDescriber
+    IGoodService goods,
+    TrebuchetTrajectoryService trajectory
+) : BaseComponent, IAwakableComponent, IPersistentEntity, IEntityDescriber
 {
+    static readonly ComponentKey SaveKey = new(nameof(CraneHeadTrebuchet));
+    static readonly PropertyKey<int> ModeKey = new("Mode");
+
     CraneHeadTrebuchetSpec spec = null!;
     CraneHeadComponent head = null!;
-    CraneComponent? appliedTo;
+    BlockObject bo = null!;
+
+    public CraneHeadTrebuchetSpec Spec => spec;
+    public CraneHeadComponent Head => head;
+    public bool IsFinished => bo.IsFinished;
+    public TrebuchetLaunchMode Mode { get; private set; } = TrebuchetLaunchMode.None;
+    public Vector3Int Origin => bo.Coordinates;
+    public int MaxRange => head.Crane?.Tower.Sections.Count ?? 0;
+    public int PeakDelta => MaxRange;
+
+    public event EventHandler? ModeChanged;
 
     public void Awake()
     {
         spec = GetComponent<CraneHeadTrebuchetSpec>();
         head = GetComponent<CraneHeadComponent>();
-        head.CraneChanged += OnCraneChanged;
+        bo = GetComponent<BlockObject>();
     }
 
-    public void DeleteEntity()
+    public void Save(IEntitySaver entitySaver)
+        => entitySaver.GetComponent(SaveKey).Set(ModeKey, (int)Mode);
+
+    public void Load(IEntityLoader entityLoader)
     {
-        head.CraneChanged -= OnCraneChanged;
-        ClearProcessor();
+        if (!entityLoader.TryGetComponent(SaveKey, out var s) || !s.Has(ModeKey))
+        {
+            return;
+        }
+
+        Mode = (TrebuchetLaunchMode)s.Get(ModeKey);
     }
 
     public IEnumerable<EntityDescription> DescribeEntity()
-        => [EntityDescription.CreateTextSection(t.T("LV.CrH.TrebuchetLaunch", spec.LaunchDistance), 30)];
+        => [EntityDescription.CreateTextSection(
+            t.T("LV.CrH.TrebuchetStats", MaxRange, spec.WeightLimit, CostDescription()),
+            30)];
 
-    public bool TryProcessRubble(CraneComponent crane, RecoveredGoodStack stack, int items)
+    public void SetMode(TrebuchetLaunchMode mode)
     {
-        if (!stack || !stack.Inventory)
+        if (Mode == mode)
         {
-            return false;
+            return;
         }
 
-        List<GoodAmount> launched = [];
-        foreach (var good in stack.Inventory.UnreservedStock().ToArray())
+        Mode = mode;
+        ModeChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public bool InRange(Vector3Int dest) => trajectory.InRange(Origin, dest, MaxRange);
+
+    public string CostDescription()
+    {
+        List<string> parts = [];
+        foreach (var cost in spec.LaunchCost)
         {
-            var available = stack.Inventory.UnreservedAmountInStock(good.GoodId);
-            var amount = Math.Min(Math.Min(good.Amount, items), available);
-            if (amount <= 0)
+            if (string.IsNullOrEmpty(cost.Id) || cost.Amount <= 0)
             {
                 continue;
             }
 
-            var moved = new GoodAmount(good.GoodId, amount);
-            stack.Inventory.TakeExisting(moved);
-            launched.Add(moved);
-            items -= amount;
-            if (items <= 0)
-            {
-                break;
-            }
+            parts.Add($"{cost.Amount} {goods.GetGood(cost.Id).DisplayName.Value}");
         }
 
-        if (launched.Count > 0 && TryGetLanding(crane) is { } dest)
-        {
-            spawner.AddAwaitingGoods(dest, launched);
-        }
-
-        return true;
-    }
-
-    void OnCraneChanged(object sender, EventArgs e)
-    {
-        if (head.Crane is not { } target || !target)
-        {
-            ClearProcessor();
-            return;
-        }
-
-        if (appliedTo is not null)
-        {
-            throw new InvalidOperationException("This trebuchet is already applied to a crane.");
-        }
-
-        target.AddRubbleProcessor(this);
-        appliedTo = target;
-    }
-
-    void ClearProcessor()
-    {
-        if (appliedTo is not null && appliedTo)
-        {
-            appliedTo.RemoveRubbleProcessor(this);
-        }
-
-        appliedTo = null;
-    }
-
-    Vector3Int? TryGetLanding(CraneComponent crane)
-    {
-        var bo = crane.GetComponent<BlockObject>();
-        var forward = bo.Orientation.Transform(Direction2D.Down.ToOffset());
-        var dest = crane.Tower.Top.Above() + forward * spec.LaunchDistance;
-        var size = terrain.Size;
-        if (dest.x < 0 || dest.y < 0 || dest.x >= size.x || dest.y >= size.y)
-        {
-            return null;
-        }
-
-        return dest;
+        return parts.Count == 0 ? t.T("LV.CrH.NoCost") : string.Join(", ", parts);
     }
 }

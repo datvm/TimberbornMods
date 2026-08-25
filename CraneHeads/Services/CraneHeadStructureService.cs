@@ -71,20 +71,8 @@ public class CraneHeadStructureService(
             return false;
         }
 
-        foreach (var obj in blockService.GetObjectsAt(head.AttachmentCoordinates.Below()))
-        {
-            if (obj == bo)
-            {
-                continue;
-            }
-
-            if (obj.GetComponent<CraneSectionComponent>() is { } s && s)
-            {
-                return true;
-            }
-        }
-
-        return false;
+        var craneSection = blockService.GetFirstObjectWithComponentAt<CraneSectionComponent>(head.AttachmentCoordinates.Below());
+        return craneSection;
     }
 
     public void RefreshHead(CraneHeadComponent head, CraneHeadComponent? ignoring = null)
