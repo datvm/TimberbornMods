@@ -390,7 +390,7 @@ public interface ICraneRubbleProcessor
 }
 ```
 
-[Crane Heads](../../CraneHeads/Docs/README.MD) uses this for the Trebuchet, which launches rubble 10 tiles in the crane's facing direction.
+[Crane Heads](../../CraneHeads/Docs/README.MD) uses this for optional gather overrides. The Trebuchet is a normal `IMaterialCraneJob`: the crane hauls the payload and launch cost into `CraneHeadTrebuchetInventory`, then fires.
 
 ### Built-in jobs as references
 

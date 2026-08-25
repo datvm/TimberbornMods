@@ -6,7 +6,22 @@ LV.CrH.JibFlavor,"Whoever designed this insisted the extra reach was for efficie
 LV.CrH.HeadRangeBonus,"● <YellowHighlight>Extra range</YellowHighlight>: {0}"
 LV.CrH.MustPlaceHeadOnCraneSection,"Must be placed on a Crane Section."
 LV.CrH.TrebuchetName,"Trebuchet",
-LV.CrH.TrebuchetDesc,"A Crane Head that launches rubble away from the mast instead of storing it. Place it on top of a Crane Section.",
+LV.CrH.TrebuchetDesc,"A Crane Head that launches goods along a curved path. Range equals the number of Crane Sections. Place it on top of a Crane Section.",
 LV.CrH.TrebuchetFlavor,"Hooman used it to launch 90 kg projectiles over 300 meters.",
-LV.CrH.TrebuchetLaunch,"● <YellowHighlight>Launches rubble</YellowHighlight> {0} tiles away"
+LV.CrH.TrebuchetStats,"● <YellowHighlight>Launch range</YellowHighlight>: {0} tiles (one per Crane Section). Weight limit {1}. Cost: {2}"
 LV.CrH.HeadLabel,"Crane Head: ",
+LV.CrH.JobLaunch,"Launch",
+LV.CrH.Payload,"Payload",
+LV.CrH.Amount,"Amount",
+LV.CrH.Weight,"Weight: {0} / {1}. Cost: {2}",
+LV.CrH.NoCost,"None",
+LV.CrH.ChooseTarget,"Choose target",
+LV.CrH.ChangeTarget,"Change target ({0}, {1}, {2})",
+LV.CrH.Repeatable,"Repeat launches",
+LV.CrH.NoGood,"—",
+LV.CrH.PickTarget,"Pick a landing tile for the Trebuchet",
+LV.CrH.TrebuchetNeedOrder,"Set a payload and target. Range: {0} tiles.",
+LV.CrH.TrebuchetOutOfRange,"Target is out of range ({0} tiles).",
+LV.CrH.TrebuchetBlocked,"Path is blocked.",
+LV.CrH.TrebuchetReady,"Path is clear. Range: {0} tiles.",
+Name_TrebuchetFragment,"Trebuchet",

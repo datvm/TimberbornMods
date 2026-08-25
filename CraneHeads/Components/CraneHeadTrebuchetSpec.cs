@@ -1,7 +1,13 @@
-namespace CraneHeads.Components;
+﻿namespace CraneHeads.Components;
 
 public record CraneHeadTrebuchetSpec : ComponentSpec
 {
     [Serialize]
-    public int LaunchDistance { get; init; }
+    public int WeightLimit { get; init; }
+
+    [Serialize]
+    public ImmutableArray<GoodAmountSpec> LaunchCost { get; init; } = [];
+
+    [Serialize]
+    public int LaunchCostCapacity { get; init; }
 }
