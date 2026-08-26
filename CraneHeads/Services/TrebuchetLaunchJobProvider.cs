@@ -14,10 +14,10 @@ public class TrebuchetLaunchJobProvider : ICraneJobProvider
             yield break;
         }
 
-        var trebuchet = attached.GetComponent<CraneHeadTrebuchet>();
-        if (trebuchet && trebuchet.IsForCrane(crane))
+        var inventory = attached.GetComponent<CraneHeadTrebuchetInventory>();
+        if (inventory && inventory.IsForCrane(crane))
         {
-            yield return trebuchet;
+            yield return inventory;
         }
     }
 

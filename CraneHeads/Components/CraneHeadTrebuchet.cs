@@ -5,7 +5,7 @@ public class CraneHeadTrebuchet(
     ILoc t,
     IGoodService goods,
     TrebuchetTrajectoryService trajectory
-) : BaseComponent, IAwakableComponent, IPersistentEntity, IEntityDescriber
+) : BaseComponent, IAwakableComponent, IPersistentEntity
 {
     static readonly ComponentKey SaveKey = new(nameof(CraneHeadTrebuchet));
     static readonly PropertyKey<int> ModeKey = new("Mode");
@@ -43,11 +43,6 @@ public class CraneHeadTrebuchet(
 
         Mode = (TrebuchetLaunchMode)s.Get(ModeKey);
     }
-
-    public IEnumerable<EntityDescription> DescribeEntity()
-        => [EntityDescription.CreateTextSection(
-            t.T("LV.CrH.TrebuchetStats", MaxRange, spec.WeightLimit, CostDescription()),
-            30)];
 
     public void SetMode(TrebuchetLaunchMode mode)
     {

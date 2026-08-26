@@ -119,14 +119,14 @@ public class CraneInventory : BaseComponent, IAwakableComponent, IFinishedStateL
             return;
         }
 
-        foreach (var job in crane.Tower.Jobs)
+        foreach (var job in crane.Tower.Jobs.ToArray())
         {
             if (job is not IMaterialCraneJob material)
             {
                 continue;
             }
 
-            foreach (var need in material.GetRemainingMaterials())
+            foreach (var need in material.GetRemainingMaterials().ToArray())
             {
                 var available = Inventory.UnreservedAmountInStock(need.GoodId);
                 var amount = Math.Min(available, need.Amount);
@@ -159,14 +159,14 @@ public class CraneInventory : BaseComponent, IAwakableComponent, IFinishedStateL
 
         if (crane)
         {
-            foreach (var job in crane.Tower.Jobs)
+            foreach (var job in crane.Tower.Jobs.ToArray())
             {
                 if (job is not IMaterialCraneJob material)
                 {
                     continue;
                 }
 
-                foreach (var need in material.GetRemainingMaterials())
+                foreach (var need in material.GetRemainingMaterials().ToArray())
                 {
                     limits[need.GoodId] = limits.GetValueOrDefault(need.GoodId) + need.Amount;
                 }

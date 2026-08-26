@@ -1,199 +1,241 @@
-namespace CraneHeads.UI;
+﻿namespace CraneHeads.UI;
 
 [BindFragment]
 public class TrebuchetFragment(
     ILoc t,
     IGoodService goods,
+    IContainer container,
     VisualElementInitializer veInit,
     DropdownItemsSetter dropdownItems,
     TrebuchetTargetTool targetTool
-) : BaseEntityPanelFragment<CraneHeadTrebuchet>
+) : BaseEntityPanelFragment<CraneHeadTrebuchet>, IEntityFragmentOrder
 {
-    DropdownRow<string?> good = null!;
-    NineSliceIntegerField amount = null!;
+    Label range = null!;
+    DropdownRow<TrebuchetLaunchMode> mode = null!;
+    VisualElement payloadList = null!;
+    DropdownRow<string?> addGood = null!;
     Label weight = null!;
     Button target = null!;
-    Toggle repeatable = null!;
-    Label status = null!;
+    CraneHeadTrebuchetInventory? inventory;
+    CraneHeadTrebuchetLauncher? launcher;
+    string? pendingAddGood;
     bool updating;
+
+    public int Order => -50;
+    public VisualElement Fragment => panel;
 
     protected override void InitializePanel()
     {
-        good = panel.AddDropdownRow<string?>(
-            t.T("LV.CrH.Payload"),
-            OnGoodChanged,
+        range = panel.AddGameLabel().SetMarginBottom(5);
+        mode = panel.AddDropdownRow(
+            Enum.GetValues(typeof(TrebuchetLaunchMode)).Cast<TrebuchetLaunchMode>(),
+            ModeName,
             veInit,
-            dropdownItems);
-        good.SetMarginBottom(5);
+            dropdownItems,
+            t.T("LV.CrH.LaunchMode"),
+            OnModeChanged);
+        mode.SetMarginBottom(5);
 
-        var amountRow = panel.AddRow().AlignItems().SetMarginBottom(5);
-        amountRow.AddGameLabel(t.T("LV.CrH.Amount")).SetMarginRight(5).SetFlexShrink(0);
-        amount = amountRow.AddIntField(changeCallback: OnAmountChanged).SetFlexGrow().Initialize(veInit);
+        panel.AddGameLabel(t.T("LV.CrH.Payload")).SetMarginBottom(5);
+        payloadList = panel.AddChild().SetMarginBottom(5);
+        payloadList.style.alignItems = Align.FlexStart;
+
+        var addRow = panel.AddRow().AlignItems().SetMarginBottom(5);
+        addGood = addRow.AddDropdownRow<string?>(null, OnAddGoodChanged, veInit, dropdownItems).SetFlexGrow();
+        addRow.AddGameButtonPadded(t.T("LV.CrH.AddGood"), AddSelectedGood).SetMargin(left: 5);
 
         weight = panel.AddGameLabel().SetMarginBottom(5);
-        target = panel.AddGameButtonPadded(t.T("LV.CrH.ChooseTarget"), ChooseTarget).SetFlexGrow().SetMarginBottom(5);
-        repeatable = panel.AddToggle(t.T("LV.CrH.Repeatable"), onValueChanged: OnRepeatableChanged);
-        status = panel.AddGameLabel();
+        target = panel.AddGameButtonPadded(t.T("LV.CrH.ChooseTarget"), ChooseTarget).SetFlexGrow();
 
         panel.Initialize(veInit);
-        good.SetItems(GoodItems());
     }
 
     public override void ShowFragment(BaseComponent entity)
     {
         base.ShowFragment(entity);
-        if (Shown is null)
+        DetachInventory();
+        if (Shown is not { } c || !c.IsFinished)
         {
+            panel.Visible = false;
             return;
         }
 
+        inventory = c.GetComponent<CraneHeadTrebuchetInventory>();
+        launcher = c.GetComponent<CraneHeadTrebuchetLauncher>();
+        if (inventory)
+        {
+            inventory.Changed += OnInventoryChanged;
+        }
+
+        panel.Visible = true;
         Refresh();
+        launcher?.OnShown();
     }
 
     public override void UpdateFragment()
     {
         base.UpdateFragment();
-        if (Shown is null)
+        if (Shown is null || !Shown.IsFinished)
         {
             return;
         }
 
-        RefreshStatus();
+        RefreshRange();
         RefreshTargetButton();
+    }
+
+    public override void ClearFragment()
+    {
+        DetachInventory();
+        launcher = null;
+        base.ClearFragment();
     }
 
     void Refresh()
     {
         var c = Shown;
-        if (c is null)
+        if (c is null || inventory is null)
         {
             return;
         }
 
         updating = true;
-        good.SetSelectedValueWithoutNotifying(c.GoodId);
-        amount.SetValueWithoutNotify(c.Amount);
-        repeatable.SetValueWithoutNotify(c.Repeatable);
+        mode.SetSelectedValueWithoutNotifying(c.Mode);
+        RefreshPayloadRows();
+        RefreshAddGoods();
         updating = false;
+        RefreshRange();
         RefreshWeight();
         RefreshTargetButton();
-        RefreshStatus();
+    }
+
+    void RefreshPayloadRows()
+    {
+        payloadList.Clear();
+        if (inventory is null)
+        {
+            return;
+        }
+
+        foreach (var (id, amount) in inventory.Requested)
+        {
+            payloadList.AddChild(container.GetInstance<TrebuchetPayloadRow>)
+                .Init(Refresh, RefreshWeight)
+                .Bind(inventory, id, amount);
+        }
+    }
+
+    void RefreshAddGoods()
+    {
+        List<DropdownRowItem<string?>> items = [new(null, t.T("LV.CrH.NoGood"))];
+        if (inventory is not null)
+        {
+            foreach (var id in goods.Goods.OrderBy(id => goods.GetGood(id).DisplayName.Value))
+            {
+                if (inventory.Requested.ContainsKey(id))
+                {
+                    continue;
+                }
+
+                items.Add(new(id, goods.GetGood(id).DisplayName.Value));
+            }
+        }
+
+        addGood.SetItems(items);
+        addGood.SetSelectedValueWithoutNotifying(null);
+        pendingAddGood = null;
+    }
+
+    void RefreshRange()
+    {
+        if (Shown is not { } c)
+        {
+            return;
+        }
+
+        range.text = t.T("LV.CrH.TrebuchetRange", c.MaxRange);
     }
 
     void RefreshWeight()
     {
         var c = Shown;
-        if (c is null)
+        if (c is null || inventory is null)
         {
             return;
         }
 
-        var used = c.GoodId is null ? 0 : c.WeightOf(c.Amount);
-        weight.text = t.T("LV.CrH.Weight", used, c.Spec.WeightLimit, c.CostDescription());
+        weight.text = t.T("LV.CrH.Weight", inventory.PayloadWeight, inventory.WeightLimit);
+        weight.style.color = inventory.IsOverweight
+            ? TimberUiUtils.DangerColor
+            : new StyleColor(StyleKeyword.Null);
     }
 
     void RefreshTargetButton()
     {
-        var c = Shown;
-        if (c is null)
-        {
-            return;
-        }
-
-        target.text = c.Target is { } dest
+        target.text = launcher?.Target is { } dest
             ? t.T("LV.CrH.ChangeTarget", dest.x, dest.y, dest.z)
             : t.T("LV.CrH.ChooseTarget");
     }
 
-    void RefreshStatus()
+    void OnModeChanged(IndexedDropdownRowItem<TrebuchetLaunchMode> item)
     {
-        var c = Shown;
-        if (c is null)
+        if (updating || Shown is not { } c)
         {
             return;
         }
 
-        if (!c.HasOrder)
-        {
-            status.text = t.T("LV.CrH.TrebuchetNeedOrder", c.MaxRange);
-            return;
-        }
-
-        if (!c.InRange(c.Target!.Value))
-        {
-            status.text = t.T("LV.CrH.TrebuchetOutOfRange", c.MaxRange);
-            return;
-        }
-
-        if (!c.IsPathClear())
-        {
-            status.text = t.T("LV.CrH.TrebuchetBlocked");
-            return;
-        }
-
-        status.text = t.T("LV.CrH.TrebuchetReady", c.MaxRange);
+        c.SetMode(item.Item.Value);
     }
 
-    void OnGoodChanged(IndexedDropdownRowItem<string?> item)
+    void OnAddGoodChanged(IndexedDropdownRowItem<string?> item)
+        => pendingAddGood = item.Item.Value;
+
+    void AddSelectedGood()
     {
-        var c = Shown;
-        if (updating || c is null)
+        if (pendingAddGood is not { } id || inventory is null)
         {
             return;
         }
 
-        var amountValue = c.Amount <= 0 ? 1 : c.Amount;
-        c.SetPayload(item.Item.Value, amountValue);
-        amount.SetValueWithoutNotify(c.Amount);
-        RefreshWeight();
-        RefreshStatus();
+        inventory.TrySetGood(id, 1);
+        Refresh();
     }
 
-    void OnAmountChanged(int value)
+    void OnInventoryChanged(object sender, EventArgs e)
     {
-        var c = Shown;
-        if (updating || c is null || c.GoodId is null)
+        if (updating)
         {
             return;
-        }
-
-        c.SetPayload(c.GoodId, value);
-        if (amount.value != c.Amount)
-        {
-            amount.SetValueWithoutNotify(c.Amount);
         }
 
         RefreshWeight();
-    }
-
-    void OnRepeatableChanged(bool value)
-    {
-        var c = Shown;
-        if (updating || c is null)
-        {
-            return;
-        }
-
-        c.SetRepeatable(value);
     }
 
     void ChooseTarget()
     {
-        var c = Shown;
-        if (c is not null)
+        if (launcher is not null)
         {
-            targetTool.Begin(c);
+            targetTool.Begin(launcher);
         }
+    }
+
+    void DetachInventory()
+    {
+        if (inventory is not null)
+        {
+            inventory.Changed -= OnInventoryChanged;
+        }
+
+        inventory = null;
     }
 
     CraneHeadTrebuchet? Shown => component is { } c && c ? c : null;
 
-    IEnumerable<DropdownRowItem<string?>> GoodItems()
+    string ModeName(TrebuchetLaunchMode value) => value switch
     {
-        yield return new(null, t.T("LV.CrH.NoGood"));
-        foreach (var id in goods.Goods.OrderBy(id => goods.GetGood(id).DisplayName.Value))
-        {
-            yield return new(id, goods.GetGood(id).DisplayName.Value);
-        }
-    }
+        TrebuchetLaunchMode.None => t.T("LV.CrH.LaunchNone"),
+        TrebuchetLaunchMode.Once => t.T("LV.CrH.LaunchOnce"),
+        TrebuchetLaunchMode.Repeat => t.T("LV.CrH.LaunchRepeat"),
+        _ => value.ToString(),
+    };
 }

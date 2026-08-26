@@ -28,12 +28,18 @@ private int _field;
 internal class MyClass {}
 ```
 
-# Projects
+Info-only types (DTOs, checks, list entries, bags of data with no behavior) should be `readonly record struct`, or `record` if they need reference identity. For example:
+```cs
+readonly record struct Shot(Vector3Int Dest, GameObject Box, float Started);
 
-When searching for references, check all the `*.code-workspace` files in the repository (note that Codex may be rooted one folder too deep when using VS Code Workspace, so search one upper folder) and see if they contain the project you are working on. If they do, search for references in all of those projects only. If not, search for references in that project only. For example:
-
-- MoreHttpApi.code-workspace
-- BeaverChronicles.code-workspace
+// NOT:
+sealed class Shot
+{
+    public Vector3Int Dest { get; }
+    public GameObject Box { get; }
+    public float Started { get; }
+}
+```
 
 # Tests
 
@@ -51,7 +57,7 @@ If `ModdingAssetUpdater/out` does not exist or is empty, ask the user to decompi
 
 Game assemblies are publicized for mod projects. It is okay to reference publicized Timberborn types and members directly in code and Harmony patches instead of avoiding `internal` or private members with reflection-only approaches.
 
-When converting grid coordinates or directions into Unity/world vectors, check `CoordinateSystem` and its namespace code first. It likely already has the conversion needed, so avoid adding local helpers like `ToUnityDirection` unless the built-in conversion does not fit.
+Timberborn grid coordinates use **X/Y for the horizontal plane and Z for vertical**. Unity is the opposite: **Y is up**, with X/Z as the horizontal plane. When converting grid coordinates or directions into Unity/world vectors, check `CoordinateSystem` and its namespace code first (`GridToWorld`, `GridToWorldCentered`, and the reverse). It likely already has the conversion needed, so avoid adding local helpers like `ToUnityDirection` unless the built-in conversion does not fit.
 
 ## Timbermesh models (read / edit)
 

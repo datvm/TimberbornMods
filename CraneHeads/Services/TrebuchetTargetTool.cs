@@ -7,14 +7,17 @@ public class TrebuchetTargetTool(
     ToolService tools,
     EntitySelectionService selection,
     CursorService cursors,
-    TerrainHighlightingService highlighter,
     UISoundController sounds,
     ILoc t,
-    TrebuchetTrajectoryService trajectory
+    TrebuchetTrajectoryService trajectory,
+    TrebuchetShotPreview preview,
+    TrebuchetPreviewTooltip tooltip
 ) : ITool, IToolDescriptor, IInputProcessor
 {
-    readonly List<Vector3Int> preview = [];
-    CraneHeadTrebuchet? trebuchet;
+    readonly List<Vector3> path = [];
+    readonly List<Vector3Int> blockers = [];
+    CraneHeadTrebuchetLauncher? launcher;
+    CraneHeadTrebuchetModel? model;
 
     public void Enter()
     {
@@ -26,58 +29,59 @@ public class TrebuchetTargetTool(
     {
         input.RemoveInputProcessor(this);
         cursors.ResetCursor();
-        highlighter.ClearHighlight();
-        if (trebuchet)
+        preview.Hide();
+        tooltip.Hide();
+        model?.SetPreview(null);
+        if (launcher)
         {
-            selection.Select(trebuchet);
+            selection.Select(launcher);
         }
 
-        trebuchet = null;
+        launcher = null;
+        model = null;
     }
 
     public ToolDescription DescribeTool()
         => new ToolDescription.Builder().AddPrioritizedSection(t.T("LV.CrH.PickTarget")).Build();
 
-    public void Begin(CraneHeadTrebuchet next)
+    public void Begin(CraneHeadTrebuchetLauncher next)
     {
-        trebuchet = next;
+        launcher = next;
+        model = next.GetComponent<CraneHeadTrebuchetModel>();
         tools.SwitchTool(this);
     }
 
     public bool ProcessInput()
     {
-        if (trebuchet is not { } shot || !shot)
+        if (launcher is not { } shot || !shot)
         {
             return false;
         }
 
+        var trebuchet = shot.GetComponent<CraneHeadTrebuchet>();
         var picked = cursor.Pick();
-        if (picked is null)
+        if (picked is null || !trebuchet)
         {
-            highlighter.ClearHighlight();
+            preview.Hide();
+            tooltip.Hide();
+            model?.SetPreview(null);
             return false;
         }
 
         var dest = picked.Value.TileCoordinates;
-        var valid = shot.InRange(dest)
-            && dest.z <= shot.Origin.z + shot.PeakDelta
-            && trajectory.IsPathClear(shot.Origin, dest, shot.PeakDelta, shot.GetComponent<BlockObject>());
-
-        if (trajectory.TryGetPath(shot.Origin, dest, shot.PeakDelta, preview))
-        {
-            highlighter.UpdateHighlight(preview);
-        }
-        else
-        {
-            highlighter.ClearHighlight();
-        }
+        var check = shot.Evaluate(dest);
+        model?.SetPreview(dest);
+        trajectory.FillWorldPath(trebuchet.Origin, dest, trebuchet.PeakDelta, path);
+        trajectory.FillBlockingCells(trebuchet.Origin, dest, trebuchet.PeakDelta, shot.GetComponent<BlockObject>(), blockers);
+        preview.Show(dest, check.IsValid, path, blockers);
+        tooltip.Show(check);
 
         if (!input.MainMouseButtonDown || input.MouseOverUI)
         {
             return false;
         }
 
-        if (!valid)
+        if (!check.IsValid)
         {
             sounds.PlayCantDoSound();
             return true;
