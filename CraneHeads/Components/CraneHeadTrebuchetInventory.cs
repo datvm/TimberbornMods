@@ -17,12 +17,70 @@ public class CraneHeadTrebuchetInventory(
     readonly Dictionary<string, int> stock = [];
     bool listed;
     bool wasReady;
+    bool wasOverweight;
 
     public IReadOnlyDictionary<string, int> Requested => requested;
     public IReadOnlyDictionary<string, int> Stock => stock;
+    public int AmountInStock(string goodId) => stock.GetValueOrDefault(goodId);
+
+    public IEnumerable<GoodAmount> PayloadNeed()
+    {
+        foreach (var (id, amount) in requested)
+        {
+            yield return new(id, amount);
+        }
+    }
+
+    public IEnumerable<GoodAmount> LaunchCostNeed()
+    {
+        var capacity = Math.Max(1, trebuchet.Spec.LaunchCostCapacity);
+        foreach (var cost in trebuchet.Spec.LaunchCost)
+        {
+            if (string.IsNullOrEmpty(cost.Id) || cost.Amount <= 0)
+            {
+                continue;
+            }
+
+            yield return new(cost.Id, cost.Amount * capacity);
+        }
+    }
+
+    public int LaunchCostPerShot(string goodId)
+    {
+        foreach (var cost in trebuchet.Spec.LaunchCost)
+        {
+            if (cost.Id == goodId)
+            {
+                return cost.Amount;
+            }
+        }
+
+        return 0;
+    }
+
     public int WeightLimit => trebuchet.Spec.WeightLimit;
     public int PayloadWeight => WeightOf(requested);
-    public bool IsReady => HasPayload && HasLaunchCost();
+    public bool IsOverweight => PayloadWeight > WeightLimit;
+    public bool IsReady
+    {
+        get
+        {
+            if (!HasPayload || IsOverweight)
+            {
+                return false;
+            }
+
+            foreach (var amount in LaunchNeed())
+            {
+                if (stock.GetValueOrDefault(amount.GoodId) < amount.Amount)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
 
     public Priority Priority { get; private set; } = Priority.Normal;
     public string JobNameLoc => "LV.CrH.JobLaunch";
@@ -62,6 +120,7 @@ public class CraneHeadTrebuchetInventory(
         trebuchet.ModeChanged += OnModeChanged;
         head.CraneChanged += OnCraneChanged;
         wasReady = IsReady;
+        wasOverweight = IsOverweight;
         RefreshListing();
     }
 
@@ -108,10 +167,7 @@ public class CraneHeadTrebuchetInventory(
     }
 
     public bool IsForCrane(CraneComponent crane)
-        => trebuchet.IsFinished
-            && trebuchet.Mode != TrebuchetLaunchMode.None
-            && HasPayload
-            && head.Crane == crane;
+        => trebuchet.IsFinished && head.Crane == crane;
 
     public IEnumerable<GoodAmount> GetRemainingMaterials()
     {
@@ -177,35 +233,26 @@ public class CraneHeadTrebuchetInventory(
                 return false;
             }
 
-            Notify(listing: true);
+            ReturnSurplusToCrane();
+            Notify(listing: true, materials: true);
             return true;
         }
 
         var previous = requested.GetValueOrDefault(goodId);
-        requested[goodId] = amount;
-        if (PayloadWeight > WeightLimit)
-        {
-            if (previous <= 0)
-            {
-                requested.Remove(goodId);
-            }
-            else
-            {
-                requested[goodId] = previous;
-            }
-
-            return false;
-        }
-
+        requested[goodId] = Math.Clamp(amount, 1, 99);
+        ReturnSurplusToCrane();
         Notify(listing: previous <= 0, materials: true);
         return true;
     }
 
     public int MaxAmountFor(string goodId)
     {
-        var weight = Math.Max(1, goods.GetGood(goodId).Weight);
-        var used = PayloadWeight - requested.GetValueOrDefault(goodId) * weight;
-        return Math.Max(0, (WeightLimit - used) / weight);
+        if (string.IsNullOrEmpty(goodId) || requested.ContainsKey(goodId))
+        {
+            return 0;
+        }
+
+        return 99;
     }
 
     public bool TryRemoveForLaunch(List<GoodAmount> payload)
@@ -245,8 +292,14 @@ public class CraneHeadTrebuchetInventory(
         return true;
     }
 
-    bool HasLaunchCost()
+    IEnumerable<GoodAmount> LaunchNeed()
     {
+        Dictionary<string, int> needed = [];
+        foreach (var (id, amount) in requested)
+        {
+            needed[id] = amount;
+        }
+
         foreach (var cost in trebuchet.Spec.LaunchCost)
         {
             if (string.IsNullOrEmpty(cost.Id) || cost.Amount <= 0)
@@ -254,29 +307,24 @@ public class CraneHeadTrebuchetInventory(
                 continue;
             }
 
-            if (stock.GetValueOrDefault(cost.Id) < cost.Amount)
-            {
-                return false;
-            }
+            needed[cost.Id] = needed.GetValueOrDefault(cost.Id) + cost.Amount;
         }
 
-        foreach (var (id, amount) in requested)
+        foreach (var (id, amount) in needed)
         {
-            if (stock.GetValueOrDefault(id) < amount)
-            {
-                return false;
-            }
+            yield return new(id, amount);
         }
-
-        return true;
     }
 
     IEnumerable<GoodAmount> Needed()
     {
         Dictionary<string, int> needed = [];
-        foreach (var (id, amount) in requested)
+        if (!IsOverweight)
         {
-            needed[id] = amount;
+            foreach (var (id, amount) in requested)
+            {
+                needed[id] = amount;
+            }
         }
 
         var capacity = Math.Max(1, trebuchet.Spec.LaunchCostCapacity);
@@ -307,6 +355,66 @@ public class CraneHeadTrebuchetInventory(
         return weight;
     }
 
+    void ReturnSurplusToCrane()
+    {
+        Dictionary<string, int> keep = [];
+        foreach (var (id, amount) in requested)
+        {
+            keep[id] = amount;
+        }
+
+        var capacity = Math.Max(1, trebuchet.Spec.LaunchCostCapacity);
+        foreach (var cost in trebuchet.Spec.LaunchCost)
+        {
+            if (string.IsNullOrEmpty(cost.Id) || cost.Amount <= 0)
+            {
+                continue;
+            }
+
+            keep[cost.Id] = keep.GetValueOrDefault(cost.Id) + cost.Amount * capacity;
+        }
+
+        foreach (var id in stock.Keys.ToArray())
+        {
+            var extra = stock[id] - keep.GetValueOrDefault(id);
+            if (extra <= 0)
+            {
+                continue;
+            }
+
+            ReturnToCrane(id, extra);
+        }
+    }
+
+    void ReturnToCrane(string goodId, int amount)
+    {
+        if (amount <= 0)
+        {
+            return;
+        }
+
+        if (head.GetCrane() is not { } crane)
+        {
+            return;
+        }
+
+        var craneInventory = crane.GetComponent<CraneInventory>();
+        if (!craneInventory || !craneInventory.Inventory)
+        {
+            return;
+        }
+
+        craneInventory.Inventory.GiveExistingIgnoringCapacity(new(goodId, amount));
+        var left = stock.GetValueOrDefault(goodId) - amount;
+        if (left <= 0)
+        {
+            stock.Remove(goodId);
+            return;
+        }
+
+        stock[goodId] = left;
+    }
+
     void OnModeChanged(object sender, EventArgs e) => RefreshListing();
 
     void OnCraneChanged(object sender, EventArgs e) => RefreshListing();
@@ -324,17 +432,20 @@ public class CraneHeadTrebuchetInventory(
         {
             wasReady = ready;
             ReadyChanged?.Invoke(this, EventArgs.Empty);
+            AvailabilityChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        if (listing)
+        var overweight = IsOverweight;
+        if (listing || overweight != wasOverweight)
         {
+            wasOverweight = overweight;
             RefreshListing();
         }
     }
 
     void RefreshListing()
     {
-        if (IsForCrane(head.Crane ?? null!))
+        if (head.Crane is { } crane && IsForCrane(crane))
         {
             ListJob();
             return;

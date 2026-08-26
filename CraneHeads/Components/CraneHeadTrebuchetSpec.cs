@@ -10,4 +10,10 @@ public record CraneHeadTrebuchetSpec : ComponentSpec
 
     [Serialize]
     public int LaunchCostCapacity { get; init; }
+
+    [Serialize]
+    public string Turret { get; init; } = "";
+
+    [Serialize]
+    public string Barrel { get; init; } = "";
 }

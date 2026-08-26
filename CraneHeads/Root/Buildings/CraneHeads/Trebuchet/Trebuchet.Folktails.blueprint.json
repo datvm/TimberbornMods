@@ -107,7 +107,10 @@
                 "Id": "Plank",
                 "Amount": 2
             }
-        ]
+        ],
+        "LaunchCostCapacity": 3,
+        "Turret": "#Turret",
+        "Barrel": "#Barrel"
     },
     "Children": {
         "#Finished": {

@@ -4,7 +4,9 @@ namespace CraneHeads.Services;
 public class TrebuchetTrajectoryService(
     IBlockService blockService,
     ITerrainService terrain,
-    MapSize mapSize
+    MapSize mapSize,
+    BlockValidator blockValidator,
+    RecoveredGoodStackFactory recoveredGoodStacks
 )
 {
     readonly HashSet<Vector3Int> cells = [];
@@ -21,21 +23,91 @@ public class TrebuchetTrajectoryService(
             && d > 0
             && d <= maxRange;
 
-    public bool TryGetPath(Vector3Int start, Vector3Int end, int peakDelta, List<Vector3Int> path)
+    public TrebuchetShotCheck Evaluate(Vector3Int start, Vector3Int end, int maxRange, int peakDelta, BlockObject? ignoring)
     {
-        path.Clear();
-        CollectPath(start, end, peakDelta);
-        foreach (var cell in cells)
+        var distance = HorizontalDistance(start, end);
+        if (distance <= 0)
         {
-            path.Add(cell);
+            return new(TrebuchetShotStatus.SameTile, 0, maxRange);
         }
 
-        return cells.Count > 0;
+        if (maxRange <= 0 || distance > maxRange)
+        {
+            return new(TrebuchetShotStatus.OutOfRange, distance, maxRange);
+        }
+
+        if (end.z > start.z + peakDelta)
+        {
+            return new(TrebuchetShotStatus.TooHigh, distance, maxRange);
+        }
+
+        if (!IsLandingValid(end))
+        {
+            return new(TrebuchetShotStatus.InvalidLanding, distance, maxRange);
+        }
+
+        if (!IsPathClear(start, end, peakDelta, ignoring))
+        {
+            return new(TrebuchetShotStatus.Blocked, distance, maxRange);
+        }
+
+        return new(TrebuchetShotStatus.Valid, distance, maxRange);
+    }
+
+    public void FillWorldPath(Vector3Int start, Vector3Int end, int peakDelta, List<Vector3> path, int samples = 24)
+    {
+        path.Clear();
+        var count = Math.Max(samples, 2);
+        for (var i = 0; i < count; i++)
+        {
+            path.Add(WorldPoint(start, end, peakDelta, i / (float)(count - 1)));
+        }
+    }
+
+    public Vector3 WorldPoint(Vector3Int start, Vector3Int end, int peakDelta, float t)
+    {
+        t = Mathf.Clamp01(t);
+        var grid = new Vector3(
+            start.x + 0.5f + t * (end.x - start.x),
+            start.y + 0.5f + t * (end.y - start.y),
+            ParabolaZ(t, start.z, end.z, peakDelta) + 0.5f);
+        return CoordinateSystem.GridToWorld(grid);
+    }
+
+    public Vector3 InitialWorldDirection(Vector3Int start, Vector3Int end, int peakDelta)
+    {
+        var dZ = end.z - start.z;
+        var grid = new Vector3(
+            end.x - start.x,
+            end.y - start.y,
+            4 * peakDelta - dZ);
+        return CoordinateSystem.GridToWorld(grid);
+    }
+
+    public bool IsLandingValid(Vector3Int dest)
+    {
+        if (blockService.GetObjectsWithComponentAt<RecoveredGoodStack>(dest).Any())
+        {
+            return true;
+        }
+
+        var block = Block.From(dest, recoveredGoodStacks.GoodStackBlockSpec);
+        return blockValidator.BlockValidWithoutUnfinishedStackable(block);
     }
 
     public bool IsPathClear(Vector3Int start, Vector3Int end, int peakDelta, BlockObject? ignoring)
+        => FillBlockingCells(start, end, peakDelta, ignoring, null);
+
+    public bool FillBlockingCells(
+        Vector3Int start,
+        Vector3Int end,
+        int peakDelta,
+        BlockObject? ignoring,
+        List<Vector3Int>? blockers)
     {
+        blockers?.Clear();
         CollectPath(start, end, peakDelta);
+        var clear = true;
         foreach (var cell in cells)
         {
             if (cell == start || cell == end)
@@ -43,14 +115,10 @@ public class TrebuchetTrajectoryService(
                 continue;
             }
 
-            if (!terrain.Contains(cell.XY()))
+            if (!terrain.Contains(cell.XY()) || cell.z < 0)
             {
-                return false;
-            }
-
-            if (cell.z < 0)
-            {
-                return false;
+                clear = false;
+                continue;
             }
 
             if (cell.z >= mapSize.TotalSize.z)
@@ -58,18 +126,14 @@ public class TrebuchetTrajectoryService(
                 continue;
             }
 
-            if (terrain.Underground(cell))
+            if (terrain.Underground(cell) || IsBlocked(cell, ignoring))
             {
-                return false;
-            }
-
-            if (IsBlocked(cell, ignoring))
-            {
-                return false;
+                clear = false;
+                blockers?.Add(cell);
             }
         }
 
-        return true;
+        return clear;
     }
 
     void CollectPath(Vector3Int start, Vector3Int end, int peakDelta)
@@ -77,47 +141,43 @@ public class TrebuchetTrajectoryService(
         cells.Clear();
         var dx = end.x - start.x;
         var dy = end.y - start.y;
-        var steps = Math.Max(Math.Max(Math.Abs(dx), Math.Abs(dy)), 1);
-        var samples = Math.Max(steps * 2, 4);
-
-        var prev = start;
-        for (var i = 1; i <= samples; i++)
+        var steps = Math.Max(Math.Max(Math.Abs(dx), Math.Abs(dy)), Math.Abs(end.z - start.z));
+        var samples = Math.Max(steps * 4, 16);
+        Vector3Int? prev = null;
+        for (var i = 0; i <= samples; i++)
         {
             var t = i / (float)samples;
+            var grid = new Vector3(
+                start.x + 0.5f + t * dx,
+                start.y + 0.5f + t * dy,
+                ParabolaZ(t, start.z, end.z, peakDelta) + 0.5f);
             var point = new Vector3Int(
-                start.x + (int)Math.Round(t * dx),
-                start.y + (int)Math.Round(t * dy),
-                (int)Math.Round(ParabolaZ(t, start.z, end.z, peakDelta)));
-            drawer.DrawLine(prev, point, cells);
+                (int)Math.Floor(grid.x),
+                (int)Math.Floor(grid.y),
+                (int)Math.Floor(grid.z));
+            if (prev is { } last)
+            {
+                drawer.DrawLine(last, point, cells);
+            }
+            else
+            {
+                cells.Add(point);
+            }
+
             prev = point;
         }
     }
 
     bool IsBlocked(Vector3Int cell, BlockObject? ignoring)
     {
-        if (!blockService.Contains(cell))
+        if (!blockService.AnyObjectAt(cell))
         {
             return false;
-        }
-
-        if (!blockService.AnyNonOverridableObjectsAt(cell, BlockOccupations.All))
-        {
-            return false;
-        }
-
-        if (ignoring is null)
-        {
-            return true;
         }
 
         foreach (var obj in blockService.GetObjectsAt(cell))
         {
-            if (obj == ignoring)
-            {
-                continue;
-            }
-
-            if (obj.PositionedBlocks.GetBlock(cell).Occupation != BlockOccupations.None)
+            if (obj != ignoring)
             {
                 return true;
             }
