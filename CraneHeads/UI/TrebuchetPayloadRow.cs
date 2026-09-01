@@ -18,8 +18,7 @@ public class TrebuchetPayloadRow(
     {
         this.onListChanged = onListChanged;
         this.onAmountChanged = onAmountChanged;
-        this.SetAsRow().AlignItems().SetMarginBottom(3);
-        style.alignSelf = Align.FlexStart;
+        this.SetAsRow().AlignItems().SetMarginBottom(5);
         icon = this.AddIconSpan().SetFlexGrow(0).SetFlexShrink(0);
         this.AddChild().SetFlexGrow();
         field = this.AddIntField(changeCallback: value => SetAmount(Math.Clamp(value, 1, 99), rebuild: false))

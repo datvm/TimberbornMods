@@ -16,8 +16,16 @@ public class CraneHeadTrebuchetLauncher(
     readonly List<GoodAmount> payload = [];
 
     public Vector3Int? Target { get; private set; }
+    public bool IsFlying => effects.IsFlying(this);
+    public bool CanFire
+        => trebuchet.IsFinished
+            && !trebuchet.IsPaused
+            && trebuchet.Mode != TrebuchetLaunchMode.Repeat
+            && inventory.IsReady
+            && !IsFlying;
 
     public event EventHandler? TargetChanged;
+    public event EventHandler? TrajectoryChecked;
 
     public void Awake()
     {
@@ -30,12 +38,14 @@ public class CraneHeadTrebuchetLauncher(
     {
         inventory.ReadyChanged += OnReadyChanged;
         trebuchet.ModeChanged += OnModeChanged;
+        trebuchet.PausedChanged += OnPausedChanged;
     }
 
     public void DeleteEntity()
     {
         inventory.ReadyChanged -= OnReadyChanged;
         trebuchet.ModeChanged -= OnModeChanged;
+        trebuchet.PausedChanged -= OnPausedChanged;
     }
 
     public void Save(IEntitySaver entitySaver)
@@ -72,6 +82,21 @@ public class CraneHeadTrebuchetLauncher(
 
     public void OnShown() => TryLaunch();
 
+    public void Fire()
+    {
+        if (!CanFire)
+        {
+            return;
+        }
+
+        trebuchet.SetMode(TrebuchetLaunchMode.Once);
+    }
+
+    public void SetRepeat(bool repeat)
+    {
+        trebuchet.SetMode(repeat ? TrebuchetLaunchMode.Repeat : TrebuchetLaunchMode.None);
+    }
+
     public void FinishShot()
     {
         if (!this || !trebuchet.IsFinished || trebuchet.Mode == TrebuchetLaunchMode.None || !inventory.IsReady)
@@ -81,6 +106,7 @@ public class CraneHeadTrebuchetLauncher(
 
         if (Target is not { } dest || !IsTrajectoryValid())
         {
+            TrajectoryChecked?.Invoke(this, EventArgs.Empty);
             return;
         }
 
@@ -108,14 +134,29 @@ public class CraneHeadTrebuchetLauncher(
 
     void OnModeChanged(object sender, EventArgs e) => TryLaunch();
 
+    void OnPausedChanged(object sender, EventArgs e)
+    {
+        if (!trebuchet.IsPaused)
+        {
+            TryLaunch();
+        }
+    }
+
     void TryLaunch()
     {
-        if (!trebuchet.IsFinished || trebuchet.Mode == TrebuchetLaunchMode.None || !inventory.IsReady)
+        if (!trebuchet.IsFinished || trebuchet.IsPaused || trebuchet.Mode == TrebuchetLaunchMode.None)
         {
             return;
         }
 
         if (Target is null || !IsTrajectoryValid())
+        {
+            TrajectoryChecked?.Invoke(this, EventArgs.Empty);
+            return;
+        }
+
+        TrajectoryChecked?.Invoke(this, EventArgs.Empty);
+        if (!inventory.IsReady)
         {
             return;
         }

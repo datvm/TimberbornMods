@@ -1,9 +1,10 @@
-{
+﻿{
     "TemplateCollectionSpec": {
         "CollectionId": "Buildings.Folktails",
         "Blueprints": [
             "Buildings/CraneHeads/Jib/Jib.Folktails.blueprint",
-            "Buildings/CraneHeads/Trebuchet/Trebuchet.Folktails.blueprint"
+            "Buildings/CraneHeads/Trebuchet/Trebuchet.Folktails.blueprint",
+            "Buildings/CraneHeads/CranetopWindmill/CranetopWindmill.Folktails.blueprint"
         ]
     }
 }

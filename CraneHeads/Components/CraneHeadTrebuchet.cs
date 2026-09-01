@@ -5,7 +5,7 @@ public class CraneHeadTrebuchet(
     ILoc t,
     IGoodService goods,
     TrebuchetTrajectoryService trajectory
-) : BaseComponent, IAwakableComponent, IPersistentEntity
+) : BaseComponent, IAwakableComponent, IPersistentEntity, IFinishedPausable, IInitializableEntity, IDeletableEntity
 {
     static readonly ComponentKey SaveKey = new(nameof(CraneHeadTrebuchet));
     static readonly PropertyKey<int> ModeKey = new("Mode");
@@ -13,22 +13,48 @@ public class CraneHeadTrebuchet(
     CraneHeadTrebuchetSpec spec = null!;
     CraneHeadComponent head = null!;
     BlockObject bo = null!;
+    BlockableObject blockable = null!;
 
     public CraneHeadTrebuchetSpec Spec => spec;
     public CraneHeadComponent Head => head;
     public bool IsFinished => bo.IsFinished;
+    public bool IsPaused => blockable && !blockable.IsUnblocked;
     public TrebuchetLaunchMode Mode { get; private set; } = TrebuchetLaunchMode.None;
     public Vector3Int Origin => bo.Coordinates;
     public int MaxRange => head.Crane?.Tower.Sections.Count ?? 0;
     public int PeakDelta => MaxRange;
 
     public event EventHandler? ModeChanged;
+    public event EventHandler? PausedChanged;
 
     public void Awake()
     {
         spec = GetComponent<CraneHeadTrebuchetSpec>();
         head = GetComponent<CraneHeadComponent>();
         bo = GetComponent<BlockObject>();
+        blockable = GetComponent<BlockableObject>();
+    }
+
+    public void InitializeEntity()
+    {
+        if (!blockable)
+        {
+            return;
+        }
+
+        blockable.ObjectBlocked += OnBlockedChanged;
+        blockable.ObjectUnblocked += OnBlockedChanged;
+    }
+
+    public void DeleteEntity()
+    {
+        if (!blockable)
+        {
+            return;
+        }
+
+        blockable.ObjectBlocked -= OnBlockedChanged;
+        blockable.ObjectUnblocked -= OnBlockedChanged;
     }
 
     public void Save(IEntitySaver entitySaver)
@@ -71,5 +97,10 @@ public class CraneHeadTrebuchet(
         }
 
         return parts.Count == 0 ? t.T("LV.CrH.NoCost") : string.Join(", ", parts);
+    }
+
+    void OnBlockedChanged(object sender, EventArgs e)
+    {
+        PausedChanged?.Invoke(this, EventArgs.Empty);
     }
 }

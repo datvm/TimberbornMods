@@ -22,7 +22,7 @@ Select the **Crane** (not the Jib) to see the working-area overlay. It updates w
 | Size | 5×5 plus (center row and center column) |
 | Effect | +1 horizontal radius (3×3 → 5×5) |
 
-The Folktails model is a hub with four timber arms and inward hanging hooks. Iron Teeth models are not in yet.
+The Folktails model is a hub with four timber arms and inward hanging hooks. Iron Teeth uses the same mesh with metal and dark-brown wood materials.
 
 ---
 
@@ -50,12 +50,29 @@ Place it on top of a Crane Section. Nothing stacks on a Trebuchet. It uses the F
 
 ---
 
+## Cranetop Windmill
+
+A 1×1×2 Crane Head that turns the **Crane** into a wind-powered generator. Shafts connect at the Crane base. The Crane's mechanical node is 50 hp; the mill scales that by wind and **+10% per Crane Section** (the Crane base does not count). Below 30% wind, or with no mill attached, output is 0.
+
+Place it on top of a Crane Section. Nothing stacks on a Cranetop Windmill. It uses the Weathervane model (Iron Teeth gets the same mesh with IT wood and metal). The vane tracks wind. The mill panel lists current output, then the wind and height breakdown.
+
+| | |
+|---|---|
+| Cost (Folktails) | 5 logs, 1 plank, 4 gears, 300 science |
+| Cost (Iron Teeth) | 8 planks, 4 gears, 300 science |
+| Size | 1×1×2 |
+| Crane power | 50 hp (`MechanicalNodeSpec`) |
+| Bonus | +10% per Crane Section |
+| Min wind | 30% |
+
+---
+
 ## Adding another head
 
 Heads are buildings with `CraneHeadSpec`. `CraneHeadComponent` marks the building as a crane head: it names the attachment cell and tells `CraneTowerHead` when it is on top of a mast. It does not change how the Crane works.
 
 `CraneTowerHead` is decorated onto every `CraneComponent`. `CraneHeadStructureService.HasHead` is the query for whether a tower currently has one.
 
-Put the actual effect on a second component with its own spec — `CraneHeadJib` / `CraneHeadJibSpec` for range, `CraneHeadTrebuchet` / `CraneHeadTrebuchetSpec` for launching rubble. When that head is finished and attached, it registers with the Crane. See [Crane](../../Crane/Docs/README.MD#range-modifiers).
+Put the actual effect on a second component with its own spec — `CraneHeadJib` / `CraneHeadJibSpec` for range, `CraneHeadTrebuchet` / `CraneHeadTrebuchetSpec` for launching rubble, `CraneHeadWindmill` / `CraneHeadWindmillSpec` to toggle `CraneWindmillGenerator` on the Crane. When that head is finished and attached, it registers with the Crane. See [Crane](../../Crane/Docs/README.MD#range-modifiers).
 
 Heads are crane parts (`ICranePartComponent`), so they share the **Select Crane** panel with Crane Sections.

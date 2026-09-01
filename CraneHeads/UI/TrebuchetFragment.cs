@@ -11,7 +11,8 @@ public class TrebuchetFragment(
 ) : BaseEntityPanelFragment<CraneHeadTrebuchet>, IEntityFragmentOrder
 {
     Label range = null!;
-    DropdownRow<TrebuchetLaunchMode> mode = null!;
+    Button fire = null!;
+    Toggle repeat = null!;
     VisualElement payloadList = null!;
     DropdownRow<string?> addGood = null!;
     Label weight = null!;
@@ -27,25 +28,23 @@ public class TrebuchetFragment(
     protected override void InitializePanel()
     {
         range = panel.AddGameLabel().SetMarginBottom(5);
-        mode = panel.AddDropdownRow(
-            Enum.GetValues(typeof(TrebuchetLaunchMode)).Cast<TrebuchetLaunchMode>(),
-            ModeName,
-            veInit,
-            dropdownItems,
-            t.T("LV.CrH.LaunchMode"),
-            OnModeChanged);
-        mode.SetMarginBottom(5);
+        target = panel.AddGameButtonPadded(t.T("LV.CrH.ChooseTarget"), ChooseTarget).SetFlexGrow().SetMarginBottom();
 
         panel.AddGameLabel(t.T("LV.CrH.Payload")).SetMarginBottom(5);
-        payloadList = panel.AddChild().SetMarginBottom(5);
-        payloadList.style.alignItems = Align.FlexStart;
+        payloadList = panel.AddChild().SetMarginBottom();
 
-        var addRow = panel.AddRow().AlignItems().SetMarginBottom(5);
+        var addRow = panel.AddRow().AlignItems().SetMarginBottom();
         addGood = addRow.AddDropdownRow<string?>(null, OnAddGoodChanged, veInit, dropdownItems).SetFlexGrow();
         addRow.AddGameButtonPadded(t.T("LV.CrH.AddGood"), AddSelectedGood).SetMargin(left: 5);
 
         weight = panel.AddGameLabel().SetMarginBottom(5);
-        target = panel.AddGameButtonPadded(t.T("LV.CrH.ChooseTarget"), ChooseTarget).SetFlexGrow();
+
+        var fireRow = panel.AddRow().AlignItems().SetMarginBottom();
+        fire = fireRow.AddGameButtonPadded(t.T("LV.CrH.Fire"), Fire).SetFlexGrow();
+        repeat = fireRow.AddGamePanelToggle(t.T("LV.CrH.LaunchRepeat"), OnRepeatChanged)
+            .SetMargin(left: 5)
+            .SetFlexGrow(0)
+            .SetFlexShrink(0);        
 
         panel.Initialize(veInit);
     }
@@ -82,6 +81,7 @@ public class TrebuchetFragment(
 
         RefreshRange();
         RefreshTargetButton();
+        RefreshFire();
     }
 
     public override void ClearFragment()
@@ -100,13 +100,14 @@ public class TrebuchetFragment(
         }
 
         updating = true;
-        mode.SetSelectedValueWithoutNotifying(c.Mode);
+        repeat.SetValueWithoutNotify(c.Mode == TrebuchetLaunchMode.Repeat);
         RefreshPayloadRows();
         RefreshAddGoods();
         updating = false;
         RefreshRange();
         RefreshWeight();
         RefreshTargetButton();
+        RefreshFire();
     }
 
     void RefreshPayloadRows()
@@ -177,14 +178,25 @@ public class TrebuchetFragment(
             : t.T("LV.CrH.ChooseTarget");
     }
 
-    void OnModeChanged(IndexedDropdownRowItem<TrebuchetLaunchMode> item)
+    void RefreshFire()
     {
-        if (updating || Shown is not { } c)
+        fire.SetEnabled(launcher is { } l && l.CanFire);
+    }
+
+    void Fire()
+    {
+        launcher?.Fire();
+    }
+
+    void OnRepeatChanged(bool on)
+    {
+        if (updating || launcher is null)
         {
             return;
         }
 
-        c.SetMode(item.Item.Value);
+        launcher.SetRepeat(on);
+        RefreshFire();
     }
 
     void OnAddGoodChanged(IndexedDropdownRowItem<string?> item)
@@ -230,12 +242,4 @@ public class TrebuchetFragment(
     }
 
     CraneHeadTrebuchet? Shown => component is { } c && c ? c : null;
-
-    string ModeName(TrebuchetLaunchMode value) => value switch
-    {
-        TrebuchetLaunchMode.None => t.T("LV.CrH.LaunchNone"),
-        TrebuchetLaunchMode.Once => t.T("LV.CrH.LaunchOnce"),
-        TrebuchetLaunchMode.Repeat => t.T("LV.CrH.LaunchRepeat"),
-        _ => value.ToString(),
-    };
 }

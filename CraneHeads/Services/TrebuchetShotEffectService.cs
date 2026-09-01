@@ -10,7 +10,7 @@ public class TrebuchetShotEffectService(
     IDayNightCycle clock
 ) : ILoadableSingleton, IUnloadableSingleton, IUpdatableSingleton
 {
-    const float Duration = 0.75f;
+    const float Duration = 1f;
     const float MinSpin = 540f;
     const float MaxSpin = 1260f;
     const string BoomSound = "Environment.Fireworks.Burst";
@@ -97,7 +97,7 @@ public class TrebuchetShotEffectService(
         }
     }
 
-    bool IsFlying(CraneHeadTrebuchetLauncher launcher)
+    public bool IsFlying(CraneHeadTrebuchetLauncher launcher)
     {
         foreach (var shot in shots)
         {

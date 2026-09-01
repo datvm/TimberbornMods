@@ -4,15 +4,15 @@
         "LoopingSoundName": "",
         "BuildingCost": [
             {
-                "Id": "Plank",
-                "Amount": 8
+                "Id": "TreatedPlank",
+                "Amount": 20
             },
             {
                 "Id": "Gear",
-                "Amount": 4
+                "Amount": 15
             }
         ],
-        "ScienceCost": 400,
+        "ScienceCost": 1300,
         "PlaceFinished": false,
         "FinishableWithBeaversOnSite": false,
         "DrawRangeBoundsOnIt": false
@@ -78,7 +78,7 @@
         "DisplayNameLocKey": "LV.CrH.TrebuchetName",
         "DescriptionLocKey": "LV.CrH.TrebuchetDesc",
         "FlavorDescriptionLocKey": "LV.CrH.TrebuchetFlavor",
-        "Icon": "Buildings/Automation/FireworkLauncher/FireworkLauncherIcon"
+        "Icon": "Buildings/CraneHeads/Trebuchet/TrebuchetIcon"
     },
     "ConstructionSiteProgressVisualizerSpec": {
         "ProgressThresholds": [

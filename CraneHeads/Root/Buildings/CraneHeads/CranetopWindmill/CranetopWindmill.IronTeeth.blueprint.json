@@ -4,15 +4,19 @@
         "LoopingSoundName": "",
         "BuildingCost": [
             {
-                "Id": "TreatedPlank",
-                "Amount": 20
+                "Id": "Plank",
+                "Amount": 40
             },
             {
                 "Id": "Gear",
-                "Amount": 15
+                "Amount": 20
+            },
+            {
+                "Id": "MetalBlock",
+                "Amount": 10
             }
         ],
-        "ScienceCost": 1300,
+        "ScienceCost": 1400,
         "PlaceFinished": false,
         "FinishableWithBeaversOnSite": false,
         "DrawRangeBoundsOnIt": false
@@ -26,7 +30,7 @@
         "UndergroundModelDepth": 0
     },
     "TemplateSpec": {
-        "TemplateName": "Trebuchet.Folktails",
+        "TemplateName": "CranetopWindmill.IronTeeth",
         "BackwardCompatibleTemplateNames": [],
         "RequiredFeatureToggle": "",
         "DisablingFeatureToggle": ""
@@ -35,12 +39,19 @@
         "Size": {
             "X": 1,
             "Y": 1,
-            "Z": 1
+            "Z": 2
         },
         "Blocks": [
             {
                 "MatterBelow": "Stackable",
-                "Occupations": "All",
+                "Occupations": "Bottom, Top, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
                 "Stackable": "None",
                 "OccupyAllBelow": false,
                 "Underground": false
@@ -60,7 +71,7 @@
     },
     "PlaceableBlockObjectSpec": {
         "ToolGroupId": "CraneHeads",
-        "ToolOrder": 20,
+        "ToolOrder": 30,
         "ToolShape": "Square",
         "Layout": "Single",
         "CustomPivot": {
@@ -75,16 +86,49 @@
         "DevModeTool": false
     },
     "LabeledEntitySpec": {
-        "DisplayNameLocKey": "LV.CrH.TrebuchetName",
-        "DescriptionLocKey": "LV.CrH.TrebuchetDesc",
-        "FlavorDescriptionLocKey": "LV.CrH.TrebuchetFlavor",
-        "Icon": "Buildings/CraneHeads/Trebuchet/TrebuchetIcon"
+        "DisplayNameLocKey": "LV.CrH.WindmillName",
+        "DescriptionLocKey": "LV.CrH.WindmillDesc",
+        "FlavorDescriptionLocKey": "LV.CrH.WindmillFlavor",
+        "Icon": "Buildings/CraneHeads/CranetopWindmill/CranetopWindmillIcon"
+    },
+    "WeathervaneSpec": {},
+    "WindRotationAnimatorSpec": {
+        "WindRotators": [
+            {
+                "TransformName": "#RotorMisc",
+                "RotationAxis": {
+                    "X": 1.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
+                "RotationSpeed": 400.0
+            }
+        ],
+        "Tower": {
+            "TransformName": "#WindLogMisc",
+            "RotationAxis": {
+                "X": 0.0,
+                "Y": 1.0,
+                "Z": 0.0
+            },
+            "RotationSpeed": 200.0
+        }
     },
     "ConstructionSiteProgressVisualizerSpec": {
         "ProgressThresholds": [
             0.0
         ]
     },
+    "WaterObjectSpec": {
+        "WaterCoordinates": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+        }
+    },
+    "FloodableBuildingSpec": {},
+    "BlockableFloodableObjectSpec": {},
+    "BlockableBuildingWindAnimatorSpec": {},
     "CraneHeadSpec": {
         "AttachmentCoordinates": {
             "X": 0,
@@ -92,56 +136,55 @@
             "Z": 0
         }
     },
-    "CraneHeadTrebuchetSpec": {
-        "WeightLimit": 90,
-        "LaunchCost": [
-            {
-                "Id": "Fireworks",
-                "Amount": 1
-            },
-            {
-                "Id": "Plank",
-                "Amount": 2
-            }
-        ],
-        "LaunchCostCapacity": 3,
-        "Turret": "#Turret",
-        "Barrel": "#Barrel"
+    "CraneHeadWindmillSpec": {
+        "BonusPerSection": 0.1,
+        "MinRequiredWindStrength": 0.3
     },
     "Children": {
         "#Finished": {
             "TimbermeshSpec": {
-                "Model": "Buildings/Automation/FireworkLauncher/FireworkLauncher.Folktails.Model"
+                "Model": "Buildings/Decoration/Weathervane/Weathervane.IronTeeth.Model"
             },
             "CollidersSpec": {
                 "BoxColliders": [
                     {
                         "Center": {
                             "X": 0.5,
-                            "Y": 0.04,
+                            "Y": 0.25,
                             "Z": 0.5
                         },
                         "Size": {
-                            "X": 1.0,
-                            "Y": 0.08,
-                            "Z": 1.0
+                            "X": 0.8,
+                            "Y": 0.4,
+                            "Z": 0.8
                         }
                     },
                     {
                         "Center": {
                             "X": 0.5,
-                            "Y": 0.38,
+                            "Y": 0.25,
                             "Z": 0.5
                         },
                         "Size": {
-                            "X": 0.62,
-                            "Y": 0.58,
-                            "Z": 0.64
+                            "X": 0.8,
+                            "Y": 0.4,
+                            "Z": 0.8
                         }
                     }
                 ],
                 "SphereColliders": [],
-                "CapsuleColliders": []
+                "CapsuleColliders": [
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.92,
+                            "Z": 0.5
+                        },
+                        "Radius": 0.11,
+                        "Height": 1.0,
+                        "Axis": "Y"
+                    }
+                ]
             }
         },
         "#Unfinished": {
@@ -151,7 +194,7 @@
                 },
                 "ConstructionStage0": {
                     "TimbermeshSpec": {
-                        "Model": "Buildings/Automation/FireworkLauncher/FireworkLauncher.Folktails.ConstructionStage0.Model"
+                        "Model": "Buildings/Decoration/Weathervane/Weathervane.IronTeeth.ConstructionStage0.Model"
                     },
                     "CollidersSpec": {
                         "BoxColliders": [

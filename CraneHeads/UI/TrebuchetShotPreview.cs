@@ -15,11 +15,15 @@ public class TrebuchetShotPreview(
     static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
 
     readonly GameObject container = new("TrebuchetShotPreview");
+    readonly List<Vector3Int> blockers = [];
     MeshDrawer tile = null!;
     MeshDrawer block = null!;
     LineRenderer line = null!;
     Material success = null!;
     Material failure = null!;
+    Vector3Int dest;
+    bool valid;
+    bool visible;
 
     public void Load()
     {
@@ -40,13 +44,14 @@ public class TrebuchetShotPreview(
 
     public void Show(Vector3Int dest, bool valid, IReadOnlyList<Vector3> path, IReadOnlyList<Vector3Int> blockers)
     {
+        this.dest = dest;
+        this.valid = valid;
+        this.blockers.Clear();
+        this.blockers.AddRange(blockers);
         container.SetActive(true);
         highlighter.UnhighlightAllSecondary();
-        var color = valid ? TimberUiUtils.SuccessColor : TimberUiUtils.DangerColor;
-        tile.DrawAtCoordinates(dest, TileOffset, color);
-        foreach (var cell in blockers)
+        foreach (var cell in this.blockers)
         {
-            block.DrawAtCoordinates(cell, 0f, TimberUiUtils.DangerColor);
             foreach (var obj in blocks.GetObjectsAt(cell))
             {
                 highlighter.HighlightSecondary(obj, TimberUiUtils.DangerColor);
@@ -56,6 +61,8 @@ public class TrebuchetShotPreview(
         if (path.Count < 2)
         {
             line.gameObject.SetActive(false);
+            visible = true;
+            Draw();
             return;
         }
 
@@ -67,10 +74,28 @@ public class TrebuchetShotPreview(
         }
 
         line.gameObject.SetActive(true);
+        visible = true;
+        Draw();
+    }
+
+    public void Draw()
+    {
+        if (!visible)
+        {
+            return;
+        }
+
+        var color = valid ? TimberUiUtils.SuccessColor : TimberUiUtils.DangerColor;
+        tile.DrawAtCoordinates(dest, TileOffset, color);
+        foreach (var cell in blockers)
+        {
+            block.DrawAtCoordinates(cell, 0f, TimberUiUtils.DangerColor);
+        }
     }
 
     public void Hide()
     {
+        visible = false;
         line.gameObject.SetActive(false);
         highlighter.UnhighlightAllSecondary();
         container.SetActive(false);
