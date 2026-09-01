@@ -18,6 +18,7 @@ public class TrebuchetTargetTool(
     readonly List<Vector3Int> blockers = [];
     CraneHeadTrebuchetLauncher? launcher;
     CraneHeadTrebuchetModel? model;
+    Vector3Int? lastDest;
 
     public void Enter()
     {
@@ -39,6 +40,7 @@ public class TrebuchetTargetTool(
 
         launcher = null;
         model = null;
+        lastDest = null;
     }
 
     public ToolDescription DescribeTool()
@@ -62,6 +64,7 @@ public class TrebuchetTargetTool(
         var picked = cursor.Pick();
         if (picked is null || !trebuchet)
         {
+            lastDest = null;
             preview.Hide();
             tooltip.Hide();
             model?.SetPreview(null);
@@ -69,19 +72,27 @@ public class TrebuchetTargetTool(
         }
 
         var dest = picked.Value.TileCoordinates;
-        var check = shot.Evaluate(dest);
-        model?.SetPreview(dest);
-        trajectory.FillWorldPath(trebuchet.Origin, dest, trebuchet.PeakDelta, path);
-        trajectory.FillBlockingCells(trebuchet.Origin, dest, trebuchet.PeakDelta, shot.GetComponent<BlockObject>(), blockers);
-        preview.Show(dest, check.IsValid, path, blockers);
-        tooltip.Show(check);
+        if (lastDest != dest)
+        {
+            lastDest = dest;
+            var check = shot.Evaluate(dest);
+            model?.SetPreview(dest);
+            trajectory.FillWorldPath(trebuchet.Origin, dest, trebuchet.PeakDelta, path);
+            trajectory.FillBlockingCells(trebuchet.Origin, dest, trebuchet.PeakDelta, shot.GetComponent<BlockObject>(), blockers);
+            preview.Show(dest, check.IsValid, path, blockers);
+            tooltip.Show(check);
+        }
+        else
+        {
+            preview.Draw();
+        }
 
         if (!input.MainMouseButtonDown || input.MouseOverUI)
         {
             return false;
         }
 
-        if (!check.IsValid)
+        if (!shot.Evaluate(dest).IsValid)
         {
             sounds.PlayCantDoSound();
             return true;

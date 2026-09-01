@@ -118,6 +118,7 @@ public class CraneHeadTrebuchetInventory(
     public void InitializeEntity()
     {
         trebuchet.ModeChanged += OnModeChanged;
+        trebuchet.PausedChanged += OnPausedChanged;
         head.CraneChanged += OnCraneChanged;
         wasReady = IsReady;
         wasOverweight = IsOverweight;
@@ -127,6 +128,7 @@ public class CraneHeadTrebuchetInventory(
     public void DeleteEntity()
     {
         trebuchet.ModeChanged -= OnModeChanged;
+        trebuchet.PausedChanged -= OnPausedChanged;
         head.CraneChanged -= OnCraneChanged;
         Unlist();
     }
@@ -167,7 +169,7 @@ public class CraneHeadTrebuchetInventory(
     }
 
     public bool IsForCrane(CraneComponent crane)
-        => trebuchet.IsFinished && head.Crane == crane;
+        => trebuchet.IsFinished && !trebuchet.IsPaused && head.Crane == crane;
 
     public IEnumerable<GoodAmount> GetRemainingMaterials()
     {
@@ -185,6 +187,11 @@ public class CraneHeadTrebuchetInventory(
 
     public int AddMaterial(GoodAmount material)
     {
+        if (trebuchet.IsPaused)
+        {
+            return 0;
+        }
+
         var remaining = 0;
         foreach (var amount in Needed())
         {
@@ -318,6 +325,11 @@ public class CraneHeadTrebuchetInventory(
 
     IEnumerable<GoodAmount> Needed()
     {
+        if (trebuchet.IsPaused)
+        {
+            yield break;
+        }
+
         Dictionary<string, int> needed = [];
         if (!IsOverweight)
         {
@@ -386,6 +398,16 @@ public class CraneHeadTrebuchetInventory(
         }
     }
 
+    void ReturnAllToCrane()
+    {
+        foreach (var id in stock.Keys.ToArray())
+        {
+            ReturnToCrane(id, stock.GetValueOrDefault(id));
+        }
+
+        Notify(materials: true);
+    }
+
     void ReturnToCrane(string goodId, int amount)
     {
         if (amount <= 0)
@@ -416,6 +438,16 @@ public class CraneHeadTrebuchetInventory(
     }
 
     void OnModeChanged(object sender, EventArgs e) => RefreshListing();
+
+    void OnPausedChanged(object sender, EventArgs e)
+    {
+        if (trebuchet.IsPaused)
+        {
+            ReturnAllToCrane();
+        }
+
+        RefreshListing();
+    }
 
     void OnCraneChanged(object sender, EventArgs e) => RefreshListing();
 

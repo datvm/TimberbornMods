@@ -6,8 +6,16 @@ LV.CrH.JibFlavor,"Whoever designed this insisted the extra reach was for efficie
 LV.CrH.HeadRangeBonus,"● <YellowHighlight>Extra range</YellowHighlight>: {0}"
 LV.CrH.MustPlaceHeadOnCraneSection,"Must be placed on a Crane Section."
 LV.CrH.TrebuchetName,"Trebuchet",
-LV.CrH.TrebuchetDesc,"A Crane Head that launches goods along a curved path. Range equals the number of Crane Sections. Place it on top of a Crane Section.",
+LV.CrH.TrebuchetDesc,"A Crane Head that launches goods along a curved path. Range equals the number of Crane Sections.",
 LV.CrH.TrebuchetFlavor,"Hooman used it to launch 90 kg projectiles over 300 meters.",
+LV.CrH.WindmillName,"Cranetop Windmill",
+LV.CrH.WindmillDesc,"A Crane Head that turns the Crane into a wind-powered generator. Taller masts produce more HP.",
+LV.CrH.WindmillFlavor,"Whoever designed this insisted the extra height was for efficiency. The extra spinning was, once again, the real fun.",
+LV.CrH.WindmillHeightBonus,"● <YellowHighlight>Power per section</YellowHighlight>: +{0}%",
+LV.CrH.WindmillOutput,"<b>Output: {0} hp</b>
+- From Wind: {1} hp x {2}% = {3} hp
+- From Height: {4} hp x {5}% = {6} hp",
+Name_WindmillFragment,"Cranetop Windmill",
 LV.CrH.HeadLabel,"Crane Head: ",
 LV.CrH.JobLaunch,"Launch",
 LV.CrH.Payload,"Payload",
@@ -24,6 +32,7 @@ LV.CrH.LaunchMode,"Launch",
 LV.CrH.LaunchNone,"None",
 LV.CrH.LaunchOnce,"One time",
 LV.CrH.LaunchRepeat,"Repeat",
+LV.CrH.Fire,"Fire",
 LV.CrH.AddGood,"Add",
 LV.CrH.NoGood,"—",
 LV.CrH.PickTarget,"Pick a landing tile for the Trebuchet",

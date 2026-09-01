@@ -3,13 +3,14 @@ namespace CraneHeads.Components;
 [AddTemplateModule2(typeof(CraneHeadTrebuchetSpec))]
 public class CraneHeadTrebuchetIssueStatus(
     ILoc t
-) : BaseComponent, IAwakableComponent, IFinishedStateListener, IUpdatableComponent
+) : BaseComponent, IAwakableComponent, IFinishedStateListener, IInitializableEntity, IDeletableEntity, ISelectionListener
 {
     const string Sprite = "TrebuchetBlocked";
 
     CraneHeadTrebuchet trebuchet = null!;
     CraneHeadTrebuchetInventory inventory = null!;
     CraneHeadTrebuchetLauncher launcher = null!;
+    BlockObject bo = null!;
     StatusToggle overweight = null!;
     StatusToggle needPayload = null!;
     StatusToggle needTarget = null!;
@@ -25,6 +26,7 @@ public class CraneHeadTrebuchetIssueStatus(
         trebuchet = GetComponent<CraneHeadTrebuchet>();
         inventory = GetComponent<CraneHeadTrebuchetInventory>();
         launcher = GetComponent<CraneHeadTrebuchetLauncher>();
+        bo = GetComponent<BlockObject>();
         overweight = Issue("LV.CrH.TrebuchetOverweight", "LV.CrH.StatusOverweightShort");
         needPayload = Issue("LV.CrH.TrebuchetNeedPayload", "LV.CrH.StatusNeedPayloadShort");
         needTarget = Issue("LV.CrH.TrebuchetNeedTarget", "LV.CrH.StatusNeedTargetShort");
@@ -35,18 +37,50 @@ public class CraneHeadTrebuchetIssueStatus(
         sameTile = Issue("LV.CrH.TrebuchetSameTile", "LV.CrH.StatusSameTileShort");
         GetComponent<StatusSubject>().RegisterStatuses(
             [overweight, needPayload, needTarget, blocked, outOfRange, tooHigh, badLanding, sameTile]);
-        DisableComponent();
     }
 
-    public void OnEnterFinishedState() => EnableComponent();
-
-    public void OnExitFinishedState()
+    public void InitializeEntity()
     {
-        DisableComponent();
-        Show(null);
+        launcher.TargetChanged += OnIssueChanged;
+        launcher.TrajectoryChecked += OnIssueChanged;
+        inventory.Changed += OnIssueChanged;
     }
 
-    public void Update() => Show(CurrentIssue());
+    public void DeleteEntity()
+    {
+        launcher.TargetChanged -= OnIssueChanged;
+        launcher.TrajectoryChecked -= OnIssueChanged;
+        inventory.Changed -= OnIssueChanged;
+    }
+
+    public void OnEnterFinishedState() => Refresh();
+
+    public void OnExitFinishedState() => Show(null);
+
+    public void OnSelect()
+    {
+        if (!bo.IsPreview)
+        {
+            Refresh();
+        }
+    }
+
+    public void OnUnselect()
+    {
+    }
+
+    void OnIssueChanged(object sender, EventArgs e) => Refresh();
+
+    void Refresh()
+    {
+        if (!trebuchet.IsFinished)
+        {
+            Show(null);
+            return;
+        }
+
+        Show(CurrentIssue());
+    }
 
     StatusToggle? CurrentIssue()
     {
