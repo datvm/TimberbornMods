@@ -332,7 +332,7 @@ public class SpecChronicleEventController(
         return Enum.TryParse<T>(text, true, out var result) ? result : throw new InvalidOperationException($"Failed to parse '{text}' as {typeof(T).Name}.");
     }
 
-    static readonly FrozenSet<string> TrueValues = FrozenSet.Create(StringComparer.InvariantCultureIgnoreCase, "1", "true", "yes");
+    static readonly FrozenSet<string> TrueValues = ((string[])["1", "true", "yes"]).ToFrozenSet(StringComparer.InvariantCultureIgnoreCase);
     public bool FormatTextBool(string? input)
     {
         var text = FormatText(input);

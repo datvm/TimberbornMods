@@ -4,7 +4,7 @@ public record BuildingConditionData
 {
     public ImmutableArray<string> EntityIds { get; init; } = [];
     public ConditionType ConditionType { get; init; } = ConditionType.Any;
-    public FrozenSet<string> TemplateNames { get; init; } = [];
+    public FrozenSet<string> TemplateNames { get; init; } = FrozenSet<string>.Empty;
     public ImmutableArray<string> TemplateNamePrefixes { get; init; } = [];
     public bool? IsFinished { get; init; }
     public bool ConsiderFreeBuildings { get; init; }
