@@ -12,6 +12,9 @@ public record CraneHeadTrebuchetSpec : ComponentSpec
     public int LaunchCostCapacity { get; init; }
 
     [Serialize]
+    public float CooldownHours { get; init; }
+
+    [Serialize]
     public string Turret { get; init; } = "";
 
     [Serialize]

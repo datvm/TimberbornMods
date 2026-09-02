@@ -96,15 +96,12 @@
         "WeightLimit": 90,
         "LaunchCost": [
             {
-                "Id": "Fireworks",
-                "Amount": 1
-            },
-            {
                 "Id": "Plank",
                 "Amount": 2
             }
         ],
         "LaunchCostCapacity": 3,
+        "CooldownHours": 1,
         "Turret": "#Turret.005",
         "Barrel": "#Barrel.003"
     },

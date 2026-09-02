@@ -5,7 +5,7 @@ public class CraneHeadTrebuchetLauncher(
     RecoveredGoodStackSpawner spawner,
     TrebuchetTrajectoryService trajectory,
     TrebuchetShotEffectService effects
-) : BaseComponent, IAwakableComponent, IInitializableEntity, IDeletableEntity, IPersistentEntity
+) : TickableComponent, IAwakableComponent, IInitializableEntity, IDeletableEntity, IPersistentEntity
 {
     static readonly ComponentKey SaveKey = new(nameof(CraneHeadTrebuchetLauncher));
     static readonly PropertyKey<Vector3Int> TargetKey = new("Target");
@@ -22,7 +22,8 @@ public class CraneHeadTrebuchetLauncher(
             && !trebuchet.IsPaused
             && trebuchet.Mode != TrebuchetLaunchMode.Repeat
             && inventory.IsReady
-            && !IsFlying;
+            && !IsFlying
+            && !trebuchet.IsOnCooldown;
 
     public event EventHandler? TargetChanged;
     public event EventHandler? TrajectoryChecked;
@@ -32,6 +33,7 @@ public class CraneHeadTrebuchetLauncher(
         trebuchet = GetComponent<CraneHeadTrebuchet>();
         inventory = GetComponent<CraneHeadTrebuchetInventory>();
         bo = GetComponent<BlockObject>();
+        DisableComponent();
     }
 
     public void InitializeEntity()
@@ -39,6 +41,21 @@ public class CraneHeadTrebuchetLauncher(
         inventory.ReadyChanged += OnReadyChanged;
         trebuchet.ModeChanged += OnModeChanged;
         trebuchet.PausedChanged += OnPausedChanged;
+        if (trebuchet.IsOnCooldown)
+        {
+            EnableComponent();
+        }
+    }
+
+    public override void Tick()
+    {
+        if (trebuchet.IsOnCooldown)
+        {
+            return;
+        }
+
+        DisableComponent();
+        TryLaunch();
     }
 
     public void DeleteEntity()
@@ -156,11 +173,20 @@ public class CraneHeadTrebuchetLauncher(
         }
 
         TrajectoryChecked?.Invoke(this, EventArgs.Empty);
-        if (!inventory.IsReady)
+        if (!inventory.IsReady || trebuchet.IsOnCooldown)
         {
             return;
         }
 
-        effects.TryStart(this);
+        if (!effects.TryStart(this))
+        {
+            return;
+        }
+
+        trebuchet.MarkLaunched();
+        if (trebuchet.IsOnCooldown)
+        {
+            EnableComponent();
+        }
     }
 }

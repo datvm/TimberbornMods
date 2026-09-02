@@ -1,3 +1,25 @@
+# ModDesc.txt
+
+When asked to write a `ModDesc.txt`, write a Steam Workshop description in Steam BBCode (not Markdown). Match the recent mods (Crane, Fourpillars, ConstructionSiteHauler, BuildingRenovations): player-facing, practical, and compact.
+
+Voice: second person, what the player gets. No marketing fluff. Light humor only in `[i]` flavor lines (new buildings). Bold names, UI labels, and caveats with `[b]`.
+
+BBCode: `[b]`, `[i]`, `[h1]`/`[h2]`, `[img]url[/img]`, `[url=...]text[/url]`, `[list][*] item[/list]`, `[table]`/`[tr]`/`[th]`/`[td]`, `[spoiler]` only when needed. Place a screenshot soon after the intro and after major sections (Steam UGC URL when available).
+
+Typical order (omit unused sections):
+
+1. 1–2 sentences of what the mod does. Optional `[i]` flavor line.
+2. Screenshot.
+3. `[h1]`/`[h2]` for buildings, features, settings, how-to, tips, FAQs, extending.
+4. If configurable: `Main Menu -> Mods -> Settings button next to the mod name`. Say when defaults leave vanilla unchanged.
+5. Stats as dashes (`Unlock`, `Cost`, `Workers`, `Range`, …). Related mods as Steam `[url]`.
+6. Footer exactly:
+
+```
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
+```
+
 # Code Style
 
 Always use code block even for single conditional or loop statements. For example:
