@@ -4,7 +4,7 @@ public record HasBuildingData
 {
     public static readonly HasBuildingData Default = new();
 
-    public FrozenSet<string> TemplateNames { get; init; } = [];
+    public FrozenSet<string> TemplateNames { get; init; } = FrozenSet<string>.Empty;
     public ImmutableArray<string> TemplateNamePrefixes { get; init; } = [];
 
     public MinMaxInt Amount { get; init; } = MinMax.Min1;

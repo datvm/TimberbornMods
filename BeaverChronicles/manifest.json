@@ -1,8 +1,8 @@
 ﻿{
     "Name": "Beaver Chronicles - Scenarios & Narrative Events",
-    "Version": "11.0.1",
+    "Version": "11.1.0",
     "Id": "BeaverChronicles",
-    "MinimumGameVersion": "1.1.0",
+    "MinimumGameVersion": "1.1.1",
     "Description": "Narrative events for your Beaver colony",
     "RequiredMods": [
         {
