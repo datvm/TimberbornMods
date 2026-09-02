@@ -55,6 +55,7 @@
   </Folder>
   <Folder Name="/JsonMods/">
     <Project Path="AirlockChamber/AirlockChamber.csproj" />
+    <Project Path="FolktailsPlus/FolktailsPlus.csproj" Id="efe30e2d-7866-4d0b-bf74-fe37001af383" />
     <Project Path="PaperAndBookForIronTeeth/PaperAndBookForIronTeeth.csproj" />
     <Project Path="PoweredTubeway/PoweredTubeway.csproj" />
     <Project Path="RubblesPlzNoExpire/RubblesPlzNoExpire.csproj" Id="7ae1b9d7-27f9-4e97-9b54-6ab088ecaf03" />
@@ -183,6 +184,7 @@
     <File Path="Targets/CommonDistroStorage.targets" />
     <File Path="Targets/CommonGlobalUsings.targets" />
     <File Path="Targets/CommonHarmony.targets" />
+    <File Path="Targets/CommonJson.targets" />
     <File Path="Targets/CommonMM.targets" />
     <File Path="Targets/CommonModBuilder.targets" />
     <File Path="Targets/CommonModdableRecipes.targets" />

@@ -1,6 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="ValidateJsonMod">
-
-	<Import Project=".\CommonProperties.targets" />
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="ValidateJsonMod">
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
@@ -13,32 +11,33 @@
 		<SkipCopyBuildProduct>true</SkipCopyBuildProduct>
 		<CopyBuildOutputToOutputDirectory>false</CopyBuildOutputToOutputDirectory>
 		<DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+
+		<GameModsFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\</GameModsFolder>
+		<ModFolder Condition="'$(ModFolder)'==''">$(GameModsFolder)$(OutputModFolderName)\</ModFolder>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Compile Remove="**\*.cs" />
 		<None Include="**\*.cs" />
-		<Content Include="manifest.json" />
 	</ItemGroup>
 
 	<Target Name="ValidateJsonMod">
 		<Error Condition="'$(OutputModFolderName)'==''" Text="OutputModFolderName was not specified" />
-		<Error Condition="!Exists('$(MSBuildProjectDirectory)\manifest.json')" Text="manifest.json is required for JSON-only mods" />
 	</Target>
 
 	<Target Name="CopyJsonModFiles" AfterTargets="Build">
 		<ItemGroup>
 			<JsonModFiles Include="$(MSBuildProjectDirectory)\**\*"
-				Exclude="$(MSBuildProjectDirectory)\bin\**\*;$(MSBuildProjectDirectory)\obj\**\*;$(MSBuildProjectDirectory)\out\**\*;$(MSBuildProjectDirectory)\*.csproj;$(MSBuildProjectDirectory)\*.csproj.user;$(MSBuildProjectDirectory)\**\*.cs" />
+				Exclude="$(MSBuildProjectDirectory)\bin\**\*;$(MSBuildProjectDirectory)\obj\**\*;$(MSBuildProjectDirectory)\out\**\*;$(MSBuildProjectDirectory)\*.csproj;$(MSBuildProjectDirectory)\*.csproj.user;$(MSBuildProjectDirectory)\**\*.cs;$(MSBuildProjectDirectory)\ModDesc.txt;$(MSBuildProjectDirectory)\ChangeLog.txt" />
 			<JsonBuildArtifacts Include="$(OutputPath)$(AssemblyName).*" />
 		</ItemGroup>
 
-		<Message Text="Deleting..." />
+		<Message Text="Deleting $(ModFolder)..." />
 		<RemoveDir Directories="$(ModFolder)" />
 
 		<Delete Files="@(JsonBuildArtifacts)" />
 
-		<Message Text="Copying JSON-only mod files..." />
+		<Message Text="Copying JSON-only mod files to $(ModFolder)..." />
 		<Copy SourceFiles="@(JsonModFiles)" DestinationFiles="@(JsonModFiles->'$(ModFolder)%(RecursiveDir)%(Filename)%(Extension)')" />
 	</Target>
 

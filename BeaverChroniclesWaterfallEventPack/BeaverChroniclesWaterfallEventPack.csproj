@@ -5,4 +5,8 @@
 
 	<Import Project="../Targets/CommonJson.targets" />
 
+	<PropertyGroup>
+		<!-- Source files sit at the project root, so copy into the game version folder. -->
+		<ModFolder>$(GameModsFolder)$(OutputModFolderName)\version-1.1\</ModFolder>
+	</PropertyGroup>
 </Project>

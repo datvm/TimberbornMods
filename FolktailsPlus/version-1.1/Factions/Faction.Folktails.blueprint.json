@@ -1,0 +1,18 @@
+﻿{
+    "FactionSpec": {
+        "MaterialCollectionIds#append": [
+            "IronTeeth"
+        ],
+        "TemplateCollectionIds#append": [
+            "Buildings.FolktailsPlus",
+            "NaturalResources.IronTeeth",
+            "Planes.IronTeeth"
+        ],
+        "NeedCollectionIds#append": [
+            "IronTeeth"
+        ],
+        "GoodCollectionIds#append": [
+            "IronTeeth"
+        ]
+    }
+}

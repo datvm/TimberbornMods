@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<OutputModFolderName>AirlockChamber</OutputModFolderName>
+		<OutputModFolderName>FolktailsPlus</OutputModFolderName>
 	</PropertyGroup>
 
 	<Import Project="../Targets/CommonJson.targets" />

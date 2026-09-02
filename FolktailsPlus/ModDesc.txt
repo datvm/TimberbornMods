@@ -1,0 +1,30 @@
+﻿This mod adds all Iron Teeth buildings and plants to Folktails, along with their goods and needs.
+[b]Important:[/b] breeding in Iron Teeth housing needs [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3446296053]Configurable Housing[/url]. See below.
+
+[h1]Why?[/h1]
+[b]Q: Why modify Folktails instead of making a new faction?[/b]
+A: You can keep playing an existing Folktails save and get every Iron Teeth stuff. That is the same practical benefit as [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3656686888]Configurable Faction[/url] without extra setup.
+If you don't want it anymore, disable this mod and you are back on normal Folktails though buildings that vanilla Folktails should not have will be gone from that save.
+[b]Most importantly:[/b] other modded buildings (like Ladder) that already support Folktails keep working.
+
+[b]Q: Why not just use Configurable Faction?[/b]
+A: Configurable Faction is the full mixer: pick every building, plant, good, and need yourself. This mod is the ready-made plate.
+[b]Do not use this together with Configurable Faction.[/b]
+
+[b]Q: Why not just use Greedy / other mods?[/b]
+A: I am not aware of any Greedy-style mods that change an existing faction. They add a new faction instead. That runs into the same problems as question 1.
+
+[b]Q: Where is [building]?[/b]
+A: Some buildings cannot exist together. For example, Farmhouse and Efficient Farmhouse.
+
+[b]Q: Why are there 2 of [building]?[/b]
+A: When both versions can coexist and the stats are different, you get both (Mine and Efficient Mine, or Lumbermill and Industrial Lumbermill, or Industrial Large Pile).
+
+[b]Q: Beavers are not breeding in Iron Teeth Barracks / houses![/b]
+A: Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3446296053]Configurable Housing[/url]. The game ties breeding to Folktails houses only. This mod cannot add it without also making Iron Teeth colonies breed.
+
+[b]Q: The mod does not show up?[/b]
+A: It only works with Timberborn v1.1+ (currently in Exp branch).
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
