@@ -5,8 +5,8 @@
         "Conditions": {
             "Sources": [ "NewDay" ],
             "Weight": 2147483647,
-            "RequiredFlags": [ "MAP.WATERFALLS", "EVENT.Taco" ],
-            "RequiredFlagsCondition": "All",
+            "BlockedNoFlags": [ "MAP.WATERFALLS" ],
+            "RequiredFlags": [ "EVENT.Taco" ],
             "BlockedFlags": [ "EVENT.Taco.C1.2" ]
         },
         "Parameters": {

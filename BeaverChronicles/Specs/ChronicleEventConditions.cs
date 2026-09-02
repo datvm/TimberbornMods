@@ -34,6 +34,11 @@ public record ChronicleEventConditions
     public ConditionType BlockedFlagsCondition { get; init; } = ConditionType.Any;
 
     [Serialize]
+    public ImmutableArray<string> BlockedNoFlags { get; init; } = [];
+    [Serialize]
+    public ConditionType BlockedNoFlagsCondition { get; init; } = ConditionType.Any;
+
+    [Serialize]
     public string? ConditionNodeId { get; init; }
 
     [Serialize]

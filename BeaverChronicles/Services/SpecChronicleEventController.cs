@@ -140,6 +140,10 @@ public class SpecChronicleEventController(
         var cond = Spec.Conditions;
 
         if (SatisfiedFlags(cond.BlockedFlags, cond.BlockedFlagsCondition)) { return FlagCheckResult.Block; }
+        if (cond.BlockedNoFlags.Length > 0 && !SatisfiedFlags(cond.BlockedNoFlags, cond.BlockedNoFlagsCondition))
+        {
+            return FlagCheckResult.Block;
+        }
         if (SatisfiedFlags(cond.RequiredNoFlags, cond.RequiredNoFlagsCondition)) { return FlagCheckResult.CannotTrigger; }
 
         // empty required flags means no flags are required, so it can trigger

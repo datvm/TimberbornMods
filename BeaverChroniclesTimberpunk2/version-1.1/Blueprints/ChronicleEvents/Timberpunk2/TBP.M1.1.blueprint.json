@@ -1,0 +1,51 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M1.1",
+        "TitleLoc": "LV.BCT.M1.1",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewDay" ],
+            "Weight": 2147483647
+        },
+        "Parameters": {
+            "Strings": [
+                "ScrapMetal"
+            ],
+            "Ints": [
+                1
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M1.1.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M1.1.C1",
+                                "NoteLoc": "LV.BCT.M1.1.C1N",
+                                "NextNodeId": "GiveScrap"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "GiveScrap",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{I1}"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

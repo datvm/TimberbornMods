@@ -1,0 +1,73 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.0",
+        "TitleLoc": "LV.BCT.0",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewHour" ],
+            "Weight": 2147483647,
+            "MinDay": 1.25
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.0.Content",
+                        "DefaultOption": 2,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.0.C1",
+                                "NoteLoc": "LV.BCT.0.C1N",
+                                "NextNodeId": "SetEasy"
+                            },
+                            {
+                                "TextLoc": "LV.BCT.0.C2",
+                                "NoteLoc": "LV.BCT.0.C2N",
+                                "NextNodeId": "SetNormal"
+                            },
+                            {
+                                "TextLoc": "LV.BCT.0.C3",
+                                "NoteLoc": "LV.BCT.0.C3N",
+                                "NextNodeId": "SetHard"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "SetEasy",
+                    "Type": "SetFlag",
+                    "Data": {
+                        "Name": "TBP.Diff.Easy"
+                    },
+                    "NextNodeId": "RequestWelcome"
+                },
+                {
+                    "Id": "SetNormal",
+                    "Type": "SetFlag",
+                    "Data": {
+                        "Name": "TBP.Diff.Normal"
+                    },
+                    "NextNodeId": "RequestWelcome"
+                },
+                {
+                    "Id": "SetHard",
+                    "Type": "SetFlag",
+                    "Data": {
+                        "Name": "TBP.Diff.Hard"
+                    },
+                    "NextNodeId": "RequestWelcome"
+                },
+                {
+                    "Id": "RequestWelcome",
+                    "Type": "RequestNextEvent",
+                    "Data": {
+                        "Id": "TBP.Welcome"
+                    }
+                }
+            ]
+        }
+    }
+}

@@ -5,8 +5,8 @@
         "Conditions": {
             "Sources": [ "NewDay" ],
             "Weight": 2147483647,
-            "RequiredFlags": [ "MAP.WATERFALLS", "EVENT.BadtideDrainStudy" ],
-            "RequiredFlagsCondition": "All",
+            "BlockedNoFlags": [ "MAP.WATERFALLS" ],
+            "RequiredFlags": [ "EVENT.BadtideDrainStudy" ],
             "BlockedFlags": [ "EVENT.BadtideDrainStudy.C1.2" ]
         },
         "Parameters": {

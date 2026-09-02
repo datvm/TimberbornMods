@@ -14,6 +14,7 @@
   <Folder Name="/BChronicles/">
     <Project Path="BeaverChronicles/BeaverChronicles.csproj" Id="c21248d9-cac1-4194-b0f9-aae8a889e8ad" />
     <Project Path="BeaverChroniclesCampfire/BeaverChroniclesCampfire.csproj" Id="8cf1e96a-1dae-40b6-9c7d-410f406bea43" />
+    <Project Path="BeaverChroniclesTimberpunk2/BeaverChroniclesTimberpunk2.csproj" Id="21be0c33-78e6-47c8-8914-257b45f21d3f" />
     <Project Path="BeaverChroniclesWaterfallEventPack/BeaverChroniclesWaterfallEventPack.csproj" />
   </Folder>
   <Folder Name="/Configurables/">

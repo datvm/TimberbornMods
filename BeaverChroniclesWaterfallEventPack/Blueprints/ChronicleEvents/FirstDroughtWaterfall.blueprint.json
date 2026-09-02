@@ -5,7 +5,8 @@
         "Conditions": {
             "Sources": [ "NewWeather" ],
             "Weight": 2147483647,
-            "RequiredFlags": [ "MAP.WATERFALLS", "EVENT.StartBonusWaterfall.C1.2" ],
+            "BlockedNoFlags": [ "MAP.WATERFALLS" ],
+            "RequiredFlags": [ "EVENT.StartBonusWaterfall.C1.2" ],
             "BlockedFlags": [ "EVENT.StartBonusWaterfall.C1.1" ],
             "ConditionNodeId": "IsDrought"
         },

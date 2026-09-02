@@ -17,9 +17,12 @@ public class FindEntitiesHandler(
 
         var maxCount = Math.Max(0, data.MaxCount);
         var foundEntities = FindEntities(data, controller);
-        string[] entities = [..data.ChooseRandom
-            ? foundEntities.OrderBy(_ => Random.value).Take(maxCount)
-            : foundEntities.Take(maxCount)];
+        IEnumerable<BaseComponent> ordered = data.OldestFirst
+            ? foundEntities.OrderByDescending(AgeOf)
+            : data.ChooseRandom
+                ? foundEntities.OrderBy(_ => Random.value)
+                : foundEntities;
+        string[] entities = [.. ordered.Take(maxCount).Select(e => e.GetEntityId().ToString())];
         var customParameters = controller.CurrentRecord.CustomParameters;
 
         customParameters[$"{prefix}_Count"] = entities.Length.ToString();
@@ -39,7 +42,9 @@ public class FindEntitiesHandler(
         return nextNodeId;
     }
 
-    IEnumerable<string> FindEntities(FindEntitiesData data, SpecChronicleEventController controller)
+    static int AgeOf(BaseComponent entity) => entity.GetComponent<Character>()?.Age ?? int.MinValue;
+
+    IEnumerable<BaseComponent> FindEntities(FindEntitiesData data, SpecChronicleEventController controller)
     {
         var areas = data.AreasBounds;
             
@@ -47,7 +52,7 @@ public class FindEntitiesHandler(
         {
             foreach (var c in findEntityHelper.GetCharacters(data.CharacterType, areas))
             {
-                yield return c.GetEntityId().ToString();
+                yield return c;
             }
         }
 
@@ -55,7 +60,7 @@ public class FindEntitiesHandler(
         {
             foreach (var c in findEntityHelper.FindBuildings(areas: areas, areaCondition: data.AreaCondition))
             {
-                yield return c.GetEntityId().ToString();
+                yield return c;
             }
         }
         else
@@ -67,7 +72,7 @@ public class FindEntitiesHandler(
             {
                 foreach (var c in findEntityHelper.FindEntitiesByTemplates(templateNames, templatePrefixes, areas, data.AreaCondition))
                 {
-                    yield return c.GetEntityId().ToString();
+                    yield return c;
                 }
             }
         }

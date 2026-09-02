@@ -7,7 +7,7 @@
             "Weight": 100,
             "MinCycle": 3,
             "ConditionNodeId": "IsTemperate",
-            "RequiredFlags": [ "MAP.WATERFALLS" ]
+            "BlockedNoFlags": [ "MAP.WATERFALLS" ]
         },
         "Parameters": {
             "Floats": [

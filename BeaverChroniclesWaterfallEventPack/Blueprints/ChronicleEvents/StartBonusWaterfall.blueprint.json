@@ -7,7 +7,7 @@
             "Sources": [ "NewHour" ],
             "Weight": 2147483647,
             "MinDay": 1.25,
-            "RequiredFlags": [ "MAP.WATERFALLS" ]
+            "BlockedNoFlags": [ "MAP.WATERFALLS" ]
         },
         "Parameters": {
             "Strings": [

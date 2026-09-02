@@ -1,0 +1,8 @@
+{
+    "ChronicleEventSpec": {
+        "Conditions": {
+            // This pack replaces the vanilla start bonus with DifficultySelect.
+            "Sources": []
+        }
+    }
+}

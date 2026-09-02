@@ -1,0 +1,308 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M1.0",
+        "TitleLoc": "LV.BCT.M1.0",
+        "Conditions": {
+            "Sources": [ "NewHour" ],
+            "Weight": 2147483647
+        },
+        "Parameters": {
+            "Floats": [
+                0.5, // F1: 12-hour payment window in days
+                -0.05, // %2: Work speed penalty
+                7.0, // F3: Work speed penalty days
+                -1.10, // %4: Failure life expectancy
+                100.0 // F5: Failure life expectancy days
+            ],
+            "Strings": [
+                "Water", // S1
+                "Berries", // S2
+                "WorkingSpeed", // S3
+                "LifeExpectancy", // S4
+                "ChildBeaver", // S5
+                "AdultBeaver", // S6
+                "BadwaterContamination" // S7
+            ],
+            "Ints": [
+                4, // I1: Kids spawned (C1, C2)
+                2, // I2: Adults abandoned or contaminated
+                15, // I3: Water / berry payment
+                5, // I4: Water / food given (C3)
+                2 // I5: Adults spawned (C4)
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "HasDistrictCenter",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "HasBuilding",
+                                "Parameters": {
+                                    "TemplateNamePrefixes": [ "DistrictCenter." ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M1.0.Content",
+                        "DefaultOption": 3,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M1.0.C1",
+                                "NoteLoc": "LV.BCT.M1.0.C1N",
+                                "NextNodeId": "FindOldestAdults",
+                                "EnabledConditionNodeId": "HasDistrictCenter",
+                                "DisabledTextLoc": "LV.BCEv.DisabledNoDc"
+                            },
+                            {
+                                "TextLoc": "LV.BCT.M1.0.C2",
+                                "NoteLoc": "LV.BCT.M1.0.C2N",
+                                "NextNodeId": "PayC2",
+                                "EnabledConditionNodeId": "HasDistrictCenter",
+                                "DisabledTextLoc": "LV.BCEv.DisabledNoDc"
+                            },
+                            {
+                                "TextLoc": "LV.BCT.M1.0.C3",
+                                "NoteLoc": "LV.BCT.M1.0.C3N",
+                                "NextNodeId": "GiveC3",
+                                "EnabledConditionNodeId": "HasDistrictCenter",
+                                "DisabledTextLoc": "LV.BCEv.DisabledNoDc"
+                            },
+                            {
+                                "TextLoc": "LV.BCT.M1.0.C4",
+                                "NoteLoc": "LV.BCT.M1.0.C4N",
+                                "NextNodeId": "PayC4",
+                                "EnabledConditionNodeId": "HasDistrictCenter",
+                                "DisabledTextLoc": "LV.BCEv.DisabledNoDc"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "FindOldestAdults",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver",
+                        "MaxCount": 2,
+                        "OldestFirst": true,
+                        "ResultName": "AbandonedAdults",
+                        "NoneFoundNodeId": "SpawnKidsC1"
+                    },
+                    "NextNodeId": "SpawnKidsC1"
+                },
+                {
+                    "Id": "SpawnKidsC1",
+                    "Type": "Give",
+                    "Data": {
+                        "Spawns": [
+                            {
+                                "Id": "{S5}",
+                                "Amount": "{I1}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "KillOldestAdults"
+                },
+                {
+                    "Id": "KillOldestAdults",
+                    "Type": "DeleteEntity",
+                    "Data": {
+                        "EntityIds": [ "AbandonedAdults" ],
+                        "BeaverDeathMessageLoc": "LV.BCT.M1.0.AbandonedDeath"
+                    },
+                    "NextNodeId": "RequestM11"
+                },
+                {
+                    "Id": "PayC2",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F1}",
+                        "PanelTextLoc": "LV.BCT.M1.0.C2",
+                        "PaidNodeId": "SpawnKidsC2",
+                        "Payments": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{I3}"
+                            },
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{I3}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "Failure"
+                },
+                {
+                    "Id": "SpawnKidsC2",
+                    "Type": "Give",
+                    "Data": {
+                        "Spawns": [
+                            {
+                                "Id": "{S5}",
+                                "Amount": "{I1}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "FindContaminatedAdults"
+                },
+                {
+                    "Id": "FindContaminatedAdults",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver",
+                        "MaxCount": 2,
+                        "ChooseRandom": true,
+                        "ResultName": "ContaminatedAdults",
+                        "NoneFoundNodeId": "RequestM12"
+                    },
+                    "NextNodeId": "ContaminateAdults"
+                },
+                {
+                    "Id": "ContaminateAdults",
+                    "Type": "CharacterStatus",
+                    "Data": {
+                        "EntityIds": [ "ContaminatedAdults" ],
+                        "InflictNeed": "{S7}"
+                    },
+                    "NextNodeId": "RequestM12"
+                },
+                {
+                    "Id": "GiveC3",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{I4}"
+                            },
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{I4}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "WorkPenaltyC3"
+                },
+                {
+                    "Id": "WorkPenaltyC3",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "TBP.M1.0.WorkPenalty",
+                        "TitleLoc": "LV.BCT.M1.0.WorkPenalty",
+                        "DescLoc": "LV.BCT.M1.0.WorkPenaltyDesc",
+                        "CharacterTypes": "AdultBeaver",
+                        "Days": "{F3}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S3}",
+                                "Amount": "{F2}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "RequestM13"
+                },
+                {
+                    "Id": "PayC4",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F1}",
+                        "PanelTextLoc": "LV.BCT.M1.0.C4",
+                        "PaidNodeId": "SpawnAdultsC4",
+                        "Payments": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{I3}"
+                            },
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{I3}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "Failure"
+                },
+                {
+                    "Id": "SpawnAdultsC4",
+                    "Type": "Give",
+                    "Data": {
+                        "Spawns": [
+                            {
+                                "Id": "{S6}",
+                                "Amount": "{I5}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "RequestM14"
+                },
+                {
+                    "Id": "Failure",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "TBP.M1.0.Failure",
+                        "TitleLoc": "LV.BCT.M1.7",
+                        "DescLoc": "LV.BCT.M1.7.BuffDesc",
+                        "CharacterTypes": "AdultBeaver, ChildBeaver",
+                        "Days": "{F5}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S4}",
+                                "Amount": "{F4}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "FailureMessage"
+                },
+                {
+                    "Id": "FailureMessage",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M1.7.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M1.7.C1",
+                                "NoteLoc": "LV.BCT.M1.7.C1N"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "RequestM11",
+                    "Type": "RequestNextEvent",
+                    "Data": {
+                        "Id": "TBP.M1.1"
+                    }
+                },
+                {
+                    "Id": "RequestM12",
+                    "Type": "RequestNextEvent",
+                    "Data": {
+                        "Id": "TBP.M1.2"
+                    }
+                },
+                {
+                    "Id": "RequestM13",
+                    "Type": "RequestNextEvent",
+                    "Data": {
+                        "Id": "TBP.M1.3"
+                    }
+                },
+                {
+                    "Id": "RequestM14",
+                    "Type": "RequestNextEvent",
+                    "Data": {
+                        "Id": "TBP.M1.4"
+                    }
+                }
+            ]
+        }
+    }
+}
