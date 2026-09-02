@@ -1,0 +1,13 @@
+﻿{
+    "Name": "Folktails+",
+    "Version": "11.0.0",
+    "Id": "FolktailsPlus",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "Folktails + Iron Teeth buildings",
+    "RequiredMods": [
+        { "Id": "XtraPlzNoCrashes" }
+    ],
+    "OptionalMods": [
+        { "Id": "KnatteAnka.MoreGroups" }
+    ]
+}
