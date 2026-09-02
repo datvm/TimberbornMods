@@ -32,7 +32,7 @@ A 1×1 Crane Head that launches goods along a **curve**. Horizontal range equals
 
 The path must be unobstructed, like a zipline cable. Cells above the map height cap are treated as clear. The landing tile itself must be a valid Recovered Good Stack spot: ground or the top of a stackable building, not a wall face or empty air.
 
-On the Trebuchet panel: pick one or more goods (weight limit 90), pick a landing tile, then set launch to **One time** or **Repeat**. You can set a payload over the limit; the weight turns red, the inventory stops accepting goods, and it will not launch until the weight is at or below the limit. The Crane fills the Trebuchet inventory (payload plus launch cost × capacity). When the stock is enough and the path is still clear, it fires. One time then returns to None; Repeat waits for the next load. If the path is blocked, you get an alert when the inventory becomes ready or when you select the Trebuchet.
+On the Trebuchet panel: pick one or more goods (weight limit 90), pick a landing tile, then set launch to **One time** or **Repeat**. You can set a payload over the limit; the weight turns red, the inventory stops accepting goods, and it will not launch until the weight is at or below the limit. The Crane fills the Trebuchet inventory (payload plus launch cost × capacity). When the stock is enough, the path is still clear, and the cooldown has elapsed, it fires. One time then returns to None; Repeat waits for the next load and cooldown. The panel shows the next launch in hours while cooling down. If the path is blocked, you get an alert when the inventory becomes ready or when you select the Trebuchet.
 
 The cannon turns to face the chosen tile. The targeting tool highlights the landing floor and draws the shot curve (red if the shot is invalid, with a reason tooltip).
 
@@ -45,8 +45,9 @@ Place it on top of a Crane Section. Nothing stacks on a Trebuchet. It uses the F
 | Size | 1×1×1 |
 | Range | 1 tile per Crane Section |
 | Weight limit | 90 |
-| Cost per shot | 1 Fireworks + 2 planks (spec) |
+| Cost per shot | 2 planks (spec) |
 | Cost stock | 3 shots (`LaunchCostCapacity`) |
+| Cooldown | 1 hour (`CooldownHours`) |
 
 ---
 

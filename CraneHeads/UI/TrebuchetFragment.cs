@@ -181,6 +181,9 @@ public class TrebuchetFragment(
     void RefreshFire()
     {
         fire.SetEnabled(launcher is { } l && l.CanFire);
+        fire.text = Shown is { IsOnCooldown: true } c
+            ? t.T("LV.CrH.NextLaunch", c.RemainingCooldownHours)
+            : t.T("LV.CrH.Fire");
     }
 
     void Fire()

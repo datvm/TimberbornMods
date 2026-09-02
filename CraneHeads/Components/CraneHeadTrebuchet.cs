@@ -4,16 +4,19 @@ namespace CraneHeads.Components;
 public class CraneHeadTrebuchet(
     ILoc t,
     IGoodService goods,
+    IDayNightCycle clock,
     TrebuchetTrajectoryService trajectory
 ) : BaseComponent, IAwakableComponent, IPersistentEntity, IFinishedPausable, IInitializableEntity, IDeletableEntity
 {
     static readonly ComponentKey SaveKey = new(nameof(CraneHeadTrebuchet));
     static readonly PropertyKey<int> ModeKey = new("Mode");
+    static readonly PropertyKey<float> LaunchedAtKey = new("LaunchedAt");
 
     CraneHeadTrebuchetSpec spec = null!;
     CraneHeadComponent head = null!;
     BlockObject bo = null!;
     BlockableObject blockable = null!;
+    float launchedAt;
 
     public CraneHeadTrebuchetSpec Spec => spec;
     public CraneHeadComponent Head => head;
@@ -23,6 +26,20 @@ public class CraneHeadTrebuchet(
     public Vector3Int Origin => bo.Coordinates;
     public int MaxRange => head.Crane?.Tower.Sections.Count ?? 0;
     public int PeakDelta => MaxRange;
+    public bool IsOnCooldown => RemainingCooldownHours > 0f;
+    public float RemainingCooldownHours
+    {
+        get
+        {
+            if (spec.CooldownHours <= 0)
+            {
+                return 0f;
+            }
+
+            var elapsed = (clock.PartialDayNumber - launchedAt) * 24f;
+            return Math.Max(0f, spec.CooldownHours - elapsed);
+        }
+    }
 
     public event EventHandler? ModeChanged;
     public event EventHandler? PausedChanged;
@@ -58,16 +75,33 @@ public class CraneHeadTrebuchet(
     }
 
     public void Save(IEntitySaver entitySaver)
-        => entitySaver.GetComponent(SaveKey).Set(ModeKey, (int)Mode);
+    {
+        var s = entitySaver.GetComponent(SaveKey);
+        s.Set(ModeKey, (int)Mode);
+        s.Set(LaunchedAtKey, launchedAt);
+    }
 
     public void Load(IEntityLoader entityLoader)
     {
-        if (!entityLoader.TryGetComponent(SaveKey, out var s) || !s.Has(ModeKey))
+        if (!entityLoader.TryGetComponent(SaveKey, out var s))
         {
             return;
         }
 
-        Mode = (TrebuchetLaunchMode)s.Get(ModeKey);
+        if (s.Has(ModeKey))
+        {
+            Mode = (TrebuchetLaunchMode)s.Get(ModeKey);
+        }
+
+        if (s.Has(LaunchedAtKey))
+        {
+            launchedAt = s.Get(LaunchedAtKey);
+        }
+    }
+
+    public void MarkLaunched()
+    {
+        launchedAt = clock.PartialDayNumber;
     }
 
     public void SetMode(TrebuchetLaunchMode mode)

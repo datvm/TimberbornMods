@@ -1,0 +1,54 @@
+Can your beavers launch a 90kg projectile over 300 meters? Now they can! This mod adds Crane Heads you place on top of a Crane. Each finished head changes how that Crane works.
+
+Heads live in the [b]Crane Heads[/b] group under District Management. Place the center on top of a Crane Section. You can only put one Crane Head on top of a Crane, so choose wisely! (But you can destroy and replace it with another head if needed.)
+
+[table]
+[tr][th]Name[/th][th]Cost[/th][th]Science[/th][th]Flavor[/th][/tr]
+[tr][td][b]Trebuchet[/b]
+Launches goods along an arc.[/td][td]20 Treated Planks, 15 Gears[/td][td]1300[/td][td][i]Hooman used it to launch 90 kg projectiles over 300 meters.[/i][/td][/tr]
+[tr][td][b]Jib[/b]
+Extends the Crane's working area.[/td][td]20 Planks, 20 Metal Blocks, 16 Gears[/td][td]1200[/td][td][i]Whoever designed this insisted the extra reach was for efficiency. The extra spinning was the real fun.[/i][/td][/tr]
+[tr][td][b]Cranetop Windmill[/b]
+Crane now generate wind-powered.[/td][td]40 Planks, 20 Gears, 10 Metal Blocks[/td][td]1400[/td][td][i]Whoever designed this insisted the extra height was for efficiency. The extra spinning was, once again, the real fun.[/i][/td][/tr]
+[/table]
+
+[h1]Jib[/h1]
+[img]https://images.steamusercontent.com/ugc/10379442352424378860/FF2120F4422F478C151ED80B547880238DA0FAB0/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+Extend the working area by 1 (3x3 to 5x5). Select the Crane to see the working-area overlay.
+
+[h1]Trebuchet[/h1]
+[img]https://images.steamusercontent.com/ugc/13132077091183884715/00AC79ECA2A0EACCF0CD68124736C017D43CCCDC/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+- Range: 1 tile per Crane Section (the Crane base does not count).
+- Weight limit: 90. Overweight payloads will not launch or accept more goods until you lighten them.
+- Launch cost: 2 Planks per shot (the Crane stocks up to 3 shots).
+- Cooldown: 1 hour.
+
+On the Trebuchet panel: add goods, click [b]Choose target[/b], then [b]Fire[/b] (one shot) or tick [b]Repeat[/b]. The Crane worker fills the payload and launch cost.
+The shot must have a clear path (like a zipline cable) and land on unoccupied ground or the top of a solid building. The arc peak is the Trebuchet's height plus the section count, so a short shot can land higher than the head.
+
+[h1]Cranetop Windmill[/h1]
+[img]https://images.steamusercontent.com/ugc/12269331650364366019/52C55E7E17ECE941C05F5C41377EB8551B1A2793/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+Power shafts connect at the Crane base. Output: 300 hp scaled by wind, plus [b]+10% per Crane Section[/b] (the Crane base does not count). Below 30% wind, or with no mill attached, output is 0.
+
+[h1]Extending this mod[/h1]
+Other mods can add Crane Heads through [b]CraneHeadSpec[/b]. See the documentation here:
+https://github.com/datvm/TimberbornMods/tree/master/CraneHeads/Docs
+
+[h1]FAQS[/h1]
+Q: The head will not place?
+A: It must sit on a finished Crane Section. Use [b]Build higher[/b] on the Crane first, then place the head on the top section.
+
+Q: Can I stack another section on a head?
+A: No. Finish the mast height you want, then put the head on top.
+
+Q: How far can the Trebuchet throw?
+A: Horizontal range equals the number of Crane Sections. A 10-section mast reaches 10 tiles. The landing tile cannot be the Trebuchet's own tile.
+
+Q: Who carries the payload?
+A: The Crane worker. Haulers are not required, but they can still stock the Crane so the worker stays on the mast.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
