@@ -1,0 +1,95 @@
+﻿ID,Text,Comment
+LV.BCT.NotTimberpunk2Map.Title,"Wrong map",
+LV.BCT.NotTimberpunk2Map,"You are not playing the Timberpunk 2 Map. Please disable the Beaver Chronicles - Timberpunk 2 mod to prevent conflict",
+LV.BCT.0,"Chronicle difficulty",
+LV.BCT.0.Content,"Beaver Chronicles cannot read the difficulty you picked in New Game.
+Choose the Chronicle difficulty you want for TIMBERPUNK 2 events. If you want the author's intended tone, match the game difficulty you started with.",
+LV.BCT.0.C1,"Easy",
+LV.BCT.0.C1N,"[[C]]Softer Chronicle events, closer to a story playthrough.",
+LV.BCT.0.C2,"Normal",
+LV.BCT.0.C2N,"[[C]]The standard Chronicle tone for this map.",
+LV.BCT.0.C3,"Hard",
+LV.BCT.0.C3N,"[[C]]Harsher Chronicle events.",
+LV.BCT.Welcome,"Welcome to TIMBERPUNK 2",
+LV.BCT.Welcome.Easy,"Welcome to TIMBERPUNK 2 (yes, the capital letters are necessary).
+Thank you for checking out the map!
+
+Easy mode, huh? Nothing wrong with a narrative experience. You're probably super new to Timberborn — otherwise you would never choose Easy. Who wants a lollipop? Yes, youuuu.",
+LV.BCT.Welcome.Easy.C1,"Grumbling, you lick the lollipop until only the stick remains",
+LV.BCT.Welcome.Easy.C1N,"[[C]][[+]]+[[good:{CP_RewardId}:{CP_RewardAmount}]]",
+LV.BCT.Welcome.Normal,"Welcome to TIMBERPUNK 2 (yes, the capital letters are necessary).
+Thank you for checking out the map!
+
+I'm not sure what to say to someone who's playing on Normal.
+Here, have a cola!",
+LV.BCT.Welcome.Normal.C1,"I'm glad we had this conversation?",
+LV.BCT.Welcome.Normal.C1N,"[[C]][[+]]+[[good:{CP_RewardId}:{CP_RewardAmount}]]",
+LV.BCT.Welcome.Hard,"Welcome to TIMBERPUNK 2 (yes, the capital letters are necessary).
+Thank you for checking out the map!
+
+Hard mode, huh? You, I like.
+Here, have pain.",
+LV.BCT.Welcome.Hard.C1,"Ok but why?!",
+LV.BCT.Welcome.Hard.C1N,"[[C]]One beaver is injured. [[+]]+[[good:Science:{CP_Science}]]",
+LV.BCT.Welcome.Hard.C2,"No, go away",
+LV.BCT.Welcome.Hard.C2N,"[[C]]You refuse the gift.",
+LV.BCT.M1.0,"Home",
+LV.BCT.M1.0.Content,"A memory that seems like fiction now.
+It must have been weeks since mother nature decided to evaporate our lives.
+Family, friends, sons, daughters — they all wait for us now in the great beyond.
+We could not take everyone, and we had to make many hard choices on who would get a chance to live.",
+LV.BCT.M1.0.C1,"We cut loose the sick so the kids could live",
+LV.BCT.M1.0.C1N,"[[C]]The oldest adults are left behind. [[+]]+{I1} [[icon:UI/images/game/ico-child]] Child Beaver [[-]]-{I2} Adult Beaver",
+LV.BCT.M1.0.C2,"They tried to take as many with us as we could",
+LV.BCT.M1.0.C2N,"[[C]]Pay [[good:{S1}:{I3}]] and [[good:{S2}:{I3}]] in [[time:{F1}d]]. [[+]]+{I1} [[icon:UI/images/game/ico-child]] Child Beaver. Two adults become contaminated.",
+LV.BCT.M1.0.C3,"There was only so much we could do",
+LV.BCT.M1.0.C3N,"[[C]][[+]]+[[good:{S1}:{I4}]] +[[good:{S2}:{I4}]] [[-]]{%2} working speed for [[time:{F3}d]]",
+LV.BCT.M1.0.C4,"Kids don't build a city. Engineers and labourers do",
+LV.BCT.M1.0.C4N,"[[C]]Pay [[good:{S1}:{I3}]] and [[good:{S2}:{I3}]] in [[time:{F1}d]]. [[+]]+{I5} Adult Beaver",
+LV.BCT.M1.0.AbandonedDeath,"{0} was left behind on the great trek.",
+LV.BCT.M1.0.WorkPenalty,"Hard choices",
+LV.BCT.M1.0.WorkPenaltyDesc,"The colony is worn down by the trek.",
+LV.BCT.M1.7,"Failure",
+LV.BCT.M1.7.Content,"Failure...
+I was meant to save them, but I led them all to their doom...",
+LV.BCT.M1.7.C1,"Perhaps it's better if I...",
+LV.BCT.M1.7.C1N,"[[C]]There is no colony left to lead. [[-]]{%4} life expectancy for [[time:{F5}d]]",
+LV.BCT.M1.7.BuffDesc,"The weight of those left behind.",
+LV.BCT.M1.1,"Marius and Melissa",
+LV.BCT.M1.1.Content,"As the day comes to an end you spot two kits hugging and crying.
+With their grandfather abandoned during the great trek, Marius and Melissa are now alone in this cold world.
+When Marius notices you he starts shouting, calling you names like monster and murderer.
+In his crying fit of rage he throws something at you: a small necklace with the picture of an old man on it.
+Marius then took Melissa by her paw and ran away.",
+LV.BCT.M1.1.C1,"I did what I had to...",
+LV.BCT.M1.1.C1N,"[[C]][[+]]+[[good:{S1}:{I1}]]",
+LV.BCT.M1.2,"The old man",
+LV.BCT.M1.2.Content,"As the day comes to an end you spot an old man with two kits.
+Upon noticing you the old man gives you a laboured smile and stumbles over.
+""Thank you for saving us. I am the only family these kits have left.
+I know I'm useless with my hands, but I used to be a factory foreman.
+Let me help you get your bearings. Oh, and take this — please light it on the day we are saved.""
+He turns back to the kits, who are smiling with youthful energy, and you are left with a firework in your hands.",
+LV.BCT.M1.2.C1,"I promise, old man",
+LV.BCT.M1.2.C1N,"[[C]][[+]]{%1} working and movement speed for [[time:{F2}d]]. +[[good:Science:{I1}]] +[[good:{S3}:{I2}]]",
+LV.BCT.M1.2.Buff,"A foreman's thanks",
+LV.BCT.M1.2.BuffDesc,"The old factory foreman helps the colony find its bearings.",
+LV.BCT.M1.3,"A sorrowful night",
+LV.BCT.M1.3.Content,"As the day comes to an end you lie down in your tent and think back on the many hard decisions you had to make.
+One vision haunts your dreams: an old man hugging what looked like his grandchildren.
+You doomed them. Sent them to their deaths. Refused their chance of living.
+Many don't sleep that night and awake tired.",
+LV.BCT.M1.3.C1,"I am a monster made out of necessity",
+LV.BCT.M1.3.C1N,"[[C]][[-]]{%1} movement speed for [[time:{F2}d]]",
+LV.BCT.M1.3.Buff,"Sleepless",
+LV.BCT.M1.3.BuffDesc,"A haunted night leaves the colony slow and tired.",
+LV.BCT.M1.4,"The tired workforce",
+LV.BCT.M1.4.Content,"As the day comes to an end you lie down in your tent, only to get woken by screaming.
+Outside, two beavers are going fist to fist after a heated debate about their abandoned kits.
+They're workers tired from labour and travel, and they decided to ""indulge"" themselves.
+You confiscate the goods and go to bed late. Many wake up tired. The tension will be noticeable for days.",
+LV.BCT.M1.4.C1,"We all suffer...",
+LV.BCT.M1.4.C1N,"[[C]][[+]]+[[good:{S1}:{I1}]] [[-]]Two beavers are injured. {%1} working speed for [[time:{F2}d]]. {I2} science",
+LV.BCT.M1.4.Buff,"Colony tension",
+LV.BCT.M1.4.BuffDesc,"The fight over abandoned kits leaves the workforce strained.",
+

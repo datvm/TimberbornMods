@@ -35,13 +35,13 @@ The Waterfall pack demonstrates these extra patterns:
 
 ## Pack-Wide Map Flag
 
-Most pack events require:
+Most pack events permanently require the map flag:
 
 ```json
-"RequiredFlags": [ "MAP.WATERFALLS" ]
+"BlockedNoFlags": [ "MAP.WATERFALLS" ]
 ```
 
-Use this when an event should only exist on the Waterfalls map. Conversely, use:
+Use this when an event should only exist on the Waterfalls map. If that flag is missing, the event is eliminated instead of waiting. Keep later chapter flags in `RequiredFlags`, because those can appear during the game. Conversely, use:
 
 ```json
 "BlockedFlags": [ "MAP.WATERFALLS" ]

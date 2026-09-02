@@ -1,0 +1,81 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M1.2",
+        "TitleLoc": "LV.BCT.M1.2",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewDay" ],
+            "Weight": 2147483647
+        },
+        "Parameters": {
+            "Floats": [
+                0.05, // %1: Speed bonus
+                7.0 // F2: Buff days
+            ],
+            "Strings": [
+                "WorkingSpeed", // S1
+                "MovementSpeed", // S2
+                "Fireworks" // S3
+            ],
+            "Ints": [
+                28, // I1: Science
+                1 // I2: Fireworks
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M1.2.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M1.2.C1",
+                                "NoteLoc": "LV.BCT.M1.2.C1N",
+                                "NextNodeId": "Buff"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "Buff",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "TBP.M1.2.Foreman",
+                        "TitleLoc": "LV.BCT.M1.2.Buff",
+                        "DescLoc": "LV.BCT.M1.2.BuffDesc",
+                        "CharacterTypes": "AdultBeaver",
+                        "Days": "{F2}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{F1}"
+                            },
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{F1}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "Give"
+                },
+                {
+                    "Id": "Give",
+                    "Type": "Give",
+                    "Data": {
+                        "Science": "{I1}",
+                        "Items": [
+                            {
+                                "Id": "{S3}",
+                                "Amount": "{I2}"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

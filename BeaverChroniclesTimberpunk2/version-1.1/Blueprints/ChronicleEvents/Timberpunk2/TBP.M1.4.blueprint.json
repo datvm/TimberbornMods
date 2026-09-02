@@ -1,0 +1,98 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M1.4",
+        "TitleLoc": "LV.BCT.M1.4",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewDay" ],
+            "Weight": 2147483647
+        },
+        "Parameters": {
+            "Floats": [
+                -0.10,
+                7.0
+            ],
+            "Strings": [
+                "Extract",
+                "WorkingSpeed",
+                "Injury"
+            ],
+            "Ints": [
+                5,
+                -25
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M1.4.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M1.4.C1",
+                                "NoteLoc": "LV.BCT.M1.4.C1N",
+                                "NextNodeId": "GiveExtract"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "GiveExtract",
+                    "Type": "Give",
+                    "Data": {
+                        "Science": "{I2}",
+                        "Items": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{I1}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "FindFighters"
+                },
+                {
+                    "Id": "FindFighters",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver",
+                        "MaxCount": 2,
+                        "ChooseRandom": true,
+                        "ResultName": "Fighters",
+                        "NoneFoundNodeId": "WorkPenalty"
+                    },
+                    "NextNodeId": "InjureFighters"
+                },
+                {
+                    "Id": "InjureFighters",
+                    "Type": "CharacterStatus",
+                    "Data": {
+                        "EntityIds": [ "Fighters" ],
+                        "InflictNeed": "{S3}"
+                    },
+                    "NextNodeId": "WorkPenalty"
+                },
+                {
+                    "Id": "WorkPenalty",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "TBP.M1.4.Tension",
+                        "TitleLoc": "LV.BCT.M1.4.Buff",
+                        "DescLoc": "LV.BCT.M1.4.BuffDesc",
+                        "CharacterTypes": "AdultBeaver",
+                        "Days": "{F2}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S2}",
+                                "Amount": "{F1}"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

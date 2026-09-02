@@ -28,7 +28,7 @@
 	<Target Name="CopyJsonModFiles" AfterTargets="Build">
 		<ItemGroup>
 			<JsonModFiles Include="$(MSBuildProjectDirectory)\**\*"
-				Exclude="$(MSBuildProjectDirectory)\bin\**\*;$(MSBuildProjectDirectory)\obj\**\*;$(MSBuildProjectDirectory)\out\**\*;$(MSBuildProjectDirectory)\*.csproj;$(MSBuildProjectDirectory)\*.csproj.user;$(MSBuildProjectDirectory)\**\*.cs;$(MSBuildProjectDirectory)\ModDesc.txt;$(MSBuildProjectDirectory)\ChangeLog.txt" />
+				Exclude="$(MSBuildProjectDirectory)\bin\**\*;$(MSBuildProjectDirectory)\obj\**\*;$(MSBuildProjectDirectory)\out\**\*;$(MSBuildProjectDirectory)\*.csproj;$(MSBuildProjectDirectory)\*.csproj.user;$(MSBuildProjectDirectory)\**\*.cs;$(MSBuildProjectDirectory)\*.txt" />
 			<JsonBuildArtifacts Include="$(OutputPath)$(AssemblyName).*" />
 		</ItemGroup>
 

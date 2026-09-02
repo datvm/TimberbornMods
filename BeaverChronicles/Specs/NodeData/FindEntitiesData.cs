@@ -10,6 +10,7 @@ public record FindEntitiesData
     public AreaCondition AreaCondition { get; init; } = AreaCondition.Intersects;
     public int MaxCount { get; init; } = 1;
     public bool ChooseRandom { get; init; }
+    public bool OldestFirst { get; init; }
     public string ResultName { get; init; } = null!;
     public string? NoneFoundNodeId { get; init; }
 

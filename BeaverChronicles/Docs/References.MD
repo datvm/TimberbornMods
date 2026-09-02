@@ -471,6 +471,7 @@ Fields:
 | `AreaCondition` | `AreaCondition` | How entity bounds are compared with `Areas`. |
 | `MaxCount` | `int` | Maximum number of entity IDs to store. |
 | `ChooseRandom` | `bool` | Randomizes matches before applying `MaxCount`. |
+| `OldestFirst` | `bool` | Sorts characters by `Age` descending before applying `MaxCount`. Takes priority over `ChooseRandom`. |
 | `ResultName` | `string` | Custom-parameter prefix for stored results. |
 | `NoneFoundNodeId` | `string?` | Node to run if no entity is found. |
 

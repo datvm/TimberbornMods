@@ -1,0 +1,10 @@
+{
+    "Name": "Beaver Chronicles - Timberpunk 2",
+    "Version": "11.0.0",
+    "Id": "BeaverChroniclesTimberpunk2",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "Beaver Chronicles events for the Timberpunk 2 Map",
+    "RequiredMods": [
+        { "Id": "BeaverChronicles" }
+    ]
+}

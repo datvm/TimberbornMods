@@ -6,7 +6,7 @@
         "Conditions": {
             "Sources": [ "BuildingFinished" ],
             "Weight": 100,
-            "RequiredFlags": [ "MAP.WATERFALLS" ],
+            "BlockedNoFlags": [ "MAP.WATERFALLS" ],
             "BlockedFlags": [
                 "BCEv.WaterfallSinkhole.Disabled",
                 "BCEv.WaterfallSinkhole.Triggered"

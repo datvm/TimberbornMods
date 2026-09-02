@@ -41,6 +41,7 @@ This file is a living handoff note for AI agents working in this `BeaverChronicl
 - Timberborn child growth creates a new adult from the child, then `Adult.ReplaceChild` calls `child.DestroyCharacter()`, which posts `CharacterKilledEvent`. Beaver Chronicles suppresses that synthetic child-kill in `ChronicleGameEventHandler` after receiving `BeaverGrowTracker.BeaverGrownUpEvent`.
 
 - Choice node handling automatically writes choice flags for selected options. Follow-up events can require or block those generated flags instead of adding explicit `SetFlag` nodes just to remember which choice was picked.
+- Event-level flag gates: `RequiredFlags`/`RequiredNoFlags` return weight 0 (keep checking). `BlockedFlags` eliminates if those flags exist; `BlockedNoFlags` eliminates if they do not. Use `BlockedNoFlags` for map flags such as `MAP.WATERFALLS`, and keep chapter/choice flags in `RequiredFlags`.
 
 - `SpecChronicleEventController.GetEntities(IEnumerable<string>)` can resolve:
   - A custom-parameter array prefix using `<Name>_Count` and `<Name>_1`, `<Name>_2`, etc.
@@ -52,6 +53,7 @@ This file is a living handoff note for AI agents working in this `BeaverChronicl
   - `<ResultName>_1`, `<ResultName>_2`, ...
   - `<ResultName>` as the first ID only when exactly one entity is found.
 - `FindEntities.ChooseRandom` randomizes matching entities before applying `MaxCount`.
+- `FindEntities.OldestFirst` sorts matching characters by age (oldest first) before applying `MaxCount`.
 - `FindEntities.AllBuildings` finds all buildings in the requested areas and ignores `TemplateNames`/`TemplatePrefixes`; without it, empty template filters mean no building search.
 - `Camera` node supports `FocusOnEntityIds`, `Position`, `VerticalAngle`, `HorizontalAngle`, `ZoomLevel`, and `CameraShake`.
 - `CharacterStatus` node can remove or inflict a need on characters resolved from `EntityIds`; Pasteur's Gamble uses it for `BadwaterContamination`.

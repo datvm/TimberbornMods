@@ -1,0 +1,57 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M1.3",
+        "TitleLoc": "LV.BCT.M1.3",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewDay" ],
+            "Weight": 2147483647
+        },
+        "Parameters": {
+            "Floats": [
+                -0.40,
+                1.0
+            ],
+            "Strings": [
+                "MovementSpeed"
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M1.3.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M1.3.C1",
+                                "NoteLoc": "LV.BCT.M1.3.C1N",
+                                "NextNodeId": "Buff"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "Buff",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "TBP.M1.3.Sleepless",
+                        "TitleLoc": "LV.BCT.M1.3.Buff",
+                        "DescLoc": "LV.BCT.M1.3.BuffDesc",
+                        "CharacterTypes": "AdultBeaver, ChildBeaver",
+                        "Days": "{F2}",
+                        "Bonuses": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{F1}"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

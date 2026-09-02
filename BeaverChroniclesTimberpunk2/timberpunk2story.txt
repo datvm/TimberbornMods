@@ -1,0 +1,505 @@
+
+TIMBERPUNK 2 EVENTLINE
+
+down below is the first part of the timberpunk 2 main story.
+it will have branching paths later on.
+
+--------------------------
+	event m0.1
+		(shortly after game start on easy)
+	
+	Easy Mode selected
+		Welcome to TIMBERPUNK 2 (yes the capital letters are necessary)
+		thank you for checking out the map!
+		
+		Easy mode huh? nothing wrong with a narrative experience, you're probably super new to timberborn.
+		otherwise you would never choose easy mode now who wants a lolipop? yes youuuu.
+			
+			(grumbling you lick on the lolipop until only the stick remains)
+			+1 log
+			(lauch event 1.0)
+			
+			
+	event m0.2
+		(shortly after game start on normal)
+			
+	Normal mode selected.
+		Welcome to TIMBERPUNK 2 (yes the capital letters are necessary)
+		thank you for checking out the map!
+		
+		i'm not sure what to say to someone who's playing on normal..
+		here have a cola!
+			
+			(i'm glad we had this conversation?)
+				+1 water
+				(lauch event m1.0)
+
+
+	event m0.3				
+		(shortly after game start on hard)
+
+	hard mode selected
+		Welcome to TIMBERPUNK 2 (yes the capital letters are necessary)
+		thank you for checking out the map!
+		
+		Hardmode huh? you i like.
+		here have pain.
+
+			(ok but why!?!)
+				1 beaver gets injured
+				+25 science
+				(lauch event 1.0)
+				
+			(no, go away)
+				(launch event 1.0)
+				
+				
+	event m0.4				
+		(shortly after game start on custom difficulty)
+
+	custom difficulty selected
+		Welcome to TIMBERPUNK 2 (yes the capital letters are necessary)
+		thank you for checking out the map!
+		i hope you have lot's of fun playing custom difficulty!
+		
+			(thanks, you too! no wait...)
+				(lauch event 1.0)
+		
+
+--------------------------
+	event m1.0
+
+		-Home..
+			A Memory that seems like fiction now.
+			It must have been weeks since mother nature decided to evaporate our lives.
+			Family, friends, sons, daughters, they all wait for us now in the great beyond.
+			We couldn't take everyone and had to make many hard choices on who would get a chance to live.
+
+ 
+		(We cut loose the sick so the kids could live)
+			  +4 kids
+			  -2 Adults (oldest one first if possible)
+			  (triggers event 1.1)
+		 
+		 (the tried to take as many with us as we could)
+			  +4 kids
+			  -15 water
+			  -15 berries 
+			  -2 adults become contaminated
+			  (triggers event 1.2)
+		  
+		-there was only so much we could do
+			  +5 water
+			  +5 food
+			  -work speed -5% for 7 days
+			  (triggers 1.3)
+		   
+		-kids don't build a city, engineers and labourers do!
+			 +2 adults
+			 -15 water
+			 -15 berries
+			  (triggers event 1.4)
+		  
+		  
+		  
+		 (failure to pay any of these options in 12h gives the following event)
+  
+	event m1.7
+  
+	  Failure....
+	  I Was meant to save them.. but i led them all to their doom...
+  
+		  (perhaps it's better if i...)
+			  -game over
+			  -110% life expectancy for 100 days
+  
+  
+  --------these events can trigger at the end of day 1----
+  event m1.1
+
+  -Marius and malissa
+  As the day comes to an end you spot 2 kits hugging and crying.
+  With their grandfather abandoned during the great track The kits Marius and Melissa are now alone in this cold world.
+  When Marius Notices you he starts shouting at you, calling you names like Monster and Murderer.
+  In his crying fit of rage he throws something at you, a small necklace with the picture of an old man on it.
+  Marius then took malissa by her paw and ran away.
+  
+  (I did what i had to...)
+  +1 scrap metal
+  
+  
+  
+  
+  event m1.2
+    
+  -The old man
+  as the day comes to an end you spot an old man with 2 kits.
+  Upon noticing you the old man gets gives you a laboured smile and stumbles wags over to you.
+  "thank you for saving us, i am the only family these kits have left.
+  i know i'm useless with my hands, but i used to be a factory foreman.
+  let me help you get your bearings oh and take this, please light it on the day we are saved"
+  and with that the old man turns back to the kits who are smiling with youghtful energy.
+  and you are left with firework in your hands.
+  
+  (i promise old man)
+  +5% work speed for 7d
+  +5% movement speed for 7d
+  +28 science
+  +1 firework
+  triggers event 1.5
+  
+  
+  event m1.3
+  
+  A Sorrowfull night
+  as the day comes to an end you lie down in your tent and think back on the many hard decision you had to make.
+  one vision haunts your dreams, the sight of an old man hugging what looked like his grandchildren. 
+  you doomed them, send them to their deaths, refused their chance of living.
+  many don't sleep that night and awake tired
+  
+  (I am a monster made out of necessity)
+  - 40% movement speed for 24 hours
+  
+
+  event m1.4
+  
+  The Tired Workforce
+  as the day comes to an end you lie down in your tent and Prepare to end the day only to get woken up by screaming.
+  as you exit your tent you see 2 beavers going fist to fist after a heated debate about their abandoned kits.
+  they're workers tired from all the labour and travel and decided to.. "endulge" themselves.
+  you confiscate the goods and go to bed late, many wake up tired because of this occurance.
+  the tension will be noticable for days to come
+  
+  (we all suffer..)
+  
+  +5 extract
+  2 beavers become injured
+  -10% work speed for 7 days
+  -25
+ 
+ 
+  -----only available if you had event 1.2-----
+  
+  event m1.5
+  triggers when you've build (not launched) the final wonder
+  
+  Melissa Walks into your room to bring you some paperwork
+  "it is done Captain, soon we will be filling the lands with new life and it's all thanks to you!"
+  your chair creeks as you get up and wander to a nearby cupboard whereout you take a firework rocket from the back.
+  "your grandfather gave me this when you were young"
+  
+  (i say it's time we light it)
+  -1 firework
+  get event 1.6
+  
+  
+  event m1.6
+  
+  Remembering a Legend
+  "please light it on the day we are saved"
+  the old man's words are still fresh in your head as Marius, the old man's grandson Lights the firework rocket.
+  you would have done it yourself but you too are starting to show your age and kneeling is near impossible nowadays.
+  soon the rocket shoots up to the sky and you think of the many sacrifices you had to make to get this far.
+  and all fell silent when the rocket exploded into a picture of your face, just a bit younger.
+  you cant help but chuckle
+  
+  (A foreman huh?)
+	
+--------------------------
+event m2.0
+triggers at the start of day 2
+
+The Contingency Plan
+  Your Builders approach you with 2 plans to power the aquifer.
+  The first and most favorable plan Is to power it using a power wheel.
+  It would be fast, and would be straightforward every beaver already knows what to do.
+  it would however require at least 2 beavers to operate at all time.
+  
+  The second plan is to power it from some sort of alternative source, most likely the geothermals or waterwheels
+  this would have many downsides from planning intensity to water rationing.
+  
+  (build the powerwheel let's get this done)
+   +10% working speed for 24 hours
+   +5% movement speed for 24 hours
+   
+   (My Plans are beyond your understanding)
+	+10 planks
+	+61 science
+	+10% movement speed
+	-25% work speed for 48 hours
+    -100 berries
+	(if paid get 2.1)
+	(24h to pay)
+	
+  event m2.1 (only available if plan B is chosen and paid)
+   
+	   Rationing
+		   (Beaver name here) grumbles as she goes to work, she just got to hear that water rationing is taking effect
+		   she and her daughter will only gain half the water they need, the rest will be supplied in berry juice.
+		   it's not the worst thing in the world, it's nutritious and healthy, but it's just not very good for the teeth.
+		   
+			(right...)
+				+15% work speed for 48 hours
+				+25 water
+				3 beavers get broken teeth
+	 
+	 
+	 
+--------------------------
+event m3.0
+(triggers at the end of day 2)
+
+	 The New Generation
+		 Your childhood friend, probably the only person left alive you care for was pregnant.
+		 She Didn't tell anyone about it and now here she is recovering from recently giving birth!
+		 She requested for you to bless the child and you hesitate for a moment before walking into her living space.
+		 Exhausted she smiles as she sees you.
+		 "i'm naming her after your mother"
+		 "After my mother?" you ask suprised.
+		 "yes" she continues "your mother was always there for me when i needed help, the same could not be said about my own parents"
+		 The room is silent for a moment before you continue "so you're calling her-" 
+		 "lily" she says.
+		 You look at the small bright eyes of the kit.
+	 
+			(Welcome to the Family Lily)
+				1 beaver gets sick
+				+1 Child
+		
+--------------------------
+event m4.0
+
+triggers starts end of day 4 (or 24h after the drill is running if thats possible)
+
+	The Water Situation
+		A drought is approaching fast and Beavers are getting nervous.
+		It's about time you say something to ease their minds (hopefully)
+		as you step unto the makeshift stand You start talking.
+		"my fellow survivors"
+	
+			(Our progress shall be grand, all will get something to drink!!!)
+				pay 50 water in 24h
+				(get event 4.1)
+			
+			(we are making great progress!)
+				pay 25 water in 24h
+				(get event 4.2)
+			
+			(i wish circumstances were better)
+				-15% Working speed
+		
+			(lay down your tools, A drought Is coming)
+				(event)
+				+55 water
+				-75% working speed for 48 hours
+		
+		
+event m4.1:
+	
+	
+	Thunderous Applause
+		All cheered as they got their full rations of water.
+		for some it has been months since they got a proper drink.
+		some may have gotten carried away and drank more than they should have.
+		
+			(but at least everyone is happy)
+				+45 water
+				+5% movement speed for 5 days
+				
+event m4.2
+
+	a sip to drink
+		Water was scarce, it was the sole source of life in this dead world.
+		and it was our job to secure as much of it as possible.
+		as (beaver name) grabbed her canteen during work she prepared to silence the thirst even if just a little bit.
+		but to their dissapointment, it was empty.
+		They sigh, it wouldnt be until the next day that they will get their new rations
+	
+
+				(well.. back to work)
+					+25 water
+					
+					
+--------------------------
+
+event m5.0
+	(launches a few hours into the first drought)
+	
+		Hidden Treasures
+			For the first time we arrived here we were able to see the bottom of the now shallow river.
+			and right there in the mud layed a crate.
+			one could only imagine what would be inside.
+			
+				(soaked research documents, almost all stained and unreadable)
+					+30 science
+					+15 paper (if folktails)
+					
+				(old metal parts, most of it rusted)
+					+25 scrapmetal
+					+10 metal parts (if ironteeth)
+					
+				(a bunch of bottles containing a mystery fluid)
+					+45 water
+					+15 badwater
+					1 beaver got contaminated
+					
+				(rotten food! well, at least the crate is in a good shape)
+					+18 dirt
+					+8 planks
+					
+--------------------------
+
+event m6.0
+(triggers about 10 days into the game)
+	
+	Rows of beavers
+		We can't believe our eyes, we are not the only ones!
+		early in the morning a group of beavers arrived to our settlement. 
+		they don't seem to be from our town hover as nobody recognized anyone.
+		but what should we be doing with these beavers
+		
+			(Take them all in, we need all the paws we can get.)
+				+8 beavers
+				+4 children
+				2 beaver contaminates
+				3 beavers get injured
+				1 child gets injured
+				(launches event m6.1)
+				
+			(only take in the healthy)
+				+3 beavers
+				+3 children
+				(launches event m6.2)
+			
+				
+event m6.1
+	
+	Thank you
+		Dehydrated, sick and injured, all were welcomed and scheduled for treatment.
+		Their representative, a young male, approached you with a key.
+		"With this key i trust you with my family and our resources. please guide and protect them"
+		
+
+			("I promise you")
+				+25 extract
+				+4 berries
+				+2 planks
+				+1 log
+				+83 water
+				
+				
+event m6.2
+
+	Clashes
+		you sit inside the city center, not doing much. 
+		you were supposed to do the paperwork for the new arrivals, but so few of them were healthy it didnt take long.
+		It was then you started hearing shouting.
+		"you beavers are monsters, you send my family to die"
+		As you look outside your window you seen the only healthy adult of the new group entering a fight with the builders.
+		you rush outside to devuse the situation, but you were too slow, as you come downstairs he is lying on the ground with a hammer near him.
+		
+			(i guess i have paperwork to shred)
+				-1 beaver dies
+				-1 beaver gets injured
+				
+			
+			
+---------------------------
+event m7.0
+	(launches 41 days in)	
+		
+		The tasks of leadership
+			You arent just a leader, you are part of the workforce you help wherever you can, 
+			but your leadership duties have increasing, leaving you inefficient in your on field duties.
+			
+				(regardless it is what i have to do)
+					-5% work speed for 15 days
+				 
+event m7.1
+	(launches 56 days in)
+		
+		The Privilage of leadership 
+			while you were personally helping in the very beginning...
+			Recently that has become the more niché part of your job. 
+			Each day you get more decisions to make than the last and while you'd like to complain.
+			it is definetly more relaxed than working your back away.
+			
+				(you lean back in your chair taking a sip of water while looking at some schematics.)
+					-1 beaver
+					
+event m7.2
+	(launches 75 days in)
+		
+		The burden of Leadership
+			as you sit on your chair you try not to fall asleep as you read a letter containing another beavers concerns.
+			recently you changed from face to face meatings to a suggestion box as meeting would take too long.
+			as the workday ends you realized you skipped lunch and suddenly feel hunger in your stomache and the strain from staring.
+			with a sigh you look at the unopened letters.
+				
+				(it's larger than yesterday's pile)
+					-2 wellbeing for "unheard concerns"
+					
+event m7.3
+	(launches 80 days in)
+	
+	
+		when we arrived here things were simple There were few beavers with simple problems.
+		but as our colony grows more and more issues start popping up, more than one beaver could handle.
+		Furthermore issues like "i dont want to die" became "my dwelling doesnt have anough windows" 
+		every single small concern is put on your shoulders and your days are filled with reading and answering letters
+		
+			(i can't do this anymore)
+				replace "unheard concerns" with -5 wellbeing for "bureaucratic nightmare"
+				
+event m7.4
+launches 81 days in)
+
+	Beavers of the new age	
+		in light of the recent development regarding your duties you now stand before a decision.
+		the colony will need some sort of governmental body to keep it afloat.
+		and many have come up with ideas to help you!
+		
+		The ones you travelled with suggest the ways of your old town. the elderly and wisest are elected to rule together.
+		(A council is formed of the old and wise.)
+		they'd leave you with the more important tasks.
+		
+		the foreigner Minority however fear exclusion and suggest that every beaver should have a say regardless of who they are.
+		(A council is formed by Beavers who represent different groups of the population.)
+		they'd leave you with the more important tasks
+		
+		And then there are the young. 
+		traumatized and radicalized the world, fear the popularity contest either those options would cause.
+		they would rather have you pick some individuals to help you in your daily struggles to keep squabbeling and bureaucracy to a minimum.
+		(A council is formed of those you choose fit)
+		 
+			(The elders know best!)
+				-5% life expectancy 3 days
+				remove bureaucratic nightmare
+				(get event Tradition1.0 in 5 days)
+				
+			(all should have a say)
+				-3% working speed for 3 days
+				remove bureaucratic nightmare
+			(get event Democracy1.0 in 5 days)
+			
+			(i will not leave my duties to those i dont trust)
+				-100 science
+				(get event Authocracy1.0 if payed within 1 days)
+				
+			
+----------------------------------
+this is where the first half ends, the latter half will be branch until eventually 6 different outcomes.
+
+
+(plutocracy) where the rich rule and beavers work until they die.
+
+(feudalism) where you are monarch and the wealthy each control land and beavers
+
+(leisurely democracy) where living a good life is most important and robots manage everything
+
+(Revolutionary) where there are no leaders and beavers manage their own economy
+
+(legionarism) where order is everything and you are considered god
+
+(anarchy) where it all comes falling down.
+
+(secret 7th outcome) where the beavers die and the bots take over

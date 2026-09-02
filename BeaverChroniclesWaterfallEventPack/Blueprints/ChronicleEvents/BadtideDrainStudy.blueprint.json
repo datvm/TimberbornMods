@@ -6,7 +6,7 @@
             "Sources": [ "NewWeather" ],
             "Weight": 100,
             "MinCycle": 13,
-            "RequiredFlags": [ "MAP.WATERFALLS" ],
+            "BlockedNoFlags": [ "MAP.WATERFALLS" ],
             "ConditionNodeId": "IsBadtide"
         },
         "Parameters": {

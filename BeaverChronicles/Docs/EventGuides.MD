@@ -38,7 +38,7 @@ This event does not set `IsMini`, so it follows the normal event flow and can re
 `ConditionNodeId` points to `IsBeaverDeath`. This gates the whole event behind a condition node. The event can only trigger if that node passes.
 
 > [!INFO]  
-> Event-level `Conditions` also support timing fields such as `MinDay`, `MaxDay`, `MinCycle`, and `MaxCycle`, plus flag gates like `RequiredFlags`, `RequiredNoFlags`, and `BlockedFlags`. `FirstDeath` does not need them because the trigger character check is enough.
+> Event-level `Conditions` also support timing fields such as `MinDay`, `MaxDay`, `MinCycle`, and `MaxCycle`, plus flag gates like `RequiredFlags`, `RequiredNoFlags`, `BlockedFlags`, and `BlockedNoFlags`. `FirstDeath` does not need them because the trigger character check is enough.
 
 ### Parameters
 
@@ -421,7 +421,9 @@ The event uses `RequiredFlags: [ "BCEv.FoodWoodDispute.Continue" ]`, so it only 
 
 It also uses `BlockedFlags: [ "EVENT.FoodWoodDispute1.C1.SY" ]`, which prevents the second chapter after a successful neutral resolution.
 
-Event-level flag checks also support `RequiredFlagsCondition`, `RequiredNoFlagsCondition`, and `BlockedFlagsCondition`. These use `Any` or `All` to decide how multiple flags are combined.
+Event-level flag checks also support `RequiredFlagsCondition`, `RequiredNoFlagsCondition`, `BlockedFlagsCondition`, and `BlockedNoFlagsCondition`. These use `Any` or `All` to decide how multiple flags are combined.
+
+`RequiredFlags` and `RequiredNoFlags` only skip the event for this check. `BlockedFlags` and `BlockedNoFlags` eliminate it permanently: the first if those flags exist, the second if they do not. Use `BlockedNoFlags` for immutable gates such as map flags.
 
 ### Remembering Previous Choices
 

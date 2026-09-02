@@ -1,0 +1,228 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.Welcome",
+        "TitleLoc": "LV.BCT.Welcome",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewHour" ],
+            "Weight": 2147483647,
+            "RequiredFlags": [ "TBP.Diff.Easy", "TBP.Diff.Normal", "TBP.Diff.Hard" ]
+        },
+        "Nodes": {
+            "StartNodeId": "CheckEasy",
+            "Items": [
+                {
+                    "Id": "CheckEasy",
+                    "Type": "Condition",
+                    "Data": {
+                        "FulfilledNodeId": "SetEasyDiff",
+                        "FailedNodeId": "CheckNormal",
+                        "Conditions": [
+                            {
+                                "Type": "Flag",
+                                "Parameters": {
+                                    "Flag": "TBP.Diff.Easy"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "CheckNormal",
+                    "Type": "Condition",
+                    "Data": {
+                        "FulfilledNodeId": "SetNormalDiff",
+                        "FailedNodeId": "SetHardDiff",
+                        "Conditions": [
+                            {
+                                "Type": "Flag",
+                                "Parameters": {
+                                    "Flag": "TBP.Diff.Normal"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "SetEasyDiff",
+                    "Type": "SetCustomParameter",
+                    "Data": {
+                        "Name": "Diff",
+                        "Type": "String",
+                        "Value1": "Easy"
+                    },
+                    "NextNodeId": "SetEasyRewardId"
+                },
+                {
+                    "Id": "SetEasyRewardId",
+                    "Type": "SetCustomParameter",
+                    "Data": {
+                        "Name": "RewardId",
+                        "Type": "String",
+                        "Value1": "Log"
+                    },
+                    "NextNodeId": "SetEasyRewardAmount"
+                },
+                {
+                    "Id": "SetEasyRewardAmount",
+                    "Type": "SetCustomParameter",
+                    "Data": {
+                        "Name": "RewardAmount",
+                        "Type": "Int",
+                        "Value1": "1"
+                    },
+                    "NextNodeId": "EasyChoice"
+                },
+                {
+                    "Id": "SetNormalDiff",
+                    "Type": "SetCustomParameter",
+                    "Data": {
+                        "Name": "Diff",
+                        "Type": "String",
+                        "Value1": "Normal"
+                    },
+                    "NextNodeId": "SetNormalRewardId"
+                },
+                {
+                    "Id": "SetNormalRewardId",
+                    "Type": "SetCustomParameter",
+                    "Data": {
+                        "Name": "RewardId",
+                        "Type": "String",
+                        "Value1": "Water"
+                    },
+                    "NextNodeId": "SetNormalRewardAmount"
+                },
+                {
+                    "Id": "SetNormalRewardAmount",
+                    "Type": "SetCustomParameter",
+                    "Data": {
+                        "Name": "RewardAmount",
+                        "Type": "Int",
+                        "Value1": "1"
+                    },
+                    "NextNodeId": "NormalChoice"
+                },
+                {
+                    "Id": "SetHardDiff",
+                    "Type": "SetCustomParameter",
+                    "Data": {
+                        "Name": "Diff",
+                        "Type": "String",
+                        "Value1": "Hard"
+                    },
+                    "NextNodeId": "SetHardScience"
+                },
+                {
+                    "Id": "SetHardScience",
+                    "Type": "SetCustomParameter",
+                    "Data": {
+                        "Name": "Science",
+                        "Type": "Int",
+                        "Value1": "25"
+                    },
+                    "NextNodeId": "HardChoice"
+                },
+                {
+                    "Id": "EasyChoice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.Welcome.Easy",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.Welcome.Easy.C1",
+                                "NoteLoc": "LV.BCT.Welcome.Easy.C1N",
+                                "NextNodeId": "GiveReward"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "NormalChoice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.Welcome.Normal",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.Welcome.Normal.C1",
+                                "NoteLoc": "LV.BCT.Welcome.Normal.C1N",
+                                "NextNodeId": "GiveReward"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "HardChoice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.Welcome.Hard",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.Welcome.Hard.C1",
+                                "NoteLoc": "LV.BCT.Welcome.Hard.C1N",
+                                "NextNodeId": "FindInjuryVictim"
+                            },
+                            {
+                                "TextLoc": "LV.BCT.Welcome.Hard.C2",
+                                "NoteLoc": "LV.BCT.Welcome.Hard.C2N",
+                                "NextNodeId": "RequestM10"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "GiveReward",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [
+                            {
+                                "Id": "{CP_RewardId}",
+                                "Amount": "{CP_RewardAmount}"
+                            }
+                        ]
+                    },
+                    "NextNodeId": "RequestM10"
+                },
+                {
+                    "Id": "FindInjuryVictim",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver, ChildBeaver",
+                        "MaxCount": 1,
+                        "ChooseRandom": true,
+                        "ResultName": "InjuryVictim",
+                        "NoneFoundNodeId": "GiveScience"
+                    },
+                    "NextNodeId": "InjureVictim"
+                },
+                {
+                    "Id": "InjureVictim",
+                    "Type": "CharacterStatus",
+                    "Data": {
+                        "EntityIds": [ "InjuryVictim" ],
+                        "InflictNeed": "Injury"
+                    },
+                    "NextNodeId": "GiveScience"
+                },
+                {
+                    "Id": "GiveScience",
+                    "Type": "Give",
+                    "Data": {
+                        "Science": "{CP_Science}"
+                    },
+                    "NextNodeId": "RequestM10"
+                },
+                {
+                    "Id": "RequestM10",
+                    "Type": "RequestNextEvent",
+                    "Data": {
+                        "Id": "TBP.M1.0"
+                    }
+                }
+            ]
+        }
+    }
+}
