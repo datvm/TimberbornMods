@@ -1,22 +1,18 @@
 {
     "ChronicleEventSpec": {
-        "Id": "TBP.M1.3",
-        "TitleLoc": "LV.BCT.M1.3",
+        "Id": "TBP.M4.1",
+        "TitleLoc": "LV.BCT.M4.1",
         "IsMini": true,
         "Conditions": {
-            "Sources": [ "NewDay" ],
+            "Sources": [ "NewHour" ],
             "Weight": 2147483647,
             "BlockedNoFlags": [ "MAP.TIMBERPUNK 2" ],
             "RequiredFlags": [ "TBP.Diff.Easy", "TBP.Diff.Normal", "TBP.Diff.Hard" ]
         },
         "Parameters": {
-            "Floats": [
-                -0.40,
-                1.0
-            ],
-            "Strings": [
-                "MovementSpeed"
-            ]
+            "Floats": [ 0.05, 5.0 ],
+            "Strings": [ "Water", "MovementSpeed" ],
+            "Ints": [ 45 ]
         },
         "Nodes": {
             "StartNodeId": "Choice",
@@ -25,32 +21,35 @@
                     "Id": "Choice",
                     "Type": "Choice",
                     "Data": {
-                        "TextLoc": "LV.BCT.M1.3.Content",
+                        "TextLoc": "LV.BCT.M4.1.Content",
                         "DefaultOption": 1,
                         "Options": [
                             {
-                                "TextLoc": "LV.BCT.M1.3.C1",
-                                "NoteLoc": "LV.BCT.M1.3.C1N",
-                                "NextNodeId": "Buff"
+                                "TextLoc": "LV.BCT.M4.1.C1",
+                                "NoteLoc": "LV.BCT.M4.1.C1N",
+                                "NextNodeId": "Give"
                             }
                         ]
                     }
                 },
                 {
+                    "Id": "Give",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [ { "Id": "{S1}", "Amount": "{I1}" } ]
+                    },
+                    "NextNodeId": "Buff"
+                },
+                {
                     "Id": "Buff",
                     "Type": "BuffCharacters",
                     "Data": {
-                        "BuffId": "TBP.M1.3.Sleepless",
-                        "TitleLoc": "LV.BCT.M1.3.Buff",
-                        "DescLoc": "LV.BCT.M1.3.BuffDesc",
+                        "BuffId": "TBP.M4.1.Happy",
+                        "TitleLoc": "LV.BCT.M4.1.Buff",
+                        "DescLoc": "LV.BCT.M4.1.BuffDesc",
                         "CharacterTypes": "AdultBeaver, ChildBeaver",
                         "Days": "{F2}",
-                        "Bonuses": [
-                            {
-                                "Id": "{S1}",
-                                "Amount": "{F1}"
-                            }
-                        ]
+                        "Bonuses": [ { "Id": "{S2}", "Amount": "{F1}" } ]
                     }
                 }
             ]

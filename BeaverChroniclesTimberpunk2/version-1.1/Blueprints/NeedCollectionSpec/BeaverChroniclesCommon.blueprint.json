@@ -1,0 +1,10 @@
+{
+    "NeedCollectionSpec": {
+        "CollectionId": "Common",
+        "Needs": [
+            "Remembrance",
+            "TBP.UnheardConcerns",
+            "TBP.BureaucraticNightmare"
+        ]
+    }
+}

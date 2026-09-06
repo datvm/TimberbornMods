@@ -1,0 +1,80 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M1.5",
+        "TitleLoc": "LV.BCT.M1.5",
+        "Conditions": {
+            "Sources": [ "BuildingFinished" ],
+            "Weight": 2147483647,
+            "BlockedNoFlags": [ "MAP.TIMBERPUNK 2" ],
+            "RequiredFlags": [ "EVENT.TBP.M1.2" ],
+            "BlockedFlags": [ "WONDER_ACTIVATED" ],
+            "ConditionNodeId": "IsWonder"
+        },
+        "Parameters": {
+            "Strings": [
+                "Fireworks"
+            ],
+            "Ints": [
+                1
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "IsWonder",
+                    "Type": "Condition",
+                    "Data": {
+                        "ConditionType": "Any",
+                        "Conditions": [
+                            {
+                                "Type": "Building",
+                                "Parameters": {
+                                    "EntityIds": [ "TriggerBuildingId" ],
+                                    "TemplateNames": [ "EarthRecultivator.Folktails", "EarthRepopulator.IronTeeth" ],
+                                    "IsFinished": true
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M1.5.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M1.5.C1",
+                                "NoteLoc": "LV.BCT.M1.5.C1N",
+                                "NextNodeId": "PayFirework"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "PayFirework",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "PanelTextLoc": "LV.BCT.M1.5.C1",
+                        "PaidNodeId": "RequestM16",
+                        "Payments": [
+                            {
+                                "Id": "{S1}",
+                                "Amount": "{I1}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "RequestM16",
+                    "Type": "RequestNextEvent",
+                    "Data": {
+                        "Id": "TBP.M1.6"
+                    }
+                }
+            ]
+        }
+    }
+}

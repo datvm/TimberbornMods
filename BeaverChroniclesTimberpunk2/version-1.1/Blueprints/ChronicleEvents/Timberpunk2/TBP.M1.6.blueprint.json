@@ -1,0 +1,31 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M1.6",
+        "TitleLoc": "LV.BCT.M1.6",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewHour" ],
+            "Weight": 2147483647,
+            "BlockedNoFlags": [ "MAP.TIMBERPUNK 2" ],
+            "RequiredFlags": [ "TBP.Diff.Easy", "TBP.Diff.Normal", "TBP.Diff.Hard" ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M1.6.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M1.6.C1"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

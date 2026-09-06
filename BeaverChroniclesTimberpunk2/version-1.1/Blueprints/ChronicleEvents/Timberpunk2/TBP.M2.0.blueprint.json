@@ -1,0 +1,118 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M2.0",
+        "TitleLoc": "LV.BCT.M2.0",
+        "Conditions": {
+            "Sources": [ "NewHour" ],
+            "Weight": 2147483647,
+            "BlockedNoFlags": [ "MAP.TIMBERPUNK 2" ],
+            "RequiredFlags": [ "TBP.Diff.Easy", "TBP.Diff.Normal", "TBP.Diff.Hard" ],
+            "MinDay": 2
+        },
+        "Parameters": {
+            "Floats": [
+                0.10,
+                0.05,
+                1.0,
+                -0.25,
+                2.0,
+                0.10
+            ],
+            "Strings": [
+                "WorkingSpeed",
+                "MovementSpeed",
+                "Plank",
+                "Berries"
+            ],
+            "Ints": [
+                10,
+                61,
+                100
+            ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M2.0.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M2.0.C1",
+                                "NoteLoc": "LV.BCT.M2.0.C1N",
+                                "NextNodeId": "BuffA"
+                            },
+                            {
+                                "TextLoc": "LV.BCT.M2.0.C2",
+                                "NoteLoc": "LV.BCT.M2.0.C2N",
+                                "NextNodeId": "PayB"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "BuffA",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "TBP.M2.0.PowerWheel",
+                        "TitleLoc": "LV.BCT.M2.0.BuffA",
+                        "DescLoc": "LV.BCT.M2.0.BuffADesc",
+                        "CharacterTypes": "AdultBeaver",
+                        "Days": "{F3}",
+                        "Bonuses": [
+                            { "Id": "{S1}", "Amount": "{F1}" },
+                            { "Id": "{S2}", "Amount": "{F2}" }
+                        ]
+                    }
+                },
+                {
+                    "Id": "PayB",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F3}",
+                        "PanelTextLoc": "LV.BCT.M2.0.C2",
+                        "PaidNodeId": "GiveB",
+                        "Payments": [
+                            { "Id": "{S4}", "Amount": "{I3}" }
+                        ]
+                    }
+                },
+                {
+                    "Id": "GiveB",
+                    "Type": "Give",
+                    "Data": {
+                        "Science": "{I2}",
+                        "Items": [
+                            { "Id": "{S3}", "Amount": "{I1}" }
+                        ]
+                    },
+                    "NextNodeId": "BuffB"
+                },
+                {
+                    "Id": "BuffB",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "TBP.M2.0.AltPower",
+                        "TitleLoc": "LV.BCT.M2.0.BuffB",
+                        "DescLoc": "LV.BCT.M2.0.BuffBDesc",
+                        "CharacterTypes": "AdultBeaver",
+                        "Days": "{F5}",
+                        "Bonuses": [
+                            { "Id": "{S1}", "Amount": "{F4}" },
+                            { "Id": "{S2}", "Amount": "{F6}" }
+                        ]
+                    },
+                    "NextNodeId": "RequestM21"
+                },
+                {
+                    "Id": "RequestM21",
+                    "Type": "RequestNextEvent",
+                    "Data": { "Id": "TBP.M2.1" }
+                }
+            ]
+        }
+    }
+}

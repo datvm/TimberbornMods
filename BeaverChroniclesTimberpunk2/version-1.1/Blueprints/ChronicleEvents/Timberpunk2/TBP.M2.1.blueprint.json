@@ -1,0 +1,91 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M2.1",
+        "TitleLoc": "LV.BCT.M2.1",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewHour" ],
+            "Weight": 2147483647,
+            "BlockedNoFlags": [ "MAP.TIMBERPUNK 2" ],
+            "RequiredFlags": [ "TBP.Diff.Easy", "TBP.Diff.Normal", "TBP.Diff.Hard" ]
+        },
+        "Parameters": {
+            "Floats": [ 0.15, 2.0 ],
+            "Strings": [ "WorkingSpeed", "Water", "ChippedTeeth" ],
+            "Ints": [ 25 ]
+        },
+        "Nodes": {
+            "StartNodeId": "FindBeaver",
+            "Items": [
+                {
+                    "Id": "FindBeaver",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver",
+                        "MaxCount": 1,
+                        "ChooseRandom": true,
+                        "ResultName": "Speaker",
+                        "NoneFoundNodeId": "Choice"
+                    },
+                    "NextNodeId": "Choice"
+                },
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M2.1.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M2.1.C1",
+                                "NoteLoc": "LV.BCT.M2.1.C1N",
+                                "NextNodeId": "GiveWater"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "GiveWater",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [ { "Id": "{S2}", "Amount": "{I1}" } ]
+                    },
+                    "NextNodeId": "Buff"
+                },
+                {
+                    "Id": "Buff",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "TBP.M2.1.Rations",
+                        "TitleLoc": "LV.BCT.M2.1.Buff",
+                        "DescLoc": "LV.BCT.M2.1.BuffDesc",
+                        "CharacterTypes": "AdultBeaver",
+                        "Days": "{F2}",
+                        "Bonuses": [ { "Id": "{S1}", "Amount": "{F1}" } ]
+                    },
+                    "NextNodeId": "FindTeeth"
+                },
+                {
+                    "Id": "FindTeeth",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver",
+                        "MaxCount": 3,
+                        "ChooseRandom": true,
+                        "ResultName": "TeethVictims",
+                        "NoneFoundNodeId": null
+                    },
+                    "NextNodeId": "ChipTeeth"
+                },
+                {
+                    "Id": "ChipTeeth",
+                    "Type": "CharacterStatus",
+                    "Data": {
+                        "EntityIds": [ "TeethVictims" ],
+                        "InflictNeed": "{S3}"
+                    }
+                }
+            ]
+        }
+    }
+}

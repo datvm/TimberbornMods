@@ -1,0 +1,55 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M7.2",
+        "TitleLoc": "LV.BCT.M7.2",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewDay" ],
+            "Weight": 2147483647,
+            "BlockedNoFlags": [ "MAP.TIMBERPUNK 2" ],
+            "RequiredFlags": [ "TBP.Diff.Easy", "TBP.Diff.Normal", "TBP.Diff.Hard" ],
+            "MinDay": 75
+        },
+        "Parameters": {
+            "Strings": [ "TBP.UnheardConcerns" ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M7.2.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M7.2.C1",
+                                "NoteLoc": "LV.BCT.M7.2.C1N",
+                                "NextNodeId": "Find"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "Find",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver, ChildBeaver",
+                        "MaxCount": 250,
+                        "ResultName": "Colony"
+                    },
+                    "NextNodeId": "Inflict"
+                },
+                {
+                    "Id": "Inflict",
+                    "Type": "CharacterStatus",
+                    "Data": {
+                        "EntityIds": [ "Colony" ],
+                        "InflictNeed": "{S1}"
+                    }
+                }
+            ]
+        }
+    }
+}

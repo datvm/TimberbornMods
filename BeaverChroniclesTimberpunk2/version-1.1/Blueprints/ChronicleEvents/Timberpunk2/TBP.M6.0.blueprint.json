@@ -1,0 +1,135 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M6.0",
+        "TitleLoc": "LV.BCT.M6.0",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewDay" ],
+            "Weight": 2147483647,
+            "BlockedNoFlags": [ "MAP.TIMBERPUNK 2" ],
+            "RequiredFlags": [ "TBP.Diff.Easy", "TBP.Diff.Normal", "TBP.Diff.Hard" ],
+            "MinDay": 10
+        },
+        "Parameters": {
+            "Strings": [ "AdultBeaver", "ChildBeaver", "BadwaterContamination", "Injury" ],
+            "Ints": [ 8, 4, 3, 2, 1 ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M6.0.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M6.0.C1",
+                                "NoteLoc": "LV.BCT.M6.0.C1N",
+                                "NextNodeId": "SpawnAll"
+                            },
+                            {
+                                "TextLoc": "LV.BCT.M6.0.C2",
+                                "NoteLoc": "LV.BCT.M6.0.C2N",
+                                "NextNodeId": "SpawnHealthy"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "SpawnAll",
+                    "Type": "Give",
+                    "Data": {
+                        "Spawns": [
+                            { "Id": "{S1}", "Amount": "{I1}" },
+                            { "Id": "{S2}", "Amount": "{I2}" }
+                        ]
+                    },
+                    "NextNodeId": "FindSick"
+                },
+                {
+                    "Id": "FindSick",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver",
+                        "MaxCount": 2,
+                        "ChooseRandom": true,
+                        "ResultName": "SickAdults"
+                    },
+                    "NextNodeId": "Contaminate"
+                },
+                {
+                    "Id": "Contaminate",
+                    "Type": "CharacterStatus",
+                    "Data": {
+                        "EntityIds": [ "SickAdults" ],
+                        "InflictNeed": "{S3}"
+                    },
+                    "NextNodeId": "FindInjuredAdults"
+                },
+                {
+                    "Id": "FindInjuredAdults",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver",
+                        "MaxCount": 3,
+                        "ChooseRandom": true,
+                        "ResultName": "InjuredAdults"
+                    },
+                    "NextNodeId": "InjureAdults"
+                },
+                {
+                    "Id": "InjureAdults",
+                    "Type": "CharacterStatus",
+                    "Data": {
+                        "EntityIds": [ "InjuredAdults" ],
+                        "InflictNeed": "{S4}"
+                    },
+                    "NextNodeId": "FindInjuredChild"
+                },
+                {
+                    "Id": "FindInjuredChild",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "ChildBeaver",
+                        "MaxCount": 1,
+                        "ChooseRandom": true,
+                        "ResultName": "InjuredChild"
+                    },
+                    "NextNodeId": "InjureChild"
+                },
+                {
+                    "Id": "InjureChild",
+                    "Type": "CharacterStatus",
+                    "Data": {
+                        "EntityIds": [ "InjuredChild" ],
+                        "InflictNeed": "{S4}"
+                    },
+                    "NextNodeId": "RequestM61"
+                },
+                {
+                    "Id": "SpawnHealthy",
+                    "Type": "Give",
+                    "Data": {
+                        "Spawns": [
+                            { "Id": "{S1}", "Amount": "{I3}" },
+                            { "Id": "{S2}", "Amount": "{I3}" }
+                        ]
+                    },
+                    "NextNodeId": "RequestM62"
+                },
+                {
+                    "Id": "RequestM61",
+                    "Type": "RequestNextEvent",
+                    "Data": { "Id": "TBP.M6.1" }
+                },
+                {
+                    "Id": "RequestM62",
+                    "Type": "RequestNextEvent",
+                    "Data": { "Id": "TBP.M6.2" }
+                }
+            ]
+        }
+    }
+}

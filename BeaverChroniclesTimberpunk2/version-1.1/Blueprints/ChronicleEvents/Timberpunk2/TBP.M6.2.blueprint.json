@@ -1,0 +1,76 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M6.2",
+        "TitleLoc": "LV.BCT.M6.2",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewHour" ],
+            "Weight": 2147483647,
+            "BlockedNoFlags": [ "MAP.TIMBERPUNK 2" ],
+            "RequiredFlags": [ "TBP.Diff.Easy", "TBP.Diff.Normal", "TBP.Diff.Hard" ]
+        },
+        "Parameters": {
+            "Strings": [ "Injury" ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M6.2.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M6.2.C1",
+                                "NoteLoc": "LV.BCT.M6.2.C1N",
+                                "NextNodeId": "FindDead"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "FindDead",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver",
+                        "MaxCount": 1,
+                        "ChooseRandom": true,
+                        "ResultName": "Dead",
+                        "NoneFoundNodeId": "FindInjured"
+                    },
+                    "NextNodeId": "Kill"
+                },
+                {
+                    "Id": "Kill",
+                    "Type": "DeleteEntity",
+                    "Data": {
+                        "EntityIds": [ "Dead" ],
+                        "BeaverDeathMessageLoc": "LV.BCT.M6.2.Death"
+                    },
+                    "NextNodeId": "FindInjured"
+                },
+                {
+                    "Id": "FindInjured",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver",
+                        "MaxCount": 1,
+                        "ChooseRandom": true,
+                        "ResultName": "Injured"
+                    },
+                    "NextNodeId": "Injure"
+                },
+                {
+                    "Id": "Injure",
+                    "Type": "CharacterStatus",
+                    "Data": {
+                        "EntityIds": [ "Injured" ],
+                        "InflictNeed": "{S1}"
+                    }
+                }
+            ]
+        }
+    }
+}

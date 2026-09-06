@@ -1,0 +1,53 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M7.1",
+        "TitleLoc": "LV.BCT.M7.1",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewDay" ],
+            "Weight": 2147483647,
+            "BlockedNoFlags": [ "MAP.TIMBERPUNK 2" ],
+            "RequiredFlags": [ "TBP.Diff.Easy", "TBP.Diff.Normal", "TBP.Diff.Hard" ],
+            "MinDay": 56
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M7.1.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M7.1.C1",
+                                "NoteLoc": "LV.BCT.M7.1.C1N",
+                                "NextNodeId": "Find"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "Find",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver",
+                        "MaxCount": 1,
+                        "ChooseRandom": true,
+                        "ResultName": "Dead"
+                    },
+                    "NextNodeId": "Kill"
+                },
+                {
+                    "Id": "Kill",
+                    "Type": "DeleteEntity",
+                    "Data": {
+                        "EntityIds": [ "Dead" ],
+                        "BeaverDeathMessageLoc": "LV.BCT.M7.1.Death"
+                    }
+                }
+            ]
+        }
+    }
+}

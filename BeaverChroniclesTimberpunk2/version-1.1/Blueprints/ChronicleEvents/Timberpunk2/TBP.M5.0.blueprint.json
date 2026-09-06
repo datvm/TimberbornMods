@@ -1,0 +1,194 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M5.0",
+        "TitleLoc": "LV.BCT.M5.0",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewWeather" ],
+            "Weight": 2147483647,
+            "BlockedNoFlags": [ "MAP.TIMBERPUNK 2" ],
+            "RequiredFlags": [ "TBP.Diff.Easy", "TBP.Diff.Normal", "TBP.Diff.Hard" ],
+            "ConditionNodeId": "IsDrought"
+        },
+        "Parameters": {
+            "Strings": [
+                "DroughtWeather",
+                "Paper",
+                "ScrapMetal",
+                "MetalBlock",
+                "Water",
+                "Badwater",
+                "Dirt",
+                "Plank",
+                "BadwaterContamination"
+            ],
+            "Ints": [ 30, 15, 25, 10, 45, 18, 8 ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "IsDrought",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "Weather",
+                                "Parameters": { "CurrentWeatherId": "{S1}" }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "IsFolktails",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "Flag",
+                                "Parameters": { "Flag": "FACTION.Folktails" }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "IsIronTeeth",
+                    "Type": "Condition",
+                    "Data": {
+                        "Conditions": [
+                            {
+                                "Type": "Flag",
+                                "Parameters": { "Flag": "FACTION.IronTeeth" }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M5.0.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M5.0.C1",
+                                "NoteLoc": "LV.BCT.M5.0.C1N",
+                                "NextNodeId": "GiveDocs"
+                            },
+                            {
+                                "TextLoc": "LV.BCT.M5.0.C2",
+                                "NoteLoc": "LV.BCT.M5.0.C2N",
+                                "NextNodeId": "GiveMetal"
+                            },
+                            {
+                                "TextLoc": "LV.BCT.M5.0.C3",
+                                "NoteLoc": "LV.BCT.M5.0.C3N",
+                                "NextNodeId": "GiveBottles"
+                            },
+                            {
+                                "TextLoc": "LV.BCT.M5.0.C4",
+                                "NoteLoc": "LV.BCT.M5.0.C4N",
+                                "NextNodeId": "GiveCrate"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "GiveDocs",
+                    "Type": "Give",
+                    "Data": { "Science": "{I1}" },
+                    "NextNodeId": "CheckPaper"
+                },
+                {
+                    "Id": "CheckPaper",
+                    "Type": "Condition",
+                    "Data": {
+                        "FulfilledNodeId": "GivePaper",
+                        "Conditions": [
+                            {
+                                "Type": "Flag",
+                                "Parameters": { "Flag": "FACTION.Folktails" }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "GivePaper",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [ { "Id": "{S2}", "Amount": "{I2}" } ]
+                    }
+                },
+                {
+                    "Id": "GiveMetal",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [ { "Id": "{S3}", "Amount": "{I3}" } ]
+                    },
+                    "NextNodeId": "CheckParts"
+                },
+                {
+                    "Id": "CheckParts",
+                    "Type": "Condition",
+                    "Data": {
+                        "FulfilledNodeId": "GiveParts",
+                        "Conditions": [
+                            {
+                                "Type": "Flag",
+                                "Parameters": { "Flag": "FACTION.IronTeeth" }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "GiveParts",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [ { "Id": "{S4}", "Amount": "{I4}" } ]
+                    }
+                },
+                {
+                    "Id": "GiveBottles",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [
+                            { "Id": "{S5}", "Amount": "{I5}" },
+                            { "Id": "{S6}", "Amount": "{I2}" }
+                        ]
+                    },
+                    "NextNodeId": "FindContaminated"
+                },
+                {
+                    "Id": "FindContaminated",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver",
+                        "MaxCount": 1,
+                        "ChooseRandom": true,
+                        "ResultName": "Contaminated",
+                        "NoneFoundNodeId": null
+                    },
+                    "NextNodeId": "Contaminate"
+                },
+                {
+                    "Id": "Contaminate",
+                    "Type": "CharacterStatus",
+                    "Data": {
+                        "EntityIds": [ "Contaminated" ],
+                        "InflictNeed": "{S9}"
+                    }
+                },
+                {
+                    "Id": "GiveCrate",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [
+                            { "Id": "{S7}", "Amount": "{I6}" },
+                            { "Id": "{S8}", "Amount": "{I7}" }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

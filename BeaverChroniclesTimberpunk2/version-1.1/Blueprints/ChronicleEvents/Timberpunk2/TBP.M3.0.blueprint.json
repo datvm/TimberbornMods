@@ -1,0 +1,66 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M3.0",
+        "TitleLoc": "LV.BCT.M3.0",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewDay" ],
+            "Weight": 2147483647,
+            "BlockedNoFlags": [ "MAP.TIMBERPUNK 2" ],
+            "RequiredFlags": [ "TBP.Diff.Easy", "TBP.Diff.Normal", "TBP.Diff.Hard" ],
+            "MinDay": 3
+        },
+        "Parameters": {
+            "Strings": [ "BeeSting", "ChildBeaver" ],
+            "Ints": [ 1 ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M3.0.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M3.0.C1",
+                                "NoteLoc": "LV.BCT.M3.0.C1N",
+                                "NextNodeId": "FindMother"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "FindMother",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver",
+                        "MaxCount": 1,
+                        "ChooseRandom": true,
+                        "ResultName": "Mother",
+                        "NoneFoundNodeId": "SpawnLily"
+                    },
+                    "NextNodeId": "MakeSick"
+                },
+                {
+                    "Id": "MakeSick",
+                    "Type": "CharacterStatus",
+                    "Data": {
+                        "EntityIds": [ "Mother" ],
+                        "InflictNeed": "{S1}"
+                    },
+                    "NextNodeId": "SpawnLily"
+                },
+                {
+                    "Id": "SpawnLily",
+                    "Type": "Give",
+                    "Data": {
+                        "Spawns": [ { "Id": "{S2}", "Amount": "{I1}" } ]
+                    }
+                }
+            ]
+        }
+    }
+}
