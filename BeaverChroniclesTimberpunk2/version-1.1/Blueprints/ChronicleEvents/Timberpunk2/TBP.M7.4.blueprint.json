@@ -1,0 +1,141 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M7.4",
+        "TitleLoc": "LV.BCT.M7.4",
+        "Conditions": {
+            "Sources": [ "NewDay" ],
+            "Weight": 2147483647,
+            "BlockedNoFlags": [ "MAP.TIMBERPUNK 2" ],
+            "RequiredFlags": [ "TBP.Diff.Easy", "TBP.Diff.Normal", "TBP.Diff.Hard" ],
+            "MinDay": 81
+        },
+        "Parameters": {
+            "Floats": [ -0.05, -0.03, 3.0, 1.0 ],
+            "Strings": [
+                "TBP.BureaucraticNightmare",
+                "LifeExpectancy",
+                "WorkingSpeed"
+            ],
+            "Ints": [ 100 ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M7.4.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M7.4.C1",
+                                "NoteLoc": "LV.BCT.M7.4.C1N",
+                                "NextNodeId": "FindElders"
+                            },
+                            {
+                                "TextLoc": "LV.BCT.M7.4.C2",
+                                "NoteLoc": "LV.BCT.M7.4.C2N",
+                                "NextNodeId": "FindDemocracy"
+                            },
+                            {
+                                "TextLoc": "LV.BCT.M7.4.C3",
+                                "NoteLoc": "LV.BCT.M7.4.C3N",
+                                "NextNodeId": "PayAutocracy"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "FindElders",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver, ChildBeaver",
+                        "MaxCount": 250,
+                        "ResultName": "Colony"
+                    },
+                    "NextNodeId": "ClearElders"
+                },
+                {
+                    "Id": "ClearElders",
+                    "Type": "CharacterStatus",
+                    "Data": {
+                        "EntityIds": [ "Colony" ],
+                        "RemoveNeed": "{S1}"
+                    },
+                    "NextNodeId": "BuffElders"
+                },
+                {
+                    "Id": "BuffElders",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "TBP.M7.4.Elders",
+                        "TitleLoc": "LV.BCT.M7.4.BuffElders",
+                        "DescLoc": "LV.BCT.M7.4.BuffEldersDesc",
+                        "CharacterTypes": "AdultBeaver, ChildBeaver",
+                        "Days": "{F3}",
+                        "Bonuses": [ { "Id": "{S2}", "Amount": "{F1}" } ]
+                    },
+                    "NextNodeId": "FlagTradition"
+                },
+                {
+                    "Id": "FlagTradition",
+                    "Type": "SetFlag",
+                    "Data": { "Name": "TBP.Gov.Tradition" }
+                },
+                {
+                    "Id": "FindDemocracy",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver, ChildBeaver",
+                        "MaxCount": 250,
+                        "ResultName": "Colony"
+                    },
+                    "NextNodeId": "ClearDemocracy"
+                },
+                {
+                    "Id": "ClearDemocracy",
+                    "Type": "CharacterStatus",
+                    "Data": {
+                        "EntityIds": [ "Colony" ],
+                        "RemoveNeed": "{S1}"
+                    },
+                    "NextNodeId": "BuffDemocracy"
+                },
+                {
+                    "Id": "BuffDemocracy",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "TBP.M7.4.Democracy",
+                        "TitleLoc": "LV.BCT.M7.4.BuffDemocracy",
+                        "DescLoc": "LV.BCT.M7.4.BuffDemocracyDesc",
+                        "CharacterTypes": "AdultBeaver",
+                        "Days": "{F3}",
+                        "Bonuses": [ { "Id": "{S3}", "Amount": "{F2}" } ]
+                    },
+                    "NextNodeId": "FlagDemocracy"
+                },
+                {
+                    "Id": "FlagDemocracy",
+                    "Type": "SetFlag",
+                    "Data": { "Name": "TBP.Gov.Democracy" }
+                },
+                {
+                    "Id": "PayAutocracy",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F4}",
+                        "PanelTextLoc": "LV.BCT.M7.4.C3",
+                        "PaidNodeId": "FlagAutocracy",
+                        "Payments": [ { "Id": "Science", "Amount": "{I1}" } ]
+                    }
+                },
+                {
+                    "Id": "FlagAutocracy",
+                    "Type": "SetFlag",
+                    "Data": { "Name": "TBP.Gov.Autocracy" }
+                }
+            ]
+        }
+    }
+}

@@ -1,6 +1,6 @@
 ﻿ID,Text,Comment
 LV.BCT.NotTimberpunk2Map.Title,"Wrong map",
-LV.BCT.NotTimberpunk2Map,"You are not playing the Timberpunk 2 Map. Please disable the Beaver Chronicles - Timberpunk 2 mod to prevent conflict",
+LV.BCT.NotTimberpunk2Map,"[[-]]You are not playing the Timberpunk 2 Map. Please disable the Beaver Chronicles - Timberpunk 2 mod to prevent conflict",
 LV.BCT.0,"Chronicle difficulty",
 LV.BCT.0.Content,"Beaver Chronicles cannot read the difficulty you picked in New Game.
 Choose the Chronicle difficulty you want for TIMBERPUNK 2 events. If you want the author's intended tone, match the game difficulty you started with.",
@@ -92,4 +92,159 @@ LV.BCT.M1.4.C1,"We all suffer...",
 LV.BCT.M1.4.C1N,"[[C]][[+]]+[[good:{S1}:{I1}]] [[-]]Two beavers are injured. {%1} working speed for [[time:{F2}d]]. {I2} science",
 LV.BCT.M1.4.Buff,"Colony tension",
 LV.BCT.M1.4.BuffDesc,"The fight over abandoned kits leaves the workforce strained.",
+LV.BCT.M1.5,"It is done, Captain",
+LV.BCT.M1.5.Content,"Melissa walks into your room with paperwork.
+""It is done, Captain. Soon we will be filling the lands with new life, and it's all thanks to you!""
+Your chair creaks as you get up and take a firework rocket from the cupboard.
+""Your grandfather gave me this when you were young.""",
+LV.BCT.M1.5.C1,"I say it's time we light it",
+LV.BCT.M1.5.C1N,"[[C]][[-]]Pay [[good:{S1}:{I1}]]",
+LV.BCT.M1.6,"Remembering a legend",
+LV.BCT.M1.6.Content,"""Please light it on the day we are saved.""
+The old man's words are still fresh as Marius, his grandson, lights the firework rocket.
+You would have done it yourself, but you too are showing your age, and kneeling is nearly impossible.
+The rocket shoots up. After all the sacrifices it took to get this far, it explodes into a picture of your face — just a bit younger.
+You can't help but chuckle.",
+LV.BCT.M1.6.C1,"A foreman, huh?",
+LV.BCT.M2.0,"The contingency plan",
+LV.BCT.M2.0.Content,"Your builders approach with two plans to power the aquifer.
+The first, and most favorable, is a power wheel. Fast, straightforward, every beaver already knows what to do. It would need at least two beavers operating it at all times.
+The second is some alternative source — geothermals or waterwheels. That means planning, rationing, and a lot of downsides.",
+LV.BCT.M2.0.C1,"Build the power wheel. Let's get this done",
+LV.BCT.M2.0.C1N,"[[C]][[+]]{%1} working speed and {%2} movement speed for [[time:{F3}d]]",
+LV.BCT.M2.0.C2,"My plans are beyond your understanding",
+LV.BCT.M2.0.C2N,"[[C]]Pay [[good:{S4}:{I3}]] in [[time:{F3}d]]. [[+]]+[[good:{S3}:{I1}]] +[[good:Science:{I2}]] {%6} movement speed [[-]]{%4} working speed for [[time:{F5}d]]",
+LV.BCT.M2.0.BuffA,"Power wheel plan",
+LV.BCT.M2.0.BuffADesc,"The colony knows this work and moves quickly.",
+LV.BCT.M2.0.BuffB,"Alternative power",
+LV.BCT.M2.0.BuffBDesc,"Rationing and planning slow the work, but the colony covers more ground.",
+LV.BCT.M2.1,"Rationing",
+LV.BCT.M2.1.Content,"{CP_Speaker_Name} grumbles as she goes to work. Water rationing is taking effect.
+She and her daughter will only get half the water they need. The rest will be berry juice.
+It's nutritious, but it's just not very good for the teeth.",
+LV.BCT.M2.1.C1,"Right...",
+LV.BCT.M2.1.C1N,"[[C]][[+]]{%1} working speed for [[time:{F2}d]] +[[good:{S2}:{I1}]] [[-]]Three beavers get chipped teeth",
+LV.BCT.M2.1.Buff,"Berry juice rations",
+LV.BCT.M2.1.BuffDesc,"The colony works harder on thinner water.",
+LV.BCT.M3.0,"The new generation",
+LV.BCT.M3.0.Content,"Your childhood friend — probably the only person left alive you still care for — was pregnant.
+She told no one. Now she is recovering from giving birth.
+She asked you to bless the child. Exhausted, she smiles as you walk in.
+""I'm naming her after your mother.""
+""After my mother?""
+""Your mother was always there for me when I needed help. The same could not be said about my own parents.""
+The room is quiet. ""So you're calling her—""
+""Lily,"" she says.
+You look at the small bright eyes of the kit.",
+LV.BCT.M3.0.C1,"Welcome to the family, Lily",
+LV.BCT.M3.0.C1N,"[[C]][[+]]+{I1} [[icon:UI/images/game/ico-child]] Child Beaver [[-]]One beaver is sick",
+LV.BCT.M4.0,"The water situation",
+LV.BCT.M4.0.Content,"A drought is approaching fast, and beavers are getting nervous.
+It's about time you said something to ease their minds — hopefully.
+You step onto the makeshift stand.
+""My fellow survivors.""",
+LV.BCT.M4.0.C1,"Our progress shall be grand. All will get something to drink",
+LV.BCT.M4.0.C1N,"[[C]][[-]]Pay [[good:{S1}:{I1}]] in [[time:{F1}d]]",
+LV.BCT.M4.0.C2,"We are making great progress",
+LV.BCT.M4.0.C2N,"[[C]][[-]]Pay [[good:{S1}:{I2}]] in [[time:{F1}d]]",
+LV.BCT.M4.0.C3,"I wish circumstances were better",
+LV.BCT.M4.0.C3N,"[[C]][[-]]{%2} working speed for [[time:{F4}d]]",
+LV.BCT.M4.0.C4,"Lay down your tools. A drought is coming",
+LV.BCT.M4.0.C4N,"[[C]][[+]]+[[good:{S1}:{I3}]] [[-]]{%3} working speed for [[time:{F4}d]]",
+LV.BCT.M4.0.BuffWish,"Uneasy speech",
+LV.BCT.M4.0.BuffWishDesc,"The colony heard no real promise.",
+LV.BCT.M4.0.BuffLayDown,"Tools down",
+LV.BCT.M4.0.BuffLayDownDesc,"Work stops so water can be hoarded.",
+LV.BCT.M4.1,"Thunderous applause",
+LV.BCT.M4.1.Content,"All cheered as they got their full rations of water.
+For some it has been months since a proper drink.
+Some may have gotten carried away and drunk more than they should have.",
+LV.BCT.M4.1.C1,"But at least everyone is happy",
+LV.BCT.M4.1.C1N,"[[C]][[+]]+[[good:{S1}:{I1}]] {%1} movement speed for [[time:{F2}d]]",
+LV.BCT.M4.1.Buff,"Full rations",
+LV.BCT.M4.1.BuffDesc,"A rare proper drink puts a spring in every step.",
+LV.BCT.M4.2,"A sip to drink",
+LV.BCT.M4.2.Content,"Water was scarce, the sole source of life in this dead world, and it was our job to secure as much of it as possible.
+As {CP_Speaker_Name} grabbed her canteen during work, she prepared to silence the thirst even a little.
+It was empty.
+They sigh. It would not be until the next day that they get new rations.",
+LV.BCT.M4.2.C1,"Well... back to work",
+LV.BCT.M4.2.C1N,"[[C]][[+]]+[[good:{S1}:{I1}]]",
+LV.BCT.M5.0,"Hidden treasures",
+LV.BCT.M5.0.Content,"For the first time since we arrived, we could see the bottom of the now-shallow river.
+And right there in the mud lay a crate.
+One could only imagine what would be inside.",
+LV.BCT.M5.0.C1,"Soaked research documents, almost all stained and unreadable",
+LV.BCT.M5.0.C1N,"[[C]][[+]]+[[good:Science:{I1}]] Folktails also gain [[good:{S2}:{I2}]]",
+LV.BCT.M5.0.C2,"Old metal parts, most of it rusted",
+LV.BCT.M5.0.C2N,"[[C]][[+]]+[[good:{S3}:{I3}]] Iron Teeth also gain [[good:{S4}:{I4}]]",
+LV.BCT.M5.0.C3,"A bunch of bottles containing a mystery fluid",
+LV.BCT.M5.0.C3N,"[[C]][[+]]+[[good:{S5}:{I5}]] +[[good:{S6}:{I2}]] [[-]]One beaver is contaminated",
+LV.BCT.M5.0.C4,"Rotten food. Well, at least the crate is in good shape",
+LV.BCT.M5.0.C4N,"[[C]][[+]]+[[good:{S7}:{I6}]] +[[good:{S8}:{I7}]]",
+LV.BCT.M6.0,"Rows of beavers",
+LV.BCT.M6.0.Content,"We can't believe our eyes. We are not the only ones.
+Early in the morning a group of beavers arrived. Nobody recognized them. They are not from our town.
+What should we do with them?",
+LV.BCT.M6.0.C1,"Take them all in. We need all the paws we can get",
+LV.BCT.M6.0.C1N,"[[C]][[+]]+{I1} Adult Beaver +{I2} [[icon:UI/images/game/ico-child]] Child Beaver [[-]]Contamination and injuries among the arrivals",
+LV.BCT.M6.0.C2,"Only take in the healthy",
+LV.BCT.M6.0.C2N,"[[C]][[+]]+{I3} Adult Beaver +{I3} [[icon:UI/images/game/ico-child]] Child Beaver",
+LV.BCT.M6.1,"Thank you",
+LV.BCT.M6.1.Content,"Dehydrated, sick, and injured, all were welcomed and scheduled for treatment.
+Their representative, a young male, approached you with a key.
+""With this key I trust you with my family and our resources. Please guide and protect them.""",
+LV.BCT.M6.1.C1,"I promise you",
+LV.BCT.M6.1.C1N,"[[C]][[+]]+[[good:{S1}:{I1}]] +[[good:{S2}:{I2}]] +[[good:{S3}:{I3}]] +[[good:{S4}:{I4}]] +[[good:{S5}:{I5}]]",
+LV.BCT.M6.2,"Clashes",
+LV.BCT.M6.2.Content,"You sit in the city center with little left to do. The paperwork for so few healthy arrivals did not take long.
+Then shouting: ""You beavers are monsters. You sent my family to die.""
+The only healthy adult of the new group is fighting the builders. You rush down, too slow. He is on the ground with a hammer near him.",
+LV.BCT.M6.2.C1,"I guess I have paperwork to shred",
+LV.BCT.M6.2.C1N,"[[C]][[-]]One beaver dies. One beaver is injured",
+LV.BCT.M6.2.Death,"{0} died in a fight over the refused refugees.",
+LV.BCT.M7.0,"The tasks of leadership",
+LV.BCT.M7.0.Content,"You aren't just a leader. You are part of the workforce, and you help wherever you can.
+But your leadership duties keep growing, leaving you inefficient in the field.",
+LV.BCT.M7.0.C1,"Regardless, it is what I have to do",
+LV.BCT.M7.0.C1N,"[[C]][[-]]{%1} working speed for [[time:{F2}d]]",
+LV.BCT.M7.0.Buff,"Leadership duties",
+LV.BCT.M7.0.BuffDesc,"Paperwork pulls paws off the tools.",
+LV.BCT.M7.1,"The privilege of leadership",
+LV.BCT.M7.1.Content,"You were personally helping in the very beginning.
+Recently that has become the niche part of your job.
+Each day brings more decisions than the last. You'd like to complain, but it is definitely more relaxed than working your back away.",
+LV.BCT.M7.1.C1,"You lean back in your chair, taking a sip of water while looking at some schematics",
+LV.BCT.M7.1.C1N,"[[C]][[-]]One beaver dies",
+LV.BCT.M7.1.Death,"{0} died while the captain sat with the schematics.",
+LV.BCT.M7.2,"The burden of leadership",
+LV.BCT.M7.2.Content,"You try not to fall asleep reading a letter of another beaver's concerns.
+Face-to-face meetings took too long, so you switched to a suggestion box.
+The workday ends. You skipped lunch. Your stomach growls, your eyes strain, and the unopened pile is still there.",
+LV.BCT.M7.2.C1,"It's larger than yesterday's pile",
+LV.BCT.M7.2.C1N,"[[C]][[-]]-2 wellbeing (Unheard concerns)",
+LV.BCT.Need.UnheardConcerns,"Unheard concerns",
+LV.BCT.M7.3,"Letters upon letters",
+LV.BCT.M7.3.Content,"When we arrived, things were simple. Few beavers, simple problems.
+As the colony grows, more issues pop up than one beaver can handle.
+""I don't want to die"" became ""my dwelling doesn't have enough windows.""
+Every small concern lands on your shoulders. Your days are reading and answering letters.",
+LV.BCT.M7.3.C1,"I can't do this anymore",
+LV.BCT.M7.3.C1N,"[[C]][[-]]Unheard concerns becomes -5 wellbeing (Bureaucratic nightmare)",
+LV.BCT.Need.BureaucraticNightmare,"Bureaucratic nightmare",
+LV.BCT.M7.4,"Beavers of the new age",
+LV.BCT.M7.4.Content,"The colony needs some kind of government.
+The ones you travelled with want the old town's way: the elderly and wisest elected to rule together, leaving you the important tasks.
+The foreigner minority fear exclusion. They want every beaver to have a say, whoever they are.
+The young, traumatized by this world, fear a popularity contest. They would rather you pick a few individuals to help, and keep the squabbling down.",
+LV.BCT.M7.4.C1,"The elders know best",
+LV.BCT.M7.4.C1N,"[[C]]A council of the old and wise. [[-]]{%1} life expectancy for [[time:{F3}d]]. Bureaucratic nightmare is removed.",
+LV.BCT.M7.4.C2,"All should have a say",
+LV.BCT.M7.4.C2N,"[[C]]A council of representatives. [[-]]{%2} working speed for [[time:{F3}d]]. Bureaucratic nightmare is removed.",
+LV.BCT.M7.4.C3,"I will not leave my duties to those I don't trust",
+LV.BCT.M7.4.C3N,"[[C]]Pay [[good:Science:{I1}]] in [[time:{F4}d]]. A council of those you choose.",
+LV.BCT.M7.4.BuffElders,"Elder council",
+LV.BCT.M7.4.BuffEldersDesc,"The old ways are heavy on the longest-lived.",
+LV.BCT.M7.4.BuffDemocracy,"Representative council",
+LV.BCT.M7.4.BuffDemocracyDesc,"Everyone has a say, and work slows for it.",
 

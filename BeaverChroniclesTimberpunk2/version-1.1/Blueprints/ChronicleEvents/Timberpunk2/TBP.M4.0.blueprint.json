@@ -1,0 +1,115 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M4.0",
+        "TitleLoc": "LV.BCT.M4.0",
+        "Conditions": {
+            "Sources": [ "NewDay" ],
+            "Weight": 2147483647,
+            "BlockedNoFlags": [ "MAP.TIMBERPUNK 2" ],
+            "RequiredFlags": [ "TBP.Diff.Easy", "TBP.Diff.Normal", "TBP.Diff.Hard" ],
+            "MinDay": 5
+        },
+        "Parameters": {
+            "Floats": [ 1.0, -0.15, -0.75, 2.0 ],
+            "Strings": [ "Water", "WorkingSpeed" ],
+            "Ints": [ 50, 25, 55 ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M4.0.Content",
+                        "DefaultOption": 3,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M4.0.C1",
+                                "NoteLoc": "LV.BCT.M4.0.C1N",
+                                "NextNodeId": "PayFull"
+                            },
+                            {
+                                "TextLoc": "LV.BCT.M4.0.C2",
+                                "NoteLoc": "LV.BCT.M4.0.C2N",
+                                "NextNodeId": "PaySip"
+                            },
+                            {
+                                "TextLoc": "LV.BCT.M4.0.C3",
+                                "NoteLoc": "LV.BCT.M4.0.C3N",
+                                "NextNodeId": "BuffWish"
+                            },
+                            {
+                                "TextLoc": "LV.BCT.M4.0.C4",
+                                "NoteLoc": "LV.BCT.M4.0.C4N",
+                                "NextNodeId": "GiveLayDown"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "PayFull",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F1}",
+                        "PanelTextLoc": "LV.BCT.M4.0.C1",
+                        "PaidNodeId": "RequestM41",
+                        "Payments": [ { "Id": "{S1}", "Amount": "{I1}" } ]
+                    }
+                },
+                {
+                    "Id": "PaySip",
+                    "Type": "TimeLimit",
+                    "Data": {
+                        "Days": "{F1}",
+                        "PanelTextLoc": "LV.BCT.M4.0.C2",
+                        "PaidNodeId": "RequestM42",
+                        "Payments": [ { "Id": "{S1}", "Amount": "{I2}" } ]
+                    }
+                },
+                {
+                    "Id": "BuffWish",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "TBP.M4.0.Wish",
+                        "TitleLoc": "LV.BCT.M4.0.BuffWish",
+                        "DescLoc": "LV.BCT.M4.0.BuffWishDesc",
+                        "CharacterTypes": "AdultBeaver",
+                        "Days": "{F4}",
+                        "Bonuses": [ { "Id": "{S2}", "Amount": "{F2}" } ]
+                    }
+                },
+                {
+                    "Id": "GiveLayDown",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [ { "Id": "{S1}", "Amount": "{I3}" } ]
+                    },
+                    "NextNodeId": "BuffLayDown"
+                },
+                {
+                    "Id": "BuffLayDown",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "TBP.M4.0.LayDown",
+                        "TitleLoc": "LV.BCT.M4.0.BuffLayDown",
+                        "DescLoc": "LV.BCT.M4.0.BuffLayDownDesc",
+                        "CharacterTypes": "AdultBeaver",
+                        "Days": "{F4}",
+                        "Bonuses": [ { "Id": "{S2}", "Amount": "{F3}" } ]
+                    }
+                },
+                {
+                    "Id": "RequestM41",
+                    "Type": "RequestNextEvent",
+                    "Data": { "Id": "TBP.M4.1" }
+                },
+                {
+                    "Id": "RequestM42",
+                    "Type": "RequestNextEvent",
+                    "Data": { "Id": "TBP.M4.2" }
+                }
+            ]
+        }
+    }
+}

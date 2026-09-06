@@ -1,0 +1,50 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M6.1",
+        "TitleLoc": "LV.BCT.M6.1",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewHour" ],
+            "Weight": 2147483647,
+            "BlockedNoFlags": [ "MAP.TIMBERPUNK 2" ],
+            "RequiredFlags": [ "TBP.Diff.Easy", "TBP.Diff.Normal", "TBP.Diff.Hard" ]
+        },
+        "Parameters": {
+            "Strings": [ "Extract", "Berries", "Plank", "Log", "Water" ],
+            "Ints": [ 25, 4, 2, 1, 83 ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M6.1.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M6.1.C1",
+                                "NoteLoc": "LV.BCT.M6.1.C1N",
+                                "NextNodeId": "Give"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "Give",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [
+                            { "Id": "{S1}", "Amount": "{I1}" },
+                            { "Id": "{S2}", "Amount": "{I2}" },
+                            { "Id": "{S3}", "Amount": "{I3}" },
+                            { "Id": "{S4}", "Amount": "{I4}" },
+                            { "Id": "{S5}", "Amount": "{I5}" }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

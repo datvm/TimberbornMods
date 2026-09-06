@@ -6,6 +6,7 @@
         "Conditions": {
             "Sources": [ "NewHour" ],
             "Weight": 2147483647,
+            "BlockedNoFlags": [ "MAP.TIMBERPUNK 2" ],
             "MinDay": 1.25
         },
         "Nodes": {

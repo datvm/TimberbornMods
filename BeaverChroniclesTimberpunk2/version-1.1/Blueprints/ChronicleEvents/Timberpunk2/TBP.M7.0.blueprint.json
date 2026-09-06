@@ -1,0 +1,50 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M7.0",
+        "TitleLoc": "LV.BCT.M7.0",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewDay" ],
+            "Weight": 2147483647,
+            "BlockedNoFlags": [ "MAP.TIMBERPUNK 2" ],
+            "RequiredFlags": [ "TBP.Diff.Easy", "TBP.Diff.Normal", "TBP.Diff.Hard" ],
+            "MinDay": 41
+        },
+        "Parameters": {
+            "Floats": [ -0.05, 15.0 ],
+            "Strings": [ "WorkingSpeed" ]
+        },
+        "Nodes": {
+            "StartNodeId": "Choice",
+            "Items": [
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M7.0.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M7.0.C1",
+                                "NoteLoc": "LV.BCT.M7.0.C1N",
+                                "NextNodeId": "Buff"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "Buff",
+                    "Type": "BuffCharacters",
+                    "Data": {
+                        "BuffId": "TBP.M7.0.Duties",
+                        "TitleLoc": "LV.BCT.M7.0.Buff",
+                        "DescLoc": "LV.BCT.M7.0.BuffDesc",
+                        "CharacterTypes": "AdultBeaver",
+                        "Days": "{F2}",
+                        "Bonuses": [ { "Id": "{S1}", "Amount": "{F1}" } ]
+                    }
+                }
+            ]
+        }
+    }
+}

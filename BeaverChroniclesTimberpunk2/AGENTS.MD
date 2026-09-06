@@ -8,22 +8,19 @@ Before working in this pack, read that file and its referenced `../BeaverChronic
 
 This pack is the TIMBERPUNK 2 campaign overlay for Beaver Chronicles. Implement story events from `timberpunk2story.txt` **one event at a time**, only when asked, and wait for review before starting the next one.
 
-Unlike `BeaverChroniclesWaterfallEventPack`, do **not** gate story events with `BlockedNoFlags` / `RequiredFlags` on `MAP.TIMBERPUNK 2`. This pack also removes or overrides original Beaver Chronicles events, so it is meant to own the campaign, not sit unused on other maps.
+Campaign events use `BlockedNoFlags: [ "MAP.TIMBERPUNK 2" ]` so they are eliminated on any other map (weight `-1`). The warning event `TBP.NotTimberpunk2Map` (`NewHour`) is the opposite: `BlockedFlags: [ "MAP.TIMBERPUNK 2" ]`, so it only fires off-map.
 
 The map name is `TIMBERPUNK 2`. The engine map flag is `MAP.TIMBERPUNK 2` (`MAP.` + map name, space included).
 
-The only map check is the bootstrap warning event `TBP.NotTimberpunk2Map` (`NewHour`). It uses `BlockedFlags: [ "MAP.TIMBERPUNK 2" ]` so it is eliminated on the correct map and only warns when the player left this pack enabled on a different map. After that warning, proceeding is treated as user error; do not add further off-map protection.
+Everything after `TBP.0` also requires a difficulty flag (`TBP.Diff.Easy` / `Normal` / `Hard`, `RequiredFlags` default `Any`). That keeps `TBP.M1.0` and other max-weight `NewHour` events from winning the first hour over the difficulty dialog. `TBP.Welcome` already used those flags. `TBP.M1.5` still requires `EVENT.TBP.M1.2` (difficulty is implied by then).
 
-Campaign event ids are prefixed with `TBP.`. Do not split the same story beat into Easy/Normal/Hard events. Put difficulty branching inside one event: read `TBP.Diff.*` flags, write custom parameters, then share Give/status nodes.
+Campaign event ids are prefixed with `TBP.` (`m1.0` → `TBP.M1.0`). Do not split the same story beat into Easy/Normal/Hard events.
 
-Current events:
+The author's first half (`timberpunk2story.txt` through `m7.4`) is implemented. The latter half (Tradition / Democracy / Autocracy follow-ups and the six endings) is **not** written. `TBP.M7.4` only sets `TBP.Gov.Tradition`, `TBP.Gov.Democracy`, or `TBP.Gov.Autocracy` and does not `RequestNextEvent` missing ids.
 
-- `TBP.0` — difficulty select (`NewHour`, `MinDay: 1.25`, max weight). Vanilla `StartBonus` is patched to `Sources: []`. All three choices set a flag then go to the same `RequestNextEvent` for `TBP.Welcome`. That request waits for the next matching trigger (next hour).
-- `TBP.Welcome` — one welcome event. It sets `Diff`, `RewardId`, `RewardAmount`, and `Science` from the difficulty flags, then shows Easy/Normal/Hard copy. All paths `RequestNextEvent` `TBP.M1.0`.
-- `TBP.M1.0` — trek memory (`NewHour`, not mini). Paid choices use a 12-hour `TimeLimit`; timeout is `M1.7` inside this event (life-expectancy debuff, not a literal game crash). Instant and paid success paths request `TBP.M1.1`–`TBP.M1.4`.
-- `TBP.M1.1`–`TBP.M1.4` — end-of-day follow-ups (`NewDay`). Do not request `TBP.M1.5` until the wonder event exists.
+Wonder follow-up `TBP.M1.5` requires `EVENT.TBP.M1.2` and `BuildingFinished` of `EarthRecultivator.Folktails` or `EarthRepopulator.IronTeeth` (built, not launched). `TBP.M4.0` uses `NewDay` `MinDay: 5` (end of day 4); the optional "24h after the drill" trigger was not added. `TBP.M5.0` fires on the first `NewWeather` drought.
 
-Story ids match the author's codes with a `TBP.` prefix (`m1.0` → `TBP.M1.0`).
+Need overlays live in `version-1.1/Blueprints/NeedSpecs` and `NeedCollectionSpec/BeaverChroniclesCommon.blueprint.json` (keeps `Remembrance` plus `TBP.UnheardConcerns` / `TBP.BureaucraticNightmare`).
 
 Difficulty flags:
 

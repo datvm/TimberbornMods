@@ -1,0 +1,56 @@
+{
+    "ChronicleEventSpec": {
+        "Id": "TBP.M4.2",
+        "TitleLoc": "LV.BCT.M4.2",
+        "IsMini": true,
+        "Conditions": {
+            "Sources": [ "NewHour" ],
+            "Weight": 2147483647,
+            "BlockedNoFlags": [ "MAP.TIMBERPUNK 2" ],
+            "RequiredFlags": [ "TBP.Diff.Easy", "TBP.Diff.Normal", "TBP.Diff.Hard" ]
+        },
+        "Parameters": {
+            "Strings": [ "Water" ],
+            "Ints": [ 25 ]
+        },
+        "Nodes": {
+            "StartNodeId": "FindBeaver",
+            "Items": [
+                {
+                    "Id": "FindBeaver",
+                    "Type": "FindEntities",
+                    "Data": {
+                        "CharacterType": "AdultBeaver",
+                        "MaxCount": 1,
+                        "ChooseRandom": true,
+                        "ResultName": "Speaker",
+                        "NoneFoundNodeId": "Choice"
+                    },
+                    "NextNodeId": "Choice"
+                },
+                {
+                    "Id": "Choice",
+                    "Type": "Choice",
+                    "Data": {
+                        "TextLoc": "LV.BCT.M4.2.Content",
+                        "DefaultOption": 1,
+                        "Options": [
+                            {
+                                "TextLoc": "LV.BCT.M4.2.C1",
+                                "NoteLoc": "LV.BCT.M4.2.C1N",
+                                "NextNodeId": "Give"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Id": "Give",
+                    "Type": "Give",
+                    "Data": {
+                        "Items": [ { "Id": "{S1}", "Amount": "{I1}" } ]
+                    }
+                }
+            ]
+        }
+    }
+}
