@@ -1,8 +1,8 @@
 ﻿{
     "Name": "Decorative Plants",
-    "Version": "10.1.1",
+    "Version": "11.0.0",
     "Id": "DecorativePlants",
-    "MinimumGameVersion": "1.0.0",
+    "MinimumGameVersion": "1.1.1",
     "Description": "Plants that won't get harvested!",
     "RequiredMods": [
         { "Id": "ModdableTimberborn" },

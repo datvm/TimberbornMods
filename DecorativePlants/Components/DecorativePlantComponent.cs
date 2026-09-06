@@ -3,7 +3,7 @@
 public record DecorativePlantSpec : ComponentSpec;
 
 [AddTemplateModule2(typeof(DecorativePlantSpec))]
-public class DecorativePlantComponent : BaseComponent, IDuplicable<DecorativePlantComponent>, IAwakableComponent, IStartableComponent, IPersistentEntity
+public class DecorativePlantComponent : BaseComponent, IDuplicable<DecorativePlantComponent>, IAwakableComponent, IInitializableEntity, IPersistentEntity
 {
     static readonly ComponentKey SaveKey = new(nameof(DecorativePlantComponent));
     static readonly PropertyKey<int> MatureStateKey = new("MatureState");
@@ -22,7 +22,7 @@ public class DecorativePlantComponent : BaseComponent, IDuplicable<DecorativePla
         UpdateModel();
     }
 
-    public void Start()
+    public void InitializeEntity()
     {
         UpdateModel();
     }
