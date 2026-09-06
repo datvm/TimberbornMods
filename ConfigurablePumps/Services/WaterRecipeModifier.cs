@@ -1,5 +1,6 @@
 ﻿namespace ConfigurablePumps.Services;
 
+[MultiBind(typeof(ISpecModifier))]
 public class WaterRecipeModifier : BaseSpecTransformer<RecipeSpec>, ISpecModifier
 {
     public const string WaterId = "Water";

@@ -1,9 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <OutputModFolderName>ConfigurablePumps</OutputModFolderName>
-    </PropertyGroup>
-    <Import Project="../Targets/Common.targets" />
-    <Import Project="../Targets/CommonModdableTimberborn.targets" />
-	
-	
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputModFolderName>ConfigurablePumps</OutputModFolderName>
+  </PropertyGroup>
+  <Import Project="../Targets/Common.targets" />
+  <Import Project="../Targets/CommonModdableTimberborn.targets" />
+  <ItemGroup>
+    <Using Include="ConfigurablePumps.Services" />
+    <Using Include="ModdableTimberborn.DependencyInjection" />
+    <Using Include="System.Reflection.Emit" />
+  </ItemGroup>
 </Project>

@@ -22,4 +22,6 @@ LV.SPE.MechPumpPowerDesc,"When you increase or decrease the mechanical pump wate
 You can, however, change the power usage multiplier here to make it use more or less (cheating :P) power than the default calculation.
 For example, setting Water amount to x2 while setting this to x0.5 will make the pump use the same power as default, but pump double the water.",
 LV.SPE.WaterProdTimeMultiplier,"Water production time multiplier",
-LV.SPE.WaterProdTimeMultiplierDesc,"The multiplier for water production time (higher is harder). Game default 1x = 0.33 hour for 1 Water for Water Pumps. Setting this to 0.5 will make it produce 1 water in 0.165 hour while setting it to 2 will make it produce 1 water in 0.66 hour.",
+LV.SPE.WaterProdTimeMultiplierDesc,"The multiplier for water production time (higher is harder).
+Game default 1x = 0.33 hour for 1 Water for Water Pumps.
+Setting this to 0.5 will make it produce 1 water in 0.165 hour while setting it to 2 will make it produce 1 water in 0.66 hour.",

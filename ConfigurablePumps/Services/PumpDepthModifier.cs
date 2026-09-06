@@ -1,11 +1,12 @@
 ﻿namespace ConfigurablePumps.Services;
 
+[MultiBind(typeof(ITemplateModifier))]
 public class PumpDepthModifier : ITemplateModifier
 {
 
     public EditableBlueprint? Modify(EditableBlueprint template, TemplateSpec originalTemplateSpec, Blueprint original)
     {
-        template.TransformSpec<WaterInputSpec>(src => src with
+        template.TransformSpec<WaterInputPipeSpec>(src => src with
         {
             MaxDepth = ModifyDepth(src.MaxDepth),
         });
@@ -28,6 +29,6 @@ public class PumpDepthModifier : ITemplateModifier
     }
 
     public bool ShouldModify(string blueprintName, string templateName, TemplateSpec originalTemplateSpec)
-        => (MSettings.AllMultiplier || MSettings.AllFixedDepth) && originalTemplateSpec.HasSpec<WaterInputSpec>();
+        => (MSettings.AllMultiplier || MSettings.AllFixedDepth) && originalTemplateSpec.HasSpec<WaterInputPipeSpec>();
 
 }

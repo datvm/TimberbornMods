@@ -1,10 +1,9 @@
 ﻿namespace ConfigurablePumps;
 
+[BindSingleton(Contexts = BindAttributeContext.MainMenu | BindAttributeContext.Game)]
 public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry, ModRepository modRepository)
    : ModSettingsOwner(settings, modSettingsOwnerRegistry, modRepository), IUnloadableSingleton
 {
-    public const float DefaultMechPumpAmount = .25f;
-
     public override string ModId { get; } = nameof(ConfigurablePumps);
 
     readonly ModSetting<bool> allFixedDepth = new(false, ModSettingDescriptor
@@ -19,9 +18,9 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     readonly ModSetting<float> multiplier = new(2f, ModSettingDescriptor
         .CreateLocalized("LV.SPE.Multiplier")
         .SetLocalizedTooltip("LV.SPE.MultiplierDesc"));
-    readonly ModSetting<float> mechPumpWater = new(DefaultMechPumpAmount, ModSettingDescriptor
-        .CreateLocalized("LV.SPE.MechPumpWater")
-        .SetLocalizedTooltip("LV.SPE.MechPumpWaterDesc"));
+    readonly ModSetting<float> mechPumpWaterMul = new(1f, ModSettingDescriptor
+        .CreateLocalized("LV.SPE.MechPumpWaterMul")
+        .SetLocalizedTooltip("LV.SPE.MechPumpWaterMulDesc"));
     readonly ModSetting<float> waterProdTimeMultiplier = new(1f, ModSettingDescriptor
         .CreateLocalized("LV.SPE.WaterProdTimeMultiplier")
         .SetLocalizedTooltip("LV.SPE.WaterProdTimeMultiplierDesc"));
@@ -36,7 +35,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
     public static int FixedDepth { get; private set; } = 0;
     public static bool AllMultiplier { get; private set; } = false;
     public static float Multiplier { get; private set; } = 1f;
-    public static float MechPumpWater { get; private set; } = DefaultMechPumpAmount;
+    public static float MechPumpWaterMul { get; private set; } = 1f;
     public static float WaterProdTimeMultiplier { get; private set; } = 1f;
     public static float MechPumpPowerMultiplier { get; private set; } = 1f;
     public static float WaterConversation { get; private set; } = 0.2f;
@@ -57,7 +56,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         AddCustomModSetting(waterProdTimeMultiplier, nameof(waterProdTimeMultiplier));
         AddCustomModSetting(waterConversation, nameof(waterConversation));
 
-        AddCustomModSetting(mechPumpWater, nameof(mechPumpWater));
+        AddCustomModSetting(mechPumpWaterMul, nameof(mechPumpWaterMul));
         AddCustomModSetting(mechPumpPowerMultiplier, nameof(mechPumpPowerMultiplier));
 
         UpdateValues();
@@ -69,7 +68,7 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
         FixedDepth = fixedDepth.Value;
         AllMultiplier = allMultiplier.Value;
         Multiplier = multiplier.Value;
-        MechPumpWater = mechPumpWater.Value;
+        MechPumpWaterMul = mechPumpWaterMul.Value;
         WaterProdTimeMultiplier = waterProdTimeMultiplier.Value;
         MechPumpPowerMultiplier = mechPumpPowerMultiplier.Value;
         WaterConversation = waterConversation.Value;
@@ -84,9 +83,9 @@ public class MSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsO
             Multiplier = multiplier.Value = 1.0f;
         }
 
-        if (MechPumpWater <= 0)
+        if (MechPumpWaterMul <= 0)
         {
-            MechPumpWater = mechPumpWater.Value = 0.25f;
+            MechPumpWaterMul = mechPumpWaterMul.Value = 1f;
         }
 
         if (WaterProdTimeMultiplier <= 0)
