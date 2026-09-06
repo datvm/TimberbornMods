@@ -62,7 +62,11 @@ public class ConstructionSiteHaulerService(
             return;
         }
 
-        var districts = haulingTargetHelper.FindDistrictsFor(accessible).ToArray();
+        // Same reachability as builders (road spill on construction accesses). Entrance-based
+        // ConstructionDistrict uses BuildingAccessible.CalculateAccess(), which for path-through
+        // buildings (Tubeway Station) is on the unfinished footprint, not the district road —
+        // so haulers never got the job even when builders could reach the site.
+        var districts = haulingTargetHelper.FindDistrictsFor(accessible, ignoreEntrance: true).ToArray();
         if (districts.Length == 0)
         {
             return;
