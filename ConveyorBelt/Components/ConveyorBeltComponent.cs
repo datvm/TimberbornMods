@@ -137,11 +137,16 @@ public class ConveyorBeltComponent(ConveyorBeltService service)
     {
         var t = service.t;
         var spec = Spec;
-
-        var throughput = spec.Capacity / spec.TravelTimeHours;
+        var speed = service.SpeedMultiplier;
+        var travelHours = spec.TravelTimeHours;
+        var throughput = spec.Capacity / travelHours * speed;
+        if (speed > 0)
+        {
+            travelHours /= speed;
+        }
 
         return [ EntityDescription.CreateTextSection($"""
-            {SpecialStrings.RowStarter} {t.T("LV.CBlt.TravelTime", spec.TravelTimeHours, throughput)}
+            {SpecialStrings.RowStarter} {t.T("LV.CBlt.TravelTime", travelHours, throughput)}
             {SpecialStrings.RowStarter} {t.T("LV.CBlt.Capacity", spec.Capacity)}{forbiddenText}
             """, 2001)
         ];

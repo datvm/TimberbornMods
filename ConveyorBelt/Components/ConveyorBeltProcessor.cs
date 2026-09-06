@@ -52,7 +52,7 @@ public class ConveyorBeltProcessor(ConveyorBeltService service) : TickableCompon
 
     void MoveItems()
     {
-        var positionDelta = service.HoursPerTick / belt.Spec.TravelTimeHours * belt.Efficiency;
+        var positionDelta = service.HoursPerTick / belt.Spec.TravelTimeHours * belt.Efficiency * service.SpeedMultiplier;
         var itemSpace = belt.ItemSpace;
         var prev = belt.EndPosition;
         var hasStuck = false;

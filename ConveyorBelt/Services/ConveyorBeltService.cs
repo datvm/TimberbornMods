@@ -6,18 +6,29 @@ public class ConveyorBeltService(
     IDayNightCycle dayNightCycle,
     ILoc t,
     EventBus eb,
-    IGoodService goods
+    IGoodService goods,
+    IEnumerable<IConveyorBeltSpeedModifier> speedModifiers
 ) : ILoadableSingleton
 {
     public readonly ILoc t = t;
 
     public float HoursPerTick { get; private set; }
+    public float SpeedMultiplier
+    {
+        get
+        {
+            var m = 1f;
+            foreach (var mod in speedModifiers)
+            {
+                m *= mod.SpeedMultiplier;
+            }
+            return m;
+        }
+    }
     readonly Dictionary<Vector3Int, ConveyorBeltComponent> belts = [];
-    readonly Dictionary<Vector3Int, InventoryInfo> inventories = [];
     readonly Dictionary<Vector3Int, ConveyorBeltJunction> junctions = [];
 
     public IReadOnlyDictionary<Vector3Int, ConveyorBeltComponent> Belts => belts;
-    public IReadOnlyDictionary<Vector3Int, InventoryInfo> Inventories => inventories;
     public IReadOnlyDictionary<Vector3Int, ConveyorBeltJunction> Junctions => junctions;
 
     public void Load()
@@ -27,51 +38,59 @@ public class ConveyorBeltService(
     }
 
     [OnEvent]
-    public void OnFinished(EnteredFinishedStateEvent e) =>
-        OnEnityFinishedStateChanged(e.BlockObject,
-            jc => junctions[jc.Coordinates] = jc,
-            (info, coords) =>
-            {
-                if (!inventories.ContainsKey(coords))
-                {
-                    inventories[coords] = info;
-                }
-            });
+    public void OnFinished(EnteredFinishedStateEvent e) => AddObject(e.BlockObject);
 
     [OnEvent]
     public void OnDestroyed(ExitedFinishedStateEvent e) => RemoveObject(e.BlockObject);
 
-    void RemoveObject(BlockObject? comp)
+    void AddObject(BlockObject? bo)
     {
-        if (!comp) { return; }
+        if (!bo) { return; }
 
-        OnEnityFinishedStateChanged(comp!,
-            jc => junctions.Remove(jc.Coordinates),
-            (info, coords) =>
-            {
-                if (inventories.TryGetValue(coords, out var existing) && existing == info)
-                {
-                    inventories.Remove(coords);
-                }
-            });
-    }
-
-    void OnEnityFinishedStateChanged(BlockObject e, Action<ConveyorBeltJunction> jcAction, Action<InventoryInfo, Vector3Int> inventoryAction)
-    {
-        var jc = e.GetComponent<ConveyorBeltJunction>();
+        var jc = bo!.GetComponent<ConveyorBeltJunction>();
         if (jc)
         {
-            jcAction(jc);
-            return;
+            junctions[jc.Coordinates] = jc;
         }
 
-        if (!e.HasComponent<BuildingSpec>()) { return; } // Only work on buildings
+        Link(bo);
+    }
 
-        if (InventoryFinder.LookForInventories(e) is not InventoryInfo info
-            || info.Type == InventoryType.None) { return; }
-        foreach (var coords in GetOccupiedCoordinates(e))
+    void RemoveObject(BlockObject? bo)
+    {
+        if (!bo) { return; }
+
+        var jc = bo!.GetComponent<ConveyorBeltJunction>();
+        if (jc)
         {
-            inventoryAction(info, coords);
+            junctions.Remove(jc.Coordinates);
+        }
+
+        Unlink(bo);
+    }
+
+    static void Link(BlockObject bo)
+    {
+        var conn = bo.GetComponent<ConveyorConnection>();
+        if (!conn) { return; }
+
+        conn.RefreshNeighbors();
+        foreach (var n in conn.Connected)
+        {
+            n.RefreshNeighbors();
+        }
+    }
+
+    static void Unlink(BlockObject bo)
+    {
+        var conn = bo.GetComponent<ConveyorConnection>();
+        if (!conn) { return; }
+
+        var others = conn.Connected.ToArray();
+        conn.ClearNeighbors();
+        foreach (var n in others)
+        {
+            n.RefreshNeighbors();
         }
     }
 
@@ -99,41 +118,26 @@ public class ConveyorBeltService(
 
     public bool TryTransferContentOut(ConveyorBeltComponent belt, string goodId)
     {
-        var coords = belt.Coordinates;
-        var outputCoord = belt.OutputCoordinates;
-        if (belts.TryGetValue(outputCoord, out var nextBelt) && TryMovingIntoBelt(belt, nextBelt, coords, goodId))
+        var conn = belt.GetComponent<ConveyorConnection>();
+        var dst = conn ? conn.NeighborAt(belt.OutputCoordinates) : null;
+        if (!dst) { return false; }
+
+        var nextBelt = dst!.GetComponent<ConveyorBeltComponent>();
+        if (nextBelt && TryMovingIntoBelt(belt, nextBelt, belt.Coordinates, goodId))
         {
             return true;
         }
 
-        if (inventories.TryGetValue(outputCoord, out var inv) && TryMovingIntoInventory(belt, inv, goodId))
-        {
-            return true;
-        }
-
-        return false;
+        return TryMovingIntoInventory(belt, dst, goodId);
     }
 
     public bool TryGrabContentIntoBelt(ConveyorBeltComponent belt)
     {
-        var coords = belt.InputCoordinates;
-        if (!inventories.TryGetValue(coords, out var info)) { return false; }
-        if ((info.Type & InventoryType.Out) == 0) { return false; }
+        var conn = belt.GetComponent<ConveyorConnection>();
+        var src = conn ? conn.NeighborAt(belt.InputCoordinates) : null;
+        if (!src) { return false; }
 
-        var inv = info.Inventory;
-        if (!inv) {  return false; }
-
-        foreach (var stock in inv.UnreservedTakeableStock())
-        {
-            if (stock.Amount == 0) { continue; }
-            if (!belt.IsValidGood(stock.GoodId)) { continue; }
-
-            belt.Push(stock.GoodId);
-            inv.TakeExisting(new(stock.GoodId, 1));
-            return true;
-        }
-
-        return false;
+        return TryGrabFromInventory(belt, src!);
     }
 
     public string GetGoodType(string goodId) => goods.GetGood(goodId).GoodType;
@@ -154,9 +158,6 @@ public class ConveyorBeltService(
         }
     }
 
-    static IEnumerable<Vector3Int> GetOccupiedCoordinates(BlockObject bo)
-        => bo.PositionedBlocks.GetAllCoordinates();
-
     bool TryMovingIntoBelt(ConveyorBeltComponent src, ConveyorBeltComponent dst, Vector3Int srcCoords, string goodId)
     {
         if (!dst.CanAcceptItem(goodId)) { return false; }
@@ -167,16 +168,38 @@ public class ConveyorBeltService(
         return true;
     }
 
-    bool TryMovingIntoInventory(ConveyorBeltComponent src, InventoryInfo info, string goodId)
+    bool TryMovingIntoInventory(ConveyorBeltComponent src, ConveyorConnection conn, string goodId)
     {
-        if ((info.Type & InventoryType.In) == 0) { return false; }
+        foreach (var inv in conn.GetUsableInventories())
+        {
+            if (!inv.IsInput) { continue; }
+            if (!inv.HasUnreservedCapacity(goodId)) { continue; }
 
-        var inv = info.Inventory;
-        if (inv.UnreservedCapacity(goodId) <= 0) { return false; }
+            var item = src.Pop();
+            inv.GiveExisting(new(item.GoodId, 1));
+            return true;
+        }
 
-        var item = src.Pop();
-        inv.GiveExisting(new(item.GoodId, 1));
-        return true;
+        return false;
     }
 
+    bool TryGrabFromInventory(ConveyorBeltComponent belt, ConveyorConnection conn)
+    {
+        foreach (var inv in conn.GetUsableInventories())
+        {
+            if (!inv.IsOutput) { continue; }
+
+            foreach (var stock in inv.UnreservedTakeableStock())
+            {
+                if (stock.Amount == 0) { continue; }
+                if (!belt.IsValidGood(stock.GoodId)) { continue; }
+
+                belt.Push(stock.GoodId);
+                inv.TakeExisting(new(stock.GoodId, 1));
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

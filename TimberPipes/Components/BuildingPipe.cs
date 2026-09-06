@@ -4,9 +4,11 @@
 public class BuildingPipe(PipeRegistry registry) : BaseComponent, IAwakableComponent, IInitializableEntity, IPersistentEntity, IFinishedStateListener
 {
     public const float MaxWaterHeight = 1.0f;
+    public const string FluidGoodIdContaminated = "_CONTAMINATED_PIPE_";
 
     static readonly ComponentKey SaveKey = new(nameof(BuildingPipe));
-    static readonly PropertyKey<float> WaterHeightKey = new("WaterHeight");
+    static readonly PropertyKey<float> WaterHeightKey = new("FluidHeight");
+    static readonly PropertyKey<string> FluidGoodIdKey = new("FluidGoodId");
 
 #nullable disable
     BuildingPipeSpec spec;
@@ -16,7 +18,10 @@ public class BuildingPipe(PipeRegistry registry) : BaseComponent, IAwakableCompo
     public FrozenDictionary<PipePortDefinition, PipePort>? Ports { get; private set; }
     public PipeGraph? Graph { get; internal set; }
 
-    public float WaterHeight { get; private set; }
+    public string? FluidGoodId { get; private set; }
+    public float FluidHeight { get; private set; }
+    public bool IsContaminated => FluidGoodId == FluidGoodIdContaminated;
+
     public bool IsFinished => bo.IsFinished;
     public bool IsTransportPipe { get; private set; }
     public Vector3Int Coordinates => bo.Coordinates;
@@ -61,20 +66,40 @@ public class BuildingPipe(PipeRegistry registry) : BaseComponent, IAwakableCompo
         Ports = ports.ToFrozenDictionary();
     }
 
-    public void AddWater(float amount) => SetWaterHeight(WaterHeight + amount);
-    public void RemoveWater(float amount) => SetWaterHeight(WaterHeight - amount);
-    void SetWaterHeight(float height) => WaterHeight = Math.Clamp(height, 0, MaxWaterHeight);
+    public void AddFluid(string id, float amount)
+    {
+        if (IsContaminated)
+        {
+            throw new InvalidOperationException($"Cannot add fluid to contaminated pipe at {Coordinates}");
+        }
+
+        if (FluidGoodId is null || FluidGoodId == id)
+        {
+            SetWaterHeight(FluidHeight + amount);
+        }
+        else
+        {
+            // Contaminate the graph
+        }
+    }
+
+    public void RemoveFluid(float amount) => SetWaterHeight(FluidHeight - amount);
+    void SetWaterHeight(float height) => FluidHeight = Math.Clamp(height, 0, MaxWaterHeight);
 
     public void Save(IEntitySaver entitySaver)
     {
         var s = entitySaver.GetComponent(SaveKey);
-        s.Set(WaterHeightKey, WaterHeight);
+        s.Set(WaterHeightKey, FluidHeight);
+        s.Set(FluidGoodIdKey, FluidGoodId ?? "");
     }
 
     public void Load(IEntityLoader entityLoader)
     {
         if (!entityLoader.TryGetComponent(SaveKey, out var s)) { return; }
-        WaterHeight = s.Get(WaterHeightKey);
+        FluidHeight = s.Get(WaterHeightKey);
+
+        var id = s.Get(FluidGoodIdKey);
+        FluidGoodId = id is null || id.Length == 0 ? null : id;
     }
 
     public void OnEnterFinishedState() => registry.Register(this);
