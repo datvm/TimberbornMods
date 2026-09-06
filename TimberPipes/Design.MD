@@ -196,8 +196,7 @@ then
 | Variant | Segments |
 |---------|----------|
 | Straight | 0° and 180° |
-| Elbow (2 outlets) | 0° and 90° (any adjacent pair) |
-| Junctions (3 outlets) | 0°, 90°, 180° (any three of the four faces) |
+| Elbow (2 outlets) x2 | 0° and 90° |
 | Junctions (4 outlets) | 0°, 90°, 180°, **270°** |
 
 `Pipe` kind, capacity 1 m³, usually all used faces `Open`.

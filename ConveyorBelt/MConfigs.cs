@@ -11,6 +11,12 @@ public class MConveyorBeltConfigs : BaseModdableTimberbornAttributeConfiguration
 
         if (context != ConfigurationContext.Game) { return; }
 
+        configurator.BindTemplateModule(h => h
+            .AddDecorator<Inventories, ConveyorConnection>()
+            .AddDecorator<ConveyorBeltSpec, ConveyorConnection>(addTransient: false)
+            .AddDecorator<ConveyorBeltJunctionSpec, ConveyorConnection>(addTransient: false)
+            .AddDecorator<ConstructionSite, DefaultIgnoredBeltInventory>());
+
         configurator.MultiBind<EntityPanelModule>().ToProvider<DebugFragmentProvider>().AsSingleton();
     }
 
