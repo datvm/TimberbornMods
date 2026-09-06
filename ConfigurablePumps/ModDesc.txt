@@ -21,10 +21,3 @@ For example, if you set the mechanical pump amount to 0.5cm³/s and keep the pow
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
-
-v10.0.0 (only apply to Timberborn v1.0):
-- This mod now depends on Moddable Timberborn (with a lot of performance improvement!).
-- The "Mechanical pump amount" is now a multiplier instead to simplify the power calculation. See the above description and note on its actual efficiency.
-- Water Conversion setting can now be changed (in the menu) without restarting the game.
-
-v7.1.0: removed Water production multiplier and add Water production [b]time[/b] multiplier instead due to the other option being too unstable and causes crashes.

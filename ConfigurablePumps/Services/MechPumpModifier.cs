@@ -1,10 +1,11 @@
 ﻿namespace ConfigurablePumps.Services;
 
+[MultiBind(typeof(ITemplateModifier))]
 public class MechPumpModifier : ITemplateModifier
 {
-    bool changeWater = MSettings.MechPumpWaterMul != 1f;
-    bool shouldRun = MSettings.MechPumpWaterMul != 1f || MSettings.MechPumpPowerMultiplier != 1f;
-    float powerRatio = MSettings.MechPumpWaterMul * MSettings.MechPumpPowerMultiplier;
+    readonly bool changeWater = MSettings.MechPumpWaterMul != 1f;
+    readonly bool shouldRun = MSettings.MechPumpWaterMul != 1f || MSettings.MechPumpPowerMultiplier != 1f;
+    readonly float powerRatio = MSettings.MechPumpWaterMul * MSettings.MechPumpPowerMultiplier;
 
     public EditableBlueprint? Modify(EditableBlueprint template, TemplateSpec originalTemplateSpec, Blueprint original)
     {
