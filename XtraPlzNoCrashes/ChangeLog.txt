@@ -1,2 +1,6 @@
-﻿v11.1.0:
+﻿v11.2.0:
+- XtraPlanterGroupPlzNoCrashes: Multiple plant group buildings in the same faction no longer crashes. For example: Farmhouse and Efficient Farm House can be together.
+- RuinPlzNoCrashes: Fast ruin scavenging no longer crashes.
+
+v11.1.0:
 - XtraAnimationPlzNoCrashes: Missing animations of a character (beavers, bots) won't crash. It will just perform a default animation instead.

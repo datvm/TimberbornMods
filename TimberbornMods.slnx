@@ -70,6 +70,7 @@
     <Project Path="DistroStorage/DistroStorage.csproj" Id="e403d0a7-4b71-4fd1-961d-59e6c15b129e" />
     <Project Path="MoreBuildingRenovations/MoreBuildingRenovations.csproj" Id="4e33da4c-7cee-4bb9-88ca-a157added875" />
     <Project Path="StockpileBalancer/StockpileBalancer.csproj" Id="cdf8588f-efdd-40b8-83bb-534a56c44b9a" />
+    <Project Path="TimberPipes.Tests/TimberPipes.Tests.csproj" />
     <Project Path="TimberPipes/TimberPipes.csproj" Id="f407af6b-4802-470c-99e6-882ad4b1b9fa" />
     <Project Path="UnstableCoreChallenge/UnstableCoreChallenge.csproj" />
   </Folder>

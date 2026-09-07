@@ -3,8 +3,8 @@
 [AddTemplateModule2(typeof(BuildingPipeSpec))]
 public class BuildingPipe(PipeRegistry registry) : BaseComponent, IAwakableComponent, IInitializableEntity, IPersistentEntity, IFinishedStateListener
 {
-    public const float MaxWaterHeight = 1.0f;
-    public const string FluidGoodIdContaminated = "_CONTAMINATED_PIPE_";
+    public const float MaxWaterHeight = PipeFluids.PipeCapacity;
+    public const string FluidGoodIdContaminated = PipeFluids.ContaminatedId;
 
     static readonly ComponentKey SaveKey = new(nameof(BuildingPipe));
     static readonly PropertyKey<float> WaterHeightKey = new("FluidHeight");
@@ -25,6 +25,8 @@ public class BuildingPipe(PipeRegistry registry) : BaseComponent, IAwakableCompo
     public bool IsFinished => bo.IsFinished;
     public bool IsTransportPipe { get; private set; }
     public Vector3Int Coordinates => bo.Coordinates;
+    public float Head => Coordinates.z + FluidHeight;
+    public float FreeSpace => MaxWaterHeight - FluidHeight;
 
     public void Awake()
     {
@@ -68,22 +70,64 @@ public class BuildingPipe(PipeRegistry registry) : BaseComponent, IAwakableCompo
 
     public void AddFluid(string id, float amount)
     {
-        if (IsContaminated)
+        if (amount <= 0)
         {
-            throw new InvalidOperationException($"Cannot add fluid to contaminated pipe at {Coordinates}");
+            return;
         }
 
-        if (FluidGoodId is null || FluidGoodId == id)
+        if (IsContaminated)
         {
             SetWaterHeight(FluidHeight + amount);
+            return;
         }
-        else
+
+        if (FluidGoodId is not null && FluidGoodId != id)
         {
-            // Contaminate the graph
+            SetWaterHeight(FluidHeight + amount);
+            Graph?.Contaminate();
+            return;
+        }
+
+        FluidGoodId = id;
+        SetWaterHeight(FluidHeight + amount);
+    }
+
+    public void RemoveFluid(float amount)
+    {
+        SetWaterHeight(FluidHeight - amount);
+        if (FluidHeight <= 0 && !IsContaminated)
+        {
+            FluidGoodId = null;
         }
     }
 
-    public void RemoveFluid(float amount) => SetWaterHeight(FluidHeight - amount);
+    internal void SetVolume(float volume)
+    {
+        SetWaterHeight(volume);
+        if (FluidHeight <= 0 && !IsContaminated)
+        {
+            FluidGoodId = null;
+        }
+    }
+
+    internal void AssignFluidId(string id)
+    {
+        if (IsContaminated || FluidGoodId is not null)
+        {
+            return;
+        }
+
+        FluidGoodId = id;
+    }
+
+    internal void MarkContaminated() => FluidGoodId = FluidGoodIdContaminated;
+
+    internal void ClearFluid()
+    {
+        FluidHeight = 0;
+        FluidGoodId = null;
+    }
+
     void SetWaterHeight(float height) => FluidHeight = Math.Clamp(height, 0, MaxWaterHeight);
 
     public void Save(IEntitySaver entitySaver)
