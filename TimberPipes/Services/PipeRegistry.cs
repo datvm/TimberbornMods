@@ -9,6 +9,7 @@ public class PipeRegistry
 
     readonly HashSet<PipeGraph> graphs = [];
     public IReadOnlyCollection<PipeGraph> Graphs => graphs;
+    public IEnumerable<BuildingPipe> All => pipes.Values;
 
     public bool TryGetGraph(Vector3Int coordinates, [NotNullWhen(true)] out PipeGraph? graph)
     {
@@ -23,6 +24,17 @@ public class PipeRegistry
 
     public bool TryGetPipe(Vector3Int coordinates, [NotNullWhen(true)] out BuildingPipe? pipe)
         => pipes.TryGetValue(coordinates, out pipe);
+
+    public bool TryGetConnectedBuilding(PipePort port, [NotNullWhen(true)] out BuildingPipe? other)
+    {
+        other = null;
+        if (port.ConnectedPort is not { } otherPort)
+        {
+            return false;
+        }
+
+        return portOwners.TryGetValue(otherPort.Definition, out other);
+    }
 
     internal void Register(BuildingPipe buildingPipe)
     {
@@ -151,7 +163,7 @@ public class PipeRegistry
     {
         var component = FloodFillTransport(pipe);
 
-        var contaminated = false;
+        var contaminated = IsMixedOrStamped(component);
         HashSet<PipeGraph> oldGraphs = [];
         foreach (var member in component)
         {
@@ -190,7 +202,7 @@ public class PipeRegistry
                 remaining.Remove(member);
             }
 
-            CreateGraph(component, contaminated);
+            CreateGraph(component, contaminated || IsMixedOrStamped(component));
         }
     }
 
@@ -202,16 +214,46 @@ public class PipeRegistry
             map[member.Coordinates] = member;
         }
 
-        var graph = new PipeGraph(map.ToFrozenDictionary())
-        {
-            Contaminated = contaminated,
-        };
+        var graph = new PipeGraph(map.ToFrozenDictionary());
         graphs.Add(graph);
 
         foreach (var member in component)
         {
             member.Graph = graph;
         }
+
+        if (contaminated || IsMixedOrStamped(component))
+        {
+            graph.Contaminate();
+        }
+    }
+
+    static bool IsMixedOrStamped(List<BuildingPipe> component)
+    {
+        string? seen = null;
+        foreach (var member in component)
+        {
+            if (member.IsContaminated)
+            {
+                return true;
+            }
+
+            if (member.FluidGoodId is null)
+            {
+                continue;
+            }
+
+            if (seen is null)
+            {
+                seen = member.FluidGoodId;
+            }
+            else if (seen != member.FluidGoodId)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     List<BuildingPipe> FloodFillTransport(BuildingPipe start)

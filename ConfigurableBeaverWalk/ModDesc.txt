@@ -1,4 +1,6 @@
-﻿To configure the settings: Mod Settings (Game or Main Menu -> Mods -> Settings button next to the mod name)
+﻿[b]Note: there is a bug where when your beaver works too quickly on a Ruin, it will crash the game. Please subscribe to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3656665374]XtraPlzNoCrashes[/url] to prevent it.[/b]
+
+To configure the settings: Mod Settings (Game or Main Menu -> Mods -> Settings button next to the mod name)
 
 Increase the walking speed of beavers and bots. By default, this mod increases them 2x. You can change the Base Walking Speed and Base Slowed Speed of Beavers in the Mod Settings from 1 to 100 (game default 2.7 and 1.35). Note that the mod only increases the speed so setting an entry to 0 is a way to disable the mod for that entry.
 
@@ -7,13 +9,4 @@ From v1.2.0 you can also change the carrying capacity as well. A value of 1.5 fo
 From v7.1.0 you can also change the working speed.
 
 ===
-Mod source code and donation: https://github.com/datvm/TimberbornMods
-
-v10.0.1: Temporarily patch a few methods so the Demolition (Builders) can perform with increased Working Speed. This may be fixed by the game dev. See [url=https://discord.com/channels/558398674389172225/888491376143134760/1439273996884381766]discussion here[/url]. Thanks @souvy for reporting the issue.
-v10.0.0: Should work with Timberborn v1.0.1.
-
-v7.2.0: You can now set different Carry Capacity for Beaver and Bots. Idea by @VictorianMaid.
-v7.1.0: You can now change the working speed for beavers and bots.
-v7.0.0: Should be compatible to U7. You can now also change the settings while in-game (Carry Capacity needs a reload to take effect), applied for both U6 and U7.
-v1.2.0: Change the name to "Configurable Beaver Stats". You can now optionally change the Carry Capacity with a multiplier as well. No change for existing users as the default value is x1.
-v1.1.0: You can now change the speed of bots separately as well. It's optional and by default, bot speed follows beavers' speed.
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
