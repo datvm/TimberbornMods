@@ -4,7 +4,26 @@ public readonly record struct PipeFlowEdge(int A, int B, bool AllowAToB, bool Al
 
 public static class PipeFlowSolver
 {
-    public static float PipeHead(int z, float volume) => z + volume;
+    public static float PipeHead(int z, float volume, float extraLift = 0f)
+        => z + volume + Math.Max(0f, extraLift);
+
+    public static float RemainingLift(int z, int outletZ, float ratedLift)
+        => Math.Max(0f, ratedLift - (z - outletZ));
+
+    public static bool TankConflictsWithPipe(string? tankStoredGoodId, bool tankTakesPipeGood, string? pipeGoodId)
+    {
+        if (pipeGoodId is null)
+        {
+            return false;
+        }
+
+        if (tankStoredGoodId is not null)
+        {
+            return tankStoredGoodId != pipeGoodId;
+        }
+
+        return !tankTakesPipeGood;
+    }
 
     public static float TankHead(int zBase, float volumeM3, float capacityM3, int heightTiles)
     {
@@ -15,6 +34,9 @@ public static class PipeFlowSolver
 
         return zBase + Math.Clamp(volumeM3 / capacityM3, 0f, 1f) * heightTiles;
     }
+
+    public static float PumpHead(int outletZ, float volumeM3)
+        => outletZ + Math.Clamp(volumeM3 / PipeFluids.PipeCapacity, 0f, 1f);
 
     public static float GoodsToVolume(int goods) => goods * PipeFluids.PacketVolume;
 

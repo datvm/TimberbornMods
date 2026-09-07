@@ -1,6 +1,4 @@
-﻿using UnityEngine.Rendering.RenderGraphModule.NativeRenderPassCompiler;
-
-namespace BuildingDecal.Services;
+﻿namespace BuildingDecal.Services;
 
 public readonly record struct SpriteWithName(string Name, Sprite Sprite);
 

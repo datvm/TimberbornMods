@@ -1,4 +1,4 @@
-﻿{
+{
     "PipeSimulationSpec": {
         "EqualizeK": 0.8,
         "Substeps": 2,

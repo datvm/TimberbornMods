@@ -1,7 +1,7 @@
 ﻿
 namespace BuildingDecal.Components;
 
-public class BuildingDecalComponent(BuildingDecalProvider decalPictureService) : BaseComponent, IPersistentEntity, IAwakableComponent, IStartableComponent, IDuplicable<BuildingDecalComponent>
+public class BuildingDecalComponent(BuildingDecalProvider decalPictureService) : BaseComponent, IPersistentEntity, IAwakableComponent, IInitializableEntity, IDuplicable<BuildingDecalComponent>
 {
     static readonly ComponentKey SaveKey = new(nameof(BuildingDecalComponent));
     static readonly ListKey<BuildingDecalItem> DecalItemsKey = new("DecalItems");
@@ -31,7 +31,7 @@ public class BuildingDecalComponent(BuildingDecalProvider decalPictureService) :
         blockObject = GetComponent<BlockObject>();
     }
 
-    public void Start()
+    public void InitializeEntity()
     {
         var go = GameObject;
         foreach (var item in decalItems)

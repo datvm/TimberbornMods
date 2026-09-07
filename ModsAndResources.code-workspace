@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../V1Data/ExportedProject/Assets/Resources"
+		},
+		{
+			"path": "../../../../Temp/TimbermeshModel"
 		}
 	],
 	"settings": {}

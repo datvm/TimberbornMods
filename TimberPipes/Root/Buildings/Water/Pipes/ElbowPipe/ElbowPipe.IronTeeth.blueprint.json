@@ -1,0 +1,160 @@
+{
+    "BuildingSpec": {
+        "SelectionSoundName": "Default",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            {
+                "Id": "Plank",
+                "Amount": 1
+            }
+        ],
+        "ScienceCost": 0,
+        "PlaceFinished": false,
+        "FinishableWithBeaversOnSite": true,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "ElbowPipe.IronTeeth",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BlockObjectNavMeshSettingsSpec": {
+        "NoAutoWalls": false,
+        "GenerateFloorsOnStackable": false,
+        "EdgeGroups": [],
+        "UnblockedCoordinates": [],
+        "BlockedEdges": []
+    },
+    "BlockObjectSpec": {
+        "Size": {
+            "X": 1,
+            "Y": 1,
+            "Z": 1
+        },
+        "Blocks": [
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Bottom, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
+        "Entrance": {
+            "HasEntrance": false,
+            "Coordinates": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": true
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "Pipes",
+        "ToolOrder": 20,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": false
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.TPi.ElbowPipeName",
+        "DescriptionLocKey": "LV.TPi.ElbowPipeDesc",
+        "FlavorDescriptionLocKey": "LV.TPi.ElbowPipeFlavor",
+        "Icon": "Buildings/Water/Pipes/ElbowPipe/ElbowPipeIcon"
+    },
+    "BuildingPipeSpec": {
+        "Ports": [
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "Down, Right",
+                "State": "Open"
+            }
+        ]
+    },
+    "TransportPipeSpec": {},
+    "ConstructionSiteProgressVisualizerSpec": {
+        "ProgressThresholds": [
+            0.0
+        ]
+    },
+    "Children": {
+        "#Finished": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Water/Pipes/ElbowPipe/Models/ElbowPipe.IronTeeth.Model"
+            },
+            "CollidersSpec": {
+                "BoxColliders": [
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.23,
+                            "Z": 0.5
+                        },
+                        "Size": {
+                            "X": 1.0,
+                            "Y": 0.46,
+                            "Z": 1.0
+                        }
+                    }
+                ],
+                "SphereColliders": [],
+                "CapsuleColliders": []
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase1x1Top#nested": {
+                    "BlueprintPath": "ConstructionBases/ConstructionBase1x1Top/ConstructionBase1x1Top.blueprint"
+                },
+                "ConstructionStage0": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Water/Pipes/ElbowPipe/Models/ElbowPipe.IronTeeth.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.05,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.1,
+                                    "Z": 1.0
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        }
+    }
+}

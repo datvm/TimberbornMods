@@ -50,6 +50,24 @@ public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
     public float CapacityM3 => PipeFlowSolver.GoodsToVolume(Math.Max(StoredGoods + FreeGoods(FluidGoodId), 0));
     public float Head => PipeFlowSolver.TankHead(ZBase, VolumeM3, CapacityM3, HeightTiles);
 
+    public bool TakesGood(string goodId)
+    {
+        foreach (var inv in EnabledInventories())
+        {
+            if (inv.Takes(goodId))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool ConflictsWith(string? pipeGoodId)
+        => PipeFlowSolver.TankConflictsWithPipe(FluidGoodId, pipeGoodId is not null && TakesGood(pipeGoodId), pipeGoodId);
+
+    public float CapacityFor(string? goodId) => PipeFlowSolver.GoodsToVolume(Math.Max(StoredGoods + FreeGoods(goodId ?? FluidGoodId), 0));
+
     int StoredGoods
     {
         get
@@ -70,6 +88,12 @@ public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
         var delta = PipeFlowSolver.QuantizePending(ref pending);
         if (delta > 0)
         {
+            if (incomingGoodId is not null && !TakesGood(incomingGoodId))
+            {
+                pending = 0;
+                return;
+            }
+
             TryGive(incomingGoodId ?? FluidGoodId, delta);
         }
         else if (delta < 0)

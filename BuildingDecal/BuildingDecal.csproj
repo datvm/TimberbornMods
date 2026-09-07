@@ -1,14 +1,19 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<OutputModFolderName>BuildingDecal</OutputModFolderName>
-	</PropertyGroup>
-
-	<Import Project="../Targets/Common.targets" />
-	<Import Project="../Targets/CommonModdableTimberborn.targets" />
-
-	<ItemGroup>
-		<Reference Include="$(GameModsFolder)ModdableDecalGroups\$(TimberbornVersion)\**\*.dll" Private="False" />
-	</ItemGroup>
-
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputModFolderName>BuildingDecal</OutputModFolderName>
+  </PropertyGroup>
+  <Import Project="../Targets/Common.targets" />
+  <Import Project="../Targets/CommonModdableTimberborn.targets" />
+  <ItemGroup>
+    <Reference Include="$(GameModsFolder)ModdableDecalGroups\$(TimberbornVersion)\**\*.dll" Private="False" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="BuildingDecal.Components" />
+    <Using Include="BuildingDecal.Services" />
+    <Using Include="BuildingDecal.Specs" />
+    <Using Include="BuildingDecal.UI" />
+    <Using Include="ModdableDecalGroups.Services" />
+    <Using Include="ModdableTimberborn.BuildingSettings" />
+    <Using Include="UnityEngine.Rendering.RenderGraphModule.NativeRenderPassCompiler" />
+  </ItemGroup>
 </Project>
