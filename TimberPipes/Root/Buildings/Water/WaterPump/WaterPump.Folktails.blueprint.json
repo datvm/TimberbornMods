@@ -1,0 +1,28 @@
+{
+    "BuildingPipeSpec": {
+        "Ports": [
+            {
+                "Coordinates": { "X": 0, "Y": 0, "Z": 1 },
+                "Directions": "Left",
+                "State": "OpenOut"
+            },
+            {
+                "Coordinates": { "X": 0, "Y": 1, "Z": 1 },
+                "Directions": "Left",
+                "State": "OpenOut"
+            },
+            {
+                "Coordinates": { "X": 1, "Y": 0, "Z": 1 },
+                "Directions": "Right, Down",
+                "State": "OpenOut"
+            },
+            {
+                "Coordinates": { "X": 1, "Y": 1, "Z": 1 },
+                "Directions": "Right",
+                "State": "OpenOut"
+            }
+        ]
+    },
+    "BuildingToPipeSpec": {
+    }
+}

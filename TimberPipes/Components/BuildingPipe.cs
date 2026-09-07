@@ -48,7 +48,7 @@ public class BuildingPipe(PipeRegistry registry) : BaseComponent, IAwakableCompo
             {
                 var def = new PipePortDefinition(
                     bo.TransformCoordinates(portSpec.Coordinates),
-                    d
+                    bo.TransformDirection(d)
                 );
 
                 if (ports.ContainsKey(def))

@@ -5,6 +5,7 @@
     "MinimumGameVersion": "1.1.1",
     "Description": "Pipes!",
     "RequiredMods": [
-        { "Id": "ModdableTimberborn" }
+        { "Id": "ModdableTimberborn" },
+        { "Id": "ModdableToolGroups" }
     ]
 }

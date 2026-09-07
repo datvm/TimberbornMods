@@ -7,7 +7,7 @@ public record PipePort(PipePortDefinition Definition, PipePortSpec PortSpec)
 
     public PipePortState? OverrideState { get; set; }
 
-    public PipePortState State { get; internal set; } = PipePortState.Closed;
+    public PipePortState State { get; internal set; } = PortSpec.State;
     public PipePortConnection? Connection { get; internal set; }
     public PipePort? ConnectedPort => Connection?.GetOther(this);
     public bool IsConnected => Connection is not null;

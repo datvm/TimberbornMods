@@ -1,0 +1,12 @@
+{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.Folktails",
+        "Blueprints": [
+            "Buildings/Water/Pipes/HorizontalPipe/HorizontalPipe.Folktails.blueprint",
+            "Buildings/Water/Pipes/ElbowPipe/ElbowPipe.Folktails.blueprint",
+            "Buildings/Water/Pipes/FourWayPipe/FourWayPipe.Folktails.blueprint",
+            "Buildings/Water/Pipes/SixWayPipe/SixWayPipe.Folktails.blueprint",
+            "Buildings/Water/Pipes/VerticalPipe/VerticalPipe.Folktails.blueprint"
+        ]
+    }
+}

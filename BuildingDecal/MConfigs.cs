@@ -1,11 +1,4 @@
-﻿global using BuildingDecal.Components;
-global using BuildingDecal.Services;
-global using BuildingDecal.Specs;
-global using BuildingDecal.UI;
-global using ModdableDecalGroups.Services;
-global using ModdableTimberborn.BuildingSettings;
-
-namespace BuildingDecal;
+﻿namespace BuildingDecal;
 
 [Context("Game")]
 public class ModGameConfig : Configurator

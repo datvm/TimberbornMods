@@ -1,0 +1,12 @@
+{
+    "BlockObjectToolGroupSpec": {
+        "Id": "Pipes",
+        "Order": 55,
+        "NameLocKey": "LV.TPi.GroupName",
+        "Icon": "Sprites/BottomBar/BuildingGroups/Pipes",
+        "FallbackGroup": false
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "Water", "Storage" ]
+    }
+}

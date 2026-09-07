@@ -1,8 +1,8 @@
 ﻿{
     "Name": "Building Banners",
-    "Version": "10.0.1",
+    "Version": "11.0.0",
     "Id": "BuildingDecal",
-    "MinimumGameVersion": "1.0.0",
+    "MinimumGameVersion": "1.1.1",
     "Description": "Stick it up!",
     "RequiredMods": [
         { "Id": "ModdableTimberborn" },

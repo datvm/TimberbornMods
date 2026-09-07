@@ -23,9 +23,9 @@ public class BuildingPipePortState : BaseComponent, IAwakableComponent, IFinishe
         if (buildingPipe.Ports is not { } ports) { return; }
 
         var hasChanged = false;
-        var shouldCloseAll = buildingPipe
-            && (!pausableBuilding || pausableBuilding!.Paused)
-            && (!mechBuilding || !mechBuilding!.ActiveAndPowered);
+        var paused = pausableBuilding is { Paused: true };
+        var unpowered = mechBuilding is { ActiveAndPowered: false };
+        var shouldCloseAll = paused || unpowered;
 
         foreach (var p in ports.Values)
         {

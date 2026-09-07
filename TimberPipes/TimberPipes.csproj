@@ -4,10 +4,12 @@
   </PropertyGroup>
   <Import Project="../Targets/Common.targets" />
   <Import Project="../Targets/CommonModdableTimberborn.targets" />
+  <Import Project="../Targets/CommonModdableToolGroups.targets" />
   <ItemGroup>
     <Using Include="TimberPipes.Components" />
     <Using Include="TimberPipes.Models" />
     <Using Include="TimberPipes.Services" />
     <Using Include="TimberPipes.Specs" />
+    <Using Include="TimberPipes.UI" />
   </ItemGroup>
 </Project>

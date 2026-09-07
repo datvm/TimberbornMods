@@ -44,6 +44,7 @@
     <Project Path="DaisugiForestry/DaisugiForestry.csproj" />
   </Folder>
   <Folder Name="/Decals/">
+    <Project Path="BuildingDecal/BuildingDecal.csproj" />
     <Project Path="DynamicTailsBanners/DynamicTailsBanners.csproj" Id="735535db-d93a-4b5e-b0d9-9cf003a2ba09" />
     <Project Path="ModdableDecalGroups/ModdableDecalGroups.csproj" Id="ba34c21b-13c2-41a3-81ed-d3c7b6346889" />
     <Project Path="TailsAndBannersModMaker/TailsAndBannersModMaker.csproj" Id="70e35928-508a-4e17-82dc-1b14a24fc814" />
@@ -106,7 +107,6 @@
   </Folder>
   <Folder Name="/NonGameplay/">
     <Project Path="BeaverJukebox/BeaverJukebox.csproj" />
-    <Project Path="BuildingDecal/BuildingDecal.csproj" />
     <Project Path="BuildingSigns/BuildingSigns.csproj" Id="2c2eadea-3298-4657-8e3c-462748e7ba53" />
     <Project Path="CameraBookmarks/CameraBookmarks.csproj" />
     <Project Path="ColorfulBeavers/ColorfulBeavers.csproj" />
