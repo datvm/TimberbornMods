@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../../../../Temp/TimbermeshModel"
+		},
+		{
+			"path": "../../../../Temp/MapResizer"
 		}
 	],
 	"settings": {}

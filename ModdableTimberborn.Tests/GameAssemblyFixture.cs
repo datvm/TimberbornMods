@@ -4,8 +4,18 @@ namespace ModdableTimberborn.Tests;
 
 public sealed class GameAssemblyFixture
 {
+    static int initialized;
+
+    [ModuleInitializer]
+    internal static void Init() => _ = new GameAssemblyFixture();
+
     public GameAssemblyFixture()
     {
+        if (Interlocked.Exchange(ref initialized, 1) == 1)
+        {
+            return;
+        }
+
         var metadata = Assembly.GetExecutingAssembly().GetCustomAttributes<AssemblyMetadataAttribute>();
         var asmPath = metadata
             .First(x => x.Key == "GameAssemblyPath")
@@ -85,6 +95,6 @@ public sealed class GameAssemblyFixture
     void Log(string message, params object?[] args)
     {
         var text = "[assembly-load] " + string.Format(message, args);
-        TestContext.Current.SendDiagnosticMessage(text);
+        TestContext.Current?.SendDiagnosticMessage(text);
     }
 }
