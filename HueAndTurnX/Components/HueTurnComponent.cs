@@ -3,7 +3,7 @@
 [AddTemplateModule2(typeof(BlockObject), Contexts = BindAttributeContext.NonMenu)]
 public class HueTurnComponent(
     HueTurnService hueTurnService
-) : BaseComponent, IAwakableComponent, IStartableComponent
+) : BaseComponent, IAwakableComponent, IInitializableEntity
 {
 
 #nullable disable
@@ -16,9 +16,10 @@ public class HueTurnComponent(
 
     Vector3? originalPosition;
     Quaternion? originalRotation;
-    ScaleModifier scaleModifier;
+    ScaleModifier scaleModifier = null!;
 
     public Material[]? ReplacedMaterials { get; set; }
+    public Material[][]? OriginalSharedMaterials { get; set; }
 
     public bool IsFinished => blockObject.IsFinished;
 
@@ -42,7 +43,7 @@ public class HueTurnComponent(
         scaleModifier = TransformController.AddScaleModifier();
     }
 
-    public void Start()
+    public void InitializeEntity()
     {
         ApplyModifications();
     }

@@ -1,12 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<OutputModFolderName>HueAndTurnX</OutputModFolderName>
-	</PropertyGroup>
-
-	<Import Project="../Targets/Common.targets" />
-	<Import Project="../Targets/CommonModdableTimberborn.targets" />
-	<Import Project="../Targets/CommonTransparentShaders.targets" />
-	
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputModFolderName>HueAndTurnX</OutputModFolderName>
+  </PropertyGroup>
+  <Import Project="../Targets/Common.targets" />
+  <Import Project="../Targets/CommonModdableTimberborn.targets" />
+  <Import Project="../Targets/CommonTransparentShaders.targets" />
+  <ItemGroup>
+    <Using Include="HueAndTurnX.Components" />
+    <Using Include="HueAndTurnX.Services" />
+    <Using Include="HueAndTurnX.UI" />
+    <Using Include="ModdableTimberborn.BuildingSettings" />
+    <Using Include="ModSettings.ColorPicker" />
+    <Using Include="UnityEngine.Color" Alias="UColor" />
+  </ItemGroup>
 </Project>
-

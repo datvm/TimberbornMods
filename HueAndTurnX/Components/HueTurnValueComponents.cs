@@ -1,5 +1,4 @@
-﻿using UColor = UnityEngine.Color;
-
+﻿
 namespace HueAndTurnX.Components;
 
 public abstract class BaseHueTurnValuesComponent<TSelf, TModel> : BaseComponent, IPersistentEntity, IDuplicable<TSelf>

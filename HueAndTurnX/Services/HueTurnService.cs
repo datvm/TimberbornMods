@@ -57,31 +57,64 @@ public class HueTurnService(
 
         if (alpha is null || alpha == 1)
         {
-            if (htComp.ReplacedMaterials is not null)
-            {
-                transparentShaderService.RestoreShaders(htComp.ReplacedMaterials, true, false, false);
-                htComp.ReplacedMaterials = null;
-            }
+            RestoreOriginalMaterials(htComp);
         }
         else
         {
             var a = alpha.Value;
 
-            htComp.ReplacedMaterials ??= transparentShaderService.ReplaceRenderersMaterials(htComp.Renderers, true, true, true, false); ;
+            if (htComp.ReplacedMaterials is null)
+            {
+                htComp.OriginalSharedMaterials = [.. htComp.Renderers.Select(r => r ? r.sharedMaterials : [])];
+                htComp.ReplacedMaterials = transparentShaderService.ReplaceRenderersMaterials(
+                    htComp.Renderers,
+                    replaceMaterials: true,
+                    replaceSharedMaterials: false,
+                    replaceEnv: true,
+                    replaceTerrain: false);
+            }
+
             if (htComp.ReplacedMaterials.Length == 0)
             {
-                htComp.ReplacedMaterials = null;
+                RestoreOriginalMaterials(htComp);
                 return;
             }
 
-            foreach (var r in htComp.Renderers)
+            foreach (var m in htComp.ReplacedMaterials)
             {
-                foreach (var m in r.materials.Concat(r.sharedMaterials))
-                {
-                    m.SetEnvironmentAlpha(a);
-                }
+                if (!m) { continue; }
+
+                m.SetEnvironmentAlpha(a);
             }
         }
+    }
+
+    static void RestoreOriginalMaterials(HueTurnComponent htComp)
+    {
+        var originals = htComp.OriginalSharedMaterials;
+        if (originals is null) { return; }
+
+        var renderers = htComp.Renderers;
+        var count = Math.Min(renderers.Length, originals.Length);
+        for (var i = 0; i < count; i++)
+        {
+            var renderer = renderers[i];
+            if (!renderer) { continue; }
+
+            var instanced = renderer.sharedMaterials;
+            renderer.sharedMaterials = originals[i];
+
+            foreach (var m in instanced)
+            {
+                if (!m) { continue; }
+                if (originals[i].Contains(m)) { continue; }
+
+                Object.Destroy(m);
+            }
+        }
+
+        htComp.ReplacedMaterials = null;
+        htComp.OriginalSharedMaterials = null;
     }
 
 }
