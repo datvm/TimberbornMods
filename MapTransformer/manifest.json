@@ -1,0 +1,11 @@
+﻿{
+    "Name": "Map Transformer",
+    "Version": "11.0.0",
+    "Id": "MapTransformer",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "",
+    "RequiredMods": [
+        { "Id": "Harmony" },
+        { "Id": "ModdableTimberborn" }
+    ]
+}

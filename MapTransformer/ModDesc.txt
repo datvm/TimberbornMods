@@ -1,0 +1,19 @@
+Esc -> [b]Transform Map[/b] in the game or Map Editor. One operation per pass, then a save named [b]MapResized[/b] (game) or [b]ResizedMap[/b] (editor). Load that file before you keep playing.
+
+Pause and save first. This session is not meant to be played after a transform.
+
+[h1]Operations[/h1]
+[list]
+[*] [b]Resize[/b] — width, breadth, max terrain height, and max above-terrain. New Z layers are empty (not dirt). Pick a pivot and how new XY cells are filled: empty, copy edge, or mirror.
+[*] [b]Add height[/b] — insert dirt layers at Z = 0 and shift the world up. You can also set the new above-terrain height.
+[*] [b]Remove height[/b] — drop an inclusive Z range and compact. Buildings in that slab have to be removed first.
+[*] [b]Rotate[/b] — 90°, 180°, or 270° clockwise. 90° and 270° swap width and breadth.
+[*] [b]Flip[/b] — X, Y, or both.
+[/list]
+
+If something would land outside the map, you can jump to it or remove all of those objects, then run the transform again.
+
+[b]Game:[/b] beavers are moved with the terrain, but jobs, paths, and district state may be wrong until you reload.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
