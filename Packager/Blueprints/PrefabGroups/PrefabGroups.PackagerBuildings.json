@@ -1,0 +1,9 @@
+{
+    "PrefabGroupSpec": {
+        "Id": "PackagerBuildings",
+        "Paths": [
+            "Buildings/Storage/Packager",
+            "Buildings/Storage/Unpackager"
+        ]
+    }
+}

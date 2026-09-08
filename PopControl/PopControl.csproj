@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputModFolderName>PopControl</OutputModFolderName>
+	</PropertyGroup>
+
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonHarmony.targets" />
+	<Import Project="../Targets/CommonTimberUI.targets" />
+
+</Project>

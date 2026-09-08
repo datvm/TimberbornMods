@@ -1,0 +1,26 @@
+﻿{
+    "RenovationSpec": {
+        "Id": "BeavlineOutSpeed",
+        "GroupId": "Beavline",
+        "Order": 21,
+        "TitleLoc": "LV.BL.BeavlineOutSpeed",
+        "DescLoc": "LV.BL.BeavlineOutSpeedDesc",
+        "FlavorLoc": "LV.BL.BeavlineOutSpeedFlavor",
+        "Cost": [
+            {
+                "Id": "Gear",
+                "Amount": 20
+            },
+            {
+                "Id": "PineResin",
+                "Amount": 15
+            },
+            {
+                "Id": "MetalBlock",
+                "Amount": 15
+            }
+        ],
+        "Days": 1,
+        "Parameters": [ 9 ]
+    }
+}

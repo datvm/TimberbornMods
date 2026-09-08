@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputModFolderName>NarrativeEvents</OutputModFolderName>
+    </PropertyGroup>
+    <Import Project="../Targets/Common.targets" />
+    <Import Project="../Targets/CommonHarmony.targets" />
+    <Import Project="../Targets/CommonDebug.targets" />
+    <ItemGroup>
+        <ProjectReference Include="..\UiBuilder\UiBuilder.csproj" />
+    </ItemGroup>
+</Project>

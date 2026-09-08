@@ -1,0 +1,12 @@
+{
+    "KeyBindingSpec": {
+        "Id": "OmnibarAppendTodo",
+        "GroupId": "UI",
+        "LocKey": "LV.OB.KeyBindingOpenToDo",
+        "Order": 520
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/F5",
+        "InputModifiers": "Shift"
+    }
+}

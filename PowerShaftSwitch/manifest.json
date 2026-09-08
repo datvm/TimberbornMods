@@ -1,0 +1,11 @@
+{
+    "Name": "Power Shaft Switch",
+    "Version": "7.0.0",
+    "Id": "PowerShaftSwitch",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "You can switch off power with the Power Shaft",
+    "RequiredMods": [
+        { "Id": "Harmony" },
+        { "Id": "ModdableBindito" }
+    ]
+}

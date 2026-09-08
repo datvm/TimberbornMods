@@ -1,0 +1,29 @@
+{
+    "RecipeSpec": {
+        "Id": "InferiorTreatedPlank",
+        "DisplayLocKey": "LV.UR.InferiorTreating",
+        "CycleDurationInHours": 9,
+        "CyclesCapacity": 10,
+        "Ingredients": [
+            {
+                "Id": "Plank",
+                "Amount": 2
+            },
+            {
+                "Id": "PineResin",
+                "Amount": 2
+            }
+        ],
+        "Products": [
+            {
+                "Id": "TreatedPlank",
+                "Amount": 1
+            }
+        ],
+        "ProducedSciencePoints": 0,
+        "Fuel": "",
+        "CyclesFuelLasts": 0,
+        "FuelCapacity": 0,
+        "Icon": "Sprites/InferiorTreatedPlankIcon"
+    }
+}

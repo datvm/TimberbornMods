@@ -1,0 +1,11 @@
+{
+    "KeyBindingSpec": {
+        "Id": "OpenTodoList",
+        "GroupId": "UI",
+        "LocKey": "LV.OB.KeyBindingOpenToDo",
+        "Order": 510
+    },
+    "PrimaryInputBindingSpec": {
+        "Path": "/Keyboard/o"
+    }
+}

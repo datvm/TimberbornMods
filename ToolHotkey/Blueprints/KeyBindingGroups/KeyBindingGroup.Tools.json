@@ -1,0 +1,7 @@
+{
+    "KeyBindingGroupSpec": {
+        "Id": "Tools",
+        "Order": 100,
+        "LocKey": "KeyBindingGroup.Tools"
+    }
+}

@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputModFolderName>HueAndTurn</OutputModFolderName>
+	</PropertyGroup>
+
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonTimberUi.targets" />
+
+	<ItemGroup>
+		<Reference Include="$(GameModsFolder)MacroManagement\$(TimberbornVersion)\**\*.dll" Private="false" />
+	</ItemGroup>
+	
+</Project>

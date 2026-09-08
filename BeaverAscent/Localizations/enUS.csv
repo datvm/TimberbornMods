@@ -1,0 +1,11 @@
+ID,Text,Comment
+LV.BAsc.ChangeHeight,"Change height limit",
+LV.BAsc.ChangeHeightDesc,"Change the height limit of the map. This setting and all others need restart to take effect.",
+LV.BAsc.TerrainHeight,"Terrain height limit",
+LV.BAsc.TerrainHeightDesc,"The height limit of the terrain. Note: count from 0 (Game default: 22)",
+LV.BAsc.AboveTerrainHeight,"Above terrain height limit",
+LV.BAsc.AboveTerrainHeightDesc,"The height limit above the terrain limit, i.e. how high you can build (Game default: 10)",
+LV.BAsc.AllowEditorUpToTerrainLimit,"[Map Editor]Allow editor brush up to terrain limit",
+LV.BAsc.AllowEditorUpToTerrainLimitDesc,"Allow the editor brush to go up to the terrain limit instead of minus 6 (Game default: 22 - 6 = 16)",
+LV.BAsc.FreeCamera,"Free camera",
+LV.BAsc.FreeCameraDesc,"Enable free camera mode, useful when you have built too high",

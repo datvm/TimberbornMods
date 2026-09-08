@@ -1,0 +1,15 @@
+You can now limit how many Beavers or Bots you want in your colony. With this mod, you can set a limit globally or for each district.
+
+- Select population-related buildings: District Center, Houses, Breeding Pods or Bot Assembler.
+- You should see a new button "Population Control". Click it to show a dialog to configure it (see screenshot).
+- Set the limit for Beavers or Bots in anyway you want.
+
+Note:
+- Global limits take precedence. For example, if you set a global limit of 100 Beavers and you already have 100 Beavers in your colony, no new Beavers will be born even if the district limit is not reached yet.
+- The mod works by blocking Folktails' houses, blocking productions of Breeding Pods and Bot Assembler. You can see the red text under the button when you reach the limit (see screenshot).
+- Maybe you should disable this mod once you reach late game and population is no longer a concern. I am not sure if the performance hit would be bad especially for Folktails every night when your Beavers go to sleep.
+
+Please tell me if I miss any case. I have tried to test all cases I can think of.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods

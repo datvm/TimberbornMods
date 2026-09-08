@@ -1,0 +1,8 @@
+The first expansion mod for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3493039008]Moddable Weather[/url] brings you [b]Redsurge[/b] - the highly requested weather for when Monsoon or Badtide alone isn't enough! It is basically a combination of both.
+
+[b]By default this weather is enabled if you enable the mod![/b] You can configure other settings like Monsoon in the mod's settings (note: in Redsurge's settings, not in Moddable Weather's settings).
+
+This mod also serves as a perfect example of how to create a weather mod for Moddable Weather. If you're interested in making your own weather, check out the source code! I'll be publishing a tutorial on creating weather mods for Moddable Weather soon, so stay tuned!
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods/

@@ -1,0 +1,13 @@
+{
+    "Name": "Hue & Turn",
+    "Version": "7.4.2",
+    "Id": "HueAndTurn",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Unleash your creativity!",
+    "RequiredMods": [
+        {
+            "Id": "TimberUi",
+            "MinimumVersion": "7.3.0"
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "Name": "Unlimited Map Size",
+    "Version": "1.0.0",
+    "Id": "UnlimitedMapSize",
+    "MinimumGameVersion": "0.6.0.0",
+    "Description": "Remove maximum size for custom maps.",
+    "RequiredMods": []
+}

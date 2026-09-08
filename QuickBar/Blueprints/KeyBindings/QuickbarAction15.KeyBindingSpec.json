@@ -1,0 +1,9 @@
+{
+    "KeyBindingSpec": {
+        "Id": "QuickbarAction15",
+        "GroupId": "Quickbar",
+        "LocKey": "LV.QkB.QuickbarAction15",
+        "Order": 15,
+        "AllowOtherModifiers": true
+    }
+}

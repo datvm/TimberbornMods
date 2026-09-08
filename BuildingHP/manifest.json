@@ -1,0 +1,11 @@
+﻿{
+    "Name": "Building HP & Renovation",
+    "Version": "7.1.3",
+    "Id": "BuildingHP",
+    "MinimumGameVersion": "0.7.0.0",
+    "Description": "Add HP/Durability to buildings and ability to renovate a building.",
+    "RequiredMods": [
+        { "Id": "eMka.ModSettings" },
+        { "Id": "ModdableTimberborn", "MinimumVersion": "7.0.3" }
+    ]
+}

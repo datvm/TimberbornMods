@@ -1,0 +1,20 @@
+{
+    "NeedSpec": {
+        "Id": "DecorativeCarvings",
+        "BackwardCompatibleIds": [],
+        "Order": 61,
+        "NeedGroupId": "Aesthetics",
+        "CharacterType": "Beaver",
+        "DisplayNameLocKey": "LV.BHP.DwellingDecorative",
+        "StartingValue": 0.0,
+        "MinimumValue": 0.0,
+        "MaximumValue": 1.0,
+        "DailyDelta": -0.3,
+        "ImportanceMultiplier": 1.0,
+        "Effectiveness": 1.0,
+        "Wastable": true,
+        "FavorableWellbeing": 4,
+        "HoursWarningThreshold": 0.0,
+        "UnfavorableWellbeing": 0
+    }
+}

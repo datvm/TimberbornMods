@@ -1,0 +1,16 @@
+﻿global using BuffDebuff;
+global using BuffDebuff.UI;
+global using Newtonsoft.Json;
+global using System.Text;
+global using Timberborn.Beavers;
+global using Timberborn.Bots;
+global using Timberborn.BuilderHubSystem;
+global using Timberborn.EntitySystem;
+global using Timberborn.GameDistricts;
+global using Timberborn.TemplateSystem;
+global using Timberborn.TickSystem;
+global using Timberborn.TimeSystem;
+global using Timberborn.TooltipSystem;
+global using Timberborn.WorkSystem;
+global using System.Collections.Frozen;
+global using Timberborn.BlockSystem;

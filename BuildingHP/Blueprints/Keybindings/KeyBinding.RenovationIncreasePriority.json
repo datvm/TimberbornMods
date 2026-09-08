@@ -1,0 +1,10 @@
+{
+    "KeyBindingSpec": {
+        "Id": "RenovationIncreasePriority",
+        "GroupId": "Buildings",
+        "LocKey": "LV.BHP.RenovationIncreasePriorityHotKey",
+        "Order": 700,
+        "AllowOtherModifiers": false,
+        "DevModeOnly": false
+    }
+}
