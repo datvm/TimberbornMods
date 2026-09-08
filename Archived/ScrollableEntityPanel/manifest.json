@@ -1,8 +1,0 @@
-{
-    "Name": "Scrollable Entity Panel",
-    "Version": "7.0.1",
-    "Id": "ScrollableEntityPanel",
-    "MinimumGameVersion": "0.7.0.0",
-    "Description": "Scroll it!",
-    "RequiredMods": []
-}
