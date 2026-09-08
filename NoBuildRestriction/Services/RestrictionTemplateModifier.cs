@@ -2,9 +2,9 @@
 
 public class RestrictionTemplateModifier : ITemplateModifier
 {
-    static readonly FrozenSet<string> Excluded1x1Buildings = ["TerrainBlock.Folktails", "TerrainBlock.IronTeeth", "Dynamite.Folktails", "Dynamite.IronTeeth"];
-    static readonly FrozenSet<string> HangingStructureExclusions = ["MechanicalFluidPump.Folktails", "DeepMechanicalFluidPump.IronTeeth"];
-    static readonly FrozenSet<string> IgnoredStructures = ["TerrainBlock.Folktails", "TerrainBlock.IronTeeth"];
+    static readonly FrozenSet<string> Excluded1x1Buildings = ImmutableHelper.CreateFrozenSet(["TerrainBlock.Folktails", "TerrainBlock.IronTeeth", "Dynamite.Folktails", "Dynamite.IronTeeth"]);
+    static readonly FrozenSet<string> HangingStructureExclusions = ImmutableHelper.CreateFrozenSet(["MechanicalFluidPump.Folktails", "DeepMechanicalFluidPump.IronTeeth"]);
+    static readonly FrozenSet<string> IgnoredStructures = ImmutableHelper.CreateFrozenSet(["TerrainBlock.Folktails", "TerrainBlock.IronTeeth"]);
 
     public EditableBlueprint? Modify(EditableBlueprint template, TemplateSpec originalTemplateSpec, Blueprint original)
     {

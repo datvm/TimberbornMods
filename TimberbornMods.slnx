@@ -230,6 +230,7 @@
   <Project Path="Hospital/Hospital.csproj" />
   <Project Path="InstantBuild/InstantBuild.csproj" />
   <Project Path="LunchBreak/LunchBreak.csproj" />
+  <Project Path="MapTransformer/MapTransformer.csproj" Id="4434f7e8-6482-45e7-b426-abe2219ec477" />
   <Project Path="MechanicalFilterPump/MechanicalFilterPump.csproj" />
   <Project Path="MerryChristmas2025/MerryChristmas2025.csproj" Id="88ea19d7-98a9-4248-8bfc-9a49a8b50a1f" />
   <Project Path="MicroManagement/MicroManagement.csproj" />
