@@ -1,9 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <IsBuffDebuff>true</IsBuffDebuff>
-        <OutputModFolderName>BuffDebuffDemo</OutputModFolderName>
-	</PropertyGroup>
-    <Import Project="../Targets/Common.targets" />
-    <Import Project="../Targets/CommonHarmony.targets" />
-    <Import Project="../Targets/CommonBuffDebuff.targets" />
-</Project>
