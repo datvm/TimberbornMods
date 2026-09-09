@@ -9,13 +9,13 @@ public class BuildingPipePortState : BaseComponent, IAwakableComponent, IFinishe
 #nullable enable
 
     PausableBuilding? pausableBuilding;
-    MechanicalBuilding? mechBuilding;
+    bool isValve;
 
     public void Awake()
     {
         buildingPipe = GetComponent<BuildingPipe>();
-        pausableBuilding = GetComponent<PausableBuilding>();
-        mechBuilding = GetComponent<MechanicalBuilding>();
+        pausableBuilding = this.GetComponentOrNull<PausableBuilding>();
+        isValve = HasComponent<ValvePipe>();
     }
 
     public void RefreshPortStatus()
@@ -24,14 +24,10 @@ public class BuildingPipePortState : BaseComponent, IAwakableComponent, IFinishe
 
         var hasChanged = false;
         var paused = pausableBuilding is { Paused: true };
-        var unpowered = mechBuilding is { ActiveAndPowered: false };
-        var shouldCloseAll = paused || unpowered;
 
         foreach (var p in ports.Values)
         {
-            var target = shouldCloseAll
-                ? PipePortState.Closed
-                : (p.OverrideState ?? p.PortSpec.State);
+            var target = (p.OverrideState ?? p.PortSpec.State).WithPause(paused, isValve);
             if (p.State == target) { continue; }
 
             hasChanged = true;

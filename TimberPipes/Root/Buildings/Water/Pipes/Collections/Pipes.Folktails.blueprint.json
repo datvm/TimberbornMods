@@ -2,11 +2,14 @@
     "TemplateCollectionSpec": {
         "CollectionId": "Buildings.Folktails",
         "Blueprints": [
+            "Buildings/Water/Pipes/HorizontalPipeValve/HorizontalPipeValve.Folktails.blueprint",
             "Buildings/Water/Pipes/HorizontalPipe/HorizontalPipe.Folktails.blueprint",
             "Buildings/Water/Pipes/ElbowPipe/ElbowPipe.Folktails.blueprint",
-            "Buildings/Water/Pipes/FourWayPipe/FourWayPipe.Folktails.blueprint",
-            "Buildings/Water/Pipes/SixWayPipe/SixWayPipe.Folktails.blueprint",
-            "Buildings/Water/Pipes/VerticalPipe/VerticalPipe.Folktails.blueprint"
+            "Buildings/Water/Pipes/CrossPipe/CrossPipe.Folktails.blueprint",
+            "Buildings/Water/Pipes/HorizontalPipePump/HorizontalPipePump.Folktails.blueprint",
+            "Buildings/Water/Pipes/VerticalCrossPipe/VerticalCrossPipe.Folktails.blueprint",
+            "Buildings/Water/Pipes/VerticalPipe/VerticalPipe.Folktails.blueprint",
+            "Buildings/Water/Pipes/VerticalPipePump/VerticalPipePump.Folktails.blueprint"
         ]
     }
 }

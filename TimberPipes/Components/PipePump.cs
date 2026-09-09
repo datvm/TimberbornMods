@@ -7,10 +7,12 @@ public class PipePump : BaseComponent, IAwakableComponent, IPersistentEntity
     static readonly PropertyKey<float> PendingKey = new("PendingVolume");
 
 #nullable disable
-    BuildingToPipeSpec spec;
     BuildingPipe pipe;
+    BlockObject bo;
     Inventories inventories;
 #nullable enable
+
+    BuildingToPipeSpec? spec;
 
     MechanicalBuilding? mech;
     Workshop? workshop;
@@ -19,28 +21,13 @@ public class PipePump : BaseComponent, IAwakableComponent, IPersistentEntity
     float pending;
 
     public BuildingPipe Pipe => pipe;
-    public float RatedMaxHeadLift => spec.MaxHeadLift;
-    public int? InjectRate => spec.InjectRate;
+    public float RatedMaxHeadLift => spec?.MaxHeadLift ?? 0f;
+    public int? InjectRate => spec?.InjectRate;
     public bool IsPaused => pausable is { Paused: true };
 
-    public int OutletZ
-    {
-        get
-        {
-            if (pipe.Ports is not { } ports)
-            {
-                return pipe.Coordinates.z;
-            }
+    public int OutletZ => LowestOutletZ(null);
 
-            var z = int.MaxValue;
-            foreach (var port in ports.Values)
-            {
-                z = Math.Min(z, port.Coordinates.z);
-            }
-
-            return z == int.MaxValue ? pipe.Coordinates.z : z;
-        }
-    }
+    public int OutletZFor(PipeGraph graph) => LowestOutletZ(graph);
 
     public float ColumnHeight => Math.Clamp(VolumeM3 / PipeFluids.PipeCapacity, 0f, 1f);
     public float Head => PipeFlowSolver.PumpHead(OutletZ, VolumeM3);
@@ -107,8 +94,9 @@ public class PipePump : BaseComponent, IAwakableComponent, IPersistentEntity
 
     public void Awake()
     {
-        spec = GetComponent<BuildingToPipeSpec>();
+        spec = TryGetComponent<BuildingToPipeSpec>(out var toPipe) ? toPipe : null;
         pipe = GetComponent<BuildingPipe>();
+        bo = GetComponent<BlockObject>();
         inventories = GetComponent<Inventories>();
         mech = this.GetComponentOrNull<MechanicalBuilding>();
         workshop = this.GetComponentOrNull<Workshop>();
@@ -130,49 +118,10 @@ public class PipePump : BaseComponent, IAwakableComponent, IPersistentEntity
     }
 
     public bool ConflictsWith(string? pipeGoodId)
-        => PipeFlowSolver.TankConflictsWithPipe(FluidGoodId, pipeGoodId is not null && TakesGood(pipeGoodId), pipeGoodId);
+        => PipeFlowSolver.WellConflictsWithPipe(FluidGoodId, pipeGoodId);
 
     public float CapacityFor(string? goodId)
         => PipeFlowSolver.GoodsToVolume(Math.Max(StoredGoods + FreeGoods(goodId ?? FluidGoodId), 0));
-
-    public void TryInject(PipeRegistry registry, int maxPackets)
-    {
-        if (maxPackets < 1 || WorkFactor <= 0 || RatedMaxHeadLift <= 0)
-        {
-            return;
-        }
-
-        if (pipe.Ports is not { } ports)
-        {
-            return;
-        }
-
-        var remaining = maxPackets;
-        foreach (var port in ports.Values)
-        {
-            if (remaining < 1)
-            {
-                return;
-            }
-
-            if (!port.CanOutflow || !registry.TryGetConnectedBuilding(port, out var neighbor))
-            {
-                continue;
-            }
-
-            if (!neighbor.IsTransportPipe)
-            {
-                continue;
-            }
-
-            if (neighbor.Graph is { Contaminated: true })
-            {
-                continue;
-            }
-
-            remaining -= InjectIntoNeighbor(neighbor, remaining, port.Definition.Coordinates.z);
-        }
-    }
 
     public void ApplyVolume(float volumeM3, string? incomingGoodId)
     {
@@ -207,32 +156,30 @@ public class PipePump : BaseComponent, IAwakableComponent, IPersistentEntity
         }
     }
 
-    int InjectIntoNeighbor(BuildingPipe neighbor, int maxPackets, int outletZ)
+    int LowestOutletZ(PipeGraph? graph)
     {
-        var injected = 0;
-        var prefer = neighbor.FluidGoodId ?? neighbor.Graph?.FluidGoodId;
-        var lift = EffectiveMaxHeadLift;
-
-        while (injected < maxPackets)
+        if (pipe.Ports is not { } ports)
         {
-            if (neighbor.Graph is { Contaminated: true }
-                || neighbor.FreeSpace < PipeFluids.PacketVolume
-                || !PipeHeadlift.CanLiftTo(neighbor.Coordinates.z, outletZ, lift))
-            {
-                break;
-            }
-
-            if (!TryTakeGood(prefer, out var goodId))
-            {
-                break;
-            }
-
-            neighbor.AddFluid(goodId, PipeFluids.PacketVolume);
-            prefer ??= goodId;
-            injected++;
+            return bo.CoordinatesAtBaseZ.z;
         }
 
-        return injected;
+        var z = int.MaxValue;
+        foreach (var port in ports.Values)
+        {
+            if (!port.IsConnected || !port.AllowsOutflow)
+            {
+                continue;
+            }
+
+            if (graph is not null && !graph.Pipes.ContainsKey(port.GetOppositePortDefinition().Coordinates))
+            {
+                continue;
+            }
+
+            z = Math.Min(z, port.Coordinates.z);
+        }
+
+        return z == int.MaxValue ? bo.CoordinatesAtBaseZ.z : z;
     }
 
     int StoredGoods
@@ -330,59 +277,6 @@ public class PipePump : BaseComponent, IAwakableComponent, IPersistentEntity
         }
 
         pending -= PipeFlowSolver.GoodsToVolume(left);
-    }
-
-    bool TryTakeGood(string? prefer, [NotNullWhen(true)] out string? goodId)
-    {
-        goodId = null;
-        if (!inventories)
-        {
-            return false;
-        }
-
-        if (prefer is not null && TryTakeExact(prefer))
-        {
-            goodId = prefer;
-            return true;
-        }
-
-        foreach (var inv in inventories.EnabledInventories)
-        {
-            if (!inv.IsOutput)
-            {
-                continue;
-            }
-
-            foreach (var stock in inv.UnreservedTakeableStock())
-            {
-                if (stock.Amount < 1)
-                {
-                    continue;
-                }
-
-                inv.TakeExisting(new(stock.GoodId, 1));
-                goodId = stock.GoodId;
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    bool TryTakeExact(string goodId)
-    {
-        foreach (var inv in inventories.EnabledInventories)
-        {
-            if (!inv.IsOutput || !inv.HasUnreservedStock(goodId))
-            {
-                continue;
-            }
-
-            inv.TakeExisting(new(goodId, 1));
-            return true;
-        }
-
-        return false;
     }
 
     IEnumerable<Inventory> EnabledInventories()

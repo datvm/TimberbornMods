@@ -17,12 +17,13 @@ public class PipeFluidSimulator(
     public void Tick()
     {
         List<BuildingPipe> buildings = [.. pipeRegistry.All];
+        List<PipeGraph> graphs = [.. pipeRegistry.Graphs];
         foreach (var building in buildings)
         {
             building.GetComponentOrNull<BuildingPipePortState>()?.RefreshPortStatus();
         }
 
-        foreach (var graph in pipeRegistry.Graphs)
+        foreach (var graph in graphs)
         {
             graph.RefreshContamination();
         }
@@ -33,62 +34,50 @@ public class PipeFluidSimulator(
             building.GetComponentOrNull<PipePump>()?.Quantize();
         }
 
-        var injectRate = Math.Max(1, spec.DefaultInjectRate);
         var slurpRate = Math.Max(1, spec.DefaultSlurpRate);
-
-        foreach (var building in buildings)
-        {
-            if (building.GetComponentOrNull<PipePump>() is { } pump)
-            {
-                pump.TryInject(pipeRegistry, pump.InjectRate ?? injectRate);
-            }
-        }
-
         foreach (var building in buildings)
         {
             if (building.GetComponentOrNull<PipeDump>() is { } dump)
             {
                 dump.TrySlurp(pipeRegistry, dump.SlurpRate ?? slurpRate);
             }
+
+            building.GetComponentOrNull<ValvePipe>()?.TryTransfer(slurpRate);
         }
 
-        foreach (var graph in pipeRegistry.Graphs)
+        foreach (var graph in graphs)
         {
             graph.RefreshContamination();
             if (graph.Contaminated)
             {
+                graph.TransmittedLift.Clear();
                 continue;
             }
 
-            Equalize(graph);
+            Simulate(graph);
             graph.RefreshContamination();
         }
     }
 
-    void Equalize(PipeGraph graph)
+    void Simulate(PipeGraph graph)
     {
-        List<BuildingPipe> nodes = [.. graph.Pipes.Values];
-        var pipeCount = nodes.Count;
+        List<BuildingPipe> pipes = [.. graph.Pipes.Values];
+        var pipeCount = pipes.Count;
         if (pipeCount < 1)
         {
+            graph.TransmittedLift.Clear();
             return;
         }
 
-        Dictionary<BuildingPipe, int> index = [];
-        for (var i = 0; i < nodes.Count; i++)
+        Dictionary<BuildingPipe, int> pipeIndex = [];
+        for (var i = 0; i < pipes.Count; i++)
         {
-            index[nodes[i]] = i;
+            pipeIndex[pipes[i]] = i;
         }
 
-        List<PipeTank?> tanks = [];
-        List<PipePump?> pumps = [];
-        for (var i = 0; i < nodes.Count; i++)
-        {
-            tanks.Add(null);
-            pumps.Add(null);
-        }
-
-        foreach (var pipe in graph.Pipes.Values)
+        List<PipeTank> tanks = [];
+        Dictionary<PipeTank, int> tankStart = [];
+        foreach (var pipe in pipes)
         {
             if (pipe.Ports is not { } ports)
             {
@@ -97,69 +86,78 @@ public class PipeFluidSimulator(
 
             foreach (var port in ports.Values)
             {
-                if (!port.IsConnected || !pipeRegistry.TryGetConnectedBuilding(port, out var other))
+                if (!port.IsConnected || !pipeRegistry.TryGetConnectedBuilding(port, out var other) || other.IsTransportPipe)
                 {
                     continue;
                 }
 
-                var tank = other.GetComponentOrNull<PipeTank>();
-                var pump = other.GetComponentOrNull<PipePump>();
-                if (tank is null && pump is null)
+                if (other.GetComponentOrNull<PipeTank>() is not { } tank)
                 {
                     continue;
                 }
 
-                if (tank is not null && tank.ConflictsWith(pipe.FluidGoodId ?? graph.FluidGoodId))
+                if (tank.ConflictsWith(graph.FluidGoodId ?? pipe.NetworkGoodId))
                 {
-                    graph.Contaminate();
+                    graph.Contaminate(new(tank.FluidGoodId, graph.FluidGoodId ?? pipe.NetworkGoodId));
+                    graph.TransmittedLift.Clear();
                     return;
                 }
 
-                if (pump is not null && pump.ConflictsWith(pipe.FluidGoodId ?? graph.FluidGoodId))
+                if (tankStart.TryAdd(tank, 0))
                 {
-                    graph.Contaminate();
-                    return;
-                }
-
-                if (!index.ContainsKey(other))
-                {
-                    index[other] = nodes.Count;
-                    nodes.Add(other);
                     tanks.Add(tank);
-                    pumps.Add(pump);
                 }
             }
         }
 
-        var volumes = new float[nodes.Count];
-        var capacities = new float[nodes.Count];
-        var pipeZ = new int[pipeCount];
-        for (var i = 0; i < nodes.Count; i++)
+        var sliceCount = 0;
+        foreach (var tank in tanks)
         {
-            if (i < pipeCount)
+            tankStart[tank] = pipeCount + sliceCount;
+            sliceCount += tank.SliceCount;
+        }
+
+        var flowCount = pipeCount + sliceCount;
+        var n = flowCount;
+        var volumes = new float[n];
+        var capacities = new float[n];
+        var z = new int[n];
+        var sourceLift = new float[n];
+        var qMax = new float[n];
+        var defaultGoods = Math.Max(1, spec.DefaultInjectRate);
+        for (var i = 0; i < pipeCount; i++)
+        {
+            volumes[i] = pipes[i].FluidHeight;
+            capacities[i] = BuildingPipe.MaxWaterHeight;
+            z[i] = pipes[i].Coordinates.z;
+            if (pipes[i].GetComponentOrNull<HeadliftPipe>() is { } headlift)
             {
-                volumes[i] = nodes[i].FluidHeight;
-                capacities[i] = BuildingPipe.MaxWaterHeight;
-                pipeZ[i] = nodes[i].Coordinates.z;
+                sourceLift[i] = headlift.EffectiveMaxHeadLift;
+                qMax[i] = PipeFlowSolver.FlowCap(headlift.InjectRate ?? defaultGoods, headlift.WorkFactor);
             }
-            else if (tanks[i] is { } tank)
+        }
+
+        foreach (var tank in tanks)
+        {
+            var start = tankStart[tank];
+            var slices = tank.SliceCount;
+            var totalCap = Math.Max(tank.VolumeM3, tank.CapacityFor(graph.FluidGoodId ?? tank.FluidGoodId));
+            var sliceCap = PipeFlowSolver.SliceCapacity(totalCap, tank.HeightTiles);
+            var packed = new float[slices];
+            PipeFlowSolver.PackSlices(tank.VolumeM3, packed, sliceCap);
+            for (var s = 0; s < slices; s++)
             {
-                volumes[i] = tank.VolumeM3;
-                capacities[i] = Math.Max(tank.VolumeM3, tank.CapacityFor(graph.FluidGoodId ?? tank.FluidGoodId));
-            }
-            else
-            {
-                var pump = pumps[i]!;
-                volumes[i] = pump.VolumeM3;
-                capacities[i] = Math.Max(pump.VolumeM3, pump.CapacityFor(graph.FluidGoodId ?? pump.FluidGoodId));
+                volumes[start + s] = packed[s];
+                capacities[start + s] = sliceCap;
+                z[start + s] = tank.ZBase + s;
             }
         }
 
         List<PipeFlowEdge> edges = [];
         HashSet<long> seen = [];
-        foreach (var pipe in graph.Pipes.Values)
+        foreach (var pipe in pipes)
         {
-            if (pipe.Ports is not { } ports || !index.TryGetValue(pipe, out var i))
+            if (pipe.Ports is not { } ports || !pipeIndex.TryGetValue(pipe, out var i))
             {
                 continue;
             }
@@ -171,18 +169,13 @@ public class PipeFluidSimulator(
                     continue;
                 }
 
-                if (!index.TryGetValue(other, out var j) || i == j)
+                var j = IndexOf(other, port);
+                if (j < 0 || i == j || (!port.CanOutflow && !port.CanInflow))
                 {
                     continue;
                 }
 
-                if (!port.CanOutflow && !port.CanInflow)
-                {
-                    continue;
-                }
-
-                var key = i < j ? ((long)i << 32) | (uint)j : ((long)j << 32) | (uint)i;
-                if (!seen.Add(key))
+                if (!seen.Add(EdgeKey(i, j)))
                 {
                     continue;
                 }
@@ -193,34 +186,60 @@ public class PipeFluidSimulator(
             }
         }
 
-        if (edges.Count < 1)
+        foreach (var tank in tanks)
         {
-            return;
+            var start = tankStart[tank];
+            var slices = tank.SliceCount;
+            for (var s = 0; s < slices - 1; s++)
+            {
+                var i = start + s;
+                var j = i + 1;
+                if (!seen.Add(EdgeKey(i, j)))
+                {
+                    continue;
+                }
+
+                edges.Add(new(i, j, true, true));
+            }
         }
 
-        var edgeArray = edges.ToArray();
-        var heads = new float[nodes.Count];
+        var extra = new float[n];
         var substeps = Math.Max(1, spec.Substeps);
         var kDt = spec.EqualizeK * tick.TickIntervalInSeconds / substeps;
-        for (var step = 0; step < substeps; step++)
-        {
-            for (var i = 0; i < nodes.Count; i++)
+        PipeFlowSolver.Run(
+            volumes,
+            capacities,
+            z,
+            edges.ToArray(),
+            pipeCount,
+            flowCount,
+            sourceLift,
+            qMax,
+            substeps,
+            kDt,
+            extra,
+            (heads, current) =>
             {
-                if (i < pipeCount)
+                for (var i = 0; i < n; i++)
                 {
-                    heads[i] = PipeFlowSolver.PipeHead(pipeZ[i], volumes[i]);
+                    if (i < pipeCount)
+                    {
+                        heads[i] = PipeFlowSolver.PipeHead(z[i], current[i]);
+                    }
+                    else
+                    {
+                        heads[i] = PipeFlowSolver.Surface(z[i], current[i], capacities[i]);
+                    }
                 }
-                else if (tanks[i] is { } tank)
-                {
-                    heads[i] = PipeFlowSolver.TankHead(tank.ZBase, volumes[i], capacities[i], tank.HeightTiles);
-                }
-                else
-                {
-                    heads[i] = PipeFlowSolver.PumpHead(pumps[i]!.OutletZ, volumes[i]);
-                }
-            }
+            });
 
-            PipeFlowSolver.Equalize(volumes, heads, capacities, edgeArray, kDt);
+        graph.TransmittedLift.Clear();
+        for (var i = 0; i < pipeCount; i++)
+        {
+            if (extra[i] > 0)
+            {
+                graph.TransmittedLift[pipes[i]] = extra[i];
+            }
         }
 
         var donor = graph.FluidGoodId;
@@ -228,47 +247,45 @@ public class PipeFluidSimulator(
         {
             foreach (var tank in tanks)
             {
-                if (tank?.FluidGoodId is { } tankGood)
+                if (tank.FluidGoodId is { } tankGood)
                 {
                     donor = tankGood;
                     break;
                 }
             }
-
-            if (donor is null)
-            {
-                foreach (var pump in pumps)
-                {
-                    if (pump?.FluidGoodId is { } pumpGood)
-                    {
-                        donor = pumpGood;
-                        break;
-                    }
-                }
-            }
         }
 
-        for (var i = 0; i < nodes.Count; i++)
+        graph.AdoptFluid(donor);
+        for (var i = 0; i < pipeCount; i++)
         {
-            if (i < pipeCount)
-            {
-                var pipe = nodes[i];
-                if (volumes[i] > pipe.FluidHeight && pipe.FluidGoodId is null && donor is not null)
-                {
-                    pipe.AssignFluidId(donor);
-                }
+            pipes[i].SetVolume(volumes[i]);
+            pipes[i].SyncNetworkGood();
+        }
 
-                pipe.SetVolume(volumes[i]);
-            }
-            else if (tanks[i] is { } tank)
+        foreach (var tank in tanks)
+        {
+            var start = tankStart[tank];
+            tank.ApplyVolume(
+                PipeFlowSolver.UnpackSlices(volumes.AsSpan(start, tank.SliceCount)),
+                donor ?? tank.FluidGoodId);
+        }
+
+        int IndexOf(BuildingPipe other, PipePort port)
+        {
+            if (pipeIndex.TryGetValue(other, out var i))
             {
-                tank.ApplyVolume(volumes[i], donor ?? tank.FluidGoodId);
+                return i;
             }
-            else
+
+            if (other.GetComponentOrNull<PipeTank>() is { } tank && tankStart.TryGetValue(tank, out var start))
             {
-                var pump = pumps[i]!;
-                pump.ApplyVolume(volumes[i], donor ?? pump.FluidGoodId);
+                return start + tank.SliceAt(port.GetOppositePortDefinition().Coordinates.z);
             }
+
+            return -1;
         }
     }
+
+    static long EdgeKey(int i, int j)
+        => i < j ? ((long)i << 32) | (uint)j : ((long)j << 32) | (uint)i;
 }

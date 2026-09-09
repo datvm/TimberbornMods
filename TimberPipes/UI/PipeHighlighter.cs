@@ -6,12 +6,12 @@ public class PipeHighlighter(Highlighter highlighter)
     static readonly Color EmptyColor = TimberUiUtils.DangerColor;
     static readonly Color FullColor = TimberUiUtils.SuccessColor;
 
-    public void HighlightGraph(PipeGraph graph)
+    public void HighlightGraph(PipeGraph graph, BuildingPipe? selected)
     {
         Unhighlight();
         foreach (var pipe in graph.Pipes.Values)
         {
-            if (!pipe)
+            if (!pipe || pipe == selected)
             {
                 continue;
             }

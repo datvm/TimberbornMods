@@ -77,6 +77,8 @@ More exported Timberborn game data is stored at `D:\Personal\Mods\Timberborn\V1D
 
 If `ModdingAssetUpdater/out` does not exist or is empty, ask the user to decompile the game source there first.
 
+Leave `BackwardCompatibleTemplateNames` as `[]`. Do not add old template names unless the user explicitly asks. We are developing; save migration is not needed unless requested.
+
 Game assemblies are publicized for mod projects. It is okay to reference publicized Timberborn types and members directly in code and Harmony patches instead of avoiding `internal` or private members with reflection-only approaches.
 
 Timberborn grid coordinates use **X/Y for the horizontal plane and Z for vertical**. Unity is the opposite: **Y is up**, with X/Z as the horizontal plane. When converting grid coordinates or directions into Unity/world vectors, check `CoordinateSystem` and its namespace code first (`GridToWorld`, `GridToWorldCentered`, and the reverse). It likely already has the conversion needed, so avoid adding local helpers like `ToUnityDirection` unless the built-in conversion does not fit.
@@ -100,3 +102,10 @@ Notes:
 - Prefer structural edits in JSON (delete/rename/reparent nodes, swap material names). Use **glb** export + Blender for real mesh sculpting.
 - After packing, you can preview with `tmesh2glb glb -i ... -r <Resources> -o D:\Temp\TimbermeshModel -f`.
 - Game Resources path: `D:\Personal\Mods\Timberborn\V1Data\ExportedProject\Assets\Resources`.
+- **Folktails first.** Unless the user explicitly asks for Iron Teeth (or both factions), only dump / edit / pack **Folktails** models. Do the Iron Teeth pass later, after the Folktails model is approved.
+
+## Buildings (Folktails first)
+
+Unless the user explicitly asks for Iron Teeth (or both factions), only create and edit **Folktails** buildings. Do not create `<Building>.IronTeeth.blueprint.json` or an Iron Teeth collection until they say they are ready for the IT pass.
+
+When adding a building, copy a placeholder icon **into that building's own folder** (for example `Buildings/Water/Pipes/NewPipe/NewPipeIcon.png`) and point `LabeledEntitySpec.Icon` at that local file. Do not reuse another building's icon path.

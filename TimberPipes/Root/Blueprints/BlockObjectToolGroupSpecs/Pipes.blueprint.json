@@ -7,6 +7,6 @@
         "FallbackGroup": false
     },
     "ParentToolGroupSpec": {
-        "ParentIds": [ "Water", "Storage" ]
+        "ParentIds": [ "Water" ]
     }
 }
