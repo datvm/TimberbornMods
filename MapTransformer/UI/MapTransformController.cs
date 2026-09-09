@@ -41,6 +41,15 @@ class MapTransformController(
 
     async Task TransformAsync(MapTransform transform)
     {
+        if (transform.ErrorLocKey() is { } errorKey)
+        {
+            diagShower.Create()
+                .SetMessage(errorKey.T(t))
+                .SetConfirmButton(TimberUiUtils.DoNothing, "Core.OK".T(t))
+                .Show();
+            return;
+        }
+
         if (!ValidateBlockObjects(transform))
         {
             return;

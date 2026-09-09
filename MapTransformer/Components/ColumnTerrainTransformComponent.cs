@@ -1,14 +1,17 @@
-namespace MapTransformer.Components;
+﻿namespace MapTransformer.Components;
 
 [MultiBind(typeof(IMapResizeComponent), Contexts = BindAttributeContext.NonMenu)]
 class ColumnTerrainTransformComponent(
     ColumnTerrainMap columnTerrainMap,
-    ThreadSafeColumnTerrainMap threadSafeColumnTerrainMap,
-    TerrainService terrainService,
+    IThreadSafeColumnTerrainMap threadSafeColumnTerrainMap,
+    ITerrainService terrainService,
     MapIndexService mapIndexService
 ) : IMapResizeComponent
 {
     public int Order => 20;
+
+    readonly ThreadSafeColumnTerrainMap threadSafeColumnTerrainMap = (ThreadSafeColumnTerrainMap)threadSafeColumnTerrainMap;
+    readonly TerrainService terrainService = (TerrainService)terrainService;
 
     public void Transform(in MapTransformContext ctx)
     {

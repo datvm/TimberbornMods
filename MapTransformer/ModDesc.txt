@@ -1,19 +1,48 @@
-Esc -> [b]Transform Map[/b] in the game or Map Editor. One operation per pass, then a save named [b]MapResized[/b] (game) or [b]ResizedMap[/b] (editor). Load that file before you keep playing.
+﻿This mod lets you transform maps in the Map Editor or while playing: resize, raise, rotate, or flip. It replaces and upgrades [b]Map Resizer[/b], and maps made with that mod still load.
 
-Pause and save first. This session is not meant to be played after a transform.
+You can keep playing a transformed map [i]without[/i] this mod [b]except if you changed Terrain Height[/b]. Without this mod, custom terrain height resets to vanilla.
 
-[h1]Operations[/h1]
+As an upgrade, you even get to keep all the Water after transforming the map instead of losing all water.
+
+[h1]How to use[/h1]
 [list]
-[*] [b]Resize[/b] — width, breadth, max terrain height, and max above-terrain. New Z layers are empty (not dirt). Pick a pivot and how new XY cells are filled: empty, copy edge, or mirror.
-[*] [b]Add height[/b] — insert dirt layers at Z = 0 and shift the world up. You can also set the new above-terrain height.
-[*] [b]Remove height[/b] — drop an inclusive Z range and compact. Buildings in that slab have to be removed first.
-[*] [b]Rotate[/b] — 90°, 180°, or 270° clockwise. 90° and 270° swap width and breadth.
-[*] [b]Flip[/b] — X, Y, or both.
+[*] Pause and [b]MAKE A BACKUP SAVE[/b].
+[*] Esc -> [b]Transform Map[/b].
+[*] Pick one operation, click [b]Transform[/b]. That writes a save named [b]MapResized[/b] (game) or [b]ResizedMap[/b] (Map Editor).
+[*] Load that save when asked. This session will likely crash if you keep playing it.
+[*] Make another save after loading. The next transform will overwrite the MapResized save.
 [/list]
 
-If something would land outside the map, you can jump to it or remove all of those objects, then run the transform again.
+If you did not change Terrain Height, you can disable this mod afterward.
 
-[b]Game:[/b] beavers are moved with the terrain, but jobs, paths, and district state may be wrong until you reload.
+[b]Important:[/b] In-game, beavers and buildings are moved, but there is no guarantee the colony is in a valid state. Resize at pivot (0, 0) and height changes are the safest. Always keep that backup. If something would land outside the map, you can jump to it or remove all of those objects, then transform again.
+
+[h1]Operations[/h1]
+[h2]Resize Map Height[/h2]
+[img]https://images.steamusercontent.com/ugc/15850064186074916744/E4A343063CFFAE18E157D1328E0D9497902E71E3/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+Change how tall the map is. Width and breadth stay the same. New Z layers are empty (not dirt), so you can then raise terrain or build higher.
+- [b]Terrain Height[/b]: how high terrain can go.
+- [b]Total Height[/b]: terrain plus air above it (must be at least Terrain Height).
+
+[h2]Resize Map Size[/h2]
+[img]https://images.steamusercontent.com/ugc/10868222246180574579/A7BF38E7EC4656A3A865330256E7E32D50022DBA/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+Change width (X) and breadth (Y) only. Height stays the same.
+- [b]Pivot X / Pivot Y[/b]: which point of the current map to hold. [b]0, 0[/b] keeps the original corner (grows/shrinks the far sides). Current width and height keep the other corner.
+- [b]New cells[/b] when growing: empty, copy edge, or mirror.
+
+[h2]Add Bottom Dirt[/h2]
+[img]https://images.steamusercontent.com/ugc/14477895012450349577/2D579E5853AF7F95A5C2C7F2C6B3CB94002527CC/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+Insert dirt layers at Z = 0 and shift the world up.
+- Check [b]Increase terrain height[/b] (default) to grow Terrain Height and Total Height by that many layers.
+- Unchecked keeps the current heights and deletes anything that would go past the top.
+
+[h2]Rotate[/h2]
+[img]https://images.steamusercontent.com/ugc/10087716960813239109/3015C083418D0DEBA087DB7B9FA9FF91C0B0BAE4/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+90°, 180°, or 270° clockwise. Whole map, or a square area ([b]Area X[/b], [b]Area Y[/b], [b]Area size[/b]). Whole-map 90° and 270° swap width and breadth. A square that does not fit on the map is rejected.
+
+[h2]Flip[/h2]
+[img]https://images.steamusercontent.com/ugc/13905865121645919979/2FBCB40F8BDEC932C443459489285C5883179A1C/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+X, Y, or both. Same whole-map or square-area choice as Rotate.
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

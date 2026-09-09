@@ -13,83 +13,74 @@ readonly record struct MapTransform
     public bool FlipX { get; init; }
     public bool FlipY { get; init; }
     public int InsertLayers { get; init; }
-    public int RemoveZ1 { get; init; }
-    public int RemoveZ2 { get; init; }
+    public bool TransformArea { get; init; }
+    public Vector2Int AreaOrigin { get; init; }
+    public int AreaSize { get; init; }
 
-    public static MapTransform Resize(
+    public bool HasArea => TransformArea;
+
+    public static MapTransform ResizeXy(
         Vector3Int oldTerrain,
         Vector3Int oldTotal,
-        Vector3Int newTerrain,
-        Vector3Int newTotal,
-        MapPivot pivot,
+        Vector2Int newXy,
+        Vector2Int pivot,
         EnlargeFill fill)
     {
+        var x = Math.Max(1, newXy.x);
+        var y = Math.Max(1, newXy.y);
         return new()
         {
-            Op = MapOp.Resize,
+            Op = MapOp.ResizeXy,
             OldTerrainSize = oldTerrain,
-            NewTerrainSize = newTerrain,
+            NewTerrainSize = new Vector3Int(x, y, oldTerrain.z),
             OldTotalSize = oldTotal,
-            NewTotalSize = newTotal,
-            PivotOffset = OffsetForPivot(oldTerrain, newTerrain, pivot),
+            NewTotalSize = new Vector3Int(x, y, oldTotal.z),
+            PivotOffset = new Vector2Int(
+                AnchorOffset(oldTerrain.x, x, pivot.x),
+                AnchorOffset(oldTerrain.y, y, pivot.y)),
             Fill = fill,
         };
     }
 
-    public bool TryMapHeight(int srcZ, out int destZ) => TryMapZ(srcZ, out destZ);
+    public static MapTransform ResizeHeight(Vector3Int oldTerrain, Vector3Int oldTotal, int terrainZ, int totalZ)
+    {
+        terrainZ = Math.Max(1, terrainZ);
+        totalZ = Math.Max(terrainZ, totalZ);
+        return new()
+        {
+            Op = MapOp.ResizeHeight,
+            OldTerrainSize = oldTerrain,
+            NewTerrainSize = new Vector3Int(oldTerrain.x, oldTerrain.y, terrainZ),
+            OldTotalSize = oldTotal,
+            NewTotalSize = new Vector3Int(oldTotal.x, oldTotal.y, totalZ),
+        };
+    }
 
-    public static MapTransform AddHeight(Vector3Int oldTerrain, Vector3Int oldTotal, int layers, int newAboveTerrain)
+    public static MapTransform AddHeight(Vector3Int oldTerrain, Vector3Int oldTotal, int layers, bool increaseTerrainHeight)
     {
         layers = Math.Max(0, layers);
-        var newTerrain = oldTerrain + new Vector3Int(0, 0, layers);
+        var grow = increaseTerrainHeight ? layers : 0;
         return new()
         {
             Op = MapOp.AddHeight,
             OldTerrainSize = oldTerrain,
-            NewTerrainSize = newTerrain,
+            NewTerrainSize = oldTerrain + new Vector3Int(0, 0, grow),
             OldTotalSize = oldTotal,
-            NewTotalSize = new Vector3Int(newTerrain.x, newTerrain.y, newTerrain.z + newAboveTerrain),
+            NewTotalSize = oldTotal + new Vector3Int(0, 0, grow),
             InsertLayers = layers,
         };
     }
 
-    public static MapTransform RemoveHeight(Vector3Int oldTerrain, Vector3Int oldTotal, int z1, int z2)
-    {
-        if (z2 < z1)
-        {
-            (z1, z2) = (z2, z1);
-        }
-
-        var count = z2 - z1 + 1;
-        count = Math.Min(Math.Max(0, count), Math.Max(0, oldTerrain.z - 1));
-        if (count <= 0)
-        {
-            z1 = 0;
-            z2 = -1;
-            count = 0;
-        }
-        else
-        {
-            z2 = z1 + count - 1;
-        }
-
-        var newTerrain = oldTerrain - new Vector3Int(0, 0, count);
-        return new()
-        {
-            Op = MapOp.RemoveHeight,
-            OldTerrainSize = oldTerrain,
-            NewTerrainSize = newTerrain,
-            OldTotalSize = oldTotal,
-            NewTotalSize = oldTotal - new Vector3Int(0, 0, count),
-            RemoveZ1 = z1,
-            RemoveZ2 = z2,
-        };
-    }
-
-    public static MapTransform RotateCw(Vector3Int oldTerrain, Vector3Int oldTotal, int steps)
+    public static MapTransform RotateCw(
+        Vector3Int oldTerrain,
+        Vector3Int oldTotal,
+        int steps,
+        bool transformArea = false,
+        Vector2Int areaOrigin = default,
+        int areaSize = 0)
     {
         steps = NormalizeSteps(steps);
-        var swap = steps is 1 or 3;
+        var swap = !transformArea && steps is 1 or 3;
         return new()
         {
             Op = MapOp.Rotate,
@@ -98,10 +89,20 @@ readonly record struct MapTransform
             OldTotalSize = oldTotal,
             NewTotalSize = SwapXy(oldTotal, swap),
             RotateCwSteps = steps,
+            TransformArea = transformArea,
+            AreaOrigin = areaOrigin,
+            AreaSize = areaSize,
         };
     }
 
-    public static MapTransform Flip(Vector3Int oldTerrain, Vector3Int oldTotal, bool flipX, bool flipY)
+    public static MapTransform Flip(
+        Vector3Int oldTerrain,
+        Vector3Int oldTotal,
+        bool flipX,
+        bool flipY,
+        bool transformArea = false,
+        Vector2Int areaOrigin = default,
+        int areaSize = 0)
     {
         return new()
         {
@@ -112,8 +113,32 @@ readonly record struct MapTransform
             NewTotalSize = oldTotal,
             FlipX = flipX,
             FlipY = flipY,
+            TransformArea = transformArea,
+            AreaOrigin = areaOrigin,
+            AreaSize = areaSize,
         };
     }
+
+    public string? ErrorLocKey()
+    {
+        if (Op is not (MapOp.Rotate or MapOp.Flip) || !TransformArea)
+        {
+            return null;
+        }
+
+        if (AreaOrigin.x < 0
+            || AreaOrigin.y < 0
+            || AreaSize < 1
+            || AreaOrigin.x + AreaSize > OldTerrainSize.x
+            || AreaOrigin.y + AreaSize > OldTerrainSize.y)
+        {
+            return "LV.MTr.AreaExceedsMap";
+        }
+
+        return null;
+    }
+
+    public bool TryMapHeight(int srcZ, out int destZ) => TryMapZ(srcZ, out destZ);
 
     public bool TryMapCell(Vector3Int src, out Vector3Int dest)
     {
@@ -141,7 +166,7 @@ readonly record struct MapTransform
     {
         if (TryUnmapCell(dest, out src))
         {
-            if (Op == MapOp.Resize && dest.z >= OldTerrainSize.z)
+            if ((Op is MapOp.ResizeXy or MapOp.ResizeHeight) && dest.z >= OldTerrainSize.z)
             {
                 return false;
             }
@@ -149,7 +174,7 @@ readonly record struct MapTransform
             return true;
         }
 
-        if (Op != MapOp.Resize || Fill == EnlargeFill.Empty)
+        if (Op != MapOp.ResizeXy || Fill == EnlargeFill.Empty)
         {
             return false;
         }
@@ -168,6 +193,21 @@ readonly record struct MapTransform
 
         src = new Vector3Int(x, y, dest.z);
         return Contains(src, OldTerrainSize) || Contains(src, OldTotalSize);
+    }
+
+    public bool TryUnmapColumn(Vector2Int dest, out Vector2Int src)
+    {
+        var probeZ = Op == MapOp.AddHeight
+            ? Math.Min(InsertLayers, Math.Max(0, NewTotalSize.z - 1))
+            : 0;
+        if (!TryUnmapOrFill(new Vector3Int(dest.x, dest.y, probeZ), out var cell))
+        {
+            src = default;
+            return false;
+        }
+
+        src = new Vector2Int(cell.x, cell.y);
+        return src.x >= 0 && src.y >= 0 && src.x < OldTerrainSize.x && src.y < OldTerrainSize.y;
     }
 
     public bool TryMapPlacement(Placement src, Vector3Int localSize, out Placement dest)
@@ -239,21 +279,6 @@ readonly record struct MapTransform
         return CoordinateSystem.GridToWorld(new Vector3(dest.x, dest.y, dest.z) + frac);
     }
 
-    public static Vector2Int OffsetForPivot(Vector3Int oldTerrain, Vector3Int newTerrain, MapPivot pivot)
-    {
-        var dx = newTerrain.x - oldTerrain.x;
-        var dy = newTerrain.y - oldTerrain.y;
-        return pivot switch
-        {
-            MapPivot.MinMin => new(0, 0),
-            MapPivot.MaxMin => new(dx, 0),
-            MapPivot.MinMax => new(0, dy),
-            MapPivot.MaxMax => new(dx, dy),
-            MapPivot.Center => new(dx / 2, dy / 2),
-            _ => new(0, 0),
-        };
-    }
-
     bool TryMap(Vector3Int src, out Vector3Int dest)
     {
         dest = default;
@@ -284,16 +309,15 @@ readonly record struct MapTransform
     {
         switch (Op)
         {
-            case MapOp.Resize:
+            case MapOp.ResizeXy:
                 nx = x + PivotOffset.x;
                 ny = y + PivotOffset.y;
                 return;
             case MapOp.Rotate:
-                RotateXy(x, y, OldTerrainSize.x, OldTerrainSize.y, RotateCwSteps, out nx, out ny);
+                MapRotate(x, y, out nx, out ny);
                 return;
             case MapOp.Flip:
-                nx = FlipX ? OldTerrainSize.x - 1 - x : x;
-                ny = FlipY ? OldTerrainSize.y - 1 - y : y;
+                MapFlip(x, y, out nx, out ny);
                 return;
             default:
                 nx = x;
@@ -306,16 +330,15 @@ readonly record struct MapTransform
     {
         switch (Op)
         {
-            case MapOp.Resize:
+            case MapOp.ResizeXy:
                 x = nx - PivotOffset.x;
                 y = ny - PivotOffset.y;
                 return;
             case MapOp.Rotate:
-                UnrotateXy(nx, ny, OldTerrainSize.x, OldTerrainSize.y, RotateCwSteps, out x, out y);
+                UnmapRotate(nx, ny, out x, out y);
                 return;
             case MapOp.Flip:
-                x = FlipX ? OldTerrainSize.x - 1 - nx : nx;
-                y = FlipY ? OldTerrainSize.y - 1 - ny : ny;
+                UnmapFlip(nx, ny, out x, out y);
                 return;
             default:
                 x = nx;
@@ -324,53 +347,99 @@ readonly record struct MapTransform
         }
     }
 
+    void MapRotate(int x, int y, out int nx, out int ny)
+    {
+        if (HasArea)
+        {
+            if (!InArea(x, y))
+            {
+                nx = x;
+                ny = y;
+                return;
+            }
+
+            RotateXy(x - AreaOrigin.x, y - AreaOrigin.y, AreaSize, AreaSize, RotateCwSteps, out var lx, out var ly);
+            nx = AreaOrigin.x + lx;
+            ny = AreaOrigin.y + ly;
+            return;
+        }
+
+        RotateXy(x, y, OldTerrainSize.x, OldTerrainSize.y, RotateCwSteps, out nx, out ny);
+    }
+
+    void UnmapRotate(int nx, int ny, out int x, out int y)
+    {
+        if (HasArea)
+        {
+            if (!InArea(nx, ny))
+            {
+                x = nx;
+                y = ny;
+                return;
+            }
+
+            UnrotateXy(nx - AreaOrigin.x, ny - AreaOrigin.y, AreaSize, AreaSize, RotateCwSteps, out var lx, out var ly);
+            x = AreaOrigin.x + lx;
+            y = AreaOrigin.y + ly;
+            return;
+        }
+
+        UnrotateXy(nx, ny, OldTerrainSize.x, OldTerrainSize.y, RotateCwSteps, out x, out y);
+    }
+
+    void MapFlip(int x, int y, out int nx, out int ny)
+    {
+        if (HasArea)
+        {
+            if (!InArea(x, y))
+            {
+                nx = x;
+                ny = y;
+                return;
+            }
+
+            var lx = x - AreaOrigin.x;
+            var ly = y - AreaOrigin.y;
+            nx = AreaOrigin.x + (FlipX ? AreaSize - 1 - lx : lx);
+            ny = AreaOrigin.y + (FlipY ? AreaSize - 1 - ly : ly);
+            return;
+        }
+
+        nx = FlipX ? OldTerrainSize.x - 1 - x : x;
+        ny = FlipY ? OldTerrainSize.y - 1 - y : y;
+    }
+
+    void UnmapFlip(int nx, int ny, out int x, out int y)
+        => MapFlip(nx, ny, out x, out y);
+
+    bool InArea(int x, int y)
+        => x >= AreaOrigin.x
+            && y >= AreaOrigin.y
+            && x < AreaOrigin.x + AreaSize
+            && y < AreaOrigin.y + AreaSize;
+
     bool TryMapZ(int z, out int destZ)
     {
         destZ = z;
-        switch (Op)
+        if (Op != MapOp.AddHeight)
         {
-            case MapOp.AddHeight:
-                destZ = z + InsertLayers;
-                return true;
-            case MapOp.RemoveHeight:
-                if (z < RemoveZ1)
-                {
-                    destZ = z;
-                    return true;
-                }
-
-                if (z > RemoveZ2)
-                {
-                    destZ = z - (RemoveZ2 - RemoveZ1 + 1);
-                    return true;
-                }
-
-                return false;
-            default:
-                return true;
+            return true;
         }
+
+        destZ = z + InsertLayers;
+        return destZ >= 0 && destZ < NewTotalSize.z;
     }
 
     bool TryUnmapZ(int destZ, out int srcZ)
     {
         srcZ = destZ;
-        switch (Op)
+        if (Op != MapOp.AddHeight)
         {
-            case MapOp.AddHeight:
-                srcZ = destZ - InsertLayers;
-                return srcZ >= 0;
-            case MapOp.RemoveHeight:
-                if (destZ < RemoveZ1)
-                {
-                    srcZ = destZ;
-                    return true;
-                }
-
-                srcZ = destZ + (RemoveZ2 - RemoveZ1 + 1);
-                return true;
-            default:
-                return true;
+            return true;
         }
+
+        srcZ = destZ - InsertLayers;
+        return srcZ >= 0;
     }
 
     int FillAxis(int dest, int offset, int oldSize)
@@ -409,20 +478,27 @@ readonly record struct MapTransform
     Placement PredictPlacement(Placement src)
     {
         var orientation = src.Orientation;
-        for (var i = 0; i < RotateCwSteps; i++)
-        {
-            orientation = orientation.RotateClockwise();
-        }
-
         var flip = src.FlipMode;
-        if (Op == MapOp.Flip && FlipX)
+        var inArea = !HasArea || InArea(src.Coordinates.x, src.Coordinates.y);
+        if (Op == MapOp.Rotate && inArea)
         {
-            flip = flip.Flip();
+            for (var i = 0; i < RotateCwSteps; i++)
+            {
+                orientation = orientation.RotateClockwise();
+            }
         }
 
-        if (Op == MapOp.Flip && FlipY)
+        if (Op == MapOp.Flip && inArea)
         {
-            orientation = orientation.Flip();
+            if (FlipX)
+            {
+                flip = flip.Flip();
+            }
+
+            if (FlipY)
+            {
+                orientation = orientation.Flip();
+            }
         }
 
         return new Placement(src.Coordinates, orientation, flip);
@@ -489,6 +565,17 @@ readonly record struct MapTransform
 
     static Vector3Int SwapXy(Vector3Int size, bool swap)
         => swap ? new Vector3Int(size.y, size.x, size.z) : size;
+
+    static int AnchorOffset(int oldSize, int newSize, int pivot)
+    {
+        if (oldSize <= 0)
+        {
+            return 0;
+        }
+
+        pivot = Math.Clamp(pivot, 0, oldSize);
+        return (int)((long)pivot * newSize / oldSize) - pivot;
+    }
 
     static int NormalizeSteps(int steps)
     {
