@@ -1,4 +1,4 @@
-﻿{
+{
     "BuildingSpec": {
         "SelectionSoundName": "Default",
         "LoopingSoundName": "",
@@ -6,10 +6,6 @@
             {
                 "Id": "Plank",
                 "Amount": 2
-            },
-            {
-                "Id": "Gear",
-                "Amount": 1
             }
         ],
         "ScienceCost": 50,
@@ -26,14 +22,14 @@
         "UndergroundModelDepth": 0
     },
     "TemplateSpec": {
-        "TemplateName": "SixWayPipe.Folktails",
+        "TemplateName": "HorizontalPipeValve.Folktails",
         "BackwardCompatibleTemplateNames": [],
         "RequiredFeatureToggle": "",
         "DisablingFeatureToggle": ""
     },
     "BlockObjectNavMeshSettingsSpec": {
         "NoAutoWalls": false,
-        "GenerateFloorsOnStackable": true,
+        "GenerateFloorsOnStackable": false,
         "EdgeGroups": [],
         "UnblockedCoordinates": [],
         "BlockedEdges": []
@@ -47,8 +43,8 @@
         "Blocks": [
             {
                 "MatterBelow": "GroundOrStackable",
-                "Occupations": "Bottom, Top, Path, Middle",
-                "Stackable": "BlockObject",
+                "Occupations": "Bottom, Path, Middle",
+                "Stackable": "None",
                 "OccupyAllBelow": false,
                 "Underground": false
             }
@@ -67,7 +63,7 @@
     },
     "PlaceableBlockObjectSpec": {
         "ToolGroupId": "Pipes",
-        "ToolOrder": 40,
+        "ToolOrder": 10,
         "ToolShape": "Square",
         "Layout": "Single",
         "CustomPivot": {
@@ -82,10 +78,10 @@
         "DevModeTool": false
     },
     "LabeledEntitySpec": {
-        "DisplayNameLocKey": "LV.TPi.SixWayPipeName",
-        "DescriptionLocKey": "LV.TPi.SixWayPipeDesc",
-        "FlavorDescriptionLocKey": "LV.TPi.SixWayPipeFlavor",
-        "Icon": "Buildings/Water/Pipes/SixWayPipe/SixWayPipeIcon"
+        "DisplayNameLocKey": "LV.TPi.HorizontalPipeValveName",
+        "DescriptionLocKey": "LV.TPi.HorizontalPipeValveDesc",
+        "FlavorDescriptionLocKey": "LV.TPi.HorizontalPipeValveFlavor",
+        "Icon": "Buildings/Water/Pipes/HorizontalPipeValve/HorizontalPipeValveIcon"
     },
     "BuildingPipeSpec": {
         "Ports": [
@@ -95,33 +91,45 @@
                     "Y": 0,
                     "Z": 0
                 },
-                "Directions": "Down, Left, Up, Right, Bottom, Top",
-                "State": "Open"
+                "Directions": "Down",
+                "State": "OpenIn"
+            },
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "Up",
+                "State": "OpenOut"
             }
         ]
     },
     "TransportPipeSpec": {},
+    "DirectedPipeSpec": {},
+    "ValvePipeSpec": {},
     "ConstructionSiteProgressVisualizerSpec": {
         "ProgressThresholds": [
             0.0
         ]
     },
     "Children": {
+        "#Arrows": {},
         "#Finished": {
             "TimbermeshSpec": {
-                "Model": "Buildings/Water/Pipes/SixWayPipe/Models/SixWayPipe.Folktails.Model"
+                "Model": "Buildings/Water/Pipes/HorizontalPipeValve/Models/HorizontalPipeValve.Folktails.Model"
             },
             "CollidersSpec": {
                 "BoxColliders": [
                     {
                         "Center": {
                             "X": 0.5,
-                            "Y": 0.5,
+                            "Y": 0.23,
                             "Z": 0.5
                         },
                         "Size": {
                             "X": 1.0,
-                            "Y": 1,
+                            "Y": 0.46,
                             "Z": 1.0
                         }
                     }
@@ -137,7 +145,7 @@
                 },
                 "ConstructionStage0": {
                     "TimbermeshSpec": {
-                        "Model": "Buildings/Water/Pipes/SixWayPipe/Models/SixWayPipe.Folktails.Model"
+                        "Model": "Buildings/Water/Pipes/HorizontalPipeValve/Models/HorizontalPipeValve.Folktails.Model"
                     },
                     "CollidersSpec": {
                         "BoxColliders": [

@@ -1,30 +1,39 @@
 namespace TimberPipes.Components;
 
-[AddTemplateModule2(typeof(FluidBufferBuildingSpec))]
+[AddTemplateModule2(typeof(TankPipe))]
 public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
 {
     static readonly ComponentKey SaveKey = new(nameof(PipeTank));
     static readonly PropertyKey<float> PendingKey = new("PendingVolume");
 
 #nullable disable
-    FluidBufferBuildingSpec spec;
     BuildingPipe pipe;
     BlockObject bo;
     Inventories inventories;
 #nullable enable
 
+    FluidBufferBuildingSpec? spec;
+
     float pending;
 
     public BuildingPipe Pipe => pipe;
     public int ZBase => bo.Coordinates.z;
-    public int HeightTiles => spec.Height ?? Math.Max(1, bo.Blocks.Size.z);
+    public int HeightTiles => spec?.Height ?? Math.Max(1, bo.Blocks.Size.z);
+    public int SliceCount => PipeFlowSolver.SliceCount(HeightTiles);
+
+    public int SliceAt(int worldZ) => PipeFlowSolver.SliceIndex(worldZ, ZBase, HeightTiles);
 
     public void Awake()
     {
-        spec = GetComponent<FluidBufferBuildingSpec>();
+        spec = TryGetComponent<FluidBufferBuildingSpec>(out var buffer) ? buffer : null;
         pipe = GetComponent<BuildingPipe>();
         bo = GetComponent<BlockObject>();
         inventories = GetComponent<Inventories>();
+        if (TryGetComponent<StockpileSpec>(out var stockpile)
+            && stockpile.WhitelistedGoodType != PipeFluids.LiquidGoodType)
+        {
+            DisableComponent();
+        }
     }
 
     public string? FluidGoodId
@@ -213,6 +222,11 @@ public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
 
     public void Save(IEntitySaver entitySaver)
     {
+        if (!Enabled)
+        {
+            return;
+        }
+
         entitySaver.GetComponent(SaveKey).Set(PendingKey, pending);
     }
 

@@ -37,6 +37,9 @@
 	<ItemGroup>
 		<Using Include="Xunit" />
 		<Using Include="TimberPipes.Models" />
+		<Using Include="TimberPipes.Components" />
+		<Using Include="TimberPipes.Specs" />
+		<Using Include="System.Collections.Frozen" />
 	</ItemGroup>
 
 </Project>

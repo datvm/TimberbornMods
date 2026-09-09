@@ -5,11 +5,11 @@
         "BuildingCost": [
             {
                 "Id": "Plank",
-                "Amount": 1
+                "Amount": 2
             }
         ],
         "ScienceCost": 0,
-        "PlaceFinished": false,
+        "PlaceFinished": true,
         "FinishableWithBeaversOnSite": true,
         "DrawRangeBoundsOnIt": false
     },
@@ -22,7 +22,7 @@
         "UndergroundModelDepth": 0
     },
     "TemplateSpec": {
-        "TemplateName": "ElbowPipe.IronTeeth",
+        "TemplateName": "CrossPipe.Folktails",
         "BackwardCompatibleTemplateNames": [],
         "RequiredFeatureToggle": "",
         "DisablingFeatureToggle": ""
@@ -59,11 +59,11 @@
         },
         "BaseZ": 0,
         "Overridable": false,
-        "Flippable": true
+        "Flippable": false
     },
     "PlaceableBlockObjectSpec": {
         "ToolGroupId": "Pipes",
-        "ToolOrder": 20,
+        "ToolOrder": 40,
         "ToolShape": "Square",
         "Layout": "Single",
         "CustomPivot": {
@@ -78,10 +78,10 @@
         "DevModeTool": false
     },
     "LabeledEntitySpec": {
-        "DisplayNameLocKey": "LV.TPi.ElbowPipeName",
-        "DescriptionLocKey": "LV.TPi.ElbowPipeDesc",
-        "FlavorDescriptionLocKey": "LV.TPi.ElbowPipeFlavor",
-        "Icon": "Buildings/Water/Pipes/ElbowPipe/ElbowPipeIcon"
+        "DisplayNameLocKey": "LV.TPi.CrossPipeName",
+        "DescriptionLocKey": "LV.TPi.CrossPipeDesc",
+        "FlavorDescriptionLocKey": "LV.TPi.CrossPipeFlavor",
+        "Icon": "Buildings/Water/Pipes/CrossPipe/CrossPipeIcon"
     },
     "BuildingPipeSpec": {
         "Ports": [
@@ -91,7 +91,7 @@
                     "Y": 0,
                     "Z": 0
                 },
-                "Directions": "Down, Right",
+                "Directions": "Down, Left, Up, Right",
                 "State": "Open"
             }
         ]
@@ -105,7 +105,7 @@
     "Children": {
         "#Finished": {
             "TimbermeshSpec": {
-                "Model": "Buildings/Water/Pipes/ElbowPipe/Models/ElbowPipe.IronTeeth.Model"
+                "Model": "Buildings/Water/Pipes/CrossPipe/Models/CrossPipe.Folktails.Model"
             },
             "CollidersSpec": {
                 "BoxColliders": [
@@ -133,7 +133,7 @@
                 },
                 "ConstructionStage0": {
                     "TimbermeshSpec": {
-                        "Model": "Buildings/Water/Pipes/ElbowPipe/Models/ElbowPipe.IronTeeth.Model"
+                        "Model": "Buildings/Water/Pipes/CrossPipe/Models/CrossPipe.Folktails.Model"
                     },
                     "CollidersSpec": {
                         "BoxColliders": [

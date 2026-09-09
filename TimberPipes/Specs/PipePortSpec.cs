@@ -12,3 +12,7 @@ public record PipePortSpec
     public PipePortState State { get; init; }
 
 }
+
+public record DirectedPipeSpec : ComponentSpec;
+
+public record ValvePipeSpec : ComponentSpec;

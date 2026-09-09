@@ -1,14 +1,18 @@
 {
     "BuildingSpec": {
-        "SelectionSoundName": "Default",
+        "SelectionSoundName": "MechanicalPump",
         "LoopingSoundName": "",
         "BuildingCost": [
             {
                 "Id": "Plank",
-                "Amount": 2
+                "Amount": 4
+            },
+            {
+                "Id": "Gear",
+                "Amount": 8
             }
         ],
-        "ScienceCost": 0,
+        "ScienceCost": 200,
         "PlaceFinished": false,
         "FinishableWithBeaversOnSite": true,
         "DrawRangeBoundsOnIt": false
@@ -22,7 +26,7 @@
         "UndergroundModelDepth": 0
     },
     "TemplateSpec": {
-        "TemplateName": "FourWayPipe.IronTeeth",
+        "TemplateName": "HorizontalPipePump.Folktails",
         "BackwardCompatibleTemplateNames": [],
         "RequiredFeatureToggle": "",
         "DisablingFeatureToggle": ""
@@ -63,7 +67,7 @@
     },
     "PlaceableBlockObjectSpec": {
         "ToolGroupId": "Pipes",
-        "ToolOrder": 30,
+        "ToolOrder": 50,
         "ToolShape": "Square",
         "Layout": "Single",
         "CustomPivot": {
@@ -78,10 +82,10 @@
         "DevModeTool": false
     },
     "LabeledEntitySpec": {
-        "DisplayNameLocKey": "LV.TPi.FourWayPipeName",
-        "DescriptionLocKey": "LV.TPi.FourWayPipeDesc",
-        "FlavorDescriptionLocKey": "LV.TPi.FourWayPipeFlavor",
-        "Icon": "Buildings/Water/Pipes/FourWayPipe/FourWayPipeIcon"
+        "DisplayNameLocKey": "LV.TPi.HorizontalPipePumpName",
+        "DescriptionLocKey": "LV.TPi.HorizontalPipePumpDesc",
+        "FlavorDescriptionLocKey": "LV.TPi.HorizontalPipePumpFlavor",
+        "Icon": "Buildings/Water/Pipes/HorizontalPipePump/HorizontalPipePumpIcon"
     },
     "BuildingPipeSpec": {
         "Ports": [
@@ -91,21 +95,54 @@
                     "Y": 0,
                     "Z": 0
                 },
-                "Directions": "Down, Left, Up, Right",
-                "State": "Open"
+                "Directions": "Down",
+                "State": "OpenIn"
+            },
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "Up",
+                "State": "OpenOut"
             }
         ]
     },
     "TransportPipeSpec": {},
+    "DirectedPipeSpec": {},
+    "PipeHeadliftSpec": {
+        "MaxHeadLift": 2
+    },
+    "MechanicalBuildingSpec": {},
+    "MechanicalNodeSpec": {
+        "PowerOutput": 0,
+        "PowerInput": 40,
+        "IsShaft": false
+    },
+    "TransputProviderSpec": {
+        "Transputs": [
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "Left, Right, Bottom",
+                "ReverseRotation": false
+            }
+        ]
+    },
     "ConstructionSiteProgressVisualizerSpec": {
         "ProgressThresholds": [
             0.0
         ]
     },
     "Children": {
+        "#Arrows": {},
         "#Finished": {
             "TimbermeshSpec": {
-                "Model": "Buildings/Water/Pipes/FourWayPipe/Models/FourWayPipe.IronTeeth.Model"
+                "Model": "Buildings/Water/Pipes/HorizontalPipePump/Models/HorizontalPipePump.Folktails.Model"
             },
             "CollidersSpec": {
                 "BoxColliders": [
@@ -133,7 +170,7 @@
                 },
                 "ConstructionStage0": {
                     "TimbermeshSpec": {
-                        "Model": "Buildings/Water/Pipes/FourWayPipe/Models/FourWayPipe.IronTeeth.Model"
+                        "Model": "Buildings/Water/Pipes/HorizontalPipePump/Models/HorizontalPipePump.Folktails.Model"
                     },
                     "CollidersSpec": {
                         "BoxColliders": [

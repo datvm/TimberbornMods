@@ -6,7 +6,7 @@ public record PipeSimulationSpec : ComponentSpec
     public float EqualizeK { get; init; } = 0.8f;
 
     [Serialize]
-    public int Substeps { get; init; } = 2;
+    public int Substeps { get; init; } = 4;
 
     [Serialize]
     public int DefaultInjectRate { get; init; } = 1;

@@ -1,14 +1,18 @@
 {
     "BuildingSpec": {
-        "SelectionSoundName": "Default",
+        "SelectionSoundName": "MechanicalPump",
         "LoopingSoundName": "",
         "BuildingCost": [
             {
                 "Id": "Plank",
-                "Amount": 1
+                "Amount": 4
+            },
+            {
+                "Id": "Gear",
+                "Amount": 8
             }
         ],
-        "ScienceCost": 0,
+        "ScienceCost": 200,
         "PlaceFinished": false,
         "FinishableWithBeaversOnSite": true,
         "DrawRangeBoundsOnIt": false
@@ -22,14 +26,14 @@
         "UndergroundModelDepth": 0
     },
     "TemplateSpec": {
-        "TemplateName": "HorizontalPipe.IronTeeth",
+        "TemplateName": "VerticalPipePump.Folktails",
         "BackwardCompatibleTemplateNames": [],
         "RequiredFeatureToggle": "",
         "DisablingFeatureToggle": ""
     },
     "BlockObjectNavMeshSettingsSpec": {
         "NoAutoWalls": false,
-        "GenerateFloorsOnStackable": false,
+        "GenerateFloorsOnStackable": true,
         "EdgeGroups": [],
         "UnblockedCoordinates": [],
         "BlockedEdges": []
@@ -43,8 +47,8 @@
         "Blocks": [
             {
                 "MatterBelow": "GroundOrStackable",
-                "Occupations": "Bottom, Path, Middle",
-                "Stackable": "None",
+                "Occupations": "Bottom, Top, Path, Middle",
+                "Stackable": "BlockObject",
                 "OccupyAllBelow": false,
                 "Underground": false
             }
@@ -63,9 +67,9 @@
     },
     "PlaceableBlockObjectSpec": {
         "ToolGroupId": "Pipes",
-        "ToolOrder": 10,
+        "ToolOrder": 80,
         "ToolShape": "Square",
-        "Layout": "TwoSegmentLine",
+        "Layout": "Single",
         "CustomPivot": {
             "HasCustomPivot": false,
             "Coordinates": {
@@ -78,10 +82,10 @@
         "DevModeTool": false
     },
     "LabeledEntitySpec": {
-        "DisplayNameLocKey": "LV.TPi.HorizontalPipeName",
-        "DescriptionLocKey": "LV.TPi.HorizontalPipeDesc",
-        "FlavorDescriptionLocKey": "LV.TPi.HorizontalPipeFlavor",
-        "Icon": "Buildings/Water/Pipes/HorizontalPipe/HorizontalPipeIcon"
+        "DisplayNameLocKey": "LV.TPi.VerticalPipePumpName",
+        "DescriptionLocKey": "LV.TPi.VerticalPipePumpDesc",
+        "FlavorDescriptionLocKey": "LV.TPi.VerticalPipePumpFlavor",
+        "Icon": "Buildings/Water/Pipes/VerticalPipePump/VerticalPipePumpIcon"
     },
     "BuildingPipeSpec": {
         "Ports": [
@@ -91,33 +95,66 @@
                     "Y": 0,
                     "Z": 0
                 },
-                "Directions": "Down, Up",
-                "State": "Open"
+                "Directions": "Bottom",
+                "State": "OpenIn"
+            },
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "Top",
+                "State": "OpenOut"
             }
         ]
     },
     "TransportPipeSpec": {},
+    "DirectedPipeSpec": {},
+    "PipeHeadliftSpec": {
+        "MaxHeadLift": 2
+    },
+    "MechanicalBuildingSpec": {},
+    "MechanicalNodeSpec": {
+        "PowerOutput": 0,
+        "PowerInput": 40,
+        "IsShaft": false
+    },
+    "TransputProviderSpec": {
+        "Transputs": [
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "Left, Right, Down, Up",
+                "ReverseRotation": false
+            }
+        ]
+    },
     "ConstructionSiteProgressVisualizerSpec": {
         "ProgressThresholds": [
             0.0
         ]
     },
     "Children": {
+        "#Arrows": {},
         "#Finished": {
             "TimbermeshSpec": {
-                "Model": "Buildings/Water/Pipes/HorizontalPipe/Models/HorizontalPipe.IronTeeth.Model"
+                "Model": "Buildings/Water/Pipes/VerticalPipePump/Models/VerticalPipePump.Folktails.Model"
             },
             "CollidersSpec": {
                 "BoxColliders": [
                     {
                         "Center": {
                             "X": 0.5,
-                            "Y": 0.23,
+                            "Y": 0.5,
                             "Z": 0.5
                         },
                         "Size": {
                             "X": 1.0,
-                            "Y": 0.46,
+                            "Y": 1,
                             "Z": 1.0
                         }
                     }
@@ -133,7 +170,7 @@
                 },
                 "ConstructionStage0": {
                     "TimbermeshSpec": {
-                        "Model": "Buildings/Water/Pipes/HorizontalPipe/Models/HorizontalPipe.IronTeeth.Model"
+                        "Model": "Buildings/Water/Pipes/VerticalPipePump/Models/VerticalPipePump.Folktails.Model"
                     },
                     "CollidersSpec": {
                         "BoxColliders": [

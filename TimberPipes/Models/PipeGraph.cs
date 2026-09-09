@@ -1,46 +1,45 @@
 ﻿namespace TimberPipes.Models;
 
-public record PipeGraph(
-    FrozenDictionary<Vector3Int, BuildingPipe> Pipes
-)
+public sealed class PipeGraph(FrozenDictionary<Vector3Int, BuildingPipe> pipes)
 {
+    public FrozenDictionary<Vector3Int, BuildingPipe> Pipes { get; } = pipes;
 
     public event EventHandler<BuildingPipe>? OnPortChanged; // Should not affect the graph
 
     public bool Contaminated { get; internal set; }
-
-    public string? FluidGoodId
-    {
-        get
-        {
-            foreach (var pipe in Pipes.Values)
-            {
-                if (pipe.FluidGoodId is not null && !pipe.IsContaminated)
-                {
-                    return pipe.FluidGoodId;
-                }
-            }
-
-            return null;
-        }
-    }
+    public Dictionary<BuildingPipe, float> TransmittedLift { get; } = [];
+    public PipeContaminationCause Cause { get; private set; }
+    public string? FluidGoodId { get; private set; }
 
     internal void RaisePortChanged(BuildingPipe pipe) => OnPortChanged?.Invoke(this, pipe);
 
-    public void RefreshContamination()
+    public void AdoptFluid(string? id)
     {
-        if (Contaminated)
+        if (Contaminated || id is null || id.Length == 0 || id == PipeFluids.ContaminatedId)
         {
-            Contaminate();
             return;
         }
 
+        if (FluidGoodId is null)
+        {
+            FluidGoodId = id;
+            return;
+        }
+
+        if (FluidGoodId != id)
+        {
+            Contaminate(new(FluidGoodId, id));
+        }
+    }
+
+    public void RefreshContamination()
+    {
         string? seen = null;
         foreach (var pipe in Pipes.Values)
         {
             if (pipe.IsContaminated)
             {
-                Contaminate();
+                Contaminate(Cause.HasPair ? Cause : pipe.ContaminationCause);
                 return;
             }
 
@@ -55,18 +54,42 @@ public record PipeGraph(
             }
             else if (seen != pipe.FluidGoodId)
             {
-                Contaminate();
+                Contaminate(new(seen, pipe.FluidGoodId));
                 return;
             }
         }
+
+        Contaminated = false;
+        Cause = default;
+        if (seen is not null)
+        {
+            AdoptFluid(seen);
+        }
     }
 
-    public void Contaminate()
+    public void Contaminate(PipeContaminationCause cause)
     {
+        if (!Contaminated)
+        {
+            Cause = cause;
+            if (cause.HasPair)
+            {
+                Warn($"[TimberPipes] Contaminated ({Pipes.Count} pipes): mixed {cause.GoodA} with {cause.GoodB}");
+            }
+            else
+            {
+                Warn($"[TimberPipes] Contaminated ({Pipes.Count} pipes)");
+            }
+        }
+        else if (!Cause.HasPair && cause.HasPair)
+        {
+            Cause = cause;
+        }
+
         Contaminated = true;
         foreach (var pipe in Pipes.Values)
         {
-            pipe.MarkContaminated();
+            pipe.MarkContaminated(Cause);
         }
     }
 
@@ -78,6 +101,20 @@ public record PipeGraph(
         }
 
         Contaminated = false;
+        Cause = default;
+        FluidGoodId = null;
+        TransmittedLift.Clear();
     }
 
+    static void Warn(string message)
+    {
+        try
+        {
+            Debug.LogWarning(message);
+        }
+        catch
+        {
+            Console.Error.WriteLine(message);
+        }
+    }
 }

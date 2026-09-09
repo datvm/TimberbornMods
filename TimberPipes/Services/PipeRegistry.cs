@@ -7,8 +7,23 @@ public class PipeRegistry
     readonly Dictionary<Vector3Int, BuildingPipe> pipes = [];
     readonly Dictionary<PipePortDefinition, BuildingPipe> portOwners = [];
 
-    readonly HashSet<PipeGraph> graphs = [];
-    public IReadOnlyCollection<PipeGraph> Graphs => graphs;
+    public IReadOnlyCollection<PipeGraph> Graphs
+    {
+        get
+        {
+            HashSet<PipeGraph> unique = [];
+            foreach (var pipe in pipes.Values)
+            {
+                if (pipe.IsTransportPipe && pipe.Graph is { } graph)
+                {
+                    unique.Add(graph);
+                }
+            }
+
+            return unique;
+        }
+    }
+
     public IEnumerable<BuildingPipe> All => pipes.Values;
 
     public bool TryGetGraph(Vector3Int coordinates, [NotNullWhen(true)] out PipeGraph? graph)
@@ -85,8 +100,6 @@ public class PipeRegistry
             return;
         }
 
-        graphs.Remove(oldGraph);
-
         List<BuildingPipe> remaining = [];
         foreach (var other in oldGraph.Pipes.Values)
         {
@@ -99,7 +112,7 @@ public class PipeRegistry
             remaining.Add(other);
         }
 
-        AssignComponents(remaining, oldGraph.Contaminated);
+        AssignComponents(remaining, oldGraph.Contaminated ? oldGraph.Cause : null);
     }
 
     void ConnectPorts(BuildingPipe pipe)
@@ -163,28 +176,26 @@ public class PipeRegistry
     {
         var component = FloodFillTransport(pipe);
 
-        var contaminated = IsMixedOrStamped(component);
-        HashSet<PipeGraph> oldGraphs = [];
+        PipeContaminationCause? inherited = null;
         foreach (var member in component)
         {
-            if (member.Graph is not { } graph)
+            if (member.Graph is { Contaminated: true } graph)
             {
-                continue;
+                inherited ??= graph.Cause;
             }
 
-            contaminated |= graph.Contaminated;
-            oldGraphs.Add(graph);
+            if (member.ContaminationCause.HasPair)
+            {
+                inherited ??= member.ContaminationCause;
+            }
+
+            member.Graph = null;
         }
 
-        foreach (var graph in oldGraphs)
-        {
-            graphs.Remove(graph);
-        }
-
-        CreateGraph(component, contaminated);
+        CreateGraph(component, inherited);
     }
 
-    void AssignComponents(List<BuildingPipe> pipesToAssign, bool contaminated)
+    void AssignComponents(List<BuildingPipe> pipesToAssign, PipeContaminationCause? inherited)
     {
         HashSet<BuildingPipe> remaining = [.. pipesToAssign];
         while (remaining.Count > 0)
@@ -202,11 +213,11 @@ public class PipeRegistry
                 remaining.Remove(member);
             }
 
-            CreateGraph(component, contaminated || IsMixedOrStamped(component));
+            CreateGraph(component, inherited);
         }
     }
 
-    void CreateGraph(List<BuildingPipe> component, bool contaminated)
+    void CreateGraph(List<BuildingPipe> component, PipeContaminationCause? inherited)
     {
         Dictionary<Vector3Int, BuildingPipe> map = [];
         foreach (var member in component)
@@ -215,27 +226,46 @@ public class PipeRegistry
         }
 
         var graph = new PipeGraph(map.ToFrozenDictionary());
-        graphs.Add(graph);
 
         foreach (var member in component)
         {
             member.Graph = graph;
         }
 
-        if (contaminated || IsMixedOrStamped(component))
+        if (MixCause(component) is { } mix)
         {
-            graph.Contaminate();
+            graph.Contaminate(mix);
+            return;
+        }
+
+        if (inherited is { } cause)
+        {
+            graph.Contaminate(cause);
+            return;
+        }
+
+        foreach (var member in component)
+        {
+            graph.AdoptFluid(member.FluidGoodId);
+            member.SyncNetworkGood();
         }
     }
 
-    static bool IsMixedOrStamped(List<BuildingPipe> component)
+    static PipeContaminationCause? MixCause(List<BuildingPipe> component)
     {
         string? seen = null;
+        PipeContaminationCause? stamped = null;
         foreach (var member in component)
         {
             if (member.IsContaminated)
             {
-                return true;
+                if (member.ContaminationCause.HasPair)
+                {
+                    return member.ContaminationCause;
+                }
+
+                stamped ??= new(null, null);
+                continue;
             }
 
             if (member.FluidGoodId is null)
@@ -249,11 +279,11 @@ public class PipeRegistry
             }
             else if (seen != member.FluidGoodId)
             {
-                return true;
+                return new(seen, member.FluidGoodId);
             }
         }
 
-        return false;
+        return stamped;
     }
 
     List<BuildingPipe> FloodFillTransport(BuildingPipe start)

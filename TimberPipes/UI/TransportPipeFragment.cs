@@ -5,7 +5,6 @@ public class TransportPipeFragment(
     ILoc t,
     IGoodService goods,
     NamedIconProvider icons,
-    PipeRegistry registry,
     PipeHighlighter highlighter,
     DialogService diag
 ) : BaseEntityPanelFragment<BuildingPipe>
@@ -20,6 +19,7 @@ public class TransportPipeFragment(
     IconSpan good = null!;
     Label amount = null!;
     Label headlift = null!;
+    Label mix = null!;
 
     protected override void InitializePanel()
     {
@@ -43,6 +43,8 @@ public class TransportPipeFragment(
         good = stats.AddIconSpan().SetMarginBottom(5);
         amount = stats.AddGameLabel().SetMarginBottom(5);
         headlift = stats.AddGameLabel();
+        mix = panel.AddGameLabel().SetMargin(top: 4);
+        mix.style.whiteSpace = WhiteSpace.Normal;
         panel.AddGameButtonPadded(t.T("LV.TPi.Flush"), Flush, stretched: true).SetMargin(top: 8);
     }
 
@@ -90,7 +92,7 @@ public class TransportPipeFragment(
         var volume = Math.Clamp(pipe.FluidHeight, 0f, capacity);
         var ratio = capacity <= 0f ? 0f : volume / capacity;
         var contaminated = pipe.IsContaminated || pipe.Graph is { Contaminated: true };
-        var extra = contaminated ? 0f : PipeHeadlift.ExtraAt(pipe, registry);
+        var extra = contaminated ? 0f : PipeHeadlift.ExtraAt(pipe);
 
         fill.SetHeightPercent(ratio * 100f);
         fill.style.backgroundColor = GetFillColor(pipe);
@@ -102,14 +104,40 @@ public class TransportPipeFragment(
         headlift.text = string.Format(
             t.T("LV.TPi.Headlift"),
             extra);
+        RefreshMix(pipe);
         HighlightGraph(pipe);
+    }
+
+    void RefreshMix(BuildingPipe pipe)
+    {
+        if (pipe.Graph is { Contaminated: true, Cause.HasPair: true } graph)
+        {
+            mix.ToggleDisplayStyle(true);
+            mix.text = string.Format(
+                t.T("LV.TPi.ContaminatedMix"),
+                GoodName(graph.Cause.GoodA),
+                GoodName(graph.Cause.GoodB));
+            return;
+        }
+
+        mix.ToggleDisplayStyle(false);
+    }
+
+    string GoodName(string? id)
+    {
+        if (id is { Length: > 0 } && goods.HasGood(id))
+        {
+            return goods.GetGood(id).DisplayName.Value;
+        }
+
+        return id ?? t.TNone();
     }
 
     void HighlightGraph(BuildingPipe pipe)
     {
         if (pipe.Graph is { } graph)
         {
-            highlighter.HighlightGraph(graph);
+            highlighter.HighlightGraph(graph, pipe);
             return;
         }
 
@@ -135,7 +163,7 @@ public class TransportPipeFragment(
             return;
         }
 
-        if (pipe.FluidGoodId is { } id && goods.HasGood(id))
+        if (pipe.NetworkGoodId is { } id && goods.HasGood(id))
         {
             good.SetGood(goods, id, showName: true);
             return;
@@ -151,7 +179,7 @@ public class TransportPipeFragment(
             return ContaminatedFill;
         }
 
-        if (pipe.FluidGoodId is not { } id)
+        if (pipe.NetworkGoodId is not { } id)
         {
             return GaugeEmpty;
         }

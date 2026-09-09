@@ -4,19 +4,20 @@ namespace TimberPipes.Components;
 public class PipeDump : BaseComponent, IAwakableComponent
 {
 #nullable disable
-    PipeToBuildingSpec spec;
     BuildingPipe pipe;
     Inventories inventories;
 #nullable enable
 
+    PipeToBuildingSpec? spec;
+
     PausableBuilding? pausable;
 
     public BuildingPipe Pipe => pipe;
-    public int? SlurpRate => spec.SlurpRate;
+    public int? SlurpRate => spec?.SlurpRate;
 
     public void Awake()
     {
-        spec = GetComponent<PipeToBuildingSpec>();
+        spec = TryGetComponent<PipeToBuildingSpec>(out var toBuilding) ? toBuilding : null;
         pipe = GetComponent<BuildingPipe>();
         inventories = GetComponent<Inventories>();
         pausable = this.GetComponentOrNull<PausableBuilding>();
@@ -61,7 +62,7 @@ public class PipeDump : BaseComponent, IAwakableComponent
         var slurped = 0;
         while (slurped < maxPackets
             && source.FluidHeight >= PipeFluids.PacketVolume
-            && source.FluidGoodId is { } goodId
+            && source.NetworkGoodId is { } goodId
             && !source.IsContaminated)
         {
             if (!TryGiveGood(goodId))

@@ -63,7 +63,7 @@
     },
     "PlaceableBlockObjectSpec": {
         "ToolGroupId": "Pipes",
-        "ToolOrder": 20,
+        "ToolOrder": 30,
         "ToolShape": "Square",
         "Layout": "Single",
         "CustomPivot": {
