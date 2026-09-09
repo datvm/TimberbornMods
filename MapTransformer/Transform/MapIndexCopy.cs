@@ -48,17 +48,12 @@ static class MapIndexCopy
         {
             for (var x = 0; x < size.x; x++)
             {
-                if (!t.TryUnmapOrFill(new Vector3Int(x, y, 0), out var src))
+                if (!t.TryUnmapColumn(new Vector2Int(x, y), out var src))
                 {
                     continue;
                 }
 
-                if (src.x < 0 || src.y < 0 || src.x >= t.OldTerrainSize.x || src.y >= t.OldTerrainSize.y)
-                {
-                    continue;
-                }
-
-                var oldI = ctx.OldMapIndex.CellToIndex(new Vector2Int(src.x, src.y));
+                var oldI = ctx.OldMapIndex.CellToIndex(src);
                 var newI = ctx.MapIndex.CellToIndex(new Vector2Int(x, y));
                 var n = Math.Min(oldCounts[oldI], newCounts[newI]);
                 for (var col = 0; col < n; col++)
@@ -84,17 +79,12 @@ static class MapIndexCopy
         {
             for (var x = 0; x < size.x; x++)
             {
-                if (!t.TryUnmapOrFill(new Vector3Int(x, y, 0), out var src))
+                if (!t.TryUnmapColumn(new Vector2Int(x, y), out var src))
                 {
                     continue;
                 }
 
-                if (src.x < 0 || src.y < 0 || src.x >= t.OldTerrainSize.x || src.y >= t.OldTerrainSize.y)
-                {
-                    continue;
-                }
-
-                var oldI = ctx.OldMapIndex.CellToIndex(new Vector2Int(src.x, src.y));
+                var oldI = ctx.OldMapIndex.CellToIndex(src);
                 var newI = ctx.MapIndex.CellToIndex(new Vector2Int(x, y));
                 var n = Math.Min(oldMaxColumns, newMaxColumns);
                 for (var col = 0; col < n; col++)

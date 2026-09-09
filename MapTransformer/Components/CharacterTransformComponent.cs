@@ -15,18 +15,24 @@ class CharacterTransformComponent(EntityRegistry entities) : IMapResizeComponent
                 continue;
             }
 
+            var walker = character.GetComponent<Walker>();
+            if (walker)
+            {
+                walker.StopMoving();
+            }
+
+            var animator = character.GetComponent<MovementAnimator>();
+            if (animator)
+            {
+                animator.StopAnimatingMovement();
+            }
+
             var mapped = ctx.Transform.MapWorld(character.Transform.position);
             character.Transform.position = mapped;
             var model = character.GetComponent<CharacterModel>();
             if (model)
             {
                 model.Position = mapped;
-            }
-
-            var walker = character.GetComponent<Walker>();
-            if (walker)
-            {
-                walker.StopNextTick();
             }
         }
     }

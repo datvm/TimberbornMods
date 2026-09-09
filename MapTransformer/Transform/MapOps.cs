@@ -2,9 +2,9 @@ namespace MapTransformer.Transform;
 
 enum MapOp
 {
-    Resize,
+    ResizeXy,
+    ResizeHeight,
     AddHeight,
-    RemoveHeight,
     Rotate,
     Flip,
 }
@@ -14,13 +14,4 @@ enum EnlargeFill
     Empty,
     CopyEdge,
     Mirror,
-}
-
-enum MapPivot
-{
-    MinMin,
-    MaxMin,
-    MinMax,
-    MaxMax,
-    Center,
 }
