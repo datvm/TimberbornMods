@@ -77,6 +77,37 @@ public static class ValvePipeIo
         return false;
     }
 
+    public static bool HasKnownExtractLiquid(
+        IEnumerable<string> outputGoods,
+        IEnumerable<string> takeableStock,
+        HashSet<string> liquids)
+        => HasLiquidInput(outputGoods, liquids) || HasLiquidInput(takeableStock, liquids);
+
+    public static bool TargetStillValid(bool buildingPresent, bool finished, int enabledInventoryCount)
+        => buildingPresent && finished && HasActiveInventory(enabledInventoryCount);
+
+    public static HashSet<string> LiquidIds(IGoodService goods)
+    {
+        if (liquidIds is { } cached)
+        {
+            return cached;
+        }
+
+        HashSet<string> ids = [];
+        foreach (var id in goods.GetGoodsForType(PipeFluids.LiquidGoodType))
+        {
+            if (goods.HasGood(id))
+            {
+                ids.Add(id);
+            }
+        }
+
+        liquidIds = ids;
+        return ids;
+    }
+
+    static HashSet<string>? liquidIds;
+
     public static List<string> KnownExtractLiquids(
         IEnumerable<string> outputGoods,
         IEnumerable<string> takeableStock,
@@ -102,8 +133,29 @@ public static class ValvePipeIo
         return [.. ids];
     }
 
-    public static List<string> ExtractDropdownGoods(List<string> known, IReadOnlyList<string> allLiquids)
-        => known.Count > 0 ? known : [.. allLiquids];
+    public static List<string> ExtractDropdownGoods(
+        List<string> known,
+        IEnumerable<string> allLiquids,
+        string? storedGoodId = null)
+    {
+        List<string> ids = known.Count > 0 ? [.. known] : [.. allLiquids];
+        if (storedGoodId is { Length: > 0 } && !ids.Contains(storedGoodId))
+        {
+            ids.Add(storedGoodId);
+        }
+
+        return ids;
+    }
+
+    public static string? DefaultExtractGood(string? storedGoodId, IReadOnlyList<string> available)
+    {
+        if (storedGoodId is { Length: > 0 })
+        {
+            return storedGoodId;
+        }
+
+        return available.Count > 0 ? available[0] : null;
+    }
 
     public static bool ShouldInlet(
         bool enabled,

@@ -29,9 +29,9 @@ public class ValvePipeFragment(
         outletGoodRow = outletSection.AddRow().AlignItems().SetMarginBottom(5);
 
         outletToggle = outletGoodRow.AddGamePanelToggle(t.T("LV.TPi.ValveOutlet"), OnOutletChanged)
-            .SetMarginRight(5);
+            .SetFlexShrink(0).SetMarginRight(5);
 
-        outletGood = outletToggle.AddDropdown().SetFlexGrow();
+        outletGood = outletGoodRow.AddDropdown().SetFlexGrow();
         outletGood.Initialize(veInit);
         outletGoods = new(goods);
         outletGoods.Changed += OnOutletGoodChanged;
@@ -115,6 +115,7 @@ public class ValvePipeFragment(
         valve.OutletEnabled = enabled;
         if (enabled && valve.OutletGoodId is null)
         {
+            valve.OutletGoodId = ValvePipeIo.DefaultExtractGood(null, OutletGoodIds(valve));
             refreshing = true;
             RefreshOutletGoods(valve);
             refreshing = false;
@@ -134,16 +135,10 @@ public class ValvePipeFragment(
     void RefreshOutletGoods(ValvePipe valve)
     {
         var ids = OutletGoodIds(valve);
-        if (ids.Count == 0)
-        {
-            valve.OutletGoodId = null;
-            BindOutletGoods([], "");
-            return;
-        }
-
-        var selected = valve.OutletGoodId is { } id && ids.Contains(id) ? id : ids[0];
-        valve.OutletGoodId = selected;
-        BindOutletGoods(ids, selected);
+        var display = valve.OutletGoodId is { Length: > 0 } id
+            ? id
+            : ids.Count > 0 ? ids[0] : "";
+        BindOutletGoods(ids, display);
     }
 
     void BindOutletGoods(List<string> ids, string selectedId)

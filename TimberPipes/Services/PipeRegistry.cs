@@ -1,30 +1,28 @@
 ﻿namespace TimberPipes.Services;
 
 [BindSingleton]
-public class PipeRegistry
+public class PipeRegistry(EventBus eventBus) : ILoadableSingleton
 {
-
     readonly Dictionary<Vector3Int, BuildingPipe> pipes = [];
     readonly Dictionary<PipePortDefinition, BuildingPipe> portOwners = [];
+    readonly HashSet<PipeGraph> graphs = [];
+    readonly List<ValvePipe> valves = [];
+    readonly List<PipeTank> tanks = [];
+    readonly List<HeadliftPipe> headlifts = [];
 
-    public IReadOnlyCollection<PipeGraph> Graphs
-    {
-        get
-        {
-            HashSet<PipeGraph> unique = [];
-            foreach (var pipe in pipes.Values)
-            {
-                if (pipe.IsTransportPipe && pipe.Graph is { } graph)
-                {
-                    unique.Add(graph);
-                }
-            }
-
-            return unique;
-        }
-    }
-
+    public IReadOnlyCollection<PipeGraph> Graphs => graphs;
+    public IReadOnlyList<ValvePipe> Valves => valves;
+    public IReadOnlyList<PipeTank> Tanks => tanks;
+    public IReadOnlyList<HeadliftPipe> Headlifts => headlifts;
     public IEnumerable<BuildingPipe> All => pipes.Values;
+
+    public void Load() => eventBus.Register(this);
+
+    [OnEvent]
+    public void OnEnteredFinishedState(EnteredFinishedStateEvent e) => InvalidateValveTargets(e.BlockObject);
+
+    [OnEvent]
+    public void OnExitedFinishedState(ExitedFinishedStateEvent e) => InvalidateValveTargets(e.BlockObject);
 
     public bool TryGetGraph(Vector3Int coordinates, [NotNullWhen(true)] out PipeGraph? graph)
     {
@@ -64,19 +62,103 @@ public class PipeRegistry
         }
 
         pipes[buildingPipe.Coordinates] = buildingPipe;
+        buildingPipe.CacheModules();
+        AddToBuckets(buildingPipe);
         IndexPorts(buildingPipe);
         RebuildGraph(buildingPipe, adding: true);
+        DirtyConnectedGraphs(buildingPipe);
     }
 
     internal void Unregister(BuildingPipe buildingPipe)
     {
-        if (!pipes.Remove(buildingPipe.Coordinates))
+        if (!pipes.ContainsKey(buildingPipe.Coordinates))
         {
             throw new InvalidOperationException($"No pipe registered at {buildingPipe.Coordinates}");
         }
 
+        DirtyConnectedGraphs(buildingPipe);
+        RemoveFromBuckets(buildingPipe);
+        pipes.Remove(buildingPipe.Coordinates);
         RebuildGraph(buildingPipe, adding: false);
         UnindexPorts(buildingPipe);
+    }
+
+    void AddToBuckets(BuildingPipe buildingPipe)
+    {
+        if (buildingPipe.Valve is { } valve)
+        {
+            valves.Add(valve);
+        }
+
+        if (buildingPipe.Tank is { } tank)
+        {
+            tanks.Add(tank);
+        }
+
+        if (buildingPipe.Headlift is { } headlift)
+        {
+            headlifts.Add(headlift);
+        }
+    }
+
+    void RemoveFromBuckets(BuildingPipe buildingPipe)
+    {
+        if (buildingPipe.Valve is { } valve)
+        {
+            valves.Remove(valve);
+        }
+
+        if (buildingPipe.Tank is { } tank)
+        {
+            tanks.Remove(tank);
+        }
+
+        if (buildingPipe.Headlift is { } headlift)
+        {
+            headlifts.Remove(headlift);
+        }
+    }
+
+    void DirtyConnectedGraphs(BuildingPipe pipe)
+    {
+        if (pipe.Graph is { } graph)
+        {
+            graph.Flow.Dirty = true;
+        }
+
+        if (pipe.Ports is not { } ports)
+        {
+            return;
+        }
+
+        foreach (var port in ports.Values)
+        {
+            if (!TryGetConnectedBuilding(port, out var other) || other.Graph is not { } otherGraph)
+            {
+                continue;
+            }
+
+            otherGraph.Flow.Dirty = true;
+        }
+    }
+
+    void InvalidateValveTargets(BlockObject bo)
+    {
+        if (!bo || valves.Count == 0)
+        {
+            return;
+        }
+
+        foreach (var cell in bo.Blocks.GetOccupiedCoordinates())
+        {
+            foreach (var valve in valves)
+            {
+                if (valve.FacesCell(cell))
+                {
+                    valve.InvalidateIoTargets();
+                }
+            }
+        }
     }
 
     void RebuildGraph(BuildingPipe pipe, bool adding)
@@ -94,12 +176,14 @@ public class PipeRegistry
         var oldGraph = pipe.Graph;
         DisconnectPorts(pipe);
         pipe.Graph = null;
+        pipe.RefreshContaminationStatus();
 
         if (!pipe.IsTransportPipe || oldGraph is null)
         {
             return;
         }
 
+        graphs.Remove(oldGraph);
         List<BuildingPipe> remaining = [];
         foreach (var other in oldGraph.Pipes.Values)
         {
@@ -177,11 +261,16 @@ public class PipeRegistry
         var component = FloodFillTransport(pipe);
 
         PipeContaminationCause? inherited = null;
+        HashSet<PipeGraph> oldGraphs = [];
         foreach (var member in component)
         {
-            if (member.Graph is { Contaminated: true } graph)
+            if (member.Graph is { } graph)
             {
-                inherited ??= graph.Cause;
+                oldGraphs.Add(graph);
+                if (graph.Contaminated)
+                {
+                    inherited ??= graph.Cause;
+                }
             }
 
             if (member.ContaminationCause.HasPair)
@@ -190,6 +279,11 @@ public class PipeRegistry
             }
 
             member.Graph = null;
+        }
+
+        foreach (var old in oldGraphs)
+        {
+            graphs.Remove(old);
         }
 
         CreateGraph(component, inherited);
@@ -226,6 +320,7 @@ public class PipeRegistry
         }
 
         var graph = new PipeGraph(map.ToFrozenDictionary());
+        graphs.Add(graph);
 
         foreach (var member in component)
         {
@@ -249,6 +344,8 @@ public class PipeRegistry
             graph.AdoptFluid(member.FluidGoodId);
             member.SyncNetworkGood();
         }
+
+        graph.RefreshStatusIcons();
     }
 
     static PipeContaminationCause? MixCause(List<BuildingPipe> component)
@@ -383,5 +480,4 @@ public class PipeRegistry
             portOwners.Remove(def);
         }
     }
-
 }

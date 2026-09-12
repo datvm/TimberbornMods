@@ -12,20 +12,17 @@ public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
     Inventories inventories;
 #nullable enable
 
-    FluidBufferBuildingSpec? spec;
-
     float pending;
 
     public BuildingPipe Pipe => pipe;
     public int ZBase => bo.Coordinates.z;
-    public int HeightTiles => spec?.Height ?? Math.Max(1, bo.Blocks.Size.z);
+    public int HeightTiles => Math.Max(1, bo.Blocks.Size.z);
     public int SliceCount => PipeFlowSolver.SliceCount(HeightTiles);
 
     public int SliceAt(int worldZ) => PipeFlowSolver.SliceIndex(worldZ, ZBase, HeightTiles);
 
     public void Awake()
     {
-        spec = TryGetComponent<FluidBufferBuildingSpec>(out var buffer) ? buffer : null;
         pipe = GetComponent<BuildingPipe>();
         bo = GetComponent<BlockObject>();
         inventories = GetComponent<Inventories>();

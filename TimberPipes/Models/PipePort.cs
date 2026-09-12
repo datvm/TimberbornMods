@@ -5,8 +5,6 @@ public record PipePort(PipePortDefinition Definition, PipePortSpec PortSpec)
     public Vector3Int Coordinates => Definition.Coordinates;
     public Direction3D Direction => Definition.Direction;
 
-    public PipePortState? OverrideState { get; set; }
-
     public PipePortState State { get; internal set; } = PortSpec.State;
     public PipePortConnection? Connection { get; internal set; }
     public PipePort? ConnectedPort => Connection?.GetOther(this);

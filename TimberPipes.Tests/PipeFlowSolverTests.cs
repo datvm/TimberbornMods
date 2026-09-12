@@ -113,10 +113,6 @@ public class PipeFlowSolverTests
         Assert.True(PipeFlowSolver.TankConflictsWithPipe("Biofuel", tankTakesPipeGood: true, "Water"));
         Assert.False(PipeFlowSolver.TankConflictsWithPipe("Water", tankTakesPipeGood: true, "Water"));
         Assert.False(PipeFlowSolver.TankConflictsWithPipe("Biofuel", tankTakesPipeGood: true, null));
-        Assert.False(PipeFlowSolver.WellConflictsWithPipe(null, "Water"));
-        Assert.False(PipeFlowSolver.WellConflictsWithPipe("Water", "Water"));
-        Assert.True(PipeFlowSolver.WellConflictsWithPipe("Biofuel", "Water"));
-        Assert.False(PipeFlowSolver.WellConflictsWithPipe("Water", null));
     }
 
     [Fact]
@@ -751,6 +747,38 @@ public class PipeFlowSolverTests
         4 => 0,
         _ => 0,
     };
+
+    [Fact]
+    public void ScratchRunMatchesFreshRun()
+    {
+        float[] a = [1f, 0f, 0f, 0f, 0f];
+        float[] b = [1f, 0f, 0f, 0f, 0f];
+        var caps = Caps(5);
+        int[] z = [0, 0, 0, 0, 0];
+        var edges = Chain(4);
+        var extraA = new float[5];
+        var extraB = new float[5];
+        var lift = new float[5];
+        var qMax = new float[5];
+        var scratch = new PipeFlowScratch();
+        PipeHeadFill fill = (heads, current) =>
+        {
+            for (var i = 0; i < current.Length; i++)
+            {
+                heads[i] = PipeFlowSolver.PipeHead(z[i], current[i]);
+            }
+        };
+
+        PipeFlowSolver.Run(a, caps, z, edges, 5, 5, lift, qMax, 4, 0.25f, extraA, fill);
+        PipeFlowSolver.Run(b, caps, z, edges, 5, 5, lift, qMax, 4, 0.25f, extraB, fill, scratch);
+        for (var i = 0; i < 5; i++)
+        {
+            Assert.Equal(a[i], b[i], 5);
+        }
+
+        PipeFlowSolver.Run(b, caps, z, edges, 5, 5, lift, qMax, 4, 0.25f, extraB, fill, scratch);
+        Assert.Equal(1f, b.Sum(), 4);
+    }
 
     static float GravityUBendWithWell(int i, float v)
         => i < 5

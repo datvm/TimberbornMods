@@ -16,12 +16,18 @@ public class ValvePipe(IBlockService blockService, IGoodService goods) : BaseCom
 
     PausableBuilding? pausable;
 
+    public BuildingPipe Pipe => pipe;
+
     public bool InletEnabled { get; set; }
     public bool OutletEnabled { get; set; }
     public string? OutletGoodId { get; set; }
 
     float extractBuffer;
     string? extractBufferGoodId;
+    ValveIoTarget? inletTarget;
+    ValveIoTarget? outletTarget;
+    bool inletCached;
+    bool outletCached;
 
     public void Awake()
     {
@@ -29,9 +35,40 @@ public class ValvePipe(IBlockService blockService, IGoodService goods) : BaseCom
         pausable = this.GetComponentOrNull<PausableBuilding>();
     }
 
-    public ValveIoTarget? FindInletTarget() => FindTarget(PipePortState.OpenOut, fill: true);
+    public ValveIoTarget? FindInletTarget() => CachedTarget(ref inletTarget, ref inletCached, PipePortState.OpenOut, fill: true);
 
-    public ValveIoTarget? FindOutletTarget() => FindTarget(PipePortState.OpenIn, fill: false);
+    public ValveIoTarget? FindOutletTarget() => CachedTarget(ref outletTarget, ref outletCached, PipePortState.OpenIn, fill: false);
+
+    public void InvalidateIoTargets()
+    {
+        inletTarget = null;
+        outletTarget = null;
+        inletCached = false;
+        outletCached = false;
+    }
+
+    public bool FacesCell(Vector3Int cell)
+    {
+        if (pipe.Ports is not { } ports)
+        {
+            return false;
+        }
+
+        foreach (var port in ports.Values)
+        {
+            if ((port.PortSpec.State & (PipePortState.OpenIn | PipePortState.OpenOut)) == 0)
+            {
+                continue;
+            }
+
+            if (port.GetOppositePortDefinition().Coordinates == cell)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public void TryTransfer(int maxPackets)
     {
@@ -51,12 +88,12 @@ public class ValvePipe(IBlockService blockService, IGoodService goods) : BaseCom
             return [];
         }
 
-        var liquids = LiquidIdSet();
+        var liquids = ValvePipeIo.LiquidIds(goods);
         var known = ValvePipeIo.KnownExtractLiquids(
             OutputGoodIds(target.Inventories),
             TakeableGoodIds(target.Inventories),
             liquids);
-        return ValvePipeIo.ExtractDropdownGoods(known, [.. liquids]);
+        return ValvePipeIo.ExtractDropdownGoods(known, liquids, OutletGoodId);
     }
 
     public void Save(IEntitySaver entitySaver)
@@ -164,7 +201,25 @@ public class ValvePipe(IBlockService blockService, IGoodService goods) : BaseCom
         }
     }
 
-    ValveIoTarget? FindTarget(PipePortState required, bool fill)
+    ValveIoTarget? CachedTarget(ref ValveIoTarget? cached, ref bool resolved, PipePortState required, bool fill)
+    {
+        if (resolved && (cached is null || TargetValid(cached.Value)))
+        {
+            return cached;
+        }
+
+        cached = ScanTarget(required, fill);
+        resolved = true;
+        return cached;
+    }
+
+    static bool TargetValid(ValveIoTarget target)
+        => ValvePipeIo.TargetStillValid(
+            target.Building && target.Inventories,
+            target.Building && target.Building.IsFinished,
+            target.Inventories ? target.Inventories.EnabledInventories.Count : 0);
+
+    ValveIoTarget? ScanTarget(PipePortState required, bool fill)
     {
         if (pipe.Ports is not { } ports)
         {
@@ -207,18 +262,15 @@ public class ValvePipe(IBlockService blockService, IGoodService goods) : BaseCom
                 continue;
             }
 
-            var liquids = LiquidIdSet();
+            var liquids = ValvePipeIo.LiquidIds(goods);
             if (fill)
             {
-                if (!ValvePipeIo.HasLiquidInput(InputGoodIds(inventories), liquids))
+                if (!HasFillInput(inventories, liquids))
                 {
                     continue;
                 }
             }
-            else if (ValvePipeIo.KnownExtractLiquids(
-                OutputGoodIds(inventories),
-                TakeableGoodIds(inventories),
-                liquids).Count == 0)
+            else if (!HasExtractLiquid(inventories, liquids))
             {
                 continue;
             }
@@ -230,32 +282,44 @@ public class ValvePipe(IBlockService blockService, IGoodService goods) : BaseCom
         return false;
     }
 
-    HashSet<string> LiquidIdSet()
+    static bool HasFillInput(Inventories inventories, HashSet<string> liquids)
     {
-        HashSet<string> ids = [];
-        foreach (var id in goods.GetGoodsForType(PipeFluids.LiquidGoodType))
-        {
-            if (goods.HasGood(id))
-            {
-                ids.Add(id);
-            }
-        }
-
-        return ids;
-    }
-
-    static List<string> InputGoodIds(Inventories inventories)
-    {
-        List<string> ids = [];
         foreach (var inv in inventories.EnabledInventories)
         {
             foreach (var id in inv.InputGoods)
             {
-                ids.Add(id);
+                if (liquids.Contains(id))
+                {
+                    return true;
+                }
             }
         }
 
-        return ids;
+        return false;
+    }
+
+    static bool HasExtractLiquid(Inventories inventories, HashSet<string> liquids)
+    {
+        foreach (var inv in inventories.EnabledInventories)
+        {
+            foreach (var id in inv.OutputGoods)
+            {
+                if (liquids.Contains(id))
+                {
+                    return true;
+                }
+            }
+
+            foreach (var stock in inv.UnreservedTakeableStock())
+            {
+                if (stock.Amount > 0 && liquids.Contains(stock.GoodId))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     static List<string> OutputGoodIds(Inventories inventories)

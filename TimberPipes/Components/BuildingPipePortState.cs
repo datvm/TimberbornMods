@@ -1,9 +1,8 @@
-﻿namespace TimberPipes.Components;
+namespace TimberPipes.Components;
 
 [AddTemplateModule2(typeof(BuildingPipe))]
 public class BuildingPipePortState : BaseComponent, IAwakableComponent, IFinishedStateListener
 {
-
 #nullable disable
     BuildingPipe buildingPipe;
 #nullable enable
@@ -20,25 +19,34 @@ public class BuildingPipePortState : BaseComponent, IAwakableComponent, IFinishe
 
     public void RefreshPortStatus()
     {
-        if (buildingPipe.Ports is not { } ports) { return; }
+        if (buildingPipe.Ports is not { } ports)
+        {
+            return;
+        }
 
         var hasChanged = false;
         var paused = pausableBuilding is { Paused: true };
 
         foreach (var p in ports.Values)
         {
-            var target = (p.OverrideState ?? p.PortSpec.State).WithPause(paused, isValve);
-            if (p.State == target) { continue; }
+            var target = p.PortSpec.State.WithPause(paused, isValve);
+            if (p.State == target)
+            {
+                continue;
+            }
 
             hasChanged = true;
             p.State = target;
         }
 
-        if (!hasChanged) { return; }
+        if (!hasChanged)
+        {
+            return;
+        }
+
         buildingPipe.Graph?.RaisePortChanged(buildingPipe);
     }
 
     public void OnEnterFinishedState() => RefreshPortStatus();
-    public void OnExitFinishedState() { } // No need closing, they all will be destroyed soon.
-
+    public void OnExitFinishedState() { }
 }

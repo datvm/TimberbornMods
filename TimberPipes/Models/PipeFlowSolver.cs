@@ -16,28 +16,18 @@ public static class PipeFlowSolver
         => volume >= capacity - PipeFluids.FullEpsilon;
 
     public static bool TankConflictsWithPipe(string? tankStoredGoodId, bool tankTakesPipeGood, string? pipeGoodId)
-        => InventoryConflictsWithPipe(tankStoredGoodId, tankTakesPipeGood, pipeGoodId, emptyMustAccept: true);
-
-    public static bool WellConflictsWithPipe(string? wellStoredGoodId, string? pipeGoodId)
-        => InventoryConflictsWithPipe(wellStoredGoodId, takesPipeGood: true, pipeGoodId, emptyMustAccept: false);
-
-    public static bool InventoryConflictsWithPipe(
-        string? storedGoodId,
-        bool takesPipeGood,
-        string? pipeGoodId,
-        bool emptyMustAccept)
     {
         if (pipeGoodId is null)
         {
             return false;
         }
 
-        if (storedGoodId is not null)
+        if (tankStoredGoodId is not null)
         {
-            return storedGoodId != pipeGoodId;
+            return tankStoredGoodId != pipeGoodId;
         }
 
-        return emptyMustAccept && !takesPipeGood;
+        return !tankTakesPipeGood;
     }
 
     public static float TankHead(int zBase, float volumeM3, float capacityM3, int heightTiles)
@@ -124,22 +114,27 @@ public static class PipeFlowSolver
         int gravitySubsteps,
         float kDt,
         Span<float> remainingLift,
-        PipeHeadFill fillHeads)
+        PipeHeadFill fillHeads,
+        PipeFlowScratch? scratch = null)
     {
         var n = volumes.Length;
         var flow = Math.Clamp(flowCount, 0, n);
         var pipes = Math.Clamp(pipeCount, 0, flow);
-        var heads = new float[n];
+        scratch ??= new();
+        scratch.Ensure(n, edges.Length);
+        scratch.BuildOutflows(n, edges);
+        var adj = scratch.Adj;
+        var heads = scratch.Heads.AsSpan(0, n);
         var steps = Math.Max(1, gravitySubsteps);
         for (var step = 0; step < steps; step++)
         {
             fillHeads(heads, volumes);
-            Equalize(volumes, heads, capacities, edges, kDt);
+            Equalize(volumes, heads, capacities, edges, kDt, scratch);
         }
 
-        EqualizeVessels(volumes, capacities, z, edges, flow);
-        PushPumps(volumes, capacities, z, edges, sourceLift, qMax, flow);
-        ComputeRemainingLift(z, volumes, capacities, edges, sourceLift, remainingLift, pipes);
+        EqualizeVessels(volumes, capacities, z, adj, flow);
+        PushPumps(volumes, capacities, z, adj, sourceLift, qMax, flow);
+        ComputeRemainingLift(z, volumes, capacities, adj, sourceLift, remainingLift, pipes);
     }
 
     public static void Equalize(
@@ -147,7 +142,8 @@ public static class PipeFlowSolver
         ReadOnlySpan<float> heads,
         ReadOnlySpan<float> capacities,
         ReadOnlySpan<PipeFlowEdge> edges,
-        float kDt)
+        float kDt,
+        PipeFlowScratch? scratch = null)
     {
         var n = volumes.Length;
         var edgeCount = edges.Length;
@@ -156,9 +152,13 @@ public static class PipeFlowSolver
             return;
         }
 
-        var desired = new float[edgeCount];
-        var outgoing = new float[n];
-        var incoming = new float[n];
+        scratch ??= new();
+        scratch.Ensure(n, edgeCount);
+        var desired = scratch.Desired;
+        var outgoing = scratch.Outgoing;
+        var incoming = scratch.Incoming;
+        Array.Clear(outgoing, 0, n);
+        Array.Clear(incoming, 0, n);
 
         for (var i = 0; i < edgeCount; i++)
         {
@@ -187,8 +187,8 @@ public static class PipeFlowSolver
             }
         }
 
-        var scaleOut = new float[n];
-        var scaleIn = new float[n];
+        var scaleOut = scratch.ScaleOut;
+        var scaleIn = scratch.ScaleIn;
         for (var i = 0; i < n; i++)
         {
             scaleOut[i] = outgoing[i] > volumes[i] && outgoing[i] > 0
@@ -231,7 +231,7 @@ public static class PipeFlowSolver
         }
     }
 
-    public     static void EqualizeVessels(
+    public static void EqualizeVessels(
         Span<float> volumes,
         ReadOnlySpan<float> capacities,
         ReadOnlySpan<int> z,
@@ -244,7 +244,16 @@ public static class PipeFlowSolver
             return;
         }
 
-        var adj = Outflows(n, edges);
+        EqualizeVessels(volumes, capacities, z, Outflows(n, edges), flowCount);
+    }
+
+    static void EqualizeVessels(
+        Span<float> volumes,
+        ReadOnlySpan<float> capacities,
+        ReadOnlySpan<int> z,
+        List<int>[] adj,
+        int flowCount)
+    {
         var coreVisited = new bool[flowCount];
         List<int> tops = [];
         HashSet<int> topSet = [];
@@ -344,7 +353,19 @@ public static class PipeFlowSolver
             return;
         }
 
-        var adj = Outflows(n, edges);
+        PushPumps(volumes, capacities, z, Outflows(n, edges), sourceLift, qMax, flowCount);
+    }
+
+    static void PushPumps(
+        Span<float> volumes,
+        ReadOnlySpan<float> capacities,
+        ReadOnlySpan<int> z,
+        List<int>[] adj,
+        ReadOnlySpan<float> sourceLift,
+        ReadOnlySpan<float> qMax,
+        int flowCount)
+    {
+        var n = volumes.Length;
         for (var pump = 0; pump < n; pump++)
         {
             var lift = pump < sourceLift.Length ? sourceLift[pump] : 0f;
@@ -387,7 +408,20 @@ public static class PipeFlowSolver
             return;
         }
 
-        var adj = Outflows(n, edges);
+        ComputeRemainingLift(z, volumes, capacities, Outflows(n, edges), sourceLift, extra, pipeCount);
+    }
+
+    static void ComputeRemainingLift(
+        ReadOnlySpan<int> z,
+        ReadOnlySpan<float> volumes,
+        ReadOnlySpan<float> capacities,
+        List<int>[] adj,
+        ReadOnlySpan<float> sourceLift,
+        Span<float> extra,
+        int pipeCount)
+    {
+        var n = z.Length;
+        extra.Clear();
         Queue<int> q = new();
         var queued = new bool[n];
         for (var i = 0; i < n; i++)
