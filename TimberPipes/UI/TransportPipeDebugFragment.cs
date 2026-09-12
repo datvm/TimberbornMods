@@ -97,15 +97,9 @@ class TransportPipeDebugFragment(
             }
 
             text += $"  {other.Coordinates}";
-            if (other.GetComponentOrNull<PipeTank>() is { } tank)
+            if (other.Tank is { } tank)
             {
                 text += $"  tank V={tank.VolumeM3:0.00} id={tank.FluidGoodId ?? "empty"} h={tank.Head:0.00}";
-                continue;
-            }
-
-            if (other.GetComponentOrNull<PipePump>() is { } pump)
-            {
-                text += $"  well V={pump.VolumeM3:0.00} id={pump.FluidGoodId ?? "empty"} h={pump.Head:0.00}";
                 continue;
             }
 

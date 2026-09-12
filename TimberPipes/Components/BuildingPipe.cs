@@ -32,6 +32,10 @@ public class BuildingPipe(PipeRegistry registry) : BaseComponent, IAwakableCompo
 
     public bool IsFinished => bo.IsFinished;
     public bool IsTransportPipe { get; private set; }
+    public ValvePipe? Valve { get; private set; }
+    public PipeTank? Tank { get; private set; }
+    public HeadliftPipe? Headlift { get; private set; }
+    public BuildingPipePortState? PortState { get; private set; }
     public Vector3Int Coordinates => bo.Coordinates;
     public float Head => Coordinates.z + FluidHeight;
     public float FreeSpace => MaxWaterHeight - FluidHeight;
@@ -182,6 +186,9 @@ public class BuildingPipe(PipeRegistry registry) : BaseComponent, IAwakableCompo
         }
     }
 
+    internal void RefreshContaminationStatus()
+        => this.GetComponentOrNull<PipeContaminationStatus>()?.Refresh();
+
     internal void ClearFluid()
     {
         FluidHeight = 0;
@@ -219,6 +226,15 @@ public class BuildingPipe(PipeRegistry registry) : BaseComponent, IAwakableCompo
 
         var value = s.Get(key);
         return value is null || value.Length == 0 ? null : value;
+    }
+
+    internal void CacheModules()
+    {
+        Valve = this.GetComponentOrNull<ValvePipe>();
+        var tank = this.GetComponentOrNull<PipeTank>();
+        Tank = tank is { Enabled: true } ? tank : null;
+        Headlift = this.GetComponentOrNull<HeadliftPipe>();
+        PortState = this.GetComponentOrNull<BuildingPipePortState>();
     }
 
     public void OnEnterFinishedState()

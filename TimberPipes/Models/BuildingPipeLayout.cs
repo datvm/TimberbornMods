@@ -15,38 +15,7 @@ public static class BuildingPipeLayout
     public static BuildingPipeSpec? FromBlockObject(BlockObject blockObject, PipePortState state)
         => FromOccupied(blockObject.Blocks.GetOccupiedCoordinates(), state);
 
-    public static BuildingPipeSpec? FromWaterInterface(BlockObject blockObject, PipePortState state)
-    {
-        List<Vector3Int> ignored = [];
-        if (blockObject.TryGetComponent<WaterInputSpec>(out var input))
-        {
-            var pipe = input.WaterInputCoordinates;
-            ignored.Add(new(pipe.x, pipe.y, blockObject.BaseZ));
-        }
-
-        if (blockObject.TryGetComponent<WaterOutputSpec>(out var output))
-        {
-            ignored.Add(output.WaterCoordinates);
-        }
-
-        Vector3Int? entrance = blockObject.Entrance.HasEntrance
-            ? blockObject.Entrance.Coordinates
-            : null;
-
-        return FromOccupied(
-            blockObject.Blocks.GetOccupiedCoordinates(),
-            state,
-            blockObject.BaseZ,
-            entrance,
-            ignored);
-    }
-
-    public static BuildingPipeSpec? FromOccupied(
-        IEnumerable<Vector3Int> occupied,
-        PipePortState state,
-        int? floorZ = null,
-        Vector3Int? entrance = null,
-        IEnumerable<Vector3Int>? ignored = null)
+    public static BuildingPipeSpec? FromOccupied(IEnumerable<Vector3Int> occupied, PipePortState state)
     {
         HashSet<Vector3Int> cells = [.. occupied];
         if (cells.Count == 0)
@@ -54,20 +23,14 @@ public static class BuildingPipeLayout
             return null;
         }
 
-        HashSet<Vector3Int> skip = ignored is null ? [] : [.. ignored];
         List<PipePortSpec> ports = [];
         foreach (var cell in cells)
         {
-            if (skip.Contains(cell) || (floorZ is { } z && cell.z != z))
-            {
-                continue;
-            }
-
             var directions = Directions3D.None;
             foreach (var face in Faces)
             {
                 var neighbor = cell + face.ToOffset();
-                if (cells.Contains(neighbor) || neighbor == entrance)
+                if (cells.Contains(neighbor))
                 {
                     continue;
                 }

@@ -158,4 +158,33 @@ public class ValvePipeIoTests
         Assert.Equal(["Badwater"], ValvePipeIo.ExtractDropdownGoods(["Badwater"], ["Water", "Badwater"]));
         Assert.Equal(["Water", "Badwater"], ValvePipeIo.ExtractDropdownGoods([], ["Water", "Badwater"]));
     }
+
+    [Fact]
+    public void ExtractKeepsStoredGoodWhenBuildingChanges()
+    {
+        var ids = ValvePipeIo.ExtractDropdownGoods(["Badwater"], ["Water", "Badwater"], "Water");
+        Assert.Contains("Water", ids);
+        Assert.Contains("Badwater", ids);
+        Assert.Equal("Water", ValvePipeIo.DefaultExtractGood("Water", ["Badwater"]));
+        Assert.Equal("Badwater", ValvePipeIo.DefaultExtractGood(null, ["Badwater"]));
+        Assert.Null(ValvePipeIo.DefaultExtractGood(null, []));
+    }
+
+    [Fact]
+    public void HasKnownExtractLiquidFromOutputOrStock()
+    {
+        HashSet<string> liquids = ["Water", "Badwater"];
+        Assert.True(ValvePipeIo.HasKnownExtractLiquid(["Badwater"], [], liquids));
+        Assert.False(ValvePipeIo.HasKnownExtractLiquid(["Log"], [], liquids));
+        Assert.True(ValvePipeIo.HasKnownExtractLiquid([], ["Water"], liquids));
+    }
+
+    [Fact]
+    public void TargetStillValidRequiresFinishedInventory()
+    {
+        Assert.True(ValvePipeIo.TargetStillValid(true, true, 1));
+        Assert.False(ValvePipeIo.TargetStillValid(false, true, 1));
+        Assert.False(ValvePipeIo.TargetStillValid(true, false, 1));
+        Assert.False(ValvePipeIo.TargetStillValid(true, true, 0));
+    }
 }

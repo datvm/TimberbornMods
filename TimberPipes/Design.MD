@@ -95,7 +95,7 @@ Fill (OpenOut toward building, enabled):
   Refuse if Takes fails. Never contaminate the building.
 
 Extract (OpenIn toward building, enabled):
-  player-picked liquid from that building’s output / takeable stock
+  player-picked liquid and Extract checkbox are stored on the valve. Replacing the facing building does not change them.
   if buffer is empty AND pipe is not full AND building has 1 good
   then inventory -= 1, buffer += 0.2
   if pipe is not full AND buffer > 0
@@ -148,7 +148,7 @@ A tank is **\(H\) stacked 1 m slices**, not one node. Capacity \(C / H\) each. I
 h_{\text{slice}} = z_{\text{slice}} + \mathrm{clamp}(V_{\text{slice}} / (C / H),\, 0,\, 1)
 \]
 
-\(H\) is `FluidBufferBuildingSpec.Height` if present, else `BlockObject` size \(z\). Vanilla tanks do not use that spec. Small Tank: \(H = 2\), \(C = 6\) m³, ports on both occupied cells, all horizontal directions, **`Open`**. Bottom-only gravity fills the bottom 1 m (full \(z\) vs empty \(z+1\) is equilibrium). A pipe on the upper tile, or a working pipe pump (\(L = 2\)), fills the top slice. Empty tank is a hole. A tall **full** tank is a packed column and can feed a riser through pass 2.
+\(H\) is `BlockObject` size \(z\). Small Tank: \(H = 2\), \(C = 6\) m³, ports on both occupied cells, all horizontal directions, **`Open`**. Bottom-only gravity fills the bottom 1 m (full \(z\) vs empty \(z+1\) is equilibrium). A pipe on the upper tile, or a working pipe pump (\(L = 2\)), fills the top slice. Empty tank is a hole. A tall **full** tank is a packed column and can feed a riser through pass 2.
 
 On each allowed edge \(A \to B\), desired \(Q = k\,\Delta t\,(h_A - h_B)\). Forbidden direction (valve) → 0. Then scale so a node never sends more than it holds or receives more than free space, and apply.
 
@@ -332,5 +332,5 @@ Do not save \(P\). Recompute from pumps, power, and volumes.
 | Valve IO | Opt-in 0.2 m³ packets. Extract keeps a 0.2 m³ buffer so a partial tile can still take the last good. Inlet never contaminates the building. Outlet may contaminate the graph. |
 | Goods | 5 = 1 m³. Quantize at ±0.2 m³. |
 | Flush | Wipe **pipe** volumes in that graph. |
-| Mix | Wrong good vs stored / accepted good contaminates that graph. |
+| Mix | Wrong good vs stored / accepted good contaminates that graph. Status icon on the first pipe only (lowest X, then Y, then Z). |
 | UI Headlift | Cached \(P\) on that tile, 0 if the filled path does not reach it. |
