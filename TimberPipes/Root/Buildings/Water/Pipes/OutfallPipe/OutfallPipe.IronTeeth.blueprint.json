@@ -1,0 +1,238 @@
+﻿{
+    "BuildingSpec": {
+        "SelectionSoundName": "Discharge",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            {
+                "Id": "Log",
+                "Amount": 12
+            },
+            {
+                "Id": "Gear",
+                "Amount": 1
+            }
+        ],
+        "ScienceCost": 50,
+        "PlaceFinished": true,
+        "FinishableWithBeaversOnSite": true,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "OutfallPipe.IronTeeth",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BlockObjectNavMeshSettingsSpec": {
+        "NoAutoWalls": false,
+        "GenerateFloorsOnStackable": true,
+        "EdgeGroups": [],
+        "UnblockedCoordinates": [],
+        "BlockedEdges": []
+    },
+    "BlockObjectSpec": {
+        "Size": {
+            "X": 1,
+            "Y": 2,
+            "Z": 1
+        },
+        "Blocks": [
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Bottom, Top, Corners, Path, Middle",
+                "Stackable": "BlockObject",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
+        "Entrance": {
+            "HasEntrance": false,
+            "Coordinates": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": false
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "Pipes",
+        "ToolOrder": 90,
+        "ToolShape": "Square",
+        "Layout": "SideLine",
+        "CustomPivot": {
+            "HasCustomPivot": true,
+            "Coordinates": {
+                "X": 0.5,
+                "Y": 0.5,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": false
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.TPi.OutfallPipeName",
+        "DescriptionLocKey": "LV.TPi.OutfallPipeDesc",
+        "FlavorDescriptionLocKey": "LV.TPi.OutfallPipeFlavor",
+        "Icon": "Buildings/Water/Pipes/OutfallPipe/OutfallPipeIcon"
+    },
+    "BuildingPipeSpec": {
+        "Ports": [
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "Down",
+                "State": "OpenIn"
+            },
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "Up",
+                "State": "OpenOut"
+            }
+        ]
+    },
+    "TransportPipeSpec": {},
+    "DirectedPipeSpec": {},
+    "DischargePipeSpec": {
+        "DistanceToGroundOffset": 0.0,
+        "EjectBuffer": 0.1
+    },
+    "WaterOutputSpec": {
+        "WaterCoordinates": {
+            "X": 0,
+            "Y": 1,
+            "Z": 0
+        },
+        "DistanceToGroundOffset": 0.0,
+        "OverflowAllowed": false
+    },
+    "WaterOutputParticleSpec": {
+        "AttachmentId": "Water",
+        "SpawnOffset": 0.25,
+        "FadeDistance": 0.0,
+        "MinimumLifetime": 0.0
+    },
+    "TemplateAttachmentsSpec": {
+        "Attachments": [
+            {
+                "AttachmentId": "Water",
+                "Prefab": "Environment/WaterDrops/WaterDrops",
+                "Parent": "#Finished",
+                "Position": {
+                    "X": 0.5,
+                    "Y": 0.05,
+                    "Z": 1.51
+                },
+                "Rotation": {
+                    "X": 90.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
+                "Scale": {
+                    "X": 1.0,
+                    "Y": 1.0,
+                    "Z": 1.0
+                },
+                "CreateInstantly": true
+            }
+        ]
+    },
+    "ConstructionSiteProgressVisualizerSpec": {
+        "ProgressThresholds": [
+            0.0
+        ]
+    },
+    "Children": {
+        "#Arrows": {},
+        "#Finished": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Water/Pipes/OutfallPipe/Models/OutfallPipe.IronTeeth.Model"
+            },
+            "CollidersSpec": {
+                "BoxColliders": [
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.23,
+                            "Z": 0.5
+                        },
+                        "Size": {
+                            "X": 1.0,
+                            "Y": 0.46,
+                            "Z": 1.0
+                        }
+                    },
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.32,
+                            "Z": 1.31
+                        },
+                        "Size": {
+                            "X": 0.3,
+                            "Y": 0.64,
+                            "Z": 0.65
+                        }
+                    }
+                ],
+                "SphereColliders": [],
+                "CapsuleColliders": []
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase1x1#nested": {
+                    "BlueprintPath": "ConstructionBases/ConstructionBase1x1/ConstructionBase1x1.blueprint"
+                },
+                "ConstructionStage0": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Water/Pipes/OutfallPipe/Models/OutfallPipe.IronTeeth.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.05,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.1,
+                                    "Z": 1.0
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        }
+    }
+}

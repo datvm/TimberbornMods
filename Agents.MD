@@ -63,6 +63,22 @@ sealed class Shot
 }
 ```
 
+When a `BaseComponent` needs more than one or two injected services, put those dependencies on a `[BindSingleton]` service instead and inject only that service into the component. Put calculation / orchestration methods on the service. For simple shared deps like `ILoc`, expose a readonly field:
+
+```cs
+[BindSingleton]
+public class DischargePipeService(IWaterService waterService, IThreadSafeWaterMap waterMap, ILoc t)
+{
+    public readonly ILoc t = t;
+    // …
+}
+
+[AddTemplateModule2(typeof(DischargePipeSpec))]
+public class DischargePipe(DischargePipeService service) : BaseComponent // …
+```
+
+// NOT: inject IWaterService + IThreadSafeWaterMap + ILoc directly into the component.
+
 # Tests
 
 Keep test method names short and descriptive. Prefer names like `InitializeWithCorrectCharacterType`, `IgnoreWrongCharacterType`, or `ComputeSegments` over long Given/When/Then-style names.

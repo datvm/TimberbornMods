@@ -29,6 +29,33 @@ public class ValvePipeIoTests
     }
 
     [Fact]
+    public void InletRefusesFullOrReservedCapacity()
+    {
+        Assert.False(ValvePipeIo.CanGiveToBuilding(takes: true, hasUnreservedCapacity: false));
+        Assert.False(ValvePipeIo.ShouldInlet(
+            enabled: true,
+            paused: false,
+            contaminated: false,
+            volume: 1f,
+            networkGoodId: "Water",
+            takes: true,
+            hasUnreservedCapacity: false));
+    }
+
+    [Fact]
+    public void OutletRefusesEmptyOrReservedStock()
+    {
+        Assert.False(ValvePipeIo.CanTakeFromBuilding(0));
+        Assert.False(ValvePipeIo.ShouldOutlet(
+            enabled: true,
+            paused: false,
+            contaminated: false,
+            freeSpace: 1f,
+            selectedGoodId: "Water",
+            takeableAmount: 0));
+    }
+
+    [Fact]
     public void InletRefusesWhenTakesFails()
     {
         Assert.False(ValvePipeIo.ShouldInlet(

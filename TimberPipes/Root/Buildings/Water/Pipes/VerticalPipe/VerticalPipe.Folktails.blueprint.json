@@ -8,7 +8,7 @@
                 "Amount": 1
             }
         ],
-        "ScienceCost": 0,
+        "ScienceCost": 20,
         "PlaceFinished": true,
         "FinishableWithBeaversOnSite": true,
         "DrawRangeBoundsOnIt": false
@@ -43,7 +43,7 @@
         "Blocks": [
             {
                 "MatterBelow": "GroundOrStackable",
-                "Occupations": "Bottom, Top, Path, Middle",
+                "Occupations": "Top, Middle",
                 "Stackable": "BlockObject",
                 "OccupyAllBelow": false,
                 "Underground": false

@@ -14,7 +14,7 @@ public class BuildingPipePortState : BaseComponent, IAwakableComponent, IFinishe
     {
         buildingPipe = GetComponent<BuildingPipe>();
         pausableBuilding = this.GetComponentOrNull<PausableBuilding>();
-        isValve = HasComponent<ValvePipe>();
+        isValve = HasComponent<ValvePipe>() || HasComponent<DischargePipe>();
     }
 
     public void RefreshPortStatus()

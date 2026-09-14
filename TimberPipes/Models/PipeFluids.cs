@@ -8,6 +8,8 @@ public static class PipeFluids
     public const float MoveEpsilon = 1e-4f;
     public const string ContaminatedId = "_CONTAMINATED_PIPE_";
     public const string LiquidGoodType = "Liquid";
+    public const string WaterGoodId = "Water";
+    public const string BadwaterGoodId = "Badwater";
 }
 
 public readonly record struct PipeContaminationCause(string? GoodA, string? GoodB)

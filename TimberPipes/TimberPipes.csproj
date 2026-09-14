@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputModFolderName>TimberPipes</OutputModFolderName>
   </PropertyGroup>
@@ -6,6 +6,7 @@
   <Import Project="../Targets/CommonModdableTimberborn.targets" />
   <Import Project="../Targets/CommonModdableToolGroups.targets" />
   <ItemGroup>
+    <Using Include="ModdableTimberborn.BuildingSettings" />
     <Using Include="TimberPipes.Components" />
     <Using Include="TimberPipes.Models" />
     <Using Include="TimberPipes.Services" />

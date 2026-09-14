@@ -39,7 +39,7 @@ public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
         {
             foreach (var inv in EnabledInventories())
             {
-                foreach (var stock in inv.UnreservedStock())
+                foreach (var stock in inv.Stock)
                 {
                     if (stock.Amount > 0)
                     {
@@ -54,7 +54,9 @@ public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
 
     public float VolumeM3 => PipeFlowSolver.GoodsToVolume(StoredGoods) + pending;
     public float CapacityM3 => PipeFlowSolver.GoodsToVolume(Math.Max(StoredGoods + FreeGoods(FluidGoodId), 0));
+    public float FlowVolumeM3 => PipeTankIo.FlowVolume(DrainableGoods, pending);
     public float Head => PipeFlowSolver.TankHead(ZBase, VolumeM3, CapacityM3, HeightTiles);
+    public float FillHeight => Math.Max(0f, Head - ZBase);
 
     public bool TakesGood(string goodId)
     {
@@ -72,7 +74,8 @@ public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
     public bool ConflictsWith(string? pipeGoodId)
         => PipeFlowSolver.TankConflictsWithPipe(FluidGoodId, pipeGoodId is not null && TakesGood(pipeGoodId), pipeGoodId);
 
-    public float CapacityFor(string? goodId) => PipeFlowSolver.GoodsToVolume(Math.Max(StoredGoods + FreeGoods(goodId ?? FluidGoodId), 0));
+    public float CapacityFor(string? goodId)
+        => PipeTankIo.FlowCapacity(DrainableGoods, FreeGoods(goodId ?? FluidGoodId));
 
     int StoredGoods
     {
@@ -90,7 +93,7 @@ public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
 
     public void ApplyVolume(float volumeM3, string? incomingGoodId)
     {
-        pending = volumeM3 - PipeFlowSolver.GoodsToVolume(StoredGoods);
+        pending = PipeTankIo.PendingFromSolver(volumeM3, DrainableGoods);
         var delta = PipeFlowSolver.QuantizePending(ref pending);
         if (delta > 0)
         {
@@ -121,6 +124,28 @@ public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
         }
     }
 
+    int DrainableGoods
+    {
+        get
+        {
+            var total = 0;
+            foreach (var inv in EnabledInventories())
+            {
+                if (!inv.IsOutput)
+                {
+                    continue;
+                }
+
+                foreach (var stock in inv.UnreservedTakeableStock())
+                {
+                    total += stock.Amount;
+                }
+            }
+
+            return total;
+        }
+    }
+
     int FreeGoods(string? goodId)
     {
         var free = 0;
@@ -128,7 +153,10 @@ public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
         {
             if (goodId is null)
             {
-                free += Math.Max(0, inv.Capacity - inv.TotalAmountInStock);
+                free += PipeTankIo.FillableGoods(
+                    inv.Capacity,
+                    inv.TotalAmountInStock,
+                    ReservedCapacityAmount(inv));
                 continue;
             }
 
@@ -143,8 +171,14 @@ public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
 
     void TryGive(string? goodId, int amount)
     {
-        if (goodId is null || amount < 1)
+        if (amount < 1)
         {
+            return;
+        }
+
+        if (goodId is null)
+        {
+            pending += PipeFlowSolver.GoodsToVolume(amount);
             return;
         }
 
@@ -156,13 +190,12 @@ public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
                 continue;
             }
 
-            var space = inv.UnreservedCapacity(goodId);
-            if (space < 1)
+            var n = PipeTankIo.GiveCount(left, inv.UnreservedCapacity(goodId));
+            if (n < 1)
             {
                 continue;
             }
 
-            var n = Math.Min(left, space);
             inv.GiveExisting(new(goodId, n));
             left -= n;
             if (left < 1)
@@ -170,8 +203,6 @@ public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
                 return;
             }
         }
-
-        pending += PipeFlowSolver.GoodsToVolume(left);
     }
 
     void TryTake(int amount)
@@ -186,12 +217,12 @@ public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
 
             foreach (var stock in inv.UnreservedTakeableStock())
             {
-                if (stock.Amount < 1)
+                var n = PipeTankIo.TakeCount(left, stock.Amount);
+                if (n < 1)
                 {
                     continue;
                 }
 
-                var n = Math.Min(left, stock.Amount);
                 inv.TakeExisting(new(stock.GoodId, n));
                 left -= n;
                 if (left < 1)
@@ -200,8 +231,17 @@ public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
                 }
             }
         }
+    }
 
-        pending -= PipeFlowSolver.GoodsToVolume(left);
+    static int ReservedCapacityAmount(Inventory inv)
+    {
+        var n = 0;
+        foreach (var good in inv.ReservedCapacity())
+        {
+            n += good.Amount;
+        }
+
+        return n;
     }
 
     IEnumerable<Inventory> EnabledInventories()

@@ -1,11 +1,11 @@
-{
+﻿{
     "BuildingSpec": {
         "SelectionSoundName": "MechanicalPump",
         "LoopingSoundName": "",
         "BuildingCost": [
             {
                 "Id": "Plank",
-                "Amount": 4
+                "Amount": 8
             },
             {
                 "Id": "Gear",
@@ -47,7 +47,7 @@
         "Blocks": [
             {
                 "MatterBelow": "GroundOrStackable",
-                "Occupations": "Bottom, Path, Middle",
+                "Occupations": "Middle",
                 "Stackable": "None",
                 "OccupyAllBelow": false,
                 "Underground": false
@@ -117,7 +117,7 @@
     "MechanicalBuildingSpec": {},
     "MechanicalNodeSpec": {
         "PowerOutput": 0,
-        "PowerInput": 40,
+        "PowerInput": 50,
         "IsShaft": false
     },
     "TransputProviderSpec": {

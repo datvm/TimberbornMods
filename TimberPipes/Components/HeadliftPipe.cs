@@ -1,7 +1,7 @@
-namespace TimberPipes.Components;
+﻿namespace TimberPipes.Components;
 
 [AddTemplateModule2(typeof(PipeHeadliftSpec))]
-public class HeadliftPipe : BaseComponent, IAwakableComponent
+public class HeadliftPipe(ILoc t) : BaseComponent, IAwakableComponent, IEntityDescriber
 {
 #nullable disable
     PipeHeadliftSpec spec;
@@ -40,4 +40,8 @@ public class HeadliftPipe : BaseComponent, IAwakableComponent
         mech = this.GetComponentOrNull<MechanicalBuilding>();
         pausable = this.GetComponentOrNull<PausableBuilding>();
     }
+
+    public IEnumerable<EntityDescription> DescribeEntity() => [
+        EntityDescription.CreateTextSection(t.T("LV.TPi.ProvideHeadlift", RatedMaxHeadLift), 3),
+    ];
 }

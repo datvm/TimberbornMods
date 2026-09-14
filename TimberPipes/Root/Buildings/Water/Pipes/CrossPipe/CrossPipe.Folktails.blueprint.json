@@ -1,14 +1,14 @@
-{
+﻿{
     "BuildingSpec": {
         "SelectionSoundName": "Default",
         "LoopingSoundName": "",
         "BuildingCost": [
             {
-                "Id": "Plank",
-                "Amount": 2
+                "Id": "Log",
+                "Amount": 3
             }
         ],
-        "ScienceCost": 0,
+        "ScienceCost": 20,
         "PlaceFinished": true,
         "FinishableWithBeaversOnSite": true,
         "DrawRangeBoundsOnIt": false
@@ -43,7 +43,7 @@
         "Blocks": [
             {
                 "MatterBelow": "GroundOrStackable",
-                "Occupations": "Bottom, Path, Middle",
+                "Occupations": "Middle",
                 "Stackable": "None",
                 "OccupyAllBelow": false,
                 "Underground": false

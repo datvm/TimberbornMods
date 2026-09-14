@@ -13,7 +13,7 @@ public static class PipeFlowSolver
     public static float PipeHead(int z, float volume) => z + volume;
 
     public static bool IsFull(float volume, float capacity)
-        => volume >= capacity - PipeFluids.FullEpsilon;
+        => capacity > PipeFluids.FullEpsilon && volume >= capacity - PipeFluids.FullEpsilon;
 
     public static bool TankConflictsWithPipe(string? tankStoredGoodId, bool tankTakesPipeGood, string? pipeGoodId)
     {
@@ -124,6 +124,7 @@ public static class PipeFlowSolver
         scratch.Ensure(n, edges.Length);
         scratch.BuildOutflows(n, edges);
         var adj = scratch.Adj;
+        var inAdj = scratch.InAdj;
         var heads = scratch.Heads.AsSpan(0, n);
         var steps = Math.Max(1, gravitySubsteps);
         for (var step = 0; step < steps; step++)
@@ -133,7 +134,7 @@ public static class PipeFlowSolver
         }
 
         EqualizeVessels(volumes, capacities, z, adj, flow);
-        PushPumps(volumes, capacities, z, adj, sourceLift, qMax, flow);
+        PushPumps(volumes, capacities, z, adj, inAdj, sourceLift, qMax, flow);
         ComputeRemainingLift(z, volumes, capacities, adj, sourceLift, remainingLift, pipes);
     }
 
@@ -353,7 +354,8 @@ public static class PipeFlowSolver
             return;
         }
 
-        PushPumps(volumes, capacities, z, Outflows(n, edges), sourceLift, qMax, flowCount);
+        var adj = Outflows(n, edges);
+        PushPumps(volumes, capacities, z, adj, ReverseAdj(adj), sourceLift, qMax, flowCount);
     }
 
     static void PushPumps(
@@ -361,6 +363,7 @@ public static class PipeFlowSolver
         ReadOnlySpan<float> capacities,
         ReadOnlySpan<int> z,
         List<int>[] adj,
+        List<int>[] inAdj,
         ReadOnlySpan<float> sourceLift,
         ReadOnlySpan<float> qMax,
         int flowCount)
@@ -368,28 +371,106 @@ public static class PipeFlowSolver
         var n = volumes.Length;
         for (var pump = 0; pump < n; pump++)
         {
-            var lift = pump < sourceLift.Length ? sourceLift[pump] : 0f;
-            var cap = pump < qMax.Length ? qMax[pump] : 0f;
-            if (lift <= 0 || cap <= 0 || volumes[pump] <= PipeFluids.MoveEpsilon)
+            if (!IsWorkingPump(pump, sourceLift, qMax))
             {
                 continue;
             }
 
-            var dest = FindPumpFrontier(pump, lift, volumes, capacities, z, adj, flowCount);
+            PrimePump(pump, volumes, capacities, inAdj);
+        }
+
+        for (var pump = 0; pump < n; pump++)
+        {
+            if (!IsWorkingPump(pump, sourceLift, qMax))
+            {
+                continue;
+            }
+
+            var dest = FindPumpFrontier(pump, sourceLift[pump], volumes, capacities, z, adj, sourceLift, flowCount);
             if (dest < 0)
             {
                 continue;
             }
 
-            var delta = Math.Min(volumes[pump], Math.Min(cap, capacities[dest] - volumes[dest]));
-            if (delta <= PipeFluids.MoveEpsilon)
+            var need = Math.Min(qMax[pump], capacities[dest] - volumes[dest]);
+            if (need <= PipeFluids.MoveEpsilon)
             {
                 continue;
             }
 
-            volumes[pump] -= delta;
-            volumes[dest] += delta;
+            var inlet = BestInlet(pump, dest, volumes, inAdj);
+            var fromInlet = 0f;
+            if (inlet >= 0)
+            {
+                fromInlet = Math.Min(need, volumes[inlet]);
+                volumes[inlet] -= fromInlet;
+                need -= fromInlet;
+            }
+
+            var fromPump = Math.Min(need, volumes[pump]);
+            volumes[pump] -= fromPump;
+            volumes[dest] += fromInlet + fromPump;
         }
+    }
+
+    static bool IsWorkingPump(int pump, ReadOnlySpan<float> sourceLift, ReadOnlySpan<float> qMax)
+        => pump < sourceLift.Length
+            && pump < qMax.Length
+            && sourceLift[pump] > 0
+            && qMax[pump] > 0;
+
+    static void PrimePump(
+        int pump,
+        Span<float> volumes,
+        ReadOnlySpan<float> capacities,
+        List<int>[] inAdj)
+    {
+        var room = capacities[pump] - volumes[pump];
+        if (room <= PipeFluids.MoveEpsilon)
+        {
+            return;
+        }
+
+        var inlet = BestInlet(pump, dest: -1, volumes, inAdj);
+        if (inlet < 0)
+        {
+            return;
+        }
+
+        var delta = Math.Min(room, volumes[inlet]);
+        if (delta <= PipeFluids.MoveEpsilon)
+        {
+            return;
+        }
+
+        volumes[inlet] -= delta;
+        volumes[pump] += delta;
+    }
+
+    static int BestInlet(int pump, int dest, ReadOnlySpan<float> volumes, List<int>[] inAdj)
+    {
+        if (pump < 0 || pump >= inAdj.Length)
+        {
+            return -1;
+        }
+
+        var best = -1;
+        var bestV = PipeFluids.MoveEpsilon;
+        foreach (var from in inAdj[pump])
+        {
+            if (from == dest || from == pump)
+            {
+                continue;
+            }
+
+            if (volumes[from] > bestV)
+            {
+                best = from;
+                bestV = volumes[from];
+            }
+        }
+
+        return best;
     }
 
     public static void ComputeRemainingLift(
@@ -569,6 +650,7 @@ public static class PipeFlowSolver
         ReadOnlySpan<float> capacities,
         ReadOnlySpan<int> z,
         List<int>[] adj,
+        ReadOnlySpan<float> sourceLift,
         int flowCount)
     {
         var n = volumes.Length;
@@ -589,7 +671,9 @@ public static class PipeFlowSolver
             var i = q.Dequeue();
             queued[i] = false;
             var p = bestP[i];
-            var transmits = i == pump || (i < flowCount && IsFull(volumes[i], capacities[i]));
+            var transmits = i == pump
+                || (i < sourceLift.Length && sourceLift[i] > 0 && volumes[i] > PipeFluids.MoveEpsilon)
+                || (i < flowCount && IsFull(volumes[i], capacities[i]));
             if (!transmits)
             {
                 continue;
@@ -619,6 +703,17 @@ public static class PipeFlowSolver
                         ref destH,
                         ref destZ,
                         ref destFill);
+                    if (to < sourceLift.Length && sourceLift[to] > 0 && volumes[to] > PipeFluids.MoveEpsilon
+                        && nextP > bestP[to] + 1e-5f)
+                    {
+                        bestP[to] = nextP;
+                        if (!queued[to])
+                        {
+                            q.Enqueue(to);
+                            queued[to] = true;
+                        }
+                    }
+
                     continue;
                 }
 
@@ -712,5 +807,28 @@ public static class PipeFlowSolver
         }
 
         return adj;
+    }
+
+    static List<int>[] ReverseAdj(List<int>[] adj)
+    {
+        var n = adj.Length;
+        var rev = new List<int>[n];
+        for (var i = 0; i < n; i++)
+        {
+            rev[i] = [];
+        }
+
+        for (var i = 0; i < n; i++)
+        {
+            foreach (var to in adj[i])
+            {
+                if (to >= 0 && to < n)
+                {
+                    rev[to].Add(i);
+                }
+            }
+        }
+
+        return rev;
     }
 }

@@ -7,11 +7,13 @@ public class PipeRegistry(EventBus eventBus) : ILoadableSingleton
     readonly Dictionary<PipePortDefinition, BuildingPipe> portOwners = [];
     readonly HashSet<PipeGraph> graphs = [];
     readonly List<ValvePipe> valves = [];
+    readonly List<DischargePipe> discharges = [];
     readonly List<PipeTank> tanks = [];
     readonly List<HeadliftPipe> headlifts = [];
 
     public IReadOnlyCollection<PipeGraph> Graphs => graphs;
     public IReadOnlyList<ValvePipe> Valves => valves;
+    public IReadOnlyList<DischargePipe> Discharges => discharges;
     public IReadOnlyList<PipeTank> Tanks => tanks;
     public IReadOnlyList<HeadliftPipe> Headlifts => headlifts;
     public IEnumerable<BuildingPipe> All => pipes.Values;
@@ -90,6 +92,11 @@ public class PipeRegistry(EventBus eventBus) : ILoadableSingleton
             valves.Add(valve);
         }
 
+        if (buildingPipe.Discharge is { } discharge)
+        {
+            discharges.Add(discharge);
+        }
+
         if (buildingPipe.Tank is { } tank)
         {
             tanks.Add(tank);
@@ -106,6 +113,11 @@ public class PipeRegistry(EventBus eventBus) : ILoadableSingleton
         if (buildingPipe.Valve is { } valve)
         {
             valves.Remove(valve);
+        }
+
+        if (buildingPipe.Discharge is { } discharge)
+        {
+            discharges.Remove(discharge);
         }
 
         if (buildingPipe.Tank is { } tank)
