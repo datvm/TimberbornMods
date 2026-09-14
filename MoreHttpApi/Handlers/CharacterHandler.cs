@@ -38,7 +38,7 @@ public class CharacterHandler(
                 continue;
             }
 
-            characterBonuses[(int)ct] = [.. spec.Bonuses];
+            characterBonuses[(int)ct] = spec.Bonuses.ToFrozenSet();
         }
 
         eb.Register(this);
@@ -132,7 +132,7 @@ public class CharacterHandler(
 
         var carrier = entity.GetComponent<GoodCarrier>();
         var isCarrier = (bool)carrier;
-        ParsedGoodAmountSpec? carryingGood = isCarrier && carrier.IsCarrying ? carrier.CarriedGoods.Http() : null;
+        ParsedGoodAmountSpec? carryingGood = isCarrier && carrier.IsCarrying ? carrier.CarriedGood.GoodAmount.Http() : null;
 
         return new(
             basic, ParseRelevantBuildings(buildings),

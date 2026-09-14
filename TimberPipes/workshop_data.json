@@ -1,6 +1,6 @@
 {
-  "ItemId": "3729176372",
-  "Name": "More HTTP API",
+  "ItemId": "3801726769",
+  "Name": "Timber Pipes",
   "Visibility": "Public",
   "UpdateDescription": false,
   "UpdateVisibility": false,
@@ -8,10 +8,7 @@
   "UpdateTags": false,
   "Tags": [
     "Update 1.1",
-    "Update 1.0",
-    "Quality of life",
-    "Modding tools",
-    "Buildings",
-    "Miscellaneous"
+    "New content",
+    "Buildings"
   ]
 }
