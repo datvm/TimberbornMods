@@ -1,7 +1,7 @@
-namespace TimberPipes.Components;
+﻿namespace TimberPipes.Components;
 
 [AddTemplateModule2(typeof(ValvePipeSpec))]
-public class ValvePipe(IBlockService blockService, IGoodService goods) : BaseComponent, IFinishedPausable, IAwakableComponent, IPersistentEntity
+public class ValvePipe(ValvePipeService service) : BaseComponent, IFinishedPausable, IAwakableComponent, IPersistentEntity, IDuplicable<ValvePipe>
 {
     static readonly ComponentKey SaveKey = new(nameof(ValvePipe));
     static readonly PropertyKey<bool> InletEnabledKey = new("InletEnabled");
@@ -24,8 +24,8 @@ public class ValvePipe(IBlockService blockService, IGoodService goods) : BaseCom
 
     float extractBuffer;
     string? extractBufferGoodId;
-    ValveIoTarget? inletTarget;
-    ValveIoTarget? outletTarget;
+    IBuildingPipeConnection? inletTarget;
+    IBuildingPipeConnection? outletTarget;
     bool inletCached;
     bool outletCached;
 
@@ -35,9 +35,11 @@ public class ValvePipe(IBlockService blockService, IGoodService goods) : BaseCom
         pausable = this.GetComponentOrNull<PausableBuilding>();
     }
 
-    public ValveIoTarget? FindInletTarget() => CachedTarget(ref inletTarget, ref inletCached, PipePortState.OpenOut, fill: true);
+    public IBuildingPipeConnection? FindInletTarget()
+        => CachedTarget(ref inletTarget, ref inletCached, PipePortState.OpenOut, give: true);
 
-    public ValveIoTarget? FindOutletTarget() => CachedTarget(ref outletTarget, ref outletCached, PipePortState.OpenIn, fill: false);
+    public IBuildingPipeConnection? FindOutletTarget()
+        => CachedTarget(ref outletTarget, ref outletCached, PipePortState.OpenIn, give: false);
 
     public void InvalidateIoTargets()
     {
@@ -82,19 +84,7 @@ public class ValvePipe(IBlockService blockService, IGoodService goods) : BaseCom
     }
 
     public List<string> OutletGoodIds()
-    {
-        if (FindOutletTarget() is not { } target)
-        {
-            return [];
-        }
-
-        var liquids = ValvePipeIo.LiquidIds(goods);
-        var known = ValvePipeIo.KnownExtractLiquids(
-            OutputGoodIds(target.Inventories),
-            TakeableGoodIds(target.Inventories),
-            liquids);
-        return ValvePipeIo.ExtractDropdownGoods(known, liquids, OutletGoodId);
-    }
+        => service.ExtractDropdownGoods(FindOutletTarget(), OutletGoodId);
 
     public void Save(IEntitySaver entitySaver)
     {
@@ -148,7 +138,7 @@ public class ValvePipe(IBlockService blockService, IGoodService goods) : BaseCom
             && ValvePipeIo.CanInlet(InletEnabled, false, PipeContaminated, pipe.FluidHeight, pipe.NetworkGoodId)
             && FindInletTarget() is { } target
             && pipe.NetworkGoodId is { } goodId
-            && TryGiveGood(target.Inventories, goodId))
+            && target.TryTransfer(goodId, 1))
         {
             pipe.RemoveFluid(PipeFluids.PacketVolume);
             remaining--;
@@ -164,7 +154,7 @@ public class ValvePipe(IBlockService blockService, IGoodService goods) : BaseCom
             && extractBuffer <= PipeFluids.MoveEpsilon
             && FindOutletTarget() is { } target
             && OutletGoodId is { } goodId
-            && TryTakeGood(target.Inventories, goodId))
+            && target.TryTransfer(goodId, 1))
         {
             extractBuffer += PipeFluids.PacketVolume;
             extractBufferGoodId = goodId;
@@ -201,194 +191,40 @@ public class ValvePipe(IBlockService blockService, IGoodService goods) : BaseCom
         }
     }
 
-    ValveIoTarget? CachedTarget(ref ValveIoTarget? cached, ref bool resolved, PipePortState required, bool fill)
+    IBuildingPipeConnection? CachedTarget(
+        ref IBuildingPipeConnection? cached,
+        ref bool resolved,
+        PipePortState required,
+        bool give)
     {
-        if (resolved && (cached is null || TargetValid(cached.Value)))
+        if (resolved && (cached is null || cached.IsValid))
         {
             return cached;
         }
 
-        cached = ScanTarget(required, fill);
+        cached = service.FindConnection(pipe, required, give);
         resolved = true;
         return cached;
     }
 
-    static bool TargetValid(ValveIoTarget target)
-        => ValvePipeIo.TargetStillValid(
-            target.Building && target.Inventories,
-            target.Building && target.Building.IsFinished,
-            target.Inventories ? target.Inventories.EnabledInventories.Count : 0);
-
-    ValveIoTarget? ScanTarget(PipePortState required, bool fill)
+    public void DuplicateFrom(ValvePipe source)
     {
-        if (pipe.Ports is not { } ports)
-        {
-            return null;
-        }
-
-        foreach (var port in ports.Values)
-        {
-            if ((port.PortSpec.State & required) == 0)
-            {
-                continue;
-            }
-
-            if (TryGetCandidate(port.GetOppositePortDefinition().Coordinates, fill, out var target))
-            {
-                return target;
-            }
-        }
-
-        return null;
+        CopySettings(source.InletEnabled, source.OutletEnabled, source.OutletGoodId);
     }
 
-    bool TryGetCandidate(Vector3Int cell, bool fill, out ValveIoTarget target)
+    public void CopySettings(bool inletEnabled, bool outletEnabled, string? outletGoodId)
     {
-        target = default;
-        foreach (var obj in blockService.GetObjectsAt(cell))
+        InletEnabled = inletEnabled;
+        OutletEnabled = outletEnabled;
+        var goodId = outletGoodId is { Length: > 0 } ? outletGoodId : null;
+        if (OutletGoodId != goodId)
         {
-            if (obj.Overridable)
-            {
-                continue;
-            }
-
-            var inventories = obj.GetComponent<Inventories>();
-            if (!ValvePipeIo.IsBuildingCandidate(
-                obj.IsFinished,
-                inventories && ValvePipeIo.HasActiveInventory(inventories.EnabledInventories.Count),
-                obj.HasComponent<TransportPipeSpec>(),
-                obj.GetComponent<PipeTank>() is { Enabled: true }))
-            {
-                continue;
-            }
-
-            var liquids = ValvePipeIo.LiquidIds(goods);
-            if (fill)
-            {
-                if (!HasFillInput(inventories, liquids))
-                {
-                    continue;
-                }
-            }
-            else if (!HasExtractLiquid(inventories, liquids))
-            {
-                continue;
-            }
-
-            target = new(obj, inventories);
-            return true;
+            extractBuffer = 0f;
+            extractBufferGoodId = null;
         }
 
-        return false;
-    }
-
-    static bool HasFillInput(Inventories inventories, HashSet<string> liquids)
-    {
-        foreach (var inv in inventories.EnabledInventories)
-        {
-            foreach (var id in inv.InputGoods)
-            {
-                if (liquids.Contains(id))
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    static bool HasExtractLiquid(Inventories inventories, HashSet<string> liquids)
-    {
-        foreach (var inv in inventories.EnabledInventories)
-        {
-            foreach (var id in inv.OutputGoods)
-            {
-                if (liquids.Contains(id))
-                {
-                    return true;
-                }
-            }
-
-            foreach (var stock in inv.UnreservedTakeableStock())
-            {
-                if (stock.Amount > 0 && liquids.Contains(stock.GoodId))
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    static List<string> OutputGoodIds(Inventories inventories)
-    {
-        List<string> ids = [];
-        foreach (var inv in inventories.EnabledInventories)
-        {
-            foreach (var id in inv.OutputGoods)
-            {
-                ids.Add(id);
-            }
-        }
-
-        return ids;
-    }
-
-    static List<string> TakeableGoodIds(Inventories inventories)
-    {
-        List<string> ids = [];
-        foreach (var inv in inventories.EnabledInventories)
-        {
-            foreach (var stock in inv.UnreservedTakeableStock())
-            {
-                if (stock.Amount > 0)
-                {
-                    ids.Add(stock.GoodId);
-                }
-            }
-        }
-
-        return ids;
+        OutletGoodId = goodId;
     }
 
     bool PipeContaminated => pipe.IsContaminated || pipe.Graph is { Contaminated: true };
-
-    static bool TryGiveGood(Inventories inventories, string goodId)
-    {
-        var packet = new GoodAmount(goodId, 1);
-        foreach (var inv in inventories.EnabledInventories)
-        {
-            if (!ValvePipeIo.CanGiveToBuilding(inv.Takes(goodId), inv.HasUnreservedCapacity(packet)))
-            {
-                continue;
-            }
-
-            inv.GiveExisting(packet);
-            return true;
-        }
-
-        return false;
-    }
-
-    static bool TryTakeGood(Inventories inventories, string goodId)
-    {
-        var packet = new GoodAmount(goodId, 1);
-        foreach (var inv in inventories.EnabledInventories)
-        {
-            foreach (var stock in inv.UnreservedTakeableStock())
-            {
-                if (stock.GoodId != goodId || !ValvePipeIo.CanTakeFromBuilding(stock.Amount))
-                {
-                    continue;
-                }
-
-                inv.TakeExisting(packet);
-                return true;
-            }
-        }
-
-        return false;
-    }
 }

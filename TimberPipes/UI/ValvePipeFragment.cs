@@ -80,14 +80,14 @@ public class ValvePipeFragment(
         inletSection.ToggleDisplayStyle(inlet is not null);
         if (inlet is { } inletTarget)
         {
-            inletToggle.text = string.Format(t.T("LV.TPi.ValveInletBuilding"), inletTarget.Building.GetLabeledName(t));
+            inletToggle.text = string.Format(t.T("LV.TPi.ValveInletBuilding"), inletTarget.Target.BlockObject.GetLabeledName(t));
             inletToggle.SetValueWithoutNotify(valve.InletEnabled);
         }
 
         outletSection.ToggleDisplayStyle(outlet is not null);
         if (outlet is { } outletTarget)
         {
-            outletBuilding.text = string.Format(t.T("LV.TPi.ValveOutletBuilding"), outletTarget.Building.GetLabeledName(t));
+            outletBuilding.text = string.Format(t.T("LV.TPi.ValveOutletBuilding"), outletTarget.Target.BlockObject.GetLabeledName(t));
             outletToggle.SetValueWithoutNotify(valve.OutletEnabled);
             RefreshOutletGoods(valve);
         }

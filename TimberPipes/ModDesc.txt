@@ -1,0 +1,71 @@
+﻿This mod brings a Pipe system to Timberborn to carry liquids between tanks and buildings.
+[img]https://images.steamusercontent.com/ugc/15048309193254067688/90BA66A7CC6253A5D05294929B6333638FBE333F/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+New Pipe buildings live in the [b]Pipes[/b] group under Water. All of them can sit on the same tile as Paths. Platforms can be built over horizontal pipes. Vertical pieces need a Double Platform, and you can still build over them.
+[table]
+[tr][th]Name[/th][th]Cost[/th][th]Unlock[/th][th]Flavor[/th][/tr]
+[tr][td][b]One-way Valve[/b]
+One-way pipe. Point a directed end at a building to fill it or extract from it.[/td][td]1 Log[br]1 Gear[/td][td]50[/td][td][i]They added the arrow after the last guy flooded the berry warehouse.[/i][/td][/tr]
+[tr][td][b]Pipe[/b]
+Carries fluid in a straight line.[/td][td]1 Log[/td][td]-[/td][td][i]The committee voted for a canal. The budget voted for a pipe.[/i][/td][/tr]
+[tr][td][b]Elbow[/b]
+Turns a pipe run 90°.[/td][td]1 Log[/td][td]-[/td][td][i]Every good plan meets a wall. This is how you keep the plan.[/i][/td][/tr]
+[tr][td][b]Cross[/b]
+Joins up to four horizontal pipes.[/td][td]3 Logs[/td][td]20[/td][td][i]Everyone groans when Bramble starts the “four pipes walk into a bar” joke again.[/i][/td][/tr]
+[tr][td][b]Pipe Pump[/b]
+One-way pipe. When powered, adds extra headlift.[/td][td]8 Planks
+8 Gears[/td][td]200[/td][td][i]Very energy efficient. Kits will run it all day just to watch the water splash.[/i][/td][/tr]
+[tr][td][b]Vertical Cross[/b]
+Connects vertical and horizontal pipes.[/td][td]3 Planks[/td][td]20[/td][td][i]'What an outstanding piece of work.' — Foreman Halberg[/i][/td][/tr]
+[tr][td][b]Riser[/b]
+Carries fluid vertically.[/td][td]1 Plank[/td][td]20[/td][td][i]We measured a kit. Then we shrank the bore so it would not become a tubeway.[/i][/td][/tr]
+[tr][td][b]Riser Pipe Pump[/b]
+One-way vertical pipe. When powered, adds extra headlift.[/td][td]12 Planks
+8 Gears[/td][td]150[/td][td][i]This thing pushed the bar so high the reservoir asked for a raise.[/i][/td][/tr]
+[tr][td][b]Outfall Pipe[/b]
+Dumps Water or Badwater.[/td][td]12 Logs
+1 Gear[/td][td]50[/td][td][i]The inventor took “Drain you dry” literally.[/i][/td][/tr]
+[/table]
+
+[h1]Fill and Extract Liquid[/h1]
+Tanks take any pipe on any open face. You do not need a valve. For other buildings, place a [b]One-way Valve[/b] with a directed end on the building face: arrow into the building to fill it, arrow out of the building to extract. 
+[img]https://images.steamusercontent.com/ugc/11573173917424417447/BA78D8DFB60AA667EF8184366342842F64FF7968/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+For example, below is a Folktails' design to make Extract and Catalyst:
+[img]https://images.steamusercontent.com/ugc/16848029961844019567/649D1A1AD4B45126310531B3FE2C4085EF2EB5BE/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+[h1]Contamination[/h1]
+A pipe network is the set of connected pipes between buildings or tanks. It becomes [b]Contaminated[/b] if more than one liquid type is in that network, even if the liquids have not mixed in a single tile yet. Anything other than Water or Badwater entering the Outfall Pipe will also contaminate the whole network. A One-way Valve or Pump does NOT split the network. Separate the network by a building or don't let the pipes connect.
+
+Once contaminated, you have to manually Flush the network on the UI. The UI tells you what was mixed (for example, Badwater and Extract) so you can deal with the design before letting the network run again. When flushing, you lose all content in the pipes but NOT a Tank's content.
+
+Pipes will not fill invalid liquid into buildings and do not contaminate them. For example, you cannot fill a Water tank with Badwater or a Centrifuge with Maple Syrup. Nothing happens.
+
+[h1]Headlift[/h1]
+Like real pipes: connected water seeks one waterline. A tank's fill height is headlift. You cannot fill another tank above that line without extra lift.
+
+Buildings that push liquid into a pipe (a Water Pump for example) give headlift up to that pipe's height.
+[img]https://images.steamusercontent.com/ugc/16421564363681683909/CBFEC7CB2669FC3C7E09FC8CD84814B9305F57B9/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+A powered [b]Pipe Pump[/b] or [b]Riser Pipe Pump[/b] adds [b]2 m[/b] of headlift (scaled with provided power). If a tank is already taller than that, a pump sitting below it does nothing extra.
+[img]https://images.steamusercontent.com/ugc/12744351343976899254/3D75A5364C4215400FFD47B852DCBE60AB161BB4/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
+
+Tanks break the pipe network. Pump headlift does not pass through a tank. Water that enters a tank drops to that tank's fill height, so a line that had extra lift can suddenly lose it on the other side. The far side only sees how full the tank is. Bigger tanks make this more obvious.
+
+[h1]Notes[/h1]
+- One-way Valve: can be paused to block liquid both ways. It will NOT prevent contamination still.
+- Open outlets of a pipe do NOT spill water. They are considered closed. For example, there is no issue if you only connect 2 out of 4 outlets of a Cross Pipe. The only way to get Water out is the Outfall Pipe.
+- Generally, a pipe contains 1m³ of liquid (5 good), except in Tank which uses a special conversion due to its size vs. capacity.
+
+[h1]FAQ[/h1]
+Q: The tank will not fill all the way?
+A: Headlift. It cannot rise above the source surface unless a pump adds lift.
+
+Q: My pipe pump does nothing?
+A: It needs power and must not be paused. If the source already has more than 2 m of headlift at the pump's location, the pump is redundant.
+
+Q: The physics does not make sense!
+A: I tried my best testing common scenarios. If you find something, please send me a screenshot/save if my simulation misses something.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

@@ -21,6 +21,12 @@ public class PipeFluidSimulator(
             valve.Pipe.PortState?.RefreshPortStatus();
         }
 
+        foreach (var discharge in pipeRegistry.Discharges)
+        {
+            discharge.Pipe.PortState?.RefreshPortStatus();
+            discharge.CheckContamination();
+        }
+
         foreach (var graph in pipeRegistry.Graphs)
         {
             graph.RefreshContamination();
@@ -48,6 +54,11 @@ public class PipeFluidSimulator(
 
             Simulate(graph);
             graph.RefreshContamination();
+        }
+
+        foreach (var discharge in pipeRegistry.Discharges)
+        {
+            discharge.TryEject();
         }
     }
 
@@ -103,9 +114,10 @@ public class PipeFluidSimulator(
             var tank = flow.Tanks[t];
             var start = flow.TankStarts[t];
             var slices = tank.SliceCount;
-            var totalCap = Math.Max(tank.VolumeM3, tank.CapacityFor(graph.FluidGoodId ?? tank.FluidGoodId));
+            var totalCap = tank.CapacityFor(graph.FluidGoodId ?? tank.FluidGoodId);
             var sliceCap = PipeFlowSolver.SliceCapacity(totalCap, tank.HeightTiles);
-            PipeFlowSolver.PackSlices(tank.VolumeM3, volumes.AsSpan(start, slices), sliceCap);
+            var flowVol = PipeTankIo.ClampFlowVolume(tank.FlowVolumeM3, totalCap);
+            PipeFlowSolver.PackSlices(flowVol, volumes.AsSpan(start, slices), sliceCap);
             for (var s = 0; s < slices; s++)
             {
                 capacities[start + s] = sliceCap;

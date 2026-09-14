@@ -86,28 +86,6 @@ public static class ValvePipeIo
     public static bool TargetStillValid(bool buildingPresent, bool finished, int enabledInventoryCount)
         => buildingPresent && finished && HasActiveInventory(enabledInventoryCount);
 
-    public static HashSet<string> LiquidIds(IGoodService goods)
-    {
-        if (liquidIds is { } cached)
-        {
-            return cached;
-        }
-
-        HashSet<string> ids = [];
-        foreach (var id in goods.GetGoodsForType(PipeFluids.LiquidGoodType))
-        {
-            if (goods.HasGood(id))
-            {
-                ids.Add(id);
-            }
-        }
-
-        liquidIds = ids;
-        return ids;
-    }
-
-    static HashSet<string>? liquidIds;
-
     public static List<string> KnownExtractLiquids(
         IEnumerable<string> outputGoods,
         IEnumerable<string> takeableStock,
@@ -181,4 +159,3 @@ public static class ValvePipeIo
             && CanTakeFromBuilding(takeableAmount);
 }
 
-public readonly record struct ValveIoTarget(BlockObject Building, Inventories Inventories);

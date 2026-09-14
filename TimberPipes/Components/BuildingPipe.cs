@@ -33,6 +33,7 @@ public class BuildingPipe(PipeRegistry registry) : BaseComponent, IAwakableCompo
     public bool IsFinished => bo.IsFinished;
     public bool IsTransportPipe { get; private set; }
     public ValvePipe? Valve { get; private set; }
+    public DischargePipe? Discharge { get; private set; }
     public PipeTank? Tank { get; private set; }
     public HeadliftPipe? Headlift { get; private set; }
     public BuildingPipePortState? PortState { get; private set; }
@@ -231,6 +232,7 @@ public class BuildingPipe(PipeRegistry registry) : BaseComponent, IAwakableCompo
     internal void CacheModules()
     {
         Valve = this.GetComponentOrNull<ValvePipe>();
+        Discharge = this.GetComponentOrNull<DischargePipe>();
         var tank = this.GetComponentOrNull<PipeTank>();
         Tank = tank is { Enabled: true } ? tank : null;
         Headlift = this.GetComponentOrNull<HeadliftPipe>();

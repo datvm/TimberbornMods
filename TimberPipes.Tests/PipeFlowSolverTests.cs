@@ -90,6 +90,33 @@ public class PipeFlowSolverTests
     }
 
     [Fact]
+    public void ZeroCapacityIsNotFull()
+    {
+        Assert.False(PipeFlowSolver.IsFull(0f, 0f));
+        Assert.False(PipeFlowSolver.IsFull(0f, 1f));
+        Assert.True(PipeFlowSolver.IsFull(1f, 1f));
+        Assert.True(PipeFlowSolver.IsFull(0.995f, 1f));
+        Assert.False(PipeFlowSolver.IsFull(0.5f, 1f));
+    }
+
+    [Fact]
+    public void EmptyZeroCapacityTankDoesNotSiphonThrough()
+    {
+        float[] volumes = [1f, 0f, 0f];
+        float[] capacities = [1f, 0f, 1f];
+        Settle(
+            volumes,
+            capacities,
+            [new(0, 1, true, true), new(1, 2, true, true)],
+            z: [0, 0, 0]);
+
+        Assert.Equal(1f, volumes.Sum(), 4);
+        Assert.InRange(volumes[0], 0.99f, 1f);
+        Assert.InRange(volumes[1], 0f, 0.01f);
+        Assert.InRange(volumes[2], 0f, 0.01f);
+    }
+
+    [Fact]
     public void PackSlicesBottomFirst()
     {
         float[] slices = [0f, 0f];
@@ -113,6 +140,14 @@ public class PipeFlowSolverTests
         Assert.True(PipeFlowSolver.TankConflictsWithPipe("Biofuel", tankTakesPipeGood: true, "Water"));
         Assert.False(PipeFlowSolver.TankConflictsWithPipe("Water", tankTakesPipeGood: true, "Water"));
         Assert.False(PipeFlowSolver.TankConflictsWithPipe("Biofuel", tankTakesPipeGood: true, null));
+    }
+
+    [Fact]
+    public void HalfFullTankLevelIsHalfHeight()
+    {
+        Assert.Equal(1.5f, PipeFlowSolver.TankHead(0, 3f, 6f, 3));
+        Assert.Equal(0f, PipeFlowSolver.TankHead(0, 0f, 6f, 3));
+        Assert.Equal(3f, PipeFlowSolver.TankHead(0, 6f, 6f, 3));
     }
 
     [Fact]
@@ -605,6 +640,84 @@ public class PipeFlowSolverTests
 
         Assert.Equal(1f, volumes.Sum(), 4);
         Assert.InRange(volumes[1], 0.99f, 1f);
+    }
+
+    [Fact]
+    public void RiserPumpPrimesFromBelow()
+    {
+        float[] volumes = [1f, 0.8f];
+        Settle(
+            volumes,
+            Caps(2),
+            [new(0, 1, true, false)],
+            z: [0, 1],
+            sourceLift: [0f, 2f],
+            qMax: [0f, 0.2f],
+            ticks: 4);
+
+        Assert.Equal(1.8f, volumes.Sum(), 4);
+        Assert.InRange(volumes[1], 0.99f, 1f);
+        Assert.InRange(volumes[0], 0.79f, 0.81f);
+    }
+
+    [Fact]
+    public void WorkingPumpStaysFullWhileLifting()
+    {
+        float[] volumes = [1f, 0f, 10f];
+        float[] capacities = [1f, 1f, 10f];
+        Settle(
+            volumes,
+            capacities,
+            [
+                new(0, 1, true, false),
+                new(0, 2, false, true),
+            ],
+            z: [0, 1, 0],
+            pipeCount: 2,
+            sourceLift: [2f, 0f, 0f],
+            qMax: [0.2f, 0f, 0f],
+            headAt: (i, v) => i < 2
+                ? PipeFlowSolver.PipeHead(i, v)
+                : PipeFlowSolver.PumpHead(0, v),
+            ticks: 4);
+
+        Assert.Equal(11f, volumes.Sum(), 3);
+        Assert.InRange(volumes[0], 0.99f, 1f);
+        Assert.InRange(volumes[1], 0.79f, 0.81f);
+    }
+
+    [Fact]
+    public void DeadEndRiserPumpDoesNotStealTankFill()
+    {
+        float[] volumes = [1f, 0.8f, 3f, 1.4f, 20f];
+        float[] capacities = [1f, 1f, 3f, 3f, 20f];
+        Settle(
+            volumes,
+            capacities,
+            [
+                new(0, 1, true, false),
+                new(0, 2, true, true),
+                new(2, 3, true, true),
+                new(0, 4, false, true),
+            ],
+            z: [0, 1, 0, 1, 0],
+            pipeCount: 2,
+            flowCount: 4,
+            sourceLift: [2f, 2f, 0f, 0f, 0f],
+            qMax: [0.2f, 0.2f, 0f, 0f, 0f],
+            headAt: (i, v) => i switch
+            {
+                0 => PipeFlowSolver.PipeHead(0, v),
+                1 => PipeFlowSolver.PipeHead(1, v),
+                2 => PipeFlowSolver.Surface(0, v, 3f),
+                3 => PipeFlowSolver.Surface(1, v, 3f),
+                _ => PipeFlowSolver.PumpHead(0, v),
+            },
+            ticks: 80);
+
+        Assert.InRange(volumes[1], 0.99f, 1f);
+        Assert.InRange(volumes[2], 2.9f, 3f);
+        Assert.InRange(volumes[3], 2.9f, 3f);
     }
 
     [Fact]

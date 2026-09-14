@@ -1,10 +1,10 @@
-{
+﻿{
     "BuildingSpec": {
         "SelectionSoundName": "Default",
         "LoopingSoundName": "",
         "BuildingCost": [
             {
-                "Id": "Plank",
+                "Id": "Log",
                 "Amount": 1
             }
         ],
@@ -43,7 +43,7 @@
         "Blocks": [
             {
                 "MatterBelow": "GroundOrStackable",
-                "Occupations": "Bottom, Path, Middle",
+                "Occupations": "Middle",
                 "Stackable": "None",
                 "OccupyAllBelow": false,
                 "Underground": false

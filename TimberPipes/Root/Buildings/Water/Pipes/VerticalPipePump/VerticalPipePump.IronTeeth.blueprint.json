@@ -1,0 +1,197 @@
+﻿{
+    "BuildingSpec": {
+        "SelectionSoundName": "MechanicalPump",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            {
+                "Id": "Plank",
+                "Amount": 12
+            },
+            {
+                "Id": "Gear",
+                "Amount": 8
+            }
+        ],
+        "ScienceCost": 150,
+        "PlaceFinished": false,
+        "FinishableWithBeaversOnSite": true,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "VerticalPipePump.IronTeeth",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BlockObjectNavMeshSettingsSpec": {
+        "NoAutoWalls": false,
+        "GenerateFloorsOnStackable": true,
+        "EdgeGroups": [],
+        "UnblockedCoordinates": [],
+        "BlockedEdges": []
+    },
+    "BlockObjectSpec": {
+        "Size": {
+            "X": 1,
+            "Y": 1,
+            "Z": 1
+        },
+        "Blocks": [
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Top, Middle",
+                "Stackable": "BlockObject",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
+        "Entrance": {
+            "HasEntrance": false,
+            "Coordinates": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": false
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "Pipes",
+        "ToolOrder": 80,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": false
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.TPi.VerticalPipePumpName",
+        "DescriptionLocKey": "LV.TPi.VerticalPipePumpDesc",
+        "FlavorDescriptionLocKey": "LV.TPi.VerticalPipePumpFlavor",
+        "Icon": "Buildings/Water/Pipes/VerticalPipePump/VerticalPipePumpIcon"
+    },
+    "BuildingPipeSpec": {
+        "Ports": [
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "Bottom",
+                "State": "OpenIn"
+            },
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "Top",
+                "State": "OpenOut"
+            }
+        ]
+    },
+    "TransportPipeSpec": {},
+    "DirectedPipeSpec": {},
+    "PipeHeadliftSpec": {
+        "MaxHeadLift": 2
+    },
+    "MechanicalBuildingSpec": {},
+    "MechanicalNodeSpec": {
+        "PowerOutput": 0,
+        "PowerInput": 50,
+        "IsShaft": false
+    },
+    "TransputProviderSpec": {
+        "Transputs": [
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "Left, Right, Down, Up",
+                "ReverseRotation": false
+            }
+        ]
+    },
+    "ConstructionSiteProgressVisualizerSpec": {
+        "ProgressThresholds": [
+            0.0
+        ]
+    },
+    "Children": {
+        "#Arrows": {},
+        "#Finished": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Water/Pipes/VerticalPipePump/Models/VerticalPipePump.IronTeeth.Model"
+            },
+            "CollidersSpec": {
+                "BoxColliders": [
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.5,
+                            "Z": 0.5
+                        },
+                        "Size": {
+                            "X": 1.0,
+                            "Y": 1,
+                            "Z": 1.0
+                        }
+                    }
+                ],
+                "SphereColliders": [],
+                "CapsuleColliders": []
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase1x1Top#nested": {
+                    "BlueprintPath": "ConstructionBases/ConstructionBase1x1Top/ConstructionBase1x1Top.blueprint"
+                },
+                "ConstructionStage0": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Water/Pipes/VerticalPipePump/Models/VerticalPipePump.IronTeeth.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.05,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.1,
+                                    "Z": 1.0
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.IronTeeth",
+        "Blueprints": [
+            "Buildings/Water/Pipes/HorizontalPipeValve/HorizontalPipeValve.IronTeeth.blueprint",
+            "Buildings/Water/Pipes/OutfallPipe/OutfallPipe.IronTeeth.blueprint",
+            "Buildings/Water/Pipes/HorizontalPipe/HorizontalPipe.IronTeeth.blueprint",
+            "Buildings/Water/Pipes/ElbowPipe/ElbowPipe.IronTeeth.blueprint",
+            "Buildings/Water/Pipes/CrossPipe/CrossPipe.IronTeeth.blueprint",
+            "Buildings/Water/Pipes/HorizontalPipePump/HorizontalPipePump.IronTeeth.blueprint",
+            "Buildings/Water/Pipes/VerticalCrossPipe/VerticalCrossPipe.IronTeeth.blueprint",
+            "Buildings/Water/Pipes/VerticalPipe/VerticalPipe.IronTeeth.blueprint",
+            "Buildings/Water/Pipes/VerticalPipePump/VerticalPipePump.IronTeeth.blueprint"
+        ]
+    }
+}
