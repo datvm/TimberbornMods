@@ -6,12 +6,12 @@
 public class ComponentSpecModelExporter : ILoadableSingleton
 {
 
-    static readonly FrozenSet<Type> SkippedTypes = [typeof(FlippedSprite), typeof(UISprite)];
-    static readonly FrozenSet<Type> SerializableIntTypes = [typeof(Vector3Int), typeof(Vector2Int), typeof(RectInt)];
-    static readonly FrozenSet<Type> SerializableFloatTypes = [typeof(Vector3), typeof(Vector2), typeof(Quaternion), typeof(Rect), typeof(Vector4), typeof(Color)];
-    static readonly FrozenSet<Type> StringTypes = [typeof(string), typeof(LocalizedText)];
+    static readonly FrozenSet<Type> SkippedTypes = ImmutableHelper.CreateFrozenSet([typeof(FlippedSprite), typeof(UISprite)]);
+    static readonly FrozenSet<Type> SerializableIntTypes = ImmutableHelper.CreateFrozenSet([typeof(Vector3Int), typeof(Vector2Int), typeof(RectInt)]);
+    static readonly FrozenSet<Type> SerializableFloatTypes = ImmutableHelper.CreateFrozenSet([typeof(Vector3), typeof(Vector2), typeof(Quaternion), typeof(Rect), typeof(Vector4), typeof(Color)]);
+    static readonly FrozenSet<Type> StringTypes = ImmutableHelper.CreateFrozenSet([typeof(string), typeof(LocalizedText)]);
 
-    static readonly FrozenSet<string> IdProperties = ["Id", "SoundId", "CollectionId"];
+    static readonly FrozenSet<string> IdProperties = ImmutableHelper.CreateFrozenSet(["Id", "SoundId", "CollectionId"]);
 
     public void Load()
     {

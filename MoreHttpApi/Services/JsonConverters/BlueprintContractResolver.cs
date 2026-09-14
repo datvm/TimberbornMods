@@ -3,7 +3,7 @@ namespace MoreHttpApi.Services.JsonConverters;
 
 public class BlueprintContractResolver : DefaultContractResolver
 {
-    static readonly FrozenSet<Type> IgnoreTypes = [typeof(FlippedSprite), typeof(UISprite), typeof(Sprite)];
+    static readonly FrozenSet<Type> IgnoreTypes = ImmutableHelper.CreateFrozenSet([typeof(FlippedSprite), typeof(UISprite), typeof(Sprite)]);
 
     // Ignore certain type
     protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
