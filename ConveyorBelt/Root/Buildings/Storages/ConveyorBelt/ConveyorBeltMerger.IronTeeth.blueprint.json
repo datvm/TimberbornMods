@@ -66,7 +66,7 @@
         "Flippable": false
     },
     "PlaceableBlockObjectSpec": {
-        "ToolGroupId": "Storage",
+        "ToolGroupId": "ConveyorBelts",
         "ToolOrder": 410,
         "ToolShape": "Square",
         "Layout": "Single",

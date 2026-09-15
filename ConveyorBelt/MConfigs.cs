@@ -13,6 +13,7 @@ public class MConveyorBeltConfigs : BaseModdableTimberbornAttributeConfiguration
 
         configurator.BindTemplateModule(h => h
             .AddDecorator<Inventories, ConveyorConnection>()
+            .AddDecorator<ConveyorConnectionSpec, ConveyorConnection>(addTransient: false)
             .AddDecorator<ConveyorBeltSpec, ConveyorConnection>(addTransient: false)
             .AddDecorator<ConveyorBeltJunctionSpec, ConveyorConnection>(addTransient: false)
             .AddDecorator<ConstructionSite, DefaultIgnoredBeltInventory>());

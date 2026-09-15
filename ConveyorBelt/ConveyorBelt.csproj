@@ -4,4 +4,5 @@
 	</PropertyGroup>
 	<Import Project="../Targets/Common.targets" />
 	<Import Project="../Targets/CommonModdableTimberborn.targets" />
+	<Import Project="../Targets/CommonModdableToolGroups.targets" />
 </Project>

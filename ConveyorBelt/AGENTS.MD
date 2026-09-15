@@ -1,1 +1,0 @@
-See the AGENTS.MD file in the repo root folder.

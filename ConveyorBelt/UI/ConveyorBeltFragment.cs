@@ -42,7 +42,7 @@ public class ConveyorBeltFragment(
         {
             var stuckIcon = namedIconProvider.GetOrLoad("error-icon", "UI/Images/Core/error-icon");
 
-            for (int i = icons.Count; i < count; i++)
+            for (var i = icons.Count; i < count; i++)
             {
                 var img = new ConveyorBeltItemElement(stuckIcon);
                 container.Add(img);
@@ -50,7 +50,7 @@ public class ConveyorBeltFragment(
             }
         }
 
-        for (int i = count; i < icons.Count; i++)
+        for (var i = count; i < icons.Count; i++)
         {
             icons[i].SetDisplay(false);
         }
@@ -104,7 +104,7 @@ public class ConveyorBeltFragment(
         btnEject.enabledSelf = true;
 
         var width = container.resolvedStyle.width - IconSize - Padding * 2;
-        for (int i = 0; i < items.Count; i++)
+        for (var i = 0; i < items.Count; i++)
         {
             var item = items[i];
             var img = icons[i];

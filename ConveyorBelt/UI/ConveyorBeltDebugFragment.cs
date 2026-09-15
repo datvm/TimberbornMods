@@ -20,7 +20,7 @@ public class ConveyorBeltDebugFragment(
 
     public void ShowFragment(BaseComponent entity)
     {
-        comp = entity.GetComponent<ConveyorBeltComponent>();
+        comp = entity.GetComponentOrNull<ConveyorBeltComponent>();
         if (!comp)
         {
             ClearFragment();

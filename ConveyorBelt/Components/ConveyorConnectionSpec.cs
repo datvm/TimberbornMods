@@ -11,6 +11,8 @@ public enum BeltPortKind
 
 public record ConveyorConnectionSpec : ComponentSpec
 {
+    // Local coordinates + faces. In = belt can drop into this building, Out = belt can grab.
+    // Missing spec (not this empty list) means any unoccupied occupancy face, like vanilla buildings.
     [Serialize]
     public ImmutableArray<BeltPortSpec> Ports { get; init; } = [];
 }
