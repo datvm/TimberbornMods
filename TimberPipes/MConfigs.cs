@@ -2,7 +2,7 @@
 
 public class MConfigs : BaseModdableTimberbornAttributeConfiguration
 {
-    public override ConfigurationContext AvailableContexts => ConfigurationContext.Game;
+    public override ConfigurationContext AvailableContexts => ConfigurationContext.Game | ConfigurationContext.MainMenu;
 
     protected override void ConfigureRegistry(ModdableTimberbornRegistry registry)
         => registry.UseBuildingSettings();
@@ -10,6 +10,8 @@ public class MConfigs : BaseModdableTimberbornAttributeConfiguration
     public override void Configure(Configurator configurator, ConfigurationContext context)
     {
         base.Configure(configurator, context);
+
+        if (context != ConfigurationContext.Game) { return; }
 
         configurator.MultiBind<EntityPanelModule>().ToProvider<DebugFragmentProvider>().AsSingleton();
 
