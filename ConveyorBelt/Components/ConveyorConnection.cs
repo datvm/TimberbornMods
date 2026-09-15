@@ -1,9 +1,23 @@
 ﻿namespace ConveyorBelt.Components;
 
-public class ConveyorConnection(IBlockService blockService) : BaseComponent, IInitializableEntity
+public class ConveyorConnection(IBlockService blockService) : BaseComponent, IAwakableComponent, IInitializableEntity
 {
     ConveyorConnection?[] neighbors = [];
+    Dictionary<Vector3Int, int> portIndexByTarget = [];
     readonly HashSet<Inventory> ignoredInventories = [];
+
+#nullable disable
+    BlockObject blockObject;
+    Inventories inventories;
+#nullable enable
+
+    ConveyorBeltComponent? belt;
+    ConveyorBeltJunction? junction;
+
+    public BlockObject BlockObject => blockObject;
+    public Inventories Inventories => inventories;
+    public ConveyorBeltComponent? Belt => belt;
+    public ConveyorBeltJunction? Junction => junction;
 
     public ImmutableArray<BeltPort> Ports { get; private set; } = [];
 
@@ -21,19 +35,35 @@ public class ConveyorConnection(IBlockService blockService) : BaseComponent, IIn
         }
     }
 
+    public void Awake() => CacheModules();
+
+    internal void CacheModules()
+    {
+        blockObject = GetComponent<BlockObject>();
+        inventories = this.GetComponentOrNull<Inventories>();
+        belt = this.GetComponentOrNull<ConveyorBeltComponent>();
+        junction = this.GetComponentOrNull<ConveyorBeltJunction>();
+    }
+
     public void InitializeEntity()
     {
+        CacheModules();
         CollectIgnoredInventories();
 
-        if (!HasComponent<BuildingSpec>()) { return; }
+        if (!HasComponent<BuildingSpec>() || !blockObject)
+        {
+            return;
+        }
 
-        var bo = GetComponent<BlockObject>();
-        if (!bo) { return; }
-
-        Ports = [.. Expand(GetLocalPorts(bo), bo)];
+        Ports = [.. Expand(GetLocalPorts(blockObject), blockObject)];
         neighbors = new ConveyorConnection[Ports.Length];
+        portIndexByTarget = new Dictionary<Vector3Int, int>(Ports.Length);
+        for (var i = 0; i < Ports.Length; i++)
+        {
+            portIndexByTarget[Ports[i].Target] = i;
+        }
 
-        if (bo.IsFinished)
+        if (blockObject.IsFinished)
         {
             RefreshNeighbors();
             foreach (var n in Connected)
@@ -44,40 +74,25 @@ public class ConveyorConnection(IBlockService blockService) : BaseComponent, IIn
     }
 
     public ConveyorConnection? NeighborAt(Vector3Int target)
-    {
-        for (var i = 0; i < Ports.Length; i++)
-        {
-            if (Ports[i].Target == target)
-            {
-                return neighbors[i];
-            }
-        }
-
-        return null;
-    }
+        => portIndexByTarget.TryGetValue(target, out var i) ? neighbors[i] : null;
 
     public bool HasFacingPort(Vector3Int from, BeltPortKind kind = BeltPortKind.Both)
-    {
-        foreach (var port in Ports)
-        {
-            if (!port.Faces(from)) { continue; }
-            if (kind == BeltPortKind.Both ? port.Kind != BeltPortKind.None : port.Allows(kind))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
+        => BeltPortIo.HasFacingPort(Ports, from, kind);
 
     public IEnumerable<Inventory> GetUsableInventories()
     {
-        var inventories = GetComponent<Inventories>();
-        if (!inventories) { yield break; }
+        if (!inventories)
+        {
+            yield break;
+        }
 
         foreach (var inv in inventories.EnabledInventories)
         {
-            if (ignoredInventories.Contains(inv)) { continue; }
+            if (ignoredInventories.Contains(inv))
+            {
+                continue;
+            }
+
             yield return inv;
         }
     }
@@ -128,7 +143,10 @@ public class ConveyorConnection(IBlockService blockService) : BaseComponent, IIn
                 }
             }
 
-            if (directions == Directions3D.None) { continue; }
+            if (directions == Directions3D.None)
+            {
+                continue;
+            }
 
             ports.Add(new()
             {
@@ -175,22 +193,28 @@ public class ConveyorConnection(IBlockService blockService) : BaseComponent, IIn
     ConveyorConnection? FindNeighbor(BeltPort port)
     {
         var target = port.Target;
-        if (!blockService.Contains(target)) { return null; }
+        if (!blockService.Contains(target))
+        {
+            return null;
+        }
 
         var other = blockService.GetFirstObjectWithComponentAt<ConveyorConnection>(target);
-        if (!other || other == this) { return null; }
-
-        var otherBo = other.GetComponent<BlockObject>();
-        if (!otherBo || !otherBo.IsFinished) { return null; }
-
-        var needed = port.Kind switch
+        if (!other || other == this)
         {
-            BeltPortKind.In => BeltPortKind.Out,
-            BeltPortKind.Out => BeltPortKind.In,
-            BeltPortKind.Both => BeltPortKind.Both,
-            _ => BeltPortKind.None,
-        };
-        if (needed == BeltPortKind.None || !other.HasFacingPort(port.Coordinates, needed)) { return null; }
+            return null;
+        }
+
+        other.CacheModules();
+        if (!other.blockObject || !other.blockObject.IsFinished)
+        {
+            return null;
+        }
+
+        var needed = BeltPortIo.RequiredNeighborKind(port.Kind);
+        if (needed == BeltPortKind.None || !other.HasFacingPort(port.Coordinates, needed))
+        {
+            return null;
+        }
 
         return other;
     }

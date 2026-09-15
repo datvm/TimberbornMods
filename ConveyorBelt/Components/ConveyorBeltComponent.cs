@@ -8,18 +8,23 @@ public class ConveyorBeltComponent(ConveyorBeltService service)
     static readonly ListKey<string> ItemsKey = new("Items");
     static readonly PropertyKey<string> FilteredGoodIdKey = new("FilteredGoodId");
 
-    public ConveyorBeltSpec Spec { get; private set; } = null!;
-    BlockObject bo = null!;
-    MechanicalNode mechanicalNode = null!;
+#nullable disable
+    public ConveyorBeltSpec Spec { get; private set; }
+    BlockObject bo;
+    MechanicalNode mechanicalNode;
+    ConveyorConnection connection;
+#nullable enable
+
     string forbiddenText = "";
+    readonly HashSet<string> forbiddenGoodTypes = [];
+    readonly List<ConveyorBeltItem> items = [];
 
     public Vector3Int Coordinates => bo.Coordinates;
     public bool CanFilterItems => Spec.CanFilterItem;
     public bool NeedsPower => mechanicalNode.IsConsumer;
     public bool CanUse => !NeedsPower || mechanicalNode.ActiveAndPowered;
     public float Efficiency => NeedsPower ? mechanicalNode.PowerEfficiency : 1f;
-
-    readonly List<ConveyorBeltItem> items = [];
+    public ConveyorConnection Connection => connection;
     public IReadOnlyList<ConveyorBeltItem> Items => items;
 
     public Vector3Int InputCoordinates { get; private set; }
@@ -32,15 +37,16 @@ public class ConveyorBeltComponent(ConveyorBeltService service)
     public float EndPosition => 1f;
     public float ItemSpace => 1f / Spec.Capacity;
 
-    public bool CanAcceptItem(string goodId) 
+    public bool CanAcceptItem(string goodId)
         => CanAcceptPotentialItem() && IsValidGood(goodId);
 
     public bool CanAcceptPotentialItem()
     {
-        // Power
-        if (!CanUse) { return false; }
+        if (!CanUse)
+        {
+            return false;
+        }
 
-        // Capacity
         if (Tail is { } t)
         {
             if (items.Count >= Spec.Capacity || t.Position < ItemSpace)
@@ -53,14 +59,20 @@ public class ConveyorBeltComponent(ConveyorBeltService service)
     }
 
     public bool IsValidGood(string goodId) =>
-        (!Spec.CanFilterItem || FilteredGoodId is null || FilteredGoodId == goodId) 
-        && (Spec.ForbiddenGoodTypes.Length <= 0 || !Spec.ForbiddenGoodTypes.Contains(service.GetGoodType(goodId)));
+        (!Spec.CanFilterItem || FilteredGoodId is null || FilteredGoodId == goodId)
+        && !ForbidsGoodType(service.GetGoodType(goodId));
+
+    public bool ForbidsGoodType(string goodType) => forbiddenGoodTypes.Contains(goodType);
 
     public bool CanGiveItem
     {
         get
         {
-            if (Head is not { } h) { return false; }
+            if (Head is not { } h)
+            {
+                return false;
+            }
+
             return h.Position >= EndPosition;
         }
     }
@@ -73,13 +85,17 @@ public class ConveyorBeltComponent(ConveyorBeltService service)
         Spec = GetComponent<ConveyorBeltSpec>();
         bo = GetComponent<BlockObject>();
         mechanicalNode = GetComponent<MechanicalNode>();
+        connection = GetComponent<ConveyorConnection>();
 
-        if (Spec.ForbiddenGoodTypes.Length > 0)
+        forbiddenGoodTypes.Add(ConveyorBeltService.LiquidGoodType);
+        foreach (var type in Spec.ForbiddenGoodTypes)
         {
-            var t = service.t;
-            var list = string.Join(", ", Spec.ForbiddenGoodTypes.Select(g => t.T("LV.CBlt.GoodType_" + g)));
-            forbiddenText = $"{Environment.NewLine}{SpecialStrings.RowStarter} {t.T("LV.CBlt.CannotCarry", list)}";
+            forbiddenGoodTypes.Add(type);
         }
+
+        var t = service.t;
+        var list = string.Join(", ", forbiddenGoodTypes.Select(g => t.T("LV.CBlt.GoodType_" + g)));
+        forbiddenText = $"{Environment.NewLine}{SpecialStrings.RowStarter} {t.T("LV.CBlt.CannotCarry", list)}";
     }
 
     public void InitializeEntity()
@@ -101,7 +117,10 @@ public class ConveyorBeltComponent(ConveyorBeltService service)
 
     public void EjectContent()
     {
-        if (items.Count == 0) { return; }
+        if (items.Count == 0)
+        {
+            return;
+        }
 
         service.SpawnGoods(Coordinates, items.Select(i => new GoodAmount(i.GoodId, 1)));
         items.Clear();
@@ -165,7 +184,10 @@ public class ConveyorBeltComponent(ConveyorBeltService service)
 
     public void Load(IEntityLoader entityLoader)
     {
-        if (!entityLoader.TryGetComponent(SaveKey, out var s)) { return; }
+        if (!entityLoader.TryGetComponent(SaveKey, out var s))
+        {
+            return;
+        }
 
         if (s.Has(ItemsKey))
         {

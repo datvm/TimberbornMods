@@ -3,7 +3,7 @@
 [i]Example: An IT Plank production:[/i]
 [img]https://files.catbox.moe/oi3lst.jpg[/img]
 
-The buildings are located in the Storages group.
+The buildings live in the [b]Conveyor Belts[/b] group under Storage.
 
 [table]
 [tr][th]Name[/th][th]Cost[/th][th]Power Usage[/th][th]Description[/th][/tr]
@@ -15,9 +15,9 @@ The buildings are located in the Storages group.
 [tr][td]Smart Conveyor Belt[/td][td]750 Science; 4 Planks, 4 Gears, 2 Metal Blocks[/td][td]30 HP[/td][td]Transports items horizontally between two buildings and filters which goods are accepted.[/td][/tr]
 [/table]
 
-Belts and Lifts can grab items from buildings or other belts in the arrow directions, then drop them onto the next belt or building. Conveyor speed now follows mechanical power efficiency, so underpowered belt networks still run, but slower. Because you cannot build Lift Up above [b]Folktails[/b]' Piles, they cannot use lifts to bring Pile items upward, though they can still drop them downward with Lift Down built below the Pile. Iron Teeth belts, however, cannot transport [b]Liquids[/b] like Water, mostly for balance reasons.
+Belts and Lifts can grab items from buildings or other belts in the arrow directions, then drop them onto the next belt or building. Conveyor speed now follows mechanical power efficiency, so underpowered belt networks still run, but slower. Because you cannot build Lift Up above [b]Folktails[/b]' Piles, they cannot use lifts to bring Pile items upward, though they can still drop them downward with Lift Down built below the Pile. Belts cannot transport [b]Liquids[/b] like Water.
 
-[i]Example: A Centrifuge setup that is only possible with Folktails[/i]
+[i]Example: A Centrifuge setup [b](no longer works without Timber Pipe)[/b][/i]
 [img]https://files.catbox.moe/hn2mc6.jpg[/img]
 
 Conveyor Belt Mergers and Splitters are special buildings. Technically, they are not even considered belts. They only work with other belts and lifts. A Merger has 5 inputs, so it can accept items from Lifts as well, but its only output direction is horizontal. A Splitter has 1 input and sends items across its available outputs in turn.
@@ -28,7 +28,7 @@ Conveyor Belt Mergers and Splitters are special buildings. Technically, they are
 Some may find dealing with power annoying. You can disable power requirements in the mod settings (Main Menu -> Mods -> Settings button next to the mod name). You can also choose Earlier Availability, which greatly reduces science and construction costs (1 Log).
 [img]https://files.catbox.moe/pkqejn.jpg[/img]
 
-[h1]FAQS[/h1]
+[h1]FAQ[/h1]
 Q: Corner belt?
 A: Build a small storage building or use Mergers or Splitters.
 
@@ -45,10 +45,7 @@ Q: My belt system is nice but Haulers and Workers still carry stuff manually.
 A: Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3760937316]Disable Hauling[/url] if you prefer belts to do all the work.
 
 Q: Power is annoying!
-A: All belt buildings transmit power. You will figure it out! You can now use the mod's No Power option if you prefer not to power belts. Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3414359638]Always Connected[/url] if you still want power requirements but prefer not to deal with power connections.
-
-[b]Q: The mod does not show up?[/b]
-A: This mod only works with Timberborn v1.1 (currently in the Exp branch).
+A: All belt buildings transmit power. You will figure it out! You can now use the mod's No Power option if you prefer not to power belts. Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3414359638]Always Connected[/url] or [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3762391401]All Buildings Transfer Power[/url] if you still want power requirements but prefer not to deal with power connections. 
 
 Q: Your FAQ does not answer my frequently asked question!
 A: Go to the official Discord. I am (likely) there.

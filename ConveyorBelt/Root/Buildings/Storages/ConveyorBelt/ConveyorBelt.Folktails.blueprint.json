@@ -66,7 +66,7 @@
         "Flippable": false
     },
     "PlaceableBlockObjectSpec": {
-        "ToolGroupId": "Storage",
+        "ToolGroupId": "ConveyorBelts",
         "ToolOrder": 400,
         "ToolShape": "Square",
         "Layout": "Line",
@@ -98,7 +98,7 @@
             "Y": -1,
             "Z": 0
         },
-        "ForbiddenGoodTypes": [],
+        "ForbiddenGoodTypes": [ "Liquid" ],
         "TravelTimeHours": 1,
         "Capacity": 5
     },

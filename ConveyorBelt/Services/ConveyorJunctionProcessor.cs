@@ -3,18 +3,26 @@
 [BindSingleton]
 public class ConveyorJunctionProcessor(ConveyorBeltService beltService) : ITickableSingleton
 {
-    
     public void Tick()
     {
         var belts = beltService.Belts;
-        if (belts.Count == 0) { return; }
+        if (belts.Count == 0)
+        {
+            return;
+        }
 
         var junctions = beltService.Junctions;
-        if (junctions.Count == 0) { return; }
+        if (junctions.Count == 0)
+        {
+            return;
+        }
 
         foreach (var (c, j) in junctions)
         {
-            if (!j.CanUse) { continue; }
+            if (!j.CanUse)
+            {
+                continue;
+            }
 
             TryTransfer(j, c, belts);
         }
@@ -26,16 +34,25 @@ public class ConveyorJunctionProcessor(ConveyorBeltService beltService) : ITicka
         {
             if (!belts.TryGetValue(outCoords, out var receiver)
                 || receiver.InputCoordinates != c
-                || !receiver.CanAcceptPotentialItem()) { continue; }
+                || !receiver.CanAcceptPotentialItem())
+            {
+                continue;
+            }
 
             foreach (var inCoords in j.GetInputCoordinates())
             {
                 if (!belts.TryGetValue(inCoords, out var giver)
                     || giver.OutputCoordinates != c
-                    || !giver.CanGiveItem) { continue; }
+                    || !giver.CanGiveItem)
+                {
+                    continue;
+                }
 
                 var goodId = giver.Head!.GoodId;
-                if (!receiver.IsValidGood(goodId)) { continue; }
+                if (!receiver.IsValidGood(goodId))
+                {
+                    continue;
+                }
 
                 var item = giver.Pop();
                 receiver.Push(item.GoodId);
@@ -43,5 +60,4 @@ public class ConveyorJunctionProcessor(ConveyorBeltService beltService) : ITicka
             }
         }
     }
-
 }

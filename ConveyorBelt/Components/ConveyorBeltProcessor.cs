@@ -57,7 +57,7 @@ public class ConveyorBeltProcessor(ConveyorBeltService service) : TickableCompon
         var prev = belt.EndPosition;
         var hasStuck = false;
 
-        for (int i = 0; i < belt.Items.Count; i++)
+        for (var i = 0; i < belt.Items.Count; i++)
         {
             var item = belt.Items[i];
             if (item.Position < prev)
