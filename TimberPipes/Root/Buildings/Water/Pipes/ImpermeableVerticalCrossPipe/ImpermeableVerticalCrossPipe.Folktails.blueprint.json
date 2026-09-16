@@ -1,18 +1,22 @@
 ﻿{
     "BuildingSpec": {
-        "SelectionSoundName": "Discharge",
+        "SelectionSoundName": "Default",
         "LoopingSoundName": "",
         "BuildingCost": [
             {
-                "Id": "Log",
-                "Amount": 12
+                "Id": "Plank",
+                "Amount": 14
             },
             {
                 "Id": "Gear",
-                "Amount": 1
+                "Amount": 5
+            },
+            {
+                "Id": "MetalBlock",
+                "Amount": 10
             }
         ],
-        "ScienceCost": 350,
+        "ScienceCost": 300,
         "PlaceFinished": false,
         "FinishableWithBeaversOnSite": true,
         "DrawRangeBoundsOnIt": false
@@ -26,7 +30,7 @@
         "UndergroundModelDepth": 0
     },
     "TemplateSpec": {
-        "TemplateName": "OutfallPipe.Folktails",
+        "TemplateName": "ImpermeableVerticalCrossPipe.Folktails",
         "BackwardCompatibleTemplateNames": [],
         "RequiredFeatureToggle": "",
         "DisablingFeatureToggle": ""
@@ -41,7 +45,7 @@
     "BlockObjectSpec": {
         "Size": {
             "X": 1,
-            "Y": 2,
+            "Y": 1,
             "Z": 1
         },
         "Blocks": [
@@ -49,13 +53,6 @@
                 "MatterBelow": "GroundOrStackable",
                 "Occupations": "Bottom, Top, Corners, Path, Middle",
                 "Stackable": "BlockObject",
-                "OccupyAllBelow": false,
-                "Underground": false
-            },
-            {
-                "MatterBelow": "Any",
-                "Occupations": "Middle",
-                "Stackable": "None",
                 "OccupyAllBelow": false,
                 "Underground": false
             }
@@ -74,25 +71,41 @@
     },
     "PlaceableBlockObjectSpec": {
         "ToolGroupId": "Pipes",
-        "ToolOrder": 90,
+        "ToolOrder": 65,
         "ToolShape": "Square",
-        "Layout": "SideLine",
+        "Layout": "Single",
         "CustomPivot": {
-            "HasCustomPivot": true,
+            "HasCustomPivot": false,
             "Coordinates": {
-                "X": 0.5,
-                "Y": 0.5,
+                "X": 0.0,
+                "Y": 0.0,
                 "Z": 0.0
             }
         },
         "CanBeAttachedToTerrainSide": false,
         "DevModeTool": false
     },
+    "WaterObstacleSpec": {
+        "Coordinates": [
+            {
+                "X": 0,
+                "Y": 0
+            }
+        ]
+    },
+    "FinishableWaterObstacleSpec": {
+        "Height": 1.0
+    },
+    "SoilBarrierSpec": {
+        "BlockAboveMoisture": true,
+        "BlockFullMoisture": false,
+        "BlockContamination": false
+    },
     "LabeledEntitySpec": {
-        "DisplayNameLocKey": "LV.TPi.OutfallPipeName",
-        "DescriptionLocKey": "LV.TPi.OutfallPipeDesc",
-        "FlavorDescriptionLocKey": "LV.TPi.OutfallPipeFlavor",
-        "Icon": "Buildings/Water/Pipes/OutfallPipe/OutfallPipeIcon"
+        "DisplayNameLocKey": "LV.TPi.ImpermeableVerticalCrossPipeName",
+        "DescriptionLocKey": "LV.TPi.ImpermeableVerticalCrossPipeDesc",
+        "FlavorDescriptionLocKey": "LV.TPi.ImpermeableVerticalCrossPipeFlavor",
+        "Icon": "Buildings/Water/Pipes/ImpermeableVerticalCrossPipe/ImpermeableVerticalCrossPipeIcon"
     },
     "BuildingPipeSpec": {
         "Ports": [
@@ -102,101 +115,34 @@
                     "Y": 0,
                     "Z": 0
                 },
-                "Directions": "Down",
-                "State": "OpenIn"
-            },
-            {
-                "Coordinates": {
-                    "X": 0,
-                    "Y": 0,
-                    "Z": 0
-                },
-                "Directions": "Up",
-                "State": "OpenOut"
+                "Directions": "Down, Up, Bottom, Top",
+                "State": "Open"
             }
         ]
     },
     "TransportPipeSpec": {},
-    "DirectedPipeSpec": {},
-    "DischargePipeSpec": {
-        "DistanceToGroundOffset": 0.0,
-        "EjectBuffer": 0.1
-    },
-    "WaterOutputSpec": {
-        "WaterCoordinates": {
-            "X": 0,
-            "Y": 1,
-            "Z": 0
-        },
-        "DistanceToGroundOffset": 0.0,
-        "OverflowAllowed": false
-    },
-    "WaterOutputParticleSpec": {
-        "AttachmentId": "Water",
-        "SpawnOffset": 0.25,
-        "FadeDistance": 0.0,
-        "MinimumLifetime": 0.0
-    },
-    "TemplateAttachmentsSpec": {
-        "Attachments": [
-            {
-                "AttachmentId": "Water",
-                "Prefab": "Environment/WaterDrops/WaterDrops",
-                "Parent": "#Finished",
-                "Position": {
-                    "X": 0.5,
-                    "Y": 0.05,
-                    "Z": 1.51
-                },
-                "Rotation": {
-                    "X": 90.0,
-                    "Y": 0.0,
-                    "Z": 0.0
-                },
-                "Scale": {
-                    "X": 1.0,
-                    "Y": 1.0,
-                    "Z": 1.0
-                },
-                "CreateInstantly": true
-            }
-        ]
-    },
     "ConstructionSiteProgressVisualizerSpec": {
         "ProgressThresholds": [
             0.0
         ]
     },
     "Children": {
-        "#Arrows": {},
         "#Finished": {
             "TimbermeshSpec": {
-                "Model": "Buildings/Water/Pipes/OutfallPipe/Models/OutfallPipe.Folktails.Model"
+                "Model": "Buildings/Water/Pipes/ImpermeableVerticalCrossPipe/Models/ImpermeableVerticalCrossPipe.Folktails.Model"
             },
             "CollidersSpec": {
                 "BoxColliders": [
                     {
                         "Center": {
                             "X": 0.5,
-                            "Y": 0.23,
+                            "Y": 0.510495067,
                             "Z": 0.5
                         },
                         "Size": {
-                            "X": 1.0,
-                            "Y": 0.46,
-                            "Z": 1.0
-                        }
-                    },
-                    {
-                        "Center": {
-                            "X": 0.5,
-                            "Y": 0.32,
-                            "Z": 1.31
-                        },
-                        "Size": {
-                            "X": 0.3,
-                            "Y": 0.64,
-                            "Z": 0.65
+                            "X": 0.9,
+                            "Y": 1.02099013,
+                            "Z": 0.9
                         }
                     }
                 ],
@@ -211,19 +157,19 @@
                 },
                 "ConstructionStage0": {
                     "TimbermeshSpec": {
-                        "Model": "Buildings/Water/Pipes/OutfallPipe/Models/OutfallPipe.Folktails.Model"
+                        "Model": "Buildings/Water/Pipes/ImpermeableVerticalCrossPipe/Models/ImpermeableVerticalCrossPipe.Folktails.ConstructionStage0.Model"
                     },
                     "CollidersSpec": {
                         "BoxColliders": [
                             {
                                 "Center": {
                                     "X": 0.5,
-                                    "Y": 0.05,
+                                    "Y": 0.113058493,
                                     "Z": 0.5
                                 },
                                 "Size": {
                                     "X": 1.0,
-                                    "Y": 0.1,
+                                    "Y": 0.226116985,
                                     "Z": 1.0
                                 }
                             }

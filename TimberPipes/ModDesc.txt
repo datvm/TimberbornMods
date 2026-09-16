@@ -5,7 +5,8 @@ New Pipe buildings live in the [b]Pipes[/b] group under Water. All of them can s
 [table]
 [tr][th]Name[/th][th]Cost[/th][th]Unlock[/th][th]Flavor[/th][/tr]
 [tr][td][b]One-way Valve[/b]
-One-way pipe. Point a directed end at a building to fill it or extract from it.[/td][td]1 Log[br]1 Gear[/td][td]50[/td][td][i]They added the arrow after the last guy flooded the berry warehouse.[/i][/td][/tr]
+One-way pipe. Point a directed end at a building to fill it or extract from it.[/td][td]1 Log
+1 Gear[/td][td]50[/td][td][i]They added the arrow after the last guy flooded the berry warehouse.[/i][/td][/tr]
 [tr][td][b]Pipe[/b]
 Carries fluid in a straight line.[/td][td]1 Log[/td][td]-[/td][td][i]The committee voted for a canal. The budget voted for a pipe.[/i][/td][/tr]
 [tr][td][b]Elbow[/b]
@@ -17,6 +18,10 @@ One-way pipe. When powered, adds extra headlift.[/td][td]8 Planks
 8 Gears[/td][td]200[/td][td][i]Very energy efficient. Kits will run it all day just to watch the water splash.[/i][/td][/tr]
 [tr][td][b]Vertical Cross[/b]
 Connects vertical and horizontal pipes.[/td][td]3 Planks[/td][td]20[/td][td][i]'What an outstanding piece of work.' — Foreman Halberg[/i][/td][/tr]
+[tr][td][b]Impermeable Vertical Cross[/b]
+Same connections as a [b]Vertical Cross[/b], and it blocks water like a levee.[/td][td]14 Planks
+5 Gears
+10 Metal Blocks[/td][td]300[/td][td][i]Halberg was appalled when the request came in: a piece that carries water and also blocks it.[/i][/td][/tr]
 [tr][td][b]Riser[/b]
 Carries fluid vertically.[/td][td]1 Plank[/td][td]20[/td][td][i]We measured a kit. Then we shrank the bore so it would not become a tubeway.[/i][/td][/tr]
 [tr][td][b]Riser Pipe Pump[/b]
@@ -24,7 +29,7 @@ One-way vertical pipe. When powered, adds extra headlift.[/td][td]12 Planks
 8 Gears[/td][td]150[/td][td][i]This thing pushed the bar so high the reservoir asked for a raise.[/i][/td][/tr]
 [tr][td][b]Outfall Pipe[/b]
 Dumps Water or Badwater.[/td][td]12 Logs
-1 Gear[/td][td]50[/td][td][i]The inventor took “Drain you dry” literally.[/i][/td][/tr]
+1 Gear[/td][td]350[/td][td][i]The inventor took “Drain you dry” literally.[/i][/td][/tr]
 [/table]
 
 [h1]Fill and Extract Liquid[/h1]
@@ -66,6 +71,9 @@ A: It needs power and must not be paused. If the source already has more than 2 
 
 Q: The physics does not make sense!
 A: I tried my best testing common scenarios. If you find something, please send me a screenshot/save if my simulation misses something.
+
+Q: My hauler keeps bringing stuff out manually.
+A: Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3760937316]Disable Hauling[/url] if you prefer the pipes to do all the work.
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

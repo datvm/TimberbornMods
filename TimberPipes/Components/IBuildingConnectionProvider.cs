@@ -18,8 +18,7 @@ public class DefaultBuildingConnectionProvider : IBuildingConnectionProvider
         this.building = building;
         this.service = service;
 
-        isAlreadyPipe = building.GetComponent<BuildingPipe>() is { Enabled: true }
-            || building.GetComponent<PipeTank>() is { Enabled: true };
+        isAlreadyPipe = building.GetEnabledComponent<BuildingPipe>() || building.GetEnabledComponent<PipeTank>();
 
         var explicitDef = building.GetComponent<BuildingPipeTargetPortsSpec>();
         if (explicitDef is null)

@@ -214,4 +214,58 @@ public class ValvePipeIoTests
         Assert.False(ValvePipeIo.TargetStillValid(true, false, 1));
         Assert.False(ValvePipeIo.TargetStillValid(true, true, 0));
     }
+
+    [Fact]
+    public void BuildingModelYawStraightWhenNeitherEnd()
+    {
+        Assert.Null(ValvePipeIo.BuildingModelYaw(false, false));
+    }
+
+    [Fact]
+    public void BuildingModelYawZeroWhenUpEnd()
+    {
+        Assert.Equal(0f, ValvePipeIo.BuildingModelYaw(true, false));
+    }
+
+    [Fact]
+    public void BuildingModelYaw180WhenDownEnd()
+    {
+        Assert.Equal(180f, ValvePipeIo.BuildingModelYaw(false, true));
+    }
+
+    [Fact]
+    public void BuildingModelYawPrefersUpWhenBoth()
+    {
+        Assert.Equal(0f, ValvePipeIo.BuildingModelYaw(true, true));
+    }
+
+    [Fact]
+    public void BuildingVisualNullWhenStraight()
+    {
+        Assert.Null(ValvePipeIo.BuildingVisual(false, false, true, false));
+    }
+
+    [Fact]
+    public void BuildingVisualRingNearBendWhenOutputToBuilding()
+    {
+        var visual = ValvePipeIo.BuildingVisual(true, false, upIsOutput: true, downIsOutput: false);
+        Assert.Equal(0f, visual?.Yaw);
+        Assert.True(visual?.RingNearBend);
+    }
+
+    [Fact]
+    public void BuildingVisualRingNearPipeWhenInputFromBuilding()
+    {
+        var visual = ValvePipeIo.BuildingVisual(false, true, upIsOutput: true, downIsOutput: false);
+        Assert.Equal(180f, visual?.Yaw);
+        Assert.False(visual?.RingNearBend);
+    }
+
+    [Fact]
+    public void BuildingVisualFlipMovesRingWithOutput()
+    {
+        var visual = ValvePipeIo.BuildingVisual(false, true, upIsOutput: false, downIsOutput: true);
+        Assert.Equal(180f, visual?.Yaw);
+        Assert.True(visual?.RingNearBend);
+    }
 }

@@ -12,6 +12,9 @@ LV.TPi.CrossPipeFlavor,"Everyone groans when Bramble starts the “four pipes wa
 LV.TPi.VerticalCrossPipeName,"Vertical Cross",
 LV.TPi.VerticalCrossPipeDesc,"Connects vertical and horizontal pipes.",
 LV.TPi.VerticalCrossPipeFlavor,"'What an outstanding piece of work.' — Foreman Halberg",
+LV.TPi.ImpermeableVerticalCrossPipeName,"Impermeable Vertical Cross",
+LV.TPi.ImpermeableVerticalCrossPipeDesc,"Connects vertical and horizontal pipes. Blocks water.",
+LV.TPi.ImpermeableVerticalCrossPipeFlavor,"Halberg was appalled when the request came in: a piece that carries water and also blocks it.",
 LV.TPi.VerticalPipeName,"Riser",
 LV.TPi.VerticalPipeDesc,"Carries fluid vertically.",
 LV.TPi.VerticalPipeFlavor,"We measured a kit. Then we shrank the bore so it would not become a tubeway.",
@@ -43,6 +46,11 @@ LV.TPi.ValveOutlet,"Extract",
 LV.TPi.ValveInletBuilding,"Fill: {0}",
 LV.TPi.ValveOutletBuilding,"Extract from: {0}",
 LV.TPi.ProvideHeadlift,"● <YellowHighlight>Provides headlift:</YellowHighlight> {0:0.0}m",
+LV.TPi.ModUpdate111000,"- Added Impermeable Vertical Cross.
+- Increased Science cost for Outfall Pipe to 350.
+Visual only:
+- Valve model updated when facing in/out of a supported building.
+- Pipe Pump and Riser Pipe Pump gears now spin when powered.",
 Name_TransportPipeFragment,"Pipe",
 Name_ValvePipeFragment,"Valve",
 Name_PipeTankFragment,"Tank",
