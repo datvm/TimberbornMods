@@ -9,6 +9,7 @@
             "Buildings/Water/Pipes/CrossPipe/CrossPipe.Folktails.blueprint",
             "Buildings/Water/Pipes/HorizontalPipePump/HorizontalPipePump.Folktails.blueprint",
             "Buildings/Water/Pipes/VerticalCrossPipe/VerticalCrossPipe.Folktails.blueprint",
+            "Buildings/Water/Pipes/ImpermeableVerticalCrossPipe/ImpermeableVerticalCrossPipe.Folktails.blueprint",
             "Buildings/Water/Pipes/VerticalPipe/VerticalPipe.Folktails.blueprint",
             "Buildings/Water/Pipes/VerticalPipePump/VerticalPipePump.Folktails.blueprint"
         ]

@@ -1,0 +1,184 @@
+﻿{
+    "BuildingSpec": {
+        "SelectionSoundName": "Default",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            {
+                "Id": "Plank",
+                "Amount": 14
+            },
+            {
+                "Id": "Gear",
+                "Amount": 5
+            },
+            {
+                "Id": "MetalBlock",
+                "Amount": 10
+            }
+        ],
+        "ScienceCost": 300,
+        "PlaceFinished": false,
+        "FinishableWithBeaversOnSite": true,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "ImpermeableVerticalCrossPipe.Folktails",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BlockObjectNavMeshSettingsSpec": {
+        "NoAutoWalls": false,
+        "GenerateFloorsOnStackable": true,
+        "EdgeGroups": [],
+        "UnblockedCoordinates": [],
+        "BlockedEdges": []
+    },
+    "BlockObjectSpec": {
+        "Size": {
+            "X": 1,
+            "Y": 1,
+            "Z": 1
+        },
+        "Blocks": [
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Bottom, Top, Corners, Path, Middle",
+                "Stackable": "BlockObject",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
+        "Entrance": {
+            "HasEntrance": false,
+            "Coordinates": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": false
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "Pipes",
+        "ToolOrder": 65,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": false
+    },
+    "WaterObstacleSpec": {
+        "Coordinates": [
+            {
+                "X": 0,
+                "Y": 0
+            }
+        ]
+    },
+    "FinishableWaterObstacleSpec": {
+        "Height": 1.0
+    },
+    "SoilBarrierSpec": {
+        "BlockAboveMoisture": true,
+        "BlockFullMoisture": false,
+        "BlockContamination": false
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.TPi.ImpermeableVerticalCrossPipeName",
+        "DescriptionLocKey": "LV.TPi.ImpermeableVerticalCrossPipeDesc",
+        "FlavorDescriptionLocKey": "LV.TPi.ImpermeableVerticalCrossPipeFlavor",
+        "Icon": "Buildings/Water/Pipes/ImpermeableVerticalCrossPipe/ImpermeableVerticalCrossPipeIcon"
+    },
+    "BuildingPipeSpec": {
+        "Ports": [
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "Down, Up, Bottom, Top",
+                "State": "Open"
+            }
+        ]
+    },
+    "TransportPipeSpec": {},
+    "ConstructionSiteProgressVisualizerSpec": {
+        "ProgressThresholds": [
+            0.0
+        ]
+    },
+    "Children": {
+        "#Finished": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Water/Pipes/ImpermeableVerticalCrossPipe/Models/ImpermeableVerticalCrossPipe.Folktails.Model"
+            },
+            "CollidersSpec": {
+                "BoxColliders": [
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.510495067,
+                            "Z": 0.5
+                        },
+                        "Size": {
+                            "X": 0.9,
+                            "Y": 1.02099013,
+                            "Z": 0.9
+                        }
+                    }
+                ],
+                "SphereColliders": [],
+                "CapsuleColliders": []
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase1x1#nested": {
+                    "BlueprintPath": "ConstructionBases/ConstructionBase1x1/ConstructionBase1x1.blueprint"
+                },
+                "ConstructionStage0": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Water/Pipes/ImpermeableVerticalCrossPipe/Models/ImpermeableVerticalCrossPipe.Folktails.ConstructionStage0.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.113058493,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.226116985,
+                                    "Z": 1.0
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        }
+    }
+}

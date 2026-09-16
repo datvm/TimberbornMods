@@ -120,6 +120,9 @@
         "PowerInput": 50,
         "IsShaft": false
     },
+    "MechanicalNodeAnimatorSpec": {
+        "MinSpeedMultiplier": 0.0
+    },
     "TransputProviderSpec": {
         "Transputs": [
             {

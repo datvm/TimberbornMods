@@ -1,5 +1,7 @@
 namespace TimberPipes.Models;
 
+public readonly record struct ValveBuildingVisual(float Yaw, bool RingNearBend);
+
 public static class ValvePipeIo
 {
     public static bool IsBuildingCandidate(
@@ -133,6 +135,37 @@ public static class ValvePipeIo
         }
 
         return available.Count > 0 ? available[0] : null;
+    }
+
+    public static float? BuildingModelYaw(bool buildingOnLocalUp, bool buildingOnLocalDown)
+    {
+        if (!buildingOnLocalUp && !buildingOnLocalDown)
+        {
+            return null;
+        }
+
+        if (buildingOnLocalDown && !buildingOnLocalUp)
+        {
+            return 180f;
+        }
+
+        return 0f;
+    }
+
+    public static ValveBuildingVisual? BuildingVisual(
+        bool buildingOnLocalUp,
+        bool buildingOnLocalDown,
+        bool upIsOutput,
+        bool downIsOutput)
+    {
+        var yaw = BuildingModelYaw(buildingOnLocalUp, buildingOnLocalDown);
+        if (yaw is null)
+        {
+            return null;
+        }
+
+        var ringNearBend = yaw == 180f ? downIsOutput : upIsOutput;
+        return new(yaw.Value, ringNearBend);
     }
 
     public static bool ShouldInlet(

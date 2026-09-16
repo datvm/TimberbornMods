@@ -1,0 +1,8 @@
+﻿v11.1.0:
+- Added Impermeable Vertical Cross.
+- Increased Science cost for Outfall Pipe to 350.
+Visual only:
+- Valve model updated when facing in/out of a supported building.
+- Pipe Pump and Riser Pipe Pump gears now spin when powered.
+
+v11.0.1: Fixed Pipes being built immediately and free. Thanks @Kacper for the report.

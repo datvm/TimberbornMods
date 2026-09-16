@@ -21,5 +21,5 @@ public class BuildingPipeTarget(ValvePipeService service) : BaseComponent, IInit
     }
 
     public IBuildingPipeConnection? TryConnecting(BuildingPipe pipe, PipePortDefinition approach, bool give)
-        => connectionProvider.TryConnecting(pipe, approach, give);
+        => connectionProvider?.TryConnecting(pipe, approach, give);
 }

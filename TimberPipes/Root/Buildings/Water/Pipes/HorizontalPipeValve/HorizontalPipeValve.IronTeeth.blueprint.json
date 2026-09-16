@@ -120,9 +120,6 @@
     "Children": {
         "#Arrows": {},
         "#Finished": {
-            "TimbermeshSpec": {
-                "Model": "Buildings/Water/Pipes/HorizontalPipeValve/Models/HorizontalPipeValve.IronTeeth.Model"
-            },
             "CollidersSpec": {
                 "BoxColliders": [
                     {
@@ -140,6 +137,18 @@
                 ],
                 "SphereColliders": [],
                 "CapsuleColliders": []
+            },
+            "Children": {
+                "#Straight": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Water/Pipes/HorizontalPipeValve/Models/HorizontalPipeValve.IronTeeth.Model"
+                    }
+                },
+                "#Building": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Water/Pipes/HorizontalPipeValve/Models/HorizontalPipeValve.IronTeeth.Building.Model"
+                    }
+                }
             }
         },
         "#Unfinished": {

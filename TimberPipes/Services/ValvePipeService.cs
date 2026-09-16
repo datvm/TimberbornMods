@@ -38,23 +38,39 @@ public class ValvePipeService(IBlockService blockService, IGoodService goods)
             }
 
             var approach = port.GetOppositePortDefinition();
-            foreach (var obj in blockService.GetObjectsAt(approach.Coordinates))
+            if (ConnectionAt(pipe, approach, give) is { } connection)
             {
-                if (obj.Overridable)
-                {
-                    continue;
-                }
+                return connection;
+            }
+        }
 
-                var target = obj.GetComponent<BuildingPipeTarget>();
-                if (!target)
-                {
-                    continue;
-                }
+        return null;
+    }
 
-                if (target.TryConnecting(pipe, approach, give) is { } connection)
-                {
-                    return connection;
-                }
+    public bool FacesVisualBuilding(BuildingPipe pipe, Vector3Int coordinates, Direction3D outward, bool give)
+    {
+        var approach = new PipePortDefinition(coordinates + outward.ToOffset(), outward.Across());
+        return ConnectionAt(pipe, approach, give) is not null;
+    }
+
+    IBuildingPipeConnection? ConnectionAt(BuildingPipe pipe, PipePortDefinition approach, bool give)
+    {
+        foreach (var obj in blockService.GetObjectsAt(approach.Coordinates))
+        {
+            if (obj.Overridable)
+            {
+                continue;
+            }
+
+            var target = obj.GetComponent<BuildingPipeTarget>();
+            if (!target)
+            {
+                continue;
+            }
+
+            if (target.TryConnecting(pipe, approach, give) is { } connection)
+            {
+                return connection;
             }
         }
 

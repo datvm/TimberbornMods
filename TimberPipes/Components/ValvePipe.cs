@@ -47,6 +47,7 @@ public class ValvePipe(ValvePipeService service) : BaseComponent, IFinishedPausa
         outletTarget = null;
         inletCached = false;
         outletCached = false;
+        this.GetComponentOrNull<ValvePipeModel>()?.Refresh();
     }
 
     public bool FacesCell(Vector3Int cell)
