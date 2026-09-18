@@ -1,7 +1,7 @@
 ﻿namespace TimberPipes.Components;
 
 [AddTemplateModule2(typeof(BuildingSpec))]
-public class BuildingPipeTarget(ValvePipeService service) : BaseComponent, IInitializableEntity
+public class BuildingPipeTarget(ValvePipeService service) : BaseComponent, IInitializableEntity, IInitializablePreview
 {
 #nullable disable
     BlockObject blockObject;
@@ -12,8 +12,17 @@ public class BuildingPipeTarget(ValvePipeService service) : BaseComponent, IInit
     public BlockObject BlockObject => blockObject;
     public Inventories Inventories => inventories;
 
-    public void InitializeEntity()
+    public void InitializeEntity() => Init();
+
+    public void InitializePreview() => Init();
+
+    void Init()
     {
+        if (blockObject)
+        {
+            return;
+        }
+
         blockObject = GetComponent<BlockObject>();
         inventories = this.GetComponentOrNull<Inventories>();
         connectionProvider = GetEnabledComponent<IBuildingConnectionProvider>()

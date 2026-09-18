@@ -643,6 +643,259 @@ public class PipeFlowSolverTests
     }
 
     [Fact]
+    public void PartialLiftFillsRiserToWaterline()
+    {
+        float[] volumes = [1f, 0f, 10f];
+        float[] capacities = [1f, 1f, 10f];
+        Settle(
+            volumes,
+            capacities,
+            [
+                new(0, 1, true, false),
+                new(0, 2, false, true),
+            ],
+            z: [0, 1, 0],
+            pipeCount: 2,
+            sourceLift: [0.4f, 0f, 0f],
+            qMax: [0.2f, 0f, 0f],
+            headAt: (i, v) => i < 2
+                ? PipeFlowSolver.PipeHead(i == 1 ? 1 : 0, v)
+                : PipeFlowSolver.PumpHead(0, v),
+            ticks: 8);
+
+        Assert.InRange(volumes[0], 0.99f, 1f);
+        Assert.InRange(volumes[1], 0.39f, 0.41f);
+    }
+
+    [Fact]
+    public void LiftJustOverOneMeterDoesNotFillTileAbove()
+    {
+        float[] volumes = [1f, 1f, 0f];
+        Settle(
+            volumes,
+            Caps(3),
+            [new(0, 1, true, false), new(1, 2, true, true)],
+            z: [0, 1, 2],
+            sourceLift: [1.2f, 0f, 0f],
+            qMax: [0.2f, 0f, 0f],
+            ticks: 8);
+
+        Assert.Equal(2f, volumes.Sum(), 4);
+        Assert.InRange(volumes[1], 0.99f, 1f);
+        Assert.InRange(volumes[2], 0.19f, 0.21f);
+        Assert.InRange(volumes[0], 0.79f, 0.81f);
+    }
+
+    [Fact]
+    public void PumpJumpCountsOutflowAlongPath()
+    {
+        float[] volumes = [1f, 1f, 0f];
+        float[] counted = [0f, 0f, 0f];
+        float[] remaining = [float.PositiveInfinity, float.PositiveInfinity, float.PositiveInfinity];
+        PipeFlowSolver.PushPumps(
+            volumes,
+            Caps(3),
+            z: [0, 0, 0],
+            edges: [new(0, 1, true, false), new(1, 2, true, false)],
+            sourceLift: [2f, 0f, 0f],
+            qMax: [0.2f, 0f, 0f],
+            flowCount: 3,
+            countedOutflow: counted,
+            remainingOutflow: remaining);
+
+        Assert.InRange(counted[0], 0.19f, 0.21f);
+        Assert.InRange(counted[1], 0.19f, 0.21f);
+        Assert.Equal(0f, counted[2], 4);
+        Assert.InRange(volumes[2], 0.19f, 0.21f);
+    }
+
+    [Fact]
+    public void PumpJumpCapsRemainingAlongPath()
+    {
+        float[] volumes = [1f, 1f, 0f];
+        float[] counted = [0f, 0f, 0f];
+        float[] remaining = [float.PositiveInfinity, 0.05f, float.PositiveInfinity];
+        PipeFlowSolver.PushPumps(
+            volumes,
+            Caps(3),
+            z: [0, 0, 0],
+            edges: [new(0, 1, true, false), new(1, 2, true, false)],
+            sourceLift: [2f, 0f, 0f],
+            qMax: [0.2f, 0f, 0f],
+            flowCount: 3,
+            countedOutflow: counted,
+            remainingOutflow: remaining);
+
+        Assert.InRange(counted[1], 0.049f, 0.051f);
+        Assert.InRange(volumes[2], 0.049f, 0.051f);
+    }
+
+    [Fact]
+    public void VesselJumpCountsOutflowAlongPath()
+    {
+        float[] volumes = [1f, 1f, 0f];
+        float[] counted = [0f, 0f, 0f];
+        float[] remaining = [float.PositiveInfinity, float.PositiveInfinity, float.PositiveInfinity];
+        PipeFlowSolver.EqualizeVessels(
+            volumes,
+            Caps(3),
+            z: [0, 0, 0],
+            edges: [new(0, 1, true, true), new(1, 2, true, true)],
+            flowCount: 3,
+            countedOutflow: counted,
+            remainingOutflow: remaining);
+
+        Assert.True(counted[1] > PipeFluids.MoveEpsilon);
+        Assert.Equal(0f, counted[2], 4);
+        Assert.True(volumes[2] > PipeFluids.MoveEpsilon);
+    }
+
+    [Fact]
+    public void PumpTopsUpPipeBeforeTank()
+    {
+        float[] volumes = [1f, 1f, 0.8f, 0f];
+        float[] capacities = [1f, 1f, 1f, 10f];
+        float[] counted = [0f, 0f, 0f, 0f];
+        float[] remaining =
+        [
+            float.PositiveInfinity,
+            float.PositiveInfinity,
+            float.PositiveInfinity,
+            float.PositiveInfinity,
+        ];
+        PipeFlowSolver.PushPumps(
+            volumes,
+            capacities,
+            z: [0, 0, 0, 0],
+            edges:
+            [
+                new(0, 1, true, false),
+                new(1, 2, true, false),
+                new(1, 3, true, true),
+            ],
+            sourceLift: [2f, 0f, 0f, 0f],
+            qMax: [0.2f, 0f, 0f, 0f],
+            flowCount: 4,
+            countedOutflow: counted,
+            remainingOutflow: remaining,
+            pipeCount: 3);
+
+        Assert.InRange(counted[1], 0.19f, 0.21f);
+        Assert.InRange(volumes[2], 0.99f, 1f);
+        Assert.InRange(volumes[3], 0f, 0.01f);
+    }
+
+    // 0 pump, 1 throttle, 2 outfall, 3 high-inlet, 4 low-inlet, 5 high tank, 6 low tank.
+    // Tanks sit on the inlet side of the pump; throttle is only on the way to the outfall.
+    static (float[] volumes, float[] counted) PushTwoTanksThenThrottle(bool lowValveOpen, float lowInlet = 0.4f)
+    {
+        float[] volumes = [1f, 1f, 0.8f, 1f, lowInlet, 5f, 0f];
+        float[] capacities = [1f, 1f, 1f, 1f, 1f, 5f, 10f];
+        float[] counted = new float[7];
+        float[] remaining =
+        [
+            float.PositiveInfinity,
+            float.PositiveInfinity,
+            float.PositiveInfinity,
+            float.PositiveInfinity,
+            float.PositiveInfinity,
+            float.PositiveInfinity,
+            float.PositiveInfinity,
+        ];
+        List<PipeFlowEdge> edges =
+        [
+            new(0, 1, true, false),
+            new(1, 2, true, false),
+            new(3, 0, true, true),
+            new(5, 3, true, true),
+        ];
+        if (lowValveOpen)
+        {
+            edges.Add(new(4, 0, true, true));
+            edges.Add(new(4, 6, true, false));
+        }
+
+        PipeFlowSolver.PushPumps(
+            volumes,
+            capacities,
+            z: [0, 0, 0, 0, 0, 1, 0],
+            edges: [.. edges],
+            sourceLift: [2f, 0f, 0f, 0f, 0f, 0f, 0f],
+            qMax: [0.2f, 0f, 0f, 0f, 0f, 0f, 0f],
+            flowCount: 7,
+            countedOutflow: counted,
+            remainingOutflow: remaining,
+            pipeCount: 5);
+
+        return (volumes, counted);
+    }
+
+    [Fact]
+    public void TwoTanksClosedValveCountsThrottle()
+    {
+        var (_, counted) = PushTwoTanksThenThrottle(lowValveOpen: false);
+        Assert.InRange(counted[1], 0.19f, 0.21f);
+    }
+
+    [Fact]
+    public void TwoTanksOpenValveDumpsIntoInletHole()
+    {
+        var (volumes, counted) = PushTwoTanksThenThrottle(lowValveOpen: true);
+        Assert.Equal(0f, counted[1], 4);
+        Assert.InRange(volumes[2], 0.79f, 0.81f);
+        Assert.True(volumes[4] > 0.4f + PipeFluids.MoveEpsilon);
+    }
+
+    [Fact]
+    public void TwoTanksOpenValveFullInletsCountThrottle()
+    {
+        var (volumes, counted) = PushTwoTanksThenThrottle(lowValveOpen: true, lowInlet: 1f);
+        Assert.InRange(counted[1], 0.19f, 0.21f);
+        Assert.InRange(volumes[2], 0.99f, 1f);
+    }
+
+    [Fact]
+    public void TwoTanksOpenValveDirectedPumpCountsThrottle()
+    {
+        float[] volumes = [1f, 1f, 0.8f, 1f, 0.4f, 5f, 0f];
+        float[] capacities = [1f, 1f, 1f, 1f, 1f, 5f, 10f];
+        float[] counted = new float[7];
+        float[] remaining =
+        [
+            float.PositiveInfinity,
+            float.PositiveInfinity,
+            float.PositiveInfinity,
+            float.PositiveInfinity,
+            float.PositiveInfinity,
+            float.PositiveInfinity,
+            float.PositiveInfinity,
+        ];
+        PipeFlowSolver.PushPumps(
+            volumes,
+            capacities,
+            z: [0, 0, 0, 0, 0, 1, 0],
+            edges:
+            [
+                new(0, 1, true, false),
+                new(1, 2, true, false),
+                new(3, 0, true, false),
+                new(5, 3, true, true),
+                new(4, 0, true, false),
+                new(4, 6, true, false),
+            ],
+            sourceLift: [2f, 0f, 0f, 0f, 0f, 0f, 0f],
+            qMax: [0.2f, 0f, 0f, 0f, 0f, 0f, 0f],
+            flowCount: 7,
+            countedOutflow: counted,
+            remainingOutflow: remaining,
+            pipeCount: 5);
+
+        Assert.InRange(counted[1], 0.19f, 0.21f);
+        Assert.InRange(volumes[2], 0.99f, 1f);
+        Assert.Equal(0.4f, volumes[4], 4);
+    }
+
+    [Fact]
     public void RiserPumpPrimesFromBelow()
     {
         float[] volumes = [1f, 0.8f];

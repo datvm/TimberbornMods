@@ -1,6 +1,5 @@
 {
     "PipeSimulationSpec": {
-        "EqualizeK": 0.8,
         "Substeps": 4,
         "DefaultInjectRate": 1,
         "DefaultSlurpRate": 1

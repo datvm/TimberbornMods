@@ -1,8 +1,8 @@
 ﻿namespace TimberPipes.Components;
 
 [AddTemplateModule2(typeof(DischargePipeSpec))]
-public class DischargePipe(DischargePipeService service)
-    : BaseComponent, IFinishedPausable, IAwakableComponent, IInitializableEntity
+public class DischargePipe(DischargePipeService service, IDayNightCycle dayNight)
+    : BaseComponent, IFinishedPausable, IAwakableComponent, IInitializableEntity, IOutflowCounter
 {
     static readonly Vector3Int LocalEject = new(0, 1, 0);
 
@@ -12,20 +12,42 @@ public class DischargePipe(DischargePipeService service)
     DischargePipeSpec spec;
 #nullable enable
 
-    PausableBuilding? pausable;
+    BlockableObject? blockable;
     WaterOutput? waterOutput;
     Vector3Int ejectCell;
+    readonly OutflowHourWindow window = new();
 
     public BuildingPipe Pipe => pipe;
 
     public bool IsEjecting { get; private set; }
+
+    public float HourVolume
+    {
+        get
+        {
+            window.Prune(dayNight.PartialDayNumber);
+            return window.HourVolume;
+        }
+    }
+
+    public float TickVolume { get; private set; }
+
+    public void AddOutflow(float volumeM3) => window.Add(dayNight.PartialDayNumber, volumeM3);
+
+    public void SetTickOutflow(float volumeM3)
+    {
+        TickVolume = Math.Max(0f, volumeM3);
+        AddOutflow(TickVolume);
+    }
+
+    public void Prune(float nowPartialDay) => window.Prune(nowPartialDay);
 
     public void Awake()
     {
         pipe = GetComponent<BuildingPipe>();
         bo = GetComponent<BlockObject>();
         spec = GetComponent<DischargePipeSpec>();
-        pausable = this.GetComponentOrNull<PausableBuilding>();
+        blockable = this.GetComponentOrNull<BlockableObject>();
         waterOutput = this.GetComponentOrNull<WaterOutput>();
     }
 
@@ -47,11 +69,12 @@ public class DischargePipe(DischargePipeService service)
 
     public void TryEject()
     {
-        if (pausable is { Paused: true }
+        if (blockable is { IsUnblocked: false }
             || pipe.IsContaminated
             || pipe.Graph is { Contaminated: true })
         {
             IsEjecting = false;
+            SetTickOutflow(0f);
             return;
         }
 
@@ -61,10 +84,12 @@ public class DischargePipe(DischargePipeService service)
         if (amount <= 0)
         {
             IsEjecting = false;
+            SetTickOutflow(0f);
             return;
         }
 
         pipe.RemoveFluid(amount);
+        SetTickOutflow(amount);
         if (DischargePipeIo.IsContaminatedWater(goodId))
         {
             service.AddWorldWater(waterOutput, ejectCell, clean: 0f, contaminated: amount);

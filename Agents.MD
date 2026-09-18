@@ -20,6 +20,10 @@ Typical order (omit unused sections):
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
 ```
 
+# Versioning
+
+Do not bump a mod's `manifest.json` version, `ChangeLog.txt` version heading, or `IModUpdateNotifier2` version / loc key unless the user explicitly asks to bump the version. Fold new notes into the current version entry.
+
 # Code Style
 
 Always use code block even for single conditional or loop statements. For example:

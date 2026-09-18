@@ -1,13 +1,49 @@
 ﻿namespace TimberPipes.Services;
 
 [BindSingleton]
-public class ValvePipeService(IBlockService blockService, IGoodService goods)
+public class ValvePipeService(IBlockService blockService, IGoodService goods, EventBus eventBus) : ILoadableSingleton
 {
     public readonly IGoodService Goods = goods;
 
+    readonly List<ExtractionPipe> extractions = [];
     HashSet<string>? liquidIds;
 
     public HashSet<string> LiquidIds => liquidIds ??= CollectLiquidIds(Goods);
+
+    public void Load() => eventBus.Register(this);
+
+    public void Track(ExtractionPipe extraction)
+    {
+        if (!extractions.Contains(extraction))
+        {
+            extractions.Add(extraction);
+        }
+    }
+
+    public void Untrack(ExtractionPipe extraction) => extractions.Remove(extraction);
+
+    [OnEvent]
+    public void OnEnteredUnfinishedState(EnteredUnfinishedStateEvent _) => InvalidateIoTargets();
+
+    [OnEvent]
+    public void OnExitedUnfinishedState(ExitedUnfinishedStateEvent _) => InvalidateIoTargets();
+
+    [OnEvent]
+    public void OnEnteredFinishedState(EnteredFinishedStateEvent _) => InvalidateIoTargets();
+
+    [OnEvent]
+    public void OnExitedFinishedState(ExitedFinishedStateEvent _) => InvalidateIoTargets();
+
+    [OnEvent]
+    public void OnEntityDeleted(EntityDeletedEvent _) => InvalidateIoTargets();
+
+    public void InvalidateIoTargets()
+    {
+        foreach (var extraction in extractions)
+        {
+            extraction.InvalidateIoTargets();
+        }
+    }
 
     static HashSet<string> CollectLiquidIds(IGoodService goods)
     {

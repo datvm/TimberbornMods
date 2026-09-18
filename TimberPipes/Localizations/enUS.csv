@@ -1,4 +1,6 @@
 ﻿ID,Text,Comment
+LV.TPi.EqualizeK,"Flow equalization rate (EqualizeK)",
+LV.TPi.EqualizeKDesc,"How quickly connected pipes even out. Higher values move liquid faster. Default 0.8.",
 LV.TPi.GroupName,"Pipes",
 LV.TPi.HorizontalPipeName,"Pipe",
 LV.TPi.HorizontalPipeDesc,"Carries fluid in a straight line.",
@@ -19,8 +21,11 @@ LV.TPi.VerticalPipeName,"Riser",
 LV.TPi.VerticalPipeDesc,"Carries fluid vertically.",
 LV.TPi.VerticalPipeFlavor,"We measured a kit. Then we shrank the bore so it would not become a tubeway.",
 LV.TPi.HorizontalPipeValveName,"One-way Valve",
-LV.TPi.HorizontalPipeValveDesc,"A one-way straight pipe. Can be closed both ways when paused. Point a directed end at a building to pour into it or draw from it.",
+LV.TPi.HorizontalPipeValveDesc,"A one-way straight pipe. Can be closed both ways when paused. Point a directed end at a building to pour into it or draw from it. Select the valve and opt in Fill or Extract.",
 LV.TPi.HorizontalPipeValveFlavor,"They added the arrow after the last guy flooded the berry warehouse.",
+LV.TPi.HorizontalPipeThrottleName,"Throttle Valve Pipe",
+LV.TPi.HorizontalPipeThrottleDesc,"A one-way straight pipe. Pause to close both ways. Shows outflow and can cap that hourly flow.",
+LV.TPi.HorizontalPipeThrottleFlavor,"When asked why it costs so much when it looks exactly like a One-way Valve, they said R&D isn't cheap.",
 LV.TPi.OutfallPipeName,"Outfall Pipe",
 LV.TPi.OutfallPipeDesc,"A one-way pipe that dumps Water or Badwater onto the ground. Any other liquid entering this pipe contaminates the pipe network.",
 LV.TPi.OutfallPipeFlavor,"The inventor took “Drain you dry” literally.",
@@ -45,12 +50,28 @@ LV.TPi.ValveInlet,"Fill",
 LV.TPi.ValveOutlet,"Extract",
 LV.TPi.ValveInletBuilding,"Fill: {0}",
 LV.TPi.ValveOutletBuilding,"Extract from: {0}",
+LV.TPi.OutflowTick,"Current: {0:0.00} m³",
+LV.TPi.OutflowHour,"Last hour: {0:0.00} m³ (avg. {1:0.00} m³/s)",
+LV.TPi.HourlyLimit,"Hourly limit: {0}",
+LV.TPi.HourlyLimitValue,"{0:0.00} m³/h ({1:0.00} m³/s)",
+LV.TPi.Unlimited,"Unlimited",
 LV.TPi.ProvideHeadlift,"● <YellowHighlight>Provides headlift:</YellowHighlight> {0:0.0}m",
-LV.TPi.ModUpdate111000,"- Added Impermeable Vertical Cross.
+LV.TPi.ModUpdate112000,"v11.2.0:
+- Flow equalization rate (EqualizeK) is now a Mod Setting, allowing you to set how fast or slow the water 'moves'. This mod now requires Mod Settings.
+- New Outflow UI: Outfall pipe and Throttle Valve Pipe show how much water left it.
+- Added Throttle Valve Pipe. See mod description and in-game description for more information.
+- Some simulation optimization.
+Bug fixes:
+- Valve Extract/Fill in does not work when a building is built after a Valve.
+- Outfall pipes are now properly stopped by Automation.
+
+v11.1.0:
+- Added Impermeable Vertical Cross.
 - Increased Science cost for Outfall Pipe to 350.
 Visual only:
 - Valve model updated when facing in/out of a supported building.
 - Pipe Pump and Riser Pipe Pump gears now spin when powered.",
 Name_TransportPipeFragment,"Pipe",
 Name_ValvePipeFragment,"Valve",
+Name_OutflowCounterFragment,"Outflow",
 Name_PipeTankFragment,"Tank",

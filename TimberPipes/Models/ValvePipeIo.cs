@@ -4,12 +4,15 @@ public readonly record struct ValveBuildingVisual(float Yaw, bool RingNearBend);
 
 public static class ValvePipeIo
 {
+    public static bool FacesBuilding(bool isTransportPipe, bool isTank = false)
+        => !isTransportPipe && !isTank;
+
     public static bool IsBuildingCandidate(
         bool finished,
         bool hasActiveInventory,
         bool isTransportPipe,
         bool isTank = false)
-        => finished && hasActiveInventory && !isTransportPipe && !isTank;
+        => finished && hasActiveInventory && FacesBuilding(isTransportPipe, isTank);
 
     public static bool HasActiveInventory(int enabledInventoryCount)
         => enabledInventoryCount > 0;

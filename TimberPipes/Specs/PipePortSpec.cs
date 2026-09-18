@@ -17,6 +17,12 @@ public record DirectedPipeSpec : ComponentSpec;
 
 public record ValvePipeSpec : ComponentSpec;
 
+public record ExtractionPipeSpec : ComponentSpec;
+
+public record OutflowCounterSpec : ComponentSpec;
+
+public record FlowLimitPipeSpec : ComponentSpec;
+
 public record DischargePipeSpec : ComponentSpec
 {
     // Same meaning as WaterOutputSpec.DistanceToGroundOffset. 0 = stop one tile under (Discharge).

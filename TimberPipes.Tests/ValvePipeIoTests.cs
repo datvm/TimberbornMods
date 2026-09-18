@@ -101,6 +101,10 @@ public class ValvePipeIoTests
     [Fact]
     public void FinishedBuildingWithInventoryIsCandidate()
     {
+        Assert.True(ValvePipeIo.FacesBuilding(isTransportPipe: false));
+        Assert.True(ValvePipeIo.FacesBuilding(isTransportPipe: false, isTank: false));
+        Assert.False(ValvePipeIo.FacesBuilding(isTransportPipe: true));
+        Assert.False(ValvePipeIo.FacesBuilding(isTransportPipe: false, isTank: true));
         Assert.True(ValvePipeIo.IsBuildingCandidate(finished: true, hasActiveInventory: true, isTransportPipe: false));
         Assert.False(ValvePipeIo.IsBuildingCandidate(finished: false, hasActiveInventory: true, isTransportPipe: false));
         Assert.False(ValvePipeIo.IsBuildingCandidate(finished: true, hasActiveInventory: false, isTransportPipe: false));

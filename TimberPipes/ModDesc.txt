@@ -7,6 +7,10 @@ New Pipe buildings live in the [b]Pipes[/b] group under Water. All of them can s
 [tr][td][b]One-way Valve[/b]
 One-way pipe. Point a directed end at a building to fill it or extract from it.[/td][td]1 Log
 1 Gear[/td][td]50[/td][td][i]They added the arrow after the last guy flooded the berry warehouse.[/i][/td][/tr]
+[tr][td][b]Throttle Valve Pipe[/b]
+One-way pipe. Pause to close both ways. Counts this-tick and last-hour outflow and can cap the hour.[/td][td]5 Treated Planks
+5 Metal Blocks
+1 Gear[/td][td]500[/td][td][i]When asked why it costs so much when it looks exactly like a One-way Valve, they said R&D isn't cheap.[/i][/td][/tr]
 [tr][td][b]Pipe[/b]
 Carries fluid in a straight line.[/td][td]1 Log[/td][td]-[/td][td][i]The committee voted for a canal. The budget voted for a pipe.[/i][/td][/tr]
 [tr][td][b]Elbow[/b]
@@ -33,7 +37,7 @@ Dumps Water or Badwater.[/td][td]12 Logs
 [/table]
 
 [h1]Fill and Extract Liquid[/h1]
-Tanks take any pipe on any open face. You do not need a valve. For other buildings, place a [b]One-way Valve[/b] with a directed end on the building face: arrow into the building to fill it, arrow out of the building to extract. 
+Tanks take any pipe on any open face. You do not need a valve. For other buildings, place a [b]One-way Valve[/b] with a directed end on the building face: arrow into the building to fill it, arrow out of the building to extract. [b]You must select the Valve and opt in Fill or Extract.[/b] They stay off until you turn them on. 
 [img]https://images.steamusercontent.com/ugc/11573173917424417447/BA78D8DFB60AA667EF8184366342842F64FF7968/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
 
 For example, below is a Folktails' design to make Extract and Catalyst:
@@ -59,8 +63,13 @@ Tanks break the pipe network. Pump headlift does not pass through a tank. Water 
 
 [h1]Notes[/h1]
 - One-way Valve: can be paused to block liquid both ways. It will NOT prevent contamination still.
+- Throttle Valve Pipe: due to technical simulation limitation, the limit is m3 per hour. It does not spread out over time. It simply automatically stops the flow when the hourly limit is reached. Which means you can see a sudden strong flow and then stop.
 - Open outlets of a pipe do NOT spill water. They are considered closed. For example, there is no issue if you only connect 2 out of 4 outlets of a Cross Pipe. The only way to get Water out is the Outfall Pipe.
 - Generally, a pipe contains 1m³ of liquid (5 good), except in Tank which uses a special conversion due to its size vs. capacity.
+
+[h1]Settings[/h1]
+Main Menu -> Mods -> Settings button next to the mod name.
+- [b]Flow equalization rate (EqualizeK)[/b]: how quickly connected pipes even out. In simple term, it's most of the time the speed water moves. Higher is faster. Default 0.8.
 
 [h1]FAQ[/h1]
 Q: The tank will not fill all the way?

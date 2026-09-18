@@ -1,0 +1,186 @@
+{
+    "BuildingSpec": {
+        "SelectionSoundName": "Default",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            {
+                "Id": "TreatedPlank",
+                "Amount": 5
+            },
+            {
+                "Id": "MetalBlock",
+                "Amount": 5
+            },
+            {
+                "Id": "Gear",
+                "Amount": 1
+            }
+        ],
+        "ScienceCost": 500,
+        "PlaceFinished": false,
+        "FinishableWithBeaversOnSite": true,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "HorizontalPipeThrottle.IronTeeth",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BlockObjectNavMeshSettingsSpec": {
+        "NoAutoWalls": false,
+        "GenerateFloorsOnStackable": false,
+        "EdgeGroups": [],
+        "UnblockedCoordinates": [],
+        "BlockedEdges": []
+    },
+    "BlockObjectSpec": {
+        "Size": {
+            "X": 1,
+            "Y": 1,
+            "Z": 1
+        },
+        "Blocks": [
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
+        "Entrance": {
+            "HasEntrance": false,
+            "Coordinates": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": false
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "Pipes",
+        "ToolOrder": 95,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": false
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.TPi.HorizontalPipeThrottleName",
+        "DescriptionLocKey": "LV.TPi.HorizontalPipeThrottleDesc",
+        "FlavorDescriptionLocKey": "LV.TPi.HorizontalPipeThrottleFlavor",
+        "Icon": "Buildings/Water/Pipes/HorizontalPipeThrottle/HorizontalPipeThrottleIcon"
+    },
+    "BuildingPipeSpec": {
+        "Ports": [
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "Down",
+                "State": "OpenIn"
+            },
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "Up",
+                "State": "OpenOut"
+            }
+        ]
+    },
+    "TransportPipeSpec": {},
+    "DirectedPipeSpec": {},
+    "ValvePipeSpec": {},
+    "OutflowCounterSpec": {},
+    "FlowLimitPipeSpec": {},
+    "ConstructionSiteProgressVisualizerSpec": {
+        "ProgressThresholds": [
+            0.0
+        ]
+    },
+    "Children": {
+        "#Arrows": {},
+        "#Finished": {
+            "CollidersSpec": {
+                "BoxColliders": [
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.23,
+                            "Z": 0.5
+                        },
+                        "Size": {
+                            "X": 1.0,
+                            "Y": 0.46,
+                            "Z": 1.0
+                        }
+                    }
+                ],
+                "SphereColliders": [],
+                "CapsuleColliders": []
+            },
+            "Children": {
+                "#Straight": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Water/Pipes/HorizontalPipeThrottle/Models/HorizontalPipeThrottle.IronTeeth.Model"
+                    }
+                }
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase1x1Top#nested": {
+                    "BlueprintPath": "ConstructionBases/ConstructionBase1x1Top/ConstructionBase1x1Top.blueprint"
+                },
+                "ConstructionStage0": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Water/Pipes/HorizontalPipeThrottle/Models/HorizontalPipeThrottle.IronTeeth.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.05,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.1,
+                                    "Z": 1.0
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        }
+    }
+}

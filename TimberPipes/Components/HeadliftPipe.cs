@@ -8,17 +8,17 @@ public class HeadliftPipe(ILoc t) : BaseComponent, IAwakableComponent, IEntityDe
 #nullable enable
 
     MechanicalBuilding? mech;
-    PausableBuilding? pausable;
+    BlockableObject? blockable;
 
     public float RatedMaxHeadLift => spec.MaxHeadLift;
     public int? InjectRate => spec.InjectRate;
-    public bool IsPaused => pausable is { Paused: true };
+    public bool IsPaused => blockable is { IsUnblocked: false };
 
     public float WorkFactor
     {
         get
         {
-            if (pausable is { Paused: true })
+            if (blockable is { IsUnblocked: false })
             {
                 return 0f;
             }
@@ -38,7 +38,7 @@ public class HeadliftPipe(ILoc t) : BaseComponent, IAwakableComponent, IEntityDe
     {
         spec = GetComponent<PipeHeadliftSpec>();
         mech = this.GetComponentOrNull<MechanicalBuilding>();
-        pausable = this.GetComponentOrNull<PausableBuilding>();
+        blockable = this.GetComponentOrNull<BlockableObject>();
     }
 
     public IEnumerable<EntityDescription> DescribeEntity() => [

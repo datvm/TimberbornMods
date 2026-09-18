@@ -9,6 +9,8 @@ public interface IBuildingPipeConnection
 
     bool IsValid { get; }
 
+    bool IsAttached { get; }
+
     IEnumerable<string> GetLiquidIds();
     LiquidInventory GetLiquidInventory(string id);
 
@@ -24,8 +26,10 @@ public class DefaultBuildingPipeConnection(
 
     public BuildingPipeTarget Target => building;
 
+    public bool IsAttached => building && building.BlockObject;
+
     public bool IsValid
-        => building.BlockObject
+        => IsAttached
             && building.BlockObject.IsFinished
             && building.Inventories
             && ValvePipeIo.HasActiveInventory(building.Inventories.EnabledInventories.Count);
@@ -54,7 +58,7 @@ public class DefaultBuildingPipeConnection(
     }
 
     public bool TryTransfer(string goodId, int amount)
-        => give ? TryGive(goodId, amount) : TryTake(goodId, amount);
+        => IsValid && (give ? TryGive(goodId, amount) : TryTake(goodId, amount));
 
     bool TryGive(string goodId, int amount)
     {

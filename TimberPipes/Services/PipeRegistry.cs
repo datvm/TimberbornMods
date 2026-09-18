@@ -7,24 +7,20 @@ public class PipeRegistry(EventBus eventBus) : ILoadableSingleton
     readonly Dictionary<PipePortDefinition, BuildingPipe> portOwners = [];
     readonly HashSet<PipeGraph> graphs = [];
     readonly List<ValvePipe> valves = [];
+    readonly List<ExtractionPipe> extractions = [];
     readonly List<DischargePipe> discharges = [];
     readonly List<PipeTank> tanks = [];
     readonly List<HeadliftPipe> headlifts = [];
 
     public IReadOnlyCollection<PipeGraph> Graphs => graphs;
     public IReadOnlyList<ValvePipe> Valves => valves;
+    public IReadOnlyList<ExtractionPipe> Extractions => extractions;
     public IReadOnlyList<DischargePipe> Discharges => discharges;
     public IReadOnlyList<PipeTank> Tanks => tanks;
     public IReadOnlyList<HeadliftPipe> Headlifts => headlifts;
     public IEnumerable<BuildingPipe> All => pipes.Values;
 
     public void Load() => eventBus.Register(this);
-
-    [OnEvent]
-    public void OnEnteredFinishedState(EnteredFinishedStateEvent e) => InvalidateValveTargets(e.BlockObject);
-
-    [OnEvent]
-    public void OnExitedFinishedState(ExitedFinishedStateEvent e) => InvalidateValveTargets(e.BlockObject);
 
     public bool TryGetGraph(Vector3Int coordinates, [NotNullWhen(true)] out PipeGraph? graph)
     {
@@ -92,6 +88,11 @@ public class PipeRegistry(EventBus eventBus) : ILoadableSingleton
             valves.Add(valve);
         }
 
+        if (buildingPipe.Extraction is { } extraction)
+        {
+            extractions.Add(extraction);
+        }
+
         if (buildingPipe.Discharge is { } discharge)
         {
             discharges.Add(discharge);
@@ -113,6 +114,11 @@ public class PipeRegistry(EventBus eventBus) : ILoadableSingleton
         if (buildingPipe.Valve is { } valve)
         {
             valves.Remove(valve);
+        }
+
+        if (buildingPipe.Extraction is { } extraction)
+        {
+            extractions.Remove(extraction);
         }
 
         if (buildingPipe.Discharge is { } discharge)
@@ -151,25 +157,6 @@ public class PipeRegistry(EventBus eventBus) : ILoadableSingleton
             }
 
             otherGraph.Flow.Dirty = true;
-        }
-    }
-
-    void InvalidateValveTargets(BlockObject bo)
-    {
-        if (!bo || valves.Count == 0)
-        {
-            return;
-        }
-
-        foreach (var cell in bo.Blocks.GetOccupiedCoordinates())
-        {
-            foreach (var valve in valves)
-            {
-                if (valve.FacesCell(cell))
-                {
-                    valve.InvalidateIoTargets();
-                }
-            }
         }
     }
 

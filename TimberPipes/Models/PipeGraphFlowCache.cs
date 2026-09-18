@@ -5,10 +5,13 @@ readonly record struct PipeFlowLink(int A, int B, PipePort? Port, bool Internal)
 public sealed class PipeGraphFlowCache
 {
     public bool Dirty { get; set; } = true;
+    public bool OutflowsDirty { get; private set; } = true;
     public BuildingPipe[] Pipes { get; private set; } = [];
     public PipeTank[] Tanks { get; private set; } = [];
     public int[] TankStarts { get; private set; } = [];
     public HeadliftPipe?[] Headlifts { get; private set; } = [];
+    public PipeOutflowCounter?[] Outflows { get; private set; } = [];
+    public FlowLimitPipe?[] FlowLimits { get; private set; } = [];
     public int PipeCount { get; private set; }
     public int FlowCount { get; private set; }
     public int EdgeCount { get; private set; }
@@ -19,6 +22,8 @@ public sealed class PipeGraphFlowCache
     public float[] SourceLift { get; private set; } = [];
     public float[] QMax { get; private set; } = [];
     public float[] Extra { get; private set; } = [];
+    public float[] Counted { get; private set; } = [];
+    public float[] Remaining { get; private set; } = [];
     public PipeFlowEdge[] Edges { get; private set; } = [];
     public PipeFlowScratch Scratch { get; } = new();
     public PipeHeadFill FillHeads { get; }
@@ -36,11 +41,15 @@ public sealed class PipeGraphFlowCache
         PipeCount = pipes.Count;
         Pipes = [.. pipes];
         Headlifts = new HeadliftPipe?[PipeCount];
+        Outflows = new PipeOutflowCounter?[PipeCount];
+        FlowLimits = new FlowLimitPipe?[PipeCount];
         Dictionary<BuildingPipe, int> pipeIndex = [];
         for (var i = 0; i < PipeCount; i++)
         {
             pipeIndex[Pipes[i]] = i;
             Headlifts[i] = Pipes[i].Headlift;
+            Outflows[i] = Pipes[i].Outflow;
+            FlowLimits[i] = Pipes[i].FlowLimit;
         }
 
         List<PipeTank> tanks = [];
@@ -151,16 +160,26 @@ public sealed class PipeGraphFlowCache
         }
 
         Dirty = false;
+        OutflowsDirty = true;
     }
+
+    public void MarkOutflowsBuilt() => OutflowsDirty = false;
 
     public void RefreshEdgeAllows()
     {
         for (var e = 0; e < EdgeCount; e++)
         {
             var link = links[e];
-            Edges[e] = link.Internal
-                ? new(link.A, link.B, true, true)
-                : new(link.A, link.B, link.Port!.CanOutflow, link.Port.CanInflow);
+            var next = link.Internal
+                ? new PipeFlowEdge(link.A, link.B, true, true)
+                : new PipeFlowEdge(link.A, link.B, link.Port!.CanOutflow, link.Port.CanInflow);
+            if (Edges[e] == next)
+            {
+                continue;
+            }
+
+            Edges[e] = next;
+            OutflowsDirty = true;
         }
     }
 
@@ -181,17 +200,21 @@ public sealed class PipeGraphFlowCache
 
     void EnsureBuffers(int n)
     {
-        if (Volumes.Length >= n)
+        if (Volumes.Length < n)
         {
-            return;
+            Volumes = new float[n];
+            Capacities = new float[n];
+            Z = new int[n];
+            SourceLift = new float[n];
+            QMax = new float[n];
+            Extra = new float[n];
         }
 
-        Volumes = new float[n];
-        Capacities = new float[n];
-        Z = new int[n];
-        SourceLift = new float[n];
-        QMax = new float[n];
-        Extra = new float[n];
+        if (Counted.Length < n)
+        {
+            Counted = new float[Volumes.Length];
+            Remaining = new float[Volumes.Length];
+        }
     }
 
     int IndexOf(

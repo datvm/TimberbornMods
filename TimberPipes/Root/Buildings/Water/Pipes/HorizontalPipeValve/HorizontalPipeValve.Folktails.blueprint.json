@@ -112,6 +112,7 @@
     "TransportPipeSpec": {},
     "DirectedPipeSpec": {},
     "ValvePipeSpec": {},
+    "ExtractionPipeSpec": {},
     "ConstructionSiteProgressVisualizerSpec": {
         "ProgressThresholds": [
             0.0

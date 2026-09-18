@@ -61,13 +61,14 @@ public class ValvePipeFragment(
 
     void Refresh()
     {
-        if (component is not { } valve)
+        if (component is not { Extraction: { } extraction })
         {
+            panel.Visible = false;
             return;
         }
 
-        var inlet = valve.FindInletTarget();
-        var outlet = valve.FindOutletTarget();
+        var inlet = extraction.FindInletTarget();
+        var outlet = extraction.FindOutletTarget();
         if (inlet is null && outlet is null)
         {
             panel.Visible = false;
@@ -81,15 +82,15 @@ public class ValvePipeFragment(
         if (inlet is { } inletTarget)
         {
             inletToggle.text = string.Format(t.T("LV.TPi.ValveInletBuilding"), inletTarget.Target.BlockObject.GetLabeledName(t));
-            inletToggle.SetValueWithoutNotify(valve.InletEnabled);
+            inletToggle.SetValueWithoutNotify(extraction.InletEnabled);
         }
 
         outletSection.ToggleDisplayStyle(outlet is not null);
         if (outlet is { } outletTarget)
         {
             outletBuilding.text = string.Format(t.T("LV.TPi.ValveOutletBuilding"), outletTarget.Target.BlockObject.GetLabeledName(t));
-            outletToggle.SetValueWithoutNotify(valve.OutletEnabled);
-            RefreshOutletGoods(valve);
+            outletToggle.SetValueWithoutNotify(extraction.OutletEnabled);
+            RefreshOutletGoods(extraction);
         }
 
         refreshing = false;
@@ -97,45 +98,45 @@ public class ValvePipeFragment(
 
     void OnInletChanged(bool enabled)
     {
-        if (refreshing || component is not { } valve)
+        if (refreshing || component is not { Extraction: { } extraction })
         {
             return;
         }
 
-        valve.InletEnabled = enabled;
+        extraction.InletEnabled = enabled;
     }
 
     void OnOutletChanged(bool enabled)
     {
-        if (refreshing || component is not { } valve)
+        if (refreshing || component is not { Extraction: { } extraction })
         {
             return;
         }
 
-        valve.OutletEnabled = enabled;
-        if (enabled && valve.OutletGoodId is null)
+        extraction.OutletEnabled = enabled;
+        if (enabled && extraction.OutletGoodId is null)
         {
-            valve.OutletGoodId = ValvePipeIo.DefaultExtractGood(null, OutletGoodIds(valve));
+            extraction.OutletGoodId = ValvePipeIo.DefaultExtractGood(null, OutletGoodIds(extraction));
             refreshing = true;
-            RefreshOutletGoods(valve);
+            RefreshOutletGoods(extraction);
             refreshing = false;
         }
     }
 
     void OnOutletGoodChanged(string goodId)
     {
-        if (refreshing || component is not { } valve)
+        if (refreshing || component is not { Extraction: { } extraction })
         {
             return;
         }
 
-        valve.OutletGoodId = goodId is { Length: > 0 } ? goodId : null;
+        extraction.OutletGoodId = goodId is { Length: > 0 } ? goodId : null;
     }
 
-    void RefreshOutletGoods(ValvePipe valve)
+    void RefreshOutletGoods(ExtractionPipe extraction)
     {
-        var ids = OutletGoodIds(valve);
-        var display = valve.OutletGoodId is { Length: > 0 } id
+        var ids = OutletGoodIds(extraction);
+        var display = extraction.OutletGoodId is { Length: > 0 } id
             ? id
             : ids.Count > 0 ? ids[0] : "";
         BindOutletGoods(ids, display);
@@ -170,9 +171,9 @@ public class ValvePipeFragment(
         }
     }
 
-    List<string> OutletGoodIds(ValvePipe valve)
+    List<string> OutletGoodIds(ExtractionPipe extraction)
     {
-        List<string> ids = [.. valve.OutletGoodIds()];
+        List<string> ids = [.. extraction.OutletGoodIds()];
         ids.Sort((a, b) => goods.GetGood(a).GoodOrder.CompareTo(goods.GetGood(b).GoodOrder));
         return ids;
     }

@@ -1,4 +1,13 @@
-﻿v11.1.0:
+﻿v11.2.0:
+- Flow equalization rate (EqualizeK) is now a Mod Setting, allowing you to set how fast or slow the water 'moves'. This mod now requires Mod Settings.
+- New Outflow UI: Outfall pipe and Throttle Valve Pipe show how much water left it.
+- Added Throttle Valve Pipe. See mod description and in-game description for more information.
+- Some simulation optimization.
+Bug fixes:
+- Valve Extract/Fill in does not work when a building is built after a Valve.
+- Outfall pipes are now properly stopped by Automation.
+
+v11.1.0:
 - Added Impermeable Vertical Cross.
 - Increased Science cost for Outfall Pipe to 350.
 Visual only:

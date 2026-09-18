@@ -7,13 +7,15 @@ public class BuildingPipePortState : BaseComponent, IAwakableComponent, IFinishe
     BuildingPipe buildingPipe;
 #nullable enable
 
-    PausableBuilding? pausableBuilding;
+    BlockableObject? blockable;
+    FlowLimitPipe? flowLimit;
     bool isValve;
 
     public void Awake()
     {
         buildingPipe = GetComponent<BuildingPipe>();
-        pausableBuilding = this.GetComponentOrNull<PausableBuilding>();
+        blockable = this.GetComponentOrNull<BlockableObject>();
+        flowLimit = this.GetComponentOrNull<FlowLimitPipe>();
         isValve = HasComponent<ValvePipe>() || HasComponent<DischargePipe>();
     }
 
@@ -25,7 +27,7 @@ public class BuildingPipePortState : BaseComponent, IAwakableComponent, IFinishe
         }
 
         var hasChanged = false;
-        var paused = pausableBuilding is { Paused: true };
+        var paused = blockable is { IsUnblocked: false } || flowLimit is { IsClosed: true };
 
         foreach (var p in ports.Values)
         {

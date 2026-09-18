@@ -1,4 +1,4 @@
-﻿namespace TimberPipes.Services;
+namespace TimberPipes.Services;
 
 public readonly record struct ValvePipeBuildingSettingModel(bool InletEnabled, bool OutletEnabled, string? OutletGoodId);
 
@@ -14,12 +14,22 @@ public class ValvePipeBuildingSettings(ILoc t, IGoodService goods)
         return t.T("LV.TPi.BldSet.Desc", t.TYesNo(model.InletEnabled), extract);
     }
 
+    public override bool CanDeserialize(ValvePipe? target)
+        => base.CanDeserialize(target) && target!.Extraction;
+
     protected override bool ApplyModel(ValvePipeBuildingSettingModel model, ValvePipe target)
     {
-        target.CopySettings(model.InletEnabled, model.OutletEnabled, model.OutletGoodId);
+        if (target.Extraction is not { } extraction)
+        {
+            return false;
+        }
+
+        extraction.CopySettings(model.InletEnabled, model.OutletEnabled, model.OutletGoodId);
         return true;
     }
 
     protected override ValvePipeBuildingSettingModel GetModel(ValvePipe duplicable)
-        => new(duplicable.InletEnabled, duplicable.OutletEnabled, duplicable.OutletGoodId);
+        => duplicable.Extraction is { } extraction
+            ? new(extraction.InletEnabled, extraction.OutletEnabled, extraction.OutletGoodId)
+            : default;
 }

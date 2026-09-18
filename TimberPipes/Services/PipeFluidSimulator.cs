@@ -4,14 +4,22 @@
 public class PipeFluidSimulator(
     PipeRegistry pipeRegistry,
     ISpecService specs,
-    ITickService tick
+    ITickService tick,
+    MSettings settings
 ) : ITickableSingleton, ILoadableSingleton
 {
-    PipeSimulationSpec spec = null!;
+    int substeps;
+    float kDt;
+    int packetRate;
+    int defaultInjectRate;
 
     public void Load()
     {
-        spec = specs.GetSingleSpec<PipeSimulationSpec>();
+        var spec = specs.GetSingleSpec<PipeSimulationSpec>();
+        substeps = Math.Max(1, spec.Substeps);
+        kDt = Math.Max(0f, settings.EqualizeK.Value) * tick.TickIntervalInSeconds / substeps;
+        packetRate = Math.Max(1, spec.DefaultSlurpRate);
+        defaultInjectRate = Math.Max(1, spec.DefaultInjectRate);
     }
 
     public void Tick()
@@ -27,20 +35,14 @@ public class PipeFluidSimulator(
             discharge.CheckContamination();
         }
 
-        foreach (var graph in pipeRegistry.Graphs)
-        {
-            graph.RefreshContamination();
-        }
-
         foreach (var tank in pipeRegistry.Tanks)
         {
             tank.Quantize();
         }
 
-        var packetRate = Math.Max(1, spec.DefaultSlurpRate);
-        foreach (var valve in pipeRegistry.Valves)
+        foreach (var extraction in pipeRegistry.Extractions)
         {
-            valve.TryTransfer(packetRate);
+            extraction.TryTransfer(packetRate);
         }
 
         foreach (var graph in pipeRegistry.Graphs)
@@ -59,6 +61,11 @@ public class PipeFluidSimulator(
         foreach (var discharge in pipeRegistry.Discharges)
         {
             discharge.TryEject();
+        }
+
+        foreach (var valve in pipeRegistry.Valves)
+        {
+            valve.Pipe.PortState?.RefreshPortStatus();
         }
     }
 
@@ -97,16 +104,24 @@ public class PipeFluidSimulator(
         Array.Clear(sourceLift, 0, n);
         Array.Clear(qMax, 0, n);
         Array.Clear(extra, 0, n);
+        Array.Clear(flow.Counted, 0, n);
 
-        var defaultGoods = Math.Max(1, spec.DefaultInjectRate);
         for (var i = 0; i < pipeCount; i++)
         {
             volumes[i] = flow.Pipes[i].FluidHeight;
+            flow.Remaining[i] = flow.FlowLimits[i] is { } limit
+                ? limit.Remaining
+                : float.PositiveInfinity;
             if (flow.Headlifts[i] is { } headlift)
             {
                 sourceLift[i] = headlift.EffectiveMaxHeadLift;
-                qMax[i] = PipeFlowSolver.FlowCap(headlift.InjectRate ?? defaultGoods, headlift.WorkFactor);
+                qMax[i] = PipeFlowSolver.FlowCap(headlift.InjectRate ?? defaultInjectRate, headlift.WorkFactor);
             }
+        }
+
+        for (var i = pipeCount; i < n; i++)
+        {
+            flow.Remaining[i] = float.PositiveInfinity;
         }
 
         for (var t = 0; t < flow.Tanks.Length; t++)
@@ -125,8 +140,6 @@ public class PipeFluidSimulator(
         }
 
         flow.RefreshEdgeAllows();
-        var substeps = Math.Max(1, spec.Substeps);
-        var kDt = spec.EqualizeK * tick.TickIntervalInSeconds / substeps;
         PipeFlowSolver.Run(
             volumes.AsSpan(0, n),
             capacities.AsSpan(0, n),
@@ -140,7 +153,16 @@ public class PipeFluidSimulator(
             kDt,
             extra.AsSpan(0, n),
             flow.FillHeads,
-            flow.Scratch);
+            flow.Scratch,
+            flow.OutflowsDirty,
+            flow.Counted.AsSpan(0, n),
+            flow.Remaining.AsSpan(0, n));
+        flow.MarkOutflowsBuilt();
+
+        for (var i = 0; i < pipeCount; i++)
+        {
+            flow.Outflows[i]?.SetTickOutflow(flow.Counted[i]);
+        }
 
         graph.TransmittedLift.Clear();
         for (var i = 0; i < pipeCount; i++)

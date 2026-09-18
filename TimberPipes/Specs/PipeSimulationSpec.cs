@@ -3,9 +3,6 @@
 public record PipeSimulationSpec : ComponentSpec
 {
     [Serialize]
-    public float EqualizeK { get; init; } = 0.8f;
-
-    [Serialize]
     public int Substeps { get; init; } = 4;
 
     [Serialize]

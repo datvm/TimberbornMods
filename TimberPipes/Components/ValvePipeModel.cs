@@ -1,6 +1,6 @@
 namespace TimberPipes.Components;
 
-[AddTemplateModule2(typeof(ValvePipeSpec))]
+[AddTemplateModule2(typeof(ExtractionPipeSpec))]
 public class ValvePipeModel(ValvePipeService service)
     : BaseComponent, IAwakableComponent, IPostInitializableEntity, IInitializablePreview,
         IPostPlacementChangeListener, IFinishedStateListener, IPreviewSelectionListener
