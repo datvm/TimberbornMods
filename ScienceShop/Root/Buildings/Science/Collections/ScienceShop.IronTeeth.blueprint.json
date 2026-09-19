@@ -1,0 +1,8 @@
+{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.IronTeeth",
+        "Blueprints": [
+            "Buildings/Science/ScienceShop/ScienceShop.IronTeeth.blueprint"
+        ]
+    }
+}

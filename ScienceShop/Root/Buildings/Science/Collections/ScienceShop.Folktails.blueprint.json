@@ -1,0 +1,8 @@
+{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.Folktails",
+        "Blueprints": [
+            "Buildings/Science/ScienceShop/ScienceShop.Folktails.blueprint"
+        ]
+    }
+}

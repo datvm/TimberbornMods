@@ -1,0 +1,11 @@
+{
+  "GlobalGoodSpec": {
+    "Id": "PowerOverdriver",
+    "DisplayNameLocKey": "LV.PO.PowerOverdriver.DisplayName",
+    "PluralDisplayNameLocKey": "LV.PO.PowerOverdriver.PluralDisplayName",
+    "Icon": "Goods/PowerOverdriver/PowerOverdriverIcon",
+    "Order": 10,
+    "MinCapacity": 0,
+    "HideOnZero": true
+  }
+}

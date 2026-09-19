@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputModFolderName>GlobalInventory</OutputModFolderName>
+	</PropertyGroup>
+
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonTimberUi.targets" />
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="GlobalInventory.Tests" />
+	</ItemGroup>
+
+</Project>

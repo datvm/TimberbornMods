@@ -1,0 +1,10 @@
+{
+    "Name": "Science Shop",
+    "Version": "11.0.0",
+    "Id": "ScienceShop",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "Science Shop workshop that spends science points per recipe cycle",
+    "RequiredMods": [
+        { "Id": "TimberUi" }
+    ]
+}

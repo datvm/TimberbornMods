@@ -1,0 +1,12 @@
+Add a colony-wide inventory that is not stored in buildings or carried by beavers — money, reputation, and similar values other mods can share.
+
+This is an API mod. It does not add player buildings. Other mods declare [b]GlobalGoodSpec[/b] blueprints and call [b]GlobalInventoryService[/b] to add, remove, clamp, change capacity, or hide goods.
+
+[h2]Top bar[/h2]
+A [b]Global[/b] group appears after the last vanilla good group once a global good has been modified (including going negative). Each row shows icon, name, amount, and max capacity when that max is set and not 0. Click a row to post [b]GlobalGoodClickedEvent[/b] for your own UI.
+
+[h2]Workshops[/h2]
+Add empty [b]GlobalInventoryManufactorySpec[/b] on the building and [b]GlobalInventoryRecipeSpec[/b] on the recipe ([b]GlobalIngredients[/b] / [b]GlobalProducts[/b], optional [b]AllowOverflow[/b]). The shop stalls when global ingredients are short or products would pass max capacity.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

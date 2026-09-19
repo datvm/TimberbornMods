@@ -1,0 +1,18 @@
+Adds a [b]Science Shop[/b]: a 1-worker workshop that spends Science Points per recipe cycle. Other mods add the recipes.
+
+Selecting a recipe does not start work. Use the extra panel to run [b]1[/b], [b]2[/b], … cycles or [b]Unlimited[/b], then [b]Start[/b]. The shop stalls without enough science and subtracts the cost when a cycle actually begins.
+
+[h1]Science Shop[/h1]
+Last building in the [b]Science[/b] group.
+[i]The paper stopped spinning. The gears did not.[/i]
+
+- Unlock: 150 Science (bots: +1500 Science).
+- Cost: 25 Planks, 25 Gears.
+- Workers: 1.
+- Recipes: none in this mod. Dependent mods add them.
+
+[h1]Extending this mod[/h1]
+Stack [b]ConsumeScienceRecipeSpec[/b] on a [b]RecipeSpec[/b] ([b]ScienceCost[/b] > 0) and include that recipe on a building that has empty [b]ConsumeScienceManufactorySpec[/b] (this shop already has it).
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

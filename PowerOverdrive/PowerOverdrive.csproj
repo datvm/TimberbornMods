@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputModFolderName>PowerOverdrive</OutputModFolderName>
+	</PropertyGroup>
+
+	<Import Project="../Targets/Common.targets" />
+	<Import Project="../Targets/CommonTimberUi.targets" />
+
+	<ItemGroup>
+		<ProjectReference Include="../ScienceShop/ScienceShop.csproj" Private="false" />
+		<ProjectReference Include="../GlobalInventory/GlobalInventory.csproj" Private="false" />
+	</ItemGroup>
+
+</Project>

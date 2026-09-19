@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Global Inventory",
+    "Version": "11.0.0",
+    "Id": "GlobalInventory",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "Provide a common API to add global inventory to Timberborn",
+    "RequiredMods": [
+        { "Id": "TimberUi" }
+    ]
+}

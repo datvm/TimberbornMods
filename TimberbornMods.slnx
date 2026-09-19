@@ -82,6 +82,9 @@
     <Project Path="TimberModBuilder/TimberModBuilder.csproj" />
     <Project Path="XtraPlzNoCrashes/XtraPlzNoCrashes.csproj" />
   </Folder>
+  <Folder Name="/Moddable/GlobalInventory/">
+    <Project Path="GlobalInventory/GlobalInventory.csproj" Id="3d6278e3-ad5d-4a77-bced-09f75982110f" />
+  </Folder>
   <Folder Name="/Moddable/ModdableRecipes/">
     <Project Path="ModdableRecipes/ModdableRecipes.csproj" Id="03236c61-697a-47fd-8020-71f4dd42b1d9" />
     <Project Path="ModdableRecipesDemo/ModdableRecipesDemo.csproj" Id="d415c597-a188-4a36-bb28-79e7f249fe26" />
@@ -238,9 +241,11 @@
   <Project Path="NoWaterCompression/NoWaterCompression.csproj" Id="5e34d978-6930-4245-8b77-68ba334912af" />
   <Project Path="PackagerBuilder/PackagerBuilder.csproj" />
   <Project Path="PowerLines/PowerLines.csproj" Id="2799b4f0-7fb7-4875-81fc-9154835f4ed7" />
+  <Project Path="PowerOverdrive/PowerOverdrive.csproj" Id="8f49df18-5f69-4a6a-93e4-c72fa40443db" />
   <Project Path="RamPump/RamPump.csproj" Id="d754f19b-75c3-4bf1-ae12-cfcdc54933ed" />
   <Project Path="RubbleSatisfactidy/RubbleSatisfactidy.csproj" />
   <Project Path="SaveEveryday/SaveEveryday.csproj" />
+  <Project Path="ScienceShop/ScienceShop.csproj" Id="06e832e1-0152-4e5a-a7ce-fd341af665cc" />
   <Project Path="SluiceIsBack/SluiceIsBack.csproj" Id="42067f99-093b-4d62-a4b1-afdad82f6218" />
   <Project Path="StableCore/StableCore.csproj" />
   <Project Path="StreamGaugeTracker/StreamGaugeTracker.csproj" />

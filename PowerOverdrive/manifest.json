@@ -1,0 +1,12 @@
+{
+    "Name": "Power Overdrive",
+    "Version": "11.0.0",
+    "Id": "PowerOverdrive",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "Craft Power Overdrivers at the Science Shop",
+    "RequiredMods": [
+        { "Id": "TimberUi" },
+        { "Id": "ScienceShop" },
+        { "Id": "GlobalInventory" }
+    ]
+}

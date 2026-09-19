@@ -1,0 +1,12 @@
+﻿ID,Text,Comment
+LV.ScS.Building.DisplayName,"Science Shop",
+LV.ScS.Building.Description,"A workshop that produces special goods with Science.",
+LV.ScS.Building.FlavorDescription,"The paper stopped spinning. The gears did not.",
+LV.ScS.Cost,Science cost: {0},
+LV.ScS.Available,Available: {0},
+LV.ScS.Remaining,Remaining: {0},
+LV.ScS.IndefiniteRemaining,Remaining: unlimited,
+LV.ScS.Batch,Cycles,
+LV.ScS.Indefinite,Unlimited,
+LV.ScS.Start,Start,
+LV.ScS.Stop,Stop,

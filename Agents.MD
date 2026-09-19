@@ -83,6 +83,10 @@ public class DischargePipe(DischargePipeService service) : BaseComponent // …
 
 // NOT: inject IWaterService + IThreadSafeWaterMap + ILoc directly into the component.
 
+# Singleton lifecycle
+
+`ILoadableSingleton.Load` and `IPostLoadableSingleton.PostLoad` run in **dependency order**. If B's constructor injects A, `A.Load` always runs before `B.Load` (same for `PostLoad`). Do not add `EnsureLoaded` / lazy-init sequences to force that order.
+
 # Tests
 
 Keep test method names short and descriptive. Prefer names like `InitializeWithCorrectCharacterType`, `IgnoreWrongCharacterType`, or `ComputeSegments` over long Given/When/Then-style names.

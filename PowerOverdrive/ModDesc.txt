@@ -1,0 +1,14 @@
+Craft [b]Power Overdrivers[/b] at the [b]Science Shop[/b]. They are a colony-wide (global) item, not hauled as a good.
+
+[h1]Recipe[/h1]
+At the Science Shop:
+
+- 250 Science + 50 Planks + 50 Gears → 1 Power Overdriver
+- Time: 30 hours
+
+Use the Science Shop batch panel to run [b]1[/b], [b]2[/b], … cycles or [b]Unlimited[/b], then [b]Start[/b].
+
+Requires [url=https://github.com/datvm/TimberbornMods]Science Shop[/url] and [url=https://github.com/datvm/TimberbornMods]Global Inventory[/url].
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
