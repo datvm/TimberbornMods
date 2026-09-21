@@ -1,7 +1,7 @@
 ﻿namespace BetterWeatherStation.Components;
 
 [AddTemplateModule2(typeof(WeatherStation))]
-public class BetterWeatherStationComponent(WeatherStationInfoService service) : BaseComponent, IInitializableEntity, IPersistentEntity,
+public class BetterWeatherStationComponent(WeatherStationInfoService service) : BaseComponent, IAwakableComponent, IInitializableEntity, IPersistentEntity,
     IDuplicable<BetterWeatherStationComponent>
 {
     static readonly ComponentKey SaveKey = new(nameof(BetterWeatherStationComponent));
@@ -10,24 +10,28 @@ public class BetterWeatherStationComponent(WeatherStationInfoService service) : 
     bool loaded;
 
 #nullable disable
-    public WeatherStation WeatherStation { get; private set; }
     Automator automator;
 #nullable enable
+
+    public WeatherStation? WeatherStation { get; private set; }
 
     readonly HashSet<string> weatherIds = [];
     public IReadOnlyCollection<string> WeatherIds => weatherIds;
 
-    public bool EarlyHazardEnabled => WeatherStation.EarlyActivationEnabled;
-    public int EarlyHazardHours => WeatherStation.EarlyActivationHours;
+    public bool EarlyHazardEnabled => WeatherStation?.EarlyActivationEnabled == true;
+    public int EarlyHazardHours => WeatherStation?.EarlyActivationHours ?? 0;
 
-    public void InitializeEntity()
+    public void Awake()
     {
         WeatherStation = GetComponent<WeatherStation>();
         automator = GetComponent<Automator>();
+    }
 
+    public void InitializeEntity()
+    {
         if (weatherIds.Count == 0 && !loaded) // Try to migrate
         {
-            weatherIds.Add(service.GetOrDefault(WeatherStation.Mode).Id);
+            weatherIds.Add(service.GetOrDefault(WeatherStation!.Mode).Id);
         }
     }
 
@@ -98,4 +102,5 @@ public class BetterWeatherStationComponent(WeatherStationInfoService service) : 
     {
         SetWeathers(source.WeatherIds);
     }
+
 }
