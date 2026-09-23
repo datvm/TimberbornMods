@@ -34,4 +34,7 @@ public class ConsumeScienceRecipeSpecService(RecipeSpecService recipes) : ILoada
         spec = null;
         return recipe is not null && byRecipeId.TryGetValue(recipe.Id, out spec);
     }
+
+    public int GetOrder(RecipeSpec recipe)
+        => TryGet(recipe, out var spec) ? spec.Order : 0;
 }

@@ -9,3 +9,5 @@ Documentations for various Moddable projects.
 - [Moddable Recipes](./ModdableRecipes#README)
 - [Moddable Decal Groups](./ModdableDecalGroups.MD)
 - [Distro Storage](../DistroStorage/Docs/README.MD)
+- [Global Inventory](../GlobalInventory/Docs/README.MD)
+- [Science Shop](../ScienceShop/Docs/README.MD)

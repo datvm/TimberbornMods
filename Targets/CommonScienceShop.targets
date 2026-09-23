@@ -1,0 +1,17 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<ScienceShopPath>$(GameModsFolder)ScienceShop\$(TimberbornVersion)\**\*.dll</ScienceShopPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Include="ScienceShop" />
+		<Using Include="ScienceShop.Components" />
+		<Using Include="ScienceShop.Services" />
+		<Using Include="ScienceShop.Specs" />
+		<Using Include="ScienceShop.UI" />
+
+		<Reference Include="$(ScienceShopPath)" Private="False" />
+	</ItemGroup>
+
+</Project>

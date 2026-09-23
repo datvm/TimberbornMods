@@ -1,34 +1,22 @@
-namespace GlobalInventory.UI;
+﻿namespace GlobalInventory.UI;
 
-class GlobalExtendableTopBarCounter
+class GlobalExtendableTopBarCounter(
+    ImmutableArray<GlobalTopBarCounterRow> rows,
+    VisualElement root,
+    Label emptyPlaceholder)
 {
     const string HiddenClass = "extension-clamp--hidden";
-
-    readonly ImmutableArray<GlobalTopBarCounterRow> rows;
-    readonly VisualElement root;
-    readonly Label emptyPlaceholder;
-
-    public GlobalExtendableTopBarCounter(
-        ImmutableArray<GlobalTopBarCounterRow> rows,
-        VisualElement root,
-        Label emptyPlaceholder)
-    {
-        this.rows = rows;
-        this.root = root;
-        this.emptyPlaceholder = emptyPlaceholder;
-    }
-
-    public VisualElement Root => root;
 
     public void UpdateValues()
     {
         var anyVisible = false;
         foreach (var row in rows)
         {
-            anyVisible |= row.UpdateVisible();
+            row.Update(out var isVisible);
+            anyVisible |= isVisible;
         }
 
-        emptyPlaceholder.ToggleDisplayStyle(!anyVisible && rows.Length > 0);
+        emptyPlaceholder.ToggleDisplayStyle(!anyVisible);
         root.ToggleDisplayStyle(anyVisible);
     }
 

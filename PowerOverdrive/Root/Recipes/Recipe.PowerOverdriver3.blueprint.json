@@ -1,17 +1,17 @@
-{
+﻿{
   "RecipeSpec": {
-    "Id": "PowerOverdriver",
+    "Id": "PowerOverdriver3",
     "BackwardCompatibleIds": [],
-    "DisplayLocKey": "LV.PO.PowerOverdriver.PluralDisplayName",
+    "DisplayLocKey": "LV.PO.Item3.Name",
     "CycleDurationInHours": 30.0,
     "Ingredients": [
       {
-        "Id": "Plank",
-        "Amount": 50
+        "Id": "TreatedPlank",
+        "Amount": 30
       },
       {
-        "Id": "Gear",
-        "Amount": 50
+        "Id": "MetalBlock",
+        "Amount": 30
       }
     ],
     "Products": [],
@@ -19,16 +19,17 @@
     "Fuel": "",
     "CyclesFuelLasts": 0,
     "FuelCapacity": 0,
-    "CyclesCapacity": 2,
-    "Icon": "Goods/PowerOverdriver/PowerOverdriverIcon"
+    "CyclesCapacity": 1,
+    "Icon": "Goods/PowerOverdriver3Icon"
   },
   "ConsumeScienceRecipeSpec": {
-    "ScienceCost": 250
+    "ScienceCost": 450,
+    "Order": 30
   },
   "GlobalInventoryRecipeSpec": {
     "GlobalProducts": [
       {
-        "Id": "PowerOverdriver",
+        "Id": "PowerOverdriver3",
         "Amount": 1
       }
     ]

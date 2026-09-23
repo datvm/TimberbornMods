@@ -1,0 +1,17 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<GlobalInventoryPath>$(GameModsFolder)GlobalInventory\$(TimberbornVersion)\**\*.dll</GlobalInventoryPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Include="GlobalInventory" />
+		<Using Include="GlobalInventory.Components" />
+		<Using Include="GlobalInventory.Services" />
+		<Using Include="GlobalInventory.Specs" />
+		<Using Include="GlobalInventory.UI" />
+
+		<Reference Include="$(GlobalInventoryPath)" Private="False" />
+	</ItemGroup>
+
+</Project>

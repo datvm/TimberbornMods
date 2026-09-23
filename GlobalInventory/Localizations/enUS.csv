@@ -1,3 +1,13 @@
 ﻿ID,Text,Comment
 LV.GI.GroupName,Global,
 LV.GI.Nothing,Nothing,
+LV.GI.Min,Min: {0},
+LV.GI.Dev.Title,Modify Global Inventory,
+LV.GI.Dev.Amount,Amount,
+LV.GI.Dev.Add,Add,
+LV.GI.Dev.Remove,Remove,
+LV.GI.Dev.Clear,Clear,
+LV.GI.Dev.Fill,Fill,
+LV.GI.Dev.SetMin,Set to Min,
+LV.GI.Dev.Current,Current: {0},
+

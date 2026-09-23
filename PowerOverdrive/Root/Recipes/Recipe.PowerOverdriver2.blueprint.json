@@ -1,0 +1,37 @@
+﻿{
+  "RecipeSpec": {
+    "Id": "PowerOverdriver2",
+    "BackwardCompatibleIds": [],
+    "DisplayLocKey": "LV.PO.Item2.Name",
+    "CycleDurationInHours": 30.0,
+    "Ingredients": [
+      {
+        "Id": "Plank",
+        "Amount": 40
+      },
+      {
+        "Id": "Gear",
+        "Amount": 40
+      }
+    ],
+    "Products": [],
+    "ProducedSciencePoints": 0,
+    "Fuel": "",
+    "CyclesFuelLasts": 0,
+    "FuelCapacity": 0,
+    "CyclesCapacity": 1,
+    "Icon": "Goods/PowerOverdriver2Icon"
+  },
+  "ConsumeScienceRecipeSpec": {
+    "ScienceCost": 250,
+    "Order": 20
+  },
+  "GlobalInventoryRecipeSpec": {
+    "GlobalProducts": [
+      {
+        "Id": "PowerOverdriver2",
+        "Amount": 1
+      }
+    ]
+  }
+}

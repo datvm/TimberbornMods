@@ -1,14 +1,40 @@
-Craft [b]Power Overdrivers[/b] at the [b]Science Shop[/b]. They are a colony-wide (global) item, not hauled as a good.
+﻿Adds [b]Power Overdrivers[/b], a global science item you can slot onto powered manufactories so they work faster but draw a lot more power.
 
-[h1]Recipe[/h1]
-At the Science Shop:
+It is also a demonstration for my mod tools [url]Global Inventory[/url] and [url]Science Shop[/url]. Please see how to use the Science Shop at its mod page.
 
-- 250 Science + 50 Planks + 50 Gears → 1 Power Overdriver
-- Time: 30 hours
+[h1]Powered workshops[/h1]
+After you have crafted at least one Overdriver, any [b]Manufactory[/b] that uses power gets a [b]Power Overdrive[/b] panel.
+[img][/img]
 
-Use the Science Shop batch panel to run [b]1[/b], [b]2[/b], … cycles or [b]Unlimited[/b], then [b]Start[/b].
+Click a level to equip it. That spends one Overdriver of that level and one of every level below it. Click the current level again to drop one step and refund that Overdriver.
+[table]
+[tr][th]Level[/th][th]Work speed[/th][th]Power usage[/th][/tr]
+[tr][td]1[/td][td]+50%[/td][td]+75%[/td][/tr]
+[tr][td]2[/td][td]+100%[/td][td]+150%[/td][/tr]
+[tr][td]3[/td][td]+150%[/td][td]+225%[/td][/tr]
+[/table]
 
-Requires [url=https://github.com/datvm/TimberbornMods]Science Shop[/url] and [url=https://github.com/datvm/TimberbornMods]Global Inventory[/url].
+It also applies to workerless buildings such as Iron Teeth's Numbercruncher, as long as the building uses power and runs a recipe.
+
+[h1]Recipes[/h1]
+Crafted at the Science Shop:
+[table]
+[tr][th]Output[/th][th]Science[/th][th]Goods[/th][th]Time[/th][/tr]
+[tr][td]1 Basic Overdriver[/td][td]150[/td][td]50 Logs, 50 Water[/td][td]15 hours[/td][/tr]
+[tr][td]1 Superior Overdriver[/td][td]250[/td][td]40 Planks, 40 Gears[/td][td]30 hours[/td][/tr]
+[tr][td]1 Ultimate Overdriver[/td][td]500[/td][td]30 Treated Planks, 30 Metal Blocks[/td][td]30 hours[/td][/tr]
+[/table]
+
+Overdrivers live in global inventory, so they do not need a stockpile. You can equip and unequip them on any manufactory on the map with no hauling.
+
+[h2]Conversion recipes[/h2]
+The higher recipes can instead turn their ingredients into extra lower-tier Overdrivers:
+[table]
+[tr][th]Recipe[/th][th]Uses[/th][th]Produces[/th][/tr]
+[tr][td]Superior for Basic Overdriver[/td][td]Superior ingredients[/td][td]2 Basic Overdrivers[/td][/tr]
+[tr][td]Ultimate for Basic Overdriver[/td][td]Ultimate ingredients[/td][td]4 Basic Overdrivers[/td][/tr]
+[tr][td]Ultimate for Superior Overdriver[/td][td]Ultimate ingredients[/td][td]2 Superior Overdrivers[/td][/tr]
+[/table]
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

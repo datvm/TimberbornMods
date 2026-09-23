@@ -5,11 +5,15 @@
 	</PropertyGroup>
 
 	<Import Project="../Targets/Common.targets" />
-	<Import Project="../Targets/CommonTimberUi.targets" />
+	<Import Project="../Targets/CommonModdableTimberborn.targets" />
+	<Import Project="../Targets/CommonGlobalInventory.targets" />
 
 	<ItemGroup>
-		<ProjectReference Include="../ScienceShop/ScienceShop.csproj" Private="false" />
-		<ProjectReference Include="../GlobalInventory/GlobalInventory.csproj" Private="false" />
+		<Using Include="PowerOverdrive.Components" />
+		<Using Include="PowerOverdrive.Services" />
+		<Using Include="PowerOverdrive.Specs" />
+		<Using Include="PowerOverdrive.UI" />
+		<Using Include="ModdableTimberborn.MechanicalSystem" />
 	</ItemGroup>
 
 </Project>

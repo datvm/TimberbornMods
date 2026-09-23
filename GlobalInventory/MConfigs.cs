@@ -1,9 +1,6 @@
-global using GlobalInventory.Components;
-global using GlobalInventory.Services;
-global using GlobalInventory.Specs;
-global using GlobalInventory.UI;
+﻿namespace GlobalInventory;
 
-namespace GlobalInventory;
-
-[Context("Game")]
-public class MGameConfig : GameAttributeConfigurator;
+public class MConfig : BaseModdableTimberbornAttributeConfiguration, IHarmonyPatchAll
+{
+    public override ConfigurationContext AvailableContexts => ConfigurationContext.Game;
+}
