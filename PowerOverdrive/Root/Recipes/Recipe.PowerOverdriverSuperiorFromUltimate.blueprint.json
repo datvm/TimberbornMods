@@ -1,0 +1,37 @@
+{
+  "RecipeSpec": {
+    "Id": "PowerOverdriverSuperiorFromUltimate",
+    "BackwardCompatibleIds": [],
+    "DisplayLocKey": "LV.PO.UltimateForSuperior",
+    "CycleDurationInHours": 30.0,
+    "Ingredients": [
+      {
+        "Id": "TreatedPlank",
+        "Amount": 30
+      },
+      {
+        "Id": "MetalBlock",
+        "Amount": 30
+      }
+    ],
+    "Products": [],
+    "ProducedSciencePoints": 0,
+    "Fuel": "",
+    "CyclesFuelLasts": 0,
+    "FuelCapacity": 0,
+    "CyclesCapacity": 1,
+    "Icon": "Goods/PowerOverdriver2Icon"
+  },
+  "ConsumeScienceRecipeSpec": {
+    "ScienceCost": 450,
+    "Order": 42
+  },
+  "GlobalInventoryRecipeSpec": {
+    "GlobalProducts": [
+      {
+        "Id": "PowerOverdriver2",
+        "Amount": 2
+      }
+    ]
+  }
+}

@@ -1,14 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<OutputModFolderName>GlobalInventory</OutputModFolderName>
-	</PropertyGroup>
-
-	<Import Project="../Targets/Common.targets" />
-	<Import Project="../Targets/CommonTimberUi.targets" />
-
-	<ItemGroup>
-		<InternalsVisibleTo Include="GlobalInventory.Tests" />
-	</ItemGroup>
-
+  <PropertyGroup>
+    <OutputModFolderName>GlobalInventory</OutputModFolderName>
+  </PropertyGroup>
+  <Import Project="../Targets/Common.targets" />
+  <Import Project="../Targets/CommonModdableTimberborn.targets" />
+  <ItemGroup>
+    <InternalsVisibleTo Include="GlobalInventory.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="GlobalInventory.Services" />
+    <Using Include="GlobalInventory.Specs" />
+    <Using Include="GlobalInventory.Dev" />
+    <Using Include="GlobalInventory.UI" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Docs\" />
+  </ItemGroup>
 </Project>

@@ -49,6 +49,7 @@
   },
   "WorkshopSpec": {},
   "ConsumeScienceManufactorySpec": {},
+  "GlobalInventoryManufactorySpec": {},
   "TemplateSpec": {
     "TemplateName": "ScienceShop.Folktails",
     "BackwardCompatibleTemplateNames": [],

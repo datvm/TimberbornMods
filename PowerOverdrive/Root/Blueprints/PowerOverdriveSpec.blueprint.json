@@ -1,0 +1,21 @@
+{
+    "PowerOverdriveSpec": {
+        "Levels": [
+            {
+                "ItemId": "PowerOverdriver1",
+                "ProductionBonus": 0.5,
+                "PowerUsageBonus": 0.75
+            },
+            {
+                "ItemId": "PowerOverdriver2",
+                "ProductionBonus": 1,
+                "PowerUsageBonus": 1.5
+            },
+            {
+                "ItemId": "PowerOverdriver3",
+                "ProductionBonus": 1.5,
+                "PowerUsageBonus": 2.25
+            }
+        ]
+    }
+}

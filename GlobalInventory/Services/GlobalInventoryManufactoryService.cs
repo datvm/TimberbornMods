@@ -4,10 +4,15 @@
 public class GlobalInventoryManufactoryService(
     GlobalInventoryService inventory,
     GlobalInventoryRecipeSpecService recipes,
-    ProductionItemFactory productionItems,
     DescribedAmountFactory amounts
-)
+) : ILoadableSingleton, IUnloadableSingleton
 {
+    public static GlobalInventoryManufactoryService? Instance { get; private set; }
+
+    public void Load() => Instance = this;
+
+    public void Unload() => Instance = null;
+
     public bool TryGetRecipe(RecipeSpec? recipe, [NotNullWhen(true)] out GlobalInventoryRecipeSpec? spec)
         => recipes.TryGet(recipe, out spec);
 
@@ -76,23 +81,19 @@ public class GlobalInventoryManufactoryService(
         }
     }
 
-    public IEnumerable<EntityDescription> Describe(Manufactory manufactory)
+    public void AddToRecipeVisuals(RecipeSpec? recipe, VisualElement inputRoot, VisualElement outputRoot)
     {
-        for (var i = 0; i < manufactory.ProductionRecipes.Length; i++)
+        if (!TryGetRecipe(recipe, out var spec))
         {
-            var recipe = manufactory.ProductionRecipes[i];
-            if (!TryGetRecipe(recipe, out var spec))
-            {
-                continue;
-            }
-
-            var content = productionItems.CreateInputOutput(
-                DescribeAmounts(spec.Ingredients),
-                DescribeAmounts(spec.Products),
-                "");
-            yield return EntityDescription.CreateInputOutputSection(content, 100 + i);
+            return;
         }
+
+        RecipeDescriptionUi.AddInputs(inputRoot, DescribeAmounts(spec.Ingredients));
+        RecipeDescriptionUi.AddOutputs(outputRoot, DescribeAmounts(spec.Products));
     }
+
+    public void AddToRecipeVisuals(RecipeSpec? recipe, VisualElement recipeRoot)
+        => AddToRecipeVisuals(recipe, recipeRoot, recipeRoot);
 
     IEnumerable<VisualElement> DescribeAmounts(ImmutableArray<GlobalGoodAmountSpec> entries)
     {

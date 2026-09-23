@@ -1,18 +1,25 @@
-Adds a [b]Science Shop[/b]: a 1-worker workshop that spends Science Points per recipe cycle. Other mods add the recipes.
+﻿Adds a [b]Science Shop[/b] — a workshop that spends Science Points as a recipe cost.
 
-Selecting a recipe does not start work. Use the extra panel to run [b]1[/b], [b]2[/b], … cycles or [b]Unlimited[/b], then [b]Start[/b]. The shop stalls without enough science and subtracts the cost when a cycle actually begins.
+[b]This mod ships no recipes.[/b] It is a tool for other mods. It needs [b]Global Inventory[/b] so some recipes can spend or produce global items.
+
+See it used in [b]Power Overdrive[/b].
 
 [h1]Science Shop[/h1]
 Last building in the [b]Science[/b] group.
-[i]The paper stopped spinning. The gears did not.[/i]
-
-- Unlock: 150 Science (bots: +1500 Science).
+[i]The ink-stained and the grease-stained finally shook paws.[/i]
+- Unlock: 150 Science (bots: 1500 Science).
 - Cost: 25 Planks, 25 Gears.
 - Workers: 1.
-- Recipes: none in this mod. Dependent mods add them.
 
-[h1]Extending this mod[/h1]
-Stack [b]ConsumeScienceRecipeSpec[/b] on a [b]RecipeSpec[/b] ([b]ScienceCost[/b] > 0) and include that recipe on a building that has empty [b]ConsumeScienceManufactorySpec[/b] (this shop already has it).
+[h1]The Production Queue[/h1]
+A normal workshop loops the selected recipe forever. Science is paid at the start of a cycle, so that is a bad idea here. The Shop has a queue instead: you enqueue only the cycles you want.
+
+[b]Current production[/b] is the cycle already running. [b]Current queue[/b] is what starts after it. Pick a recipe in the dropdown and the details will show under it. [b]+[/b] queues one cycle. [b]−[/b] drops one. [b]Clear[/b] empties the rest of the queue. [b]Indefinitely[/b] loops that recipe until you turn it off.
+
+A cycle that already started is not cancelled. Science and goods for that cycle are already spent. If the next cycle is waiting and you do not have enough Science, the Shop shows the usual science status icon, same as a workshop missing goods.
+
+[h1]Modders Guide[/h1]
+[url=https://github.com/datvm/TimberbornMods/blob/master/ScienceShop/Docs/README.MD]Science Shop docs[/url].
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

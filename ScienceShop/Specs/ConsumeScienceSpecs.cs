@@ -6,4 +6,7 @@ public record ConsumeScienceRecipeSpec : ComponentSpec
 {
     [Serialize]
     public int ScienceCost { get; init; }
+
+    [Serialize]
+    public int Order { get; init; }
 }

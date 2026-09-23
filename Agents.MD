@@ -2,9 +2,19 @@
 
 When asked to write a `ModDesc.txt`, write a Steam Workshop description in Steam BBCode (not Markdown). Match the recent mods (Crane, Fourpillars, ConstructionSiteHauler, BuildingRenovations): player-facing, practical, and compact.
 
-Voice: second person, what the player gets. No marketing fluff. Light humor only in `[i]` flavor lines (new buildings). Bold names, UI labels, and caveats with `[b]`.
+Voice: second person, what the player gets. Colleague tone: explain the mod to another player, not ad copy. No marketing fluff. Mix sentence length. A short sentence is fine when the next one carries the detail. Do not stack fragments. That includes "Not X. Not Y. Just Z." and any run of same-beat punches ("No queue. No repeat. Just science.").
 
-BBCode: `[b]`, `[i]`, `[h1]`/`[h2]`, `[img]url[/img]`, `[url=...]text[/url]`, `[list][*] item[/list]`, `[table]`/`[tr]`/`[th]`/`[td]`, `[spoiler]` only when needed. Place a screenshot soon after the intro and after major sections (Steam UGC URL when available).
+Light humor only in `[i]` flavor lines. Bold names, UI labels, and caveats with `[b]`.
+
+For a new building, keep the three parts separate. Do not fold them into one sentence:
+
+- Lore name: the name on the building.
+- Mechanical description: what the player can do with it.
+- Flavor: one `[i]` line, and not inside the mechanical description.
+
+BBCode only (Steam tags, not Markdown): `[b]`, `[i]`, `[h1]`/`[h2]`, `[img]url[/img]`, `[url=...]text[/url]`, `[list][*] item[/list]`, `[table]`/`[tr]`/`[th]`/`[td]`, `[spoiler]` only when needed. Place a screenshot soon after the intro and after major sections (Steam UGC URL when available).
+
+End every description with the GitHub footer below. Do not paraphrase it.
 
 Typical order (omit unused sections):
 

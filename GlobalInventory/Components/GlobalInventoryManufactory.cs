@@ -2,19 +2,17 @@ namespace GlobalInventory.Components;
 
 [AddTemplateModule2(typeof(GlobalInventoryManufactorySpec))]
 public class GlobalInventoryManufactory(GlobalInventoryManufactoryService service)
-    : BaseComponent, IAwakableComponent, IManufactoryLimiter, IEntityDescriber, IPersistentEntity
+    : BaseComponent, IAwakableComponent, IManufactoryLimiter, IPersistentEntity
 {
     static readonly ComponentKey SaveKey = new(nameof(GlobalInventoryManufactory));
     static readonly PropertyKey<bool> IngredientsTakenKey = new("GlobalIngredientsTaken");
 
     Manufactory manufactory = null!;
-    BlockObject blockObject = null!;
     bool ingredientsTaken;
 
     public void Awake()
     {
         manufactory = GetComponent<Manufactory>();
-        blockObject = GetComponent<BlockObject>();
         manufactory.ProductionProgressed += OnProductionProgressed;
         manufactory.ProductionFinished += OnProductionFinished;
         manufactory.RecipeChanged += OnRecipeChanged;
@@ -25,19 +23,6 @@ public class GlobalInventoryManufactory(GlobalInventoryManufactoryService servic
 
     public float MaxProductionProgressChange(float expectedProductionProgressChange)
         => ProductionEfficiency() > 0f ? expectedProductionProgressChange : 0f;
-
-    public IEnumerable<EntityDescription> DescribeEntity()
-    {
-        if (!blockObject.IsPreview)
-        {
-            yield break;
-        }
-
-        foreach (var description in service.Describe(manufactory))
-        {
-            yield return description;
-        }
-    }
 
     public void Save(IEntitySaver entitySaver)
     {

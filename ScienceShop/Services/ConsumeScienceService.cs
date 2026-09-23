@@ -3,16 +3,43 @@ namespace ScienceShop.Services;
 [BindSingleton]
 public class ConsumeScienceService(
     ConsumeScienceRecipeSpecService recipes,
+    RecipeSpecService recipeSpecs,
     ScienceService science,
-    ProductionItemFactory productionItems,
     DescribedAmountFactory amounts,
-    NamedIconProvider icons
-)
+    NamedIconProvider icons,
+    ILoc t
+) : ILoadableSingleton, IUnloadableSingleton
 {
+    public static ConsumeScienceService? Instance { get; private set; }
+
     public int AvailableScience => science.SciencePoints;
+
+    public void Load() => Instance = this;
+
+    public void Unload() => Instance = null;
 
     public bool TryGetRecipe(RecipeSpec? recipe, [NotNullWhen(true)] out ConsumeScienceRecipeSpec? spec)
         => recipes.TryGet(recipe, out spec);
+
+    public int GetOrder(RecipeSpec recipe) => recipes.GetOrder(recipe);
+
+    public RecipeSpec? FindRecipe(string? id)
+    {
+        if (string.IsNullOrEmpty(id))
+        {
+            return null;
+        }
+
+        foreach (var recipe in recipeSpecs.GetRecipes())
+        {
+            if (recipe.Id == id)
+            {
+                return recipe;
+            }
+        }
+
+        return null;
+    }
 
     public bool HasEnough(ConsumeScienceRecipeSpec spec) => science.SciencePoints >= spec.ScienceCost;
 
@@ -38,19 +65,18 @@ public class ConsumeScienceService(
         return 1f;
     }
 
-    public IEnumerable<EntityDescription> Describe(Manufactory manufactory)
+    public void AddToRecipeVisuals(RecipeSpec? recipe, VisualElement inputRoot)
     {
-        for (var i = 0; i < manufactory.ProductionRecipes.Length; i++)
+        if (!TryGetRecipe(recipe, out var spec))
         {
-            var recipe = manufactory.ProductionRecipes[i];
-            if (!TryGetRecipe(recipe, out var spec))
-            {
-                continue;
-            }
-
-            var input = amounts.CreatePlain("", spec.ScienceCost.ToString(), icons.Science, "Science");
-            var content = productionItems.CreateInputOutput([input], [], "");
-            yield return EntityDescription.CreateInputOutputSection(content, 200 + i);
+            return;
         }
+
+        var input = amounts.CreatePlain(
+            "described-amount--science",
+            spec.ScienceCost.ToString(),
+            icons.Science,
+            t.T("Science.SciencePoints"));
+        RecipeDescriptionUi.AddInputs(inputRoot, [input]);
     }
 }

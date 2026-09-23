@@ -1,8 +1,12 @@
 {
   "ManufactorySpec": {
     "ProductionRecipeIds#append": [
-      "PowerOverdriver"
+      "PowerOverdriver1",
+      "PowerOverdriver2",
+      "PowerOverdriverBasicFromSuperior",
+      "PowerOverdriver3",
+      "PowerOverdriverBasicFromUltimate",
+      "PowerOverdriverSuperiorFromUltimate"
     ]
-  },
-  "GlobalInventoryManufactorySpec": {}
+  }
 }

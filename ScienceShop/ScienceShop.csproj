@@ -1,10 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<OutputModFolderName>ScienceShop</OutputModFolderName>
-	</PropertyGroup>
-
-	<Import Project="../Targets/Common.targets" />
-	<Import Project="../Targets/CommonTimberUi.targets" />
-
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputModFolderName>ScienceShop</OutputModFolderName>
+  </PropertyGroup>
+  <Import Project="../Targets/Common.targets" />
+  <Import Project="../Targets/CommonModdableTimberborn.targets" />
+	
+  <ItemGroup>
+		<Using Include="ScienceShop.Components" />
+		<Using Include="ScienceShop.Services" />
+		<Using Include="ScienceShop.Specs" />
+		<Using Include="ScienceShop.UI" />
+  </ItemGroup>
 </Project>

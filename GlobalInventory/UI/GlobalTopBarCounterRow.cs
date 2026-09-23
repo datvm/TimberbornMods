@@ -4,7 +4,6 @@ class GlobalTopBarCounterRow
 {
     readonly GlobalGoodHandle handle;
     readonly VisualElement root;
-    readonly Label name;
     readonly Label counter;
     readonly VisualElement fillGauge;
     readonly VisualElement fillFrame;
@@ -13,7 +12,6 @@ class GlobalTopBarCounterRow
     public GlobalTopBarCounterRow(
         GlobalGoodHandle handle,
         VisualElement root,
-        Label name,
         Label counter,
         VisualElement fillGauge,
         VisualElement fillFrame,
@@ -21,27 +19,22 @@ class GlobalTopBarCounterRow
     {
         this.handle = handle;
         this.root = root;
-        this.name = name;
         this.counter = counter;
         this.fillGauge = fillGauge;
         this.fillFrame = fillFrame;
-        name.text = handle.Spec.DisplayName.Value;
         root.RegisterCallback<ClickEvent>(_ => eb.Post(new GlobalGoodClickedEvent(handle)));
     }
 
-    public void UpdateValues() => UpdateVisible();
-
-    public bool UpdateVisible()
+    public void Update(out bool isVisible)
     {
-        var visible = handle.IsVisible;
-        root.ToggleDisplayStyle(visible);
-        if (!visible)
+        isVisible = handle.IsVisible;
+        root.ToggleDisplayStyle(isVisible);
+        if (!isVisible)
         {
-            return false;
+            return;
         }
 
-        name.text = handle.Spec.DisplayName.Value;
-        var text = FormatCount();
+        var text = GlobalInventoryUi.Format(handle.Amount);
         if (previousText != text)
         {
             counter.text = text;
@@ -54,18 +47,5 @@ class GlobalTopBarCounterRow
         {
             fillGauge.SetHeightAsPercent(handle.FillRate!.Value);
         }
-
-        return true;
-    }
-
-    string FormatCount()
-    {
-        var amount = GlobalInventoryUi.Format(handle.Amount);
-        if (handle.MaxCapacity is float max && max != 0)
-        {
-            return $"{amount} / {GlobalInventoryUi.Format(max)}";
-        }
-
-        return amount;
     }
 }

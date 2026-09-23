@@ -1,4 +1,4 @@
-namespace GlobalInventory.UI;
+﻿namespace GlobalInventory.UI;
 
 [BindSingleton]
 public class GlobalInventoryTopBar(
@@ -16,9 +16,11 @@ public class GlobalInventoryTopBar(
     public void PostLoad()
     {
         var root = veLoader.LoadVisualElement("Game/TopBar/ExtendableTopBarCounter");
-        root.Q<Image>("Icon").sprite = icons.Materials;
-        tooltips.Register(root.Q<VisualElement>("CounterWrapper"), t.T("LV.GI.GroupName"));
-        root.Q<Label>("Count").ToggleDisplayStyle(false);
+        root.Q<Image>("Icon").sprite = icons.GetOrLoadTopbar("TopBarGlobalInventory", "GlobalInventory");
+        var wrapper = root.Q<VisualElement>("CounterWrapper");
+        var count = wrapper.Q<Label>("Count");
+        tooltips.Register(wrapper, t.T("LV.GI.GroupName"));
+        count.text = t.T("LV.GI.GroupName");
 
         var items = root.Q<VisualElement>("CounterItems");
         GlobalExtendableTopBarCounter.ConfigureToggling(root, items);
@@ -41,20 +43,13 @@ public class GlobalInventoryTopBar(
     GlobalTopBarCounterRow CreateRow(GlobalGoodHandle handle, VisualElement parent)
     {
         var row = veLoader.LoadVisualElement("Game/TopBar/TopBarCounterRow");
-        var spec = handle.Spec;
-        row.Q<Image>("Icon").sprite = spec.IconSmall?.Value ?? spec.Icon?.Asset;
-
-        var count = row.Q<Label>("Count");
-        var name = new Label(spec.DisplayName.Value);
-        name.AddToClassList("game-text-small");
-        count.parent.Insert(count.parent.IndexOf(count), name);
-
+        row.Q<Image>("Icon").sprite = handle.Spec.IconSmall?.Value ?? handle.Spec.Icon?.Asset;
+        tooltips.Register(row, () => GlobalInventoryUi.Tooltip(handle, t));
         parent.Add(row);
         return new(
             handle,
             row,
-            name,
-            count,
+            row.Q<Label>("Count"),
             row.Q<VisualElement>("Fill"),
             row.Q<VisualElement>("FillFrame"),
             eb);

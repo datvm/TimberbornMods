@@ -1,0 +1,8 @@
+﻿{
+    "GlobalGoodSpec": {
+        "Id": "PowerOverdriver3",
+        "DisplayNameLocKey": "LV.PO.Item3.Name",
+        "PluralDisplayNameLocKey": "LV.PO.Item3.PluralName",
+        "Icon": "Goods/PowerOverdriver3Icon"
+    }
+}

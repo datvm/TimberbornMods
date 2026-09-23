@@ -1,0 +1,37 @@
+﻿{
+  "RecipeSpec": {
+    "Id": "PowerOverdriver1",
+    "BackwardCompatibleIds": [],
+    "DisplayLocKey": "LV.PO.Item1.Name",
+    "CycleDurationInHours": 15.0,
+    "Ingredients": [
+      {
+        "Id": "Log",
+        "Amount": 50
+      },
+      {
+        "Id": "Water",
+        "Amount": 50
+      }
+    ],
+    "Products": [],
+    "ProducedSciencePoints": 0,
+    "Fuel": "",
+    "CyclesFuelLasts": 0,
+    "FuelCapacity": 0,
+    "CyclesCapacity": 1,
+    "Icon": "Goods/PowerOverdriver1Icon"
+  },
+  "ConsumeScienceRecipeSpec": {
+    "ScienceCost": 150,
+    "Order": 10
+  },
+  "GlobalInventoryRecipeSpec": {
+    "GlobalProducts": [
+      {
+        "Id": "PowerOverdriver1",
+        "Amount": 1
+      }
+    ]
+  }
+}
