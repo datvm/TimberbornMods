@@ -37,6 +37,7 @@ public class MSettings(
     public ModSetting<bool> HighlightStorage { get; } = CreateBoolModSettings("LV.T4UI.HighlightStorage");
     public ModSetting<bool> AddNegativeNeeds { get; } = CreateBoolModSettings("LV.T4UI.AddNegativeNeeds", true);
     public ModSetting<bool> AutoCollapseManagementGroups { get; } = CreateBoolModSettings("LV.T4UI.AutoCollapseManagementGroups");
+    public ModSetting<bool> MoveBottomRightUp { get; } = CreateBoolModSettings("LV.T4UI.MoveBottomRightUp");
 
     public readonly LimitedStringModSetting toolDescPos = new(
         1,

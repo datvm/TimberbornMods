@@ -1,8 +1,8 @@
 ﻿[b]Global Inventory[/b] adds a colony-wide stock that is not stored in a building and not carried by beavers. [b]This mod does nothing on its own.[/b] It is a tool for other mods.
 
-[img][/img]
+[img]https://images.steamusercontent.com/ugc/13618882610825220475/48908F1FFD1CD9E83E6585F3840B6FFA85BF01E1/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
 
-An example of this mod in action is the [url]Power Overdrive[/url] mod.
+An example of this mod in action is the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3806793967]Power Overdrive[/url] mod.
 
 Modders: [url=https://github.com/datvm/TimberbornMods/blob/master/GlobalInventory/Docs/README.MD]Global Inventory docs[/url].
 

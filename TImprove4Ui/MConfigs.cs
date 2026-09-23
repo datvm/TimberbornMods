@@ -1,9 +1,4 @@
-﻿global using TImprove4Ui.Patches;
-global using TImprove4Ui.Services;
-global using System.Reflection.Emit;
-global using ModSettings.ColorPicker;
-global using Label = UnityEngine.UIElements.Label;
-
+﻿
 namespace TImprove4Ui;
 
 [Context("MainMenu")]

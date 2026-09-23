@@ -2,7 +2,7 @@
 
 [b]This mod ships no recipes.[/b] It is a tool for other mods. It needs [b]Global Inventory[/b] so some recipes can spend or produce global items.
 
-See it used in [b]Power Overdrive[/b].
+See it used in [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3806793967]Power Overdrive[/url].
 
 [h1]Science Shop[/h1]
 Last building in the [b]Science[/b] group.

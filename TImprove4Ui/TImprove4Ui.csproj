@@ -1,11 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
 		<OutputModFolderName>TImprove4Ui</OutputModFolderName>
 	</PropertyGroup>
-
 	<Import Project="../Targets/Common.targets" />
 	<Import Project="../Targets/CommonHarmony.targets" />
 	<Import Project="../Targets/CommonTimberUI.targets" />
-
+	
+	<ItemGroup>
+		<Using Include="ModSettings.ColorPicker" />
+		<Using Include="System.Reflection.Emit" />
+		<Using Include="TImprove4Ui.Patches" />
+		<Using Include="TImprove4Ui.Services" />
+	</ItemGroup>
 </Project>

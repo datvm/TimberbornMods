@@ -17,6 +17,9 @@ The only feature the is enabled by default is [url=https://steamcommunity.com/sh
 [img]https://images.steamusercontent.com/ugc/17147611627673040168/C668D6F9E37514509A6B3AAC842610421A36CC45/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
 - Keybindings box (both in-game and Main menu): Add a filter box to search for keybindings. Also make groups collapsible.
 [img]https://files.catbox.moe/mmrmeg.jpg[/img]
+- Move Bottom Right Up: Sometimes the bottom bar may be too long and the bottom-right elements (like a Mini Map mod) may be covered.
+This option add some space at the bottom.
+[img]https://files.catbox.moe/3ru6od.jpg[/img]
 
 [h1]Other features[/h1]
 - If you use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3480668755]More Naming[/url] to rename Zipline Station or Pylons, the UI now shows the custom name.
