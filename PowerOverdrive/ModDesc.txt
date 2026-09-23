@@ -1,10 +1,10 @@
 ﻿Adds [b]Power Overdrivers[/b], a global science item you can slot onto powered manufactories so they work faster but draw a lot more power.
 
-It is also a demonstration for my mod tools [url]Global Inventory[/url] and [url]Science Shop[/url]. Please see how to use the Science Shop at its mod page.
+It is also a demonstration for my mod tools [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3806792686]Global Inventory[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3806793618]Science Shop[/url]. Please see how to use the Science Shop at its mod page.
 
 [h1]Powered workshops[/h1]
 After you have crafted at least one Overdriver, any [b]Manufactory[/b] that uses power gets a [b]Power Overdrive[/b] panel.
-[img][/img]
+[img]https://images.steamusercontent.com/ugc/15271754405426037975/9AC2D010B3EF30C1122C2B4619D5254294E5F496/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false[/img]
 
 Click a level to equip it. That spends one Overdriver of that level and one of every level below it. Click the current level again to drop one step and refund that Overdriver.
 [table]

@@ -1,21 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<Import Project="../Targets/CommonProperties.targets" />
-	
-	<PropertyGroup>
-		<OutputType>Exe</OutputType>
-		<TargetFramework>net10.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
-		<!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
-
-		<ProjectReference Include="..\GlobalInventory\GlobalInventory.csproj" />
-		<ProjectReference Include="..\ScienceShop\ScienceShop.csproj" />
-		<ProjectReference Include="..\PowerOverdrive\PowerOverdrive.csproj" />
-		
-	</ItemGroup>
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../Targets/CommonProperties.targets" />
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
+    <!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
+    <ProjectReference Include="..\TImprove4Ui\TImprove4Ui.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="System.Diagnostics" />
+  </ItemGroup>
 </Project>

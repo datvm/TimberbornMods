@@ -36,3 +36,6 @@ LV.T4UI.DisablePauseIcon,"Disable pause icons on all {0}",
 LV.T4UI.AutoCollapseManagementGroups,"Auto-collapse management groups",
 LV.T4UI.AutoCollapseManagementGroupsDesc,"When opening the management panel, automatically collapse all groups (like Population, Workplaces, etc.)",
 LV.T4UI.ColorPicker,"Color Picker",
+LV.T4UI.MoveBottomRightUp,"Move Bottom Right Up",
+LV.T4UI.MoveBottomRightUpDesc,"Sometimes the bottom bar may be too long and the bottom-right elements (like a Mini Map mod) may be covered.
+This option add some space at the bottom",

@@ -1,6 +1,4 @@
-﻿// Check for existing process
-using System.Diagnostics;
-
+﻿
 const string SteamId = "1062090";
 
 var process = Process.GetProcesses()
