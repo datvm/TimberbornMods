@@ -1,0 +1,14 @@
+{
+  "BlockObjectToolGroupSpec": {
+    "Id": "ConveyorEnd",
+    "Order": 40,
+    "NameLocKey": "LV.CBlt.TierComposite",
+    "Icon": "Buildings/Conveyors/End/Belt/BeltEndIcon",
+    "FallbackGroup": false
+  },
+  "ParentToolGroupSpec": {
+    "ParentIds": [
+      "ConveyorBelts"
+    ]
+  }
+}

@@ -1,5 +1,7 @@
 # ModDesc.txt
 
+Do not write or update `ModDesc.txt` or `ChangeLog.txt` unless the user explicitly asks. The notes below apply only then.
+
 When asked to write a `ModDesc.txt`, write a Steam Workshop description in Steam BBCode (not Markdown). Match the recent mods (Crane, Fourpillars, ConstructionSiteHauler, BuildingRenovations): player-facing, practical, and compact.
 
 Voice: second person, what the player gets. Colleague tone: explain the mod to another player, not ad copy. No marketing fluff. Mix sentence length. A short sentence is fine when the next one carries the detail. Do not stack fragments. That includes "Not X. Not Y. Just Z." and any run of same-beat punches ("No queue. No repeat. Just science.").
@@ -32,7 +34,7 @@ Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free
 
 # Versioning
 
-Do not bump a mod's `manifest.json` version, `ChangeLog.txt` version heading, or `IModUpdateNotifier2` version / loc key unless the user explicitly asks to bump the version. Fold new notes into the current version entry.
+Do not bump a mod's `manifest.json` version, `ChangeLog.txt` version heading, or `IModUpdateNotifier2` version / loc key unless the user explicitly asks to bump the version. Fold new notes into the current version entry. Do not write or update `ChangeLog.txt` itself unless the user explicitly asks.
 
 # Code Style
 

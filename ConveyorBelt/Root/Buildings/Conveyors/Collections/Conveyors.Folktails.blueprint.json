@@ -1,0 +1,29 @@
+{
+  "TemplateCollectionSpec": {
+    "CollectionId": "Buildings.Folktails",
+    "Blueprints": [
+      "Buildings/Conveyors/Log/Belt/BeltLog.Folktails.blueprint",
+      "Buildings/Conveyors/Log/Corner/CornerLog.Folktails.blueprint",
+      "Buildings/Conveyors/Plank/Belt/BeltPlank.Folktails.blueprint",
+      "Buildings/Conveyors/Plank/Corner/CornerPlank.Folktails.blueprint",
+      "Buildings/Conveyors/Late/Belt/BeltLate.Folktails.blueprint",
+      "Buildings/Conveyors/Late/Corner/CornerLate.Folktails.blueprint",
+      "Buildings/Conveyors/End/Belt/BeltEnd.Folktails.blueprint",
+      "Buildings/Conveyors/End/Corner/CornerEnd.Folktails.blueprint",
+      "Buildings/Conveyors/Late/Impermeable/Impermeable.Folktails.blueprint",
+      "Buildings/Conveyors/Merger/Merger.Folktails.blueprint",
+      "Buildings/Conveyors/Splitter/Splitter.Folktails.blueprint",
+      "Buildings/Conveyors/SmartSplitter/SmartSplitter.Folktails.blueprint",
+      "Buildings/Conveyors/LiftUp/LiftUp.Folktails.blueprint",
+      "Buildings/Conveyors/LiftDown/LiftDown.Folktails.blueprint",
+      "Buildings/Conveyors/Log/RiserUp/RiserLogUp.Folktails.blueprint",
+      "Buildings/Conveyors/Log/RiserDown/RiserLogDown.Folktails.blueprint",
+      "Buildings/Conveyors/Plank/RiserUp/RiserPlankUp.Folktails.blueprint",
+      "Buildings/Conveyors/Plank/RiserDown/RiserPlankDown.Folktails.blueprint",
+      "Buildings/Conveyors/Late/RiserUp/RiserLateUp.Folktails.blueprint",
+      "Buildings/Conveyors/Late/RiserDown/RiserLateDown.Folktails.blueprint",
+      "Buildings/Conveyors/End/RiserUp/RiserEndUp.Folktails.blueprint",
+      "Buildings/Conveyors/End/RiserDown/RiserEndDown.Folktails.blueprint"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "BlockObjectToolGroupSpec": {
+    "Id": "ConveyorLateFT",
+    "Order": 30,
+    "NameLocKey": "LV.CBlt.TierTreatedPlanks",
+    "Icon": "Buildings/Conveyors/Late/Belt/BeltLateIcon",
+    "FallbackGroup": false
+  },
+  "ParentToolGroupSpec": {
+    "ParentIds": [
+      "ConveyorBelts"
+    ]
+  }
+}
