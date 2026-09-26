@@ -1,0 +1,63 @@
+﻿namespace ConveyorBelt.Services;
+
+[BindSingleton]
+public class ConveyorJunctionProcessor(ConveyorBeltService beltService) : ITickableSingleton
+{
+    public void Tick()
+    {
+        var belts = beltService.Belts;
+        if (belts.Count == 0)
+        {
+            return;
+        }
+
+        var junctions = beltService.Junctions;
+        if (junctions.Count == 0)
+        {
+            return;
+        }
+
+        foreach (var (c, j) in junctions)
+        {
+            if (!j.CanUse)
+            {
+                continue;
+            }
+
+            TryTransfer(j, c, belts);
+        }
+    }
+
+    static void TryTransfer(ConveyorBeltJunction j, Vector3Int c, IReadOnlyDictionary<Vector3Int, ConveyorBeltComponent> belts)
+    {
+        foreach (var outCoords in j.GetOutputCoordinates())
+        {
+            if (!belts.TryGetValue(outCoords, out var receiver)
+                || receiver.InputCoordinates != c
+                || !receiver.CanAcceptPotentialItem())
+            {
+                continue;
+            }
+
+            foreach (var inCoords in j.GetInputCoordinates())
+            {
+                if (!belts.TryGetValue(inCoords, out var giver)
+                    || giver.OutputCoordinates != c
+                    || !giver.CanGiveItem)
+                {
+                    continue;
+                }
+
+                var goodId = giver.Head!.GoodId;
+                if (!receiver.IsValidGood(goodId))
+                {
+                    continue;
+                }
+
+                var item = giver.Pop();
+                receiver.Push(item.GoodId);
+                return;
+            }
+        }
+    }
+}
