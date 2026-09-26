@@ -1,0 +1,12 @@
+{
+    "Name": "Conveyor Belts",
+    "Version": "11.3.0",
+    "Id": "ConveyorBelt",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "Add conveyor belts",
+    "RequiredMods": [
+        { "Id": "ModdableTimberborn" },
+        { "Id": "ModdableToolGroups" },
+        { "Id": "eMka.ModSettings" }
+    ]
+}

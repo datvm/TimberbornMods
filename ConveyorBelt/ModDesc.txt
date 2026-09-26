@@ -1,0 +1,36 @@
+Conveyor belts move solid goods without a beaver walking them. A straight belt is the only piece that loads or unloads a building. Everything else just connects to other belt pieces.
+
+[h1]Pieces[/h1]
+Four speeds sit in their own groups: [b]Log[/b] (1 item/hour), [b]Plank[/b] (10), [b]Treated Planks[/b] (50; [b]Metal[/b] for Iron Teeth), and [b]Composite[/b] (100). Each piece holds at most 5 goods. A slower piece limits the whole line.
+
+- [b]Belt[/b]: straight, placed as a line. Takes goods from a building behind it and puts them into a building in front of it.
+- [b]Corner[/b]: a 90° turn. Flip it to pick the direction.
+- [b]Impermeable belt[/b]: Treated Planks speed only. One straight line of goods, but it fills the tile, blocks water, and you can build on top of it.
+- [b]Merger[/b]: three inputs, one output. One good per tick.
+- [b]Splitter[/b]: one input, then left, center, and right.
+- [b]Smart splitter[/b]: the same three outputs. Set each one to a good, [b]Any[/b], or [b]Overflow only[/b]. All three start as Any, which behaves like a plain splitter.
+- [b]Lift up[/b] and [b]Lift down[/b]: hand goods between a horizontal belt and the cell above or below. Lift down has to sit on a riser or a lift up.
+
+[h1]Risers[/h1]
+Risers are not on the toolbar. Build a lift first, even if it is still a construction site, select it, and build the riser from the panel. Pick the speed and whether it goes up or down. You can keep going up from a riser the same way.
+
+An up riser draws double the power of that speed's belt. A down riser draws half.
+
+[h1]Power[/h1]
+Every piece shuts off completely when it is not at full power. It does not slow down. Power can pass through a belt line, and each piece still has its own draw.
+
+[h1]Settings[/h1]
+Main Menu -> Mods -> Settings button next to the mod name.
+
+[b]Animation[/b] is on by default. Turn it off if the moving belts cost too many frames. A piece with no power also stops animating. Each belt has its own [b]Warn when stuck[/b] toggle, off by default. It warns only while that piece is holding a good it cannot pass on.
+
+[h2]Belt[/h2]
+- Unlock: Log is free. Plank 250 science, Treated Planks 750, Composite 1500.
+- Cost: Log is 3 Logs. Plank is 1 Plank and 2 Gears. Treated Planks is 1 Treated Plank and 2 Gears. Composite adds 1 Metal Block.
+- Workers: none
+- Power: 2, 4, 8, 16
+
+A corner costs the same as the belt of its speed. Merger, splitter, and both lifts cost 1 Plank and 5 Gears. The smart splitter adds 3 Gears and 3 Metal Blocks on top of that.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

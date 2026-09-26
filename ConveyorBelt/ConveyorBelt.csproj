@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputModFolderName>ConveyorBelt</OutputModFolderName>
+  </PropertyGroup>
+  <Import Project="../Targets/Common.targets" />
+  <Import Project="../Targets/CommonModdableTimberborn.targets" />
+  <Import Project="../Targets/CommonModdableToolGroups.targets" />
+	
+  <ItemGroup>
+    <Using Include="ConveyorBelt.Components" />
+    <Using Include="ConveyorBelt.Models" />
+    <Using Include="ConveyorBelt.Services" />
+    <Using Include="ConveyorBelt.Specs" />
+    <Using Include="ConveyorBelt.UI" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,14 @@
+{
+  "BlockObjectToolGroupSpec": {
+    "Id": "ConveyorLog",
+    "Order": 10,
+    "NameLocKey": "LV.CBlt.GroupLog",
+    "Icon": "Buildings/Conveyors/Log/Belt/BeltLogIcon",
+    "FallbackGroup": false
+  },
+  "ParentToolGroupSpec": {
+    "ParentIds": [
+      "ConveyorBelts"
+    ]
+  }
+}
