@@ -5,7 +5,9 @@
   "UpdateDescription": false,
   "UpdateVisibility": false,
   "UpdatePreview": false,
+  "UpdateTags": false,
   "Tags": [
+    "Update 1.1",
     "Update 1.0",
     "Update 0.7",
     "Quality of life",

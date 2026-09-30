@@ -1,4 +1,6 @@
-﻿namespace TImprove.Patches;
+﻿using System.Reflection.Emit;
+
+namespace TImprove.Patches;
 
 [HarmonyPatch(typeof(BuilderPrioritizable))]
 public static class BuilderPrioritizablePatches
@@ -8,6 +10,31 @@ public static class BuilderPrioritizablePatches
     public static void OnPrioritySet(Priority priority)
     {
         BuildingPrioritizableService.Instance?.LastSetPriority = priority;
+    }
+
+    [HarmonyTranspiler, HarmonyPatch(nameof(BuilderPrioritizable.Save))]
+    public static IEnumerable<CodeInstruction> RemoveSaveSkipping(IEnumerable<CodeInstruction> instructions)
+    {
+        var found = false;
+
+        foreach (var i in instructions)
+        {
+            if (!found && i.opcode == OpCodes.Beq_S)
+            {
+                found = true;
+                yield return new(OpCodes.Pop);
+                yield return new(OpCodes.Pop);
+            }
+            else
+            {
+                yield return i;
+            }
+        }
+
+        if (!found)
+        {
+            throw new Exception("Failed to find the instruction to remove in BuilderPrioritizable.Save");
+        }
     }
 
 }
