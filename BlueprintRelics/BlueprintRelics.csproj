@@ -1,8 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<OutputModFolderName>BlueprintRelics</OutputModFolderName>
-	</PropertyGroup>
-	<Import Project="../Targets/Common.targets" />
-	<Import Project="../Targets/CommonTimberUI.targets" />
-	<Import Project="../Targets/CommonModdableRecipes.targets" />
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputModFolderName>BlueprintRelics</OutputModFolderName>
+  </PropertyGroup>
+  <Import Project="../Targets/Common.targets" />
+  <Import Project="../Targets/CommonTimberUI.targets" />
+  <Import Project="../Targets/CommonModdableRecipes.targets" />
+  <ItemGroup>
+    <Using Include="BlueprintRelics.Components" />
+    <Using Include="BlueprintRelics.Services" />
+    <Using Include="BlueprintRelics.Services.Rewards" />
+    <Using Include="BlueprintRelics.Specs" />
+    <Using Include="BlueprintRelics.UI.RewardPicker" />
+    <Using Include="BlueprintRelics.UI.UpgradesDialog" />
+    <Using Include="Timberborn.CoreUI.ProgressBar" Alias="ProgressBar" />
+  </ItemGroup>
 </Project>
