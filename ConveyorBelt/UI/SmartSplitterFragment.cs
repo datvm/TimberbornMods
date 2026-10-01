@@ -6,7 +6,7 @@ public class SmartSplitterFragment(
     BeltGoodService goods,
     VisualElementInitializer veInit,
     DropdownItemsSetter dropdownItemsSetter
-) : BaseEntityPanelFragment<BeltTeleporter>
+) : BaseEntityPanelFragment<SmartSplitter>
 {
     readonly DropdownRow<string>[] rows = new DropdownRow<string>[3];
     bool refreshing;
@@ -44,7 +44,7 @@ public class SmartSplitterFragment(
 
     void Refresh()
     {
-        if (component is not BeltTeleporter splitter || splitter.Kind != TeleporterKind.SmartSplitter)
+        if (component is not SmartSplitter splitter)
         {
             panel.Visible = false;
             return;
@@ -63,7 +63,7 @@ public class SmartSplitterFragment(
 
     void OnPort(int index, string value)
     {
-        if (refreshing || component is not BeltTeleporter splitter)
+        if (refreshing || component is not SmartSplitter splitter)
         {
             return;
         }

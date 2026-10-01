@@ -1,6 +1,6 @@
 namespace ConveyorBelt.Models;
 
-public readonly record struct BeltGood(string Id, float Position)
+public readonly record struct BeltGood(string Id, float Position, int Generation = 0)
 {
     public string Serialize() => $"{Id};{Position.ToString(System.Globalization.CultureInfo.InvariantCulture)}";
 

@@ -27,7 +27,10 @@ public static class StoreAchievementPatches
             var storeType = provisionBinding.Type ?? provisionBinding.ExistingType;
             if (storeType is null)
             {
-                return;
+                if (!MStarter.HasSteam) { return; }
+
+                throw new InvalidOperationException(
+                    $"[{nameof(ModdableTimberbornAchievements)}] IStoreAchievements is bound, but its concrete type could not be read. Refusing to replace the store.");
             }
 
             ModdableStoreAchievement.OriginalStoreAchievementType = storeType;

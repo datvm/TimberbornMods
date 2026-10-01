@@ -15,7 +15,7 @@ public class BeltVisual(IBlockService blocks, MSettings settings)
     GameObject? straight;
     GameObject? building;
     bool finished;
-    bool linksBuildings;
+    bool swapsMesh;
     BeltShape shape;
 
     public void Awake()
@@ -24,7 +24,7 @@ public class BeltVisual(IBlockService blocks, MSettings settings)
         carrier = GetComponent<BeltCarrier>();
         var spec = GetComponent<BeltCarrierSpec>();
         shape = spec.Shape;
-        linksBuildings = BeltShapeInfo.LinksBuildings(spec.Shape);
+        swapsMesh = shape is BeltShape.Straight or BeltShape.Impermeable;
 
         var finishedModel = Transform.Find("#Finished");
         if (!finishedModel)
@@ -107,7 +107,7 @@ public class BeltVisual(IBlockService blocks, MSettings settings)
             return;
         }
 
-        var facesBuilding = linksBuildings && (Faces(Direction3D.Up) || Faces(Direction3D.Down));
+        var facesBuilding = swapsMesh && (Faces(Direction3D.Up) || Faces(Direction3D.Down));
         straight.SetActive(!facesBuilding);
         building.SetActive(facesBuilding);
     }
@@ -123,7 +123,7 @@ public class BeltVisual(IBlockService blocks, MSettings settings)
                 continue;
             }
 
-            if (obj.GetComponent<BeltCarrierSpec>() is not null || obj.GetComponent<BeltTeleporterSpec>() is not null)
+            if (obj.GetComponent<BeltCarrier>() is not null || obj.GetComponent<BeltMerger>() is not null || obj.GetComponent<BeltSplitter>() is not null)
             {
                 continue;
             }
@@ -163,6 +163,8 @@ public class BeltVisual(IBlockService blocks, MSettings settings)
         {
             BeltShape.RiserUp => new Vector3(0.5f, 0.5f, Mathf.Lerp(0.18f, 0.82f, position)),
             BeltShape.RiserDown => new Vector3(0.5f, 0.5f, Mathf.Lerp(0.82f, 0.18f, position)),
+            BeltShape.LiftUp => Vector3.Lerp(new Vector3(0.5f, 0.82f, height), new Vector3(0.5f, 0.5f, 0.82f), position),
+            BeltShape.LiftDown => Vector3.Lerp(new Vector3(0.5f, 0.5f, 0.82f), new Vector3(0.5f, 0.18f, height), position),
             BeltShape.Corner => Corner(position, height),
             _ => new Vector3(0.5f, Mathf.Lerp(0.82f, 0.18f, position), height),
         };

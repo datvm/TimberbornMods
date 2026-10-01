@@ -7,21 +7,8 @@ public enum BeltShape
     RiserUp,
     RiserDown,
     Impermeable,
-}
-
-public enum TeleporterKind
-{
-    Merger,
-    Splitter,
-    SmartSplitter,
     LiftUp,
     LiftDown,
-}
-
-public static class BeltShapeInfo
-{
-    public static bool LinksBuildings(BeltShape shape)
-        => shape is BeltShape.Straight or BeltShape.Impermeable;
 }
 
 public record BeltCarrierSpec : ComponentSpec
@@ -33,8 +20,8 @@ public record BeltCarrierSpec : ComponentSpec
     public string Speed { get; init; } = "";
 }
 
-public record BeltTeleporterSpec : ComponentSpec
-{
-    [Serialize]
-    public TeleporterKind Kind { get; init; }
-}
+public record BeltMergerSpec : ComponentSpec;
+
+public record BeltSplitterSpec : ComponentSpec;
+
+public record SmartSplitterSpec : ComponentSpec;

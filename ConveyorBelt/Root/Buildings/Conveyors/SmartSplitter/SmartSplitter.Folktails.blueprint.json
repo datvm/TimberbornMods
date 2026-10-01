@@ -172,7 +172,5 @@
       }
     }
   },
-  "BeltTeleporterSpec": {
-    "Kind": "SmartSplitter"
-  }
+  "SmartSplitterSpec": {}
 }

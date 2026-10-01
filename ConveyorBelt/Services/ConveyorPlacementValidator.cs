@@ -18,7 +18,7 @@ public class ConveyorPlacementValidator(ILoc t, IBlockService blocks) : IBlockOb
             return false;
         }
 
-        if (blockObject.GetComponent<BeltTeleporterSpec>() is { Kind: TeleporterKind.LiftDown })
+        if (carrier is { Shape: BeltShape.LiftDown })
         {
             if (SupportsLiftDown(blockObject.Coordinates))
             {
@@ -36,12 +36,12 @@ public class ConveyorPlacementValidator(ILoc t, IBlockService blocks) : IBlockOb
     {
         foreach (var obj in blocks.GetObjectsAt(cell + Direction3D.Bottom.ToOffset()))
         {
-            if (obj.GetComponent<BeltTeleporterSpec>() is { Kind: TeleporterKind.LiftUp or TeleporterKind.LiftDown })
+            if (!obj)
             {
-                return true;
+                continue;
             }
 
-            if (obj.GetComponent<BeltCarrierSpec>() is { Shape: BeltShape.RiserUp or BeltShape.RiserDown })
+            if (obj.GetComponent<BeltCarrierSpec>() is { Shape: BeltShape.LiftUp or BeltShape.LiftDown or BeltShape.RiserUp or BeltShape.RiserDown })
             {
                 return true;
             }
@@ -54,12 +54,12 @@ public class ConveyorPlacementValidator(ILoc t, IBlockService blocks) : IBlockOb
     {
         foreach (var obj in blocks.GetObjectsAt(cell + Direction3D.Bottom.ToOffset()))
         {
-            if (obj.GetComponent<BeltTeleporterSpec>() is { Kind: TeleporterKind.LiftUp })
+            if (!obj)
             {
-                return true;
+                continue;
             }
 
-            if (obj.GetComponent<BeltCarrierSpec>() is { Shape: BeltShape.RiserUp or BeltShape.RiserDown })
+            if (obj.GetComponent<BeltCarrierSpec>() is { Shape: BeltShape.LiftUp or BeltShape.RiserUp or BeltShape.RiserDown })
             {
                 return true;
             }

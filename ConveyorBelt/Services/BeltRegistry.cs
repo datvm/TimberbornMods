@@ -1,28 +1,18 @@
 namespace ConveyorBelt.Services;
 
 [BindSingleton]
-public class BeltRegistry(IBlockService blocks, EventBus eventBus) : ILoadableSingleton
+public class BeltRegistry(BeltLinks links, EventBus eventBus) : ILoadableSingleton
 {
     readonly Dictionary<Vector3Int, BeltCarrier> carriers = [];
     readonly Dictionary<BeltCarrier, int> indexOf = [];
     readonly List<BeltCarrier> carrierList = [];
-    readonly List<BeltTeleporter> teleporters = [];
+    readonly List<BeltMerger> mergers = [];
     readonly List<BeltCarrier> moveOrder = [];
+    readonly List<BeltCarrier> downstream = [];
     readonly List<int> indegree = [];
     readonly List<int> queue = [];
     readonly List<List<int>> upstreams = [];
     bool dirty = true;
-
-    public IReadOnlyList<BeltCarrier> MoveOrder
-    {
-        get
-        {
-            Ensure();
-            return moveOrder;
-        }
-    }
-
-    public IReadOnlyList<BeltTeleporter> Teleporters => teleporters;
 
     public void Load() => eventBus.Register(this);
 
@@ -44,34 +34,30 @@ public class BeltRegistry(IBlockService blocks, EventBus eventBus) : ILoadableSi
         dirty = true;
     }
 
-    public void Register(BeltTeleporter teleporter)
+    public void Register(BeltMerger merger)
     {
-        if (!teleporters.Contains(teleporter))
+        if (!mergers.Contains(merger))
         {
-            teleporters.Add(teleporter);
+            mergers.Add(merger);
+            dirty = true;
         }
     }
 
-    public void Unregister(BeltTeleporter teleporter) => teleporters.Remove(teleporter);
-
-    public BeltCarrier? GiverAt(Vector3Int cell, Vector3Int destination)
+    public void Unregister(BeltMerger merger)
     {
-        if (!carriers.TryGetValue(cell, out var carrier) || !carrier.Running || !carrier.OutTargets(destination))
-        {
-            return null;
-        }
-
-        return carrier;
+        mergers.Remove(merger);
+        dirty = true;
     }
 
-    public BeltCarrier? ReceiverAt(Vector3Int cell, Vector3Int source)
+    public IReadOnlyList<BeltCarrier> OrderForTick()
     {
-        if (!carriers.TryGetValue(cell, out var carrier) || !carrier.InTargets(source))
+        Ensure();
+        for (var i = 0; i < mergers.Count; i++)
         {
-            return null;
+            mergers[i].Rotate(moveOrder);
         }
 
-        return carrier;
+        return moveOrder;
     }
 
     [OnEvent]
@@ -91,83 +77,18 @@ public class BeltRegistry(IBlockService blocks, EventBus eventBus) : ILoadableSi
         }
 
         dirty = false;
+        for (var i = 0; i < mergers.Count; i++)
+        {
+            mergers[i].ClearInputs();
+        }
+
         foreach (var carrier in carrierList)
         {
-            carrier.OutputCarrier = null;
-            carrier.OutputBuilding = null;
-            carrier.OutputInventories = null;
-            carrier.InputBuilding = null;
-            carrier.InputInventories = null;
-            LinkOutput(carrier);
-            LinkInput(carrier);
+            carrier.Output = links.Resolve(new(carrier.Coordinates, carrier.OutPort.Target));
+            carrier.Input = links.Resolve(new(carrier.Coordinates, carrier.InPort.Target));
         }
 
         BuildOrder();
-    }
-
-    void LinkOutput(BeltCarrier carrier)
-    {
-        var target = carrier.OutPort.Target;
-        if (carriers.TryGetValue(target, out var next) && next.InTargets(carrier.Coordinates))
-        {
-            carrier.OutputCarrier = next;
-            return;
-        }
-
-        if (carrier.LinksBuildings && TryInventories(target, out var block, out var inventories))
-        {
-            carrier.OutputBuilding = block;
-            carrier.OutputInventories = inventories;
-        }
-    }
-
-    void LinkInput(BeltCarrier carrier)
-    {
-        if (!carrier.LinksBuildings)
-        {
-            return;
-        }
-
-        var target = carrier.InPort.Target;
-        if (carriers.TryGetValue(target, out var previous) && previous.OutTargets(carrier.Coordinates))
-        {
-            return;
-        }
-
-        if (TryInventories(target, out var block, out var inventories))
-        {
-            carrier.InputBuilding = block;
-            carrier.InputInventories = inventories;
-        }
-    }
-
-    bool TryInventories(Vector3Int cell, out BlockObject block, out Inventories inventories)
-    {
-        block = null!;
-        inventories = null!;
-        foreach (var obj in blocks.GetObjectsAt(cell))
-        {
-            if (!obj || !obj.IsFinished)
-            {
-                continue;
-            }
-
-            if (obj.GetComponentOrNull<BeltCarrier>() || obj.GetComponentOrNull<BeltTeleporter>())
-            {
-                continue;
-            }
-
-            if (obj.GetComponentOrNull<Inventories>() is not { } found)
-            {
-                continue;
-            }
-
-            block = obj;
-            inventories = found;
-            return true;
-        }
-
-        return false;
     }
 
     void BuildOrder()
@@ -191,14 +112,18 @@ public class BeltRegistry(IBlockService blocks, EventBus eventBus) : ILoadableSi
 
         for (var i = 0; i < count; i++)
         {
-            var next = carrierList[i].OutputCarrier;
-            if (next is null || !indexOf.TryGetValue(next, out var downstream) || downstream == i)
+            downstream.Clear();
+            carrierList[i].Output?.CollectDownstream(downstream);
+            foreach (var next in downstream)
             {
-                continue;
-            }
+                if (!indexOf.TryGetValue(next, out var index) || index == i)
+                {
+                    continue;
+                }
 
-            upstreams[downstream].Add(i);
-            indegree[i]++;
+                upstreams[index].Add(i);
+                indegree[i]++;
+            }
         }
 
         for (var i = 0; i < count; i++)

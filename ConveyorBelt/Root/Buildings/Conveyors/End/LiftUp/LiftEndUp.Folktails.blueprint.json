@@ -4,15 +4,19 @@
     "LoopingSoundName": "",
     "BuildingCost": [
       {
-        "Id": "Plank",
+        "Id": "TreatedPlank",
         "Amount": 1
       },
       {
         "Id": "Gear",
-        "Amount": 5
+        "Amount": 2
+      },
+      {
+        "Id": "MetalBlock",
+        "Amount": 1
       }
     ],
-    "ScienceCost": 250,
+    "ScienceCost": 1500,
     "PlaceFinished": false,
     "FinishableWithBeaversOnSite": true,
     "DrawRangeBoundsOnIt": false
@@ -26,7 +30,7 @@
     "UndergroundModelDepth": 0
   },
   "TemplateSpec": {
-    "TemplateName": "ConveyorLiftUp.Folktails",
+    "TemplateName": "ConveyorLiftEndUp.Folktails",
     "BackwardCompatibleTemplateNames": [],
     "RequiredFeatureToggle": "",
     "DisablingFeatureToggle": ""
@@ -66,8 +70,8 @@
     "Flippable": false
   },
   "PlaceableBlockObjectSpec": {
-    "ToolGroupId": "ConveyorBelts",
-    "ToolOrder": 80,
+    "ToolGroupId": "ConveyorEnd",
+    "ToolOrder": 30,
     "ToolShape": "Square",
     "Layout": "Single",
     "CustomPivot": {
@@ -82,15 +86,15 @@
     "DevModeTool": false
   },
   "LabeledEntitySpec": {
-    "DisplayNameLocKey": "LV.CBlt.LiftUpName",
+    "DisplayNameLocKey": "LV.CBlt.LiftEndUpName",
     "DescriptionLocKey": "LV.CBlt.LiftUpDesc",
     "FlavorDescriptionLocKey": "LV.CBlt.LiftUpFlavor",
-    "Icon": "Buildings/Conveyors/LiftUp/LiftUpIcon"
+    "Icon": "Buildings/Conveyors/End/LiftUp/LiftEndUpIcon"
   },
   "MechanicalBuildingSpec": {},
   "MechanicalNodeSpec": {
     "PowerOutput": 0,
-    "PowerInput": 4,
+    "PowerInput": 16,
     "IsShaft": false
   },
   "MechanicalConnectorTargetSpec": {},
@@ -168,7 +172,8 @@
       }
     }
   },
-  "BeltTeleporterSpec": {
-    "Kind": "LiftUp"
+  "BeltCarrierSpec": {
+    "Shape": "LiftUp",
+    "Speed": "End"
   }
 }

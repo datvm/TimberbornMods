@@ -168,7 +168,5 @@
       }
     }
   },
-  "BeltTeleporterSpec": {
-    "Kind": "Merger"
-  }
+  "BeltMergerSpec": {}
 }
