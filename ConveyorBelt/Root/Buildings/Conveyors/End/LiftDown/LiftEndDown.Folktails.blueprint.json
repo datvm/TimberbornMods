@@ -4,15 +4,19 @@
     "LoopingSoundName": "",
     "BuildingCost": [
       {
-        "Id": "Plank",
+        "Id": "TreatedPlank",
         "Amount": 1
       },
       {
         "Id": "Gear",
-        "Amount": 5
+        "Amount": 2
+      },
+      {
+        "Id": "MetalBlock",
+        "Amount": 1
       }
     ],
-    "ScienceCost": 250,
+    "ScienceCost": 1500,
     "PlaceFinished": false,
     "FinishableWithBeaversOnSite": true,
     "DrawRangeBoundsOnIt": false
@@ -26,7 +30,7 @@
     "UndergroundModelDepth": 0
   },
   "TemplateSpec": {
-    "TemplateName": "ConveyorSplitter.Folktails",
+    "TemplateName": "ConveyorLiftEndDown.Folktails",
     "BackwardCompatibleTemplateNames": [],
     "RequiredFeatureToggle": "",
     "DisablingFeatureToggle": ""
@@ -66,8 +70,8 @@
     "Flippable": false
   },
   "PlaceableBlockObjectSpec": {
-    "ToolGroupId": "ConveyorBelts",
-    "ToolOrder": 60,
+    "ToolGroupId": "ConveyorEnd",
+    "ToolOrder": 40,
     "ToolShape": "Square",
     "Layout": "Single",
     "CustomPivot": {
@@ -82,15 +86,15 @@
     "DevModeTool": false
   },
   "LabeledEntitySpec": {
-    "DisplayNameLocKey": "LV.CBlt.SplitterName",
-    "DescriptionLocKey": "LV.CBlt.SplitterDesc",
-    "FlavorDescriptionLocKey": "LV.CBlt.SplitterFlavor",
-    "Icon": "Buildings/Conveyors/Splitter/SplitterIcon"
+    "DisplayNameLocKey": "LV.CBlt.LiftEndDownName",
+    "DescriptionLocKey": "LV.CBlt.LiftDownDesc",
+    "FlavorDescriptionLocKey": "LV.CBlt.LiftDownFlavor",
+    "Icon": "Buildings/Conveyors/End/LiftDown/LiftEndDownIcon"
   },
   "MechanicalBuildingSpec": {},
   "MechanicalNodeSpec": {
     "PowerOutput": 0,
-    "PowerInput": 4,
+    "PowerInput": 16,
     "IsShaft": false
   },
   "MechanicalConnectorTargetSpec": {},
@@ -121,7 +125,7 @@
         },
         "ConstructionStage0": {
           "TimbermeshSpec": {
-            "Model": "Buildings/Conveyors/Models/Splitter.Folktails.Model"
+            "Model": "Buildings/Conveyors/Models/Lift.Folktails.Model"
           },
           "CollidersSpec": {
             "BoxColliders": [
@@ -146,7 +150,7 @@
     },
     "#Finished": {
       "TimbermeshSpec": {
-        "Model": "Buildings/Conveyors/Models/Splitter.Folktails.Model"
+        "Model": "Buildings/Conveyors/Models/Lift.Folktails.Model"
       },
       "CollidersSpec": {
         "BoxColliders": [
@@ -168,5 +172,8 @@
       }
     }
   },
-  "BeltSplitterSpec": {}
+  "BeltCarrierSpec": {
+    "Shape": "LiftDown",
+    "Speed": "End"
+  }
 }

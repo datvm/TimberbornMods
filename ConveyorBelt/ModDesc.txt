@@ -1,4 +1,4 @@
-Conveyor belts move solid goods without a beaver walking them. A straight belt is the only piece that loads or unloads a building. Everything else just connects to other belt pieces.
+Conveyor belts move solid goods without a beaver walking them. Any belt piece can take goods from a building or put goods into one.
 
 [h1]Pieces[/h1]
 Four speeds sit in their own groups: [b]Log[/b] (1 item/hour), [b]Plank[/b] (10), [b]Treated Planks[/b] (50; [b]Metal[/b] for Iron Teeth), and [b]Composite[/b] (100). Each piece holds at most 5 goods. A slower piece limits the whole line.
@@ -9,7 +9,7 @@ Four speeds sit in their own groups: [b]Log[/b] (1 item/hour), [b]Plank[/b] (10)
 - [b]Merger[/b]: three inputs, one output. One good per tick.
 - [b]Splitter[/b]: one input, then left, center, and right.
 - [b]Smart splitter[/b]: the same three outputs. Set each one to a good, [b]Any[/b], or [b]Overflow only[/b]. All three start as Any, which behaves like a plain splitter.
-- [b]Lift up[/b] and [b]Lift down[/b]: hand goods between a horizontal belt and the cell above or below. Lift down has to sit on a riser or a lift up.
+- [b]Lift up[/b] and [b]Lift down[/b]: each speed group has both. They carry at that speed between a horizontal belt and the cell above or below. Lift down has to sit on a riser or a lift up.
 
 [h1]Risers[/h1]
 Risers are not on the toolbar. Build a lift first, even if it is still a construction site, select it, and build the riser from the panel. Pick the speed and whether it goes up or down. You can keep going up from a riser the same way.
@@ -30,7 +30,7 @@ Main Menu -> Mods -> Settings button next to the mod name.
 - Workers: none
 - Power: 2, 4, 8, 16
 
-A corner costs the same as the belt of its speed. Merger, splitter, and both lifts cost 1 Plank and 5 Gears. The smart splitter adds 3 Gears and 3 Metal Blocks on top of that.
+A corner and both lifts cost the same as the belt of their speed, and they draw the same power. Merger and splitter cost 1 Plank and 5 Gears. The smart splitter adds 3 Gears and 3 Metal Blocks on top of that.
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

@@ -4,15 +4,15 @@
     "LoopingSoundName": "",
     "BuildingCost": [
       {
-        "Id": "Plank",
+        "Id": "TreatedPlank",
         "Amount": 1
       },
       {
         "Id": "Gear",
-        "Amount": 5
+        "Amount": 2
       }
     ],
-    "ScienceCost": 250,
+    "ScienceCost": 750,
     "PlaceFinished": false,
     "FinishableWithBeaversOnSite": true,
     "DrawRangeBoundsOnIt": false
@@ -26,7 +26,7 @@
     "UndergroundModelDepth": 0
   },
   "TemplateSpec": {
-    "TemplateName": "ConveyorLiftDown.Folktails",
+    "TemplateName": "ConveyorLiftLateUp.Folktails",
     "BackwardCompatibleTemplateNames": [],
     "RequiredFeatureToggle": "",
     "DisablingFeatureToggle": ""
@@ -66,8 +66,8 @@
     "Flippable": false
   },
   "PlaceableBlockObjectSpec": {
-    "ToolGroupId": "ConveyorBelts",
-    "ToolOrder": 90,
+    "ToolGroupId": "ConveyorLateFT",
+    "ToolOrder": 40,
     "ToolShape": "Square",
     "Layout": "Single",
     "CustomPivot": {
@@ -82,15 +82,15 @@
     "DevModeTool": false
   },
   "LabeledEntitySpec": {
-    "DisplayNameLocKey": "LV.CBlt.LiftDownName",
-    "DescriptionLocKey": "LV.CBlt.LiftDownDesc",
-    "FlavorDescriptionLocKey": "LV.CBlt.LiftDownFlavor",
-    "Icon": "Buildings/Conveyors/LiftDown/LiftDownIcon"
+    "DisplayNameLocKey": "LV.CBlt.LiftLateUpName",
+    "DescriptionLocKey": "LV.CBlt.LiftUpDesc",
+    "FlavorDescriptionLocKey": "LV.CBlt.LiftUpFlavor",
+    "Icon": "Buildings/Conveyors/Late/LiftUp/LiftLateUpIcon"
   },
   "MechanicalBuildingSpec": {},
   "MechanicalNodeSpec": {
     "PowerOutput": 0,
-    "PowerInput": 4,
+    "PowerInput": 8,
     "IsShaft": false
   },
   "MechanicalConnectorTargetSpec": {},
@@ -168,7 +168,8 @@
       }
     }
   },
-  "BeltTeleporterSpec": {
-    "Kind": "LiftDown"
+  "BeltCarrierSpec": {
+    "Shape": "LiftUp",
+    "Speed": "Late"
   }
 }

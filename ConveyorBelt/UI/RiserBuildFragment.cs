@@ -1,7 +1,7 @@
 namespace ConveyorBelt.UI;
 
 [BindFragment]
-public class RiserBuildFragment(ILoc t, RiserPlacer placer, FactionService factions, ConveyorBeltSpeeds speeds) : BaseEntityPanelFragment<BeltTeleporter>
+public class RiserBuildFragment(ILoc t, RiserPlacer placer, FactionService factions, ConveyorBeltSpeeds speeds) : BaseEntityPanelFragment<BeltCarrier>
 {
     protected override void InitializePanel()
     {
@@ -15,7 +15,7 @@ public class RiserBuildFragment(ILoc t, RiserPlacer placer, FactionService facti
     public override void ShowFragment(BaseComponent entity)
     {
         base.ShowFragment(entity);
-        panel.Visible = component is BeltTeleporter lift && lift.Kind is TeleporterKind.LiftUp or TeleporterKind.LiftDown;
+        panel.Visible = component is BeltCarrier lift && lift.Shape is BeltShape.LiftUp or BeltShape.LiftDown;
     }
 
     void AddRow(ConveyorBeltSpeedLevel level)
@@ -28,7 +28,7 @@ public class RiserBuildFragment(ILoc t, RiserPlacer placer, FactionService facti
 
     void Place(string speedId, BeltShape shape)
     {
-        if (component is not BeltTeleporter lift)
+        if (component is not BeltCarrier lift)
         {
             return;
         }

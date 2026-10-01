@@ -26,6 +26,14 @@ public static class BeltLayout
                 ports.Add(new(Direction3D.Top, true));
                 ports.Add(new(Direction3D.Bottom, false));
                 break;
+            case BeltShape.LiftUp:
+                ports.Add(new(Direction3D.Up, true));
+                ports.Add(new(Direction3D.Top, false));
+                break;
+            case BeltShape.LiftDown:
+                ports.Add(new(Direction3D.Bottom, true));
+                ports.Add(new(Direction3D.Down, false));
+                break;
             default:
                 ports.Add(new(Direction3D.Up, true));
                 ports.Add(new(Direction3D.Down, false));
@@ -33,37 +41,23 @@ public static class BeltLayout
         }
     }
 
-    public static void FillTeleporter(TeleporterKind kind, List<LocalPort> inputs, List<LocalPort> outputs)
+    public static void FillMerger(List<LocalPort> inputs, List<LocalPort> outputs)
     {
         inputs.Clear();
         outputs.Clear();
-        switch (kind)
-        {
-            case TeleporterKind.Merger:
-                inputs.Add(new(Direction3D.Up, true));
-                inputs.Add(new(Direction3D.Left, true));
-                inputs.Add(new(Direction3D.Right, true));
-                outputs.Add(new(Direction3D.Down, false));
-                break;
-            case TeleporterKind.Splitter:
-            case TeleporterKind.SmartSplitter:
-                inputs.Add(new(Direction3D.Up, true));
-                outputs.Add(new(Direction3D.Left, false));
-                outputs.Add(new(Direction3D.Down, false));
-                outputs.Add(new(Direction3D.Right, false));
-                break;
-            case TeleporterKind.LiftUp:
-                inputs.Add(new(Direction3D.Up, true));
-                outputs.Add(new(Direction3D.Top, false));
-                inputs.Add(new(Direction3D.Top, true));
-                outputs.Add(new(Direction3D.Up, false));
-                break;
-            default:
-                inputs.Add(new(Direction3D.Bottom, true));
-                outputs.Add(new(Direction3D.Down, false));
-                inputs.Add(new(Direction3D.Down, true));
-                outputs.Add(new(Direction3D.Bottom, false));
-                break;
-        }
+        inputs.Add(new(Direction3D.Up, true));
+        inputs.Add(new(Direction3D.Left, true));
+        inputs.Add(new(Direction3D.Right, true));
+        outputs.Add(new(Direction3D.Down, false));
+    }
+
+    public static void FillSplitter(List<LocalPort> inputs, List<LocalPort> outputs)
+    {
+        inputs.Clear();
+        outputs.Clear();
+        inputs.Add(new(Direction3D.Up, true));
+        outputs.Add(new(Direction3D.Left, false));
+        outputs.Add(new(Direction3D.Down, false));
+        outputs.Add(new(Direction3D.Right, false));
     }
 }
