@@ -3,7 +3,7 @@
     "Id": "ConveyorLog",
     "Order": 10,
     "NameLocKey": "LV.CBlt.GroupLog",
-    "Icon": "Buildings/Conveyors/Log/Belt/BeltLogIcon",
+    "Icon": "Sprites/BottomBar/ConveyorLogGroupIcon",
     "FallbackGroup": false
   },
   "ParentToolGroupSpec": {

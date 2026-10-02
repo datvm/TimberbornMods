@@ -95,6 +95,12 @@ public class DischargePipe(DischargePipeService service) : BaseComponent // …
 
 // NOT: inject IWaterService + IThreadSafeWaterMap + ILoc directly into the component.
 
+# Component lifecycle
+
+On a `BaseComponent`, `Awake` only grabs references (`GetComponent`, injected services already on the constructor). Do computation in `InitializeEntity`: reading specs, asking services for rates, building status toggles, filling ports.
+
+A placement preview runs `Awake` and does not run `InitializeEntity`. That `Awake` can run before other services' `Load`. Work done there can crash the preview. `BeltCarrier` is the pattern: `Awake` stores `BlockObject` and `MechanicalNode`; `InitializeEntity` reads `BeltCarrierSpec`, registers the stuck status, and asks `BeltCarrierService` for items per hour.
+
 # Singleton lifecycle
 
 `ILoadableSingleton.Load` and `IPostLoadableSingleton.PostLoad` run in **dependency order**. If B's constructor injects A, `A.Load` always runs before `B.Load` (same for `PostLoad`). Do not add `EnsureLoaded` / lazy-init sequences to force that order.
@@ -126,11 +132,13 @@ When you need to **read or edit** a `.timbermesh` model (node hierarchy, materia
 Working directory for dumps/packs: **`D:\Temp\TimbermeshModel`**.
 
 ```powershell
-# From repo root (or run the built tool / installed global tool `tmesh2glb`)
-dotnet run --project Timbermesh2Blender -- dump -i <model-or-folder> -o D:\Temp\TimbermeshModel -f
+# From repo root. -c Release is required: the Debug build replaces args with a hardcoded Forester path.
+dotnet run -c Release --project Timbermesh2Blender -- dump -i <model-or-folder> -o D:\Temp\TimbermeshModel -f
 # Edit the produced *.timbermesh.json
-dotnet run --project Timbermesh2Blender -- pack -i D:\Temp\TimbermeshModel\<name>.timbermesh.json -o D:\Temp\TimbermeshModel -f
+dotnet run -c Release --project Timbermesh2Blender -- pack -i D:\Temp\TimbermeshModel\<name>.timbermesh.json -o D:\Temp\TimbermeshModel -f
 ```
+
+The installed `tmesh2glb` tool is fine too. It does not have that Debug override.
 
 Notes:
 
@@ -139,6 +147,27 @@ Notes:
 - After packing, you can preview with `tmesh2glb glb -i ... -r <Resources> -o D:\Temp\TimbermeshModel -f`.
 - Game Resources path: `D:\Personal\Mods\Timberborn\V1Data\ExportedProject\Assets\Resources`.
 - **Folktails first.** Unless the user explicitly asks for Iron Teeth (or both factions), only dump / edit / pack **Folktails** models. Do the Iron Teeth pass later, after the Folktails model is approved.
+
+### UV mapping
+
+A generated building that looks clipped has a bad `uv0` rectangle. The face shows a chopped mix: part of a board, a blank pale patch, a hole, a metal trim cut in half. A pale or white face is the same bug. It is the empty corner of the picture, or another material left on a made-up rectangle. Fix every material on the model, not only the one that looked worst.
+
+The material's picture is a collage of many separate pictures in one square. `uv0` picks a spot in that square. `(0,0)` is one corner of the whole square. `(1,1)` is the opposite corner. A face set to `(0,0)`–`(1,1)` stretches the entire collage across that one face.
+
+Two fixes that still look clipped:
+
+- Any rectangle you invent, even one that sits inside the square. On the belt, a wide patch of the wood picture removed the hole and still cut the grain off at the edge of the face. The metal bar was left on a homemade patch and stayed a pale clipped plate.
+- Shrinking the coordinates yourself for the faction atlas. The game already does `uv * UVScale + UVOffset` in `AutoAtlasingPrefabOptimizer`. Write coordinates against the original picture.
+
+What works is one vanilla face's rectangle, copied unchanged, per face:
+
+- Dump a vanilla mesh that uses the same material, with `--decode-vertices`. Read one face's `uv0` and use that exact box.
+- Wood (`BaseWood_*`, both factions): `Platform.Full.Folktails` on `BaseWood_Brown.Folktails`. One board is `u 0.7504–0.8128`, `v 0.5001–0.8753`. The next boards on that platform are the same height, stepped across in `u` (`0.8129–0.8753`, `0.8754–0.9378`, `0.9379–0.998`).
+- Metal (`BaseMetal.Folktails`): `MetalPlatform3x3.Full.Folktails`. The repeated small plate is `u 0.595–0.656`, `v 0.008–0.242`.
+- One face, one rectangle. A wider surface is several faces, each with the next vanilla rectangle. The platform top is a row of boards, not one face covering many boards.
+- Stay on the copied numbers. `0.5001` instead of `0.5000` is already in them so the face does not pick up the neighbor.
+
+Before packing, dump with `--decode-vertices` and check every material. A triangle whose `uv0` runs `0–1`, or whose box is larger than the vanilla face you copied, is still clipped.
 
 ## Buildings (Folktails first)
 

@@ -13,7 +13,7 @@ public class BuildingBeltTarget(BeltGoodService goods) : BaseComponent, IBeltCon
     public bool TryProvide(BeltApproach approach, out IBeltConnection connection)
     {
         connection = MissingConnection.Instance;
-        if (this.GetComponentOrNull<BeltCarrier>() || this.GetComponentOrNull<BeltMerger>() || this.GetComponentOrNull<BeltSplitter>())
+        if (this.GetComponentOrNull<BeltCarrier>() || this.GetComponentOrNull<BeltMerger>() || this.GetComponentOrNull<BeltSplitter>() || this.GetComponentOrNull<BeltLift>())
         {
             return false;
         }

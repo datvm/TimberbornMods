@@ -1,4 +1,4 @@
-namespace TimberPipes.UI;
+﻿namespace TimberPipes.UI;
 
 [BindFragment]
 public class PipeTankFragment(
@@ -69,6 +69,14 @@ public class PipeTankFragment(
         {
             return;
         }
+
+        if (!component.IsFinished)
+        {
+            panel.Visible = false;
+            return;
+        }
+
+        panel.Visible = true;
 
         var capacity = tank.CapacityM3;
         var amount = Math.Max(0f, tank.VolumeM3);

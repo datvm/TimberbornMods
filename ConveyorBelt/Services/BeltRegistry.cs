@@ -1,4 +1,4 @@
-namespace ConveyorBelt.Services;
+﻿namespace ConveyorBelt.Services;
 
 [BindSingleton]
 public class BeltRegistry(BeltLinks links, EventBus eventBus) : ILoadableSingleton
@@ -7,11 +7,14 @@ public class BeltRegistry(BeltLinks links, EventBus eventBus) : ILoadableSinglet
     readonly Dictionary<BeltCarrier, int> indexOf = [];
     readonly List<BeltCarrier> carrierList = [];
     readonly List<BeltMerger> mergers = [];
+    readonly List<BeltSplitter> splitters = [];
+    readonly List<BeltLift> lifts = [];
     readonly List<BeltCarrier> moveOrder = [];
     readonly List<BeltCarrier> downstream = [];
     readonly List<int> indegree = [];
     readonly List<int> queue = [];
     readonly List<List<int>> upstreams = [];
+    readonly Dictionary<Vector3Int, int> portTargets = [];
     bool dirty = true;
 
     public void Load() => eventBus.Register(this);
@@ -20,6 +23,8 @@ public class BeltRegistry(BeltLinks links, EventBus eventBus) : ILoadableSinglet
     {
         carriers[carrier.Coordinates] = carrier;
         carrierList.Add(carrier);
+        Note(carrier.InPort.Target, 1);
+        Note(carrier.OutPort.Target, 1);
         dirty = true;
     }
 
@@ -31,6 +36,8 @@ public class BeltRegistry(BeltLinks links, EventBus eventBus) : ILoadableSinglet
         }
 
         carrierList.Remove(carrier);
+        Note(carrier.InPort.Target, -1);
+        Note(carrier.OutPort.Target, -1);
         dirty = true;
     }
 
@@ -49,6 +56,41 @@ public class BeltRegistry(BeltLinks links, EventBus eventBus) : ILoadableSinglet
         dirty = true;
     }
 
+    public void Register(BeltSplitter splitter)
+    {
+        if (!splitters.Contains(splitter))
+        {
+            splitters.Add(splitter);
+        }
+    }
+
+    public void Unregister(BeltSplitter splitter) => splitters.Remove(splitter);
+
+    public void BeginSplitters(float hoursPerTick)
+    {
+        for (var i = 0; i < splitters.Count; i++)
+        {
+            splitters[i].BeginTick(hoursPerTick);
+        }
+    }
+
+    public void Register(BeltLift lift)
+    {
+        if (!lifts.Contains(lift))
+        {
+            lifts.Add(lift);
+            dirty = true;
+        }
+    }
+
+    public void Unregister(BeltLift lift)
+    {
+        lifts.Remove(lift);
+        dirty = true;
+    }
+
+    public void Invalidate() => dirty = true;
+
     public IReadOnlyList<BeltCarrier> OrderForTick()
     {
         Ensure();
@@ -57,17 +99,69 @@ public class BeltRegistry(BeltLinks links, EventBus eventBus) : ILoadableSinglet
             mergers[i].Rotate(moveOrder);
         }
 
+        for (var i = 0; i < lifts.Count; i++)
+        {
+            lifts[i].Rotate(moveOrder);
+        }
+
         return moveOrder;
     }
 
-    [OnEvent]
-    public void OnEnteredFinishedState(EnteredFinishedStateEvent _) => dirty = true;
+    public void BeginMergers(float hoursPerTick)
+    {
+        for (var i = 0; i < mergers.Count; i++)
+        {
+            mergers[i].BeginTick(hoursPerTick);
+        }
+    }
 
     [OnEvent]
-    public void OnExitedFinishedState(ExitedFinishedStateEvent _) => dirty = true;
+    public void OnEnteredFinishedState(EnteredFinishedStateEvent e) => Touch(e.BlockObject);
 
     [OnEvent]
-    public void OnEntityDeleted(EntityDeletedEvent _) => dirty = true;
+    public void OnExitedFinishedState(ExitedFinishedStateEvent e) => Touch(e.BlockObject);
+
+    [OnEvent]
+    public void OnEntityDeleted(EntityDeletedEvent e)
+    {
+        if (e.Entity.GetComponentOrNull<BlockObject>() is { } block)
+        {
+            Touch(block);
+        }
+    }
+
+    void Touch(BlockObject block)
+    {
+        if (dirty || !block.Positioned)
+        {
+            return;
+        }
+
+        foreach (var cell in block.PositionedBlocks.GetOccupiedCoordinates())
+        {
+            if (!portTargets.ContainsKey(cell))
+            {
+                continue;
+            }
+
+            dirty = true;
+            return;
+        }
+    }
+
+    void Note(Vector3Int cell, int delta)
+    {
+        portTargets.TryGetValue(cell, out var count);
+        count += delta;
+        if (count <= 0)
+        {
+            portTargets.Remove(cell);
+        }
+        else
+        {
+            portTargets[cell] = count;
+        }
+    }
 
     void Ensure()
     {
@@ -80,6 +174,11 @@ public class BeltRegistry(BeltLinks links, EventBus eventBus) : ILoadableSinglet
         for (var i = 0; i < mergers.Count; i++)
         {
             mergers[i].ClearInputs();
+        }
+
+        for (var i = 0; i < lifts.Count; i++)
+        {
+            lifts[i].ClearInputs();
         }
 
         foreach (var carrier in carrierList)

@@ -7,9 +7,9 @@ public enum BeltShape
     RiserUp,
     RiserDown,
     Impermeable,
-    LiftUp,
-    LiftDown,
 }
+
+public record BeltSystemSpec : ComponentSpec;
 
 public record BeltCarrierSpec : ComponentSpec
 {
@@ -19,6 +19,8 @@ public record BeltCarrierSpec : ComponentSpec
     [Serialize]
     public string Speed { get; init; } = "";
 }
+
+public record BeltLiftSpec : ComponentSpec;
 
 public record BeltMergerSpec : ComponentSpec;
 

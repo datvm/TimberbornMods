@@ -3,7 +3,7 @@
     "Id": "ConveyorPlank",
     "Order": 20,
     "NameLocKey": "LV.CBlt.GroupPlank",
-    "Icon": "Buildings/Conveyors/Plank/Belt/BeltPlankIcon",
+    "Icon": "Sprites/BottomBar/ConveyorPlankGroupIcon",
     "FallbackGroup": false
   },
   "ParentToolGroupSpec": {

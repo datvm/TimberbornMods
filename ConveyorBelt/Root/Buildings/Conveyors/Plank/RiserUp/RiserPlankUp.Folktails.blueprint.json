@@ -33,7 +33,7 @@
   },
   "BlockObjectNavMeshSettingsSpec": {
     "NoAutoWalls": false,
-    "GenerateFloorsOnStackable": false,
+    "GenerateFloorsOnStackable": true,
     "EdgeGroups": [],
     "UnblockedCoordinates": [],
     "BlockedEdges": []
@@ -47,7 +47,7 @@
     "Blocks": [
       {
         "MatterBelow": "GroundOrStackable",
-        "Occupations": "Bottom, Middle, Top",
+        "Occupations": "All",
         "Stackable": "BlockObject",
         "OccupyAllBelow": false,
         "Underground": false
@@ -66,8 +66,8 @@
     "Flippable": false
   },
   "PlaceableBlockObjectSpec": {
-    "ToolGroupId": "ConveyorRisers",
-    "ToolOrder": 10,
+    "ToolGroupId": "ConveyorPlank",
+    "ToolOrder": 40,
     "ToolShape": "Square",
     "Layout": "Single",
     "CustomPivot": {
@@ -132,9 +132,9 @@
                   "Z": 0.5
                 },
                 "Size": {
-                  "X": 0.9,
+                  "X": 1.0,
                   "Y": 0.1,
-                  "Z": 0.9
+                  "Z": 1.0
                 }
               }
             ],
@@ -153,13 +153,13 @@
           {
             "Center": {
               "X": 0.5,
-              "Y": 0.45,
+              "Y": 0.5,
               "Z": 0.5
             },
             "Size": {
-              "X": 0.9,
-              "Y": 0.9,
-              "Z": 0.9
+              "X": 1.0,
+              "Y": 1.0,
+              "Z": 1.0
             }
           }
         ],
@@ -171,5 +171,6 @@
   "BeltCarrierSpec": {
     "Shape": "RiserUp",
     "Speed": "Plank"
-  }
+  },
+  "BeltSystemSpec": {}
 }

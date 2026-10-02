@@ -1,14 +1,26 @@
 ﻿namespace ConveyorBelt.Components;
 
 [AddTemplateModule2(typeof(BeltCarrierSpec))]
-public class BeltVisual(IBlockService blocks, MSettings settings)
+public class BeltVisual(BeltVisualService visuals)
     : BaseComponent, IAwakableComponent, IInitializablePreview, IPostPlacementChangeListener,
-        IFinishedStateListener, IPreviewSelectionListener, IUpdatableComponent
+        IFinishedStateListener, IPreviewSelectionListener, IUpdatableComponent, IDeletableEntity
 {
-    const int Pool = BeltRates.Capacity;
+    const float Pad = 0.001f;
+    const float BoxFill = 0.6f;
+    const float BoxY = 0.11f;
+    const float Deck = 0.11f;
+    const float Cube = 0.04f;
+    const float BoxGap = 0.015f;
+    const float PlankMin = 0.35525f;
+    const float PlankMax = 0.64475f;
 
     readonly List<GameObject> goods = [];
-    readonly List<Transform> rollers = [];
+    readonly List<Material> materials = [];
+    readonly List<Material> iconMaterials = [];
+    readonly List<string> shownIds = [];
+    bool ownsMaterials;
+    bool materialsReady;
+    EntityMaterials? entityMaterials;
 
     BlockObject block = null!;
     BeltCarrier carrier = null!;
@@ -17,6 +29,13 @@ public class BeltVisual(IBlockService blocks, MSettings settings)
     bool finished;
     bool swapsMesh;
     BeltShape shape;
+    GameObject? goodsRoot;
+    GameObject? leftRunner;
+    GameObject? rightRunner;
+    float runnerShown;
+    float deckMin = PlankMin;
+    float deckMax = PlankMax;
+    float deckTop = Deck;
 
     public void Awake()
     {
@@ -35,26 +54,27 @@ public class BeltVisual(IBlockService blocks, MSettings settings)
 
         straight = Child(finishedModel, "#Straight");
         building = Child(finishedModel, "#Building");
-        var template = Named(finishedModel, "GoodTemplate");
-        if (template)
+        foreach (var child in finishedModel.GetComponentsInChildren<Transform>(true))
         {
-            template.SetActive(false);
-            for (var i = 0; i < Pool; i++)
+            if (child.name == "GoodTemplate")
             {
-                var copy = Object.Instantiate(template, finishedModel);
-                copy.name = "Good";
-                copy.SetActive(false);
-                goods.Add(copy);
+                child.gameObject.SetActive(false);
             }
         }
 
-        foreach (var child in finishedModel.GetComponentsInChildren<Transform>(true))
+        entityMaterials = GetComponent<EntityMaterials>();
+        ownsMaterials = !entityMaterials;
+        EnsureRunners();
+        if (!visuals.Ready)
         {
-            if (child.name == "Roller")
-            {
-                rollers.Add(child);
-            }
+            return;
         }
+
+        goodsRoot = new GameObject("Goods");
+        goodsRoot.layer = finishedModel.gameObject.layer;
+        goodsRoot.transform.SetParent(finishedModel, false);
+        goodsRoot.SetActive(false);
+        EnsureCount(BeltRates.Capacity);
     }
 
     public void InitializePreview() => RefreshMesh();
@@ -74,30 +94,364 @@ public class BeltVisual(IBlockService blocks, MSettings settings)
     public void OnExitFinishedState()
     {
         finished = false;
-        HideGoods();
     }
 
-    public void Update()
+    public void DeleteEntity()
     {
-        if (!finished)
+        if (!ownsMaterials)
         {
             return;
         }
 
-        var animate = settings.Animation.Value && carrier.Running;
-        if (animate)
+        foreach (var material in materials)
         {
-            var spin = carrier.ItemsPerHour * 36f * Time.deltaTime;
-            foreach (var roller in rollers)
+            Object.Destroy(material);
+        }
+
+        foreach (var material in iconMaterials)
+        {
+            Object.Destroy(material);
+        }
+    }
+
+    public void Update()
+    {
+        EnsureRunners();
+        if (!visuals.Animation || !RunsOnDeck || (!block.IsPreview && !finished))
+        {
+            HideRunners();
+            HideGoods();
+            return;
+        }
+
+        if (block.IsPreview)
+        {
+            MoveRunners(follow: true);
+            HideGoods();
+            return;
+        }
+
+        MoveRunners(carrier.Running);
+        if (goods.Count == 0)
+        {
+            return;
+        }
+
+        UseRendererMaterials();
+        ShowGoods();
+    }
+
+    bool RunsOnDeck => shape is BeltShape.Straight or BeltShape.Impermeable or BeltShape.Corner;
+
+    void EnsureRunners()
+    {
+        var wood = visuals.RunnerWood;
+        var finishedModel = Transform.Find("#Finished");
+        if (!finishedModel || !wood)
+        {
+            return;
+        }
+
+        if (leftRunner && leftRunner.transform.parent == finishedModel)
+        {
+            return;
+        }
+
+        if (leftRunner)
+        {
+            Object.Destroy(leftRunner);
+        }
+
+        if (rightRunner)
+        {
+            Object.Destroy(rightRunner);
+        }
+
+        CreateRunners(finishedModel);
+    }
+
+    void CreateRunners(Transform parent)
+    {
+        MeasureDeck(parent);
+        leftRunner = visuals.CreateRunner(parent);
+        rightRunner = visuals.CreateRunner(parent);
+    }
+
+    void MeasureDeck(Transform parent)
+    {
+        if (shape == BeltShape.Corner)
+        {
+            return;
+        }
+
+        var mesh = DeckMesh(parent);
+        if (!mesh)
+        {
+            return;
+        }
+
+        var bounds = mesh.bounds;
+        deckMin = bounds.min.x;
+        deckMax = bounds.max.x;
+        deckTop = bounds.max.y;
+    }
+
+    static UnityEngine.Mesh? DeckMesh(Transform parent)
+    {
+        var deck = DeckRenderer(parent);
+        var filter = deck ? deck.GetComponent<MeshFilter>() : null;
+        return filter ? filter.sharedMesh : null;
+    }
+
+    static MeshRenderer? DeckRenderer(Transform parent)
+    {
+        MeshRenderer? found = null;
+        foreach (var renderer in parent.GetComponentsInChildren<MeshRenderer>(true))
+        {
+            if (renderer.gameObject.name == "GoodTemplate")
             {
-                if (roller.gameObject.activeInHierarchy)
-                {
-                    roller.Rotate(spin, 0f, 0f, Space.Self);
-                }
+                continue;
+            }
+
+            found ??= renderer;
+            if (renderer.gameObject.name == "Deck")
+            {
+                return renderer;
             }
         }
 
-        ShowGoods(settings.Animation.Value);
+        return found;
+    }
+
+    void MoveRunners(bool follow)
+    {
+        if (!leftRunner || !rightRunner)
+        {
+            return;
+        }
+
+        if (follow)
+        {
+            runnerShown = visuals.Along(carrier.SpeedIndex);
+        }
+
+        PlaceRunner(leftRunner, runnerShown, 1f);
+        PlaceRunner(rightRunner, runnerShown, -1f);
+    }
+
+    void PlaceRunner(GameObject runner, float along, float side)
+    {
+        runner.SetActive(true);
+        runner.transform.localScale = Vector3.one * Cube;
+        runner.transform.localPosition = RunnerPose(along, side);
+    }
+
+    // side +1 is the inside of the corner, the shorter path. side -1 goes the long way around,
+    // so that cube moves faster and both still arrive together.
+    Vector3 RunnerPose(float along, float side)
+    {
+        var y = deckTop + Cube * 0.5f + 0.001f;
+        var lane = side * Lane;
+        var high = 1f - Pad;
+        along = Mathf.Repeat(along, 1f);
+        if (shape != BeltShape.Corner)
+        {
+            var span = high - Pad;
+            return new Vector3(0.5f + lane, y, high - along * span);
+        }
+
+        var elbow = 0.5f + lane;
+        var leg = high - elbow;
+        var dist = along * leg * 2f;
+        if (dist <= leg)
+        {
+            return new Vector3(0.5f + lane, y, high - dist);
+        }
+
+        return new Vector3(elbow + (dist - leg), y, elbow);
+    }
+
+    float Lane
+    {
+        get
+        {
+            var half = Cube * 0.5f;
+            var beside = BoxSize * 0.5f + BoxGap + half;
+            var room = Mathf.Min(deckMax - 0.5f, 0.5f - deckMin) - half;
+            if (beside > room)
+            {
+                return Mathf.Max(0f, room);
+            }
+
+            return beside;
+        }
+    }
+
+    void HideRunners()
+    {
+        if (leftRunner)
+        {
+            leftRunner.SetActive(false);
+        }
+
+        if (rightRunner)
+        {
+            rightRunner.SetActive(false);
+        }
+    }
+
+    void UseRendererMaterials()
+    {
+        if (materialsReady)
+        {
+            return;
+        }
+
+        materialsReady = true;
+        for (var i = 0; i < goods.Count; i++)
+        {
+            var current = goods[i].GetComponent<MeshRenderer>().sharedMaterial;
+            if (current && current != materials[i])
+            {
+                materials[i] = current;
+            }
+
+            var icon = goods[i].transform.Find("Icon").GetComponent<MeshRenderer>().sharedMaterial;
+            if (icon && icon != iconMaterials[i])
+            {
+                iconMaterials[i] = icon;
+            }
+        }
+    }
+
+    void ShowGoods()
+    {
+        if (goodsRoot)
+        {
+            goodsRoot.SetActive(true);
+        }
+
+        var trails = carrier.Trails;
+        if (trails.Count == 0)
+        {
+            ShowSettled();
+            return;
+        }
+
+        var progress = visuals.Progress;
+        EnsureCount(trails.Count);
+        for (var i = 0; i < trails.Count; i++)
+        {
+            var trail = trails[i];
+            if (!trail.Shows(progress))
+            {
+                goods[i].SetActive(false);
+                continue;
+            }
+
+            ShowOne(i, trail.Id, trail.Along(progress));
+        }
+
+        HideRest(trails.Count);
+    }
+
+    void ShowSettled()
+    {
+        var items = carrier.Items;
+        EnsureCount(items.Count);
+        for (var i = 0; i < items.Count; i++)
+        {
+            var item = items[i];
+            ShowOne(i, item.Id, item.Position);
+        }
+
+        HideRest(items.Count);
+    }
+
+    void ShowOne(int i, string id, float along)
+    {
+        var good = goods[i];
+        var icon = good.transform.Find("Icon").gameObject;
+        var boxRenderer = good.GetComponent<MeshRenderer>();
+        var iconRenderer = icon.GetComponent<MeshRenderer>();
+        Adopt(i, boxRenderer, iconRenderer);
+        if (shownIds[i] != id)
+        {
+            Paint(i, id);
+        }
+
+        Place(good, along);
+        Adopt(i, boxRenderer, iconRenderer);
+        if (shownIds[i] != id)
+        {
+            Paint(i, id);
+        }
+
+        icon.SetActive(shownIds[i] == id);
+    }
+
+    void HideRest(int used)
+    {
+        for (var i = used; i < goods.Count; i++)
+        {
+            goods[i].SetActive(false);
+            shownIds[i] = "";
+        }
+    }
+
+    void EnsureCount(int count)
+    {
+        if (!goodsRoot)
+        {
+            return;
+        }
+
+        while (goods.Count < count)
+        {
+            var copy = visuals.CreateGood(goodsRoot.transform, entityMaterials);
+            goods.Add(copy);
+            materials.Add(copy.GetComponent<MeshRenderer>().sharedMaterial);
+            iconMaterials.Add(copy.transform.Find("Icon").GetComponent<MeshRenderer>().sharedMaterial);
+            shownIds.Add("");
+        }
+    }
+
+    void Adopt(int i, MeshRenderer boxRenderer, MeshRenderer iconRenderer)
+    {
+        var boxMaterial = boxRenderer.sharedMaterial;
+        var iconMaterial = iconRenderer.sharedMaterial;
+        if (boxMaterial && boxMaterial != materials[i])
+        {
+            materials[i] = boxMaterial;
+            shownIds[i] = "";
+        }
+
+        if (iconMaterial && iconMaterial != iconMaterials[i])
+        {
+            iconMaterials[i] = iconMaterial;
+            shownIds[i] = "";
+        }
+    }
+
+    void Paint(int i, string id)
+    {
+        if (!visuals.ApplyGood(materials[i], iconMaterials[i], id))
+        {
+            return;
+        }
+
+        shownIds[i] = id;
+    }
+
+    void Place(GameObject good, float along)
+    {
+        var size = BoxSize;
+        var scale = visuals.GoodScale(size);
+        var position = Pose(along);
+        position.y = BoxY;
+        good.SetActive(true);
+        good.transform.localScale = Vector3.one * scale;
+        good.transform.localPosition = position;
     }
 
     void RefreshMesh()
@@ -107,95 +461,45 @@ public class BeltVisual(IBlockService blocks, MSettings settings)
             return;
         }
 
-        var facesBuilding = swapsMesh && (Faces(Direction3D.Up) || Faces(Direction3D.Down));
+        var facesBuilding = swapsMesh && (visuals.FacesBuilding(block, Direction3D.Up) || visuals.FacesBuilding(block, Direction3D.Down));
         straight.SetActive(!facesBuilding);
         building.SetActive(facesBuilding);
     }
 
-    bool Faces(Direction3D local)
-    {
-        var world = block.TransformDirection(local);
-        var cell = block.Coordinates + world.ToOffset();
-        foreach (var obj in blocks.GetObjectsAt(cell))
-        {
-            if (!obj || obj == block)
-            {
-                continue;
-            }
-
-            if (obj.GetComponent<BeltCarrier>() is not null || obj.GetComponent<BeltMerger>() is not null || obj.GetComponent<BeltSplitter>() is not null)
-            {
-                continue;
-            }
-
-            return true;
-        }
-
-        return false;
-    }
-
-    void ShowGoods(bool visible)
-    {
-        var items = carrier.Items;
-        for (var i = 0; i < goods.Count; i++)
-        {
-            var show = visible && i < items.Count;
-            goods[i].SetActive(show);
-            if (show)
-            {
-                goods[i].transform.localPosition = GoodPosition(items[i].Position);
-            }
-        }
-    }
-
     void HideGoods()
     {
-        foreach (var good in goods)
+        if (goodsRoot)
         {
-            good.SetActive(false);
+            goodsRoot.SetActive(false);
         }
     }
 
-    Vector3 GoodPosition(float position)
-    {
-        const float height = 0.13f;
-        var grid = shape switch
-        {
-            BeltShape.RiserUp => new Vector3(0.5f, 0.5f, Mathf.Lerp(0.18f, 0.82f, position)),
-            BeltShape.RiserDown => new Vector3(0.5f, 0.5f, Mathf.Lerp(0.82f, 0.18f, position)),
-            BeltShape.LiftUp => Vector3.Lerp(new Vector3(0.5f, 0.82f, height), new Vector3(0.5f, 0.5f, 0.82f), position),
-            BeltShape.LiftDown => Vector3.Lerp(new Vector3(0.5f, 0.5f, 0.82f), new Vector3(0.5f, 0.18f, height), position),
-            BeltShape.Corner => Corner(position, height),
-            _ => new Vector3(0.5f, Mathf.Lerp(0.82f, 0.18f, position), height),
-        };
-        return CoordinateSystem.GridToWorld(grid);
-    }
+    float Span => 1f - Pad * 2f;
 
-    Vector3 Corner(float t, float height)
+    float BoxSize => BeltRates.Spacing * BoxFill;
+
+    Vector3 Pose(float along)
     {
-        var flipped = block.FlipMode.IsFlipped;
-        var start = new Vector3(0.5f, 0.82f, height);
-        var end = new Vector3(flipped ? 0.18f : 0.82f, 0.5f, height);
-        var bend = new Vector3(flipped ? 0.28f : 0.72f, 0.72f, height);
-        return Vector3.Lerp(Vector3.Lerp(start, bend, t), Vector3.Lerp(bend, end, t), t);
+        along = Mathf.Clamp01(along);
+        var high = 1f - Pad;
+        if (shape != BeltShape.Corner)
+        {
+            return new Vector3(0.5f, 0f, high - along * Span);
+        }
+
+        var leg = high - 0.5f;
+        var path = along * leg * 2f;
+        if (path <= leg)
+        {
+            return new Vector3(0.5f, 0f, high - path);
+        }
+
+        return new Vector3(0.5f + (path - leg), 0f, 0.5f);
     }
 
     static GameObject? Child(Transform root, string name)
     {
         var found = root.Find(name);
         return found ? found.gameObject : null;
-    }
-
-    static GameObject? Named(Transform root, string name)
-    {
-        foreach (var child in root.GetComponentsInChildren<Transform>(true))
-        {
-            if (child.name == name)
-            {
-                return child.gameObject;
-            }
-        }
-
-        return null;
     }
 }

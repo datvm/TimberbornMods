@@ -1,4 +1,4 @@
-namespace TimberPipes.Components;
+﻿namespace TimberPipes.Components;
 
 [AddTemplateModule2(typeof(TankPipe))]
 public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
@@ -18,6 +18,7 @@ public class PipeTank : BaseComponent, IAwakableComponent, IPersistentEntity
     public int ZBase => bo.Coordinates.z;
     public int HeightTiles => Math.Max(1, bo.Blocks.Size.z);
     public int SliceCount => PipeFlowSolver.SliceCount(HeightTiles);
+    public bool IsFinished => bo.IsFinished;
 
     public int SliceAt(int worldZ) => PipeFlowSolver.SliceIndex(worldZ, ZBase, HeightTiles);
 

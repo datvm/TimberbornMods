@@ -11,6 +11,8 @@ public class BeltSimulator(BeltRegistry registry, IDayNightCycle dayNight) : ITi
     public void Tick()
     {
         var carriers = registry.OrderForTick();
+        registry.BeginMergers(HoursPerTick);
+        registry.BeginSplitters(HoursPerTick);
         generation++;
         if (generation == 0)
         {

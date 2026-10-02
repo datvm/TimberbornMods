@@ -1,0 +1,23 @@
+{
+  "ConveyorBeltSettingsSpec": {
+    "Capacity": 5,
+    "Levels": [
+      {
+        "Id": "Log",
+        "ItemsPerHour": 1
+      },
+      {
+        "Id": "Plank",
+        "ItemsPerHour": 10
+      },
+      {
+        "Id": "Late",
+        "ItemsPerHour": 50
+      },
+      {
+        "Id": "End",
+        "ItemsPerHour": 100
+      }
+    ]
+  }
+}

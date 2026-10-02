@@ -3,7 +3,15 @@ namespace ConveyorBelt.Components;
 [AddTemplateModule2(typeof(BeltMergerSpec))]
 public class BeltMerger(BeltLinks links, BeltRegistry registry) : BeltJunction
 {
+    static readonly Direction3D[] Entries = [Direction3D.Up, Direction3D.Left, Direction3D.Right];
+
     readonly List<Vector3Int> inputs = [];
+    readonly List<JunctionHop> hops = [];
+    float tickHours;
+
+    public IReadOnlyList<JunctionHop> Hops => hops;
+
+    public float HopHours => tickHours * 0.4f;
 
     protected override void FillPorts(List<LocalPort> localInputs, List<LocalPort> localOutputs) => BeltLayout.FillMerger(localInputs, localOutputs);
 
@@ -22,6 +30,39 @@ public class BeltMerger(BeltLinks links, BeltRegistry registry) : BeltJunction
     }
 
     public void ClearInputs() => inputs.Clear();
+
+    public void BeginTick(float hoursPerTick)
+    {
+        tickHours = hoursPerTick;
+        hops.Clear();
+    }
+
+    public Direction3D EntryDirection(Vector3Int from)
+    {
+        for (var i = 0; i < InputCells.Length && i < Entries.Length; i++)
+        {
+            if (InputCells[i] == from)
+            {
+                return Entries[i];
+            }
+        }
+
+        return Direction3D.Up;
+    }
+
+    public void RememberHop(string id, Direction3D from, float spentHours, float usedHours)
+    {
+        if (usedHours <= 0f)
+        {
+            return;
+        }
+
+        hops.Add(new(
+            id,
+            from,
+            BeltTrail.Portion(spentHours, tickHours),
+            BeltTrail.Portion(spentHours + usedHours, tickHours)));
+    }
 
     public void Rotate(List<BeltCarrier> order)
     {

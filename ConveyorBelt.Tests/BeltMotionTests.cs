@@ -3,10 +3,20 @@ namespace ConveyorBelt.Tests;
 public class BeltMotionTests
 {
     [Fact]
-    public void LogSpeedAdvancesOneSpacingPerHour()
+    public void LogSpeedCrossesOneBeltPerHour()
     {
         var delta = BeltRates.Delta(1f, 1f);
-        Assert.Equal(BeltRates.Spacing, delta, 3);
+        Assert.Equal(1f, delta, 3);
+    }
+
+    [Fact]
+    public void AdvanceKeepsThePreviousPosition()
+    {
+        List<BeltGood> items = [new("Log", 0.2f)];
+        BeltMotion.Advance(items, 0.1f, _ => false);
+
+        Assert.Equal(0.2f, items[0].Previous, 3);
+        Assert.Equal(0.3f, items[0].Position, 3);
     }
 
     [Fact]
@@ -50,6 +60,52 @@ public class BeltMotionTests
 
         Assert.Equal(0.3f, first, 3);
         Assert.Equal(0.1f, second, 3);
+    }
+
+    [Fact]
+    public void AdvanceNotesTheMove()
+    {
+        List<BeltGood> items = [new("Log", 0.2f)];
+        BeltSpan? step = null;
+        BeltMotion.Advance(items, 0.1f, 0, null, span => step = span);
+
+        Assert.Equal(0.2f, step!.Value.From, 3);
+        Assert.Equal(0.3f, step.Value.To, 3);
+        Assert.True(step.Value.Rest);
+    }
+
+    [Fact]
+    public void AdvanceNotesTheExit()
+    {
+        List<BeltGood> items = [new("Plank", 0.9f)];
+        BeltSpan? step = null;
+        BeltMotion.Advance(items, 0.5f, 0, (_, _, _) => true, span => step = span);
+
+        Assert.Empty(items);
+        Assert.Equal(0.9f, step!.Value.From, 3);
+        Assert.Equal(BeltRates.End, step.Value.To, 3);
+        Assert.False(step.Value.Rest);
+    }
+
+    [Fact]
+    public void TrailCrossesThreeBeltsInOneTick()
+    {
+        var iph = 1f;
+        var tick = 3f;
+        var hour = BeltTravel.Hours(iph, 1f);
+        var first = BeltTrail.Slice("Log", 0f, 1f, 0f, hour, tick, false);
+        var middle = BeltTrail.Slice("Log", 0f, 1f, hour, hour, tick, false);
+        var last = BeltTrail.Slice("Log", 0f, 0.5f, hour * 2f, BeltTravel.Hours(iph, 0.5f), tick, true);
+
+        Assert.True(first.Shows(0.1f));
+        Assert.False(middle.Shows(0.1f));
+        Assert.True(middle.Shows(0.5f));
+        Assert.Equal(0.5f, middle.Along(0.5f), 3);
+        Assert.False(middle.Shows(0.8f));
+        Assert.True(last.Shows(0.9f));
+        Assert.Equal(0.5f, last.Along(0.9f), 3);
+        Assert.Equal(middle.Start, first.End, 3);
+        Assert.Equal(last.Start, middle.End, 3);
     }
 
     [Fact]

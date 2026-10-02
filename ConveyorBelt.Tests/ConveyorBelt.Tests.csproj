@@ -37,6 +37,7 @@
 	<ItemGroup>
 		<Using Include="Xunit" />
 		<Using Include="ConveyorBelt.Models" />
+		<Using Include="ConveyorBelt.Services" />
 		<Using Include="ConveyorBelt.Components" />
 		<Using Include="ConveyorBelt.Specs" />
 	</ItemGroup>
