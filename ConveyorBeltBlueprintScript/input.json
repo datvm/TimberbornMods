@@ -1,0 +1,343 @@
+{
+  "OutputRoot": "../ConveyorBelt/Root",
+  "Variants": {
+    "Log": {
+      "Id": "Log",
+      "ItemsPerHour": 1,
+      "ScienceCost": 0,
+      "ToolGroupId": "ConveyorLog",
+      "Cost": {
+        "Belt": [
+          { "Id": "Log", "Amount": 3 }
+        ],
+        "Riser": [
+          { "Id": "Log", "Amount": 3 },
+          { "Id": "Gear", "Amount": 4 }
+        ]
+      },
+      "Power": { "Belt": 2, "RiserUp": 4, "RiserDown": 1 },
+      "ToolOrder": { "Belt": 10, "Corner": 20, "RiserUp": 40, "RiserDown": 50 }
+    },
+    "Plank": {
+      "Id": "Plank",
+      "ItemsPerHour": 10,
+      "ScienceCost": 250,
+      "ToolGroupId": "ConveyorPlank",
+      "Cost": {
+        "Belt": [
+          { "Id": "Plank", "Amount": 1 },
+          { "Id": "Gear", "Amount": 2 }
+        ],
+        "Riser": [
+          { "Id": "Plank", "Amount": 1 },
+          { "Id": "Gear", "Amount": 6 }
+        ]
+      },
+      "Power": { "Belt": 4, "RiserUp": 8, "RiserDown": 2 },
+      "ToolOrder": { "Belt": 10, "Corner": 20, "RiserUp": 40, "RiserDown": 50 }
+    },
+    "Late": {
+      "Id": "Late",
+      "ItemsPerHour": 50,
+      "ScienceCost": 750,
+      "ToolGroupId": "ConveyorLateFT",
+      "Cost": {
+        "Belt": [
+          { "Id": "TreatedPlank", "Amount": 1 },
+          { "Id": "Gear", "Amount": 2 }
+        ],
+        "Riser": [
+          { "Id": "TreatedPlank", "Amount": 1 },
+          { "Id": "Gear", "Amount": 6 }
+        ]
+      },
+      "Power": { "Belt": 8, "RiserUp": 16, "RiserDown": 4 },
+      "ToolOrder": { "Belt": 10, "Corner": 20, "RiserUp": 40, "RiserDown": 50 }
+    },
+    "End": {
+      "Id": "End",
+      "ItemsPerHour": 100,
+      "ScienceCost": 1500,
+      "ToolGroupId": "ConveyorEnd",
+      "Cost": {
+        "Belt": [
+          { "Id": "TreatedPlank", "Amount": 1 },
+          { "Id": "Gear", "Amount": 2 },
+          { "Id": "MetalBlock", "Amount": 1 }
+        ],
+        "Riser": [
+          { "Id": "TreatedPlank", "Amount": 1 },
+          { "Id": "Gear", "Amount": 6 },
+          { "Id": "MetalBlock", "Amount": 1 }
+        ]
+      },
+      "Power": { "Belt": 16, "RiserUp": 32, "RiserDown": 8 },
+      "ToolOrder": { "Belt": 10, "Corner": 20, "Impermeable": 30, "RiserUp": 40, "RiserDown": 50 }
+    }
+  },
+  "Exports": [
+    {
+      "Template": "Templates/Belt.template.json",
+      "Variants": ["Log", "Plank", "Late", "End"],
+      "Output": "Buildings/Conveyors/{Id}/Belt/Belt{Id}.Folktails.blueprint.json",
+      "Set": {
+        "BuildingSpec.BuildingCost": "{Cost.Belt}",
+        "BuildingSpec.ScienceCost": "{ScienceCost}",
+        "TemplateSpec.TemplateName": "ConveyorBelt{Id}.Folktails",
+        "PlaceableBlockObjectSpec.ToolGroupId": "{ToolGroupId}",
+        "PlaceableBlockObjectSpec.ToolOrder": "{ToolOrder.Belt}",
+        "LabeledEntitySpec.DisplayNameLocKey": "LV.CBlt.Belt{Id}Name",
+        "LabeledEntitySpec.Icon": "Buildings/Conveyors/{Id}/Belt/Belt{Id}Icon",
+        "MechanicalNodeSpec.PowerInput": "{Power.Belt}",
+        "BeltCarrierSpec.Speed": "{Id}"
+      }
+    },
+    {
+      "Template": "Templates/Corner.template.json",
+      "Variants": ["Log", "Plank", "Late", "End"],
+      "Output": "Buildings/Conveyors/{Id}/Corner/Corner{Id}.Folktails.blueprint.json",
+      "Set": {
+        "BuildingSpec.BuildingCost": "{Cost.Belt}",
+        "BuildingSpec.ScienceCost": "{ScienceCost}",
+        "TemplateSpec.TemplateName": "ConveyorCorner{Id}.Folktails",
+        "PlaceableBlockObjectSpec.ToolGroupId": "{ToolGroupId}",
+        "PlaceableBlockObjectSpec.ToolOrder": "{ToolOrder.Corner}",
+        "LabeledEntitySpec.DisplayNameLocKey": "LV.CBlt.Corner{Id}Name",
+        "LabeledEntitySpec.Icon": "Buildings/Conveyors/{Id}/Corner/Corner{Id}Icon",
+        "MechanicalNodeSpec.PowerInput": "{Power.Belt}",
+        "BeltCarrierSpec.Speed": "{Id}"
+      }
+    },
+    {
+      "Template": "Templates/RiserUp.template.json",
+      "Variants": ["Log", "Plank", "Late", "End"],
+      "Output": "Buildings/Conveyors/{Id}/RiserUp/Riser{Id}Up.Folktails.blueprint.json",
+      "Set": {
+        "BuildingSpec.BuildingCost": "{Cost.Riser}",
+        "BuildingSpec.ScienceCost": "{ScienceCost}",
+        "TemplateSpec.TemplateName": "ConveyorRiser{Id}Up.Folktails",
+        "PlaceableBlockObjectSpec.ToolGroupId": "{ToolGroupId}",
+        "PlaceableBlockObjectSpec.ToolOrder": "{ToolOrder.RiserUp}",
+        "LabeledEntitySpec.DisplayNameLocKey": "LV.CBlt.Riser{Id}UpName",
+        "LabeledEntitySpec.Icon": "Buildings/Conveyors/{Id}/RiserUp/Riser{Id}UpIcon",
+        "MechanicalNodeSpec.PowerInput": "{Power.RiserUp}",
+        "BeltCarrierSpec.Speed": "{Id}"
+      }
+    },
+    {
+      "Template": "Templates/RiserDown.template.json",
+      "Variants": ["Log", "Plank", "Late", "End"],
+      "Output": "Buildings/Conveyors/{Id}/RiserDown/Riser{Id}Down.Folktails.blueprint.json",
+      "Set": {
+        "BuildingSpec.BuildingCost": "{Cost.Riser}",
+        "BuildingSpec.ScienceCost": "{ScienceCost}",
+        "TemplateSpec.TemplateName": "ConveyorRiser{Id}Down.Folktails",
+        "PlaceableBlockObjectSpec.ToolGroupId": "{ToolGroupId}",
+        "PlaceableBlockObjectSpec.ToolOrder": "{ToolOrder.RiserDown}",
+        "LabeledEntitySpec.DisplayNameLocKey": "LV.CBlt.Riser{Id}DownName",
+        "LabeledEntitySpec.Icon": "Buildings/Conveyors/{Id}/RiserDown/Riser{Id}DownIcon",
+        "MechanicalNodeSpec.PowerInput": "{Power.RiserDown}",
+        "BeltCarrierSpec.Speed": "{Id}"
+      }
+    },
+    {
+      "Template": "Templates/Impermeable.template.json",
+      "Variants": ["End"],
+      "Output": "Buildings/Conveyors/{Id}/Impermeable/Impermeable.Folktails.blueprint.json",
+      "Set": {
+        "BuildingSpec.BuildingCost": "{Cost.Belt}",
+        "BuildingSpec.ScienceCost": "{ScienceCost}",
+        "PlaceableBlockObjectSpec.ToolGroupId": "{ToolGroupId}",
+        "PlaceableBlockObjectSpec.ToolOrder": "{ToolOrder.Impermeable}",
+        "LabeledEntitySpec.Icon": "Buildings/Conveyors/{Id}/Impermeable/ImpermeableIcon",
+        "MechanicalNodeSpec.PowerInput": "{Power.Belt}",
+        "BeltCarrierSpec.Speed": "{Id}"
+      }
+    },
+    {
+      "Template": "Templates/Junction.template.json",
+      "Output": "Buildings/Conveyors/Merger/Merger.Folktails.blueprint.json",
+      "Set": {
+        "BuildingSpec.BuildingCost": [
+          { "Id": "Plank", "Amount": 1 },
+          { "Id": "Gear", "Amount": 5 }
+        ],
+        "BuildingSpec.ScienceCost": 250,
+        "TemplateSpec.TemplateName": "ConveyorMerger.Folktails",
+        "PlaceableBlockObjectSpec.ToolOrder": 50,
+        "LabeledEntitySpec.DisplayNameLocKey": "LV.CBlt.MergerName",
+        "LabeledEntitySpec.DescriptionLocKey": "LV.CBlt.MergerDesc",
+        "LabeledEntitySpec.FlavorDescriptionLocKey": "LV.CBlt.MergerFlavor",
+        "LabeledEntitySpec.Icon": "Buildings/Conveyors/Merger/MergerIcon",
+        "MechanicalNodeSpec.PowerInput": 4,
+        "BlockObjectSpec.Blocks": [
+          {
+            "MatterBelow": "GroundOrStackable",
+            "Occupations": "Bottom, Path",
+            "Stackable": "None",
+            "OccupyAllBelow": false,
+            "Underground": false
+          }
+        ],
+        "Children.#Unfinished.Children.ConstructionStage0.TimbermeshSpec.Model": "Buildings/Conveyors/Models/Merger.Folktails.Model",
+        "Children.#Finished.TimbermeshSpec.Model": "Buildings/Conveyors/Models/Merger.Folktails.Model",
+        "BeltMergerSpec": {}
+      }
+    },
+    {
+      "Template": "Templates/Junction.template.json",
+      "Output": "Buildings/Conveyors/Lift/Lift.Folktails.blueprint.json",
+      "Set": {
+        "BuildingSpec.BuildingCost": [
+          { "Id": "Plank", "Amount": 1 },
+          { "Id": "Gear", "Amount": 5 }
+        ],
+        "BuildingSpec.ScienceCost": 250,
+        "TemplateSpec.TemplateName": "ConveyorLift.Folktails",
+        "PlaceableBlockObjectSpec.ToolOrder": 55,
+        "LabeledEntitySpec.DisplayNameLocKey": "LV.CBlt.LiftName",
+        "LabeledEntitySpec.DescriptionLocKey": "LV.CBlt.LiftDesc",
+        "LabeledEntitySpec.FlavorDescriptionLocKey": "LV.CBlt.LiftFlavor",
+        "LabeledEntitySpec.Icon": "Buildings/Conveyors/Lift/LiftIcon",
+        "MechanicalNodeSpec.PowerInput": 4,
+        "BlockObjectNavMeshSettingsSpec.GenerateFloorsOnStackable": true,
+        "BlockObjectSpec.Blocks": [
+          {
+            "MatterBelow": "GroundOrStackable",
+            "Occupations": "All",
+            "Stackable": "BlockObject",
+            "OccupyAllBelow": false,
+            "Underground": false
+          }
+        ],
+        "Children.#Unfinished.Children.ConstructionStage0.TimbermeshSpec.Model": "Buildings/Conveyors/Models/Lift.Folktails.Model",
+        "Children.#Unfinished.Children.ConstructionStage0.CollidersSpec": {
+          "BoxColliders": [
+            {
+              "Center": { "X": 0.5, "Y": 0.05, "Z": 0.5 },
+              "Size": { "X": 1.0, "Y": 0.1, "Z": 1.0 }
+            }
+          ],
+          "SphereColliders": [],
+          "CapsuleColliders": []
+        },
+        "Children.#Finished.TimbermeshSpec.Model": "Buildings/Conveyors/Models/Lift.Folktails.Model",
+        "Children.#Finished.CollidersSpec": {
+          "BoxColliders": [
+            {
+              "Center": { "X": 0.5, "Y": 0.5, "Z": 0.5 },
+              "Size": { "X": 1.0, "Y": 1.0, "Z": 1.0 }
+            }
+          ],
+          "SphereColliders": [],
+          "CapsuleColliders": []
+        },
+        "BeltLiftSpec": {}
+      }
+    },
+    {
+      "Template": "Templates/Junction.template.json",
+      "Output": "Buildings/Conveyors/Splitter/Splitter.Folktails.blueprint.json",
+      "Set": {
+        "BuildingSpec.BuildingCost": [
+          { "Id": "Plank", "Amount": 1 },
+          { "Id": "Gear", "Amount": 5 }
+        ],
+        "BuildingSpec.ScienceCost": 250,
+        "TemplateSpec.TemplateName": "ConveyorSplitter.Folktails",
+        "PlaceableBlockObjectSpec.ToolOrder": 60,
+        "LabeledEntitySpec.DisplayNameLocKey": "LV.CBlt.SplitterName",
+        "LabeledEntitySpec.DescriptionLocKey": "LV.CBlt.SplitterDesc",
+        "LabeledEntitySpec.FlavorDescriptionLocKey": "LV.CBlt.SplitterFlavor",
+        "LabeledEntitySpec.Icon": "Buildings/Conveyors/Splitter/SplitterIcon",
+        "MechanicalNodeSpec.PowerInput": 4,
+        "BlockObjectSpec.Blocks": [
+          {
+            "MatterBelow": "GroundOrStackable",
+            "Occupations": "Bottom, Path",
+            "Stackable": "None",
+            "OccupyAllBelow": false,
+            "Underground": false
+          }
+        ],
+        "Children.#Unfinished.Children.ConstructionStage0.TimbermeshSpec.Model": "Buildings/Conveyors/Models/Splitter.Folktails.Model",
+        "Children.#Finished.TimbermeshSpec.Model": "Buildings/Conveyors/Models/Splitter.Folktails.Model",
+        "BeltSplitterSpec": {}
+      }
+    },
+    {
+      "Template": "Templates/Junction.template.json",
+      "Output": "Buildings/Conveyors/SmartSplitter/SmartSplitter.Folktails.blueprint.json",
+      "Set": {
+        "BuildingSpec.BuildingCost": [
+          { "Id": "Plank", "Amount": 1 },
+          { "Id": "Gear", "Amount": 8 },
+          { "Id": "MetalBlock", "Amount": 3 }
+        ],
+        "BuildingSpec.ScienceCost": 750,
+        "TemplateSpec.TemplateName": "ConveyorSmartSplitter.Folktails",
+        "PlaceableBlockObjectSpec.ToolOrder": 70,
+        "LabeledEntitySpec.DisplayNameLocKey": "LV.CBlt.SmartName",
+        "LabeledEntitySpec.DescriptionLocKey": "LV.CBlt.SmartDesc",
+        "LabeledEntitySpec.FlavorDescriptionLocKey": "LV.CBlt.SmartFlavor",
+        "LabeledEntitySpec.Icon": "Buildings/Conveyors/SmartSplitter/SmartSplitterIcon",
+        "MechanicalNodeSpec.PowerInput": 8,
+        "BlockObjectSpec.Blocks": [
+          {
+            "MatterBelow": "GroundOrStackable",
+            "Occupations": "Bottom, Path",
+            "Stackable": "None",
+            "OccupyAllBelow": false,
+            "Underground": false
+          }
+        ],
+        "Children.#Unfinished.Children.ConstructionStage0.TimbermeshSpec.Model": "Buildings/Conveyors/Models/Splitter.Folktails.Model",
+        "Children.#Finished.TimbermeshSpec.Model": "Buildings/Conveyors/Models/Splitter.Folktails.Model",
+        "SmartSplitterSpec": {}
+      }
+    },
+    {
+      "Template": "Templates/SettingsSpec.template.json",
+      "Output": "Specs/ConveyorBeltSettingsSpec.blueprint.json",
+      "Set": {
+        "ConveyorBeltSettingsSpec.Capacity": 5,
+        "ConveyorBeltSettingsSpec.Levels": {
+          "$each": ["Log", "Plank", "Late", "End"],
+          "Item": {
+            "Id": "{Id}",
+            "ItemsPerHour": "{ItemsPerHour}"
+          }
+        }
+      }
+    },
+    {
+      "Template": "Templates/Collection.template.json",
+      "Output": "Buildings/Conveyors/Collections/Conveyors.Folktails.blueprint.json",
+      "Set": {
+        "TemplateCollectionSpec.Blueprints": {
+          "$concat": [
+            {
+              "$each": ["Log", "Plank", "Late", "End"],
+              "Item": [
+                "Buildings/Conveyors/{Id}/Belt/Belt{Id}.Folktails.blueprint",
+                "Buildings/Conveyors/{Id}/Corner/Corner{Id}.Folktails.blueprint"
+              ]
+            },
+            "Buildings/Conveyors/End/Impermeable/Impermeable.Folktails.blueprint",
+            "Buildings/Conveyors/Merger/Merger.Folktails.blueprint",
+            "Buildings/Conveyors/Lift/Lift.Folktails.blueprint",
+            "Buildings/Conveyors/Splitter/Splitter.Folktails.blueprint",
+            "Buildings/Conveyors/SmartSplitter/SmartSplitter.Folktails.blueprint",
+            {
+              "$each": ["Log", "Plank", "Late", "End"],
+              "Item": [
+                "Buildings/Conveyors/{Id}/RiserUp/Riser{Id}Up.Folktails.blueprint",
+                "Buildings/Conveyors/{Id}/RiserDown/Riser{Id}Down.Folktails.blueprint"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

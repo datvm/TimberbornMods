@@ -10,24 +10,35 @@ public class BeltCarrier(BeltCarrierService service)
     static readonly PropertyKey<bool> WarnKey = new("Warn");
 
     readonly List<BeltGood> items = [];
+    readonly List<BeltTrail> trails = [];
     readonly List<LocalPort> localPorts = [];
 
     BlockObject block = null!;
+    BlockableObject blockable = null!;
     MechanicalNode mechanical = null!;
     StatusToggle stuckStatus = null!;
     bool accepting;
+    float tickHours;
+
+    float? itemsPerHour;
+    public float ItemsPerHour => itemsPerHour ??= service.ItemsPerHour(SpeedIndex);
+
+    int? speedIndex;
+    public int SpeedIndex => speedIndex ??= service.Index(GetComponent<BeltCarrierSpec>().Speed);
 
     public BeltShape Shape { get; private set; }
-    public string Speed { get; private set; } = "";
-    public float ItemsPerHour { get; private set; }
+    
     public bool WarnWhenStuck { get; set; }
+    public bool IsStuck { get; private set; }
     public Vector3Int Coordinates => block.Coordinates;
     public BeltEnd InPort { get; private set; }
     public BeltEnd OutPort { get; private set; }
     public IReadOnlyList<BeltGood> Items => items;
-    public bool Running => !mechanical.IsConsumer || mechanical.PowerEfficiency >= 1f;
+    public IReadOnlyList<BeltTrail> Trails => trails;
+    public bool Running => blockable.IsUnblocked && (!mechanical.IsConsumer || mechanical.PowerEfficiency >= 1f);
     public int Priority => BeltConnectionPriority.Conveyor;
     public int TickGeneration { get; private set; }
+    public float TickHours => tickHours;
 
     public IBeltConnection? Output { get; set; }
     public IBeltConnection? Input { get; set; }
@@ -35,20 +46,24 @@ public class BeltCarrier(BeltCarrierService service)
     public void Awake()
     {
         block = GetComponent<BlockObject>();
-        mechanical = GetComponent<MechanicalNode>();
+        blockable = GetComponent<BlockableObject>();
+        mechanical = GetComponent<MechanicalNode>();        
+    }
+
+    public void InitializeEntity()
+    {
         var spec = GetComponent<BeltCarrierSpec>();
         Shape = spec.Shape;
-        Speed = spec.Speed;
-        ItemsPerHour = service.ItemsPerHour(spec.Speed);
         stuckStatus = StatusToggle.CreateNormalStatusWithAlert(
             "LackOfResources",
             service.t.T("LV.CBlt.Stuck"),
             service.t.T("LV.CBlt.StuckShort"),
             1f);
         GetComponent<StatusSubject>().RegisterStatus(stuckStatus);
-    }
+        itemsPerHour = service.ItemsPerHour(SpeedIndex);
 
-    public void InitializeEntity() => RebuildPorts();
+        RebuildPorts();
+    }
 
     public void OnEnterFinishedState()
     {
@@ -59,27 +74,56 @@ public class BeltCarrier(BeltCarrierService service)
     public void OnExitFinishedState()
     {
         service.Unregister(this);
-        service.Drop(Coordinates, items);
-        items.Clear();
+        Eject();
         stuckStatus.Deactivate();
     }
 
-    public void BeginTick(int generation) => TickGeneration = generation;
+    public void Eject()
+    {
+        if (items.Count > 0)
+        {
+            service.Drop(Coordinates, items);
+            items.Clear();
+            SetStuck(false);
+        }
+
+        trails.Clear();
+    }
+
+    public void BeginTick(int generation)
+    {
+        TickGeneration = generation;
+        trails.Clear();
+    }
 
     public void MoveForward(float hoursPerTick)
     {
+        tickHours = hoursPerTick;
         if (!Running)
         {
+            BeltMotion.Hold(items);
+            for (var i = 0; i < items.Count; i++)
+            {
+                var item = items[i];
+                trails.Add(new(item.Id, item.Position, item.Position, 0f, 1f, true));
+            }
+
             SetStuck(false);
             return;
         }
 
-        var stuck = BeltMotion.Advance(items, BeltRates.Delta(ItemsPerHour, hoursPerTick), TickGeneration, TryHandOff);
+        var stuck = BeltMotion.Advance(
+            items,
+            BeltRates.Delta(ItemsPerHour, hoursPerTick),
+            TickGeneration,
+            TryHandOff,
+            span => Remember(span, 0f));
         SetStuck(stuck);
     }
 
     public void PullFromBuilding(float hoursPerTick)
     {
+        tickHours = hoursPerTick;
         if (!Running || Input is not IBeltSource source)
         {
             return;
@@ -114,7 +158,7 @@ public class BeltCarrier(BeltCarrierService service)
             }
 
             var before = items.Count;
-            if (!TryAccept(id, BeltTravel.Hours(ItemsPerHour, place)))
+            if (!TryAccept(id, BeltTravel.Hours(ItemsPerHour, place), 0f))
             {
                 return;
             }
@@ -144,7 +188,7 @@ public class BeltCarrier(BeltCarrierService service)
 
     public bool CanAccept(string goodId) => Running && service.IsCarryable(goodId) && BeltMotion.CanAccept(items);
 
-    public bool TryAccept(string goodId, float leftoverHours)
+    public bool TryAccept(string goodId, float leftoverHours, float spentHours)
     {
         if (accepting || !Running || !service.IsCarryable(goodId))
         {
@@ -154,29 +198,15 @@ public class BeltCarrier(BeltCarrierService service)
         accepting = true;
         try
         {
-            var distance = BeltTravel.Distance(ItemsPerHour, leftoverHours);
-            if (items.Count == 0 && distance >= BeltRates.End && Output is { } next)
-            {
-                var left = leftoverHours - BeltTravel.Hours(ItemsPerHour, BeltRates.End);
-                if (left < 0f)
-                {
-                    left = 0f;
-                }
-
-                if (next.TryGetTarget(goodId, out var further) && further.TryAccept(goodId, left))
-                {
-                    next.Commit();
-                    return true;
-                }
-            }
-
-            if (!BeltMotion.TryArrival(items, distance, out var position))
-            {
-                return false;
-            }
-
-            items.Add(new(goodId, position, TickGeneration));
-            return true;
+            return BeltMotion.TryJoin(
+                items,
+                goodId,
+                leftoverHours,
+                ItemsPerHour,
+                TickGeneration,
+                spentHours,
+                PassOn,
+                span => Remember(span, spentHours));
         }
         finally
         {
@@ -184,7 +214,19 @@ public class BeltCarrier(BeltCarrierService service)
         }
     }
 
-    public IEnumerable<EntityDescription> DescribeEntity() => [service.Describe(Speed, ItemsPerHour)];
+    void Remember(BeltSpan span, float spentHours)
+    {
+        var distance = span.To - span.From;
+        if (distance < 0f)
+        {
+            distance = 0f;
+        }
+
+        var used = BeltTravel.Hours(ItemsPerHour, distance);
+        trails.Add(BeltTrail.Slice(span.Id, span.From, span.To, spentHours, used, tickHours, span.Rest));
+    }
+
+    public IEnumerable<EntityDescription> DescribeEntity() => [service.Describe(ItemsPerHour)];
 
     public void Save(IEntitySaver saver)
     {
@@ -231,15 +273,37 @@ public class BeltCarrier(BeltCarrierService service)
         }
     }
 
-    bool TryHandOff(string goodId, float overshoot)
+    bool PassOn(string goodId, float leftoverHours, float spentHours)
+    {
+        if (Output is not { } next)
+        {
+            return false;
+        }
+
+        if (!next.TryGetTarget(goodId, out var further) || !further.TryAccept(goodId, leftoverHours, spentHours))
+        {
+            return false;
+        }
+
+        next.Commit();
+        return true;
+    }
+
+    bool TryHandOff(string goodId, float overshoot, float from)
     {
         if (Output is not { } connection)
         {
             return false;
         }
 
+        var spent = BeltTravel.Hours(ItemsPerHour, BeltRates.End - from);
+        if (spent < 0f)
+        {
+            spent = 0f;
+        }
+
         var hours = BeltTravel.Hours(ItemsPerHour, overshoot);
-        if (!connection.TryGetTarget(goodId, out var target) || !target.TryAccept(goodId, hours))
+        if (!connection.TryGetTarget(goodId, out var target) || !target.TryAccept(goodId, hours, spent))
         {
             return false;
         }
@@ -250,6 +314,7 @@ public class BeltCarrier(BeltCarrierService service)
 
     void SetStuck(bool stuck)
     {
+        IsStuck = stuck;
         if (WarnWhenStuck && stuck)
         {
             stuckStatus.Activate();
@@ -262,7 +327,7 @@ public class BeltCarrier(BeltCarrierService service)
 
     void RebuildPorts()
     {
-        BeltLayout.FillCarrier(Shape, block.FlipMode.IsFlipped, localPorts);
+        BeltLayout.FillCarrier(Shape, localPorts);
         foreach (var port in localPorts)
         {
             var end = new BeltEnd(block.TransformCoordinates(Vector3Int.zero), block.TransformDirection(port.Direction));

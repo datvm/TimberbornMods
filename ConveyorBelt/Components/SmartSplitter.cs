@@ -1,7 +1,7 @@
 namespace ConveyorBelt.Components;
 
 [AddTemplateModule2(typeof(SmartSplitterSpec))]
-public class SmartSplitter(BeltLinks links) : BeltSplitter(links)
+public class SmartSplitter(BeltLinks links, BeltRegistry registry) : BeltSplitter(links, registry)
 {
     static readonly ComponentKey SaveKey = new(nameof(SmartSplitter));
     static readonly PropertyKey<int> CursorKey = new("Cursor");

@@ -65,7 +65,7 @@
     "ToolGroupId": "ConveyorLog",
     "ToolOrder": 10,
     "ToolShape": "Square",
-    "Layout": "TwoSegmentLine",
+    "Layout": "Line",
     "CustomPivot": {
       "HasCustomPivot": false,
       "Coordinates": {
@@ -176,5 +176,6 @@
   "BeltCarrierSpec": {
     "Shape": "Straight",
     "Speed": "Log"
-  }
+  },
+  "BeltSystemSpec": {}
 }

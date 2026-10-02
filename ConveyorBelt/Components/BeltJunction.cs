@@ -6,11 +6,12 @@ public abstract class BeltJunction : BaseComponent, IBeltConnectionProvider, IAw
     readonly List<LocalPort> localOutputs = [];
 
     BlockObject block = null!;
+    BlockableObject blockable = null!;
     MechanicalNode mechanical = null!;
     IBeltConnectionProvider provider = null!;
 
     public Vector3Int Coordinates => block.Coordinates;
-    public bool Running => !mechanical.IsConsumer || mechanical.PowerEfficiency >= 1f;
+    public bool Running => blockable.IsUnblocked && (!mechanical.IsConsumer || mechanical.PowerEfficiency >= 1f);
     public Vector3Int[] InputCells { get; private set; } = [];
     public Vector3Int[] OutputCells { get; private set; } = [];
     public int Priority => provider.Priority;
@@ -30,6 +31,7 @@ public abstract class BeltJunction : BaseComponent, IBeltConnectionProvider, IAw
     public void Awake()
     {
         block = GetComponent<BlockObject>();
+        blockable = GetComponent<BlockableObject>();
         mechanical = GetComponent<MechanicalNode>();
         provider = CreateProvider();
     }
@@ -64,7 +66,7 @@ public abstract class BeltJunction : BaseComponent, IBeltConnectionProvider, IAw
         return false;
     }
 
-    void RebuildSides()
+    protected void RebuildSides()
     {
         FillPorts(localInputs, localOutputs);
         InputCells = Cells(localInputs);

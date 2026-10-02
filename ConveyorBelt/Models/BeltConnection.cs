@@ -23,7 +23,7 @@ public interface IBeltTarget
 {
     bool CanAccept(string goodId);
 
-    bool TryAccept(string goodId, float leftoverHours);
+    bool TryAccept(string goodId, float leftoverHours, float spentHours);
 }
 
 public interface IBeltSource

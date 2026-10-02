@@ -4,5 +4,5 @@ sealed class InventoryTarget(BlockObject block, Inventories inventories, BeltGoo
 {
     public bool CanAccept(string goodId) => true;
 
-    public bool TryAccept(string goodId, float leftoverHours) => goods.TryGive(block, inventories, goodId);
+    public bool TryAccept(string goodId, float leftoverHours, float spentHours) => goods.TryGive(block, inventories, goodId);
 }

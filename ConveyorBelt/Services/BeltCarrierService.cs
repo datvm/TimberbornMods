@@ -1,11 +1,13 @@
-namespace ConveyorBelt.Services;
+﻿namespace ConveyorBelt.Services;
 
 [BindSingleton]
-public class BeltCarrierService(BeltGoodService goods, BeltRegistry registry, ConveyorBeltSpeeds speeds, FactionService factions, ILoc t)
+public class BeltCarrierService(BeltGoodService goods, BeltRegistry registry, ConveyorBeltSettings settings, ILoc t)
 {
     public readonly ILoc t = t;
 
-    public float ItemsPerHour(string speedId) => speeds.ItemsPerHour(speedId);
+    public int Index(string speedId) => settings.Index(speedId);
+
+    public float ItemsPerHour(int speed) => settings.ItemsPerHour(speed);
 
     public bool IsCarryable(string goodId) => goods.IsCarryable(goodId);
 
@@ -15,10 +17,12 @@ public class BeltCarrierService(BeltGoodService goods, BeltRegistry registry, Co
 
     public void Drop(Vector3Int cell, List<BeltGood> items) => goods.Drop(cell, items);
 
-    public EntityDescription Describe(string speedId, float itemsPerHour)
+    public EntityDescription Describe(float itemsPerHour)
     {
-        var tier = t.T(speeds.NameKey(speedId, factions.Current.Id));
-        var line = t.T("LV.CBlt.TierRate", tier, itemsPerHour, BeltRates.Capacity);
-        return EntityDescription.CreateTextSection($"{SpecialStrings.RowStarter} {line}", 200);
+        var lines = string.Join(Environment.NewLine, [
+            $"{SpecialStrings.RowStarter} {t.T("LV.CBlt.Rate", itemsPerHour)}",
+            $"{SpecialStrings.RowStarter} {t.T("LV.CBlt.CanTransferBuildings")}",
+        ]);
+        return EntityDescription.CreateTextSection(lines, 200);
     }
 }

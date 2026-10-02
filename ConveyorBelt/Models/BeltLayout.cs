@@ -9,14 +9,14 @@ public readonly record struct BeltEnd(Vector3Int Cell, Direction3D Direction)
 
 public static class BeltLayout
 {
-    public static void FillCarrier(BeltShape shape, bool flipped, List<LocalPort> ports)
+    public static void FillCarrier(BeltShape shape, List<LocalPort> ports)
     {
         ports.Clear();
         switch (shape)
         {
             case BeltShape.Corner:
                 ports.Add(new(Direction3D.Up, true));
-                ports.Add(new(flipped ? Direction3D.Left : Direction3D.Right, false));
+                ports.Add(new(Direction3D.Right, false));
                 break;
             case BeltShape.RiserUp:
                 ports.Add(new(Direction3D.Bottom, true));
@@ -26,19 +26,28 @@ public static class BeltLayout
                 ports.Add(new(Direction3D.Top, true));
                 ports.Add(new(Direction3D.Bottom, false));
                 break;
-            case BeltShape.LiftUp:
-                ports.Add(new(Direction3D.Up, true));
-                ports.Add(new(Direction3D.Top, false));
-                break;
-            case BeltShape.LiftDown:
-                ports.Add(new(Direction3D.Bottom, true));
-                ports.Add(new(Direction3D.Down, false));
-                break;
             default:
                 ports.Add(new(Direction3D.Up, true));
                 ports.Add(new(Direction3D.Down, false));
                 break;
         }
+    }
+
+    public static void FillLift(bool sendingOut, List<LocalPort> inputs, List<LocalPort> outputs)
+    {
+        inputs.Clear();
+        outputs.Clear();
+        if (sendingOut)
+        {
+            inputs.Add(new(Direction3D.Top, true));
+            inputs.Add(new(Direction3D.Bottom, true));
+            outputs.Add(new(Direction3D.Down, false));
+            return;
+        }
+
+        inputs.Add(new(Direction3D.Down, true));
+        outputs.Add(new(Direction3D.Top, false));
+        outputs.Add(new(Direction3D.Bottom, false));
     }
 
     public static void FillMerger(List<LocalPort> inputs, List<LocalPort> outputs)

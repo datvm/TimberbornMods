@@ -5,17 +5,16 @@ public readonly record struct BeltStop(int Index, float Position);
 public static class BeltTravel
 {
     public static float Distance(float itemsPerHour, float hours)
-        => BeltRates.Spacing * itemsPerHour * hours;
+        => itemsPerHour * hours;
 
     public static float Hours(float itemsPerHour, float distance)
     {
-        var speed = BeltRates.Spacing * itemsPerHour;
-        if (speed <= 0f)
+        if (itemsPerHour <= 0f)
         {
             return 0f;
         }
 
-        return distance / speed;
+        return distance / itemsPerHour;
     }
 
     // Empty belts. Leftover hours are spent one belt at a time. A belt is crossed when the

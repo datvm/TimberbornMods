@@ -3,7 +3,7 @@
     "Id": "ConveyorEnd",
     "Order": 40,
     "NameLocKey": "LV.CBlt.TierComposite",
-    "Icon": "Buildings/Conveyors/End/Belt/BeltEndIcon",
+    "Icon": "Sprites/BottomBar/ConveyorEndGroupIcon",
     "FallbackGroup": false
   },
   "ParentToolGroupSpec": {

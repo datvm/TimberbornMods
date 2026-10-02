@@ -167,5 +167,6 @@
   "BeltCarrierSpec": {
     "Shape": "Corner",
     "Speed": "Log"
-  }
+  },
+  "BeltSystemSpec": {}
 }

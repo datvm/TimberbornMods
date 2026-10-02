@@ -1,9 +1,9 @@
-{
-  "BlockObjectToolGroupSpec": {
-    "Id": "ConveyorBelts",
-    "Order": 25,
-    "NameLocKey": "LV.CBlt.GroupName",
-    "Icon": "Buildings/Conveyors/Log/Belt/BeltLogIcon",
-    "FallbackGroup": false
-  }
+﻿{
+    "BlockObjectToolGroupSpec": {
+        "Id": "ConveyorBelts",
+        "Order": 25,
+        "NameLocKey": "LV.CBlt.GroupName",
+        "Icon": "Sprites/BottomBar/ConveyorBeltGroupIcon",
+        "FallbackGroup": false
+    }
 }

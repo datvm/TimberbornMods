@@ -52,7 +52,7 @@
       {
         "MatterBelow": "GroundOrStackable",
         "Occupations": "Bottom, Path",
-        "Stackable": "BlockObject",
+        "Stackable": "None",
         "OccupyAllBelow": false,
         "Underground": false
       }
@@ -172,5 +172,6 @@
       }
     }
   },
+  "BeltSystemSpec": {},
   "SmartSplitterSpec": {}
 }
