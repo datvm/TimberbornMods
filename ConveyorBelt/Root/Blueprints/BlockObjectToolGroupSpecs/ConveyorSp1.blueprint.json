@@ -1,0 +1,14 @@
+{
+  "BlockObjectToolGroupSpec": {
+    "Id": "ConveyorSp1",
+    "Order": 10,
+    "NameLocKey": "LV.CBlt.GroupSp1",
+    "Icon": "Sprites/BottomBar/ConveyorSp1GroupIcon",
+    "FallbackGroup": false
+  },
+  "ParentToolGroupSpec": {
+    "ParentIds": [
+      "ConveyorBelts"
+    ]
+  }
+}

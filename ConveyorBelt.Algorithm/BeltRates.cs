@@ -1,0 +1,25 @@
+namespace ConveyorBelt.Algorithm;
+
+public static class BeltRates
+{
+    public static int Capacity { get; private set; } = 5;
+    public static float Spacing { get; private set; } = 1f / 5f;
+    public const float End = 1f;
+
+    // One junction tile. Faster than a normal belt, and it still holds goods.
+    public const float Junction = 1000f;
+
+    public static void Use(int capacity)
+    {
+        if (capacity < 1)
+        {
+            throw new InvalidOperationException("Conveyor belt capacity must be at least 1.");
+        }
+
+        Capacity = capacity;
+        Spacing = 1f / capacity;
+    }
+
+    public static float Delta(float itemsPerHour, float hoursPerTick)
+        => BeltTravel.Distance(itemsPerHour, hoursPerTick);
+}

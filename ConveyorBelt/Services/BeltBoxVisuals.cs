@@ -1,7 +1,8 @@
 ﻿namespace ConveyorBelt.Services;
 
 [BindSingleton]
-public class BeltBoxVisuals(IAssetLoader assets, IGoodService goods, IMaterialRepository materials) : ILoadableSingleton, IUnloadableSingleton
+public class BeltBoxVisuals(IAssetLoader assets, IGoodService goods, IMaterialRepository materials, FactionService factions)
+    : ILoadableSingleton, IUnloadableSingleton
 {
     const string MeshPath = "StockpileGoodModels/9BoxColumn";
     const string MaterialPath = "Materials/Goods/Box";
@@ -41,7 +42,8 @@ public class BeltBoxVisuals(IAssetLoader assets, IGoodService goods, IMaterialRe
         Size = box.bounds.size.x;
         Height = box.bounds.size.y;
         iconMesh = IconFaces(Size, Height);
-        RunnerWood = materials.GetMaterial("BaseWood_LightBrown.Folktails");
+        var wood = factions.Current.Id == "IronTeeth" ? "BaseWood_Grey.IronTeeth" : "BaseWood_LightBrown.Folktails";
+        RunnerWood = materials.GetMaterial(wood);
         iconShader = Shader.Find("Sprites/Default")
             ?? Shader.Find("Universal Render Pipeline/Unlit")
             ?? Shader.Find("Unlit/Texture");

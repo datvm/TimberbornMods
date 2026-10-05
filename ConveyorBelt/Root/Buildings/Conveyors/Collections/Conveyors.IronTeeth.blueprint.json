@@ -1,0 +1,29 @@
+{
+  "TemplateCollectionSpec": {
+    "CollectionId": "Buildings.IronTeeth",
+    "Blueprints": [
+      "Buildings/Conveyors/Sp1/Belt/BeltSp1.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp1/Corner/CornerSp1.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp2/Belt/BeltSp2.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp2/Corner/CornerSp2.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp3/Belt/BeltSp3.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp3/Corner/CornerSp3.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp4/Belt/BeltSp4.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp4/Corner/CornerSp4.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp4/Impermeable/Impermeable.IronTeeth.blueprint",
+      "Buildings/Conveyors/Merger/Merger.IronTeeth.blueprint",
+      "Buildings/Conveyors/LiftIn/LiftIn.IronTeeth.blueprint",
+      "Buildings/Conveyors/LiftOut/LiftOut.IronTeeth.blueprint",
+      "Buildings/Conveyors/Splitter/Splitter.IronTeeth.blueprint",
+      "Buildings/Conveyors/SmartSplitter/SmartSplitter.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp1/RiserUp/RiserSp1Up.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp1/RiserDown/RiserSp1Down.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp2/RiserUp/RiserSp2Up.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp2/RiserDown/RiserSp2Down.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp3/RiserUp/RiserSp3Up.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp3/RiserDown/RiserSp3Down.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp4/RiserUp/RiserSp4Up.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp4/RiserDown/RiserSp4Down.IronTeeth.blueprint"
+    ]
+  }
+}

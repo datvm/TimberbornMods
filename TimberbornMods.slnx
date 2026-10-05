@@ -75,12 +75,14 @@
     <Project Path="UnstableCoreChallenge/UnstableCoreChallenge.csproj" />
   </Folder>
   <Folder Name="/Logistics/ConveyorBelts/">
+    <Project Path="ConveyorBelt.Algorithm/ConveyorBelt.Algorithm.csproj" Id="ef24bd9a-4d4a-4fc2-a0d9-bd6ea89fe787" />
     <Project Path="ConveyorBelt.Tests/ConveyorBelt.Tests.csproj" />
     <Project Path="ConveyorBelt/ConveyorBelt.csproj" />
     <Project Path="ConveyorBeltBlueprintScript/ConveyorBeltBlueprintScript.csproj" />
   </Folder>
   <Folder Name="/Moddable/">
     <Project Path="ExtendedOptionalModSupport/ExtendedOptionalModSupport.csproj" Id="b2b9ec26-90c8-4059-bd4d-af07b21fae7d" />
+    <Project Path="ModdedFactionsBuildingSupport/ModdedFactionsBuildingSupport.csproj" Id="b7917a4b-4893-40d8-88f3-0f37f0c13569" />
     <Project Path="RealLights/RealLights.csproj" />
     <Project Path="RoofMap/RoofMap.csproj" />
     <Project Path="TimberModBuilder/TimberModBuilder.csproj" />

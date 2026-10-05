@@ -26,7 +26,7 @@
     "UndergroundModelDepth": 0
   },
   "TemplateSpec": {
-    "TemplateName": "ConveyorMerger.Folktails",
+    "TemplateName": "ConveyorMerger.{Faction}",
     "BackwardCompatibleTemplateNames": [],
     "RequiredFeatureToggle": "",
     "DisablingFeatureToggle": ""
@@ -121,7 +121,7 @@
         },
         "ConstructionStage0": {
           "TimbermeshSpec": {
-            "Model": "Buildings/Conveyors/Models/Merger.Folktails.Model"
+            "Model": "Buildings/Conveyors/Models/Merger.{Faction}.Model"
           },
           "CollidersSpec": {
             "BoxColliders": [
@@ -146,7 +146,7 @@
     },
     "#Finished": {
       "TimbermeshSpec": {
-        "Model": "Buildings/Conveyors/Models/Merger.Folktails.Model"
+        "Model": "Buildings/Conveyors/Models/Merger.{Faction}.Model"
       },
       "CollidersSpec": {
         "BoxColliders": [
@@ -168,5 +168,6 @@
       }
     }
   },
+  "FloodableBeltSpec": {},
   "BeltSystemSpec": {}
 }

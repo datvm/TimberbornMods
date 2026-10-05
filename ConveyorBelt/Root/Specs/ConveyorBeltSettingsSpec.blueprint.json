@@ -3,19 +3,19 @@
     "Capacity": 5,
     "Levels": [
       {
-        "Id": "Log",
+        "Id": "Sp1",
         "ItemsPerHour": 1
       },
       {
-        "Id": "Plank",
+        "Id": "Sp2",
         "ItemsPerHour": 10
       },
       {
-        "Id": "Late",
+        "Id": "Sp3",
         "ItemsPerHour": 50
       },
       {
-        "Id": "End",
+        "Id": "Sp4",
         "ItemsPerHour": 100
       }
     ]

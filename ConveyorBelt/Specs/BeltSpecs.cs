@@ -11,6 +11,8 @@ public enum BeltShape
 
 public record BeltSystemSpec : ComponentSpec;
 
+public record FloodableBeltSpec : ComponentSpec;
+
 public record BeltCarrierSpec : ComponentSpec
 {
     [Serialize]
@@ -20,7 +22,11 @@ public record BeltCarrierSpec : ComponentSpec
     public string Speed { get; init; } = "";
 }
 
-public record BeltLiftSpec : ComponentSpec;
+public record BeltLiftSpec : ComponentSpec
+{
+    [Serialize]
+    public bool Out { get; init; }
+}
 
 public record BeltMergerSpec : ComponentSpec;
 

@@ -31,6 +31,35 @@ public class SmartSplitPickerTests
     }
 
     [Fact]
+    public void NoneIsSkipped()
+    {
+        SmartSplitPort[] ports = [.. SmartSplitPort.SmartDefaults];
+        var cursor = 0;
+
+        Assert.Equal(1, SmartSplitPicker.Pick(ports, "Log", _ => true, ref cursor));
+        Assert.Equal(1, SmartSplitPicker.Pick(ports, "Plank", _ => true, ref cursor));
+    }
+
+    [Fact]
+    public void MissingGoodBecomesNone()
+    {
+        var missing = new SmartSplitPort(SmartSplitMode.Good, "MyItem");
+        var kept = new SmartSplitPort(SmartSplitMode.Good, "Log");
+
+        Assert.Equal(SmartSplitPort.NonePort, missing.DropMissing(id => id == "Log"));
+        Assert.Equal(kept, kept.DropMissing(id => id == "Log"));
+        Assert.Equal(SmartSplitPort.AnyPort, SmartSplitPort.AnyPort.DropMissing(_ => false));
+    }
+
+    [Fact]
+    public void NoneSerializesApartFromAny()
+    {
+        Assert.Equal("-", SmartSplitPort.NonePort.Serialize());
+        Assert.Equal(SmartSplitPort.NonePort, SmartSplitPort.Deserialize("-"));
+        Assert.Equal(SmartSplitPort.AnyPort, SmartSplitPort.Deserialize(""));
+    }
+
+    [Fact]
     public void OverflowRunsWhenTheOthersRefuse()
     {
         SmartSplitPort[] ports =

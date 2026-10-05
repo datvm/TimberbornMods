@@ -22,7 +22,7 @@
     "UndergroundModelDepth": 0
   },
   "TemplateSpec": {
-    "TemplateName": "ConveyorCornerLog.Folktails",
+    "TemplateName": "ConveyorCornerLog.{Faction}",
     "BackwardCompatibleTemplateNames": [],
     "RequiredFeatureToggle": "",
     "DisablingFeatureToggle": ""
@@ -117,7 +117,7 @@
         },
         "ConstructionStage0": {
           "TimbermeshSpec": {
-            "Model": "Buildings/Conveyors/Models/Corner.Folktails.Model"
+            "Model": "Buildings/Conveyors/Models/Corner.{Faction}.Model"
           },
           "CollidersSpec": {
             "BoxColliders": [
@@ -142,7 +142,7 @@
     },
     "#Finished": {
       "TimbermeshSpec": {
-        "Model": "Buildings/Conveyors/Models/Corner.Folktails.Model"
+        "Model": "Buildings/Conveyors/Models/Corner.{Faction}.Model"
       },
       "CollidersSpec": {
         "BoxColliders": [
@@ -168,5 +168,6 @@
     "Shape": "Corner",
     "Speed": "Log"
   },
+  "FloodableBeltSpec": {},
   "BeltSystemSpec": {}
 }

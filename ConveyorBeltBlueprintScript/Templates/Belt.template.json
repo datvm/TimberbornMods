@@ -22,7 +22,7 @@
     "UndergroundModelDepth": 0
   },
   "TemplateSpec": {
-    "TemplateName": "ConveyorBeltLog.Folktails",
+    "TemplateName": "ConveyorBeltLog.{Faction}",
     "BackwardCompatibleTemplateNames": [],
     "RequiredFeatureToggle": "",
     "DisablingFeatureToggle": ""
@@ -117,7 +117,7 @@
         },
         "ConstructionStage0": {
           "TimbermeshSpec": {
-            "Model": "Buildings/Conveyors/Models/Belt.Folktails.Model"
+            "Model": "Buildings/Conveyors/Models/Belt.{Faction}.Model"
           },
           "CollidersSpec": {
             "BoxColliders": [
@@ -162,12 +162,12 @@
       "Children": {
         "#Straight": {
           "TimbermeshSpec": {
-            "Model": "Buildings/Conveyors/Models/Belt.Folktails.Model"
+            "Model": "Buildings/Conveyors/Models/Belt.{Faction}.Model"
           }
         },
         "#Building": {
           "TimbermeshSpec": {
-            "Model": "Buildings/Conveyors/Models/BeltBuilding.Folktails.Model"
+            "Model": "Buildings/Conveyors/Models/BeltBuilding.{Faction}.Model"
           }
         }
       }
@@ -177,5 +177,6 @@
     "Shape": "Straight",
     "Speed": "Log"
   },
+  "FloodableBeltSpec": {},
   "BeltSystemSpec": {}
 }

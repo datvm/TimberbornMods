@@ -90,7 +90,7 @@ public class BeltVisualService(IBlockService blocks, MSettings settings, BeltBox
                 continue;
             }
 
-            if (obj.GetComponent<BeltCarrier>() is not null || obj.GetComponent<BeltMerger>() is not null || obj.GetComponent<BeltSplitter>() is not null || obj.GetComponent<BeltLift>() is not null)
+            if (BeltBlocks.HostsBelt(obj))
             {
                 continue;
             }

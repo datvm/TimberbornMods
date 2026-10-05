@@ -2,23 +2,22 @@ namespace ConveyorBelt.Components;
 
 public abstract class BeltJunction : BaseComponent, IBeltConnectionProvider, IAwakableComponent, IInitializableEntity, IFinishedStateListener
 {
-    readonly List<LocalPort> localInputs = [];
-    readonly List<LocalPort> localOutputs = [];
+    readonly List<BeltPort> localInputs = [];
+    readonly List<BeltPort> localOutputs = [];
 
     BlockObject block = null!;
     BlockableObject blockable = null!;
     MechanicalNode mechanical = null!;
-    IBeltConnectionProvider provider = null!;
 
     public Vector3Int Coordinates => block.Coordinates;
     public bool Running => blockable.IsUnblocked && (!mechanical.IsConsumer || mechanical.PowerEfficiency >= 1f);
     public Vector3Int[] InputCells { get; private set; } = [];
     public Vector3Int[] OutputCells { get; private set; } = [];
-    public int Priority => provider.Priority;
+    public int Priority => BeltConnectionPriority.Conveyor;
 
-    protected abstract void FillPorts(List<LocalPort> inputs, List<LocalPort> outputs);
+    protected abstract void FillPorts(List<BeltPort> inputs, List<BeltPort> outputs);
 
-    protected abstract IBeltConnectionProvider CreateProvider();
+    public abstract bool TryProvide(BeltApproach approach, SimBelt? upstream, out ISimLink link);
 
     protected virtual void Entered()
     {
@@ -33,7 +32,6 @@ public abstract class BeltJunction : BaseComponent, IBeltConnectionProvider, IAw
         block = GetComponent<BlockObject>();
         blockable = GetComponent<BlockableObject>();
         mechanical = GetComponent<MechanicalNode>();
-        provider = CreateProvider();
     }
 
     public void InitializeEntity() => RebuildSides();
@@ -45,8 +43,6 @@ public abstract class BeltJunction : BaseComponent, IBeltConnectionProvider, IAw
     }
 
     public void OnExitFinishedState() => Exited();
-
-    public bool TryProvide(BeltApproach approach, out IBeltConnection connection) => provider.TryProvide(approach, out connection);
 
     public bool AcceptsInput(Vector3Int from)
     {
@@ -73,12 +69,12 @@ public abstract class BeltJunction : BaseComponent, IBeltConnectionProvider, IAw
         OutputCells = Cells(localOutputs);
     }
 
-    Vector3Int[] Cells(List<LocalPort> ports)
+    Vector3Int[] Cells(List<BeltPort> ports)
     {
         var cells = new Vector3Int[ports.Count];
         for (var i = 0; i < ports.Count; i++)
         {
-            cells[i] = block.Coordinates + block.TransformDirection(ports[i].Direction).ToOffset();
+            cells[i] = block.Coordinates + block.TransformDirection(ports[i].Direction.Game()).ToOffset();
         }
 
         return cells;

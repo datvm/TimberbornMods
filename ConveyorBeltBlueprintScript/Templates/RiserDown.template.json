@@ -26,7 +26,7 @@
     "UndergroundModelDepth": 0
   },
   "TemplateSpec": {
-    "TemplateName": "ConveyorRiserLogDown.Folktails",
+    "TemplateName": "ConveyorRiserLogDown.{Faction}",
     "BackwardCompatibleTemplateNames": [],
     "RequiredFeatureToggle": "",
     "DisablingFeatureToggle": ""
@@ -121,7 +121,7 @@
         },
         "ConstructionStage0": {
           "TimbermeshSpec": {
-            "Model": "Buildings/Conveyors/Models/Riser.Folktails.Model"
+            "Model": "Buildings/Conveyors/Models/Riser.{Faction}.Model"
           },
           "CollidersSpec": {
             "BoxColliders": [
@@ -146,7 +146,7 @@
     },
     "#Finished": {
       "TimbermeshSpec": {
-        "Model": "Buildings/Conveyors/Models/Riser.Folktails.Model"
+        "Model": "Buildings/Conveyors/Models/Riser.{Faction}.Model"
       },
       "CollidersSpec": {
         "BoxColliders": [
@@ -172,5 +172,6 @@
     "Shape": "RiserDown",
     "Speed": "Log"
   },
+  "FloodableBeltSpec": {},
   "BeltSystemSpec": {}
 }
