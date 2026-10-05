@@ -175,6 +175,47 @@ public class ValvePipeIoTests
     }
 
     [Fact]
+    public void ConnectionUsesOperationalLiquidEvenWhenDisabled()
+    {
+        HashSet<string> liquids = ["Water", "Badwater"];
+        InventoryLiquidSource[] inventories =
+        [
+            new(IsConstructionSite: true, ["Log", "Water"], [], []),
+            new(IsConstructionSite: false, ["Water"], ["Badwater"], []),
+        ];
+
+        Assert.Equal(["Water"], ValvePipeIo.LiquidIdsForConnection(inventories, liquids, give: true));
+        Assert.Equal(["Badwater"], ValvePipeIo.LiquidIdsForConnection(inventories, liquids, give: false));
+    }
+
+    [Fact]
+    public void ConnectionRejectsConstructionSiteOnly()
+    {
+        HashSet<string> liquids = ["Water"];
+        InventoryLiquidSource[] inventories =
+        [
+            new(IsConstructionSite: true, ["Log", "Plank"], [], []),
+        ];
+
+        Assert.Empty(ValvePipeIo.LiquidIdsForConnection(inventories, liquids, give: true));
+        Assert.Empty(ValvePipeIo.LiquidIdsForConnection(inventories, liquids, give: false));
+    }
+
+    [Fact]
+    public void ConnectionRejectsNonLiquidInventory()
+    {
+        HashSet<string> liquids = ["Water"];
+        InventoryLiquidSource[] inventories =
+        [
+            new(IsConstructionSite: true, ["Log"], [], []),
+            new(IsConstructionSite: false, ["Log"], ["Plank"], ["Plank"]),
+        ];
+
+        Assert.Empty(ValvePipeIo.LiquidIdsForConnection(inventories, liquids, give: true));
+        Assert.Empty(ValvePipeIo.LiquidIdsForConnection(inventories, liquids, give: false));
+    }
+
+    [Fact]
     public void ExtractOnlyWhenBuildingGivesLiquid()
     {
         HashSet<string> liquids = ["Water", "Badwater"];

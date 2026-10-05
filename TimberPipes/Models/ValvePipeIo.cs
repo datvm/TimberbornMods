@@ -2,6 +2,12 @@ namespace TimberPipes.Models;
 
 public readonly record struct ValveBuildingVisual(float Yaw, bool RingNearBend);
 
+public readonly record struct InventoryLiquidSource(
+    bool IsConstructionSite,
+    IReadOnlyList<string> InputGoods,
+    IReadOnlyList<string> OutputGoods,
+    IReadOnlyList<string> TakeableGoods);
+
 public static class ValvePipeIo
 {
     public static bool FacesBuilding(bool isTransportPipe, bool isTank = false)
@@ -90,6 +96,36 @@ public static class ValvePipeIo
 
     public static bool TargetStillValid(bool buildingPresent, bool finished, int enabledInventoryCount)
         => buildingPresent && finished && HasActiveInventory(enabledInventoryCount);
+
+    public static List<string> LiquidIdsForConnection(
+        IEnumerable<InventoryLiquidSource> inventories,
+        HashSet<string> liquids,
+        bool give)
+    {
+        List<string> inputs = [];
+        List<string> outputs = [];
+        List<string> takeable = [];
+        foreach (var inventory in inventories)
+        {
+            if (inventory.IsConstructionSite)
+            {
+                continue;
+            }
+
+            if (give)
+            {
+                inputs.AddRange(inventory.InputGoods);
+                continue;
+            }
+
+            outputs.AddRange(inventory.OutputGoods);
+            takeable.AddRange(inventory.TakeableGoods);
+        }
+
+        return give
+            ? KnownExtractLiquids(inputs, [], liquids)
+            : KnownExtractLiquids(outputs, takeable, liquids);
+    }
 
     public static List<string> KnownExtractLiquids(
         IEnumerable<string> outputGoods,

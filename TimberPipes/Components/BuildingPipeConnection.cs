@@ -31,24 +31,16 @@ public class DefaultBuildingPipeConnection(
     public bool IsValid
         => IsAttached
             && building.BlockObject.IsFinished
-            && building.Inventories
-            && ValvePipeIo.HasActiveInventory(building.Inventories.EnabledInventories.Count);
+            && ValvePipeIo.HasActiveInventory(EnabledOperationalCount());
 
     public IEnumerable<string> GetLiquidIds()
-        => give
-            ? ValvePipeIo.KnownExtractLiquids(InputGoodIds(), [], service.LiquidIds)
-            : ValvePipeIo.KnownExtractLiquids(OutputGoodIds(), TakeableGoodIds(), service.LiquidIds);
+        => ValvePipeIo.LiquidIdsForConnection(InventorySources(), service.LiquidIds, give);
 
     public LiquidInventory GetLiquidInventory(string id)
     {
-        if (!building.Inventories)
-        {
-            return default;
-        }
-
         var current = 0;
         var max = 0;
-        foreach (var inv in building.Inventories.EnabledInventories)
+        foreach (var inv in EnabledOperationalInventories())
         {
             current += inv.AmountInStock(id);
             max += inv.LimitedAmount(id);
@@ -62,13 +54,13 @@ public class DefaultBuildingPipeConnection(
 
     bool TryGive(string goodId, int amount)
     {
-        if (!building.Inventories || amount < 1)
+        if (amount < 1)
         {
             return false;
         }
 
         var packet = new GoodAmount(goodId, amount);
-        foreach (var inv in building.Inventories.EnabledInventories)
+        foreach (var inv in EnabledOperationalInventories())
         {
             if (!ValvePipeIo.CanGiveToBuilding(inv.Takes(goodId), inv.HasUnreservedCapacity(packet)))
             {
@@ -84,13 +76,13 @@ public class DefaultBuildingPipeConnection(
 
     bool TryTake(string goodId, int amount)
     {
-        if (!building.Inventories || amount < 1)
+        if (amount < 1)
         {
             return false;
         }
 
         var packet = new GoodAmount(goodId, amount);
-        foreach (var inv in building.Inventories.EnabledInventories)
+        foreach (var inv in EnabledOperationalInventories())
         {
             foreach (var stock in inv.UnreservedTakeableStock())
             {
@@ -112,60 +104,77 @@ public class DefaultBuildingPipeConnection(
         return false;
     }
 
-    List<string> InputGoodIds()
+    int EnabledOperationalCount()
     {
-        List<string> ids = [];
-        if (!building.Inventories)
+        var count = 0;
+        foreach (var _ in EnabledOperationalInventories())
         {
-            return ids;
+            count++;
         }
 
-        foreach (var inv in building.Inventories.EnabledInventories)
-        {
-            foreach (var id in inv.InputGoods)
-            {
-                ids.Add(id);
-            }
-        }
-
-        return ids;
+        return count;
     }
 
-    List<string> OutputGoodIds()
+    IEnumerable<InventoryLiquidSource> InventorySources()
     {
-        List<string> ids = [];
         if (!building.Inventories)
         {
-            return ids;
+            yield break;
         }
 
-        foreach (var inv in building.Inventories.EnabledInventories)
+        var construction = ConstructionInventory();
+        foreach (var inv in building.Inventories.AllInventories)
         {
-            foreach (var id in inv.OutputGoods)
+            if (!inv)
             {
-                ids.Add(id);
+                continue;
             }
-        }
 
-        return ids;
+            yield return new(
+                inv == construction,
+                [.. inv.InputGoods],
+                [.. inv.OutputGoods],
+                TakeableIds(inv));
+        }
     }
 
-    List<string> TakeableGoodIds()
+    IEnumerable<Inventory> EnabledOperationalInventories()
     {
-        List<string> ids = [];
         if (!building.Inventories)
         {
-            return ids;
+            yield break;
         }
 
+        var construction = ConstructionInventory();
         foreach (var inv in building.Inventories.EnabledInventories)
         {
-            foreach (var stock in inv.UnreservedTakeableStock())
+            if (!inv || inv == construction)
             {
-                if (stock.Amount > 0)
-                {
-                    ids.Add(stock.GoodId);
-                }
+                continue;
+            }
+
+            yield return inv;
+        }
+    }
+
+    Inventory? ConstructionInventory()
+    {
+        if (building.GetComponentOrNull<ConstructionSite>() is not { } site || !site.Inventory)
+        {
+            return null;
+        }
+
+        return site.Inventory;
+    }
+
+    static List<string> TakeableIds(Inventory inv)
+    {
+        List<string> ids = [];
+        foreach (var stock in inv.UnreservedTakeableStock())
+        {
+            if (stock.Amount > 0)
+            {
+                ids.Add(stock.GoodId);
             }
         }
 
