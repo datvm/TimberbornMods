@@ -11,13 +11,13 @@ LV.TPi.ElbowPipeFlavor,"Every good plan meets a wall. This is how you keep the p
 LV.TPi.CrossPipeName,"Cross",
 LV.TPi.CrossPipeDesc,"Joins up to four horizontal pipes.",
 LV.TPi.CrossPipeFlavor,"Everyone groans when Bramble starts the “four pipes walk into a [i]bar[/i]” joke again.",
-LV.TPi.TPipeName,"T-junction",
+LV.TPi.TPipeName,"T Junction",
 LV.TPi.TPipeDesc,"Joins up to three horizontal pipes.",
 LV.TPi.TPipeFlavor,"The fourth direction is for when the foreman changes their mind.",
 LV.TPi.VerticalCrossPipeName,"Vertical Cross",
 LV.TPi.VerticalCrossPipeDesc,"Connects vertical and horizontal pipes.",
 LV.TPi.VerticalCrossPipeFlavor,"'What an outstanding piece of work.' — Foreman Halberg",
-LV.TPi.VerticalTPipeName,"Vertical T",
+LV.TPi.VerticalTPipeName,"Vertical T Junction",
 LV.TPi.VerticalTPipeDesc,"Connects a vertical pipe to one horizontal pipe.",
 LV.TPi.VerticalTPipeFlavor,"A cross that learned to make do with less.",
 LV.TPi.ImpermeableVerticalCrossPipeName,"Impermeable Vertical Cross",
@@ -62,21 +62,11 @@ LV.TPi.HourlyLimit,"Hourly limit: {0}",
 LV.TPi.HourlyLimitValue,"{0:0.00} m³/h ({1:0.00} m³/s)",
 LV.TPi.Unlimited,"Unlimited",
 LV.TPi.ProvideHeadlift,"● <YellowHighlight>Provides headlift:</YellowHighlight> {0:0.0}m",
-LV.TPi.ModUpdate112000,"v11.2.0:
-- Flow equalization rate (EqualizeK) is now a Mod Setting, allowing you to set how fast or slow the water 'moves'. This mod now requires Mod Settings.
-- New Outflow UI: Outfall pipe and Throttle Valve Pipe show how much water left it.
-- Added Throttle Valve Pipe. See mod description and in-game description for more information.
-- Some simulation optimization.
-Bug fixes:
-- Valve Extract/Fill in does not work when a building is built after a Valve.
-- Outfall pipes are now properly stopped by Automation.
-
-v11.1.0:
-- Added Impermeable Vertical Cross.
-- Increased Science cost for Outfall Pipe to 350.
-Visual only:
-- Valve model updated when facing in/out of a supported building.
-- Pipe Pump and Riser Pipe Pump gears now spin when powered.",
+LV.TPi.ModUpdate113000,"v11.3.0:
+- Added Horizontal and Vertical T Junctions. Thanks to the contribution of idmytro.
+- Fixed Tank panel showing up during construction and show the wrong 'liquid' (visual bug).
+- Fixed hitboxes for pipes.
+- Vertical pieces should now occupy Bottom and Path slot.",
 Name_TransportPipeFragment,"Pipe",
 Name_ValvePipeFragment,"Valve",
 Name_OutflowCounterFragment,"Outflow",

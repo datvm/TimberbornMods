@@ -1,5 +1,8 @@
-﻿v11.2.1:
-- Fixed Tank panel showing up during construction and show the wrong "liquid".
+﻿v11.3.0:
+- Added Horizontal and Vertical T Junctions. Thanks to the contribution of idmytro.
+- Fixed Tank panel showing up during construction and show the wrong "liquid" (visual bug).
+- Fixed hitboxes for pipes.
+- Vertical pieces should now occupy Bottom and Path slot.
 
 v11.2.0:
 - Flow equalization rate (EqualizeK) is now a Mod Setting, allowing you to set how fast or slow the water 'moves'. This mod now requires Mod Settings.

@@ -1,16 +1,198 @@
-{
-  "BuildingSpec": { "SelectionSoundName": "Default", "LoopingSoundName": "", "BuildingCost": [{ "Id": "Log", "Amount": 3 }], "ScienceCost": 20, "PlaceFinished": false, "FinishableWithBeaversOnSite": true, "DrawRangeBoundsOnIt": false },
-  "BuildingModelSpec": { "FinishedModelName": "#Finished", "UnfinishedModelName": "#Unfinished", "FinishedUncoveredModelName": "", "UndergroundModelName": "", "ConstructionModeModel": "Finished", "UndergroundModelDepth": 0 },
-  "TemplateSpec": { "TemplateName": "TPipe.IronTeeth", "BackwardCompatibleTemplateNames": [], "RequiredFeatureToggle": "", "DisablingFeatureToggle": "" },
-  "BlockObjectNavMeshSettingsSpec": { "NoAutoWalls": false, "GenerateFloorsOnStackable": false, "EdgeGroups": [], "UnblockedCoordinates": [], "BlockedEdges": [] },
-  "BlockObjectSpec": { "Size": { "X": 1, "Y": 1, "Z": 1 }, "Blocks": [{ "MatterBelow": "GroundOrStackable", "Occupations": "Middle", "Stackable": "None", "OccupyAllBelow": false, "Underground": false }], "Entrance": { "HasEntrance": false, "Coordinates": { "X": 0, "Y": 0, "Z": 0 } }, "BaseZ": 0, "Overridable": false, "Flippable": false },
-  "PlaceableBlockObjectSpec": { "ToolGroupId": "Pipes", "ToolOrder": 35, "ToolShape": "Square", "Layout": "Single", "CustomPivot": { "HasCustomPivot": false, "Coordinates": { "X": 0.0, "Y": 0.0, "Z": 0.0 } }, "CanBeAttachedToTerrainSide": false, "DevModeTool": false },
-  "LabeledEntitySpec": { "DisplayNameLocKey": "LV.TPi.TPipeName", "DescriptionLocKey": "LV.TPi.TPipeDesc", "FlavorDescriptionLocKey": "LV.TPi.TPipeFlavor", "Icon": "Buildings/Water/Pipes/TPipe/TPipeIcon" },
-  "BuildingPipeSpec": { "Ports": [{ "Coordinates": { "X": 0, "Y": 0, "Z": 0 }, "Directions": "Down, Up, Right", "State": "Open" }] },
-  "TransportPipeSpec": {},
-  "ConstructionSiteProgressVisualizerSpec": { "ProgressThresholds": [0.0] },
-  "Children": {
-    "#Finished": { "TimbermeshSpec": { "Model": "Buildings/Water/Pipes/TPipe/Models/TPipe.IronTeeth.Model" }, "CollidersSpec": { "BoxColliders": [{ "Center": { "X": 0.5, "Y": 0.23, "Z": 0.5 }, "Size": { "X": 1.0, "Y": 0.46, "Z": 1.0 } }], "SphereColliders": [], "CapsuleColliders": [] } },
-    "#Unfinished": { "Children": { "ConstructionBase1x1Top#nested": { "BlueprintPath": "ConstructionBases/ConstructionBase1x1Top/ConstructionBase1x1Top.blueprint" }, "ConstructionStage0": { "TimbermeshSpec": { "Model": "Buildings/Water/Pipes/TPipe/Models/TPipe.IronTeeth.Model" }, "CollidersSpec": { "BoxColliders": [{ "Center": { "X": 0.5, "Y": 0.05, "Z": 0.5 }, "Size": { "X": 1.0, "Y": 0.1, "Z": 1.0 } }], "SphereColliders": [], "CapsuleColliders": [] } } } }
-  }
+﻿{
+    "BuildingSpec": {
+        "SelectionSoundName": "Default",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            {
+                "Id": "Log",
+                "Amount": 3
+            }
+        ],
+        "ScienceCost": 20,
+        "PlaceFinished": false,
+        "FinishableWithBeaversOnSite": true,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "TPipe.IronTeeth",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BlockObjectNavMeshSettingsSpec": {
+        "NoAutoWalls": false,
+        "GenerateFloorsOnStackable": false,
+        "EdgeGroups": [],
+        "UnblockedCoordinates": [],
+        "BlockedEdges": []
+    },
+    "BlockObjectSpec": {
+        "Size": {
+            "X": 1,
+            "Y": 1,
+            "Z": 1
+        },
+        "Blocks": [
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
+        "Entrance": {
+            "HasEntrance": false,
+            "Coordinates": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": false
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "Pipes",
+        "ToolOrder": 35,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": false
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.TPi.TPipeName",
+        "DescriptionLocKey": "LV.TPi.TPipeDesc",
+        "FlavorDescriptionLocKey": "LV.TPi.TPipeFlavor",
+        "Icon": "Buildings/Water/Pipes/TPipe/TPipeIcon"
+    },
+    "BuildingPipeSpec": {
+        "Ports": [
+            {
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0
+                },
+                "Directions": "Down, Up, Right",
+                "State": "Open"
+            }
+        ]
+    },
+    "TransportPipeSpec": {},
+    "ConstructionSiteProgressVisualizerSpec": { "ProgressThresholds": [ 0.0 ] },
+    "Children": {
+        "#Finished": {
+            "TimbermeshSpec": { "Model": "Buildings/Water/Pipes/TPipe/Models/TPipe.IronTeeth.Model" },
+            "CollidersSpec": {
+                "BoxColliders": [
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.48,
+                            "Z": 0.5
+                        },
+                        "Size": {
+                            "X": 0.4,
+                            "Y": 0.36,
+                            "Z": 1.0
+                        }
+                    },
+                    {
+                        "Center": {
+                            "X": 0.75,
+                            "Y": 0.48,
+                            "Z": 0.5
+                        },
+                        "Size": {
+                            "X": 0.5,
+                            "Y": 0.36,
+                            "Z": 0.4
+                        }
+                    },
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.16,
+                            "Z": 0.5
+                        },
+                        "Size": {
+                            "X": 0.16,
+                            "Y": 0.32,
+                            "Z": 0.16
+                        }
+                    }
+                ],
+                "SphereColliders": [],
+                "CapsuleColliders": []
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase1x1Top#nested": { "BlueprintPath": "ConstructionBases/ConstructionBase1x1Top/ConstructionBase1x1Top.blueprint" },
+                "ConstructionStage0": {
+                    "TimbermeshSpec": { "Model": "Buildings/Water/Pipes/TPipe/Models/TPipe.IronTeeth.Model" },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.48,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 0.4,
+                                    "Y": 0.36,
+                                    "Z": 1.0
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.75,
+                                    "Y": 0.48,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 0.5,
+                                    "Y": 0.36,
+                                    "Z": 0.4
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.16,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 0.16,
+                                    "Y": 0.32,
+                                    "Z": 0.16
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        }
+    }
 }
