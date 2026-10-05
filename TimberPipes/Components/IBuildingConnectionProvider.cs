@@ -44,6 +44,15 @@ public class DefaultBuildingConnectionProvider : IBuildingConnectionProvider
             return null;
         }
 
-        return new DefaultBuildingPipeConnection(building, service, give);
+        var connection = new DefaultBuildingPipeConnection(building, service, give);
+        foreach (var id in connection.GetLiquidIds())
+        {
+            if (id.Length > 0)
+            {
+                return connection;
+            }
+        }
+
+        return null;
     }
 }
