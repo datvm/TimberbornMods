@@ -8,8 +8,10 @@
             "Buildings/Water/Pipes/HorizontalPipe/HorizontalPipe.IronTeeth.blueprint",
             "Buildings/Water/Pipes/ElbowPipe/ElbowPipe.IronTeeth.blueprint",
             "Buildings/Water/Pipes/CrossPipe/CrossPipe.IronTeeth.blueprint",
+            "Buildings/Water/Pipes/TPipe/TPipe.IronTeeth.blueprint",
             "Buildings/Water/Pipes/HorizontalPipePump/HorizontalPipePump.IronTeeth.blueprint",
             "Buildings/Water/Pipes/VerticalCrossPipe/VerticalCrossPipe.IronTeeth.blueprint",
+            "Buildings/Water/Pipes/VerticalTPipe/VerticalTPipe.IronTeeth.blueprint",
             "Buildings/Water/Pipes/ImpermeableVerticalCrossPipe/ImpermeableVerticalCrossPipe.IronTeeth.blueprint",
             "Buildings/Water/Pipes/VerticalPipe/VerticalPipe.IronTeeth.blueprint",
             "Buildings/Water/Pipes/VerticalPipePump/VerticalPipePump.IronTeeth.blueprint"
