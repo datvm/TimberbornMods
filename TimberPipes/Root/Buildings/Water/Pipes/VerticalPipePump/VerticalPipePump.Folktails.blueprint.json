@@ -47,7 +47,7 @@
         "Blocks": [
             {
                 "MatterBelow": "GroundOrStackable",
-                "Occupations": "Top, Middle",
+                "Occupations": "Bottom, Top, Path, Middle",
                 "Stackable": "BlockObject",
                 "OccupyAllBelow": false,
                 "Underground": false
@@ -156,9 +156,9 @@
                             "Z": 0.5
                         },
                         "Size": {
-                            "X": 1.0,
-                            "Y": 1,
-                            "Z": 1.0
+                            "X": 0.6,
+                            "Y": 1.0,
+                            "Z": 0.6
                         }
                     }
                 ],
@@ -180,13 +180,13 @@
                             {
                                 "Center": {
                                     "X": 0.5,
-                                    "Y": 0.05,
+                                    "Y": 0.5,
                                     "Z": 0.5
                                 },
                                 "Size": {
-                                    "X": 1.0,
-                                    "Y": 0.1,
-                                    "Z": 1.0
+                                    "X": 0.6,
+                                    "Y": 1.0,
+                                    "Z": 0.6
                                 }
                             }
                         ],
