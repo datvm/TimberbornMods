@@ -15,8 +15,6 @@ public class BeltCarrierService(BeltGoodService goods, BeltRegistry registry, Co
 
     public void Unregister(BeltCarrier carrier) => registry.Unregister(carrier);
 
-    public void Drop(Vector3Int cell, List<BeltGood> items) => goods.Drop(cell, items);
-
     public EntityDescription Describe(float itemsPerHour)
     {
         var lines = string.Join(Environment.NewLine, [

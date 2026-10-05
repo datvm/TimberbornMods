@@ -6,8 +6,13 @@
   <Import Project="../Targets/CommonModdableTimberborn.targets" />
   <Import Project="../Targets/CommonModdableToolGroups.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\ConveyorBelt.Algorithm\ConveyorBelt.Algorithm.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="ConveyorBelt.Algorithm" />
     <Using Include="ConveyorBelt.Components" />
     <Using Include="ConveyorBelt.Components.Connections" />
+    <Using Include="ConveyorBelt.Components.Visuals" />
     <Using Include="ConveyorBelt.Models" />
     <Using Include="ConveyorBelt.Services" />
     <Using Include="ConveyorBelt.Specs" />

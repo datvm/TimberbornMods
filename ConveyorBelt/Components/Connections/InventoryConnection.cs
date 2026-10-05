@@ -1,22 +1,24 @@
 ﻿namespace ConveyorBelt.Components.Connections;
 
-sealed class InventoryConnection(BlockObject block, Inventories inventories, BeltGoodService goods) : IBeltConnection, IBeltSource
+sealed class InventoryConnection(BlockObject block, Inventories inventories, BeltGoodService goods) : ISimLink, ISimSource, ISimTarget
 {
-    readonly InventoryTarget target = new(block, inventories, goods);
-
     public bool CanTarget(string goodId) => true;
 
-    public bool TryGetTarget(string goodId, out IBeltTarget found)
+    public bool TryGetTarget(string goodId, out ISimTarget found)
     {
-        found = target;
+        found = this;
         return true;
     }
+
+    public bool CanAccept(string goodId) => true;
+
+    public bool TryAccept(string goodId, float leftoverHours, float spentHours) => goods.TryGive(block, inventories, goodId);
 
     public void Commit()
     {
     }
 
-    public void CollectDownstream(List<BeltCarrier> into)
+    public void CollectDownstream(List<SimBelt> into)
     {
     }
 

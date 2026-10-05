@@ -1,5 +1,4 @@
-﻿
-namespace ConveyorBelt.Components;
+﻿namespace ConveyorBelt.Components;
 
 [AddTemplateModule2(typeof(BuildingSpec))]
 public class BuildingBeltTarget(BeltGoodService goods) : BaseComponent, IBeltConnectionProvider, IAwakableComponent
@@ -10,10 +9,15 @@ public class BuildingBeltTarget(BeltGoodService goods) : BaseComponent, IBeltCon
 
     public void Awake() => block = GetComponent<BlockObject>();
 
-    public bool TryProvide(BeltApproach approach, out IBeltConnection connection)
+    public bool TryProvide(BeltApproach approach, SimBelt? upstream, out ISimLink link)
     {
-        connection = MissingConnection.Instance;
-        if (this.GetComponentOrNull<BeltCarrier>() || this.GetComponentOrNull<BeltMerger>() || this.GetComponentOrNull<BeltSplitter>() || this.GetComponentOrNull<BeltLift>())
+        link = SimLinks.None;
+        if (upstream is { Plain: false })
+        {
+            return false;
+        }
+
+        if (BeltBlocks.HostsBelt(this))
         {
             return false;
         }
@@ -23,7 +27,7 @@ public class BuildingBeltTarget(BeltGoodService goods) : BaseComponent, IBeltCon
             return false;
         }
 
-        connection = new InventoryConnection(block, inventories, goods);
+        link = new InventoryConnection(block, inventories, goods);
         return true;
     }
 }

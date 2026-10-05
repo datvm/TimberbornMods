@@ -1,6 +1,6 @@
 {
   "TemplateCollectionSpec": {
-    "CollectionId": "Buildings.Folktails",
+    "CollectionId": "Buildings.{Faction}",
     "Blueprints": []
   }
 }

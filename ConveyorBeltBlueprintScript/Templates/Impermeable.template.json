@@ -30,7 +30,7 @@
     "UndergroundModelDepth": 0
   },
   "TemplateSpec": {
-    "TemplateName": "ConveyorImpermeable.Folktails",
+    "TemplateName": "ConveyorImpermeable.{Faction}",
     "BackwardCompatibleTemplateNames": [],
     "RequiredFeatureToggle": "",
     "DisablingFeatureToggle": ""
@@ -125,19 +125,19 @@
         },
         "ConstructionStage0": {
           "TimbermeshSpec": {
-            "Model": "Buildings/Conveyors/Models/Impermeable.Folktails.Model"
+            "Model": "Buildings/Conveyors/Models/Impermeable.{Faction}.Model"
           },
           "CollidersSpec": {
             "BoxColliders": [
               {
                 "Center": {
                   "X": 0.5,
-                  "Y": 0.05,
+                  "Y": 0.510495067,
                   "Z": 0.5
                 },
                 "Size": {
                   "X": 0.9,
-                  "Y": 0.1,
+                  "Y": 1.02099013,
                   "Z": 0.9
                 }
               }
@@ -154,12 +154,12 @@
           {
             "Center": {
               "X": 0.5,
-              "Y": 0.08,
+              "Y": 0.510495067,
               "Z": 0.5
             },
             "Size": {
               "X": 0.9,
-              "Y": 0.16,
+              "Y": 1.02099013,
               "Z": 0.9
             }
           }
@@ -170,12 +170,12 @@
       "Children": {
         "#Straight": {
           "TimbermeshSpec": {
-            "Model": "Buildings/Conveyors/Models/Impermeable.Folktails.Model"
+            "Model": "Buildings/Conveyors/Models/Impermeable.{Faction}.Model"
           }
         },
         "#Building": {
           "TimbermeshSpec": {
-            "Model": "Buildings/Conveyors/Models/ImpermeableBuilding.Folktails.Model"
+            "Model": "Buildings/Conveyors/Models/ImpermeableBuilding.{Faction}.Model"
           }
         }
       }

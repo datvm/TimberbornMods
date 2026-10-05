@@ -1,91 +1,35 @@
 namespace ConveyorBelt.Components;
 
 [AddTemplateModule2(typeof(BeltLiftSpec))]
-public class BeltLift(BeltLinks links, BeltRegistry registry) : BeltJunction, IBeltSplitter, IPersistentEntity
+public class BeltLift(BeltRegistry registry) : BeltJunction
 {
-    static readonly ComponentKey SaveKey = new(nameof(BeltLift));
-    static readonly PropertyKey<bool> SendingOutKey = new("SendingOut");
-    static readonly SmartSplitPort[] AnyPorts = [SmartSplitPort.AnyPort, SmartSplitPort.AnyPort];
+    SimLift? sim;
 
-    readonly List<Vector3Int> inputs = [];
+    public SimLift Sim => sim ??= new(SendingOut);
 
-    public bool SendingOut { get; private set; }
+    public bool SendingOut => GetComponent<BeltLiftSpec>().Out;
 
-    public int Cursor { get; set; }
+    protected override void FillPorts(List<BeltPort> localInputs, List<BeltPort> localOutputs)
+        => BeltLayout.FillLift(SendingOut, localInputs, localOutputs);
 
-    public IReadOnlyList<SmartSplitPort> SplitPorts => AnyPorts;
+    public override bool TryProvide(BeltApproach approach, SimBelt? upstream, out ISimLink link)
+    {
+        link = SimLinks.None;
+        if (upstream is not { Plain: true } || !AcceptsInput(approach.From))
+        {
+            return false;
+        }
 
-    public IBeltTarget Present(int output, IBeltTarget next) => next;
+        if (SendingOut)
+        {
+            Sim.Remember(upstream);
+        }
 
-    protected override void FillPorts(List<LocalPort> localInputs, List<LocalPort> localOutputs) => BeltLayout.FillLift(SendingOut, localInputs, localOutputs);
-
-    protected override IBeltConnectionProvider CreateProvider() => new LiftProvider(this, links);
+        link = SimLinks.ToBelt(Sim.Belt);
+        return true;
+    }
 
     protected override void Entered() => registry.Register(this);
 
     protected override void Exited() => registry.Unregister(this);
-
-    public void Toggle()
-    {
-        SendingOut = !SendingOut;
-        RebuildSides();
-        ClearInputs();
-        registry.Invalidate();
-        GetComponent<BeltArrows>()?.Rebuild();
-    }
-
-    public void RememberInput(Vector3Int from)
-    {
-        if (!inputs.Contains(from))
-        {
-            inputs.Add(from);
-        }
-    }
-
-    public void ClearInputs() => inputs.Clear();
-
-    public void Rotate(List<BeltCarrier> order)
-    {
-        if (!SendingOut || inputs.Count < 2)
-        {
-            return;
-        }
-
-        List<int> indices = [];
-        for (var i = 0; i < order.Count; i++)
-        {
-            if (inputs.Contains(order[i].Coordinates))
-            {
-                indices.Add(i);
-            }
-        }
-
-        if (indices.Count < 2)
-        {
-            return;
-        }
-
-        var first = order[indices[0]];
-        for (var i = 0; i < indices.Count - 1; i++)
-        {
-            order[indices[i]] = order[indices[i + 1]];
-        }
-
-        order[indices[^1]] = first;
-    }
-
-    public void Save(IEntitySaver saver) => saver.GetComponent(SaveKey).Set(SendingOutKey, SendingOut);
-
-    public void Load(IEntityLoader loader)
-    {
-        if (!loader.TryGetComponent(SaveKey, out var s))
-        {
-            return;
-        }
-
-        if (s.Has(SendingOutKey))
-        {
-            SendingOut = s.Get(SendingOutKey);
-        }
-    }
 }

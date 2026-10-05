@@ -4,18 +4,15 @@
 public class BeltRegistry(BeltLinks links, EventBus eventBus) : ILoadableSingleton
 {
     readonly Dictionary<Vector3Int, BeltCarrier> carriers = [];
-    readonly Dictionary<BeltCarrier, int> indexOf = [];
     readonly List<BeltCarrier> carrierList = [];
     readonly List<BeltMerger> mergers = [];
     readonly List<BeltSplitter> splitters = [];
     readonly List<BeltLift> lifts = [];
-    readonly List<BeltCarrier> moveOrder = [];
-    readonly List<BeltCarrier> downstream = [];
-    readonly List<int> indegree = [];
-    readonly List<int> queue = [];
-    readonly List<List<int>> upstreams = [];
+    readonly List<BeltInventory> inventories = [];
     readonly Dictionary<Vector3Int, int> portTargets = [];
     bool dirty = true;
+
+    public BeltSimulation Simulation { get; } = new();
 
     public void Load() => eventBus.Register(this);
 
@@ -23,6 +20,7 @@ public class BeltRegistry(BeltLinks links, EventBus eventBus) : ILoadableSinglet
     {
         carriers[carrier.Coordinates] = carrier;
         carrierList.Add(carrier);
+        Simulation.Add(carrier.Sim);
         Note(carrier.InPort.Target, 1);
         Note(carrier.OutPort.Target, 1);
         dirty = true;
@@ -36,6 +34,7 @@ public class BeltRegistry(BeltLinks links, EventBus eventBus) : ILoadableSinglet
         }
 
         carrierList.Remove(carrier);
+        Simulation.Remove(carrier.Sim);
         Note(carrier.InPort.Target, -1);
         Note(carrier.OutPort.Target, -1);
         dirty = true;
@@ -43,75 +42,117 @@ public class BeltRegistry(BeltLinks links, EventBus eventBus) : ILoadableSinglet
 
     public void Register(BeltMerger merger)
     {
-        if (!mergers.Contains(merger))
+        if (!Track(mergers, merger))
         {
-            mergers.Add(merger);
-            dirty = true;
+            return;
         }
+
+        Simulation.Add(merger.Sim);
+        Simulation.Add(merger.Sim.Belt);
     }
 
     public void Unregister(BeltMerger merger)
     {
-        mergers.Remove(merger);
-        dirty = true;
+        if (!Drop(mergers, merger))
+        {
+            return;
+        }
+
+        Simulation.Remove(merger.Sim);
+        Simulation.Remove(merger.Sim.Belt);
     }
 
     public void Register(BeltSplitter splitter)
     {
-        if (!splitters.Contains(splitter))
+        if (!Track(splitters, splitter))
         {
-            splitters.Add(splitter);
+            return;
         }
+
+        Simulation.Add(splitter.Sim);
+        Simulation.Add(splitter.Sim.Belt);
     }
 
-    public void Unregister(BeltSplitter splitter) => splitters.Remove(splitter);
-
-    public void BeginSplitters(float hoursPerTick)
+    public void Unregister(BeltSplitter splitter)
     {
-        for (var i = 0; i < splitters.Count; i++)
+        if (!Drop(splitters, splitter))
         {
-            splitters[i].BeginTick(hoursPerTick);
+            return;
         }
+
+        Simulation.Remove(splitter.Sim);
+        Simulation.Remove(splitter.Sim.Belt);
     }
 
     public void Register(BeltLift lift)
     {
-        if (!lifts.Contains(lift))
+        if (!Track(lifts, lift))
         {
-            lifts.Add(lift);
-            dirty = true;
+            return;
         }
+
+        Simulation.Add(lift.Sim);
+        Simulation.Add(lift.Sim.Belt);
     }
 
     public void Unregister(BeltLift lift)
     {
-        lifts.Remove(lift);
-        dirty = true;
+        if (!Drop(lifts, lift))
+        {
+            return;
+        }
+
+        Simulation.Remove(lift.Sim);
+        Simulation.Remove(lift.Sim.Belt);
     }
+
+    public void Register(BeltInventory inventory)
+    {
+        if (!inventories.Contains(inventory))
+        {
+            inventories.Add(inventory);
+        }
+    }
+
+    public void Unregister(BeltInventory inventory) => inventories.Remove(inventory);
 
     public void Invalidate() => dirty = true;
 
-    public IReadOnlyList<BeltCarrier> OrderForTick()
+    public void Prepare()
     {
-        Ensure();
+        if (dirty)
+        {
+            Wire();
+        }
+
+        for (var i = 0; i < carrierList.Count; i++)
+        {
+            var carrier = carrierList[i];
+            carrier.Sim.Running = carrier.Running;
+            carrier.Sim.ItemsPerHour = carrier.ItemsPerHour;
+        }
+
         for (var i = 0; i < mergers.Count; i++)
         {
-            mergers[i].Rotate(moveOrder);
+            mergers[i].Sim.Running = mergers[i].Running;
+        }
+
+        for (var i = 0; i < splitters.Count; i++)
+        {
+            splitters[i].Sim.Running = splitters[i].Running;
         }
 
         for (var i = 0; i < lifts.Count; i++)
         {
-            lifts[i].Rotate(moveOrder);
+            lifts[i].Sim.Running = lifts[i].Running;
         }
-
-        return moveOrder;
     }
 
-    public void BeginMergers(float hoursPerTick)
+    public void PublishStuck()
     {
-        for (var i = 0; i < mergers.Count; i++)
+        for (var i = 0; i < inventories.Count; i++)
         {
-            mergers[i].BeginTick(hoursPerTick);
+            inventories[i].ApplyStuck();
         }
     }
 
@@ -128,6 +169,97 @@ public class BeltRegistry(BeltLinks links, EventBus eventBus) : ILoadableSinglet
         {
             Touch(block);
         }
+    }
+
+    bool Track<T>(List<T> list, T item)
+    {
+        if (list.Contains(item))
+        {
+            return false;
+        }
+
+        list.Add(item);
+        dirty = true;
+        return true;
+    }
+
+    bool Drop<T>(List<T> list, T item)
+    {
+        if (!list.Remove(item))
+        {
+            return false;
+        }
+
+        dirty = true;
+        return true;
+    }
+
+    void Wire()
+    {
+        dirty = false;
+        for (var i = 0; i < mergers.Count; i++)
+        {
+            mergers[i].Sim.ClearInputs();
+        }
+
+        for (var i = 0; i < lifts.Count; i++)
+        {
+            lifts[i].Sim.ClearInputs();
+        }
+
+        foreach (var carrier in carrierList)
+        {
+            carrier.Sim.Output = links.Resolve(new(carrier.Coordinates, carrier.OutPort.Target), carrier.Sim);
+            carrier.Sim.Input = links.Resolve(new(carrier.Coordinates, carrier.InPort.Target), null) as ISimSource;
+        }
+
+        for (var i = 0; i < mergers.Count; i++)
+        {
+            var merger = mergers[i];
+            merger.Sim.Belt.Output = One(merger.Coordinates, merger.OutputCells, merger.Sim.Belt);
+        }
+
+        for (var i = 0; i < splitters.Count; i++)
+        {
+            var splitter = splitters[i];
+            splitter.Sim.Attach(Many(splitter.Coordinates, splitter.OutputCells, splitter.Sim.Belt));
+        }
+
+        for (var i = 0; i < lifts.Count; i++)
+        {
+            var lift = lifts[i];
+            if (lift.SendingOut)
+            {
+                lift.Sim.AttachOut(One(lift.Coordinates, lift.OutputCells, lift.Sim.Belt));
+            }
+            else
+            {
+                lift.Sim.AttachSplit(Many(lift.Coordinates, lift.OutputCells, lift.Sim.Belt));
+            }
+        }
+
+        Simulation.Invalidate();
+    }
+
+    ISimLink One(Vector3Int from, Vector3Int[] cells, SimBelt lane)
+    {
+        if (cells.Length == 0)
+        {
+            return SimLinks.None;
+        }
+
+        return links.Resolve(new(from, cells[0]), lane) ?? SimLinks.None;
+    }
+
+    IReadOnlyList<ISimLink> Many(Vector3Int from, Vector3Int[] cells, SimBelt lane)
+    {
+        var found = new ISimLink[cells.Length];
+        for (var i = 0; i < cells.Length; i++)
+        {
+            found[i] = links.Resolve(new(from, cells[i]), lane) ?? SimLinks.None;
+        }
+
+        return found;
     }
 
     void Touch(BlockObject block)
@@ -160,107 +292,6 @@ public class BeltRegistry(BeltLinks links, EventBus eventBus) : ILoadableSinglet
         else
         {
             portTargets[cell] = count;
-        }
-    }
-
-    void Ensure()
-    {
-        if (!dirty)
-        {
-            return;
-        }
-
-        dirty = false;
-        for (var i = 0; i < mergers.Count; i++)
-        {
-            mergers[i].ClearInputs();
-        }
-
-        for (var i = 0; i < lifts.Count; i++)
-        {
-            lifts[i].ClearInputs();
-        }
-
-        foreach (var carrier in carrierList)
-        {
-            carrier.Output = links.Resolve(new(carrier.Coordinates, carrier.OutPort.Target));
-            carrier.Input = links.Resolve(new(carrier.Coordinates, carrier.InPort.Target));
-        }
-
-        BuildOrder();
-    }
-
-    void BuildOrder()
-    {
-        var count = carrierList.Count;
-        moveOrder.Clear();
-        indegree.Clear();
-        queue.Clear();
-        indexOf.Clear();
-        while (upstreams.Count < count)
-        {
-            upstreams.Add([]);
-        }
-
-        for (var i = 0; i < count; i++)
-        {
-            upstreams[i].Clear();
-            indegree.Add(0);
-            indexOf[carrierList[i]] = i;
-        }
-
-        for (var i = 0; i < count; i++)
-        {
-            downstream.Clear();
-            carrierList[i].Output?.CollectDownstream(downstream);
-            foreach (var next in downstream)
-            {
-                if (!indexOf.TryGetValue(next, out var index) || index == i)
-                {
-                    continue;
-                }
-
-                upstreams[index].Add(i);
-                indegree[i]++;
-            }
-        }
-
-        for (var i = 0; i < count; i++)
-        {
-            if (indegree[i] == 0)
-            {
-                queue.Add(i);
-            }
-        }
-
-        var seen = new bool[count];
-        var read = 0;
-        while (read < queue.Count)
-        {
-            var index = queue[read++];
-            seen[index] = true;
-            moveOrder.Add(carrierList[index]);
-            foreach (var upstream in upstreams[index])
-            {
-                indegree[upstream]--;
-                if (indegree[upstream] == 0)
-                {
-                    queue.Add(upstream);
-                }
-            }
-        }
-
-        if (moveOrder.Count == count)
-        {
-            return;
-        }
-
-        for (var i = 0; i < count; i++)
-        {
-            if (!seen[i])
-            {
-                moveOrder.Add(carrierList[i]);
-            }
         }
     }
 }

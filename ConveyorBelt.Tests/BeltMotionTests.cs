@@ -3,6 +3,17 @@ namespace ConveyorBelt.Tests;
 public class BeltMotionTests
 {
     [Fact]
+    public void FloodedEntryDisappears()
+    {
+        var belt = new SimBelt { ItemsPerHour = 10f, Flooded = true };
+        belt.Items.Add(new("Log", 0.2f));
+        belt.Clear();
+
+        Assert.True(belt.TryAccept("Plank", 0f, 0f));
+        Assert.Empty(belt.Items);
+    }
+
+    [Fact]
     public void LogSpeedCrossesOneBeltPerHour()
     {
         var delta = BeltRates.Delta(1f, 1f);

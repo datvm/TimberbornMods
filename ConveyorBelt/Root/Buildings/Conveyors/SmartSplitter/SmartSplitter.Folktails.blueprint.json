@@ -172,6 +172,7 @@
       }
     }
   },
+  "FloodableBeltSpec": {},
   "BeltSystemSpec": {},
   "SmartSplitterSpec": {}
 }

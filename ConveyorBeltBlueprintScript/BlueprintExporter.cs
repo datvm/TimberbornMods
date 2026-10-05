@@ -26,17 +26,19 @@ sealed class BlueprintExporter
         {
             var export = exportNode!.AsObject();
             var template = Load(inputDir, Require(export, "Template").GetValue<string>());
-            var names = export["Variants"]?.AsArray();
-            if (names is null)
+            foreach (var faction in Facets(export))
             {
-                written += Write(template, export, variant: null);
-                continue;
-            }
+                var names = export["Variants"]?.AsArray();
+                if (names is null)
+                {
+                    written += Write(template, export, Context(null, faction));
+                    continue;
+                }
 
-            foreach (var nameNode in names)
-            {
-                var name = nameNode!.GetValue<string>();
-                written += Write(template, export, Variant(name));
+                foreach (var nameNode in names)
+                {
+                    written += Write(template, export, Context(Variant(nameNode!.GetValue<string>()), faction));
+                }
             }
         }
 
@@ -199,9 +201,50 @@ sealed class BlueprintExporter
 
     static bool Ink(SKColor color) => color.Alpha > 20 && color.Red + color.Green + color.Blue > 40;
 
+    IEnumerable<string?> Facets(JsonObject export)
+    {
+        if (export["Once"] is JsonValue once && once.TryGetValue<bool>(out var single) && single)
+        {
+            yield return null;
+            yield break;
+        }
+
+        if (input["Factions"] is not JsonArray factions || factions.Count == 0)
+        {
+            yield return null;
+            yield break;
+        }
+
+        foreach (var faction in factions)
+        {
+            yield return faction!.GetValue<string>();
+        }
+    }
+
+    static JsonObject? Context(JsonObject? variant, string? faction)
+    {
+        if (faction is null)
+        {
+            return variant?.DeepClone().AsObject();
+        }
+
+        var copy = variant?.DeepClone().AsObject() ?? new JsonObject();
+        copy["Faction"] = faction;
+        copy["Metal"] = faction == "IronTeeth" ? "MetalPart" : "MetalBlock";
+        if (faction == "IronTeeth"
+            && copy["Costs"] is JsonObject costs
+            && costs["IronTeeth"] is JsonObject picked)
+        {
+            copy["Cost"] = picked.DeepClone();
+        }
+
+        return copy;
+    }
+
     int Write(JsonObject template, JsonObject export, JsonObject? variant)
     {
         var copy = template.DeepClone().AsObject();
+        FillTokens(copy, variant);
         foreach (var pair in Require(export, "Set").AsObject())
         {
             SetPath(copy, pair.Key, Resolve(pair.Value, variant));
@@ -241,12 +284,12 @@ sealed class BlueprintExporter
         {
             if (obj.ContainsKey("$each"))
             {
-                return ExpandEach(obj);
+                return ExpandEach(obj, variant);
             }
 
             if (obj.ContainsKey("$concat"))
             {
-                return ExpandConcat(obj);
+                return ExpandConcat(obj, variant);
             }
 
             var copy = new JsonObject();
@@ -288,7 +331,42 @@ sealed class BlueprintExporter
         return JsonValue.Create(replaced);
     }
 
-    JsonArray ExpandEach(JsonObject each)
+    void FillTokens(JsonNode? node, JsonObject? variant)
+    {
+        if (node is JsonObject obj)
+        {
+            foreach (var key in obj.Select(pair => pair.Key).ToList())
+            {
+                if (obj[key] is JsonValue value && value.TryGetValue<string>(out var text) && text.Contains('{'))
+                {
+                    obj[key] = ResolveText(text, variant);
+                    continue;
+                }
+
+                FillTokens(obj[key], variant);
+            }
+
+            return;
+        }
+
+        if (node is not JsonArray array)
+        {
+            return;
+        }
+
+        for (var i = 0; i < array.Count; i++)
+        {
+            if (array[i] is JsonValue value && value.TryGetValue<string>(out var text) && text.Contains('{'))
+            {
+                array[i] = ResolveText(text, variant);
+                continue;
+            }
+
+            FillTokens(array[i], variant);
+        }
+    }
+
+    JsonArray ExpandEach(JsonObject each, JsonObject? variant)
     {
         IEnumerable<string> names = each["$each"] is JsonArray listed
             ? listed.Select(node => node!.GetValue<string>())
@@ -301,7 +379,7 @@ sealed class BlueprintExporter
         var result = new JsonArray();
         foreach (var name in names)
         {
-            var resolved = Resolve(item, Variant(name));
+            var resolved = Resolve(item, WithFaction(Variant(name), variant));
             if (resolved is JsonArray many)
             {
                 foreach (var one in many)
@@ -318,7 +396,26 @@ sealed class BlueprintExporter
         return result;
     }
 
-    JsonArray ExpandConcat(JsonObject concat)
+    static JsonObject WithFaction(JsonObject speed, JsonObject? outer)
+    {
+        var copy = speed.DeepClone().AsObject();
+        if (outer is null)
+        {
+            return copy;
+        }
+
+        foreach (var pair in outer)
+        {
+            if (!copy.ContainsKey(pair.Key))
+            {
+                copy[pair.Key] = pair.Value?.DeepClone();
+            }
+        }
+
+        return copy;
+    }
+
+    JsonArray ExpandConcat(JsonObject concat, JsonObject? variant)
     {
         if (concat["$concat"] is not JsonArray parts)
         {
@@ -328,7 +425,7 @@ sealed class BlueprintExporter
         var result = new JsonArray();
         foreach (var part in parts)
         {
-            var resolved = Resolve(part, variant: null);
+            var resolved = Resolve(part, variant);
             if (resolved is JsonArray many)
             {
                 foreach (var one in many)

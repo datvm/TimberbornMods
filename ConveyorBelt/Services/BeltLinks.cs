@@ -5,7 +5,7 @@ public class BeltLinks(IBlockService blocks)
 {
     readonly HashSet<Vector3Int> trail = [];
 
-    public IBeltConnection? Resolve(BeltApproach approach)
+    public ISimLink? Resolve(BeltApproach approach, SimBelt? upstream)
     {
         var root = trail.Count == 0;
         if (!trail.Add(approach.To))
@@ -15,7 +15,7 @@ public class BeltLinks(IBlockService blocks)
 
         try
         {
-            return Pick(approach);
+            return Pick(approach, upstream);
         }
         finally
         {
@@ -26,9 +26,9 @@ public class BeltLinks(IBlockService blocks)
         }
     }
 
-    IBeltConnection? Pick(BeltApproach approach)
+    ISimLink? Pick(BeltApproach approach, SimBelt? upstream)
     {
-        IBeltConnection? best = null;
+        ISimLink? best = null;
         var bestPriority = int.MinValue;
         foreach (var obj in blocks.GetObjectsAt(approach.To))
         {
@@ -51,7 +51,7 @@ public class BeltLinks(IBlockService blocks)
                     continue;
                 }
 
-                if (!provider.TryProvide(approach, out var connection))
+                if (!provider.TryProvide(approach, upstream, out var connection))
                 {
                     continue;
                 }

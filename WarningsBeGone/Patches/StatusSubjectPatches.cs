@@ -19,6 +19,8 @@ public static class StatusSubjectPatches
     [HarmonyPrefix, HarmonyPatch(nameof(StatusSubject.InPriorityMode), MethodType.Getter)]
     public static bool FilterInPriorityMode(StatusSubject __instance, ref bool __result)
     {
+        if (!__instance) { return true; }
+
         var comp = __instance.GetComponent<StatusHidingComponent>();
         if (!comp) { return true; }
 

@@ -32,13 +32,16 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\ConveyorBelt\ConveyorBelt.csproj" />
+		<ProjectReference Include="..\ConveyorBelt.Algorithm\ConveyorBelt.Algorithm.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Using Include="Xunit" />
+		<Using Include="ConveyorBelt.Algorithm" />
 		<Using Include="ConveyorBelt.Models" />
 		<Using Include="ConveyorBelt.Services" />
 		<Using Include="ConveyorBelt.Components" />
+		<Using Include="ConveyorBelt.Components.Visuals" />
 		<Using Include="ConveyorBelt.Specs" />
 	</ItemGroup>
 

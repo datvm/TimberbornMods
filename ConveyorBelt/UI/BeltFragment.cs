@@ -1,7 +1,7 @@
 namespace ConveyorBelt.UI;
 
 [BindFragment]
-public class BeltFragment(ILoc t, IGoodService goods, NamedIconProvider icons) : BaseEntityPanelFragment<BeltCarrier>
+public class BeltFragment(ILoc t, IGoodService goods, NamedIconProvider icons) : BaseEntityPanelFragment<BeltInventory>
 {
     public const int IconSize = 30;
     public const int Padding = 5;
@@ -34,16 +34,16 @@ public class BeltFragment(ILoc t, IGoodService goods, NamedIconProvider icons) :
 
     void Refresh()
     {
-        if (component is not BeltCarrier belt)
+        if (component is not BeltInventory inventory)
         {
             return;
         }
 
         refreshing = true;
-        warn.SetValueWithoutNotify(belt.WarnWhenStuck);
+        warn.SetValueWithoutNotify(inventory.WarnWhenStuck);
         refreshing = false;
 
-        var items = belt.Items;
+        var items = inventory.Items;
         eject.SetEnabled(items.Count > 0);
         EnsureSlots(items.Count);
         var width = goodsBar.resolvedStyle.width - IconSize - Padding * 2;
@@ -54,7 +54,7 @@ public class BeltFragment(ILoc t, IGoodService goods, NamedIconProvider icons) :
             slot.SetDisplay(true);
             slot.Icon = goods.GetGood(item.Id).Icon.Asset;
             slot.Progress = Padding + Mathf.Lerp(0f, width, item.Position);
-            slot.IsStuck = belt.IsStuck && i == 0;
+            slot.IsStuck = inventory.IsStuck && i == 0;
         }
     }
 
@@ -79,21 +79,21 @@ public class BeltFragment(ILoc t, IGoodService goods, NamedIconProvider icons) :
 
     void OnEject()
     {
-        if (component is not BeltCarrier belt)
+        if (component is not BeltInventory inventory)
         {
             return;
         }
 
-        belt.Eject();
+        inventory.Eject();
     }
 
     void OnWarn(bool value)
     {
-        if (refreshing || component is not BeltCarrier belt)
+        if (refreshing || component is not BeltInventory inventory)
         {
             return;
         }
 
-        belt.WarnWhenStuck = value;
+        inventory.WarnWhenStuck = value;
     }
 }
