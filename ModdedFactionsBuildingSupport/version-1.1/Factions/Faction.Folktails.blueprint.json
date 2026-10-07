@@ -1,0 +1,7 @@
+﻿{
+    "FactionSpec": {
+        "TemplateCollectionIds#append": [
+            "Buildings.Support.AllFactions"
+        ]
+    }
+}

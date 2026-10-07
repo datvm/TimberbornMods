@@ -1,0 +1,37 @@
+﻿This mod helps modders to add new buildings to the game that can support other modded factions without knowing what they are. It is made to solve the problem of [b]"could you add this to [insert modded faction here]?"[/b].
+
+Supported modded factions right now: Emberpelts, Leaf Coats, and Whitepaws. Contact me if you need any faction added.
+
+This mod is designed to be optional, meaning players without this mod should not crash your mod, and they can still play with your buildings with Folktails and IronTeeth.
+
+[h1]How to use[/h1]
+Create your TemplateCollectionSpec files as usual for Folktails and Iron Teeth. For example, [b]TemplateCollection.MyModdedBuilding.Folktails.blueprint.json[/b]:
+[code]
+{
+  "TemplateCollectionSpec": {
+    "CollectionId": "Buildings.Folktails",
+    "Blueprints": [
+      "Buildings/Category/MyModdedBuildings/MyModdedBuildings.Folktails.blueprint"
+    ]
+  }
+}
+[/code]
+
+Reuse that Folktails (or Iron Teeth) blueprint on the collection [b]Buildings.Support.ModdedFactions[/b]:
+[code]
+{
+  "TemplateCollectionSpec": {
+    "CollectionId": "Buildings.Support.ModdedFactions",
+    "Blueprints": [
+      "Buildings/Category/MyModdedBuildings/MyModdedBuildings.Folktails.blueprint"
+    ]
+  }
+}
+[/code]
+
+That's it, your building then shows up for every supported modded faction. In your mod description, ask players to subscribe to this mod to use the buildings for modded factions.
+
+There is also [b]Buildings.Support.AllFactions[/b], which includes Folktails and Iron Teeth as well. Use that only if you know how: buildings in that collection will not show up unless the player has this mod, and your models need all the materials those factions use.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputModFolderName>ModdedFactionsBuildingSupport</OutputModFolderName>
+	</PropertyGroup>
+
+	<Import Project="../Targets/CommonJson.targets" />
+</Project>
