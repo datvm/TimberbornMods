@@ -37,6 +37,8 @@ public class DecalPickerDialog(
         {
             btnConfirmPick = row.AddMenuButton(onClick: ConfirmPick).SetMargin(left: 10);
             UpdateSelectionCount();
+
+            parent.AddToggle(t.T("LV.MDG.SelectAll"), onValueChanged: OnSelectAllChanged).SetMarginBottom();
         }
 
         var decalContainer = parent.AddScrollView().SetHeight(600);
@@ -72,6 +74,15 @@ public class DecalPickerDialog(
 
                 items.Add(new(decalEl, spec, toggle));
             }
+        }
+    }
+
+    void OnSelectAllChanged(bool selected)
+    {
+        foreach (var item in items)
+        {
+            if (item.Toggle is not { } toggle) { continue; }
+            toggle.value = selected;
         }
     }
 
