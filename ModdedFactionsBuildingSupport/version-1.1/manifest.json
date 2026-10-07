@@ -1,0 +1,7 @@
+﻿{
+    "Name": "Modded Factions Building Support",
+    "Version": "11.0.0",
+    "Id": "ModdedFactionsBuildingSupport",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "Add modded factions support for modded buildings."
+}
