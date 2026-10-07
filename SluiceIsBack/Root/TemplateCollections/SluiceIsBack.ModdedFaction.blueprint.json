@@ -1,0 +1,8 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.Support.ModdedFactions",
+        "Blueprints": [
+            "Buildings/Landscaping/LVSluice/Sluice.Folktails.blueprint"
+        ]
+    }
+}

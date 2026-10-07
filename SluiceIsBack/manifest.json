@@ -1,8 +1,11 @@
 ﻿{
     "Name": "Sluice is Back!",
-    "Version": "10.1.0",
+    "Version": "11.0.0",
     "Id": "SluiceIsBack",
-    "MinimumGameVersion": "1.0.0",
+    "MinimumGameVersion": "1.1.1",
     "Description": "A copy of the original Sluice",
-    "RequiredMods": []
+    "RequiredMods": [],
+    "OptionalMods": [
+        { "Id": "ModdedFactionsBuildingSupport" }
+    ]
 }
