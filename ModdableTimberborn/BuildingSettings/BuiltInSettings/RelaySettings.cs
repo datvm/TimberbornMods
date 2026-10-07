@@ -3,7 +3,14 @@
 public record RelaySettingsModel(
     RelayMode Mode,
     Guid?[] Inputs
-) : EntityIdModelBase(Inputs);
+) : EntityIdModelBase(Inputs)
+{
+    public Guid?[] Inputs
+    {
+        get => EntityIds;
+        set => EntityIds = value;
+    }
+}
 
 public class RelaySettings(
     EntityRegistry entityRegistry,
