@@ -401,6 +401,15 @@
     {
       "Template": "Templates/Collection.template.json",
       "Output": "Buildings/Conveyors/Collections/Conveyors.{Faction}.blueprint.json",
+      "Also": [
+        {
+          "When": "Folktails",
+          "Output": "Buildings/Conveyors/Collections/Conveyors.ModdedFactions.blueprint.json",
+          "Set": {
+            "TemplateCollectionSpec.CollectionId": "Buildings.Support.ModdedFactions"
+          }
+        }
+      ],
       "Set": {
         "TemplateCollectionSpec.Blueprints": {
           "$concat": [

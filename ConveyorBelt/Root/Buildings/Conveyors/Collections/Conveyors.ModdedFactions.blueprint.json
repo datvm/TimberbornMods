@@ -1,0 +1,29 @@
+{
+  "TemplateCollectionSpec": {
+    "CollectionId": "Buildings.Support.ModdedFactions",
+    "Blueprints": [
+      "Buildings/Conveyors/Sp1/Belt/BeltSp1.Folktails.blueprint",
+      "Buildings/Conveyors/Sp1/Corner/CornerSp1.Folktails.blueprint",
+      "Buildings/Conveyors/Sp2/Belt/BeltSp2.Folktails.blueprint",
+      "Buildings/Conveyors/Sp2/Corner/CornerSp2.Folktails.blueprint",
+      "Buildings/Conveyors/Sp3/Belt/BeltSp3.Folktails.blueprint",
+      "Buildings/Conveyors/Sp3/Corner/CornerSp3.Folktails.blueprint",
+      "Buildings/Conveyors/Sp4/Belt/BeltSp4.Folktails.blueprint",
+      "Buildings/Conveyors/Sp4/Corner/CornerSp4.Folktails.blueprint",
+      "Buildings/Conveyors/Sp4/Impermeable/Impermeable.Folktails.blueprint",
+      "Buildings/Conveyors/Merger/Merger.Folktails.blueprint",
+      "Buildings/Conveyors/LiftIn/LiftIn.Folktails.blueprint",
+      "Buildings/Conveyors/LiftOut/LiftOut.Folktails.blueprint",
+      "Buildings/Conveyors/Splitter/Splitter.Folktails.blueprint",
+      "Buildings/Conveyors/SmartSplitter/SmartSplitter.Folktails.blueprint",
+      "Buildings/Conveyors/Sp1/RiserUp/RiserSp1Up.Folktails.blueprint",
+      "Buildings/Conveyors/Sp1/RiserDown/RiserSp1Down.Folktails.blueprint",
+      "Buildings/Conveyors/Sp2/RiserUp/RiserSp2Up.Folktails.blueprint",
+      "Buildings/Conveyors/Sp2/RiserDown/RiserSp2Down.Folktails.blueprint",
+      "Buildings/Conveyors/Sp3/RiserUp/RiserSp3Up.Folktails.blueprint",
+      "Buildings/Conveyors/Sp3/RiserDown/RiserSp3Down.Folktails.blueprint",
+      "Buildings/Conveyors/Sp4/RiserUp/RiserSp4Up.Folktails.blueprint",
+      "Buildings/Conveyors/Sp4/RiserDown/RiserSp4Down.Folktails.blueprint"
+    ]
+  }
+}

@@ -12,6 +12,9 @@ public class SmartSplitterFragment(
 {
     readonly SplitterGoodList[] lists = new SplitterGoodList[3];
     readonly Dropdown[] dropdowns = new Dropdown[3];
+
+    // Grid left sits on the viewer's right when looking from the input toward the outputs.
+    readonly int[] slotPorts = [2, 1, 0];
     bool refreshing;
 
     protected override void InitializePanel()
@@ -30,14 +33,14 @@ public class SmartSplitterFragment(
 
         (string Key, string Arrow, Color Color)[] headings =
         [
-            ("LV.CBlt.Left", "\u2190", SplitterMarks.Left),
+            ("LV.CBlt.Left", "\u2190", SplitterMarks.Right),
             ("LV.CBlt.Center", "\u2191", SplitterMarks.Center),
-            ("LV.CBlt.Right", "\u2192", SplitterMarks.Right),
+            ("LV.CBlt.Right", "\u2192", SplitterMarks.Left),
         ];
 
         for (var i = 0; i < headings.Length; i++)
         {
-            var index = i;
+            var port = slotPorts[i];
             var heading = headings[i];
             var row = panel.AddRow().AlignItems().SetMarginBottom(2);
             var title = row.AddLabel(t.T(heading.Key)).SetFlexGrow();
@@ -49,7 +52,7 @@ public class SmartSplitterFragment(
             arrow.style.flexShrink = 0;
 
             var list = new SplitterGoodList(ids, goodService, describer, t);
-            list.Changed += value => OnPort(index, value);
+            list.Changed += value => OnPort(port, value);
             var dropdown = new Dropdown().Initialize(veInit).SetMarginBottom();
             dropdownItemsSetter.SetItems(dropdown, list);
             panel.Add(dropdown);
@@ -79,7 +82,7 @@ public class SmartSplitterFragment(
         var ports = splitter.SplitPorts;
         for (var i = 0; i < lists.Length && i < ports.Count; i++)
         {
-            lists[i].Select(ports[i].Serialize());
+            lists[i].Select(ports[slotPorts[i]].Serialize());
             dropdowns[i].UpdateSelectedValue();
         }
 

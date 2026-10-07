@@ -250,10 +250,43 @@ sealed class BlueprintExporter
             SetPath(copy, pair.Key, Resolve(pair.Value, variant));
         }
 
-        var relative = Interpolate(Require(export, "Output").GetValue<string>(), variant);
+        var written = Save(copy, Interpolate(Require(export, "Output").GetValue<string>(), variant));
+        if (export["Also"] is not JsonArray aliases)
+        {
+            return written;
+        }
+
+        var faction = variant?["Faction"]?.GetValue<string>();
+        foreach (var node in aliases)
+        {
+            var alias = node!.AsObject();
+            if (alias["When"] is JsonValue when
+                && when.TryGetValue<string>(out var only)
+                && only != faction)
+            {
+                continue;
+            }
+
+            var extra = copy.DeepClone().AsObject();
+            if (alias["Set"] is JsonObject set)
+            {
+                foreach (var pair in set)
+                {
+                    SetPath(extra, pair.Key, Resolve(pair.Value, variant));
+                }
+            }
+
+            written += Save(extra, Interpolate(Require(alias, "Output").GetValue<string>(), variant));
+        }
+
+        return written;
+    }
+
+    int Save(JsonObject document, string relative)
+    {
         var path = Path.GetFullPath(Path.Combine(outputRoot, relative));
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
-        File.WriteAllText(path, copy.ToJsonString(json) + Environment.NewLine);
+        File.WriteAllText(path, document.ToJsonString(json) + Environment.NewLine);
         Console.WriteLine(relative);
         return 1;
     }
