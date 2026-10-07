@@ -3,5 +3,10 @@
     "Version": "11.0.0",
     "Id": "ModdedFactionsBuildingSupport",
     "MinimumGameVersion": "1.1.1",
-    "Description": "Add modded factions support for modded buildings."
+    "Description": "Add modded factions support for modded buildings.",
+    "OptionalMods": [
+        { "Id": "Lapantoufleagic.WhitepawsFaction" },
+        { "Id": "LeafCoats" },
+        { "Id": "Emberpelts" }
+    ]
 }

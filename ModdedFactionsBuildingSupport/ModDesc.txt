@@ -1,11 +1,14 @@
-﻿This mod helps modders to add new buildings to the game that can support other modded factions without knowing what they are. It is made to solve the problem of [b]"could you add this to [insert modded faction here]?"[/b].
+﻿[b]NOTE:[/b] This mod is for modders. It does nothing on its own. Subscribe this mod when other mods ask you to subscribe to support modded factions.
+
+This mod helps modders to add new buildings to the game that can support other modded factions without knowing what they are. It is made to solve the problem of [b]"could you add this to [insert modded faction here]?"[/b].
 
 Supported modded factions right now: Emberpelts, Leaf Coats, and Whitepaws. Contact me if you need any faction added.
 
 This mod is designed to be optional, meaning players without this mod should not crash your mod, and they can still play with your buildings with Folktails and IronTeeth.
 
 [h1]How to use[/h1]
-Create your TemplateCollectionSpec files as usual for Folktails and Iron Teeth. For example, [b]TemplateCollection.MyModdedBuilding.Folktails.blueprint.json[/b]:
+1. Add this mod ID to your [b]OptionalMods[/b] in your mod's manifest.
+2. Create your TemplateCollectionSpec files as usual for Folktails and Iron Teeth. For example, [b]TemplateCollection.MyModdedBuilding.Folktails.blueprint.json[/b]:
 [code]
 {
   "TemplateCollectionSpec": {
@@ -17,7 +20,7 @@ Create your TemplateCollectionSpec files as usual for Folktails and Iron Teeth. 
 }
 [/code]
 
-Reuse that Folktails (or Iron Teeth) blueprint on the collection [b]Buildings.Support.ModdedFactions[/b]:
+3. Reuse that Folktails (or Iron Teeth) blueprint on the collection [b]Buildings.Support.ModdedFactions[/b]:
 [code]
 {
   "TemplateCollectionSpec": {

@@ -1,36 +1,35 @@
-Conveyor belts move solid goods without a beaver walking them. Any belt piece can take goods from a building or put goods into one.
+﻿Conveyor Belt v2 is here. This is a full revamp of the old mod. Lay a network as complex as you want: straights, corners, and risers, under platforms and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3801726769]Pipes[/url].
 
-[h1]Pieces[/h1]
-Four speeds sit in their own groups: [b]Log[/b] (1 item/hour), [b]Plank[/b] (10), [b]Treated Planks[/b] (50; [b]Metal[/b] for Iron Teeth), and [b]Composite[/b] (100). Each piece holds at most 5 goods. A slower piece limits the whole line.
+[img]https://files.catbox.moe/6mqj8p.gif[/img]
 
-- [b]Belt[/b]: straight, placed as a line. Takes goods from a building behind it and puts them into a building in front of it.
-- [b]Corner[/b]: a 90° turn. Flip it to pick the direction.
-- [b]Impermeable belt[/b]: Treated Planks speed only. One straight line of goods, but it fills the tile, blocks water, and you can build on top of it.
-- [b]Merger[/b]: three inputs, one output. One good per tick.
-- [b]Splitter[/b]: one input, then left, center, and right.
-- [b]Smart splitter[/b]: the same three outputs. Set each one to a good, [b]Any[/b], or [b]Overflow only[/b]. All three start as Any, which behaves like a plain splitter.
-- [b]Lift up[/b] and [b]Lift down[/b]: each speed group has both. They carry at that speed between a horizontal belt and the cell above or below. Lift down has to sit on a riser or a lift up.
+[b]Not compatible with the previous Conveyor Belt.[/b] That is why this is a separate Workshop item. Finish your current save on the old mod, then start a new save with this one. An old save loaded here will need its belt network rebuilt from scratch.
 
-[h1]Risers[/h1]
-Risers are not on the toolbar. Build a lift first, even if it is still a construction site, select it, and build the riser from the panel. Pick the speed and whether it goes up or down. You can keep going up from a riser the same way.
+[h1]New Belts[/h1]
+Belts now have 4 speeds: a cheap Log belt moves 1 item/hour and is available from the start. Unlock the later belts as you go, up to 100 items/hour. Each speed draws a different amount of power. A Riser Up draws double. A Riser Down draws half. All of these buildings are in their own Conveyor Belt group, next to Storage.
+Horizontal Belts only occupy the bottom of the tile. You can build other buildings on the same tile, including [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3801726769]Pipes[/url] or Platforms.
+[img]https://images.steamusercontent.com/ugc/18373699010988517383/78FE1D0A3824338A30E3CFBBC78E5E3440819836/?imw=5000&imh=5000[/img]
 
-An up riser draws double the power of that speed's belt. A down riser draws half.
+Carrying pieces: Belt (straight), Corner, Riser Up, and Riser Down. Speed 4 also has the Impermeable Belt. It is waterproof and blocks water (see floodable belts below). These pieces can always transfer goods in and out of a building.
 
-[h1]Power[/h1]
-Every piece shuts off completely when it is not at full power. It does not slow down. Power can pass through a belt line, and each piece still has its own draw.
+Junction pieces are still here and are better: Merger, Splitter and Smart Splitter. Lift In and Out are vertical variants of Merger and Splitter. Smart Splitter can now assign a port to Overflow as well.
 
-[h1]Settings[/h1]
-Main Menu -> Mods -> Settings button next to the mod name.
+[h1]Important notes:[/h1]
+[list]
+[*] Junction ports only work with plain belts. Do not chain a Merger or Splitter into another Merger or Splitter. Goods will not move. This includes Lift In and Lift Out: do not put a Merger or Splitter on the output of a Lift Out.
+[*] Belts are floodable. They [b]keep working[/b], but the goods on them are washed away. The Impermeable Belt is the only exception.
+[*] Warning when stuck is now opt-in: select an important belt you want to be warned about when goods are stuck on it, and check "Warn when stuck".
+[*] Belts cannot be partially powered. If you do not provide enough power to the network, the belts will stop working.
+[/list]
 
-[b]Animation[/b] is on by default. Turn it off if the moving belts cost too many frames. A piece with no power also stops animating. Each belt has its own [b]Warn when stuck[/b] toggle, off by default. It warns only while that piece is holding a good it cannot pass on.
+[h1]Mod Settings[/h1]
+You can change some settings for the mod: Main Menu or in-game menu -> Mods -> Settings button next to the mod's name.
+- Animation: You can turn off animations and good boxes on the belts to increase performance.
+- Always show Arrows: always show the direction arrows on the belts even when you do not select one. There is also an option to hide them all the time when you select a belt.
 
-[h2]Belt[/h2]
-- Unlock: Log is free. Plank 250 science, Treated Planks 750, Composite 1500.
-- Cost: Log is 3 Logs. Plank is 1 Plank and 2 Gears. Treated Planks is 1 Treated Plank and 2 Gears. Composite adds 1 Metal Block.
-- Workers: none
-- Power: 2, 4, 8, 16
+[h1]Modded Factions[/h1]
+The belts can be added to modded factions by subscribing to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3815025887]Modded Factions Building Support[/url]. For EP, you may need to subscribe to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3591896694]Treated Planks For Emberpelts[/url]. It is not tested for modded factions, however, and support is considered on a case-by-case basis.
 
-A corner and both lifts cost the same as the belt of their speed, and they draw the same power. Merger and splitter cost 1 Plank and 5 Gears. The smart splitter adds 3 Gears and 3 Metal Blocks on top of that.
+This version also uses a new simulation, if you see any issue, please report it in the comment or on Discord.
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
