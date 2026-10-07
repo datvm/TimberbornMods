@@ -2,6 +2,7 @@
 LV.MDG.Default,"Default",
 LV.MDG.Tails.Fabrics,"Fabrics",
 LV.MDG.Filter,"Filter:",
+LV.MDG.SelectAll,"Select all",
 LV.MDG.Type.Tails,"Tails",
 LV.MDG.Type.Banners,"Banners",
 LV.MDG.PickerTitle,"Pick {0}",
