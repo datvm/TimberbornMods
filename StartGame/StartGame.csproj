@@ -8,8 +8,8 @@
   </PropertyGroup>
   <ItemGroup>
     <!--<ProjectReference Include="..\TimberUi\TimberUi\TimberUi.csproj" />-->
-    <!--<ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />-->
-    <ProjectReference Include="..\ConveyorBelt\ConveyorBelt.csproj" />
+    <ProjectReference Include="..\ModdableTimberborn\ModdableTimberborn.csproj" />
+    <!--<ProjectReference Include="..\ConveyorBelt\ConveyorBelt.csproj" />-->
   </ItemGroup>
   <ItemGroup>
     <Using Include="System.Diagnostics" />
