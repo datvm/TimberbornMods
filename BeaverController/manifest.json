@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Beaver Controller",
+    "Version": "11.0.0",
+    "Id": "BeaverController",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "Manually control beavers and bots.",
+    "RequiredMods": [
+        { "Id": "TimberUi" }
+    ]
+}

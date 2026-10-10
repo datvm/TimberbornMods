@@ -225,6 +225,7 @@
   <Project Path="AlwaysFlexibleStart/AlwaysFlexibleStart.csproj" />
   <Project Path="BathBombs/BathBombs.csproj" Id="3f10831a-291c-4b0e-b023-cce6242f0c07" />
   <Project Path="Battery/Battery.csproj" Id="ac915a66-7cd5-426b-81a1-d5c10e9bc206" />
+  <Project Path="BeaverController/BeaverController.csproj" Id="33b0b946-17e4-4d30-a9ee-b934982cedb5" />
   <Project Path="BeavVsMachine/BeavVsMachine.csproj" />
   <Project Path="BenchmarkAndOptimizer/BenchmarkAndOptimizer.csproj" />
   <Project Path="BlockObjectDebugger/BlockObjectDebugger.csproj" />

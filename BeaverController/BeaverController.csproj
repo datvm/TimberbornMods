@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputModFolderName>BeaverController</OutputModFolderName>
+  </PropertyGroup>
+  <Import Project="../Targets/Common.targets" />
+  <Import Project="../Targets/CommonTimberUI.targets" />
+  <ItemGroup>
+    <Using Include="BeaverController.Components" />
+    <Using Include="BeaverController.Services" />
+    <Using Include="BeaverController.UI" />
+  </ItemGroup>
+</Project>
