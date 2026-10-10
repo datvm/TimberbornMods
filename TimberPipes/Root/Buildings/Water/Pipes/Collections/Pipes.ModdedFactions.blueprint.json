@@ -1,0 +1,20 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.Support.ModdedFactions",
+        "Blueprints": [
+            "Buildings/Water/Pipes/HorizontalPipeValve/HorizontalPipeValve.Folktails.blueprint",
+            "Buildings/Water/Pipes/HorizontalPipeThrottle/HorizontalPipeThrottle.Folktails.blueprint",
+            "Buildings/Water/Pipes/OutfallPipe/OutfallPipe.Folktails.blueprint",
+            "Buildings/Water/Pipes/HorizontalPipe/HorizontalPipe.Folktails.blueprint",
+            "Buildings/Water/Pipes/ElbowPipe/ElbowPipe.Folktails.blueprint",
+            "Buildings/Water/Pipes/TPipe/TPipe.Folktails.blueprint",
+            "Buildings/Water/Pipes/CrossPipe/CrossPipe.Folktails.blueprint",
+            "Buildings/Water/Pipes/HorizontalPipePump/HorizontalPipePump.Folktails.blueprint",
+            "Buildings/Water/Pipes/VerticalCrossPipe/VerticalCrossPipe.Folktails.blueprint",
+            "Buildings/Water/Pipes/VerticalTPipe/VerticalTPipe.Folktails.blueprint",
+            "Buildings/Water/Pipes/ImpermeableVerticalCrossPipe/ImpermeableVerticalCrossPipe.Folktails.blueprint",
+            "Buildings/Water/Pipes/VerticalPipe/VerticalPipe.Folktails.blueprint",
+            "Buildings/Water/Pipes/VerticalPipePump/VerticalPipePump.Folktails.blueprint"
+        ]
+    }
+}
