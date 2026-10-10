@@ -75,12 +75,12 @@ Tanks break the pipe network. Pump headlift does not pass through a tank. Water 
 Main Menu -> Mods -> Settings button next to the mod name.
 - [b]Flow equalization rate (EqualizeK)[/b]: how quickly connected pipes even out. In simple term, it's most of the time the speed water moves. Higher is faster. Default 0.8.
 
+[h1]Modded Factions[/h1]
+The pipes can be added to modded factions by subscribing to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3815025887]Modded Factions Building Support[/url]. For EP, you may need to subscribe to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3591896694]Treated Planks For Emberpelts[/url]. It is not tested for modded factions, however, and support is considered on a case-by-case basis.
+
 [h1]FAQ[/h1]
 Q: The tank will not fill all the way?
 A: Headlift. It cannot rise above the source surface unless a pump adds lift.
-
-Q: My pipe pump does nothing?
-A: It needs power and must not be paused. If the source already has more than 2 m of headlift at the pump's location, the pump is redundant.
 
 Q: The physics does not make sense!
 A: I tried my best testing common scenarios. If you find something, please send me a screenshot/save if my simulation misses something.

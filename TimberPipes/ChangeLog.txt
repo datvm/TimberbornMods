@@ -1,4 +1,6 @@
-﻿v11.3.1: Fixed One-way Valve attempts to extract/fill from any building.
+﻿v11.3.2: Added support for modded factions (Emberpelts, Leaf Coat and Whitepaws). You need to subscribe to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3815025887]Modded Factions Building Support[/url]. For EP, you may need to subscribe to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3591896694]Treated Planks For Emberpelts[/url]. It is not tested for modded factions, however, and support is considered on a case-by-case basis.
+
+v11.3.1: Fixed One-way Valve attempts to extract/fill from any building.
 
 v11.3.0:
 - Added Horizontal and Vertical T Junctions. Thanks to the contribution of idmytro.
