@@ -1,0 +1,33 @@
+﻿A better version of micro-management, to micro-manage your beavers (and bots) even more! You can now make any beaver move to a location, use a building, eat some food or just stop them from whatever they are doing. Original features like assigning districts, workplaces and housing are still available, as well as the beloved [strike]teleport cheat[/strike] unstuckify feature.
+
+Select a beaver or a bot. The [b]Character Control[/b] panel sits on their panel.
+
+[h1]Features[/h1]
+[b]Current action[/b] shows the behavior they are running. [b]Stop current action[/b] cancels that behavior and hands them back to normal AI. A worker may go straight back to the same action of the job.
+
+[b]Move to[/b], then click a spot. They walk there. Check [b]Keep them there after moving[/b] to keep them stay on arrival, and you have to manually click [b]Release[/b] to let it go back to its normal behavior.
+[b]Use building[/b], then click a building this character can use. That covers food and water from a stockpile or pump, bot goods such as punch cards, and wellbeing buildings such as a Campfire or a Charging station. The building has to match a need they actually have. If the visit consumes a good, that unit is reserved as soon as you click, so nobody else can take it while they walk over. The stock count can still show the reserved unit until they consume it.
+
+A full building highlights orange. Clicking it kicks one occupant out of the way, typically the first one if there are multiple but there is no guarantee.
+
+[h2]Assign[/h2]
+[b]Assign district[/b] changes their district and leaves them where they stand. If they cannot reach that district center from there, the game puts them back on the closest district they can reach. [b]This mod no longer teleport beavers to the new District Center[/b]. You have to manually do that if it is not reachable.
+
+[b]Assign workplace[/b] works for adults and bots when the workplace wants that worker type. [b]Assign housing[/b] is for beavers. A full house or workplace kicks one occupant so the new one can take the spot.
+
+Hold [b]Shift[/b] (the Alternate clickable action key) and those two buttons become [b]Unassign housing[/b] and [b]Unassign workplace[/b].
+
+[h2]Teleport[/h2]
+[b]Teleport (Cheat)[/b] is collapsed at the bottom. [b]Teleport to[/b] drops them on the clicked spot. With [b]Keep them there after moving[/b] checked, they stay until you release them.
+
+[h1]Tips[/h1]
+[list]
+[*] [b]Crashable behavior[/b]: Do not use [b]Use building[/b] in a strange way. For example, do not send a kit to the Grinding Teeth station. Kits have no animation for that visit, and the game crashes. I do not stop you from doing it because it is rare and it costs more performance for such a rare check.
+[*] Using [b]Use building[/b], you can let a beaver consume an item from another district, or even unpathed buildings. However, using another district's Wellbeing building may get that beaver kicked out often.
+[img]https://images.steamusercontent.com/ugc/16748415217900293467/835AD30185EB919AE67B003333BADAE58D82B7E0/?imw=5000&imh=5000[/img]
+
+[*] Sometimes you cannot use [b]Use building[/b] on a storage building, possibly because all the stock were reserved by other beavers.
+[/list]
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

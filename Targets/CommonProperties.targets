@@ -8,7 +8,7 @@
 		<AssemblyPath>D:\Software\SteamLibrary\steamapps\common\Timberborn\Timberborn_Data\Managed</AssemblyPath>
 
 		<GameSolutionFolder Condition="'$(GameSolutionFolder)'==''">..\</GameSolutionFolder>
-		<GameModsFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\</GameModsFolder>
+		<GameModsFolder>C:\Users\lukev\Documents\Timberborn\Mods\</GameModsFolder>
 		<ModFolder>$(GameModsFolder)$(OutputModFolderName)\$(TimberbornVersion)\</ModFolder>
 
 		<IsTestProject Condition="'$(IsTestProject)'==''">false</IsTestProject>
