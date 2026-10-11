@@ -1,11 +1,12 @@
 ﻿namespace WarningsBeGone.Components;
 
-public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseComponent, IPersistentEntity, IAwakableComponent
+public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseComponent, IPersistentEntity, IAwakableComponent, IInitializableEntity
 {
     static readonly ComponentKey SaveKey = new(nameof(StatusHidingComponent));
     static readonly ListKey<string> HidingStatusesKey = new("HidingStatuses");
 
     readonly HashSet<string> hidingStatuses = [];
+    readonly HashSet<StatusInstance> hiddenActive = [];
     public string TemplateName { get; private set; } = "";
     public string DisplayName { get; private set; } = "";
 
@@ -59,7 +60,22 @@ public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseC
         new([
             ..statusSubject._activePriorityStatuses,
             .. statusSubject._activeNormalStatuses,
+            .. hiddenActive,
         ]);
+
+    public void InitializeEntity() => RefreshStatusSubject();
+
+    public void OnStatusUpdated(StatusInstance status, bool isActive)
+    {
+        if (!isActive)
+        {
+            hiddenActive.Remove(status);
+        }
+        else if (statusSubject is not null && ShouldHide(status.StatusDescription))
+        {
+            RefreshStatusSubject();
+        }
+    }
 
     public void Awake()
     {
@@ -127,6 +143,17 @@ public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseC
 
     public void RefreshStatusSubject()
     {
+        foreach (var s in GetUnfilteredActiveStatuses())
+        {
+            var hide = ShouldHide(s.StatusDescription);
+            var list = s.IsPriorityStatus ? statusSubject._activePriorityStatuses : statusSubject._activeNormalStatuses;
+            if (hide && hiddenActive.Add(s)) { list.Remove(s); }
+            else if (!hide && hiddenActive.Remove(s)) { list.Add(s); }
+
+            if (hide && StatusHidingService.HideCornerWarnings && s.StatusValueGetter is null) { s.Deactivate(); }
+            else { s.Activate(); }
+        }
+
         if (statusIconCycler)
         {
             statusIconCycler!.OnStatusToggled(null!, null!);
