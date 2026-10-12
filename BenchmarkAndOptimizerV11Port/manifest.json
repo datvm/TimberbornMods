@@ -1,0 +1,20 @@
+{
+  "Name": "Benchmark & Optimizer (v1.1)",
+  "Version": "1.1.103",
+  "Id": "BenchmarkAndOptimizerV11Port",
+  "MinimumGameVersion": "1.1.1.0",
+  "Description": "Isolated 120-second CSV and frame/GC profiler, with protected optional per-system update intervals.",
+  "RequiredMods": [
+    {
+      "Id": "Harmony"
+    },
+    {
+      "Id": "eMka.ModSettings",
+      "MinimumVersion": "1.1.1.0"
+    },
+    {
+      "Id": "TimberUi",
+      "MinimumVersion": "11.0.1"
+    }
+  ]
+}

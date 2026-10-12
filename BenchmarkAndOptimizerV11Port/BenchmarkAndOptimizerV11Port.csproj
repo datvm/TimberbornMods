@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>BenchmarkAndOptimizerV11</AssemblyName>
+    <RootNamespace>BenchmarkAndOptimizerV11</RootNamespace>
+    <AssemblyVersion>1.1.103.0</AssemblyVersion>
+    <FileVersion>1.1.103.0</FileVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="References/**/*.cs" />
+    <Compile Remove="Stubs/**/*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="2.4.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <ProjectReference Include="Stubs/Timberborn.Modding/Timberborn.Modding.Stub.csproj" Private="false" />
+    <ProjectReference Include="Stubs/Timberborn.ModManagerScene/Timberborn.ModManagerScene.Stub.csproj" Private="false" />
+    <ProjectReference Include="Stubs/Timberborn.SettingsSystem/Timberborn.SettingsSystem.Stub.csproj" Private="false" />
+    <ProjectReference Include="Stubs/Timberborn.Options/Timberborn.Options.Stub.csproj" Private="false" />
+    <ProjectReference Include="Stubs/Timberborn.OptionsGame/Timberborn.OptionsGame.Stub.csproj" Private="false" />
+    <ProjectReference Include="Stubs/Timberborn.SingletonSystem/Timberborn.SingletonSystem.Stub.csproj" Private="false" />
+    <ProjectReference Include="Stubs/Bindito.Core/Bindito.Core.Stub.csproj" Private="false" />
+    <ProjectReference Include="Stubs/UnityEngine.UIElementsModule/UnityEngine.UIElementsModule.Stub.csproj" Private="false" />
+    <ProjectReference Include="Stubs/Timberborn.CoreUI/Timberborn.CoreUI.Stub.csproj" Private="false" />
+    <ProjectReference Include="Stubs/ModSettings.Core/ModSettings.Core.Stub.csproj" Private="false" />
+    <ProjectReference Include="Stubs/ModSettings.CoreUI/ModSettings.CoreUI.Stub.csproj" Private="false" />
+    <ProjectReference Include="Stubs/ModSettings.CommonUI/ModSettings.CommonUI.Stub.csproj" Private="false" />
+    <ProjectReference Include="Stubs/TimberUi/TimberUi.Stub.csproj" Private="false" />
+  </ItemGroup>
+</Project>
