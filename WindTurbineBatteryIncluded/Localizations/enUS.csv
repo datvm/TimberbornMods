@@ -1,0 +1,7 @@
+﻿ID,Text,Comment
+LV.WTB.WindmillBatteryName,"Large Wind Turbine w. Battery",
+LV.WTB.WindmillBatteryDesc,"Generates power proportional to wind speed and direction. Also stores power surplus and gives it back when its network is underpowered",
+LV.WTB.WindmillBatteryFlavor,"Here's what you can do when you invent your own laws of mods.",
+LV.WTB.GeneratorWindStr,"Wind Strength: {0:0%} → {1:0.0}hp",
+LV.WTB.GeneratorWindStrDirection,"Wind Direction: {0:0}° / {1:0}° → {2:0.0}hp ({3:0%})",
+Name_LimitedWindTurbineFragment,"Wind Turbine",

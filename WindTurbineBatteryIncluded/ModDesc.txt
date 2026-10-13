@@ -1,0 +1,21 @@
+﻿This mod adds the Large Wind Turbine w. Battery to the Power group for both FT and IT. It combines the Wind Turbine and Battery into one building, at the cost of relying on wind direction due to limited yaw.
+[img]https://images.steamusercontent.com/ugc/14760304366631387772/7946F480B8697A6E97A996AB25BD09B3A589835B/?imw=5000&imh=5000[/img]
+
+[h1]Large Wind Turbine w. Battery[/h1]
+You should see the new building in the Power group, next to the Large Wind Turbine. It works exactly like the Large Wind Turbine and Battery, except it has a limited yaw of 60° and the power output is scaled by how far the wind sits outside that arc by a cosine function. The science cost and building cost are the same as the Large Wind Turbine and Battery combined. All other stats are the same.
+
+For IT, since they do not have Paper, 30 Metal Parts is used instead.
+[img]https://images.steamusercontent.com/ugc/10927505445987357182/1E5FC1F71F105EA068142783C85C911D01AC40F1/?imw=5000&imh=5000[/img]
+
+[h1]Modded Factions[/h1]
+Subscribe to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3815025887]Modded Factions Building Support[/url] and the Folktails building is added to supported modded factions.
+
+[h1]Nerdy Stats[/h1]
+The power percentage formula is:
+[b]max(25%, cos(max(0°, |θ| − 60°)))[/b]
+θ is the wind's angle from the direction you placed the building. Inside 60° the factor is 100%. It then follows the cosine down to 25%, which it reaches at about 136°, and stays there out to 180°.
+
+On average, this turbine produces [b]29.7%[/b] less power than a normal Large Wind Turbine without a yaw limit. That is [b]70.3%[/b] of the normal output.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

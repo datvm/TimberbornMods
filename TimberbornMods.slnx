@@ -269,6 +269,7 @@
   <Project Path="UnlimitedDistrictRange/UnlimitedDistrictRange.csproj" />
   <Project Path="WaterErosion/WaterErosion.csproj" Id="93573e9b-b1df-4bef-a732-297979de88d5" />
   <Project Path="WaterSwap/WaterSwap.csproj" />
+  <Project Path="WindTurbineBatteryIncluded/WindTurbineBatteryIncluded.csproj" Id="403fec17-c4c0-489e-81e5-8ffbb240407d" />
   <Project Path="WirelessCoil/WirelessCoil.csproj" />
   <Project Path="Ziporter/Ziporter.csproj" />
 </Solution>

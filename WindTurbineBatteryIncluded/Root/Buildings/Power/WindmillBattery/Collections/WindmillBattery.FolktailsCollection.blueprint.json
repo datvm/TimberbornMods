@@ -1,0 +1,8 @@
+{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.Folktails",
+        "Blueprints": [
+            "Buildings/Power/WindmillBattery/WindmillBattery.Folktails.blueprint"
+        ]
+    }
+}

@@ -174,3 +174,21 @@ Before packing, dump with `--decode-vertices` and check every material. A triang
 Unless the user explicitly asks for Iron Teeth (or both factions), only create and edit **Folktails** buildings. Do not create `<Building>.IronTeeth.blueprint.json` or an Iron Teeth collection until they say they are ready for the IT pass.
 
 When adding a building, copy a placeholder icon **into that building's own folder** (for example `Buildings/Water/Pipes/NewPipe/NewPipeIcon.png`) and point `LabeledEntitySpec.Icon` at that local file. Do not reuse another building's icon path.
+
+## Modded factions
+
+When asked to make modded faction support when a mod adds a Folktails building collection, also add modded faction support in the same change. `ModdedFactionsBuildingSupport` appends `Buildings.Support.ModdedFactions` onto modded factions (Whitepaws, Leaf Coats, Emberpelts, and later factions that opt in). Those factions then receive the Folktails buildings.
+
+1. In `manifest.json`, add an `OptionalMods` entry. Do not add it to `RequiredMods`.
+
+```json
+"OptionalMods": [
+    { "Id": "ModdedFactionsBuildingSupport" }
+]
+```
+
+2. Copy the Folktails template collection file. Keep the same blueprint list, the Folktails building paths. Change only `CollectionId` to `Buildings.Support.ModdedFactions`.
+
+`ConveyorBelt` is the pattern: `Conveyors.Folktails.blueprint.json` lists the belts under `Buildings.Folktails`, and `Conveyors.ModdedFactions.blueprint.json` lists those same Folktails paths under `Buildings.Support.ModdedFactions`. Name the copy beside the Folktails collection (`WindmillBattery.ModdedFactionsCollection.blueprint.json`, `Conveyors.ModdedFactions.blueprint.json`).
+
+Leave the Iron Teeth collection alone. Modded factions use the Folktails buildings.

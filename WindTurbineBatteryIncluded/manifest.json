@@ -1,0 +1,14 @@
+﻿{
+    "Name": "Wind Turbines: Battery Included",
+    "Version": "11.0.0",
+    "Id": "WindTurbineBatteryIncluded",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "Wind Turbine combined with Batteries",
+    "RequiredMods": [
+        { "Id": "Harmony" },
+        { "Id": "TimberUi" }
+    ],
+    "OptionalMods": [
+        { "Id": "ModdedFactionsBuildingSupport" }
+    ]
+}

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputModFolderName>WindTurbineBatteryIncluded</OutputModFolderName>
+  </PropertyGroup>
+  <Import Project="../Targets/Common.targets" />
+  <Import Project="../Targets/CommonTimberUi.targets" />
+  <ItemGroup>
+    <Using Include="WindTurbineBatteryIncluded.Components" />
+    <Using Include="WindTurbineBatteryIncluded.Services" />
+    <Using Include="WindTurbineBatteryIncluded.Specs" />
+  </ItemGroup>
+</Project>
