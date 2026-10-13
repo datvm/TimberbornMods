@@ -35,24 +35,22 @@ static class ExtendedBuilderReachNavOptimizer
     static Func<object, object, bool>? intersects;
     static Action<object, object>? notify;
 
-    static readonly List<object> EbrListeners = new();
+    static readonly List<object> EbrListeners = [];
     static readonly HashSet<object> ActiveListeners = new(ReferenceComparer.Instance);
-    static readonly Dictionary<long, List<object>> SpatialBuckets = new();
+    static readonly Dictionary<long, List<object>> SpatialBuckets = [];
     static readonly ConditionalWeakTable<object, BucketMembership> Memberships = new();
     static readonly ConditionalWeakTable<object, MigrationMarker> MigratedRegistries = new();
     static readonly HashSet<object> CandidateSet = new(ReferenceComparer.Instance);
-    static readonly Queue<PendingBatch> DeferredBatches = new();
+    static readonly Queue<PendingBatch> DeferredBatches = [];
     static int deferredCandidates;
     static bool deferredModeLogged;
     static bool installed;
 
-    sealed class MigrationMarker
-    {
-    }
+    sealed record MigrationMarker;
 
-    sealed class BucketMembership
+    sealed record BucketMembership
     {
-        public List<long> Keys { get; } = new();
+        public List<long> Keys { get; } = [];
     }
 
     sealed class PendingBatch
@@ -225,14 +223,14 @@ static class ExtendedBuilderReachNavOptimizer
                         typeof(ExtendedBuilderReachNavOptimizer),
                         nameof(NotifyPrefix)))
                 {
-                    priority = Priority.First
+                    priority = HarmonyLib.Priority.First
                 },
                 postfix: new HarmonyMethod(
                     AccessTools.Method(
                         typeof(ExtendedBuilderReachNavOptimizer),
                         nameof(NotifyPostfix)))
                 {
-                    priority = Priority.Last
+                    priority = HarmonyLib.Priority.Last
                 });
 
             harmony.Patch(
@@ -242,7 +240,7 @@ static class ExtendedBuilderReachNavOptimizer
                         typeof(ExtendedBuilderReachNavOptimizer),
                         nameof(RegisterPrefix)))
                 {
-                    priority = Priority.First
+                    priority = HarmonyLib.Priority.First
                 });
             harmony.Patch(
                 unregister,
@@ -251,7 +249,7 @@ static class ExtendedBuilderReachNavOptimizer
                         typeof(ExtendedBuilderReachNavOptimizer),
                         nameof(UnregisterPrefix)))
                 {
-                    priority = Priority.First
+                    priority = HarmonyLib.Priority.First
                 });
             installed = true;
             NavOptimizerDiagnostics.Log(
@@ -597,7 +595,9 @@ static class ExtendedBuilderReachNavOptimizer
     internal static void BoundsChanged(object listener)
     {
         if (!installed || !ActiveListeners.Contains(listener))
+        {
             return;
+        }
 
         RemoveFromSpatialBuckets(listener);
         AddToSpatialBuckets(listener);
@@ -871,7 +871,7 @@ static class ExtendedBuilderReachNavOptimizer
     }
 }
 
-internal static class NavOptimizerDiagnostics
+static class NavOptimizerDiagnostics
 {
     // Disabled in normal releases. No per-listener log allocations or profiler hooks.
     [System.Diagnostics.Conditional("EBR_NAV_DIAGNOSTICS")]
