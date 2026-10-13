@@ -62,7 +62,15 @@ public class ExtendedDemolishableAccessible(
         var minZ = ModUtils.GetMinZ(z);
         var maxZ = ModUtils.GetMaxZ(z, mapSize.TotalSize.z);
 
-        bounds = blockObjectAccessGenerator.GenerateAccessBounds(minZ, maxZ);
+        var updatedBounds = blockObjectAccessGenerator.GenerateAccessBounds(minZ, maxZ);
+        var boundsChanged = !bounds.Equals(updatedBounds);
+        bounds = updatedBounds;
+        if (registered && boundsChanged)
+        {
+            // Keep the spatial dispatcher's index consistent with actual reach.
+            // First-time registration happens after initial UpdateAccesses().
+            ExtendedBuilderReach.Optimizations.ExtendedBuilderReachNavOptimizer.BoundsChanged(this);
+        }
         accessible.SetAccesses(blockObjectAccessGenerator.GenerateAccesses(minZ, maxZ));
         // Keep disabled so vanilla GetEnabledComponent<Accessible>() still resolves uniquely.
         accessible.DisableComponent();
