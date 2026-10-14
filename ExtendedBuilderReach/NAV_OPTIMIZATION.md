@@ -34,18 +34,19 @@ when only a small area changed. This adds a spatial index for **EBR listeners on
 
 ## Field-testing status (October 2026)
 
-The EBR dispatcher running **inside TB Optimizer 1.1.120** was exercised
-for several hours in a heavily modded Timberborn 1.1.2.7 colony alongside
-Extended Builder Reach 11.0.0. The player reported normal gameplay; the
+The independently enabled **EBR module inside TB Optimizer 1.1.120**
+was exercised for several hours in a heavily modded Timberborn 1.1.2.7
+colony alongside EBR 11.0.0. The player reported normal gameplay; the
 provided Player.log contains no managed exceptions or EBR-specific failures
-during that session. It does contain unrelated mod and localization warnings.
+during that session. TB Optimizer's other optimizations are not dependencies
+of the EBR module. This is meaningful field-test evidence for the shared
+spatial dispatch and deferred notification behavior.
 
-This is **integration evidence**, not an in-game test of this standalone
-upstream build: TB Optimizer patches EBR's `UpdateAccesses` via Harmony;
-this proposal calls `BoundsChanged` directly in EBR's component instead.
-The runtime report does not independently verify callback completion,
-measured FPS improvement, unchanged job ordering, or compatibility without
-TB Optimizer. Those checks remain open below.
+The standalone upstream port has a different integration for bounds changes:
+TB Optimizer patches EBR's `UpdateAccesses` via Harmony, while this PR calls
+`BoundsChanged` directly from the component. That wiring still needs to
+compile and receive a short focused smoke test. The log does not establish a
+measured FPS improvement or prove that all callbacks were completed.
 
 ## Before merging
 
