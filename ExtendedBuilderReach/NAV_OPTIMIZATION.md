@@ -32,6 +32,21 @@ when only a small area changed. This adds a spatial index for **EBR listeners on
   Exact same-frame ordering with vanilla is **not** promised.
 - Instrumentation is opt-in at build time (`EBR_NAV_DIAGNOSTICS`).
 
+## Field-testing status (October 2026)
+
+The EBR dispatcher running **inside TB Optimizer 1.1.120** was exercised
+for several hours in a heavily modded Timberborn 1.1.2.7 colony alongside
+Extended Builder Reach 11.0.0. The player reported normal gameplay; the
+provided Player.log contains no managed exceptions or EBR-specific failures
+during that session. It does contain unrelated mod and localization warnings.
+
+This is **integration evidence**, not an in-game test of this standalone
+upstream build: TB Optimizer patches EBR's `UpdateAccesses` via Harmony;
+this proposal calls `BoundsChanged` directly in EBR's component instead.
+The runtime report does not independently verify callback completion,
+measured FPS improvement, unchanged job ordering, or compatibility without
+TB Optimizer. Those checks remain open below.
+
 ## Before merging
 
 - [ ] Build `ExtendedBuilderReach` with the author's publicized game assemblies.
