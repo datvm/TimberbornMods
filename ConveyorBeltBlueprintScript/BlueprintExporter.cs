@@ -51,6 +51,10 @@ sealed class BlueprintExporter
     {
         using var belt = Icon("BeltIcon.png");
         using var corner = Icon("CornerBeltIcon.png");
+        using var elbowInUp = Icon("VerticalInUpIcon.png");
+        using var elbowInDown = Icon("VerticalInDownIcon.png");
+        using var elbowOutUp = Icon("VerticalOutUpIcon.png");
+        using var elbowOutDown = Icon("VerticalOutDownIcon.png");
         using var up = Icon("BeltUpIcon.png");
         using var down = Icon("BeltDownIcon.png");
         using var impermeable = Icon("ImpermeableIcon.png");
@@ -80,27 +84,66 @@ sealed class BlueprintExporter
                 var name = nameNode!.GetValue<string>();
                 var relative = Interpolate(iconPattern, Variant(name));
                 var plain = relative.Contains("Impermeable");
-                var template = belt;
-                if (plain)
-                {
-                    template = impermeable;
-                }
-                else if (relative.Contains("Corner"))
-                {
-                    template = corner;
-                }
-                else if (relative.Contains("RiserUp"))
-                {
-                    template = up;
-                }
-                else if (relative.Contains("RiserDown"))
-                {
-                    template = down;
-                }
+                var template = IconFor(relative, belt, corner, elbowInUp, elbowInDown, elbowOutUp, elbowOutDown, up, down, impermeable);
 
                 Stamp(template, typeface, Path.Combine(outputRoot, relative + ".png"), plain ? 0 : tier[name]);
             }
         }
+    }
+
+    static SKBitmap IconFor(
+        string relative,
+        SKBitmap belt,
+        SKBitmap corner,
+        SKBitmap elbowInUp,
+        SKBitmap elbowInDown,
+        SKBitmap elbowOutUp,
+        SKBitmap elbowOutDown,
+        SKBitmap up,
+        SKBitmap down,
+        SKBitmap impermeable)
+    {
+        if (relative.Contains("Impermeable"))
+        {
+            return impermeable;
+        }
+
+        if (relative.Contains("ElbowInUp"))
+        {
+            return elbowInUp;
+        }
+
+        if (relative.Contains("ElbowInDown"))
+        {
+            return elbowInDown;
+        }
+
+        if (relative.Contains("ElbowOutUp"))
+        {
+            return elbowOutUp;
+        }
+
+        if (relative.Contains("ElbowOutDown"))
+        {
+            return elbowOutDown;
+        }
+
+        if (relative.Contains("Corner"))
+        {
+            return corner;
+        }
+
+        if (relative.Contains("RiserUp"))
+        {
+            return up;
+        }
+
+        if (relative.Contains("RiserDown"))
+        {
+            return down;
+        }
+
+        return belt;
     }
 
     SKBitmap Icon(string name)
@@ -209,13 +252,14 @@ sealed class BlueprintExporter
             yield break;
         }
 
-        if (input["Factions"] is not JsonArray factions || factions.Count == 0)
+        var listed = export["Factions"] as JsonArray ?? input["Factions"] as JsonArray;
+        if (listed is null || listed.Count == 0)
         {
             yield return null;
             yield break;
         }
 
-        foreach (var faction in factions)
+        foreach (var faction in listed)
         {
             yield return faction!.GetValue<string>();
         }
@@ -315,6 +359,11 @@ sealed class BlueprintExporter
 
         if (node is JsonObject obj)
         {
+            if (obj.ContainsKey("$when"))
+            {
+                return ExpandWhen(obj, variant);
+            }
+
             if (obj.ContainsKey("$each"))
             {
                 return ExpandEach(obj, variant);
@@ -413,20 +462,42 @@ sealed class BlueprintExporter
         foreach (var name in names)
         {
             var resolved = Resolve(item, WithFaction(Variant(name), variant));
-            if (resolved is JsonArray many)
-            {
-                foreach (var one in many)
-                {
-                    result.Add(one?.DeepClone());
-                }
-
-                continue;
-            }
-
-            result.Add(resolved);
+            AddFlat(result, resolved);
         }
 
         return result;
+    }
+
+    JsonNode ExpandWhen(JsonObject when, JsonObject? variant)
+    {
+        if (when["Item"] is not JsonNode item)
+        {
+            throw new InvalidOperationException("$when needs an Item.");
+        }
+
+        var expected = when["$when"]?.GetValue<string>();
+        var faction = variant?["Faction"]?.GetValue<string>();
+        if (!string.Equals(faction, expected, StringComparison.Ordinal))
+        {
+            return new JsonArray();
+        }
+
+        return Resolve(item, variant) ?? new JsonArray();
+    }
+
+    static void AddFlat(JsonArray result, JsonNode? node)
+    {
+        if (node is JsonArray many)
+        {
+            foreach (var one in many)
+            {
+                AddFlat(result, one);
+            }
+
+            return;
+        }
+
+        result.Add(node?.DeepClone());
     }
 
     static JsonObject WithFaction(JsonObject speed, JsonObject? outer)

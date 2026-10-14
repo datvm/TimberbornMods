@@ -1,0 +1,5 @@
+﻿v11.4.0:
+- Added 4 vertical belt pieces for each speed that can transfer goods in and out of buildings.
+- Remodeled Lift in and Lift out.
+[img]https://files.catbox.moe/h7hi49.jpg[/img]
+Video: https://files.catbox.moe/xs5ft8.mp4

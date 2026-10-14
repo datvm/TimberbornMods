@@ -23,7 +23,23 @@
       "Buildings/Conveyors/Sp3/RiserUp/RiserSp3Up.IronTeeth.blueprint",
       "Buildings/Conveyors/Sp3/RiserDown/RiserSp3Down.IronTeeth.blueprint",
       "Buildings/Conveyors/Sp4/RiserUp/RiserSp4Up.IronTeeth.blueprint",
-      "Buildings/Conveyors/Sp4/RiserDown/RiserSp4Down.IronTeeth.blueprint"
+      "Buildings/Conveyors/Sp4/RiserDown/RiserSp4Down.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp1/ElbowInUp/ElbowInSp1Up.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp1/ElbowInDown/ElbowInSp1Down.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp1/ElbowOutUp/ElbowOutSp1Up.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp1/ElbowOutDown/ElbowOutSp1Down.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp2/ElbowInUp/ElbowInSp2Up.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp2/ElbowInDown/ElbowInSp2Down.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp2/ElbowOutUp/ElbowOutSp2Up.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp2/ElbowOutDown/ElbowOutSp2Down.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp3/ElbowInUp/ElbowInSp3Up.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp3/ElbowInDown/ElbowInSp3Down.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp3/ElbowOutUp/ElbowOutSp3Up.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp3/ElbowOutDown/ElbowOutSp3Down.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp4/ElbowInUp/ElbowInSp4Up.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp4/ElbowInDown/ElbowInSp4Down.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp4/ElbowOutUp/ElbowOutSp4Up.IronTeeth.blueprint",
+      "Buildings/Conveyors/Sp4/ElbowOutDown/ElbowOutSp4Down.IronTeeth.blueprint"
     ]
   }
 }

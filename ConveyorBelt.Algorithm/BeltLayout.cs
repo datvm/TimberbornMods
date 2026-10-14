@@ -7,6 +7,10 @@ public enum BeltForm
     RiserUp,
     RiserDown,
     Impermeable,
+    ElbowInUp,
+    ElbowInDown,
+    ElbowOutUp,
+    ElbowOutDown,
 }
 
 public readonly record struct BeltPort(BeltDir Direction, bool Incoming);
@@ -29,6 +33,22 @@ public static class BeltLayout
             case BeltForm.RiserDown:
                 ports.Add(new(BeltDir.Top, true));
                 ports.Add(new(BeltDir.Bottom, false));
+                break;
+            case BeltForm.ElbowInUp:
+                ports.Add(new(BeltDir.Up, true));
+                ports.Add(new(BeltDir.Top, false));
+                break;
+            case BeltForm.ElbowInDown:
+                ports.Add(new(BeltDir.Up, true));
+                ports.Add(new(BeltDir.Bottom, false));
+                break;
+            case BeltForm.ElbowOutUp:
+                ports.Add(new(BeltDir.Bottom, true));
+                ports.Add(new(BeltDir.Up, false));
+                break;
+            case BeltForm.ElbowOutDown:
+                ports.Add(new(BeltDir.Top, true));
+                ports.Add(new(BeltDir.Down, false));
                 break;
             default:
                 ports.Add(new(BeltDir.Up, true));

@@ -35,6 +35,8 @@ public class BeltVisualService(IBlockService blocks, MSettings settings, BeltBox
 
     public float GoodScale(float size) => boxes.Size > 0f ? size / boxes.Size : 1f;
 
+    public float GoodHeight(float size) => boxes.Size > 0f ? size * boxes.Height / boxes.Size : size;
+
     public bool ApplyGood(Material boxMaterial, Material iconMaterial, string id) => boxes.ApplyGood(boxMaterial, iconMaterial, id);
 
     public GameObject CreateGood(Transform parent, EntityMaterials? entityMaterials)
@@ -76,6 +78,13 @@ public class BeltVisualService(IBlockService blocks, MSettings settings, BeltBox
         var renderer = copy.AddComponent<MeshRenderer>();
         renderer.sharedMaterial = boxes.RunnerWood;
         renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        return copy;
+    }
+
+    public GameObject CreatePanel(Transform parent)
+    {
+        var copy = CreateRunner(parent);
+        copy.name = "Panel";
         return copy;
     }
 

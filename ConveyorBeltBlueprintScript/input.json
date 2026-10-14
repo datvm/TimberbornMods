@@ -17,7 +17,7 @@
         ]
       },
       "Power": { "Belt": 2, "RiserUp": 4, "RiserDown": 1 },
-      "ToolOrder": { "Belt": 10, "Corner": 20, "RiserUp": 40, "RiserDown": 50 }
+      "ToolOrder": { "Belt": 10, "Corner": 20, "RiserUp": 40, "RiserDown": 50, "ElbowInUp": 60, "ElbowInDown": 61, "ElbowOutUp": 62, "ElbowOutDown": 63 }
     },
     "Sp2": {
       "Id": "Sp2",
@@ -35,7 +35,7 @@
         ]
       },
       "Power": { "Belt": 4, "RiserUp": 8, "RiserDown": 2 },
-      "ToolOrder": { "Belt": 10, "Corner": 20, "RiserUp": 40, "RiserDown": 50 }
+      "ToolOrder": { "Belt": 10, "Corner": 20, "RiserUp": 40, "RiserDown": 50, "ElbowInUp": 60, "ElbowInDown": 61, "ElbowOutUp": 62, "ElbowOutDown": 63 }
     },
     "Sp3": {
       "Id": "Sp3",
@@ -65,7 +65,7 @@
         }
       },
       "Power": { "Belt": 8, "RiserUp": 16, "RiserDown": 4 },
-      "ToolOrder": { "Belt": 10, "Corner": 20, "RiserUp": 40, "RiserDown": 50 }
+      "ToolOrder": { "Belt": 10, "Corner": 20, "RiserUp": 40, "RiserDown": 50, "ElbowInUp": 60, "ElbowInDown": 61, "ElbowOutUp": 62, "ElbowOutDown": 63 }
     },
     "Sp4": {
       "Id": "Sp4",
@@ -99,7 +99,7 @@
         }
       },
       "Power": { "Belt": 16, "RiserUp": 32, "RiserDown": 8 },
-      "ToolOrder": { "Belt": 10, "Corner": 20, "Impermeable": 30, "RiserUp": 40, "RiserDown": 50 }
+      "ToolOrder": { "Belt": 10, "Corner": 20, "Impermeable": 30, "RiserUp": 40, "RiserDown": 50, "ElbowInUp": 60, "ElbowInDown": 61, "ElbowOutUp": 62, "ElbowOutDown": 63 }
     }
   },
   "Exports": [
@@ -141,39 +141,135 @@
       }
     },
     {
-      "Template": "Templates/RiserUp.template.json",
+      "Template": "Templates/Elbow.template.json",
       "Variants": ["Sp1", "Sp2", "Sp3", "Sp4"],
-      "Output": "Buildings/Conveyors/{Id}/RiserUp/Riser{Id}Up.{Faction}.blueprint.json",
+      "Output": "Buildings/Conveyors/{Id}/ElbowInUp/ElbowIn{Id}Up.{Faction}.blueprint.json",
       "Set": {
-        "BuildingSpec.BuildingCost": "{Cost.Riser}",
+        "BuildingSpec.BuildingCost": "{Cost.Belt}",
         "BuildingSpec.ScienceCost": "{ScienceCost}",
-        "TemplateSpec.TemplateName": "ConveyorRiser{Id}Up.{Faction}",
+        "TemplateSpec.TemplateName": "ConveyorElbowIn{Id}Up.{Faction}",
         "PlaceableBlockObjectSpec.ToolGroupId": "{ToolGroupId}",
-        "PlaceableBlockObjectSpec.ToolOrder": "{ToolOrder.RiserUp}",
-        "LabeledEntitySpec.DisplayNameLocKey": "LV.CBlt.Riser{Id}UpName",
-        "LabeledEntitySpec.Icon": "Buildings/Conveyors/{Id}/RiserUp/Riser{Id}UpIcon",
-        "MechanicalNodeSpec.PowerInput": "{Power.RiserUp}",
+        "PlaceableBlockObjectSpec.ToolOrder": "{ToolOrder.ElbowInUp}",
+        "LabeledEntitySpec.DisplayNameLocKey": "LV.CBlt.ElbowIn{Id}UpName",
+        "LabeledEntitySpec.DescriptionLocKey": "LV.CBlt.ElbowInUpDesc",
+        "LabeledEntitySpec.Icon": "Buildings/Conveyors/{Id}/ElbowInUp/ElbowIn{Id}UpIcon",
+        "MechanicalNodeSpec.PowerInput": "{Power.Belt}",
+        "BeltCarrierSpec.Shape": "ElbowInUp",
         "BeltCarrierSpec.Speed": "{Id}",
-        "Children.#Unfinished.Children.ConstructionStage0.TimbermeshSpec.Model": "Buildings/Conveyors/Models/Riser{Id}.{Faction}.Model",
-        "Children.#Finished.TimbermeshSpec.Model": "Buildings/Conveyors/Models/Riser{Id}.{Faction}.Model"
+        "BlockObjectNavMeshSettingsSpec.GenerateFloorsOnStackable": true,
+        "BlockObjectSpec.Blocks": [
+          {
+            "MatterBelow": "GroundOrStackable",
+            "Occupations": "Bottom, Top, Path, Middle",
+            "Stackable": "BlockObject",
+            "OccupyAllBelow": false,
+            "Underground": false
+          }
+        ],
+        "Children.#Finished.CollidersSpec": {
+          "BoxColliders": [
+            { "Center": { "X": 0.5, "Y": 0.5, "Z": 0.5 }, "Size": { "X": 0.5, "Y": 1.0, "Z": 0.42 } },
+            { "Center": { "X": 0.5, "Y": 0.07, "Z": 0.81 }, "Size": { "X": 0.3, "Y": 0.08, "Z": 0.38 } }
+          ],
+          "SphereColliders": [],
+          "CapsuleColliders": []
+        },
+        "Children.#Unfinished.Children.ConstructionStage0.CollidersSpec": {
+          "BoxColliders": [
+            { "Center": { "X": 0.5, "Y": 0.5, "Z": 0.5 }, "Size": { "X": 0.5, "Y": 1.0, "Z": 0.42 } },
+            { "Center": { "X": 0.5, "Y": 0.07, "Z": 0.81 }, "Size": { "X": 0.3, "Y": 0.08, "Z": 0.38 } }
+          ],
+          "SphereColliders": [],
+          "CapsuleColliders": []
+        },
+        "Children.#Unfinished.Children.ConstructionStage0.TimbermeshSpec.Model": "Buildings/Conveyors/Models/ElbowUp{Id}.{Faction}.Model",
+        "Children.#Finished.TimbermeshSpec.Model": "Buildings/Conveyors/Models/ElbowUp{Id}.{Faction}.Model"
       }
     },
     {
-      "Template": "Templates/RiserDown.template.json",
+      "Template": "Templates/Elbow.template.json",
       "Variants": ["Sp1", "Sp2", "Sp3", "Sp4"],
-      "Output": "Buildings/Conveyors/{Id}/RiserDown/Riser{Id}Down.{Faction}.blueprint.json",
+      "Output": "Buildings/Conveyors/{Id}/ElbowInDown/ElbowIn{Id}Down.{Faction}.blueprint.json",
       "Set": {
-        "BuildingSpec.BuildingCost": "{Cost.Riser}",
+        "BuildingSpec.BuildingCost": "{Cost.Belt}",
         "BuildingSpec.ScienceCost": "{ScienceCost}",
-        "TemplateSpec.TemplateName": "ConveyorRiser{Id}Down.{Faction}",
+        "TemplateSpec.TemplateName": "ConveyorElbowIn{Id}Down.{Faction}",
         "PlaceableBlockObjectSpec.ToolGroupId": "{ToolGroupId}",
-        "PlaceableBlockObjectSpec.ToolOrder": "{ToolOrder.RiserDown}",
-        "LabeledEntitySpec.DisplayNameLocKey": "LV.CBlt.Riser{Id}DownName",
-        "LabeledEntitySpec.Icon": "Buildings/Conveyors/{Id}/RiserDown/Riser{Id}DownIcon",
-        "MechanicalNodeSpec.PowerInput": "{Power.RiserDown}",
+        "PlaceableBlockObjectSpec.ToolOrder": "{ToolOrder.ElbowInDown}",
+        "LabeledEntitySpec.DisplayNameLocKey": "LV.CBlt.ElbowIn{Id}DownName",
+        "LabeledEntitySpec.DescriptionLocKey": "LV.CBlt.ElbowInDownDesc",
+        "LabeledEntitySpec.Icon": "Buildings/Conveyors/{Id}/ElbowInDown/ElbowIn{Id}DownIcon",
+        "MechanicalNodeSpec.PowerInput": "{Power.Belt}",
+        "BeltCarrierSpec.Shape": "ElbowInDown",
         "BeltCarrierSpec.Speed": "{Id}",
-        "Children.#Unfinished.Children.ConstructionStage0.TimbermeshSpec.Model": "Buildings/Conveyors/Models/Riser{Id}.{Faction}.Model",
-        "Children.#Finished.TimbermeshSpec.Model": "Buildings/Conveyors/Models/Riser{Id}.{Faction}.Model"
+        "Children.#Unfinished.Children.ConstructionStage0.TimbermeshSpec.Model": "Buildings/Conveyors/Models/ElbowInDown{Id}.{Faction}.Model",
+        "Children.#Finished.TimbermeshSpec.Model": "Buildings/Conveyors/Models/ElbowInDown{Id}.{Faction}.Model"
+      }
+    },
+    {
+      "Template": "Templates/Elbow.template.json",
+      "Variants": ["Sp1", "Sp2", "Sp3", "Sp4"],
+      "Output": "Buildings/Conveyors/{Id}/ElbowOutUp/ElbowOut{Id}Up.{Faction}.blueprint.json",
+      "Set": {
+        "BuildingSpec.BuildingCost": "{Cost.Belt}",
+        "BuildingSpec.ScienceCost": "{ScienceCost}",
+        "TemplateSpec.TemplateName": "ConveyorElbowOut{Id}Up.{Faction}",
+        "PlaceableBlockObjectSpec.ToolGroupId": "{ToolGroupId}",
+        "PlaceableBlockObjectSpec.ToolOrder": "{ToolOrder.ElbowOutUp}",
+        "LabeledEntitySpec.DisplayNameLocKey": "LV.CBlt.ElbowOut{Id}UpName",
+        "LabeledEntitySpec.DescriptionLocKey": "LV.CBlt.ElbowOutUpDesc",
+        "LabeledEntitySpec.Icon": "Buildings/Conveyors/{Id}/ElbowOutUp/ElbowOut{Id}UpIcon",
+        "MechanicalNodeSpec.PowerInput": "{Power.Belt}",
+        "BeltCarrierSpec.Shape": "ElbowOutUp",
+        "BeltCarrierSpec.Speed": "{Id}",
+        "Children.#Unfinished.Children.ConstructionStage0.TimbermeshSpec.Model": "Buildings/Conveyors/Models/ElbowOutUp{Id}.{Faction}.Model",
+        "Children.#Finished.TimbermeshSpec.Model": "Buildings/Conveyors/Models/ElbowOutUp{Id}.{Faction}.Model"
+      }
+    },
+    {
+      "Template": "Templates/Elbow.template.json",
+      "Variants": ["Sp1", "Sp2", "Sp3", "Sp4"],
+      "Output": "Buildings/Conveyors/{Id}/ElbowOutDown/ElbowOut{Id}Down.{Faction}.blueprint.json",
+      "Set": {
+        "BuildingSpec.BuildingCost": "{Cost.Belt}",
+        "BuildingSpec.ScienceCost": "{ScienceCost}",
+        "TemplateSpec.TemplateName": "ConveyorElbowOut{Id}Down.{Faction}",
+        "PlaceableBlockObjectSpec.ToolGroupId": "{ToolGroupId}",
+        "PlaceableBlockObjectSpec.ToolOrder": "{ToolOrder.ElbowOutDown}",
+        "LabeledEntitySpec.DisplayNameLocKey": "LV.CBlt.ElbowOut{Id}DownName",
+        "LabeledEntitySpec.DescriptionLocKey": "LV.CBlt.ElbowOutDownDesc",
+        "LabeledEntitySpec.Icon": "Buildings/Conveyors/{Id}/ElbowOutDown/ElbowOut{Id}DownIcon",
+        "MechanicalNodeSpec.PowerInput": "{Power.Belt}",
+        "BeltCarrierSpec.Shape": "ElbowOutDown",
+        "BeltCarrierSpec.Speed": "{Id}",
+        "BlockObjectNavMeshSettingsSpec.GenerateFloorsOnStackable": true,
+        "BlockObjectSpec.Blocks": [
+          {
+            "MatterBelow": "GroundOrStackable",
+            "Occupations": "Bottom, Top, Path, Middle",
+            "Stackable": "BlockObject",
+            "OccupyAllBelow": false,
+            "Underground": false
+          }
+        ],
+        "Children.#Finished.CollidersSpec": {
+          "BoxColliders": [
+            { "Center": { "X": 0.5, "Y": 0.5, "Z": 0.5 }, "Size": { "X": 0.5, "Y": 1.0, "Z": 0.42 } },
+            { "Center": { "X": 0.5, "Y": 0.07, "Z": 0.19 }, "Size": { "X": 0.3, "Y": 0.08, "Z": 0.38 } }
+          ],
+          "SphereColliders": [],
+          "CapsuleColliders": []
+        },
+        "Children.#Unfinished.Children.ConstructionStage0.CollidersSpec": {
+          "BoxColliders": [
+            { "Center": { "X": 0.5, "Y": 0.5, "Z": 0.5 }, "Size": { "X": 0.5, "Y": 1.0, "Z": 0.42 } },
+            { "Center": { "X": 0.5, "Y": 0.07, "Z": 0.19 }, "Size": { "X": 0.3, "Y": 0.08, "Z": 0.38 } }
+          ],
+          "SphereColliders": [],
+          "CapsuleColliders": []
+        },
+        "Children.#Unfinished.Children.ConstructionStage0.TimbermeshSpec.Model": "Buildings/Conveyors/Models/ElbowOutDown{Id}.{Faction}.Model",
+        "Children.#Finished.TimbermeshSpec.Model": "Buildings/Conveyors/Models/ElbowOutDown{Id}.{Faction}.Model"
       }
     },
     {
@@ -384,6 +480,88 @@
       }
     },
     {
+      "Template": "Templates/RiserUp.template.json",
+      "Variants": ["Sp1", "Sp2", "Sp3", "Sp4"],
+      "Output": "Buildings/Conveyors/{Id}/RiserUp/Riser{Id}Up.{Faction}.blueprint.json",
+      "Set": {
+        "BuildingSpec.BuildingCost": "{Cost.Riser}",
+        "BuildingSpec.ScienceCost": "{ScienceCost}",
+        "TemplateSpec.TemplateName": "ConveyorRiser{Id}Up.{Faction}",
+        "PlaceableBlockObjectSpec.ToolGroupId": "{ToolGroupId}",
+        "PlaceableBlockObjectSpec.ToolOrder": "{ToolOrder.RiserUp}",
+        "LabeledEntitySpec.DisplayNameLocKey": "LV.CBlt.Riser{Id}UpName",
+        "LabeledEntitySpec.Icon": "Buildings/Conveyors/{Id}/RiserUp/Riser{Id}UpIcon",
+        "MechanicalNodeSpec.PowerInput": "{Power.RiserUp}",
+        "BeltCarrierSpec.Speed": "{Id}",
+        "BlockObjectSpec.Blocks": [
+          {
+            "MatterBelow": "GroundOrStackable",
+            "Occupations": "Bottom, Top, Path, Middle",
+            "Stackable": "BlockObject",
+            "OccupyAllBelow": false,
+            "Underground": false
+          }
+        ],
+        "Children.#Finished.CollidersSpec": {
+          "BoxColliders": [
+            { "Center": { "X": 0.5, "Y": 0.5, "Z": 0.5 }, "Size": { "X": 0.5, "Y": 1.0, "Z": 0.42 } }
+          ],
+          "SphereColliders": [],
+          "CapsuleColliders": []
+        },
+        "Children.#Unfinished.Children.ConstructionStage0.CollidersSpec": {
+          "BoxColliders": [
+            { "Center": { "X": 0.5, "Y": 0.5, "Z": 0.5 }, "Size": { "X": 0.5, "Y": 1.0, "Z": 0.42 } }
+          ],
+          "SphereColliders": [],
+          "CapsuleColliders": []
+        },
+        "Children.#Unfinished.Children.ConstructionStage0.TimbermeshSpec.Model": "Buildings/Conveyors/Models/Riser{Id}.{Faction}.Model",
+        "Children.#Finished.TimbermeshSpec.Model": "Buildings/Conveyors/Models/Riser{Id}.{Faction}.Model"
+      }
+    },
+    {
+      "Template": "Templates/RiserDown.template.json",
+      "Variants": ["Sp1", "Sp2", "Sp3", "Sp4"],
+      "Output": "Buildings/Conveyors/{Id}/RiserDown/Riser{Id}Down.{Faction}.blueprint.json",
+      "Set": {
+        "BuildingSpec.BuildingCost": "{Cost.Riser}",
+        "BuildingSpec.ScienceCost": "{ScienceCost}",
+        "TemplateSpec.TemplateName": "ConveyorRiser{Id}Down.{Faction}",
+        "PlaceableBlockObjectSpec.ToolGroupId": "{ToolGroupId}",
+        "PlaceableBlockObjectSpec.ToolOrder": "{ToolOrder.RiserDown}",
+        "LabeledEntitySpec.DisplayNameLocKey": "LV.CBlt.Riser{Id}DownName",
+        "LabeledEntitySpec.Icon": "Buildings/Conveyors/{Id}/RiserDown/Riser{Id}DownIcon",
+        "MechanicalNodeSpec.PowerInput": "{Power.RiserDown}",
+        "BeltCarrierSpec.Speed": "{Id}",
+        "BlockObjectSpec.Blocks": [
+          {
+            "MatterBelow": "GroundOrStackable",
+            "Occupations": "Bottom, Top, Path, Middle",
+            "Stackable": "BlockObject",
+            "OccupyAllBelow": false,
+            "Underground": false
+          }
+        ],
+        "Children.#Finished.CollidersSpec": {
+          "BoxColliders": [
+            { "Center": { "X": 0.5, "Y": 0.5, "Z": 0.5 }, "Size": { "X": 0.5, "Y": 1.0, "Z": 0.42 } }
+          ],
+          "SphereColliders": [],
+          "CapsuleColliders": []
+        },
+        "Children.#Unfinished.Children.ConstructionStage0.CollidersSpec": {
+          "BoxColliders": [
+            { "Center": { "X": 0.5, "Y": 0.5, "Z": 0.5 }, "Size": { "X": 0.5, "Y": 1.0, "Z": 0.42 } }
+          ],
+          "SphereColliders": [],
+          "CapsuleColliders": []
+        },
+        "Children.#Unfinished.Children.ConstructionStage0.TimbermeshSpec.Model": "Buildings/Conveyors/Models/Riser{Id}.{Faction}.Model",
+        "Children.#Finished.TimbermeshSpec.Model": "Buildings/Conveyors/Models/Riser{Id}.{Faction}.Model"
+      }
+    },
+    {
       "Template": "Templates/SettingsSpec.template.json",
       "Once": true,
       "Output": "Specs/ConveyorBeltSettingsSpec.blueprint.json",
@@ -431,6 +609,15 @@
               "Item": [
                 "Buildings/Conveyors/{Id}/RiserUp/Riser{Id}Up.{Faction}.blueprint",
                 "Buildings/Conveyors/{Id}/RiserDown/Riser{Id}Down.{Faction}.blueprint"
+              ]
+            },
+            {
+              "$each": ["Sp1", "Sp2", "Sp3", "Sp4"],
+              "Item": [
+                "Buildings/Conveyors/{Id}/ElbowInUp/ElbowIn{Id}Up.{Faction}.blueprint",
+                "Buildings/Conveyors/{Id}/ElbowInDown/ElbowIn{Id}Down.{Faction}.blueprint",
+                "Buildings/Conveyors/{Id}/ElbowOutUp/ElbowOut{Id}Up.{Faction}.blueprint",
+                "Buildings/Conveyors/{Id}/ElbowOutDown/ElbowOut{Id}Down.{Faction}.blueprint"
               ]
             }
           ]

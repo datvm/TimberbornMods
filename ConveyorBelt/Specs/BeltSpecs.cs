@@ -7,6 +7,10 @@ public enum BeltShape
     RiserUp,
     RiserDown,
     Impermeable,
+    ElbowInUp,
+    ElbowInDown,
+    ElbowOutUp,
+    ElbowOutDown,
 }
 
 public record BeltSystemSpec : ComponentSpec;

@@ -50,6 +50,45 @@ public class BeltInventory(BeltInventoryService service)
         ApplyStuck();
     }
 
+    public void FillLogs()
+    {
+        BeltFill.AddLogs(Lane.Items, Lane.CanCarry);
+        Lane.DropTrails();
+        ApplyStuck();
+    }
+
+    public void ClearContents()
+    {
+        Lane.Clear();
+        ApplyStuck();
+    }
+
+    public void CollectLinks(List<Vector3Int> cells)
+    {
+        cells.Clear();
+        if (GetComponent<BeltCarrier>() is { } carrier)
+        {
+            cells.Add(carrier.InPort.Target);
+            cells.Add(carrier.OutPort.Target);
+            return;
+        }
+
+        if (GetComponent<BeltJunction>() is not { } junction)
+        {
+            return;
+        }
+
+        foreach (var cell in junction.InputCells)
+        {
+            cells.Add(cell);
+        }
+
+        foreach (var cell in junction.OutputCells)
+        {
+            cells.Add(cell);
+        }
+    }
+
     public void ApplyStuck()
     {
         if (stuckStatus is null)

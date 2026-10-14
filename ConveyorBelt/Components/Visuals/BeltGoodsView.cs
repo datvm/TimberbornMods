@@ -5,7 +5,16 @@ sealed class BeltGoodsView(BeltVisualService visuals)
     public const float BoxFill = 0.6f;
     public const float BoxY = 0.11f;
 
+    const float ShelfThick = 0.02f;
+    const float HoleX0 = 0.35525f;
+    const float HoleX1 = 0.64475f;
+    const float HoleZ0 = 0.38f;
+    const float HoleZ1 = 0.62f;
+
+    public bool ShelfAlongZ;
+
     readonly List<GameObject> goods = [];
+    readonly List<GameObject> shelves = [];
     readonly List<GameObject> icons = [];
     readonly List<MeshRenderer> boxRenderers = [];
     readonly List<MeshRenderer> iconRenderers = [];
@@ -63,6 +72,7 @@ sealed class BeltGoodsView(BeltVisualService visuals)
             var copy = visuals.CreateGood(root.transform, entityMaterials);
             var icon = copy.transform.Find("Icon").gameObject;
             goods.Add(copy);
+            shelves.Add(visuals.CreatePanel(root.transform));
             icons.Add(icon);
             boxRenderers.Add(copy.GetComponent<MeshRenderer>());
             iconRenderers.Add(icon.GetComponent<MeshRenderer>());
@@ -82,6 +92,7 @@ sealed class BeltGoodsView(BeltVisualService visuals)
             if (!trail.Shows(progress))
             {
                 goods[i].SetActive(false);
+                shelves[i].SetActive(false);
                 continue;
             }
 
@@ -146,10 +157,33 @@ sealed class BeltGoodsView(BeltVisualService visuals)
             Paint(i, id);
         }
 
-        position.y = BoxY;
+        var onDeck = position.y > -0.001f && position.y <= 0f;
+        var climbing = !onDeck;
+        if (onDeck)
+        {
+            position.y = BoxY;
+        }
+
         good.SetActive(true);
         good.transform.localScale = Vector3.one * scale;
         good.transform.localPosition = position;
+        var shelf = shelves[i];
+        shelf.SetActive(climbing);
+        if (climbing)
+        {
+            var depth = BeltRates.Spacing * BoxFill * 1.5f;
+            var y = position.y - ShelfThick * 0.5f - 0.001f;
+            if (ShelfAlongZ)
+            {
+                shelf.transform.localScale = new Vector3(depth, ShelfThick, HoleZ1 - HoleZ0);
+                shelf.transform.localPosition = new Vector3(position.x, y, (HoleZ0 + HoleZ1) * 0.5f);
+            }
+            else
+            {
+                shelf.transform.localScale = new Vector3(HoleX1 - HoleX0, ShelfThick, depth);
+                shelf.transform.localPosition = new Vector3((HoleX0 + HoleX1) * 0.5f, y, position.z);
+            }
+        }
         Adopt(i, boxRenderer, iconRenderer);
         if (shownIds[i] != id)
         {
@@ -191,6 +225,7 @@ sealed class BeltGoodsView(BeltVisualService visuals)
         for (var i = used; i < goods.Count; i++)
         {
             goods[i].SetActive(false);
+            shelves[i].SetActive(false);
             shownIds[i] = "";
         }
     }

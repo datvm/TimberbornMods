@@ -29,6 +29,7 @@ public class BeltVisual(BeltVisualService visuals)
     float deckMin = PlankMin;
     float deckMax = PlankMax;
     float deckTop = Deck;
+    bool pole;
     Transform? finishedModel;
     Func<float, Vector3> place = null!;
 
@@ -47,6 +48,9 @@ public class BeltVisual(BeltVisualService visuals)
             DisableComponent();
             return;
         }
+
+        pole = Child(model, "Poles") is not null || Child(model, "Boards") is not null;
+        goods.ShelfAlongZ = pole && shape is BeltShape.ElbowInUp or BeltShape.ElbowOutDown;
 
         straight = Child(model, "#Straight");
         building = Child(model, "#Building");
@@ -127,7 +131,8 @@ public class BeltVisual(BeltVisualService visuals)
         ShowGoods();
     }
 
-    bool RunsOnDeck => shape is BeltShape.Straight or BeltShape.Impermeable or BeltShape.Corner;
+    bool RunsOnDeck => shape is BeltShape.Straight or BeltShape.Impermeable or BeltShape.Corner or BeltShape.ElbowInUp or BeltShape.ElbowOutUp
+        || (pole && shape is BeltShape.ElbowInDown or BeltShape.ElbowOutDown or BeltShape.RiserUp or BeltShape.RiserDown);
 
     Transform? FinishedModel()
     {
@@ -257,6 +262,16 @@ public class BeltVisual(BeltVisualService visuals)
         var lane = side * Lane;
         var high = 1f - Pad;
         along = Mathf.Repeat(along, 1f);
+        if (pole && shape is BeltShape.ElbowInUp or BeltShape.ElbowOutUp or BeltShape.ElbowInDown or BeltShape.ElbowOutDown or BeltShape.RiserUp or BeltShape.RiserDown)
+        {
+            return PoleRunner(along, side, y);
+        }
+
+        if (shape is BeltShape.ElbowInUp or BeltShape.ElbowOutUp)
+        {
+            return ElbowRunner(along, side, y);
+        }
+
         if (shape != BeltShape.Corner)
         {
             var span = high - Pad;
@@ -345,6 +360,16 @@ public class BeltVisual(BeltVisualService visuals)
     {
         along = Mathf.Clamp01(along);
         var high = 1f - Pad;
+        if (pole && shape is BeltShape.ElbowInUp or BeltShape.ElbowOutUp or BeltShape.ElbowInDown or BeltShape.ElbowOutDown or BeltShape.RiserUp or BeltShape.RiserDown)
+        {
+            return PoleGoods(along);
+        }
+
+        if (shape is BeltShape.ElbowInUp or BeltShape.ElbowOutUp)
+        {
+            return ElbowGoods(along);
+        }
+
         if (shape != BeltShape.Corner)
         {
             return new Vector3(0.5f, 0f, high - along * Span);
@@ -361,6 +386,178 @@ public class BeltVisual(BeltVisualService visuals)
     }
 
     float Span => 1f - Pad * 2f;
+
+    // Shaft goods. In pieces enter a high-Z mouth. Out Down leaves by the low-Z mouth.
+    Vector3 PoleGoods(float along) => TunedPoleGoods(along);
+
+    // The cubes stay on the wood. Elbows reach the back board before they climb.
+    // Risers ride the inner face of each side board.
+    Vector3 PoleRunner(float along, float side, float deckY) => TunedPoleRunner(along, side, deckY);
+    Vector3 TunedPoleRunner(float along, float side, float deckY)
+    {
+        const float hole = 0.5f;
+        const float gap = 0.001f;
+        var reach = Cube * 0.5f;
+        if (shape is BeltShape.RiserUp or BeltShape.RiserDown)
+        {
+            var climbed = TunedPoleGoods(along).y;
+            var boardX = side > 0f ? 0.64475f - gap - reach : 0.35525f + gap + reach;
+            return new Vector3(boardX, climbed, hole);
+        }
+
+        var half = visuals.GoodHeight(BoxSize) * 0.5f;
+        var top = 1f - BoxSize;
+        const float floor = 0.001f;
+        var deck = BeltGoodsView.BoxY;
+        var edge = 1f - Pad;
+        var handoff = shape is BeltShape.ElbowInUp or BeltShape.ElbowOutDown ? 1f - half : top;
+        var outDown = shape == BeltShape.ElbowOutDown;
+        var mouth = outDown ? Pad : edge;
+        var board = outDown ? 0.62f - gap - reach : 0.38f + gap + reach;
+        var rising = shape is BeltShape.ElbowInUp or BeltShape.ElbowOutUp;
+        var entering = shape is BeltShape.ElbowInUp or BeltShape.ElbowInDown;
+        var x = 0.5f + side * Lane;
+        var run = Mathf.Abs(mouth - board);
+        if (entering)
+        {
+            var climb = rising ? handoff - deck : deck - floor;
+            var dist = along * (run + climb);
+            if (dist <= run)
+            {
+                return new Vector3(x, deckY, mouth - dist);
+            }
+
+            var moved = dist - run;
+            var y = rising ? deck + moved : deck - moved;
+            return new Vector3(x, deckY + (y - deck), board);
+        }
+
+        var drop = rising ? deck - floor : handoff - deck;
+        var travel = along * (drop + run);
+        if (travel <= drop)
+        {
+            var y = rising ? floor + travel : handoff - travel;
+            return new Vector3(x, deckY + (y - deck), board);
+        }
+
+        var outDist = travel - drop;
+        var zOut = outDown ? board - outDist : board + outDist;
+        return new Vector3(x, deckY, zOut);
+    }
+
+    // Horizontal ends put the box center on the shared face.
+    // A riser hangs half a box past the floor and the ceiling so the next riser meets it.
+    // In Up ends on that same spot, and Out Down starts there.
+    Vector3 TunedPoleGoods(float along)
+    {
+        var half = visuals.GoodHeight(BoxSize) * 0.5f;
+        var top = 1f - BoxSize;
+        const float floor = 0.001f;
+        var deck = BeltGoodsView.BoxY;
+        const float hole = 0.5f;
+        var edge = 1f - Pad;
+        if (shape is BeltShape.RiserUp or BeltShape.RiserDown)
+        {
+            var above = 1f - half;
+            var below = -half;
+            var climbed = shape == BeltShape.RiserUp ? Mathf.Lerp(below, above, along) : Mathf.Lerp(above, below, along);
+            return new Vector3(0.5f, climbed, hole);
+        }
+
+        var handoff = shape is BeltShape.ElbowInUp or BeltShape.ElbowOutDown ? 1f - half : top;
+        var highMouth = shape != BeltShape.ElbowOutDown;
+        var mouth = highMouth ? edge : Pad;
+        var rising = shape is BeltShape.ElbowInUp or BeltShape.ElbowOutUp;
+        var entering = shape is BeltShape.ElbowInUp or BeltShape.ElbowInDown;
+        var run = Mathf.Abs(mouth - hole);
+        if (entering)
+        {
+            var climb = rising ? handoff - deck : deck - floor;
+            var dist = along * (run + climb);
+            if (dist <= run)
+            {
+                var z = highMouth ? mouth - dist : mouth + dist;
+                return new Vector3(0.5f, 0f, z);
+            }
+
+            var moved = dist - run;
+            var y = rising ? deck + moved : deck - moved;
+            return new Vector3(0.5f, y, hole);
+        }
+
+        var drop = rising ? deck - floor : handoff - deck;
+        var travel = along * (drop + run);
+        if (travel <= drop)
+        {
+            var y = rising ? floor + travel : handoff - travel;
+            return new Vector3(0.5f, y, hole);
+        }
+
+        var outDist = travel - drop;
+        var zOut = highMouth ? hole + outDist : hole - outDist;
+        return new Vector3(0.5f, 0f, zOut);
+    }
+
+    // The mouth is the high-Z end of the deck. In Up runs into the rise and up under the cap.
+    // Out Up comes up the rise from below, then back out the mouth.
+    Vector3 ElbowGoods(float along)
+    {
+        const float mouth = 0.9f;
+        const float turn = 0.72f;
+        const float high = 0.68f;
+        const float low = 0.18f;
+        var run = mouth - turn;
+        if (shape == BeltShape.ElbowInUp)
+        {
+            var climb = high - BeltGoodsView.BoxY;
+            var dist = along * (run + climb);
+            if (dist <= run)
+            {
+                return new Vector3(0.5f, 0f, mouth - dist);
+            }
+
+            return new Vector3(0.5f, BeltGoodsView.BoxY + (dist - run), turn);
+        }
+
+        var rise = BeltGoodsView.BoxY - low;
+        var travel = along * (rise + run);
+        if (travel <= rise)
+        {
+            return new Vector3(0.5f, low + travel, turn);
+        }
+
+        return new Vector3(0.5f, 0f, turn + (travel - rise));
+    }
+
+    Vector3 ElbowRunner(float along, float side, float deckY)
+    {
+        const float mouth = 0.9f;
+        const float turn = 0.72f;
+        const float high = 0.68f;
+        const float low = 0.18f;
+        var x = 0.5f + side * Lane;
+        var run = mouth - turn;
+        if (shape == BeltShape.ElbowInUp)
+        {
+            var climb = high - deckY;
+            var dist = along * (run + climb);
+            if (dist <= run)
+            {
+                return new Vector3(x, deckY, mouth - dist);
+            }
+
+            return new Vector3(x, deckY + (dist - run), turn);
+        }
+
+        var rise = deckY - low;
+        var travel = along * (rise + run);
+        if (travel <= rise)
+        {
+            return new Vector3(x, low + travel, turn);
+        }
+
+        return new Vector3(x, deckY, turn + (travel - rise));
+    }
 
     static GameObject? Child(Transform root, string name)
     {

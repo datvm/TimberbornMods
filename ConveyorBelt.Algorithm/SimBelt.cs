@@ -10,7 +10,7 @@ public sealed class SimBelt : ISimTarget
     public float ItemsPerHour { get; set; }
     public bool Running { get; set; } = true;
 
-    // A straight, corner, riser, or solid belt. A merger, splitter, or lift lane is not plain.
+    // A straight, corner, riser, elbow, or solid belt. A merger, splitter, or lift lane is not plain.
     public bool Plain { get; init; } = true;
     public Func<string, bool>? CanCarry { get; set; }
     public bool IsStuck { get; private set; }
@@ -143,6 +143,8 @@ public sealed class SimBelt : ISimTarget
         trails.Clear();
         IsStuck = false;
     }
+
+    public void DropTrails() => trails.Clear();
 
     bool Allows(string goodId)
     {

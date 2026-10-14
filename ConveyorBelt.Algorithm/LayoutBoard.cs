@@ -7,6 +7,10 @@ public enum SimKind
     RiserUp,
     RiserDown,
     Impermeable,
+    ElbowInUp,
+    ElbowInDown,
+    ElbowOutUp,
+    ElbowOutDown,
     Merger,
     Splitter,
     SmartSplitter,
@@ -576,6 +580,10 @@ public sealed class LayoutBoard
         SimKind.RiserUp => BeltForm.RiserUp,
         SimKind.RiserDown => BeltForm.RiserDown,
         SimKind.Impermeable => BeltForm.Impermeable,
+        SimKind.ElbowInUp => BeltForm.ElbowInUp,
+        SimKind.ElbowInDown => BeltForm.ElbowInDown,
+        SimKind.ElbowOutUp => BeltForm.ElbowOutUp,
+        SimKind.ElbowOutDown => BeltForm.ElbowOutDown,
         _ => BeltForm.Straight,
     };
 

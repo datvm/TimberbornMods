@@ -32,6 +32,38 @@ public class LayoutSimTests
     }
 
     [Fact]
+    public void InUpFeedsOutUp()
+    {
+        var board = new LayoutBoard();
+        board.Place(SimKind.Source, new(0, 2, 0), 0, Fast).GoodId = "Log";
+        board.Place(SimKind.Straight, new(0, 1, 0), 0, Fast);
+        board.Place(SimKind.ElbowInUp, new(0, 0, 0), 0, Fast);
+        board.Place(SimKind.ElbowOutUp, new(0, 0, 1), 2, Fast);
+        board.Place(SimKind.Straight, new(0, -1, 1), 0, Fast);
+        var sink = board.Place(SimKind.Sink, new(0, -2, 1), 0, Fast);
+
+        Run(board, 12);
+
+        Assert.True(sink.CountOf("Log") > 0);
+    }
+
+    [Fact]
+    public void InDownFeedsOutDown()
+    {
+        var board = new LayoutBoard();
+        board.Place(SimKind.Source, new(0, 2, 1), 0, Fast).GoodId = "Plank";
+        board.Place(SimKind.Straight, new(0, 1, 1), 0, Fast);
+        board.Place(SimKind.ElbowInDown, new(0, 0, 1), 0, Fast);
+        board.Place(SimKind.ElbowOutDown, new(0, 0, 0), 0, Fast);
+        board.Place(SimKind.Straight, new(0, -1, 0), 0, Fast);
+        var sink = board.Place(SimKind.Sink, new(0, -2, 0), 0, Fast);
+
+        Run(board, 12);
+
+        Assert.True(sink.CountOf("Plank") > 0);
+    }
+
+    [Fact]
     public void RiserDropsToTheFloor()
     {
         var board = new LayoutBoard();
