@@ -18,9 +18,9 @@ public class SingleStatusPanel : VisualElement
         this.SetMarginBottom();
 
         this.AddGameLabel(status.Bold());
-        chkSelf = this.AddToggle(t.T("LV.WBG.HideThis"), onValueChanged: v => OnCheckChanged(v, StatusHidingChangeType.Self));
-        chkTemplate = this.AddToggle(t.T("LV.WBG.HideType", name), onValueChanged: v => OnCheckChanged(v, StatusHidingChangeType.Template));
-        chkGlobal = this.AddToggle(t.T("LV.WBG.HideAll"), onValueChanged: v => OnCheckChanged(v, StatusHidingChangeType.Global));
+        chkSelf = this.AddGamePanelToggle(t.T("LV.WBG.HideThis"), onValueChanged: v => OnCheckChanged(v, StatusHidingChangeType.Self));
+        chkTemplate = this.AddGamePanelToggle(t.T("LV.WBG.HideType", name), onValueChanged: v => OnCheckChanged(v, StatusHidingChangeType.Template));
+        chkGlobal = this.AddGamePanelToggle(t.T("LV.WBG.HideAll"), onValueChanged: v => OnCheckChanged(v, StatusHidingChangeType.Global));
 
         SetUI();
     }

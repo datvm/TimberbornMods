@@ -42,7 +42,7 @@ static class ExtendedBuilderReachNavOptimizer
     static readonly ConditionalWeakTable<object, MigrationMarker> MigratedRegistries = new();
     static readonly HashSet<object> CandidateSet = new(ReferenceComparer.Instance);
     static readonly Queue<PendingBatch> DeferredBatches = [];
-    static int deferredCandidates;
+    static int pendingCandidateCount;
     static bool deferredModeLogged;
     static bool installed;
 
@@ -469,7 +469,7 @@ static class ExtendedBuilderReachNavOptimizer
         {
             DeferredBatches.Enqueue(
                 new PendingBatch(__0, deferredCandidates, deferredCount, total, scanned, usedSpatial));
-            deferredCandidates += deferredCount;
+            pendingCandidateCount += deferredCount;
 
             if (!deferredModeLogged)
             {
@@ -527,7 +527,7 @@ static class ExtendedBuilderReachNavOptimizer
 
             var listener = batch.Candidates[batch.Index++];
             processed++;
-            deferredCandidates = Math.Max(0, deferredCandidates - 1);
+            pendingCandidateCount = Math.Max(0, pendingCandidateCount - 1);
 
             if (!ActiveListeners.Contains(listener))
             {
@@ -554,7 +554,7 @@ static class ExtendedBuilderReachNavOptimizer
 
         var elapsedTicks = System.Diagnostics.Stopwatch.GetTimestamp() - started;
         NavOptimizerDiagnostics.RecordNavigationDetail(
-            $"EBR.DeferredDrain[{processed}->{notified};fail={failed};pending={deferredCandidates}]",
+            $"EBR.DeferredDrain[{processed}->{notified};fail={failed};pending={pendingCandidateCount}]",
             elapsedTicks);
     }
 
