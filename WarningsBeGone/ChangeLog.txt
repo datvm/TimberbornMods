@@ -1,0 +1,3 @@
+﻿v11.1.0:
+- (Potentially) fixed late game performance issues with a few optimizations. Thanks Acalc79 for the report and help.
+- Minor UI updates.

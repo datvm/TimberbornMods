@@ -1,13 +1,21 @@
 ﻿namespace WarningsBeGone.Components;
 
-public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseComponent, IPersistentEntity, IAwakableComponent
+[AddTemplateModule2(typeof(StatusSubject))]
+public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseComponent, IPersistentEntity, IAwakableComponent, IInitializableEntity, IDeletableEntity
 {
     static readonly ComponentKey SaveKey = new(nameof(StatusHidingComponent));
     static readonly ListKey<string> HidingStatusesKey = new("HidingStatuses");
 
     readonly HashSet<string> hidingStatuses = [];
+    readonly List<StatusInstance> filteredActive = [];
+    ReadOnlyList<StatusInstance> filteredActiveView;
+    bool filteredDirty = true;
+    bool cachedInPriorityMode;
+    bool reportsHiddenPriority;
+
     public string TemplateName { get; private set; } = "";
     public string DisplayName { get; private set; } = "";
+    public bool NeedsFilter { get; private set; }
 
 #nullable disable
     StatusSubject statusSubject;
@@ -15,67 +23,74 @@ public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseC
 
     StatusIconCycler? statusIconCycler;
 
-    public ReadOnlyList<StatusInstance> GetFilteredActiveStatuses()
+    public ReadOnlyList<StatusInstance> FilteredActiveStatuses
     {
-        List<StatusInstance> result = [];
-
-        // First, check priority
-        foreach (var s in statusSubject._activePriorityStatuses)
+        get
         {
-            if (!ShouldHide(s.StatusDescription))
-            {
-                result.Add(s);
-            }
+            EnsureFiltered();
+            return filteredActiveView;
         }
-
-        // Then if empty, check normal
-        if (result.Count == 0)
-        {
-            foreach (var s in statusSubject._activeNormalStatuses)
-            {
-                if (!ShouldHide(s.StatusDescription))
-                {
-                    result.Add(s);
-                }
-            }
-        }
-
-        return new(result);
     }
 
-    public bool IsFilteredInPriorityMode()
+    public bool CachedInPriorityMode
     {
-        foreach (var s in statusSubject._activePriorityStatuses)
+        get
         {
-            if (!ShouldHide(s.StatusDescription))
-            {
-                return true;
-            }
+            EnsureFiltered();
+            return cachedInPriorityMode;
         }
-        return false;
     }
-
-    ReadOnlyList<StatusInstance> GetUnfilteredActiveStatuses() =>
-        new([
-            ..statusSubject._activePriorityStatuses,
-            .. statusSubject._activeNormalStatuses,
-        ]);
 
     public void Awake()
     {
+        filteredActiveView = new(filteredActive);
         statusSubject = GetComponent<StatusSubject>();
         statusIconCycler = GetComponent<StatusIconCycler>();
 
         var template = GetComponent<TemplateSpec>();
         TemplateName = template.TemplateName;
         DisplayName = GetComponent<LabeledEntity>()?.DisplayName ?? TemplateName;
+
+        statusSubject.StatusToggled += OnStatusToggled;
+        RecomputeNeedsFilter();
+    }
+
+    public void InitializeEntity()
+    {
+        RecomputeNeedsFilter();
+        filteredDirty = true;
+        RefreshPriorityContribution();
+    }
+
+    public void DeleteEntity()
+    {
+        if (statusSubject is not null)
+        {
+            statusSubject.StatusToggled -= OnStatusToggled;
+        }
+
+        foreach (var status in hidingStatuses)
+        {
+            statusHidingRepo.RemoveHiddenDescription(status);
+        }
+
+        ApplyPriorityContribution(false);
     }
 
     public void Load(IEntityLoader entityLoader)
     {
         if (!entityLoader.TryGetComponent(SaveKey, out var s)) { return; }
 
-        hidingStatuses.UnionWith(s.Get(HidingStatusesKey));
+        foreach (var status in s.Get(HidingStatusesKey))
+        {
+            if (!hidingStatuses.Add(status)) { continue; }
+
+            statusHidingRepo.AddHiddenDescription(status);
+        }
+
+        RecomputeNeedsFilter();
+        filteredDirty = true;
+        RefreshPriorityContribution();
     }
 
     public void Save(IEntitySaver entitySaver)
@@ -90,16 +105,21 @@ public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseC
         => hidingStatuses.Contains(status) || statusHidingRepo.ShouldHide(status, TemplateName);
 
     public bool IsStatusSelfHiding(string status) => hidingStatuses.Contains(status);
+
     public void ToggleHiding(string status, bool shouldHide)
     {
         if (shouldHide)
         {
-            hidingStatuses.Add(status);
+            if (hidingStatuses.Add(status))
+            {
+                statusHidingRepo.AddHiddenDescription(status);
+            }
         }
-        else
+        else if (hidingStatuses.Remove(status))
         {
-            hidingStatuses.Remove(status);
+            statusHidingRepo.RemoveHiddenDescription(status);
         }
+
         RefreshStatusSubject();
     }
 
@@ -127,10 +147,94 @@ public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseC
 
     public void RefreshStatusSubject()
     {
+        RecomputeNeedsFilter();
+        filteredDirty = true;
+        RefreshPriorityContribution();
+
         if (statusIconCycler)
         {
             statusIconCycler!.OnStatusToggled(null!, null!);
         }
     }
+
+    void OnStatusToggled(object sender, StatusInstance status)
+    {
+        filteredDirty = true;
+        if (reportsHiddenPriority || status is { IsPriorityStatus: true })
+        {
+            RefreshPriorityContribution();
+        }
+    }
+
+    void RecomputeNeedsFilter()
+    {
+        NeedsFilter = hidingStatuses.Count > 0 || statusHidingRepo.Affects(TemplateName);
+    }
+
+    void RefreshPriorityContribution()
+    {
+        if (statusSubject is null) { return; }
+
+        var hidden = false;
+        foreach (var s in statusSubject._activePriorityStatuses)
+        {
+            if (!ShouldHide(s.StatusDescription)) { continue; }
+
+            hidden = true;
+            break;
+        }
+
+        ApplyPriorityContribution(hidden);
+    }
+
+    void ApplyPriorityContribution(bool hidden)
+    {
+        if (hidden == reportsHiddenPriority) { return; }
+
+        reportsHiddenPriority = hidden;
+        statusHidingRepo.SetHiddenPriorityContribution(hidden);
+    }
+
+    void EnsureFiltered()
+    {
+        if (!filteredDirty) { return; }
+
+        filteredActive.Clear();
+        var anyHiddenPriority = false;
+        var anyVisiblePriority = false;
+
+        foreach (var s in statusSubject._activePriorityStatuses)
+        {
+            if (ShouldHide(s.StatusDescription))
+            {
+                anyHiddenPriority = true;
+                continue;
+            }
+
+            filteredActive.Add(s);
+            anyVisiblePriority = true;
+        }
+
+        cachedInPriorityMode = anyVisiblePriority;
+
+        if (!anyVisiblePriority)
+        {
+            foreach (var s in statusSubject._activeNormalStatuses)
+            {
+                if (ShouldHide(s.StatusDescription)) { continue; }
+
+                filteredActive.Add(s);
+            }
+        }
+
+        filteredDirty = false;
+        ApplyPriorityContribution(anyHiddenPriority);
+    }
+
+    ReadOnlyList<StatusInstance> GetUnfilteredActiveStatuses() =>
+        new([
+            ..statusSubject._activePriorityStatuses,
+            .. statusSubject._activeNormalStatuses,
+        ]);
 
 }

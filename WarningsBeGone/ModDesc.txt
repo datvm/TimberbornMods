@@ -8,5 +8,3 @@ All selections are stored in your save file. Use [url=https://steamcommunity.com
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
-
-v10.0.1: Added "Hide warnings in corner" option.

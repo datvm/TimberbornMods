@@ -1,8 +1,8 @@
 ﻿{
     "Name": "Warnings Be Gone",
-    "Version": "11.0.2",
+    "Version": "11.1.0",
     "Id": "WarningsBeGone",
-    "MinimumGameVersion": "1.0.0",
+    "MinimumGameVersion": "1.1.1",
     "Description": "Hide certain warnings.",
     "RequiredMods": [
         { "Id": "TimberUi" },

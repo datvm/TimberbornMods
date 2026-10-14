@@ -1,5 +1,6 @@
 ﻿namespace WarningsBeGone.UI;
 
+[BindFragment]
 public class StatusHidingFragment(
     ILoc t,
     StatusHidingService service
@@ -13,7 +14,7 @@ public class StatusHidingFragment(
 
     protected override void InitializePanel()
     {
-        chkHideCorner = panel.AddToggle(t.T("LV.WBG.HideCorner"), onValueChanged: OnHideCornerChanged)
+        chkHideCorner = panel.AddGamePanelToggle(t.T("LV.WBG.HideCorner"), onValueChanged: OnHideCornerChanged)
             .SetMarginBottom();
 
         list = panel.AddChild();

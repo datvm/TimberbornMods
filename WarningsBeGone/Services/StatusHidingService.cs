@@ -1,5 +1,6 @@
 ﻿namespace WarningsBeGone.Services;
 
+[BindSingleton]
 public class StatusHidingService(
     ISingletonLoader loader,
     EntityRegistry entityRegistry
@@ -9,9 +10,12 @@ public class StatusHidingService(
     static readonly PropertyKey<string> GlobalHidingStatusesKey = new("GlobalHidingStatuses");
     static readonly PropertyKey<string> TemplateHidingStatusesKey = new("TemplateHidingStatuses");
     static readonly PropertyKey<bool> HideCornerWarningsKey = new("HideCornerWarnings");
+    static readonly Dictionary<string, int> hiddenDescriptionCounts = [];
+    static readonly HashSet<string> globallyHidden = [];
 
     readonly HashSet<string> globalHidingStatuses = [];
     readonly Dictionary<string, HashSet<string>> templateHidingStatuses = [];
+    int hiddenPriorityCount;
 
     public IReadOnlyCollection<string> GlobalHidingStatuses => globalHidingStatuses;
 
@@ -19,10 +23,25 @@ public class StatusHidingService(
         templateHidingStatuses.TryGetValue(template, out var statuses) ? statuses : [];
 
     public static bool HideCornerWarnings { get; private set; }
+    public static bool AnyPriorityHidden { get; private set; }
+
+    public static bool IsDescriptionHiddenAnywhere(string status) => hiddenDescriptionCounts.ContainsKey(status);
+
+    public static bool IsHiddenGlobally(string status) => globallyHidden.Contains(status);
+
+    public bool Affects(string template) =>
+        globalHidingStatuses.Count > 0
+        || (templateHidingStatuses.TryGetValue(template, out var statuses) && statuses.Count > 0);
 
     public void Load()
     {
         HideCornerWarnings = false;
+        AnyPriorityHidden = false;
+        hiddenPriorityCount = 0;
+        hiddenDescriptionCounts.Clear();
+        globallyHidden.Clear();
+        globalHidingStatuses.Clear();
+        templateHidingStatuses.Clear();
         LoadSavedData();
     }
 
@@ -32,15 +51,23 @@ public class StatusHidingService(
 
         if (s.Has(GlobalHidingStatusesKey))
         {
-            globalHidingStatuses.UnionWith(JsonConvert.DeserializeObject<IEnumerable<string>>(s.Get(GlobalHidingStatusesKey)));
+            var loaded = JsonConvert.DeserializeObject<IEnumerable<string>>(s.Get(GlobalHidingStatusesKey)) ?? [];
+            foreach (var status in loaded)
+            {
+                RememberGlobal(status);
+            }
         }
 
         if (s.Has(TemplateHidingStatusesKey))
         {
             var dict = JsonConvert.DeserializeObject<Dictionary<string, HashSet<string>>>(s.Get(TemplateHidingStatusesKey)) ?? [];
-            foreach (var (k, v) in dict)
+            foreach (var (template, statuses) in dict)
             {
-                templateHidingStatuses[k] = v;
+                templateHidingStatuses[template] = statuses;
+                foreach (var status in statuses)
+                {
+                    AddHiddenDescription(status);
+                }
             }
         }
 
@@ -78,15 +105,49 @@ public class StatusHidingService(
         globalHidingStatuses.Contains(status)
             || (templateHidingStatuses.TryGetValue(template, out var statuses) && statuses.Contains(status));
 
+    public void AddHiddenDescription(string status)
+    {
+        hiddenDescriptionCounts.TryGetValue(status, out var count);
+        hiddenDescriptionCounts[status] = count + 1;
+    }
+
+    public void RemoveHiddenDescription(string status)
+    {
+        if (!hiddenDescriptionCounts.TryGetValue(status, out var count)) { return; }
+
+        if (count <= 1)
+        {
+            hiddenDescriptionCounts.Remove(status);
+        }
+        else
+        {
+            hiddenDescriptionCounts[status] = count - 1;
+        }
+    }
+
+    public void SetHiddenPriorityContribution(bool contributing)
+    {
+        if (contributing)
+        {
+            hiddenPriorityCount++;
+        }
+        else if (hiddenPriorityCount > 0)
+        {
+            hiddenPriorityCount--;
+        }
+
+        AnyPriorityHidden = hiddenPriorityCount > 0;
+    }
+
     public void ToggleGlobalStatusHiding(string status, bool shouldHide)
     {
         if (shouldHide)
         {
-            globalHidingStatuses.Add(status);
+            RememberGlobal(status);
         }
         else
         {
-            globalHidingStatuses.Remove(status);
+            ForgetGlobal(status);
         }
 
         RefreshStatusSubject(null);
@@ -98,11 +159,14 @@ public class StatusHidingService(
 
         if (shouldHide)
         {
-            list.Add(status);
+            if (list.Add(status))
+            {
+                AddHiddenDescription(status);
+            }
         }
-        else
+        else if (list.Remove(status))
         {
-            list.Remove(status);
+            RemoveHiddenDescription(status);
         }
 
         RefreshStatusSubject(template);
@@ -127,6 +191,22 @@ public class StatusHidingService(
 
             statusHiding.RefreshStatusSubject();
         }
+    }
+
+    void RememberGlobal(string status)
+    {
+        if (!globalHidingStatuses.Add(status)) { return; }
+
+        globallyHidden.Add(status);
+        AddHiddenDescription(status);
+    }
+
+    void ForgetGlobal(string status)
+    {
+        if (!globalHidingStatuses.Remove(status)) { return; }
+
+        globallyHidden.Remove(status);
+        RemoveHiddenDescription(status);
     }
 
 }
