@@ -1,63 +1,51 @@
-# Extended Builder Reach: spatial navigation dispatch
+# EBR demolition navigation optimization
 
-## Why
+## Motivation
 
-Extended demolition range registers a navigation listener for each demolition target.
-On a large map, vanilla navigation notifications inspect all those listeners, even
-when only a small area changed. This adds a spatial index for **EBR listeners only**.
+When extended demolition is enabled, original EBR registers each target as a
+navigation listener. Local terrain updates can require visiting many distant
+targets. EBR now registers **one shared listener** and selects candidate targets
+inside its own game-scoped service. No game navigation-registry patch is needed.
 
-## Implementation
+## Files and behavior
 
-- `Optimizations/ExtendedBuilderReachNavOptimizer.cs` intercepts EBR listener
-  registration and uses 8×8 XY buckets to select affected listeners. It keeps
-  the original 3D intersection check and `OnNavMeshUpdated` callback.
-- The existing component reports changed access bounds so bucket membership
-  remains current. Pre-existing listeners are migrated on the first notification.
-- For broad changes (at least 1,024 candidates), the dispatcher snapshots
-  candidates using a pooled array and drains up to 256 listeners or 8 ms per
-  frame via `EbrDeferredDrainHook`. This intentionally changes callback timing.
-- Other mods' and vanilla navigation listeners continue through the game's
-  ordinary registry. This does **not** change construction reach, demolition
-  rules, tick cadence, save handling, or `Accessible.SetAccesses`.
+- \`Components/ExtendedDemolishableAccessible.cs\` still generates accesses,
+  applies EBR reach settings, tests precise 3D bounds intersections, and
+  disables the dedicated Accessible as before. It registers with the shared
+  service and reports changes to its generated access bounds.
+- \`Services/DemolitionNavigationService.cs\` implements \`INavMeshListener\`,
+  \`IUpdatableSingleton\`, and \`IUnloadableSingleton\`. It indexes targets in
+  8×8 XY grid buckets, uses \`NavMeshUpdate.Bounds\` to select candidates,
+  and forwards to the unchanged EBR intersection logic.
+- Updates selecting at least 1,024 candidates are deferred on the main thread:
+  up to 256 candidates or 8 ms are processed per frame. All smaller updates
+  are delivered in the original navigation callback. Deleted targets are
+  ignored if their notification is still queued.
+- Existing \`[HarmonyPatch]\` attribute-based EBR construction and demolition
+  patches remain unchanged. The previous manual registry Harmony interception,
+  emitted delegates, reflection, and manual frame-lifecycle patch are removed.
 
-## Compatibility and trade-offs
+## Trade-offs and compatibility
 
-- Runs on the Unity main thread; no concurrent navigation or Unity calls.
-- If required game members or the frame hook cannot be resolved, the optimizer
-  does not install. EBR's original navigation behavior stays in place.
-- This uses game-version-specific navigation internals and needs retesting
-  after Timberborn updates.
-- Do **not** run it alongside the standalone TB Optimizer EBR dispatcher.
-- Large navigation rebuilds can leave EBR callbacks pending into later frames.
-  Exact same-frame ordering with vanilla is **not** promised.
-- Instrumentation is opt-in at build time (`EBR_NAV_DIAGNOSTICS`).
+Large navigation rebuilds can delay updates to demolition accessibility by
+several frames. Callback order among EBR targets may differ, although exact
+per-target bounds checks and reach logic remain unchanged. A wide bounding
+rectangle containing sparse map changes can select extra candidates, which
+the precise EBR check filters out.
 
-## Field-testing status (October 2026)
+This is game-scoped state, not static state. Unloading a game unregisters the
+shared listener and clears pending batches. Do **not** run the separate
+TB Optimizer EBR dispatcher at the same time as this integrated version.
 
-The independently enabled **EBR module inside TB Optimizer 1.1.120**
-was exercised for several hours in a heavily modded Timberborn 1.1.2.7
-colony alongside EBR 11.0.0. The player reported normal gameplay; the
-provided Player.log contains no managed exceptions or EBR-specific failures
-during that session. TB Optimizer's other optimizations are not dependencies
-of the EBR module. This is meaningful field-test evidence for the shared
-spatial dispatch and deferred notification behavior.
+## Validation
 
-The standalone upstream port has a different integration for bounds changes:
-TB Optimizer patches EBR's `UpdateAccesses` via Harmony, while this PR calls
-`BoundsChanged` directly from the component. That wiring still needs to
-compile and receive a short focused smoke test. The log does not establish a
-measured FPS improvement or prove that all callbacks were completed.
+The independently enabled EBR module in TB Optimizer 1.1.120 has several
+hours of user-reported normal gameplay in Timberborn 1.1.2.7 with EBR 11.0.0.
+That supports the spatial-dispatch approach, but this **rewritten native EBR
+service is a different implementation** and has not yet been game-tested.
 
-## Before merging
-
-- [ ] Build `ExtendedBuilderReach` with the author's publicized game assemblies.
-- [ ] Load new and existing saves with extended demolition enabled and disabled.
-- [ ] Check construction and demolition boundaries at different heights.
-- [ ] Test isolated terrain/road edits, large demolitions and full navmesh rebuilds.
-- [ ] Remove and rebuild listeners while a batch is pending; check for job stalls.
-- [ ] Compare frame times **and achieved simulation speed** at 1× and 3×
-      on a repeatable large colony.
-- [ ] Test alongside other navigation mods without another EBR dispatcher.
-
-This is a proposed upstream extraction from the TB Optimizer experiment,
-not a claim that the port was built or independently verified in-game.
+- [ ] Compile with the maintainer's publicized Timberborn game assemblies.
+- [ ] Test new/load saves and extended demolition on/off.
+- [ ] Test terrain, roads, tall structures, and updated access bounds.
+- [ ] Verify no stalled demolition jobs after large edits or target deletion.
+- [ ] Compare frame time and achieved game speed at 1×/3× to original EBR.

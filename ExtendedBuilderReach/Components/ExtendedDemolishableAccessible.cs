@@ -1,9 +1,9 @@
-﻿namespace ExtendedBuilderReach.Components;
+namespace ExtendedBuilderReach.Components;
 
 public class ExtendedDemolishableAccessible(
-    INavMeshListenerEntityRegistry navRegistry,
+    DemolitionNavigationService navigation,
     MapSize mapSize
-) : BaseComponent, IAccessibleNeeder, INavMeshListener, IAwakableComponent, IInitializableEntity, IDeletableEntity
+) : BaseComponent, IAccessibleNeeder, IAwakableComponent, IInitializableEntity, IDeletableEntity
 {
     public const string AccessibleName = "ExtendedDemolishable";
 
@@ -33,20 +33,33 @@ public class ExtendedDemolishableAccessible(
 
     public void InitializeEntity()
     {
-        if (!MSettings.ExtendDemolishValue) { return; }
+        if (!MSettings.ExtendDemolishValue)
+        {
+            return;
+        }
 
         UpdateAccesses();
-        RegisterNavListener();
+        navigation.Register(this, bounds);
+        registered = true;
     }
 
     public void DeleteEntity()
     {
-        UnregisterNavListener();
+        if (!registered)
+        {
+            return;
+        }
+
+        navigation.Unregister(this);
+        registered = false;
     }
 
     public void OnNavMeshUpdated(NavMeshUpdate navMeshUpdate)
     {
-        if (!MSettings.ExtendDemolishValue) { return; }
+        if (!MSettings.ExtendDemolishValue)
+        {
+            return;
+        }
 
         if (bounds.Intersects(navMeshUpdate.Bounds))
         {
@@ -56,39 +69,24 @@ public class ExtendedDemolishableAccessible(
 
     public void UpdateAccesses()
     {
-        if (!accessible) { return; }
+        if (!accessible)
+        {
+            return;
+        }
 
         var z = blockObject.CoordinatesAtBaseZ.z;
         var minZ = ModUtils.GetMinZ(z);
         var maxZ = ModUtils.GetMaxZ(z, mapSize.TotalSize.z);
 
         var updatedBounds = blockObjectAccessGenerator.GenerateAccessBounds(minZ, maxZ);
-        var boundsChanged = !bounds.Equals(updatedBounds);
-        bounds = updatedBounds;
-        if (registered && boundsChanged)
+        if (registered && !bounds.Equals(updatedBounds))
         {
-            // Keep the spatial dispatcher's index consistent with actual reach.
-            // First-time registration happens after initial UpdateAccesses().
-            ExtendedBuilderReach.Optimizations.ExtendedBuilderReachNavOptimizer.BoundsChanged(this);
+            navigation.UpdateBounds(this, updatedBounds);
         }
+
+        bounds = updatedBounds;
         accessible.SetAccesses(blockObjectAccessGenerator.GenerateAccesses(minZ, maxZ));
         // Keep disabled so vanilla GetEnabledComponent<Accessible>() still resolves uniquely.
         accessible.DisableComponent();
-    }
-
-    void RegisterNavListener()
-    {
-        if (registered) { return; }
-
-        navRegistry.RegisterNavMeshListener(this);
-        registered = true;
-    }
-
-    void UnregisterNavListener()
-    {
-        if (!registered) { return; }
-
-        navRegistry.UnregisterNavMeshListener(this);
-        registered = false;
     }
 }

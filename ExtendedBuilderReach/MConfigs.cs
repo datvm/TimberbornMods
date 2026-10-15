@@ -1,26 +1,25 @@
-﻿global using ExtendedBuilderReach.Components;
+global using ExtendedBuilderReach.Components;
+global using ExtendedBuilderReach.Services;
 
 namespace ExtendedBuilderReach;
 
 [Context("MainMenu")]
 public class ModMenuConfig : Configurator
 {
-    
     public override void Configure()
     {
         Bind<MSettings>().AsSingleton();
     }
-
 }
 
 [Context("Game")]
 public class ModGameConfig : Configurator
 {
-
     public override void Configure()
     {
         Bind<MSettings>().AsSingleton();
 
+        Bind<DemolitionNavigationService>().AsSingleton();
         Bind<ExtendedDemolishableAccessible>().AsTransient();
         MultiBind<TemplateModule>().ToProvider(() =>
         {
