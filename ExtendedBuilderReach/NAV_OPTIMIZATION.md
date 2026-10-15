@@ -9,19 +9,19 @@ inside its own game-scoped service. No game navigation-registry patch is needed.
 
 ## Files and behavior
 
-- \`Components/ExtendedDemolishableAccessible.cs\` still generates accesses,
+- `Components/ExtendedDemolishableAccessible.cs` still generates accesses,
   applies EBR reach settings, tests precise 3D bounds intersections, and
   disables the dedicated Accessible as before. It registers with the shared
   service and reports changes to its generated access bounds.
-- \`Services/DemolitionNavigationService.cs\` implements \`INavMeshListener\`,
-  \`IUpdatableSingleton\`, and \`IUnloadableSingleton\`. It indexes targets in
-  8×8 XY grid buckets, uses \`NavMeshUpdate.Bounds\` to select candidates,
+- `Services/DemolitionNavigationService.cs` implements `INavMeshListener`,
+  `IUpdatableSingleton`, and `IUnloadableSingleton`. It indexes targets in
+  8×8 XY grid buckets, uses `NavMeshUpdate.Bounds` to select candidates,
   and forwards to the unchanged EBR intersection logic.
 - Updates selecting at least 1,024 candidates are deferred on the main thread:
   up to 256 candidates or 8 ms are processed per frame. All smaller updates
   are delivered in the original navigation callback. Deleted targets are
   ignored if their notification is still queued.
-- Existing \`[HarmonyPatch]\` attribute-based EBR construction and demolition
+- Existing `[HarmonyPatch]` attribute-based EBR construction and demolition
   patches remain unchanged. The previous manual registry Harmony interception,
   emitted delegates, reflection, and manual frame-lifecycle patch are removed.
 
