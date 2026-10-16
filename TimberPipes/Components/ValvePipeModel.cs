@@ -9,6 +9,7 @@ public class ValvePipeModel(ValvePipeService service)
     BuildingPipe pipe;
     BuildingPipeSpec spec;
     BlockObject blockObject;
+    bool keepFlowWhenFlipped;
     GameObject straight;
     GameObject building;
     GameObject ringIn;
@@ -20,6 +21,7 @@ public class ValvePipeModel(ValvePipeService service)
         pipe = GetComponent<BuildingPipe>();
         spec = GetComponent<BuildingPipeSpec>();
         blockObject = GetComponent<BlockObject>();
+        keepFlowWhenFlipped = TryGetComponent<DirectedPipeSpec>(out var directed) && directed.KeepFlowWhenFlipped;
         var finished = GameObject.FindChild("#Finished");
         if (!finished || spec is null)
         {
@@ -118,7 +120,7 @@ public class ValvePipeModel(ValvePipeService service)
         var downIsOutput = false;
         foreach (var portSpec in spec.Ports)
         {
-            var state = DirectedPipeOrient.State(portSpec, blockObject.FlipMode.IsFlipped);
+            var state = DirectedPipeOrient.State(portSpec, blockObject.FlipMode.IsFlipped, keepFlowWhenFlipped);
             var give = (state & PipePortState.OpenOut) != 0;
             foreach (var d in portSpec.Directions)
             {

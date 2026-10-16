@@ -13,7 +13,12 @@ public record PipePortSpec
 
 }
 
-public record DirectedPipeSpec : ComponentSpec;
+public record DirectedPipeSpec : ComponentSpec
+{
+    // Flip mirrors the mesh. When set, port flow stays on the same arm instead of reversing.
+    [Serialize]
+    public bool KeepFlowWhenFlipped { get; init; }
+}
 
 public record ValvePipeSpec : ComponentSpec;
 

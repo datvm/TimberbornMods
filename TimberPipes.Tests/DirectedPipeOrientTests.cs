@@ -36,4 +36,14 @@ public class DirectedPipeOrientTests
         Assert.Equal(PipePortState.OpenOut, DirectedPipeOrient.State(spec, false));
         Assert.Equal(PipePortState.OpenIn, DirectedPipeOrient.State(spec, true));
     }
+
+    [Fact]
+    public void KeepFlowWhenFlippedLeavesState()
+    {
+        var inlet = new PipePortSpec { Directions = Directions3D.Down, State = PipePortState.OpenIn };
+        var outlet = new PipePortSpec { Directions = Directions3D.Right, State = PipePortState.OpenOut };
+
+        Assert.Equal(PipePortState.OpenIn, DirectedPipeOrient.State(inlet, true, keepFlowWhenFlipped: true));
+        Assert.Equal(PipePortState.OpenOut, DirectedPipeOrient.State(outlet, true, keepFlowWhenFlipped: true));
+    }
 }

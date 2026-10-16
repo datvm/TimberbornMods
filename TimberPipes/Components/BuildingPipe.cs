@@ -91,13 +91,14 @@ public class BuildingPipe(PipeRegistry registry) : BaseComponent, IAwakableCompo
         Dictionary<PipePortDefinition, PipePort> ports = [];
         var spec = Spec!;
 
-        var directed = HasComponent<DirectedPipeSpec>();
+        var hasDirected = TryGetComponent<DirectedPipeSpec>(out var directed);
+        var keepFlow = hasDirected && directed.KeepFlowWhenFlipped;
         foreach (var portSpec in spec.Ports)
         {
             var oriented = portSpec with
             {
-                State = directed
-                    ? DirectedPipeOrient.State(portSpec, bo.FlipMode.IsFlipped)
+                State = hasDirected
+                    ? DirectedPipeOrient.State(portSpec, bo.FlipMode.IsFlipped, keepFlow)
                     : portSpec.State,
             };
 

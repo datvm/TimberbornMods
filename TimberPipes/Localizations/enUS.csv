@@ -8,6 +8,9 @@ LV.TPi.HorizontalPipeFlavor,"The committee voted for a canal. The budget voted f
 LV.TPi.ElbowPipeName,"Elbow",
 LV.TPi.ElbowPipeDesc,"Turns a pipe run 90°.",
 LV.TPi.ElbowPipeFlavor,"Every good plan meets a wall. This is how you keep the plan.",
+LV.TPi.ElbowPipeValveName,"One-way Elbow",
+LV.TPi.ElbowPipeValveDesc,"A one-way 90° pipe. Can be closed both ways when paused. Point a directed end at a building to pour into it or draw from it. Select the valve and opt in Fill or Extract.",
+LV.TPi.ElbowPipeValveFlavor,"The engineer bent to the will of the popular making this piece.",
 LV.TPi.CrossPipeName,"Cross",
 LV.TPi.CrossPipeDesc,"Joins up to four horizontal pipes.",
 LV.TPi.CrossPipeFlavor,"Everyone groans when Bramble starts the “four pipes walk into a [i]bar[/i]” joke again.",
@@ -62,11 +65,7 @@ LV.TPi.HourlyLimit,"Hourly limit: {0}",
 LV.TPi.HourlyLimitValue,"{0:0.00} m³/h ({1:0.00} m³/s)",
 LV.TPi.Unlimited,"Unlimited",
 LV.TPi.ProvideHeadlift,"● <YellowHighlight>Provides headlift:</YellowHighlight> {0:0.0}m",
-LV.TPi.ModUpdate113000,"v11.3.0:
-- Added Horizontal and Vertical T Junctions. Thanks to the contribution of idmytro.
-- Fixed Tank panel showing up during construction and show the wrong 'liquid' (visual bug).
-- Fixed hitboxes for pipes.
-- Vertical pieces should now occupy Bottom and Path slot.",
+LV.TPi.ModUpdate114000,"Added One-way Elbow.",
 Name_TransportPipeFragment,"Pipe",
 Name_ValvePipeFragment,"Valve",
 Name_OutflowCounterFragment,"Outflow",

@@ -1,4 +1,4 @@
-﻿{
+{
     "BuildingSpec": {
         "SelectionSoundName": "Discharge",
         "LoopingSoundName": "",
@@ -168,7 +168,6 @@
         ]
     },
     "Children": {
-        "#Arrows": {},
         "#Finished": {
             "TimbermeshSpec": {
                 "Model": "Buildings/Water/Pipes/OutfallPipe/Models/OutfallPipe.IronTeeth.Model"

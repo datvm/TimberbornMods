@@ -7,6 +7,9 @@ New Pipe buildings live in the [b]Pipes[/b] group under Water. Horizontal pipes 
 [tr][td][b]One-way Valve[/b]
 One-way pipe. Point a directed end at a building to fill it or extract from it.[/td][td]1 Log
 1 Gear[/td][td]50[/td][td][i]They added the arrow after the last guy flooded the berry warehouse.[/i][/td][/tr]
+[tr][td][b]One-way Elbow[/b]
+One-way 90° pipe. Point a directed end at a building to fill it or extract from it.[/td][td]1 Log
+1 Gear[/td][td]100[/td][td][i]The engineer bent to the will of the popular making this piece.[/i][/td][/tr]
 [tr][td][b]Throttle Valve Pipe[/b]
 One-way pipe. Pause to close both ways. Counts this-tick and last-hour outflow and can cap the hour.[/td][td]5 Treated Planks
 5 Metal Blocks
@@ -41,10 +44,10 @@ Dumps Water or Badwater.[/td][td]12 Logs
 [/table]
 
 [h1]Fill and Extract Liquid[/h1]
-Tanks take any pipe on any open face. You do not need a valve. For other buildings, place a [b]One-way Valve[/b] with a directed end on the building face: arrow into the building to fill it, arrow out of the building to extract. [b]You must select the Valve and opt in Fill or Extract.[/b] They stay off until you turn them on. 
+Tanks take any pipe on any open face. You do not need a valve. For other buildings, place a [b]One-way Valve[/b] or [b]One-way Elbow[/b] with a directed end on the building face: arrow into the building to fill it, arrow out of the building to extract. [b]You must select the piece and opt in Fill or Extract.[/b] They stay off until you turn them on. 
 [img]https://images.steamusercontent.com/ugc/11573173917424417447/BA78D8DFB60AA667EF8184366342842F64FF7968/?imw=5000&imh=5000[/img]
 
-For example, below is a Folktails' design to make Extract and Catalyst:
+For example, below is a FT's design to make Extract and Catalyst:
 [img]https://images.steamusercontent.com/ugc/16848029961844019567/649D1A1AD4B45126310531B3FE2C4085EF2EB5BE/?imw=5000&imh=5000[/img]
 
 [h1]Contamination[/h1]
@@ -52,7 +55,7 @@ A pipe network is the set of connected pipes between buildings or tanks. It beco
 
 Once contaminated, you have to manually Flush the network on the UI. The UI tells you what was mixed (for example, Badwater and Extract) so you can deal with the design before letting the network run again. When flushing, you lose all content in the pipes but NOT a Tank's content.
 
-Pipes will not fill invalid liquid into buildings and do not contaminate them. For example, you cannot fill a Water tank with Badwater or a Centrifuge with Maple Syrup. Nothing happens.
+Pipes will not fill invalid liquid into buildings and do not contaminate them. Nothing happens.
 
 [h1]Headlift[/h1]
 Like real pipes: connected water seeks one waterline. A tank's fill height is headlift. You cannot fill another tank above that line without extra lift.
@@ -66,7 +69,7 @@ A powered [b]Pipe Pump[/b] or [b]Riser Pipe Pump[/b] adds [b]2 m[/b] of headlift
 Tanks break the pipe network. Pump headlift does not pass through a tank. Water that enters a tank drops to that tank's fill height, so a line that had extra lift can suddenly lose it on the other side. The far side only sees how full the tank is. Bigger tanks make this more obvious.
 
 [h1]Notes[/h1]
-- One-way Valve: can be paused to block liquid both ways. It will NOT prevent contamination still.
+- One-way Valve and One-way Elbow: can be paused to block liquid both ways. They will NOT prevent contamination still.
 - Throttle Valve Pipe: due to technical simulation limitation, the limit is m3 per hour. It does not spread out over time. It simply automatically stops the flow when the hourly limit is reached. Which means you can see a sudden strong flow and then stop.
 - Open outlets of a pipe do NOT spill water. They are considered closed. For example, there is no issue if you only connect 2 out of 4 outlets of a Cross Pipe. The only way to get Water out is the Outfall Pipe.
 - Generally, a pipe contains 1m³ of liquid (5 good), except in Tank which uses a special conversion due to its size vs. capacity.
@@ -77,16 +80,6 @@ Main Menu -> Mods -> Settings button next to the mod name.
 
 [h1]Modded Factions[/h1]
 The pipes can be added to modded factions by subscribing to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3815025887]Modded Factions Building Support[/url]. For EP, you may need to subscribe to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3591896694]Treated Planks For Emberpelts[/url]. It is not tested for modded factions, however, and support is considered on a case-by-case basis.
-
-[h1]FAQ[/h1]
-Q: The tank will not fill all the way?
-A: Headlift. It cannot rise above the source surface unless a pump adds lift.
-
-Q: The physics does not make sense!
-A: I tried my best testing common scenarios. If you find something, please send me a screenshot/save if my simulation misses something.
-
-Q: My hauler keeps bringing stuff out manually.
-A: Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3760937316]Disable Hauling[/url] if you prefer the pipes to do all the work.
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

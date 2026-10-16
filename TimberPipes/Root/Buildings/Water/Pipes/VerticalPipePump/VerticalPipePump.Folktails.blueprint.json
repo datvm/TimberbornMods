@@ -1,4 +1,4 @@
-﻿{
+{
     "BuildingSpec": {
         "SelectionSoundName": "MechanicalPump",
         "LoopingSoundName": "",
@@ -142,7 +142,6 @@
         ]
     },
     "Children": {
-        "#Arrows": {},
         "#Finished": {
             "TimbermeshSpec": {
                 "Model": "Buildings/Water/Pipes/VerticalPipePump/Models/VerticalPipePump.Folktails.Model"
