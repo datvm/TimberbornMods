@@ -1,0 +1,39 @@
+name: Build BenchmarkAndOptimizerV11Port
+on:
+  push:
+    branches:
+      - pr/benchmark-optimizer-v11-clean
+    paths:
+      - 'BenchmarkAndOptimizerV11Port/**'
+      - '.github/workflows/build-benchmark-v11port.yml'
+  pull_request:
+    paths:
+      - 'BenchmarkAndOptimizerV11Port/**'
+      - '.github/workflows/build-benchmark-v11port.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Build CSV profiler
+        run: dotnet build BenchmarkAndOptimizerV11Port/BenchmarkAndOptimizerV11Port.csproj -c Release
+      - name: Stage ready-to-install mod
+        shell: bash
+        run: |
+          set -euxo pipefail
+          ROOT="${RUNNER_TEMP}/timberborn-artifact/BenchmarkAndOptimizerV11Port"
+          mkdir -p "$ROOT/version-1.1/Scripts"
+          cp BenchmarkAndOptimizerV11Port/manifest.json "$ROOT/version-1.1/manifest.json"
+          cp BenchmarkAndOptimizerV11Port/bin/Release/netstandard2.1/BenchmarkAndOptimizerV11.dll "$ROOT/version-1.1/Scripts/"
+          test -s "$ROOT/version-1.1/Scripts/BenchmarkAndOptimizerV11.dll"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: BenchmarkAndOptimizerV11Port_1.1.104
+          path: ${{ runner.temp }}/timberborn-artifact/
+          if-no-files-found: error
