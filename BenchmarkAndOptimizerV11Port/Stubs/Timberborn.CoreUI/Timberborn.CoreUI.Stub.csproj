@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>Timberborn.CoreUI</AssemblyName>
+    <RootNamespace>Timberborn.CoreUI</RootNamespace>
+    <AssemblyVersion>0.0.0.0</AssemblyVersion>
+    <FileVersion>0.0.0.0</FileVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../UnityEngine.UIElementsModule/UnityEngine.UIElementsModule.Stub.csproj" Private="false" />
+  </ItemGroup>
+</Project>
