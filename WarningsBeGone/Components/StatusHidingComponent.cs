@@ -12,6 +12,7 @@ public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseC
     bool filteredDirty = true;
     bool cachedInPriorityMode;
     bool reportsHiddenPriority;
+    readonly HashSet<StatusInstance> hiddenActive = [];
 
     public string TemplateName { get; private set; } = "";
     public string DisplayName { get; private set; } = "";
@@ -60,6 +61,7 @@ public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseC
         RecomputeNeedsFilter();
         filteredDirty = true;
         RefreshPriorityContribution();
+        RefreshStatusSubject();
     }
 
     public void DeleteEntity()
@@ -151,6 +153,15 @@ public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseC
         filteredDirty = true;
         RefreshPriorityContribution();
 
+        foreach (var s in GetUnfilteredActiveStatuses())
+        {
+            var hide = NeedsFilter && ShouldHide(s.StatusDescription);
+            var list = s.IsPriorityStatus ? statusSubject._activePriorityStatuses : statusSubject._activeNormalStatuses;
+            if (hide && hiddenActive.Add(s)) { list.Remove(s); }
+            else if (!hide && hiddenActive.Remove(s)) { list.Add(s); }
+            s.IsActive = !hide || !StatusHidingService.HideCornerWarnings || s.StatusValueGetter is not null;
+        }
+
         if (statusIconCycler)
         {
             statusIconCycler!.OnStatusToggled(null!, null!);
@@ -159,6 +170,8 @@ public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseC
 
     void OnStatusToggled(object sender, StatusInstance status)
     {
+        if (!status.IsActive) { hiddenActive.Remove(status); }
+        else if (NeedsFilter && ShouldHide(status.StatusDescription)) { RefreshStatusSubject(); }
         filteredDirty = true;
         if (reportsHiddenPriority || status is { IsPriorityStatus: true })
         {
@@ -235,6 +248,7 @@ public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseC
         new([
             ..statusSubject._activePriorityStatuses,
             .. statusSubject._activeNormalStatuses,
+            .. hiddenActive,
         ]);
 
 }
