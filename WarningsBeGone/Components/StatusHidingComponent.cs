@@ -83,7 +83,7 @@ public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseC
     {
         if (!entityLoader.TryGetComponent(SaveKey, out var s)) { return; }
 
-        foreach (var status in s.Get(HidingStatusesKey))
+        foreach (var status in s.Get(HidingStatusesKey).Select(statusHidingRepo.FromKey))
         {
             if (!hidingStatuses.Add(status)) { continue; }
 
@@ -100,7 +100,7 @@ public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseC
         if (hidingStatuses.Count == 0) { return; }
 
         var s = entitySaver.GetComponent(SaveKey);
-        s.Set(HidingStatusesKey, hidingStatuses);
+        s.Set(HidingStatusesKey, [.. hidingStatuses.Select(statusHidingRepo.ToKey)]);
     }
 
     public bool ShouldHide(string status)
