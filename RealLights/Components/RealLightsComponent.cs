@@ -10,7 +10,8 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity, IInitializa
 
     bool IDuplicable.IsDuplicable => HasNightLight;
 
-    ImmutableArray<Light> lights = default;
+    bool lightAttached;
+    ImmutableArray<Light> lights = [];
     RealLightsManager registry = null!;
     IDayNightCycle dayNightCycle = null!;
 
@@ -21,7 +22,7 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity, IInitializa
     public RealLightsSpec? Spec { get; private set; }
     public string? BuildingName { get; private set; }
     public string? PrefabName { get; private set; }
-    public bool HasRealLight => Spec is not null;
+    public bool HasRealLight => Spec is not null && lights.Length > 0;
 
     CustomRealLightProperties[]? customs;
     RealLightClipboard? pendingClipboard;
@@ -69,7 +70,7 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity, IInitializa
     {
         registry.Unregister(this);
 
-        if (lights != default)
+        if (lights.Length > 0)
         {
             foreach (var l in lights)
             {
@@ -80,7 +81,7 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity, IInitializa
 
     void AttachLights(ImmutableArray<RealLightLightSpec> specs, Transform parent)
     {
-        if (lights != default) { return; }
+        if (lightAttached) { return; }
 
         List<Light> newLights = [];
         foreach (var spec in specs)
@@ -100,11 +101,12 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity, IInitializa
         }
 
         lights = [.. newLights];
+        lightAttached = true;
     }
 
     public void Reset()
     {
-        if (lights == default) { return; }
+        if (lights.Length == 0) { return; }
         customs = null;
         SetLightPosition(Spec!.Lights[0].Position);
         ForceNightLightOn = false;
@@ -149,13 +151,13 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity, IInitializa
 
     public void SetLightPosition(Vector3 position)
     {
-        if (lights == default) { return; }
+        if (lights.Length == 0) { return; }
         lights[0].transform.localPosition = CoordinateSystem.GridToWorld(position);
     }
 
     public void ToggleDebugLight(bool enabled)
     {
-        if (lights == default) { return; }
+        if (lights.Length == 0) { return; }
 
         IsDrawingDebugLight = enabled;
         foreach (var l in lights)
@@ -177,7 +179,7 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity, IInitializa
 
     void UpdateAllLights()
     {
-        if (lights == default) { return; }
+        if (lights.Length == 0) { return; }
         for (int i = 0; i < lights.Length; i++)
         {
             UpdateLight(i);
@@ -186,7 +188,7 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity, IInitializa
 
     void UpdateLight(int index)
     {
-        if (lights == default) { throw new InvalidOperationException("Lights not initialized"); }
+        if (lights.Length == 0) { throw new InvalidOperationException("Lights not initialized"); }
 
         var light = lights[index];
         var (color, range, intensity) = GetLightProperties(index);
@@ -275,7 +277,7 @@ public class RealLightsComponent : BaseComponent, IPersistentEntity, IInitializa
 
     public void DuplicateFrom(RealLightsComponent source)
     {
-        if (lights.IsDefault)
+        if (lights.IsDefaultOrEmpty)
         {
             pendingClipboard = source.ToClipboard();
             return;

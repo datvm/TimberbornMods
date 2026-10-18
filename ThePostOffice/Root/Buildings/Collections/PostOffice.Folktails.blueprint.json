@@ -1,0 +1,8 @@
+{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.Folktails",
+        "Blueprints": [
+            "Buildings/DistrictManagement/PostOffice/PostOffice.Folktails.blueprint"
+        ]
+    }
+}

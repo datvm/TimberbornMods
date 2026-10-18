@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputModFolderName>ThePostOffice</OutputModFolderName>
+  </PropertyGroup>
+  <Import Project="../Targets/Common.targets" />
+  <Import Project="../Targets/CommonModdableTimberborn.targets" />
+  <Import Project="../Targets/CommonGlobalInventory.targets" />
+  <ItemGroup>
+    <Using Include="ModdableTimberborn.DependencyInjection" />
+    <Using Include="ThePostOffice.Components" />
+    <Using Include="ThePostOffice.Components.Behaviors" />
+    <Using Include="ThePostOffice.Models" />
+    <Using Include="ThePostOffice.Services" />
+    <Using Include="ThePostOffice.Specs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Root\Buildings\Collections\" />
+  </ItemGroup>
+</Project>

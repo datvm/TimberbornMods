@@ -1,4 +1,6 @@
-﻿Certain buildings in the game does not have a real "light" (for example Lantern or Brazier) but is just a texture due to Unity's Light constraint. This mod adds an actual light source to these buildings that are configurable as well.
+﻿[b]Note: In V1, there is a new graphics setting called "Additional Light Quality" that would affect Lights made by this mod. If you turn it off, you won't see those lights.[/b]
+
+Certain buildings in the game does not have a real "light" (for example Lantern or Brazier) but is just a texture due to Unity's Light constraint. This mod adds an actual light source to these buildings that are configurable as well.
 
 [b]For players:[/b] This mod adds actual light sources (and configurable) to [b]Lantern[/b] (Folktails and Iron Teeth) and [b]Brazier[/b] (Iron Teeth) buildings.
 [b]For modders:[/b] You can use this mod to add light sources to your mod's or the game's buildings using JSON specs.
@@ -56,25 +58,4 @@ Note: while [b]a[/b] property is probably not used, it's still required for the 
 And that's it! If you need any help, please ping me on the Timberborn's Official Discord server. 
 
 ===
-v10.0.2:
-- Really fixed the crash this time.
-- You can now use V1 Duplicate and Copy Setting. The built-in copy is still there but I think the new one is better.
-
-v10.0.1:
-- You can use decimal values for Intensity. Remember to use Shift + Click if you want to enter a specific number.
-- Further improved the UI by removing the scrollbar and move the less-used options into a collapsible panel.
-- Fixed a potential crash.
-
-v10.0.0:
-- Works with Timberborn v1.0 now.
-- Color selection is now a single button instead of a set of sliders.
-- Collapsible panel is now provided by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3547764728]TImprove 4 UX[/url] instead.
-
-v7.3.0: The panel is now collapsible (and it's also collapsed by default).
-v7.2.0: You can Shift + Click the slider to manually enter a specific number now.
-v7.1.4: Should work with April 10 update now.
-v7.1.3: added a scrollbar. Also fixed some bug with Turning off light logic.
-v7.1.1: you can now also turn the light off for a whole set of buildings, in preparation for my next extension mod.
-v7.1.0: should work for April 02 update. Added ability to turn a light off and hotkeys for copying and pasting Light setting between buildings as well.
-
-Mod source code (feel free to use it however you want): https://github.com/datvm/TimberbornMods
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
