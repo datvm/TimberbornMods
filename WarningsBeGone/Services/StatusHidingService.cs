@@ -3,7 +3,8 @@
 [BindSingleton]
 public class StatusHidingService(
     ISingletonLoader loader,
-    EntityRegistry entityRegistry
+    EntityRegistry entityRegistry,
+    ILoc loc
 ) : ILoadableSingleton, ISaveableSingleton
 {
     static readonly SingletonKey SaveKey = new(nameof(StatusHidingService));
@@ -16,6 +17,7 @@ public class StatusHidingService(
     readonly HashSet<string> globalHidingStatuses = [];
     readonly Dictionary<string, HashSet<string>> templateHidingStatuses = [];
     int hiddenPriorityCount;
+    Dictionary<string, string>? keysByText;
 
     public IReadOnlyCollection<string> GlobalHidingStatuses => globalHidingStatuses;
 
@@ -52,7 +54,7 @@ public class StatusHidingService(
         if (s.Has(GlobalHidingStatusesKey))
         {
             var loaded = JsonConvert.DeserializeObject<IEnumerable<string>>(s.Get(GlobalHidingStatusesKey)) ?? [];
-            foreach (var status in loaded)
+            foreach (var status in loaded.Select(FromKey))
             {
                 RememberGlobal(status);
             }
@@ -61,7 +63,7 @@ public class StatusHidingService(
         if (s.Has(TemplateHidingStatusesKey))
         {
             var dict = JsonConvert.DeserializeObject<Dictionary<string, HashSet<string>>>(s.Get(TemplateHidingStatusesKey)) ?? [];
-            foreach (var (template, statuses) in dict)
+            foreach (var (template, statuses) in dict.ToDictionary(q => q.Key, q => q.Value.Select(FromKey).ToHashSet()))
             {
                 templateHidingStatuses[template] = statuses;
                 foreach (var status in statuses)
@@ -90,14 +92,18 @@ public class StatusHidingService(
         }
 
         var s = singletonSaver.GetSingleton(SaveKey);
-        s.Set(GlobalHidingStatusesKey, JsonConvert.SerializeObject(globalHidingStatuses));
-        s.Set(TemplateHidingStatusesKey, JsonConvert.SerializeObject(templateHidingStatuses));
+        s.Set(GlobalHidingStatusesKey, JsonConvert.SerializeObject(globalHidingStatuses.Select(ToKey)));
+        s.Set(TemplateHidingStatusesKey, JsonConvert.SerializeObject(templateHidingStatuses.ToDictionary(q => q.Key, q => q.Value.Select(ToKey))));
 
         if (HideCornerWarnings)
         {
             s.Set(HideCornerWarningsKey, true);
         }
     }
+
+    public string ToKey(string text) => (keysByText ??= ((Loc)loc)._localization.GroupBy(q => q.Value).ToDictionary(q => q.Key, q => q.First().Key)).TryGetValue(text, out var key) ? key : text;
+
+    public string FromKey(string key) => ((Loc)loc)._localization.TryGetValue(key, out var text) ? text : key;
 
     public bool IsStatusHiddenGlobally(string status) => globalHidingStatuses.Contains(status);
 
