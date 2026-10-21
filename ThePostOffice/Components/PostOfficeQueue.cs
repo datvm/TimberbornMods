@@ -44,6 +44,15 @@ public class PostOfficeQueue(
     {
         events.Register(this);
         building.Inventory.InventoryStockChanged += OnStock;
+        if (spec.Sends)
+        {
+            RetrieveAutoEnabled = false;
+        }
+        else
+        {
+            SendAutoEnabled = false;
+        }
+
         RefreshLimits();
         TryAuto();
     }
@@ -59,7 +68,7 @@ public class PostOfficeQueue(
 
     public bool TryEnqueue(bool send, IReadOnlyList<GoodAmount> goods)
     {
-        if (HasManual && IsSend != send)
+        if (send != spec.Sends || (HasManual && IsSend != send))
         {
             return false;
         }
@@ -121,9 +130,13 @@ public class PostOfficeQueue(
 
     public void SetAuto(bool send, bool retrieve, IReadOnlyList<GoodAmount> sendKeeps, IReadOnlyList<GoodAmount> retrieveKeeps)
     {
-        if (send)
+        if (spec.Sends)
         {
             retrieve = false;
+        }
+        else
+        {
+            send = false;
         }
 
         SendAutoEnabled = send;
@@ -431,8 +444,12 @@ public class PostOfficeQueue(
             return;
         }
 
-        if (SendAutoEnabled)
+        if (spec.Sends)
         {
+            if (!SendAutoEnabled)
+            {
+                return;
+            }
 
             var parcel = PackAuto(SendKeeps, true);
             if (parcel is null)

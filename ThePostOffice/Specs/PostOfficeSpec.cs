@@ -3,14 +3,14 @@
 public record PostOfficeSpec : ComponentSpec
 {
     [Serialize]
-    public float SendHours { get; init; } 
+    public float SendHours { get; init; }
 
     [Serialize]
-    public float RetrieveHours { get; init; } 
+    public float RetrieveHours { get; init; }
 
     [Serialize]
-    public int InventoryCapacity { get; init; } 
+    public int InventoryCapacity { get; init; }
 
     [Serialize]
-    public int GlobalCapacityContribution { get; init; } 
+    public bool Sends { get; init; }
 }

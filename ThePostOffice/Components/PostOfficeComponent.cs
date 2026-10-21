@@ -1,7 +1,7 @@
 ﻿namespace ThePostOffice.Components;
 
 [AddTemplateModule2(typeof(PostOfficeSpec))]
-public class PostOfficeComponent(PostOfficeService service) : BaseComponent, IAwakableComponent, IFinishedStateListener
+public class PostOfficeComponent : BaseComponent, IAwakableComponent
 {
 
 #nullable disable
@@ -17,6 +17,4 @@ public class PostOfficeComponent(PostOfficeService service) : BaseComponent, IAw
         BlockObject = GetComponent<BlockObject>();
     }
 
-    public void OnEnterFinishedState() => service.OnFinished(this);
-    public void OnExitFinishedState() => service.OnExitFinished(this);
 }

@@ -7,35 +7,25 @@ public class PostOfficeService(
     RecoveredGoodStackSpawner spawner
 )
 {
-
     public int ParcelWeight => configs.ParcelWeight;
 
-    public void OnFinished(PostOfficeComponent comp)
+    public void AddContribution(PostOfficeCapacity building)
     {
-        inventory.AddCapacity(comp.PostOfficeSpec.GlobalCapacityContribution);
+        inventory.AddCapacity(building.Contribution);
     }
 
-    public void OnExitFinished(PostOfficeComponent comp)
+    public void RemoveContribution(PostOfficeCapacity building)
     {
-        var removingCap = comp.PostOfficeSpec.GlobalCapacityContribution;
-        // Remove until capacity
-        var goods = inventory.GetGoodRemoval(removingCap).ToArray();
+        var removing = Math.Min(building.Contribution, inventory.Capacity);
+        var goods = inventory.GetGoodRemoval(removing).ToArray();
         if (goods.Length > 0)
         {
-            SpawnRemovalGoods(comp, goods);
+            inventory.Remove(goods);
+            spawner.AddAwaitingGoods(building.Coordinates, goods);
         }
 
-        // Remove capacity
-        inventory.RemoveCapacity(removingCap);
-    }
-
-    void SpawnRemovalGoods(PostOfficeComponent comp, IReadOnlyList<GoodAmount> goods)
-    {
-        inventory.Remove(goods);
-        var coord = comp.BlockObject.Coordinates;
-        spawner.AddAwaitingGoods(coord, goods);
+        inventory.RemoveCapacity(removing);
     }
 
     public int ParcelKg(float parcel) => Mathf.FloorToInt(parcel * ParcelWeight);
-
 }

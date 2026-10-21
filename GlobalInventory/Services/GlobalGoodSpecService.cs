@@ -1,15 +1,25 @@
 ﻿namespace GlobalInventory.Services;
 
 [BindSingleton]
-public class GlobalGoodSpecService(ISpecService specs, IGoodService goods) : ILoadableSingleton
+public class GlobalGoodSpecService(
+    ISpecService specs,
+    IGoodService goods,
+    IEnumerable<IGlobalGoodsProvider> additionalProviders
+) : ILoadableSingleton
 {
+    readonly ImmutableArray<IGlobalGoodsProvider> additionalProviders = [.. additionalProviders];
+
     FrozenDictionary<string, GlobalGoodSpec> byId = FrozenDictionary<string, GlobalGoodSpec>.Empty;
     public IReadOnlyList<GlobalGoodSpec> All { get; private set; } = [];
 
     public void Load()
     {
         Dictionary<string, GlobalGoodSpec> map = [];
-        foreach (var spec in specs.GetSpecs<GlobalGoodSpec>())
+
+        var allSpecs = specs.GetSpecs<GlobalGoodSpec>()
+            .Concat(additionalProviders.SelectMany(p => p.GetAdditionalGlobalGoods()));
+
+        foreach (var spec in allSpecs)
         {
             var resolved = Resolve(spec);
             Validate(resolved);
