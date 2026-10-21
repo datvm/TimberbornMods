@@ -1,7 +1,7 @@
 ﻿{
     "BuildingSpec": {
-        "SelectionSoundName": "Default",
-        "LoopingSoundName": "",
+        "SelectionSoundName": "WindTurbine",
+        "LoopingSoundName": "Gristmill",
         "BuildingCost": [
             {
                 "Id": "Plank",
@@ -37,14 +37,315 @@
     },
     "BlockObjectSpec": {
         "Size": {
-            "X": 1,
-            "Y": 1,
-            "Z": 2
+            "X": 3,
+            "Y": 3,
+            "Z": 5
         },
         "Blocks": [
             {
-                "MatterBelow": "Stackable",
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "GroundOrStackable",
                 "Occupations": "Bottom, Top, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
                 "Stackable": "None",
                 "OccupyAllBelow": false,
                 "Underground": false
@@ -77,9 +378,9 @@
         "CustomPivot": {
             "HasCustomPivot": false,
             "Coordinates": {
-                "X": 0.0,
-                "Y": 0.0,
-                "Z": 0.0
+                "X": 0,
+                "Y": 0,
+                "Z": 0
             }
         },
         "CanBeAttachedToTerrainSide": false,
@@ -91,48 +392,55 @@
         "FlavorDescriptionLocKey": "LV.CrH.WindmillFlavor",
         "Icon": "Buildings/CraneHeads/CranetopWindmill/CranetopWindmillIcon"
     },
-    "WeathervaneSpec": {},
     "WindRotationAnimatorSpec": {
         "WindRotators": [
             {
-                "TransformName": "#RotorMisc",
+                "TransformName": "#LargeRotorMIsc",
                 "RotationAxis": {
-                    "X": 1.0,
-                    "Y": 0.0,
-                    "Z": 0.0
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 1
                 },
-                "RotationSpeed": 400.0
+                "RotationSpeed": 80
+            },
+            {
+                "TransformName": "#LargeShaftMIsc",
+                "RotationAxis": {
+                    "X": 0,
+                    "Y": -1,
+                    "Z": 0
+                },
+                "RotationSpeed": 80
             }
         ],
         "Tower": {
-            "TransformName": "#WindLogMisc",
+            "TransformName": "#LargeBaseMIsc",
             "RotationAxis": {
-                "X": 0.0,
-                "Y": 1.0,
-                "Z": 0.0
+                "X": 0,
+                "Y": 1,
+                "Z": 0
             },
-            "RotationSpeed": 200.0
+            "RotationSpeed": 80
         }
     },
     "ConstructionSiteProgressVisualizerSpec": {
         "ProgressThresholds": [
-            0.0
+            0
         ]
     },
     "WaterObjectSpec": {
         "WaterCoordinates": {
-            "X": 0,
-            "Y": 0,
-            "Z": 0
+            "X": 1,
+            "Y": 1,
+            "Z": 2
         }
     },
     "FloodableBuildingSpec": {},
     "BlockableFloodableObjectSpec": {},
-    "BlockableBuildingWindAnimatorSpec": {},
     "CraneHeadSpec": {
         "AttachmentCoordinates": {
-            "X": 0,
-            "Y": 0,
+            "X": 1,
+            "Y": 1,
             "Z": 0
         }
     },
@@ -143,71 +451,67 @@
     "Children": {
         "#Finished": {
             "TimbermeshSpec": {
-                "Model": "Buildings/Decoration/Weathervane/Weathervane.IronTeeth.Model"
+                "Model": "Buildings/Power/LargeWindTurbine/LargeWindTurbine.Folktails.Model"
             },
             "CollidersSpec": {
                 "BoxColliders": [
                     {
                         "Center": {
-                            "X": 0.5,
-                            "Y": 0.25,
-                            "Z": 0.5
+                            "X": 1.5,
+                            "Y": 1.8,
+                            "Z": 1.5
                         },
                         "Size": {
-                            "X": 0.8,
-                            "Y": 0.4,
-                            "Z": 0.8
-                        }
-                    },
-                    {
-                        "Center": {
-                            "X": 0.5,
-                            "Y": 0.25,
-                            "Z": 0.5
-                        },
-                        "Size": {
-                            "X": 0.8,
-                            "Y": 0.4,
-                            "Z": 0.8
+                            "X": 1,
+                            "Y": 3.6,
+                            "Z": 1
                         }
                     }
                 ],
                 "SphereColliders": [],
-                "CapsuleColliders": [
-                    {
-                        "Center": {
-                            "X": 0.5,
-                            "Y": 0.92,
-                            "Z": 0.5
-                        },
-                        "Radius": 0.11,
-                        "Height": 1.0,
-                        "Axis": "Y"
-                    }
-                ]
+                "CapsuleColliders": []
             }
         },
         "#Unfinished": {
             "Children": {
                 "ConstructionBase1x1#nested": {
-                    "BlueprintPath": "ConstructionBases/ConstructionBase1x1/ConstructionBase1x1.blueprint"
+                    "BlueprintPath": "ConstructionBases/ConstructionBase1x1/ConstructionBase1x1.blueprint",
+                    "Modification": {
+                        "TransformSpec": {
+                            "Position": {
+                                "X": 1,
+                                "Y": 0,
+                                "Z": 1
+                            },
+                            "Rotation": {
+                                "X": 0,
+                                "Y": 0,
+                                "Z": 0
+                            },
+                            "Scale": {
+                                "X": 1,
+                                "Y": 1,
+                                "Z": 1
+                            }
+                        }
+                    }
                 },
                 "ConstructionStage0": {
                     "TimbermeshSpec": {
-                        "Model": "Buildings/Decoration/Weathervane/Weathervane.IronTeeth.ConstructionStage0.Model"
+                        "Model": "Buildings/Power/LargeWindTurbine/LargeWindTurbine.Folktails.ConstructionStage0.Model"
                     },
                     "CollidersSpec": {
                         "BoxColliders": [
                             {
                                 "Center": {
-                                    "X": 0.5,
-                                    "Y": 0.05,
-                                    "Z": 0.5
+                                    "X": 1.5,
+                                    "Y": 1.5,
+                                    "Z": 1.5
                                 },
                                 "Size": {
-                                    "X": 1.0,
-                                    "Y": 0.1,
-                                    "Z": 1.0
+                                    "X": 1,
+                                    "Y": 3,
+                                    "Z": 1
                                 }
                             }
                         ],
