@@ -1,5 +1,4 @@
-﻿
-namespace SuperCursor.Services.ObjectDescribers;
+﻿namespace SuperCursor.Services.ObjectDescribers;
 
 public class WorkplaceDescriber(ILoc t) : BaseObjectDescriber<Workplace>
 {
@@ -10,10 +9,10 @@ public class WorkplaceDescriber(ILoc t) : BaseObjectDescriber<Workplace>
     {
         builder.Append(t.T("Work.Workplace.DisplayName").Bold());
 
-        var priority = component.GetComponentFast<WorkplacePriority>();
+        var priority = component.GetComponent<WorkplacePriority>();
         builder.AppendLine(": " + (priority is null ? "" : priority.Priority.ToTooltipString()));
 
-        var workerType = component.GetComponentFast<WorkplaceWorkerType>();
+        var workerType = component.GetComponent<WorkplaceWorkerType>();
         var workerTypeText = workerType is null ? null :
             (workerType.WorkerType == BeaverWorkerType
             ? t.T("Beaver.PluralDisplayName") : t.T("Bot.PluralDisplayName"));

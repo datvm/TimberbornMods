@@ -1,6 +1,6 @@
 ﻿namespace SuperCursor.Services.ObjectDescribers;
 
-[ServicePriority(1)]
+[CursorService(1, gameOnly: true)]
 public class CharacterDescriber(ILoc t, LifeService lifeService) : BaseObjectDescriber<Character>
 {
 
@@ -9,25 +9,25 @@ public class CharacterDescriber(ILoc t, LifeService lifeService) : BaseObjectDes
         var age = component.Age;
         builder.AppendLine(t.T("Beaver.Age", age));
 
-        var child = component.GetComponentFast<Child>();
+        var child = component.GetComponent<Child>();
         if (child is not null)
         {
             DescribeChild(builder, child, age);
         }
 
-        var deteriorable = component.GetComponentFast<Deteriorable>();
+        var deteriorable = component.GetComponent<Deteriorable>();
         if (deteriorable is not null)
         {
             DescribeDeteriorable(builder, deteriorable, age);
         }
 
-        var dweller = component.GetComponentFast<Dweller>();
+        var dweller = component.GetComponent<Dweller>();
         if (dweller is not null)
         {
             DescribeDweller(builder, dweller);
         }
 
-        var worker = component.GetComponentFast<Worker>();
+        var worker = component.GetComponent<Worker>();
         if (worker is not null && child is null)
         {
             DescribeWorker(builder, worker);
@@ -80,7 +80,7 @@ public class CharacterDescriber(ILoc t, LifeService lifeService) : BaseObjectDes
 
     string GetDisplayName(BaseComponent building)
     {
-        return t.T(building.GetComponentFast<LabeledEntitySpec>().DisplayNameLocKey);
+        return t.T(building.GetComponent<LabeledEntitySpec>().DisplayNameLocKey);
     }
 
 }

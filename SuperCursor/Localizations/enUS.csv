@@ -15,3 +15,7 @@ LV.SC.BlockStat,"Moisture: {0} blocks, Contamination: {1}%",
 LV.SC.KeyBinding,"Super Cursor",
 LV.SC.BeaverWaterConsumption," Water: {0:F1}/day",
 LV.SC.BeaverFoodConsumption," Food: {0:F1}/day",
+LV.SC.PlantGrowthDay,"{0:0.0} / {1:0.0}d ({2:0%})",
+LV.SC.Ruin," {0} / {1} {2} left"
+LV.SC.NeedEffect," {0:0.##%} {1} ({2})","Low percentage is below 0.1 so gives it two ##"
+LV.SC.Inventory,"Inventory",

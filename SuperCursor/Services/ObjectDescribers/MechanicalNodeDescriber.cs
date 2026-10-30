@@ -1,5 +1,6 @@
 ﻿namespace SuperCursor.Services.ObjectDescribers;
 
+[CursorService(int.MaxValue, gameOnly: true)]
 public class MechanicalNodeDescriber(ILoc t, MechanicalNodeTextFormatter formatter) : BaseObjectDescriber<MechanicalNode>
 {
     static readonly Phrase NetworkPowerPhrase = Phrase.New("Mechanical.NetworkPower").Format<int>(v => v.ToString()).FormatPower<int>();

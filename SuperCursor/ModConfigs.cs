@@ -1,4 +1,5 @@
-﻿namespace SuperCursor;
+﻿
+namespace SuperCursor;
 
 public static class ModConfigHelper
 {
@@ -28,22 +29,38 @@ public static class ModConfigHelper
         return c;
     }
 
-    public static ImmutableArray<Type> GetImplementations<TInterface>(Assembly? assembly = default)
+    static IEnumerable<Type> GetImplementations<TInterface>(bool gameContext, Assembly? assembly = default)
     {
         assembly ??= Assembly.GetCallingAssembly();
 
-        return [.. assembly.GetTypes()
-            .Where(t => typeof(TInterface).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract)
-            .OrderBy(q => q.GetCustomAttribute<ServicePriorityAttribute>()?.Priority ?? int.MaxValue)];
+        List<(Type, CursorServiceAttribute?)> result = [];
+
+        foreach (var t in assembly.GetTypes())
+        {
+            if (!typeof(TInterface).IsAssignableFrom(t) || t.IsInterface || t.IsAbstract)
+            {
+                continue;
+            }
+
+
+            var attr = t.GetCustomAttribute<CursorServiceAttribute>();
+
+            if (gameContext || attr is null || !attr.GameOnly)
+            {
+                result.Add((t, attr));
+            }
+        }
+
+        return result.OrderBy(q => q.Item2?.Priority ?? int.MaxValue).Select(q => q.Item1);
     }
 
-    static readonly MethodInfo MultibindToMethod = typeof(IBindingBuilder<>).GetMethod(nameof(IBindingBuilder<object>.To), BindingFlags.Public | BindingFlags.Instance)!;
-    public static IContainerDefinition MultibindWithImplementations<TInterface>(this IContainerDefinition c, Assembly? assembly = default)
+    static readonly MethodInfo MultibindToMethod = typeof(IBindingBuilder<>).GetMethod(nameof(IBindingBuilder<>.To), BindingFlags.Public | BindingFlags.Instance)!;
+    public static IContainerDefinition MultibindWithImplementations<TInterface>(this IContainerDefinition c, bool gameContext, Assembly? assembly = default)
         where TInterface : class
     {
         assembly ??= Assembly.GetCallingAssembly();
 
-        var types = GetImplementations<TInterface>(assembly);
+        var types = GetImplementations<TInterface>(gameContext, assembly);
         foreach (var type in types)
         {
             var multiBind = c.MultiBind<TInterface>();
@@ -66,8 +83,8 @@ public class GameConfig : IConfigurator
     {
         ModConfigHelper.CommonConfigure(c);
 
-        c.MultibindWithImplementations<IObjectDescriber>();
-        c.MultibindWithImplementations<ICoordDescriber>();
+        c.MultibindWithImplementations<IObjectDescriber>(true);
+        c.MultibindWithImplementations<ICoordDescriber>(true);
     }
 
 }
@@ -75,8 +92,13 @@ public class GameConfig : IConfigurator
 [Context("MapEditor")]
 public class MapEditorConfig : IConfigurator
 {
-    public void Configure(IContainerDefinition containerDefinition)
+
+    public void Configure(IContainerDefinition c)
     {
-        ModConfigHelper.CommonConfigure(containerDefinition);
+        ModConfigHelper.CommonConfigure(c);
+
+        c.MultibindWithImplementations<IObjectDescriber>(false);
+        c.MultibindWithImplementations<ICoordDescriber>(false);
     }
+
 }

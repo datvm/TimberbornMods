@@ -1,6 +1,6 @@
 ﻿namespace SuperCursor.Services.CoordDescribers;
 
-[ServicePriority(0)]
+[CursorService(0)]
 public class LandCoordDescriber(
     ISoilContaminationService soilContamination,
     ISoilMoistureService soilMoisture,

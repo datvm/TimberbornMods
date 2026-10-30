@@ -1,5 +1,6 @@
 ﻿namespace SuperCursor.Services.ObjectDescribers;
 
+[CursorService(int.MaxValue, gameOnly: true)]
 public class ConstructionSiteDescriber(ILoc t, IGoodService goods) : BaseObjectDescriber<ConstructionSite>
 {
     protected override void DescribeComponent(StringBuilder builder, ConstructionSite component)

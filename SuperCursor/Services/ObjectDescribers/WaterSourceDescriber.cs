@@ -1,6 +1,6 @@
 ﻿namespace SuperCursor.Services.ObjectDescribers;
 
-[ServicePriority(1)]
+[CursorService(1)]
 public class WaterSourceDescriber(ILoc t) : BaseObjectDescriber<WaterSource>
 {
     protected override void DescribeComponent(StringBuilder builder, WaterSource component)

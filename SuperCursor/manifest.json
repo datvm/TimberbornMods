@@ -1,8 +1,8 @@
 ﻿{
     "Name": "Super Cursor",
-    "Version": "10.0.6",
+    "Version": "11.0.0",
     "Id": "SuperCursor",
-    "MinimumGameVersion": "1.0.0",
+    "MinimumGameVersion": "1.1.1",
     "Description": "More info with Cursor tool when holding Shift",
     "RequiredMods": []
 }

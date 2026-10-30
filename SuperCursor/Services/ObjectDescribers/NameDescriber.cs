@@ -1,6 +1,6 @@
 ﻿namespace SuperCursor.Services.ObjectDescribers;
 
-[ServicePriority(0)]
+[CursorService(0)]
 public class NameDescriber : BaseObjectDescriber<BaseComponent>
 {
 

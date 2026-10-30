@@ -1,11 +1,9 @@
 ﻿
 namespace SuperCursor.Services.ObjectDescribers;
 
-[ServicePriority(1)]
+[CursorService(1)]
 public class CuttableDescriber(DeadNaturalResourceDescriber deadDescriber, ILoc t, IGoodService goods) : BaseObjectDescriber<Cuttable>
 {
-    const string DayLoc = "Time.DaysShort";
-
     protected override void DescribeComponent(StringBuilder builder, Cuttable component)
     {
         DescribeDying(builder, component);
@@ -31,11 +29,7 @@ public class CuttableDescriber(DeadNaturalResourceDescriber deadDescriber, ILoc 
     {
         var current = total * progress;
 
-        return string.Format("{0}/{1} ({2:F0}%)",
-            t.T(DayLoc, current.ToString("F1")),
-            t.T(DayLoc, total.ToString("F1")),
-            progress * 100f
-        );
+        return t.T("LV.SC.PlantGrowthDay", current, total, progress);
     }
 
     void DescribeGatherable(StringBuilder builder, Gatherable gatherable)

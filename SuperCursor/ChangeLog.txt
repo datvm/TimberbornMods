@@ -1,0 +1,5 @@
+﻿v11.0.0:
+- Fixed the time label for plant and produce growth.
+- Added "Need" info (Injury or Bee Sting chance for example).
+- Added Inventory info for all buildings.
+- Fixed not working with Map Editor.

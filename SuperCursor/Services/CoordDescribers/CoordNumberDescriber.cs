@@ -1,6 +1,6 @@
 ﻿namespace SuperCursor.Services.CoordDescribers;
 
-[ServicePriority(0)]
+[CursorService(0)]
 public class CoordNumberDescriber(ILoc loc) : ICoordDescriber
 {
     public void Describe(StringBuilder builder, in CursorCoordinates block)

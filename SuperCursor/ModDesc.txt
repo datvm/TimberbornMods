@@ -3,8 +3,8 @@
 Current options:
 
 - Coordinates: Height and (X, Y).
-- Soil (if available): Moisture and contamination.
-- Water (if available): Depth (and depth to the current object if you are pointing to a Platform for example), current and contamination.
+- Soil: Moisture and contamination.
+- Water: Depth (and depth to the current object if you are pointing to a Platform for example), current and contamination.
 
 The following info shows up if your cursor is pointing to a certain object:
 - Name
@@ -13,11 +13,12 @@ The following info shows up if your cursor is pointing to a certain object:
 - "Cuttable" (Plants and Trees): their growth, yields and water status.
 - Houses: how many are in there.
 - Power: The input/output and the network total.
-- Stockpile (piles, storehouses and tanks): what is stored and how many.
+- Stockpile (piles, storehouses and tanks) and Inventories: what is stored and how many.
 - Water Source (both fresh and badwater): strength and contamination.
 - Workplace: priority, workers.
+- Any object with potential for injury (like Thorns, Lumbermills) or special effect like Beehive: it shows the chance you may get that effect.
 
-Priority (for builders and workplaces) are represented by these symbols: -- / - / ~ / + / ++
+Priority (for builders and workplaces) are represented by P0 (Lowest) to P5 (Highest).
 
 You can also use Keybinding options (Settings -> Keybindings -> Super Cursor) to change from the Shift key if you like. It should be in the User Interface group.
 

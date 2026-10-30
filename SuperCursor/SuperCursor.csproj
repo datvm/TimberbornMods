@@ -1,8 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<OutputModFolderName>SuperCursor</OutputModFolderName>
-	</PropertyGroup>
-
-	<Import Project="../Targets/Common.targets" />
-
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputModFolderName>SuperCursor</OutputModFolderName>
+  </PropertyGroup>
+  <Import Project="../Targets/Common.targets" />
+  <ItemGroup>
+    <Using Include="SuperCursor.Services" />
+    <Using Include="SuperCursor.Services.CoordDescribers" />
+    <Using Include="SuperCursor.Services.ObjectDescribers" />
+    <Using Include="SuperCursor.UI" />
+  </ItemGroup>
 </Project>
