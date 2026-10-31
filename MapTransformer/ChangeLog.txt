@@ -1,0 +1,3 @@
+﻿v11.0.1:
+- Fixed a crash when the map height is a multiplier of 8.
+- Fixed visual bug: resizing map now updates the metadata (it was showing wrong size on the map selection).
