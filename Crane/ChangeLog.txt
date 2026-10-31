@@ -1,0 +1,1 @@
+﻿v11.1.3: New toolbar icons thanks to Azzurite.
