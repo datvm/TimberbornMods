@@ -1,4 +1,8 @@
-﻿v10.5.0:
+﻿v11.1.0:
+- Fixed Path showing up in the Map Editor.
+- Subgroups now open at the center of the screen.
+[img]https://files.catbox.moe/7v5hj5.jpg[/img]
+v10.5.0:
 - Fixed wrapping happening too early. It's now at 95% of the screen width instead of 1200px.
 - Added more API support for other mods.
 - Fixed Tooltip showing up for simple buttons.

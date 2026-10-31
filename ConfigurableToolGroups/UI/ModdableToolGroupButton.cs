@@ -59,6 +59,12 @@ public class ModdableToolGroupButton
         s.left = Length.Percent(50);
         s.translate = new Translate(Length.Percent(-50), 0);
 
+        if (!isRoot)
+        {
+            // Percent left is the button width. After layout, shift so the strip sits on the screen center.
+            btns.RegisterCallback<GeometryChangedEvent>(CenterOnScreen);
+        }
+
         if (r.panel is not null)
         {
             OnAttach();
@@ -80,6 +86,22 @@ public class ModdableToolGroupButton
         void OnAttach()
         {
             s.maxWidth = Screen.width / r.panel!.scaledPixelsPerPoint * .95f;
+        }
+
+        void CenterOnScreen(GeometryChangedEvent evt)
+        {
+            if (btns.resolvedStyle.display == DisplayStyle.None) { return; }
+
+            var width = evt.newRect.width;
+            var screen = btns.panel?.visualTree.worldBound ?? default;
+            var parent = btns.parent;
+            if (width <= 1f || screen.width <= 1f || parent is null) { return; }
+
+            var untranslatedLeft = parent.worldBound.xMin + evt.newRect.x;
+            var translateX = screen.center.x - width / 2f - untranslatedLeft;
+            if (Mathf.Abs(btns.resolvedStyle.translate.x - translateX) < 0.5f) { return; }
+
+            s.translate = new Translate(Length.Pixels(translateX), Length.Pixels(0f));
         }
     }
 

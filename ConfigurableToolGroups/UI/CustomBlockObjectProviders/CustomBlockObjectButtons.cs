@@ -15,6 +15,8 @@ public abstract class CustomBlockObjectButtons(
 
     protected abstract IEnumerable<BlockObjectToolGroupInfo> GetRootGroups();
 
+    protected virtual bool IncludePlaceable(PlaceableToolInfo tool) => tool.Placeable.UsableWithCurrentFeatureToggles;
+
     public override IEnumerable<BottomBarElement> GetElements()
     {
         toolGroupButtonsById.Clear();
@@ -34,7 +36,7 @@ public abstract class CustomBlockObjectButtons(
 
     ModdableToolGroupButton? CreateToolGroup(BlockObjectToolGroupInfo grp, ModdableToolGroupButton? parent)
     {
-        if (grp.Empty) { return null; }
+        if (!HasVisibleContent(grp)) { return null; }
 
         var btn = grpButtonFac.Create(grp.Spec.ToToolGroupSpec(), parent, ToolButtonColor.Green);
         parent?.AddChildGroup(btn);
@@ -51,8 +53,9 @@ public abstract class CustomBlockObjectButtons(
                     CreateToolGroup(subGrp, btn);
                     break;
                 case PlaceableToolInfo pti:
+                    if (!IncludePlaceable(pti)) { continue; }
+
                     var bo = pti.Placeable;
-                    if (!bo.UsableWithCurrentFeatureToggles) { continue; }
 
                     var toolBtn = boBtnFac.Create(bo, btns);
                     toolButtonsById.TryAdd(pti.Id, toolBtn);
@@ -69,6 +72,22 @@ public abstract class CustomBlockObjectButtons(
         }
 
         return btn;
+    }
+
+    bool HasVisibleContent(BlockObjectToolGroupInfo grp)
+    {
+        foreach (var child in grp.OrderedChildren)
+        {
+            switch (child)
+            {
+                case BlockObjectToolGroupInfo subGrp when HasVisibleContent(subGrp):
+                    return true;
+                case PlaceableToolInfo pti when IncludePlaceable(pti):
+                    return true;
+            }
+        }
+
+        return false;
     }
 
 }
