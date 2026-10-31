@@ -66,10 +66,7 @@ public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseC
 
     public void DeleteEntity()
     {
-        if (statusSubject is not null)
-        {
-            statusSubject.StatusToggled -= OnStatusToggled;
-        }
+        statusSubject?.StatusToggled -= OnStatusToggled;
 
         foreach (var status in hidingStatuses)
         {
@@ -170,8 +167,15 @@ public class StatusHidingComponent(StatusHidingService statusHidingRepo) : BaseC
 
     void OnStatusToggled(object sender, StatusInstance status)
     {
-        if (!status.IsActive) { hiddenActive.Remove(status); }
-        else if (NeedsFilter && ShouldHide(status.StatusDescription)) { RefreshStatusSubject(); }
+        if (!status.IsActive)
+        {
+            hiddenActive.Remove(status);
+        }
+        else if (NeedsFilter && ShouldHide(status.StatusDescription))
+        {
+            RefreshStatusSubject();
+        }
+
         filteredDirty = true;
         if (reportsHiddenPriority || status is { IsPriorityStatus: true })
         {

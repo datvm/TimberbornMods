@@ -1,3 +1,6 @@
-﻿v11.1.0:
+﻿v11.1.1:
+- New optimization by Acalc79.
+- No longer needs Harmony.
+v11.1.0:
 - (Potentially) fixed late game performance issues with a few optimizations. Thanks Acalc79 for the report and help.
 - Minor UI updates.
