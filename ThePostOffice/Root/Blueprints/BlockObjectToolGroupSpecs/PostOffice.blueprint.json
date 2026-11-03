@@ -1,0 +1,12 @@
+﻿{
+    "BlockObjectToolGroupSpec": {
+        "Id": "PostOffice",
+        "Order": 40,
+        "NameLocKey": "LV.TPO.GroupName",
+        "Icon": "Blueprints/BlockObjectToolGroupSpecs/PostOfficeIcon",
+        "FallbackGroup": false
+    },
+    "ParentToolGroupSpec": {
+        "ParentIds": [ "DistrictManagement" ]
+    }
+}

@@ -4,11 +4,13 @@ namespace ThePostOffice.UI;
 public class PostOfficeInventoryFragment(
     InformationalRowsFactory rows,
     IGoodService goods,
-    ILoc t
+    ILoc t,
+    PostOfficeService offices
 ) : BaseEntityPanelFragment<PostOfficeInventory>, IEntityFragmentOrder
 {
     readonly Dictionary<string, InformationalRow> shown = [];
     VisualElement list = null!;
+    Label weight = null!;
     Label empty = null!;
     string signature = "";
 
@@ -17,6 +19,7 @@ public class PostOfficeInventoryFragment(
 
     protected override void InitializePanel()
     {
+        weight = panel.AddGameLabel().SetMarginBottom(5);
         list = panel.AddChild();
         empty = panel.AddGameLabel(t.T("LV.TPO.EmptyStorage"));
     }
@@ -58,6 +61,7 @@ public class PostOfficeInventoryFragment(
     void Refresh()
     {
         var inventory = component!.Inventory;
+        var receiver = component.GetComponent<PostOfficeReceiver>();
         List<string> stock = [];
         foreach (var good in inventory.Stock)
         {
@@ -80,10 +84,10 @@ public class PostOfficeInventoryFragment(
             signature = next;
             foreach (var id in stock)
             {
-                shown[id] = rows.CreateSimpleRowWithoutLimit(
-                    StorableGood.CreateAsGivable(id),
-                    inventory,
-                    list);
+                var storable = receiver
+                    ? StorableGood.CreateAsTakeable(id)
+                    : StorableGood.CreateAsGivable(id);
+                shown[id] = rows.CreateSimpleRowWithoutLimit(storable, inventory, list);
             }
         }
 
@@ -93,6 +97,10 @@ public class PostOfficeInventoryFragment(
         }
 
         empty.SetDisplay(stock.Count == 0);
+        var stored = offices.StockWeight(inventory);
+        weight.text = receiver
+            ? t.T("LV.TPO.StoredHere", stored, receiver.InventoryCapacity)
+            : t.T("LV.TPO.StoredWeight", stored);
     }
 
     bool Ready()

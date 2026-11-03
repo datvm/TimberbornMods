@@ -17,7 +17,10 @@ public class ModifyGlobalInventoryDialog(
     Button fill = null!;
     Button setMin = null!;
     List<GoodButton> rows = [];
+    ToggleGroup<SortMode> sort = null!;
     GlobalGoodHandle? selected;
+    string query = "";
+    bool nonZeroOnly;
     bool built;
 
     public void Show()
@@ -36,12 +39,26 @@ public class ModifyGlobalInventoryDialog(
     {
         SetTitle(t.T("LV.GI.Dev.Title"));
         AddCloseButton();
-        SetDialogSize(width: 760, height: 420);
+        SetDialogSize(width: 760, height: 540);
 
         var body = Content.AddChild().SetAsRow().SetFlexGrow();
-        var left = body.AddChild().SetWidth(200).SetMarginRight(15);
-        empty = left.AddGameLabel(t.T("LV.GI.Nothing"));
-        list = left.AddScrollView();
+        var left = body.AddChild().SetWidth(240).SetMarginRight(15).SetFlexShrink(0);
+
+        var search = left.AddTextField(changeCallback: OnQuery).SetMarginBottom(5).SetFlexShrink(0);
+        search.textEdition.placeholder = t.T("LV.GI.Dev.Filter");
+        search.textEdition.hidePlaceholderOnFocus = false;
+
+        left.AddToggle(t.T("LV.GI.Dev.NonZero"), onValueChanged: OnNonZero).SetMarginBottom(5).SetFlexShrink(0);
+        left.AddGameLabel(t.T("LV.GI.Dev.Sort")).SetMargin(top: 5, bottom: 5).SetFlexShrink(0);
+        sort = new ToggleGroup<SortMode>(
+            [SortMode.Alphabetical, SortMode.Amount, SortMode.Order],
+            mode => left.AddToggle(SortLabel(mode)).SetMarginBottom(5).SetFlexShrink(0));
+        sort.SetValueWithoutNotify(SortMode.Order);
+        sort.OnValueChanged += (_, _) => Refresh();
+
+        empty = left.AddGameLabel(t.T("LV.GI.Nothing")).SetFlexShrink(0);
+        list = left.AddScrollView().SetFlexGrow().SetFlexShrink();
+        list.style.minHeight = 0f;
 
         details = body.AddChild().SetFlexGrow();
         itemName = details.AddGameLabel().SetMarginBottom(5);
@@ -140,21 +157,95 @@ public class ModifyGlobalInventoryDialog(
         setMin.SetDisplay(handle.MinCapacity < 0);
     }
 
+    void OnQuery(string value)
+    {
+        query = value;
+        Refresh();
+    }
+
+    void OnNonZero(bool value)
+    {
+        nonZeroOnly = value;
+        Refresh();
+    }
+
+    string SortLabel(SortMode mode) => mode switch
+    {
+        SortMode.Alphabetical => t.T("LV.GI.Dev.SortAlpha"),
+        SortMode.Amount => t.T("LV.GI.Dev.SortAmount"),
+        _ => t.T("LV.GI.Dev.SortOrder"),
+    };
+
     void EnsureRows()
     {
-        if (rows.Count == inventory.All.Count)
+        var visible = VisibleGoods();
+        if (SameRows(visible))
         {
             return;
         }
 
         list.Clear();
         rows = [];
-        foreach (var handle in inventory.All)
+        foreach (var handle in visible)
         {
             var captured = handle;
             var button = list.AddGameButtonPadded("", () => Select(captured), stretched: true).SetMarginBottom(5);
             rows.Add(new(handle, button));
         }
+    }
+
+    bool SameRows(List<GlobalGoodHandle> visible)
+    {
+        if (rows.Count != visible.Count)
+        {
+            return false;
+        }
+
+        for (var i = 0; i < rows.Count; i++)
+        {
+            if (rows[i].Handle != visible[i])
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    List<GlobalGoodHandle> VisibleGoods()
+    {
+        IEnumerable<GlobalGoodHandle> items = inventory.All;
+        if (nonZeroOnly)
+        {
+            items = items.Where(q => q.Amount != 0);
+        }
+
+        var needle = query.Trim();
+        if (needle.Length > 0)
+        {
+            items = items.Where(q => q.Spec.DisplayName.Value.Contains(needle, StringComparison.CurrentCultureIgnoreCase));
+        }
+
+        items = sort.Value switch
+        {
+            SortMode.Alphabetical => items
+                .OrderBy(q => q.Spec.DisplayName.Value, StringComparer.CurrentCultureIgnoreCase)
+                .ThenBy(q => q.Spec.Order),
+            SortMode.Amount => items
+                .OrderByDescending(q => q.Amount)
+                .ThenBy(q => q.Spec.Order)
+                .ThenBy(q => q.Spec.DisplayName.Value, StringComparer.CurrentCultureIgnoreCase),
+            _ => items,
+        };
+
+        return [.. items];
+    }
+
+    enum SortMode
+    {
+        Alphabetical,
+        Amount,
+        Order,
     }
 
     readonly record struct GoodButton(GlobalGoodHandle Handle, Button Button);

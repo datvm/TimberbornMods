@@ -1,18 +1,38 @@
 ﻿namespace ThePostOffice.Components;
 
-[AddTemplateModule2(typeof(PostOfficeComponent))]
-public class PostOfficeInventory : BaseComponent, IFinishedStateListener, IGoodDisallower
+[AddTemplateModule2(typeof(PostOfficeLocalInventorySpec))]
+public class PostOfficeInventory : BaseComponent, IAwakableComponent, IFinishedStateListener, IGoodDisallower
 {
     readonly Dictionary<string, int> limits = [];
 
-    public Inventory Inventory { get; private set; } = null!;
-    public IReadOnlyDictionary<string, int> Limits => limits;
+#nullable disable
+    PostOfficeSender sender;
+    PostOfficeReceiver receiver;
+    public Inventory Inventory { get; private set; }
+#nullable enable
 
     public event EventHandler<DisallowedGoodsChangedEventArgs>? DisallowedGoodsChanged;
+
+    public void Awake()
+    {
+        sender = GetComponent<PostOfficeSender>();
+        receiver = GetComponent<PostOfficeReceiver>();
+    }
 
     public void InitializeInventory(Inventory inventory)
     {
         Inventory = inventory;
+        inventory.InventoryStockChanged += OnInventoryStockChanged;
+    }
+
+    void OnInventoryStockChanged(object sender, InventoryStockChangedEventArgs args)
+    {
+        if (!receiver)
+        {
+            return;
+        }
+
+        DisallowedGoodsChanged?.Invoke(this, new(args.GoodAmount.GoodId));
     }
 
     public void OnEnterFinishedState()
@@ -20,6 +40,15 @@ public class PostOfficeInventory : BaseComponent, IFinishedStateListener, IGoodD
         if (Inventory)
         {
             Inventory.Enable();
+        }
+
+        if (sender)
+        {
+            sender.NotifyFinished();
+        }
+        else if (receiver)
+        {
+            receiver.NotifyFinished();
         }
     }
 
@@ -29,21 +58,29 @@ public class PostOfficeInventory : BaseComponent, IFinishedStateListener, IGoodD
         {
             Inventory.Disable();
         }
+
+        if (sender)
+        {
+            sender.OnBuildingUnfinished();
+        }
+        else if (receiver)
+        {
+            receiver.OnBuildingUnfinished();
+        }
     }
 
     public int AllowedAmount(string goodId) => limits.GetValueOrDefault(goodId);
 
-    public void SetAllowed(IReadOnlyList<GoodAmount> goods)
+    public void NotifyLimitsChanged()
     {
         Dictionary<string, int> next = [];
-        foreach (var good in goods)
+        if (sender)
         {
-            if (good.Amount <= 0)
-            {
-                continue;
-            }
-
-            next[good.GoodId] = next.GetValueOrDefault(good.GoodId) + good.Amount;
+            sender.CopyAccepted(next);
+        }
+        else if (receiver)
+        {
+            receiver.CopyAccepted(next);
         }
 
         HashSet<string> ids = [..limits.Keys];

@@ -5,17 +5,14 @@ public class PostOfficeWorkExecutor(
     ReferenceSerializer references
 ) : BaseComponent, IAwakableComponent, IInitializableEntity, IExecutor
 {
-    const string BuildingAnimation = "Building";
-
     static readonly ComponentKey SaveKey = new(nameof(PostOfficeWorkExecutor));
     static readonly PropertyKey<float> FinishTimestampKey = new("FinishTimestamp");
     static readonly PropertyKey<Workplace> WorkplaceKey = new("Workplace");
 
     Worker worker = null!;
-    CharacterAnimator characterAnimator = null!;
     Workplace workplace = null!;
     Workshop? workshop;
-    PostOfficeActiveParcel active = null!;
+    IPostOfficeJob job = null!;
     BlockableObject blockable = null!;
     float finishTimestamp;
     bool isWorking;
@@ -24,7 +21,6 @@ public class PostOfficeWorkExecutor(
     public void Awake()
     {
         worker = GetComponent<Worker>();
-        characterAnimator = GetComponent<CharacterAnimator>();
         worker.GotUnemployed += OnGotUnemployed;
     }
 
@@ -39,7 +35,7 @@ public class PostOfficeWorkExecutor(
     public bool Launch(float maxWorkingTimeInHours)
     {
         Bind(worker.Workplace);
-        if (!workplace || !blockable.IsUnblocked || !active.IsRunnable)
+        if (!workplace || job is null || !blockable.IsUnblocked || !job.IsRunnable)
         {
             return false;
         }
@@ -56,16 +52,16 @@ public class PostOfficeWorkExecutor(
             return ExecutorStatus.Failure;
         }
 
-        if (!blockable.IsUnblocked || !active.IsRunnable)
+        if (!blockable.IsUnblocked || job is null || !job.IsRunnable)
         {
-            StopWorking();
+            StopWorking(show: true);
             return ExecutorStatus.Failure;
         }
 
-        active.Progress(deltaTimeInHours * worker.WorkingSpeedMultiplier);
-        if (dayNightCycle.PartialDayNumber > finishTimestamp || !active.IsRunnable)
+        job.Progress(deltaTimeInHours * worker.WorkingSpeedMultiplier);
+        if (dayNightCycle.PartialDayNumber > finishTimestamp || !job.IsRunnable)
         {
-            StopWorking();
+            StopWorking(show: !job.IsRunnable);
             return ExecutorStatus.Success;
         }
 
@@ -96,7 +92,7 @@ public class PostOfficeWorkExecutor(
         }
 
         Bind(loader.Get(WorkplaceKey, references.Of<Workplace>()));
-        if (!workplace || !active)
+        if (!workplace || job is null)
         {
             Clear();
             return;
@@ -114,7 +110,16 @@ public class PostOfficeWorkExecutor(
 
         workplace = source;
         workshop = source.GetComponent<Workshop>();
-        active = source.GetComponent<PostOfficeActiveParcel>();
+        job = null!;
+        if (source.TryGetComponent<PostOfficeSender>(out var sender))
+        {
+            job = sender;
+        }
+        else if (source.TryGetComponent<PostOfficeReceiver>(out var receiver))
+        {
+            job = receiver;
+        }
+
         blockable = source.GetComponent<BlockableObject>();
     }
 
@@ -127,10 +132,10 @@ public class PostOfficeWorkExecutor(
         }
 
         isWorking = true;
-        ToggleBuildingAnimation(true);
+        SetVisible(false);
     }
 
-    void StopWorking()
+    void StopWorking(bool show)
     {
         var current = workshop;
         if (current)
@@ -139,14 +144,27 @@ public class PostOfficeWorkExecutor(
         }
 
         isWorking = false;
-        ToggleBuildingAnimation(false);
+        if (show)
+        {
+            SetVisible(true);
+        }
     }
 
-    void ToggleBuildingAnimation(bool value)
+    void SetVisible(bool visible)
     {
-        if (characterAnimator && characterAnimator.HasParameter(BuildingAnimation))
+        var model = worker.GetComponent<CharacterModel>();
+        if (!model)
         {
-            characterAnimator.SetBool(BuildingAnimation, value);
+            return;
+        }
+
+        if (visible)
+        {
+            model.Show();
+        }
+        else
+        {
+            model.Hide();
         }
     }
 
@@ -154,7 +172,7 @@ public class PostOfficeWorkExecutor(
     {
         if (isWorking)
         {
-            StopWorking();
+            StopWorking(show: true);
             Clear();
         }
     }
@@ -163,7 +181,7 @@ public class PostOfficeWorkExecutor(
     {
         workplace = null!;
         workshop = null;
-        active = null!;
+        job = null!;
         blockable = null!;
         loadedWorking = false;
     }

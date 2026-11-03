@@ -7,16 +7,12 @@ public class PostOfficeGlobalInventoryFragment(
     PostOfficeGlobalInventoryService globalInventory
 ) : IEntityPanelFragment, IEntityFragmentOrder
 {
-    readonly List<GlobalRow> rows = [];
+    readonly Dictionary<string, int> incoming = [];
 
     EntityPanelFragmentElement panel = null!;
     Label summary = null!;
-    Label contribution = null!;
     Label empty = null!;
     VisualElement list = null!;
-    PostOfficeCapacitySpec? capacity;
-    BlockObject? block;
-    DistrictBuilding? district;
     bool showing;
     string signature = "";
 
@@ -32,8 +28,7 @@ public class PostOfficeGlobalInventoryFragment(
         };
 
         summary = panel.AddGameLabel().SetMarginBottom(5);
-        contribution = panel.AddGameLabel().SetMarginBottom(5);
-        empty = panel.AddGameLabel(t.T("LV.TPO.GlobalEmpty"));
+        empty = panel.AddGameLabel(t.T("LV.TPO.GlobalEmpty")).SetDisplay(false);
         list = panel.AddGameScrollView();
         list.style.maxHeight = 220;
         return panel;
@@ -47,9 +42,6 @@ public class PostOfficeGlobalInventoryFragment(
             return;
         }
 
-        capacity = entity.GetComponent<PostOfficeCapacitySpec>();
-        block = entity.GetComponent<BlockObject>();
-        district = entity.GetComponent<DistrictBuilding>();
         showing = true;
         panel.Visible = true;
         signature = "";
@@ -70,14 +62,9 @@ public class PostOfficeGlobalInventoryFragment(
     {
         panel.Visible = false;
         showing = false;
-        capacity = null;
-        block = null;
-        district = null;
         signature = "";
-        foreach (var row in rows)
-        {
-            row.Hide();
-        }
+        incoming.Clear();
+        list.Clear();
     }
 
     void Refresh()
@@ -87,148 +74,117 @@ public class PostOfficeGlobalInventoryFragment(
             return;
         }
 
-        var shown = Collect();
-        var next = Sign(shown);
-        summary.text = t.T(
-            "LV.TPO.GlobalWeight",
-            globalInventory.TotalWeight,
-            globalInventory.ReservedWeight,
-            globalInventory.Capacity);
-        var building = capacity;
-        if (building is null)
-        {
-            contribution.SetDisplay(false);
-        }
-        else
-        {
-            contribution.SetDisplay(true);
-            contribution.text = Connected()
-                ? t.T("LV.TPO.Contribution", building.Contribution)
-                : t.T("LV.TPO.ContributionPending", building.Contribution);
-        }
+        var stored = StoredIds();
+        globalInventory.CopyIncoming(incoming);
+        var reserved = Sorted(incoming.Keys);
+        var used = globalInventory.TotalWeight + globalInventory.IncomingWeight;
+        summary.text = globalInventory.IncomingWeight > 0
+            ? t.T("LV.TPO.GlobalWithReserved", used, globalInventory.Capacity, globalInventory.IncomingWeight)
+            : t.T("LV.TPO.GlobalWeight", used, globalInventory.Capacity);
 
+        var next = Sign(stored, reserved);
         if (next == signature)
         {
             return;
         }
 
         signature = next;
-        empty.SetDisplay(shown.Count == 0);
-        list.SetDisplay(shown.Count > 0);
-        EnsureRows(shown.Count);
-        for (var i = 0; i < shown.Count; i++)
+        list.Clear();
+        var anyStored = stored.Count > 0;
+        var anyReserved = reserved.Count > 0;
+        empty.SetDisplay(!anyStored && !anyReserved);
+        list.SetDisplay(anyStored || anyReserved);
+        if (anyStored)
         {
-            rows[i].Bind(goods, t, shown[i]);
+            list.AddGameLabel(t.T("LV.TPO.GlobalItems").Bold()).SetMarginBottom(5);
+            foreach (var id in stored)
+            {
+                AddGoodRow(id, globalInventory.Inventory[id].Amount);
+            }
         }
 
-        for (var i = shown.Count; i < rows.Count; i++)
+        if (anyReserved)
         {
-            rows[i].Hide();
+            list.AddGameLabel(t.T("LV.TPO.GlobalIncoming").Bold())
+                .SetMargin(top: anyStored ? 8 : 0, bottom: 5);
+
+            foreach (var id in reserved)
+            {
+                AddGoodRow(id, incoming[id]);
+            }
         }
     }
 
-    List<ShownGood> Collect()
+    List<string> StoredIds()
     {
-        List<ShownGood> shown = [];
+        List<string> ids = [];
         foreach (var pair in globalInventory.Inventory)
         {
-            var reserved = globalInventory.Reserved.TryGetValue(pair.Key, out var hold) ? hold.Amount : 0;
-            if (pair.Value.Amount <= 0 && reserved <= 0)
+            if (pair.Value.Amount > 0 && goods.HasGood(pair.Key))
             {
-                continue;
+                ids.Add(pair.Key);
             }
-
-            shown.Add(new(pair.Value, reserved));
         }
 
-        shown.Sort(Compare);
-        return shown;
+        ids.Sort(CompareName);
+        return ids;
     }
 
-    string Sign(List<ShownGood> shown)
+    List<string> Sorted(IEnumerable<string> ids)
     {
-        var building = capacity;
+        List<string> result = [];
+        foreach (var id in ids)
+        {
+            if (goods.HasGood(id))
+            {
+                result.Add(id);
+            }
+        }
+
+        result.Sort(CompareName);
+        return result;
+    }
+
+    string Sign(List<string> stored, List<string> reserved)
+    {
         List<string> parts =
         [
             globalInventory.TotalWeight.ToString(),
-            globalInventory.ReservedWeight.ToString(),
+            globalInventory.IncomingWeight.ToString(),
             globalInventory.Capacity.ToString(),
-            Connected() ? "1" : "0",
-            building is null ? "" : building.Contribution.ToString(),
         ];
-        foreach (var good in shown)
+        foreach (var id in stored)
         {
-            parts.Add(good.Good.GoodSpec.Id);
-            parts.Add(good.Good.Amount.ToString());
-            parts.Add(good.Reserved.ToString());
+            parts.Add(id);
+            parts.Add(globalInventory.Inventory[id].Amount.ToString());
+        }
+
+        parts.Add("#");
+        foreach (var id in reserved)
+        {
+            parts.Add(id);
+            parts.Add(incoming[id].ToString());
         }
 
         return string.Join("|", parts);
     }
 
-    void EnsureRows(int count)
+    void AddGoodRow(string id, int amount)
     {
-        while (rows.Count < count)
-        {
-            rows.Add(new(list));
-        }
+        var unit = globalInventory.GetItemWeight(id);
+        var row = list.AddChild().SetAsRow().AlignItems().SetMarginBottom(2);
+        row.AddIconSpan().SetGood(goods, id, showName: true).SetFlexGrow(0).SetFlexShrink(0);
+        row.AddChild().SetMarginAuto();
+        row.AddGameLabel(t.T("LV.TPO.UnitWeight", unit)).SetFlexShrink(0);
+        row.AddGameLabel(amount.ToString()).SetMargin(left: 4).SetFlexShrink(0);
+        row.AddGameLabel(t.T("LV.TPO.LineWeight", unit * amount)).SetMargin(left: 5).SetFlexShrink(0);
     }
 
-    bool Connected()
-    {
-        var body = block;
-        var link = district;
-        return body is not null && body && body.IsFinished
-            && link is not null && link && link.InstantDistrict;
-    }
-
-    static int Compare(ShownGood left, ShownGood right)
+    int CompareName(string left, string right)
     {
         return string.Compare(
-            left.Good.GoodSpec.DisplayName.Value,
-            right.Good.GoodSpec.DisplayName.Value,
+            goods.GetGood(left).DisplayName.Value,
+            goods.GetGood(right).DisplayName.Value,
             StringComparison.CurrentCultureIgnoreCase);
-    }
-
-    readonly record struct ShownGood(PostOfficeInventoryGood Good, int Reserved);
-
-    sealed class GlobalRow
-    {
-        readonly VisualElement root;
-        readonly IconSpan icon;
-        readonly Label detail;
-        string id = "";
-        int amount = -1;
-
-        public GlobalRow(VisualElement parent)
-        {
-            root = parent.AddRow().AlignItems().SetMarginBottom(2);
-            icon = root.AddIconSpan().SetFlexGrow().SetFlexShrink();
-            detail = root.AddGameLabel().SetFlexShrink(0);
-        }
-
-        public void Bind(IGoodService goods, ILoc t, ShownGood shown)
-        {
-            root.SetDisplay(true);
-            var good = shown.Good;
-            var nextId = good.GoodSpec.Id;
-            if (id != nextId || amount != good.Amount)
-            {
-                id = nextId;
-                amount = good.Amount;
-                icon.SetGood(goods, nextId, good.Amount.ToString(), showName: true);
-            }
-
-            detail.text = shown.Reserved > 0
-                ? t.T("LV.TPO.Reserved", shown.Reserved, shown.Reserved * good.ItemWeight)
-                : t.T("LV.TPO.StoredWeight", good.TotalWeight);
-        }
-
-        public void Hide()
-        {
-            root.SetDisplay(false);
-            id = "";
-            amount = -1;
-        }
     }
 }

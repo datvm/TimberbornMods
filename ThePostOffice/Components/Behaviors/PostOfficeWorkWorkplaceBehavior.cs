@@ -4,14 +4,22 @@ public class PostOfficeWorkWorkplaceBehavior : WorkplaceBehavior, IAwakableCompo
 {
     public const float WorkChunkHours = 0.25f;
 
-    PostOfficeActiveParcel active = null!;
+    IPostOfficeJob job = null!;
     Workplace workplace = null!;
     Enterable enterable = null!;
     Emptiable? emptiable;
 
     public void Awake()
     {
-        active = GetComponent<PostOfficeActiveParcel>();
+        if (TryGetComponent<PostOfficeSender>(out var sender))
+        {
+            job = sender;
+        }
+        else if (TryGetComponent<PostOfficeReceiver>(out var receiver))
+        {
+            job = receiver;
+        }
+
         workplace = GetComponent<Workplace>();
         enterable = GetComponent<Enterable>();
         emptiable = GetComponent<Emptiable>();
@@ -19,8 +27,7 @@ public class PostOfficeWorkWorkplaceBehavior : WorkplaceBehavior, IAwakableCompo
 
     public override Decision Decide(BehaviorAgent agent)
     {
-        var emptying = emptiable;
-        if ((emptying && emptying!.IsMarkedForEmptying) || !active.IsRunnable)
+        if (job is null || !job.IsRunnable || MarkedForEmptying())
         {
             return Decision.ReleaseNow();
         }
@@ -44,5 +51,16 @@ public class PostOfficeWorkWorkplaceBehavior : WorkplaceBehavior, IAwakableCompo
             default:
                 throw new ArgumentOutOfRangeException();
         }
+    }
+
+    bool MarkedForEmptying()
+    {
+        var emptying = emptiable;
+        if (emptying is null)
+        {
+            return false;
+        }
+
+        return emptying.IsMarkedForEmptying;
     }
 }

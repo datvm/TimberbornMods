@@ -48,6 +48,16 @@ public static partial class UiBuilderExtensions
             return element;
         }
 
+        public T SetMarginAuto()
+        {
+            var auto = new StyleLength(StyleKeyword.Auto);
+            element.style.marginTop = auto;
+            element.style.marginRight = auto;
+            element.style.marginBottom = auto;
+            element.style.marginLeft = auto;
+            return element;
+        }
+
         public T SetPadding(float padding) => element.SetPadding(padding, padding);
 
         public T SetPadding(float paddingX = 0, float paddingY = 0) => element.SetPadding(paddingY, paddingX, paddingY, paddingX);

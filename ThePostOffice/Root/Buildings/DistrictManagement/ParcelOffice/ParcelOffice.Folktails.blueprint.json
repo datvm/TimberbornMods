@@ -1,4 +1,4 @@
-{
+﻿{
     "BuildingSpec": {
         "SelectionSoundName": "DistrictCrossing",
         "LoopingSoundName": "",
@@ -20,12 +20,15 @@
         "UndergroundModelDepth": 0
     },
     "WorkplaceSpec": {
-        "MaxWorkers": 2,
+        "MaxWorkers": 1,
         "DefaultWorkers": 1,
         "DefaultWorkerType": "Beaver",
         "DisallowOtherWorkerTypes": false,
         "WorkerTypeUnlockCosts": [
-            { "WorkerType": "Bot", "ScienceCost": 250 }
+            {
+                "WorkerType": "Bot",
+                "ScienceCost": 250
+            }
         ]
     },
     "EnterableSpec": {
@@ -35,25 +38,20 @@
         "LimitedCapacityUnfinished": false,
         "CapacityUnfinished": 0
     },
+    "WorkshopWorkerHiderSpec": {},
     "TemplateSpec": {
         "TemplateName": "ParcelOffice.Folktails",
         "BackwardCompatibleTemplateNames": [],
         "RequiredFeatureToggle": "",
         "DisablingFeatureToggle": ""
     },
-    "PostOfficeSpec": {
-        "SendHours": 3.0,
+    "PostOfficeReceiverSpec": {
         "RetrieveHours": 3.0,
-        "InventoryCapacity": 80,
-        "Sends": false
+        "InventoryCapacity": 80
     },
+    "PostOfficeLocalInventorySpec": {},
     "PostOfficeCapacitySpec": {
         "Contribution": 120
-    },
-    "WorkplaceBonusesSpec": {
-        "WorkerBonuses": [
-            { "Id": "CarryingCapacity", "MultiplierDelta": 1.0 }
-        ]
     },
     "TransformSlotInitializerSpec": {
         "Slots": [
@@ -273,7 +271,7 @@
         "ForceOneFinalAccess": false
     },
     "PlaceableBlockObjectSpec": {
-        "ToolGroupId": "DistrictManagement",
+        "ToolGroupId": "PostOffice",
         "ToolOrder": 41,
         "ToolShape": "Square",
         "Layout": "Single",

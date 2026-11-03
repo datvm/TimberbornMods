@@ -13,6 +13,7 @@ public class GlobalGoodGenerator(IGoodService goods) : IGlobalGoodsProvider
                 Id = id,
                 CopiedGoodId = id,
                 Order = goodSpec.GoodOrder,
+                HideOnZero = true,
             };
         }
     }

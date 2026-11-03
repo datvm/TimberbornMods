@@ -8,16 +8,24 @@ public class PostOfficeInventoryInitializer(
 {
     public void Initialize(PostOfficeInventory subject, Inventory decorator)
     {
+        var output = subject.GetComponent<PostOfficeReceiver>();
         List<StorableGoodAmount> goods = [];
-        foreach (var goodId in goodService.Goods)
+        foreach (var id in goodService.Goods)
         {
-            goods.Add(new(StorableGood.CreateGiveableAndTakeable(goodId), int.MaxValue));
+            var storable = output
+                ? StorableGood.CreateAsTakeable(id)
+                : StorableGood.CreateAsGivable(id);
+            goods.Add(new(storable, int.MaxValue));
         }
 
         var initializer = inventoryInitializerFactory.Create(decorator, int.MaxValue, "PostOffice");
         initializer.AddAllowedGoods(goods);
         initializer.AddGoodDisallower(subject);
-        initializer.HasPublicOutput();
+        if (output)
+        {
+            initializer.HasPublicOutput();
+        }
+
         initializer.Initialize();
         subject.InitializeInventory(decorator);
     }

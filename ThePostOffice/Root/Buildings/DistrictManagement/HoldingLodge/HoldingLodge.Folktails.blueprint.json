@@ -27,7 +27,7 @@
         "CapacityUnfinished": 0
     },
     "TemplateSpec": {
-        "TemplateName": "PostOfficeWarehouse.Folktails",
+        "TemplateName": "HoldingLodge.Folktails",
         "BackwardCompatibleTemplateNames": [],
         "RequiredFeatureToggle": "",
         "DisablingFeatureToggle": ""
@@ -927,7 +927,7 @@
         "ForceOneFinalAccess": false
     },
     "PlaceableBlockObjectSpec": {
-        "ToolGroupId": "DistrictManagement",
+        "ToolGroupId": "PostOffice",
         "ToolOrder": 42,
         "ToolShape": "Square",
         "Layout": "Single",
@@ -946,10 +946,10 @@
         "BlockedEdges": []
     },
     "LabeledEntitySpec": {
-        "DisplayNameLocKey": "LV.TPO.WarehouseName",
-        "DescriptionLocKey": "LV.TPO.WarehouseDesc",
-        "FlavorDescriptionLocKey": "LV.TPO.WarehouseFlavor",
-        "Icon": "Buildings/DistrictManagement/PostOfficeWarehouse/PostOfficeWarehouseIcon"
+        "DisplayNameLocKey": "LV.TPO.HoldingLodgeName",
+        "DescriptionLocKey": "LV.TPO.HoldingLodgeDesc",
+        "FlavorDescriptionLocKey": "LV.TPO.HoldingLodgeFlavor",
+        "Icon": "Buildings/DistrictManagement/HoldingLodge/HoldingLodgeIcon"
     },
     "ConstructionSiteProgressVisualizerSpec": {
         "ProgressThresholds": []

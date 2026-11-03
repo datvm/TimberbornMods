@@ -1,4 +1,4 @@
-{
+﻿{
     "BuildingSpec": {
         "SelectionSoundName": "DistrictCrossing",
         "LoopingSoundName": "",
@@ -20,7 +20,7 @@
         "UndergroundModelDepth": 0
     },
     "WorkplaceSpec": {
-        "MaxWorkers": 2,
+        "MaxWorkers": 1,
         "DefaultWorkers": 1,
         "DefaultWorkerType": "Beaver",
         "DisallowOtherWorkerTypes": false,
@@ -35,25 +35,19 @@
         "LimitedCapacityUnfinished": false,
         "CapacityUnfinished": 0
     },
+    "WorkshopWorkerHiderSpec": {},
     "TemplateSpec": {
-        "TemplateName": "PostTerminal.Folktails",
+        "TemplateName": "DispatchPost.Folktails",
         "BackwardCompatibleTemplateNames": [],
         "RequiredFeatureToggle": "",
         "DisablingFeatureToggle": ""
     },
-    "PostOfficeSpec": {
-        "SendHours": 3.0,
-        "RetrieveHours": 3.0,
-        "InventoryCapacity": 80,
-        "Sends": true
+    "PostOfficeSenderSpec": {
+        "SendHours": 3.0
     },
+    "PostOfficeLocalInventorySpec": {},
     "PostOfficeCapacitySpec": {
         "Contribution": 120
-    },
-    "WorkplaceBonusesSpec": {
-        "WorkerBonuses": [
-            { "Id": "CarryingCapacity", "MultiplierDelta": 1.0 }
-        ]
     },
     "TransformSlotInitializerSpec": {
         "Slots": [
@@ -273,7 +267,7 @@
         "ForceOneFinalAccess": false
     },
     "PlaceableBlockObjectSpec": {
-        "ToolGroupId": "DistrictManagement",
+        "ToolGroupId": "PostOffice",
         "ToolOrder": 40,
         "ToolShape": "Square",
         "Layout": "Single",
@@ -293,10 +287,10 @@
     },
     "WorkplaceIlluminatorSpec": {},
     "LabeledEntitySpec": {
-        "DisplayNameLocKey": "LV.TPO.PostTerminalName",
-        "DescriptionLocKey": "LV.TPO.PostTerminalDesc",
-        "FlavorDescriptionLocKey": "LV.TPO.PostTerminalFlavor",
-        "Icon": "Buildings/DistrictManagement/PostTerminal/PostTerminalIcon"
+        "DisplayNameLocKey": "LV.TPO.DispatchPostName",
+        "DescriptionLocKey": "LV.TPO.DispatchPostDesc",
+        "FlavorDescriptionLocKey": "LV.TPO.DispatchPostFlavor",
+        "Icon": "Buildings/DistrictManagement/DispatchPost/DispatchPostIcon"
     },
     "WorkplaceWorkerOutfitSpec": {
         "WorkerOutfit": "Hauler"

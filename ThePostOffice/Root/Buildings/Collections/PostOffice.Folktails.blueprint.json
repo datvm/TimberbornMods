@@ -2,9 +2,9 @@
     "TemplateCollectionSpec": {
         "CollectionId": "Buildings.Folktails",
         "Blueprints": [
-            "Buildings/DistrictManagement/PostTerminal/PostTerminal.Folktails.blueprint",
+            "Buildings/DistrictManagement/DispatchPost/DispatchPost.Folktails.blueprint",
             "Buildings/DistrictManagement/ParcelOffice/ParcelOffice.Folktails.blueprint",
-            "Buildings/DistrictManagement/PostOfficeWarehouse/PostOfficeWarehouse.Folktails.blueprint"
+            "Buildings/DistrictManagement/HoldingLodge/HoldingLodge.Folktails.blueprint"
         ]
     }
 }
