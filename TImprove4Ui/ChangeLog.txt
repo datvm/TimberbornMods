@@ -1,2 +1,7 @@
-﻿v11.0.0: Added Move Bottom Right Up
+﻿v11.0.2:
+- Added a mod setting to show/hide the swap management panel position.
+v11.0.1:
+- Added Collapse/Expand all buttons for Keybindings.
+- Expand the Keybindings group automatically when you search for a keybinding.
+v11.0.0: Added Move Bottom Right Up
 [img]https://files.catbox.moe/3ru6od.jpg[/img]

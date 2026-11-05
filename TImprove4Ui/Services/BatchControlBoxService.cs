@@ -3,7 +3,8 @@
 [BindSingleton]
 public class BatchControlBoxService(
     IBatchControlBox iBatchControlBox,
-    ISingletonLoader loader
+    ISingletonLoader loader,
+    MSettings s
 ) : ILoadableSingleton, ISaveableSingleton, IUnloadableSingleton
 {
     public static BatchControlBoxService? Instance;
@@ -13,6 +14,7 @@ public class BatchControlBoxService(
 
     readonly BatchControlBox batchControlBox = (BatchControlBox)iBatchControlBox;
     VisualElement batchControlBoxRoot = null!;
+    NineSliceButton? btnSwap;
 
     bool batchControlBoxReverse;
 
@@ -42,6 +44,8 @@ public class BatchControlBoxService(
         }
     }
 
+    void RefreshVisibility() => btnSwap?.SetDisplay(s.ShowSwapManagementLocationButton.Value);
+
     void AddSwapLocationButton()
     {
         var tabButtons = batchControlBoxRoot.Q("TabButtons");
@@ -50,11 +54,14 @@ public class BatchControlBoxService(
         container.style.justifyContent = Justify.Center;
         container.InsertSelfAfter(tabButtons);
 
-        var btnSwap = container.AddMenuButton("↔", onClick: SwapPanelLocation)            
+        btnSwap = container.AddMenuButton("↔", onClick: SwapPanelLocation)            
             .SetSize(48)
             .SetFlexGrow(0)
             .SetFlexShrink(0);
         btnSwap.style.minWidth = 48;
+
+        RefreshVisibility();
+        s.ModSettingChanged += (_, _) => RefreshVisibility();
     }
 
     void SwapPanelLocation()

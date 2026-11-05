@@ -18,6 +18,7 @@ public class PostOfficeReceiverFragment(
     Label queueHeader = null!;
     Label empty = null!;
     Label status = null!;
+    Label autoHint = null!;
     VisualElement cancelButton = null!;
     Toggle auto = null!;
     ProgressBarWithLabel progress;
@@ -42,6 +43,9 @@ public class PostOfficeReceiverFragment(
         status = panel.AddGameLabel().SetMarginBottom(5).SetDisplay(false);
         status.style.unityTextAlign = TextAnchor.MiddleCenter;
         cancelButton = panel.AddGameButtonPadded(t.T("LV.TPO.Cancel"), () => Ask(0, true))
+            .SetMarginBottom(8)
+            .SetDisplay(false);
+        autoHint = panel.AddGameLabel(t.T("LV.TPO.UncheckAutoToCancel"))
             .SetMarginBottom(8)
             .SetDisplay(false);
 
@@ -96,14 +100,16 @@ public class PostOfficeReceiverFragment(
         activeHeader.SetDisplay(hasActive);
         progress.ProgressBar.SetDisplay(hasActive);
         status.SetDisplay(hasActive);
+        var autoLocked = desk.Active is PostOfficeParcel { Auto: true } && desk.AutoEnabled;
         cancelButton.SetDisplay(hasActive && desk.CanCancel(0));
+        autoHint.SetDisplay(autoLocked);
         queueHeader.SetDisplay(queued > 0);
         empty.SetDisplay(!hasActive);
         if (hasActive)
         {
             var working = desk.WaitKey() == "LV.TPO.Working";
             status.text = Status(desk, working);
-            var ratio = !working || desk.JobHours <= 0f
+            var ratio = desk.JobHours <= 0f
                 ? 0f
                 : Mathf.Clamp01(desk.WorkedHours / desk.JobHours);
             progress.ProgressBar.SetProgress(ratio);

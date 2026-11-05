@@ -68,7 +68,9 @@ public class PostOfficeService(
 
     public void Release(int id) => inventory.Release(id);
 
-    public void Commit(int id) => inventory.Commit(id);
+    public bool CanCommit(int id) => inventory.CanCommit(id);
+
+    public bool Commit(int id) => inventory.Commit(id);
 
     public void Spawn(Vector3Int coordinates, IReadOnlyList<GoodAmount> goods)
     {

@@ -125,22 +125,29 @@ public class PostOfficeGlobalInventoryService(
         SubtractOutgoing(hold.Goods);
     }
 
-    public void Commit(int id)
+    public bool CanCommit(int id) => holds.TryGetValue(id, out var hold) && Fits(hold);
+
+    public bool Commit(int id)
     {
-        if (!holds.Remove(id, out var hold))
+        if (!holds.TryGetValue(id, out var hold) || !Fits(hold))
         {
-            return;
+            return false;
         }
 
+        holds.Remove(id);
         if (hold.Incoming)
         {
             IncomingWeight -= hold.Weight;
             AddToInventory(hold.Goods);
-            return;
+        }
+        else
+        {
+            SubtractOutgoing(hold.Goods);
+            RemoveStored(hold.Goods);
         }
 
-        SubtractOutgoing(hold.Goods);
-        RemoveStored(hold.Goods);
+        StallUnbacked();
+        return true;
     }
 
     public ImmutableArray<int> DropHoldsThatDoNotFit()
@@ -299,6 +306,7 @@ public class PostOfficeGlobalInventoryService(
         }
 
         RefreshWeight();
+        StallUnbacked();
         RaiseItemChanged(id, (int)e.Current, (int)e.Previous);
     }
 
@@ -409,6 +417,40 @@ public class PostOfficeGlobalInventoryService(
         return newest;
     }
 
+    void StallUnbacked()
+    {
+        var stalled = DropHoldsThatDoNotFit();
+        if (stalled.Length == 0)
+        {
+            return;
+        }
+
+        eb.Post(new OnPostOfficeHoldsStalled(stalled));
+    }
+
+    bool Fits(PostOfficeHold hold)
+    {
+        if (hold.Incoming)
+        {
+            return hold.Weight > 0 && TotalWeight + hold.Weight <= Capacity;
+        }
+
+        if (hold.Goods.Length == 0)
+        {
+            return false;
+        }
+
+        foreach (var good in hold.Goods)
+        {
+            if (good.Amount <= 0 || !Inventory.TryGetValue(good.GoodId, out var stored) || stored.Amount < good.Amount)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     static bool ContainsGood(ImmutableArray<GoodAmount> goods, string id)
     {
         foreach (var good in goods)
@@ -430,3 +472,5 @@ public readonly record struct OnPostOfficeGlobalInventoryChanged(string Id, int 
 public readonly record struct OnPostOfficeCapacityChanged(int Capacity);
 
 public readonly record struct OnPostOfficeHoldsReleased(ImmutableArray<int> Ids);
+
+public readonly record struct OnPostOfficeHoldsStalled(ImmutableArray<int> Ids);

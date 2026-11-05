@@ -38,6 +38,7 @@ public class MSettings(
     public ModSetting<bool> AddNegativeNeeds { get; } = CreateBoolModSettings("LV.T4UI.AddNegativeNeeds", true);
     public ModSetting<bool> AutoCollapseManagementGroups { get; } = CreateBoolModSettings("LV.T4UI.AutoCollapseManagementGroups");
     public ModSetting<bool> MoveBottomRightUp { get; } = CreateBoolModSettings("LV.T4UI.MoveBottomRightUp");
+    public ModSetting<bool> ShowSwapManagementLocationButton { get; } = CreateBoolModSettings("LV.T4UI.ShowSwapManagementLocationButton", true);
 
     public readonly LimitedStringModSetting toolDescPos = new(
         1,

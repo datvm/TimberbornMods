@@ -43,7 +43,7 @@ public class PostOfficeSender(
     {
         get
         {
-            if (!Ready() || parcels.Count == 0 || holdId is null || WorkedHours >= JobHours)
+            if (!Ready() || parcels.Count == 0 || holdId is not int id || WorkedHours >= JobHours || !service.CanCommit(id))
             {
                 return false;
             }
@@ -121,6 +121,12 @@ public class PostOfficeSender(
 
     public void Progress(float hours)
     {
+        if (holdId is int reserved && !service.CanCommit(reserved))
+        {
+            ReleaseHold();
+            return;
+        }
+
         if (!IsRunnable || hours <= 0f)
         {
             return;
@@ -164,7 +170,19 @@ public class PostOfficeSender(
     }
 
     public bool CanCancel(int index)
-        => index >= 0 && index < parcels.Count && (index == 0 || !parcels[index].Auto);
+    {
+        if (index < 0 || index >= parcels.Count)
+        {
+            return false;
+        }
+
+        if (!parcels[index].Auto)
+        {
+            return true;
+        }
+
+        return index == 0 && !AutoEnabled;
+    }
 
     public void SetAuto(bool enabled, IReadOnlyList<PostOfficeAutoRule> next)
     {
@@ -392,6 +410,18 @@ public class PostOfficeSender(
     }
 
     [OnEvent]
+    public void OnHoldsStalled(OnPostOfficeHoldsStalled stalled)
+    {
+        if (!started || holdId is not int id || !Contains(stalled.Ids, id))
+        {
+            return;
+        }
+
+        holdId = null;
+        LookAgain();
+    }
+
+    [OnEvent]
     public void OnHoldsReleased(OnPostOfficeHoldsReleased released)
     {
         if (!started || holdId is not int id || !Contains(released.Ids, id))
@@ -538,7 +568,12 @@ public class PostOfficeSender(
 
     void Finish()
     {
-        var id = holdId!.Value;
+        if (holdId is not int id || !service.Commit(id))
+        {
+            ReleaseHold();
+            return;
+        }
+
         holdId = null;
         GoodsTaken = false;
         taken.Clear();
@@ -548,7 +583,6 @@ public class PostOfficeSender(
             parcels.RemoveAt(0);
         }
 
-        service.Commit(id);
         inventory.NotifyLimitsChanged();
     }
 
@@ -614,7 +648,7 @@ public class PostOfficeSender(
     void RemoveQueuedAuto()
     {
         var index = parcels.FindIndex(parcel => parcel.Auto);
-        if (index < 0 || (index == 0 && GoodsTaken))
+        if (index <= 0)
         {
             return;
         }

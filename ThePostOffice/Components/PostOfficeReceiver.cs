@@ -38,7 +38,7 @@ public class PostOfficeReceiver(
     {
         get
         {
-            if (!Ready() || parcels.Count == 0 || holdId is null || WorkedHours >= JobHours)
+            if (!Ready() || parcels.Count == 0 || holdId is not int id || WorkedHours >= JobHours || !service.CanCommit(id))
             {
                 return false;
             }
@@ -112,6 +112,12 @@ public class PostOfficeReceiver(
 
     public void Progress(float hours)
     {
+        if (holdId is int reserved && !service.CanCommit(reserved))
+        {
+            ReleaseHold();
+            return;
+        }
+
         if (!IsRunnable || hours <= 0f)
         {
             return;
@@ -155,7 +161,19 @@ public class PostOfficeReceiver(
     }
 
     public bool CanCancel(int index)
-        => index >= 0 && index < parcels.Count && (index == 0 || !parcels[index].Auto);
+    {
+        if (index < 0 || index >= parcels.Count)
+        {
+            return false;
+        }
+
+        if (!parcels[index].Auto)
+        {
+            return true;
+        }
+
+        return index == 0 && !AutoEnabled;
+    }
 
     public void SetAuto(bool enabled, IReadOnlyList<PostOfficeAutoRule> next)
     {
@@ -183,18 +201,6 @@ public class PostOfficeReceiver(
 
     public void CopyAccepted(Dictionary<string, int> target)
     {
-        if (!AutoEnabled)
-        {
-            return;
-        }
-
-        foreach (var keep in keeps)
-        {
-            if (keep.Target > 0)
-            {
-                target[keep.GoodId] = keep.Target;
-            }
-        }
     }
 
     public string WaitKey()
@@ -351,6 +357,18 @@ public class PostOfficeReceiver(
     }
 
     [OnEvent]
+    public void OnHoldsStalled(OnPostOfficeHoldsStalled stalled)
+    {
+        if (!started || holdId is not int id || !Contains(stalled.Ids, id))
+        {
+            return;
+        }
+
+        holdId = null;
+        LookAgain();
+    }
+
+    [OnEvent]
     public void OnHoldsReleased(OnPostOfficeHoldsReleased released)
     {
         if (!started || holdId is not int id || !Contains(released.Ids, id))
@@ -454,8 +472,13 @@ public class PostOfficeReceiver(
 
     void Finish()
     {
+        if (holdId is not int id || parcels.Count == 0 || !service.Commit(id))
+        {
+            ReleaseHold();
+            return;
+        }
+
         var parcel = parcels[0];
-        var id = holdId!.Value;
         holdId = null;
         WorkedHours = 0f;
         parcels.RemoveAt(0);
@@ -465,7 +488,6 @@ public class PostOfficeReceiver(
             stock.GiveExistingIgnoringCapacity(good);
         }
 
-        service.Commit(id);
         inventory.NotifyLimitsChanged();
     }
 
@@ -572,15 +594,9 @@ public class PostOfficeReceiver(
     void RemoveAuto()
     {
         var index = parcels.FindIndex(parcel => parcel.Auto);
-        if (index < 0)
+        if (index <= 0)
         {
             return;
-        }
-
-        if (index == 0)
-        {
-            ReleaseHold();
-            WorkedHours = 0f;
         }
 
         parcels.RemoveAt(index);

@@ -1,19 +1,26 @@
 ﻿namespace TImprove4Ui.UI;
 
 [BindSingleton(Contexts = BindAttributeContext.All)]
-public class KeybindingCollapsiblePanelAdder(KeyBindingsBox keyBindingsBox) : IPostLoadableSingleton
+public class KeybindingCollapsiblePanelAdder(KeyBindingsBox keyBindingsBox, ILoc t) : IPostLoadableSingleton
 {
-    ImmutableArray<KeyValuePair<string, VisualElement>> namedRows = [];
+    readonly record struct NamedRow(string Name, VisualElement Row);
+    readonly record struct NamedGroup(CollapsiblePanel Panel, ImmutableArray<NamedRow> Rows);
+
+    ImmutableArray<NamedGroup> namedGroups = [];
 
     public void PostLoad()
     {
         var box = keyBindingsBox._root;
         var contentBox = keyBindingsBox._content;
 
-        var txt = box.AddTextField("FilterBox", changeCallback: OnKeywordChanged);
-        box.Insert(0, txt);
+        var filterRow = box.AddRow().AlignItems().SetMarginBottom();
+        box.Insert(0, filterRow);
 
-        List<KeyValuePair<string, VisualElement>> rows = [];
+        var txt = filterRow.AddTextField("FilterBox", changeCallback: OnKeywordChanged).SetFlexGrow().SetMarginRight();
+        filterRow.AddGameButtonPadded(t.T("LV.T4UI.CollapseAll"), () => ToggleExpandAll(false), paddingY: 3).SetMarginRight(5);
+        filterRow.AddGameButtonPadded(t.T("LV.T4UI.ExpandAll"), () => ToggleExpandAll(true), paddingY: 3);
+
+        List<NamedGroup> groups = [];
 
         foreach (var grp in contentBox.Children().ToArray())
         {
@@ -24,14 +31,25 @@ public class KeybindingCollapsiblePanelAdder(KeyBindingsBox keyBindingsBox) : IP
             collapsible.Container.Add(grp);
             keyBindingsBox._content.Add(collapsible);
 
+            List<NamedRow> rows = [];
             foreach (var row in grp.Query(className: "key-binding-row").Build())
             {
                 var name = row.Q<Label>("Name").text;
                 rows.Add(new(name.ToLower(), row));
             }
+
+            groups.Add(new(collapsible, [.. rows]));
         }
 
-        namedRows = [.. rows];
+        namedGroups = [.. groups];
+    }
+
+    void ToggleExpandAll(bool expand)
+    {
+        foreach (var group in namedGroups)
+        {
+            group.Panel.SetExpand(expand);
+        }
     }
 
     void OnKeywordChanged(string kw)
@@ -39,9 +57,26 @@ public class KeybindingCollapsiblePanelAdder(KeyBindingsBox keyBindingsBox) : IP
         kw = kw.Trim().ToLower();
         var hasKeyword = kw.Length > 0;
 
-        foreach (var (name, row) in namedRows)
+        foreach (var group in namedGroups)
         {
-            row.SetDisplay(!hasKeyword || name.Contains(kw));
+            var visibleCount = 0;
+
+            foreach (var row in group.Rows)
+            {
+                var visible = !hasKeyword || row.Name.Contains(kw);
+                row.Row.SetDisplay(visible);
+                if (visible)
+                {
+                    visibleCount++;
+                }
+            }
+
+            group.Panel.SetDisplay(!hasKeyword || visibleCount > 0);
+
+            if (hasKeyword && visibleCount > 0)
+            {
+                group.Panel.SetExpand(true);
+            }
         }
     }
 

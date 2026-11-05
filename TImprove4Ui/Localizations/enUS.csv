@@ -39,3 +39,7 @@ LV.T4UI.ColorPicker,"Color Picker",
 LV.T4UI.MoveBottomRightUp,"Move Bottom Right Up",
 LV.T4UI.MoveBottomRightUpDesc,"Sometimes the bottom bar may be too long and the bottom-right elements (like a Mini Map mod) may be covered.
 This option add some space at the bottom",
+LV.T4UI.CollapseAll,"Collapse all",
+LV.T4UI.ExpandAll,"Expand all",
+LV.T4UI.ShowSwapManagementLocationButton,"Show Swap Management Location button",
+LV.T4UI.ShowSwapManagementLocationButtonDesc,"Show the button to swap the location of the management panel.",

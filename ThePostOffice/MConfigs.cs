@@ -20,6 +20,7 @@ public class MConfigs : BaseModdableTimberbornAttributeConfiguration
             .AddDecorator<PostOfficeReceiver, InventoryGoodConsumptionBlocker>(false)
             .AddDecorator<PostOfficeReceiver, PostOfficeWorkWorkplaceBehavior>(false)
             .AddDecorator<PostOfficeReceiver, PostOfficeStatus>(false)
+            .AddDecorator<PostOfficeReceiver, EmptyOutputWorkplaceBehavior>(false)
             .AddDecorator<PostOfficeReceiver, RemoveUnwantedStockWorkplaceBehavior>(false)
             .AddDecorator<PostOfficeReceiver, EmptyInventoriesWorkplaceBehavior>(false)
             .AddDecorator<Worker, PostOfficeWorkExecutor>()
