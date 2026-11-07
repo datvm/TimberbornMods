@@ -1,0 +1,33 @@
+﻿Welcome to The Post Office, where your goods join globalization!
+
+This mod adds 3 buildings under [b]District Management[/b] → [b]Post Office[/b]:
+- [b]Dispatch Post[/b]: Sends goods from this district into the global inventory.
+- [b]Parcel Office[/b]: Brings goods out of the global inventory into this building.
+- [b]]Holding Lodge[/b]: Greatly increase the Post Office's Global Capacity. It needs no worker.
+
+[img]https://images.steamusercontent.com/ugc/10660953473156119293/2ED39CCEBC17B7A8C58156D9FA9233D1A48FC11F/?imw=5000&imh=5000[/img]
+
+[h1]Parcels and capacity[/h1]
+The Post Office works heavily with weight ([strike]no[/strike] pun intended). You cannot send more than that limit before retrieving something. If a building is destroyed or cut off from its district and the stock no longer fits, the extra goods drop at that building as rubble.
+
+Workers move goods as [b]parcels[/b] of at most 30 kg. A larger order is split into parcels. One item heavier than 30 kg is a parcel by itself.
+
+[h1]Orders[/h1]
+Both workplaces take a [b]manual order[/b] and an [b]auto order[/b]. Haulers are not required but they help, because the workers can stay on the building while someone else carries.
+
+[img]https://images.steamusercontent.com/ugc/10267464462183821170/C25870F5A30AE1C7754AFB54717C720EBB7D97EF/?imw=5000&imh=5000[/img]
+
+[b]Dispatch Post.[/b] Haulers and the worker bring the goods into the building, then the worker sends it. The next parcel can be filled while that send is still running. If you cancel, goods already taken out of the building drop as rubble.
+
+[b]Parcel Office.[/b] The worker starts once the goods are in the global inventory and the building can hold the parcel. The goods appear in the building when the job finishes. If the parcel will not fit, the worker and haulers empty the building first. Cancelling does nothing. Haulers then carry that stock out, the same way they empty a warehouse.
+
+[img]https://images.steamusercontent.com/ugc/15643906065983942325/59B272FAE20542992CE0CCC007F18C92CC1C5A78/?imw=5000&imh=5000[/img]
+
+[b]Auto order[/b] uses a [b]Target[/b] and a [b]Margin[/b]:
+- Dispatch Post keeps the Global Inventory near the target. It queues another parcel when that good falls below Target minus Margin.
+- Parcel Office keeps that amount in this building. It does not count goods sitting in the rest of the district. When the stock here falls below the target by the margin, it queues another parcel. The keep list cannot weigh more than the building's 80 kg limit.
+
+A manual order can be removed from the queue. An active auto order can be cancelled only after you turn [b]Auto order[/b] off.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

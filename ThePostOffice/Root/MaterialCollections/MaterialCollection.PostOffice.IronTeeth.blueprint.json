@@ -1,0 +1,8 @@
+{
+  "MaterialCollectionSpec": {
+    "CollectionId": "IronTeeth",
+    "Materials": [
+      "Materials/Goods/Box"
+    ]
+  }
+}

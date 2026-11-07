@@ -8,8 +8,11 @@ public class PostOfficeInventory : BaseComponent, IAwakableComponent, IFinishedS
 #nullable disable
     PostOfficeSender sender;
     PostOfficeReceiver receiver;
+    BlockObject block;
     public Inventory Inventory { get; private set; }
 #nullable enable
+
+    public bool IsFinished => block && block.IsFinished;
 
     public event EventHandler<DisallowedGoodsChangedEventArgs>? DisallowedGoodsChanged;
 
@@ -17,6 +20,7 @@ public class PostOfficeInventory : BaseComponent, IAwakableComponent, IFinishedS
     {
         sender = GetComponent<PostOfficeSender>();
         receiver = GetComponent<PostOfficeReceiver>();
+        block = GetComponent<BlockObject>();
     }
 
     public void InitializeInventory(Inventory inventory)

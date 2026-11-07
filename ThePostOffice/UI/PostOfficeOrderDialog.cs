@@ -141,11 +141,6 @@ public class PostOfficeOrderDialog(
             }
 
             var spec = goods.GetGood(id);
-            if (spec.GoodType == "Liquid" || spec.Weight <= 0)
-            {
-                continue;
-            }
-
             catalogSpecs.Add(spec);
         }
 

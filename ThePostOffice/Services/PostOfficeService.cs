@@ -5,9 +5,12 @@ public class PostOfficeService(
     PostOfficeGlobalInventoryService inventory,
     PostOfficeConfigService configs,
     RecoveredGoodStackSpawner spawner,
-    EventBus events
+    EventBus events,
+    ILoc t
 )
 {
+    public readonly ILoc t = t;
+
     public int ParcelWeight => configs.ParcelWeight;
 
     public int ItemWeight(string id)

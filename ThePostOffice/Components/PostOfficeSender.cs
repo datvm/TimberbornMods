@@ -1,4 +1,4 @@
-namespace ThePostOffice.Components;
+﻿namespace ThePostOffice.Components;
 
 [AddTemplateModule2(typeof(PostOfficeSenderSpec))]
 public class PostOfficeSender(
@@ -23,15 +23,19 @@ public class PostOfficeSender(
     PostOfficeInventory inventory = null!;
     BlockObject block = null!;
     DistrictBuilding district = null!;
+    PostOfficeStatus status = null!;
     int? holdId;
     bool listening;
     bool started;
     bool needsResume;
     bool busy;
     bool again;
+    bool finishing;
+    bool activeAutoSized;
 
     public bool AutoEnabled { get; private set; }
     public bool GoodsTaken { get; private set; }
+    public bool IsFinished => block.IsFinished;
     public float WorkedHours { get; private set; }
     public float JobHours => spec.SendHours;
     public bool HasHold => holdId is not null;
@@ -63,6 +67,7 @@ public class PostOfficeSender(
         inventory = GetComponent<PostOfficeInventory>();
         block = GetComponent<BlockObject>();
         district = GetComponent<DistrictBuilding>();
+        status = GetComponent<PostOfficeStatus>();
     }
 
     public void InitializeEntity()
@@ -115,6 +120,7 @@ public class PostOfficeSender(
         WorkedHours = 0f;
         if (parcels.Count > 0)
         {
+            activeAutoSized = false;
             parcels.RemoveAt(0);
         }
     }
@@ -124,6 +130,7 @@ public class PostOfficeSender(
         if (holdId is int reserved && !service.CanCommit(reserved))
         {
             ReleaseHold();
+            status.Refresh();
             return;
         }
 
@@ -164,6 +171,11 @@ public class PostOfficeSender(
             return;
         }
 
+        if (index == 0)
+        {
+            activeAutoSized = false;
+        }
+
         DropAt(index);
         parcels.RemoveAt(index);
         LookAgain();
@@ -202,6 +214,11 @@ public class PostOfficeSender(
         if (rules.Count == 0)
         {
             AutoEnabled = false;
+        }
+
+        if (!GoodsTaken)
+        {
+            activeAutoSized = false;
         }
 
         RemoveQueuedAuto();
@@ -442,6 +459,7 @@ public class PostOfficeSender(
         WorkedHours = 0f;
         if (parcels.Count > 0)
         {
+            activeAutoSized = false;
             parcels.RemoveAt(0);
         }
 
@@ -480,6 +498,7 @@ public class PostOfficeSender(
         finally
         {
             busy = false;
+            status.Refresh();
         }
     }
 
@@ -492,7 +511,7 @@ public class PostOfficeSender(
         }
 
         DropUnneededAuto();
-        TryQueueAuto();
+        SyncAutos();
         RefreshReservation();
         inventory.NotifyLimitsChanged();
     }
@@ -513,6 +532,7 @@ public class PostOfficeSender(
         if (!GoodsTaken && !Complete(parcels[0]))
         {
             DropFromBuilding(parcels[0].Goods);
+            activeAutoSized = false;
             parcels.RemoveAt(0);
             ClearJob();
             return;
@@ -532,6 +552,7 @@ public class PostOfficeSender(
 
             if (parcels.Count > 0)
             {
+                activeAutoSized = false;
                 parcels.RemoveAt(0);
             }
 
@@ -568,22 +589,37 @@ public class PostOfficeSender(
 
     void Finish()
     {
-        if (holdId is not int id || !service.Commit(id))
+        if (finishing || holdId is not int id)
         {
-            ReleaseHold();
             return;
         }
 
-        holdId = null;
-        GoodsTaken = false;
-        taken.Clear();
-        WorkedHours = 0f;
-        if (parcels.Count > 0)
+        finishing = true;
+        try
         {
-            parcels.RemoveAt(0);
-        }
+            if (!service.Commit(id))
+            {
+                ReleaseHold();
+                return;
+            }
 
-        inventory.NotifyLimitsChanged();
+            holdId = null;
+            GoodsTaken = false;
+            taken.Clear();
+            WorkedHours = 0f;
+            if (parcels.Count > 0)
+            {
+                parcels.RemoveAt(0);
+            }
+
+            activeAutoSized = false;
+            inventory.NotifyLimitsChanged();
+            LookAgain();
+        }
+        finally
+        {
+            finishing = false;
+        }
     }
 
     bool TakeGoods()
@@ -610,58 +646,180 @@ public class PostOfficeSender(
         return true;
     }
 
-    void TryQueueAuto()
+    void SyncAutos()
     {
-        if (!AutoEnabled || parcels.Exists(parcel => parcel.Auto) || !BelowMargin())
+        if (!AutoEnabled)
+        {
+            RemoveQueuedAuto();
+            return;
+        }
+
+        if (parcels.Count == 0 || !parcels[0].Auto)
+        {
+            activeAutoSized = false;
+        }
+
+        RemoveExtraLookaheads();
+        RefreshLookahead();
+        SizeActiveAuto();
+        EnsureLookahead();
+    }
+
+    void RefreshLookahead()
+    {
+        var index = FindLookahead();
+        if (index < 0)
         {
             return;
         }
 
+        if (!BelowMarginExcept(index) || PackAuto(index) is not PostOfficeParcel packed)
+        {
+            DropAt(index);
+            parcels.RemoveAt(index);
+            return;
+        }
+
+        parcels[index] = packed;
+    }
+
+    void SizeActiveAuto()
+    {
+        if (GoodsTaken || activeAutoSized || parcels.Count == 0 || !parcels[0].Auto)
+        {
+            return;
+        }
+
+        if (PackAuto(0) is not PostOfficeParcel packed)
+        {
+            activeAutoSized = false;
+            DropAt(0);
+            parcels.RemoveAt(0);
+            return;
+        }
+
+        parcels[0] = packed;
+        activeAutoSized = true;
+    }
+
+    void EnsureLookahead()
+    {
+        if (parcels.Count == 0)
+        {
+            if (!BelowMarginExcept(-1) || PackAuto(-1) is not PostOfficeParcel first)
+            {
+                return;
+            }
+
+            parcels.Add(first);
+            activeAutoSized = true;
+        }
+
+        if (parcels.Count > 0 && parcels[0].Auto && !GoodsTaken && !activeAutoSized)
+        {
+            return;
+        }
+
+        if (FindLookahead() >= 0 || !BelowMarginExcept(-1) || PackAuto(-1) is not PostOfficeParcel lookahead)
+        {
+            return;
+        }
+
+        parcels.Add(lookahead);
+    }
+
+    void RemoveExtraLookaheads()
+    {
+        var kept = false;
+        for (var i = parcels.Count - 1; i >= 1; i--)
+        {
+            if (!parcels[i].Auto)
+            {
+                continue;
+            }
+
+            if (!kept)
+            {
+                kept = true;
+                continue;
+            }
+
+            DropAt(i);
+            parcels.RemoveAt(i);
+        }
+    }
+
+    int FindLookahead()
+    {
+        for (var i = parcels.Count - 1; i >= 1; i--)
+        {
+            if (parcels[i].Auto)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    PostOfficeParcel? PackAuto(int ignoreIndex)
+    {
         List<GoodAmount> needs = [];
         foreach (var rule in rules)
         {
-            var need = rule.Target - Tracked(rule.GoodId);
+            var need = rule.Target - TrackedExcept(rule.GoodId, ignoreIndex);
             if (need > 0)
             {
                 needs.Add(new(rule.GoodId, need));
             }
         }
 
-        if (service.PackOne(needs, true) is PostOfficeParcel parcel)
-        {
-            parcels.Add(parcel);
-        }
+        return service.PackOne(needs, true);
     }
 
     void DropUnneededAuto()
     {
-        var index = parcels.FindIndex(parcel => parcel.Auto);
-        if (index < 0 || (index == 0 && GoodsTaken) || AutoStillNeeded(parcels[index]))
+        if (parcels.Count == 0 || !parcels[0].Auto || GoodsTaken || holdId is not null || AutoStillNeeded(parcels[0]))
         {
             return;
         }
 
-        DropAt(index);
-        parcels.RemoveAt(index);
+        activeAutoSized = false;
+        DropAt(0);
+        parcels.RemoveAt(0);
     }
 
     void RemoveQueuedAuto()
     {
-        var index = parcels.FindIndex(parcel => parcel.Auto);
-        if (index <= 0)
+        var gathering = GatheringIndex();
+        List<ImmutableArray<GoodAmount>> dropping = [];
+        for (var i = parcels.Count - 1; i >= 1; i--)
         {
-            return;
+            if (!parcels[i].Auto)
+            {
+                continue;
+            }
+
+            if (i == gathering)
+            {
+                dropping.Add(parcels[i].Goods);
+            }
+
+            parcels.RemoveAt(i);
         }
 
-        DropAt(index);
-        parcels.RemoveAt(index);
+        foreach (var goods in dropping)
+        {
+            DropFromBuilding(goods);
+        }
     }
 
     bool AutoStillNeeded(PostOfficeParcel parcel)
     {
+        var lookahead = FindLookahead();
         foreach (var good in parcel.Goods)
         {
-            var tracked = service.GlobalAmount(good.GoodId) + Outstanding(good.GoodId) - good.Amount;
+            var tracked = TrackedExcept(good.GoodId, lookahead) - good.Amount;
             if (tracked < TargetOf(good.GoodId))
             {
                 return true;
@@ -671,11 +829,11 @@ public class PostOfficeSender(
         return false;
     }
 
-    bool BelowMargin()
+    bool BelowMarginExcept(int ignoreIndex)
     {
         foreach (var rule in rules)
         {
-            if (Tracked(rule.GoodId) < rule.Target - rule.Margin)
+            if (TrackedExcept(rule.GoodId, ignoreIndex) < rule.Target - rule.Margin)
             {
                 return true;
             }
@@ -684,14 +842,17 @@ public class PostOfficeSender(
         return false;
     }
 
-    int Tracked(string id) => service.GlobalAmount(id) + Outstanding(id);
-
-    int Outstanding(string id)
+    int TrackedExcept(string id, int ignoreIndex)
     {
-        var sum = 0;
-        foreach (var parcel in parcels)
+        var sum = service.GlobalAmount(id);
+        for (var i = 0; i < parcels.Count; i++)
         {
-            foreach (var good in parcel.Goods)
+            if (i == ignoreIndex)
+            {
+                continue;
+            }
+
+            foreach (var good in parcels[i].Goods)
             {
                 if (good.GoodId == id)
                 {

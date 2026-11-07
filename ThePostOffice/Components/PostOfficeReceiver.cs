@@ -18,6 +18,8 @@ public class PostOfficeReceiver(
 
     PostOfficeReceiverSpec spec = null!;
     PostOfficeInventory inventory = null!;
+    BlockObject block = null!;
+    PostOfficeStatus status = null!;
     int? holdId;
     bool listening;
     bool started;
@@ -29,6 +31,7 @@ public class PostOfficeReceiver(
     public float WorkedHours { get; private set; }
     public float JobHours => spec.RetrieveHours;
     public int InventoryCapacity => spec.InventoryCapacity;
+    public bool IsFinished => block && block.IsFinished;
     public bool HasHold => holdId is not null;
     public IReadOnlyList<PostOfficeParcel> Parcels => parcels;
     public IReadOnlyList<PostOfficeAutoRule> Keeps => keeps;
@@ -73,6 +76,8 @@ public class PostOfficeReceiver(
     {
         spec = GetComponent<PostOfficeReceiverSpec>();
         inventory = GetComponent<PostOfficeInventory>();
+        block = GetComponent<BlockObject>();
+        status = GetComponent<PostOfficeStatus>();
     }
 
     public void InitializeEntity()
@@ -115,6 +120,7 @@ public class PostOfficeReceiver(
         if (holdId is int reserved && !service.CanCommit(reserved))
         {
             ReleaseHold();
+            status.Refresh();
             return;
         }
 
@@ -232,6 +238,11 @@ public class PostOfficeReceiver(
 
         if (parcels.Count == 0)
         {
+            if (AutoEnabled && AutoGoodsMissing())
+            {
+                return PostOfficeStall.LackOfResources;
+            }
+
             return AutoEnabled ? PostOfficeStall.None : PostOfficeStall.NothingToDo;
         }
 
@@ -240,7 +251,7 @@ public class PostOfficeReceiver(
             return PostOfficeStall.NoStorage;
         }
 
-        if (GoodsAreMissing())
+        if (WaitKey() == "LV.TPO.WaitingGlobal")
         {
             return PostOfficeStall.LackOfResources;
         }
@@ -248,16 +259,16 @@ public class PostOfficeReceiver(
         return PostOfficeStall.None;
     }
 
-    bool GoodsAreMissing()
+    bool AutoGoodsMissing()
     {
-        if (holdId is not null || parcels.Count == 0)
+        foreach (var keep in keeps)
         {
-            return false;
-        }
+            if (Tracked(keep.GoodId) >= keep.Target - keep.Margin)
+            {
+                continue;
+            }
 
-        foreach (var good in parcels[0].Goods)
-        {
-            if (service.Available(good.GoodId) <= 0)
+            if (service.Available(keep.GoodId) <= 0)
             {
                 return true;
             }
@@ -418,6 +429,7 @@ public class PostOfficeReceiver(
         finally
         {
             busy = false;
+            status.Refresh();
         }
     }
 

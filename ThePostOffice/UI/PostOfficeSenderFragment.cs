@@ -23,6 +23,7 @@ public class PostOfficeSenderFragment(
     Toggle auto = null!;
     ProgressBarWithLabel progress;
     string signature = "";
+    bool rowsDirty;
     bool refreshing;
 
     public int Order => -20;
@@ -58,7 +59,7 @@ public class PostOfficeSenderFragment(
     public override void ShowFragment(BaseComponent entity)
     {
         base.ShowFragment(entity);
-        signature = "";
+        rowsDirty = true;
         if (!Ready(out var desk))
         {
             panel.Visible = false;
@@ -85,7 +86,7 @@ public class PostOfficeSenderFragment(
 
     public override void ClearFragment()
     {
-        signature = "";
+        rowsDirty = true;
         activeGoods.Clear();
         waiting.Clear();
         base.ClearFragment();
@@ -116,11 +117,12 @@ public class PostOfficeSenderFragment(
         }
 
         var next = PostOfficeParcelRows.Signature(desk.Parcels);
-        if (next == signature)
+        if (!rowsDirty && next == signature)
         {
             return;
         }
 
+        rowsDirty = false;
         signature = next;
         activeGoods.Clear();
         waiting.Clear();
@@ -200,7 +202,7 @@ public class PostOfficeSenderFragment(
         }
 
         desk.Cancel(index);
-        signature = "";
+        rowsDirty = true;
     }
 
     async void OpenManual()
@@ -217,7 +219,7 @@ public class PostOfficeSenderFragment(
         }
 
         desk.Enqueue(chosen);
-        signature = "";
+        rowsDirty = true;
     }
 
     async void OpenAuto()
@@ -244,7 +246,7 @@ public class PostOfficeSenderFragment(
         }
 
         desk.SetAuto(value, desk.Rules);
-        signature = "";
+        rowsDirty = true;
     }
 
     void SyncAuto(bool configured, bool enabled, Action turnOff)
@@ -267,6 +269,11 @@ public class PostOfficeSenderFragment(
     bool Ready(out PostOfficeSender desk)
     {
         desk = component!;
-        return desk && desk;
+        if (!desk || !desk)
+        {
+            return false;
+        }
+
+        return desk.IsFinished;
     }
 }

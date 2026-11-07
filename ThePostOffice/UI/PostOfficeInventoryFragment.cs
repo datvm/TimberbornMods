@@ -106,6 +106,11 @@ public class PostOfficeInventoryFragment(
     bool Ready()
     {
         var inventory = component;
-        return inventory is not null && inventory && inventory.Inventory && inventory.Inventory.Enabled;
+        if (inventory is null || !inventory || !inventory.Inventory || !inventory.Inventory.Enabled)
+        {
+            return false;
+        }
+
+        return inventory.IsFinished;
     }
 }

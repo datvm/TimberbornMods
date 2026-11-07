@@ -13,6 +13,7 @@ public class PostOfficeGlobalInventoryFragment(
     Label summary = null!;
     Label empty = null!;
     VisualElement list = null!;
+    PostOfficeCapacity? building;
     bool showing;
     string signature = "";
 
@@ -36,25 +37,45 @@ public class PostOfficeGlobalInventoryFragment(
 
     public void ShowFragment(BaseComponent entity)
     {
-        if (!entity.HasComponent<PostOfficeCapacitySpec>())
+        if (!entity.TryGetComponent(out PostOfficeCapacity capacity))
         {
             ClearFragment();
             return;
         }
 
+        building = capacity;
         showing = true;
-        panel.Visible = true;
         signature = "";
+        if (capacity.IsOffice && !capacity.IsFinished)
+        {
+            panel.Visible = false;
+            return;
+        }
+
+        panel.Visible = true;
         Refresh();
     }
 
     public void UpdateFragment()
     {
-        if (!showing)
+        var capacity = building;
+        if (!showing || capacity is null || !capacity)
         {
             return;
         }
 
+        if (capacity.IsOffice && !capacity.IsFinished)
+        {
+            panel.Visible = false;
+            return;
+        }
+
+        if (!panel.Visible)
+        {
+            signature = "";
+        }
+
+        panel.Visible = true;
         Refresh();
     }
 
@@ -62,6 +83,7 @@ public class PostOfficeGlobalInventoryFragment(
     {
         panel.Visible = false;
         showing = false;
+        building = null;
         signature = "";
         incoming.Clear();
         list.Clear();

@@ -14,16 +14,19 @@ public class MConfigs : BaseModdableTimberbornAttributeConfiguration
             .AddDecorator<PostOfficeSender, FillInputHaulBehaviorProvider>(false)
             .AddDecorator<PostOfficeSender, PostOfficeWorkWorkplaceBehavior>()
             .AddDecorator<PostOfficeSender, PostOfficeStatus>()
+            .AddDecorator<PostOfficeSender, PostOfficeStoredBoxes>()
             .AddDecorator<PostOfficeSender, FillInputWorkplaceBehavior>(false)
             .AddDecorator<PostOfficeSender, EmptyInventoriesWorkplaceBehavior>(false)
             .AddDecorator<PostOfficeReceiver, Emptiable>(false)
             .AddDecorator<PostOfficeReceiver, InventoryGoodConsumptionBlocker>(false)
             .AddDecorator<PostOfficeReceiver, PostOfficeWorkWorkplaceBehavior>(false)
             .AddDecorator<PostOfficeReceiver, PostOfficeStatus>(false)
+            .AddDecorator<PostOfficeReceiver, PostOfficeStoredBoxes>(false)
             .AddDecorator<PostOfficeReceiver, EmptyOutputWorkplaceBehavior>(false)
             .AddDecorator<PostOfficeReceiver, RemoveUnwantedStockWorkplaceBehavior>(false)
             .AddDecorator<PostOfficeReceiver, EmptyInventoriesWorkplaceBehavior>(false)
             .AddDecorator<Worker, PostOfficeWorkExecutor>()
+            .AddDecorator<PostOfficeCapacity, PostOfficeLodgeVisuals>()
         );
 
         configurator.MultiBind<TemplateModule>().ToProvider<PostOfficeTemplateModuleProvider>().AsSingleton();

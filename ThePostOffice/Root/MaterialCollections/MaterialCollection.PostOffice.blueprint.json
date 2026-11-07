@@ -1,0 +1,8 @@
+{
+  "MaterialCollectionSpec": {
+    "CollectionId": "Folktails",
+    "Materials": [
+      "Materials/Goods/Box"
+    ]
+  }
+}

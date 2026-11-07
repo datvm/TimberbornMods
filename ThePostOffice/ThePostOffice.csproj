@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputModFolderName>ThePostOffice</OutputModFolderName>
   </PropertyGroup>
@@ -7,6 +7,10 @@
   <Import Project="../Targets/CommonModdableToolGroups.targets" />
   <Import Project="../Targets/CommonGlobalInventory.targets" />
   <ItemGroup>
+    <InternalsVisibleTo Include="ThePostOffice.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="UnityEngine.Mesh" Alias="Mesh" />
     <Using Include="ModdableTimberborn.DependencyInjection" />
     <Using Include="ThePostOffice.Components" />
     <Using Include="ThePostOffice.Components.Behaviors" />

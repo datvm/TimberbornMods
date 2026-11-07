@@ -1,4 +1,4 @@
-﻿{
+{
     "BuildingSpec": {
         "SelectionSoundName": "DistrictCrossing",
         "LoopingSoundName": "",
@@ -307,7 +307,7 @@
             "Children": {
                 "Counter": {
                     "TimbermeshSpec": {
-                        "Model": "Buildings/DistrictManagement/HaulingPost/HaulingPost.Folktails.Model"
+                        "Model": "Buildings/DistrictManagement/ParcelOffice/ParcelOffice.Folktails.Model"
                     },
                     "CollidersSpec": {
                         "BoxColliders": [
@@ -318,98 +318,20 @@
                             {
                                 "Center": { "X": 1.5, "Y": 1.5, "Z": 1.0 },
                                 "Size": { "X": 2.6, "Y": 0.6, "Z": 1.5 }
+                            },
+                            {
+                                "Center": { "X": 1.5, "Y": 2.65, "Z": 1.0 },
+                                "Size": { "X": 0.32, "Y": 0.32, "Z": 0.32 }
+                            },
+                            {
+                                "Center": { "X": 1.5, "Y": 0.22, "Z": 2.5 },
+                                "Size": { "X": 3.0, "Y": 0.5, "Z": 1.0 }
                             }
                         ],
                         "SphereColliders": [],
-                        "CapsuleColliders": [
-                            {
-                                "Center": { "X": 1.5, "Y": 1.91976392, "Z": 1.0 },
-                                "Radius": 0.700000048,
-                                "Height": 1.70952773,
-                                "Axis": "Y"
-                            }
-                        ]
+                        "CapsuleColliders": []
                     }
-                },
-                "Yard": {
-                    "TransformSpec": {
-                        "Position": { "X": 0.0, "Y": 0.0, "Z": 2.0 },
-                        "Rotation": { "X": 0.0, "Y": 0.0, "Z": 0.0 },
-                        "Scale": { "X": 1.0, "Y": 1.0, "Z": 1.0 }
-                    },
-                    "Children": {
-                        "Pile0": {
-                            "TransformSpec": {
-                                "Position": { "X": 0.0, "Y": 0.0, "Z": 0.0 },
-                                "Rotation": { "X": 0.0, "Y": 0.0, "Z": 0.0 },
-                                "Scale": { "X": 1.0, "Y": 1.0, "Z": 1.0 }
-                            },
-                            "TimbermeshSpec": {
-                                "Model": "Buildings/Storage/SmallPile/SmallPile.Folktails.Model"
-                            },
-                            "CollidersSpec": {
-                                "BoxColliders": [
-                                    {
-                                        "Center": { "X": 0.5, "Y": 0.22, "Z": 0.5 },
-                                        "Size": { "X": 1.0, "Y": 0.44, "Z": 1.0 }
-                                    }
-                                ],
-                                "SphereColliders": [],
-                                "CapsuleColliders": []
-                            }
-                        },
-                        "Pile1": {
-                            "TransformSpec": {
-                                "Position": { "X": 1.0, "Y": 0.0, "Z": 0.0 },
-                                "Rotation": { "X": 0.0, "Y": 0.0, "Z": 0.0 },
-                                "Scale": { "X": 1.0, "Y": 1.0, "Z": 1.0 }
-                            },
-                            "TimbermeshSpec": {
-                                "Model": "Buildings/Storage/SmallPile/SmallPile.Folktails.Model"
-                            },
-                            "CollidersSpec": {
-                                "BoxColliders": [
-                                    {
-                                        "Center": { "X": 0.5, "Y": 0.22, "Z": 0.5 },
-                                        "Size": { "X": 1.0, "Y": 0.44, "Z": 1.0 }
-                                    }
-                                ],
-                                "SphereColliders": [],
-                                "CapsuleColliders": []
-                            }
-                        },
-                        "Pile2": {
-                            "TransformSpec": {
-                                "Position": { "X": 2.0, "Y": 0.0, "Z": 0.0 },
-                                "Rotation": { "X": 0.0, "Y": 0.0, "Z": 0.0 },
-                                "Scale": { "X": 1.0, "Y": 1.0, "Z": 1.0 }
-                            },
-                            "TimbermeshSpec": {
-                                "Model": "Buildings/Storage/SmallPile/SmallPile.Folktails.Model"
-                            },
-                            "CollidersSpec": {
-                                "BoxColliders": [
-                                    {
-                                        "Center": { "X": 0.5, "Y": 0.22, "Z": 0.5 },
-                                        "Size": { "X": 1.0, "Y": 0.44, "Z": 1.0 }
-                                    }
-                                ],
-                                "SphereColliders": [],
-                                "CapsuleColliders": []
-                            }
-                        }
-                    }
-                },
-                    "BackDoor": {
-                        "TransformSpec": {
-                            "Position": { "X": 2.0, "Y": 0.0, "Z": 3.0 },
-                            "Rotation": { "X": 0.0, "Y": 180.0, "Z": 0.0 },
-                            "Scale": { "X": 1.0, "Y": 1.0, "Z": 1.0 }
-                        },
-                        "TimbermeshSpec": {
-                            "Model": "ConstructionBases/Doorstep/Doorstep.Model"
-                        }
-                    }
+                }
             }
         },
         "#Unfinished": {
@@ -418,17 +340,7 @@
                     "Children": {
                         "ConstructionBase3x3#nested": {
                             "BlueprintPath": "ConstructionBases/ConstructionBase3x3/ConstructionBase3x3.blueprint"
-                        },
-                    "BackDoor": {
-                        "TransformSpec": {
-                            "Position": { "X": 2.0, "Y": 0.0, "Z": 3.0 },
-                            "Rotation": { "X": 0.0, "Y": 180.0, "Z": 0.0 },
-                            "Scale": { "X": 1.0, "Y": 1.0, "Z": 1.0 }
-                        },
-                        "TimbermeshSpec": {
-                            "Model": "ConstructionBases/Doorstep/Doorstep.Model"
                         }
-                    }
                     }
                 },
                 "ConstructionStage0": {
@@ -437,17 +349,7 @@
                             "TimbermeshSpec": {
                                 "Model": "Buildings/DistrictManagement/HaulingPost/HaulingPost.Folktails.ConstructionStage0.Model"
                             }
-                        },
-                    "BackDoor": {
-                        "TransformSpec": {
-                            "Position": { "X": 2.0, "Y": 0.0, "Z": 3.0 },
-                            "Rotation": { "X": 0.0, "Y": 180.0, "Z": 0.0 },
-                            "Scale": { "X": 1.0, "Y": 1.0, "Z": 1.0 }
-                        },
-                        "TimbermeshSpec": {
-                            "Model": "ConstructionBases/Doorstep/Doorstep.Model"
                         }
-                    }
                     }
                 }
             }

@@ -1,0 +1,354 @@
+{
+    "BuildingSpec": {
+        "SelectionSoundName": "DistrictCrossing",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            { "Id": "Log", "Amount": 30 },
+            { "Id": "Plank", "Amount": 20 }
+        ],
+        "ScienceCost": 300,
+        "PlaceFinished": false,
+        "FinishableWithBeaversOnSite": false,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "WorkplaceSpec": {
+        "MaxWorkers": 1,
+        "DefaultWorkers": 1,
+        "DefaultWorkerType": "Beaver",
+        "DisallowOtherWorkerTypes": false,
+        "WorkerTypeUnlockCosts": [
+            { "WorkerType": "Bot", "ScienceCost": 250 }
+        ]
+    },
+    "EnterableSpec": {
+        "OperatingState": "Finished",
+        "LimitedCapacityFinished": false,
+        "CapacityFinished": 0,
+        "LimitedCapacityUnfinished": false,
+        "CapacityUnfinished": 0
+    },
+    "WorkshopWorkerHiderSpec": {},
+    "TemplateSpec": {
+        "TemplateName": "DispatchPost.IronTeeth",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "PostOfficeSenderSpec": {
+        "SendHours": 3.0
+    },
+    "PostOfficeLocalInventorySpec": {},
+    "PostOfficeCapacitySpec": {
+        "Contribution": 120
+    },
+    "TransformSlotInitializerSpec": {
+        "Slots": [
+            {
+                "SlotKeyword": "Entrance",
+                "Animation": "Sitting",
+                "Inanimate": false,
+                "RandomizeYRotation": false,
+                "WaterSlot": false
+            }
+        ]
+    },
+    "WorkplaceSlotManagerSpec": {},
+    "BlockObjectSpec": {
+        "Size": { "X": 3, "Y": 3, "Z": 3 },
+        "Blocks": [
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Bottom, Top, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Bottom, Top, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Bottom, Top, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Bottom, Top, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Bottom, Top, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Bottom, Top, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Bottom, Top, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Bottom, Top, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Bottom, Top, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "All",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Corners, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "None",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
+        "Entrance": {
+            "HasEntrance": true,
+            "Coordinates": { "X": 1, "Y": -1, "Z": 0 }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": false
+    },
+    "BuildingAccessibleSpec": {
+        "LocalAccess": { "X": 1.5, "Y": 0.02823019, "Z": 0.76 },
+        "ForceOneFinalAccess": false
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "PostOffice",
+        "ToolOrder": 40,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": { "X": 0.0, "Y": 0.0, "Z": 0.0 }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": false
+    },
+    "BlockObjectNavMeshSettingsSpec": {
+        "NoAutoWalls": false,
+        "GenerateFloorsOnStackable": true,
+        "EdgeGroups": [],
+        "UnblockedCoordinates": [],
+        "BlockedEdges": []
+    },
+    "WorkplaceIlluminatorSpec": {},
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.TPO.DispatchPostName",
+        "DescriptionLocKey": "LV.TPO.DispatchPostDesc",
+        "FlavorDescriptionLocKey": "LV.TPO.DispatchPostFlavor",
+        "Icon": "Buildings/DistrictManagement/DispatchPost/DispatchPostIcon"
+    },
+    "WorkplaceWorkerOutfitSpec": {
+        "WorkerOutfit": "Hauler"
+    },
+    "ConstructionSiteProgressVisualizerSpec": {
+        "ProgressThresholds": [ 0.0 ]
+    },
+    "Children": {
+        "#Finished": {
+            "Children": {
+                "Counter": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/DistrictManagement/DispatchPost/DispatchPost.IronTeeth.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": { "X": 1.5, "Y": 0.6, "Z": 1.0 },
+                                "Size": { "X": 3.0, "Y": 1.2, "Z": 2.0 }
+                            },
+                            {
+                                "Center": { "X": 1.5, "Y": 1.5, "Z": 1.0 },
+                                "Size": { "X": 2.6, "Y": 0.6, "Z": 1.5 }
+                            },
+                            {
+                                "Center": { "X": 1.5, "Y": 2.65, "Z": 1.0 },
+                                "Size": { "X": 0.32, "Y": 0.32, "Z": 0.32 }
+                            },
+                            {
+                                "Center": { "X": 1.5, "Y": 0.22, "Z": 2.5 },
+                                "Size": { "X": 3.0, "Y": 0.5, "Z": 1.0 }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase": {
+                    "Children": {
+                        "ConstructionBase3x3#nested": {
+                            "BlueprintPath": "ConstructionBases/ConstructionBase3x3/ConstructionBase3x3.blueprint"
+                        }
+                    }
+                },
+                "ConstructionStage0": {
+                    "Children": {
+                        "Hut": {
+                            "TimbermeshSpec": {
+                                "Model": "Buildings/DistrictManagement/HaulingPost/HaulingPost.IronTeeth.ConstructionStage0.Model"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

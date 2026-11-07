@@ -1,0 +1,10 @@
+{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.IronTeeth",
+        "Blueprints": [
+            "Buildings/DistrictManagement/DispatchPost/DispatchPost.IronTeeth.blueprint",
+            "Buildings/DistrictManagement/ParcelOffice/ParcelOffice.IronTeeth.blueprint",
+            "Buildings/DistrictManagement/HoldingLodge/HoldingLodge.IronTeeth.blueprint"
+        ]
+    }
+}
