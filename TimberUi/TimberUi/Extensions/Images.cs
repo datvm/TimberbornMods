@@ -34,6 +34,20 @@ public static partial class UiBuilderExtensions
             return icon;
         }
 
+
+        public T SetGoodOrScience(string id, NamedIconProvider namedIconProvider, IGoodService goods, int? amount = null)
+        {
+            if (id == TimberUiUtils.ScienceId)
+            {
+                icon.SetScience(namedIconProvider, amount?.ToString());
+            }
+            else
+            {
+                icon.SetGood(goods, id, amount?.ToString(), true);
+            }
+
+            return icon;
+        }
     }
 
     extension(VisualElement parent)
@@ -97,6 +111,5 @@ public static partial class UiBuilderExtensions
         public Image AddInventoryOutputImage() => AddInventoryIoImage(parent, true);
 
     }
-
 
 }

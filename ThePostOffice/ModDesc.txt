@@ -3,7 +3,7 @@
 This mod adds 3 buildings under [b]District Management[/b] → [b]Post Office[/b]:
 - [b]Dispatch Post[/b]: Sends goods from this district into the global inventory.
 - [b]Parcel Office[/b]: Brings goods out of the global inventory into this building.
-- [b]]Holding Lodge[/b]: Greatly increase the Post Office's Global Capacity. It needs no worker.
+- [b]Holding Lodge[/b]: Greatly increase the Post Office's Global Capacity. It needs no worker.
 
 [img]https://images.steamusercontent.com/ugc/10660953473156119293/2ED39CCEBC17B7A8C58156D9FA9233D1A48FC11F/?imw=5000&imh=5000[/img]
 
@@ -28,6 +28,10 @@ Both workplaces take a [b]manual order[/b] and an [b]auto order[/b]. Haulers are
 - Parcel Office keeps that amount in this building. It does not count goods sitting in the rest of the district. When the stock here falls below the target by the margin, it queues another parcel. The keep list cannot weigh more than the building's 80 kg limit.
 
 A manual order can be removed from the queue. An active auto order can be cancelled only after you turn [b]Auto order[/b] off.
+
+[h1]Notes[/h1]
+- Hold Shift to cancel/remove Orders without confirmation.
+- Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3472334132]TImprove 4 UI[/url] for the scrollbar and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3547764728]TImprove 4 UX[/url] for the collapsible panel if the list gets too long.
 
 ===
 Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

@@ -1,0 +1,8 @@
+﻿{
+    "TemplateCollectionSpec": {
+        "CollectionId": "Buildings.Emberpelts",
+        "Blueprints": [
+            "Buildings/Decoration/Lantern/Lantern.Folktails.blueprint"
+        ]
+    }
+}

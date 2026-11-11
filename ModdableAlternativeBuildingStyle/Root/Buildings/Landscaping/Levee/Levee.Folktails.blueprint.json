@@ -1,0 +1,10 @@
+﻿{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Metal",
+                "BlueprintPath": "Buildings/Landscaping/Levee/MetalLeveeStyles.Folktails.blueprint"
+            }
+        ]
+    }
+}

@@ -70,8 +70,8 @@
     <Project Path="DistroStorage/DistroStorage.csproj" Id="e403d0a7-4b71-4fd1-961d-59e6c15b129e" />
     <Project Path="MoreBuildingRenovations/MoreBuildingRenovations.csproj" Id="4e33da4c-7cee-4bb9-88ca-a157added875" />
     <Project Path="StockpileBalancer/StockpileBalancer.csproj" Id="cdf8588f-efdd-40b8-83bb-534a56c44b9a" />
-    <Project Path="ThePostOffice/ThePostOffice.csproj" Id="149a4ea5-4e9c-46d5-83aa-3a25d8733b79" />
     <Project Path="ThePostOffice.Tests/ThePostOffice.Tests.csproj" />
+    <Project Path="ThePostOffice/ThePostOffice.csproj" Id="149a4ea5-4e9c-46d5-83aa-3a25d8733b79" />
     <Project Path="UnstableCoreChallenge/UnstableCoreChallenge.csproj" />
   </Folder>
   <Folder Name="/Logistics/ConveyorBelts/">
@@ -86,6 +86,7 @@
   </Folder>
   <Folder Name="/Moddable/">
     <Project Path="ExtendedOptionalModSupport/ExtendedOptionalModSupport.csproj" Id="b2b9ec26-90c8-4059-bd4d-af07b21fae7d" />
+    <Project Path="ModdableAlternativeBuildingStyle/ModdableAlternativeBuildingStyle.csproj" Id="72355d8d-cbc1-4f4a-82ff-90683ebc7ef0" />
     <Project Path="ModdedFactionsBuildingSupport/ModdedFactionsBuildingSupport.csproj" Id="b7917a4b-4893-40d8-88f3-0f37f0c13569" />
     <Project Path="RealLights/RealLights.csproj" />
     <Project Path="RoofMap/RoofMap.csproj" />

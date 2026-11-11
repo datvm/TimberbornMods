@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Moddable Alternative Building Style",
+    "Version": "11.0.0",
+    "Id": "ModdableAlternativeBuildingStyle",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "",
+    "RequiredMods": [
+        { "Id": "ModdableTimberborn" }
+    ]
+}

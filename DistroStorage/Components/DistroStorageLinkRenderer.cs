@@ -16,6 +16,9 @@ public class DistroStorageLinkRenderer(DistroLinkRenderer renderer) : BaseCompon
 
     public void OnSelect()
     {
+        renderer.Clear();
+        if (renderer.DisableArrows) { return; }
+
         var center = distro.AboveCenter;
 
         RenderComponent(distro.Sender, center, renderer.AddOutputLine);

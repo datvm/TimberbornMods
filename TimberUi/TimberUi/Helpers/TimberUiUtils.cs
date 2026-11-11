@@ -8,6 +8,7 @@ public static class TimberUiUtils
     public static readonly bool HasMoreModLogs;
 
     public const string SteamId = "1062090";
+    public const string ScienceId = "Science";
 
     public static readonly Color SuccessColor = new(0, .5f, .0686f);
     public static readonly Color NeutralColor = new(.8f, .8f, .8f);

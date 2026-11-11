@@ -68,6 +68,10 @@ public class DistroStorageFragment(
     void OnDisableArrowsChanged(bool value)
     {
         renderer.SetDisableArrows(value);
+        if (!value && component?.GetComponent<DistroStorageLinkRenderer>() is { } links)
+        {
+            links.OnSelect();
+        }
     }
 
 }

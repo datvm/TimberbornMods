@@ -25,7 +25,7 @@ public class DistroLinkRenderer : ILoadableSingleton, IUnloadableSingleton
 
     public void AddLine(Vector3 from, Vector3 to, Color color)
     {
-        if (from == to) { return; }
+        if (DisableArrows || from == to) { return; }
 
         to = GetOffsetTarget(from, to);
 
@@ -88,19 +88,17 @@ public class DistroLinkRenderer : ILoadableSingleton, IUnloadableSingleton
 
     public void Clear()
     {
-        var children = lineContainer.GetComponentsInChildren<Transform>();
-        foreach (var child in children)
+        var root = lineContainer.transform;
+        for (var i = root.childCount - 1; i >= 0; i--)
         {
-            if (child != lineContainer.transform)
-            {
-                UnityEngine.Object.Destroy(child.gameObject);
-            }
+            UnityEngine.Object.Destroy(root.GetChild(i).gameObject);
         }
     }
 
     public void Load()
     {
         DisableArrows = PlayerPrefs.GetInt(SettingsKey, 0) == 1;
+        lineContainer.SetActive(!DisableArrows);
 
         var shader = Shader.Find("Sprites/Default");
         if (shader == null)
@@ -122,6 +120,10 @@ public class DistroLinkRenderer : ILoadableSingleton, IUnloadableSingleton
     {
         DisableArrows = disable;
         lineContainer.SetActive(!disable);
+        if (disable)
+        {
+            Clear();
+        }
 
         PlayerPrefs.SetInt(SettingsKey, disable ? 1 : 0);
     }
