@@ -1,0 +1,56 @@
+{
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.0492772,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.7991361,
+                    "Y": 0.09543988,
+                    "Z": 0.8013649
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.8823184,
+                    "Z": 0.5058256
+                },
+                "Size": {
+                    "X": 0.318531334,
+                    "Y": 1.54652858,
+                    "Z": 0.336932063
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 1.39753175,
+                    "Z": 0.4994792
+                },
+                "Size": {
+                    "X": 0.401659,
+                    "Y": 0.5028186,
+                    "Z": 0.446052223
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    },
+    "Children": {
+        "#On": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Automation/Lever/LeverOn.Folktails.Model"
+            }
+        },
+        "#Off": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Automation/Lever/LeverOff.Folktails.Model"
+            }
+        }
+    }
+}

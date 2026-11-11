@@ -1,0 +1,23 @@
+{
+  "TimbermeshSpec": {
+    "Model": "Buildings/Landscaping/Levee/MetalLevee.IronTeeth.Model"
+  },
+  "CollidersSpec": {
+    "BoxColliders": [
+      {
+        "Center": {
+          "X": 0.5,
+          "Y": 0.510495067,
+          "Z": 0.5
+        },
+        "Size": {
+          "X": 0.9,
+          "Y": 1.02099013,
+          "Z": 0.9
+        }
+      }
+    ],
+    "SphereColliders": [],
+    "CapsuleColliders": []
+  }
+}

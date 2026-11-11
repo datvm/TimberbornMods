@@ -62,6 +62,13 @@ public class DropdownRow<TValue> : VisualElement
             items.Add(new(v, name));
         }
 
+        if (Dropdown._elementGetter is not null)
+        {
+            Dropdown.Hide();
+            Dropdown._items.Clear();
+            Dropdown._elements.Clear();
+        }
+
         string GetUniqueName(string name)
         {
             var count = nameCount.GetValueOrDefault(name);
@@ -77,6 +84,7 @@ public class DropdownRow<TValue> : VisualElement
 
             return GetUniqueName(text);
         }
+
     }
 
     public void SetSelectedValue(TValue value) => InternalSet(null, value);

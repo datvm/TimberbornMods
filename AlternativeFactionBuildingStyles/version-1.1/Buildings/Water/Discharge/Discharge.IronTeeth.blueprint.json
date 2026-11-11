@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Water/Discharge/Discharge.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

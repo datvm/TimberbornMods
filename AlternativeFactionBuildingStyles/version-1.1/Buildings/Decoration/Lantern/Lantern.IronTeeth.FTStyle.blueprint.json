@@ -1,0 +1,47 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/Lantern/Lantern.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.07711796,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.6248417,
+                    "Y": 0.154235914,
+                    "Z": 0.6268972
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.928436637,
+                    "Z": 0.6182387
+                },
+                "Size": {
+                    "X": 0.158192873,
+                    "Y": 1.85687327,
+                    "Z": 0.1634016
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 1.377355,
+                    "Z": 0.309241623
+                },
+                "Size": {
+                    "X": 0.2431277,
+                    "Y": 0.781689644,
+                    "Z": 0.239012718
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

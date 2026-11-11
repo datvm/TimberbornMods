@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Decoration/StreamGauge/StreamGauge.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

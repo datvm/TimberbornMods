@@ -1,0 +1,35 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Automation/Detonator/Detonator.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.0168858021,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.9963975,
+                    "Y": 0.0410260931,
+                    "Z": 0.9852148
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.49999994,
+                    "Y": 0.309719,
+                    "Z": 0.500204265
+                },
+                "Size": {
+                    "X": 0.182616,
+                    "Y": 0.563046753,
+                    "Z": 0.190036625
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

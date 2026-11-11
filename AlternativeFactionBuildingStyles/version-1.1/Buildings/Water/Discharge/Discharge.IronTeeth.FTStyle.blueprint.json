@@ -1,0 +1,46 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Water/Discharge/Discharge.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.55,
+                    "Z": 1.3
+                },
+                "Size": {
+                    "X": 0.2,
+                    "Y": 0.4,
+                    "Z": 0.7
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.3,
+                    "Z": 1.44
+                },
+                "Size": {
+                    "X": 1.0,
+                    "Y": 0.1,
+                    "Z": 1.0
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.48,
+                    "Z": 0.5
+                },
+                "Radius": 0.5,
+                "Height": 1.42,
+                "Axis": "Y"
+            }
+        ]
+    }
+}

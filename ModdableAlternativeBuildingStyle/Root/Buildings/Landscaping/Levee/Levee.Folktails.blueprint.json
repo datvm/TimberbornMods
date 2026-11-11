@@ -4,6 +4,10 @@
             {
                 "Name": "Metal",
                 "BlueprintPath": "Buildings/Landscaping/Levee/MetalLeveeStyles.Folktails.blueprint"
+            },
+            {
+                "Name": "Classic",
+                "BlueprintPath": "Buildings/Landscaping/Levee/ClassicLeveeStyles.Folktails.blueprint"
             }
         ]
     }

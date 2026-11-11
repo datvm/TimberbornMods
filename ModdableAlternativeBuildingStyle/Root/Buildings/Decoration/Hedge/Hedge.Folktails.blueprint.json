@@ -1,0 +1,38 @@
+{
+  "AlternativeBuildingStyleSpec": {
+    "Styles#append": [
+      {
+        "Name": "Carrot",
+        "BlueprintPath": "Buildings/Decoration/Hedge/CarrotHedgeStyles.Folktails.blueprint"
+      },
+      {
+        "Name": "Potato",
+        "BlueprintPath": "Buildings/Decoration/Hedge/PotatoHedgeStyles.Folktails.blueprint"
+      },
+      {
+        "Name": "Wheat",
+        "BlueprintPath": "Buildings/Decoration/Hedge/WheatHedgeStyles.Folktails.blueprint"
+      },
+      {
+        "Name": "Sunflower",
+        "BlueprintPath": "Buildings/Decoration/Hedge/SunflowerHedgeStyles.Folktails.blueprint"
+      },
+      {
+        "Name": "Cattail",
+        "BlueprintPath": "Buildings/Decoration/Hedge/CattailHedgeStyles.Folktails.blueprint"
+      },
+      {
+        "Name": "Spadderdock",
+        "BlueprintPath": "Buildings/Decoration/Hedge/SpadderdockHedgeStyles.Folktails.blueprint"
+      },
+      {
+        "Name": "Blueberry",
+        "BlueprintPath": "Buildings/Decoration/Hedge/BlueberryHedgeStyles.Folktails.blueprint"
+      },
+      {
+        "Name": "Dandelion",
+        "BlueprintPath": "Buildings/Decoration/Hedge/DandelionHedgeStyles.Folktails.blueprint"
+      }
+    ]
+  }
+}

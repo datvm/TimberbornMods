@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/Paths/MetalPlatform3x3/MetalPlatform3x3.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

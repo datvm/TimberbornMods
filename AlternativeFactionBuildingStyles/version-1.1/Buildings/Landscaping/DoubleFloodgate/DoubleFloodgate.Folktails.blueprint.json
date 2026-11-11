@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/Landscaping/DoubleFloodgate/DoubleFloodgate.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

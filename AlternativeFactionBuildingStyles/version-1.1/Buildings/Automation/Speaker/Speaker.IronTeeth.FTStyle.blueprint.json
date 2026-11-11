@@ -1,0 +1,47 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Automation/Speaker/Speaker.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.0554711521,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.8063236,
+                    "Y": 0.105549484,
+                    "Z": 0.801789641
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.684899,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.2878492,
+                    "Y": 1.14953971,
+                    "Z": 0.358350158
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 1.489904,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.4336114,
+                    "Y": 0.452124357,
+                    "Z": 0.9082781
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

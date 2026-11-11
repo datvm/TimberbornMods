@@ -1,0 +1,59 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Automation/ResourceCounter/ResourceCounter.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.0433799326,
+                    "Z": 0.448400676
+                },
+                "Size": {
+                    "X": 0.7994808,
+                    "Y": 0.0857045949,
+                    "Z": 0.8941646
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.6363938,
+                    "Z": 0.4967695
+                },
+                "Size": {
+                    "X": 0.2668205,
+                    "Y": 1.08751535,
+                    "Z": 0.25957644
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.638202131,
+                    "Z": 0.497906476
+                },
+                "Size": {
+                    "X": 0.597399354,
+                    "Y": 0.5919751,
+                    "Z": 0.595666945
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 1.39544606,
+                    "Z": 0.497906476
+                },
+                "Size": {
+                    "X": 0.3915317,
+                    "Y": 0.436902523,
+                    "Z": 0.4121508
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

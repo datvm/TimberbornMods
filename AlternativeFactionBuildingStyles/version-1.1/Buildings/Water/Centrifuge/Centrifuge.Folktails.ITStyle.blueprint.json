@@ -1,0 +1,32 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Water/Centrifuge/Centrifuge.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 0.1485107,
+                    "Z": 1.536937
+                },
+                "Size": {
+                    "X": 3.0,
+                    "Y": 0.2970214,
+                    "Z": 2.89078236
+                }
+            }
+        ],
+        "SphereColliders": [
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 1.0,
+                    "Z": 1.5
+                },
+                "Radius": 1.21682882
+            }
+        ],
+        "CapsuleColliders": []
+    }
+}

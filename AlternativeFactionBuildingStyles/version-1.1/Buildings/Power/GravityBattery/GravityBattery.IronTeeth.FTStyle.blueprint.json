@@ -1,0 +1,59 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Power/GravityBattery/GravityBattery.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 0.5,
+                    "Z": 1.5
+                },
+                "Size": {
+                    "X": 2.0,
+                    "Y": 1.0,
+                    "Z": 1.0
+                }
+            },
+            {
+                "Center": {
+                    "X": 1.00293529,
+                    "Y": 2.4,
+                    "Z": 1.49880517
+                },
+                "Size": {
+                    "X": 0.282786131,
+                    "Y": 2.80000019,
+                    "Z": 0.24696517
+                }
+            },
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 3.6990943,
+                    "Z": 1.11066842
+                },
+                "Size": {
+                    "X": 0.2426753,
+                    "Y": 0.210205078,
+                    "Z": 1.605017
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.9999999,
+                    "Y": 3.10762358,
+                    "Z": 0.9024992
+                },
+                "Size": {
+                    "X": 0.192974985,
+                    "Y": 0.125957012,
+                    "Z": 0.886641
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

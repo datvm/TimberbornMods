@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Landscaping/Dam/Dam.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

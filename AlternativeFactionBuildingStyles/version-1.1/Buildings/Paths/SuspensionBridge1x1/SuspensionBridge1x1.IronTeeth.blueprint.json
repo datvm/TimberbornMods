@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Paths/SuspensionBridge1x1/SuspensionBridge1x1.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

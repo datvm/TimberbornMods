@@ -1,0 +1,34 @@
+{
+  "TimbermeshSpec": {
+    "Model": "Buildings/Decoration/Shrub/BirchShrub.Folktails.Model"
+  },
+  "CollidersSpec": {
+    "BoxColliders": [
+      {
+        "Center": {
+          "X": 0.5,
+          "Y": 0.15,
+          "Z": 0.5
+        },
+        "Size": {
+          "X": 0.9,
+          "Y": 0.3,
+          "Z": 0.9
+        }
+      }
+    ],
+    "SphereColliders": [],
+    "CapsuleColliders": [
+      {
+        "Center": {
+          "X": 0.5,
+          "Y": 1.0,
+          "Z": 0.5
+        },
+        "Radius": 0.4,
+        "Height": 1.8,
+        "Axis": "Y"
+      }
+    ]
+  }
+}

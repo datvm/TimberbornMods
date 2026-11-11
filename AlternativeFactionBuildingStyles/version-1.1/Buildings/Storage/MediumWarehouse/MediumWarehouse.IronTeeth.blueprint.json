@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Storage/MediumWarehouse/MediumWarehouse.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

@@ -1,0 +1,11 @@
+{
+  "AlternativeBuildingStyleSpec": {
+    "Styles#append": [
+      {
+        "Name": "Weather Station",
+        "BlueprintPath": "Buildings/Science/Inventor/WeatherStationInventorStyles.IronTeeth.blueprint"
+      }
+    ]
+  },
+  "InventorWeatherVaneSpec": {}
+}

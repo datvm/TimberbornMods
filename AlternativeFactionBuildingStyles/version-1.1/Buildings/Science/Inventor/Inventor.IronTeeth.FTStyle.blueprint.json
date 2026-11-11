@@ -1,0 +1,46 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Science/Inventor/Inventor.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 0.5180542,
+                    "Z": 1.0
+                },
+                "Size": {
+                    "X": 2.0,
+                    "Y": 1.03610837,
+                    "Z": 2.0
+                }
+            },
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 1.25,
+                    "Z": 1.0
+                },
+                "Size": {
+                    "X": 1.25,
+                    "Y": 1.25,
+                    "Z": 1.25
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": [
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 1.86417389,
+                    "Z": 1.0
+                },
+                "Radius": 0.383224964,
+                "Height": 1.53390789,
+                "Axis": "Y"
+            }
+        ]
+    }
+}

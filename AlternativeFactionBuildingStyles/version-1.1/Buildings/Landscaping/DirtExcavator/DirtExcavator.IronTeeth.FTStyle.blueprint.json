@@ -1,0 +1,46 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Landscaping/DirtExcavator/DirtExcavator.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 2.47499847,
+                    "Y": 0.54,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 4.94,
+                    "Y": 1.08,
+                    "Z": 1.0
+                }
+            },
+            {
+                "Center": {
+                    "X": 2.48604655,
+                    "Y": 1.698,
+                    "Z": 3.522
+                },
+                "Size": {
+                    "X": 1.79007483,
+                    "Y": 2.32,
+                    "Z": 1.87
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": [
+            {
+                "Center": {
+                    "X": 2.5,
+                    "Y": 1.5,
+                    "Z": 2.283
+                },
+                "Radius": 0.553,
+                "Height": 4.557,
+                "Axis": "Z"
+            }
+        ]
+    }
+}

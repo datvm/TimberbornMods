@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Automation/FireworkLauncher/FireworkLauncher.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "FireworkLauncherAnimationStyleSpec": {
+        "Turret": "#Turret",
+        "Barrel": "#Barrel"
+    },
+    "TimbermeshSpec": {
+        "Model": "Buildings/Automation/FireworkLauncher/FireworkLauncher.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.0396621227,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 1.00948572,
+                    "Y": 0.07767987,
+                    "Z": 0.998781443
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.379059285,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.6248417,
+                    "Y": 0.5801431,
+                    "Z": 0.6412182
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

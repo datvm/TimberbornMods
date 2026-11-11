@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/Decoration/Roof1x2/Roof1x2.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

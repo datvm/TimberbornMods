@@ -1,0 +1,23 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Science/BotPartFactory/BotPartFactory.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 1.0,
+                    "Z": 1.49630761
+                },
+                "Size": {
+                    "X": 3.0,
+                    "Y": 2.0,
+                    "Z": 3.00738478
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

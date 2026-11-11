@@ -1,0 +1,59 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Automation/ContaminationSensor/ContaminationSensor.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.0486850739,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.7985835,
+                    "Y": 0.09380908,
+                    "Z": 0.8027129
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.336258531,
+                    "Z": 0.5045072
+                },
+                "Size": {
+                    "X": 0.281698227,
+                    "Y": 0.6622055,
+                    "Z": 0.2766888
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.3662454,
+                    "Z": 1.10531831
+                },
+                "Size": {
+                    "X": 0.228912592,
+                    "Y": 0.152386427,
+                    "Z": 0.927278757
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.500418365,
+                    "Y": 0.471056819,
+                    "Z": 1.48565221
+                },
+                "Size": {
+                    "X": 0.527457833,
+                    "Y": 0.152386427,
+                    "Z": 0.24973011
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

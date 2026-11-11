@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/Power/ImpermeablePowerShaft/ImpermeablePowerShaft.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

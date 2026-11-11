@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Power/Clutch/Clutch.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

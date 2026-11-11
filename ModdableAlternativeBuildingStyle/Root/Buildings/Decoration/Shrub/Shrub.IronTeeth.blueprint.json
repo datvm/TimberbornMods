@@ -1,0 +1,26 @@
+{
+  "AlternativeBuildingStyleSpec": {
+    "Styles#append": [
+      {
+        "Name": "Pine",
+        "BlueprintPath": "Buildings/Decoration/Shrub/PineShrubStyles.IronTeeth.blueprint"
+      },
+      {
+        "Name": "Birch",
+        "BlueprintPath": "Buildings/Decoration/Shrub/BirchShrubStyles.IronTeeth.blueprint"
+      },
+      {
+        "Name": "Oak",
+        "BlueprintPath": "Buildings/Decoration/Shrub/OakShrubStyles.IronTeeth.blueprint"
+      },
+      {
+        "Name": "Succulent",
+        "BlueprintPath": "Buildings/Decoration/Shrub/SucculentShrubStyles.IronTeeth.blueprint"
+      },
+      {
+        "Name": "Mangrove",
+        "BlueprintPath": "Buildings/Decoration/Shrub/MangroveShrubStyles.IronTeeth.blueprint"
+      }
+    ]
+  }
+}

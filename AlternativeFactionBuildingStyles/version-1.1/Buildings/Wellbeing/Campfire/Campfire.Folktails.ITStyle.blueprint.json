@@ -1,0 +1,23 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Wellbeing/Campfire/Campfire.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 0.1,
+                    "Z": 1.5
+                },
+                "Size": {
+                    "X": 3.0,
+                    "Y": 0.2,
+                    "Z": 3.0
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

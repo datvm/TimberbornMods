@@ -1,0 +1,35 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/Roof1x2/Roof1x2.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.2,
+                    "Z": 1.0
+                },
+                "Size": {
+                    "X": 0.8,
+                    "Y": 0.4,
+                    "Z": 2.0
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.6,
+                    "Z": 1.0
+                },
+                "Size": {
+                    "X": 0.3,
+                    "Y": 0.4,
+                    "Z": 2.0
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

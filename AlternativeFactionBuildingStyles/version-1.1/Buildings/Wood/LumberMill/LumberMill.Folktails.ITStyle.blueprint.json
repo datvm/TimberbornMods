@@ -1,0 +1,59 @@
+﻿{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Wood/IndustrialLumberMill/IndustrialLumberMill.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 0.481722116,
+                    "Z": 1.5
+                },
+                "Size": {
+                    "X": 2.0,
+                    "Y": 0.963444233,
+                    "Z": 3.0
+                }
+            },
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 1.27311885,
+                    "Z": 1.66464686
+                },
+                "Size": {
+                    "X": 1.32000017,
+                    "Y": 0.622813046,
+                    "Z": 2.30581284
+                }
+            },
+            {
+                "Center": {
+                    "X": 1.31775665,
+                    "Y": 1.75972581,
+                    "Z": 1.66464686
+                },
+                "Size": {
+                    "X": 0.210740089,
+                    "Y": 0.3509313,
+                    "Z": 1.07999992
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.676050067,
+                    "Y": 1.75972581,
+                    "Z": 1.66464686
+                },
+                "Size": {
+                    "X": 0.2268498,
+                    "Y": 0.350931168,
+                    "Z": 1.07999992
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

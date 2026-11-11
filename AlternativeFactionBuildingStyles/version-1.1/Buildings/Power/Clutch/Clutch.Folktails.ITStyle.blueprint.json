@@ -1,0 +1,44 @@
+{
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.100881577,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 1.0,
+                    "Y": 0.200167924,
+                    "Z": 1.0
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.428839326,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 1.0,
+                    "Y": 0.457485,
+                    "Z": 0.769405365
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    },
+    "Children": {
+        "#Engaged": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Power/Clutch/ClutchEngaged.IronTeeth.Model"
+            }
+        },
+        "#Disengaged": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Power/Clutch/ClutchDisengaged.IronTeeth.Model"
+            }
+        }
+    }
+}

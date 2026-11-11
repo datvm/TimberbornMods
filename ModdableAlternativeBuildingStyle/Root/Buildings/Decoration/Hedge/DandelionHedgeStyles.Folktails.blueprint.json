@@ -1,0 +1,34 @@
+{
+  "Children": {
+    "Hedge0000": {
+      "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/Hedge/DandelionHedge0000.Folktails.Model"
+      }
+    },
+    "Hedge0001": {
+      "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/Hedge/DandelionHedge0001.Folktails.Model"
+      }
+    },
+    "Hedge0011": {
+      "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/Hedge/DandelionHedge0011.Folktails.Model"
+      }
+    },
+    "Hedge0111": {
+      "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/Hedge/DandelionHedge0111.Folktails.Model"
+      }
+    },
+    "Hedge1010": {
+      "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/Hedge/DandelionHedge1010.Folktails.Model"
+      }
+    },
+    "Hedge1111": {
+      "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/Hedge/DandelionHedge1111.Folktails.Model"
+      }
+    }
+  }
+}

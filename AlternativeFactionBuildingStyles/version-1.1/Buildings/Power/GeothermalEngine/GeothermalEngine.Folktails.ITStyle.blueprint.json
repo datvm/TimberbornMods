@@ -1,0 +1,35 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Power/GeothermalEngine/GeothermalEngine.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 0.157714218,
+                    "Z": 1.5
+                },
+                "Size": {
+                    "X": 3.0,
+                    "Y": 0.308225036,
+                    "Z": 3.0
+                }
+            },
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 1.01207209,
+                    "Z": 1.5
+                },
+                "Size": {
+                    "X": 2.031588,
+                    "Y": 1.62992454,
+                    "Z": 1.82685566
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/Automation/Detonator/Detonator.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

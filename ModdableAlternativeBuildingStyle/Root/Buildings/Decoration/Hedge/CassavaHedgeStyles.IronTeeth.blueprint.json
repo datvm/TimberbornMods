@@ -1,0 +1,34 @@
+{
+  "Children": {
+    "Hedge0000": {
+      "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/Hedge/CassavaHedge0000.IronTeeth.Model"
+      }
+    },
+    "Hedge0001": {
+      "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/Hedge/CassavaHedge0001.IronTeeth.Model"
+      }
+    },
+    "Hedge0011": {
+      "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/Hedge/CassavaHedge0011.IronTeeth.Model"
+      }
+    },
+    "Hedge0111": {
+      "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/Hedge/CassavaHedge0111.IronTeeth.Model"
+      }
+    },
+    "Hedge1010": {
+      "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/Hedge/CassavaHedge1010.IronTeeth.Model"
+      }
+    },
+    "Hedge1111": {
+      "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/Hedge/CassavaHedge1111.IronTeeth.Model"
+      }
+    }
+  }
+}

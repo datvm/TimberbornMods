@@ -1,0 +1,46 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Water/AquiferDrill/AquiferDrill.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 0.9587828,
+                    "Z": 0.454715073
+                },
+                "Size": {
+                    "X": 1.01552629,
+                    "Y": 1.89481592,
+                    "Z": 0.883741856
+                }
+            },
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 2.46602821,
+                    "Z": 0.8865489
+                },
+                "Size": {
+                    "X": 0.414655447,
+                    "Y": 1.10694933,
+                    "Z": 0.883741856
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": [
+            {
+                "Center": {
+                    "X": 1.49652123,
+                    "Y": 1.81193137,
+                    "Z": 1.48309934
+                },
+                "Radius": 0.281885862,
+                "Height": 3.285083,
+                "Axis": "Y"
+            }
+        ]
+    }
+}

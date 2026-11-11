@@ -1,0 +1,35 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Wood/WoodWorkshop/WoodWorkshop.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 0.75,
+                    "Z": 2.0
+                },
+                "Size": {
+                    "X": 2.0,
+                    "Y": 1.5,
+                    "Z": 4.0
+                }
+            },
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 1.92,
+                    "Z": 2.0
+                },
+                "Size": {
+                    "X": 1.0,
+                    "Y": 0.94,
+                    "Z": 4.0
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

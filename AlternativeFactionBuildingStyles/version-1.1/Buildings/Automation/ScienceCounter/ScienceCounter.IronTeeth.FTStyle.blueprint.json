@@ -1,0 +1,47 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Automation/ScienceCounter/ScienceCounter.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.0539285243,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.7904806,
+                    "Y": 0.08787516,
+                    "Z": 0.8008188
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.544154465,
+                    "Z": 0.502291441
+                },
+                "Size": {
+                    "X": 0.601028442,
+                    "Y": 0.9090294,
+                    "Z": 0.597819567
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 1.31603158,
+                    "Z": 0.502291441
+                },
+                "Size": {
+                    "X": 0.381983876,
+                    "Y": 0.635921359,
+                    "Z": 0.366605282
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

@@ -1,0 +1,11 @@
+﻿{
+    "Name": "Alternative Faction Building Styles",
+    "Version": "11.0.0",
+    "Id": "AlternativeFactionBuildingStyles",
+    "MinimumGameVersion": "1.1.1",
+    "Description": "",
+    "RequiredMods": [
+        { "Id": "ModdableAlternativeBuildingStyle" },
+        { "Id": "XtraPlzNoCrashes" }
+    ]
+}

@@ -1,0 +1,56 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Water/MechanicalPump/MechanicalPump.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 0.5,
+                    "Z": 1.5
+                },
+                "Size": {
+                    "X": 3.0,
+                    "Y": 1.0,
+                    "Z": 1.0
+                }
+            },
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 0.38,
+                    "Z": 2.5
+                },
+                "Size": {
+                    "X": 0.9,
+                    "Y": 0.2,
+                    "Z": 0.8
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": [
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 1.23,
+                    "Z": 1.5
+                },
+                "Radius": 0.4,
+                "Height": 3.0,
+                "Axis": "X"
+            },
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 0.4,
+                    "Z": 0.51
+                },
+                "Radius": 0.5,
+                "Height": 1.5,
+                "Axis": "Y"
+            }
+        ]
+    }
+}

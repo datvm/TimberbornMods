@@ -1,0 +1,35 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Wood/TappersShack/TappersShack.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 0.607875347,
+                    "Z": 1.0
+                },
+                "Size": {
+                    "X": 1.44,
+                    "Y": 1.21575069,
+                    "Z": 2.0
+                }
+            },
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 1.36,
+                    "Z": 1.0
+                },
+                "Size": {
+                    "X": 0.42,
+                    "Y": 1.21575069,
+                    "Z": 2.0
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

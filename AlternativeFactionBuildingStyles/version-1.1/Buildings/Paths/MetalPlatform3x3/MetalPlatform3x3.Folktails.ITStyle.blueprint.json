@@ -1,0 +1,35 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Paths/MetalPlatform3x3/MetalPlatform3x3.Full.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 0.5,
+                    "Z": 1.5
+                },
+                "Size": {
+                    "X": 0.700000048,
+                    "Y": 1.0,
+                    "Z": 0.700000048
+                }
+            },
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 0.8830445,
+                    "Z": 1.5
+                },
+                "Size": {
+                    "X": 3.0,
+                    "Y": 0.236239433,
+                    "Z": 3.0
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

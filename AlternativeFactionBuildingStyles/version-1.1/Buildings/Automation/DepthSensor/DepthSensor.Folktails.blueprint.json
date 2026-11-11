@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/Automation/DepthSensor/DepthSensor.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

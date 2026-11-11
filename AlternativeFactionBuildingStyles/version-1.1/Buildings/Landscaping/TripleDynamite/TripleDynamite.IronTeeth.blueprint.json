@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Landscaping/TripleDynamite/TripleDynamite.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

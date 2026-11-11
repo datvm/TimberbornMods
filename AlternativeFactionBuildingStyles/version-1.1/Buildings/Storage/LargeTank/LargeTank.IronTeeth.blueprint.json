@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Storage/LargeTank/LargeTank.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Paths/Airlock/Airlock.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.05060807,
+                    "Z": 1.50346422
+                },
+                "Size": {
+                    "X": 1.0,
+                    "Y": 0.106102228,
+                    "Z": 2.99800062
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.552011251,
+                    "Z": 1.50077939
+                },
+                "Size": {
+                    "X": 1.0,
+                    "Y": 0.905907631,
+                    "Z": 1.00377357
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

@@ -1,0 +1,59 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Paths/Stairs/Stairs.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.125,
+                    "Z": 0.505790651
+                },
+                "Size": {
+                    "X": 0.65,
+                    "Y": 0.25,
+                    "Z": 0.8569473
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.375,
+                    "Z": 0.361392677
+                },
+                "Size": {
+                    "X": 0.65,
+                    "Y": 0.25,
+                    "Z": 0.6025833
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.625,
+                    "Z": 0.238591164
+                },
+                "Size": {
+                    "X": 0.65,
+                    "Y": 0.25,
+                    "Z": 0.488117039
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.8759308,
+                    "Z": 0.113204092
+                },
+                "Size": {
+                    "X": 0.65,
+                    "Y": 0.251861572,
+                    "Z": 0.243566692
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

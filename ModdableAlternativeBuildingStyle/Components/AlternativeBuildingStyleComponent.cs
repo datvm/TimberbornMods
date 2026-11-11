@@ -1,7 +1,7 @@
 ﻿namespace ModdableAlternativeBuildingStyle.Components;
 
 [AddTemplateModule2(typeof(AlternativeBuildingStyleSpec))]
-public class AlternativeBuildingStyleComponent(AlternativeBuildingStyleService service) : BaseComponent, IAwakableComponent, IPersistentEntity, IInitializableEntity, IDuplicable<AlternativeBuildingStyleComponent>
+public class AlternativeBuildingStyleComponent(AlternativeBuildingStyleService service) : BaseComponent, IAwakableComponent, IPersistentEntity, IInitializableEntity, IDeletableEntity, IDuplicable<AlternativeBuildingStyleComponent>, IPostPlacementChangeListener
 {
     static readonly ComponentKey SaveKey = new(nameof(AlternativeBuildingStyleComponent));
     static readonly PropertyKey<string> AlternativeStyleKey = new("AlternativeStyle");
@@ -13,6 +13,7 @@ public class AlternativeBuildingStyleComponent(AlternativeBuildingStyleService s
     string? pendingAlternativeStyle;
 
     internal BuildingStyleState State { get; } = new();
+    readonly List<IAlternativeBuildingStyleListener> listeners = [];
 
     public AlternativeBuildingStyleSpec Spec { get; private set; } = null!;
     public bool HasAlternativeStyles { get; private set; }
@@ -32,7 +33,13 @@ public class AlternativeBuildingStyleComponent(AlternativeBuildingStyleService s
             {
                 AlternativeStyles = [.. Spec.Styles.Select(s => s.Name).OrderBy(s => s)];
             }
+            else
+            {
+                return;
+            }
         }
+
+        GetComponents(listeners);
 
         service.Capture(this);
     }
@@ -65,7 +72,7 @@ public class AlternativeBuildingStyleComponent(AlternativeBuildingStyleService s
         {
             service.Restore(this);
             AlternativeStyle = null;
-            AlternativeStyleChanged?.Invoke(this, null);
+            NotifyStyleChanged();
             return;
         }
 
@@ -73,8 +80,19 @@ public class AlternativeBuildingStyleComponent(AlternativeBuildingStyleService s
         if (service.TryApply(this, style))
         {
             AlternativeStyle = styleName;
-            AlternativeStyleChanged?.Invoke(this, styleName);
+            NotifyStyleChanged();
         }
+    }
+
+    void NotifyStyleChanged()
+    {
+        var style = AlternativeStyle;
+        foreach (var listener in listeners)
+        {
+            listener.OnAlternativeStyleChanged(this, style);
+        }
+
+        AlternativeStyleChanged?.Invoke(this, style);        
     }
 
     public void RestoreOriginalStyle()
@@ -94,6 +112,16 @@ public class AlternativeBuildingStyleComponent(AlternativeBuildingStyleService s
         var style = pendingAlternativeStyle;
         pendingAlternativeStyle = null;
         TrySetStyle(style);
+    }
+
+    public void DeleteEntity()
+    {
+        service.Release(this);
+    }
+
+    public void OnPostPlacementChanged()
+    {
+        service.SyncMovedStyle(this);
     }
 
     public void Load(IEntityLoader entityLoader)

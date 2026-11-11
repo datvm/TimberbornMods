@@ -1,0 +1,35 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/SquareBanner/SquareBanner.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.496942639,
+                    "Z": 0.07774809
+                },
+                "Size": {
+                    "X": 1.0,
+                    "Y": 0.9961915,
+                    "Z": 0.1574629
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.499275446,
+                    "Y": 0.0811092854,
+                    "Z": 0.5761812
+                },
+                "Size": {
+                    "X": 1.000103,
+                    "Y": 0.162218571,
+                    "Z": 0.8436644
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

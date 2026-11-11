@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/Landscaping/Levee/Levee.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

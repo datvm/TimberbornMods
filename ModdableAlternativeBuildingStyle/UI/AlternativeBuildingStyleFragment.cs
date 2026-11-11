@@ -7,18 +7,19 @@ public class AlternativeBuildingStyleFragment(
     DropdownItemsSetter dropdownItemsSetter
 ) : BaseEntityPanelFragment<AlternativeBuildingStyleComponent>
 {
-    DropdownRow<string?> cboStyles = null!;
-    
+    DropdownRow<string> cboStyles = null!;
+
     protected override void InitializePanel()
     {
-        cboStyles = panel.AddDropdownRow<string?>(t.T("LV.MABS.BuildingStyle"), OnStyleChanged, veInit, dropdownItemsSetter);
+        cboStyles = panel.AddDropdownRow<string>(t.T("LV.MABS.BuildingStyle"), OnStyleChanged, veInit, dropdownItemsSetter);
     }
 
-    void OnStyleChanged(IndexedDropdownRowItem<string?> styleName)
+    void OnStyleChanged(IndexedDropdownRowItem<string> styleName)
     {
         if (!component) { return; }
 
-        component!.TrySetStyle(styleName.Item.Value);
+        var value = styleName.Item.Value;
+        component!.TrySetStyle(value.Length == 0 ? null : value);
     }
 
     public override void ShowFragment(BaseComponent entity)
@@ -32,8 +33,10 @@ public class AlternativeBuildingStyleFragment(
             return;
         }
 
-        cboStyles.SetItems([null, .. component.AlternativeStyles], s => s ?? t.T("LV.MABS.Original"));
-        cboStyles.SetSelectedValueWithoutNotifying(component.AlternativeStyle);
+        cboStyles.SetItems(
+            ["", .. component.AlternativeStyles],
+            s => s.Length == 0 ? t.T("LV.MABS.Original") : s);
+        cboStyles.SetSelectedValueWithoutNotifying(component.AlternativeStyle ?? "");
     }
 
 }

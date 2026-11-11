@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/DistrictManagement/HaulingPost/HaulingPost.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

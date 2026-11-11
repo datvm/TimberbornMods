@@ -8,6 +8,7 @@ sealed class BuildingStyleState
     public GameObject OriginalHolder = null!;
     public Dictionary<string, Transform> Anchors = [];
     public List<Transform> Visuals = [];
+    public HashSet<Transform> KeptVisuals = [];
     public List<TransformHome> Homes = [];
     public List<Renderer> AnchorRenderers = [];
     public List<SavedBox> Boxes = [];
@@ -21,6 +22,9 @@ sealed class BuildingStyleState
     public GameObject? StyleInstance;
     public readonly List<GameObject> Grafted = [];
     public readonly List<Component> AddedUpdaters = [];
+    public MeshRenderer? StockpileBanner;
+    public MeshRenderer? ResourceBanner;
+    public MeshRenderer? DecalIcon;
 }
 
 readonly record struct TransformHome(

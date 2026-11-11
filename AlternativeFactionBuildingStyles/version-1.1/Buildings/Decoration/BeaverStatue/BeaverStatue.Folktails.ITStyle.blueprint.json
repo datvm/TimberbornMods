@@ -1,0 +1,58 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/BeaverStatue/BeaverStatue.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.05,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.9,
+                    "Y": 0.1,
+                    "Z": 0.9
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.69,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.7,
+                    "Y": 0.1,
+                    "Z": 0.7
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.4,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.3,
+                    "Y": 0.6,
+                    "Z": 0.3
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 1.15,
+                    "Z": 0.44
+                },
+                "Radius": 0.25,
+                "Height": 1.0,
+                "Axis": "Y"
+            }
+        ]
+    }
+}

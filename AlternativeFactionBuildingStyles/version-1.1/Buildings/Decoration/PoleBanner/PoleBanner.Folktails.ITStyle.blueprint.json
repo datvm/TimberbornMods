@@ -1,0 +1,47 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/PoleBanner/PoleBanner.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.478304565,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.140879273,
+                    "Y": 0.748393655,
+                    "Z": 0.102396727
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 1.30303538,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.984509349,
+                    "Y": 0.898739159,
+                    "Z": 0.100000024
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.50121063,
+                    "Y": 0.05252862,
+                    "Z": 0.496833384
+                },
+                "Size": {
+                    "X": 0.732979536,
+                    "Y": 0.0982584953,
+                    "Z": 0.750488639
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

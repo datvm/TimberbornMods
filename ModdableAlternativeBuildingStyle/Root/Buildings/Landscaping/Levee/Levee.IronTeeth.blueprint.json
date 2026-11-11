@@ -1,0 +1,14 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Metal",
+                "BlueprintPath": "Buildings/Landscaping/Levee/MetalLeveeStyles.IronTeeth.blueprint"
+            },
+            {
+                "Name": "Classic",
+                "BlueprintPath": "Buildings/Landscaping/Levee/ClassicLeveeStyles.IronTeeth.blueprint"
+            }
+        ]
+    }
+}

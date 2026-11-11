@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/Paths/Airlock/Airlock.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

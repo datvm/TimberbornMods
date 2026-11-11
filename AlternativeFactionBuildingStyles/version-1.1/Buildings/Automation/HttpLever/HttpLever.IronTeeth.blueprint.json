@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Automation/HttpLever/HttpLever.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

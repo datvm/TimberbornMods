@@ -1,0 +1,26 @@
+﻿This mod provides [url=]Alternative Building Styles[/url] for Folktails and Iron Teeth buildings when the other faction has a similar building. As the base mod, it is purely cosmetic and does not affect gameplay.
+
+Generally, a similar building with the same size is given an alternative style. For example, FT Lumbermill can look like IT Industrial Lumbermill. However, sometimes when they are functionally different or too complicated to replace, they are excluded, like the Pile because IT's Pile can be built on top.
+
+These are the list of buildings that have alternative styles. I used a script to generate the list, so if you find any missing or incorrect ones, please let me know.
+
+[list]
+[*] [b]Paths and Structures[/b]: Stairs, Spiral Stairs, Platforms, Gate, Airlock, Suspension Bridges, Overhangs, Metal Platforms
+[*] [b]Landscaping[/b]: Dam, Levee, Floodgates, Valves, Impermeable Floor, Explosives Factory, Dynamites, Dirt Excavator
+[*] [b]Storage[/b]: Warehouses and Tanks.
+[*] [b]District Management[/b]: District Center, Hauling Post, Builders' Hut, District Crossing
+[*] [b]Water[/b]: Water Pumps, Discharge, Mechanical Pumps, Centrifuge, Aquifer Drill
+[*] [b]Food[/b]: Gatherer Flag
+[*] [b]Wood[/b]: Lumberjack Flag, Lumber Mills, Forester, Gear Workshop, Tapper's Shack, Wood Workshop
+[*] [b]Metal[/b]: Scavenger Flag, Smelter
+[*] [b]Power[/b]: Clutch, Impermeable Power Shaft, Gravity Battery, Geothermal Engine
+[*] [b]Science[/b]: Inventor, Bot Part Factory, Bot Assembler
+[*] [b]Automation[/b]: All of them.
+[*] [b]Well-being[/b]: Campfire, Rooftop Terrace, Teeth Grindstone, Medical Bed
+[*] [b]Decoration[/b]: Shrub, Lantern, Roofs, Beaver Statue, Bench, Wood Fence, Stream Gauge, Pole Banner, Square Banner
+[/list]
+
+Fun fact: FT banner has a bit more space for your banner.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

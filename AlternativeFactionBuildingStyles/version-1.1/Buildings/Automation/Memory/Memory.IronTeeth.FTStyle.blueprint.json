@@ -1,0 +1,35 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Automation/Memory/Memory.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.05414751,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.802816868,
+                    "Y": 0.1043421,
+                    "Z": 0.7941488
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.8761574,
+                    "Z": 0.497178376
+                },
+                "Size": {
+                    "X": 0.346893072,
+                    "Y": 1.53272033,
+                    "Z": 0.387994468
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

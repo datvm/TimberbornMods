@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/Science/BotPartFactory/BotPartFactory.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

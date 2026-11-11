@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/Wellbeing/MedicalBed/MedicalBed.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

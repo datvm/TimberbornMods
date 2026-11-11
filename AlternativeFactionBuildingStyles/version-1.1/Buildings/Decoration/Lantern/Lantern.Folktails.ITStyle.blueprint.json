@@ -1,0 +1,47 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/Lantern/Lantern.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.06600524,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.6902137,
+                    "Y": 0.132010475,
+                    "Z": 0.6770563
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.661911,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.142501116,
+                    "Y": 1.05814457,
+                    "Z": 0.1455555
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 1.4237082,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.255410671,
+                    "Y": 0.465892315,
+                    "Z": 0.262137
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

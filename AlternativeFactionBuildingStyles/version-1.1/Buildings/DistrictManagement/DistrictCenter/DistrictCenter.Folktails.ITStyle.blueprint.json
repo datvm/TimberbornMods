@@ -1,0 +1,47 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/DistrictManagement/DistrictCenter/DistrictCenter.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 0.7,
+                    "Z": 1.5
+                },
+                "Size": {
+                    "X": 3.0,
+                    "Y": 1.4,
+                    "Z": 3.0
+                }
+            },
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 1.6,
+                    "Z": 1.5
+                },
+                "Size": {
+                    "X": 1.2,
+                    "Y": 1.4,
+                    "Z": 1.5
+                }
+            },
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 3.0,
+                    "Z": 1.5
+                },
+                "Size": {
+                    "X": 0.6,
+                    "Y": 2.0,
+                    "Z": 0.7
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

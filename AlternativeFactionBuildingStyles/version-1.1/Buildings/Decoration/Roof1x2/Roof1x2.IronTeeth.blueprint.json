@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Decoration/Roof1x2/Roof1x2.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

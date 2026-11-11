@@ -1,0 +1,35 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Wood/GearWorkshop/GearWorkshop.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 0.525856853,
+                    "Z": 1.5
+                },
+                "Size": {
+                    "X": 2.0,
+                    "Y": 0.9017136,
+                    "Z": 3.0
+                }
+            },
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 1.22655642,
+                    "Z": 1.51176035
+                },
+                "Size": {
+                    "X": 1.44,
+                    "Y": 0.839753568,
+                    "Z": 2.421219
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

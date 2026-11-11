@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/DistrictManagement/DistrictCrossing/DistrictCrossing.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Automation/Chronometer/Chronometer.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.04823479,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.799999952,
+                    "Y": 0.09646943,
+                    "Z": 0.799999952
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.862858832,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.5799999,
+                    "Y": 1.51008511,
+                    "Z": 0.5
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

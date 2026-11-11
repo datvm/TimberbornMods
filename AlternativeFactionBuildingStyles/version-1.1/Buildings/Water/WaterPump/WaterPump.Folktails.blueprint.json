@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/Water/WaterPump/WaterPump.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Decoration/Lantern/Lantern.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

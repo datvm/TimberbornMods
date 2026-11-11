@@ -1,0 +1,35 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/Bench/Bench.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.1,
+                    "Z": 0.5035941
+                },
+                "Size": {
+                    "X": 0.9,
+                    "Y": 0.2,
+                    "Z": 0.8844564
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.267536849,
+                    "Z": 0.673435032
+                },
+                "Size": {
+                    "X": 0.93,
+                    "Y": 0.5350737,
+                    "Z": 0.217962623
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

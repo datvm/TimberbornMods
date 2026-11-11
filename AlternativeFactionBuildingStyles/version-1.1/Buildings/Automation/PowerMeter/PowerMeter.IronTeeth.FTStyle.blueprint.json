@@ -1,0 +1,47 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Automation/PowerMeter/PowerMeter.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.4693297,
+                    "Z": 0.385931551
+                },
+                "Size": {
+                    "X": 0.396693826,
+                    "Y": 0.7305037,
+                    "Z": 0.583763242
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 1.2349844,
+                    "Z": 0.5002096
+                },
+                "Size": {
+                    "X": 0.419257164,
+                    "Y": 0.790928364,
+                    "Z": 0.356631964
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.500779748,
+                    "Y": 0.0575283766,
+                    "Z": 0.449392617
+                },
+                "Size": {
+                    "X": 0.8157232,
+                    "Y": 0.10019961,
+                    "Z": 0.9055615
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

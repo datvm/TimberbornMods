@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/Metal/Smelter/Smelter.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

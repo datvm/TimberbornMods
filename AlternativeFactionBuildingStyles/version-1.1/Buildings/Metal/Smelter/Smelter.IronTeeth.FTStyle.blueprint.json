@@ -1,0 +1,46 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Metal/Smelter/Smelter.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 0.5,
+                    "Z": 2.0
+                },
+                "Size": {
+                    "X": 2.0,
+                    "Y": 1.0,
+                    "Z": 4.0
+                }
+            },
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 1.43,
+                    "Z": 2.0
+                },
+                "Size": {
+                    "X": 1.2,
+                    "Y": 0.8,
+                    "Z": 3.8
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": [
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 2.17,
+                    "Z": 3.46
+                },
+                "Radius": 0.299999952,
+                "Height": 1.281171,
+                "Axis": "Y"
+            }
+        ]
+    }
+}

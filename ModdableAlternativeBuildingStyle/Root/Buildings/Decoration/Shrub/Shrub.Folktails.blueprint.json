@@ -1,0 +1,30 @@
+{
+  "AlternativeBuildingStyleSpec": {
+    "Styles#append": [
+      {
+        "Name": "Pine",
+        "BlueprintPath": "Buildings/Decoration/Shrub/PineShrubStyles.Folktails.blueprint"
+      },
+      {
+        "Name": "Maple",
+        "BlueprintPath": "Buildings/Decoration/Shrub/MapleShrubStyles.Folktails.blueprint"
+      },
+      {
+        "Name": "Birch",
+        "BlueprintPath": "Buildings/Decoration/Shrub/BirchShrubStyles.Folktails.blueprint"
+      },
+      {
+        "Name": "Chestnut",
+        "BlueprintPath": "Buildings/Decoration/Shrub/ChestnutShrubStyles.Folktails.blueprint"
+      },
+      {
+        "Name": "Oak",
+        "BlueprintPath": "Buildings/Decoration/Shrub/OakShrubStyles.Folktails.blueprint"
+      },
+      {
+        "Name": "Succulent",
+        "BlueprintPath": "Buildings/Decoration/Shrub/SucculentShrubStyles.Folktails.blueprint"
+      }
+    ]
+  }
+}

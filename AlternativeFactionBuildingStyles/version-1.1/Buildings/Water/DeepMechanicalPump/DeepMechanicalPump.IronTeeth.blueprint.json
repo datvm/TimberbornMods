@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Water/DeepMechanicalPump/DeepMechanicalPump.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

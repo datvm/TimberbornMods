@@ -1,0 +1,74 @@
+{
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.09740299,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 1.0,
+                    "Y": 0.200120613,
+                    "Z": 1.0
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.411269665,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 1.0,
+                    "Y": 0.4327026,
+                    "Z": 0.200000048
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    },
+    "Children": {
+        "#Open": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Paths/Gate/GateOpen.IronTeeth.Model"
+            }
+        },
+        "#Closed": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Paths/Gate/GateClosed.IronTeeth.Model"
+            }
+        },
+        "DirtPath0000": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Paths/Path/DirtPath0000.Model"
+            }
+        },
+        "DirtPath0010": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Paths/Path/DirtPath0010.Model"
+            }
+        },
+        "DirtPath0011": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Paths/Path/DirtPath0011.Model"
+            }
+        },
+        "DirtPath0111": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Paths/Path/DirtPath0111.Model"
+            }
+        },
+        "DirtPath1010": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Paths/Path/DirtPath1010.Model"
+            }
+        },
+        "DirtPath1111": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Paths/Path/DirtPath1111.Model"
+            }
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Storage/LargeWarehouse/LargeWarehouse.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 1.0,
+                    "Z": 1.5
+                },
+                "Size": {
+                    "X": 3.0,
+                    "Y": 2.0,
+                    "Z": 3.0
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

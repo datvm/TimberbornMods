@@ -1,0 +1,56 @@
+{
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.048669368,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 0.6248417,
+                    "Y": 0.0892261639,
+                    "Z": 0.8135903
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.4910401,
+                    "Z": 0.497360528
+                },
+                "Size": {
+                    "X": 0.3219943,
+                    "Y": 0.781162143,
+                    "Z": 0.467101783
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 1.36313069,
+                    "Z": 0.497713238
+                },
+                "Size": {
+                    "X": 0.356053352,
+                    "Y": 0.973717451,
+                    "Z": 0.3599329
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    },
+    "Children": {
+        "#On": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Automation/HttpLever/HTTPLeverOn.IronTeeth.Model"
+            }
+        },
+        "#Off": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Automation/HttpLever/HTTPLeverOff.IronTeeth.Model"
+            }
+        }
+    }
+}

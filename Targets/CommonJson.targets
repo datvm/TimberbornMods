@@ -12,7 +12,7 @@
 		<CopyBuildOutputToOutputDirectory>false</CopyBuildOutputToOutputDirectory>
 		<DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
 
-		<GameModsFolder>C:\Users\lukev\OneDrive\Documents\Timberborn\Mods\</GameModsFolder>
+		<GameModsFolder>C:\Users\lukev\Documents\Timberborn\Mods\</GameModsFolder>
 		<ModFolder Condition="'$(ModFolder)'==''">$(GameModsFolder)$(OutputModFolderName)\</ModFolder>
 	</PropertyGroup>
 

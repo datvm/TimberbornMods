@@ -1,0 +1,35 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Paths/MetalPlatform5x5/MetalPlatform5x5.Full.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 2.5,
+                    "Y": 0.5,
+                    "Z": 2.5
+                },
+                "Size": {
+                    "X": 0.6999998,
+                    "Y": 1.0,
+                    "Z": 0.6999998
+                }
+            },
+            {
+                "Center": {
+                    "X": 2.5,
+                    "Y": 0.87620914,
+                    "Z": 2.5
+                },
+                "Size": {
+                    "X": 5.0,
+                    "Y": 0.236104727,
+                    "Z": 5.0
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

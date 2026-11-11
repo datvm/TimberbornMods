@@ -1,0 +1,47 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Paths/SpiralStairs/SpiralStairs.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.4323767,
+                    "Y": 0.227057889,
+                    "Z": 0.5530115
+                },
+                "Size": {
+                    "X": 0.785246551,
+                    "Y": 0.454115778,
+                    "Z": 0.7746917
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.426323026,
+                    "Y": 0.6021512,
+                    "Z": 0.504864931
+                },
+                "Size": {
+                    "X": 0.7442214,
+                    "Y": 0.29569757,
+                    "Z": 0.6614765
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.2928252,
+                    "Y": 0.8759308,
+                    "Z": 0.5003693
+                },
+                "Size": {
+                    "X": 0.5411276,
+                    "Y": 0.251861572,
+                    "Z": 0.627282858
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

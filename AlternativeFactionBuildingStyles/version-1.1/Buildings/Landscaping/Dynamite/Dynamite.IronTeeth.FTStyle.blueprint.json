@@ -1,0 +1,21 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Landscaping/Dynamite/Dynamite.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [],
+        "SphereColliders": [],
+        "CapsuleColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.15,
+                    "Z": 0.5
+                },
+                "Radius": 0.2,
+                "Height": 0.61,
+                "Axis": "Y"
+            }
+        ]
+    }
+}

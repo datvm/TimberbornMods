@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/Automation/ScienceCounter/ScienceCounter.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

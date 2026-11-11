@@ -1,0 +1,35 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Landscaping/ExplosivesFactory/ExplosivesFactory.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 0.502033,
+                    "Z": 2.00340343
+                },
+                "Size": {
+                    "X": 2.0,
+                    "Y": 0.854065955,
+                    "Z": 3.99319315
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.9999998,
+                    "Y": 1.45145488,
+                    "Z": 2.30167913
+                },
+                "Size": {
+                    "X": 1.09966028,
+                    "Y": 1.04450464,
+                    "Z": 2.639442
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

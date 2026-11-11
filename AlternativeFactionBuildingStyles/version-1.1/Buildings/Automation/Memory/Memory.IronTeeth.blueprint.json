@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Automation/Memory/Memory.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

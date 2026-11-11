@@ -1,0 +1,35 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Storage/MediumTank/MediumTank.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 1.25,
+                    "Z": 1.0
+                },
+                "Size": {
+                    "X": 1.5,
+                    "Y": 2.5,
+                    "Z": 1.5
+                }
+            },
+            {
+                "Center": {
+                    "X": 1.0,
+                    "Y": 0.1,
+                    "Z": 1.0
+                },
+                "Size": {
+                    "X": 2.0,
+                    "Y": 0.2,
+                    "Z": 2.0
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

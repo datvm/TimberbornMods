@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/Power/GeothermalEngine/GeothermalEngine.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

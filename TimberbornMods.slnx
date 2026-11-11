@@ -86,12 +86,15 @@
   </Folder>
   <Folder Name="/Moddable/">
     <Project Path="ExtendedOptionalModSupport/ExtendedOptionalModSupport.csproj" Id="b2b9ec26-90c8-4059-bd4d-af07b21fae7d" />
-    <Project Path="ModdableAlternativeBuildingStyle/ModdableAlternativeBuildingStyle.csproj" Id="72355d8d-cbc1-4f4a-82ff-90683ebc7ef0" />
     <Project Path="ModdedFactionsBuildingSupport/ModdedFactionsBuildingSupport.csproj" Id="b7917a4b-4893-40d8-88f3-0f37f0c13569" />
     <Project Path="RealLights/RealLights.csproj" />
     <Project Path="RoofMap/RoofMap.csproj" />
     <Project Path="TimberModBuilder/TimberModBuilder.csproj" />
     <Project Path="XtraPlzNoCrashes/XtraPlzNoCrashes.csproj" />
+  </Folder>
+  <Folder Name="/Moddable/AlternativeStyles/">
+    <Project Path="AlternativeFactionBuildingStyles/AlternativeFactionBuildingStyles.csproj" Id="a54b1d01-0fce-4e28-9851-5033cb9a48da" />
+    <Project Path="ModdableAlternativeBuildingStyle/ModdableAlternativeBuildingStyle.csproj" Id="72355d8d-cbc1-4f4a-82ff-90683ebc7ef0" />
   </Folder>
   <Folder Name="/Moddable/GlobalInventory/">
     <Project Path="GlobalInventory/GlobalInventory.csproj" Id="3d6278e3-ad5d-4a77-bced-09f75982110f" />

@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Landscaping/Floodgate/Floodgate.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

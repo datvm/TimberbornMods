@@ -1,0 +1,23 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Paths/SuspensionBridge5x1/SuspensionBridge5x1.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.0,
+                    "Z": 3.0
+                },
+                "Size": {
+                    "X": 1.0,
+                    "Y": 0.1,
+                    "Z": 6.0
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

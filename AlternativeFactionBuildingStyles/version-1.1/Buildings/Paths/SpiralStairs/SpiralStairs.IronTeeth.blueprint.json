@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Paths/SpiralStairs/SpiralStairs.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

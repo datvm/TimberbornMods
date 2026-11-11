@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/Power/GravityBattery/GravityBattery.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

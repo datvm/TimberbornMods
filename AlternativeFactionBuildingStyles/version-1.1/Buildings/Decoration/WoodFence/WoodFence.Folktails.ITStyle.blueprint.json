@@ -1,0 +1,34 @@
+{
+    "Children": {
+        "WoodFence0000": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Decoration/WoodFence/WoodFence0000.IronTeeth.Model"
+            }
+        },
+        "WoodFence0001": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Decoration/WoodFence/WoodFence0001.IronTeeth.Model"
+            }
+        },
+        "WoodFence0011": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Decoration/WoodFence/WoodFence0011.IronTeeth.Model"
+            }
+        },
+        "WoodFence0111": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Decoration/WoodFence/WoodFence0111.IronTeeth.Model"
+            }
+        },
+        "WoodFence1010": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Decoration/WoodFence/WoodFence1010.IronTeeth.Model"
+            }
+        },
+        "WoodFence1111": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Decoration/WoodFence/WoodFence1111.IronTeeth.Model"
+            }
+        }
+    }
+}

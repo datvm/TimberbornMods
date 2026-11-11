@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Paths/Overhang4x1/Overhang4x1.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

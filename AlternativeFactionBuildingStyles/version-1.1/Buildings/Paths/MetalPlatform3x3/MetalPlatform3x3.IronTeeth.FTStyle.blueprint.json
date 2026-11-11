@@ -1,0 +1,35 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Paths/MetalPlatform3x3/MetalPlatform3x3.Full.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 0.460139751,
+                    "Z": 1.5
+                },
+                "Size": {
+                    "X": 0.700000048,
+                    "Y": 0.9202795,
+                    "Z": 0.700000048
+                }
+            },
+            {
+                "Center": {
+                    "X": 1.5,
+                    "Y": 0.8830441,
+                    "Z": 1.5
+                },
+                "Size": {
+                    "X": 3.0,
+                    "Y": 0.2181189,
+                    "Z": 3.0
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

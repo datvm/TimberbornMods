@@ -1,0 +1,47 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Decoration/PoleBanner/PoleBanner.Folktails.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5006134,
+                    "Y": 0.468691051,
+                    "Z": 0.493988931
+                },
+                "Size": {
+                    "X": 0.11546123,
+                    "Y": 0.7290441,
+                    "Z": 0.139726281
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 1.30790484,
+                    "Z": 0.494196177
+                },
+                "Size": {
+                    "X": 1.0,
+                    "Y": 0.944502652,
+                    "Z": 0.134445071
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.502225041,
+                    "Y": 0.05033475,
+                    "Z": 0.4990294
+                },
+                "Size": {
+                    "X": 0.57565403,
+                    "Y": 0.1006695,
+                    "Z": 0.6009426
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

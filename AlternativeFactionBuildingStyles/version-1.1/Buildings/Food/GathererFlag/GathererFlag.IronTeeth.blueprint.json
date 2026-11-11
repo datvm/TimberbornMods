@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "Folktails",
+                "BlueprintPath": "Buildings/Food/GathererFlag/GathererFlag.IronTeeth.FTStyle.blueprint"
+            }
+        ]
+    }
+}

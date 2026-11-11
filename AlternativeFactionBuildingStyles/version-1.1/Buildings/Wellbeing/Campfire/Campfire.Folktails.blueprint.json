@@ -1,0 +1,10 @@
+{
+    "AlternativeBuildingStyleSpec": {
+        "Styles#append": [
+            {
+                "Name": "IronTeeth",
+                "BlueprintPath": "Buildings/Wellbeing/Campfire/Campfire.Folktails.ITStyle.blueprint"
+            }
+        ]
+    }
+}

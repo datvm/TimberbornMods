@@ -1,0 +1,47 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Automation/PowerMeter/PowerMeter.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 0.4693297,
+                    "Z": 0.385931551
+                },
+                "Size": {
+                    "X": 0.396693826,
+                    "Y": 0.7305037,
+                    "Z": 0.583763242
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 1.2349844,
+                    "Z": 0.5002096
+                },
+                "Size": {
+                    "X": 0.399311066,
+                    "Y": 0.790928364,
+                    "Z": 0.383652329
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.499315441,
+                    "Y": 0.05285263,
+                    "Z": 0.451579332
+                },
+                "Size": {
+                    "X": 0.8098952,
+                    "Y": 0.103602886,
+                    "Z": 0.8897959
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}

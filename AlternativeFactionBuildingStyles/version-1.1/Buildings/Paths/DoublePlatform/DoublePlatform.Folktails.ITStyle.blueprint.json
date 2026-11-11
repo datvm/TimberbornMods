@@ -1,0 +1,71 @@
+{
+    "TimbermeshSpec": {
+        "Model": "Buildings/Paths/DoublePlatform/DoublePlatform.Full.IronTeeth.Model"
+    },
+    "CollidersSpec": {
+        "BoxColliders": [
+            {
+                "Center": {
+                    "X": 0.11,
+                    "Y": 0.9,
+                    "Z": 0.11
+                },
+                "Size": {
+                    "X": 0.200000018,
+                    "Y": 1.9,
+                    "Z": 0.200000018
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.89,
+                    "Y": 0.9,
+                    "Z": 0.11
+                },
+                "Size": {
+                    "X": 0.200000018,
+                    "Y": 1.9,
+                    "Z": 0.200000018
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.89,
+                    "Y": 0.9,
+                    "Z": 0.89
+                },
+                "Size": {
+                    "X": 0.200000018,
+                    "Y": 1.9,
+                    "Z": 0.200000018
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.11,
+                    "Y": 0.9,
+                    "Z": 0.89
+                },
+                "Size": {
+                    "X": 0.200000018,
+                    "Y": 1.9,
+                    "Z": 0.200000018
+                }
+            },
+            {
+                "Center": {
+                    "X": 0.5,
+                    "Y": 1.9228102,
+                    "Z": 0.5
+                },
+                "Size": {
+                    "X": 1.0,
+                    "Y": 0.1543796,
+                    "Z": 1.0
+                }
+            }
+        ],
+        "SphereColliders": [],
+        "CapsuleColliders": []
+    }
+}
