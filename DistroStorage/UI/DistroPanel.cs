@@ -6,8 +6,11 @@ public class DistroPanel<T> : VisualElement where T : IDistroComponent
     public bool IsSender { get; }
     public T? Component { get; private set; }
 
+    readonly CollapsiblePanel pnlConnections;
     readonly VisualElement connectionList;
     readonly Dictionary<IDistroComponent, ConnectedComponentRow> connectedComponents = [];
+    bool connectionListReady;
+    int shownActiveCount = -1;
     
     readonly VisualElement goodsList;
     readonly HashSet<string> showingGoods = [];
@@ -56,7 +59,8 @@ public class DistroPanel<T> : VisualElement where T : IDistroComponent
 
         goodsList = this.AddRow().SetWrap().SetMarginBottom();
 
-        var pnlConnections = this.AddCollapsiblePanel(t.T($"LV.DS.InRangeFor{distroType}"), false);
+        pnlConnections = this.AddCollapsiblePanel(t.T($"LV.DS.InRangeFor{distroType}"), false);
+        pnlConnections.ExpandChanged += OnConnectionsExpanded;
         connectionList = pnlConnections.Container.AddChild();
         lblConnectedCounter = pnlConnections.AddLabel("").SetFlexShrink(0);
         lblConnectedCounter.InsertSelfAfter(pnlConnections.HeaderLabel);
@@ -88,13 +92,18 @@ public class DistroPanel<T> : VisualElement where T : IDistroComponent
         if (c is null) { return; }
 
         chkEnabled.SetValueWithoutNotify(c.Enabled);
+        UpdateConnectionCount(c);
 
-        if (IsConnectionsChanged(c))
+        if (pnlConnections.Expand)
         {
-            PopulateConnectionList();
+            if (IsConnectionsChanged(c))
+            {
+                PopulateConnectionList();
+            }
+
+            UpdateStatus();
         }
 
-        UpdateStatus();
         UpdateGoodList();
 
         if (IsSender)
@@ -107,8 +116,38 @@ public class DistroPanel<T> : VisualElement where T : IDistroComponent
         }
     }
 
+    void OnConnectionsExpanded(bool expanded)
+    {
+        if (!expanded || Component is not { } comp) { return; }
+
+        if (IsConnectionsChanged(comp))
+        {
+            PopulateConnectionList();
+        }
+
+        UpdateStatus();
+    }
+
+    void UpdateConnectionCount(T comp)
+    {
+        var activeCount = 0;
+        foreach (var other in comp.Connections)
+        {
+            if (other.Active)
+            {
+                activeCount++;
+            }
+        }
+
+        if (activeCount == shownActiveCount) { return; }
+
+        shownActiveCount = activeCount;
+        lblConnectedCounter.text = activeCount.ToString();
+    }
+
     bool IsConnectionsChanged(T comp)
     {
+        if (!connectionListReady) { return true; }
         if (connectedComponents.Count != comp.Connections.Count) { return true; }
 
         foreach (var c in comp.Connections)
@@ -123,6 +162,7 @@ public class DistroPanel<T> : VisualElement where T : IDistroComponent
     {
         connectionList.Clear();
         connectedComponents.Clear();
+        connectionListReady = true;
 
         foreach (var other in Component!.Connections)
         {
@@ -138,6 +178,7 @@ public class DistroPanel<T> : VisualElement where T : IDistroComponent
         }
 
         var activeCount = connectedComponents.Count(c => c.Key.Active);
+        shownActiveCount = activeCount;
         lblConnectedCounter.text = activeCount.ToString();
         if (activeCount == 0)
         {
@@ -190,6 +231,8 @@ public class DistroPanel<T> : VisualElement where T : IDistroComponent
 
         connectionList.Clear();
         connectedComponents.Clear();
+        connectionListReady = false;
+        shownActiveCount = -1;
 
         goodsList.Clear();
         showingGoods.Clear();

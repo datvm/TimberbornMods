@@ -11,12 +11,20 @@ public class DistroLinkRenderer : ILoadableSingleton, IUnloadableSingleton
     public static readonly Color InputColor = new(0, .5f, 14 / 255f);
 
     readonly GameObject lineContainer = new();
+    readonly List<LinkView> pool = [];
+    readonly List<LinkView> shown = [];
+
     Material lineMaterial = null!;
+    Material inputHeadMaterial = null!;
+    Material outputHeadMaterial = null!;
+    UnityEngine.Mesh headMesh = null!;
 
     public bool DisableArrows { get; private set; }
 
     const float ArcHeight = 1f;
     const float LineWidth = 0.05f;
+    const float HeadLength = 0.35f;
+    const float HeadWidth = 0.2f;
     const int SegmentCount = 20;
 
     // Input parameters are reversed to make the arrow point towards the receiver.
@@ -25,95 +33,41 @@ public class DistroLinkRenderer : ILoadableSingleton, IUnloadableSingleton
 
     public void AddLine(Vector3 from, Vector3 to, Color color)
     {
-        if (DisableArrows || from == to) { return; }
+        if (DisableArrows || from == to || !headMesh) { return; }
 
         to = GetOffsetTarget(from, to);
-
-        var go = new GameObject("Line");
-        go.transform.SetParent(lineContainer.transform, false);
-
-        var lr = go.AddComponent<LineRenderer>();
-        lr.useWorldSpace = true;
-        lr.material = lineMaterial;
-        lr.startColor = color;
-        lr.endColor = color;
-        lr.startWidth = LineWidth;
-        lr.endWidth = LineWidth;
-        lr.numCapVertices = 4;
-        lr.numCornerVertices = 4;
-        lr.shadowCastingMode = ShadowCastingMode.Off;
-        lr.receiveShadows = false;
-        lr.alignment = LineAlignment.View;
-
-        var positions = new Vector3[SegmentCount + 1];
-
-        var peakOffset = ArcHeight + Mathf.Abs(to.y - from.y) * 0.5f;
-
-        for (var i = 0; i <= SegmentCount; i++)
-        {
-            var t = i / (float)SegmentCount;
-
-            var p = Vector3.Lerp(from, to, t);
-
-            // 0 at endpoints, 1 at midpoint
-            var arc = 4f * t * (1f - t);
-            p.y += arc * peakOffset;
-
-            positions[i] = p;
-        }
-
-
-        // Draw arrowhead
-        var end = positions[^1];
-        var prev = positions[^2];
-        var dir = end - prev;
-
-        const float headLength = 0.35f;
-
-        // Move the line end slightly back so it meets the arrowhead cleanly.
-        positions[^1] = end - dir * headLength;
-
-        CreateArrowHead(
-            go.transform,
-            end,
-            dir,
-            color);
-
-        lr.positionCount = positions.Length;
-        lr.SetPositions(positions);
-
-
-
+        var headMaterial = color == InputColor ? inputHeadMaterial : outputHeadMaterial;
+        Rent().Show(from, to, color, headMaterial);
     }
 
     public void Clear()
     {
-        var root = lineContainer.transform;
-        for (var i = root.childCount - 1; i >= 0; i--)
+        for (var i = 0; i < shown.Count; i++)
         {
-            UnityEngine.Object.Destroy(root.GetChild(i).gameObject);
+            var view = shown[i];
+            view.SetActive(false);
+            pool.Add(view);
         }
+
+        shown.Clear();
     }
 
     public void Load()
     {
         DisableArrows = PlayerPrefs.GetInt(SettingsKey, 0) == 1;
         lineContainer.SetActive(!DisableArrows);
-
-        var shader = Shader.Find("Sprites/Default");
-        if (shader == null)
-        {
-            Debug.LogError("Could not find shader 'Sprites/Default' for line rendering.");
-            return;
-        }
-
-        lineMaterial = new Material(shader);
+        EnsureMaterials();
     }
 
     public void Unload()
     {
+        shown.Clear();
+        pool.Clear();
         UnityEngine.Object.Destroy(lineContainer);
         UnityEngine.Object.Destroy(lineMaterial);
+        UnityEngine.Object.Destroy(inputHeadMaterial);
+        UnityEngine.Object.Destroy(outputHeadMaterial);
+        UnityEngine.Object.Destroy(headMesh);
     }
 
     public void SetDisableArrows(bool disable)
@@ -128,48 +82,58 @@ public class DistroLinkRenderer : ILoadableSingleton, IUnloadableSingleton
         PlayerPrefs.SetInt(SettingsKey, disable ? 1 : 0);
     }
 
-    GameObject CreateArrowHead(
-    Transform parent,
-    Vector3 tip,
-    Vector3 direction,
-    Color color,
-    float length = 0.35f,
-    float width = 0.2f)
+    void EnsureMaterials()
     {
-        if (direction.sqrMagnitude < 0.0001f)
+        if (lineMaterial) { return; }
+
+        var shader = Shader.Find("Sprites/Default");
+        if (shader == null)
         {
-            direction = Vector3.forward;
+            Debug.LogError("Could not find shader 'Sprites/Default' for line rendering.");
+            return;
         }
 
-        direction.Normalize();
+        lineMaterial = new(shader);
+        inputHeadMaterial = new(shader) { color = InputColor };
+        outputHeadMaterial = new(shader) { color = OutputColor };
+        headMesh = CreateHeadMesh();
+    }
 
-        var go = new GameObject("ArrowHead");
-        go.transform.SetParent(parent, false);
+    LinkView Rent()
+    {
+        var count = pool.Count;
+        LinkView view;
+        if (count > 0)
+        {
+            view = pool[count - 1];
+            pool.RemoveAt(count - 1);
+        }
+        else
+        {
+            view = new(lineContainer.transform, lineMaterial, headMesh);
+        }
 
-        var meshFilter = go.AddComponent<MeshFilter>();
-        var meshRenderer = go.AddComponent<MeshRenderer>();
+        view.SetActive(true);
+        shown.Add(view);
+        return view;
+    }
 
-        meshRenderer.material = lineMaterial;
-        meshRenderer.material.color = color;
-
-        var halfWidth = width * 0.5f;
+    static UnityEngine.Mesh CreateHeadMesh()
+    {
+        var halfWidth = HeadWidth * 0.5f;
         var mesh = new UnityEngine.Mesh
         {
             vertices =
             [
-                new Vector3(0f, 0f, 0f),              // tip at local origin
-            new Vector3(-halfWidth, 0f, -length), // left base behind tip
-            new Vector3(halfWidth, 0f, -length),  // right base behind tip
-        ],
-            triangles = [0, 1, 2]
+                new Vector3(0f, 0f, 0f),
+                new Vector3(-halfWidth, 0f, -HeadLength),
+                new Vector3(halfWidth, 0f, -HeadLength),
+            ],
+            triangles = [0, 1, 2],
         };
         mesh.RecalculateNormals();
-        meshFilter.mesh = mesh;
-
-        go.transform.position = tip;
-        go.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-
-        return go;
+        mesh.UploadMeshData(true);
+        return mesh;
     }
 
     static Vector3 GetOffsetTarget(Vector3 from, Vector3 center, float radius = 0.25f)
@@ -188,5 +152,81 @@ public class DistroLinkRenderer : ILoadableSingleton, IUnloadableSingleton
 
         // Arrow approaches toward center, so land on the near edge of the circle.
         return center - planar * radius;
+    }
+
+    sealed class LinkView
+    {
+        readonly GameObject root;
+        readonly LineRenderer line;
+        readonly Transform head;
+        readonly MeshRenderer headRenderer;
+        readonly Vector3[] positions = new Vector3[SegmentCount + 1];
+
+        public LinkView(Transform parent, Material lineMaterial, UnityEngine.Mesh headMesh)
+        {
+            root = new("Line");
+            root.transform.SetParent(parent, false);
+
+            line = root.AddComponent<LineRenderer>();
+            line.useWorldSpace = true;
+            line.sharedMaterial = lineMaterial;
+            line.startWidth = LineWidth;
+            line.endWidth = LineWidth;
+            line.positionCount = positions.Length;
+            line.numCapVertices = 4;
+            line.numCornerVertices = 4;
+            line.shadowCastingMode = ShadowCastingMode.Off;
+            line.receiveShadows = false;
+            line.alignment = LineAlignment.View;
+
+            var headObject = new GameObject("ArrowHead");
+            headObject.transform.SetParent(root.transform, false);
+            head = headObject.transform;
+            headObject.AddComponent<MeshFilter>().sharedMesh = headMesh;
+
+            headRenderer = headObject.AddComponent<MeshRenderer>();
+            headRenderer.shadowCastingMode = ShadowCastingMode.Off;
+            headRenderer.receiveShadows = false;
+        }
+
+        public void SetActive(bool active)
+        {
+            root.SetActive(active);
+        }
+
+        public void Show(Vector3 from, Vector3 to, Color color, Material headMaterial)
+        {
+            var peakOffset = ArcHeight + Mathf.Abs(to.y - from.y) * 0.5f;
+
+            for (var i = 0; i <= SegmentCount; i++)
+            {
+                var t = i / (float)SegmentCount;
+                var p = Vector3.Lerp(from, to, t);
+
+                // 0 at endpoints, 1 at midpoint
+                var arc = 4f * t * (1f - t);
+                p.y += arc * peakOffset;
+                positions[i] = p;
+            }
+
+            var end = positions[^1];
+            var prev = positions[^2];
+            var dir = end - prev;
+
+            // Move the line end slightly back so it meets the arrowhead cleanly.
+            positions[^1] = end - dir * HeadLength;
+
+            line.startColor = color;
+            line.endColor = color;
+            line.SetPositions(positions);
+
+            if (dir.sqrMagnitude < 0.0001f)
+            {
+                dir = Vector3.forward;
+            }
+
+            head.SetPositionAndRotation(end, Quaternion.LookRotation(dir, Vector3.up));
+            headRenderer.sharedMaterial = headMaterial;
+        }
     }
 }

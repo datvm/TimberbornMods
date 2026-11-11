@@ -42,11 +42,7 @@ public class DistroRegistry(
 
     public void Unregister(IDistroComponent r)
     {
-        foreach (var comp in r.Connections)
-        {
-            comp.DisconnectFrom(r);
-        }
-        r.ClearConnections();
+        ((DistroComponentBase)r).Detach();
 
         if (r is IDistroSender sender)
         {
@@ -62,10 +58,12 @@ public class DistroRegistry(
         where T : IDistroComponent
         where TOther : IDistroComponent
     {
+        var self = (DistroComponentBase)(IDistroComponent)component;
         foreach (var other in FindRegisteredComponentsInRange(component.Bounds, registeredList))
         {
-            component.ConnectWith(other);
-            other.ConnectWith(component);
+            var neighbor = (DistroComponentBase)(IDistroComponent)other;
+            self.NoteInRange(neighbor);
+            neighbor.NoteInRange(self);
         }
     }
 

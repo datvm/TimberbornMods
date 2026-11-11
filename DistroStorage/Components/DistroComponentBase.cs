@@ -38,6 +38,7 @@ public abstract class DistroComponentBase : BaseComponent, IDistroComponent, IIn
     public abstract IEnumerable<GoodAmount> Goods { get; }
     public abstract IEnumerable<string> GoodIds { get; }
 
+    readonly HashSet<DistroComponentBase> inRange = [];
     readonly HashSet<IDistroComponent> connectedComponents = [];
     protected readonly DistroService service;
 
@@ -93,6 +94,50 @@ public abstract class DistroComponentBase : BaseComponent, IDistroComponent, IIn
         service.Register(this);
     }
 
+    public void NoteInRange(DistroComponentBase other)
+    {
+        if (!inRange.Add(other)) { return; }
+
+        EnsureMutualLink(other);
+    }
+
+    public void Detach()
+    {
+        foreach (var other in inRange)
+        {
+            other.Forget(this);
+        }
+
+        inRange.Clear();
+        connectedComponents.Clear();
+    }
+
+    public void RefreshGoodLinks()
+    {
+        foreach (var other in inRange)
+        {
+            EnsureMutualLink(other);
+        }
+    }
+
+    void EnsureMutualLink(DistroComponentBase other)
+    {
+        var share = CanLink(other) && other.CanLink(this);
+        var linked = connectedComponents.Contains(other);
+        var otherLinked = other.connectedComponents.Contains(this);
+        if (share == linked && share == otherLinked) { return; }
+
+        if (share)
+        {
+            if (!linked) { ConnectWith(other); }
+            if (!otherLinked) { other.ConnectWith(this); }
+            return;
+        }
+
+        if (linked) { DisconnectFrom(other); }
+        if (otherLinked) { other.DisconnectFrom(this); }
+    }
+
     public void ConnectWith(IDistroComponent component)
     {
         if (IsReceiver == component.IsReceiver)
@@ -115,6 +160,17 @@ public abstract class DistroComponentBase : BaseComponent, IDistroComponent, IIn
     public void ClearConnections()
     {
         connectedComponents.Clear();
+    }
+
+    public void Forget(DistroComponentBase other)
+    {
+        inRange.Remove(other);
+        connectedComponents.Remove(other);
+    }
+
+    protected virtual bool CanLink(DistroComponentBase other)
+    {
+        return true;
     }
 
     public void InitializePreview()
