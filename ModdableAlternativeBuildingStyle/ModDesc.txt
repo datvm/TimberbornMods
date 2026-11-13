@@ -1,24 +1,24 @@
 ﻿This mod provides an unified Alternative Building Style option for designers. I made this after noticing many recent mods making each style a separate building with the same function. With this mod, you build the same building, then choose the style you want from a menu. It is completely cosmetic and does not affect gameplay.
 
-Beside the built-in styles provided by this mod, try [url=]Alternative Faction Building Styles[/url] to allow each faction to use the other faction's building style.
+Beside the built-in styles provided by this mod, try [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3839115894]Alternative Faction Building Styles[/url] to allow each faction to use the other faction's building style.
 
 You simply choose a supported building, you should see the new Alternative Style option in the panel on the right. You can change the style anytime, or choose Original to revert back to the default model. It only affects one building, so you can have multiple buildings of the same type with different styles right next to each other. The game's copy function works as expected.
 
 [h1]Built-in Alternative Styles[/h1]
 A classic version of Dam and Levee before the remodel.
-[img][/img]
+[img]https://images.steamusercontent.com/ugc/10308078165253514182/05347C75889891CAFD2681C21D307BC1BB796CA3/?imw=5000&imh=5000[/img]
 
 Metal versions of the Dam, Levee and Floodgate (again, purely visual, no functional change)
-[img][/img]
+[img]https://images.steamusercontent.com/ugc/16845245660805325307/D3799798C0539D14527BEB45CBDB1007ED835EE0/?imw=5000&imh=5000[/img]
 
 Hedge and Shrub but you can put crops and trees on them, the leaves even have the same effect! Again, purely visual and does not need water. Also you can only use the crops/plants your faction can grow, like Carrots for FT or Canola for IT.
-[img][/img]
+[img]https://images.steamusercontent.com/ugc/11271976451492155390/05194399760B935E04EC9EE0493B452E1426FA16/?imw=5000&imh=5000[/img]
 
 A "Weather Station" style for the Inventor with the arrow acts as a wind direction indicator like the Weathervane. Meanwhile, the top rotates when the worker is in. Meant to be an example for designers to add their own alternative styles with animations and custom behaviors.
-[img][/img]
+[img]https://images.steamusercontent.com/ugc/12420368030942246206/EDF9233693C55248B0D75EF975F0B3E73AC589E3/?imw=5000&imh=5000[/img]
 
 [h1]Designer Guide[/h1]
-Please see [url=]Designer Guide[/url] on how to add your own alternative styles to this mod. This mod itself provides a few built-in style as examples as well with typical use case, like animations (Inventor) or custom behaviors with specific child components (Floodgate, Gravity Battery).
+Please see [url=https://github.com/datvm/TimberbornMods/blob/master/ModdableAlternativeBuildingStyle/DesignerGuide.MD]Designer Guide[/url] on how to add your own alternative styles to this mod. This mod itself provides a few built-in style as examples as well with typical use case, like animations (Inventor) or custom behaviors with specific child components (Floodgate, Gravity Battery).
 
 Note that certain buildings may not be suitable for alternative styles (Wonder), though it probably could be solved with custom script if you are dedicated.
 

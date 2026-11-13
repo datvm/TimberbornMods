@@ -1,4 +1,4 @@
-﻿This mod provides [url=]Alternative Building Styles[/url] for Folktails and Iron Teeth buildings when the other faction has a similar building. As the base mod, it is purely cosmetic and does not affect gameplay.
+﻿This mod provides [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3839115040]Alternative Building Styles[/url] for Folktails and Iron Teeth buildings when the other faction has a similar building. As the base mod, it is purely cosmetic and does not affect gameplay.
 
 Generally, a similar building with the same size is given an alternative style. For example, FT Lumbermill can look like IT Industrial Lumbermill. However, sometimes when they are functionally different or too complicated to replace, they are excluded, like the Pile because IT's Pile can be built on top.
 
