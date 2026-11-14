@@ -1,8 +1,10 @@
-# ModDesc.txt
+﻿# ModDesc.txt
 
 Do not write or update `ModDesc.txt` or `ChangeLog.txt` unless the user explicitly asks. The notes below apply only then.
 
-When asked to write a `ModDesc.txt`, write a Steam Workshop description in Steam BBCode (not Markdown). Match the recent mods (Crane, Fourpillars, ConstructionSiteHauler, BuildingRenovations): player-facing, practical, and compact.
+When a `ModDesc.txt` already has the user's text, keep their ideas, claims, order, and voice. Rephrase, paraphrase, and correct errors: grammar, typos, unclear wording, broken BBCode. Leave a sentence alone when it already says what they mean. Add sentences only where they left a gap, or where they asked for something that is not there yet (a missing footer, a fact they named, an empty section). The shape and voice notes below apply to new writing and to those gaps. They are not a reason to replace a description they already wrote.
+
+When asked to write a `ModDesc.txt` from scratch, write a Steam Workshop description in Steam BBCode (not Markdown). Match the recent mods (Crane, Fourpillars, ConstructionSiteHauler, BuildingRenovations): player-facing, practical, and compact.
 
 Voice: second person, what the player gets. Colleague tone: explain the mod to another player, not ad copy. No marketing fluff. Mix sentence length. A short sentence is fine when the next one carries the detail. Do not stack fragments. That includes "Not X. Not Y. Just Z." and any run of same-beat punches ("No queue. No repeat. Just science.").
 
@@ -17,15 +19,6 @@ For a new building, keep the three parts separate. Do not fold them into one sen
 BBCode only (Steam tags, not Markdown): `[b]`, `[i]`, `[h1]`/`[h2]`, `[img]url[/img]`, `[url=...]text[/url]`, `[list][*] item[/list]`, `[table]`/`[tr]`/`[th]`/`[td]`, `[spoiler]` only when needed. Place a screenshot soon after the intro and after major sections (Steam UGC URL when available).
 
 End every description with the GitHub footer below. Do not paraphrase it.
-
-Typical order (omit unused sections):
-
-1. 1–2 sentences of what the mod does. Optional `[i]` flavor line.
-2. Screenshot.
-3. `[h1]`/`[h2]` for buildings, features, settings, how-to, tips, FAQs, extending.
-4. If configurable: `Main Menu -> Mods -> Settings button next to the mod name`. Say when defaults leave vanilla unchanged.
-5. Stats as dashes (`Unlock`, `Cost`, `Workers`, `Range`, …). Related mods as Steam `[url]`.
-6. Footer exactly:
 
 ```
 ===

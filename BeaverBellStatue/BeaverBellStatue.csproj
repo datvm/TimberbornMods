@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputModFolderName>BeaverBellStatue</OutputModFolderName>
+  </PropertyGroup>
+  <Import Project="../Targets/Common.targets" />
+  <ItemGroup>
+    <Using Include="BeaverBellStatue.Components" />
+  </ItemGroup>
+</Project>

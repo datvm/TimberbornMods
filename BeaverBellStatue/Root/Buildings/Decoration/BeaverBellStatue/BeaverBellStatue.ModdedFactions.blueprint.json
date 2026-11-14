@@ -1,0 +1,8 @@
+{
+  "TemplateCollectionSpec": {
+    "CollectionId": "Buildings.Support.ModdedFactions",
+    "Blueprints": [
+      "Buildings/Decoration/BeaverBellStatue/BeaverBellStatue.Folktails.blueprint"
+    ]
+  }
+}

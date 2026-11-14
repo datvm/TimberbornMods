@@ -1,0 +1,10 @@
+﻿{
+  "Name": "Beaver Bell Statue",
+  "Version": "11.0.0",
+  "Id": "BeaverBellStatue",
+  "MinimumGameVersion": "1.1.1",
+  "Description": "A decoration that combines the beaver statue and the work bell.",
+  "OptionalMods": [
+    { "Id": "ModdedFactionsBuildingSupport" }
+  ]
+}

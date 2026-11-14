@@ -1,0 +1,8 @@
+{
+  "TemplateCollectionSpec": {
+    "CollectionId": "Buildings.Folktails",
+    "Blueprints": [
+      "Buildings/Decoration/BeaverBellStatue/BeaverBellStatue.Folktails.blueprint"
+    ]
+  }
+}

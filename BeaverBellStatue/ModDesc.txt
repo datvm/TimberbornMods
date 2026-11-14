@@ -1,0 +1,10 @@
+﻿Inspired by [url=https://www.reddit.com/r/Timberborn/comments/1xtvbhm/ever_notice_how_well_the_ironteeth_statue_bell_go/]a Reddit post[/url] that noticed how well the Ironteeth statue bell goes with the Beaver Bell statue, that noticed how well the Ironteeth statue and bell go together, this mod adds a new building: the [b]Beaver Bell Statue[/b].
+[img]https://images.steamusercontent.com/ugc/9445667979386205605/E19D656CD3DD21000B50A84ED1A496BBE0BF8A13/?imw=5000&imh=5000[/img]
+
+It is a full combination of the Beaver Statue and the Bell in model, science cost, building cost, and benefits.
+[b]What makes it special:[/b] the arm actually animates and hits the bell when it rings! A Folktails version is also included.
+
+It can also be added to modded factions by subscribing to [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3815025887]Modded Factions Building Support[/url].
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).

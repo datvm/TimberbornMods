@@ -1,0 +1,278 @@
+﻿{
+    "BuildingSpec": {
+        "SelectionSoundName": "Bell",
+        "LoopingSoundName": "",
+        "BuildingCost": [
+            {
+                "Id": "Plank",
+                "Amount": 20
+            },
+            {
+                "Id": "MetalBlock",
+                "Amount": 25
+            }
+        ],
+        "ScienceCost": 1000,
+        "PlaceFinished": false,
+        "FinishableWithBeaversOnSite": false,
+        "DrawRangeBoundsOnIt": false
+    },
+    "BuildingModelSpec": {
+        "FinishedModelName": "#Finished",
+        "UnfinishedModelName": "#Unfinished",
+        "FinishedUncoveredModelName": "",
+        "UndergroundModelName": "",
+        "ConstructionModeModel": "Finished",
+        "UndergroundModelDepth": 0
+    },
+    "TemplateSpec": {
+        "TemplateName": "BeaverBellStatue.IronTeeth",
+        "BackwardCompatibleTemplateNames": [],
+        "RequiredFeatureToggle": "",
+        "DisablingFeatureToggle": ""
+    },
+    "BlockObjectSpec": {
+        "Size": {
+            "X": 1,
+            "Y": 2,
+            "Z": 2
+        },
+        "Blocks": [
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Bottom, Top, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "GroundOrStackable",
+                "Occupations": "Bottom, Top, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            },
+            {
+                "MatterBelow": "Any",
+                "Occupations": "Floor, Bottom, Path, Middle",
+                "Stackable": "None",
+                "OccupyAllBelow": false,
+                "Underground": false
+            }
+        ],
+        "Entrance": {
+            "HasEntrance": false,
+            "Coordinates": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+            }
+        },
+        "BaseZ": 0,
+        "Overridable": false,
+        "Flippable": false
+    },
+    "PlaceableBlockObjectSpec": {
+        "ToolGroupId": "Decoration",
+        "ToolOrder": 55,
+        "ToolShape": "Square",
+        "Layout": "Single",
+        "CustomPivot": {
+            "HasCustomPivot": false,
+            "Coordinates": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            }
+        },
+        "CanBeAttachedToTerrainSide": false,
+        "DevModeTool": false
+    },
+    "LabeledEntitySpec": {
+        "DisplayNameLocKey": "LV.BeaverBellStatue.DisplayName",
+        "DescriptionLocKey": "LV.BeaverBellStatue.Description",
+        "FlavorDescriptionLocKey": "LV.BeaverBellStatue.FlavorDescription",
+        "Icon": "Buildings/Decoration/BeaverBellStatue/BeaverBellStatueIcon"
+    },
+    "WorkingHoursBellSpec": {},
+    "BeaverBellSpec": {},
+    "RangedEffectBuildingSpec": {
+        "EffectRadius": 3
+    },
+    "ContinuousEffectBuildingSpec": {
+        "Effects": [
+            {
+                "NeedId": "BeaverStatue",
+                "PointsPerHour": 0.64,
+                "SatisfyToMaxValue": false
+            },
+            {
+                "NeedId": "Bell",
+                "PointsPerHour": 0.32,
+                "SatisfyToMaxValue": false
+            }
+        ]
+    },
+    "ConstructionSiteProgressVisualizerSpec": {
+        "ProgressThresholds": [
+            0.0
+        ]
+    },
+    "Children": {
+        "#Finished": {
+            "TimbermeshSpec": {
+                "Model": "Buildings/Decoration/BeaverBellStatue/BeaverBellStatue.IronTeeth.Model"
+            },
+            "CollidersSpec": {
+                "BoxColliders": [
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.05,
+                            "Z": 0.5
+                        },
+                        "Size": {
+                            "X": 0.9,
+                            "Y": 0.1,
+                            "Z": 0.9
+                        }
+                    },
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 1.20423758,
+                            "Z": 0.5
+                        },
+                        "Size": {
+                            "X": 0.51,
+                            "Y": 0.8796746,
+                            "Z": 0.37
+                        }
+                    },
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.05,
+                            "Z": 1.5
+                        },
+                        "Size": {
+                            "X": 0.9,
+                            "Y": 0.1,
+                            "Z": 0.9
+                        }
+                    },
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.69,
+                            "Z": 1.5
+                        },
+                        "Size": {
+                            "X": 0.7,
+                            "Y": 0.1,
+                            "Z": 0.7
+                        }
+                    },
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 0.4,
+                            "Z": 1.5
+                        },
+                        "Size": {
+                            "X": 0.3,
+                            "Y": 0.6,
+                            "Z": 0.3
+                        }
+                    }
+                ],
+                "SphereColliders": [],
+                "CapsuleColliders": [
+                    {
+                        "Center": {
+                            "X": 0.5,
+                            "Y": 1.15,
+                            "Z": 1.44
+                        },
+                        "Radius": 0.25,
+                        "Height": 1.0,
+                        "Axis": "Y"
+                    }
+                ]
+            }
+        },
+        "#Unfinished": {
+            "Children": {
+                "ConstructionBase1x2#nested": {
+                    "BlueprintPath": "ConstructionBases/ConstructionBase1x2/ConstructionBase1x2.blueprint"
+                },
+                "ConstructionStage0": {
+                    "TimbermeshSpec": {
+                        "Model": "Buildings/Decoration/BeaverBellStatue/BeaverBellStatue.IronTeeth.ConstructionStage0.Model"
+                    },
+                    "CollidersSpec": {
+                        "BoxColliders": [
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.05,
+                                    "Z": 0.5
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.1,
+                                    "Z": 1.0
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.4986332,
+                                    "Y": 0.9049272,
+                                    "Z": 0.493356735
+                                },
+                                "Size": {
+                                    "X": 0.519834638,
+                                    "Y": 1.596249,
+                                    "Z": 0.4037506
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.5,
+                                    "Y": 0.05,
+                                    "Z": 1.5
+                                },
+                                "Size": {
+                                    "X": 1.0,
+                                    "Y": 0.1,
+                                    "Z": 1.0
+                                }
+                            },
+                            {
+                                "Center": {
+                                    "X": 0.498744577,
+                                    "Y": 0.4023421,
+                                    "Z": 1.497130483
+                                },
+                                "Size": {
+                                    "X": 0.3094228,
+                                    "Y": 0.6038235,
+                                    "Z": 0.3427139
+                                }
+                            }
+                        ],
+                        "SphereColliders": [],
+                        "CapsuleColliders": []
+                    }
+                }
+            }
+        }
+    }
+}

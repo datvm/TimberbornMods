@@ -1,0 +1,9 @@
+﻿{
+  "NeedCollectionSpec": {
+    "CollectionId": "BeaverBellStatue",
+    "Needs": [
+        "Bell",
+        "BeaverStatue"
+    ]
+  }
+}
