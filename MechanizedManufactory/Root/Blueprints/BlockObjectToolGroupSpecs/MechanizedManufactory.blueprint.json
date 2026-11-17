@@ -1,0 +1,9 @@
+﻿{
+    "BlockObjectToolGroupSpec": {
+        "Id": "MechanizedManufactory",
+        "Order": 71,
+        "NameLocKey": "LV.MM.GroupName",
+        "Icon": "Blueprints/BlockObjectToolGroupSpecs/MechanizedManufactoryIcon",
+        "FallbackGroup": false
+    }
+}

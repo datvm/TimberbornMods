@@ -1,0 +1,10 @@
+﻿ID,Text,Comment
+LV.MM.GroupName,"Mechanized Manufactory",
+LV.MM.BuildingName,"Mechanized {0}",
+LV.MM.BuildingDescriber,"● <YellowHighlight>Mechanized Building</YellowHighlight>: {0:+0}hp power usage to replace {1} worker(s). Requires Haulers.",
+LV.MM.PowerPerWorker,"Power per Worker",
+LV.MM.PowerPerWorkerDesc,"How much power is used to replace a worker.
+Default: 75.",
+LV.MM.DoorColor,"Door color",
+LV.MM.DoorColorDesc,"The color of the workplace (like door or windows) for the mechanized building.
+Default: #75FFA5.",

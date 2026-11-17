@@ -1,0 +1,14 @@
+﻿This mod makes a [b]Mechanized[/b] copy of every Manufactory buildings that need workers in the game that no longer employ workers. The Mechanized buildings use power to operate instead of workers. Every beaver to the Wheel of Shame!
+[img]https://images.steamusercontent.com/ugc/13473880806544299108/027EFB7C470F28C7F581E3873284398B60265C3E/?imw=5000&imh=5000[/img]
+
+You should see a new "Mechanized Manufactory" group right next to the Power group on the toolbar. Inside, all the buildings are organized in groups just like they appear in your toolbar. Since there is no worker to move the stuff around, Haulers are typically required. The building always works at 100% efficiency and is only affected by power availability.
+
+By default, each replaced worker adds 75hp on top of the building's original power use (if any). You can change that in the Mod Settings (Main Menu -> Mods -> Settings button next to the mod name). You can also change the door color if you don't like the default [i]green[/i]. That color is used on the workplace lights, such as the door and windows, and it shows while the building is working.
+[img]https://images.steamusercontent.com/ugc/12403693078818820409/C9ABE7B19C10C802008D23EF38F05F18A4D73644/?imw=5000&imh=5000[/img]
+
+Notes:
+- The mod makes a copy at runtime, so it should generally work with other mods. It only applies to a [b]Manufactory[/b], basically a building where Beavers stay inside and work a recipe. A manufactory that generates power is not copied.
+- This mod works by making buildings with 0 workers. I have tried many other ways like removing Workplace but it usually ends up crashing a lot so right now I think this is the best mass-production solution. If something crashes (likely modded buildings), please let me know.
+
+===
+Mod source code and donation: https://github.com/datvm/TimberbornMods (feel free to use the code for anything).
